@@ -310,6 +310,23 @@ class Chassis : public Node
                         "xyz.openbmc_project.Inventory.Item.Panel",
                         "xyz.openbmc_project.Inventory.Item.Board.Motherboard"};
 
+                    crow::connections::systemBus->async_method_call(
+                        [asyncResp](const boost::system::error_code ec,
+                                    std::variant<std::string>& resp) {
+                            if (ec)
+                            {
+                                return; // no AssestTag
+                            }
+                            std::string* AssetTag =
+                                std::get_if<std::string>(&resp);
+                            asyncResp->res.jsonValue["AssetTag"] =
+                                std::move(*AssetTag);
+                        },
+                        connectionName, path, "org.freedesktop.DBus.Properties",
+                        "Get",
+                        "xyz.openbmc_project.Inventory.Decorator.AssetTag",
+                        "AssetTag");
+
                     for (const char* interface : hasIndicatorLed)
                     {
                         if (std::find(interfaces2.begin(), interfaces2.end(),

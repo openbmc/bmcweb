@@ -1007,6 +1007,10 @@ class EventLogService : public Node
         asyncResp->res.jsonValue["Description"] = "System Event Log Service";
         asyncResp->res.jsonValue["Id"] = "EventLog";
         asyncResp->res.jsonValue["OverWritePolicy"] = "WrapsWhenFull";
+        std::string DateTime = crow::utility::dateTimeNow();
+        asyncResp->res.jsonValue["DateTime"] = DateTime;
+        asyncResp->res.jsonValue["DateTimeLocalOffset"] =
+            DateTime.substr(DateTime.rfind("+"));
         asyncResp->res.jsonValue["Entries"] = {
             {"@odata.id",
              "/redfish/v1/Systems/system/LogServices/EventLog/Entries"}};

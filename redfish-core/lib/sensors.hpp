@@ -968,6 +968,7 @@ inline void objectInterfacesToJson(
     {
         unit = "/ReadingCelsius"_json_pointer;
         sensorJson["@odata.type"] = "#Thermal.v1_3_0.Temperature";
+        sensorJson["PhysicalContext"] = "Intake";
         // TODO(ed) Documentation says that path should be type fan_tach,
         // implementation seems to implement fan
     }
@@ -976,6 +977,7 @@ inline void objectInterfacesToJson(
         unit = "/Reading"_json_pointer;
         sensorJson["ReadingUnits"] = "RPM";
         sensorJson["@odata.type"] = "#Thermal.v1_3_0.Fan";
+        sensorJson["PhysicalContext"] = "Fan";
         setLedState(sensorJson, inventoryItem);
         forceToInt = true;
     }
@@ -984,6 +986,7 @@ inline void objectInterfacesToJson(
         unit = "/Reading"_json_pointer;
         sensorJson["ReadingUnits"] = "Percent";
         sensorJson["@odata.type"] = "#Thermal.v1_3_0.Fan";
+        sensorJson["PhysicalContext"] = "Fan";
         setLedState(sensorJson, inventoryItem);
         forceToInt = true;
     }
@@ -991,11 +994,13 @@ inline void objectInterfacesToJson(
     {
         unit = "/ReadingVolts"_json_pointer;
         sensorJson["@odata.type"] = "#Power.v1_0_0.Voltage";
+        sensorJson["PhysicalContext"] = "VoltageRegulator";
     }
     else if (sensorType == "power")
     {
         std::string sensorNameLower =
             boost::algorithm::to_lower_copy(sensorName);
+        sensorJson["PhysicalContext"] = "Intake";
 
         if (!sensorName.compare("total_power"))
         {
