@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8c986312_249e8fda",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000014
+      },
+      "writtenOn": "2021-05-31T06:23:02Z",
+      "side": 1,
+      "message": "typo hard-cord\n\nLED Service Name --\u003e xyz.openbmc_project.LED.GroupManager\n\nwell, it\u0027s not about a style.. It\u0027s really about taking care of handling this object irrespective of which service implements it.",
+      "revId": "a82568fe8931c69a5bc4caffd05d7e40f41d725c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "671bfd46_99b7f7ff",
+        "filename": "redfish-core/lib/led.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1000014
+      },
+      "writtenOn": "2021-05-31T06:23:02Z",
+      "side": 1,
+      "message": "hmm.. why is this a template ?.. we are anyway doing a mapper-get-service to know who implements xyz.openbmc_project.Led.Group interface .. what problem is solved by having a template here ?",
+      "revId": "a82568fe8931c69a5bc4caffd05d7e40f41d725c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}

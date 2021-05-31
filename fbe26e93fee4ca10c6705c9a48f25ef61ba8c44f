@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f6df64c9_21b8e0be",
+        "filename": "redfish-core/lib/led.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 1000014
+      },
+      "writtenOn": "2021-05-31T06:23:02Z",
+      "side": 1,
+      "message": "hmm.. why is it doing for \"enclosure_identify_blink\" ?.. the original code had a priority order ..  \n\nif enclosure_identify_blink --\u003e then do ..\nelse check if enclosure_identfy --\u003e then do..\n\nbut this is breaking that hierarchy.. Same goes for all the instances where this is referenced in this file.",
+      "revId": "fbe26e93fee4ca10c6705c9a48f25ef61ba8c44f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ab85c796_a5cb12c4",
+        "filename": "redfish-core/lib/led.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 361,
+      "author": {
+        "id": 1000014
+      },
+      "writtenOn": "2021-05-31T06:23:02Z",
+      "side": 1,
+      "message": "please remove this comment .. This commit is actually putting this support",
+      "revId": "fbe26e93fee4ca10c6705c9a48f25ef61ba8c44f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
