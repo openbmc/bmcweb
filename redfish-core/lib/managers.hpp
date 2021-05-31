@@ -1823,7 +1823,10 @@ class Manager : public Node
             "/redfish/v1/Managers/bmc/Actions/Manager.ResetToDefaults";
         resetToDefaults["ResetType@Redfish.AllowableValues"] = {"ResetAll"};
 
-        asyncResp->res.jsonValue["DateTime"] = crow::utility::dateTimeNow();
+        std::string DateTime = crow::utility::dateTimeNow();
+        asyncResp->res.jsonValue["DateTime"] = DateTime;
+        asyncResp->res.jsonValue["DateTimeLocalOffset"] =
+            DateTime.substr(DateTime.rfind("+"));
 
         // Fill in SerialConsole info
         asyncResp->res.jsonValue["SerialConsole"]["ServiceEnabled"] = true;

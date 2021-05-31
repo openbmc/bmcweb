@@ -242,6 +242,7 @@ class Power : public Node
                                                sensorAsyncResp->chassisId +
                                                "/Power#/PowerControl/0"},
                              {"Name", "Chassis Power Control"},
+                             {"PhysicalContext", "Intake"},
                              {"MemberId", "0"}});
                     }
 

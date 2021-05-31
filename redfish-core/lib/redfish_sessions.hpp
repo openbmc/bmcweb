@@ -64,6 +64,8 @@ class Sessions : public Node
         asyncResp->res.jsonValue["Name"] = "User Session";
         asyncResp->res.jsonValue["Description"] = "Manager User Session";
         asyncResp->res.jsonValue["ClientOriginIPAddress"] = session->clientIp;
+        asyncResp->res.jsonValue["Password"] = nullptr;
+        asyncResp->res.jsonValue["SessionType"] = "Redfish";
 #ifdef BMCWEB_ENABLE_IBM_MANAGEMENT_CONSOLE
         asyncResp->res.jsonValue["Oem"]["OpenBMC"]["@odata.type"] =
             "#OemSession.v1_0_0.Session";
