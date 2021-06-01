@@ -283,6 +283,30 @@
       "revId": "0a655c03a06153706170b19b577be8d79564393a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e4a926a6_57a69b48",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 581,
+      "author": {
+        "id": 1000295
+      },
+      "writtenOn": "2021-06-01T15:57:35Z",
+      "side": 1,
+      "message": "We cannot use FactoryReset interface for BIOS setting reset. As we are doing two type of reset- Factory default settings  / Fail SAFE settings.  that s why we added this separate property.",
+      "parentUuid": "3de39e8d_e13f641b",
+      "range": {
+        "startLine": 581,
+        "startChar": 0,
+        "endLine": 581,
+        "endChar": 74
+      },
+      "revId": "0a655c03a06153706170b19b577be8d79564393a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
