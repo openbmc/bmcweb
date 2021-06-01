@@ -22,6 +22,30 @@
       "revId": "b623d9c1b6605978eb6158619bb43c79a9f543fd",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e29eb725_2d06d751",
+        "filename": "DEVELOPING.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 1000238
+      },
+      "writtenOn": "2021-06-01T16:28:15Z",
+      "side": 0,
+      "message": "I will add the debug build instructions to the README.md",
+      "parentUuid": "7664bb70_99002d85",
+      "range": {
+        "startLine": 147,
+        "startChar": 2,
+        "endLine": 151,
+        "endChar": 5
+      },
+      "revId": "b623d9c1b6605978eb6158619bb43c79a9f543fd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
