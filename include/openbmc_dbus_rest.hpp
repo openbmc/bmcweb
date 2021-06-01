@@ -1672,6 +1672,14 @@ inline void handleGet(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
             for (const std::pair<std::string, std::vector<std::string>>&
                      connection : objectNames)
             {
+                // Ignore the mapper service since it will never host the
+                // property we are interested in and actually returns an error
+                // when we try to read properties from it
+                if (connection.first == "xyz.openbmc_project.ObjectMapper")
+                {
+                    continue;
+                }
+
                 const std::vector<std::string>& interfaceNames =
                     connection.second;
 
