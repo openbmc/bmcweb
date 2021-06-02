@@ -17,6 +17,8 @@
 
 #include "bmcweb_config.h"
 
+#include "other_software_service.hpp"
+
 #include <app.hpp>
 #include <boost/container/flat_map.hpp>
 #include <dbus_utility.hpp>
@@ -743,10 +745,11 @@ inline void requestRoutesSoftwareInventoryCollection(App& app)
                     "xyz.openbmc_project.Software.Version"});
         });
 }
+
 /* Fill related item links (i.e. bmc, bios) in for inventory */
 inline static void
     getRelatedItems(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
-                    const std::string& purpose)
+                    const std::string& swId, const std::string& purpose)
 {
     if (purpose == fw_util::bmcPurpose)
     {
@@ -760,6 +763,10 @@ inline static void
         relatedItem.push_back(
             {{"@odata.id", "/redfish/v1/Systems/system/Bios"}});
         aResp->res.jsonValue["Members@odata.count"] = relatedItem.size();
+    }
+    else if (purpose == fw_util::otherPurpose)
+    {
+        getRelatedItemsOthers(aResp, swId);
     }
     else
     {
@@ -839,7 +846,7 @@ inline void requestRoutesSoftwareInventory(App& app)
                                 if (it == propertiesList.end())
                                 {
                                     BMCWEB_LOG_DEBUG
-                                        << "Can't find property \"Purpose\"!";
+                                        << "Can't find property \"Version\"!";
                                     messages::propertyMissing(asyncResp->res,
                                                               "Purpose");
                                     return;
@@ -904,7 +911,8 @@ inline void requestRoutesSoftwareInventory(App& app)
                                     swInvPurpose->substr(endDesc);
                                 asyncResp->res.jsonValue["Description"] =
                                     formatDesc + " image";
-                                getRelatedItems(asyncResp, *swInvPurpose);
+                                getRelatedItems(asyncResp, *swId,
+                                                *swInvPurpose);
                             },
                             obj.second[0].first, obj.first,
                             "org.freedesktop.DBus.Properties", "GetAll",
