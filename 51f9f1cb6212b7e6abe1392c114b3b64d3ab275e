@@ -295,6 +295,30 @@
       "revId": "51f9f1cb6212b7e6abe1392c114b3b64d3ab275e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f97c4015_44a700fa",
+        "filename": "redfish-core/lib/metric_definition.hpp",
+        "patchSetId": 76
+      },
+      "lineNbr": 231,
+      "author": {
+        "id": 1000534
+      },
+      "writtenOn": "2021-06-02T07:42:11Z",
+      "side": 1,
+      "message": "Ed\n\nAs name implies - MetricProperty needs to be valid Redfish URI to metric property :-). This put a requirement on TelemetryService implementation to be able to handle sensors on URI (\"JSON\")-level. In other words - we need a way to map each D-Bus sensor path to it\u0027s respective Redfish URI.\n\nCurrent flow is the following:\n\u003e get all nodes on Redfish which may expose sensors\n\u003e\u003e query nodes using retrieveUriToDbusMap for each node(chassis)\\subnode(power|thermal|sensors)\n\u003e\u003e\u003e retrieveUriToDbusMap calls \u0027GET\u0027 on requested node, creates JSON with sensors, which is then used to extract Metric Redfish URIs\n\nReversing the implementation around (start with sensors, get URIs) would require major rework of sensors.hpp, so there would exist a function which assigns unique URI for each sensor. With current implementation it\u0027s not feasible, as big part of metrics in Power and Thermal have URI/ID assigned based on it\u0027s index in the response JSON array. I\u0027m not saying it can\u0027t be done, however it would require rewriting big parts of sensors.hpp which is already quite convoluted. I suppose this effort should be separated from the Redfish sensors \u0027client\u0027 (TelemetryService).\n\nHOWEVER, if your comment was mostly suggesting \u0027limit querying to chassises with sensors, based on verifying their all_sensors associations\u0027 - I believe it\u0027s a valid optimization ;)",
+      "parentUuid": "bd3ad781_cb274c38",
+      "range": {
+        "startLine": 231,
+        "startChar": 12,
+        "endLine": 231,
+        "endChar": 63
+      },
+      "revId": "51f9f1cb6212b7e6abe1392c114b3b64d3ab275e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
