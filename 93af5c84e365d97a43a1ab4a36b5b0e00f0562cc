@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "af8f563a_a12eb109",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 570,
+      "author": {
+        "id": 1001099
+      },
+      "writtenOn": "2021-06-02T20:28:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2767db42_4bd8523a",
+      "revId": "93af5c84e365d97a43a1ab4a36b5b0e00f0562cc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bc9af376_5673218f",
         "filename": "redfish-core/lib/certificate_service.hpp",
         "patchSetId": 1
@@ -33,6 +51,24 @@
       "revId": "93af5c84e365d97a43a1ab4a36b5b0e00f0562cc",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ab261b6a_50813e62",
+        "filename": "redfish-core/lib/certificate_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1001099
+      },
+      "writtenOn": "2021-06-02T20:28:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bc9af376_5673218f",
+      "revId": "93af5c84e365d97a43a1ab4a36b5b0e00f0562cc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "63cbeed0_42c967de",
+        "filename": "redfish-core/lib/certificate_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1001099
+      },
+      "writtenOn": "2021-06-02T20:28:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2c397da9_c04545eb",
+      "revId": "93af5c84e365d97a43a1ab4a36b5b0e00f0562cc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2bbb1a8c_d719693a",
         "filename": "redfish-core/lib/network_protocol.hpp",
         "patchSetId": 1
@@ -67,6 +121,24 @@
       "revId": "93af5c84e365d97a43a1ab4a36b5b0e00f0562cc",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5b155ca8_435dfbf9",
+        "filename": "redfish-core/lib/network_protocol.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 1001099
+      },
+      "writtenOn": "2021-06-02T20:28:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2bbb1a8c_d719693a",
+      "revId": "93af5c84e365d97a43a1ab4a36b5b0e00f0562cc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
