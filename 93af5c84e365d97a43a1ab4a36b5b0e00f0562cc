@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2767db42_4bd8523a",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 570,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-06-02T17:21:58Z",
+      "side": 1,
+      "message": "We should follow PrivilegeRegistry here. \nIf we have a odata.id that a role doesn\u0027t have permission to GET, we should not display the link (I think what you do below?) for that role. \nI.e. if /redfish/v1/AccountService/LDAP/Certificates is something only ConfigureManager can access then only display when the user has permissions ConfigureManager",
+      "revId": "93af5c84e365d97a43a1ab4a36b5b0e00f0562cc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bc9af376_5673218f",
+        "filename": "redfish-core/lib/certificate_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-06-02T17:21:58Z",
+      "side": 1,
+      "message": "No lets follow the Registry",
+      "revId": "93af5c84e365d97a43a1ab4a36b5b0e00f0562cc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2c397da9_c04545eb",
+        "filename": "redfish-core/lib/certificate_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-06-02T17:21:58Z",
+      "side": 1,
+      "message": "Why AllowedWithoutConfigureSelf? \nShould this be instead \"does role have ConfigureManager\" ?",
+      "revId": "93af5c84e365d97a43a1ab4a36b5b0e00f0562cc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2bbb1a8c_d719693a",
+        "filename": "redfish-core/lib/network_protocol.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-06-02T17:21:58Z",
+      "side": 1,
+      "message": "Same comment",
+      "revId": "93af5c84e365d97a43a1ab4a36b5b0e00f0562cc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
