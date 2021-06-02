@@ -70,6 +70,30 @@
       "revId": "c8ff405eb7d6f6dd43a4ea28cfd488c0660a075d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f02837b3_8015e51a",
+        "filename": "Redfish.md",
+        "patchSetId": 4
+      },
+      "lineNbr": 483,
+      "author": {
+        "id": 1001083
+      },
+      "writtenOn": "2021-06-02T16:09:14Z",
+      "side": 1,
+      "message": "Sorry, but how do I find the sub parameters? \nAdditionally, in the Processor schema [1], the parameter is titled \u0027Location\u0027. In the implementation, the code is a reference to \u0027LocationCode\u0027. Maybe I have mistakenly assumed these were the same parameters. Reading the comments for the implementation, the author states: \"LocationCode, a free form, ...\" [2] \n\n[1] https://redfish.dmtf.org/schemas/v1/Processor.v1_12_0.json\n[2] https://github.com/openbmc/bmcweb/commit/cba4f44896bea631f409cbc9e52d4ddb7d2e86c1",
+      "parentUuid": "3c1f1c72_14b1f732",
+      "range": {
+        "startLine": 483,
+        "startChar": 2,
+        "endLine": 483,
+        "endChar": 10
+      },
+      "revId": "c8ff405eb7d6f6dd43a4ea28cfd488c0660a075d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
