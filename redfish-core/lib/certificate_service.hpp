@@ -39,22 +39,19 @@ class CertificateService : public Node
   public:
     CertificateService(App& app) : Node(app, "/redfish/v1/CertificateService/")
     {
-        // TODO: Issue#61 No entries are available for Certificate
-        // service at https://www.dmtf.org/standards/redfish
-        // "redfish standard registries". Need to modify after DMTF
-        // publish Privilege details for certificate service
         entityPrivileges = {
             {boost::beast::http::verb::get, {{"Login"}}},
             {boost::beast::http::verb::head, {{"Login"}}},
-            {boost::beast::http::verb::patch, {{"ConfigureComponents"}}},
-            {boost::beast::http::verb::put, {{"ConfigureComponents"}}},
-            {boost::beast::http::verb::delete_, {{"ConfigureComponents"}}},
-            {boost::beast::http::verb::post, {{"ConfigureComponents"}}}};
+            {boost::beast::http::verb::patch, {{"ConfigureManager"}}},
+            {boost::beast::http::verb::put, {{"ConfigureManager"}}},
+            {boost::beast::http::verb::delete_, {{"ConfigureManager"}}},
+            {boost::beast::http::verb::post, {{"ConfigureManager"}}}};
     }
 
   private:
     void doGet(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-               const crow::Request&, const std::vector<std::string>&) override
+               const crow::Request& req,
+               const std::vector<std::string>&) override
     {
         asyncResp->res.jsonValue = {
             {"@odata.type", "#CertificateService.v1_0_0.CertificateService"},
@@ -62,9 +59,15 @@ class CertificateService : public Node
             {"Id", "CertificateService"},
             {"Name", "Certificate Service"},
             {"Description", "Actions available to manage certificates"}};
-        asyncResp->res.jsonValue["CertificateLocations"] = {
-            {"@odata.id",
-             "/redfish/v1/CertificateService/CertificateLocations"}};
+        // /redfish/v1/CertificateService/CertificateLocations is something only
+        // ConfigureManager can access then only display when the user has
+        // permissions ConfigureManager
+        if (doesRoleHaveConfigureManager(req))
+        {
+            asyncResp->res.jsonValue["CertificateLocations"] = {
+                {"@odata.id",
+                 "/redfish/v1/CertificateService/CertificateLocations"}};
+        }
         asyncResp->res
             .jsonValue["Actions"]["#CertificateService.ReplaceCertificate"] = {
             {"target", "/redfish/v1/CertificateService/Actions/"
@@ -240,10 +243,10 @@ class CertificateActionGenerateCSR : public Node
         entityPrivileges = {
             {boost::beast::http::verb::get, {{"Login"}}},
             {boost::beast::http::verb::head, {{"Login"}}},
-            {boost::beast::http::verb::patch, {{"ConfigureComponents"}}},
-            {boost::beast::http::verb::put, {{"ConfigureComponents"}}},
-            {boost::beast::http::verb::delete_, {{"ConfigureComponents"}}},
-            {boost::beast::http::verb::post, {{"ConfigureComponents"}}}};
+            {boost::beast::http::verb::patch, {{"ConfigureManager"}}},
+            {boost::beast::http::verb::put, {{"ConfigureManager"}}},
+            {boost::beast::http::verb::delete_, {{"ConfigureManager"}}},
+            {boost::beast::http::verb::post, {{"ConfigureManager"}}}};
     }
 
   private:
@@ -679,10 +682,10 @@ class CertificateActionsReplaceCertificate : public Node
         entityPrivileges = {
             {boost::beast::http::verb::get, {{"Login"}}},
             {boost::beast::http::verb::head, {{"Login"}}},
-            {boost::beast::http::verb::patch, {{"ConfigureComponents"}}},
-            {boost::beast::http::verb::put, {{"ConfigureComponents"}}},
-            {boost::beast::http::verb::delete_, {{"ConfigureComponents"}}},
-            {boost::beast::http::verb::post, {{"ConfigureComponents"}}}};
+            {boost::beast::http::verb::patch, {{"ConfigureManager"}}},
+            {boost::beast::http::verb::put, {{"ConfigureManager"}}},
+            {boost::beast::http::verb::delete_, {{"ConfigureManager"}}},
+            {boost::beast::http::verb::post, {{"ConfigureManager"}}}};
     }
 
   private:
@@ -805,12 +808,12 @@ class HTTPSCertificate : public Node
              std::string())
     {
         entityPrivileges = {
-            {boost::beast::http::verb::get, {{"Login"}}},
-            {boost::beast::http::verb::head, {{"Login"}}},
-            {boost::beast::http::verb::patch, {{"ConfigureComponents"}}},
-            {boost::beast::http::verb::put, {{"ConfigureComponents"}}},
-            {boost::beast::http::verb::delete_, {{"ConfigureComponents"}}},
-            {boost::beast::http::verb::post, {{"ConfigureComponents"}}}};
+            {boost::beast::http::verb::get, {{"ConfigureManager"}}},
+            {boost::beast::http::verb::head, {{"ConfigureManager"}}},
+            {boost::beast::http::verb::patch, {{"ConfigureManager"}}},
+            {boost::beast::http::verb::put, {{"ConfigureManager"}}},
+            {boost::beast::http::verb::delete_, {{"ConfigureManager"}}},
+            {boost::beast::http::verb::post, {{"ConfigureManager"}}}};
     }
 
     void doGet(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
@@ -849,12 +852,12 @@ class HTTPSCertificateCollection : public Node
              "/redfish/v1/Managers/bmc/NetworkProtocol/HTTPS/Certificates/")
     {
         entityPrivileges = {
-            {boost::beast::http::verb::get, {{"Login"}}},
-            {boost::beast::http::verb::head, {{"Login"}}},
-            {boost::beast::http::verb::patch, {{"ConfigureComponents"}}},
-            {boost::beast::http::verb::put, {{"ConfigureComponents"}}},
-            {boost::beast::http::verb::delete_, {{"ConfigureComponents"}}},
-            {boost::beast::http::verb::post, {{"ConfigureComponents"}}}};
+            {boost::beast::http::verb::get, {{"ConfigureManager"}}},
+            {boost::beast::http::verb::head, {{"ConfigureManager"}}},
+            {boost::beast::http::verb::patch, {{"ConfigureManager"}}},
+            {boost::beast::http::verb::put, {{"ConfigureManager"}}},
+            {boost::beast::http::verb::delete_, {{"ConfigureManager"}}},
+            {boost::beast::http::verb::post, {{"ConfigureManager"}}}};
     }
     void doGet(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                const crow::Request&, const std::vector<std::string>&) override
@@ -960,12 +963,12 @@ class CertificateLocations : public Node
         Node(app, "/redfish/v1/CertificateService/CertificateLocations/")
     {
         entityPrivileges = {
-            {boost::beast::http::verb::get, {{"Login"}}},
-            {boost::beast::http::verb::head, {{"Login"}}},
-            {boost::beast::http::verb::patch, {{"ConfigureComponents"}}},
-            {boost::beast::http::verb::put, {{"ConfigureComponents"}}},
-            {boost::beast::http::verb::delete_, {{"ConfigureComponents"}}},
-            {boost::beast::http::verb::post, {{"ConfigureComponents"}}}};
+            {boost::beast::http::verb::get, {{"ConfigureManager"}}},
+            {boost::beast::http::verb::head, {{"ConfigureManager"}}},
+            {boost::beast::http::verb::patch, {{"ConfigureManager"}}},
+            {boost::beast::http::verb::put, {{"ConfigureManager"}}},
+            {boost::beast::http::verb::delete_, {{"ConfigureManager"}}},
+            {boost::beast::http::verb::post, {{"ConfigureManager"}}}};
     }
 
   private:
@@ -1051,12 +1054,12 @@ class LDAPCertificateCollection : public Node
         Node(app, "/redfish/v1/AccountService/LDAP/Certificates/")
     {
         entityPrivileges = {
-            {boost::beast::http::verb::get, {{"Login"}}},
-            {boost::beast::http::verb::head, {{"Login"}}},
-            {boost::beast::http::verb::patch, {{"ConfigureComponents"}}},
-            {boost::beast::http::verb::put, {{"ConfigureComponents"}}},
-            {boost::beast::http::verb::delete_, {{"ConfigureComponents"}}},
-            {boost::beast::http::verb::post, {{"ConfigureComponents"}}}};
+            {boost::beast::http::verb::get, {{"ConfigureManager"}}},
+            {boost::beast::http::verb::head, {{"ConfigureManager"}}},
+            {boost::beast::http::verb::patch, {{"ConfigureManager"}}},
+            {boost::beast::http::verb::put, {{"ConfigureManager"}}},
+            {boost::beast::http::verb::delete_, {{"ConfigureManager"}}},
+            {boost::beast::http::verb::post, {{"ConfigureManager"}}}};
     }
     void doGet(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                const crow::Request&, const std::vector<std::string>&) override
@@ -1158,12 +1161,12 @@ class LDAPCertificate : public Node
              std::string())
     {
         entityPrivileges = {
-            {boost::beast::http::verb::get, {{"Login"}}},
-            {boost::beast::http::verb::head, {{"Login"}}},
-            {boost::beast::http::verb::patch, {{"ConfigureComponents"}}},
-            {boost::beast::http::verb::put, {{"ConfigureComponents"}}},
-            {boost::beast::http::verb::delete_, {{"ConfigureComponents"}}},
-            {boost::beast::http::verb::post, {{"ConfigureComponents"}}}};
+            {boost::beast::http::verb::get, {{"ConfigureManager"}}},
+            {boost::beast::http::verb::head, {{"ConfigureManager"}}},
+            {boost::beast::http::verb::patch, {{"ConfigureManager"}}},
+            {boost::beast::http::verb::put, {{"ConfigureManager"}}},
+            {boost::beast::http::verb::delete_, {{"ConfigureManager"}}},
+            {boost::beast::http::verb::post, {{"ConfigureManager"}}}};
     }
 
     void doGet(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
@@ -1198,12 +1201,12 @@ class TrustStoreCertificateCollection : public Node
         Node(app, "/redfish/v1/Managers/bmc/Truststore/Certificates/")
     {
         entityPrivileges = {
-            {boost::beast::http::verb::get, {{"Login"}}},
-            {boost::beast::http::verb::head, {{"Login"}}},
-            {boost::beast::http::verb::patch, {{"ConfigureComponents"}}},
-            {boost::beast::http::verb::put, {{"ConfigureComponents"}}},
-            {boost::beast::http::verb::delete_, {{"ConfigureComponents"}}},
-            {boost::beast::http::verb::post, {{"ConfigureComponents"}}}};
+            {boost::beast::http::verb::get, {{"ConfigureManager"}}},
+            {boost::beast::http::verb::head, {{"ConfigureManager"}}},
+            {boost::beast::http::verb::patch, {{"ConfigureManager"}}},
+            {boost::beast::http::verb::put, {{"ConfigureManager"}}},
+            {boost::beast::http::verb::delete_, {{"ConfigureManager"}}},
+            {boost::beast::http::verb::post, {{"ConfigureManager"}}}};
     }
     void doGet(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                const crow::Request&, const std::vector<std::string>&) override
@@ -1304,12 +1307,12 @@ class TrustStoreCertificate : public Node
              std::string())
     {
         entityPrivileges = {
-            {boost::beast::http::verb::get, {{"Login"}}},
-            {boost::beast::http::verb::head, {{"Login"}}},
-            {boost::beast::http::verb::patch, {{"ConfigureComponents"}}},
-            {boost::beast::http::verb::put, {{"ConfigureComponents"}}},
-            {boost::beast::http::verb::delete_, {{"ConfigureComponents"}}},
-            {boost::beast::http::verb::post, {{"ConfigureComponents"}}}};
+            {boost::beast::http::verb::get, {{"ConfigureManager"}}},
+            {boost::beast::http::verb::head, {{"ConfigureManager"}}},
+            {boost::beast::http::verb::patch, {{"ConfigureManager"}}},
+            {boost::beast::http::verb::put, {{"ConfigureManager"}}},
+            {boost::beast::http::verb::delete_, {{"ConfigureManager"}}},
+            {boost::beast::http::verb::post, {{"ConfigureManager"}}}};
     }
 
     void doGet(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,

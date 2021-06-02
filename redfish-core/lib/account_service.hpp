@@ -1162,7 +1162,8 @@ class AccountService : public Node
     }
 
     void doGet(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-               const crow::Request&, const std::vector<std::string>&) override
+               const crow::Request& req,
+               const std::vector<std::string>&) override
     {
         const persistent_data::AuthConfigMethods& authMethodsConfig =
             persistent_data::SessionStore::getInstance().getAuthMethodsConfig();
@@ -1189,11 +1190,17 @@ class AccountService : public Node
                      {"XToken", authMethodsConfig.xtoken},
                      {"Cookie", authMethodsConfig.cookie},
                      {"TLS", authMethodsConfig.tls},
-                 }}}}}},
-            {"LDAP",
-             {{"Certificates",
-               {{"@odata.id",
-                 "/redfish/v1/AccountService/LDAP/Certificates"}}}}}};
+                 }}}}}}};
+        // /redfish/v1/AccountService/LDAP/Certificates is something only
+        // ConfigureManager can access then only display when the user has
+        // permissions ConfigureManager
+        if (doesRoleHaveConfigureManager(req))
+        {
+            asyncResp->res.jsonValue["LDAP"] = {
+                {"Certificates",
+                 {{"@odata.id",
+                   "/redfish/v1/AccountService/LDAP/Certificates"}}}};
+        }
         crow::connections::systemBus->async_method_call(
             [asyncResp](
                 const boost::system::error_code ec,
