@@ -248,6 +248,24 @@ class Node
                isOperationAllowedWithPrivileges(requiredPrivilegesIt->second,
                                                 effectiveUserPrivileges);
     }
+
+    /* @brief check user has configure Manager level privilege
+     *
+     * @param req      the request
+     *
+     * @returns        True if allowed, false otherwise
+     */
+    inline bool doesRoleHaveConfigureManager(const crow::Request& req)
+    {
+        BMCWEB_LOG_DEBUG << "doesRoleHaveConfigureManager for the role "
+                         << req.userRole;
+        const auto& effectiveUserPrivileges =
+            redfish::getUserPrivileges(req.userRole);
+        static std::vector<Privileges> configureManagerPrivileges{
+            {"ConfigureManager"}};
+        return isOperationAllowedWithPrivileges(configureManagerPrivileges,
+                                                effectiveUserPrivileges);
+    }
 };
 
 } // namespace redfish
