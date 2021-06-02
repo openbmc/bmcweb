@@ -782,6 +782,7 @@ class SoftwareInventory : public Node
   private:
     /* Fill related item links (i.e. bmc, bios) in for inventory */
     static void getRelatedItems(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
+                                const std::string& swId,
                                 const std::string& purpose)
     {
         if (purpose == fw_util::bmcPurpose)
@@ -799,10 +800,113 @@ class SoftwareInventory : public Node
             aResp->res.jsonValue["RelatedItem@odata.count"] =
                 relatedItem.size();
         }
+        else if (purpose == fw_util::otherPurpose)
+        {
+            nlohmann::json& relatedItem = aResp->res.jsonValue["RelatedItem"];
+            nlohmann::json& relatedItemCount =
+                aResp->res.jsonValue["RelatedItem@odata.count"];
+            getRelatedItemsOthers(aResp, swId, relatedItem, relatedItemCount);
+        }
         else
         {
             BMCWEB_LOG_ERROR << "Unknown software purpose " << purpose;
         }
+    }
+    /*
+        Fill related item links for Software for other purposes.
+        Use other purpose for device level softwares.
+    */
+    static void getRelatedItemsOthers(const std::shared_ptr<AsyncResp>& aResp,
+                                      const std::string& swId,
+                                      nlohmann::json& relatedItem,
+                                      nlohmann::json& relatedItemCount)
+    {
+        crow::connections::systemBus->async_method_call(
+            [aResp, &relatedItem, &relatedItemCount](
+                const boost::system::error_code ec,
+                const std::variant<
+                    std::vector<sdbusplus::message::object_path>>& resp) {
+                BMCWEB_LOG_DEBUG << "getRelatedItemsOthers enter";
+                if (ec)
+                {
+                    BMCWEB_LOG_ERROR << "error_code = " << ec;
+                    BMCWEB_LOG_ERROR << "error msg = " << ec.message();
+                    messages::internalError(aResp->res);
+                    return;
+                }
+
+                const std::vector<
+                    sdbusplus::message::object_path>* associations =
+                    std::get_if<std::vector<sdbusplus::message::object_path>>(
+                        &resp);
+                if ((associations == nullptr) || (associations->empty()))
+                {
+                    BMCWEB_LOG_ERROR << "Zero association for the software";
+                    return;
+                }
+
+                for (const auto& association : *associations)
+                {
+                    std::string leaf = association.filename();
+                    if (leaf.empty())
+                    {
+                        continue;
+                    }
+
+                    crow::connections::systemBus->async_method_call(
+                        [aResp, &relatedItem, &relatedItemCount,
+                         leaf](const boost::system::error_code ec2,
+                               const std::vector<std::pair<
+                                   std::string, std::vector<std::string>>>&
+                                   objects) {
+                            if (ec2)
+                            {
+                                BMCWEB_LOG_ERROR << "error_code = " << ec2;
+                                BMCWEB_LOG_ERROR << "error msg = "
+                                                 << ec2.message();
+                                messages::internalError(aResp->res);
+                                return;
+                            }
+                            if (objects.empty())
+                            {
+                                messages::internalError(aResp->res);
+                                return;
+                            }
+
+                            for (const auto& object : objects)
+                            {
+                                for (const auto& interfaces : object.second)
+                                {
+                                    if (interfaces ==
+                                        "xyz.openbmc_project.Inventory."
+                                        "Item.Drive")
+                                    {
+                                        auto path =
+                                            "/redfish/v1/Systems/system/"
+                                            "Storage/" +
+                                            leaf + "/Drives/";
+                                        path.append(leaf);
+                                        relatedItem.push_back(
+                                            {{"@odata.id", path}});
+                                        break;
+                                    }
+                                }
+                            }
+
+                            relatedItemCount = relatedItem.size();
+                        },
+                        "xyz.openbmc_project.ObjectMapper",
+                        "/xyz/openbmc_project/object_mapper",
+                        "xyz.openbmc_project.ObjectMapper", "GetObject",
+                        association.str,
+                        std::array<const char*, 1>{
+                            "xyz.openbmc_project.Inventory.Item.Drive"});
+                }
+            },
+            "xyz.openbmc_project.gSSD",
+            "/xyz/openbmc_project/software/devices/" + swId,
+            "org.freedesktop.DBus.Properties", "Get",
+            "xyz.openbmc_project.Association", "Endpoints");
     }
 
     void doGet(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
@@ -938,7 +1042,7 @@ class SoftwareInventory : public Node
                                 swInvPurpose->substr(endDesc);
                             asyncResp->res.jsonValue["Description"] =
                                 formatDesc + " image";
-                            getRelatedItems(asyncResp, *swInvPurpose);
+                            getRelatedItems(asyncResp, *swId, *swInvPurpose);
                         },
                         obj.second[0].first, obj.first,
                         "org.freedesktop.DBus.Properties", "GetAll",
