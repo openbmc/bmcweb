@@ -19,6 +19,10 @@ constexpr const char* biosPurpose =
 constexpr const char* bmcPurpose =
     "xyz.openbmc_project.Software.Version.VersionPurpose.BMC";
 
+/* @brief String that indicates other firmware instance */
+constexpr const char* otherPurpose =
+    "xyz.openbmc_project.Software.Version.VersionPurpose.Other";
+
 /**
  * @brief Populate the running firmware version and image links
  *

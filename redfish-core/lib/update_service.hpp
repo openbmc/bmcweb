@@ -17,6 +17,8 @@
 
 #include "bmcweb_config.h"
 
+#include "other_software_service.hpp"
+
 #include <app.hpp>
 #include <dbus_utility.hpp>
 #include <query.hpp>
@@ -786,10 +788,11 @@ inline void requestRoutesSoftwareInventoryCollection(App& app)
                     "xyz.openbmc_project.Software.Version"});
         });
 }
+
 /* Fill related item links (i.e. bmc, bios) in for inventory */
 inline static void
     getRelatedItems(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
-                    const std::string& purpose)
+                    std::string_view path, const std::string& purpose)
 {
     if (purpose == fw_util::bmcPurpose)
     {
@@ -803,6 +806,10 @@ inline static void
         relatedItem.push_back(
             {{"@odata.id", "/redfish/v1/Systems/system/Bios"}});
         aResp->res.jsonValue["RelatedItem@odata.count"] = relatedItem.size();
+    }
+    else if (purpose == fw_util::otherPurpose)
+    {
+        getRelatedItemsOthers(aResp, path);
     }
     else
     {
@@ -863,10 +870,10 @@ inline void requestRoutesSoftwareInventory(App& app)
                                              obj.second[0].first);
 
                         crow::connections::systemBus->async_method_call(
-                            [asyncResp,
-                             swId](const boost::system::error_code errorCode,
-                                   const dbus::utility::DBusPropertiesMap&
-                                       propertiesList) {
+                            [asyncResp, swId,
+                             obj](const boost::system::error_code errorCode,
+                                  const dbus::utility::DBusPropertiesMap&
+                                      propertiesList) {
                                 if (errorCode)
                                 {
                                     messages::internalError(asyncResp->res);
@@ -931,7 +938,8 @@ inline void requestRoutesSoftwareInventory(App& app)
                                     swInvPurpose->substr(endDesc);
                                 asyncResp->res.jsonValue["Description"] =
                                     formatDesc + " image";
-                                getRelatedItems(asyncResp, *swInvPurpose);
+                                getRelatedItems(asyncResp, obj.first,
+                                                *swInvPurpose);
                             },
                             obj.second[0].first, obj.first,
                             "org.freedesktop.DBus.Properties", "GetAll",
