@@ -222,7 +222,7 @@ class Node
     /* @brief Would the operation be allowed if the user did not have the
      * ConfigureSelf Privilege?  Also honors session.isConfigureSelfOnly.
      *
-     * @param req      the request
+     * @param req      The request
      *
      * @returns        True if allowed, false otherwise
      */
