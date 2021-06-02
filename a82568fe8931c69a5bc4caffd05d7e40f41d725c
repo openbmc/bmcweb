@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "1b108bce_64885a77",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-06-02T02:03:38Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "8c986312_249e8fda",
+      "revId": "a82568fe8931c69a5bc4caffd05d7e40f41d725c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "671bfd46_99b7f7ff",
         "filename": "redfish-core/lib/led.hpp",
         "patchSetId": 1
@@ -30,6 +48,24 @@
       "writtenOn": "2021-05-31T06:23:02Z",
       "side": 1,
       "message": "hmm.. why is this a template ?.. we are anyway doing a mapper-get-service to know who implements xyz.openbmc_project.Led.Group interface .. what problem is solved by having a template here ?",
+      "revId": "a82568fe8931c69a5bc4caffd05d7e40f41d725c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "20397576_ccd44666",
+        "filename": "redfish-core/lib/led.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-06-02T02:03:38Z",
+      "side": 1,
+      "message": "Because we need to make a callback when we get the `service Name`.",
+      "parentUuid": "671bfd46_99b7f7ff",
       "revId": "a82568fe8931c69a5bc4caffd05d7e40f41d725c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
