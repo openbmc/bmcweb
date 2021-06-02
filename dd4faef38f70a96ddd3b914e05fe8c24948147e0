@@ -1,0 +1,175 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ecf7c954_39362c8c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-06-02T20:45:42Z",
+      "side": 1,
+      "message": "DMTF",
+      "revId": "dd4faef38f70a96ddd3b914e05fe8c24948147e0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "39690bec_186bd9e1",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-06-02T20:45:42Z",
+      "side": 1,
+      "message": "into ?",
+      "range": {
+        "startLine": 15,
+        "startChar": 25,
+        "endLine": 15,
+        "endChar": 30
+      },
+      "revId": "dd4faef38f70a96ddd3b914e05fe8c24948147e0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ac09b5b4_e8f03c02",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-06-02T20:45:42Z",
+      "side": 1,
+      "message": "?",
+      "range": {
+        "startLine": 15,
+        "startChar": 40,
+        "endLine": 15,
+        "endChar": 47
+      },
+      "revId": "dd4faef38f70a96ddd3b914e05fe8c24948147e0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b4298827_f32fecac",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-06-02T20:45:42Z",
+      "side": 1,
+      "message": "Can you add\n\"Resolves openbmc/bmcweb#61\"\n\nhttps://github.com/openbmc/bmcweb/issues/61",
+      "revId": "dd4faef38f70a96ddd3b914e05fe8c24948147e0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "575168f3_674a43b0",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-06-02T20:45:42Z",
+      "side": 1,
+      "message": "And it passed? No new errors were introduced?",
+      "range": {
+        "startLine": 18,
+        "startChar": 26,
+        "endLine": 19,
+        "endChar": 10
+      },
+      "revId": "dd4faef38f70a96ddd3b914e05fe8c24948147e0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5d728fae_5d348e12",
+        "filename": "redfish-core/lib/certificate_service.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 249,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-06-02T20:45:42Z",
+      "side": 1,
+      "message": "Or here?",
+      "revId": "dd4faef38f70a96ddd3b914e05fe8c24948147e0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "87a26ece_76bb1371",
+        "filename": "redfish-core/lib/certificate_service.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 689,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-06-02T20:45:42Z",
+      "side": 1,
+      "message": "Changes here?",
+      "revId": "dd4faef38f70a96ddd3b914e05fe8c24948147e0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2b595dc3_858634b2",
+        "filename": "redfish-core/lib/certificate_service.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1170,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-06-02T20:45:42Z",
+      "side": 1,
+      "message": "No changes here?",
+      "revId": "dd4faef38f70a96ddd3b914e05fe8c24948147e0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a98e8568_74c97ba5",
+        "filename": "redfish-core/lib/certificate_service.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1316,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-06-02T20:45:42Z",
+      "side": 1,
+      "message": "No changes here?",
+      "revId": "dd4faef38f70a96ddd3b914e05fe8c24948147e0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
