@@ -563,7 +563,11 @@ class AccountService : public Node
     AccountService(App& app) : Node(app, "/redfish/v1/AccountService/")
     {
         entityPrivileges = {
-            {boost::beast::http::verb::get, {{"Login"}}},
+            // According to the PrivilegeRegistry, GET should actually be
+            // "Login". A "Login" only privilege would return notvalid
+            // "@odata.id" Value.
+            {boost::beast::http::verb::get,
+             {{"ConfigureManager"}, {"ConfigureSelf"}}},
             {boost::beast::http::verb::head, {{"Login"}}},
             {boost::beast::http::verb::patch, {{"ConfigureUsers"}}},
             {boost::beast::http::verb::put, {{"ConfigureUsers"}}},
@@ -1162,7 +1166,8 @@ class AccountService : public Node
     }
 
     void doGet(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-               const crow::Request&, const std::vector<std::string>&) override
+               const crow::Request& req,
+               const std::vector<std::string>&) override
     {
         const persistent_data::AuthConfigMethods& authMethodsConfig =
             persistent_data::SessionStore::getInstance().getAuthMethodsConfig();
@@ -1189,11 +1194,14 @@ class AccountService : public Node
                      {"XToken", authMethodsConfig.xtoken},
                      {"Cookie", authMethodsConfig.cookie},
                      {"TLS", authMethodsConfig.tls},
-                 }}}}}},
-            {"LDAP",
-             {{"Certificates",
-               {{"@odata.id",
-                 "/redfish/v1/AccountService/LDAP/Certificates"}}}}}};
+                 }}}}}}};
+        if (isAllowedWithoutConfigureSelf(req))
+        {
+            asyncResp->res.jsonValue["LDAP"] = {
+                {"Certificates",
+                 {{"@odata.id",
+                   "/redfish/v1/AccountService/LDAP/Certificates"}}}};
+        }
         crow::connections::systemBus->async_method_call(
             [asyncResp](
                 const boost::system::error_code ec,
