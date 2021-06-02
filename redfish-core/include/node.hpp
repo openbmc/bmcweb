@@ -222,7 +222,7 @@ class Node
     /* @brief Would the operation be allowed if the user did not have the
      * ConfigureSelf Privilege?  Also honors session.isConfigureSelfOnly.
      *
-     * @param req      the request
+     * @param req      The request
      *
      * @returns        True if allowed, false otherwise
      */
@@ -246,6 +246,25 @@ class Node
         const auto& requiredPrivilegesIt = entityPrivileges.find(req.method());
         return (requiredPrivilegesIt != entityPrivileges.end()) &&
                isOperationAllowedWithPrivileges(requiredPrivilegesIt->second,
+                                                effectiveUserPrivileges);
+    }
+
+    /* @brief Check if user has ConfigureManager privilege
+     *
+     * @param req      The request
+     *
+     * @returns        True if user has ConfigureManager
+     *                  privilege. if not false
+     */
+    inline bool doesRoleHaveConfigureManager(const crow::Request& req)
+    {
+        BMCWEB_LOG_DEBUG << "doesRoleHaveConfigureManager for the role "
+                         << req.userRole;
+        const auto& effectiveUserPrivileges =
+            redfish::getUserPrivileges(req.userRole);
+        static std::vector<Privileges> configureManagerPrivileges{
+            {"ConfigureManager"}};
+        return isOperationAllowedWithPrivileges(configureManagerPrivileges,
                                                 effectiveUserPrivileges);
     }
 };
