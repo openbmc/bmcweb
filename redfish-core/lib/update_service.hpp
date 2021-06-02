@@ -17,6 +17,8 @@
 
 #include "bmcweb_config.h"
 
+#include "other_software_service.hpp"
+
 #include <app.hpp>
 #include <dbus_utility.hpp>
 #include <query.hpp>
@@ -790,10 +792,11 @@ inline void requestRoutesSoftwareInventoryCollection(App& app)
             std::array<const char*, 1>{"xyz.openbmc_project.Software.Version"});
         });
 }
+
 /* Fill related item links (i.e. bmc, bios) in for inventory */
 inline static void
     getRelatedItems(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
-                    const std::string& purpose)
+                    std::string_view path, const std::string& purpose)
 {
     if (purpose == sw_util::bmcPurpose)
     {
@@ -811,6 +814,10 @@ inline static void
         relatedItem.push_back(std::move(item));
         aResp->res.jsonValue["RelatedItem@odata.count"] = relatedItem.size();
     }
+    else if (purpose == fw_util::otherPurpose)
+    {
+        getRelatedItemsOthers(aResp, path);
+    }
     else
     {
         BMCWEB_LOG_ERROR << "Unknown software purpose " << purpose;
@@ -825,9 +832,9 @@ inline void
     sdbusplus::asio::getAllProperties(
         *crow::connections::systemBus, service, path,
         "xyz.openbmc_project.Software.Version",
-        [asyncResp,
-         swId](const boost::system::error_code errorCode,
-               const dbus::utility::DBusPropertiesMap& propertiesList) {
+        [asyncResp, swId,
+         obj](const boost::system::error_code errorCode,
+              const dbus::utility::DBusPropertiesMap& propertiesList) {
         if (errorCode)
         {
             messages::internalError(asyncResp->res);
@@ -885,7 +892,7 @@ inline void
 
         std::string formatDesc = swInvPurpose->substr(endDesc);
         asyncResp->res.jsonValue["Description"] = formatDesc + " image";
-        getRelatedItems(asyncResp, *swInvPurpose);
+        getRelatedItems(asyncResp, obj.first, *swInvPurpose);
         });
 }
 
