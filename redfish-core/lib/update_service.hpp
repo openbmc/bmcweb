@@ -14,10 +14,10 @@
 // limitations under the License.
 */
 #pragma once
-
 #include "bmcweb_config.h"
 
 #include <app.hpp>
+#include <boost/algorithm/string.hpp>
 #include <boost/container/flat_map.hpp>
 #include <utils/fw_utils.hpp>
 
@@ -749,10 +749,285 @@ inline void requestRoutesSoftwareInventoryCollection(App& app)
                         "xyz.openbmc_project.Software.Version"});
             });
 }
+
+inline static void
+    getRelatedItemsDrive(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
+                         const sdbusplus::message::object_path& objPath)
+{
+    // Drive is expected to be under a Chassis
+    crow::connections::systemBus->async_method_call(
+        [aResp, objPath](const boost::system::error_code ec,
+                         const std::vector<std::string>& objects) {
+            if (ec)
+            {
+                BMCWEB_LOG_DEBUG << "DBUS response error";
+                return;
+            }
+
+            nlohmann::json& relatedItem = aResp->res.jsonValue["RelatedItem"];
+            nlohmann::json& relatedItemCount =
+                aResp->res.jsonValue["RelatedItem@odata.count"];
+
+            for (const auto& object : objects)
+            {
+                sdbusplus::message::object_path path(object);
+
+                if (!boost::algorithm::contains(objPath.str,
+                                                "/" + path.filename()))
+                {
+                    continue;
+                }
+
+                relatedItem.push_back(
+                    {{"@odata.id", "/redfish/v1/"
+                                   "Systems/system/"
+                                   "Storage/" +
+                                       path.filename() + "/Drives/" +
+                                       objPath.filename()}});
+            }
+            relatedItemCount = relatedItem.size();
+        },
+        "xyz.openbmc_project.ObjectMapper",
+        "/xyz/openbmc_project/object_mapper",
+        "xyz.openbmc_project.ObjectMapper", "GetSubTreePaths",
+        "/xyz/openbmc_project/inventory", 0,
+        std::array<std::string, 2>{
+            "xyz.openbmc_project.Inventory.Item.Board",
+            "xyz.openbmc_project.Inventory.Item.Chassis"});
+}
+
+inline static void getRelatedItemsStorageController(
+    const std::shared_ptr<bmcweb::AsyncResp>& aResp,
+    const sdbusplus::message::object_path& objPath)
+{
+    crow::connections::systemBus->async_method_call(
+        [aResp, objPath](const boost::system::error_code ec,
+                         const std::vector<std::string>& objects) {
+            if (ec)
+            {
+                BMCWEB_LOG_DEBUG << "DBUS response error";
+                return;
+            }
+
+            for (const auto& object : objects)
+            {
+                sdbusplus::message::object_path path(object);
+
+                if (!boost::algorithm::contains(objPath.str,
+                                                "/" + path.filename()))
+                {
+                    continue;
+                }
+
+                const std::string& storageId = object;
+
+                crow::connections::systemBus->async_method_call(
+                    [aResp, objPath, storageId](
+                        const boost::system::error_code ec,
+                        const crow::openbmc_mapper::GetSubTreeType& subtree) {
+                        if (ec || !subtree.size())
+                        {
+                            // doesn't have to be there
+                            return;
+                        }
+                        nlohmann::json& relatedItem =
+                            aResp->res.jsonValue["RelatedItem"];
+                        nlohmann::json& relatedItemCount =
+                            aResp->res.jsonValue["RelatedItem@odata.count"];
+
+                        for (size_t i = 0; i < subtree.size(); ++i)
+                        {
+                            if (subtree[i].first != objPath.str)
+                            {
+                                continue;
+                            }
+
+                            relatedItem.push_back(
+                                {{"@odata.id",
+                                  "/redfish/v1/Systems/system/Storage/" +
+                                      storageId + "#/StorageControllers/" +
+                                      std::to_string(i)}});
+                            break;
+                        }
+
+                        relatedItemCount = relatedItem.size();
+                    },
+                    "xyz.openbmc_project.ObjectMapper",
+                    "/xyz/openbmc_project/object_mapper",
+                    "xyz.openbmc_project.ObjectMapper", "GetSubTree", object,
+                    int32_t(0),
+                    std::array<const char*, 1>{"xyz.openbmc_project.Inventory."
+                                               "Item.StorageController"});
+            }
+        },
+        "xyz.openbmc_project.ObjectMapper",
+        "/xyz/openbmc_project/object_mapper",
+        "xyz.openbmc_project.ObjectMapper", "GetSubTreePaths",
+        "/xyz/openbmc_project/inventory", 0,
+        std::array<std::string, 2>{
+            "xyz.openbmc_project.Inventory.Item.Board",
+            "xyz.openbmc_project.Inventory.Item.Chassis"});
+}
+
+inline static void
+    getRelatedItemsOther(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
+                         const sdbusplus::message::object_path& association)
+{
+
+    // Find supported device types.
+    crow::connections::systemBus->async_method_call(
+        [aResp, association](
+            const boost::system::error_code ec,
+            const std::vector<std::pair<std::string, std::vector<std::string>>>&
+                objects) {
+            if (ec)
+            {
+                BMCWEB_LOG_ERROR << "error_code = " << ec
+                                 << ", error msg = " << ec.message();
+                return;
+            }
+            if (objects.empty())
+            {
+                return;
+            }
+
+            nlohmann::json& relatedItem = aResp->res.jsonValue["RelatedItem"];
+            nlohmann::json& relatedItemCount =
+                aResp->res.jsonValue["RelatedItem@odata.count"];
+
+            for (const auto& object : objects)
+            {
+                for (const auto& interfaces : object.second)
+                {
+                    if (interfaces == "xyz.openbmc_project.Inventory."
+                                      "Item.Drive")
+                    {
+                        getRelatedItemsDrive(aResp, association);
+                    }
+
+                    if (interfaces == "xyz.openbmc_project."
+                                      "Inventory."
+                                      "Item.Accelerator" ||
+                        interfaces == "xyz.openbmc_project."
+                                      "Inventory.Item.Cpu")
+                    {
+                        relatedItem.push_back(
+                            {{"@odata.id", "/redfish/v1/Systems/"
+                                           "system/"
+                                           "Processors/" +
+                                               association.filename()}});
+                    }
+
+                    if (interfaces == "xyz.openbmc_project.Inventory."
+                                      "Item.Board" ||
+                        interfaces == "xyz.openbmc_project.Inventory."
+                                      "Item.Chassis")
+                    {
+                        relatedItem.push_back(
+                            {{"@odata.id", "/redfish/v1/Chassis/" +
+                                               association.filename()}});
+                    }
+
+                    if (interfaces == "xyz.openbmc_project.Inventory."
+                                      "Item.StorageController")
+                    {
+                        getRelatedItemsStorageController(aResp, association);
+                    }
+                }
+            }
+
+            relatedItemCount = relatedItem.size();
+        },
+        "xyz.openbmc_project.ObjectMapper",
+        "/xyz/openbmc_project/object_mapper",
+        "xyz.openbmc_project.ObjectMapper", "GetObject", association.str,
+        std::array<const char*, 6>{
+            "xyz.openbmc_project.Inventory.Item.Accelerator",
+            "xyz.openbmc_project.Inventory.Item.Cpu",
+            "xyz.openbmc_project.Inventory.Item.Drive",
+            "xyz.openbmc_project.Inventory.Item.Board",
+            "xyz.openbmc_project.Inventory.Item.Chassis",
+            "xyz.openbmc_project.Inventory.Item.StorageController"});
+}
+
+/*
+    Fill related item links for Software with other purposes.
+    Use other purpose for device level softwares.
+*/
+inline static void
+    getRelatedItemsOthers(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
+                          const std::string& swId)
+{
+    BMCWEB_LOG_DEBUG << "getRelatedItemsOthers enter";
+
+    // Find the service and software object.
+    crow::connections::systemBus->async_method_call(
+        [aResp, swId](
+            const boost::system::error_code ec,
+            const std::vector<std::pair<std::string, std::vector<std::string>>>&
+                objects) {
+            if (ec)
+            {
+                BMCWEB_LOG_ERROR << "error_code = " << ec
+                                 << ", error msg = " << ec.message();
+                return;
+            }
+
+            if (objects.empty())
+            {
+                return;
+            }
+
+            // Fetch the Software Associations.
+            crow::connections::systemBus->async_method_call(
+                [aResp](
+                    const boost::system::error_code ec,
+                    const std::variant<
+                        std::vector<sdbusplus::message::object_path>>& resp) {
+                    if (ec)
+                    {
+                        BMCWEB_LOG_ERROR << "error_code = " << ec;
+                        BMCWEB_LOG_ERROR << "error msg = " << ec.message();
+                        return;
+                    }
+
+                    const std::vector<sdbusplus::message::object_path>*
+                        associations = std::get_if<
+                            std::vector<sdbusplus::message::object_path>>(
+                            &resp);
+                    if ((associations == nullptr) || (associations->empty()))
+                    {
+                        BMCWEB_LOG_ERROR << "Zero association for the software";
+                        return;
+                    }
+
+                    for (const auto& association : *associations)
+                    {
+                        if (association.filename().empty())
+                        {
+                            continue;
+                        }
+
+                        getRelatedItemsOther(aResp, association);
+                    }
+                },
+                // Use only the first service it finds.
+                objects[0].first,
+                "/xyz/openbmc_project/software/devices/" + swId,
+                "org.freedesktop.DBus.Properties", "Get",
+                "xyz.openbmc_project.Association", "Endpoints");
+        },
+        "xyz.openbmc_project.ObjectMapper",
+        "/xyz/openbmc_project/object_mapper",
+        "xyz.openbmc_project.ObjectMapper", "GetObject",
+        "/xyz/openbmc_project/software/devices/" + swId,
+        std::array<const char*, 1>{"xyz.openbmc_project.Association"});
+}
+
 /* Fill related item links (i.e. bmc, bios) in for inventory */
 inline static void
     getRelatedItems(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
-                    const std::string& purpose)
+                    const std::string& swId, const std::string& purpose)
 {
     if (purpose == fw_util::bmcPurpose)
     {
@@ -766,6 +1041,12 @@ inline static void
         relatedItem.push_back(
             {{"@odata.id", "/redfish/v1/Systems/system/Bios"}});
         aResp->res.jsonValue["Members@odata.count"] = relatedItem.size();
+    }
+    else if (purpose == fw_util::otherPurpose)
+    {
+        aResp->res.jsonValue["RelatedItem"] = nlohmann::json::array();
+        aResp->res.jsonValue["RelatedItem@odata.count"] = 0;
+        getRelatedItemsOthers(aResp, swId);
     }
     else
     {
@@ -803,7 +1084,8 @@ inline void requestRoutesSoftwareInventory(App& app)
                         return;
                     }
 
-                    // Ensure we find our input swId, otherwise return an error
+                    // Ensure we find our input swId, otherwise return an
+                    // error
                     bool found = false;
                     for (const std::pair<
                              std::string,
@@ -840,8 +1122,8 @@ inline void requestRoutesSoftwareInventory(App& app)
                                     it = propertiesList.find("Purpose");
                                 if (it == propertiesList.end())
                                 {
-                                    BMCWEB_LOG_DEBUG
-                                        << "Can't find property \"Purpose\"!";
+                                    BMCWEB_LOG_DEBUG << "Can't find property "
+                                                        "\"Purpose\"!";
                                     messages::propertyMissing(asyncResp->res,
                                                               "Purpose");
                                     return;
@@ -862,8 +1144,8 @@ inline void requestRoutesSoftwareInventory(App& app)
                                 it = propertiesList.find("Version");
                                 if (it == propertiesList.end())
                                 {
-                                    BMCWEB_LOG_DEBUG
-                                        << "Can't find property \"Version\"!";
+                                    BMCWEB_LOG_DEBUG << "Can't find property "
+                                                        "\"Version\"!";
                                     messages::propertyMissing(asyncResp->res,
                                                               "Version");
                                     return;
@@ -876,8 +1158,8 @@ inline void requestRoutesSoftwareInventory(App& app)
 
                                 if (version == nullptr)
                                 {
-                                    BMCWEB_LOG_DEBUG
-                                        << "Can't find property \"Version\"!";
+                                    BMCWEB_LOG_DEBUG << "Can't find property "
+                                                        "\"Version\"!";
 
                                     messages::propertyValueTypeError(
                                         asyncResp->res, "", "Version");
@@ -906,7 +1188,8 @@ inline void requestRoutesSoftwareInventory(App& app)
                                     swInvPurpose->substr(endDesc);
                                 asyncResp->res.jsonValue["Description"] =
                                     formatDesc + " image";
-                                getRelatedItems(asyncResp, *swInvPurpose);
+                                getRelatedItems(asyncResp, *swId,
+                                                *swInvPurpose);
                             },
                             obj.second[0].first, obj.first,
                             "org.freedesktop.DBus.Properties", "GetAll",
