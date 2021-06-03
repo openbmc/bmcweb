@@ -33,6 +33,24 @@
       "revId": "0cdb3fdbf74b598bc35327ac33586f69cb9e5838",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2f603ca0_b1f5c545",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2021-06-03T16:59:27Z",
+      "side": 1,
+      "message": "I am testing out the Redfish Validator, but ran into\n\n```\nError accessing URI /redfish/v1/CertificateService. Status code \"401 Unauthorized\". Check username and password supplied for \"Basic\" authentication.\n```\n\nThis is due to now the system is setup.\n\nIs it okay if just resource that we touch passed and it has\n```\nWriting online XML to file: Storage_v1.xml\n```\nwith no errors.",
+      "parentUuid": "b7613aa1_5f6727c8",
+      "revId": "0cdb3fdbf74b598bc35327ac33586f69cb9e5838",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
