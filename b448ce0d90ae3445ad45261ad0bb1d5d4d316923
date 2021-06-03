@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "628caa21_92484f62",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1265,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-06-03T20:41:52Z",
+      "side": 1,
+      "message": "I should\u0027ve mentioned this in the commit message;  I\u0027ll update the comment shortly, but privilege registry defines this as Login, which is what we ideally should have here.  Now that we can handle ConfigureSelf collections without needing to invoke the router, I suspect this is more correct, and in line with the sepc.\n\nI will update the commit message to make this more clear.",
+      "parentUuid": "782359bc_8747feb3",
+      "range": {
+        "startLine": 1265,
+        "startChar": 23,
+        "endLine": 1265,
+        "endChar": 28
+      },
+      "revId": "b448ce0d90ae3445ad45261ad0bb1d5d4d316923",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "b22da684_0d6ca274",
         "filename": "redfish-core/lib/account_service.hpp",
         "patchSetId": 3
@@ -60,6 +84,30 @@
       "writtenOn": "2021-06-03T20:31:04Z",
       "side": 1,
       "message": "Not sure this makes sense since \n\n    BMCWEB_ROUTE(app, \"/redfish/v1/AccountService/Accounts/\")\n        .privileges({{\"ConfigureUsers\"}, {\"ConfigureSelf\"}})\n\nAKA if you only had ConfigureManager you could access here but not /redfish/v1/AccountService/Accounts/ it is what was there before.",
+      "range": {
+        "startLine": 1451,
+        "startChar": 35,
+        "endLine": 1451,
+        "endChar": 51
+      },
+      "revId": "b448ce0d90ae3445ad45261ad0bb1d5d4d316923",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8d6a23b2_782d72d1",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1451,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-06-03T20:41:52Z",
+      "side": 1,
+      "message": "\u003e Not sure this makes sense since \n\u003e \n\u003e     BMCWEB_ROUTE(app, \"/redfish/v1/AccountService/Accounts/\")\n\u003e         .privileges({{\"ConfigureUsers\"}, {\"ConfigureSelf\"}})\n\u003e \n\u003e AKA if you only had ConfigureManager you could access here but not /redfish/v1/AccountService/Accounts/ it is what was there before.\n\nYeah, I noticed that when I was going through that seemed odd, but the privilege registry has the below in it, which leads me to believe that this is either on purpose, or a DMTF mistake;  We could certainly bring it up with DMTF.\n\n        {\n            \"Entity\": \"ManagerAccount\",\n            \"OperationMap\": {\n                \"GET\": [\n                    {\n                        \"Privilege\": [\n                            \"ConfigureManager\"\n                        ]\n                    },\n                    {\n                        \"Privilege\": [\n                            \"ConfigureUsers\"\n                        ]\n                    },\n                    {\n                        \"Privilege\": [\n                            \"ConfigureSelf\"\n                        ]\n                    }",
+      "parentUuid": "b22da684_0d6ca274",
       "range": {
         "startLine": 1451,
         "startChar": 35,
@@ -101,6 +149,24 @@
       "side": 1,
       "message": "Nevermind, this is delete. I think that makes sense, a user can\u0027t delete themselves without configureUsers or atleast what we had before.",
       "parentUuid": "d4a22112_e1f2dfd2",
+      "revId": "b448ce0d90ae3445ad45261ad0bb1d5d4d316923",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5e3d3e56_ea5dc956",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1683,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-06-03T20:41:52Z",
+      "side": 1,
+      "message": "Yep, you got it.  Users can\u0027t delete themselves.",
+      "parentUuid": "ee958ec3_cc306848",
       "revId": "b448ce0d90ae3445ad45261ad0bb1d5d4d316923",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
