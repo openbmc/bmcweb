@@ -218,36 +218,6 @@ class Node
     {
         asyncResp->res.result(boost::beast::http::status::method_not_allowed);
     }
-
-    /* @brief Would the operation be allowed if the user did not have the
-     * ConfigureSelf Privilege?  Also honors session.isConfigureSelfOnly.
-     *
-     * @param req      the request
-     *
-     * @returns        True if allowed, false otherwise
-     */
-    inline bool isAllowedWithoutConfigureSelf(const crow::Request& req)
-    {
-        const std::string& userRole = req.userRole;
-        BMCWEB_LOG_DEBUG << "isAllowedWithoutConfigureSelf for the role "
-                         << req.userRole;
-        Privileges effectiveUserPrivileges;
-        if (req.session && req.session->isConfigureSelfOnly)
-        {
-            // The session has no privileges because it is limited to
-            // configureSelfOnly and we are disregarding that privilege.
-            // Note that some operations do not require any privilege.
-        }
-        else
-        {
-            effectiveUserPrivileges = redfish::getUserPrivileges(userRole);
-            effectiveUserPrivileges.resetSinglePrivilege("ConfigureSelf");
-        }
-        const auto& requiredPrivilegesIt = entityPrivileges.find(req.method());
-        return (requiredPrivilegesIt != entityPrivileges.end()) &&
-               isOperationAllowedWithPrivileges(requiredPrivilegesIt->second,
-                                                effectiveUserPrivileges);
-    }
 };
 
 } // namespace redfish
