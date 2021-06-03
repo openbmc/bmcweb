@@ -384,6 +384,10 @@ inline void requestRoutesChassis(App& app)
                                 asyncResp->res.jsonValue["Links"]["ManagedBy"] =
                                     {{{"@odata.id",
                                        "/redfish/v1/Managers/bmc"}}};
+                                asyncResp->res.jsonValue["Links"]["Storage"] = {
+                                    {{"@odata.id",
+                                      "/redfish/v1/Systems/system/Storage/" +
+                                          chassisId}}};
                                 getChassisState(asyncResp);
                             },
                             connectionName, path,
