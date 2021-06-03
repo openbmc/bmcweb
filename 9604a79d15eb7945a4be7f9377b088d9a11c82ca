@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "897cd163_7e2aa36b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 37
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-06-03T15:20:03Z",
+      "side": 1,
+      "message": "Does it make sense to link: \nhttps://gerrit.openbmc-project.xyz/c/openbmc/docs/+/41508/3/designs/dump-manager.md ?",
+      "revId": "9604a79d15eb7945a4be7f9377b088d9a11c82ca",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
