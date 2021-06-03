@@ -70,6 +70,24 @@
       "revId": "d9fcf1981da286ae258a7af92dd403d60a732985",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "775d5c16_aadcfd1c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 21
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-06-03T12:56:10Z",
+      "side": 1,
+      "message": "Just to follow up, Context is a required property. \nThe validator is correct here. \nhttps://redfish.dmtf.org/schemas/v1/EventDestination.v1_10_1.json\n            \"required\": [\n                \"Context\",\n                \"@odata.id\",\n                \"@odata.type\",\n                \"Id\",\n                \"Name\",\n                \"SubscriptionType\"\n            ],",
+      "parentUuid": "3cc32b9a_ff3acb27",
+      "revId": "d9fcf1981da286ae258a7af92dd403d60a732985",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
