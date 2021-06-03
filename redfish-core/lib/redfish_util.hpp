@@ -59,5 +59,51 @@ void getMainChassisId(std::shared_ptr<bmcweb::AsyncResp> asyncResp,
             "xyz.openbmc_project.Inventory.Item.Board",
             "xyz.openbmc_project.Inventory.Item.Chassis"});
 }
+
+template <typename CallbackFunc>
+void getChassisId(std::shared_ptr<bmcweb::AsyncResp> asyncResp,
+                  const std::string& objPath, CallbackFunc&& callback)
+{
+    // Find managed chassis
+    crow::connections::systemBus->async_method_call(
+        [callback, objPath,
+         asyncResp](const boost::system::error_code ec,
+                    const crow::openbmc_mapper::GetSubTreeType& subtree) {
+            if (ec)
+            {
+                BMCWEB_LOG_ERROR << ec;
+                return;
+            }
+            if (subtree.size() == 0)
+            {
+                BMCWEB_LOG_DEBUG << "Can't find chassis!";
+                return;
+            }
+
+            auto chassis = std::find_if(
+                subtree.begin(), subtree.end(), [&objPath](auto& object) {
+                    // The object is subpath of the chassis
+                    return boost::algorithm::starts_with(objPath, object.first);
+                });
+
+            if (chassis == subtree.end())
+            {
+                BMCWEB_LOG_DEBUG << "Can't find chassis!";
+                return;
+            }
+
+            std::string chassisId =
+                sdbusplus::message::object_path(chassis->first).filename();
+            BMCWEB_LOG_DEBUG << "chassisId = " << chassisId;
+            callback(chassisId, asyncResp);
+        },
+        "xyz.openbmc_project.ObjectMapper",
+        "/xyz/openbmc_project/object_mapper",
+        "xyz.openbmc_project.ObjectMapper", "GetSubTree",
+        "/xyz/openbmc_project/inventory", 0,
+        std::array<const char*, 2>{
+            "xyz.openbmc_project.Inventory.Item.Board",
+            "xyz.openbmc_project.Inventory.Item.Chassis"});
+}
 } // namespace redfish
 #endif
