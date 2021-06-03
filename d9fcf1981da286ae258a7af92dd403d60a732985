@@ -16,6 +16,24 @@
       "revId": "d9fcf1981da286ae258a7af92dd403d60a732985",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e8f5ef3f_91808c4a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 21
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1000400
+      },
+      "writtenOn": "2021-06-03T01:51:01Z",
+      "side": 1,
+      "message": "Done. \nEventServiceManager has no ownership of the snmp subscription, and we don\u0027t need Context in D-Bus snmp client. So set the context to “”.",
+      "parentUuid": "9407982f_e9c9ef31",
+      "revId": "d9fcf1981da286ae258a7af92dd403d60a732985",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
