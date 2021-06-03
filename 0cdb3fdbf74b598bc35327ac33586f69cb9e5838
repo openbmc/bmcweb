@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ba92ab19_654017eb",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-06-03T15:14:25Z",
+      "side": 1,
+      "message": "Can you add more? \nWhy is this needed? \nWhat is this property for? What do we need this in bmcweb?",
+      "revId": "0cdb3fdbf74b598bc35327ac33586f69cb9e5838",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b7613aa1_5f6727c8",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-06-03T15:14:25Z",
+      "side": 1,
+      "message": "Redfish Validator?",
+      "revId": "0cdb3fdbf74b598bc35327ac33586f69cb9e5838",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
