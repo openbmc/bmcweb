@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "21e9ade4_b6fd9d8e",
+        "filename": "redfish-core/lib/led.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 212,
+      "author": {
+        "id": 1000014
+      },
+      "writtenOn": "2021-06-03T13:38:25Z",
+      "side": 1,
+      "message": "getLEDService ?",
+      "revId": "38850af9fc4cdec80c0e8e95d6440abc5e7ec562",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3890014c_84d9a849",
+        "filename": "redfish-core/lib/led.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 350,
+      "author": {
+        "id": 1000014
+      },
+      "writtenOn": "2021-06-03T13:38:25Z",
+      "side": 1,
+      "message": "please put \"enclosure_identify\" into previous line ?.\n\nAlso, this one is missing getLEDService",
+      "revId": "38850af9fc4cdec80c0e8e95d6440abc5e7ec562",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
