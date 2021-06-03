@@ -52,6 +52,24 @@
       "revId": "d9fcf1981da286ae258a7af92dd403d60a732985",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3cc32b9a_ff3acb27",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 21
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1000400
+      },
+      "writtenOn": "2021-06-03T02:38:26Z",
+      "side": 1,
+      "message": "It\u0027s my mistake.\nWhen I use validator, I didn\u0027t manually add the SNMP client，so it won\u0027t report an error.\nOriginally, I thought validator would automatically use the doPatch command to add some data. But it didn\u0027t. It only tests the GET method. I know now.",
+      "parentUuid": "f6cf3eed_5dfa103e",
+      "revId": "d9fcf1981da286ae258a7af92dd403d60a732985",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
