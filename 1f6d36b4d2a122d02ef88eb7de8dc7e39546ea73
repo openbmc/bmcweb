@@ -94,6 +94,29 @@
     },
     {
       "key": {
+        "uuid": "2d6af32b_90c2f746",
+        "filename": "redfish-core/include/node.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 268,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-06-03T16:11:47Z",
+      "side": 1,
+      "message": "FYI, this class is going away, you will need to find another place to put this code.",
+      "range": {
+        "startLine": 258,
+        "startChar": 0,
+        "endLine": 268,
+        "endChar": 5
+      },
+      "revId": "1f6d36b4d2a122d02ef88eb7de8dc7e39546ea73",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "961f6e96_f87a79d7",
         "filename": "redfish-core/lib/certificate_service.hpp",
         "patchSetId": 4
