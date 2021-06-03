@@ -19,6 +19,7 @@
 #include "openbmc_dbus_rest.hpp"
 
 #include <app.hpp>
+#include <boost/algorithm/string.hpp>
 
 namespace redfish
 {
@@ -36,32 +37,37 @@ inline void requestRoutesStorageCollection(App& app)
                 asyncResp->res.jsonValue["Name"] = "Storage Collection";
                 asyncResp->res.jsonValue["Members"] = {
                     {{"@odata.id", "/redfish/v1/Systems/system/Storage/1"}}};
-                asyncResp->res.jsonValue["Members@odata.count"] = 1;
+                collection_util::getCollectionMembers(
+                    asyncResp, "/redfish/v1/Systems/system/Storage",
+                    {"xyz.openbmc_project.Inventory.Item.Board",
+                     "xyz.openbmc_project.Inventory.Item.Chassis"},
+                    /* createNew */ false);
             });
 }
 
 inline void requestRoutesStorage(App& app)
 {
-    BMCWEB_ROUTE(app, "/redfish/v1/Systems/system/Storage/1/")
+    BMCWEB_ROUTE(app, "/redfish/v1/Systems/system/Storage/<str>/")
         .privileges({"Login"})
         .methods(
-            boost::beast::http::verb::
-                get)([](const crow::Request&,
-                        const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
+            boost::beast::http::verb::get)([](const crow::Request&,
+                                              const std::shared_ptr<
+                                                  bmcweb::AsyncResp>& asyncResp,
+                                              const std::string& storageId) {
             asyncResp->res.jsonValue["@odata.type"] = "#Storage.v1_7_1.Storage";
             asyncResp->res.jsonValue["@odata.id"] =
-                "/redfish/v1/Systems/system/Storage/1";
+                "/redfish/v1/Systems/system/Storage/" + storageId;
             asyncResp->res.jsonValue["Name"] = "Storage";
-            asyncResp->res.jsonValue["Id"] = "1";
+            asyncResp->res.jsonValue["Id"] = storageId;
             asyncResp->res.jsonValue["Status"]["State"] = "Enabled";
 
             auto health = std::make_shared<HealthPopulate>(asyncResp);
             health->populate();
 
             crow::connections::systemBus->async_method_call(
-                [asyncResp,
-                 health](const boost::system::error_code ec,
-                         const std::vector<std::string>& storageList) {
+                [asyncResp, health,
+                 storageId](const boost::system::error_code ec,
+                            const std::vector<std::string>& storageList) {
                     nlohmann::json& storageArray =
                         asyncResp->res.jsonValue["Drives"];
                     storageArray = nlohmann::json::array();
@@ -82,6 +88,13 @@ inline void requestRoutesStorage(App& app)
 
                     for (const std::string& objpath : storageList)
                     {
+                        // Skip path if the object is not under storageId.
+                        if (!boost::algorithm::contains(objpath,
+                                                        "/" + storageId))
+                        {
+                            continue;
+                        }
+
                         std::size_t lastPos = objpath.rfind('/');
                         if (lastPos == std::string::npos ||
                             (objpath.size() <= lastPos + 1))
@@ -93,7 +106,8 @@ inline void requestRoutesStorage(App& app)
 
                         storageArray.push_back(
                             {{"@odata.id",
-                              "/redfish/v1/Systems/system/Storage/1/Drives/" +
+                              "/redfish/v1/Systems/system/Storage/" +
+                                  storageId + "/Drives/" +
                                   objpath.substr(lastPos + 1)}});
                     }
 
@@ -107,9 +121,9 @@ inline void requestRoutesStorage(App& app)
                     "xyz.openbmc_project.Inventory.Item.Drive"});
 
             crow::connections::systemBus->async_method_call(
-                [asyncResp,
-                 health](const boost::system::error_code ec,
-                         const crow::openbmc_mapper::GetSubTreeType& subtree) {
+                [asyncResp, health, storageId](
+                    const boost::system::error_code ec,
+                    const crow::openbmc_mapper::GetSubTreeType& subtree) {
                     if (ec || !subtree.size())
                     {
                         // doesn't have to be there
@@ -121,6 +135,12 @@ inline void requestRoutesStorage(App& app)
                     root = nlohmann::json::array();
                     for (const auto& [path, interfaceDict] : subtree)
                     {
+                        // Skip path if the object is not under storageId.
+                        if (!boost::algorithm::contains(path, "/" + storageId))
+                        {
+                            continue;
+                        }
+
                         std::size_t lastPos = path.rfind('/');
                         if (lastPos == std::string::npos ||
                             (path.size() <= lastPos + 1))
@@ -151,9 +171,8 @@ inline void requestRoutesStorage(App& app)
                         storageController["@odata.type"] =
                             "#Storage.v1_7_0.StorageController";
                         storageController["@odata.id"] =
-                            "/redfish/v1/Systems/system/Storage/1"
-                            "#/StorageControllers/" +
-                            std::to_string(index);
+                            "/redfish/v1/Systems/system/Storage/" + storageId +
+                            "#/StorageControllers/" + std::to_string(index);
                         storageController["Name"] = id;
                         storageController["MemberId"] = id;
                         storageController["Status"]["State"] = "Enabled";
@@ -265,15 +284,16 @@ inline void requestRoutesStorage(App& app)
 
 inline void requestRoutesDrive(App& app)
 {
-    BMCWEB_ROUTE(app, "/redfish/v1/Systems/system/Storage/1/Drives/<str>/")
+    BMCWEB_ROUTE(app, "/redfish/v1/Systems/system/Storage/<str>/Drives/<str>/")
         .privileges({"Login"})
         .methods(
             boost::beast::http::verb::get)([](const crow::Request&,
                                               const std::shared_ptr<
                                                   bmcweb::AsyncResp>& asyncResp,
+                                              const std::string& storageId,
                                               const std::string& driveId) {
             crow::connections::systemBus->async_method_call(
-                [asyncResp,
+                [asyncResp, storageId,
                  driveId](const boost::system::error_code ec,
                           const crow::openbmc_mapper::GetSubTreeType& subtree) {
                     if (ec)
@@ -305,8 +325,8 @@ inline void requestRoutesDrive(App& app)
                     asyncResp->res.jsonValue["@odata.type"] =
                         "#Drive.v1_7_0.Drive";
                     asyncResp->res.jsonValue["@odata.id"] =
-                        "/redfish/v1/Systems/system/Storage/1/Drives/" +
-                        driveId;
+                        "/redfish/v1/Systems/system/Storage/" + storageId +
+                        "/Drives/" + driveId;
                     asyncResp->res.jsonValue["Name"] = driveId;
                     asyncResp->res.jsonValue["Id"] = driveId;
 
