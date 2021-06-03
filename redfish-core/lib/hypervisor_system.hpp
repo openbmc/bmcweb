@@ -12,7 +12,12 @@
 #include <utility>
 #include <variant>
 
-namespace redfish
+// TODO(ed) requestRoutesHypervisorSystems seems to have copy-pasted a
+// lot of code, and has a number of methods that have name conflicts with the
+// normal ethernet internfaces in ethernet.hpp.  For the moment, we'll put
+// hypervisor in a namespace to isolate it, but these methods eventually need
+// deduplicated
+namespace redfish::hypervisor
 {
 
 /**
@@ -1103,4 +1108,4 @@ inline void requestRoutesHypervisorSystems(App& app)
                     std::variant<std::string>{std::move(command)});
             });
 }
-} // namespace redfish
+} // namespace redfish::hypervisor

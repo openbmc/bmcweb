@@ -198,7 +198,7 @@ class RedfishService
         requestRoutesEventDestination(app);
         requestRoutesSubmitTestEvent(app);
 
-        requestRoutesHypervisorSystems(app);
+        hypervisor::requestRoutesHypervisorSystems(app);
 
         requestRoutesTelemetryService(app);
         requestRoutesMetricReportDefinitionCollection(app);
