@@ -673,21 +673,6 @@ inline void handleHypervisorIPv4StaticPatch(
     }
 }
 
-inline bool isHostnameValid(const std::string& hostName)
-{
-    // As per RFC 1123
-    // Allow up to 255 characters
-    if (hostName.length() > 255)
-    {
-        return false;
-    }
-    // Validate the regex
-    const std::regex pattern(
-        "^[a-zA-Z0-9]|[a-zA-Z0-9][a-zA-Z0-9\\-]{0,61}[a-zA-Z0-9]$");
-
-    return std::regex_match(hostName, pattern);
-}
-
 inline void
     handleHostnamePatch(const std::string& hostName,
                         const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
