@@ -63,10 +63,7 @@ class RedfishService
      */
     RedfishService(App& app)
     {
-        nodes.emplace_back(std::make_unique<AccountService>(app));
-        nodes.emplace_back(std::make_unique<AccountsCollection>(app));
-        nodes.emplace_back(std::make_unique<ManagerAccount>(app));
-        nodes.emplace_back(std::make_unique<SessionCollection>(app));
+        requestAccountServiceRoutes(app);
         requestRoutesRoles(app);
         requestRoutesRoleCollection(app);
         requestRoutesServiceRoot(app);
