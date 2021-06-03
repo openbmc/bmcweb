@@ -13,12 +13,14 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 */
-#ifndef BMCWEB_ENABLE_REDFISH_ONE_CHASSIS
 #pragma once
+
+#include <functional>
 
 namespace redfish
 {
 
+#ifndef BMCWEB_ENABLE_REDFISH_ONE_CHASSIS
 template <typename CallbackFunc>
 void getMainChassisId(std::shared_ptr<bmcweb::AsyncResp> asyncResp,
                       CallbackFunc&& callback)
@@ -59,5 +61,60 @@ void getMainChassisId(std::shared_ptr<bmcweb::AsyncResp> asyncResp,
             "xyz.openbmc_project.Inventory.Item.Board",
             "xyz.openbmc_project.Inventory.Item.Chassis"});
 }
-} // namespace redfish
 #endif
+
+/**
+ * @brief Get the chassis is related to the resource.
+ *
+ * The chassis related to the resoruce is determined by the compare function.
+ * Once it find the chass, it will call the callback function.
+ *
+ * @param[in,out]   asyncResp    Async HTTP response.
+ * @param[in]       compare      Function to find the related chassis
+ * @param[in]       callback     Function to call once related chassis is found
+ */
+template <typename CallbackFunc>
+void getChassisId(std::shared_ptr<bmcweb::AsyncResp> asyncResp,
+                  std::function<bool(const std::string&)> compare,
+                  CallbackFunc&& callback)
+{
+    // Find managed chassis
+    crow::connections::systemBus->async_method_call(
+        [callback, compare,
+         asyncResp](const boost::system::error_code ec,
+                    const crow::openbmc_mapper::GetSubTreeType& subtree) {
+            if (ec)
+            {
+                BMCWEB_LOG_ERROR << ec;
+                return;
+            }
+            if (subtree.size() == 0)
+            {
+                BMCWEB_LOG_DEBUG << "Can't find chassis!";
+                return;
+            }
+
+            auto chassis = std::find_if(
+                subtree.begin(), subtree.end(),
+                [compare](auto& object) { return compare(object.first); });
+
+            if (chassis == subtree.end())
+            {
+                BMCWEB_LOG_DEBUG << "Can't find chassis!";
+                return;
+            }
+
+            std::string chassisId =
+                sdbusplus::message::object_path(chassis->first).filename();
+            BMCWEB_LOG_DEBUG << "chassisId = " << chassisId;
+            callback(chassisId, asyncResp);
+        },
+        "xyz.openbmc_project.ObjectMapper",
+        "/xyz/openbmc_project/object_mapper",
+        "xyz.openbmc_project.ObjectMapper", "GetSubTree",
+        "/xyz/openbmc_project/inventory", 0,
+        std::array<const char*, 2>{
+            "xyz.openbmc_project.Inventory.Item.Board",
+            "xyz.openbmc_project.Inventory.Item.Chassis"});
+}
+} // namespace redfish
