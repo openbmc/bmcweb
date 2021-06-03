@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "adfda498_a5d080ef",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-06-03T15:29:56Z",
+      "side": 1,
+      "message": "That\u0027s great, but doesn\u0027t really describe the change you made.  Considering you\u0027re changing the API surface, we need to be more clear about what changes you made, why you made them, and what the expected compatibility is.",
+      "range": {
+        "startLine": 8,
+        "startChar": 0,
+        "endLine": 13,
+        "endChar": 0
+      },
+      "revId": "1f6d36b4d2a122d02ef88eb7de8dc7e39546ea73",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "ef615cf0_24c37b99",
         "filename": "redfish-core/include/node.hpp",
         "patchSetId": 4
