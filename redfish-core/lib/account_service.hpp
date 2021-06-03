@@ -1256,13 +1256,7 @@ inline void updateUserProperties(std::shared_ptr<bmcweb::AsyncResp> asyncResp,
 inline void requestAccountServiceRoutes(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/AccountService/Accounts/")
-        // According to the PrivilegeRegistry, GET should actually be
-        // "Login". A "Login" only privilege would return an empty "Members"
-        // list. Not going to worry about this since none of the defined
-        // roles are just "Login". E.g. Readonly is {"Login",
-        // "ConfigureSelf"}. In the rare event anyone defines a role that
-        // has Login but not ConfigureSelf, implement this.
-        .privileges({{"ConfigureUsers"}, {"ConfigureSelf"}})
+        .privileges({{"Login"}})
         .methods(boost::beast::http::verb::get)(
             [](const crow::Request& req,
                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) -> void {
@@ -1273,25 +1267,27 @@ inline void requestAccountServiceRoutes(App& app)
                     {"Name", "Accounts Collection"},
                     {"Description", "BMC User Accounts"}};
 
-                Privileges requiredPermissionsToSeeNonSelf = {
-                    {"ConfigureUsers"}};
                 Privileges effectiveUserPrivileges =
                     redfish::getUserPrivileges(req.userRole);
-                bool userCanSeeAllAccounts =
-                    effectiveUserPrivileges.isSupersetOf(
-                        requiredPermissionsToSeeNonSelf);
 
                 std::string thisUser = req.session->username;
 
                 crow::connections::systemBus->async_method_call(
-                    [asyncResp, userCanSeeAllAccounts,
-                     thisUser](const boost::system::error_code ec,
-                               const ManagedObjectType& users) {
+                    [asyncResp, thisUser](const boost::system::error_code ec,
+                                          const ManagedObjectType& users) {
                         if (ec)
                         {
                             messages::internalError(asyncResp->res);
                             return;
                         }
+
+                        bool userCanSeeAllAccounts =
+                            effectiveUserPrivileges.isSupersetOf(
+                                {{"ConfigureUsers"}});
+
+                        bool userCanSeeSelf =
+                            effectiveUserPrivileges.isSupersetOf(
+                                {{"ConfigureSelf"}});
 
                         nlohmann::json& memberArray =
                             asyncResp->res.jsonValue["Members"];
@@ -1313,7 +1309,8 @@ inline void requestAccountServiceRoutes(App& app)
                             // Users without ConfigureUsers, only see their own
                             // account. Users with ConfigureUsers, see all
                             // accounts.
-                            if (thisUser == user || userCanSeeAllAccounts)
+                            if (userCanSeeAllAccounts ||
+                                (thisUser == user && userCanSeeSelf))
                             {
                                 memberArray.push_back(
                                     {{"@odata.id",
