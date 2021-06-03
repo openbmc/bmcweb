@@ -22,6 +22,30 @@
       "revId": "ef35926379426e81ebb3399ebfeeae88710dfd34",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6ed046af_8baa6504",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1000579
+      },
+      "writtenOn": "2021-06-03T07:39:50Z",
+      "side": 1,
+      "message": "Hi Ed Tanous, \n\nOk, from future contributions we will keep this thing in mind and take care of this for sure.\nBut for now, could you please go ahead and review my changes?",
+      "parentUuid": "48353290_feba6eaa",
+      "range": {
+        "startLine": 12,
+        "startChar": 0,
+        "endLine": 35,
+        "endChar": 27
+      },
+      "revId": "ef35926379426e81ebb3399ebfeeae88710dfd34",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
