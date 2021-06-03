@@ -68,7 +68,7 @@ class RedfishService
         requestRoutesRoleCollection(app);
         requestRoutesServiceRoot(app);
         requestRoutesNetworkProtocol(app);
-        nodes.emplace_back(std::make_unique<SessionService>(app));
+        requestRoutesSession(app);
         nodes.emplace_back(std::make_unique<EthernetCollection>(app));
         nodes.emplace_back(std::make_unique<EthernetInterface>(app));
         requestRoutesThermal(app);
