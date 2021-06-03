@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "7a9eaeae_b21af19e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2021-06-03T17:03:29Z",
+      "side": 1,
+      "message": "sure, I\u0027ll document it a bit more.",
+      "parentUuid": "089cc081_51b9a718",
+      "revId": "a70bc056bc63c2332b6da55b8d52305ce78f071c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "8b612947_3de0fcba",
         "filename": "/COMMIT_MSG",
         "patchSetId": 2
@@ -47,6 +65,24 @@
       "writtenOn": "2021-06-03T16:53:04Z",
       "side": 1,
       "message": "This isn\u0027t going to work for any other inventory items.",
+      "revId": "a70bc056bc63c2332b6da55b8d52305ce78f071c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d55eb16a_f20de07d",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 906,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2021-06-03T17:03:29Z",
+      "side": 1,
+      "message": "oh yeah, thank. I was using it for test and forgot to remove it.\n\nIt will have to be some common service.\n\nI think I\u0027ll have to have to grab the object through the object mapper instead of being service specific.",
+      "parentUuid": "4ef75ec0_3df8bfd6",
       "revId": "a70bc056bc63c2332b6da55b8d52305ce78f071c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
