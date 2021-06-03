@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9407982f_e9c9ef31",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 21
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-06-03T00:23:40Z",
+      "side": 1,
+      "message": "Pulled this down and tested this, I see the following validator error: \n\n*** /redfish/v1/EventService/Subscriptions/snmp2\n\t Type (#EventDestination.v1_7_0.EventDestination), GET SUCCESS (time: 0.089218)\nContext: Mandatory prop does not exist\n\t  FAIL...\n\n*** /redfish/v1/EventService/Subscriptions/snmp3\n\t Type (#EventDestination.v1_7_0.EventDestination), GET SUCCESS (time: 0.086898)\nContext: Mandatory prop does not exist\n\t  FAIL...\n\n*** /redfish/v1/EventService/Subscriptions/snmp1\n\t Type (#EventDestination.v1_7_0.EventDestination), GET SUCCESS (time: 0.087168)\nContext: Mandatory prop does not exist\n\t  FAIL...",
+      "revId": "d9fcf1981da286ae258a7af92dd403d60a732985",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
