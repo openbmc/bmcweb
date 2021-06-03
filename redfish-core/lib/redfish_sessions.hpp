@@ -106,9 +106,11 @@ class Sessions : public Node
         // ConfigureSelf privilege.
         if (session->username != req.session->username)
         {
-            if (!isAllowedWithoutConfigureSelf(req))
+            Privileges effectiveUserPrivileges =
+                redfish::getUserPrivileges(req.userRole);
+
+            if (!effectiveUserPrivileges.isSupersetOf({{"ConfigureUsers"}}))
             {
-                BMCWEB_LOG_WARNING << "DELETE Session denied access";
                 messages::insufficientPrivilege(asyncResp->res);
                 return;
             }
