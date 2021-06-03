@@ -452,6 +452,35 @@ class Drive : public Node
                     },
                     connectionName, path, "org.freedesktop.DBus.Properties",
                     "Get", "xyz.openbmc_project.State.Drive", "Rebuilding");
+
+                crow::connections::systemBus->async_method_call(
+                    [asyncResp](
+                        const boost::system::error_code ec,
+                        const std::variant<std::string>& property) {
+                        if (ec)
+                        {
+                            BMCWEB_LOG_DEBUG
+                                << "DBUS response error for Location";
+                            messages::internalError(asyncResp->res);
+                            return;
+                        }
+
+                        const std::string* value =
+                            std::get_if<std::string>(&property);
+                        if (value == nullptr)
+                        {
+                            BMCWEB_LOG_DEBUG << "Null value returned "
+                                                "for locaton code";
+                            messages::internalError(asyncResp->res);
+                            return;
+                        }
+                        asyncResp->res.jsonValue["PhysicalLocation"]["PartLocation"]
+                                                ["ServiceLabel"] = *value;
+                    },
+                    connectionName, path, "org.freedesktop.DBus.Properties",
+                    "Get",
+                    "xyz.openbmc_project.Inventory.Decorator.LocationCode",
+                    "LocationCode");
             },
             "xyz.openbmc_project.ObjectMapper",
             "/xyz/openbmc_project/object_mapper",
