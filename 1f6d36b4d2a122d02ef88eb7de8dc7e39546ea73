@@ -141,6 +141,30 @@
     },
     {
       "key": {
+        "uuid": "e14baf02_aedf32c3",
+        "filename": "redfish-core/include/node.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 268,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-06-03T17:38:01Z",
+      "side": 1,
+      "message": "Directly into the account service implementation, and comparing against a const variable in the same file instead of the class implementation.\n\nNo, this code shouldn\u0027t go in the same place.\n\n\nThe real issue this patchset is pushing at is that individual properties have permissions, which we in no way modeled in the code;  We\u0027ll need to have a generalized solution for that, rather than just adding what I suspect is a lot of code to each property to check against a given privilege.\n\nAlso, this will need to be compatible for when custom privilege registries are allowed, which further complicates this.",
+      "parentUuid": "0da83b74_e0433065",
+      "range": {
+        "startLine": 258,
+        "startChar": 0,
+        "endLine": 268,
+        "endChar": 5
+      },
+      "revId": "1f6d36b4d2a122d02ef88eb7de8dc7e39546ea73",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "961f6e96_f87a79d7",
         "filename": "redfish-core/lib/certificate_service.hpp",
         "patchSetId": 4
