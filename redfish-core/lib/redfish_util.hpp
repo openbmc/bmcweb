@@ -14,10 +14,12 @@
 // limitations under the License.
 */
 #pragma once
-#ifndef BMCWEB_ENABLE_REDFISH_ONE_CHASSIS
+
+#include <functional>
 
 namespace redfish
 {
+#ifndef BMCWEB_ENABLE_REDFISH_ONE_CHASSIS
 
 enum NetworkProtocolUnitStructFields
 {
@@ -223,5 +225,102 @@ void getPortNumber(const std::string& socketPath, CallbackFunc&& callback)
         "org.freedesktop.systemd1.Socket", "Listen");
 }
 
-} // namespace redfish
 #endif
+
+/**
+ * @brief Check if the child path is a subpath of the parent path
+ *
+ * @param[in]  child   D-bus path that is expected to be a subpath of parent
+ * @param[in]  parent  D-bus path that is expected to be a superpath of child
+ *
+ * @return true if child is a subpath of parent, otherwise, return false.
+ */
+bool validSubpath(const std::string& child, const std::string& parent)
+{
+    sdbusplus::message::object_path path(child);
+    while (!path.str.empty() && !parent.empty() &&
+           path.str.size() >= parent.size())
+    {
+        if (path.str == parent)
+        {
+            return true;
+        }
+
+        path = path.parent_path();
+    }
+    return false;
+}
+
+/**
+ * @brief Find the ChassidId in the ObjectMapper Subtree Outputs
+ *
+ * @param[in]   ec       Error code
+ * @param[in]   subtree  Object Mapper subtree
+ * @param[in]   path     Object path of the resource
+ */
+inline std::optional<std::string>
+    findChassidId(const boost::system::error_code ec,
+                  const crow::openbmc_mapper::GetSubTreeType& subtree,
+                  const std::string& path)
+{
+    if (ec)
+    {
+        BMCWEB_LOG_ERROR << ec;
+        return std::nullopt;
+    }
+    if (subtree.size() == 0)
+    {
+        BMCWEB_LOG_DEBUG << "Can't find chassis!";
+        return std::nullopt;
+    }
+
+    auto chassis = std::find_if(subtree.begin(), subtree.end(),
+                                [path](const auto& object) {
+                                    return validSubpath(path, object.first);
+                                });
+    if (chassis == subtree.end())
+    {
+        BMCWEB_LOG_DEBUG << "Can't find chassis!";
+        return std::nullopt;
+    }
+
+    std::string chassisId =
+        sdbusplus::message::object_path(chassis->first).filename();
+    BMCWEB_LOG_DEBUG << "chassisId = " << chassisId;
+
+    return chassisId;
+}
+
+/**
+ * @brief Get the chassis is related to the resource.
+ *
+ * The chassis related to the resource is determined by the compare function.
+ * Once it find the chassis, it will call the callback function.
+ *
+ * @param[in,out]   asyncResp    Async HTTP response
+ * @param[in]       path         Object path of the current resource
+ * @param[in]       callback     Function to call once related chassis is found
+ */
+void getChassisId(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& path,
+    const std::function<void(const std::optional<std::string>&)>& callback)
+{
+    // Find managed chassis
+    crow::connections::systemBus->async_method_call(
+        [asyncResp, path,
+         callback](const boost::system::error_code ec,
+                   const crow::openbmc_mapper::GetSubTreeType& subtree) {
+            auto chassidId = findChassidId(ec, subtree, path);
+            callback(chassidId);
+        },
+        "xyz.openbmc_project.ObjectMapper",
+        "/xyz/openbmc_project/object_mapper",
+        "xyz.openbmc_project.ObjectMapper", "GetSubTree",
+        "/xyz/openbmc_project/inventory", 0,
+        std::array<const char*, 2>{
+            "xyz.openbmc_project.Inventory.Item.Board",
+            "xyz.openbmc_project.Inventory.Item.Chassis"});
+}
+
+} // namespace redfish
