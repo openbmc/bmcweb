@@ -72,6 +72,58 @@ inline void getChassisState(std::shared_ptr<bmcweb::AsyncResp> aResp)
 }
 
 /**
+ * @brief Retrieves resources over dbus to link to the chassis
+ *
+ * @param[in] aResp       - Shared pointer for completing asynchronous calls.
+ * @param[in] chassisPath  - Chassis dbus path to look for the storage.
+ * @param[in] resoruce     - Resource to link to the chassis
+ * @param[in] resourceURI  - Resource URI to add the resource
+ * @param[in] interfaces   - List of interfaces to constrain the GetSubTree
+ * search
+ *
+ * @return None.
+ */
+inline void getChassisResources(std::shared_ptr<bmcweb::AsyncResp> aResp,
+                                const std::string& chassisPath,
+                                const std::string& resource,
+                                const std::string& resourceURI,
+                                const std::vector<const char*>& interfaces)
+{
+    crow::connections::systemBus->async_method_call(
+        [aResp{std::move(aResp)}, chassisPath, resource,
+         resourceURI](const boost::system::error_code ec,
+                      const std::vector<std::string>& objects) {
+            if (ec)
+            {
+                BMCWEB_LOG_DEBUG << "DBUS response error";
+                return;
+            }
+
+            nlohmann::json resources = nlohmann::json::array();
+            for (const auto& object : objects)
+            {
+                sdbusplus::message::object_path path(object);
+                std::string leaf = path.filename();
+                if (leaf.empty())
+                {
+                    continue;
+                }
+
+                resources.push_back({{"@odata.id", resourceURI + leaf}});
+            }
+
+            if (!resources.empty())
+            {
+                aResp->res.jsonValue["Links"][resource] = std::move(resources);
+            }
+        },
+        "xyz.openbmc_project.ObjectMapper",
+        "/xyz/openbmc_project/object_mapper",
+        "xyz.openbmc_project.ObjectMapper", "GetSubTreePaths", chassisPath, 0,
+        interfaces);
+}
+
+/**
  * DBus types primitives for several generic DBus interfaces
  * TODO(Pawel) consider move this to separate file into boost::dbus
  */
@@ -331,11 +383,11 @@ inline void requestRoutesChassis(App& app)
                         }
 
                         crow::connections::systemBus->async_method_call(
-                            [asyncResp, chassisId(std::string(chassisId))](
-                                const boost::system::error_code /*ec2*/,
-                                const std::vector<
-                                    std::pair<std::string, VariantType>>&
-                                    propertiesList) {
+                            [asyncResp, chassisId(std::string(chassisId)),
+                             path](const boost::system::error_code /*ec2*/,
+                                   const std::vector<
+                                       std::pair<std::string, VariantType>>&
+                                       propertiesList) {
                                 for (const std::pair<std::string, VariantType>&
                                          property : propertiesList)
                                 {
@@ -386,7 +438,13 @@ inline void requestRoutesChassis(App& app)
                                 asyncResp->res.jsonValue["Links"]["ManagedBy"] =
                                     {{{"@odata.id",
                                        "/redfish/v1/Managers/bmc"}}};
+
                                 getChassisState(asyncResp);
+                                getChassisResources(
+                                    asyncResp, path, "Storage",
+                                    "/redfish/v1/Systems/system/Storage/",
+                                    {"xyz.openbmc_project."
+                                     "Inventory.Item.Storage"});
                             },
                             connectionName, path,
                             "org.freedesktop.DBus.Properties", "GetAll",
