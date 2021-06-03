@@ -54,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "cf700206_1875c338",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2021-06-03T19:10:25Z",
+      "side": 1,
+      "message": "Do we just need these for the Redfish Validator test?",
+      "parentUuid": "8b612947_3de0fcba",
+      "revId": "a70bc056bc63c2332b6da55b8d52305ce78f071c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "4ef75ec0_3df8bfd6",
         "filename": "redfish-core/lib/update_service.hpp",
         "patchSetId": 2
@@ -86,6 +104,24 @@
       "revId": "a70bc056bc63c2332b6da55b8d52305ce78f071c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fbf7ce28_5354b535",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 906,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2021-06-03T19:10:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d55eb16a_f20de07d",
+      "revId": "a70bc056bc63c2332b6da55b8d52305ce78f071c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
