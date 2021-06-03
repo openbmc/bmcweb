@@ -69,8 +69,7 @@ class RedfishService
         requestRoutesServiceRoot(app);
         requestRoutesNetworkProtocol(app);
         requestRoutesSession(app);
-        nodes.emplace_back(std::make_unique<EthernetCollection>(app));
-        nodes.emplace_back(std::make_unique<EthernetInterface>(app));
+        requestEthernetInterfacesRoutes(app);
         requestRoutesThermal(app);
         requestRoutesManagerCollection(app);
         requestRoutesManager(app);
@@ -91,9 +90,6 @@ class RedfishService
 #endif
         requestRoutesSoftwareInventoryCollection(app);
         requestRoutesSoftwareInventory(app);
-        nodes.emplace_back(
-            std::make_unique<VlanNetworkInterfaceCollection>(app));
-        nodes.emplace_back(std::make_unique<VlanNetworkInterface>(app));
 
         requestRoutesSystemLogServiceCollection(app);
         requestRoutesEventLogService(app);
