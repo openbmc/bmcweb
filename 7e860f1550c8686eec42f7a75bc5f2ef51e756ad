@@ -52,6 +52,23 @@
       "revId": "7e860f1550c8686eec42f7a75bc5f2ef51e756ad",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9c556445_e6144cd3",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 564,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2021-06-04T20:42:01Z",
+      "side": 0,
+      "message": "It looks like this URL will not be supported after the change.\nI am reading this correctly.",
+      "revId": "7e860f1550c8686eec42f7a75bc5f2ef51e756ad",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
