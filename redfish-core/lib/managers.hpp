@@ -1987,7 +1987,15 @@ inline void requestRoutesManager(App& app)
                 "/redfish/v1/Managers/bmc/Actions/Manager.ResetToDefaults";
             resetToDefaults["ResetType@Redfish.AllowableValues"] = {"ResetAll"};
 
-            asyncResp->res.jsonValue["DateTime"] = crow::utility::dateTimeNow();
+            std::string dateTime = crow::utility::dateTimeNow();
+            asyncResp->res.jsonValue["DateTime"] = dateTime;
+
+            std::size_t offSet = dateTime.rfind('+');
+            if (offSet != std::string::npos)
+            {
+                asyncResp->res.jsonValue["DateTimeLocalOffset"] =
+                    dateTime.substr(offSet);
+            }
 
             // Fill in SerialConsole info
             asyncResp->res.jsonValue["SerialConsole"]["ServiceEnabled"] = true;
