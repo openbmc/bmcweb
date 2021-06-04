@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "dcf02d11_b6d43cec",
+        "filename": "redfish-core/lib/hypervisor_system.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-06-04T16:56:00Z",
+      "side": 1,
+      "message": "spelling",
+      "range": {
+        "startLine": 17,
+        "startChar": 19,
+        "endLine": 17,
+        "endChar": 31
+      },
+      "revId": "3d268a91e861ff28bb09a5a1834df48d9c1117b0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
