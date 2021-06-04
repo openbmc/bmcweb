@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "4dcbdf96_c9ee3aef",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000003
+      },
+      "writtenOn": "2021-06-04T18:31:59Z",
+      "side": 1,
+      "message": "The upload size is limited by bmcweb via the http-body-limit option (https://github.com/openbmc/bmcweb/blob/90e97e1d26b78d899a543831a8051dacbbdde71a/meson_options.txt#L30).\n\nIf we want to display the allowable upload size it probably should be this value instead?",
+      "revId": "b4d52b7d0e8af5395273a6bfb4a290adcfd03296",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "2d247b9a_7ef64712",
         "filename": "redfish-core/lib/update_service.hpp",
         "patchSetId": 1
