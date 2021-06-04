@@ -993,6 +993,10 @@ inline void requestRoutesEventLogService(App& app)
                 "System Event Log Service";
             asyncResp->res.jsonValue["Id"] = "EventLog";
             asyncResp->res.jsonValue["OverWritePolicy"] = "WrapsWhenFull";
+            std::string dateTime = crow::utility::dateTimeNow();
+            asyncResp->res.jsonValue["DateTime"] = dateTime;
+            asyncResp->res.jsonValue["DateTimeLocalOffset"] =
+                dateTime.substr(dateTime.rfind('+'));
             asyncResp->res.jsonValue["Entries"] = {
                 {"@odata.id",
                  "/redfish/v1/Systems/system/LogServices/EventLog/Entries"}};
