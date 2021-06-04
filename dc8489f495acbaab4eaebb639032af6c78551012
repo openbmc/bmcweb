@@ -46,6 +46,30 @@
       "revId": "dc8489f495acbaab4eaebb639032af6c78551012",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c35036b7_ef470c6c",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 23
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1000400
+      },
+      "writtenOn": "2021-06-04T01:16:15Z",
+      "side": 1,
+      "message": "EventServiceManager has no ownership of the snmp subscription, We didn\u0027t use “Class subscription” like line 519, so there is no “subValue” like line 782 to store the Context.\n\nThere is no property to store context in D-BUS snmp client too:\nbusctl introspect xyz.openbmc_project.Network.SNMP /xyz/openbmc_project/network/snmp/manager/1\nNAME                                TYPE      SIGNATURE RESULT/VALUE    FLAGS\norg.freedesktop.DBus.Introspectable interface -         -               -\n.Introspect                         method    -         s               -\norg.freedesktop.DBus.Peer           interface -         -               -\n.GetMachineId                       method    -         s               -\n.Ping                               method    -         -               -\norg.freedesktop.DBus.Properties     interface -         -               -\n.Get                                method    ss        v               -\n.GetAll                             method    s         a{sv}           -\n.Set                                method    ssv       -               -\n.PropertiesChanged                  signal    sa{sv}as  -               -\nxyz.openbmc_project.Network.Client  interface -         -               -\n.Address                            property  s         \"192.168.31.89\" emits-change writable\n.Port                               property  q         162             emits-change writable\nxyz.openbmc_project.Object.Delete   interface -         -               -\n.Delete                             method    -         -               -\n\n@Ed @Gunnar\nSo how do we store \"Context\"? Do we need to use global variables?",
+      "parentUuid": "b1cbbbfc_c065bc98",
+      "range": {
+        "startLine": 55,
+        "startChar": 4,
+        "endLine": 55,
+        "endChar": 45
+      },
+      "revId": "dc8489f495acbaab4eaebb639032af6c78551012",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
