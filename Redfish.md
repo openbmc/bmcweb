@@ -313,6 +313,7 @@ PowerControl Voltages PowerSupplies Redundancy
 ##### Manager
 - Actions
 - DateTime
+- DateTimeLocalOffset
 - Description
 - EthernetInterfaces
 - FirmwareVersion
@@ -553,6 +554,8 @@ the other.
 #### /redfish/v1/Systems/system/LogServices/EventLog/
 ##### LogService
 - Actions
+- DateTime
+- DateTimeLocalOffset
 - Description
 - Entries
 - OverWritePolicy
@@ -698,6 +701,7 @@ the other.
 - FirmwareInventory
 - HttpPushUri
 - HttpPushUriOptions
+- MaxImageSizeBytes
 - ServiceEnabled
 
 #### /redfish/v1/UpdateService/FirmwareInventory/

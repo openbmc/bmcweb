@@ -594,10 +594,32 @@ inline std::string getDateTime(const std::time_t& time)
     return redfishDateTime;
 }
 
-inline std::string dateTimeNow()
+/**
+ * Returns the current Date, Time & the local Time Offset
+ * infromation in a pair
+ *
+ * @param[in] None
+ *
+ * @return std::pair<std::string, std::string>, which consist
+ * of current DateTime & the TimeOffset strings respectively.
+ */
+inline std::pair<std::string, std::string> getDateTimeOffsetNow()
 {
     std::time_t time = std::time(nullptr);
-    return getDateTime(time);
+    std::string dateTime = getDateTime(time);
+
+    /* extract the local Time Offset value from the
+     * recevied dateTime string.
+     */
+    std::string timeOffset("Z00:00");
+    std::size_t lastPos = dateTime.size();
+    std::size_t len = timeOffset.size();
+    if (lastPos > len)
+    {
+        timeOffset = dateTime.substr(lastPos - len);
+    }
+
+    return std::make_pair(dateTime, timeOffset);
 }
 
 inline bool constantTimeStringCompare(const std::string_view a,

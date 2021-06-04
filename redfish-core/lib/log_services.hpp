@@ -995,6 +995,14 @@ inline void requestRoutesEventLogService(App& app)
                 "System Event Log Service";
             asyncResp->res.jsonValue["Id"] = "EventLog";
             asyncResp->res.jsonValue["OverWritePolicy"] = "WrapsWhenFull";
+
+            std::pair<std::string, std::string> redfishDateTimeOffset =
+                crow::utility::getDateTimeOffsetNow();
+
+            asyncResp->res.jsonValue["DateTime"] = redfishDateTimeOffset.first;
+            asyncResp->res.jsonValue["DateTimeLocalOffset"] =
+                redfishDateTimeOffset.second;
+
             asyncResp->res.jsonValue["Entries"] = {
                 {"@odata.id",
                  "/redfish/v1/Systems/system/LogServices/EventLog/Entries"}};
@@ -1830,6 +1838,14 @@ inline void requestRoutesBMCJournalLogService(App& app)
                     "BMC Journal Log Service";
                 asyncResp->res.jsonValue["Id"] = "BMC Journal";
                 asyncResp->res.jsonValue["OverWritePolicy"] = "WrapsWhenFull";
+
+                std::pair<std::string, std::string> redfishDateTimeOffset =
+                    crow::utility::getDateTimeOffsetNow();
+                asyncResp->res.jsonValue["DateTime"] =
+                    redfishDateTimeOffset.first;
+                asyncResp->res.jsonValue["DateTimeLocalOffset"] =
+                    redfishDateTimeOffset.second;
+
                 asyncResp->res.jsonValue["Entries"] = {
                     {"@odata.id",
                      "/redfish/v1/Managers/bmc/LogServices/Journal/Entries"}};
@@ -2071,6 +2087,14 @@ inline void requestRoutesBMCDumpService(App& app)
                 asyncResp->res.jsonValue["Description"] = "BMC Dump LogService";
                 asyncResp->res.jsonValue["Id"] = "Dump";
                 asyncResp->res.jsonValue["OverWritePolicy"] = "WrapsWhenFull";
+
+                std::pair<std::string, std::string> redfishDateTimeOffset =
+                    crow::utility::getDateTimeOffsetNow();
+                asyncResp->res.jsonValue["DateTime"] =
+                    redfishDateTimeOffset.first;
+                asyncResp->res.jsonValue["DateTimeLocalOffset"] =
+                    redfishDateTimeOffset.second;
+
                 asyncResp->res.jsonValue["Entries"] = {
                     {"@odata.id",
                      "/redfish/v1/Managers/bmc/LogServices/Dump/Entries"}};
@@ -2174,6 +2198,14 @@ inline void requestRoutesSystemDumpService(App& app)
                     "System Dump LogService";
                 asyncResp->res.jsonValue["Id"] = "Dump";
                 asyncResp->res.jsonValue["OverWritePolicy"] = "WrapsWhenFull";
+
+                std::pair<std::string, std::string> redfishDateTimeOffset =
+                    crow::utility::getDateTimeOffsetNow();
+                asyncResp->res.jsonValue["DateTime"] =
+                    redfishDateTimeOffset.first;
+                asyncResp->res.jsonValue["DateTimeLocalOffset"] =
+                    redfishDateTimeOffset.second;
+
                 asyncResp->res.jsonValue["Entries"] = {
                     {"@odata.id",
                      "/redfish/v1/Systems/system/LogServices/Dump/Entries"}};
@@ -2285,6 +2317,13 @@ inline void requestRoutesCrashdumpService(App& app)
             asyncResp->res.jsonValue["Id"] = "Oem Crashdump";
             asyncResp->res.jsonValue["OverWritePolicy"] = "WrapsWhenFull";
             asyncResp->res.jsonValue["MaxNumberOfRecords"] = 3;
+
+            std::pair<std::string, std::string> redfishDateTimeOffset =
+                crow::utility::getDateTimeOffsetNow();
+            asyncResp->res.jsonValue["DateTime"] = redfishDateTimeOffset.first;
+            asyncResp->res.jsonValue["DateTimeLocalOffset"] =
+                redfishDateTimeOffset.second;
+
             asyncResp->res.jsonValue["Entries"] = {
                 {"@odata.id",
                  "/redfish/v1/Systems/system/LogServices/Crashdump/Entries"}};
@@ -2730,6 +2769,14 @@ inline void requestRoutesPostCodesLogService(App& app)
                     {"Entries",
                      {{"@odata.id", "/redfish/v1/Systems/system/LogServices/"
                                     "PostCodes/Entries"}}}};
+
+                std::pair<std::string, std::string> redfishDateTimeOffset =
+                    crow::utility::getDateTimeOffsetNow();
+                asyncResp->res.jsonValue["DateTime"] =
+                    redfishDateTimeOffset.first;
+                asyncResp->res.jsonValue["DateTimeLocalOffset"] =
+                    redfishDateTimeOffset.second;
+
                 asyncResp->res.jsonValue["Actions"]["#LogService.ClearLog"] = {
                     {"target",
                      "/redfish/v1/Systems/system/LogServices/PostCodes/"
