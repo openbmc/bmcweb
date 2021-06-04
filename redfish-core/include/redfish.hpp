@@ -201,15 +201,7 @@ class RedfishService
         requestRoutesMetricReportDefinition(app);
         requestRoutesMetricReportCollection(app);
         requestRoutesMetricReport(app);
-
-        for (const auto& node : nodes)
-        {
-            node->initPrivileges();
-        }
     }
-
-  private:
-    std::vector<std::unique_ptr<Node>> nodes;
 };
 
 } // namespace redfish
