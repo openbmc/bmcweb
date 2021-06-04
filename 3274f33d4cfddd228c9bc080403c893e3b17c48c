@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "b8bcb4a0_e1d1b099",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2021-06-04T04:43:25Z",
+      "side": 1,
+      "message": "yes, we can\u0027t delete, this commit fixes that behaviour",
+      "parentUuid": "41866a8a_edb48a05",
+      "range": {
+        "startLine": 12,
+        "startChar": 0,
+        "endLine": 13,
+        "endChar": 14
+      },
+      "revId": "3274f33d4cfddd228c9bc080403c893e3b17c48c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "ccf2ef72_d331e35e",
         "filename": "/COMMIT_MSG",
         "patchSetId": 5
@@ -36,6 +60,30 @@
       "writtenOn": "2021-05-31T17:24:11Z",
       "side": 1,
       "message": "isn\u0027t this the same as below, this one is with DHCP disabled? and the 2nd one with DHCP enabled?\n\nSomething like would be more clear:\n \nWith DHCP disabled: \ncurl -k -v -H \"Content-Type: application/json\" -H \"X-Auth-Token: $bmc_token\" -X PATCH -d \u0027{\"IPv4StaticAddresses\": [null]}\u0027 https://${bmc_ip}/redfish/v1/Systems/hypervisor/EthernetInterfaces/eth0\n...\n\u003cinsert http response codes\u003e\n...\n\nWith DHCP enabled: \n curl -k -D headers.txt -H \"Content-Type: application/json\" -H \"X-Auth-Token: $bmc_token\" -X PATCH -d \u0027{\"IPv4StaticAddresses\": [null]}\u0027 https://${bmc_ip}/redfish/v1/Systems/hypervisor/EthernetInterfaces/eth0\n{\n  \"error\": {\n    \"@Message.ExtendedInfo\": [",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 19,
+        "endChar": 201
+      },
+      "revId": "3274f33d4cfddd228c9bc080403c893e3b17c48c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6f527900_a8aa3da7",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2021-06-04T04:43:25Z",
+      "side": 1,
+      "message": "yes.that\u0027s correct.",
+      "parentUuid": "ccf2ef72_d331e35e",
       "range": {
         "startLine": 19,
         "startChar": 0,
