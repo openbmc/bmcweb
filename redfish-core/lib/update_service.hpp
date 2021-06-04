@@ -15,6 +15,10 @@
 */
 #pragma once
 
+#include "bmcweb_config.h"
+
+#include <sys/statvfs.h>
+
 #include <app.hpp>
 #include <boost/container/flat_map.hpp>
 #include <utils/fw_utils.hpp>
@@ -523,6 +527,10 @@ inline void requestRoutesUpdateService(App& app)
             asyncResp->res.jsonValue["ServiceEnabled"] = true;
             asyncResp->res.jsonValue["FirmwareInventory"] = {
                 {"@odata.id", "/redfish/v1/UpdateService/FirmwareInventory"}};
+            // Get the MaxImageSizeBytes
+            asyncResp->res.jsonValue["MaxImageSizeBytes"] =
+                bmcwebHttpReqBodyLimitMb * 1024 * 1024;
+
 #ifdef BMCWEB_INSECURE_ENABLE_REDFISH_FW_TFTP_UPDATE
             // Update Actions object.
             nlohmann::json& updateSvcSimpleUpdate =
