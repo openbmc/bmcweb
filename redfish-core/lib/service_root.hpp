@@ -16,6 +16,7 @@
 #pragma once
 
 #include <app.hpp>
+#include <utils/fw_utils.hpp>
 #include <utils/systemd_utils.hpp>
 
 namespace redfish
@@ -30,11 +31,17 @@ inline void requestRoutesServiceRoot(App& app)
             [uuid](const crow::Request&,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
                 asyncResp->res.jsonValue["@odata.type"] =
-                    "#ServiceRoot.v1_5_0.ServiceRoot";
+                    "#ServiceRoot.v1_6_0.ServiceRoot";
                 asyncResp->res.jsonValue["@odata.id"] = "/redfish/v1";
                 asyncResp->res.jsonValue["Id"] = "RootService";
                 asyncResp->res.jsonValue["Name"] = "Root Service";
                 asyncResp->res.jsonValue["RedfishVersion"] = "1.9.0";
+                asyncResp->res.jsonValue["Vendor"] = "OpenBMC";
+
+                /* Get the BMC machine name */
+                fw_util::populateFirmwareInformation(
+                    asyncResp, fw_util::bmcPurpose, "Product", false);
+
                 asyncResp->res.jsonValue["Links"]["Sessions"] = {
                     {"@odata.id", "/redfish/v1/SessionService/Sessions"}};
                 asyncResp->res.jsonValue["AccountService"] = {
@@ -47,8 +54,6 @@ inline void requestRoutesServiceRoot(App& app)
                     {"@odata.id", "/redfish/v1/Managers"}};
                 asyncResp->res.jsonValue["SessionService"] = {
                     {"@odata.id", "/redfish/v1/SessionService"}};
-                asyncResp->res.jsonValue["Managers"] = {
-                    {"@odata.id", "/redfish/v1/Managers"}};
                 asyncResp->res.jsonValue["Systems"] = {
                     {"@odata.id", "/redfish/v1/Systems"}};
                 asyncResp->res.jsonValue["Registries"] = {

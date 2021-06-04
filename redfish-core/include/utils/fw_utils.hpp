@@ -238,6 +238,33 @@ inline void
                                         .jsonValue[activeVersionPropName] =
                                         *version;
                                 }
+
+                                if (!activeVersionPropName.compare("Product") &&
+                                    runningImage)
+                                {
+                                    it = propertiesList.find("BmcMachine");
+                                    if (it == propertiesList.end())
+                                    {
+                                        BMCWEB_LOG_ERROR
+                                            << "Can't find property "
+                                               "\"BmcMachine\"!";
+                                        messages::internalError(aResp->res);
+                                        return;
+                                    }
+                                    const std::string* bmcMachine =
+                                        std::get_if<std::string>(&it->second);
+                                    if (bmcMachine == nullptr)
+                                    {
+                                        BMCWEB_LOG_ERROR
+                                            << "Error getting bmcMachine";
+                                        messages::internalError(aResp->res);
+                                        return;
+                                    }
+
+                                    aResp->res
+                                        .jsonValue[activeVersionPropName] =
+                                        *bmcMachine;
+                                }
                             },
                             obj.second[0].first, obj.first,
                             "org.freedesktop.DBus.Properties", "GetAll",
