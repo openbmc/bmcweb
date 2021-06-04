@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2d247b9a_7ef64712",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 389,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-06-04T13:36:32Z",
+      "side": 1,
+      "message": "Declare your variables where they\u0027re used please",
+      "range": {
+        "startLine": 389,
+        "startChar": 0,
+        "endLine": 389,
+        "endChar": 12
+      },
+      "revId": "b4d52b7d0e8af5395273a6bfb4a290adcfd03296",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ae70a2be_e5d91b77",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 394,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-06-04T13:36:32Z",
+      "side": 1,
+      "message": "This doesn\u0027t seems like the right thing to be doing here.  This will allow a user to completely consume the ram with a firmware update image;  Should we instead just make this the current size of flash (64mb or 32mb respectively)",
+      "range": {
+        "startLine": 394,
+        "startChar": 10,
+        "endLine": 394,
+        "endChar": 17
+      },
+      "revId": "b4d52b7d0e8af5395273a6bfb4a290adcfd03296",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
