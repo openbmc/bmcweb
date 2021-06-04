@@ -15,7 +15,6 @@
 // limitations under the License.
 */
 #pragma once
-#include "node.hpp"
 
 #include <boost/asio/strand.hpp>
 #include <boost/beast/core/span.hpp>
