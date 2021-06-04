@@ -464,7 +464,7 @@ inline void requestRoutesTaskService(App& app)
                 asyncResp->res.jsonValue["Name"] = "Task Service";
                 asyncResp->res.jsonValue["Id"] = "TaskService";
                 asyncResp->res.jsonValue["DateTime"] =
-                    crow::utility::dateTimeNow();
+                    crow::utility::getDateTimeOffsetNow().first;
                 asyncResp->res.jsonValue["CompletedTaskOverWritePolicy"] =
                     "Oldest";
 
