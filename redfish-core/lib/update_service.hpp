@@ -15,6 +15,8 @@
 */
 #pragma once
 
+#include <sys/statvfs.h>
+
 #include <app.hpp>
 #include <boost/container/flat_map.hpp>
 #include <utils/fw_utils.hpp>
@@ -379,6 +381,29 @@ static void monitorForSoftwareAvailable(
 }
 
 /**
+ * Get the free ram size for the "/tmp" dir
+ * and update the MaxImageSizeBytes property value accordingly.
+ */
+inline void getMemorySize(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
+{
+    int ret;
+    uint64_t uploadT;
+    uint64_t keepBlock = 1024;
+    struct statvfs statBuf;
+
+    ret = statvfs("/tmp", &statBuf);
+    if (ret != 0)
+    {
+        // error happens, just quits here
+        BMCWEB_LOG_ERROR << "Unable to get the MaxImageSizeBytes";
+        return;
+    }
+
+    uploadT = (statBuf.f_bavail - keepBlock) * statBuf.f_bsize;
+    asyncResp->res.jsonValue["MaxImageSizeBytes"] = uploadT;
+}
+
+/**
  * UpdateServiceActionsSimpleUpdate class supports handle POST method for
  * SimpleUpdate action.
  */
@@ -523,6 +548,9 @@ inline void requestRoutesUpdateService(App& app)
             asyncResp->res.jsonValue["ServiceEnabled"] = true;
             asyncResp->res.jsonValue["FirmwareInventory"] = {
                 {"@odata.id", "/redfish/v1/UpdateService/FirmwareInventory"}};
+            // Get the MaxImageSizeBytes
+            getMemorySize(asyncResp);
+
 #ifdef BMCWEB_INSECURE_ENABLE_REDFISH_FW_TFTP_UPDATE
             // Update Actions object.
             nlohmann::json& updateSvcSimpleUpdate =
