@@ -30,11 +30,13 @@ inline void requestRoutesServiceRoot(App& app)
             [uuid](const crow::Request&,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
                 asyncResp->res.jsonValue["@odata.type"] =
-                    "#ServiceRoot.v1_5_0.ServiceRoot";
+                    "#ServiceRoot.v1_6_0.ServiceRoot";
                 asyncResp->res.jsonValue["@odata.id"] = "/redfish/v1";
                 asyncResp->res.jsonValue["Id"] = "RootService";
                 asyncResp->res.jsonValue["Name"] = "Root Service";
                 asyncResp->res.jsonValue["RedfishVersion"] = "1.9.0";
+                asyncResp->res.jsonValue["Product"] = "Redfish Server";
+                asyncResp->res.jsonValue["Vendor"] = "OpenBMC";
                 asyncResp->res.jsonValue["Links"]["Sessions"] = {
                     {"@odata.id", "/redfish/v1/SessionService/Sessions"}};
                 asyncResp->res.jsonValue["AccountService"] = {
