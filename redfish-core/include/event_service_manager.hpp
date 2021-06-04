@@ -446,7 +446,7 @@ class Subscription
                         {"Message", "Generated test event"},
                         {"MessageId", "OpenBMC.0.2.TestEventLog"},
                         {"MessageArgs", nlohmann::json::array()},
-                        {"EventTimestamp", crow::utility::dateTimeNow()},
+                        {"EventTimestamp", crow::utility::dateTimeNow().first},
                         {"Context", customText}};
 
         nlohmann::json msg = {{"@odata.type", "#Event.v1_4_0.Event"},
@@ -1061,7 +1061,7 @@ class EventServiceManager
         nlohmann::json event = {
             {"EventId", eventId},
             {"MemberId", memberId},
-            {"EventTimestamp", crow::utility::dateTimeNow()},
+            {"EventTimestamp", crow::utility::dateTimeNow().first},
             {"OriginOfCondition", origin}};
         for (nlohmann::json::iterator it = event.begin(); it != event.end();
              ++it)
@@ -1117,7 +1117,7 @@ class EventServiceManager
         {
             std::shared_ptr<Subscription> entry = it.second;
             nlohmann::json msgJson = {
-                {"Timestamp", crow::utility::dateTimeNow()},
+                {"Timestamp", crow::utility::dateTimeNow().first},
                 {"OriginOfCondition", "/ibm/v1/HMC/BroadcastService"},
                 {"Name", "Broadcast Message"},
                 {"Message", broadcastMsg}};
