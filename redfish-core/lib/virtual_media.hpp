@@ -19,7 +19,6 @@
 #include <boost/container/flat_map.hpp>
 #include <boost/process/async_pipe.hpp>
 #include <boost/type_traits/has_dereference.hpp>
-#include <node.hpp>
 #include <utils/json_utils.hpp>
 // for GetObjectType and ManagedObjectType
 #include <account_service.hpp>
