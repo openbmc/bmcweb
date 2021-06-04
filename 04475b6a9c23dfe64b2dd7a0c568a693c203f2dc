@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "1a79af5d_4755a8a4",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 2068,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-06-04T23:21:23Z",
+      "side": 1,
+      "message": "yep.  Sorry you keep having to find these.  I haven\u0027t fully reviewed all this stuff myself.\n\nFixed.",
+      "parentUuid": "b725e759_7729d51e",
+      "range": {
+        "startLine": 2068,
+        "startChar": 22,
+        "endLine": 2068,
+        "endChar": 41
+      },
+      "revId": "04475b6a9c23dfe64b2dd7a0c568a693c203f2dc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e7749cf9_5f2b6c56",
         "filename": "redfish-core/lib/ethernet.hpp",
         "patchSetId": 3
@@ -36,6 +60,30 @@
       "writtenOn": "2021-06-04T14:34:33Z",
       "side": 1,
       "message": "this is different",
+      "range": {
+        "startLine": 2242,
+        "startChar": 22,
+        "endLine": 2242,
+        "endChar": 41
+      },
+      "revId": "04475b6a9c23dfe64b2dd7a0c568a693c203f2dc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8d46780d_c54d7168",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 2242,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-06-04T23:21:23Z",
+      "side": 1,
+      "message": "Fixed.",
+      "parentUuid": "e7749cf9_5f2b6c56",
       "range": {
         "startLine": 2242,
         "startChar": 22,
