@@ -1252,85 +1252,46 @@ inline void updateUserProperties(std::shared_ptr<bmcweb::AsyncResp> asyncResp,
         });
 }
 
-inline void requestAccountServiceRoutes(App& app)
+inline void handleAccountServiceAccountsGet(
+    const crow::Request& req,
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
-    BMCWEB_ROUTE(app, "/redfish/v1/AccountService/Accounts/")
-        .privileges({{"Login"}})
-        .methods(boost::beast::http::verb::get)(
-            [](const crow::Request& req,
-               const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) -> void {
-                asyncResp->res.jsonValue = {
-                    {"@odata.id", "/redfish/v1/AccountService/Accounts"},
-                    {"@odata.type", "#ManagerAccountCollection."
-                                    "ManagerAccountCollection"},
-                    {"Name", "Accounts Collection"},
-                    {"Description", "BMC User Accounts"}};
+    asyncResp->res.jsonValue = {
+        {"@odata.id", "/redfish/v1/AccountService/Accounts"},
+        {"@odata.type", "#ManagerAccountCollection."
+                        "ManagerAccountCollection"},
+        {"Name", "Accounts Collection"},
+        {"Description", "BMC User Accounts"}};
 
-                Privileges effectiveUserPrivileges =
-                    redfish::getUserPrivileges(req.userRole);
+    Privileges requiredPermissionsToSeeNonSelf = {{"ConfigureUsers"}};
+    Privileges effectiveUserPrivileges =
+        redfish::getUserPrivileges(req.userRole);
+    bool userCanSeeAllAccounts =
+        effectiveUserPrivileges.isSupersetOf(requiredPermissionsToSeeNonSelf);
 
-                std::string thisUser = req.session->username;
-
-                crow::connections::systemBus->async_method_call(
-                    [asyncResp, thisUser](const boost::system::error_code ec,
-                                          const ManagedObjectType& users) {
-                        if (ec)
-                        {
-                            messages::internalError(asyncResp->res);
-                            return;
-                        }
-
-                        bool userCanSeeAllAccounts =
-                            effectiveUserPrivileges.isSupersetOf(
-                                {{"ConfigureUsers"}});
-
-                        bool userCanSeeSelf =
-                            effectiveUserPrivileges.isSupersetOf(
-                                {{"ConfigureSelf"}});
-
-                        nlohmann::json& memberArray =
-                            asyncResp->res.jsonValue["Members"];
-                        memberArray = nlohmann::json::array();
-
-                        for (auto& userpath : users)
-                        {
-                            std::string user = userpath.first.filename();
-                            if (user.empty())
-                            {
-                                messages::internalError(asyncResp->res);
-                                BMCWEB_LOG_ERROR << "Invalid firmware ID";
-
-                                return;
-                            }
-
-                            // As clarified by Redfish here:
-                            // https://redfishforum.com/thread/281/manageraccountcollection-change-allows-account-enumeration
-                            // Users without ConfigureUsers, only see their own
-                            // account. Users with ConfigureUsers, see all
-                            // accounts.
-                            if (userCanSeeAllAccounts ||
-                                (thisUser == user && userCanSeeSelf))
-                            {
-                                memberArray.push_back(
-                                    {{"@odata.id",
-                                      "/redfish/v1/AccountService/Accounts/" +
-                                          user}});
-                            }
-                        }
-                        asyncResp->res.jsonValue["Members@odata.count"] =
-                            memberArray.size();
-                    },
+    // As clarified by Redfish here:
+    // https://redfishforum.com/thread/281/manageraccountcollection-change-allows-account-enumeration
+    // Users without ConfigureUsers, only see their own
+    // account. Users with ConfigureUsers, see all
+    // accounts.
+    if (userCanSeeAllAccounts || (thisUser == user && userCanSeeSelf))
+    {
+        memberArray.push_back(
+            {{"@odata.id", "/redfish/v1/AccountService/Accounts/" + user}});
+    }
+}
+asyncResp->res.jsonValue["Members@odata.count"] = memberArray.size();
+},
                     "xyz.openbmc_project.User.Manager",
                     "/xyz/openbmc_project/user",
                     "org.freedesktop.DBus.ObjectManager", "GetManagedObjects");
-            });
+});
 
-    BMCWEB_ROUTE(app, "/redfish/v1/AccountService/Accounts/")
-        .privileges({{"ConfigureUsers"}})
-        .methods(boost::beast::http::verb::post)([](const crow::Request& req,
-                                                    const std::shared_ptr<
-                                                        bmcweb::AsyncResp>&
-                                                        asyncResp) -> void {
+BMCWEB_ROUTE(app, "/redfish/v1/AccountService/Accounts/")
+    .privileges({{"ConfigureUsers"}})
+    .methods(boost::beast::http::verb::post)(
+        [](const crow::Request& req,
+           const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) -> void {
             std::string username;
             std::string password;
             std::optional<std::string> roleId("User");
@@ -1339,367 +1300,423 @@ inline void requestAccountServiceRoutes(App& app)
                                      "Password", password, "RoleId", roleId,
                                      "Enabled", enabled))
             {
+                messages::internalError(asyncResp->res);
                 return;
             }
 
-            std::string priv = getPrivilegeFromRoleId(*roleId);
-            if (priv.empty())
+            nlohmann::json& memberArray = asyncResp->res.jsonValue["Members"];
+            memberArray = nlohmann::json::array();
+
+            for (auto& userpath : users)
             {
-                messages::propertyValueNotInList(asyncResp->res, *roleId,
-                                                 "RoleId");
+                std::string user = userpath.first.filename();
+                if (user.empty())
+                {
+                    messages::internalError(asyncResp->res);
+                    BMCWEB_LOG_ERROR << "Invalid firmware ID";
+
+                    return;
+                }
+
+                bool userCanSeeAllAccounts =
+                    effectiveUserPrivileges.isSupersetOf({{"ConfigureUsers"}});
+
+                         bool userCanSeeSelf =
+                             effectiveUserPrivileges.isSupersetOf(
+                                 {
+            {
+                "ConfigureSelf"
+            }};
+
+                // As clarified by Redfish here:
+                // https://redfishforum.com/thread/281/manageraccountcollection-change-allows-account-enumeration
+                // Users without ConfigureUsers, only see their own
+                // account. Users with ConfigureUsers, see all
+                // accounts.
+                             if (userCanSeeAllAccounts ||
+                                 (thisUser == user && userCanSeeSelf))
+                {
+            memberArray.push_back(
+                {{"@odata.id", "/redfish/v1/AccountService/Accounts/" + user}});
+                }
+            }
+            asyncResp->res.jsonValue["Members@odata.count"] =
+                memberArray.size();
+        },
+        "xyz.openbmc_project.User.Manager", "/xyz/openbmc_project/user",
+        "org.freedesktop.DBus.ObjectManager", "GetManagedObjects");
+}
+
+inline void handleAccountServiceAccountsPost(
+    const crow::Request& req,
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
+{
+    std::string username;
+    std::string password;
+    std::optional<std::string> roleId("User");
+    std::optional<bool> enabled = true;
+    if (!json_util::readJson(req, asyncResp->res, "UserName", username,
+                             "Password", password, "RoleId", roleId, "Enabled",
+                             enabled))
+    {
+        return;
+    }
+
+    std::string priv = getPrivilegeFromRoleId(*roleId);
+    if (priv.empty())
+    {
+        messages::propertyValueNotInList(asyncResp->res, *roleId, "RoleId");
+        return;
+    }
+    // TODO: Following override will be reverted once support in
+    // phosphor-user-manager is added. In order to avoid dependency
+    // issues, this is added in bmcweb, which will removed, once
+    // phosphor-user-manager supports priv-noaccess.
+    if (priv == "priv-noaccess")
+    {
+        roleId = "";
+    }
+    else
+    {
+        roleId = priv;
+    }
+
+    // Reading AllGroups property
+    crow::connections::systemBus->async_method_call(
+        [asyncResp, username, password{std::move(password)}, roleId,
+         enabled](const boost::system::error_code ec,
+                  const std::variant<std::vector<std::string>>& allGroups) {
+            if (ec)
+            {
+                BMCWEB_LOG_DEBUG << "ERROR with async_method_call";
+                messages::internalError(asyncResp->res);
                 return;
             }
-            // TODO: Following override will be reverted once support in
-            // phosphor-user-manager is added. In order to avoid dependency
-            // issues, this is added in bmcweb, which will removed, once
-            // phosphor-user-manager supports priv-noaccess.
-            if (priv == "priv-noaccess")
+
+            const std::vector<std::string>* allGroupsList =
+                std::get_if<std::vector<std::string>>(&allGroups);
+
+            if (allGroupsList == nullptr || allGroupsList->empty())
             {
-                roleId = "";
-            }
-            else
-            {
-                roleId = priv;
+                messages::internalError(asyncResp->res);
+                return;
             }
 
-            // Reading AllGroups property
             crow::connections::systemBus->async_method_call(
-                [asyncResp, username, password{std::move(password)}, roleId,
-                 enabled](
-                    const boost::system::error_code ec,
-                    const std::variant<std::vector<std::string>>& allGroups) {
-                    if (ec)
+                [asyncResp, username,
+                 password](const boost::system::error_code ec2,
+                           sdbusplus::message::message& m) {
+                    if (ec2)
                     {
-                        BMCWEB_LOG_DEBUG << "ERROR with async_method_call";
-                        messages::internalError(asyncResp->res);
+                        userErrorMessageHandler(m.get_error(), asyncResp,
+                                                username, "");
                         return;
                     }
 
-                    const std::vector<std::string>* allGroupsList =
-                        std::get_if<std::vector<std::string>>(&allGroups);
-
-                    if (allGroupsList == nullptr || allGroupsList->empty())
+                    if (pamUpdatePassword(username, password) != PAM_SUCCESS)
                     {
-                        messages::internalError(asyncResp->res);
+                        // At this point we have a user that's been
+                        // created, but the password set
+                        // failed.Something is wrong, so delete the user
+                        // that we've already created
+                        crow::connections::systemBus->async_method_call(
+                            [asyncResp,
+                             password](const boost::system::error_code ec3) {
+                                if (ec3)
+                                {
+                                    messages::internalError(asyncResp->res);
+                                    return;
+                                }
+
+                                // If password is invalid
+                                messages::propertyValueFormatError(
+                                    asyncResp->res, password, "Password");
+                            },
+                            "xyz.openbmc_project.User.Manager",
+                            "/xyz/openbmc_project/user/" + username,
+                            "xyz.openbmc_project.Object.Delete", "Delete");
+
+                        BMCWEB_LOG_ERROR << "pamUpdatePassword Failed";
                         return;
                     }
 
-                    crow::connections::systemBus->async_method_call(
-                        [asyncResp, username,
-                         password](const boost::system::error_code ec2,
-                                   sdbusplus::message::message& m) {
-                            if (ec2)
-                            {
-                                userErrorMessageHandler(
-                                    m.get_error(), asyncResp, username, "");
-                                return;
-                            }
-
-                            if (pamUpdatePassword(username, password) !=
-                                PAM_SUCCESS)
-                            {
-                                // At this point we have a user that's been
-                                // created, but the password set
-                                // failed.Something is wrong, so delete the user
-                                // that we've already created
-                                crow::connections::systemBus->async_method_call(
-                                    [asyncResp, password](
-                                        const boost::system::error_code ec3) {
-                                        if (ec3)
-                                        {
-                                            messages::internalError(
-                                                asyncResp->res);
-                                            return;
-                                        }
-
-                                        // If password is invalid
-                                        messages::propertyValueFormatError(
-                                            asyncResp->res, password,
-                                            "Password");
-                                    },
-                                    "xyz.openbmc_project.User.Manager",
-                                    "/xyz/openbmc_project/user/" + username,
-                                    "xyz.openbmc_project.Object.Delete",
-                                    "Delete");
-
-                                BMCWEB_LOG_ERROR << "pamUpdatePassword Failed";
-                                return;
-                            }
-
-                            messages::created(asyncResp->res);
-                            asyncResp->res.addHeader(
-                                "Location",
-                                "/redfish/v1/AccountService/Accounts/" +
-                                    username);
-                        },
-                        "xyz.openbmc_project.User.Manager",
-                        "/xyz/openbmc_project/user",
-                        "xyz.openbmc_project.User.Manager", "CreateUser",
-                        username, *allGroupsList, *roleId, *enabled);
+                    messages::created(asyncResp->res);
+                    asyncResp->res.addHeader(
+                        "Location",
+                        "/redfish/v1/AccountService/Accounts/" + username);
                 },
                 "xyz.openbmc_project.User.Manager", "/xyz/openbmc_project/user",
-                "org.freedesktop.DBus.Properties", "Get",
-                "xyz.openbmc_project.User.Manager", "AllGroups");
-        });
+                "xyz.openbmc_project.User.Manager", "CreateUser", username,
+                *allGroupsList, *roleId, *enabled);
+        },
+        "xyz.openbmc_project.User.Manager", "/xyz/openbmc_project/user",
+        "org.freedesktop.DBus.Properties", "Get",
+        "xyz.openbmc_project.User.Manager", "AllGroups");
+}
+
+inline void handleAccountServiceAccountsMembersGet(
+    const crow::Request& req,
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& accountName)
+{
+    if (req.session->username != accountName)
+    {
+        // At this point we've determined that the user is trying to
+        // modify a user that isn't them.  We need to verify that they
+        // have permissions to modify other users, so re-run the auth
+        // check with the same permissions, minus ConfigureSelf.
+        Privileges effectiveUserPrivileges =
+            redfish::getUserPrivileges(req.userRole);
+        Privileges requiredPermissionsToChangeNonSelf = {{"ConfigureUsers"},
+                                                         {"ConfigureManager"}};
+        if (!effectiveUserPrivileges.isSupersetOf(
+                requiredPermissionsToChangeNonSelf))
+        {
+            BMCWEB_LOG_DEBUG << "GET Account denied access";
+            messages::insufficientPrivilege(asyncResp->res);
+            return;
+        }
+    }
+
+    crow::connections::systemBus->async_method_call(
+        [asyncResp, accountName](const boost::system::error_code ec,
+                                 const ManagedObjectType& users) {
+            if (ec)
+            {
+                messages::internalError(asyncResp->res);
+                return;
+            }
+            auto userIt = users.begin();
+
+            for (; userIt != users.end(); userIt++)
+            {
+                if (boost::ends_with(userIt->first.str, "/" + accountName))
+                {
+                    break;
+                }
+            }
+            if (userIt == users.end())
+            {
+                messages::resourceNotFound(asyncResp->res, "ManagerAccount",
+                                           accountName);
+                return;
+            }
+
+            asyncResp->res.jsonValue = {
+                {"@odata.type", "#ManagerAccount.v1_4_0.ManagerAccount"},
+                {"Name", "User Account"},
+                {"Description", "User Account"},
+                {"Password", nullptr},
+                {"AccountTypes", {"Redfish"}}};
+
+            for (const auto& interface : userIt->second)
+            {
+                if (interface.first == "xyz.openbmc_project.User.Attributes")
+                {
+                    for (const auto& property : interface.second)
+                    {
+                        if (property.first == "UserEnabled")
+                        {
+                            const bool* userEnabled =
+                                std::get_if<bool>(&property.second);
+                            if (userEnabled == nullptr)
+                            {
+                                BMCWEB_LOG_ERROR << "UserEnabled wasn't a bool";
+                                messages::internalError(asyncResp->res);
+                                return;
+                            }
+                            asyncResp->res.jsonValue["Enabled"] = *userEnabled;
+                        }
+                        else if (property.first == "UserLockedForFailedAttempt")
+                        {
+                            const bool* userLocked =
+                                std::get_if<bool>(&property.second);
+                            if (userLocked == nullptr)
+                            {
+                                BMCWEB_LOG_ERROR << "UserLockedForF"
+                                                    "ailedAttempt "
+                                                    "wasn't a bool";
+                                messages::internalError(asyncResp->res);
+                                return;
+                            }
+                            asyncResp->res.jsonValue["Locked"] = *userLocked;
+                            asyncResp->res
+                                .jsonValue["Locked@Redfish.AllowableValues"] = {
+                                "false"}; // can only unlock accounts
+                        }
+                        else if (property.first == "UserPrivilege")
+                        {
+                            const std::string* userPrivPtr =
+                                std::get_if<std::string>(&property.second);
+                            if (userPrivPtr == nullptr)
+                            {
+                                BMCWEB_LOG_ERROR << "UserPrivilege wasn't a "
+                                                    "string";
+                                messages::internalError(asyncResp->res);
+                                return;
+                            }
+                            std::string role =
+                                getRoleIdFromPrivilege(*userPrivPtr);
+                            if (role.empty())
+                            {
+                                BMCWEB_LOG_ERROR << "Invalid user role";
+                                messages::internalError(asyncResp->res);
+                                return;
+                            }
+                            asyncResp->res.jsonValue["RoleId"] = role;
+
+                            asyncResp->res.jsonValue["Links"]["Role"] = {
+                                {"@odata.id", "/redfish/v1/AccountService/"
+                                              "Roles/" +
+                                                  role}};
+                        }
+                        else if (property.first == "UserPasswordExpired")
+                        {
+                            const bool* userPasswordExpired =
+                                std::get_if<bool>(&property.second);
+                            if (userPasswordExpired == nullptr)
+                            {
+                                BMCWEB_LOG_ERROR << "UserPassword"
+                                                    "Expired "
+                                                    "wasn't a bool";
+                                messages::internalError(asyncResp->res);
+                                return;
+                            }
+                            asyncResp->res.jsonValue["PasswordChangeRequired"] =
+                                *userPasswordExpired;
+                        }
+                    }
+                }
+            }
+
+            asyncResp->res.jsonValue["@odata.id"] =
+                "/redfish/v1/AccountService/Accounts/" + accountName;
+            asyncResp->res.jsonValue["Id"] = accountName;
+            asyncResp->res.jsonValue["UserName"] = accountName;
+        },
+        "xyz.openbmc_project.User.Manager", "/xyz/openbmc_project/user",
+        "org.freedesktop.DBus.ObjectManager", "GetManagedObjects");
+}
+
+inline void handleAccountServiceAccountsMembersPatch(
+    const crow::Request& req,
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& username)
+{
+    std::optional<std::string> newUserName;
+    std::optional<std::string> password;
+    std::optional<bool> enabled;
+    std::optional<std::string> roleId;
+    std::optional<bool> locked;
+    if (!json_util::readJson(req, asyncResp->res, "UserName", newUserName,
+                             "Password", password, "RoleId", roleId, "Enabled",
+                             enabled, "Locked", locked))
+    {
+        return;
+    }
+
+    // Perform a proper ConfigureSelf authority check.  If the
+    // session is being used to PATCH a property other than
+    // Password, then the ConfigureSelf privilege does not apply.
+    // If the user is operating on an account not their own, then
+    // their ConfigureSelf privilege does not apply.  In either
+    // case, perform the authority check again without the user's
+    // ConfigureSelf privilege.
+    if ((username != req.session->username))
+    {
+        Privileges requiredPermissionsToChangeNonSelf = {{"ConfigureUsers"}};
+        Privileges effectiveUserPrivileges =
+            redfish::getUserPrivileges(req.userRole);
+
+        if (!effectiveUserPrivileges.isSupersetOf(
+                requiredPermissionsToChangeNonSelf))
+        {
+            messages::insufficientPrivilege(asyncResp->res);
+            return;
+        }
+    }
+
+    // if user name is not provided in the patch method or if it
+    // matches the user name in the URI, then we are treating it as
+    // updating user properties other then username. If username
+    // provided doesn't match the URI, then we are treating this as
+    // user rename request.
+    if (!newUserName || (newUserName.value() == username))
+    {
+        updateUserProperties(asyncResp, username, password, enabled, roleId,
+                             locked);
+        return;
+    }
+    crow::connections::systemBus->async_method_call(
+        [asyncResp, username, password(std::move(password)),
+         roleId(std::move(roleId)), enabled, newUser{std::string(*newUserName)},
+         locked](const boost::system::error_code ec,
+                 sdbusplus::message::message& m) {
+            if (ec)
+            {
+                userErrorMessageHandler(m.get_error(), asyncResp, newUser,
+                                        username);
+                return;
+            }
+
+            updateUserProperties(asyncResp, newUser, password, enabled, roleId,
+                                 locked);
+        },
+        "xyz.openbmc_project.User.Manager", "/xyz/openbmc_project/user",
+        "xyz.openbmc_project.User.Manager", "RenameUser", username,
+        *newUserName);
+}
+
+inline void handleAccountServiceAccountsMemberDelete(
+    const crow::Request& /*req*/,
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& username)
+{
+    const std::string userPath = "/xyz/openbmc_project/user/" + username;
+
+    crow::connections::systemBus->async_method_call(
+        [asyncResp, username](const boost::system::error_code ec) {
+            if (ec)
+            {
+                messages::resourceNotFound(
+                    asyncResp->res, "#ManagerAccount.v1_4_0.ManagerAccount",
+                    username);
+                return;
+            }
+
+            messages::accountRemoved(asyncResp->res);
+        },
+        "xyz.openbmc_project.User.Manager", userPath,
+        "xyz.openbmc_project.Object.Delete", "Delete");
+}
+
+inline void requestAccountServiceRoutes(App& app)
+{
+    BMCWEB_ROUTE(app, "/redfish/v1/AccountService/Accounts/")
+        .privileges({{"Login"}})
+        .methods(boost::beast::http::verb::get)(
+            handleAccountServiceAccountsGet);
+
+    BMCWEB_ROUTE(app, "/redfish/v1/AccountService/Accounts/")
+        .privileges({{"ConfigureUsers"}, {"ConfigureSelf"}})
+        .methods(boost::beast::http::verb::post)(
+            handleAccountServiceAccountsPost);
 
     BMCWEB_ROUTE(app, "/redfish/v1/AccountService/Accounts/<str>/")
         .privileges(
             {{"ConfigureUsers"}, {"ConfigureManager"}, {"ConfigureSelf"}})
-        .methods(
-            boost::beast::http::verb::
-                get)([](const crow::Request& req,
-                        const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                        const std::string& accountName) -> void {
-            if (req.session->username != accountName)
-            {
-                // At this point we've determined that the user is trying to
-                // modify a user that isn't them.  We need to verify that they
-                // have permissions to modify other users, so re-run the auth
-                // check with the same permissions, minus ConfigureSelf.
-                Privileges effectiveUserPrivileges =
-                    redfish::getUserPrivileges(req.userRole);
-                Privileges requiredPermissionsToChangeNonSelf = {
-                    {"ConfigureUsers"}, {"ConfigureManager"}};
-                if (!effectiveUserPrivileges.isSupersetOf(
-                        requiredPermissionsToChangeNonSelf))
-                {
-                    BMCWEB_LOG_DEBUG << "GET Account denied access";
-                    messages::insufficientPrivilege(asyncResp->res);
-                    return;
-                }
-            }
-
-            crow::connections::systemBus->async_method_call(
-                [asyncResp, accountName](const boost::system::error_code ec,
-                                         const ManagedObjectType& users) {
-                    if (ec)
-                    {
-                        messages::internalError(asyncResp->res);
-                        return;
-                    }
-                    auto userIt = users.begin();
-
-                    for (; userIt != users.end(); userIt++)
-                    {
-                        if (boost::ends_with(userIt->first.str,
-                                             "/" + accountName))
-                        {
-                            break;
-                        }
-                    }
-                    if (userIt == users.end())
-                    {
-                        messages::resourceNotFound(
-                            asyncResp->res, "ManagerAccount", accountName);
-                        return;
-                    }
-
-                    asyncResp->res.jsonValue = {
-                        {"@odata.type",
-                         "#ManagerAccount.v1_4_0.ManagerAccount"},
-                        {"Name", "User Account"},
-                        {"Description", "User Account"},
-                        {"Password", nullptr},
-                        {"AccountTypes", {"Redfish"}}};
-
-                    for (const auto& interface : userIt->second)
-                    {
-                        if (interface.first ==
-                            "xyz.openbmc_project.User.Attributes")
-                        {
-                            for (const auto& property : interface.second)
-                            {
-                                if (property.first == "UserEnabled")
-                                {
-                                    const bool* userEnabled =
-                                        std::get_if<bool>(&property.second);
-                                    if (userEnabled == nullptr)
-                                    {
-                                        BMCWEB_LOG_ERROR
-                                            << "UserEnabled wasn't a bool";
-                                        messages::internalError(asyncResp->res);
-                                        return;
-                                    }
-                                    asyncResp->res.jsonValue["Enabled"] =
-                                        *userEnabled;
-                                }
-                                else if (property.first ==
-                                         "UserLockedForFailedAttempt")
-                                {
-                                    const bool* userLocked =
-                                        std::get_if<bool>(&property.second);
-                                    if (userLocked == nullptr)
-                                    {
-                                        BMCWEB_LOG_ERROR << "UserLockedForF"
-                                                            "ailedAttempt "
-                                                            "wasn't a bool";
-                                        messages::internalError(asyncResp->res);
-                                        return;
-                                    }
-                                    asyncResp->res.jsonValue["Locked"] =
-                                        *userLocked;
-                                    asyncResp->res.jsonValue
-                                        ["Locked@Redfish.AllowableValues"] = {
-                                        "false"}; // can only unlock accounts
-                                }
-                                else if (property.first == "UserPrivilege")
-                                {
-                                    const std::string* userPrivPtr =
-                                        std::get_if<std::string>(
-                                            &property.second);
-                                    if (userPrivPtr == nullptr)
-                                    {
-                                        BMCWEB_LOG_ERROR
-                                            << "UserPrivilege wasn't a "
-                                               "string";
-                                        messages::internalError(asyncResp->res);
-                                        return;
-                                    }
-                                    std::string role =
-                                        getRoleIdFromPrivilege(*userPrivPtr);
-                                    if (role.empty())
-                                    {
-                                        BMCWEB_LOG_ERROR << "Invalid user role";
-                                        messages::internalError(asyncResp->res);
-                                        return;
-                                    }
-                                    asyncResp->res.jsonValue["RoleId"] = role;
-
-                                    asyncResp->res.jsonValue["Links"]["Role"] =
-                                        {{"@odata.id",
-                                          "/redfish/v1/AccountService/"
-                                          "Roles/" +
-                                              role}};
-                                }
-                                else if (property.first ==
-                                         "UserPasswordExpired")
-                                {
-                                    const bool* userPasswordExpired =
-                                        std::get_if<bool>(&property.second);
-                                    if (userPasswordExpired == nullptr)
-                                    {
-                                        BMCWEB_LOG_ERROR << "UserPassword"
-                                                            "Expired "
-                                                            "wasn't a bool";
-                                        messages::internalError(asyncResp->res);
-                                        return;
-                                    }
-                                    asyncResp->res
-                                        .jsonValue["PasswordChangeRequired"] =
-                                        *userPasswordExpired;
-                                }
-                            }
-                        }
-                    }
-
-                    asyncResp->res.jsonValue["@odata.id"] =
-                        "/redfish/v1/AccountService/Accounts/" + accountName;
-                    asyncResp->res.jsonValue["Id"] = accountName;
-                    asyncResp->res.jsonValue["UserName"] = accountName;
-                },
-                "xyz.openbmc_project.User.Manager", "/xyz/openbmc_project/user",
-                "org.freedesktop.DBus.ObjectManager", "GetManagedObjects");
-        });
+        .methods(boost::beast::http::verb::get)(
+            handleAccountServiceAccountsMembersGet);
 
     BMCWEB_ROUTE(app, "/redfish/v1/AccountService/Accounts/<str>/")
         .privileges({{"ConfigureUsers"}, {"ConfigureSelf"}})
         .methods(boost::beast::http::verb::patch)(
-            [](const crow::Request& req,
-               const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-               const std::string& username) -> void {
-                std::optional<std::string> newUserName;
-                std::optional<std::string> password;
-                std::optional<bool> enabled;
-                std::optional<std::string> roleId;
-                std::optional<bool> locked;
-                if (!json_util::readJson(req, asyncResp->res, "UserName",
-                                         newUserName, "Password", password,
-                                         "RoleId", roleId, "Enabled", enabled,
-                                         "Locked", locked))
-                {
-                    return;
-                }
-
-                // Perform a proper ConfigureSelf authority check.  If the
-                // session is being used to PATCH a property other than
-                // Password, then the ConfigureSelf privilege does not apply.
-                // If the user is operating on an account not their own, then
-                // their ConfigureSelf privilege does not apply.  In either
-                // case, perform the authority check again without the user's
-                // ConfigureSelf privilege.
-                if ((username != req.session->username))
-                {
-                    Privileges requiredPermissionsToChangeNonSelf = {
-                        {"ConfigureUsers"}};
-                    Privileges effectiveUserPrivileges =
-                        redfish::getUserPrivileges(req.userRole);
-
-                    if (!effectiveUserPrivileges.isSupersetOf(
-                            requiredPermissionsToChangeNonSelf))
-                    {
-                        messages::insufficientPrivilege(asyncResp->res);
-                        return;
-                    }
-                }
-
-                // if user name is not provided in the patch method or if it
-                // matches the user name in the URI, then we are treating it as
-                // updating user properties other then username. If username
-                // provided doesn't match the URI, then we are treating this as
-                // user rename request.
-                if (!newUserName || (newUserName.value() == username))
-                {
-                    updateUserProperties(asyncResp, username, password, enabled,
-                                         roleId, locked);
-                    return;
-                }
-                crow::connections::systemBus->async_method_call(
-                    [asyncResp, username, password(std::move(password)),
-                     roleId(std::move(roleId)), enabled,
-                     newUser{std::string(*newUserName)},
-                     locked](const boost::system::error_code ec,
-                             sdbusplus::message::message& m) {
-                        if (ec)
-                        {
-                            userErrorMessageHandler(m.get_error(), asyncResp,
-                                                    newUser, username);
-                            return;
-                        }
-
-                        updateUserProperties(asyncResp, newUser, password,
-                                             enabled, roleId, locked);
-                    },
-                    "xyz.openbmc_project.User.Manager",
-                    "/xyz/openbmc_project/user",
-                    "xyz.openbmc_project.User.Manager", "RenameUser", username,
-                    *newUserName);
-            });
+            handleAccountServiceAccountsMembersPatch);
 
     BMCWEB_ROUTE(app, "/redfish/v1/AccountService/Accounts/<str>/")
         .privileges({{"ConfigureUsers"}})
         .methods(boost::beast::http::verb::delete_)(
-            [](const crow::Request& /*req*/,
-               const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-               const std::string& username) -> void {
-                const std::string userPath =
-                    "/xyz/openbmc_project/user/" + username;
-
-                crow::connections::systemBus->async_method_call(
-                    [asyncResp, username](const boost::system::error_code ec) {
-                        if (ec)
-                        {
-                            messages::resourceNotFound(
-                                asyncResp->res,
-                                "#ManagerAccount.v1_4_0.ManagerAccount",
-                                username);
-                            return;
-                        }
-
-                        messages::accountRemoved(asyncResp->res);
-                    },
-                    "xyz.openbmc_project.User.Manager", userPath,
-                    "xyz.openbmc_project.Object.Delete", "Delete");
-            });
+            handleAccountServiceAccountsMemberDelete);
 }
 
 } // namespace redfish
