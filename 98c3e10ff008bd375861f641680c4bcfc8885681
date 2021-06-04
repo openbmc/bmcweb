@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "93fd04c5_9e045b3f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-06-04T15:50:39Z",
+      "side": 1,
+      "message": "Going to need more here. \nCan you link the design doc ? \nCan you explain what PowerMode is? \nWhen it was added to Redfish ? Why we need this patch in bmcweb?",
+      "revId": "98c3e10ff008bd375861f641680c4bcfc8885681",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "04a25984_f3e3e4c6",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1777,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-06-04T15:50:39Z",
+      "side": 1,
+      "message": "This is going to throw a validator error",
+      "revId": "98c3e10ff008bd375861f641680c4bcfc8885681",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8ce54394_0bcb8c65",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1782,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-06-04T15:50:39Z",
+      "side": 1,
+      "message": "WIP I assume?",
+      "revId": "98c3e10ff008bd375861f641680c4bcfc8885681",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
