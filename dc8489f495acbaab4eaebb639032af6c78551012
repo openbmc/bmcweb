@@ -94,6 +94,30 @@
       "revId": "dc8489f495acbaab4eaebb639032af6c78551012",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "14494073_e60fc715",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 23
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1000400
+      },
+      "writtenOn": "2021-06-04T05:57:47Z",
+      "side": 1,
+      "message": "\u003e The SNMP interface needs to change to accept some kind of user defined \"name\" for this connection that we can get back out.\nThanks. I think it\u0027s better to modify the SNMP client interface. I think change the SNMP interface to accept some kind of user defined \"name\" is hard to implement, the \"name\" is hard coded into a yaml file. So we can add a Context property to the xyz.openbmc_project.Network.Client interface.\n\nIf there is no objection here， I will push a patch to https://github.com/openbmc/phosphor-dbus-interfaces/blob/master/xyz/openbmc_project/Network/Client.interface.yaml and add the Context property.\n\n@Gunnar @Ratan\nDo you think that\u0027s ok? Thanks.",
+      "parentUuid": "7191db92_8c8aa097",
+      "range": {
+        "startLine": 55,
+        "startChar": 4,
+        "endLine": 55,
+        "endChar": 45
+      },
+      "revId": "dc8489f495acbaab4eaebb639032af6c78551012",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
