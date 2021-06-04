@@ -70,6 +70,30 @@
       "revId": "dc8489f495acbaab4eaebb639032af6c78551012",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7191db92_8c8aa097",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 23
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-06-04T02:41:42Z",
+      "side": 1,
+      "message": "\u003e EventServiceManager has no ownership of the snmp subscription, We didn\u0027t use “Class subscription” like line 519, so there is no “subValue” like line 782 to store the Context.\n\u003e \n\u003e There is no property to store context in D-BUS snmp client too:\n\u003e busctl introspect xyz.openbmc_project.Network.SNMP /xyz/openbmc_project/network/snmp/manager/1\n\u003e NAME                                TYPE      SIGNATURE RESULT/VALUE    FLAGS\n\u003e org.freedesktop.DBus.Introspectable interface -         -               -\n\u003e .Introspect                         method    -         s               -\n\u003e org.freedesktop.DBus.Peer           interface -         -               -\n\u003e .GetMachineId                       method    -         s               -\n\u003e .Ping                               method    -         -               -\n\u003e org.freedesktop.DBus.Properties     interface -         -               -\n\u003e .Get                                method    ss        v               -\n\u003e .GetAll                             method    s         a{sv}           -\n\u003e .Set                                method    ssv       -               -\n\u003e .PropertiesChanged                  signal    sa{sv}as  -               -\n\u003e xyz.openbmc_project.Network.Client  interface -         -               -\n\u003e .Address                            property  s         \"192.168.31.89\" emits-change writable\n\u003e .Port                               property  q         162             emits-change writable\n\u003e xyz.openbmc_project.Object.Delete   interface -         -               -\n\u003e .Delete                             method    -         -               -\n\u003e \n\u003e @Ed @Gunnar\n\u003e So how do we store \"Context\"?\n\nThe two options I see are:\nThe SNMP interface needs to change to accept some kind of user defined \"name\" for this connection that we can get back out.\nbmcweb needs to store some persistent state that can track the name to subscription;  That needs to handle all the cases where the subscription is deleted outside of redfish, so the former would be preferred.\n\n\n\u003e Do we need to use global variables?\n\nThis doesn\u0027t work, because subscriptions persist;  Global variables do not.",
+      "parentUuid": "c35036b7_ef470c6c",
+      "range": {
+        "startLine": 55,
+        "startChar": 4,
+        "endLine": 55,
+        "endChar": 45
+      },
+      "revId": "dc8489f495acbaab4eaebb639032af6c78551012",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
