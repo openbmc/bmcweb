@@ -18,6 +18,9 @@ constexpr const char* biosPurpose =
 constexpr const char* bmcPurpose =
     "xyz.openbmc_project.Software.Version.VersionPurpose.BMC";
 
+/* @brief String that indicates an OS release path */
+constexpr const char* releaseFilePath = "/etc/os-release";
+
 /**
  * @brief Populate the running firmware version and image links
  *
@@ -419,6 +422,37 @@ inline void
         "xyz.openbmc_project.Association", "endpoints");
 
     return;
+}
+
+/**
+ * @brief Returns the configured machine name of the BMC.
+ *
+ * @param[i]  None
+ *
+ * @return the string for the BMC machine name.
+ */
+inline std::string getBMCMachine(void)
+{
+    std::string machineKey = "OPENBMC_TARGET_MACHINE=";
+    std::string machine{};
+    std::ifstream efile(releaseFilePath);
+    std::string line;
+
+    if (efile.is_open())
+    {
+        while (getline(efile, line))
+        {
+            if (line.substr(0, machineKey.size()).find(machineKey) !=
+                std::string::npos)
+            {
+                std::size_t pos = line.find_first_of('"') + 1;
+                machine = line.substr(pos, line.find_last_of('"') - pos);
+                break;
+            }
+        }
+        efile.close();
+    }
+    return machine;
 }
 
 } // namespace fw_util
