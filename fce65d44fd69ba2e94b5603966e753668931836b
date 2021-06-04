@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fa976500_9a984cfe",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 999,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-06-04T13:38:52Z",
+      "side": 1,
+      "message": "You need to check for errors here.  If dateTime doesn\u0027t have a + in it, this will throw an exception.  I wonder if we\u0027d be better off adjusting dateTimeNow to a version that returns both the date and the offset separately.",
+      "range": {
+        "startLine": 999,
+        "startChar": 32,
+        "endLine": 999,
+        "endChar": 51
+      },
+      "revId": "fce65d44fd69ba2e94b5603966e753668931836b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
