@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "83ac0076_4b3e3edf",
+        "filename": "redfish-core/lib/service_root.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-06-04T13:44:08Z",
+      "side": 1,
+      "message": "the description for this reads \"If this property is supported, the vendor name shall not be included in the Product property value.\"\n\nFrom my reading this sounds like this patch is incorrect.  Can you please look into this and comment?",
+      "revId": "b28ec65109154834b617d1cd6cc70cf438cf943b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
