@@ -14,7 +14,6 @@
 // limitations under the License.
 */
 #pragma once
-#include "node.hpp"
 
 #include <app.hpp>
 #include <dbus_utility.hpp>
