@@ -76,10 +76,8 @@ feature_map = {
 'redfish-provisioning-feature'    : '-DBMCWEB_ENABLE_REDFISH_PROVISIONING_FEATURE',
 'redfish-dump-log'                : '-DBMCWEB_ENABLE_REDFISH_DUMP_LOG',
 'rest'                            : '-DBMCWEB_ENABLE_DBUS_REST',
-'insecure-sensor-override'        : '-DBMCWEB_INSECURE_UNRESTRICTED_SENSOR_OVERRIDE',
 'static-hosting'                  : '-DBMCWEB_ENABLE_STATIC_HOSTING',
 'insecure-tftp-update'            : '-DBMCWEB_INSECURE_ENABLE_REDFISH_FW_TFTP_UPDATE',
-'validate-unsecure-feature'       : '-DBMCWEB_ENABLE_VALIDATION_UNSECURE_FEATURE',
 #'vm-nbdproxy'                     : '-DBMCWEB_ENABLE_VM_NBDPROXY',
 'vm-websocket'                    : '-DBMCWEB_ENABLE_VM_WEBSOCKET',
 }

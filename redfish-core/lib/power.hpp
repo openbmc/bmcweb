@@ -349,7 +349,7 @@ inline void requestRoutesPower(App& app)
                         allCollections;
                     allCollections.emplace("Voltages",
                                            *std::move(voltageCollections));
-                    checkAndDoSensorsOverride(sensorAsyncResp, allCollections);
+                    setSensorsOverride(sensorAsyncResp, allCollections);
                 }
             });
 }
