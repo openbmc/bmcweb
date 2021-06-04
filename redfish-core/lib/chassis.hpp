@@ -280,6 +280,23 @@ inline void requestRoutesChassis(App& app)
                             "xyz.openbmc_project.Inventory.Item.Board."
                             "Motherboard"};
 
+                        crow::connections::systemBus->async_method_call(
+                            [asyncResp](const boost::system::error_code ec,
+                                        std::variant<std::string>& resp) {
+                                if (ec)
+                                {
+                                    return; // no AssetTag
+                                }
+                                std::string* assetTag =
+                                    std::get_if<std::string>(&resp);
+                                asyncResp->res.jsonValue["AssetTag"] =
+                                    std::move(*assetTag);
+                            },
+                            connectionName, path,
+                            "org.freedesktop.DBus.Properties", "Get",
+                            "xyz.openbmc_project.Inventory.Decorator.AssetTag",
+                            "AssetTag");
+
                         for (const char* interface : hasIndicatorLed)
                         {
                             if (std::find(interfaces2.begin(),
