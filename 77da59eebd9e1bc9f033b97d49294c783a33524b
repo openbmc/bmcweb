@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "31428089_2140dfad",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1312,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-06-04T15:41:01Z",
+      "side": 1,
+      "message": "Could add a comment (e.g.. one day I am going to wonder why we did this) \n// In the rare event anyone defines a role that has Login but not ConfigureSelf, members is an empty array",
+      "revId": "77da59eebd9e1bc9f033b97d49294c783a33524b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
