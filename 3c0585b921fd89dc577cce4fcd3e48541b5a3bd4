@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e8733ed0_7c6f3dd3",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2021-06-05T14:36:52Z",
+      "side": 1,
+      "message": "Can you please give some example names which are conflicting ?",
+      "range": {
+        "startLine": 10,
+        "startChar": 31,
+        "endLine": 11,
+        "endChar": 63
+      },
+      "revId": "3c0585b921fd89dc577cce4fcd3e48541b5a3bd4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
