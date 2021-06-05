@@ -1030,7 +1030,7 @@ inline void requestRoutesOperatingConfigCollection(App& app)
                                     cpuName + "/OperatingConfigs",
                                 {"xyz.openbmc_project.Inventory.Item.Cpu."
                                  "OperatingConfig"},
-                                object.c_str());
+                                true, object.c_str());
                             return;
                         }
                     },
