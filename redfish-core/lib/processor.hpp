@@ -874,7 +874,7 @@ class OperatingConfigCollection : public Node
                             "/OperatingConfigs",
                         {"xyz.openbmc_project.Inventory.Item.Cpu."
                          "OperatingConfig"},
-                        object.c_str());
+                        /* createNew */ true, object.c_str());
                     return;
                 }
             },

@@ -22,17 +22,16 @@ namespace collection_util
  *
  * @return void
  */
-inline void
-    getCollectionMembers(std::shared_ptr<AsyncResp> aResp,
-                         const std::string& collectionPath,
-                         const std::vector<const char*>& interfaces,
-                         const char* subtree = "/xyz/openbmc_project/inventory")
+inline void getCollectionMembers(
+    std::shared_ptr<AsyncResp> aResp, const std::string& collectionPath,
+    const std::vector<const char*>& interfaces, bool createNew = true,
+    const char* subtree = "/xyz/openbmc_project/inventory")
 {
     BMCWEB_LOG_DEBUG << "Get collection members for: " << collectionPath;
     crow::connections::systemBus->async_method_call(
-        [collectionPath,
-         aResp{std::move(aResp)}](const boost::system::error_code ec,
-                                  const std::vector<std::string>& objects) {
+        [collectionPath, aResp{std::move(aResp)},
+         createNew](const boost::system::error_code ec,
+                    const std::vector<std::string>& objects) {
             if (ec)
             {
                 BMCWEB_LOG_DEBUG << "DBUS response error";
@@ -40,7 +39,10 @@ inline void
                 return;
             }
             nlohmann::json& members = aResp->res.jsonValue["Members"];
-            members = nlohmann::json::array();
+            if (createNew)
+            {
+                members = nlohmann::json::array();
+            }
 
             for (const auto& object : objects)
             {
