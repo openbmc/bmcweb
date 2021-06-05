@@ -51,6 +51,24 @@
       "revId": "0cdb3fdbf74b598bc35327ac33586f69cb9e5838",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3c47a192_495af1fb",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-06-05T19:24:09Z",
+      "side": 1,
+      "message": "As long this doesn\u0027t introduce any new errors, you are good. \n\nI would think it would be worth the investment to fix up your system so it passes the Redfish validator. :)",
+      "parentUuid": "2f603ca0_b1f5c545",
+      "revId": "0cdb3fdbf74b598bc35327ac33586f69cb9e5838",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
