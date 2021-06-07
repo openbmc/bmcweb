@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "5f15a121_b0e3fb4d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 9
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-06-07T15:46:49Z",
+      "side": 1,
+      "message": "\u003e The reason of the refactor is that, priority belongs to rule and routing algorithm(find) belongs to trie. In order to implement priority search/find, rule needs to be visible to Tire.\n\n\nThis doesn\u0027t \"require\" that we flatten the tree;  Similarly, the http verb (GET/POST/PATCH) belongs to the rule, but can still operate just fine.\n\nWhat I suspect needs to happen here is the trie needs to be updated with a structure that supports priority.\n\n\n\u003e BTW, what do you mean by cache loading? optimizeNode() within validate()? \n\nNo, I mean, when a URL is looked up, your patchset will pull more cache lines into the processor, for data that isn\u0027t required to fulfill the request.  Not all requests will require looking at the priority of every handler, so keeping them in separate structures ensures that we only pull in those cache lines when they\u0027re needed.",
+      "parentUuid": "036dbb87_2e1d1b50",
+      "range": {
+        "startLine": 12,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 62
+      },
+      "revId": "7548fb413b5a90206b3f4bab99012c5340ff7333",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a4e83f4b_a850450a",
         "filename": "/COMMIT_MSG",
         "patchSetId": 9
