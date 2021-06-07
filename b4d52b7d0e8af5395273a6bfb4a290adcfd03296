@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "1002cc06_d1e028f1",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-06-07T17:58:48Z",
+      "side": 1,
+      "message": "\u003e As I mentioned to Ed Tanous, we can even show this size.\n\u003e But I see http-body-limit is configured default to 30Mb?\n\u003e Correct me, if I am wrong; In case if we show this value, and user uses the different platform  in which firmware size is 64Mb, and additionally he does not configure the http-body-limit to 64Mb, then will it show the default size only?\n\nIf you avoid hardcoding the value, and use the config.h value, the per-platform size will change appropriately.",
+      "parentUuid": "46c70b79_def6f6fc",
+      "revId": "b4d52b7d0e8af5395273a6bfb4a290adcfd03296",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "2d247b9a_7ef64712",
         "filename": "redfish-core/lib/update_service.hpp",
         "patchSetId": 1
@@ -119,6 +137,30 @@
       "side": 1,
       "message": "Ok I understand, we can even show the current flash size too.\nThe reason I am showing the free memory size is because, user can know that this much maximum size is available, and user can upload the firmware image w.r.to available size, so that upload won\u0027t get failed due to any size issue.",
       "parentUuid": "ae70a2be_e5d91b77",
+      "range": {
+        "startLine": 394,
+        "startChar": 10,
+        "endLine": 394,
+        "endChar": 17
+      },
+      "revId": "b4d52b7d0e8af5395273a6bfb4a290adcfd03296",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "96a71a83_516c1f70",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 394,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-06-07T17:58:48Z",
+      "side": 1,
+      "message": "Right, but the size of /tmp doesn\u0027t dictate the max upload size.  That\u0027s dictated by the configure option.",
+      "parentUuid": "dfb86679_8bdd5770",
       "range": {
         "startLine": 394,
         "startChar": 10,
