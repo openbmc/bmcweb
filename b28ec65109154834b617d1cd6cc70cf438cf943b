@@ -16,6 +16,24 @@
       "revId": "b28ec65109154834b617d1cd6cc70cf438cf943b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4cbda897_e6413353",
+        "filename": "redfish-core/lib/service_root.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1000579
+      },
+      "writtenOn": "2021-06-07T09:57:21Z",
+      "side": 1,
+      "message": "Ok I understood your point.\nI will update the new patch set.",
+      "parentUuid": "83ac0076_4b3e3edf",
+      "revId": "b28ec65109154834b617d1cd6cc70cf438cf943b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
