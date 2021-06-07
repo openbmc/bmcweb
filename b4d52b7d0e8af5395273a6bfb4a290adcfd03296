@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "46c70b79_def6f6fc",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000579
+      },
+      "writtenOn": "2021-06-07T11:57:14Z",
+      "side": 1,
+      "message": "As I mentioned to Ed Tanous, we can even show this size.\nBut I see http-body-limit is configured default to 30Mb?\nCorrect me, if I am wrong; In case if we show this value, and user uses the different platform  in which firmware size is 64Mb, and additionally he does not configure the http-body-limit to 64Mb, then will it show the default size only?",
+      "parentUuid": "4dcbdf96_c9ee3aef",
+      "revId": "b4d52b7d0e8af5395273a6bfb4a290adcfd03296",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "2d247b9a_7ef64712",
         "filename": "redfish-core/lib/update_service.hpp",
         "patchSetId": 1
@@ -42,6 +60,30 @@
     },
     {
       "key": {
+        "uuid": "d7b1ff92_0a3560a5",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 389,
+      "author": {
+        "id": 1000579
+      },
+      "writtenOn": "2021-06-07T11:57:14Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "2d247b9a_7ef64712",
+      "range": {
+        "startLine": 389,
+        "startChar": 0,
+        "endLine": 389,
+        "endChar": 12
+      },
+      "revId": "b4d52b7d0e8af5395273a6bfb4a290adcfd03296",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ae70a2be_e5d91b77",
         "filename": "redfish-core/lib/update_service.hpp",
         "patchSetId": 1
@@ -53,6 +95,30 @@
       "writtenOn": "2021-06-04T13:36:32Z",
       "side": 1,
       "message": "This doesn\u0027t seems like the right thing to be doing here.  This will allow a user to completely consume the ram with a firmware update image;  Should we instead just make this the current size of flash (64mb or 32mb respectively)",
+      "range": {
+        "startLine": 394,
+        "startChar": 10,
+        "endLine": 394,
+        "endChar": 17
+      },
+      "revId": "b4d52b7d0e8af5395273a6bfb4a290adcfd03296",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dfb86679_8bdd5770",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 394,
+      "author": {
+        "id": 1000579
+      },
+      "writtenOn": "2021-06-07T11:57:14Z",
+      "side": 1,
+      "message": "Ok I understand, we can even show the current flash size too.\nThe reason I am showing the free memory size is because, user can know that this much maximum size is available, and user can upload the firmware image w.r.to available size, so that upload won\u0027t get failed due to any size issue.",
+      "parentUuid": "ae70a2be_e5d91b77",
       "range": {
         "startLine": 394,
         "startChar": 10,
