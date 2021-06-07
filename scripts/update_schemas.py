@@ -31,6 +31,8 @@ include_list = [
     'ComputerSystemCollection',
     'Drive',
     'DriveCollection',
+    'Endpoint',
+    'EndpointCollection',
     'EthernetInterface',
     'EthernetInterfaceCollection',
     'Event',
