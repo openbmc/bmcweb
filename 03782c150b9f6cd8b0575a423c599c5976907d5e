@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9117e9a2_77bec4d4",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 81
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 1000524
+      },
+      "writtenOn": "2021-06-07T18:57:02Z",
+      "side": 1,
+      "message": "As of this commit https://gerrit.openbmc-project.xyz/c/openbmc/phosphor-dbus-interfaces/+/43729\nwe now also have pressure in Pascals (i.e. \"P\").\n\nI think we should get them all in before passing this review.",
+      "revId": "03782c150b9f6cd8b0575a423c599c5976907d5e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
