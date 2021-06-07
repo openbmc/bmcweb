@@ -203,6 +203,8 @@ class RedfishService
         requestRoutesFabric(app);
         requestRoutesSwitchCollection(app);
         requestRoutesSwitch(app);
+        requestRoutesPortCollection(app);
+        requestRoutesPort(app);
     }
 };
 
