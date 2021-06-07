@@ -22,6 +22,30 @@
       "revId": "fce65d44fd69ba2e94b5603966e753668931836b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "84861f3c_40d03574",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 999,
+      "author": {
+        "id": 1000579
+      },
+      "writtenOn": "2021-06-07T08:11:45Z",
+      "side": 1,
+      "message": "Ok, I will add the error check here.\nAnd I feel, we can\u0027t go with the newer version of dateTimeNow for getting date and the offset separately,\nAs the dateTimeNow() is being used in different URI\u0027s like EventService, TaskService, and those URI\u0027s doesn\u0027t supports for \"DateTimeLocalOffset\" property.\nThis property only supported for Managers and LogServices URI\u0027s.\nSo I feel better to have this little change, rather than changing the function and all other related files.",
+      "parentUuid": "fa976500_9a984cfe",
+      "range": {
+        "startLine": 999,
+        "startChar": 32,
+        "endLine": 999,
+        "endChar": 51
+      },
+      "revId": "fce65d44fd69ba2e94b5603966e753668931836b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
