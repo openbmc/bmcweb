@@ -1008,4 +1008,623 @@ inline void requestRoutesPort(App& app)
         });
 }
 
+/**
+ * Endpoint derived class for delivering Endpoint Collection Schema
+ */
+inline void requestRoutesEndpointCollection(App& app)
+{
+    BMCWEB_ROUTE(app, "/redfish/v1/Fabrics/<str>/Endpoints/")
+        .privileges({{"Login"}})
+        .methods(boost::beast::http::verb::get)(
+            [](const crow::Request&,
+               const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+               const std::string& fabricId) {
+                asyncResp->res.jsonValue["@odata.type"] =
+                    "#EndpointCollection.EndpointCollection";
+                asyncResp->res.jsonValue["@odata.id"] =
+                    "/redfish/v1/Fabrics/" + fabricId + "/Endpoints";
+                asyncResp->res.jsonValue["Name"] = "Endpoint Collection";
+
+                crow::connections::systemBus->async_method_call(
+                    [asyncResp,
+                     fabricId](const boost::system::error_code ec,
+                               const std::vector<std::string>& objects) {
+                        if (ec)
+                        {
+                            messages::internalError(asyncResp->res);
+                            return;
+                        }
+                        for (const std::string& object : objects)
+                        {
+                            // Get the fabricId object
+                            if (!boost::ends_with(object, fabricId))
+                            {
+                                continue;
+                            }
+                            collection_util::getCollectionMembers(
+                                asyncResp,
+                                "/redfish/v1/Fabrics/" + fabricId +
+                                    "/Endpoints",
+                                {"xyz.openbmc_project.Inventory.Item.Endpoint"},
+                                object.c_str());
+                            return;
+                        }
+                    },
+                    "xyz.openbmc_project.ObjectMapper",
+                    "/xyz/openbmc_project/object_mapper",
+                    "xyz.openbmc_project.ObjectMapper", "GetSubTreePaths",
+                    "/xyz/openbmc_project/inventory", 0,
+                    std::array<const char*, 1>{
+                        "xyz.openbmc_project.Inventory.Item.Fabric"});
+            });
+}
+
+/**
+ * @brief Get all endpoint pcie device info by requesting data
+ * from the given D-Bus object.
+ *
+ * @param[in,out]   aResp   Async HTTP response.
+ * @param[in]       service     D-Bus service to query.
+ * @param[in]       objPath     D-Bus object to query.
+ * @param[in]       entityLink  redfish entity link.
+ */
+inline void getProcessorPCIeDeviceData(
+    const std::shared_ptr<bmcweb::AsyncResp>& aResp, const std::string& service,
+    const std::string& objPath, const std::string& entityLink)
+{
+    crow::connections::systemBus->async_method_call(
+        [aResp, entityLink](
+            const boost::system::error_code ec,
+            const boost::container::flat_map<
+                std::string, std::variant<std::string>>& pcieDevProperties) {
+            if (ec)
+            {
+                BMCWEB_LOG_DEBUG << "DBUS response error";
+                messages::internalError(aResp->res);
+                return;
+            }
+            // Get the device data from single function
+            const std::string& function = "0";
+            std::string deviceId, vendorId, subsystemId, subsystemVendorId;
+            for (const auto& property : pcieDevProperties)
+            {
+                const std::string& propertyName = property.first;
+                if (propertyName == "Function" + function + "DeviceId")
+                {
+                    const std::string* value =
+                        std::get_if<std::string>(&property.second);
+                    if (value != nullptr)
+                    {
+                        deviceId = *value;
+                    }
+                }
+                else if (propertyName == "Function" + function + "VendorId")
+                {
+                    const std::string* value =
+                        std::get_if<std::string>(&property.second);
+                    if (value != nullptr)
+                    {
+                        vendorId = *value;
+                    }
+                }
+                else if (propertyName == "Function" + function + "SubsystemId")
+                {
+                    const std::string* value =
+                        std::get_if<std::string>(&property.second);
+                    if (value != nullptr)
+                    {
+                        subsystemId = *value;
+                    }
+                }
+                else if (propertyName ==
+                         "Function" + function + "SubsystemVendorId")
+                {
+                    const std::string* value =
+                        std::get_if<std::string>(&property.second);
+                    if (value != nullptr)
+                    {
+                        subsystemVendorId = *value;
+                    }
+                }
+            }
+            nlohmann::json& connectedEntitiesArray =
+                aResp->res.jsonValue["ConnectedEntities"];
+            connectedEntitiesArray.push_back(
+                {{"EntityType", "Processor"},
+                 {"EntityPciId",
+                  {{"DeviceId", deviceId},
+                   {"VendorId", vendorId},
+                   {"SubsystemId", subsystemId},
+                   {"SubsystemVendorId", subsystemVendorId}}},
+                 {"EntityLink", {{"@odata.id", entityLink}}}});
+        },
+        service, objPath, "org.freedesktop.DBus.Properties", "GetAll",
+        "xyz.openbmc_project.Inventory.Item.PCIeDevice");
+}
+
+/**
+ * @brief Fill out links for parent chassis PCIeDevice by
+ * requesting data from the given D-Bus association object.
+ *
+ * @param[in,out]   aResp       Async HTTP response.
+ * @param[in]       objPath     D-Bus object to query.
+ * @param[in]       chassisName D-Bus object chassisName.
+ * @param[in]       entityLink  redfish entity link.
+ */
+inline void getProcessorParentEndpointData(
+    std::shared_ptr<bmcweb::AsyncResp> aResp, const std::string& objPath,
+    const std::string& chassisName, const std::string& entityLink)
+{
+    crow::connections::systemBus->async_method_call(
+        [aResp{std::move(aResp)}, chassisName,
+         entityLink](const boost::system::error_code ec,
+                     std::variant<std::vector<std::string>>& resp) {
+            if (ec)
+            {
+                return; // no chassis = no failures
+            }
+            std::vector<std::string>* data =
+                std::get_if<std::vector<std::string>>(&resp);
+            if (data == nullptr && data->size() > 1)
+            {
+                // Chassis must have single parent chassis
+                return;
+            }
+            const std::string& parentChassisPath = data->front();
+            sdbusplus::message::object_path objectPath(parentChassisPath);
+            std::string parentChassisName = objectPath.filename();
+            if (parentChassisName.empty())
+            {
+                messages::internalError(aResp->res);
+                return;
+            }
+            crow::connections::systemBus->async_method_call(
+                [aResp, chassisName, parentChassisName, entityLink](
+                    const boost::system::error_code ec,
+                    const crow::openbmc_mapper::GetSubTreeType& subtree) {
+                    if (ec)
+                    {
+                        messages::internalError(aResp->res);
+                        return;
+                    }
+                    for (const auto& [objectPath, serviceMap] : subtree)
+                    {
+                        // Process same device
+                        if (!boost::ends_with(objectPath, chassisName))
+                        {
+                            continue;
+                        }
+                        if (serviceMap.size() < 1)
+                        {
+                            BMCWEB_LOG_ERROR << "Got 0 service "
+                                                "names";
+                            messages::internalError(aResp->res);
+                            return;
+                        }
+                        const std::string& serviceName = serviceMap[0].first;
+                        // Get PCIeDevice Data
+                        getProcessorPCIeDeviceData(aResp, serviceName,
+                                                   objectPath, entityLink);
+                    }
+                },
+                "xyz.openbmc_project.ObjectMapper",
+                "/xyz/openbmc_project/object_mapper",
+                "xyz.openbmc_project.ObjectMapper", "GetSubTree",
+                parentChassisPath, 0,
+                std::array<const char*, 1>{"xyz.openbmc_project.Inventory.Item."
+                                           "PCIeDevice"});
+        },
+        "xyz.openbmc_project.ObjectMapper", objPath + "/parent_chassis",
+        "org.freedesktop.DBus.Properties", "Get",
+        "xyz.openbmc_project.Association", "endpoints");
+}
+
+/**
+ * @brief Get all endpoint pcie device info by requesting data
+ * from the given D-Bus object.
+ *
+ * @param[in,out]   aResp       Async HTTP response.
+ * @param[in]       objPath     D-Bus service to query.
+ * @param[in]       entityLink  redfish entity link.
+ */
+inline void
+    getProcessorEndpointData(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
+                             const std::string& objPath,
+                             const std::string& entityLink)
+{
+    BMCWEB_LOG_DEBUG << "Get processor endpoint data";
+    crow::connections::systemBus->async_method_call(
+        [aResp, objPath,
+         entityLink](const boost::system::error_code ec,
+                     std::variant<std::vector<std::string>>& resp) {
+            if (ec)
+            {
+                return; // no chassis = no failures
+            }
+            std::vector<std::string>* data =
+                std::get_if<std::vector<std::string>>(&resp);
+            if (data == nullptr && data->size() > 1)
+            {
+                // Processor must have single parent chassis
+                return;
+            }
+            const std::string& chassisPath = data->front();
+            sdbusplus::message::object_path objectPath(chassisPath);
+            std::string chassisName = objectPath.filename();
+            if (chassisName.empty())
+            {
+                messages::internalError(aResp->res);
+                return;
+            }
+            // Check if PCIeDevice on this chassis
+            crow::connections::systemBus->async_method_call(
+                [aResp, chassisName, chassisPath, entityLink](
+                    const boost::system::error_code ec,
+                    const crow::openbmc_mapper::GetSubTreeType& subtree) {
+                    if (ec)
+                    {
+                        messages::internalError(aResp->res);
+                        return;
+                    }
+                    // If PCIeDevice doesn't exists on this chassis
+                    // Check PCIeDevice on its parent chassis
+                    if (subtree.empty())
+                    {
+                        getProcessorParentEndpointData(aResp, chassisPath,
+                                                       chassisName, entityLink);
+                    }
+                    else
+                    {
+                        for (const auto& [objectPath, serviceMap] : subtree)
+                        {
+                            // Process same device
+                            if (!boost::ends_with(objectPath, chassisName))
+                            {
+                                continue;
+                            }
+                            if (serviceMap.size() < 1)
+                            {
+                                BMCWEB_LOG_ERROR << "Got 0 service names";
+                                messages::internalError(aResp->res);
+                                return;
+                            }
+                            const std::string& serviceName =
+                                serviceMap[0].first;
+                            // Get PCIeDevice Data
+                            getProcessorPCIeDeviceData(aResp, serviceName,
+                                                       objectPath, entityLink);
+                        }
+                    }
+                },
+                "xyz.openbmc_project.ObjectMapper",
+                "/xyz/openbmc_project/object_mapper",
+                "xyz.openbmc_project.ObjectMapper", "GetSubTree", chassisPath,
+                0,
+                std::array<const char*, 1>{
+                    "xyz.openbmc_project.Inventory.Item.PCIeDevice"});
+        },
+        "xyz.openbmc_project.ObjectMapper", objPath + "/parent_chassis",
+        "org.freedesktop.DBus.Properties", "Get",
+        "xyz.openbmc_project.Association", "endpoints");
+}
+
+/**
+ * @brief Get all endpoint pcie device info by requesting data
+ * from the given D-Bus object.
+ *
+ * @param[in,out]   aResp   Async HTTP response.
+ * @param[in]       service     D-Bus service to query.
+ * @param[in]       objPath     D-Bus object to query.
+ */
+inline void getPortData(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
+                        const std::string& service, const std::string& objPath)
+{
+    crow::connections::systemBus->async_method_call(
+        [aResp](const boost::system::error_code ec,
+                const boost::container::flat_map<
+                    std::string, std::variant<std::string, bool, size_t,
+                                              std::vector<std::string>>>&
+                    properties) {
+            if (ec)
+            {
+                BMCWEB_LOG_DEBUG << "DBUS response error";
+                messages::internalError(aResp->res);
+                return;
+            }
+            // Get port protocol
+            for (const auto& property : properties)
+            {
+                if (property.first == "Protocol")
+                {
+                    const std::string* value =
+                        std::get_if<std::string>(&property.second);
+                    if (value == nullptr)
+                    {
+                        BMCWEB_LOG_DEBUG << "Null value returned "
+                                            "for protocol type";
+                        messages::internalError(aResp->res);
+                        return;
+                    }
+                    aResp->res.jsonValue["EndpointProtocol"] =
+                        getPortProtocol(*value);
+                }
+            }
+        },
+        service, objPath, "org.freedesktop.DBus.Properties", "GetAll",
+        "xyz.openbmc_project.Inventory.Item.Port");
+}
+
+/**
+ * @brief Get all endpoint info by requesting data
+ * from the given D-Bus object.
+ *
+ * @param[in,out]   aResp   Async HTTP response.
+ * @param[in]       objPath     D-Bus object to query.
+ */
+inline void updateEndpointData(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
+                               const std::string& objPath)
+{
+    BMCWEB_LOG_DEBUG << "Get Endpoint Data";
+    crow::connections::systemBus->async_method_call(
+        [aResp](const boost::system::error_code ec,
+                std::variant<std::vector<std::string>>& resp) {
+            if (ec)
+            {
+                return; // no entity link = no failures
+            }
+            std::vector<std::string>* data =
+                std::get_if<std::vector<std::string>>(&resp);
+            if (data == nullptr)
+            {
+                return;
+            }
+            for (const std::string& entityPath : *data)
+            {
+                // Get subtree for entity link parent path
+                size_t separator = entityPath.rfind('/');
+                if (separator == std::string::npos)
+                {
+                    BMCWEB_LOG_ERROR << "Invalid entity link path";
+                    continue;
+                }
+                std::string entityInventoryPath =
+                    entityPath.substr(0, separator);
+                // Get entity subtree
+                crow::connections::systemBus->async_method_call(
+                    [aResp, entityPath](
+                        const boost::system::error_code ec,
+                        const crow::openbmc_mapper::GetSubTreeType& subtree) {
+                        if (ec)
+                        {
+                            messages::internalError(aResp->res);
+                            return;
+                        }
+                        // Iterate over all retrieved ObjectPaths.
+                        for (const std::pair<
+                                 std::string,
+                                 std::vector<std::pair<
+                                     std::string, std::vector<std::string>>>>&
+                                 object : subtree)
+                        {
+                            // Filter entity link object
+                            if (object.first != entityPath)
+                            {
+                                continue;
+                            }
+                            const std::vector<std::pair<
+                                std::string, std::vector<std::string>>>&
+                                connectionNames = object.second;
+                            if (connectionNames.size() < 1)
+                            {
+                                BMCWEB_LOG_ERROR << "Got 0 Connection names";
+                                continue;
+                            }
+                            const std::vector<std::string>& interfaces =
+                                connectionNames[0].second;
+                            const std::string acceleratorInterface =
+                                "xyz.openbmc_project.Inventory.Item."
+                                "Accelerator";
+                            if (std::find(interfaces.begin(), interfaces.end(),
+                                          acceleratorInterface) !=
+                                interfaces.end())
+                            {
+                                sdbusplus::message::object_path objectPath(
+                                    entityPath);
+                                const std::string& entityLink =
+                                    "/redfish/v1/Systems/system/Processors/" +
+                                    objectPath.filename();
+                                // Get processor PCIe device data
+                                getProcessorEndpointData(aResp, entityPath,
+                                                         entityLink);
+                            }
+                        }
+                    },
+                    "xyz.openbmc_project.ObjectMapper",
+                    "/xyz/openbmc_project/object_mapper",
+                    "xyz.openbmc_project.ObjectMapper", "GetSubTree",
+                    entityInventoryPath, 0, std::array<const char*, 0>());
+            }
+        },
+        "xyz.openbmc_project.ObjectMapper", objPath + "/entity_link",
+        "org.freedesktop.DBus.Properties", "Get",
+        "xyz.openbmc_project.Association", "endpoints");
+    // Endpoint protocol
+    crow::connections::systemBus->async_method_call(
+        [aResp](const boost::system::error_code ec,
+                std::variant<std::vector<std::string>>& resp) {
+            if (ec)
+            {
+                return; // no endpoint port = no failures
+            }
+            std::vector<std::string>* data =
+                std::get_if<std::vector<std::string>>(&resp);
+            if (data == nullptr)
+            {
+                return;
+            }
+            for (const std::string& portPath : *data)
+            {
+                // Get subtree for port parent path
+                size_t separator = portPath.rfind('/');
+                if (separator == std::string::npos)
+                {
+                    BMCWEB_LOG_ERROR << "Invalid port link path";
+                    continue;
+                }
+                std::string portInventoryPath = portPath.substr(0, separator);
+                // Get port subtree
+                crow::connections::systemBus->async_method_call(
+                    [aResp, portPath](
+                        const boost::system::error_code ec,
+                        const crow::openbmc_mapper::GetSubTreeType& subtree) {
+                        if (ec)
+                        {
+                            messages::internalError(aResp->res);
+                            return;
+                        }
+                        // Iterate over all retrieved ObjectPaths.
+                        for (const std::pair<
+                                 std::string,
+                                 std::vector<std::pair<
+                                     std::string, std::vector<std::string>>>>&
+                                 object : subtree)
+                        {
+                            // Filter port link object
+                            if (object.first != portPath)
+                            {
+                                continue;
+                            }
+                            const std::vector<std::pair<
+                                std::string, std::vector<std::string>>>&
+                                connectionNames = object.second;
+                            if (connectionNames.size() < 1)
+                            {
+                                BMCWEB_LOG_ERROR << "Got 0 Connection names";
+                                continue;
+                            }
+                            const std::string& connectionName =
+                                connectionNames[0].first;
+                            const std::vector<std::string>& interfaces =
+                                connectionNames[0].second;
+                            const std::string portInterface =
+                                "xyz.openbmc_project.Inventory.Item.Port";
+                            if (std::find(interfaces.begin(), interfaces.end(),
+                                          portInterface) != interfaces.end())
+                            {
+                                // Get port protocol data
+                                getPortData(aResp, connectionName, portPath);
+                            }
+                        }
+                    },
+                    "xyz.openbmc_project.ObjectMapper",
+                    "/xyz/openbmc_project/object_mapper",
+                    "xyz.openbmc_project.ObjectMapper", "GetSubTree",
+                    portInventoryPath, 0, std::array<const char*, 0>());
+            }
+        },
+        "xyz.openbmc_project.ObjectMapper", objPath + "/connected_port",
+        "org.freedesktop.DBus.Properties", "Get",
+        "xyz.openbmc_project.Association", "endpoints");
+}
+
+/**
+ * Endpoint override class for delivering Endpoint Schema
+ */
+inline void requestRoutesEndpoint(App& app)
+{
+    BMCWEB_ROUTE(app, "/redfish/v1/Fabrics/<str>/Endpoints/<str>")
+        .privileges({{"Login"}})
+        .methods(boost::beast::http::verb::get)(
+            [](const crow::Request&,
+               const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+               const std::string& fabricId, const std::string& endpointId) {
+                crow::connections::systemBus->async_method_call(
+                    [asyncResp, fabricId,
+                     endpointId](const boost::system::error_code ec,
+                                 const std::vector<std::string>& objects) {
+                        if (ec)
+                        {
+                            messages::internalError(asyncResp->res);
+                            return;
+                        }
+
+                        for (const std::string& object : objects)
+                        {
+                            // Get the fabricId object
+                            if (!boost::ends_with(object, fabricId))
+                            {
+                                continue;
+                            }
+                            crow::connections::systemBus->async_method_call(
+                                [asyncResp, fabricId, endpointId](
+                                    const boost::system::error_code ec,
+                                    const crow::openbmc_mapper::GetSubTreeType&
+                                        subtree) {
+                                    if (ec)
+                                    {
+                                        messages::internalError(asyncResp->res);
+                                        return;
+                                    }
+                                    // Iterate over all retrieved ObjectPaths.
+                                    for (const std::pair<
+                                             std::string,
+                                             std::vector<std::pair<
+                                                 std::string,
+                                                 std::vector<std::string>>>>&
+                                             object : subtree)
+                                    {
+                                        // Get the endpointId object
+                                        const std::string& path = object.first;
+                                        sdbusplus::message::object_path objPath(
+                                            path);
+                                        if (objPath.filename() != endpointId)
+                                        {
+                                            continue;
+                                        }
+                                        std::string endpointURI =
+                                            "/redfish/v1/Fabrics/";
+                                        endpointURI += fabricId;
+                                        endpointURI += "/Endpoints/";
+                                        endpointURI += endpointId;
+                                        asyncResp->res
+                                            .jsonValue["@odata.type"] =
+                                            "#Endpoint.v1_6_0.Endpoint";
+                                        asyncResp->res.jsonValue["@odata.id"] =
+                                            endpointURI;
+                                        asyncResp->res.jsonValue["Id"] =
+                                            endpointId;
+                                        asyncResp->res.jsonValue["Name"] =
+                                            endpointId + " Endpoint Resource";
+                                        nlohmann::json& connectedEntitiesArray =
+                                            asyncResp->res
+                                                .jsonValue["ConnectedEntities"];
+                                        connectedEntitiesArray =
+                                            nlohmann::json::array();
+                                        updateEndpointData(asyncResp, path);
+                                    }
+                                },
+                                "xyz.openbmc_project.ObjectMapper",
+                                "/xyz/openbmc_project/object_mapper",
+                                "xyz.openbmc_project.ObjectMapper",
+                                "GetSubTree", object, 0,
+                                std::array<const char*, 1>{
+                                    "xyz.openbmc_project.Inventory.Item."
+                                    "Endpoint"});
+                            return;
+                        }
+                        // Couldn't find an object with that name. Return an
+                        // error
+                        messages::resourceNotFound(asyncResp->res,
+                                                   "#Endpoint.v1_6_0.Endpoint",
+                                                   endpointId);
+                    },
+                    "xyz.openbmc_project.ObjectMapper",
+                    "/xyz/openbmc_project/object_mapper",
+                    "xyz.openbmc_project.ObjectMapper", "GetSubTreePaths",
+                    "/xyz/openbmc_project/inventory", 0,
+                    std::array<const char*, 1>{
+                        "xyz.openbmc_project.Inventory.Item.Fabric"});
+            });
+}
+
 } // namespace redfish
