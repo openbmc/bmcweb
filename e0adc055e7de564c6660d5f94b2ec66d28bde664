@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "831a0bed_39da34b8",
+        "filename": "redfish-core/lib/power_supply.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2021-06-07T10:01:15Z",
+      "side": 1,
+      "message": "nit\n\nThis is actually a dead code, std::get_if\u003cstd::string\u003e on std::variant\u003cstd::string\u003e will always return valid pointer.\n\nIf you want this code to do what you want you need to change std::variant\u003cstd::string\u003e to std::variant\u003cstd::monostate, std::string\u003e",
+      "range": {
+        "startLine": 37,
+        "startChar": 0,
+        "endLine": 43,
+        "endChar": 21
+      },
+      "revId": "e0adc055e7de564c6660d5f94b2ec66d28bde664",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2f9f8052_b0357900",
+        "filename": "redfish-core/lib/power_supply.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2021-06-07T10:01:15Z",
+      "side": 1,
+      "message": "Instead of comment write self commenting code.\n\nconstexpr auto defaultState \u003d \"Enabled\";\nasyncResp-\u003eres.jsonValue[\"Status\"][\"State\"] \u003d defaultState;\n\nAlso your comment is out of date, it says that default state is Absent while you assign Enabled.",
+      "range": {
+        "startLine": 58,
+        "startChar": 4,
+        "endLine": 60,
+        "endChar": 0
+      },
+      "revId": "e0adc055e7de564c6660d5f94b2ec66d28bde664",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
