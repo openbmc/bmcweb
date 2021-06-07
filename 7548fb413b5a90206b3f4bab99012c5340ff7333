@@ -285,6 +285,30 @@
     },
     {
       "key": {
+        "uuid": "4c8617f7_6eb87cb0",
+        "filename": "http/routing.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-06-07T15:53:41Z",
+      "side": 1,
+      "message": "\u003e But we still need priorityMin(). I am going to use min for default rule of redfish to read cached responses. \n\nShouldn\u0027t the default be 0?  That way, any handler can choose to be higher or lower priority than the default?\n\n\u003e \n\u003e I made a priorityMax() because: \n\u003e 1. the beauty of symmetry (LoL. \n\u003e 2. it is easier for the users to static_assert their priority within [min, max).\n\nIn this case, wouldn\u0027t the generalized way to do that be to simply have a \n\nusing priorityType \u003d int;\n\nsomewhere in here?  Then users can simply call numeric limits if they need it?  Although given the previous answer, I suspect that it\u0027s unlikely a user would need it in a normal setting.",
+      "parentUuid": "14be1fad_bbb27d2d",
+      "range": {
+        "startLine": 108,
+        "startChar": 0,
+        "endLine": 115,
+        "endChar": 5
+      },
+      "revId": "7548fb413b5a90206b3f4bab99012c5340ff7333",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "fd4576ef_9fb0a33e",
         "filename": "http/routing.hpp",
         "patchSetId": 9
@@ -320,6 +344,30 @@
       "side": 1,
       "message": "The old mechanism didn\u0027t take ownership either. Explained in L1323",
       "parentUuid": "fd4576ef_9fb0a33e",
+      "range": {
+        "startLine": 676,
+        "startChar": 8,
+        "endLine": 676,
+        "endChar": 32
+      },
+      "revId": "7548fb413b5a90206b3f4bab99012c5340ff7333",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fa70190b_586ec26a",
+        "filename": "http/routing.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 676,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-06-07T15:53:41Z",
+      "side": 1,
+      "message": "correct, it didn\u0027t take ownership, but it took an index, which could be bounds checked against the vector.  In the worst case scenario, you\u0027d get the wrong node, but you\u0027d never get a node with a bounds issue.",
+      "parentUuid": "9a871941_c66ac3d5",
       "range": {
         "startLine": 676,
         "startChar": 8,
@@ -414,6 +462,30 @@
       "side": 1,
       "message": "Both mechanism should be equally safe: \n\n1. In the old one, we push/pop Trie node and rule vector at the same time. That means the life time of a rule is the same no matter outside the trie node(using vector index) or inside. \n\n2. the allrules vector is still there. (https://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/43502/9/http/routing.hpp#b1460). The original rule vector is just the bare ptr copy of the allrules element, which doesn\u0027t preserve life time at all. \n\n3. there is no rule deletion at all, so the lifetime of a rule is basically from the rule creation until the end of game. Actually, the originally implementation made it impossible to delete, since a deletion in the middle of rule list will cause every index of following the rules minus one.",
       "parentUuid": "b172dcd0_0cc1a122",
+      "range": {
+        "startLine": 1323,
+        "startChar": 30,
+        "endLine": 1323,
+        "endChar": 34
+      },
+      "revId": "7548fb413b5a90206b3f4bab99012c5340ff7333",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "442d3b24_7fb03871",
+        "filename": "http/routing.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 1323,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-06-07T15:53:41Z",
+      "side": 1,
+      "message": "\u003e Both mechanism should be equally safe: \n\u003e \n\u003e 1. In the old one, we push/pop Trie node and rule vector at the same time. That means the life time of a rule is the same no matter outside the trie node(using vector index) or inside. \n\nThere\u0027s nothing about the ownership model that guarantees that though.\n\n\u003e \n\u003e 2. the allrules vector is still there. (https://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/43502/9/http/routing.hpp#b1460). The original rule vector is just the bare ptr copy of the allrules element, which doesn\u0027t preserve life time at all. \n\n\nThis would kind of imply that you want to use a shared_ptr, possibly with this handler accepting by weak_ptr\n\n\u003e \n\u003e 3. there is no rule deletion at all, so the lifetime of a rule is basically from the rule creation until the end of game.\n\nExcept on shutdown, which can (and has in the past) had lifetime issues with calls being made while the system is shutting down.\n\n\u003e Actually, the originally implementation made it impossible to delete, since a deletion in the middle of rule list will cause every index of following the rules minus one.\n\nIt\u0027s impossible to delete, but very easy to reallocate the vector memory and invalidate the pointers right?",
+      "parentUuid": "ee509c60_ec565112",
       "range": {
         "startLine": 1323,
         "startChar": 30,
