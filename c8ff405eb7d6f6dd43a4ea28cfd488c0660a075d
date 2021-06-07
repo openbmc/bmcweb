@@ -118,6 +118,30 @@
       "revId": "c8ff405eb7d6f6dd43a4ea28cfd488c0660a075d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "52ddff34_ed83cf45",
+        "filename": "Redfish.md",
+        "patchSetId": 4
+      },
+      "lineNbr": 483,
+      "author": {
+        "id": 1001083
+      },
+      "writtenOn": "2021-06-07T13:41:02Z",
+      "side": 1,
+      "message": "Without location parameter, change 43453 has added all these fields. Abandoning this commit.\n\nhttps://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/43453",
+      "parentUuid": "4e93ff8e_fd22ad19",
+      "range": {
+        "startLine": 483,
+        "startChar": 2,
+        "endLine": 483,
+        "endChar": 10
+      },
+      "revId": "c8ff405eb7d6f6dd43a4ea28cfd488c0660a075d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
