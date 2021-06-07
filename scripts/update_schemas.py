@@ -93,6 +93,8 @@ include_list = [
     'StorageCollection',
     'StorageController',
     'StorageControllerCollection',
+    'Switch',
+    'SwitchCollection',
     'Task',
     'TaskCollection',
     'TaskService',

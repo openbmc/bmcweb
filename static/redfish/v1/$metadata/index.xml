@@ -2089,6 +2089,43 @@
     <edmx:Reference Uri="/redfish/v1/schema/StorageControllerCollection_v1.xml">
         <edmx:Include Namespace="StorageControllerCollection"/>
     </edmx:Reference>
+    <edmx:Reference Uri="/redfish/v1/schema/Switch_v1.xml">
+        <edmx:Include Namespace="Switch"/>
+        <edmx:Include Namespace="Switch.v1_0_0"/>
+        <edmx:Include Namespace="Switch.v1_0_1"/>
+        <edmx:Include Namespace="Switch.v1_0_2"/>
+        <edmx:Include Namespace="Switch.v1_0_3"/>
+        <edmx:Include Namespace="Switch.v1_0_4"/>
+        <edmx:Include Namespace="Switch.v1_0_5"/>
+        <edmx:Include Namespace="Switch.v1_0_6"/>
+        <edmx:Include Namespace="Switch.v1_0_7"/>
+        <edmx:Include Namespace="Switch.v1_0_8"/>
+        <edmx:Include Namespace="Switch.v1_0_9"/>
+        <edmx:Include Namespace="Switch.v1_1_0"/>
+        <edmx:Include Namespace="Switch.v1_1_1"/>
+        <edmx:Include Namespace="Switch.v1_1_2"/>
+        <edmx:Include Namespace="Switch.v1_1_3"/>
+        <edmx:Include Namespace="Switch.v1_1_4"/>
+        <edmx:Include Namespace="Switch.v1_1_5"/>
+        <edmx:Include Namespace="Switch.v1_1_6"/>
+        <edmx:Include Namespace="Switch.v1_2_0"/>
+        <edmx:Include Namespace="Switch.v1_2_1"/>
+        <edmx:Include Namespace="Switch.v1_2_2"/>
+        <edmx:Include Namespace="Switch.v1_2_3"/>
+        <edmx:Include Namespace="Switch.v1_3_0"/>
+        <edmx:Include Namespace="Switch.v1_3_1"/>
+        <edmx:Include Namespace="Switch.v1_3_2"/>
+        <edmx:Include Namespace="Switch.v1_3_3"/>
+        <edmx:Include Namespace="Switch.v1_4_0"/>
+        <edmx:Include Namespace="Switch.v1_4_1"/>
+        <edmx:Include Namespace="Switch.v1_4_2"/>
+        <edmx:Include Namespace="Switch.v1_5_0"/>
+        <edmx:Include Namespace="Switch.v1_5_1"/>
+        <edmx:Include Namespace="Switch.v1_6_0"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="/redfish/v1/schema/SwitchCollection_v1.xml">
+        <edmx:Include Namespace="SwitchCollection"/>
+    </edmx:Reference>
     <edmx:Reference Uri="/redfish/v1/schema/Task_v1.xml">
         <edmx:Include Namespace="Task"/>
         <edmx:Include Namespace="Task.v1_0_0"/>
