@@ -191,6 +191,30 @@
     },
     {
       "key": {
+        "uuid": "a75c3d28_2a74b11a",
+        "filename": "redfish-core/include/node.hpp",
+        "patchSetId": 41
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-06-08T01:15:27Z",
+      "side": 1,
+      "message": "I suspect we\u0027ll need a \"redfish pre checks\" method that we can start all the redfish-specific resource things from;  It would be added to the begining of every redfish handler, or we could invent a \"REDFISH_ROUTE\" macro that\u0027s very similar to the BMCWEB_ROUTE macro.",
+      "parentUuid": "3c44fbb7_55dea129",
+      "range": {
+        "startLine": 73,
+        "startChar": 0,
+        "endLine": 83,
+        "endChar": 0
+      },
+      "revId": "d8ce8e6172caf6cc50a06d292d7f0965b3b916d4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c937d803_2594d10e",
         "filename": "redfish-core/include/utils/query_param.hpp",
         "patchSetId": 41
