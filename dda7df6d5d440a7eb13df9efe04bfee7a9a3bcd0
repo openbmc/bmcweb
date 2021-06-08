@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f8aa5359_528b453a",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 464,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-06-08T18:41:03Z",
+      "side": 1,
+      "message": "This doesn\u0027t work either.  Please see the other examples where we use a separate method and a lookup table to convert dbus enums to redfish.  They are generally not 1:1 in this way.",
+      "range": {
+        "startLine": 459,
+        "startChar": 0,
+        "endLine": 464,
+        "endChar": 58
+      },
+      "revId": "dda7df6d5d440a7eb13df9efe04bfee7a9a3bcd0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
