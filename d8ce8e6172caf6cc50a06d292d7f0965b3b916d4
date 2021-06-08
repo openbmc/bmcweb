@@ -215,6 +215,30 @@
     },
     {
       "key": {
+        "uuid": "f103c691_02539f0c",
+        "filename": "redfish-core/include/node.hpp",
+        "patchSetId": 41
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1001027
+      },
+      "writtenOn": "2021-06-08T01:53:11Z",
+      "side": 1,
+      "message": "Like this？\ninline void requestRoutesSystems(App\u0026 app)\n{\n    BMCWEB_ROUTE(app, \"/redfish/v1/Systems/system/\")\n        .privileges({\"Login\"})\n        .methods(\n            boost::beast::http::verb::\n                get)([](const crow::Request\u0026 req,\n                        const std::shared_ptr\u003cbmcweb::AsyncResp\u003e\u0026 asyncResp) {\n\n            BMCWEB_ROUTE(app, req, asyncResp-\u003eres);\n            \n            asyncResp-\u003eres.jsonValue[\"@odata.type\"] \u003d\n                \"#ComputerSystem.v1_13_0.ComputerSystem\";\n            // ...\n        });",
+      "parentUuid": "a75c3d28_2a74b11a",
+      "range": {
+        "startLine": 73,
+        "startChar": 0,
+        "endLine": 83,
+        "endChar": 0
+      },
+      "revId": "d8ce8e6172caf6cc50a06d292d7f0965b3b916d4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c937d803_2594d10e",
         "filename": "redfish-core/include/utils/query_param.hpp",
         "patchSetId": 41
