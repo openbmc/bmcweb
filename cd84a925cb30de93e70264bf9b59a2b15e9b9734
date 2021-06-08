@@ -2,6 +2,46 @@
   "comments": [
     {
       "key": {
+        "uuid": "77965418_90478999",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 1705,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-06-08T18:44:54Z",
+      "side": 1,
+      "message": "But you found it in mapper. I think messages::internalError(aResp-\u003eres); here.",
+      "revId": "cd84a925cb30de93e70264bf9b59a2b15e9b9734",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1ccf941b_291bd185",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 1712,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-06-08T18:44:54Z",
+      "side": 1,
+      "message": "I see more: \nif (s \u003d\u003d nullptr)\n{\n   BMCWEB_LOG_DEBUG \u003c\u003c \"...\n   messages::internalError(aResp-\u003eres);\n}\n\nup to you..",
+      "range": {
+        "startLine": 1711,
+        "startChar": 0,
+        "endLine": 1712,
+        "endChar": 21
+      },
+      "revId": "cd84a925cb30de93e70264bf9b59a2b15e9b9734",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "cc988034_18beb778",
         "filename": "redfish-core/lib/systems.hpp",
         "patchSetId": 5
@@ -42,6 +82,40 @@
         "endLine": 1746,
         "endChar": 60
       },
+      "revId": "cd84a925cb30de93e70264bf9b59a2b15e9b9734",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eada9a74_006038f2",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 1770,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-06-08T18:44:54Z",
+      "side": 1,
+      "message": "But the client tried to set this.. \nmessages::internalError(aResp-\u003eres); ?\n\nI agree on the GET this makes sense but the user PATCHed this.",
+      "revId": "cd84a925cb30de93e70264bf9b59a2b15e9b9734",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d142ccb8_47a76285",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 1776,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-06-08T18:44:54Z",
+      "side": 1,
+      "message": "But the client PATCHed this.. \n\n                    messages::resourceNotFound(asyncResp-\u003eres, \"ComputerSystem\",\n                                               \"PowerMode\"); ?",
       "revId": "cd84a925cb30de93e70264bf9b59a2b15e9b9734",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
