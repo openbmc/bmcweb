@@ -16,6 +16,24 @@
       "revId": "03782c150b9f6cd8b0575a423c599c5976907d5e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "28acd541_34f570e8",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 81
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-06-08T00:33:18Z",
+      "side": 1,
+      "message": "Bruce, Considering the aformentioned is your commit, can you please walk through the places it\u0027s needed and add commits to add pascals?  I know it\u0027s at minimum needed here and in dbus-sensors.  Then this patchset will simply rebase on top of your change.",
+      "parentUuid": "9117e9a2_77bec4d4",
+      "revId": "03782c150b9f6cd8b0575a423c599c5976907d5e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
