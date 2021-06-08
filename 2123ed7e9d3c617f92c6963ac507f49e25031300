@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "7b9243c1_bed11e9d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-06-08T18:39:38Z",
+      "side": 1,
+      "message": "That\u0027s not what I asked.  What patches are needed for this to succeed?",
+      "parentUuid": "8c1177d3_3aa477cf",
+      "range": {
+        "startLine": 12,
+        "startChar": 0,
+        "endLine": 12,
+        "endChar": 25
+      },
+      "revId": "2123ed7e9d3c617f92c6963ac507f49e25031300",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "80d148ca_d0c88b64",
         "filename": "redfish-core/lib/chassis.hpp",
         "patchSetId": 3
