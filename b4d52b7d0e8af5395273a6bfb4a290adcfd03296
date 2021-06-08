@@ -55,6 +55,24 @@
     },
     {
       "key": {
+        "uuid": "4b83ff8c_83d371cb",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000579
+      },
+      "writtenOn": "2021-06-08T10:09:51Z",
+      "side": 1,
+      "message": "Ok I will update the code accordingly.",
+      "parentUuid": "1002cc06_d1e028f1",
+      "revId": "b4d52b7d0e8af5395273a6bfb4a290adcfd03296",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "2d247b9a_7ef64712",
         "filename": "redfish-core/lib/update_service.hpp",
         "patchSetId": 1
@@ -170,6 +188,30 @@
       "revId": "b4d52b7d0e8af5395273a6bfb4a290adcfd03296",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d7fd4c1d_74dd4858",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 394,
+      "author": {
+        "id": 1000579
+      },
+      "writtenOn": "2021-06-08T10:09:51Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "96a71a83_516c1f70",
+      "range": {
+        "startLine": 394,
+        "startChar": 10,
+        "endLine": 394,
+        "endChar": 17
+      },
+      "revId": "b4d52b7d0e8af5395273a6bfb4a290adcfd03296",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
