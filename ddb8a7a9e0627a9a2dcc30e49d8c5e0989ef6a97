@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7f9d999c_d9dc215a",
+        "filename": "redfish-core/lib/hypervisor_system.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 980,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2021-06-08T05:02:19Z",
+      "side": 1,
+      "message": "Why the setIPv4InterfaceEnabled call is removed from here?",
+      "revId": "ddb8a7a9e0627a9a2dcc30e49d8c5e0989ef6a97",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
