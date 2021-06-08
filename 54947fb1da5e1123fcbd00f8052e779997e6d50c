@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7a7a1f2a_9c2d4afa",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 9
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-06-08T21:43:26Z",
+      "side": 1,
+      "message": "Can you update before merging?",
+      "revId": "54947fb1da5e1123fcbd00f8052e779997e6d50c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
