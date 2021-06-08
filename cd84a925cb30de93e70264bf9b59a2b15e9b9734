@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cc988034_18beb778",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 1737,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-06-08T18:32:41Z",
+      "side": 1,
+      "message": "This will be a validator error. There is no UNKNOWN enum",
+      "range": {
+        "startLine": 1734,
+        "startChar": 0,
+        "endLine": 1737,
+        "endChar": 25
+      },
+      "revId": "cd84a925cb30de93e70264bf9b59a2b15e9b9734",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "114278d7_1eedffe9",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 1746,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-06-08T18:32:41Z",
+      "side": 1,
+      "message": "GetSubTree ?",
+      "range": {
+        "startLine": 1746,
+        "startChar": 45,
+        "endLine": 1746,
+        "endChar": 60
+      },
+      "revId": "cd84a925cb30de93e70264bf9b59a2b15e9b9734",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "91c7a6f8_565ed13e",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 1826,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-06-08T18:32:41Z",
+      "side": 1,
+      "message": "GetSubTree below so you don\u0027t hardcode this?",
+      "range": {
+        "startLine": 1826,
+        "startChar": 17,
+        "endLine": 1826,
+        "endChar": 45
+      },
+      "revId": "cd84a925cb30de93e70264bf9b59a2b15e9b9734",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0bcdfc45_8bd4a669",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 1833,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-06-08T18:32:41Z",
+      "side": 1,
+      "message": "GetSubTree so you can get the service too?",
+      "range": {
+        "startLine": 1833,
+        "startChar": 45,
+        "endLine": 1833,
+        "endChar": 60
+      },
+      "revId": "cd84a925cb30de93e70264bf9b59a2b15e9b9734",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
