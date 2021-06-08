@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e0b0f272_b503ce03",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 632,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-06-08T02:25:30Z",
+      "side": 1,
+      "message": "As an interface, it\u0027s unfortunate that we didn\u0027t call this \"value\" or something to not duplicate the \"UniqueIdentifier\" name.  Oh well, not worth changing at this point.",
+      "range": {
+        "startLine": 632,
+        "startChar": 9,
+        "endLine": 632,
+        "endChar": 25
+      },
+      "revId": "19cd00255a6974d376112579bb716b4e29c22306",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    }
+  ]
+}
