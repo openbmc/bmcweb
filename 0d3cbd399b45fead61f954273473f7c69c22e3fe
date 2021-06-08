@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fc85bc45_465e4a82",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-06-08T01:12:20Z",
+      "side": 1,
+      "message": "What is \"it\"?  PFR?  In this case, is PFR not able to identify the failed component?",
+      "range": {
+        "startLine": 14,
+        "startChar": 22,
+        "endLine": 15,
+        "endChar": 31
+      },
+      "revId": "0d3cbd399b45fead61f954273473f7c69c22e3fe",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "44886f4e_cd33b553",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-06-08T01:12:20Z",
+      "side": 1,
+      "message": "What does \"minor code\" mean?  Generally redfish APIs are self describing.",
+      "range": {
+        "startLine": 36,
+        "startChar": 51,
+        "endLine": 37,
+        "endChar": 51
+      },
+      "revId": "0d3cbd399b45fead61f954273473f7c69c22e3fe",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
