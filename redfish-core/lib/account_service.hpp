@@ -1259,7 +1259,7 @@ inline void requestAccountServiceRoutes(App& app)
     BMCWEB_ROUTE(app, "/redfish/v1/AccountService/")
         .privileges({{"Login"}})
         .methods(
-            boost::beast::http::verb::get)([](const crow::Request& /* req */,
+            boost::beast::http::verb::get)([](const crow::Request& req,
                                               const std::shared_ptr<
                                                   bmcweb::AsyncResp>& asyncResp)
                                                -> void {
@@ -1289,11 +1289,20 @@ inline void requestAccountServiceRoutes(App& app)
                          {"XToken", authMethodsConfig.xtoken},
                          {"Cookie", authMethodsConfig.cookie},
                          {"TLS", authMethodsConfig.tls},
-                     }}}}}},
-                {"LDAP",
-                 {{"Certificates",
-                   {{"@odata.id",
-                     "/redfish/v1/AccountService/LDAP/Certificates"}}}}}};
+                     }}}}}}};
+            // /redfish/v1/AccountService/LDAP/Certificates is something only
+            // ConfigureManager can access then only display when the user has
+            // permissions ConfigureManager
+            Privileges effectiveUserPrivileges =
+                redfish::getUserPrivileges(req.userRole);
+
+            if (effectiveUserPrivileges.isSupersetOf({{"ConfigureManager"}}))
+            {
+                asyncResp->res.jsonValue["LDAP"] = {
+                    {"Certificates",
+                     {{"@odata.id",
+                       "/redfish/v1/AccountService/LDAP/Certificates"}}}};
+            }
             crow::connections::systemBus->async_method_call(
                 [asyncResp](
                     const boost::system::error_code ec,
