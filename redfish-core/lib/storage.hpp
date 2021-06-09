@@ -469,6 +469,59 @@ inline void requestRoutesDrive(App& app)
                         },
                         connectionName, path, "org.freedesktop.DBus.Properties",
                         "Get", "xyz.openbmc_project.State.Drive", "Rebuilding");
+
+                    crow::connections::systemBus->async_method_call(
+                        [asyncResp, storageId,
+                         driveId](const boost::system::error_code ec,
+                                  const crow::openbmc_mapper::GetSubTreeType&
+                                      subtree) {
+                            if (ec)
+                            {
+                                BMCWEB_LOG_ERROR << "Drive mapper call error";
+                                messages::internalError(asyncResp->res);
+                                return;
+                            }
+
+                            nlohmann::json& conditionArray =
+                                asyncResp->res
+                                    .jsonValue["Status"]["Conditions"];
+                            conditionArray = nlohmann::json::array();
+                            for (const auto& obj : subtree)
+                            {
+                                sdbusplus::message::object_path objpath(
+                                    obj.first);
+
+                                if (objpath.filename().empty())
+                                {
+                                    BMCWEB_LOG_ERROR
+                                        << "Failed to find filename in "
+                                        << obj.first;
+                                    continue;
+                                }
+
+                                conditionArray.push_back(nlohmann::json());
+                                auto& entry = conditionArray.back();
+                                auto logPath =
+                                    "/redfish/v1/Chassis/" + storageId +
+                                    "/LogServices/DeviceLog/Entries/";
+
+                                entry["LogEntry"]["@odata.id"] =
+                                    logPath + objpath.filename();
+                                entry["MessageId"] = "OpenBmc.0.2.DriveError";
+                            }
+
+                            asyncResp->res
+                                .jsonValue["Status"]["Conditions@odata.count"] =
+                                conditionArray.size();
+                        },
+                        // Use only the first service it finds.
+                        "xyz.openbmc_project.ObjectMapper",
+                        "/xyz/openbmc_project/object_mapper",
+                        "xyz.openbmc_project.ObjectMapper", "GetSubTree",
+                        "/xyz/openbmc_project/logging/devices/" + storageId,
+                        int32_t(1),
+                        std::array<const char*, 1>{
+                            "xyz.openbmc_project.Logging.Entry"});
                 },
                 "xyz.openbmc_project.ObjectMapper",
                 "/xyz/openbmc_project/object_mapper",
