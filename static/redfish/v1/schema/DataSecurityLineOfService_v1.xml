@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!---->
+<!-- Copyright 2015-2019 Storage Networking Industry Association (SNIA), USA. All rights reserved.-->
+<edmx:Edmx xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx" Version="4.0">
+  <edmx:Reference Uri="http://docs.oasis-open.org/odata/odata/v4.0/errata03/csd01/complete/vocabularies/Org.OData.Core.V1.xml">
+    <edmx:Include Namespace="Org.OData.Core.V1" Alias="OData"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/RedfishExtensions_v1.xml">
+    <edmx:Include Namespace="RedfishExtensions.v1_0_0" Alias="Redfish"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/Resource_v1.xml">
+    <edmx:Include Namespace="Resource"/>
+    <edmx:Include Namespace="Resource.v1_0_0"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://docs.oasis-open.org/odata/odata/v4.0/errata03/csd01/complete/vocabularies/Org.OData.Capabilities.V1.xml">
+    <edmx:Include Namespace="Org.OData.Capabilities.V1" Alias="Capabilities"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/swordfish/v1/LineOfService_v1.xml">
+    <edmx:Include Namespace="LineOfService"/>
+    <edmx:Include Namespace="LineOfService.v1_0_0"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/swordfish/v1/DataSecurityLoSCapabilities_v1.xml">
+    <edmx:Include Namespace="DataSecurityLoSCapabilities"/>
+  </edmx:Reference>
+
+  <edmx:DataServices>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="DataSecurityLineOfService">
+      <Annotation Term="Redfish.OwningEntity" String="SNIA"/>
+      <EntityType Name="DataSecurityLineOfService" BaseType="LineOfService.v1_0_0.LineOfService" Abstract="true">
+        <Annotation Term="OData.Description" String="The capabilities to protect the system data from loss."/>
+        <Annotation
+          Term="OData.LongDescription"
+          String="The capabilities to protect data from loss by the use of a replica. The requirements must be met collectively by the communication path and the replica. There will be one instance associated to a class of service for each replica. Each replica has its own class of service that describes its characteristics."/>
+
+          <Annotation Term="Capabilities.InsertRestrictions">
+            <Record>
+              <PropertyValue Property="Insertable" Bool="false"/>
+            </Record>
+          </Annotation>
+          <Annotation Term="Capabilities.UpdateRestrictions">
+            <Record>
+              <PropertyValue Property="Updatable" Bool="true"/>
+              <Annotation Term="OData.Description" String="DataSecurityLineOfService resources can be updated to change the writable properties."/>
+            </Record>
+          </Annotation>
+          <Annotation Term="Capabilities.DeleteRestrictions">
+            <Record>
+              <PropertyValue Property="Deletable" Bool="true"/>
+              <Annotation Term="OData.Description" String="DataSecurityLineOfService resources can be deleted by deleting the DataSecurityLineOfService resource."/>
+            </Record>
+          </Annotation>
+          <Annotation Term="Redfish.Uris">
+            <Collection>
+              <String>/redfish/v1/StorageServices/{StorageServiceId}/LinesOfService/DataSecurityLinesOfService/{DataSecurityLineOfServiceId}</String>
+              <String>/redfish/v1/StorageServices/{StorageServiceId}/ClassesOfService/{ClassOfServiceId}/DataSecurityLinesOfService/{DataSecurityLineOfServiceId}</String>
+            </Collection>
+          </Annotation>
+      </EntityType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="DataSecurityLineOfService.v1_0_0">
+      <Annotation Term="Redfish.OwningEntity" String="SNIA"/>
+      <Annotation Term="Redfish.Release" String="TP v1.0.6"/>
+      <EntityType Name="DataSecurityLineOfService" BaseType="DataSecurityLineOfService.DataSecurityLineOfService">
+        <Annotation Term="OData.Description" String="Describes data security service level requirements."/>
+        <Annotation Term="OData.LongDescription" String="This structure shall be used to describe data security service level requirements."/>
+        <Property Name="MediaEncryptionStrength" Type="DataSecurityLoSCapabilities.KeySize">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="Key size for media encryption."/>
+          <Annotation Term="OData.LongDescription" String="The enumeration literal shall specify a key size in a symmetric encryption algorithm for media encryption."/>
+        </Property>
+        <Property Name="ChannelEncryptionStrength" Type="DataSecurityLoSCapabilities.KeySize">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="Key size for transport channel encryption."/>
+          <Annotation Term="OData.LongDescription" String="The enumeration literal shall specify a key size in a symmetric encryption algorithm for transport channel encryption."/>
+        </Property>
+        <Property Name="HostAuthenticationType" Type="DataSecurityLoSCapabilities.AuthenticationType">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="Authentication type for hosts (servers) or initiator endpoints."/>
+          <Annotation Term="OData.LongDescription" String="The enumeration literal shall specify the authentication type for hosts (servers) or initiator endpoints."/>
+        </Property>
+        <Property Name="UserAuthenticationType" Type="DataSecurityLoSCapabilities.AuthenticationType">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="Authentication type for users (or programs)."/>
+          <Annotation Term="OData.LongDescription" String="The enumeration literal shall specify the authentication type for users (or programs)."/>
+        </Property>
+        <Property Name="SecureChannelProtocol" Type="DataSecurityLoSCapabilities.SecureChannelProtocol">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="Protocol that provide encrypted communication."/>
+          <Annotation Term="OData.LongDescription" String="The enumeration literal shall specify the protocol that provide encrypted communication."/>
+        </Property>
+        <Property Name="AntivirusScanPolicies" Type="Collection(DataSecurityLoSCapabilities.AntiVirusScanTrigger)">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="Policy for triggering an AntiVirus scan."/>
+          <Annotation Term="OData.LongDescription" String="The enumeration literal shall specify the policy for triggering an AntiVirus scan."/>
+        </Property>
+        <Property Name="AntivirusEngineProvider" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="AntiVirus provider."/>
+          <Annotation Term="OData.LongDescription" String="The value shall specify an AntiVirus provider."/>
+        </Property>
+        <Property Name="DataSanitizationPolicy" Type="DataSecurityLoSCapabilities.DataSanitizationPolicy">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="Data sanitization policy."/>
+          <Annotation Term="OData.LongDescription" String="The enumeration literal shall specify the data sanitization policy."/>
+        </Property>
+      </EntityType>
+
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="DataSecurityLineOfService.v1_0_1">
+      <Annotation Term="Redfish.OwningEntity" String="SNIA"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that OData properties are marked as required, and integer properties are marked as integer rather than number."/>
+      <EntityType Name="DataSecurityLineOfService" BaseType="DataSecurityLineOfService.v1_0_0.DataSecurityLineOfService"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="DataSecurityLineOfService.v1_0_2">
+      <Annotation Term="Redfish.OwningEntity" String="SNIA"/>
+      <Annotation Term="OData.Description" String="This version was created to fix CSDL errors and adds both Redfish Uris and Capability Annotations."/>
+      <EntityType Name="DataSecurityLineOfService" BaseType="DataSecurityLineOfService.v1_0_1.DataSecurityLineOfService"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="DataSecurityLineOfService.v1_1_0">
+      <Annotation Term="Redfish.OwningEntity" String="SNIA"/>
+      <Annotation Term="Redfish.Release" String="WIP v1.1.0"/>
+      <Annotation Term="OData.Description" String="The BaseType was changed from Resource to the LineOfService class.  This version also corrects CSDL errors."/>
+      <EntityType Name="DataSecurityLineOfService" BaseType="DataSecurityLineOfService.v1_0_2.DataSecurityLineOfService">
+        <Property Name="Actions" Type="DataSecurityLineOfService.v1_1_0.Actions" Nullable="false">
+          <Annotation Term="OData.Description" String="The available actions for this resource."/>
+          <Annotation Term="OData.LongDescription" String="The Actions property shall contain the available actions for this resource."/>
+        </Property>
+      </EntityType>
+
+      <ComplexType Name="Actions">
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="OData.Description" String="The available actions for this resource."/>
+        <Annotation Term="OData.LongDescription" String="The Actions property shall contain the available actions for this resource."/>
+        <Property Name="Oem" Type="DataSecurityLineOfService.v1_1_0.OemActions" Nullable="false">
+          <Annotation Term="OData.Description" String="This property contains the available OEM specific actions for this resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain any additional OEM actions for this resource."/>
+        </Property>
+      </ComplexType>
+
+      <ComplexType Name="OemActions">
+        <Annotation Term="OData.AdditionalProperties" Bool="true"/>
+        <Annotation Term="OData.Description" String="The available OEM specific actions for this resource."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain any additional OEM actions for this resource."/>
+      </ComplexType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="DataSecurityLineOfService.v1_1_1">
+      <Annotation Term="Redfish.OwningEntity" String="SNIA"/>
+      <Annotation Term="OData.Description" String="This version was created to fix Redfish Uris issues."/>
+      <EntityType Name="DataSecurityLineOfService" BaseType="DataSecurityLineOfService.v1_1_0.DataSecurityLineOfService"/>
+    </Schema>
+
+  </edmx:DataServices>
+</edmx:Edmx>

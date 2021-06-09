@@ -1,0 +1,292 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!---->
+<!--################################################################################       -->
+<!--# Redfish Schema:  Connection v1.1.0                                                   -->
+<!--#                                                                                      -->
+<!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
+<!--# available at http://www.dmtf.org/standards/redfish                                   -->
+<!--# Copyright 2014-2021 DMTF.                                                            -->
+<!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
+<!--################################################################################       -->
+<!---->
+<edmx:Edmx xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx" Version="4.0">
+
+  <edmx:Reference Uri="http://docs.oasis-open.org/odata/odata/v4.0/errata03/csd01/complete/vocabularies/Org.OData.Core.V1.xml">
+    <edmx:Include Namespace="Org.OData.Core.V1" Alias="OData"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://docs.oasis-open.org/odata/odata/v4.0/errata03/csd01/complete/vocabularies/Org.OData.Capabilities.V1.xml">
+    <edmx:Include Namespace="Org.OData.Capabilities.V1" Alias="Capabilities"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://docs.oasis-open.org/odata/odata/v4.0/errata03/csd01/complete/vocabularies/Org.OData.Measures.V1.xml">
+    <edmx:Include Namespace="Org.OData.Measures.V1" Alias="Measures"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/RedfishExtensions_v1.xml">
+    <edmx:Include Namespace="RedfishExtensions.v1_0_0" Alias="Redfish"/>
+    <edmx:Include Namespace="Validation.v1_0_0" Alias="Validation"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/Resource_v1.xml">
+    <edmx:Include Namespace="Resource"/>
+    <edmx:Include Namespace="Resource.v1_0_0"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/swordfish/v1/Volume_v1.xml">
+    <edmx:Include Namespace="Volume"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/Endpoint_v1.xml">
+    <edmx:Include Namespace="Endpoint"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/EndpointGroup_v1.xml">
+    <edmx:Include Namespace="EndpointGroup"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/MemoryChunks_v1.xml">
+    <edmx:Include Namespace="MemoryChunks"/>
+  </edmx:Reference>
+
+  <edmx:DataServices>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Connection">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+
+      <EntityType Name="Connection" BaseType="Resource.v1_0_0.Resource" Abstract="true">
+        <Annotation Term="OData.Description" String="The Connection schema describes the access permissions endpoints, or groups of endpoints, have with other resources in the service."/>
+        <Annotation Term="OData.LongDescription" String="This resource shall represent a connection information in the Redfish Specification."/>
+        <Annotation Term="Capabilities.InsertRestrictions">
+          <Record>
+            <PropertyValue Property="Insertable" Bool="false"/>
+          </Record>
+        </Annotation>
+        <Annotation Term="Capabilities.UpdateRestrictions">
+          <Record>
+            <PropertyValue Property="Updatable" Bool="true"/>
+          </Record>
+        </Annotation>
+        <Annotation Term="Capabilities.DeleteRestrictions">
+          <Record>
+            <PropertyValue Property="Deletable" Bool="true"/>
+          </Record>
+        </Annotation>
+        <Annotation Term="Redfish.Uris">
+          <Collection>
+            <String>/redfish/v1/Fabrics/{FabricId}/Connections/{ConnectionId}</String>
+          </Collection>
+        </Annotation>
+      </EntityType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Connection.v1_0_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2020.3"/>
+
+      <EntityType Name="Connection" BaseType="Connection.Connection">
+        <Property Name="Status" Type="Resource.Status" Nullable="false">
+          <Annotation Term="OData.Description" String="The status and health of the resource and its subordinate or dependent resources."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain any status or health properties of the resource."/>
+        </Property>
+        <Property Name="ConnectionType" Type="Connection.v1_0_0.ConnectionType">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The type of resources this connection specifies."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the type of resources this connection specifies."/>
+        </Property>
+        <Property Name="VolumeInfo" Type="Collection(Connection.v1_0_0.VolumeInfo)">
+          <Annotation Term="OData.Description" String="The set of volumes and access capabilities specified for this connection."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the set of volumes and access capabilities specified for this connection."/>
+        </Property>
+        <Property Name="Links" Type="Connection.v1_0_0.Links" Nullable="false">
+          <Annotation Term="OData.Description" String="The links to other resources that are related to this resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain links to resources that are related to but are not contained by, or subordinate to, this resource."/>
+        </Property>
+        <Property Name="Actions" Type="Connection.v1_0_0.Actions" Nullable="false">
+          <Annotation Term="OData.Description" String="The available actions for this resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the available actions for this resource."/>
+        </Property>
+      </EntityType>
+
+      <ComplexType Name="VolumeInfo">
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="OData.Description" String="The combination of permissions and volume information."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain the combination of permissions and volume information."/>
+        <Property Name="AccessCapabilities" Type="Collection(Connection.v1_0_0.AccessCapability)">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="Supported IO access capabilities."/>
+          <Annotation Term="OData.LongDescription" String="Each entry shall specify a current storage access capability."/>
+        </Property>
+        <Property Name="AccessState" Type="Connection.v1_0_0.AccessState">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The access state for this connection."/>
+          <Annotation Term="OData.LongDescription" String="The value of this property shall contain the access state for the associated resource in this connection."/>
+        </Property>
+        <NavigationProperty Name="Volume" Type="Volume.Volume" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The specified volume."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource of type Volume.  The endpoints referenced by the InitiatorEndpoints or InitiatorEndpointGroups properties shall be given access to this volume as described by this object.  If TargetEndpoints or TargetEndpointGroups is present, the referenced initiator endpoints shall be required to access the referenced volume through one of the referenced target endpoints."/>
+        </NavigationProperty>
+      </ComplexType>
+
+      <EnumType Name="ConnectionType">
+        <Member Name="Storage">
+          <Annotation Term="OData.Description" String="A connection to storage related resources, such as volumes."/>
+        </Member>
+        <Member Name="Memory">
+          <Annotation Term="OData.Description" String="A connection to memory related resources."/>
+        </Member>
+      </EnumType>
+
+      <EnumType Name="AccessCapability">
+        <Member Name="Read">
+          <Annotation Term="OData.Description" String="Endpoints are allowed to perform reads from the specified resource."/>
+        </Member>
+        <Member Name="Write">
+          <Annotation Term="OData.Description" String="Endpoints are allowed to perform writes to the specified resource."/>
+        </Member>
+      </EnumType>
+
+      <EnumType Name="AccessState">
+        <Annotation Term="OData.Description" String="Describes the options for the access characteristics of a resource."/>
+        <Annotation Term="OData.LongDescription" String="This type shall describe the access to the associated resource in this connection."/>
+        <Member Name="Optimized">
+          <Annotation Term="OData.Description" String="The resource is in an active and optimized state."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the resource is in an active and optimized state."/>
+        </Member>
+        <Member Name="NonOptimized">
+          <Annotation Term="OData.Description" String="The resource is in an active and non-optimized state."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the resource is in an active and non-optimized state."/>
+        </Member>
+        <Member Name="Standby">
+          <Annotation Term="OData.Description" String="The resource is in a standby state."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the resource is in a standby state."/>
+        </Member>
+        <Member Name="Unavailable">
+          <Annotation Term="OData.Description" String="The resource is in an unavailable state."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the resource is in an unavailable state."/>
+        </Member>
+        <Member Name="Transitioning">
+          <Annotation Term="OData.Description" String="The resource is transitioning to a new state."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the resource is transitioning to a new state."/>
+        </Member>
+      </EnumType>
+
+      <ComplexType Name="Links" BaseType="Resource.Links">
+        <Annotation Term="OData.Description" String="The links to other resources that are related to this resource."/>
+        <Annotation Term="OData.LongDescription" String="This Redfish Specification-described type shall contain links to resources that are related to but are not contained by, or subordinate to, this resource."/>
+        <NavigationProperty Name="InitiatorEndpoints" Type="Collection(Endpoint.Endpoint)">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="An array of links to the initiator endpoints that are associated with this connection."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type Endpoint that are the initiator endpoints associated with this connection.  If the referenced endpoints contain the EntityRole property, the EntityRole property shall contain the value `Initiator` or `Both`.  This property shall not be present if InitiatorEndpointGroups is present."/>
+          <Annotation Term="OData.AutoExpandReferences"/>
+        </NavigationProperty>
+        <NavigationProperty Name="TargetEndpoints" Type="Collection(Endpoint.Endpoint)">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="An array of links to the target endpoints that are associated with this connection."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type Endpoint that are the target endpoints associated with this connection.  If the referenced endpoints contain the EntityRole property, the EntityRole property shall contain the value `Target` or `Both`.  This property shall not be present if TargetEndpointGroups is present."/>
+          <Annotation Term="OData.AutoExpandReferences"/>
+        </NavigationProperty>
+        <NavigationProperty Name="InitiatorEndpointGroups" Type="Collection(EndpointGroup.EndpointGroup)">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="An array of links to the initiator endpoint groups that are associated with this connection."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type EndpointGroup that are the initiator endpoint groups associated with this connection.  If the referenced endpoint groups contain the GroupType property, the GroupType property shall contain the value `Initiator` or `Client`.  This property shall not be present if InitiatorEndpoints is present."/>
+          <Annotation Term="OData.AutoExpandReferences"/>
+        </NavigationProperty>
+        <NavigationProperty Name="TargetEndpointGroups" Type="Collection(EndpointGroup.EndpointGroup)">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="An array of links to the target endpoint groups that are associated with this connection."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type EndpointGroup that are the target endpoint groups associated with this connection.  If the referenced endpoint groups contain the GroupType property, the GroupType property shall contain the value `Target` or `Server`.  This property shall not be present if TargetEndpoints is present."/>
+          <Annotation Term="OData.AutoExpandReferences"/>
+        </NavigationProperty>
+      </ComplexType>
+
+      <ComplexType Name="Actions">
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="OData.Description" String="The available actions for this resource."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain the available actions for this resource."/>
+        <Property Name="Oem" Type="Connection.v1_0_0.OemActions" Nullable="false">
+          <Annotation Term="OData.Description" String="The available OEM-specific actions for this resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the available OEM-specific actions for this resource."/>
+        </Property>
+      </ComplexType>
+
+      <ComplexType Name="OemActions">
+        <Annotation Term="OData.AdditionalProperties" Bool="true"/>
+        <Annotation Term="OData.Description" String="The available OEM-specific actions for this resource."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain the available OEM-specific actions for this resource."/>
+      </ComplexType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Connection.v1_1_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2021.1"/>
+
+      <EntityType Name="Connection" BaseType="Connection.v1_0_0.Connection">
+        <Property Name="MemoryChunkInfo" Type="Collection(Connection.v1_1_0.MemoryChunkInfo)" Nullable="false">
+          <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+          <Annotation Term="OData.Description" String="The set of memory chunks and access capabilities specified for this connection."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the set of memory chunks and access capabilities specified for this connection."/>
+        </Property>
+        <Property Name="ConnectionKeys" Type="Connection.v1_1_0.ConnectionKey" Nullable="false">
+          <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+          <Annotation Term="OData.Description" String="The permission keys required to access the specified resources for this connection."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the permissions keys required to access the specified resources for this connection.  Some fabrics require permission checks on transactions from authorized initiators."/>
+        </Property>
+      </EntityType>
+
+      <ComplexType Name="MemoryChunkInfo">
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="OData.Description" String="The combination of permissions and memory chunk information."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain the combination of permissions and memory chunk information."/>
+        <Property Name="AccessCapabilities" Type="Collection(Connection.v1_0_0.AccessCapability)">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="Supported IO access capabilities."/>
+          <Annotation Term="OData.LongDescription" String="Each entry shall specify a current memory access capability."/>
+        </Property>
+        <Property Name="AccessState" Type="Connection.v1_0_0.AccessState">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The access state for this connection."/>
+          <Annotation Term="OData.LongDescription" String="The value of this property shall contain the access state for the associated resource in this connection."/>
+        </Property>
+        <NavigationProperty Name="MemoryChunk" Type="MemoryChunks.MemoryChunks">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The specified memory chunk."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource of type MemoryChunk.  The endpoints referenced by the InitiatorEndpoints or InitiatorEndpointGroups properties shall be given access to this memory chunk as described by this object.  If TargetEndpoints or TargetEndpointGroups is present, the referenced initiator endpoints shall be required to access the referenced memory chunk through one of the referenced target endpoints."/>
+        </NavigationProperty>
+      </ComplexType>
+
+      <ComplexType Name="ConnectionKey">
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="OData.Description" String="The permission key information required to access the target resources for a connection."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain the permission key information required to access the target resources for a connection."/>
+        <Property Name="GenZ" Type="Connection.v1_1_0.GenZConnectionKey">
+          <Annotation Term="OData.Description" String="The Gen-Z-specific permission key information for this connection."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the Gen-Z-specific permission key information for this connection."/>
+        </Property>
+      </ComplexType>
+
+      <ComplexType Name="GenZConnectionKey">
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="OData.Description" String="The Gen-Z-specific permission key information for a connection."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain the Gen-Z-specific permission key information for a connection."/>
+        <Property Name="RKeyDomainCheckingEnabled" Type="Edm.Boolean" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="Indicates whether Region Key domain checking is enabled for this connection."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether Region Key domain checking is enabled for this connection."/>
+        </Property>
+        <Property Name="AccessKey" Type="Edm.String" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The Access Key for this connection."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the Gen-Z Core Specification-defined Access Key for this connection."/>
+          <Annotation Term="Validation.Pattern" String="^0[xX]([a-fA-F]|[0-9]){2}$"/>
+        </Property>
+        <Property Name="RKeyReadOnlyKey" Type="Edm.String" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The read-only Region Key for this connection."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the Gen-Z Core Specification-defined read-only Region Key for this connection."/>
+          <Annotation Term="Validation.Pattern" String="^0[xX](([a-fA-F]|[0-9]){2}){4}$"/>
+        </Property>
+        <Property Name="RKeyReadWriteKey" Type="Edm.String" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The read-write Region Key for this connection."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the Gen-Z Core Specification-defined read-write Region Key for this connection."/>
+          <Annotation Term="Validation.Pattern" String="^0[xX](([a-fA-F]|[0-9]){2}){4}$"/>
+        </Property>
+      </ComplexType>
+    </Schema>
+
+  </edmx:DataServices>
+</edmx:Edmx>

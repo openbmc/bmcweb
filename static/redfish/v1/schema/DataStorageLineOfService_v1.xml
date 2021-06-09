@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!---->
+<!-- Copyright 2015-2019 Storage Networking Industry Association (SNIA), USA. All rights reserved.-->
+<edmx:Edmx xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx" Version="4.0">
+  <edmx:Reference Uri="http://docs.oasis-open.org/odata/odata/v4.0/errata03/csd01/complete/vocabularies/Org.OData.Core.V1.xml">
+    <edmx:Include Namespace="Org.OData.Core.V1" Alias="OData"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/RedfishExtensions_v1.xml">
+    <edmx:Include Namespace="RedfishExtensions.v1_0_0" Alias="Redfish"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/Resource_v1.xml">
+    <edmx:Include Namespace="Resource"/>
+    <edmx:Include Namespace="Resource.v1_0_0"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://docs.oasis-open.org/odata/odata/v4.0/errata03/csd01/complete/vocabularies/Org.OData.Capabilities.V1.xml">
+    <edmx:Include Namespace="Org.OData.Capabilities.V1" Alias="Capabilities"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/swordfish/v1/DataProtectionLoSCapabilities_v1.xml">
+    <edmx:Include Namespace="DataProtectionLoSCapabilities"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/swordfish/v1/LineOfService_v1.xml">
+    <edmx:Include Namespace="LineOfService"/>
+    <edmx:Include Namespace="LineOfService.v1_0_0"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/swordfish/v1/DataStorageLoSCapabilities_v1.xml">
+    <edmx:Include Namespace="DataStorageLoSCapabilities"/>
+  </edmx:Reference>
+  <edmx:DataServices>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="DataStorageLineOfService">
+      <Annotation Term="Redfish.OwningEntity" String="SNIA"/>
+
+      <EntityType Name="DataStorageLineOfService" BaseType="LineOfService.v1_0_0.LineOfService" Abstract="true">
+        <Annotation Term="OData.Description" String="Describe data storage and provisioning capabilities."/>
+        <Annotation Term="OData.LongDescription" String="This resource shall be used to describe storage availability and provisioning capabilities."/>
+
+        <Annotation Term="Capabilities.InsertRestrictions">
+          <Record>
+            <PropertyValue Property="Insertable" Bool="false"/>
+          </Record>
+        </Annotation>
+        <Annotation Term="Capabilities.UpdateRestrictions">
+          <Record>
+            <PropertyValue Property="Updatable" Bool="true"/>
+            <Annotation Term="OData.Description" String="DataStorageLineOfService resources can be updated to change the writable properties."/>
+          </Record>
+        </Annotation>
+        <Annotation Term="Capabilities.DeleteRestrictions">
+          <Record>
+            <PropertyValue Property="Deletable" Bool="true"/>
+            <Annotation Term="OData.Description" String="DataStorageLineOfService resources can be deleted by deleting the DataStorageLineOfService resource."/>
+          </Record>
+        </Annotation>
+
+        <Annotation Term="Redfish.Uris">
+          <Collection>
+            <String>/redfish/v1/StorageServices/{StorageServiceId}/LinesOfService/DataStorageLinesOfService/{DataStorageLineOfServiceId}</String>
+            <String>/redfish/v1/StorageServices/{StorageServiceId}/ClassesOfService/{ClassOfServiceId}/DataStorageLinesOfService/{DataStorageLineOfServiceId}</String>
+          </Collection>
+        </Annotation>
+      </EntityType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="DataStorageLineOfService.v1_0_0">
+      <Annotation Term="Redfish.OwningEntity" String="SNIA"/>
+      <Annotation Term="Redfish.Release" String="TP v1.0.6"/>
+
+      <EntityType Name="DataStorageLineOfService" BaseType="DataStorageLineOfService.DataStorageLineOfService">
+        <Annotation Term="OData.Description" String="Describe data storage and provisioning capabilities."/>
+        <Annotation Term="OData.LongDescription" String="This structure may be used to describe a service option covering storage provisioning and availability."/>
+        <Property Name="RecoveryTimeObjectives" Type="DataProtectionLoSCapabilities.RecoveryAccessScope">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="Expectations for time to access the primary store after disaster recover."/>
+          <Annotation
+            Term="OData.LongDescription"
+            String="The enumeration literal specifies the time after a disaster that the client shall regain conformant service level access to the primary store, typical values are 'immediate' or 'offline'. The expectation is that the services required to implement this capability are part of the advertising system."/>
+        </Property>
+        <Property Name="ProvisioningPolicy" Type="DataStorageLoSCapabilities.ProvisioningPolicy">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="Provisioning policy for storage."/>
+          <Annotation Term="OData.LongDescription" String="The enumeration literal shall define the provisioning policy for storage."/>
+        </Property>
+        <Property Name="IsSpaceEfficient" Type="Edm.Boolean" DefaultValue="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="True implies compression or deduplication of storage."/>
+          <Annotation Term="OData.LongDescription" String="A value of true shall indicate that the storage is compressed or deduplicated. The default value for this property is false."/>
+        </Property>
+      </EntityType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="DataStorageLineOfService.v1_0_1">
+      <Annotation Term="Redfish.OwningEntity" String="SNIA"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that OData properties are marked as required, and integer properties are marked as integer rather than number."/>
+      <EntityType Name="DataStorageLineOfService" BaseType="DataStorageLineOfService.v1_0_0.DataStorageLineOfService"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="DataStorageLineOfService.v1_0_2">
+      <Annotation Term="Redfish.OwningEntity" String="SNIA"/>
+      <Annotation Term="OData.Description" String="This version was created to fix CSDL errors and adds both Redfish Uris and Capability Annotations."/>
+      <EntityType Name="DataStorageLineOfService" BaseType="DataStorageLineOfService.v1_0_1.DataStorageLineOfService"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="DataStorageLineOfService.v1_1_0">
+      <Annotation Term="Redfish.OwningEntity" String="SNIA"/>
+      <Annotation Term="Redfish.Release" String="WIP v1.0.7"/>
+      <Annotation Term="OData.Description" String="Add AccessCapabilities to DataStorageLineOfService. Change references to unversioned."/>
+
+      <EntityType Name="DataStorageLineOfService" BaseType="DataStorageLineOfService.v1_0_0.DataStorageLineOfService">
+        <Annotation Term="OData.Description" String="Describe data storage and provisioning capabilities."/>
+        <Annotation Term="OData.LongDescription" String="This structure may be used to describe a service option covering storage provisioning and availability."/>
+        <Property Name="AccessCapabilities" Type="Collection(DataStorageLoSCapabilities.StorageAccessCapability)">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="Required access capabilities."/>
+          <Annotation Term="OData.LongDescription" String="Each entry specifies a required storage access capability."/>
+        </Property>
+      </EntityType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="DataStorageLineOfService.v1_1_1">
+      <Annotation Term="Redfish.OwningEntity" String="SNIA"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that OData properties are marked as required, and integer properties are marked as integer rather than number."/>
+      <EntityType Name="DataStorageLineOfService" BaseType="DataStorageLineOfService.v1_1_0.DataStorageLineOfService"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="DataStorageLineOfService.v1_1_2">
+      <Annotation Term="Redfish.OwningEntity" String="SNIA"/>
+      <Annotation Term="OData.Description" String="This version was created to fix CSDL errors and adds both Redfish Uris and Capability Annotations."/>
+      <EntityType Name="DataStorageLineOfService" BaseType="DataStorageLineOfService.v1_1_1.DataStorageLineOfService"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="DataStorageLineOfService.v1_2_0">
+      <Annotation Term="Redfish.OwningEntity" String="SNIA"/>
+      <Annotation Term="Redfish.Release" String="TP v1.0.7a"/>
+      <Annotation
+        Term="OData.Description"
+        String="Add desired recoverable capacity sources to DataStorageLineOfService. This version was also created to force the regeneration of JSON Schema so that OData properties are marked as required, and integer properties are marked as integer rather than number."/>
+
+      <EntityType Name="DataStorageLineOfService" BaseType="DataStorageLineOfService.v1_1_0.DataStorageLineOfService">
+        <Annotation Term="OData.Description" String="Describe data storage and provisioning capabilities."/>
+        <Annotation Term="OData.LongDescription" String="This structure may be used to describe a service option covering storage provisioning and availability."/>
+        <Property Name="RecoverableCapacitySourceCount" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="Required minimum number of available capacity source resources."/>
+          <Annotation
+            Term="OData.LongDescription"
+            String="The value is minimum required number of available capacity source resources that shall be available in the event that an equivalent capacity source resource fails.  It is assumed that drives and memory components can be replaced, repaired or otherwise added to increase an associated resource's RecoverableCapacitySourceCount."/>
+        </Property>
+      </EntityType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="DataStorageLineOfService.v1_2_1">
+      <Annotation Term="Redfish.OwningEntity" String="SNIA"/>
+      <Annotation Term="OData.Description" String="This version was created to fix CSDL errors and adds both Redfish Uris and Capability Annotations."/>
+      <EntityType Name="DataStorageLineOfService" BaseType="DataStorageLineOfService.v1_2_0.DataStorageLineOfService"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="DataStorageLineOfService.v1_3_0">
+      <Annotation Term="Redfish.OwningEntity" String="SNIA"/>
+      <Annotation Term="Redfish.Release" String="WIP v1.1.0"/>
+      <Annotation Term="OData.Description" String="The BaseType was changed from Resource to the LineOfService class. This version also fixes CSDL errors and adds both Redfish Uris and Capability Annotations."/>
+      <EntityType Name="DataStorageLineOfService" BaseType="DataStorageLineOfService.v1_2_1.DataStorageLineOfService">
+        <Property Name="Actions" Type="DataStorageLineOfService.v1_3_0.Actions" Nullable="false">
+          <Annotation Term="OData.Description" String="The available actions for this resource."/>
+          <Annotation Term="OData.LongDescription" String="The Actions property shall contain the available actions for this resource."/>
+        </Property>
+      </EntityType>
+
+      <ComplexType Name="Actions">
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="OData.Description" String="The available actions for this resource."/>
+        <Annotation Term="OData.LongDescription" String="The Actions property shall contain the available actions for this resource."/>
+        <Property Name="Oem" Type="DataStorageLineOfService.v1_3_0.OemActions" Nullable="false">
+          <Annotation Term="OData.Description" String="This property contains the available OEM specific actions for this resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain any additional OEM actions for this resource."/>
+        </Property>
+      </ComplexType>
+
+      <ComplexType Name="OemActions">
+        <Annotation Term="OData.AdditionalProperties" Bool="true"/>
+        <Annotation Term="OData.Description" String="The available OEM specific actions for this resource."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain any additional OEM actions for this resource."/>
+      </ComplexType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="DataStorageLineOfService.v1_3_1">
+      <Annotation Term="Redfish.OwningEntity" String="SNIA"/>
+      <Annotation Term="OData.Description" String="This version was created to fix Redfish Uris issues."/>
+      <EntityType Name="DataStorageLineOfService" BaseType="DataStorageLineOfService.v1_3_0.DataStorageLineOfService"/>
+    </Schema>
+
+  </edmx:DataServices>
+</edmx:Edmx>

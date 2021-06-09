@@ -1,0 +1,387 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!---->
+<!--################################################################################       -->
+<!--# Redfish Schema:  EndpointGroup v1.3.2                                                -->
+<!--#                                                                                      -->
+<!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
+<!--# available at http://www.dmtf.org/standards/redfish                                   -->
+<!--# Copyright 2014-2021 DMTF.                                                            -->
+<!--# Portions Copyright 2015-2020 Storage Networking Industry Association (SNIA), USA.    -->
+<!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
+<!--################################################################################       -->
+<!---->
+<edmx:Edmx xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx" Version="4.0">
+
+  <edmx:Reference Uri="http://docs.oasis-open.org/odata/odata/v4.0/errata03/csd01/complete/vocabularies/Org.OData.Core.V1.xml">
+    <edmx:Include Namespace="Org.OData.Core.V1" Alias="OData"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://docs.oasis-open.org/odata/odata/v4.0/errata03/csd01/complete/vocabularies/Org.OData.Capabilities.V1.xml">
+    <edmx:Include Namespace="Org.OData.Capabilities.V1" Alias="Capabilities"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/RedfishExtensions_v1.xml">
+    <edmx:Include Namespace="RedfishExtensions.v1_0_0" Alias="Redfish"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/Resource_v1.xml">
+    <edmx:Include Namespace="Resource"/>
+    <edmx:Include Namespace="Resource.v1_0_0"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/Endpoint_v1.xml">
+    <edmx:Include Namespace="Endpoint"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/EndpointCollection_v1.xml">
+    <edmx:Include Namespace="EndpointCollection"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/Connection_v1.xml">
+    <edmx:Include Namespace="Connection"/>
+  </edmx:Reference>
+
+  <edmx:DataServices>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EndpointGroup">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+
+      <EntityType Name="EndpointGroup" BaseType="Resource.v1_0_0.Resource" Abstract="true">
+        <Annotation Term="OData.Description" String="The EndpointGroup schema describes group of endpoints that are managed as a unit."/>
+        <Annotation Term="OData.LongDescription" String="This resource shall represent a group of endpoints that are managed as a unit for a Redfish implementation."/>
+
+        <Annotation Term="Capabilities.InsertRestrictions">
+          <Record>
+            <PropertyValue Property="Insertable" Bool="false"/>
+          </Record>
+        </Annotation>
+        <Annotation Term="Capabilities.UpdateRestrictions">
+          <Record>
+            <PropertyValue Property="Updatable" Bool="true"/>
+            <Annotation Term="OData.Description" String="Writable properties can be updated for endpoint groups."/>
+          </Record>
+        </Annotation>
+        <Annotation Term="Capabilities.DeleteRestrictions">
+          <Record>
+            <PropertyValue Property="Deletable" Bool="true"/>
+            <Annotation Term="OData.Description" String="Endpoint groups can be deleted by clients."/>
+          </Record>
+        </Annotation>
+
+        <Annotation Term="Redfish.Uris">
+          <Collection>
+            <String>/redfish/v1/Storage/{StorageId}/EndpointGroups/{EndpointGroupId}</String>
+            <String>/redfish/v1/Systems/{ComputerSystemId}/Storage/{StorageId}/EndpointGroups/{EndpointGroupId}</String>
+            <String>/redfish/v1/StorageServices/{StorageServiceId}/EndpointGroups/{EndpointGroupId}</String>
+            <String>/redfish/v1/Fabrics/{FabricId}/EndpointGroups/{EndpointGroupId}</String>
+          </Collection>
+        </Annotation>
+      </EntityType>
+
+      <EnumType Name="AccessState">
+        <Annotation Term="OData.Description" String="Describes the options for the access characteristics of an endpoint."/>
+        <Annotation Term="OData.LongDescription" String="This type shall describe the access to all associated resources through all aggregated endpoints."/>
+        <Member Name="Optimized">
+          <Annotation Term="OData.Description" String="The endpoints are in an active and optimized state."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate each endpoint is in an active and optimized state."/>
+        </Member>
+        <Member Name="NonOptimized">
+          <Annotation Term="OData.Description" String="The endpoints are in an active and non-optimized state."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate each endpoint is in an active and non-optimized state."/>
+        </Member>
+        <Member Name="Standby">
+          <Annotation Term="OData.Description" String="The endpoints are in a standby state."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate each endpoint is in a standby state."/>
+        </Member>
+        <Member Name="Unavailable">
+          <Annotation Term="OData.Description" String="The endpoints are in an unavailable state."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate each endpoint is in an unavailable state."/>
+        </Member>
+        <Member Name="Transitioning">
+          <Annotation Term="OData.Description" String="The endpoints are transitioning to a new state."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate each endpoint is transitioning to a new state."/>
+        </Member>
+      </EnumType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EndpointGroup.v1_0_0">
+      <Annotation Term="Redfish.OwningEntity" String="SNIA"/>
+      <Annotation Term="Redfish.Release" String="TP v1.0.3"/>
+
+      <EntityType Name="EndpointGroup" BaseType="EndpointGroup.EndpointGroup">
+        <Property Name="Identifier" Type="Resource.Identifier" Nullable="false">
+          <Annotation Term="OData.Description" String="The durable name for the endpoint group."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the durable name for the endpoint group."/>
+        </Property>
+        <Property Name="GroupType" Type="EndpointGroup.v1_0_0.GroupType">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The endpoint group type."/>
+          <Annotation Term="OData.LongDescription" String="The value of this property shall contain the endpoint group type.  If this endpoint group represents a SCSI target group, the value of this property shall contain `Server` or `Target`."/>
+        </Property>
+        <Property Name="AccessState" Type="EndpointGroup.AccessState">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The access state for this group."/>
+          <Annotation Term="OData.LongDescription" String="The value of this property shall contain the access state for all associated resources in this endpoint group."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Deprecated"/>
+                <PropertyValue Property="Version" String="v1_3_0"/>
+                <PropertyValue Property="Description" String="This property has been deprecated in favor of the AccessState property in the connection resource."/>
+              </Record>
+            </Collection>
+          </Annotation>
+        </Property>
+        <Property Name="TargetEndpointGroupIdentifier" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The SCSI-defined identifier for this group."/>
+          <Annotation Term="OData.LongDescription" String="The value of this property shall contain a SCSI-defined identifier for this group that corresponds to the TARGET PORT GROUP field in the REPORT TARGET PORT GROUPS response and the TARGET PORT GROUP field in an INQUIRY VPD page 85 response, type 5h identifier.  See the INCITS SAM-5 specification.  This property may not be present if the endpoint group does not represent a SCSI target group."/>
+        </Property>
+        <Property Name="Preferred" Type="Edm.Boolean" DefaultValue="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="An indication if access to the resources through the endpoint group is preferred."/>
+          <Annotation Term="OData.LongDescription" String="The value of this property shall indicate if access to the resources through the endpoint group is preferred over access through other endpoints.  The default value for this property is `false`."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Deprecated"/>
+                <PropertyValue Property="Version" String="v1_2_0"/>
+                <PropertyValue Property="Description" String="This property has been deprecated in favor of the AccessState property in the connection resource."/>
+              </Record>
+            </Collection>
+          </Annotation>
+        </Property>
+        <NavigationProperty Name="Endpoints" Type="Collection(Endpoint.Endpoint)">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The endpoints in this endpoint group."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type Endpoint that represent the endpoints that are in this endpoint group."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Deprecated"/>
+                <PropertyValue Property="Version" String="v1_3_0"/>
+                <PropertyValue Property="Description" String="This property has been deprecated in favor of the Endpoints property within Links."/>
+              </Record>
+            </Collection>
+          </Annotation>
+        </NavigationProperty>
+        <Property Name="Links" Type="EndpointGroup.v1_0_0.Links" Nullable="false">
+          <Annotation Term="OData.Description" String="The links to other resources that are related to this resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain links to resources that are related to but are not contained by, or subordinate to, this resource."/>
+        </Property>
+      </EntityType>
+
+      <ComplexType Name="Links" BaseType="Resource.Links">
+        <Annotation Term="OData.Description" String="The links to other resources that are related to this resource."/>
+        <Annotation Term="OData.LongDescription" String="This Redfish Specification-described type shall contain links to resources that are related to but are not contained by, or subordinate to, this resource."/>
+      </ComplexType>
+
+      <EnumType Name="GroupType">
+        <Member Name="Client">
+          <Annotation Term="OData.Description" String="The group contains the client (initiator) endpoints."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate that the endpoint group contains client (initiator) endpoints.  If the associated endpoints contain the EntityRole property, the EntityRole property shall contain the value `Initiator` or `Both`."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Deprecated"/>
+                <PropertyValue Property="Version" String="v1_3_0"/>
+                <PropertyValue Property="Description" String="This value has been deprecated in favor of `Initiator`."/>
+              </Record>
+            </Collection>
+          </Annotation>
+        </Member>
+        <Member Name="Server">
+          <Annotation Term="OData.Description" String="The group contains the server (target) endpoints."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate that the endpoint group contains server (target) endpoints.  If the associated endpoints contain the EntityRole property, the EntityRole property shall contain the value `Target` or `Both`."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Deprecated"/>
+                <PropertyValue Property="Version" String="v1_3_0"/>
+                <PropertyValue Property="Description" String="This value has been deprecated in favor of `Target`."/>
+              </Record>
+            </Collection>
+          </Annotation>
+        </Member>
+        <Member Name="Initiator">
+          <Annotation Term="OData.Description" String="The group contains the initiator endpoints."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate that the endpoint group contains initiator endpoints.  If the associated endpoints contain the EntityRole property, the EntityRole property shall contain the value `Initiator` or `Both`."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="v1_3_0"/>
+              </Record>
+            </Collection>
+          </Annotation>
+        </Member>
+        <Member Name="Target">
+          <Annotation Term="OData.Description" String="The group contains the target endpoints."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate that the endpoint group contains target endpoints.  If the associated endpoints contain the EntityRole property, the EntityRole property shall contain the value `Target` or `Both`."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="v1_3_0"/>
+              </Record>
+            </Collection>
+          </Annotation>
+        </Member>
+      </EnumType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EndpointGroup.v1_0_1">
+      <Annotation Term="Redfish.OwningEntity" String="SNIA"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that OData properties are marked as required, and integer properties are marked as integer rather than number."/>
+      <EntityType Name="EndpointGroup" BaseType="EndpointGroup.v1_0_0.EndpointGroup"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EndpointGroup.v1_0_2">
+      <Annotation Term="Redfish.OwningEntity" String="SNIA"/>
+      <Annotation Term="OData.Description" String="This version was created to fix CSDL errors and adds both resource URI patterns and resource capabilities annotations."/>
+      <EntityType Name="EndpointGroup" BaseType="EndpointGroup.v1_0_1.EndpointGroup"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EndpointGroup.v1_0_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify descriptions for consistency."/>
+      <EntityType Name="EndpointGroup" BaseType="EndpointGroup.v1_0_2.EndpointGroup"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EndpointGroup.v1_0_4">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created specify 64-bit integers in OpenAPI."/>
+      <EntityType Name="EndpointGroup" BaseType="EndpointGroup.v1_0_3.EndpointGroup"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EndpointGroup.v1_0_5">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various description to use proper normative terminology."/>
+      <EntityType Name="EndpointGroup" BaseType="EndpointGroup.v1_0_4.EndpointGroup"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EndpointGroup.v1_1_0">
+      <Annotation Term="Redfish.OwningEntity" String="SNIA"/>
+      <Annotation Term="Redfish.Release" String="WIP v1.0.5"/>
+
+      <EntityType Name="EndpointGroup" BaseType="EndpointGroup.v1_0_0.EndpointGroup">
+        <Property Name="Actions" Type="EndpointGroup.v1_1_0.Actions" Nullable="false">
+          <Annotation Term="OData.Description" String="The available actions for this resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the available actions for this resource."/>
+        </Property>
+      </EntityType>
+
+      <ComplexType Name="Actions">
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="OData.Description" String="The available actions for this resource."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain the available actions for this resource."/>
+        <Property Name="Oem" Type="EndpointGroup.v1_1_0.OemActions" Nullable="false">
+          <Annotation Term="OData.Description" String="The available OEM-specific actions for this resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the available OEM-specific actions for this resource."/>
+        </Property>
+      </ComplexType>
+
+      <ComplexType Name="OemActions">
+        <Annotation Term="OData.AdditionalProperties" Bool="true"/>
+        <Annotation Term="OData.Description" String="The available OEM-specific actions for this resource."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain the available OEM-specific actions for this resource."/>
+      </ComplexType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EndpointGroup.v1_1_1">
+      <Annotation Term="Redfish.OwningEntity" String="SNIA"/>
+      <Annotation Term="OData.Description" String="This version was created to move several enumerations to the unversioned namespace."/>
+      <EntityType Name="EndpointGroup" BaseType="EndpointGroup.v1_1_0.EndpointGroup"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EndpointGroup.v1_1_2">
+      <Annotation Term="Redfish.OwningEntity" String="SNIA"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that OData properties are marked as required, and integer properties are marked as integer rather than number."/>
+      <EntityType Name="EndpointGroup" BaseType="EndpointGroup.v1_1_1.EndpointGroup"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EndpointGroup.v1_1_3">
+      <Annotation Term="Redfish.OwningEntity" String="SNIA"/>
+      <Annotation Term="OData.Description" String="This version was created to fix CSDL errors and adds both resource URI patterns and resource capabilities annotations."/>
+      <EntityType Name="EndpointGroup" BaseType="EndpointGroup.v1_1_2.EndpointGroup"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EndpointGroup.v1_1_4">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify descriptions for consistency."/>
+      <EntityType Name="EndpointGroup" BaseType="EndpointGroup.v1_1_3.EndpointGroup"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EndpointGroup.v1_1_5">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created specify 64-bit integers in OpenAPI."/>
+      <EntityType Name="EndpointGroup" BaseType="EndpointGroup.v1_1_4.EndpointGroup"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EndpointGroup.v1_1_6">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various description to use proper normative terminology."/>
+      <EntityType Name="EndpointGroup" BaseType="EndpointGroup.v1_1_5.EndpointGroup"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EndpointGroup.v1_2_0">
+      <Annotation Term="Redfish.OwningEntity" String="SNIA"/>
+      <Annotation Term="Redfish.Release" String="WIP v1.1.0"/>
+      <Annotation Term="OData.Description" String="This version was created to change Endpoints to an array instead of a resource collection.  This version was also created to fix CSDL errors and adds both resource URI patterns and resource capabilities annotations."/>
+
+      <EntityType Name="EndpointGroup" BaseType="EndpointGroup.v1_1_1.EndpointGroup"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EndpointGroup.v1_2_1">
+      <Annotation Term="Redfish.OwningEntity" String="SNIA"/>
+      <Annotation Term="OData.Description" String="This version was created to deprecated Preferred in favor of AccessState."/>
+      <EntityType Name="EndpointGroup" BaseType="EndpointGroup.v1_2_0.EndpointGroup"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EndpointGroup.v1_2_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify descriptions for consistency."/>
+      <EntityType Name="EndpointGroup" BaseType="EndpointGroup.v1_2_1.EndpointGroup"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EndpointGroup.v1_2_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created specify 64-bit integers in OpenAPI."/>
+      <EntityType Name="EndpointGroup" BaseType="EndpointGroup.v1_2_2.EndpointGroup"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EndpointGroup.v1_2_4">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various description to use proper normative terminology."/>
+      <EntityType Name="EndpointGroup" BaseType="EndpointGroup.v1_2_3.EndpointGroup"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EndpointGroup.v1_3_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2020.3"/>
+      <Annotation Term="OData.Description" String="This version was created to migrate AccessState to the connection resource, deprecate Endpoints in favor of Endpoints in Links, and add `Target` and `Initiator` to GroupType."/>
+
+      <EntityType Name="EndpointGroup" BaseType="EndpointGroup.v1_2_2.EndpointGroup"/>
+
+      <ComplexType Name="Links" BaseType="EndpointGroup.v1_0_0.Links">
+        <NavigationProperty Name="Endpoints" Type="Collection(Endpoint.Endpoint)">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The endpoints in this endpoint group."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type Endpoint that represent the endpoints that are in this endpoint group."/>
+        </NavigationProperty>
+        <NavigationProperty Name="Connections" Type="Collection(Connection.Connection)">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The connections to which this endpoint group belongs."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type Connection that represent the connections to which this endpoint group belongs."/>
+        </NavigationProperty>
+      </ComplexType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EndpointGroup.v1_3_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created specify 64-bit integers in OpenAPI."/>
+      <EntityType Name="EndpointGroup" BaseType="EndpointGroup.v1_3_0.EndpointGroup"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EndpointGroup.v1_3_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various description to use proper normative terminology."/>
+      <EntityType Name="EndpointGroup" BaseType="EndpointGroup.v1_3_1.EndpointGroup"/>
+    </Schema>
+
+  </edmx:DataServices>
+</edmx:Edmx>

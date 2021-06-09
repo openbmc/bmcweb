@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!---->
+<!-- Copyright 2015-2019 Storage Networking Industry Association (SNIA), USA. All rights reserved.-->
+<edmx:Edmx xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx" Version="4.0">
+
+  <edmx:Reference Uri="http://docs.oasis-open.org/odata/odata/v4.0/errata03/csd01/complete/vocabularies/Org.OData.Core.V1.xml">
+    <edmx:Include Namespace="Org.OData.Core.V1" Alias="OData"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://docs.oasis-open.org/odata/odata/v4.0/errata03/csd01/complete/vocabularies/Org.OData.Capabilities.V1.xml">
+    <edmx:Include Namespace="Org.OData.Capabilities.V1" Alias="Capabilities"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/Resource_v1.xml">
+    <edmx:Include Namespace="Resource.v1_0_0"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/RedfishExtensions_v1.xml">
+    <edmx:Include Namespace="RedfishExtensions.v1_0_0" Alias="Redfish"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/swordfish/v1/ConsistencyGroup_v1.xml">
+    <edmx:Include Namespace="ConsistencyGroup"/>
+  </edmx:Reference>
+
+  <edmx:DataServices>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ConsistencyGroupCollection">
+      <Annotation Term="Redfish.OwningEntity" String="SNIA"/>
+      <EntityType Name="ConsistencyGroupCollection" BaseType="Resource.v1_0_0.ResourceCollection">
+        <Annotation Term="OData.Description" String="A Collection of ConsistencyGroup resource instances."/>
+        <Annotation Term="OData.LongDescription" String="This collection shall contain references to all ConsistencyGroup resource instances sharing the same parent resource."/>
+        <Annotation Term="Capabilities.InsertRestrictions">
+          <Record>
+            <PropertyValue Property="Insertable" Bool="false"/>
+          </Record>
+        </Annotation>
+        <Annotation Term="Capabilities.UpdateRestrictions">
+          <Record>
+            <PropertyValue Property="Updatable" Bool="false"/>
+          </Record>
+        </Annotation>
+        <Annotation Term="Capabilities.DeleteRestrictions">
+          <Record>
+            <PropertyValue Property="Deletable" Bool="false"/>
+          </Record>
+        </Annotation>
+        <Annotation Term="Redfish.Uris">
+          <Collection>
+            <String>/redfish/v1/Storage/{StorageId}/ConsistencyGroups</String>
+            <String>/redfish/v1/Systems/{ComputerSystemId}/Storage/{StorageId}/ConsistencyGroups</String>
+            <String>/redfish/v1/StorageServices/{StorageServiceId}/ConsistencyGroups</String>
+            <String>/redfish/v1/StorageServices/{StorageServiceId}/Volumes/{VolumeId}/ConsistencyGroups</String>
+          </Collection>
+        </Annotation>
+        <NavigationProperty Name="Members" Type="Collection(ConsistencyGroup.ConsistencyGroup)">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The value of each member references a ConsistencyGroup resource."/>
+          <Annotation Term="OData.LongDescription" String="The value of each member entry shall reference a ConsistencyGroup resource."/>
+          <Annotation Term="OData.AutoExpandReferences"/>
+          <Annotation Term="Redfish.Required"/>
+        </NavigationProperty>
+      </EntityType>
+
+    </Schema>
+  </edmx:DataServices>
+</edmx:Edmx>

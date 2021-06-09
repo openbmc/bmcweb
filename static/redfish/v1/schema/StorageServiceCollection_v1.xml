@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!---->
+<!-- Copyright 2015-2019 Storage Networking Industry Association (SNIA), USA. All rights reserved.-->
+<edmx:Edmx xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx" Version="4.0">
+
+  <edmx:Reference Uri="http://docs.oasis-open.org/odata/odata/v4.0/errata03/csd01/complete/vocabularies/Org.OData.Core.V1.xml">
+    <edmx:Include Namespace="Org.OData.Core.V1" Alias="OData"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://docs.oasis-open.org/odata/odata/v4.0/errata03/csd01/complete/vocabularies/Org.OData.Capabilities.V1.xml">
+    <edmx:Include Namespace="Org.OData.Capabilities.V1" Alias="Capabilities"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/Resource_v1.xml">
+    <edmx:Include Namespace="Resource.v1_0_0"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/RedfishExtensions_v1.xml">
+    <edmx:Include Namespace="RedfishExtensions.v1_0_0" Alias="Redfish"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/swordfish/v1/StorageService_v1.xml">
+    <edmx:Include Namespace="StorageService"/>
+  </edmx:Reference>
+
+  <edmx:DataServices>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="StorageServiceCollection">
+      <Annotation Term="Redfish.OwningEntity" String="SNIA"/>
+      <EntityType Name="StorageServiceCollection" BaseType="Resource.v1_0_0.ResourceCollection">
+        <Annotation Term="OData.Description" String="A collection of references to Storage Service resource instances."/>
+        <Annotation Term="OData.LongDescription" String="An instance of this resource shall reference the set of StorageService resources known in the scope of its use."/>
+        <Annotation Term="Capabilities.InsertRestrictions">
+          <Record>
+            <PropertyValue Property="Insertable" Bool="true"/>
+            <Annotation Term="OData.Description" String="StoragePool collections may support adding StoragePool resources by clients."/>
+
+          </Record>
+        </Annotation>
+        <Annotation Term="Capabilities.UpdateRestrictions">
+          <Record>
+            <PropertyValue Property="Updatable" Bool="false"/>
+          </Record>
+        </Annotation>
+        <Annotation Term="Capabilities.DeleteRestrictions">
+          <Record>
+            <PropertyValue Property="Deletable" Bool="false"/>
+          </Record>
+        </Annotation>
+        <Annotation Term="Redfish.Uris">
+          <Collection>
+            <String>/redfish/v1/StorageServices</String>
+            <String>/redfish/v1/Systems/{ComputerSystemId}/StorageServices</String>
+          </Collection>
+        </Annotation>
+        <NavigationProperty Name="Members" Type="Collection(StorageService.StorageService)">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The value of each member references a StorageService resource."/>
+          <Annotation Term="OData.LongDescription" String="The value of each member entry shall reference a StorageService resource."/>
+          <Annotation Term="OData.AutoExpandReferences"/>
+          <Annotation Term="Redfish.Required"/>
+        </NavigationProperty>
+      </EntityType>
+
+    </Schema>
+  </edmx:DataServices>
+</edmx:Edmx>

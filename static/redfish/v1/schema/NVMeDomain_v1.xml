@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!---->
+<!-- Copyright 2020 Storage Networking Industry Association (SNIA), USA. All rights reserved.-->
+<edmx:Edmx xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx" Version="4.0">
+
+  <edmx:Reference Uri="http://docs.oasis-open.org/odata/odata/v4.0/errata03/csd01/complete/vocabularies/Org.OData.Core.V1.xml">
+    <edmx:Include Namespace="Org.OData.Core.V1" Alias="OData"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://docs.oasis-open.org/odata/odata/v4.0/errata03/csd01/complete/vocabularies/Org.OData.Capabilities.V1.xml">
+    <edmx:Include Namespace="Org.OData.Capabilities.V1" Alias="Capabilities"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://docs.oasis-open.org/odata/odata/v4.0/errata03/csd01/complete/vocabularies/Org.OData.Measures.V1.xml">
+    <edmx:Include Namespace="Org.OData.Measures.V1" Alias="Measures"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/RedfishExtensions_v1.xml">
+    <edmx:Include Namespace="RedfishExtensions.v1_0_0" Alias="Redfish"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/Resource_v1.xml">
+    <edmx:Include Namespace="Resource"/>
+    <edmx:Include Namespace="Resource.v1_0_0"/>
+  </edmx:Reference>
+	<edmx:Reference Uri="http://redfish.dmtf.org/schemas/swordfish/v1/NVMeFirmwareImage_v1.xml">
+    <edmx:Include Namespace="NVMeFirmwareImage"/>
+  </edmx:Reference>
+
+  <edmx:DataServices>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="NVMeDomain">
+      <Annotation Term="Redfish.OwningEntity" String="SNIA"/>
+
+      <EntityType Name="NVMeDomain" BaseType="Resource.v1_0_0.Resource" Abstract="true">
+        <Annotation Term="OData.Description" String="This is the schema definition for domain."/>
+        <Annotation Term="OData.LongDescription" String="This resource shall be used to represent a domain for a Redfish implementation."/>
+        <Annotation Term="Capabilities.InsertRestrictions">
+          <Record>
+            <PropertyValue Property="Insertable" Bool="false"/>
+          </Record>
+        </Annotation>
+        <Annotation Term="Capabilities.UpdateRestrictions">
+          <Record>
+            <PropertyValue Property="Updatable" Bool="true"/>
+            <Annotation Term="OData.Description" String="Any writable properties can be updated."/>
+          </Record>
+        </Annotation>
+        <Annotation Term="Capabilities.DeleteRestrictions">
+          <Record>
+            <PropertyValue Property="Deletable" Bool="true"/>
+            <Annotation Term="OData.Description" String="Implementations may allow domains to be deleted."/>
+          </Record>
+        </Annotation>
+        <Annotation Term="Redfish.Uris">
+          <Collection>
+            <String>/redfish/v1/NVMeDomains/{NVMeDomainId}</String>
+          </Collection>
+        </Annotation>
+      </EntityType>
+
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="NVMeDomain.v1_0_0">
+      <Annotation Term="Redfish.OwningEntity" String="SNIA"/>
+      <Annotation Term="Redfish.Release" String="WIP v1.2.0"/>
+
+      <EntityType Name="NVMeDomain" BaseType="NVMeDomain.NVMeDomain">
+        <Annotation Term="OData.Description" String="Properties for the Domain."/>
+        <Annotation Term="OData.LongDescription" String="Properties for the Domain."/>
+        <Property Name="Status" Type="Resource.Status" Nullable="false">
+          <Annotation Term="OData.Description" String="The status and health of the resource and its subordinate or dependent resources."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain any status or health properties of the resource."/>
+        </Property>
+        <NavigationProperty Name="DomainMembers" Type="Collection(Resource.Resource)">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The members of the domain."/>
+          <Annotation Term="OData.LongDescription" String="The members of the domain."/>
+          <Annotation Term="OData.AutoExpandReferences"/>
+        </NavigationProperty>
+        <Property Name="TotalDomainCapacityBytes" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The total capacity in bytes of this NVMe Domain."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the total capacity in bytes of this NVMe Domain."/>
+          <Annotation Term="Measures.Unit" String="By"/>
+        </Property>
+        <Property Name="UnallocatedDomainCapacityBytes" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The total unallocated capacity in bytes of this NVMe Domain."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the total unallocated capacity in bytes of this NVMe Domain."/>
+          <Annotation Term="Measures.Unit" String="By"/>
+        </Property>
+        <Property Name="MaximumCapacityPerEnduranceGroupBytes" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The maximum capacity per endurance group in bytes of this NVMe Domain."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the maximum capacity per endurance group in bytes of this NVMe Domain."/>
+          <Annotation Term="Measures.Unit" String="By"/>
+        </Property>
+        <NavigationProperty Name="AvailableFirmwareImages" Type="Collection(NVMeFirmwareImage.NVMeFirmwareImage)">
+          <Annotation Term="OData.Description" String="A collection of available firmware images."/>
+          <Annotation Term="OData.LongDescription" String="A collection of available firmware images."/>
+        </NavigationProperty>
+
+        <Property Name="Links" Type="NVMeDomain.v1_0_0.Links" Nullable="false">
+          <Annotation Term="OData.Description" String="The links to other resources that are related to this resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain links to resources that are related to but are not contained by or subordinate to this resource."/>
+        </Property>
+        <Property Name="Actions" Type="NVMeDomain.v1_0_0.Actions" Nullable="false">
+          <Annotation Term="OData.Description" String="The available actions for this resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the available actions for this resource."/>
+        </Property>
+      </EntityType>
+
+      <ComplexType Name="Links" BaseType="Resource.Links">
+        <Annotation Term="OData.Description" String="The links to other resources that are related to this resource."/>
+        <Annotation Term="OData.LongDescription" String="This Redfish Specification-described type shall contain links to resources that are related to but are not contained by or subordinate to this resource."/>
+
+        <NavigationProperty Name="AssociatedDomains" Type="Collection(NVMeDomain.NVMeDomain)">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="An array of links to associated domains."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type NVMeDomain that represent associated domains."/>
+          <Annotation Term="OData.AutoExpandReferences"/>
+        </NavigationProperty>
+      </ComplexType>
+
+      <ComplexType Name="Actions">
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="OData.Description" String="The available actions for this resource."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain the available actions for this resource."/>
+        <Property Name="Oem" Type="NVMeDomain.v1_0_0.OemActions" Nullable="false">
+          <Annotation Term="OData.Description" String="The available OEM-specific actions for this resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the available OEM-specific actions for this resource."/>
+        </Property>
+      </ComplexType>
+
+      <ComplexType Name="OemActions">
+        <Annotation Term="OData.AdditionalProperties" Bool="true"/>
+        <Annotation Term="OData.Description" String="The available OEM-specific actions for this resource."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain the available OEM-specific actions for this resource."/>
+      </ComplexType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="NVMeDomain.v1_1_0">
+      <Annotation Term="Redfish.OwningEntity" String="SNIA"/>
+      <Annotation Term="Redfish.Release" String="TP v1.2.2"/>
+      <Annotation Term="OData.Description" String="This version was created to move the NVMeFirmwareImage into a separate namespace."/>
+      <EntityType Name="NVMeDomain" BaseType="NVMeDomain.v1_0_0.NVMeDomain"/>
+    </Schema>
+
+  </edmx:DataServices>
+</edmx:Edmx>

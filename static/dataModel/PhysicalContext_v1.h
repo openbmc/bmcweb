@@ -1,0 +1,57 @@
+#ifndef PHYSICALCONTEXT_V1
+#define PHYSICALCONTEXT_V1
+
+enum class PhysicalContextV1PhysicalContext
+{
+    Room,
+    Intake,
+    Exhaust,
+    LiquidInlet,
+    LiquidOutlet,
+    Front,
+    Back,
+    Upper,
+    Lower,
+    CPU,
+    CPUSubsystem,
+    GPU,
+    GPUSubsystem,
+    FPGA,
+    Accelerator,
+    ASIC,
+    Backplane,
+    SystemBoard,
+    PowerSupply,
+    PowerSubsystem,
+    VoltageRegulator,
+    Rectifier,
+    StorageDevice,
+    NetworkingDevice,
+    ComputeBay,
+    StorageBay,
+    NetworkBay,
+    ExpansionBay,
+    PowerSupplyBay,
+    Memory,
+    MemorySubsystem,
+    Chassis,
+    Fan,
+    CoolingSubsystem,
+    Motor,
+    Transformer,
+    ACUtilityInput,
+    ACStaticBypassInput,
+    ACMaintenanceBypassInput,
+    DCBus,
+    ACOutput,
+    ACInput,
+    TrustedModule,
+    Board,
+    Transceiver,
+};
+enum class PhysicalContextV1PhysicalSubContext
+{
+    Input,
+    Output,
+};
+#endif

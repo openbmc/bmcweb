@@ -1,0 +1,332 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!---->
+<!--################################################################################       -->
+<!--# Redfish Schema:  Protocol                                                            -->
+<!--#                                                                                      -->
+<!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
+<!--# available at http://www.dmtf.org/standards/redfish                                   -->
+<!--# Copyright 2014-2021 DMTF.                                                            -->
+<!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
+<!--################################################################################       -->
+<!---->
+<edmx:Edmx xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx" Version="4.0">
+
+  <edmx:Reference Uri="http://docs.oasis-open.org/odata/odata/v4.0/errata03/csd01/complete/vocabularies/Org.OData.Core.V1.xml">
+    <edmx:Include Namespace="Org.OData.Core.V1" Alias="OData"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/RedfishExtensions_v1.xml">
+    <edmx:Include Namespace="RedfishExtensions.v1_0_0" Alias="Redfish"/>
+  </edmx:Reference>
+
+  <edmx:DataServices>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Protocol">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2017.3"/>
+
+      <Annotation Term="OData.Description" String="This enumeration describes all protocols that devices in the storage and fabric models support."/>
+      <EnumType Name="Protocol">
+        <Member Name="PCIe">
+          <Annotation Term="OData.Description" String="PCI Express."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate conformance to the PCI-SIG PCI Express Base Specification."/>
+        </Member>
+        <Member Name="AHCI">
+          <Annotation Term="OData.Description" String="Advanced Host Controller Interface (AHCI)."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate conformance to the Intel Advanced Host Controller Interface (AHCI) Specification."/>
+        </Member>
+        <Member Name="UHCI">
+          <Annotation Term="OData.Description" String="Universal Host Controller Interface (UHCI)."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate conformance to the Intel Universal Host Controller Interface (UHCI) Specification, Enhanced Host Controller Interface Specification, or the Extensible Host Controller Interface Specification."/>
+        </Member>
+        <Member Name="SAS">
+          <Annotation Term="OData.Description" String="Serial Attached SCSI."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate conformance to the T10 SAS Protocol Layer Specification."/>
+        </Member>
+        <Member Name="SATA">
+          <Annotation Term="OData.Description" String="Serial AT Attachment."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate conformance to the Serial ATA International Organization Serial ATA Specification."/>
+        </Member>
+        <Member Name="USB">
+          <Annotation Term="OData.Description" String="Universal Serial Bus (USB)."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate conformance to the USB Implementers Forum Universal Serial Bus Specification."/>
+        </Member>
+        <Member Name="NVMe">
+          <Annotation Term="OData.Description" String="Non-Volatile Memory Express (NVMe)."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate conformance to the Non-Volatile Memory Host Controller Interface Specification."/>
+        </Member>
+        <Member Name="FC">
+          <Annotation Term="OData.Description" String="Fibre Channel."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate conformance to the T11 Fibre Channel Physical and Signaling Interface Specification."/>
+        </Member>
+        <Member Name="iSCSI">
+          <Annotation Term="OData.Description" String="Internet SCSI."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate conformance to the IETF Internet Small Computer Systems Interface (iSCSI) Specification."/>
+        </Member>
+        <Member Name="FCoE">
+          <Annotation Term="OData.Description" String="Fibre Channel over Ethernet (FCoE)."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate conformance to the T11 FC-BB-5 Specification."/>
+        </Member>
+        <Member Name="FCP">
+          <Annotation Term="OData.Description" String="Fibre Channel Protocol for SCSI."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate conformance to the INCITS 481: Information Technology - Fibre Channel Protocol for SCSI."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="2017.1"/>
+              </Record>
+            </Collection>
+          </Annotation>
+        </Member>
+        <Member Name="FICON">
+          <Annotation Term="OData.Description" String="FIbre CONnection (FICON)."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate conformance to the ANSI FC-SB-3 Single-Byte Command Code Sets-3 Mapping Protocol for the Fibre Channel (FC) protocol.  Fibre Connection (FICON) is the IBM-proprietary name for this protocol."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="2017.1"/>
+              </Record>
+            </Collection>
+          </Annotation>
+        </Member>
+        <Member Name="NVMeOverFabrics">
+          <Annotation Term="OData.Description" String="NVMe over Fabrics."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate conformance to the NVM Express over Fabrics Specification."/>
+        </Member>
+        <Member Name="SMB">
+          <Annotation Term="OData.Description" String="Server Message Block (SMB).  Also known as the Common Internet File System (CIFS)."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate conformance to the Server Message Block (SMB), or Common Internet File System (CIFS), protocol."/>
+        </Member>
+        <Member Name="NFSv3">
+          <Annotation Term="OData.Description" String="Network File System (NFS) version 3."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate conformance to the RFC1813-defined Network File System (NFS) protocol."/>
+        </Member>
+        <Member Name="NFSv4">
+          <Annotation Term="OData.Description" String="Network File System (NFS) version 4."/>
+        </Member>
+        <Member Name="HTTP">
+          <Annotation Term="OData.Description" String="Hypertext Transport Protocol (HTTP)."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate conformance to the Hypertext Transport Protocol (HTTP) as defined by RFC3010 or RFC5661."/>
+        </Member>
+        <Member Name="HTTPS">
+          <Annotation Term="OData.Description" String="Hypertext Transfer Protocol Secure (HTTPS)."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate conformance to the Hypertext Transfer Protocol Secure (HTTPS) as defined by RFC2068 or RFC2616, which uses Transport Layer Security (TLS) as defined by RFC5246 or RFC6176."/>
+        </Member>
+        <Member Name="FTP">
+          <Annotation Term="OData.Description" String="File Transfer Protocol (FTP)."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate conformance to the RFC114-defined File Transfer Protocol (FTP)."/>
+        </Member>
+        <Member Name="SFTP">
+          <Annotation Term="OData.Description" String="SSH File Transfer Protocol (SFTP)."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate conformance to the RFC114-defined SSH File Transfer Protocol (SFTP) that uses Transport Layer Security (TLS) as defined by RFC5246 or RFC6176."/>
+        </Member>
+        <Member Name="iWARP">
+          <Annotation Term="OData.Description" String="Internet Wide Area RDMA Protocol (iWARP)."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate conformance to the RFC5042-defined Internet Wide Area RDMA Protocol (iWARP) that uses the transport layer mechanisms as defined by RFC5043 or RFC5044."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="2017.3"/>
+              </Record>
+            </Collection>
+          </Annotation>
+        </Member>
+        <Member Name="RoCE">
+          <Annotation Term="OData.Description" String="RDMA over Converged Ethernet Protocol."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate conformance to the InfiniBand Architecture Specification-defined RDMA over Converged Ethernet Protocol."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="2017.3"/>
+              </Record>
+            </Collection>
+          </Annotation>
+        </Member>
+        <Member Name="RoCEv2">
+          <Annotation Term="OData.Description" String="RDMA over Converged Ethernet Protocol Version 2."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate conformance to the InfiniBand Architecture Specification-defined RDMA over Converged Ethernet Protocol version 2."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="2017.3"/>
+              </Record>
+            </Collection>
+          </Annotation>
+        </Member>
+        <Member Name="I2C">
+          <Annotation Term="OData.Description" String="Inter-Integrated Circuit Bus."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate conformance to the NXP Semiconductors I2C-bus Specification."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="2018.2"/>
+              </Record>
+            </Collection>
+          </Annotation>
+        </Member>
+        <Member Name="TCP">
+          <Annotation Term="OData.Description" String="Transmission Control Protocol (TCP)."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate conformance to the IETF-defined Transmission Control Protocol (TCP).  For example, RFC7414 defines the roadmap of the TCP specification."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="2019.3"/>
+              </Record>
+            </Collection>
+          </Annotation>
+        </Member>
+        <Member Name="UDP">
+          <Annotation Term="OData.Description" String="User Datagram Protocol (UDP)."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate conformance to the IETF-defined User Datagram Protocol (UDP).  For example, RFC768 defines the core UDP specification."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="2019.3"/>
+              </Record>
+            </Collection>
+          </Annotation>
+        </Member>
+        <Member Name="TFTP">
+          <Annotation Term="OData.Description" String="Trivial File Transfer Protocol (TFTP)."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate conformance to the IETF-defined Trivial File Transfer Protocol (TFTP).  For example, RFC1350 defines the core TFTP version 2 specification."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="2019.3"/>
+              </Record>
+            </Collection>
+          </Annotation>
+        </Member>
+        <Member Name="GenZ">
+          <Annotation Term="OData.Description" String="GenZ."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate conformance to the Gen-Z Core Specification."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="2019.4"/>
+              </Record>
+            </Collection>
+          </Annotation>
+        </Member>
+        <Member Name="MultiProtocol">
+          <Annotation Term="OData.Description" String="Multiple Protocols."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate conformance to multiple protocols."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="2019.4"/>
+              </Record>
+            </Collection>
+          </Annotation>
+        </Member>
+        <Member Name="InfiniBand">
+          <Annotation Term="OData.Description" String="InfiniBand."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate conformance to the InfiniBand Architecture Specification-defined InfiniBand protocol."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="2020.3"/>
+              </Record>
+            </Collection>
+          </Annotation>
+        </Member>
+        <Member Name="Ethernet">
+          <Annotation Term="OData.Description" String="Ethernet."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate conformance to the IEEE 802.3 Ethernet specification."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="2020.3"/>
+              </Record>
+            </Collection>
+          </Annotation>
+        </Member>
+        <Member Name="NVLink">
+          <Annotation Term="OData.Description" String="NVLink."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate conformance to the NVIDIA NVLink protocol."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="2021.1"/>
+              </Record>
+            </Collection>
+          </Annotation>
+        </Member>
+        <Member Name="OEM">
+          <Annotation Term="OData.Description" String="OEM-specific."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate conformance to an OEM-specific architecture and the OEM section may include additional information."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="2018.1"/>
+              </Record>
+            </Collection>
+          </Annotation>
+        </Member>
+        <Member Name="DisplayPort">
+          <Annotation Term="OData.Description" String="DisplayPort."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate conformance to the VESA DisplayPort Specification."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="2021.1"/>
+              </Record>
+            </Collection>
+          </Annotation>
+        </Member>
+        <Member Name="HDMI">
+          <Annotation Term="OData.Description" String="HDMI."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate conformance to the HDMI Forum HDMI Specification."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="2021.1"/>
+              </Record>
+            </Collection>
+          </Annotation>
+        </Member>
+        <Member Name="VGA">
+          <Annotation Term="OData.Description" String="VGA."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate conformance to the VESA SVGA Specification."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="2021.1"/>
+              </Record>
+            </Collection>
+          </Annotation>
+        </Member>
+        <Member Name="DVI">
+          <Annotation Term="OData.Description" String="DVI."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate conformance to the Digital Display Working Group DVI-A, DVI-D, or DVI-I Specification."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="2021.1"/>
+              </Record>
+            </Collection>
+          </Annotation>
+        </Member>
+      </EnumType>
+    </Schema>
+
+  </edmx:DataServices>
+</edmx:Edmx>

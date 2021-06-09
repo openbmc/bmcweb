@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!---->
+<!-- Copyright 2015-2021 Storage Networking Industry Association (SNIA), USA. All rights reserved.-->
+<edmx:Edmx xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx" Version="4.0">
+  <edmx:Reference Uri="http://docs.oasis-open.org/odata/odata/v4.0/errata03/csd01/complete/vocabularies/Org.OData.Core.V1.xml">
+    <edmx:Include Namespace="Org.OData.Core.V1" Alias="OData"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://docs.oasis-open.org/odata/odata/v4.0/errata03/csd01/complete/vocabularies/Org.OData.Measures.V1.xml">
+    <edmx:Include Namespace="Org.OData.Measures.V1" Alias="Measures"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/RedfishExtensions_v1.xml">
+    <edmx:Include Namespace="RedfishExtensions.v1_0_0" Alias="Redfish"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://docs.oasis-open.org/odata/odata/v4.0/errata03/csd01/complete/vocabularies/Org.OData.Capabilities.V1.xml">
+    <edmx:Include Namespace="Org.OData.Capabilities.V1" Alias="Capabilities"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/Resource_v1.xml">
+    <edmx:Include Namespace="Resource"/>
+    <edmx:Include Namespace="Resource.v1_0_0"/>
+    <edmx:Include Namespace="Resource.v1_3_0"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/swordfish/v1/ClassOfService_v1.xml">
+    <edmx:Include Namespace="ClassOfService"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/Schedule_v1.xml">
+    <edmx:Include Namespace="Schedule"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/swordfish/v1/StorageReplicaInfo_v1.xml">
+    <edmx:Include Namespace="StorageReplicaInfo"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/swordfish/v1/LineOfService_v1.xml">
+    <edmx:Include Namespace="LineOfService"/>
+    <edmx:Include Namespace="LineOfService.v1_0_0"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/swordfish/v1/DataProtectionLoSCapabilities_v1.xml">
+    <edmx:Include Namespace="DataProtectionLoSCapabilities"/>
+  </edmx:Reference>
+
+  <edmx:DataServices>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="DataProtectionLineOfService">
+      <Annotation Term="Redfish.OwningEntity" String="SNIA"/>
+      <EntityType Name="DataProtectionLineOfService" BaseType="LineOfService.v1_0_0.LineOfService" Abstract="true">
+        <Annotation Term="OData.Description" String="Describes a data protection service option."/>
+        <Annotation Term="OData.LongDescription" String="This service option describes a replica that protects data from loss. The requirements must be met collectively by the communication path and the replica."/>
+        <Annotation Term="Capabilities.InsertRestrictions">
+          <Record>
+            <PropertyValue Property="Insertable" Bool="false"/>
+          </Record>
+        </Annotation>
+        <Annotation Term="Capabilities.UpdateRestrictions">
+          <Record>
+            <PropertyValue Property="Updatable" Bool="true"/>
+            <Annotation Term="OData.Description" String="DataProtectionLineOfService resources can be updated to change the writable properties."/>
+          </Record>
+        </Annotation>
+        <Annotation Term="Capabilities.DeleteRestrictions">
+          <Record>
+            <PropertyValue Property="Deletable" Bool="true"/>
+            <Annotation Term="OData.Description" String="DataProtectionLineOfService resources can be deleted by deleting the DataProtectionLineOfService resource."/>
+          </Record>
+        </Annotation>
+        <Annotation Term="Redfish.Uris">
+          <Collection>
+            <String>/redfish/v1/StorageServices/{StorageServiceId}/LinesOfService/DataProtectionLinesOfService/{DataProtectionLineOfServiceId}</String>
+            <String>/redfish/v1/StorageServices/{StorageServiceId}/ClassesOfService/{ClassOfServiceId}/DataProtectionLinesOfService/{DataProtectionLineOfServiceId}</String>
+          </Collection>
+        </Annotation>
+      </EntityType>
+      <Action Name="CreateReplicas" IsBound="true">
+        <Annotation Term="OData.Description" String="This action creates an on-demand replica."/>
+        <Annotation Term="OData.LongDescription" String="This action shall create an on-demand replica that conforms to the bound DataProtectionLineOfService."/>
+        <Parameter Name="DataProtectionLineOfService" Type="DataProtectionLineOfService.v1_2_0.Actions"/>
+
+        <Parameter Name="ReplicaLineOfService" Type="DataProtectionLineOfService.DataProtectionLineOfService" Nullable="false">
+          <Annotation Term="OData.Description" String="The data protection line of service this action is bound to."/>
+          <Annotation Term="OData.LongDescription" String="The value shall reference the data protection line of service this operation is bound to."/>
+        </Parameter>
+
+        <Parameter Name="ReplicaRequests" Type="Collection(DataProtectionLineOfService.v1_1_0.ReplicaRequest)">
+          <Annotation Term="OData.Description" String="Specifies the resources to replicate and a name for the replica."/>
+          <Annotation Term="OData.LongDescription" String="Each value shall reference a source resource and provide a name for the replica."/>
+        </Parameter>
+      </Action>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="DataProtectionLineOfService.v1_0_0">
+      <Annotation Term="Redfish.Release" String="WIP v1.0.6"/>
+      <Annotation Term="Redfish.OwningEntity" String="SNIA"/>
+      <EntityType Name="DataProtectionLineOfService" BaseType="DataProtectionLineOfService.DataProtectionLineOfService">
+        <Annotation Term="OData.Description" String="Describes a data protection service option."/>
+        <Annotation Term="OData.LongDescription" String="This service option describes a replica that protects data from loss. The requirements must be met collectively by the communication path and the replica."/>
+
+        <Property Name="RecoveryGeographicObjective" Type="DataProtectionLoSCapabilities.FailureDomainScope">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="Geographic distribution scopes."/>
+          <Annotation Term="OData.LongDescription" String="The value specifies the geographic scope of the failure domain."/>
+        </Property>
+        <Property Name="RecoveryPointObjectiveTime" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="Time interval defining how much source data that can be lost on failure."/>
+          <Annotation
+            Term="OData.LongDescription"
+            String="The value shall be an ISO 8601 duration that specifies the maximum time over which source data may be lost on failure. In the case that IsIsolated = false, failure of the domain is not a consideration."/>
+        </Property>
+        <Property Name="RecoveryTimeObjective" Type="DataProtectionLoSCapabilities.RecoveryAccessScope">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="An enumeration value that indicates the expected time to access an alternate replica."/>
+          <Annotation Term="OData.LongDescription" String="The value shall be an enumeration that indicates the maximum time required to access an alternate replica. In the case that IsIsolated = false, failure of the domain is not a consideration."/>
+          <Annotation Term="Measures.Unit" String="s"/>
+        </Property>
+        <Property Name="ReplicaType" Type="StorageReplicaInfo.ReplicaType">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="Type of replica."/>
+          <Annotation Term="OData.LongDescription" String="The type of replica shall conform to this value."/>
+        </Property>
+        <Property Name="MinLifetime" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="Minimum lifetime (seconds) that replica must be maintained."/>
+          <Annotation
+            Term="OData.LongDescription"
+            String="The value shall be an ISO 8601 duration that specifies the minimum required lifetime of the replica. Note: The maximum number of replicas can be determined using this value together with the replicaSchedule."/>
+        </Property>
+        <Property Name="IsIsolated" Type="Edm.Boolean" DefaultValue="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The replica is in a separate fault domain."/>
+          <Annotation Term="OData.LongDescription" String="True shall indicate that the replica is in a separate fault domain from its source. The default value of this property is false."/>
+        </Property>
+        <Property Name="Schedule" Type="Schedule.Schedule" Nullable="false">
+          <Annotation Term="OData.Description" String="A schedule for making periodic point in time replicas."/>
+          <Annotation Term="OData.LongDescription" String="If a replica is made periodically, the value shall define the schedule."/>
+        </Property>
+        <NavigationProperty Name="ReplicaClassOfService" Type="ClassOfService.ClassOfService" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The replica's class of service."/>
+          <Annotation Term="OData.LongDescription" String="The value shall reference the class of service that defines the required service levels of the replica."/>
+        </NavigationProperty>
+        <Property Name="ReplicaAccessLocation" Type="Resource.v1_3_0.Location" Nullable="false">
+          <Annotation Term="OData.Description" String="Location that supplies data access to the replica."/>
+          <Annotation
+            Term="OData.LongDescription"
+            String="This value shall be used if the data access location of the replica is required to be at a specific location.   Note 1: The location value may be granular.  Note 2: A value may be required for some regulatory compliance."/>
+        </Property>
+      </EntityType>
+
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="DataProtectionLineOfService.v1_0_1">
+      <Annotation Term="Redfish.OwningEntity" String="SNIA"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that OData properties are marked as required, and integer properties are marked as integer rather than number."/>
+      <EntityType Name="DataProtectionLineOfService" BaseType="DataProtectionLineOfService.v1_0_0.DataProtectionLineOfService"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="DataProtectionLineOfService.v1_0_2">
+      <Annotation Term="Redfish.OwningEntity" String="SNIA"/>
+      <Annotation Term="OData.Description" String="This version was created to fix CSDL errors and adds both Redfish Uris and Capability Annotations."/>
+      <EntityType Name="DataProtectionLineOfService" BaseType="DataProtectionLineOfService.v1_0_1.DataProtectionLineOfService"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="DataProtectionLineOfService.v1_1_0">
+      <Annotation Term="Redfish.OwningEntity" String="SNIA"/>
+      <Annotation Term="Redfish.Release" String="TP v1.0.6"/>
+      <Annotation Term="OData.Description" String="Adds ReplicaRequest ComplexType and CreateReplicas Action.  Change references to unversioned."/>
+      <EntityType Name="DataProtectionLineOfService" BaseType="DataProtectionLineOfService.v1_0_1.DataProtectionLineOfService"/>
+      <ComplexType Name="ReplicaRequest">
+        <Annotation Term="OData.Description" String="A ReplicaRequest contains information about the ReplicaSource and the ReplicaName."/>
+        <Annotation Term="OData.LongDescription" String="A ReplicaRequest shall contain information about the ReplicaSource and the ReplicaName."/>
+        <NavigationProperty Name="ReplicaSource" Type="Resource.Item" Nullable="false">
+          <Annotation Term="OData.Description" String="A resource to be replicated."/>
+          <Annotation Term="OData.LongDescription" String="The value shall reference a resource to be replicated."/>
+        </NavigationProperty>
+        <Property Name="ReplicaName" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The name of the new replica."/>
+          <Annotation Term="OData.LongDescription" String="The value shall be the names of the replica."/>
+        </Property>
+      </ComplexType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="DataProtectionLineOfService.v1_1_1">
+      <Annotation Term="Redfish.OwningEntity" String="SNIA"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that OData properties are marked as required, and integer properties are marked as integer rather than number."/>
+      <EntityType Name="DataProtectionLineOfService" BaseType="DataProtectionLineOfService.v1_1_0.DataProtectionLineOfService"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="DataProtectionLineOfService.v1_1_2">
+      <Annotation Term="Redfish.OwningEntity" String="SNIA"/>
+      <Annotation Term="OData.Description" String="This version was created to fix CSDL errors and adds both Redfish Uris and Capability Annotations."/>
+      <EntityType Name="DataProtectionLineOfService" BaseType="DataProtectionLineOfService.v1_1_1.DataProtectionLineOfService"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="DataProtectionLineOfService.v1_2_0">
+      <Annotation Term="Redfish.OwningEntity" String="SNIA"/>
+      <Annotation Term="Redfish.Release" String="WIP v1.1.0"/>
+      <Annotation Term="OData.Description" String="The BaseType was changed from Resource to the LineOfService class. This version also fixes CSDL schema errors."/>
+      <EntityType Name="DataProtectionLineOfService" BaseType="DataProtectionLineOfService.v1_1_2.DataProtectionLineOfService">
+        <Property Name="Actions" Type="DataProtectionLineOfService.v1_2_0.Actions" Nullable="false">
+          <Annotation Term="OData.Description" String="The available actions for this resource."/>
+          <Annotation Term="OData.LongDescription" String="The Actions property shall contain the available actions for this resource."/>
+        </Property>
+      </EntityType>
+
+      <ComplexType Name="Actions">
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="OData.Description" String="The available actions for this resource."/>
+        <Annotation Term="OData.LongDescription" String="The Actions property shall contain the available actions for this resource."/>
+        <Property Name="Oem" Type="DataProtectionLineOfService.v1_2_0.OemActions" Nullable="false">
+          <Annotation Term="OData.Description" String="This property contains the available OEM specific actions for this resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain any additional OEM actions for this resource."/>
+        </Property>
+      </ComplexType>
+
+      <ComplexType Name="OemActions">
+        <Annotation Term="OData.AdditionalProperties" Bool="true"/>
+        <Annotation Term="OData.Description" String="The available OEM specific actions for this resource."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain any additional OEM actions for this resource."/>
+      </ComplexType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="DataProtectionLineOfService.v1_2_1">
+      <Annotation Term="Redfish.OwningEntity" String="SNIA"/>
+      <Annotation Term="OData.Description" String="This version was created to fix Redfish Uris issues."/>
+      <EntityType Name="DataProtectionLineOfService" BaseType="DataProtectionLineOfService.v1_2_0.DataProtectionLineOfService"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="DataProtectionLineOfService.v1_3_0">
+      <Annotation Term="Redfish.OwningEntity" String="SNIA"/>
+      <Annotation Term="Redfish.Release" String="TP v1.2.2"/>      
+      <Annotation Term="OData.Description" String="This version was created to fix issues with the CreateReplicas action. It moves the actions to the unversioned namespace and fixes schema issues."/>
+      <EntityType Name="DataProtectionLineOfService" BaseType="DataProtectionLineOfService.v1_2_1.DataProtectionLineOfService"/>
+    </Schema>
+
+  </edmx:DataServices>
+</edmx:Edmx>
