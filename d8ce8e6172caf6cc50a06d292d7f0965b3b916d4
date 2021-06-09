@@ -263,6 +263,30 @@
     },
     {
       "key": {
+        "uuid": "8b08a97a_c062e7b0",
+        "filename": "redfish-core/include/node.hpp",
+        "patchSetId": 41
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-06-09T18:29:56Z",
+      "side": 1,
+      "message": "\u003e Sorry, there are some errors in the above.\n\u003e \n\u003e #define REDFISH_ROUTE(app, req, asyncResp)                                     \\\n\u003e     if (asyncResp-\u003eres.processParamHandler \u003d\u003d nullptr)                         \\\n\u003e     {                                                                          \\\n\u003e         auto processParam \u003d                                                    \\\n\u003e             std::make_shared\u003credfish::query_param::ProcessParam\u003e(              \\\n\u003e                 app, asyncResp-\u003eres);                                          \\\n\u003e         asyncResp-\u003eres.processParamHandler \u003d [\u0026req, processParam]() -\u003e bool {  \\\n\u003e             return processParam-\u003eprocessAllParam(req);                         \\\n\u003e         };                                                                     \\\n\u003e     }\n\n\nOne thing I\u0027d like to do is define some method for \"setUpRedfishRoute\" so we\u0027re not doing so much code in the #ifdef.\n\nAlso, I\u0027d still like to see if we can have a single completion handler, instead of adding something new to the response object.  We can easily inject a new completion handler that calls the old one after our filters have run, and I think it simplifies things when the depth stuff starts coming.\n\n\u003e \n\u003e inline void requestRoutesSystemsCollection(App\u0026 app)\n\u003e {\n\u003e     BMCWEB_ROUTE(app, \"/redfish/v1/Systems/\")\n\u003e         .privileges({\"Login\"})\n\u003e         .methods(boost::beast::http::verb::get)(\n\u003e             [\u0026app](const crow::Request\u0026 req,\n\u003e                    const std::shared_ptr\u003cbmcweb::AsyncResp\u003e\u0026 asyncResp) {\n\u003e \n\u003e                 REDFISH_ROUTE(app, req, asyncResp)\n\u003e \n\u003e                 asyncResp-\u003eres.jsonValue[\"@odata.id\"] \u003d \"/redfish/v1/Systems\";\n\u003e                 // ...\n\u003e             });\n\u003e }\n\nI had kind of imagined that REDFISH_ROUTE would completely replace BMCWEB_ROUTE, but I\u0027m not against this, but I do think it means that this no longer needs to be a macro anymore.",
+      "parentUuid": "59440bbb_f70261af",
+      "range": {
+        "startLine": 73,
+        "startChar": 0,
+        "endLine": 83,
+        "endChar": 0
+      },
+      "revId": "d8ce8e6172caf6cc50a06d292d7f0965b3b916d4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c937d803_2594d10e",
         "filename": "redfish-core/include/utils/query_param.hpp",
         "patchSetId": 41
