@@ -20,6 +20,7 @@
 
 #include <app.hpp>
 #include <registries/privilege_registry.hpp>
+#include <utils/name_utils.hpp>
 
 namespace redfish
 {
@@ -159,6 +160,12 @@ inline void requestRoutesStorage(App& app)
                         storageController["MemberId"] = id;
                         storageController["Status"]["State"] = "Enabled";
 
+                        auto namePointer = "/StorageControllers"_json_pointer;
+                        namePointer /= index;
+                        namePointer /= "Name";
+                        name_util::getPrettyName(asyncResp, path, interfaceDict,
+                                                 namePointer);
+
                         crow::connections::systemBus->async_method_call(
                             [asyncResp,
                              index](const boost::system::error_code ec2,
@@ -286,9 +293,19 @@ inline void requestRoutesDrive(App& app)
 
                     auto object2 = std::find_if(
                         subtree.begin(), subtree.end(),
-                        [&driveId](auto& object) {
-                            const std::string& path = object.first;
-                            return boost::ends_with(path, "/" + driveId);
+                        [asyncResp, &driveId](auto& object) {
+                            const sdbusplus::message::object_path path(
+                                object.first);
+
+                            if (path.filename() != driveId)
+                            {
+                                return false;
+                            }
+
+                            name_util::getPrettyName(asyncResp, path,
+                                                     object.second,
+                                                     "/Name"_json_pointer);
+                            return true;
                         });
 
                     if (object2 == subtree.end())
