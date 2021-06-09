@@ -21,6 +21,7 @@
 #include <boost/container/flat_map.hpp>
 #include <registries/privilege_registry.hpp>
 #include <utils/fw_utils.hpp>
+#include <utils/name_utils.hpp>
 
 #include <variant>
 
@@ -824,6 +825,11 @@ inline void requestRoutesSoftwareInventory(App& app)
                         fw_util::getFwStatus(asyncResp, swId,
                                              obj.second[0].first);
 
+                        asyncResp->res.jsonValue["Name"] = "Software Inventory";
+                        name_util::getPrettyName(asyncResp, obj.second[0].first,
+                                                 obj.first,
+                                                 "/Name"_json_pointer);
+
                         crow::connections::systemBus->async_method_call(
                             [asyncResp, swId](
                                 const boost::system::error_code errorCode,
@@ -923,7 +929,6 @@ inline void requestRoutesSoftwareInventory(App& app)
                     }
                     asyncResp->res.jsonValue["@odata.type"] =
                         "#SoftwareInventory.v1_1_0.SoftwareInventory";
-                    asyncResp->res.jsonValue["Name"] = "Software Inventory";
                     asyncResp->res.jsonValue["Status"]["HealthRollup"] = "OK";
 
                     asyncResp->res.jsonValue["Updateable"] = false;
