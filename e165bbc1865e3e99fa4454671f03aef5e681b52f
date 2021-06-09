@@ -163,6 +163,24 @@
     },
     {
       "key": {
+        "uuid": "cea3e9bf_36f55da2",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1001099
+      },
+      "writtenOn": "2021-06-09T19:18:50Z",
+      "side": 1,
+      "message": "I will do that",
+      "parentUuid": "595445af_a2573e72",
+      "revId": "e165bbc1865e3e99fa4454671f03aef5e681b52f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "fe66c20a_3b5d99ad",
         "filename": "redfish-core/include/node.hpp",
         "patchSetId": 8
