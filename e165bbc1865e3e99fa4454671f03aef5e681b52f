@@ -105,6 +105,24 @@
     },
     {
       "key": {
+        "uuid": "d688c985_2a4a42e1",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-06-09T19:10:27Z",
+      "side": 1,
+      "message": "+1",
+      "parentUuid": "9612f488_b55cc013",
+      "revId": "e165bbc1865e3e99fa4454671f03aef5e681b52f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e8cbf3d1_b5f0ad54",
         "filename": "/COMMIT_MSG",
         "patchSetId": 8
@@ -128,6 +146,23 @@
     },
     {
       "key": {
+        "uuid": "595445af_a2573e72",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-06-09T19:10:27Z",
+      "side": 1,
+      "message": "Redfish service validator alone isn\u0027t a sufficient test, as it has no concept of permissions or views.  You need to verify that for the privilege classes you expect, the tree looks correct.",
+      "revId": "e165bbc1865e3e99fa4454671f03aef5e681b52f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "fe66c20a_3b5d99ad",
         "filename": "redfish-core/include/node.hpp",
         "patchSetId": 8
@@ -139,6 +174,47 @@
       "writtenOn": "2021-06-09T18:59:31Z",
       "side": 1,
       "message": "I think this is a mistake adding. \nWe should not be adding this back.",
+      "revId": "e165bbc1865e3e99fa4454671f03aef5e681b52f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "75407cda_72a8d9bf",
+        "filename": "redfish-core/include/node.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-06-09T19:10:27Z",
+      "side": 1,
+      "message": "+1",
+      "parentUuid": "fe66c20a_3b5d99ad",
+      "revId": "e165bbc1865e3e99fa4454671f03aef5e681b52f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8d86675d_e7ac7a85",
+        "filename": "redfish-core/lib/network_protocol.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-06-09T19:10:27Z",
+      "side": 1,
+      "message": "Please don\u0027t capture req here by reference, as it could lead to lifetime issues.  Put the code on line 202 in the preceeding scope, and capture effectiveUserPrivileges.",
+      "range": {
+        "startLine": 191,
+        "startChar": 18,
+        "endLine": 191,
+        "endChar": 24
+      },
       "revId": "e165bbc1865e3e99fa4454671f03aef5e681b52f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
