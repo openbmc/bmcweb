@@ -33,6 +33,24 @@
       "revId": "4187c9a9aba9a9c59ea0121d8ad233d697e49fe7",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f0668ca5_6d518b95",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1250,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-06-09T20:17:37Z",
+      "side": 1,
+      "message": "TPM stands for Trusted Platform Module.",
+      "parentUuid": "5eb5f44f_487b90d5",
+      "revId": "4187c9a9aba9a9c59ea0121d8ad233d697e49fe7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
