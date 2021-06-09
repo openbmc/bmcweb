@@ -87,6 +87,7 @@ feature_map = {
   'vm-websocket'                                : '-DBMCWEB_ENABLE_VM_WEBSOCKET',
   'xtoken-auth'                                 : '-DBMCWEB_ENABLE_XTOKEN_AUTHENTICATION',
   #'vm-nbdproxy'                                : '-DBMCWEB_ENABLE_VM_NBDPROXY',
+  'redfish-chassis-log'                         : '-DBMCWEB_ENABLE_REDFISH_CHASSIS_LOG_ENTRIES',
 }
 
 # Get the options status and build a project summary to show which flags are
