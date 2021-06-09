@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright 2016-2017 Storage Networking Industry Association (SNIA), USA. All rights reserved.-->
+<edmx:Edmx xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx" Version="4.0">
+
+  <edmx:Reference Uri="http://docs.oasis-open.org/odata/odata/v4.0/errata03/csd01/complete/vocabularies/Org.OData.Core.V1.xml">
+    <edmx:Include Namespace="Org.OData.Core.V1" Alias="OData"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/RedfishExtensions_v1.xml">
+    <edmx:Include Namespace="RedfishExtensions.v1_0_0" Alias="Redfish"/>
+    <edmx:Include Namespace="Validation.v1_0_0" Alias="Validation"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://docs.oasis-open.org/odata/odata/v4.0/errata03/csd01/complete/vocabularies/Org.OData.Capabilities.V1.xml">
+    <edmx:Include Namespace="Org.OData.Capabilities.V1" Alias="Capabilities"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/Resource_v1.xml">
+    <edmx:Include Namespace="Resource"/>
+    <edmx:Include Namespace="Resource.v1_0_0"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/EthernetInterfaceCollection_v1.xml">
+    <edmx:Include Namespace="EthernetInterfaceCollection"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/swordfish/v1/ClassOfService_v1.xml">
+    <edmx:Include Namespace="ClassOfService"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/swordfish/v1/StorageReplicaInfo_v1.xml">
+    <edmx:Include Namespace="StorageReplicaInfo"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/swordfish/v1/FileSystem_v1.xml">
+    <edmx:Include Namespace="FileSystem"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/swordfish/v1/DataStorageLoSCapabilities_v1.xml">
+    <edmx:Include Namespace="DataStorageLoSCapabilities"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://docs.oasis-open.org/odata/odata/v4.0/errata03/csd01/complete/vocabularies/Org.OData.Measures.V1.xml">
+    <edmx:Include Namespace="Org.OData.Measures.V1" Alias="Measures"/>
+  </edmx:Reference>
+
+  <edmx:DataServices>
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="FileShare">
+      <Annotation Term="Redfish.OwningEntity" String="SNIA"/>
+      <EntityType Name="FileShare" BaseType="Resource.v1_0_0.Resource" Abstract="true">
+        <Annotation Term="OData.Description" String="A shared set of files."/>
+        <Annotation Term="OData.LongDescription" String="This resource shall be used to represent a shared set of files."/>
+        <Annotation Term="Capabilities.InsertRestrictions">
+          <Record>
+            <PropertyValue Property="Insertable" Bool="false"/>
+          </Record>
+        </Annotation>
+        <Annotation Term="Capabilities.UpdateRestrictions">
+          <Record>
+            <PropertyValue Property="Updatable" Bool="true"/>
+            <Annotation Term="OData.Description" String="FileShare resources can be updated to change the writable properties."/>
+          </Record>
+        </Annotation>
+        <Annotation Term="Capabilities.DeleteRestrictions">
+          <Record>
+            <PropertyValue Property="Deletable" Bool="true"/>
+            <Annotation Term="OData.Description" String="FileShare resources can be deleted by deleting the FileShare resource."/>
+          </Record>
+        </Annotation>
+        <Annotation Term="Redfish.Uris">
+          <Collection>
+            <String>/redfish/v1/Storage/{StorageId}/FileSystems/{FileSystemsId}/ExportedFileShares/{ExportedFileSharesId}</String>
+            <String>/redfish/v1/Systems/{ComputerSystemsId}/Storage/{StorageId}/FileSystems/{FileSystemsId}/ExportedFileShares/{ExportedFileSharesId}</String>
+            <String>/redfish/v1/StorageServices/{StorageServiceId}/FileSystems/{FileSystemsId}/ExportedFileShares/{ExportedFileSharesId}</String>
+          </Collection>
+        </Annotation>
+      </EntityType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="FileShare.v1_0_0">
+      <Annotation Term="Redfish.OwningEntity" String="SNIA"/>
+      <Annotation Term="Redfish.Release" String="TP v1.0.3"/>
+      <EntityType Name="FileShare" BaseType="FileShare.FileShare">
+        <Annotation Term="OData.Description" String="An instance of a shared set of files with a common directory structure."/>
+        <Annotation Term="OData.LongDescription" String="This resource shall be used to represent a shared set of files with a common directory structure."/>
+
+        <Property Name="FileSharePath" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="A path to an exported file or directory on the file system where this file share is hosted."/>
+          <Annotation Term="OData.LongDescription" String="The value of this property shall be a path (relative to the file system root) to the exported file or directory on the file system where this file share is hosted."/>
+        </Property>
+        <Property Name="FileSharingProtocols" Type="Collection(FileSystem.FileProtocol)">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="An array of file sharing protocols supported by this file share."/>
+          <Annotation Term="OData.LongDescription" String="This property shall be an array containing entries for the file sharing protocols supported by this file share. Each entry shall specify a file sharing protocol supported by the file system."/>
+        </Property>
+        <Property Name="Status" Type="Resource.Status" Nullable="false">
+          <Annotation Term="OData.Description" String="Indicates the status of the file share."/>
+          <Annotation Term="OData.LongDescription" String="This value of this property shall indicate the status of the file share."/>
+        </Property>
+        <Property Name="DefaultAccessCapabilities" Type="Collection(DataStorageLoSCapabilities.StorageAccessCapability)">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="An array of default access capabilities for the file share. The types of default access can include Read, Write, and/or Execute."/>
+          <Annotation
+            Term="OData.LongDescription"
+            String="The value of this property shall be an array containing entries for the default access capabilities for the file share. Each entry shall specify a default access privilege. The types of default access can include Read, Write, and/or Execute."/>
+        </Property>
+        <Property Name="ExecuteSupport" Type="Edm.Boolean" DefaultValue="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="Execute access is supported by the file share."/>
+          <Annotation Term="OData.LongDescription" String="The value of this property shall indicate whether Execute access is supported by the file share. The default value for this property is false."/>
+        </Property>
+        <Property Name="RootAccess" Type="Edm.Boolean" DefaultValue="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="Root access is allowed by the file share."/>
+          <Annotation Term="OData.LongDescription" String="The value of this property shall indicate whether Root access is allowed by the file share. The default value for this property is false."/>
+        </Property>
+        <Property Name="WritePolicy" Type="StorageReplicaInfo.ReplicaUpdateMode">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="Defines how writes are replicated to the shared source."/>
+          <Annotation Term="OData.LongDescription" String="The value of this property shall define how writes are replicated to the shared source."/>
+        </Property>
+        <Property Name="CASupported" Type="Edm.Boolean" DefaultValue="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="Continuous Availability is supported. Client/Server mediated recovery from network and server failure with application transparency."/>
+          <Annotation
+            Term="OData.LongDescription"
+            String="The value of this property shall indicate that Continuous Availability is supported. Client/Server mediated recovery from network and server failure with application transparency. This property shall be NULL unless the FileSharingProtocols property includes SMB.  The default value for this property is false."/>
+        </Property>
+        <Property Name="FileShareTotalQuotaBytes" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The maximum number of bytes that may be used by this file share."/>
+          <Annotation Term="OData.LongDescription" String="If present, the value of this property shall indicate the maximum number of bytes that may be consumed by this file share."/>
+          <Annotation Term="Measures.Unit" String="By"/>
+        </Property>
+        <Property Name="FileShareRemainingQuotaBytes" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The number of remaining bytes that may be used by this file share."/>
+          <Annotation Term="OData.LongDescription" String="If present, the value of this property shall indicate the remaining number of bytes that may be consumed by this file share."/>
+          <Annotation Term="Measures.Unit" String="By"/>
+        </Property>
+        <Property Name="LowSpaceWarningThresholdPercents" Type="Collection(Edm.Int64)">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="An array of low space warning threshold percentages for the file share."/>
+          <Annotation
+            Term="OData.LongDescription"
+            String="This property shall be an array containing entries for the percentages of file share capacity at which low space warning events are be issued. A LOW_SPACE_THRESHOLD_WARNING event shall be triggered each time the remaining file share capacity value becomes less than one of the values in the array. The following shall be true: Across all CapacitySources entries, percent = (SUM(AllocatedBytes) - SUM(ConsumedBytes))/SUM(AllocatedBytes)."/>
+          <Annotation Term="Measures.Unit" String="%"/>
+          <Annotation Term="Validation.Minimum" Int="0"/>
+          <Annotation Term="Validation.Maximum" Int="100"/>
+        </Property>
+        <Property Name="FileShareQuotaType" Type="FileShare.v1_0_0.QuotaType">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="Specifies the type of quota enforcement."/>
+          <Annotation
+            Term="OData.LongDescription"
+            String="If FileShareQuotaType is present, a value of Soft shall specify that quotas are not enforced, and a value of Hard shall specify that writes shall fail if the space consumed would exceed the value of the FileShareTotalQuotaBytes property."/>
+        </Property>
+        <Property Name="Links" Type="FileShare.v1_0_0.Links" Nullable="false">
+          <Annotation Term="OData.Description" String="The links object contains the links to other resources that are related to this resource."/>
+          <Annotation Term="OData.LongDescription" String="The Links property, as described by the Redfish Specification, shall contain references to resources that are related to, but not contained by (subordinate to), this resource."/>
+        </Property>
+        <NavigationProperty Name="EthernetInterfaces" Type="EthernetInterfaceCollection.EthernetInterfaceCollection" Nullable="false" ContainsTarget="true">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="A link to the collection of Ethernet interfaces that provide access to this file share."/>
+          <Annotation Term="OData.LongDescription" String="The value shall be a link to an EthernetInterfaceCollection with members that provide access to the file share."/>
+          <Annotation Term="OData.AutoExpandReferences"/>
+        </NavigationProperty>
+      </EntityType>
+
+      <ComplexType Name="Links" BaseType="Resource.Links">
+        <Annotation Term="OData.Description" String="The links object contains the links to other resources that are related to this resource."/>
+        <Annotation Term="OData.LongDescription" String="The Links property, as described by the Redfish Specification, shall contain references to resources that are related to, but not contained by (subordinate to), this resource."/>
+        <NavigationProperty Name="ClassOfService" Type="ClassOfService.ClassOfService" Nullable="false">
+          <Annotation Term="OData.Description" String="A link to the ClassOfService for this file share."/>
+          <Annotation Term="OData.LongDescription" String="This value shall be a link to the ClassOfService for this file share."/>
+          <Annotation Term="OData.AutoExpandReferences"/>
+        </NavigationProperty>
+        <NavigationProperty Name="FileSystem" Type="FileSystem.FileSystem" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="A link to the file system containing the file share."/>
+          <Annotation Term="OData.LongDescription" String="The value shall be a link to the file system containing the file share."/>
+          <Annotation Term="OData.AutoExpandReferences"/>
+        </NavigationProperty>
+      </ComplexType>
+
+      <EnumType Name="QuotaType">
+        <Annotation Term="OData.Description" String="Indicates whether quotas are enabled and enforced by this file share. A value of Soft means that quotas are enabled but not enforced, and a value of Hard means that quotas are enabled and enforced."/>
+        <Annotation
+          Term="OData.LongDescription"
+          String="The value shall indicate whether quotas are enabled and enforced by this file share. If QuotaType is present, a value of Soft shall mean that quotas are enabled but not enforced, and a value of Hard shall mean that quotas are enabled and enforced."/>
+        <Member Name="Soft">
+          <Annotation Term="OData.Description" String="Quotas are enabled but not enforced."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate that quotas are enabled but not enforced."/>
+        </Member>
+        <Member Name="Hard">
+          <Annotation Term="OData.Description" String="Quotas are enabled and enforced."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate that quotas are enabled and enforced."/>
+        </Member>
+      </EnumType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="FileShare.v1_0_1">
+      <Annotation Term="Redfish.OwningEntity" String="SNIA"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that OData properties are marked as required, and integer properties are marked as integer rather than number."/>
+      <EntityType Name="FileShare" BaseType="FileShare.v1_0_0.FileShare"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="FileShare.v1_0_2">
+      <Annotation Term="Redfish.OwningEntity" String="SNIA"/>
+      <Annotation Term="OData.Description" String="This version was created to fix CSDL errors and adds both Redfish Uris and Capability Annotations."/>
+      <EntityType Name="FileShare" BaseType="FileShare.v1_0_1.FileShare"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="FileShare.v1_1_0">
+      <Annotation Term="Redfish.OwningEntity" String="SNIA"/>
+      <Annotation Term="Redfish.Release" String="WIP v1.0.5"/>
+      <Annotation Term="OData.Description" String="This version adds the RemainingCapacityPercent property."/>
+      <EntityType Name="FileShare" BaseType="FileShare.v1_0_0.FileShare">
+        <Property Name="RemainingCapacityPercent" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The percentage of the capacity remaining in the FileShare."/>
+          <Annotation Term="OData.LongDescription" String="If present, this value shall return  {[(SUM(AllocatedBytes) - SUM(ConsumedBytes)]/SUM(AllocatedBytes)}*100 represented as an integer value."/>
+        </Property>
+        <Property Name="Actions" Type="FileShare.v1_1_0.Actions" Nullable="false">
+          <Annotation Term="OData.Description" String="The available actions for this resource."/>
+          <Annotation Term="OData.LongDescription" String="The Actions property shall contain the available actions for this resource."/>
+        </Property>
+      </EntityType>
+
+      <ComplexType Name="Actions">
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="OData.Description" String="The available actions for this resource."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain the available actions for this resource."/>
+        <Property Name="Oem" Type="FileShare.v1_1_0.OemActions" Nullable="false">
+          <Annotation Term="OData.Description" String="This property contains the available OEM specific actions for this resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain any additional OEM actions for this resource."/>
+        </Property>
+      </ComplexType>
+
+      <ComplexType Name="OemActions">
+        <Annotation Term="OData.AdditionalProperties" Bool="true"/>
+        <Annotation Term="OData.Description" String="The available OEM specific actions for this resource."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain any additional OEM actions for this resource."/>
+      </ComplexType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="FileShare.v1_1_1">
+      <Annotation Term="Redfish.OwningEntity" String="SNIA"/>
+      <Annotation Term="OData.Description" String="Change references to unversioned."/>
+      <EntityType Name="FileShare" BaseType="FileShare.v1_1_0.FileShare"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="FileShare.v1_1_2">
+      <Annotation Term="Redfish.OwningEntity" String="SNIA"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that OData properties are marked as required, and integer properties are marked as integer rather than number."/>
+      <EntityType Name="FileShare" BaseType="FileShare.v1_1_1.FileShare"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="FileShare.v1_1_3">
+      <Annotation Term="Redfish.OwningEntity" String="SNIA"/>
+      <Annotation Term="OData.Description" String="This version was added to fix CSDL errors and adds both Redfish Uris and Capability Annotations."/>
+      <EntityType Name="FileShare" BaseType="FileShare.v1_1_2.FileShare"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="FileShare.v1_2_0">
+      <Annotation Term="Redfish.OwningEntity" String="SNIA"/>
+      <Annotation Term="Redfish.Release" String="TP v1.2.1c"/>
+      <Annotation Term="OData.Description" String="This version was added to add Redfish URIs."/>
+      <EntityType Name="FileShare" BaseType="FileShare.v1_1_3.FileShare"/>
+    </Schema>
+
+  </edmx:DataServices>
+</edmx:Edmx>

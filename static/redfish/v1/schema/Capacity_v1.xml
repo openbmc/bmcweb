@@ -1,0 +1,299 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!---->
+<!-- Copyright 2015-2019 Storage Networking Industry Association (SNIA), USA. All rights reserved.-->
+<edmx:Edmx xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx" Version="4.0">
+
+  <edmx:Reference Uri="http://docs.oasis-open.org/odata/odata/v4.0/errata03/csd01/complete/vocabularies/Org.OData.Core.V1.xml">
+    <edmx:Include Namespace="Org.OData.Core.V1" Alias="OData"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/RedfishExtensions_v1.xml">
+    <edmx:Include Namespace="RedfishExtensions.v1_0_0" Alias="Redfish"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://docs.oasis-open.org/odata/odata/v4.0/errata03/csd01/complete/vocabularies/Org.OData.Measures.V1.xml">
+    <edmx:Include Namespace="Org.OData.Measures.V1" Alias="Measures"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://docs.oasis-open.org/odata/odata/v4.0/errata03/csd01/complete/vocabularies/Org.OData.Capabilities.V1.xml">
+    <edmx:Include Namespace="Org.OData.Capabilities.V1" Alias="Capabilities"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/Resource_v1.xml">
+    <edmx:Include Namespace="Resource.v1_0_0"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/swordfish/v1/ClassOfService_v1.xml">
+    <edmx:Include Namespace="ClassOfService"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/swordfish/v1/VolumeCollection_v1.xml">
+    <edmx:Include Namespace="VolumeCollection"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/swordfish/v1/StoragePoolCollection_v1.xml">
+    <edmx:Include Namespace="StoragePoolCollection"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/DriveCollection_v1.xml">
+    <edmx:Include Namespace="DriveCollection"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/MemoryChunksCollection_v1.xml">
+    <edmx:Include Namespace="MemoryChunksCollection"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/MemoryCollection_v1.xml">
+    <edmx:Include Namespace="MemoryCollection"/>
+  </edmx:Reference>
+
+  <edmx:DataServices>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Capacity">
+      <Annotation Term="Redfish.OwningEntity" String="SNIA"/>
+      <ComplexType Name="Capacity" Abstract="true">
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="OData.Description" String="This is the schema definition for the Capacity of a device. It represents the properties for capacity for any data store."/>
+        <Annotation Term="OData.LongDescription" String="This composition may be used to represent storage capacity.  The sum of the values in Data, Metadata, and Snapshot shall be equal to the total capacity for the data store."/>
+      </ComplexType>
+
+      <ComplexType Name="CapacityInfo" Abstract="true">
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="OData.Description" String="The capacity of specific data type in a data store."/>
+        <Annotation Term="OData.LongDescription" String="This composition may be used to represent the utilization of storage capacity."/>
+      </ComplexType>
+
+      <EntityType Name="CapacitySource" BaseType="Resource.v1_0_0.Resource" Abstract="true">
+        <Annotation Term="OData.Description" String="A description of the type and source of storage."/>
+        <Annotation
+          Term="OData.LongDescription"
+          String="This type may be used to represent the source and type of storage capacity.  At most one of the ProvidingDrives, ProvidingVolumes or ProvidingPools properties may have a value.  If any of ProvidingDrives, ProvidingVolumes or ProvidingPools reference more than one resource, allocation of capacity across those resources is implementation dependent."/>
+
+        <Annotation Term="Redfish.Uris">
+          <Collection>
+            <String>/redfish/v1/StorageServices/{StorageServiceId}/StoragePools/{StoragePoolId}/CapacitySources/{CapacitySourceId}</String>
+            <String>/redfish/v1/StorageServices/{StorageServiceId}/Volumes/{VolumeId}/CapacitySources/{CapacitySourceId}</String>
+            <String>/redfish/v1/StorageServices/{StorageServiceId}/FileSystems/{FileSystemId}/CapacitySources/{CapacitySourceId}</String>
+            <String>/redfish/v1/Storage/{StorageId}/StoragePools/{StoragePoolId}/CapacitySources/{CapacitySourceId}</String>
+            <String>/redfish/v1/Storage/{StorageId}/Volumes/{VolumeId}/CapacitySources/{CapacitySourceId}</String>
+            <String>/redfish/v1/Storage/{StorageId}/FileSystems/{FileSystemId}/CapacitySources/{CapacitySourceId}</String>
+            <String>/redfish/v1/Systems/{ComputerSystemId}/Storage/{StorageId}/StoragePools/{StoragePoolId}/CapacitySources/{CapacitySourceId}</String>
+            <String>/redfish/v1/Systems/{ComputerSystemId}/Storage/{StorageId}/Volumes/{VolumeId}/CapacitySources/{CapacitySourceId}</String>
+            <String>/redfish/v1/Systems/{ComputerSystemId}/Storage/{StorageId}/FileSystems/{FileSystemId}/CapacitySources/{CapacitySourceId}</String>
+          </Collection>
+        </Annotation>
+        <Annotation Term="Capabilities.InsertRestrictions">
+          <Record>
+            <PropertyValue Property="Insertable" Bool="false"/>
+          </Record>
+        </Annotation>
+        <Annotation Term="Capabilities.UpdateRestrictions">
+          <Record>
+            <PropertyValue Property="Updatable" Bool="true"/>
+            <Annotation Term="OData.Description" String="CapacitySource resources can be updated to change the writable properties."/>
+          </Record>
+        </Annotation>
+        <Annotation Term="Capabilities.DeleteRestrictions">
+          <Record>
+            <PropertyValue Property="Deletable" Bool="true"/>
+            <Annotation Term="OData.Description" String="CapacitySource resources can be deleted by deleting the CapacitySource resource."/>
+          </Record>
+        </Annotation>
+      </EntityType>
+
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Capacity.v1_0_0">
+      <Annotation Term="Redfish.OwningEntity" String="SNIA"/>
+      <Annotation Term="Redfish.Release" String="TP v1.0.3"/>
+      <ComplexType Name="Capacity" BaseType="Capacity.Capacity">
+        <Annotation Term="OData.Description" String="This is the schema definition for the Capacity of a device. It represents the properties for capacity for any data store."/>
+        <Annotation Term="OData.LongDescription" String="This composition may be used to represent storage capacity.  The sum of the values in Data, Metadata, and Snapshot shall be equal to the total capacity for the data store."/>
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Property Name="Data" Type="Capacity.v1_0_0.CapacityInfo" Nullable="false">
+          <Annotation Term="OData.Description" String="The capacity information relating to the user data."/>
+          <Annotation Term="OData.LongDescription" String="The value shall be capacity information relating to provisioned user data."/>
+        </Property>
+        <Property Name="Metadata" Type="Capacity.v1_0_0.CapacityInfo" Nullable="false">
+          <Annotation Term="OData.Description" String="The capacity information relating to  metadata."/>
+          <Annotation Term="OData.LongDescription" String="The value shall be capacity information relating to provisioned system (non-user accessible) data."/>
+        </Property>
+        <Property Name="Snapshot" Type="Capacity.v1_0_0.CapacityInfo" Nullable="false">
+          <Annotation Term="OData.Description" String="The capacity information relating to snapshot or backup data."/>
+          <Annotation Term="OData.LongDescription" String="The value shall be capacity information relating to provisioned snapshot or backup data."/>
+        </Property>
+        <Property Name="IsThinProvisioned" Type="Edm.Boolean" DefaultValue="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="Marks that the capacity is not necessarily fully allocated."/>
+          <Annotation Term="OData.LongDescription" String="If the value is false, the capacity shall be fully allocated.  The default value shall be false."/>
+        </Property>
+      </ComplexType>
+
+      <ComplexType Name="CapacityInfo" BaseType="Capacity.CapacityInfo">
+        <Annotation Term="OData.Description" String="The capacity of specific data type in a data store."/>
+        <Annotation Term="OData.LongDescription" String="This composition may be used to represent the utilization of storage capacity."/>
+        <Property Name="ConsumedBytes" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The number of bytes consumed in this data store for this data type."/>
+          <Annotation Term="OData.LongDescription" String="The value shall be the number of logical bytes currently consumed in this data store for this data type."/>
+          <Annotation Term="Measures.Unit" String="By"/>
+        </Property>
+        <Property Name="AllocatedBytes" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The number of bytes currently allocated by the storage system in this data store for this data type."/>
+          <Annotation Term="OData.LongDescription" String="The value shall be the number of bytes currently allocated by the storage system in this data store for this data type."/>
+          <Annotation Term="Measures.Unit" String="By"/>
+        </Property>
+        <Property Name="GuaranteedBytes" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The number of bytes the storage system guarantees can be allocated in this data store for this data type."/>
+          <Annotation Term="OData.LongDescription" String="The value shall be the number of bytes the storage system guarantees can be allocated in this data store for this data type."/>
+          <Annotation Term="Measures.Unit" String="By"/>
+        </Property>
+        <Property Name="ProvisionedBytes" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The maximum number of bytes that can be allocated in this data store for this data type."/>
+          <Annotation Term="OData.LongDescription" String="The value shall be the maximum number of bytes that can be allocated in this data store for this data type."/>
+          <Annotation Term="Measures.Unit" String="By"/>
+        </Property>
+      </ComplexType>
+
+      <EntityType Name="CapacitySource" BaseType="Capacity.CapacitySource">
+        <Annotation Term="OData.Description" String="A description of the type and source of storage."/>
+        <Annotation
+          Term="OData.LongDescription"
+          String="This composition may be used to represent the source and type of storage capacity.  At most one of the ProvidingDrives, ProvidingVolumes, ProvidingMemoryChunks, ProvidingMemory or ProvidingPools properties may have a value.  If any of ProvidingDrives, ProvidingVolumes, ProvidingMemory or ProvidingPools reference more than one resource, allocation of capacity across those resources is implementation dependent."/>
+
+        <Annotation Term="Capabilities.InsertRestrictions">
+          <Record>
+            <PropertyValue Property="Insertable" Bool="false"/>
+          </Record>
+        </Annotation>
+        <Annotation Term="Capabilities.UpdateRestrictions">
+          <Record>
+            <PropertyValue Property="Updatable" Bool="true"/>
+            <Annotation Term="OData.Description" String="CapacitySource resources can be updated to change the writable properties."/>
+          </Record>
+        </Annotation>
+        <Annotation Term="Capabilities.DeleteRestrictions">
+          <Record>
+            <PropertyValue Property="Deletable" Bool="true"/>
+            <Annotation Term="OData.Description" String="CapacitySource resources can be deleted by deleting the CapacitySource resource."/>
+          </Record>
+        </Annotation>
+
+        <Property Name="ProvidedCapacity" Type="Capacity.v1_0_0.Capacity" Nullable="false">
+          <Annotation Term="OData.Description" String="The amount of space that has been provided from the ProvidingDrives, ProvidingVolumes, ProvidingMemory or ProvidingPools."/>
+          <Annotation Term="OData.LongDescription" String="The value shall be the amount of space that has been provided from the ProvidingDrives, ProvidingVolumes, ProvidingMemory or ProvidingPools."/>
+        </Property>
+        <NavigationProperty Name="ProvidedClassOfService" Type="ClassOfService.ClassOfService" Nullable="false">
+          <Annotation Term="OData.Description" String="The ClassOfService provided from the ProvidingDrives, ProvidingVolumes, ProvidingMemoryChunks, ProvidingMemory or ProvidingPools."/>
+          <Annotation Term="OData.LongDescription" String="The value shall reference the provided ClassOfService from the ProvidingDrives, ProvidingVolumes, ProvidingMemoryChunks, ProvidingMemory or ProvidingPools."/>
+          <Annotation Term="OData.AutoExpandReferences"/>
+        </NavigationProperty>
+        <NavigationProperty Name="ProvidingVolumes" Type="VolumeCollection.VolumeCollection" Nullable="false" ContainsTarget="true">
+          <Annotation Term="OData.Description" String="The volume or volumes that provide this space."/>
+          <Annotation Term="OData.LongDescription" String="If present, the value shall be a reference to a contributing volume or volumes."/>
+          <Annotation Term="OData.AutoExpandReferences"/>
+        </NavigationProperty>
+        <NavigationProperty Name="ProvidingPools" Type="StoragePoolCollection.StoragePoolCollection" Nullable="false" ContainsTarget="true">
+          <Annotation Term="OData.Description" String="The pool or pools that provide this space."/>
+          <Annotation Term="OData.LongDescription" String="If present, the value shall be a reference to a contributing storage pool or storage pools."/>
+          <Annotation Term="OData.AutoExpandReferences"/>
+        </NavigationProperty>
+        <NavigationProperty Name="ProvidingDrives" Type="DriveCollection.DriveCollection" Nullable="false" ContainsTarget="true">
+          <Annotation Term="OData.Description" String="The drive or drives that provide this space."/>
+          <Annotation Term="OData.LongDescription" String="If present, the value shall be a reference to a contributing drive or drives."/>
+          <Annotation Term="OData.AutoExpandReferences"/>
+        </NavigationProperty>
+      </EntityType>
+
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Capacity.v1_0_1">
+      <Annotation Term="Redfish.OwningEntity" String="SNIA"/>
+      <Annotation Term="OData.Description" String="This version was created to show annotations in the previous namespace were updated."/>
+      <EntityType Name="CapacitySource" BaseType="Capacity.v1_0_0.CapacitySource"/>
+
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Capacity.v1_0_2">
+      <Annotation Term="Redfish.OwningEntity" String="SNIA"/>
+      <Annotation Term="OData.Description" String="This version was created to show CapacitySources is promoted from a ComplexType to an EntityType for compatibility with OData v4.0."/>
+      <EntityType Name="CapacitySource" BaseType="Capacity.v1_0_1.CapacitySource">
+        <Annotation Term="OData.Description" String="A description of the type and source of storage."/>
+        <Annotation
+          Term="OData.LongDescription"
+          String="This composition may be used to represent the source and type of storage capacity.  At most one of the ProvidingDrives, ProvidingVolumes or ProvidingPools properties may have a value.  If any of ProvidingDrives, ProvidingVolumes or ProvidingPools reference more than one resource, allocation of capacity across those resources is implementation dependent."/>
+      </EntityType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Capacity.v1_0_3">
+      <Annotation Term="Redfish.OwningEntity" String="SNIA"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that OData properties are marked as required, and integer properties are marked as integer rather than number."/>
+      <EntityType Name="CapacitySource" BaseType="Capacity.v1_0_2.CapacitySource"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Capacity.v1_0_4">
+      <Annotation Term="Redfish.OwningEntity" String="SNIA"/>
+      <Annotation Term="OData.Description" String="This version was created to fix CSDL errors and adds both Redfish Uris and Capability Annotations."/>
+      <EntityType Name="CapacitySource" BaseType="Capacity.v1_0_3.CapacitySource"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Capacity.v1_1_0">
+      <Annotation Term="Redfish.OwningEntity" String="SNIA"/>
+      <Annotation Term="Redfish.Release" String="TP v1.0.6"/>
+      <Annotation Term="OData.Description" String="This version was created to add ProvidingMemoryChunks and ProvidingMemory as contributing types to CapacitySource. Move ComplexTypes to unversioned namespace. Change references to unversioned."/>
+      <EntityType Name="CapacitySource" BaseType="Capacity.v1_0_2.CapacitySource">
+        <NavigationProperty Name="ProvidingMemoryChunks" Type="MemoryChunksCollection.MemoryChunksCollection" Nullable="false" ContainsTarget="true">
+          <Annotation Term="OData.Description" String="The memory chunks that provide this space."/>
+          <Annotation Term="OData.LongDescription" String="If present, the value shall be a reference to the contributing memory chunks."/>
+          <Annotation Term="OData.AutoExpandReferences"/>
+        </NavigationProperty>
+        <NavigationProperty Name="ProvidingMemory" Type="MemoryCollection.MemoryCollection" Nullable="false" ContainsTarget="true">
+          <Annotation Term="OData.Description" String="The memory that provides this space."/>
+          <Annotation Term="OData.LongDescription" String="If present, the value shall be a reference to the contributing memory."/>
+          <Annotation Term="OData.AutoExpandReferences"/>
+        </NavigationProperty>
+      </EntityType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Capacity.v1_1_1">
+      <Annotation Term="Redfish.OwningEntity" String="SNIA"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that OData properties are marked as required, and integer properties are marked as integer rather than number."/>
+      <EntityType Name="CapacitySource" BaseType="Capacity.v1_1_0.CapacitySource"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Capacity.v1_1_2">
+      <Annotation Term="Redfish.OwningEntity" String="SNIA"/>
+      <Annotation Term="OData.Description" String="This version was added to fix CSDL errors and adds both Redfish Uris and Capability Annotations, including adding Actions."/>
+      <EntityType Name="CapacitySource" BaseType="Capacity.v1_1_1.CapacitySource">
+        <Property Name="Actions" Type="Capacity.v1_1_2.Actions" Nullable="false">
+          <Annotation Term="OData.Description" String="The available actions for this resource."/>
+          <Annotation Term="OData.LongDescription" String="The Actions property shall contain the available actions for this resource."/>
+        </Property>
+      </EntityType>
+
+      <ComplexType Name="Actions">
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="OData.Description" String="The available actions for this resource."/>
+        <Annotation Term="OData.LongDescription" String="The Actions property shall contain the available actions for this resource."/>
+        <Property Name="Oem" Type="Capacity.v1_1_2.OemActions" Nullable="false">
+          <Annotation Term="OData.Description" String="This property contains the available OEM specific actions for this resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain any additional OEM actions for this resource."/>
+        </Property>
+      </ComplexType>
+
+      <ComplexType Name="OemActions">
+        <Annotation Term="OData.AdditionalProperties" Bool="true"/>
+        <Annotation Term="OData.Description" String="The available OEM specific actions for this resource."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain any additional OEM actions for this resource."/>
+      </ComplexType>
+
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Capacity.v1_1_3">
+      <Annotation Term="Redfish.OwningEntity" String="SNIA"/>
+      <Annotation Term="OData.Description" String="This version adds URIs for Systems/Storage use of CapacitySource."/>
+      <EntityType Name="CapacitySource" BaseType="Capacity.v1_1_2.CapacitySource"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Capacity.v1_2_0">
+      <Annotation Term="Redfish.OwningEntity" String="SNIA"/>
+      <Annotation Term="Redfish.Release" String="TP v1.2.2"/>
+      <Annotation Term="OData.Description" String="This version was created to change the reference for DriveCollection_v1 to the Redfish version."/>
+      <EntityType Name="CapacitySource" BaseType="Capacity.v1_1_3.CapacitySource"/>
+    </Schema>
+
+  </edmx:DataServices>
+</edmx:Edmx>

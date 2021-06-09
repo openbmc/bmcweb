@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!---->
+<!-- Copyright 2019 Storage Networking Industry Association (SNIA), USA. All rights reserved.-->
+<!---->
+<edmx:Edmx xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx" Version="4.0">
+
+  <edmx:Reference Uri="http://docs.oasis-open.org/odata/odata/v4.0/errata03/csd01/complete/vocabularies/Org.OData.Core.V1.xml">
+    <edmx:Include Namespace="Org.OData.Core.V1" Alias="OData"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://docs.oasis-open.org/odata/odata/v4.0/errata03/csd01/complete/vocabularies/Org.OData.Capabilities.V1.xml">
+    <edmx:Include Namespace="Org.OData.Capabilities.V1" Alias="Capabilities"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/RedfishExtensions_v1.xml">
+    <edmx:Include Namespace="RedfishExtensions.v1_0_0" Alias="Redfish"/>
+    <edmx:Include Namespace="Validation.v1_0_0" Alias="Validation"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/Resource_v1.xml">
+    <edmx:Include Namespace="Resource"/>
+    <edmx:Include Namespace="Resource.v1_0_0"/>
+  </edmx:Reference>
+
+  <edmx:DataServices>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="FeaturesRegistry">
+      <Annotation Term="Redfish.OwningEntity" String="SNIA"/>
+      <EntityType Name="FeaturesRegistry" BaseType="Resource.v1_0_0.Resource" Abstract="true">
+        <Annotation
+          Term="OData.Description"
+          String="This is the schema definition for all Features Registries.  It represents the properties for the registries themselves.  The FeatureId is formed per the Redfish specification.  It consists of the RegistryPrefix concatenated with the version concatenated with the unique identifier for the feature registry entry."/>
+        <Annotation Term="OData.LongDescription" String="This resource shall be used to represent a Feature registry for a Redfish implementation."/>
+        <Annotation Term="Capabilities.InsertRestrictions">
+          <Record>
+            <PropertyValue Property="Insertable" Bool="false"/>
+          </Record>
+        </Annotation>
+        <Annotation Term="Capabilities.UpdateRestrictions">
+          <Record>
+            <PropertyValue Property="Updatable" Bool="false"/>
+          </Record>
+        </Annotation>
+        <Annotation Term="Capabilities.DeleteRestrictions">
+          <Record>
+            <PropertyValue Property="Deletable" Bool="false"/>
+          </Record>
+        </Annotation>
+        <Annotation Term="Redfish.Uris">
+          <Collection>
+            <String>/redfish/v1/Registries</String>
+          </Collection>
+        </Annotation>
+      </EntityType>
+
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="FeaturesRegistry.v1_0_0">
+      <Annotation Term="Redfish.OwningEntity" String="SNIA"/>
+      <Annotation Term="Redfish.Release" String="WIP v1.1.0"/>
+      <EntityType Name="FeaturesRegistry" BaseType="FeaturesRegistry.FeaturesRegistry">
+        <Property Name="Language" Type="Edm.String" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="This is the RFC 5646 compliant language code for the registry."/>
+          <Annotation Term="OData.LongDescription" String="The value of this property shall be a string consisting of an RFC 5646 language code."/>
+          <Annotation Term="Redfish.Required"/>
+        </Property>
+        <Property Name="RegistryPrefix" Type="Edm.String" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="This is the single word prefix used to form a Feature ID structure."/>
+          <Annotation Term="OData.LongDescription" String="The value of this property shall be the prefix used in IDs which uniquely identifies all of the Features in this registry as belonging to this registry."/>
+          <Annotation Term="Redfish.Required"/>
+        </Property>
+        <Property Name="RegistryVersion" Type="Edm.String" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="This is the feature registry version which is used in the middle portion of a Feature ID."/>
+          <Annotation Term="OData.LongDescription" String="The value of this property shall be the version of this message registry. The format of this string shall be of the format majorversion.minorversion.errata."/>
+          <Annotation Term="Redfish.Required"/>
+        </Property>
+        <Property Name="OwningEntity" Type="Edm.String" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="This is the organization or company that publishes this registry."/>
+          <Annotation Term="OData.LongDescription" String="The value of this property shall be a string that represents the publisher of this registry."/>
+          <Annotation Term="Redfish.Required"/>
+        </Property>
+        <Property Name="Features" Type="FeaturesRegistry.v1_0_0.FeaturesRegistryProperty" Nullable="false">
+          <Annotation Term="OData.Description" String="The pattern property indicates that a free-form string is the unique identifier for the feature within the registry."/>
+          <Annotation Term="OData.LongDescription" String="The pattern property shall represent the suffix to be used in the FeatureId and shall be unique within this message registry."/>
+          <Annotation Term="Redfish.Required"/>
+        </Property>
+        <Property Name="Actions" Type="FeaturesRegistry.v1_0_0.Actions" Nullable="false">
+          <Annotation Term="OData.Description" String="The available actions for this resource."/>
+          <Annotation Term="OData.LongDescription" String="The Actions property shall contain the available actions for this resource."/>
+        </Property>
+      </EntityType>
+
+      <ComplexType Name="FeaturesRegistryProperty" OpenType="true">
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="OData.Description" String="The pattern type indicates that a free-form string is the unique identifier for the Feature within the registry."/>
+        <Annotation Term="OData.LongDescription" String="The pattern type shall represent the suffix to be used in the Feature and shall be unique within this registry."/>
+        <Annotation Term="Redfish.DynamicPropertyPatterns">
+          <Collection>
+            <Record>
+              <PropertyValue Property="Pattern" String="[A-Za-z0-9]+"/>
+              <PropertyValue Property="Type" String="FeaturesRegistry.v1_0_0.SupportedFeature"/>
+            </Record>
+          </Collection>
+        </Annotation>
+      </ComplexType>
+
+      <ComplexType Name="SupportedFeature">
+        <Annotation Term="OData.Description" String="This type shall describe how a supported feature is defined within the registry."/>
+        <Annotation Term="OData.LongDescription" String="Each entity shall name a feature."/>
+
+        <Property Name="FeatureName" Type="Edm.String">
+          <Annotation Term="Redfish.Required"/>
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The Name of the feature."/>
+          <Annotation Term="OData.LongDescription" String="The value shall be the unique name of the feature prefixed by the defining organization separated by a period (e.g. 'vendor.feature')."/>
+        </Property>
+        <Property Name="Description" Type="Edm.String">
+          <Annotation Term="Redfish.Required"/>
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="A description of the feature."/>
+          <Annotation Term="OData.LongDescription" String="The value shall be a detailed description of the feature."/>
+        </Property>
+        <Property Name="Version" Type="Edm.String">
+          <Annotation Term="Redfish.Required"/>
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The Version of the feature."/>
+          <Annotation Term="OData.LongDescription" String="The value shall uniquely identify the version of the feature, using the major.minor.errata format."/>
+        </Property>
+        <Property Name="CorrespondingProfileDefinition" Type="Edm.String">
+          <Annotation Term="Redfish.Required"/>
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The profile definition that defines the feature."/>
+          <Annotation Term="OData.LongDescription" String="If present, the value shall define a profile definition that contains the named profile declaration."/>
+        </Property>
+
+      </ComplexType>
+
+      <ComplexType Name="Actions">
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="OData.Description" String="The available actions for this resource."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain the available actions for this resource."/>
+        <Property Name="Oem" Type="FeaturesRegistry.v1_0_0.OemActions" Nullable="false">
+          <Annotation Term="OData.Description" String="This property contains the available OEM specific actions for this resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain any additional OEM actions for this resource."/>
+        </Property>
+      </ComplexType>
+
+      <ComplexType Name="OemActions">
+        <Annotation Term="OData.AdditionalProperties" Bool="true"/>
+        <Annotation Term="OData.Description" String="The available OEM specific actions for this resource."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain any additional OEM actions for this resource."/>
+      </ComplexType>
+
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="FeaturesRegistry.v1_1_0">
+      <Annotation Term="Redfish.OwningEntity" String="SNIA"/>
+      <Annotation Term="Redfish.Release" String="TP v1.2.1c"/>
+      <Annotation Term="OData.Description" String="This version was added to fix CSDL Capability Annotations."/>
+      <EntityType Name="FeaturesRegistry" BaseType="FeaturesRegistry.v1_0_0.FeaturesRegistry"/>
+    </Schema>
+
+  </edmx:DataServices>
+</edmx:Edmx>

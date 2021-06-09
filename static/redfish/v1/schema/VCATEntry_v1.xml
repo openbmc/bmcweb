@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!---->
+<!--################################################################################       -->
+<!--# Redfish Schema:  VCATEntry v1.0.1                                                    -->
+<!--#                                                                                      -->
+<!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
+<!--# available at http://www.dmtf.org/standards/redfish                                   -->
+<!--# Copyright 2014-2021 DMTF.                                                            -->
+<!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
+<!--################################################################################       -->
+<!---->
+<edmx:Edmx xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx" Version="4.0">
+
+  <edmx:Reference Uri="http://docs.oasis-open.org/odata/odata/v4.0/errata03/csd01/complete/vocabularies/Org.OData.Core.V1.xml">
+    <edmx:Include Namespace="Org.OData.Core.V1" Alias="OData"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/RedfishExtensions_v1.xml">
+    <edmx:Include Namespace="RedfishExtensions.v1_0_0" Alias="Redfish"/>
+    <edmx:Include Namespace="Validation.v1_0_0" Alias="Validation"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://docs.oasis-open.org/odata/odata/v4.0/errata03/csd01/complete/vocabularies/Org.OData.Capabilities.V1.xml">
+    <edmx:Include Namespace="Org.OData.Capabilities.V1" Alias="Capabilities"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/Resource_v1.xml">
+    <edmx:Include Namespace="Resource"/>
+    <edmx:Include Namespace="Resource.v1_0_0"/>
+  </edmx:Reference>
+
+  <edmx:DataServices>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="VCATEntry">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+
+      <EntityType Name="VCATEntry" BaseType="Resource.v1_0_0.Resource" Abstract="true">
+        <Annotation Term="OData.Description" String="The VCATEntry schema defines an entry in a Virtual Channel Action Table.  A Virtual Channel is a mechanism used to create multiple, logical communication streams across a physical link."/>
+        <Annotation Term="OData.LongDescription" String="This resource shall represent and entry of Virtual Channel Action Table in a Redfish implementation."/>
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="Capabilities.InsertRestrictions">
+          <Record>
+            <PropertyValue Property="Insertable" Bool="false"/>
+          </Record>
+        </Annotation>
+        <Annotation Term="Capabilities.UpdateRestrictions">
+          <Record>
+            <PropertyValue Property="Updatable" Bool="true"/>
+          </Record>
+        </Annotation>
+        <Annotation Term="Capabilities.DeleteRestrictions">
+          <Record>
+            <PropertyValue Property="Deletable" Bool="true"/>
+          </Record>
+        </Annotation>
+        <Annotation Term="Redfish.Uris">
+          <Collection>
+            <String>/redfish/v1/Fabrics/{FabricId}/Switches/{SwitchId}/Ports/{PortId}/VCAT/{VCATEntryId}</String>
+            <String>/redfish/v1/Systems/{SystemId}/FabricAdapters/{FabricAdapterId}/Ports/{PortId}/VCAT/{VCATEntryId}</String>
+            <String>/redfish/v1/Systems/{SystemId}/FabricAdapters/{FabricAdapterId}/REQ-VCAT/{VCATEntryId}</String>
+            <String>/redfish/v1/Systems/{SystemId}/FabricAdapters/{FabricAdapterId}/RSP-VCAT/{VCATEntryId}</String>
+          </Collection>
+        </Annotation>
+      </EntityType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="VCATEntry.v1_0_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2019.4"/>
+
+      <EntityType Name="VCATEntry" BaseType="VCATEntry.VCATEntry">
+        <Property Name="RawEntryHex" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The hexadecimal value of the Virtual Channel Action Table entries."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the hexadecimal value of the Virtual Channel Action Table entries.  The length of hexadecimal value depends on the number of Virtual Channel Action entries supported by the component."/>
+          <Annotation Term="Validation.Pattern" String="^0[xX](([a-fA-F]|[0-9])*)$"/>
+        </Property>
+        <Property Name="VCEntries" Type="Collection(VCATEntry.v1_0_0.VCATableEntry)" Nullable="false">
+          <Annotation Term="OData.Description" String="An array of entries of the Virtual Channel Action Table."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of entries of the Virtual Channel Action Table.  The length of the array depends on the number of Virtual Channel Action entries supported by the component."/>
+        </Property>
+        <Property Name="Actions" Type="VCATEntry.v1_0_0.Actions" Nullable="false">
+          <Annotation Term="OData.Description" String="The available actions for this resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the available actions for this resource."/>
+        </Property>
+      </EntityType>
+
+      <ComplexType Name="VCATableEntry">
+        <Annotation Term="OData.Description" String="The Virtual Channel Action Table entry corresponding to a specific Virtual Channel."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain a Virtual Channel entry definition that describes a specific Virtual Channel."/>
+        <Property Name="VCMask" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The bits corresponding to the supported Virtual Channel."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a 32-bit value where the bits correspond to a supported Virtual Channel."/>
+          <Annotation Term="Validation.Pattern" String="^0[xX](([a-fA-F]|[0-9]){2}){4}$"/>
+        </Property>
+        <Property Name="Threshold" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The configured threshold."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the Gen-Z Core Specification-defined 'TH' 7-bit threshold."/>
+          <Annotation Term="Validation.Pattern" String="^0[xX]([a-fA-F]|[0-9]){2}$"/>
+        </Property>
+      </ComplexType>
+
+      <ComplexType Name="Actions">
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="OData.Description" String="The available actions for this resource."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain the available actions for this resource."/>
+        <Property Name="Oem" Type="VCATEntry.v1_0_0.OemActions" Nullable="false">
+          <Annotation Term="OData.Description" String="The available OEM-specific actions for this resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the available OEM-specific actions for this resource."/>
+        </Property>
+      </ComplexType>
+
+      <ComplexType Name="OemActions">
+        <Annotation Term="OData.AdditionalProperties" Bool="true"/>
+        <Annotation Term="OData.Description" String="The available OEM-specific actions for this resource."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain the available OEM-specific actions for this resource."/>
+      </ComplexType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="VCATEntry.v1_0_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct the permissions for several properties to be writable."/>
+      <EntityType Name="VCATEntry" BaseType="VCATEntry.v1_0_0.VCATEntry"/>
+    </Schema>
+
+  </edmx:DataServices>
+</edmx:Edmx>

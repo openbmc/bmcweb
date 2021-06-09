@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!---->
+<!-- Copyright 2015-2019 Storage Networking Industry Association (SNIA), USA. All rights reserved.-->
+<edmx:Edmx xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx" Version="4.0">
+
+  <edmx:Reference Uri="http://docs.oasis-open.org/odata/odata/v4.0/errata03/csd01/complete/vocabularies/Org.OData.Core.V1.xml">
+    <edmx:Include Namespace="Org.OData.Core.V1" Alias="OData"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://docs.oasis-open.org/odata/odata/v4.0/errata03/csd01/complete/vocabularies/Org.OData.Measures.V1.xml">
+    <edmx:Include Namespace="Org.OData.Measures.V1" Alias="Measures"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/RedfishExtensions_v1.xml">
+    <edmx:Include Namespace="RedfishExtensions.v1_0_0" Alias="Redfish"/>
+  </edmx:Reference>
+
+  <edmx:DataServices>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="IOStatistics">
+      <Annotation Term="Redfish.OwningEntity" String="SNIA"/>
+      <ComplexType Name="IOStatistics" Abstract="true">
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="OData.Description" String="The properties of this type represent IO statistics."/>
+        <Annotation Term="OData.LongDescription" String="The properties of this type shall be used to represent the IO statistics of the requested object."/>
+      </ComplexType>
+
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="IOStatistics.v1_0_0">
+      <Annotation Term="Redfish.OwningEntity" String="SNIA"/>
+      <Annotation Term="Redfish.Release" String="WIP v1.0.5"/>
+      <ComplexType Name="IOStatistics" BaseType="IOStatistics.IOStatistics">
+        <Annotation Term="OData.Description" String="The properties of this type represent IO statistics."/>
+        <Annotation Term="OData.LongDescription" String="The properties of this type shall be used to represent the IO statistics of the requested object."/>
+        <Property Name="ReadIORequests" Type="Edm.Int64">
+          <Annotation Term="OData.Description" String="Count of read IO requests."/>
+          <Annotation Term="OData.LongDescription" String="The value shall represent the total count from the time of last reset or wrap of read IO requests satisfied from either media or memory (i.e. from a storage device or from a cache)."/>
+          <Annotation Term="Measures.Unit" String="{tot}"/>
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+        </Property>
+        <Property Name="ReadHitIORequests" Type="Edm.Int64">
+          <Annotation Term="OData.Description" String="Count of read IO requests satisfied from memory."/>
+          <Annotation Term="OData.LongDescription" String="The value shall represent the total count from the time of last reset or wrap of read IO requests satisfied from memory."/>
+          <Annotation Term="Measures.Unit" String="{tot}"/>
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+        </Property>
+        <Property Name="ReadIOKiBytes" Type="Edm.Int64">
+          <Annotation Term="OData.Description" String="Number of kibibytes read."/>
+          <Annotation Term="OData.LongDescription" String="The value shall represent the total number of kibibytes read from the time of last reset or wrap."/>
+          <Annotation Term="Measures.Unit" String="KiBy"/>
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+        </Property>
+        <Property Name="ReadIORequestTime" Type="Edm.String">
+          <Annotation Term="OData.Description" String="The time that the resource is busy processing read requests."/>
+          <Annotation Term="OData.LongDescription" String="The value shall be an ISO 8601 conformant duration describing the time that the resource is busy processing read requests."/>
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+        </Property>
+        <Property Name="WriteIORequests" Type="Edm.Int64">
+          <Annotation Term="OData.Description" String="Count of write IO requests."/>
+          <Annotation Term="OData.LongDescription" String="The value shall represent the total count from the time of last reset or wrap of write IO requests."/>
+          <Annotation Term="Measures.Unit" String="{tot}"/>
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+        </Property>
+        <Property Name="WriteHitIORequests" Type="Edm.Int64">
+          <Annotation Term="OData.Description" String="Count of write IO requests coalesced into memory."/>
+          <Annotation Term="OData.LongDescription" String="The value shall represent the total count from the time of last reset or wrap of write IO requests coalesced into memory."/>
+          <Annotation Term="Measures.Unit" String="{tot}"/>
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+        </Property>
+        <Property Name="WriteIOKiBytes" Type="Edm.Int64">
+          <Annotation Term="OData.Description" String="Number of kibibytes written."/>
+          <Annotation Term="OData.LongDescription" String="The value shall represent the total number of kibibytes written from the time of last reset or wrap."/>
+          <Annotation Term="Measures.Unit" String="KiBy"/>
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+        </Property>
+        <Property Name="WriteIORequestTime" Type="Edm.String">
+          <Annotation Term="OData.Description" String="The time that the resource is busy processing write requests."/>
+          <Annotation Term="OData.LongDescription" String="The value shall be an ISO 8601 conformant duration describing the time that the resource is busy processing write requests."/>
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+        </Property>
+        <Property Name="NonIORequests" Type="Edm.Int64">
+          <Annotation Term="OData.Description" String="Count of non IO requests."/>
+          <Annotation Term="OData.LongDescription" String="The value shall represent the total count from the time of last reset or wrap of non IO requests."/>
+          <Annotation Term="Measures.Unit" String="{tot}"/>
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+        </Property>
+        <Property Name="NonIORequestTime" Type="Edm.String">
+          <Annotation Term="OData.Description" String="The time that the resource is busy processing write requests."/>
+          <Annotation Term="OData.LongDescription" String="The value shall be an ISO 8601 conformant duration describing the time that the resource is busy processing non IO requests."/>
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+        </Property>
+      </ComplexType>
+
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="IOStatistics.v1_0_1">
+      <Annotation Term="Redfish.OwningEntity" String="SNIA"/>
+      <Annotation Term="OData.Description" String="Move ComplexType to unversioned namespace. Change references to unversioned."/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="IOStatistics.v1_0_2">
+      <Annotation Term="Redfish.OwningEntity" String="SNIA"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that OData properties are marked as required, and integer properties are marked as integer rather than number."/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="IOStatistics.v1_0_3">
+      <Annotation Term="Redfish.OwningEntity" String="SNIA"/>
+      <Annotation Term="OData.Description" String="This version was created to fix CSDL errors."/>
+    </Schema>
+
+  </edmx:DataServices>
+</edmx:Edmx>
