@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bc7c3afd_781d0509",
+        "filename": "redfish-core/lib/virtual_media.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1002,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-06-09T18:03:24Z",
+      "side": 1,
+      "message": "Wasn\u0027t this Login?\n\n    VirtualMediaCollection(App\u0026 app) :\n        Node(app, \"/redfish/v1/Managers/\u003cstr\u003e/VirtualMedia/\", std::string())\n    {\n        entityPrivileges \u003d {\n            {boost::beast::http::verb::get, {{\"Login\"}}},",
+      "revId": "14abbf8bfa9ba44ab3dc273c531fdffe2031abb8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
