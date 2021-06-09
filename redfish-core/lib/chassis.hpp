@@ -22,6 +22,7 @@
 #include <boost/container/flat_map.hpp>
 #include <registries/privilege_registry.hpp>
 #include <utils/collection.hpp>
+#include <utils/name_utils.hpp>
 
 #include <variant>
 
@@ -197,7 +198,7 @@ inline void requestRoutesChassis(App& app)
                 "xyz.openbmc_project.Inventory.Item.Chassis"};
 
             crow::connections::systemBus->async_method_call(
-                [asyncResp, chassisId(std::string(chassisId))](
+                [asyncResp, chassisId(std::string(chassisId)), interfaces](
                     const boost::system::error_code ec,
                     const crow::openbmc_mapper::GetSubTreeType& subtree) {
                     if (ec)
@@ -369,7 +370,8 @@ inline void requestRoutesChassis(App& app)
                         }
 
                         crow::connections::systemBus->async_method_call(
-                            [asyncResp, chassisId(std::string(chassisId))](
+                            [asyncResp, chassisId(std::string(chassisId)), path,
+                             connectionNames](
                                 const boost::system::error_code /*ec2*/,
                                 const std::vector<
                                     std::pair<std::string, VariantType>>&
@@ -400,6 +402,11 @@ inline void requestRoutesChassis(App& app)
                                 }
                                 asyncResp->res.jsonValue["Name"] = chassisId;
                                 asyncResp->res.jsonValue["Id"] = chassisId;
+
+                                name_util::getPrettyName(asyncResp, path,
+                                                         connectionNames,
+                                                         "/Name"_json_pointer);
+
 #ifdef BMCWEB_ALLOW_DEPRECATED_POWER_THERMAL
                                 asyncResp->res.jsonValue["Thermal"] = {
                                     {"@odata.id", "/redfish/v1/Chassis/" +
