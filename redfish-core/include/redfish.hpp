@@ -21,6 +21,7 @@
 #include "../lib/chassis.hpp"
 #include "../lib/ethernet.hpp"
 #include "../lib/event_service.hpp"
+#include "../lib/hypervisor_system.hpp"
 #include "../lib/log_services.hpp"
 #include "../lib/managers.hpp"
 #include "../lib/memory.hpp"
@@ -41,10 +42,7 @@
 #include "../lib/telemetry_service.hpp"
 #include "../lib/thermal.hpp"
 #include "../lib/update_service.hpp"
-#ifdef BMCWEB_ENABLE_VM_NBDPROXY
 #include "../lib/virtual_media.hpp"
-#endif // BMCWEB_ENABLE_VM_NBDPROXY
-#include "../lib/hypervisor_system.hpp"
 
 namespace redfish
 {
@@ -148,13 +146,11 @@ class RedfishService
         requestRoutesSystemResetActionInfo(app);
         requestRoutesBiosService(app);
         requestRoutesBiosReset(app);
+
 #ifdef BMCWEB_ENABLE_VM_NBDPROXY
-        nodes.emplace_back(std::make_unique<VirtualMedia>(app));
-        nodes.emplace_back(std::make_unique<VirtualMediaCollection>(app));
-        nodes.emplace_back(
-            std::make_unique<VirtualMediaActionInsertMedia>(app));
-        nodes.emplace_back(std::make_unique<VirtualMediaActionEjectMedia>(app));
+        requestNBDVirtualMediaRoutes(app);
 #endif // BMCWEB_ENABLE_VM_NBDPROXY
+
 #ifdef BMCWEB_ENABLE_REDFISH_DBUS_LOG_ENTRIES
         requestRoutesDBusLogServiceActionsClear(app);
         requestRoutesDBusEventLogEntryCollection(app);
