@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "0c28ef52_b15992c9",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000566
+      },
+      "writtenOn": "2021-06-09T11:53:45Z",
+      "side": 1,
+      "message": "\"it\" means a new platform\u0027s CPLD. CPLD reports a common error code for update failures. Thank You",
+      "parentUuid": "fc85bc45_465e4a82",
+      "range": {
+        "startLine": 14,
+        "startChar": 22,
+        "endLine": 15,
+        "endChar": 31
+      },
+      "revId": "0d3cbd399b45fead61f954273473f7c69c22e3fe",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "44886f4e_cd33b553",
         "filename": "/COMMIT_MSG",
         "patchSetId": 3
