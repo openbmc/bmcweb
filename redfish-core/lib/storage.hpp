@@ -24,6 +24,7 @@
 #include <registries/privilege_registry.hpp>
 #include <sdbusplus/asio/property.hpp>
 #include <utils/location_utils.hpp>
+#include <utils/log_utils.hpp>
 
 #include <unordered_set>
 #include <variant>
@@ -638,6 +639,22 @@ inline void requestRoutesDrive(App& app)
                         {"@Redfish.ActionInfo",
                          "/redfish/v1/Systems/system/Storage/" + storageId +
                              "/Drives/" + driveId + "/ResetActionInfo/"}};
+
+                    getChassisId(
+                        asyncResp, path,
+                        [asyncResp,
+                         driveId](std::optional<std::string> chassisId) {
+                            if (chassisId)
+                            {
+                                log_utils::populateDeviceLogEntries(
+                                    asyncResp,
+                                    "/xyz/openbmc_project/logging/devices/" +
+                                        chassisId.value(),
+                                    "/redfish/v1/Chassis/" + chassisId.value() +
+                                        "/LogServices/DeviceLog/Entries/",
+                                    "OpenBmc.0.2.DriveError", driveId);
+                            }
+                        });
                 },
                 "xyz.openbmc_project.ObjectMapper",
                 "/xyz/openbmc_project/object_mapper",
