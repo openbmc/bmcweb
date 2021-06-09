@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!---->
+<!--################################################################################       -->
+<!--# Redfish Schema:  CollectionCapabilities v1.3.0                                       -->
+<!--#                                                                                      -->
+<!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
+<!--# available at http://www.dmtf.org/standards/redfish                                   -->
+<!--# Copyright 2014-2021 DMTF.                                                            -->
+<!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
+<!--################################################################################       -->
+<!---->
+<edmx:Edmx xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx" Version="4.0">
+
+  <edmx:Reference Uri="http://docs.oasis-open.org/odata/odata/v4.0/errata03/csd01/complete/vocabularies/Org.OData.Core.V1.xml">
+    <edmx:Include Namespace="Org.OData.Core.V1" Alias="OData"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/RedfishExtensions_v1.xml">
+    <edmx:Include Namespace="RedfishExtensions.v1_0_0" Alias="Redfish"/>
+    <edmx:Include Namespace="Validation.v1_0_0" Alias="Validation"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/Resource_v1.xml">
+    <edmx:Include Namespace="Resource"/>
+  </edmx:Reference>
+
+  <edmx:DataServices>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="CollectionCapabilities">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+
+      <ComplexType Name="CollectionCapabilities" Abstract="true">
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="OData.Description" String="This type describes the capabilities of a collection."/>
+        <Annotation Term="OData.LongDescription" String="This type shall describe any capabilities of a resource collection in terms of how a client can create resources within the resource collection."/>
+      </ComplexType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="CollectionCapabilities.v1_0_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2017.1"/>
+
+      <ComplexType Name="CollectionCapabilities" BaseType="CollectionCapabilities.CollectionCapabilities">
+        <Property Name="Capabilities" Type="Collection(CollectionCapabilities.v1_0_0.Capability)" Nullable="false">
+          <Annotation Term="OData.Description" String="The list of capabilities supported by this resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of objects that describe the capabilities of this resource collection."/>
+        </Property>
+      </ComplexType>
+
+      <ComplexType Name="Capability">
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="OData.Description" String="This type describes a capability of a collection for a specific use case."/>
+        <Annotation Term="OData.LongDescription" String="This type shall describe a capability of a resource collection in terms of how a client can create resources within the collection for the specified use case."/>
+        <NavigationProperty Name="CapabilitiesObject" Type="Resource.Item" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The link to the resource the client can issue a GET request against to understand how to form a POST request for a collection."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource that matches the type for a resource collection and shall contain annotations that describe the properties allowed in the POST request."/>
+          <Annotation Term="OData.AutoExpandReferences"/>
+          <Annotation Term="Redfish.Required"/>
+        </NavigationProperty>
+        <Property Name="UseCase" Type="CollectionCapabilities.v1_0_0.UseCase" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The use case in which a client can issue a POST request to the collection."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an enumerated value that describes the use case for this capability instance."/>
+          <Annotation Term="Redfish.Required"/>
+        </Property>
+        <Property Name="Links" Type="CollectionCapabilities.v1_0_0.Links" Nullable="false">
+          <Annotation Term="OData.Description" String="The links to other resources that are related to this resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain links to resources that are related to but are not contained by, or subordinate to, this resource."/>
+          <Annotation Term="Redfish.Required"/>
+        </Property>
+      </ComplexType>
+
+      <EnumType Name="UseCase">
+        <Member Name="ComputerSystemComposition">
+          <Annotation Term="OData.Description" String="This capability describes a client creating a new computer system resource from a set of disaggregated hardware."/>
+        </Member>
+        <Member Name="ComputerSystemConstrainedComposition">
+          <Annotation Term="OData.Description" String="This capability describes a client creating a new computer system resource from a set of constraints."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="v1_1_0"/>
+              </Record>
+            </Collection>
+          </Annotation>
+        </Member>
+        <Member Name="VolumeCreation">
+          <Annotation Term="OData.Description" String="This capability describes a client creating a new volume resource as part of an existing storage subsystem."/>
+        </Member>
+        <Member Name="ResourceBlockComposition">
+          <Annotation Term="OData.Description" String="This capability describes a client creating a new resource block from a set of other resource blocks."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="v1_3_0"/>
+              </Record>
+            </Collection>
+          </Annotation>
+        </Member>
+        <Member Name="ResourceBlockConstrainedComposition">
+          <Annotation Term="OData.Description" String="This capability describes a client creating a new resource block from a set of constraints."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="v1_3_0"/>
+              </Record>
+            </Collection>
+          </Annotation>
+        </Member>
+      </EnumType>
+
+      <ComplexType Name="Links" BaseType="Resource.Links">
+        <Annotation Term="OData.Description" String="The links to other resources that are related to this resource."/>
+        <Annotation Term="OData.LongDescription" String="This Redfish Specification-described type shall contain links to resources that are related to but are not contained by, or subordinate to, this resource."/>
+        <NavigationProperty Name="TargetCollection" Type="Resource.ResourceCollection" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The link to the collection that this capabilities structure is describing."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection that this structure describes.  A client can use this structure to understand how to form the POST request for the collection."/>
+          <Annotation Term="OData.AutoExpandReferences"/>
+          <Annotation Term="Redfish.Required"/>
+        </NavigationProperty>
+        <NavigationProperty Name="RelatedItem" Type="Collection(Resource.Item)">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="An array of links to resources associated with this capability."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources that are related to this capability."/>
+          <Annotation Term="OData.AutoExpandReferences"/>
+        </NavigationProperty>
+      </ComplexType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="CollectionCapabilities.v1_0_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that OData properties are marked as required, and integer properties are marked as integer rather than number."/>
+      <ComplexType Name="CollectionCapabilities" BaseType="CollectionCapabilities.v1_0_0.CollectionCapabilities"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="CollectionCapabilities.v1_0_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to use the new revisions annotation."/>
+      <ComplexType Name="CollectionCapabilities" BaseType="CollectionCapabilities.v1_0_1.CollectionCapabilities"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="CollectionCapabilities.v1_0_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update descriptions that this schema defines."/>
+      <ComplexType Name="CollectionCapabilities" BaseType="CollectionCapabilities.v1_0_2.CollectionCapabilities"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="CollectionCapabilities.v1_0_4">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <ComplexType Name="CollectionCapabilities" BaseType="CollectionCapabilities.v1_0_3.CollectionCapabilities"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="CollectionCapabilities.v1_1_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2018.2"/>
+      <Annotation Term="OData.Description" String="This version was created to add `ComputerSystemConstrainedComposition` to the UseCase enumeration."/>
+
+      <ComplexType Name="CollectionCapabilities" BaseType="CollectionCapabilities.v1_0_1.CollectionCapabilities"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="CollectionCapabilities.v1_1_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to use the new revisions annotation."/>
+      <ComplexType Name="CollectionCapabilities" BaseType="CollectionCapabilities.v1_1_0.CollectionCapabilities"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="CollectionCapabilities.v1_1_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update descriptions that this schema defines."/>
+      <ComplexType Name="CollectionCapabilities" BaseType="CollectionCapabilities.v1_1_1.CollectionCapabilities"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="CollectionCapabilities.v1_1_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <ComplexType Name="CollectionCapabilities" BaseType="CollectionCapabilities.v1_1_2.CollectionCapabilities"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="CollectionCapabilities.v1_2_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2019.2"/>
+
+      <ComplexType Name="CollectionCapabilities" BaseType="CollectionCapabilities.v1_1_2.CollectionCapabilities">
+        <Property Name="MaxMembers" Type="Edm.Int64" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The maximum number of members allowed in this collection."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the maximum number of members allowed in this resource collection."/>
+          <Annotation Term="Validation.Minimum" Int="1"/>
+        </Property>
+      </ComplexType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="CollectionCapabilities.v1_2_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <ComplexType Name="CollectionCapabilities" BaseType="CollectionCapabilities.v1_2_0.CollectionCapabilities"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="CollectionCapabilities.v1_2_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created specify 64-bit integers in OpenAPI."/>
+      <ComplexType Name="CollectionCapabilities" BaseType="CollectionCapabilities.v1_2_1.CollectionCapabilities"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="CollectionCapabilities.v1_3_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2020.4"/>
+      <Annotation Term="OData.Description" String="This version was created to add `ResourceBlockComposition` and `ResourceBlockConstrainedComposition` to the UseCase enumeration."/>
+
+      <ComplexType Name="CollectionCapabilities" BaseType="CollectionCapabilities.v1_2_2.CollectionCapabilities"/>
+    </Schema>
+
+  </edmx:DataServices>
+</edmx:Edmx>

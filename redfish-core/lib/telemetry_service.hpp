@@ -2,8 +2,12 @@
 
 #include "utils/telemetry_utils.hpp"
 
+#include <generatedStatic/dataModel/TelemetryService_v1.h>
+#include <generatedStatic/serialize/json_telemetryservice.h>
+
 #include <app.hpp>
 
+#include <chrono>
 #include <variant>
 
 namespace redfish
@@ -17,26 +21,27 @@ inline void requestRoutesTelemetryService(App& app)
             boost::beast::http::verb::
                 get)([](const crow::Request&,
                         const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
-            asyncResp->res.jsonValue["@odata.type"] =
-                "#TelemetryService.v1_2_1.TelemetryService";
-            asyncResp->res.jsonValue["@odata.id"] =
-                "/redfish/v1/TelemetryService";
-            asyncResp->res.jsonValue["Id"] = "TelemetryService";
-            asyncResp->res.jsonValue["Name"] = "Telemetry Service";
-
-            asyncResp->res.jsonValue["MetricReportDefinitions"]["@odata.id"] =
+            TelemetryServiceV1TelemetryService telemetryService;
+            telemetryService.type = "#TelemetryService.v1_2_1.TelemetryService";
+            telemetryService.odata = "/redfish/v1/TelemetryService";
+            telemetryService.id = "TelemetryService";
+            telemetryService.name = "Telemetry Service";
+            telemetryService.metricDefinitions.id =
                 "/redfish/v1/TelemetryService/MetricReportDefinitions";
-            asyncResp->res.jsonValue["MetricReports"]["@odata.id"] =
+            telemetryService.metricReports.id =
                 "/redfish/v1/TelemetryService/MetricReports";
 
             crow::connections::systemBus->async_method_call(
-                [asyncResp](
+                [asyncResp, telemetryService](
                     const boost::system::error_code ec,
                     const std::vector<std::pair<
-                        std::string, std::variant<uint32_t, uint64_t>>>& ret) {
+                        std::string, std::variant<uint32_t, uint64_t>>>&
+                        ret) mutable {
                     if (ec == boost::system::errc::host_unreachable)
                     {
-                        asyncResp->res.jsonValue["Status"]["State"] = "Absent";
+                        telemetryService.status.state = ResourceV1State::Absent;
+                        // asyncResp->res.jsonValue["Status"]["State"] =
+                        // "Absent";
                         return;
                     }
                     if (ec)
@@ -46,7 +51,8 @@ inline void requestRoutesTelemetryService(App& app)
                         return;
                     }
 
-                    asyncResp->res.jsonValue["Status"]["State"] = "Enabled";
+                    telemetryService.status.state = ResourceV1State::Enabled;
+                    // asyncResp->res.jsonValue["Status"]["State"] = "Enabled";
 
                     const size_t* maxReports = nullptr;
                     const uint64_t* minInterval = nullptr;
@@ -54,7 +60,7 @@ inline void requestRoutesTelemetryService(App& app)
                     {
                         if (key == "MaxReports")
                         {
-                            maxReports = std::get_if<size_t>(&var);
+                            maxReports = std::get_if<uint64_t>(&var);
                         }
                         else if (key == "MinInterval")
                         {
@@ -69,14 +75,19 @@ inline void requestRoutesTelemetryService(App& app)
                         return;
                     }
 
-                    asyncResp->res.jsonValue["MaxReports"] = *maxReports;
-                    asyncResp->res.jsonValue["MinCollectionInterval"] =
-                        time_utils::toDurationString(std::chrono::milliseconds(
-                            static_cast<time_t>(*minInterval)));
+                    // asyncResp->res.jsonValue["MaxReports"] = *maxReports;
+                    telemetryService.maxReports =
+                        static_cast<int64_t>(*maxReports);
+
+                    // asyncResp->res.jsonValue["MinCollectionInterval"] =
+                    telemetryService.minCollectionInterval =
+                        std::chrono::milliseconds(
+                            (*minInterval)); // toDurationString
                 },
                 telemetry::service, "/xyz/openbmc_project/Telemetry/Reports",
                 "org.freedesktop.DBus.Properties", "GetAll",
                 "xyz.openbmc_project.Telemetry.ReportManager");
+            jsonSerializeTelemetryservice(asyncResp, &telemetryService);
         });
 }
 } // namespace redfish

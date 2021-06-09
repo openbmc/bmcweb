@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!---->
+<!-- Copyright 2015-2019 Storage Networking Industry Association (SNIA), USA. All rights reserved.-->
+<edmx:Edmx xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx" Version="4.0">
+
+  <edmx:Reference Uri="http://docs.oasis-open.org/odata/odata/v4.0/errata03/csd01/complete/vocabularies/Org.OData.Core.V1.xml">
+    <edmx:Include Namespace="Org.OData.Core.V1" Alias="OData"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/RedfishExtensions_v1.xml">
+    <edmx:Include Namespace="RedfishExtensions.v1_0_0" Alias="Redfish"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://docs.oasis-open.org/odata/odata/v4.0/errata03/csd01/complete/vocabularies/Org.OData.Capabilities.V1.xml">
+    <edmx:Include Namespace="Org.OData.Capabilities.V1" Alias="Capabilities"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/swordfish/v1/LineOfService_v1.xml">
+    <edmx:Include Namespace="LineOfService"/>
+    <edmx:Include Namespace="LineOfService.v1_0_0"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/Resource_v1.xml">
+    <edmx:Include Namespace="Resource"/>
+    <edmx:Include Namespace="Resource.v1_0_0"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/swordfish/v1/DataProtectionLineOfService_v1.xml">
+    <edmx:Include Namespace="DataProtectionLineOfService"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/swordfish/v1/DataStorageLineOfService_v1.xml">
+    <edmx:Include Namespace="DataStorageLineOfService"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/swordfish/v1/DataSecurityLineOfService_v1.xml">
+    <edmx:Include Namespace="DataSecurityLineOfService"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/swordfish/v1/IOConnectivityLineOfService_v1.xml">
+    <edmx:Include Namespace="IOConnectivityLineOfService"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/swordfish/v1/IOPerformanceLineOfService_v1.xml">
+    <edmx:Include Namespace="IOPerformanceLineOfService"/>
+  </edmx:Reference>
+
+  <edmx:DataServices>
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ClassOfService">
+      <Annotation Term="Redfish.OwningEntity" String="SNIA"/>
+      <EntityType Name="ClassOfService" BaseType="LineOfService.v1_0_0.LineOfService" Abstract="true">
+        <Annotation Term="OData.Description" String="A service option composed of one or more other service options."/>
+        <Annotation Term="OData.LongDescription" String="A service option composed of one or more other service options.  ITIL defines a service option as a choice of utility or warranty for a service."/>
+        <Annotation Term="Capabilities.InsertRestrictions">
+          <Record>
+            <PropertyValue Property="Insertable" Bool="false"/>
+          </Record>
+        </Annotation>
+        <Annotation Term="Capabilities.UpdateRestrictions">
+          <Record>
+            <PropertyValue Property="Updatable" Bool="true"/>
+            <Annotation Term="OData.Description" String="ClassOfService resources can be updated to change the writable properties."/>
+          </Record>
+        </Annotation>
+        <Annotation Term="Capabilities.DeleteRestrictions">
+          <Record>
+            <PropertyValue Property="Deletable" Bool="true"/>
+            <Annotation Term="OData.Description" String="ClassOfService resources can be deleted by deleting the ClassOfService resource."/>
+          </Record>
+        </Annotation>
+        <Annotation Term="Redfish.Uris">
+          <Collection>
+            <String>/redfish/v1/StorageServices/{StorageServiceId}/ClassesOfService/{ClassOfServiceId}</String>
+            <String>/redfish/v1/StorageServices/{StorageServiceId}/StoragePools/{StoragePoolId}/ClassesOfService/{ClassOfServiceId}</String>
+          </Collection>
+        </Annotation>
+      </EntityType>
+
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ClassOfService.v1_0_0">
+      <Annotation Term="Redfish.OwningEntity" String="SNIA"/>
+      <Annotation Term="Redfish.Release" String="TP v1.0.3"/>
+      <EntityType Name="ClassOfService" BaseType="ClassOfService.ClassOfService">
+        <Annotation Term="OData.Description" String="A service option composed of one or more service options."/>
+        <Annotation Term="OData.LongDescription" String="This resource shall define a service option composed of one or more line of service entities.  ITIL defines a service option as a choice of utility or warranty for a service."/>
+        <Property Name="Identifier" Type="Resource.Identifier" Nullable="false">
+          <Annotation Term="OData.Description" String="The value identifies this resource."/>
+          <Annotation Term="OData.LongDescription" String="The value shall be unique within the managed ecosystem."/>
+        </Property>
+        <Property Name="ClassOfServiceVersion" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The value identifies the current version of this class of service definition."/>
+          <Annotation
+            Term="OData.LongDescription"
+            String="The version describing the creation or last modification of this service option specification. The string representing the version shall be in the form: M + '.' + N + '.' + U  Where: M - The major version (in numeric form). N - The minor version (in numeric form). U - The update (e.g. errata or patch in numeric form)."/>
+        </Property>
+      </EntityType>
+
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ClassOfService.v1_0_1">
+      <Annotation Term="Redfish.OwningEntity" String="SNIA"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that OData properties are marked as required, and integer properties are marked as integer rather than number."/>
+      <EntityType Name="ClassOfService" BaseType="ClassOfService.v1_0_0.ClassOfService"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ClassOfService.v1_0_2">
+      <Annotation Term="Redfish.OwningEntity" String="SNIA"/>
+      <Annotation Term="OData.Description" String="This version was created to fix CSDL errors and adds both Redfish Uris and Capability Annotations."/>
+      <EntityType Name="ClassOfService" BaseType="ClassOfService.v1_0_1.ClassOfService"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ClassOfService.v1_1_0">
+      <Annotation Term="Redfish.OwningEntity" String="SNIA"/>
+      <Annotation Term="Redfish.Release" String="WIP v1.0.5"/>
+      <EntityType Name="ClassOfService" BaseType="ClassOfService.v1_0_0.ClassOfService">
+        <Property Name="Actions" Type="ClassOfService.v1_1_0.Actions" Nullable="false">
+          <Annotation Term="OData.Description" String="The available actions for this resource."/>
+          <Annotation Term="OData.LongDescription" String="The Actions property shall contain the available actions for this resource."/>
+        </Property>
+      </EntityType>
+
+      <ComplexType Name="Actions">
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="OData.Description" String="The available actions for this resource."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain the available actions for this resource."/>
+        <Property Name="Oem" Type="ClassOfService.v1_1_0.OemActions" Nullable="false">
+          <Annotation Term="OData.Description" String="The available OEM specific actions for this resource."/>
+          <Annotation Term="OData.LongDescription" String="This type shall contain any additional OEM actions for this resource."/>
+        </Property>
+      </ComplexType>
+
+      <ComplexType Name="OemActions">
+        <Annotation Term="OData.AdditionalProperties" Bool="true"/>
+        <Annotation Term="OData.Description" String="The available OEM specific actions for this resource."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain any additional OEM actions for this resource."/>
+      </ComplexType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ClassOfService.v1_1_1">
+      <Annotation Term="Redfish.OwningEntity" String="SNIA"/>
+      <Annotation Term="OData.Description" String="Converting Line of Service collection reference types from complex types to entity types. Change references to unversioned."/>
+
+      <EntityType Name="ClassOfService" BaseType="ClassOfService.v1_0_0.ClassOfService">
+        <Annotation Term="OData.Description" String="A service option composed of one or more service options."/>
+        <Annotation Term="OData.LongDescription" String="This resource shall define a service option composed of one or more line of service entities.  ITIL defines a service option as a choice of utility or warranty for a service."/>
+
+        <NavigationProperty Name="DataProtectionLinesOfService" Type="Collection(DataProtectionLineOfService.DataProtectionLineOfService)" ContainsTarget="true">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="A collection of DataProtection line of service elements."/>
+          <Annotation Term="OData.LongDescription" String="The value shall be a set of data protection service options.  Within a class of service, one data protection service option shall be present for each replication session."/>
+        </NavigationProperty>
+        <NavigationProperty Name="DataSecurityLinesOfService" Type="Collection(DataSecurityLineOfService.DataSecurityLineOfService)" ContainsTarget="true">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="A collection of DataSecurity line of service elements."/>
+          <Annotation Term="OData.LongDescription" String="The value shall be a set of data security service options."/>
+        </NavigationProperty>
+        <NavigationProperty Name="DataStorageLinesOfService" Type="Collection(DataStorageLineOfService.DataStorageLineOfService)" ContainsTarget="true">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="A collection of DataStorage line of service elements."/>
+          <Annotation Term="OData.LongDescription" String="The value shall be a set of data protection service options."/>
+        </NavigationProperty>
+        <NavigationProperty Name="IOConnectivityLinesOfService" Type="Collection(IOConnectivityLineOfService.IOConnectivityLineOfService)" ContainsTarget="true">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="A collection of IOConnectivity line of service elements."/>
+          <Annotation Term="OData.LongDescription" String="The value shall be a set of IO connectivity service options.  Within a class of service, at most one IO connectivity service option may be present for a value of AccessProtocol."/>
+        </NavigationProperty>
+        <NavigationProperty Name="IOPerformanceLinesOfService" Type="Collection(IOPerformanceLineOfService.IOPerformanceLineOfService)" ContainsTarget="true">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="A collection of IOPerformance line of service elements."/>
+          <Annotation Term="OData.LongDescription" String="The value shall be a set of IO performance service options."/>
+        </NavigationProperty>
+      </EntityType>
+
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ClassOfService.v1_1_2">
+      <Annotation Term="Redfish.OwningEntity" String="SNIA"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that OData properties are marked as required, and integer properties are marked as integer rather than number. This version also fixes CSDL errors and adds both Redfish Uris and Capability Annotations."/>
+      <EntityType Name="ClassOfService" BaseType="ClassOfService.v1_1_1.ClassOfService"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ClassOfService.v1_2_0">
+      <Annotation Term="Redfish.OwningEntity" String="SNIA"/>
+      <Annotation Term="Redfish.Release" String="WIP v1.0.5"/>
+      <Annotation Term="OData.Description" String="The BaseType was changed from Resource to the LineOfService class. This version also fixes CSDL schema errors."/>
+      <EntityType Name="ClassOfService" BaseType="ClassOfService.v1_1_2.ClassOfService"/>
+    </Schema>
+
+  </edmx:DataServices>
+</edmx:Edmx>
