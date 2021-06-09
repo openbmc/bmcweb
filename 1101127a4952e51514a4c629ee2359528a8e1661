@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "b39cb9b0_e541e4b3",
+        "filename": "redfish-core/lib/led.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 299,
+      "author": {
+        "id": 1000400
+      },
+      "writtenOn": "2021-06-09T09:46:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7fb8452a_227c0d4c",
+      "range": {
+        "startLine": 299,
+        "startChar": 0,
+        "endLine": 299,
+        "endChar": 52
+      },
+      "revId": "1101127a4952e51514a4c629ee2359528a8e1661",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ac2eb40e_5ab54b6f",
         "filename": "redfish-core/lib/led.hpp",
         "patchSetId": 9
@@ -57,6 +81,24 @@
       "revId": "1101127a4952e51514a4c629ee2359528a8e1661",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "985635c2_6081203d",
+        "filename": "redfish-core/lib/led.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 305,
+      "author": {
+        "id": 1000400
+      },
+      "writtenOn": "2021-06-09T09:46:13Z",
+      "side": 1,
+      "message": "Here we only determine whether endpoints is a null pointer. \nIt won\u0027t record any errors if there is no association.",
+      "parentUuid": "f11ac70d_77fe5572",
+      "revId": "1101127a4952e51514a4c629ee2359528a8e1661",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -112,6 +154,24 @@
     },
     {
       "key": {
+        "uuid": "98dc57e5_62db7c10",
+        "filename": "redfish-core/lib/led.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 345,
+      "author": {
+        "id": 1000400
+      },
+      "writtenOn": "2021-06-09T09:46:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "16174a31_fb101264",
+      "revId": "1101127a4952e51514a4c629ee2359528a8e1661",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d33d1cb0_dc18b4d2",
         "filename": "redfish-core/lib/led.hpp",
         "patchSetId": 9
@@ -123,6 +183,24 @@
       "writtenOn": "2021-05-26T12:00:53Z",
       "side": 1,
       "message": "Do we need to execute this loop only once?",
+      "revId": "1101127a4952e51514a4c629ee2359528a8e1661",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8d6d1def_e1555679",
+        "filename": "redfish-core/lib/led.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 379,
+      "author": {
+        "id": 1000400
+      },
+      "writtenOn": "2021-06-09T09:46:13Z",
+      "side": 1,
+      "message": "Yes, only once.",
+      "parentUuid": "d33d1cb0_dc18b4d2",
       "revId": "1101127a4952e51514a4c629ee2359528a8e1661",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
