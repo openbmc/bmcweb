@@ -323,4 +323,52 @@ void getChassisId(
             "xyz.openbmc_project.Inventory.Item.Chassis"});
 }
 
+/**
+ * @brief Get the chassis is related to the resource.
+ *
+ * The chassis related to the resource is determined by the compare function.
+ * Once it find the chassis, it will call the callback function.
+ *
+ * @param[in,out]   asyncResp    Async HTTP response
+ * @param[in]       path         Object path of the current resource
+ * @param[in]       callback     Function to call once related chassis is found
+ */
+void checkValidChassisId(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                         const std::string& chassisId,
+                         const std::function<void(bool)>& callback)
+{
+    crow::connections::systemBus->async_method_call(
+        [asyncResp, chassisId,
+         callback](const boost::system::error_code ec,
+                   const std::vector<std::string>& objects) {
+            if (ec)
+            {
+                BMCWEB_LOG_DEBUG << "DBUS response error";
+                messages::internalError(asyncResp->res);
+                return;
+            }
+
+            for (const auto& chassis : objects)
+            {
+                sdbusplus::message::object_path path(chassis);
+                if (chassisId != path.filename())
+                {
+                    continue;
+                }
+
+                callback(true);
+                return;
+            }
+
+            callback(false);
+        },
+        "xyz.openbmc_project.ObjectMapper",
+        "/xyz/openbmc_project/object_mapper",
+        "xyz.openbmc_project.ObjectMapper", "GetSubTreePaths",
+        "/xyz/openbmc_project/inventory", 0,
+        std::array<const char*, 2>{
+            "xyz.openbmc_project.Inventory.Item.Board",
+            "xyz.openbmc_project.Inventory.Item.Chassis"});
+}
+
 } // namespace redfish
