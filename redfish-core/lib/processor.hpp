@@ -16,6 +16,7 @@
 #pragma once
 
 #include "health.hpp"
+#include "utils/log_utils.hpp"
 
 #include <app.hpp>
 #include <boost/container/flat_map.hpp>
@@ -1023,6 +1024,80 @@ inline void patchAppliedOperatingConfig(
         std::variant<sdbusplus::message::object_path>(std::move(configPath)));
 }
 
+/**
+ * Checks if the processor is under a chassis and links to related log entries.
+ *
+ * @param[in,out]   asyncResp        Async HTTP response.
+ * @param[in]       processorId      Processor's Id.
+ */
+inline void
+    getProcessorLogEntry(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                         const std::string& processorId)
+{
+    crow::connections::systemBus->async_method_call(
+        [asyncResp, processorId](const boost::system::error_code ec,
+                                 const std::vector<std::string>& objects) {
+            if (ec)
+            {
+                BMCWEB_LOG_DEBUG << "DBUS response error";
+                messages::internalError(asyncResp->res);
+                return;
+            }
+
+            for (const auto& object : objects)
+            {
+                sdbusplus::message::object_path path(object);
+                std::string leaf = path.filename();
+                if (leaf.empty() || leaf != processorId)
+                {
+                    continue;
+                }
+
+                crow::connections::systemBus->async_method_call(
+                    [asyncResp, path,
+                     processorId](const boost::system::error_code ec,
+                                  const std::vector<std::string>& objects) {
+                        if (ec)
+                        {
+                            BMCWEB_LOG_DEBUG << "DBUS response error";
+                            return;
+                        }
+
+                        for (const auto& object : objects)
+                        {
+                            sdbusplus::message::object_path chassPath(object);
+                            if (!boost::algorithm::starts_with(path.str,
+                                                               object))
+                            {
+                                continue;
+                            }
+
+                            log_utils::populateDeviceLogEntries(
+                                asyncResp,
+                                "/xyz/openbmc_project/logging/devices/" +
+                                    chassPath.filename(),
+                                "/redfish/v1/Chassis/" + chassPath.filename() +
+                                    "/LogServices/DeviceLog/Entries/",
+                                "OpenBmc.0.2.CPUError", processorId);
+                        }
+                    },
+                    "xyz.openbmc_project.ObjectMapper",
+                    "/xyz/openbmc_project/object_mapper",
+                    "xyz.openbmc_project.ObjectMapper", "GetSubTreePaths",
+                    "/xyz/openbmc_project/inventory", 0,
+                    std::array<std::string, 2>{
+                        "xyz.openbmc_project.Inventory.Item.Board",
+                        "xyz.openbmc_project.Inventory.Item.Chassis"});
+            }
+        },
+        "xyz.openbmc_project.ObjectMapper",
+        "/xyz/openbmc_project/object_mapper",
+        "xyz.openbmc_project.ObjectMapper", "GetSubTreePaths",
+        "/xyz/openbmc_project/inventory", 0,
+        std::vector<const char*>(processorInterfaces.begin(),
+                                 processorInterfaces.end()));
+}
+
 inline void requestRoutesOperatingConfigCollection(App& app)
 {
 
@@ -1190,6 +1265,7 @@ inline void requestRoutesProcessor(App& app)
                     "/redfish/v1/Systems/system/Processors/" + processorId;
 
                 getProcessorObject(asyncResp, processorId, getProcessorData);
+                getProcessorLogEntry(asyncResp, processorId);
             });
 
     BMCWEB_ROUTE(app, "/redfish/v1/Systems/system/Processors/<str>/")
