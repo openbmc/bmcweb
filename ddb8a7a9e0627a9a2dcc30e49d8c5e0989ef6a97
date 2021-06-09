@@ -34,6 +34,24 @@
       "revId": "ddb8a7a9e0627a9a2dcc30e49d8c5e0989ef6a97",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "47165509_f8d7346e",
+        "filename": "redfish-core/lib/hypervisor_system.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 980,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2021-06-09T14:17:52Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "e61d3fea_a2f8985d",
+      "revId": "ddb8a7a9e0627a9a2dcc30e49d8c5e0989ef6a97",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
