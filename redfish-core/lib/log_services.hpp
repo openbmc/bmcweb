@@ -2210,13 +2210,11 @@ inline void requestRoutesSystemDumpEntryCollection(App& app)
     /**
      * Functions triggers appropriate requests on DBus
      */
-    BMCWEB_ROUTE(app,
-                 "/redfish/v1/Managers/bmc/LogServices/Dump/Entries/<str>/")
+    BMCWEB_ROUTE(app, "/redfish/v1/Managers/bmc/LogServices/Dump/Entries/")
         .privileges({"Login"})
         .methods(boost::beast::http::verb::get)(
             [](const crow::Request&,
-               const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-               const std::string&) {
+               const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
                 asyncResp->res.jsonValue["@odata.type"] =
                     "#LogEntryCollection.LogEntryCollection";
                 asyncResp->res.jsonValue["@odata.id"] =
@@ -2232,7 +2230,7 @@ inline void requestRoutesSystemDumpEntryCollection(App& app)
 inline void requestRoutesSystemDumpEntry(App& app)
 {
     BMCWEB_ROUTE(app,
-                 "redfish/v1/Systems/system/LogServices/Dump/Entries/<str>/")
+                 "/redfish/v1/Systems/system/LogServices/Dump/Entries/<str>/")
         .privileges({"Login"})
         .methods(boost::beast::http::verb::get)(
             [](const crow::Request&,
@@ -2242,7 +2240,7 @@ inline void requestRoutesSystemDumpEntry(App& app)
             });
 
     BMCWEB_ROUTE(app,
-                 "redfish/v1/Systems/system/LogServices/Dump/Entries/<str>/")
+                 "/redfish/v1/Systems/system/LogServices/Dump/Entries/<str>/")
         .privileges({"ConfigureManager"})
         .methods(boost::beast::http::verb::delete_)(
             [](const crow::Request&,
