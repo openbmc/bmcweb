@@ -22,6 +22,7 @@
 #include <boost/container/flat_map.hpp>
 #include <registries/privilege_registry.hpp>
 #include <utils/collection.hpp>
+#include <utils/name_utils.hpp>
 
 #include <variant>
 
@@ -382,8 +383,16 @@ inline void requestRoutesChassis(App& app)
                             }
                         }
 
+                        const std::string& itemInterface =
+                            "xyz.openbmc_project.Inventory.Item";
+
+                        bool foundPrettyName =
+                            std::find(interfaces2.begin(), interfaces2.end(),
+                                      itemInterface) != interfaces2.end();
+
                         crow::connections::systemBus->async_method_call(
-                            [asyncResp, chassisId(std::string(chassisId))](
+                            [asyncResp, chassisId(std::string(chassisId)), path,
+                             connectionName, foundPrettyName](
                                 const boost::system::error_code /*ec2*/,
                                 const std::vector<
                                     std::pair<std::string, VariantType>>&
@@ -429,6 +438,14 @@ inline void requestRoutesChassis(App& app)
                                 }
                                 asyncResp->res.jsonValue["Name"] = chassisId;
                                 asyncResp->res.jsonValue["Id"] = chassisId;
+
+                                if (foundPrettyName)
+                                {
+                                    name_util::getPrettyName(
+                                        asyncResp, connectionName, path,
+                                        "/Name"_json_pointer);
+                                }
+
 #ifdef BMCWEB_ALLOW_DEPRECATED_POWER_THERMAL
                                 asyncResp->res.jsonValue["Thermal"] = {
                                     {"@odata.id", "/redfish/v1/Chassis/" +

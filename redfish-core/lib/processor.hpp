@@ -24,6 +24,7 @@
 #include <sdbusplus/utility/dedup_variant.hpp>
 #include <utils/collection.hpp>
 #include <utils/json_utils.hpp>
+#include <utils/name_utils.hpp>
 
 namespace redfish
 {
@@ -236,7 +237,6 @@ inline void getCpuDataByService(std::shared_ptr<bmcweb::AsyncResp> aResp,
                 return;
             }
             aResp->res.jsonValue["Id"] = cpuId;
-            aResp->res.jsonValue["Name"] = "Processor";
             aResp->res.jsonValue["ProcessorType"] = "CPU";
 
             bool slotPresent = false;
@@ -777,6 +777,7 @@ inline void getProcessorObject(const std::shared_ptr<bmcweb::AsyncResp>& resp,
                 // must be on the same object path.
 
                 handler(resp, processorId, objectPath, serviceMap);
+
                 return;
             }
             messages::resourceNotFound(resp->res, "Processor", processorId);
@@ -844,6 +845,11 @@ inline void getProcessorData(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
                      "xyz.openbmc_project.Inventory.Decorator.UniqueIdentifier")
             {
                 getCpuUniqueId(aResp, serviceName, objectPath);
+            }
+            else if (interface == "xyz.openbmc_project.Inventory.Item")
+            {
+                name_util::getPrettyName(aResp, serviceName, objectPath,
+                                         "/Name"_json_pointer);
             }
         }
     }
@@ -1256,6 +1262,7 @@ inline void requestRoutesProcessor(App& app)
                     "#Processor.v1_11_0.Processor";
                 asyncResp->res.jsonValue["@odata.id"] =
                     "/redfish/v1/Systems/system/Processors/" + processorId;
+                asyncResp->res.jsonValue["Name"] = "Processor";
 
                 getProcessorObject(asyncResp, processorId, getProcessorData);
             });

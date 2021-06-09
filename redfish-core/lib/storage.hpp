@@ -20,6 +20,7 @@
 
 #include <app.hpp>
 #include <registries/privilege_registry.hpp>
+#include <utils/name_utils.hpp>
 
 namespace redfish
 {
@@ -157,6 +158,12 @@ inline void requestRoutesStorage(App& app)
                         storageController["Name"] = id;
                         storageController["MemberId"] = id;
                         storageController["Status"]["State"] = "Enabled";
+
+                        const nlohmann::json_pointer<nlohmann::json>&
+                            namePointer = "/StorageControllers"_json_pointer /
+                                          index / "Name";
+                        name_util::getPrettyName(asyncResp, connectionName,
+                                                 path, namePointer);
 
                         crow::connections::systemBus->async_method_call(
                             [asyncResp,
@@ -451,6 +458,8 @@ inline void requestRoutesDrive(App& app)
                     const std::string& connectionName =
                         connectionNames[0].first;
 
+                    name_util::getPrettyName(asyncResp, connectionName, path,
+                                             "/Name"_json_pointer);
                     getDriveAsset(asyncResp, connectionName, path);
                     getDrivePresent(asyncResp, connectionName, path);
                     getDriveState(asyncResp, connectionName, path);
