@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ae91d398_6fb7b943",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 282,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-06-09T14:59:26Z",
+      "side": 1,
+      "message": "Can you look for the interface? Like LocationCode?\n\n                        const std::string locationInterface \u003d\n                            \"xyz.openbmc_project.Inventory.Decorator.\"\n                            \"LocationCode\";\n                        if (std::find(interfaces2.begin(), interfaces2.end(),\n                                      locationInterface) !\u003d interfaces2.end())\n                        {",
+      "revId": "497148ac0d4614dd256c19e99310968cf08ff7a9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "15fd97ea_0bf4d686",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 288,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-06-09T14:59:26Z",
+      "side": 1,
+      "message": "This can be an error if you first find the interface\n\n                                        BMCWEB_LOG_DEBUG\n                                            \u003c\u003c \"DBUS response error for \"\n                                               \"AssetTag\";\n                                        messages::internalError(asyncResp-\u003eres);",
+      "revId": "497148ac0d4614dd256c19e99310968cf08ff7a9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "68dc1f5e_98d5930b",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 293,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-06-09T14:59:26Z",
+      "side": 1,
+      "message": "Typically this is \n            const std::string* value \u003d std::get_if\u003cstd::string\u003e(\u0026property);\n            if (value \u003d\u003d nullptr)\n            {\n                BMCWEB_LOG_DEBUG \u003c\u003c \"Null value returned \"\n                                    \"for UUID\";\n                messages::internalError(aResp-\u003eres);\n                return;\n            }\n\nExample: https://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/43436/4/redfish-core/lib/processor.hpp",
+      "revId": "497148ac0d4614dd256c19e99310968cf08ff7a9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
