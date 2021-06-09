@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "003a7bc7_dd545895",
+        "filename": "redfish-core/lib/service_root.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-06-09T19:52:41Z",
+      "side": 1,
+      "message": "Product doesn\u0027t seem right here.  Wouldn\u0027t this need to be system configured?\n\nWith that said, I\u0027m ok with this patch for now so we can iterate to something better, but I don\u0027t think this is the last time we\u0027ll be having this dicussion.",
+      "range": {
+        "startLine": 38,
+        "startChar": 0,
+        "endLine": 39,
+        "endChar": 63
+      },
+      "revId": "dab461bc70a1d21124c34f6accdf27f8db25e54d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
