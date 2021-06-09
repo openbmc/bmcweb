@@ -19,7 +19,9 @@
 #include "openbmc_dbus_rest.hpp"
 
 #include <app.hpp>
+#include <boost/algorithm/string.hpp>
 #include <registries/privilege_registry.hpp>
+#include <utils/log_utils.hpp>
 
 namespace redfish
 {
@@ -483,6 +485,24 @@ inline void requestRoutesDrive(App& app)
                         },
                         connectionName, path, "org.freedesktop.DBus.Properties",
                         "Get", "xyz.openbmc_project.State.Drive", "Rebuilding");
+
+                    getChassisId(
+                        asyncResp,
+                        [path](const std::string& chassisPath) {
+                            // The drive is subpath of the chassis
+                            return validSubpath(path, chassisPath);
+                        },
+                        [driveId](const std::string& chassisId,
+                                  const std::shared_ptr<bmcweb::AsyncResp>&
+                                      asyncResp) {
+                            log_utils::populateDeviceLogEntries(
+                                asyncResp,
+                                "/xyz/openbmc_project/logging/devices/" +
+                                    chassisId,
+                                "/redfish/v1/Chassis/" + chassisId +
+                                    "/LogServices/DeviceLog/Entries/",
+                                "OpenBmc.0.2.DriveError", driveId);
+                        });
                 },
                 "xyz.openbmc_project.ObjectMapper",
                 "/xyz/openbmc_project/object_mapper",
