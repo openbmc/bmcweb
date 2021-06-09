@@ -39,6 +39,7 @@
 
 #include <charconv>
 #include <filesystem>
+#include <functional>
 #include <optional>
 #include <span>
 #include <string_view>
@@ -3612,6 +3613,343 @@ inline void requestRoutesPostCodesEntry(App& app)
                 asyncResp->res.jsonValue["Members@odata.count"] = 0;
 
                 getPostCodeForEntry(asyncResp, bootIndex, codeIndex);
+            });
+}
+
+inline void requestRoutesChassisLogServiceCollection(App& app)
+{
+    /**
+     * Functions triggers appropriate requests on DBus
+     */
+    BMCWEB_ROUTE(app, "/redfish/v1/Chassis/<str>/LogServices/")
+        .privileges(redfish::privileges::getLogServiceCollection)
+        .methods(boost::beast::http::verb::get)(
+            [](const crow::Request&,
+               const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+               const std::string& chassisId) {
+                checkValidChassisId(
+                    asyncResp, chassisId,
+                    [asyncResp, chassisId](const std::string&, bool valid) {
+                        if (!valid)
+                        {
+                            messages::resourceNotFound(
+                                asyncResp->res,
+                                "#LogServiceCollection.LogServiceCollection",
+                                chassisId);
+                            return;
+                        }
+
+                        // Collections don't include the static data added by
+                        // SubRoute
+                        // because it has a duplicate entry for members
+                        asyncResp->res.jsonValue["@odata.type"] =
+                            "#LogServiceCollection.LogServiceCollection";
+                        asyncResp->res.jsonValue["@odata.id"] =
+                            "/redfish/v1/Chassis/" + chassisId +
+                            "/LogServices/";
+                        asyncResp->res.jsonValue["Name"] =
+                            "Chassis Log Services Collection for " + chassisId;
+                        asyncResp->res.jsonValue["Description"] =
+                            "Collection of LogServices for " + chassisId;
+                        nlohmann::json& logServiceArray =
+                            asyncResp->res.jsonValue["Members"];
+                        logServiceArray = nlohmann::json::array();
+
+                        // List of supported log services.
+                        logServiceArray.push_back(
+                            {{"@odata.id", "/redfish/v1/Chassis/" + chassisId +
+                                               "/LogServices/ChassisLog/"}});
+
+                        asyncResp->res.jsonValue["Members@odata.count"] =
+                            logServiceArray.size();
+                    });
+            });
+}
+
+inline void requestRoutesChassisLogService(App& app)
+{
+    BMCWEB_ROUTE(app, "/redfish/v1/Chassis/<str>/LogServices/ChassisLog/")
+        .privileges(redfish::privileges::getLogService)
+        .methods(boost::beast::http::verb::get)(
+            [](const crow::Request&,
+               const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+               const std::string& chassisId) {
+                checkValidChassisId(
+                    asyncResp, chassisId,
+                    [asyncResp, chassisId](const std::string&, bool valid) {
+                        if (!valid)
+                        {
+                            messages::resourceNotFound(
+                                asyncResp->res, "#LogService.v1_1_0.LogService",
+                                chassisId);
+                            return;
+                        }
+
+                        asyncResp->res.jsonValue["@odata.id"] =
+                            "/redfish/v1/Chassis/" + chassisId +
+                            "/LogServices/ChassisLog";
+                        asyncResp->res.jsonValue["@odata.type"] =
+                            "#LogService.v1_1_0.LogService";
+                        asyncResp->res.jsonValue["Name"] =
+                            "Chassis Log Service";
+                        asyncResp->res.jsonValue["Description"] =
+                            "Device Log Service for " + chassisId;
+                        asyncResp->res.jsonValue["Id"] = chassisId;
+                        asyncResp->res.jsonValue["OverWritePolicy"] =
+                            "WrapsWhenFull";
+                        asyncResp->res.jsonValue["Entries"] = {
+                            {"@odata.id",
+                             "/redfish/v1/Chassis/" + chassisId +
+                                 "/LogServices/ChassisLog/Entries"}};
+                    });
+            });
+}
+
+void getChassisLogEntryCollection(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& chassisId, const std::string& path, bool valid)
+{
+    if (!valid)
+    {
+        messages::resourceNotFound(asyncResp->res,
+                                   "#LogEntryCollection.LogEntryCollection",
+                                   chassisId);
+        return;
+    }
+
+    asyncResp->res.jsonValue["@odata.type"] =
+        "#LogEntryCollection.LogEntryCollection";
+    asyncResp->res.jsonValue["@odata.id"] =
+        "/redfish/v1/Chassis/" + chassisId + "/LogServices/ChassisLog/Entries";
+    asyncResp->res.jsonValue["Name"] = "Device Log Entries";
+    asyncResp->res.jsonValue["Description"] =
+        "Collection of Device Event Log Entries for Chassis " + chassisId;
+    asyncResp->res.jsonValue["Members"] = nlohmann::json::array();
+    asyncResp->res.jsonValue["Members@odata.count"] = 0;
+
+    sdbusplus::asio::getProperty<std::vector<std::string>>(
+        *crow::connections::systemBus, "xyz.openbmc_project.ObjectMapper",
+        path + "/LogEntries", "xyz.openbmc_project.Association", "endpoints",
+        [asyncResp, path,
+         chassisId](const boost::system::error_code ec,
+                    const std::vector<std::string>& logEntires) {
+            if (ec)
+            {
+                BMCWEB_LOG_DEBUG
+                    << "Failed to get LogEntries Association: " << ec
+                    << " with " << path + "/Chassis";
+                return;
+            }
+
+            nlohmann::json& logEntryArray = asyncResp->res.jsonValue["Members"];
+            logEntryArray = nlohmann::json::array();
+
+            for (const std::string& logEntry : logEntires)
+            {
+                sdbusplus::message::object_path logPath(logEntry);
+                if (logPath.filename().empty())
+                {
+                    BMCWEB_LOG_ERROR << "Failed to find filename in "
+                                     << logEntry;
+                    continue;
+                }
+
+                std::string entry = "/redfish/v1/Chassis/" + chassisId +
+                                    "/LogServices/ChassisLog/Entries/";
+                logEntryArray.push_back(
+                    {{"@odata.id", entry + logPath.filename()}});
+            }
+
+            asyncResp->res.jsonValue["Members@odata.count"] =
+                logEntryArray.size();
+        });
+}
+
+inline void requestRoutesChassisLogEntryCollection(App& app)
+{
+    BMCWEB_ROUTE(app,
+                 "/redfish/v1/Chassis/<str>/LogServices/ChassisLog/Entries/")
+        .privileges(redfish::privileges::getLogEntryCollection)
+        .methods(boost::beast::http::verb::get)(
+            [](const crow::Request&,
+               const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+               const std::string& chassisId) {
+                checkValidChassisId(
+                    asyncResp, chassisId,
+                    std::bind_front(getChassisLogEntryCollection, asyncResp,
+                                    chassisId));
+            });
+}
+
+inline void ChassisLogEntry(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                            const std::string& path,
+                            const std::string& chassisId,
+                            const std::string& entryId)
+{
+    crow::connections::systemBus->async_method_call(
+        [asyncResp, path, chassisId, entryId](
+            const boost::system::error_code ec,
+            const std::vector<std::pair<std::string, std::vector<std::string>>>&
+                logEntries) {
+            if (ec)
+            {
+                BMCWEB_LOG_ERROR << "error_code = " << ec
+                                 << ", error msg = " << ec.message();
+                messages::internalError(asyncResp->res);
+                return;
+            }
+            if (logEntries.empty())
+            {
+                messages::resourceNotFound(
+                    asyncResp->res, "#LogEntry.v1_6_0.LogEntry", entryId);
+                return;
+            }
+            crow::connections::systemBus->async_method_call(
+                [asyncResp, path, chassisId,
+                 entryId](const boost::system::error_code ec,
+                          dbus::utility::DBusPropertiesMap& resp) {
+                    if (ec.value() == EBADR)
+                    {
+                        messages::resourceNotFound(asyncResp->res,
+                                                   "#LogEntry.v1_6_0.LogEntry",
+                                                   entryId);
+                        return;
+                    }
+
+                    if (ec)
+                    {
+                        BMCWEB_LOG_ERROR << "EventLogEntry (DBus) "
+                                            "resp_handler got error "
+                                         << ec;
+                        messages::internalError(asyncResp->res);
+                        return;
+                    }
+
+                    const uint64_t* timestamp = nullptr;
+                    const uint64_t* updateTimestamp = nullptr;
+                    std::string* severity = nullptr;
+                    std::string* message = nullptr;
+
+                    for (auto& propertyMap : resp)
+                    {
+                        if (propertyMap.first == "Timestamp")
+                        {
+                            timestamp =
+                                std::get_if<uint64_t>(&propertyMap.second);
+                        }
+                        else if (propertyMap.first == "UpdateTimestamp")
+                        {
+                            updateTimestamp =
+                                std::get_if<uint64_t>(&propertyMap.second);
+                        }
+                        else if (propertyMap.first == "Severity")
+                        {
+                            severity =
+                                std::get_if<std::string>(&propertyMap.second);
+                        }
+                        else if (propertyMap.first == "Message")
+                        {
+                            message =
+                                std::get_if<std::string>(&propertyMap.second);
+                        }
+                    }
+
+                    if (message == nullptr || severity == nullptr ||
+                        timestamp == nullptr || updateTimestamp == nullptr)
+                    {
+                        messages::internalError(asyncResp->res);
+                        return;
+                    }
+
+                    std::string entry = "/redfish/v1/Chassis/" + chassisId +
+                                        "/LogServices/ChassisLog/Entries/";
+
+                    asyncResp->res.jsonValue = {
+                        {"@odata.type", "#LogEntry.v1_6_0.LogEntry"},
+                        {"@odata.id", entry + entryId},
+                        {"Name", "Device Log Entry for " + entryId},
+                        {"Id", entryId},
+                        {"EntryType", "Oem"},
+                        {"OemRecordFormat", "BMC Chassis Entry"},
+                        {"Message", *message},
+                        {"Severity", translateSeverityDbusToRedfish(*severity)},
+                        {"Created",
+                         crow::utility::getDateTimeUintMs(*timestamp)},
+                        {"Modified",
+                         crow::utility::getDateTimeUintMs(*updateTimestamp)}};
+                },
+                // Use only the first service it finds.
+                logEntries[0].first, path, "org.freedesktop.DBus.Properties",
+                "GetAll", "xyz.openbmc_project.Logging.Entry");
+        },
+        "xyz.openbmc_project.ObjectMapper",
+        "/xyz/openbmc_project/object_mapper",
+        "xyz.openbmc_project.ObjectMapper", "GetObject", path,
+        std::array<const char*, 1>{"xyz.openbmc_project.Logging.Entry"});
+}
+
+inline void requestRoutesChassisLogEntry(App& app)
+{
+    BMCWEB_ROUTE(
+        app, "/redfish/v1/Chassis/<str>/LogServices/ChassisLog/Entries/<str>/")
+        .privileges(redfish::privileges::getLogEntry)
+        .methods(boost::beast::http::verb::get)(
+            [](const crow::Request&,
+               const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+               const std::string& chassisId, const std::string& entryId) {
+                checkValidChassisId(
+                    asyncResp, chassisId,
+                    [asyncResp, entryId](const std::string&, bool valid) {
+                        if (valid)
+                        {
+                            return;
+                        }
+                        messages::resourceNotFound(asyncResp->res,
+                                                   "#LogEntry.v1_6_0.LogEntry",
+                                                   entryId);
+                    });
+
+                crow::connections::systemBus->async_method_call(
+                    [asyncResp, chassisId,
+                     entryId](const boost::system::error_code ec,
+                              const std::vector<std::string>& subtreePath) {
+                        if (ec)
+                        {
+                            BMCWEB_LOG_ERROR << ec;
+                            return;
+                        }
+
+                        nlohmann::json& logEntryArray =
+                            asyncResp->res.jsonValue["Members"];
+                        logEntryArray = nlohmann::json::array();
+
+                        for (const std::string& objpath : subtreePath)
+                        {
+                            sdbusplus::message::object_path path(objpath);
+                            if (path.filename().empty())
+                            {
+                                BMCWEB_LOG_ERROR
+                                    << "Failed to find filename in " << objpath;
+                                continue;
+                            }
+
+                            if (path.filename() != entryId)
+                            {
+                                continue;
+                            }
+
+                            ChassisLogEntry(asyncResp, path.str, chassisId,
+                                            entryId);
+
+                            return;
+                        }
+                    },
+                    "xyz.openbmc_project.ObjectMapper",
+                    "/xyz/openbmc_project/object_mapper",
+                    "xyz.openbmc_project.ObjectMapper", "GetSubTreePaths",
+                    "/xyz/openbmc_project/logging/devices/" + chassisId, 0,
+                    std::array<const char*, 1>{
+                        "xyz.openbmc_project.Logging.Entry"});
             });
 }
 
