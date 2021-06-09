@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0e2f56f9_6fa79806",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1001083
+      },
+      "writtenOn": "2021-06-09T19:26:53Z",
+      "side": 1,
+      "message": "Marked as work-in-progress in Topic field.\nRedfish validator testing has not been done yet.",
+      "revId": "4187c9a9aba9a9c59ea0121d8ad233d697e49fe7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5eb5f44f_487b90d5",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1250,
+      "author": {
+        "id": 1001083
+      },
+      "writtenOn": "2021-06-09T19:26:53Z",
+      "side": 1,
+      "message": "Are TPM and Trust Module interchangeable terms? \nFrom the Redfish schema description of TrustedModuleRequiredToBoot [1]:\n\n\"description\": \"The Trusted Module boot requirement.\",\n\"longDescription\": \"This property shall contain the Trusted Module boot requirement.\"\n\n\n[1]https://redfish.dmtf.org/schemas/v1/ComputerSystem.v1_15_0.json",
+      "revId": "4187c9a9aba9a9c59ea0121d8ad233d697e49fe7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
