@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "e0f0c050_3e4d1977",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 629,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-06-09T18:41:41Z",
+      "side": 1,
+      "message": "This is our first sdbusplus::asio::getProperty. \nEd asked for some binary size info. Is that something you could get?\n\nFrom discord today (6/9/21)\nGunnarM\n — \nToday at 12:36 PM\n@edtanous Are you wanting to move to sdbusplus::asio::getProperty vs crow::connections::systemBus-\u003easync_method_call ? E.g. https://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/41054/6/redfish-core/lib/processor.hpp#630\nvs https://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/43437/4/redfish-core/lib/chassis.hpp\nedtanous\n — \nToday at 12:37 PM\nOh.... I didn\u0027t really even process that\u0027s what was going on.\nAs it\u0027s currently written, I don\u0027t have a problem with getProperty\nGunnarM\n — \nToday at 12:37 PM\nIt is our first one.\nedtanous\n — \nToday at 12:37 PM\nyeah.... I forgot that\nGunnarM\n — \nToday at 12:37 PM\nIs that the preferred way now? \nIt is less code.\nedtanous\n — \nToday at 12:38 PM\nI want to see what it does to the binary size.  If it\u0027s comparable to the \"old\" way, I\u0027m for it for the specific cases where we grab one property\nbecause as you say, it is less code\nGunnarM\n — \nToday at 12:39 PM\nIs that on the author to test that?\nedtanous\n — \nToday at 12:39 PM\nif they want to be the first usage, I think so.  For the possible cleanups it could provide it\u0027s worth to me that I can also add it to my neverending list",
+      "revId": "19cd00255a6974d376112579bb716b4e29c22306",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e0b0f272_b503ce03",
         "filename": "redfish-core/lib/processor.hpp",
         "patchSetId": 6
