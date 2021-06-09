@@ -794,6 +794,7 @@ inline int assignBootParameters(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
     }
     return 0;
 }
+
 /**
  * @brief Retrieves boot progress of the system
  *
@@ -1243,6 +1244,76 @@ inline void
         "org.freedesktop.DBus.Properties", "Get",
         "xyz.openbmc_project.Control.Power.RestorePolicy",
         "PowerRestorePolicy");
+}
+
+/**
+ * @brief Get TPM Enable property. Determines whether or not TPM is required for booting the host.
+ *
+ * @param[in] aResp     Shared pointer for generating response message.
+ *
+ * @return None.
+ */
+inline void getTPMEnable(const std::shared_ptr<bmcweb::AsyncResp>& aResp)
+{
+    BMCWEB_LOG_DEBUG << "Get TPM Enable.";
+
+    crow::connections::systemBus->async_method_call(
+        [aResp](const boost::system::error_code ec,
+                std::vector<std::string>& resp) {
+
+            if (ec)
+            {
+                BMCWEB_LOG_DEBUG << "DBUS response error " << ec;
+                // This is an optional D-Bus object so just return if
+                // error occurs
+                return;
+            }
+            if (resp.size() == 0)
+            {
+                // As noted above, this is an optional interface so just return
+                // if there is no instance found
+                return;
+            }
+
+            /* Unhandled behavior */
+            /* When there is more than one TPMEnable object... */
+            if (resp.size() > 1)
+            {
+                // Throw an internal Error and return
+                messages::internalError(aResp->res);
+                return;
+            }
+            // Valid TPM Enable object found, now reading the current value
+            crow::connections::systemBus->async_method_call(
+                [aResp](const boost::system::error_code ec,
+                        std::variant<bool>& TPMEnable) {
+                    if (ec)
+                    {
+                        BMCWEB_LOG_DEBUG << "D-BUS response error " << ec;
+                        return;
+                    }
+
+                    const bool* TPMEnablePtr =
+                        std::get_if<bool>(&TPMEnable);
+
+                    if (!TPMEnablePtr)
+                    {
+                        messages::internalError(aResp->res);
+                        return;
+                    }
+
+                    aResp->res.jsonValue["Boot"]["TrustedModuleRequiredToBoot"] =
+                        (*TPMEnablePtr) ? "Required" : "Disabled";
+
+                },
+                "xyz.openbmc_project.Settings", resp[0],
+                "org.freedesktop.DBus.Properties", "Get",
+                "xyz.openbmc_project.Control.TPM.Policy", "TPMEnable");
+        },
+        "xyz.openbmc_project.ObjectMapper",
+        "/xyz/openbmc_project/object_mapper",
+        "xyz.openbmc_project.ObjectMapper", "GetSubTreePaths", "/", int32_t(0),
+        std::array<const char*, 1>{"xyz.openbmc_project.Control.TPM.Policy"});
 }
 
 /**
@@ -2156,6 +2227,7 @@ inline void requestRoutesSystems(App& app)
 #ifdef BMCWEB_ENABLE_REDFISH_PROVISIONING_FEATURE
             getProvisioningStatus(asyncResp);
 #endif
+            getTPMEnable(asyncResp);
         });
     BMCWEB_ROUTE(app, "/redfish/v1/Systems/system/")
         .privileges({"ConfigureComponent"})
