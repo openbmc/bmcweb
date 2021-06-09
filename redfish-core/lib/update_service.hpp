@@ -1284,8 +1284,6 @@ inline void requestRoutesSoftwareInventory(App& app)
                                 continue;
                             }
 
-                            foundSw = true;
-
                             // Set the requested image apply time value
                             crow::connections::systemBus->async_method_call(
                                 [asyncResp, writeProtected](
