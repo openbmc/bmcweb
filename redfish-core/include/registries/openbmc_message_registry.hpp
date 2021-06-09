@@ -29,7 +29,7 @@ const Header header = {
     "0.2.0",
     "OpenBMC",
 };
-constexpr std::array<MessageEntry, 188> registry = {
+constexpr std::array<MessageE9> registry = {
     MessageEntry{
         "ADDDCCorrectable",
         {
@@ -2329,6 +2329,17 @@ constexpr std::array<MessageEntry, 188> registry = {
                      "Critical",
                      0,
                      {},
+                     "None.",
+                 }},
+    MessageEntry{"StorageControllerError",
+                 {
+                     "Indicates that a StorageController Error occurred of "
+                     "the specified type or cause.",
+                     "StorageController Error Occurred: %1.",
+                     "Warning",
+                     "Warning",
+                     1,
+                     {"string"},
                      "None.",
                  }},
     MessageEntry{"SystemInterfaceDisabledProvisioned",

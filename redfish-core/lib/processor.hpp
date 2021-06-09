@@ -29,6 +29,7 @@
 #include <utils/collection.hpp>
 #include <utils/json_utils.hpp>
 #include <utils/location_utils.hpp>
+#include <utils/log_utils.hpp>
 
 namespace redfish
 {
@@ -717,6 +718,8 @@ inline void getProcessorObject(const std::shared_ptr<bmcweb::AsyncResp>& resp,
                 // must be on the same object path.
 
                 handler(resp, processorId, objectPath, serviceMap);
+                log_utils::getLogEntry(resp, "/Status"_json_pointer, objectPath,
+                                       "OpenBMC.0.2.0.CPUError");
                 return;
             }
             messages::resourceNotFound(resp->res, "Processor", processorId);
