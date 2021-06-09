@@ -451,6 +451,55 @@ inline void requestRoutesDrive(App& app)
                         },
                         connectionName, path, "org.freedesktop.DBus.Properties",
                         "Get", "xyz.openbmc_project.State.Drive", "Rebuilding");
+
+                    crow::connections::systemBus->async_method_call(
+                        [asyncResp, storageId,
+                         driveId](const boost::system::error_code ec,
+                                  const crow::openbmc_mapper::GetSubTreeType&
+                                      subtree) {
+                            if (ec)
+                            {
+                                BMCWEB_LOG_ERROR << "Drive mapper call error";
+                                messages::internalError(asyncResp->res);
+                                return;
+                            }
+
+                            nlohmann::json& conditionArray =
+                                asyncResp->res
+                                    .jsonValue["Status"]["Conditions"];
+                            conditionArray = nlohmann::json::array();
+                            for (const auto& obj : subtree)
+                            {
+                                auto objpath = obj.first;
+                                std::size_t lastPos = objpath.rfind('/');
+                                if (lastPos == std::string::npos ||
+                                    (objpath.size() <= lastPos + 1))
+                                {
+                                    BMCWEB_LOG_ERROR << "Failed to find '/' in "
+                                                     << objpath;
+                                    continue;
+                                }
+
+                                conditionArray.push_back(
+                                    {{"LogEntry",
+                                      {"@odata.id",
+                                       "/redfish/v1/Chassis/" + storageId +
+                                           "/LogServices/DeviceLog/Entries/" +
+                                           objpath.substr(lastPos + 1)}}});
+                            }
+
+                            asyncResp->res
+                                .jsonValue["Status"]["Conditions@odata.count"] =
+                                conditionArray.size();
+                        },
+                        // Use only the first service it finds.
+                        "xyz.openbmc_project.ObjectMapper",
+                        "/xyz/openbmc_project/object_mapper",
+                        "xyz.openbmc_project.ObjectMapper", "GetSubTree",
+                        "/xyz/openbmc_project/logging/devices/" + storageId,
+                        int32_t(1),
+                        std::array<const char*, 1>{
+                            "xyz.openbmc_project.Logging.Entry"});
                 },
                 "xyz.openbmc_project.ObjectMapper",
                 "/xyz/openbmc_project/object_mapper",
