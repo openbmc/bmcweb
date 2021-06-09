@@ -71,6 +71,7 @@ feature_map = {
 'insecure-push-style-notification': '-DBMCWEB_INSECURE_ENABLE_HTTP_PUSH_STYLE_EVENTING',
 'redfish'                         : '-DBMCWEB_ENABLE_REDFISH',
 'redfish-bmc-journal'             : '-DBMCWEB_ENABLE_REDFISH_BMC_JOURNAL',
+'redfish-chassis-log'             : '-DBMCWEB_ENABLE_REDFISH_CHASSIS_LOG_ENTRIES',
 'redfish-cpu-log'                 : '-DBMCWEB_ENABLE_REDFISH_CPU_LOG',
 'redfish-dbus-log'                : '-DBMCWEB_ENABLE_REDFISH_DBUS_LOG_ENTRIES',
 'redfish-provisioning-feature'    : '-DBMCWEB_ENABLE_REDFISH_PROVISIONING_FEATURE',
