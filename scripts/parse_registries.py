@@ -115,4 +115,4 @@ for file, json_dict, namespace, url in files:
             registry.write("\"{}\",".format(message["Resolution"]))
             registry.write("}},")
         registry.write("};}\n")
-    subprocess.check_call(["clang-format-10", "-i", file])
+    subprocess.check_call(["clang-format-11", "-i", file])
