@@ -19,6 +19,7 @@
 #include "openbmc_dbus_rest.hpp"
 
 #include <app.hpp>
+#include <utils/name_utils.hpp>
 
 namespace redfish
 {
@@ -309,6 +310,8 @@ inline void requestRoutesDrive(App& app)
                         driveId;
                     asyncResp->res.jsonValue["Name"] = driveId;
                     asyncResp->res.jsonValue["Id"] = driveId;
+
+                    name_util::getPrettyName(asyncResp, path, connectionNames);
 
                     if (connectionNames.size() != 1)
                     {
