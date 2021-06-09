@@ -64,9 +64,9 @@ def make_getter(dmtf_name, header_name, type_name):
 
 
 files = []
-files.append(make_getter('Base.1.8.1.json',
+files.append(make_getter('Base.1.10.0.json',
                          'base_message_registry.hpp', 'base'))
-files.append(make_getter('TaskEvent.1.0.2.json',
+files.append(make_getter('TaskEvent.1.0.3.json',
                          'task_event_message_registry.hpp', 'task_event'))
 files.append(make_getter('ResourceEvent.1.0.3.json',
                          'resource_event_message_registry.hpp', 'resource_event'))
