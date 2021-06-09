@@ -24,6 +24,7 @@
 #include <boost/container/flat_map.hpp>
 #include <utils/fw_utils.hpp>
 #include <utils/json_utils.hpp>
+#include <utils/name_utils.hpp>
 
 #include <variant>
 
@@ -189,6 +190,8 @@ inline void
 
                 systemHealth->children.emplace_back(memoryHealth);
                 systemHealth->children.emplace_back(cpuHealth);
+
+                name_util::getPrettyName(aResp, path, connectionNames);
 
                 // This is not system, so check if it's cpu, dimm, UUID or
                 // BiosVer

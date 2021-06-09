@@ -21,6 +21,7 @@
 #include <app.hpp>
 #include <boost/container/flat_map.hpp>
 #include <utils/collection.hpp>
+#include <utils/name_utils.hpp>
 
 #include <variant>
 
@@ -425,6 +426,8 @@ inline void requestRoutesChassis(App& app)
                                 uuidInterface, "UUID");
                         }
 
+                        name_util::getPrettyName(asyncResp, path,
+                                                 connectionNames);
                         return;
                     }
 
