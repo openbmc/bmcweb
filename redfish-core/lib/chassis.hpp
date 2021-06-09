@@ -326,6 +326,12 @@ inline void requestRoutesChassis(App& app)
                             {"@odata.id",
                              "/redfish/v1/Systems/system/PCIeDevices"}};
 
+#ifdef BMCWEB_ENABLE_REDFISH_CHASSIS_LOG_ENTRIES
+                        asyncResp->res.jsonValue["LogServices"] = {
+                            {"@odata.id", "/redfish/v1/Chassis/" + chassisId +
+                                              "/LogServices/"}};
+#endif
+
                         const std::string& connectionName =
                             connectionNames[0].first;
 
