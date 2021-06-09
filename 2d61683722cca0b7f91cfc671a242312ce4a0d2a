@@ -16,6 +16,24 @@
       "revId": "2d61683722cca0b7f91cfc671a242312ce4a0d2a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "587603a1_bb7d570d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1000056
+      },
+      "writtenOn": "2021-06-09T04:59:48Z",
+      "side": 1,
+      "message": "Ed - On Nvidia\u0027s platforms, the source of this information is firmware running on GPUs or other entities connected to the GPU and to the BMC. The information itself is served to the BMC using a proprietary protocol. The BMC has a daemon that implements this protocol and then hosts the information on D-Bus.\n\nSharad - we may have to add this detail to the commit message.",
+      "parentUuid": "c438920f_3764fe67",
+      "revId": "2d61683722cca0b7f91cfc671a242312ce4a0d2a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
