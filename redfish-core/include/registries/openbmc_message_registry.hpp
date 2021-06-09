@@ -2164,6 +2164,17 @@ constexpr std::array registry = {
                      {},
                      "None.",
                  }},
+    MessageEntry{"StorageControllerError",
+                 {
+                     "Indicates that a StorageController Error occurred of "
+                     "the specified type or cause.",
+                     "StorageController Error Occurred: %1.",
+                     "Warning",
+                     "Warning",
+                     1,
+                     {"string"},
+                     "None.",
+                 }},
     MessageEntry{"SystemInterfaceDisabledProvisioned",
                  {
                      "Indicates that the system interface is in the disabled "
