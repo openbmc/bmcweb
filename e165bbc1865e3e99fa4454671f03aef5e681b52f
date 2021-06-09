@@ -1,0 +1,164 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0db10627_8257b808",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-06-09T18:59:31Z",
+      "side": 1,
+      "message": "?",
+      "range": {
+        "startLine": 10,
+        "startChar": 13,
+        "endLine": 10,
+        "endChar": 21
+      },
+      "revId": "e165bbc1865e3e99fa4454671f03aef5e681b52f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2502bd9b_b8cfb601",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-06-09T18:59:31Z",
+      "side": 1,
+      "message": "hypermedia API",
+      "range": {
+        "startLine": 15,
+        "startChar": 23,
+        "endLine": 15,
+        "endChar": 35
+      },
+      "revId": "e165bbc1865e3e99fa4454671f03aef5e681b52f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6303ce1d_9d2fb1e5",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-06-09T18:59:31Z",
+      "side": 1,
+      "message": "Redfish ? DMTF Redfish? have an extra space in there too.\nE.g. \"Redfish is a hypermedia API where ...\" ?",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 17
+      },
+      "revId": "e165bbc1865e3e99fa4454671f03aef5e681b52f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "26bbfaa8_aee9c13c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-06-09T18:59:31Z",
+      "side": 1,
+      "message": "Jenkins doesn\u0027t matter here, you could run the Redfish Validator from a lot of places. \nE.g. \"Restricting the link allows the Redfish Validator to pass.\" ?",
+      "revId": "e165bbc1865e3e99fa4454671f03aef5e681b52f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9612f488_b55cc013",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-06-09T18:59:31Z",
+      "side": 1,
+      "message": "Can you add a sentence about which roles this impacts? \nE.g. \"This impacts roles without ConfigureManager, which include operator and read-only. No access is not impacted since it already did not have access\" ?",
+      "revId": "e165bbc1865e3e99fa4454671f03aef5e681b52f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e8cbf3d1_b5f0ad54",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-06-09T18:59:31Z",
+      "side": 1,
+      "message": "Which one? ;) \nE.g. \"Test passed for root, operator, and read-only roles? And new errors for no access role\"?",
+      "range": {
+        "startLine": 26,
+        "startChar": 11,
+        "endLine": 26,
+        "endChar": 56
+      },
+      "revId": "e165bbc1865e3e99fa4454671f03aef5e681b52f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fe66c20a_3b5d99ad",
+        "filename": "redfish-core/include/node.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-06-09T18:59:31Z",
+      "side": 1,
+      "message": "I think this is a mistake adding. \nWe should not be adding this back.",
+      "revId": "e165bbc1865e3e99fa4454671f03aef5e681b52f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a3642065_e5a9ad96",
+        "filename": "redfish-core/lib/network_protocol.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 199,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-06-09T18:59:31Z",
+      "side": 1,
+      "message": "Please update",
+      "revId": "e165bbc1865e3e99fa4454671f03aef5e681b52f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
