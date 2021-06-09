@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "84a27481_f9dcfb4a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 9
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-06-09T00:10:28Z",
+      "side": 1,
+      "message": "Same here. Before this goes, can you update?",
+      "revId": "c0b8cecd90777cc1858987e9fbb1bac3de71320f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
