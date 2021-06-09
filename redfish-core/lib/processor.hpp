@@ -23,6 +23,7 @@
 #include <sdbusplus/utility/dedup_variant.hpp>
 #include <utils/collection.hpp>
 #include <utils/json_utils.hpp>
+#include <utils/name_utils.hpp>
 
 namespace redfish
 {
@@ -205,6 +206,12 @@ inline void getCpuDataByService(std::shared_ptr<bmcweb::AsyncResp> aResp,
             aResp->res.jsonValue["Id"] = cpuId;
             aResp->res.jsonValue["Name"] = "Processor";
             aResp->res.jsonValue["ProcessorType"] = "CPU";
+
+            name_util::getPrettyName(
+                aResp, objPath,
+                std::vector<const char*>(processorInterfaces.begin(),
+                                         processorInterfaces.end()),
+                &aResp->res.jsonValue["Name"]);
 
             bool slotPresent = false;
             std::string corePath = objPath + "/core";
