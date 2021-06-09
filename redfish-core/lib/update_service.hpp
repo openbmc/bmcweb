@@ -21,6 +21,7 @@
 #include <boost/container/flat_map.hpp>
 #include <registries/privilege_registry.hpp>
 #include <utils/fw_utils.hpp>
+#include <utils/name_utils.hpp>
 
 #include <variant>
 
@@ -912,6 +913,12 @@ inline void requestRoutesSoftwareInventory(App& app)
                             obj.second[0].first, obj.first,
                             "org.freedesktop.DBus.Properties", "GetAll",
                             "xyz.openbmc_project.Software.Version");
+
+                        asyncResp->res.jsonValue["Name"] = "Software Inventory";
+                        name_util::getPrettyName(
+                            asyncResp, obj.first,
+                            {"xyz.openbmc_project.Software.Version"},
+                            &asyncResp->res.jsonValue["Name"]);
                     }
                     if (!found)
                     {
@@ -925,7 +932,6 @@ inline void requestRoutesSoftwareInventory(App& app)
                     }
                     asyncResp->res.jsonValue["@odata.type"] =
                         "#SoftwareInventory.v1_1_0.SoftwareInventory";
-                    asyncResp->res.jsonValue["Name"] = "Software Inventory";
                     asyncResp->res.jsonValue["Status"]["HealthRollup"] = "OK";
 
                     asyncResp->res.jsonValue["Updateable"] = false;
