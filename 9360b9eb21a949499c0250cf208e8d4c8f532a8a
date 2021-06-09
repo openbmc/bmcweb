@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "6e226c5a_1a8de0fd",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-06-09T18:25:04Z",
+      "side": 1,
+      "message": "This has a merge conflict and must get merged first.",
+      "revId": "9360b9eb21a949499c0250cf208e8d4c8f532a8a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "1858576f_be88f7c6",
         "filename": "redfish-core/lib/processor.hpp",
         "patchSetId": 4
