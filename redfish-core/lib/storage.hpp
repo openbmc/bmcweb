@@ -22,6 +22,7 @@
 #include <dbus_utility.hpp>
 #include <registries/privilege_registry.hpp>
 #include <sdbusplus/asio/property.hpp>
+#include <utils/log_utils.hpp>
 
 namespace redfish
 {
@@ -424,9 +425,71 @@ inline void requestRoutesDrive(App& app)
                     const std::string& connectionName =
                         connectionNames[0].first;
 
+<<<<<<< HEAD
                     getDriveAsset(asyncResp, connectionName, path);
                     getDrivePresent(asyncResp, connectionName, path);
                     getDriveState(asyncResp, connectionName, path);
+=======
+                    crow::connections::systemBus->async_method_call(
+                        [asyncResp](const boost::system::error_code ec2,
+                                    const std::variant<bool> rebuilding) {
+                            // this interface isn't necessary, only check it
+                            // if we get a good return
+                            if (ec2)
+                            {
+                                return;
+                            }
+                            const bool* updating =
+                                std::get_if<bool>(&rebuilding);
+                            if (updating == nullptr)
+                            {
+                                BMCWEB_LOG_DEBUG << "Illegal property present";
+                                messages::internalError(asyncResp->res);
+                                return;
+                            }
+
+                            // updating and disabled in the backend
+                            // shouldn't be able to be set at the same time,
+                            // so we don't need to check for the race
+                            // condition of these two calls
+                            if ((*updating))
+                            {
+                                asyncResp->res.jsonValue["Status"]["State"] =
+                                    "Updating";
+                            }
+                        },
+                        connectionName, path, "org.freedesktop.DBus.Properties",
+                        "Get", "xyz.openbmc_project.State.Drive", "Rebuilding");
+
+                    location_util::getLocation(
+                        asyncResp, path, connectionName,
+                        connectionNames[0].second,
+                        "/PhysicalLocation"_json_pointer);
+
+                    asyncResp->res.jsonValue["Actions"]["#Drive.Reset"] = {
+                        {"target", "/redfish/v1/Systems/system/Storage/" +
+                                       storageId + "/Drives/" + driveId +
+                                       "/Actions/Drive.Reset"},
+                        {"@Redfish.ActionInfo",
+                         "/redfish/v1/Systems/system/Storage/" + storageId +
+                             "/Drives/" + driveId + "/ResetActionInfo/"}};
+
+                    getChassisId(
+                        asyncResp, path,
+                        [asyncResp,
+                         driveId](std::optional<std::string> chassisId) {
+                            if (chassisId.has_value())
+                            {
+                                log_utils::populateDeviceLogEntries(
+                                    asyncResp,
+                                    "/xyz/openbmc_project/logging/devices/" +
+                                        chassisId.value(),
+                                    "/redfish/v1/Chassis/" + chassisId.value() +
+                                        "/LogServices/DeviceLog/Entries/",
+                                    "OpenBmc.0.2.DriveError", driveId);
+                            }
+                        });
+>>>>>>> 77c1e5e (WIP: LogEntry: Link device log to Drive and Processor)
                 },
                 "xyz.openbmc_project.ObjectMapper",
                 "/xyz/openbmc_project/object_mapper",
