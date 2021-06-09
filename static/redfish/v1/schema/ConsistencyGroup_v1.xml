@@ -1,0 +1,266 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!---->
+<!-- Copyright 2015-2019 Storage Networking Industry Association (SNIA), USA. All rights reserved.-->
+<edmx:Edmx xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx" Version="4.0">
+	<edmx:Reference Uri="http://docs.oasis-open.org/odata/odata/v4.0/errata03/csd01/complete/vocabularies/Org.OData.Core.V1.xml">
+		<edmx:Include Namespace="Org.OData.Core.V1" Alias="OData"/>
+	</edmx:Reference>
+	<edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/RedfishExtensions_v1.xml">
+		<edmx:Include Namespace="RedfishExtensions.v1_0_0" Alias="Redfish"/>
+	</edmx:Reference>
+	<edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/Resource_v1.xml">
+		<edmx:Include Namespace="Resource"/>
+		<edmx:Include Namespace="Resource.v1_0_0"/>
+	</edmx:Reference>
+	<edmx:Reference Uri="http://docs.oasis-open.org/odata/odata/v4.0/errata03/csd01/complete/vocabularies/Org.OData.Capabilities.V1.xml">
+		<edmx:Include Namespace="Org.OData.Capabilities.V1" Alias="Capabilities"/>
+	</edmx:Reference>
+	<edmx:Reference Uri="http://redfish.dmtf.org/schemas/swordfish/v1/Volume_v1.xml">
+		<edmx:Include Namespace="Volume"/>
+	</edmx:Reference>
+	<edmx:Reference Uri="http://redfish.dmtf.org/schemas/swordfish/v1/StorageReplicaInfo_v1.xml">
+		<edmx:Include Namespace="StorageReplicaInfo"/>
+		<edmx:Include Namespace="StorageReplicaInfo.v1_3_0"/>
+	</edmx:Reference>
+
+	<edmx:DataServices>
+		<Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ConsistencyGroup">
+			<Annotation Term="Redfish.OwningEntity" String="SNIA"/>
+			<EntityType Name="ConsistencyGroup" BaseType="Resource.v1_0_0.Resource" Abstract="true">
+				<Annotation Term="OData.Description" String="A collection of volumes grouped together to ensure write order consistency across all those volumes."/>
+				<Annotation
+					Term="OData.LongDescription"
+					String="A collection of volumes grouped together to ensure write order consistency across all those volumes. A management operation on a consistency group, such as configuring replication properties, applies to all the volumes within the consistency group."/>
+					<Annotation Term="Capabilities.InsertRestrictions">
+					  <Record>
+					    <PropertyValue Property="Insertable" Bool="false"/>
+					  </Record>
+					</Annotation>
+					<Annotation Term="Capabilities.UpdateRestrictions">
+					  <Record>
+					    <PropertyValue Property="Updatable" Bool="true"/>
+					    <Annotation Term="OData.Description" String="ConsistencyGroup resources can be updated to change the writable properties."/>
+					  </Record>
+					</Annotation>
+					<Annotation Term="Capabilities.DeleteRestrictions">
+					  <Record>
+					    <PropertyValue Property="Deletable" Bool="true"/>
+					    <Annotation Term="OData.Description" String="ConsistencyGroup resources can be deleted by deleting the ConsistencyGroup resource."/>
+					  </Record>
+          </Annotation>
+					<Annotation Term="Redfish.Uris">
+						<Collection>
+							<String>/redfish/v1/Storage/{StorageId}/ConsistencyGroups/{ConsistencyGroupId}</String>
+							<String>/redfish/v1/Systems/{ComputerSystemId}/Storage/{StorageId}/ConsistencyGroups/{ConsistencyGroupId}</String>
+							<String>/redfish/v1/StorageServices/{StorageServiceId}/ConsistencyGroups/{ConsistencyGroupId}</String>
+							<String>/redfish/v1/StorageServices/{StorageServiceId}/Volumes/{VolumeId}/ConsistencyGroups/{ConsistencyGroupId}</String>
+						</Collection>
+					</Annotation>
+			</EntityType>
+
+			<EnumType Name="ConsistencyType">
+				<Member Name="CrashConsistent">
+					<Annotation Term="OData.Description" String="Requested operations are either triggered or instituted without regard to pending IO."/>
+				</Member>
+				<Member Name="ApplicationConsistent">
+					<Annotation Term="OData.Description" String="Orchestration exists to either flush or halt pending IO to ensure operations occur in a transactionally consistent manner."/>
+				</Member>
+			</EnumType>
+
+			<EnumType Name="ApplicationConsistencyMethod">
+				<Member Name="HotStandby">
+					<Annotation Term="OData.Description" String="Supports consistency method commonly orchestrated using application-specific code."/>
+				</Member>
+				<Member Name="VASA">
+					<Annotation Term="OData.Description" String="Supports VMware consistency requirements, such as for VASA and VVOLs."/>
+				</Member>
+				<Member Name="VDI">
+					<Annotation Term="OData.Description" String="Supports Microsoft virtual backup device interface (VDI)."/>
+				</Member>
+				<Member Name="VSS">
+					<Annotation Term="OData.Description" String="Supports Microsoft VSS."/>
+				</Member>
+				<Member Name="Other">
+					<Annotation Term="OData.Description" String="Supports consistency method orchestrated using vendor-specific code."/>
+				</Member>
+			</EnumType>
+
+		</Schema>
+
+		<Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ConsistencyGroup.v1_0_0">
+			<Annotation Term="Redfish.OwningEntity" String="SNIA"/>
+			<Annotation Term="Redfish.Release" String="WIP v1.1.0"/>
+			<EntityType Name="ConsistencyGroup" BaseType="ConsistencyGroup.ConsistencyGroup">
+				<Annotation Term="OData.Description" String="A collection of volumes grouped together to ensure write order consistency across all those volumes."/>
+				<Annotation
+					Term="OData.LongDescription"
+					String="A collection of volumes grouped together to ensure write order consistency across all those volumes. A management operation on a consistency group, such as configuring replication properties, applies to all the volumes within the consistency group."/>
+				<Property Name="IsConsistent" Type="Edm.Boolean">
+					<Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+					<Annotation Term="OData.Description" String="This value is true when the consistency group is in a consistent state."/>
+					<Annotation Term="OData.LongDescription" String="The value of this property shall be set to true when the consistency group is in a consistent state."/>
+				</Property>
+				<Property Name="ConsistencyMethod" Type="ConsistencyGroup.ApplicationConsistencyMethod">
+					<Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+					<Annotation Term="OData.Description" String="The consistency method used by this group."/>
+					<Annotation Term="OData.LongDescription" String="The property shall set the consistency method used by this group."/>
+				</Property>
+				<Property Name="ConsistencyType" Type="ConsistencyGroup.ConsistencyType">
+					<Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+					<Annotation Term="OData.Description" String="The consistency type used by this group."/>
+					<Annotation Term="OData.LongDescription" String="This property shall set the consistency type used by this group."/>
+				</Property>
+				<Property Name="Status" Type="Resource.Status" Nullable="false">
+					<Annotation Term="OData.Description" String="The property contains the status of the ConsistencyGroup."/>
+					<Annotation Term="OData.LongDescription" String="The property shall contain the status of the ConsistencyGroup."/>
+				</Property>
+				<Property Name="ReplicaInfo" Type="StorageReplicaInfo.v1_3_0.ReplicaInfo" Nullable="false">
+					<Annotation Term="OData.Description" String="Describes this storage group in its role as a target for replication."/>
+					<Annotation Term="OData.LongDescription" String="This property shall describe the replication relationship between this storage group and a corresponding source storage group."/>
+				</Property>
+				<NavigationProperty Name="ReplicaTargets" Type="Collection(Resource.Item)">
+					<Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+					<Annotation Term="OData.Description" String="The resources that are target replicas of this source."/>
+					<Annotation Term="OData.LongDescription" String="The value shall reference the target replicas that are sourced by this replica."/>
+					<Annotation Term="OData.AutoExpandReferences"/>
+				</NavigationProperty>
+				<NavigationProperty Name="Volumes" Type="Collection(Volume.Volume)">
+					<Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+					<Annotation Term="OData.Description" String="Volumes in this storage group."/>
+					<Annotation Term="OData.LongDescription" String="An array of references to volumes managed by this storage group."/>
+					<Annotation Term="OData.AutoExpandReferences"/>
+				</NavigationProperty>
+				<Property Name="Links" Type="ConsistencyGroup.v1_0_0.Links" Nullable="false">
+					<Annotation Term="OData.Description" String="Contains links to other resources that are related to this resource."/>
+					<Annotation Term="OData.LongDescription" String="This property shall contain links to other resources that are related to this resource."/>
+				</Property>
+				<Property Name="Actions" Type="ConsistencyGroup.v1_0_0.Actions" Nullable="false">
+					<Annotation Term="OData.Description" String="The available actions for this resource."/>
+					<Annotation Term="OData.LongDescription" String="The Actions property shall contain the available actions for this resource."/>
+				</Property>
+			</EntityType>
+
+			<ComplexType Name="Links" BaseType="Resource.Links">
+				<Annotation Term="OData.Description" String="Contains links to other resources that are related to this resource."/>
+				<Annotation Term="OData.LongDescription" String="This structure shall contain references to resources that are not contained within this resource."/>
+			</ComplexType>
+
+			<ComplexType Name="Actions">
+				<Annotation Term="OData.AdditionalProperties" Bool="false"/>
+				<Annotation Term="OData.Description" String="The available actions for this resource."/>
+				<Annotation Term="OData.LongDescription" String="This property shall contain any actions for this resource."/>
+				<Property Name="Oem" Type="ConsistencyGroup.v1_0_0.OemActions" Nullable="false">
+					<Annotation Term="OData.Description" String="This property contains the available OEM specific actions for this resource."/>
+					<Annotation Term="OData.LongDescription" String="This property shall contain any additional OEM actions for this resource."/>
+				</Property>
+			</ComplexType>
+
+			<ComplexType Name="OemActions">
+				<Annotation Term="OData.AdditionalProperties" Bool="true"/>
+				<Annotation Term="OData.Description" String="The available OEM specific actions for this resource."/>
+				<Annotation Term="OData.LongDescription" String="This type shall contain any additional OEM actions for this resource."/>
+			</ComplexType>
+
+			<Action Name="AssignReplicaTarget" IsBound="true">
+				<Parameter Name="ConsistencyGroup" Type="ConsistencyGroup.v1_0_0.Actions"/>
+				<Parameter Name="ReplicaUpdateMode" Type="StorageReplicaInfo.ReplicaUpdateMode" Nullable="false">
+					<Annotation Term="OData.Description" String="The replica update mode (synchronous vs asynchronous)."/>
+					<Annotation Term="OData.LongDescription" String="This parameter shall specify the replica update mode."/>
+				</Parameter>
+				<Parameter Name="TargetConsistencyGroup" Type="Edm.String" Nullable="false">
+					<Annotation Term="OData.Description" String="The Uri to the existing target consistency group."/>
+					<Annotation Term="OData.LongDescription" String="This parameter shall contain the Uri to the existing consistency group."/>
+				</Parameter>
+				<Parameter Name="ReplicaType" Type="StorageReplicaInfo.ReplicaType" Nullable="false">
+					<Annotation Term="OData.Description" String="The type of replica relationship to be created (e.g., Clone, Mirror, Snap)."/>
+					<Annotation Term="OData.LongDescription" String="This parameter shall contain the type of replica relationship to be created."/>
+				</Parameter>
+				<Annotation Term="OData.Description" String="This action is used to establish a replication relationship by assigning an existing consistency group to serve as a target replica for an existing source consistency group."/>
+				<Annotation Term="OData.LongDescription" String="This action shall be used to establish a replication relationship by assigning an existing consistency group to serve as a target replica for an existing source consistency group."/>
+			</Action>
+
+			<Action Name="CreateReplicaTarget" IsBound="true">
+				<Parameter Name="ConsistencyGroup" Type="ConsistencyGroup.v1_0_0.Actions"/>
+				<Parameter Name="ReplicaUpdateMode" Type="StorageReplicaInfo.ReplicaUpdateMode" Nullable="false">
+					<Annotation Term="OData.Description" String="The replica update mode (synchronous vs asynchronous)."/>
+					<Annotation Term="OData.LongDescription" String="This parameter shall specify the replica update mode."/>
+				</Parameter>
+				<Parameter Name="ConsistencyGroupName" Type="Edm.String" Nullable="false">
+					<Annotation Term="OData.Description" String="The Name for the new target consistency group."/>
+					<Annotation Term="OData.LongDescription" String="This parameter shall contain the Name for the target consistency group."/>
+				</Parameter>
+				<Parameter Name="TargetStoragePool" Type="Edm.String" Nullable="false">
+					<Annotation Term="OData.Description" String="The Uri to the existing target Storage Pool."/>
+					<Annotation Term="OData.LongDescription" String="This parameter shall contain the Uri to the existing StoragePool in which to create the target consistency group."/>
+				</Parameter>
+				<Parameter Name="ReplicaType" Type="StorageReplicaInfo.ReplicaType" Nullable="false">
+					<Annotation Term="OData.Description" String="The type of replica relationship to be created (e.g., Clone, Mirror, Snap)."/>
+					<Annotation Term="OData.LongDescription" String="This parameter shall contain the type of replica relationship to be created."/>
+				</Parameter>
+				<Annotation Term="OData.Description" String="This action is used to create a new consistency group resource to provide expanded data protection through a replica relationship with the specified source consistency group."/>
+				<Annotation Term="OData.LongDescription" String="This action shall be used to create a new consistency group resource to provide expanded data protection through a replica relationship with the specified source consistency group."/>
+			</Action>
+
+			<Action Name="RemoveReplicaRelationship" IsBound="true">
+				<Parameter Name="ConsistencyGroup" Type="ConsistencyGroup.v1_0_0.Actions"/>
+				<Parameter Name="TargetConsistencyGroup" Type="Edm.String" Nullable="false">
+					<Annotation Term="OData.Description" String="The Uri to the existing target consistency group."/>
+					<Annotation Term="OData.LongDescription" String="This parameter shall contain the Uri to the existing target consistency group."/>
+				</Parameter>
+				<Parameter Name="DeleteTargetConsistencyGroup" Type="Edm.Boolean">
+					<Annotation Term="OData.Description" String="Indicate whether or not to delete the target consistency group as part of the operation."/>
+					<Annotation Term="OData.LongDescription" String="This parameter shall indicate whether or not to delete the target consistency group as part of the operation. If not specified, the system should use its default behavior."/>
+				</Parameter>
+				<Annotation Term="OData.Description" String="This action is used to disable data synchronization between a source and target consistency group, remove the replication relationship, and optionally delete the target consistency group."/>
+				<Annotation Term="OData.LongDescription" String="This action shall be used to disable data synchronization between a source and target consistency group, remove the replication relationship, and optionally delete the target consistency group."/>
+			</Action>
+
+			<Action Name="ResumeReplication" IsBound="true">
+				<Parameter Name="ConsistencyGroup" Type="ConsistencyGroup.v1_0_0.Actions"/>
+				<Parameter Name="TargetConsistencyGroup" Type="Edm.String" Nullable="false">
+					<Annotation Term="OData.Description" String="The Uri to the existing target consistency group."/>
+					<Annotation Term="OData.LongDescription" String="This parameter shall contain the Uri to the existing target consistency group."/>
+				</Parameter>
+				<Annotation Term="OData.Description" String="This action is used to resume the active data synchronization between a source and target consistency group, without otherwise altering the replication relationship."/>
+				<Annotation Term="OData.LongDescription" String="This action shall be used to resume the active data synchronization between a source and target consistency group, without otherwise altering the replication relationship."/>
+			</Action>
+
+			<Action Name="ReverseReplicationRelationship" IsBound="true">
+				<Parameter Name="ConsistencyGroup" Type="ConsistencyGroup.v1_0_0.Actions"/>
+				<Parameter Name="TargetConsistencyGroup" Type="Edm.String" Nullable="false">
+					<Annotation Term="OData.Description" String="The Uri to the existing target consistency group."/>
+					<Annotation Term="OData.LongDescription" String="This parameter shall contain the Uri to the existing target consistency group."/>
+				</Parameter>
+				<Annotation Term="OData.Description" String="This action is used to reverse the replication relationship between a source and target consistency group."/>
+				<Annotation Term="OData.LongDescription" String="This action shall be used to reverse the replication relationship between a source and target consistency group."/>
+			</Action>
+
+			<Action Name="SplitReplication" IsBound="true">
+				<Parameter Name="ConsistencyGroup" Type="ConsistencyGroup.v1_0_0.Actions"/>
+				<Parameter Name="TargetConsistencyGroup" Type="Edm.String" Nullable="false">
+					<Annotation Term="OData.Description" String="The Uri to the existing target consistency group."/>
+					<Annotation Term="OData.LongDescription" String="This parameter shall contain the Uri to the existing target consistency group."/>
+				</Parameter>
+				<Annotation Term="OData.Description" String="This action is used to split the replication relationship and suspend data synchronization between a source and target consistency group."/>
+				<Annotation Term="OData.LongDescription" String="This action shall be used to split the replication relationship and suspend data synchronization between a source and target consistency group."/>
+			</Action>
+
+			<Action Name="SuspendReplication" IsBound="true">
+				<Parameter Name="ConsistencyGroup" Type="ConsistencyGroup.v1_0_0.Actions"/>
+				<Parameter Name="TargetConsistencyGroup" Type="Edm.String" Nullable="false">
+					<Annotation Term="OData.Description" String="The Uri to the existing target consistency group."/>
+					<Annotation Term="OData.LongDescription" String="This parameter shall contain the Uri to the existing target consistency group."/>
+				</Parameter>
+				<Annotation Term="OData.Description" String="This action is used to suspend active data synchronization between a source and target consistency group, without otherwise altering the replication relationship."/>
+				<Annotation Term="OData.LongDescription" String="This action shall be used to suspend active data synchronization between a source and target consistency group, without otherwise altering the replication relationship."/>
+			</Action>
+		</Schema>
+
+		<Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ConsistencyGroup.v1_0_1">
+			<Annotation Term="Redfish.OwningEntity" String="SNIA"/>
+			<Annotation Term="OData.Description" String="This version was created to update the reference to StorageReplicaInfo to version 1.3.0. It also adds Redfish.Release annotations."/>
+			<EntityType Name="ConsistencyGroup" BaseType="ConsistencyGroup.v1_0_0.ConsistencyGroup"/>
+		</Schema>
+
+	</edmx:DataServices>
+</edmx:Edmx>

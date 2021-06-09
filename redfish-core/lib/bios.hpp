@@ -1,7 +1,11 @@
 #pragma once
 
+#include <generatedStatic/dataModel/Bios_v1.h>
+#include <generatedStatic/serialize/json_bios.h>
+
 #include <app.hpp>
 #include <utils/fw_utils.hpp>
+
 namespace redfish
 {
 /**
@@ -14,17 +18,17 @@ inline void requestRoutesBiosService(App& app)
         .methods(boost::beast::http::verb::get)(
             [](const crow::Request&,
                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
-                asyncResp->res.jsonValue["@odata.id"] =
-                    "/redfish/v1/Systems/system/Bios";
-                asyncResp->res.jsonValue["@odata.type"] = "#Bios.v1_1_0.Bios";
-                asyncResp->res.jsonValue["Name"] = "BIOS Configuration";
-                asyncResp->res.jsonValue["Description"] =
-                    "BIOS Configuration Service";
-                asyncResp->res.jsonValue["Id"] = "BIOS";
-                asyncResp->res.jsonValue["Actions"]["#Bios.ResetBios"] = {
-                    {"target",
-                     "/redfish/v1/Systems/system/Bios/Actions/Bios.ResetBios"}};
+                BiosV1Bios bios;
+                bios.id = "/redfish/v1/Systems/system/Bios";
+                bios.type = "#Bios.v1_1_0.Bios";
+                bios.name = "BIOS Configuration";
+                bios.description = "BIOS Configuration Service";
+                bios.id = "BIOS";
+                bios.actions.resetBios.target = "target";
+                bios.actions.resetBios.uri =
+                    "/redfish/v1/Systems/system/Bios/Actions/Bios.ResetBios";
 
+                jsonSerializeBios(asyncResp, &bios);
                 // Get the ActiveSoftwareImage and SoftwareImages
                 fw_util::populateFirmwareInformation(
                     asyncResp, fw_util::biosPurpose, "", true);

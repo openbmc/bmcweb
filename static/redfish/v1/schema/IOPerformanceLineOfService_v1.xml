@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!---->
+<!-- Copyright 2015-2019 Storage Networking Industry Association (SNIA), USA. All rights reserved.-->
+<edmx:Edmx xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx" Version="4.0">
+  <edmx:Reference Uri="http://docs.oasis-open.org/odata/odata/v4.0/errata03/csd01/complete/vocabularies/Org.OData.Core.V1.xml">
+    <edmx:Include Namespace="Org.OData.Core.V1" Alias="OData"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://docs.oasis-open.org/odata/odata/v4.0/errata03/csd01/complete/vocabularies/Org.OData.Measures.V1.xml">
+    <edmx:Include Namespace="Org.OData.Measures.V1" Alias="Measures"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/RedfishExtensions_v1.xml">
+    <edmx:Include Namespace="RedfishExtensions.v1_0_0" Alias="Redfish"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://docs.oasis-open.org/odata/odata/v4.0/errata03/csd01/complete/vocabularies/Org.OData.Capabilities.V1.xml">
+    <edmx:Include Namespace="Org.OData.Capabilities.V1" Alias="Capabilities"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/Resource_v1.xml">
+    <edmx:Include Namespace="Resource"/>
+    <edmx:Include Namespace="Resource.v1_0_0"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/swordfish/v1/LineOfService_v1.xml">
+    <edmx:Include Namespace="LineOfService"/>
+    <edmx:Include Namespace="LineOfService.v1_0_0"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/swordfish/v1/IOPerformanceLoSCapabilities_v1.xml">
+    <edmx:Include Namespace="IOPerformanceLoSCapabilities"/>
+    <edmx:Include Namespace="IOPerformanceLoSCapabilities.v1_0_0"/>
+  </edmx:Reference>
+
+  <edmx:DataServices>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="IOPerformanceLineOfService">
+      <Annotation Term="Redfish.OwningEntity" String="SNIA"/>
+      <EntityType Name="IOPerformanceLineOfService" BaseType="LineOfService.v1_0_0.LineOfService" Abstract="true">
+        <Annotation Term="OData.Description" String="Describe service option within the IO performance line of service."/>
+        <Annotation Term="OData.LongDescription" String="This structure may be used to define a service option related to IO performance."/>
+
+        <Annotation Term="Capabilities.InsertRestrictions">
+          <Record>
+            <PropertyValue Property="Insertable" Bool="false"/>
+          </Record>
+        </Annotation>
+        <Annotation Term="Capabilities.UpdateRestrictions">
+          <Record>
+            <PropertyValue Property="Updatable" Bool="true"/>
+            <Annotation Term="OData.Description" String="IOPerformanceLineOfService resources can be updated to change the writable properties."/>
+          </Record>
+        </Annotation>
+        <Annotation Term="Capabilities.DeleteRestrictions">
+          <Record>
+            <PropertyValue Property="Deletable" Bool="true"/>
+            <Annotation Term="OData.Description" String="IOPerformanceLineOfService resources can be deleted by deleting the IOPerformanceLineOfService resource."/>
+          </Record>
+        </Annotation>
+
+        <Annotation Term="Redfish.Uris">
+          <Collection>
+            <String>/redfish/v1/StorageServices/{StorageServiceId}/LinesOfService/IOPerformanceLinesOfService/{IOPerformanceLineOfServiceId}</String>
+            <String>/redfish/v1/StorageServices/{StorageServiceId}/ClassesOfService/{ClassOfServiceId}/IOPerformanceLinesOfService/{IOPerformanceLineOfServiceId}</String>
+          </Collection>
+        </Annotation>
+      </EntityType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="IOPerformanceLineOfService.v1_0_0">
+      <Annotation Term="Redfish.OwningEntity" String="SNIA"/>
+      <Annotation Term="Redfish.Release" String="TP v1.0.3"/>
+      <EntityType Name="IOPerformanceLineOfService" BaseType="IOPerformanceLineOfService.IOPerformanceLineOfService">
+        <Annotation Term="OData.Description" String="Describe service option within the IO performance line of service."/>
+        <Annotation Term="OData.LongDescription" String="This structure may be used to define a service option related to IO performance."/>
+
+        <Property Name="IOOperationsPerSecondIsLimited" Type="Edm.Boolean" DefaultValue="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="Limit the IOPS."/>
+          <Annotation Term="OData.LongDescription" String="If true, the system should not allow IOPS to exceed MaxIoOperationsPerSecondPerTerabyte * VolumeSize. Otherwise, the system shall not enforce a limit.  The default value for this property is false."/>
+        </Property>
+        <Property Name="SamplePeriod" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="Sampling period over which average values are calculated."/>
+          <Annotation Term="OData.LongDescription" String="The value shall be an ISO 8601 duration specifying the sampling period over which average values are calculated."/>
+        </Property>
+        <Property Name="MaxIOOperationsPerSecondPerTerabyte" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The amount of IOPS a volume of a given committed size can support."/>
+          <Annotation
+            Term="OData.LongDescription"
+            String="The value shall be the amount of IOPS a volume of a given committed size in Terabytes can support. This IOPS density value is useful as a metric that is independent of capacity. Cost is a function of this value and the AverageIOOperationLatencyMicroseconds."/>
+          <Annotation Term="Measures.Unit" String="1/s/TBy"/>
+        </Property>
+        <Property Name="AverageIOOperationLatencyMicroseconds" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="Expected average IO latency."/>
+          <Annotation Term="OData.LongDescription" String="The value shall be the expected average IO latency in microseconds calculated over sample periods (see SamplePeriodSeconds)."/>
+          <Annotation Term="Measures.Unit" String="us"/>
+        </Property>
+        <Property Name="IOWorkload" Type="IOPerformanceLoSCapabilities.v1_0_0.IOWorkload" Nullable="false">
+          <Annotation Term="OData.Description" String="A description of the expected workload."/>
+          <Annotation
+            Term="OData.LongDescription"
+            String="The value shall be a description of the expected workload. The workload provides the context in which the values of MaxIOOperationsPerSecondPerTerabyte and AverageIOOperationLatencyMicroseconds are expected to be achievable."/>
+        </Property>
+      </EntityType>
+
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="IOPerformanceLineOfService.v1_0_1">
+      <Annotation Term="Redfish.OwningEntity" String="SNIA"/>
+      <Annotation Term="OData.Description" String="Change references to unversioned."/>
+      <EntityType Name="IOPerformanceLineOfService" BaseType="IOPerformanceLineOfService.v1_0_0.IOPerformanceLineOfService"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="IOPerformanceLineOfService.v1_0_2">
+      <Annotation Term="Redfish.OwningEntity" String="SNIA"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that OData properties are marked as required, and integer properties are marked as integer rather than number."/>
+      <EntityType Name="IOPerformanceLineOfService" BaseType="IOPerformanceLineOfService.v1_0_1.IOPerformanceLineOfService"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="IOPerformanceLineOfService.v1_0_3">
+      <Annotation Term="Redfish.OwningEntity" String="SNIA"/>
+      <Annotation Term="OData.Description" String="This version was created to fix CSDL errors and adds both Redfish Uris and Capability Annotations."/>
+      <EntityType Name="IOPerformanceLineOfService" BaseType="IOPerformanceLineOfService.v1_0_2.IOPerformanceLineOfService"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="IOPerformanceLineOfService.v1_1_0">
+      <Annotation Term="Redfish.OwningEntity" String="SNIA"/>
+      <Annotation Term="Redfish.Release" String="WIP v1.1.0"/>
+      <Annotation Term="OData.Description" String="The BaseType was changed from Resource to the LineOfService class. This version also fixes CSDL errors."/>
+      <EntityType Name="IOPerformanceLineOfService" BaseType="IOPerformanceLineOfService.v1_0_2.IOPerformanceLineOfService">
+        <Property Name="Actions" Type="IOPerformanceLineOfService.v1_1_0.Actions" Nullable="false">
+          <Annotation Term="OData.Description" String="The available actions for this resource."/>
+          <Annotation Term="OData.LongDescription" String="The Actions property shall contain the available actions for this resource."/>
+        </Property>
+      </EntityType>
+
+      <ComplexType Name="Actions">
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="OData.Description" String="The available actions for this resource."/>
+        <Annotation Term="OData.LongDescription" String="The Actions property shall contain the available actions for this resource."/>
+        <Property Name="Oem" Type="IOPerformanceLineOfService.v1_1_0.OemActions" Nullable="false">
+          <Annotation Term="OData.Description" String="This property contains the available OEM specific actions for this resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain any additional OEM actions for this resource."/>
+        </Property>
+      </ComplexType>
+
+      <ComplexType Name="OemActions">
+        <Annotation Term="OData.AdditionalProperties" Bool="true"/>
+        <Annotation Term="OData.Description" String="The available OEM specific actions for this resource."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain any additional OEM actions for this resource."/>
+      </ComplexType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="IOPerformanceLineOfService.v1_1_1">
+      <Annotation Term="Redfish.OwningEntity" String="SNIA"/>
+      <Annotation Term="OData.Description" String="This version was created to fix Redfish Uris issues."/>
+      <EntityType Name="IOPerformanceLineOfService" BaseType="IOPerformanceLineOfService.v1_1_0.IOPerformanceLineOfService"/>
+    </Schema>
+
+  </edmx:DataServices>
+</edmx:Edmx>

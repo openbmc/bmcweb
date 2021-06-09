@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!---->
+<!-- Copyright 2020 Storage Networking Industry Association (SNIA), USA. All rights reserved.-->
+<edmx:Edmx xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx" Version="4.0">
+
+  <edmx:Reference Uri="http://docs.oasis-open.org/odata/odata/v4.0/errata03/csd01/complete/vocabularies/Org.OData.Core.V1.xml">
+    <edmx:Include Namespace="Org.OData.Core.V1" Alias="OData"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://docs.oasis-open.org/odata/odata/v4.0/errata03/csd01/complete/vocabularies/Org.OData.Capabilities.V1.xml">
+    <edmx:Include Namespace="Org.OData.Capabilities.V1" Alias="Capabilities"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://docs.oasis-open.org/odata/odata/v4.0/errata03/csd01/complete/vocabularies/Org.OData.Measures.V1.xml">
+    <edmx:Include Namespace="Org.OData.Measures.V1" Alias="Measures"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/RedfishExtensions_v1.xml">
+    <edmx:Include Namespace="RedfishExtensions.v1_0_0" Alias="Redfish"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/Resource_v1.xml">
+    <edmx:Include Namespace="Resource"/>
+    <edmx:Include Namespace="Resource.v1_0_0"/>
+  </edmx:Reference>
+
+  <edmx:DataServices>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="NVMeFirmwareImage">
+      <Annotation Term="Redfish.OwningEntity" String="SNIA"/>
+
+      <EntityType Name="NVMeFirmwareImage" BaseType="Resource.v1_0_0.Resource" Abstract="true">
+        <Annotation Term="OData.Description" String="This is the schema definition for NVMe Domain firmware image properties."/>
+        <Annotation Term="OData.LongDescription" String="This resource shall be used to represent a the NVMe Domain firmware image properties."/>
+        <Annotation Term="Capabilities.InsertRestrictions">
+          <Record>
+            <PropertyValue Property="Insertable" Bool="false"/>
+          </Record>
+        </Annotation>
+        <Annotation Term="Capabilities.UpdateRestrictions">
+          <Record>
+            <PropertyValue Property="Updatable" Bool="false"/>
+            <Annotation Term="OData.Description" String="Any writable properties can be updated."/>
+          </Record>
+        </Annotation>
+        <Annotation Term="Capabilities.DeleteRestrictions">
+          <Record>
+            <PropertyValue Property="Deletable" Bool="true"/>
+            <Annotation Term="OData.Description" String="Implementations may allow firmware images to be deleted."/>
+          </Record>
+        </Annotation>
+        <Annotation Term="Redfish.Uris">
+          <Collection>
+            <String>/redfish/v1/NVMeDomains/{DomainId}/AvailableFirmwareImages/{FirmwareImageId}</String>
+          </Collection>
+        </Annotation>
+      </EntityType>
+
+      <EnumType Name="NVMeDeviceType">
+        <Member Name="Drive">
+          <Annotation Term="OData.Description" String="Specifies an  device type of Drive, indicating a NVMe device that presents as an NVMe SSD device."/>
+          <Annotation Term="OData.LongDescription" String="Specifies an  device type of Drive, indicating a NVMe device that presents as an NVMe SSD device."/>
+        </Member>
+        <Member Name="JBOF">
+          <Annotation Term="OData.Description" String="Specifies an  device type of JBOF, indicating a NVMe device that presents as an NVMe smart enclosure for NVMe devices, typically NVMe Drives."/>
+          <Annotation Term="OData.LongDescription" String="Specifies an  device type of JBOF, indicating a NVMe device that presents as an NVMe smart enclosure for NVMe devices, typically NVMe Drives."/>
+        </Member>
+        <Member Name="FabricAttachArray">
+          <Annotation
+            Term="OData.Description"
+            String="Specifies an  NVMe device type of FabricAttachArray, indicating a NVMe device that presents an NVMe front-end that abstracts the back end storage, typically with multiple options for availability and protection."/>
+          <Annotation
+            Term="OData.LongDescription"
+            String="Specifies an  NVMe device type of FabricAttachArray, indicating a NVMe device that presents an NVMe front-end that abstracts the back end storage, typically with multiple options for availability and protection."/>
+        </Member>
+      </EnumType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="NVMeFirmwareImage.v1_0_0">
+      <Annotation Term="Redfish.OwningEntity" String="SNIA"/>
+      <Annotation Term="Redfish.Release" String="WIP v1.2.0"/>
+
+      <EntityType Name="NVMeFirmwareImage" BaseType="NVMeFirmwareImage.NVMeFirmwareImage">
+        <Annotation Term="OData.Description" String="NVMe Domain firmware image information."/>
+        <Annotation Term="OData.LongDescription" String="NVMe Domain firmware image information."/>
+
+        <Property Name="FirmwareVersion" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The firmware version of the available NVMe firmware image."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the firmware version of the available NVMe firmware image."/>
+        </Property>
+        <Property Name="Vendor" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The vendor or manufacturer associated with this NVMe firmware image."/>
+          <Annotation Term="OData.LongDescription" String="This property shall include the name of the manufacturer or vendor associate with this NVMe firmware image."/>
+        </Property>
+        <Property Name="NVMeDeviceType" Type="NVMeFirmwareImage.NVMeDeviceType">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The type of NVMe Device this image is associated with."/>
+          <Annotation Term="OData.LongDescription" String="This property shall specify the type of NVMe device for this NVMe firmware image."/>
+        </Property>
+        <Property Name="Actions" Type="NVMeFirmwareImage.v1_0_0.Actions" Nullable="false">
+          <Annotation Term="OData.Description" String="The available actions for this resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the available actions for this resource."/>
+        </Property>
+      </EntityType>
+
+      <ComplexType Name="Links" BaseType="Resource.Links">
+        <Annotation Term="OData.Description" String="The links to other resources that are related to this resource."/>
+        <Annotation Term="OData.LongDescription" String="This Redfish Specification-described type shall contain links to resources that are related to but are not contained by or subordinate to this resource."/>
+
+      </ComplexType>
+
+      <ComplexType Name="Actions">
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="OData.Description" String="The available actions for this resource."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain the available actions for this resource."/>
+        <Property Name="Oem" Type="NVMeFirmwareImage.v1_0_0.OemActions" Nullable="false">
+          <Annotation Term="OData.Description" String="The available OEM-specific actions for this resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the available OEM-specific actions for this resource."/>
+        </Property>
+      </ComplexType>
+
+      <ComplexType Name="OemActions">
+        <Annotation Term="OData.AdditionalProperties" Bool="true"/>
+        <Annotation Term="OData.Description" String="The available OEM-specific actions for this resource."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain the available OEM-specific actions for this resource."/>
+      </ComplexType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="NVMeFirmwareImage.v1_1_0">
+      <Annotation Term="Redfish.OwningEntity" String="SNIA"/>
+      <Annotation Term="Redfish.Release" String="TP v1.2.2"/>
+      <Annotation Term="OData.Description" String="This version was created to move the NVMeFirmwareImage into a separate namespace."/>
+      <EntityType Name="NVMeFirmwareImage" BaseType="NVMeFirmwareImage.v1_0_0.NVMeFirmwareImage"/>
+    </Schema>
+
+  </edmx:DataServices>
+</edmx:Edmx>
