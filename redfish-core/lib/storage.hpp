@@ -24,6 +24,7 @@
 #include <registries/privilege_registry.hpp>
 #include <sdbusplus/asio/property.hpp>
 #include <utils/location_utils.hpp>
+#include <utils/log_utils.hpp>
 
 #include <unordered_set>
 #include <variant>
@@ -272,6 +273,10 @@ inline void
                 subHealth->inventory.emplace_back(path);
                 health->inventory.emplace_back(path);
                 health->children.emplace_back(subHealth);
+                log_utils::getLogEntry(
+                    asyncResp,
+                    "/StorageControllers"_json_pointer / index / "Status", path,
+                    "OpenBMC.0.2.0.StorageControllerError");
             }
         },
         "xyz.openbmc_project.ObjectMapper", parent + "/StorageController",
