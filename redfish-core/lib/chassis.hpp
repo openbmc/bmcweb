@@ -281,6 +281,12 @@ inline void
             asyncResp->res.jsonValue["PCIeDevices"]["@odata.id"] =
                 "/redfish/v1/Systems/system/PCIeDevices";
 
+#ifdef BMCWEB_ENABLE_REDFISH_CHASSIS_LOG_ENTRIES
+            asyncResp->res.jsonValue["LogServices"]["@odata.id"] =
+                crow::utility::urlFromPieces("redfish", "v1", "Chassis",
+                                             chassisId, "LogServices");
+#endif
+
             sdbusplus::asio::getProperty<std::vector<std::string>>(
                 *crow::connections::systemBus,
                 "xyz.openbmc_project.ObjectMapper", path + "/drive",

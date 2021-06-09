@@ -309,3 +309,13 @@ option(
                     enable on production systems at this time.  Other query
                     parameters such as only are not controlled by this option.'''
 )
+
+option(
+    'redfish-chassis-log',
+    type : 'feature',
+    value : 'disabled',
+    description : '''Enable Chassis level log service transactions through
+                     Redfish. Paths are under
+                     \'/redfish/v1/Chassis/<chassis>/LogServices/<service>/Entries\'
+                  '''
+)

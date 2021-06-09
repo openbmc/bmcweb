@@ -220,6 +220,5 @@ void getPortNumber(const std::string& socketPath, CallbackFunc&& callback)
         callback(ec, port);
         });
 }
-
 } // namespace redfish
 #endif
