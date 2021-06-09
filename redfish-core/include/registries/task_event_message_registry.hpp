@@ -25,23 +25,23 @@ namespace redfish::message_registries::task_event
 const Header header = {
     "Copyright 2014-2020 DMTF in cooperation with the Storage Networking "
     "Industry Association (SNIA). All rights reserved.",
-    "#MessageRegistry.v1_4_0.MessageRegistry",
-    "TaskEvent.1.0.2",
+    "#MessageRegistry.v1_4_1.MessageRegistry",
+    "TaskEvent.1.0.3",
     "Task Event Message Registry",
     "en",
     "This registry defines the messages for task related events.",
     "TaskEvent",
-    "1.0.2",
+    "1.0.3",
     "DMTF",
 };
 constexpr const char* url =
-    "https://redfish.dmtf.org/registries/TaskEvent.1.0.2.json";
+    "https://redfish.dmtf.org/registries/TaskEvent.1.0.3.json";
 
 constexpr std::array<MessageEntry, 9> registry = {
     MessageEntry{"TaskAborted",
                  {
-                     "A task has been aborted.",
-                     "The task with Id '%1' has been aborted.",
+                     "A task has completed with errors.",
+                     "The task with Id '%1' has completed with errors.",
                      "Critical",
                      "Critical",
                      1,
@@ -53,7 +53,8 @@ constexpr std::array<MessageEntry, 9> registry = {
     MessageEntry{"TaskCancelled",
                  {
                      "A task has been cancelled.",
-                     "The task with Id '%1' has been cancelled.",
+                     "Work on the task with Id '%1' has been halted prior to "
+                     "completion due to an explicit request.",
                      "Warning",
                      "Warning",
                      1,
