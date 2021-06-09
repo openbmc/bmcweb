@@ -23,6 +23,11 @@
 #include <query.hpp>
 #include <registries/privilege_registry.hpp>
 #include <sdbusplus/asio/property.hpp>
+#include <utils/location_utils.hpp>
+#include <utils/log_utils.hpp>
+
+#include <unordered_set>
+#include <variant>
 
 namespace redfish
 {
@@ -46,6 +51,297 @@ inline void requestRoutesStorageCollection(App& app)
                     {{"@odata.id", "/redfish/v1/Systems/system/Storage/1"}}};
                 asyncResp->res.jsonValue["Members@odata.count"] = 1;
             });
+}
+
+inline void getDrives(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                      const std::shared_ptr<HealthPopulate>& health,
+                      const std::string& parent, const std::string& storageId)
+{
+    crow::connections::systemBus->async_method_call(
+        [asyncResp, health, parent,
+         storageId](const boost::system::error_code ec,
+                    const std::vector<std::string>& driveList) {
+            if (ec)
+            {
+                BMCWEB_LOG_ERROR << "Drive mapper call error";
+                messages::internalError(asyncResp->res);
+                return;
+            }
+
+            nlohmann::json& storageArray = asyncResp->res.jsonValue["Drives"];
+            storageArray = nlohmann::json::array();
+            auto& count = asyncResp->res.jsonValue["Drives@odata.count"];
+            count = 0;
+
+            health->inventory.insert(health->inventory.end(), driveList.begin(),
+                                     driveList.end());
+
+            for (const std::string& drive : driveList)
+            {
+                if (!validSubpath(drive, parent))
+                {
+                    continue;
+                }
+
+                sdbusplus::message::object_path object(drive);
+                if (object.filename().empty())
+                {
+                    BMCWEB_LOG_ERROR << "Failed to find filename in " << drive;
+                    return;
+                }
+                storageArray.push_back(
+                    {{"@odata.id", "/redfish/v1/Systems/system/Storage/" +
+                                       storageId + "/Drives/" +
+                                       object.filename()}});
+            }
+
+            count = storageArray.size();
+        },
+        "xyz.openbmc_project.ObjectMapper",
+        "/xyz/openbmc_project/object_mapper",
+        "xyz.openbmc_project.ObjectMapper", "GetSubTreePaths",
+        "/xyz/openbmc_project/inventory", int32_t(0),
+        std::array<const char*, 1>{"xyz.openbmc_project.Inventory.Item.Drive"});
+}
+
+inline void getStorageControllerLocation(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp, std::string_view path,
+    std::string_view service, const std::vector<std::string>& interfaces,
+    size_t index)
+{
+    nlohmann::json_pointer<nlohmann::json> locationPtr =
+        "/StorageControllers"_json_pointer / index / "Location";
+    for (const std::string& interface : interfaces)
+    {
+        if (interface == "xyz.openbmc_project.Inventory.Decorator.LocationCode")
+        {
+            location_util::getLocationCode(asyncResp, service, path,
+                                           locationPtr);
+        }
+        if (location_util::isConnector(interface))
+        {
+            std::optional<std::string> locationType =
+                location_util::getLocationType(interface);
+            if (!locationType)
+            {
+                BMCWEB_LOG_DEBUG
+                    << "getLocationType for StorageController failed for "
+                    << interface;
+                continue;
+            }
+            asyncResp->res
+                .jsonValue[locationPtr]["PartLocation"]["LocationType"] =
+                *locationType;
+        }
+    }
+}
+
+inline void
+    findStorageControllers(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                           const crow::openbmc_mapper::GetSubTreeType& subtree,
+                           const std::shared_ptr<HealthPopulate>& health,
+                           const std::string& parent,
+                           const std::string& storageId)
+{
+    crow::connections::systemBus->async_method_call(
+        [asyncResp, storageId, subtree,
+         health](const boost::system::error_code ec,
+                 const std::variant<std::vector<std::string>>&
+                     storageControllerList) {
+            if (ec)
+            {
+                return;
+            }
+            const std::vector<std::string>* storageControllers =
+                std::get_if<std::vector<std::string>>(&storageControllerList);
+            if (storageControllers == nullptr || storageControllers->empty())
+
+            {
+                BMCWEB_LOG_DEBUG << storageId << " has no storage controller";
+                return;
+            }
+
+            std::unordered_set<std::string> storageControllerMap(
+                storageControllers->begin(), storageControllers->end());
+
+            nlohmann::json& root =
+                asyncResp->res.jsonValue["StorageControllers"];
+            root = nlohmann::json::array();
+            for (const auto& [path, interfaceDict] : subtree)
+            {
+                // Skip path if the object is not under parent object path.
+                if (storageControllerMap.find(path) ==
+                    storageControllerMap.end())
+                {
+                    continue;
+                }
+
+                if (interfaceDict.size() != 1)
+                {
+                    BMCWEB_LOG_ERROR << "Connection size "
+                                     << interfaceDict.size()
+                                     << ", greater than 1";
+                    continue;
+                }
+
+                const std::string& connectionName = interfaceDict.front().first;
+
+                sdbusplus::message::object_path controllerPath(path);
+                std::string id = controllerPath.filename();
+                if (id.empty())
+                {
+                    BMCWEB_LOG_ERROR << "filename() is empty in "
+                                     << controllerPath.str;
+                    continue;
+                }
+
+                size_t index = root.size();
+                nlohmann::json& storageController =
+                    root.emplace_back(nlohmann::json::object());
+                storageController["@odata.type"] =
+                    "#Storage.v1_7_0.StorageController";
+                storageController["@odata.id"] =
+                    "/redfish/v1/Systems/system/Storage/" + storageId +
+                    "#/StorageControllers/" + std::to_string(index);
+                storageController["Name"] = id;
+                storageController["MemberId"] = id;
+                storageController["Status"]["State"] = "Enabled";
+
+                getStorageControllerLocation(asyncResp, path, connectionName,
+                                             interfaceDict.front().second,
+                                             index);
+
+                sdbusplus::asio::getProperty<bool>(
+                    *crow::connections::systemBus, connectionName, path,
+                    "xyz.openbmc_project.Inventory.Item", "Present",
+                    [asyncResp, index](const boost::system::error_code ec2,
+                                       bool enabled) {
+                        // this interface isn't necessary, only check it
+                        // if we get a good return
+                        if (ec2)
+                        {
+                            return;
+                        }
+                        if (!enabled)
+                        {
+                            asyncResp->res.jsonValue["StorageControllers"]
+                                                    [index]["Status"]["State"] =
+                                "Disabled";
+                        }
+                    });
+
+                crow::connections::systemBus->async_method_call(
+                    [asyncResp,
+                     index](const boost::system::error_code ec2,
+                            const std::vector<std::pair<
+                                std::string, dbus::utility::DbusVariantType>>&
+                                propertiesList) {
+                        if (ec2)
+                        {
+                            // this interface isn't necessary
+                            return;
+                        }
+                        for (const std::pair<std::string,
+                                             dbus::utility::DbusVariantType>&
+                                 property : propertiesList)
+                        {
+                            // Store DBus properties that are also
+                            // Redfish properties with same name and a
+                            // string value
+                            const std::string& propertyName = property.first;
+                            nlohmann::json& object =
+                                asyncResp->res
+                                    .jsonValue["StorageControllers"][index];
+                            if ((propertyName == "PartNumber") ||
+                                (propertyName == "SerialNumber") ||
+                                (propertyName == "Manufacturer") ||
+                                (propertyName == "Model"))
+                            {
+                                const std::string* value =
+                                    std::get_if<std::string>(&property.second);
+                                if (value == nullptr)
+                                {
+                                    // illegal property
+                                    messages::internalError(asyncResp->res);
+                                    return;
+                                }
+                                object[propertyName] = *value;
+                            }
+                        }
+                    },
+                    connectionName, path, "org.freedesktop.DBus.Properties",
+                    "GetAll", "xyz.openbmc_project.Inventory.Decorator.Asset");
+
+                auto subHealth = std::make_shared<HealthPopulate>(
+                    asyncResp, storageController["Status"]);
+                subHealth->inventory.emplace_back(path);
+                health->inventory.emplace_back(path);
+                health->children.emplace_back(subHealth);
+                log_utils::getLogEntry(
+                    asyncResp,
+                    "/StorageControllers"_json_pointer / index / "Status", path,
+                    "OpenBMC.0.2.0.StorageControllerError");
+            }
+        },
+        "xyz.openbmc_project.ObjectMapper", parent + "/StorageController",
+        "org.freedesktop.DBus.Properties", "Get",
+        "xyz.openbmc_project.Association", "endpoints");
+}
+
+inline void
+    getStorageControllers(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                          const std::shared_ptr<HealthPopulate>& health,
+                          const std::string& parent,
+                          const std::string& storageId)
+{
+    crow::connections::systemBus->async_method_call(
+        [asyncResp, health, parent,
+         storageId](const boost::system::error_code ec,
+                    const crow::openbmc_mapper::GetSubTreeType& subtree) {
+            if (ec || !subtree.size())
+            {
+                // doesn't have to be there
+                return;
+            }
+
+            findStorageControllers(asyncResp, subtree, health, parent,
+                                   storageId);
+        },
+        "xyz.openbmc_project.ObjectMapper",
+        "/xyz/openbmc_project/object_mapper",
+        "xyz.openbmc_project.ObjectMapper", "GetSubTree",
+        "/xyz/openbmc_project/inventory", int32_t(0),
+        std::array<const char*, 1>{
+            "xyz.openbmc_project.Inventory.Item.StorageController"});
+}
+
+inline void
+    getStorageLocation(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                       std::string_view path, std::string_view service,
+                       const std::vector<std::string>& interfaces)
+{
+    for (const auto& interface : interfaces)
+    {
+        if (interface == "xyz.openbmc_project.Inventory.Decorator.LocationCode")
+        {
+            location_util::getLocationCode(asyncResp, service, path,
+                                           "/PhysicalLocation"_json_pointer);
+        }
+        if (location_util::isConnector(interface))
+        {
+            std::optional<std::string> locationType =
+                location_util::getLocationType(interface);
+            if (!locationType)
+            {
+                BMCWEB_LOG_DEBUG << "getLocationType for Storage failed for "
+                                 << interface;
+                continue;
+            }
+            asyncResp->res
+                .jsonValue["PhysicalLocation"]["PartLocation"]["LocationType"] =
+                *locationType;
+        }
+    }
 }
 
 inline void requestRoutesStorage(App& app)
