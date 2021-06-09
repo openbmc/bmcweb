@@ -31,6 +31,7 @@
 #include <utils/collection.hpp>
 #include <utils/dbus_utils.hpp>
 #include <utils/json_utils.hpp>
+#include <utils/log_utils.hpp>
 
 namespace redfish
 {
@@ -717,12 +718,14 @@ inline void getProcessorObject(const std::shared_ptr<bmcweb::AsyncResp>& resp,
                 continue;
             }
 
-            // Process the first object which does match our cpu name and
+            // Process the first object which does match our cpu name andlog_utils::getChassisLogEntr
             // required interfaces, and potentially ignore any other
             // matching objects. Assume all interfaces we want to process
             // must be on the same object path.
 
             handler(objectPath, serviceMap);
+            log_utils::getChassisLogEntry(resp, "/Status"_json_pointer,
+                                          objectPath, "OpenBMC.0.2.0.CPUError");
             return;
         }
         messages::resourceNotFound(resp->res, "Processor", processorId);
