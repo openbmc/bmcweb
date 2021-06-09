@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a0c8b5fa_78788ad4",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 93
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-06-09T18:15:45Z",
+      "side": 1,
+      "message": "You are looking for an association. Is that documented anywhere? \nCan you add a sentence about that?\n \nE.g. \"Looking for an association with the name, \"chassis\" to determine the PCIeSlot to chassis.\" ?",
+      "revId": "062afa7214891bc864963db6ebce0040decfb0a4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d6340923_d21fe349",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 93
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-06-09T18:15:45Z",
+      "side": 1,
+      "message": "tabs",
+      "range": {
+        "startLine": 69,
+        "startChar": 9,
+        "endLine": 69,
+        "endChar": 10
+      },
+      "revId": "062afa7214891bc864963db6ebce0040decfb0a4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e4812777_ef4c8d7f",
+        "filename": "redfish-core/lib/pcie_slots.hpp",
+        "patchSetId": 93
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-06-09T18:15:45Z",
+      "side": 1,
+      "message": "Why isn\u0027t this a \n                            BMCWEB_LOG_ERROR \u003c\u003c \"PCIe Slot....\n                            messages::internalError(asyncResp-\u003eres);\n?",
+      "revId": "062afa7214891bc864963db6ebce0040decfb0a4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
