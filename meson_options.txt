@@ -15,6 +15,7 @@ option('redfish', type : 'feature',value : 'enabled', description: 'Enable Redfi
 option('host-serial-socket', type : 'feature', value : 'enabled', description : 'Enable host serial console WebSocket. Path is \'/console0\'.  See https://github.com/openbmc/docs/blob/master/console.md.')
 option('static-hosting', type : 'feature', value : 'enabled', description : 'Enable serving files from the \'/usr/share/www\' directory as paths under \'/\'.')
 option('redfish-bmc-journal', type : 'feature', value : 'disabled', description : 'Enable BMC journal access through Redfish. Paths are under \'/redfish/v1/Managers/bmc/LogServices/Journal\'.')
+option('redfish-chassis-log', type : 'feature', value : 'disabled', description : 'Enable Chassis level log service transactions through Redfish. Paths are under \'/redfish/v1/Chassis/<chassis>/LogServices/<service>/Entries\'')
 option('redfish-cpu-log', type : 'feature', value : 'disabled', description : '''Enable CPU log service transactions through Redfish. Paths are under \'/redfish/v1/Systems/system/LogServices/Crashdump'.''')
 option('redfish-dump-log', type : 'feature', value : 'disabled', description : 'Enable Dump log service transactions through Redfish. Paths are under \'/redfish/v1/Systems/system/LogServices/Dump\'and \'/redfish/v1/Managers/bmc/LogServices/Dump\'')
 option('redfish-dbus-log', type : 'feature', value : 'disabled', description : 'Enable DBUS log service transactions through Redfish. Paths are under \'/redfish/v1/Systems/system/LogServices/EventLog/Entries\'')
