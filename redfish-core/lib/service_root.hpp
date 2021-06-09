@@ -17,6 +17,8 @@
 
 #include <app.hpp>
 #include <utils/systemd_utils.hpp>
+#include <static/dataModel/ServiceRoot_v1.h>
+#include <static/serialize/json_serviceroot.h>
 
 namespace redfish
 {
@@ -29,42 +31,31 @@ inline void requestRoutesServiceRoot(App& app)
         .methods(boost::beast::http::verb::get)(
             [uuid](const crow::Request&,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
-                asyncResp->res.jsonValue["@odata.type"] =
-                    "#ServiceRoot.v1_5_0.ServiceRoot";
-                asyncResp->res.jsonValue["@odata.id"] = "/redfish/v1";
-                asyncResp->res.jsonValue["Id"] = "RootService";
-                asyncResp->res.jsonValue["Name"] = "Root Service";
-                asyncResp->res.jsonValue["RedfishVersion"] = "1.9.0";
-                asyncResp->res.jsonValue["Links"]["Sessions"] = {
-                    {"@odata.id", "/redfish/v1/SessionService/Sessions"}};
-                asyncResp->res.jsonValue["AccountService"] = {
-                    {"@odata.id", "/redfish/v1/AccountService"}};
-                asyncResp->res.jsonValue["Chassis"] = {
-                    {"@odata.id", "/redfish/v1/Chassis"}};
-                asyncResp->res.jsonValue["JsonSchemas"] = {
-                    {"@odata.id", "/redfish/v1/JsonSchemas"}};
-                asyncResp->res.jsonValue["Managers"] = {
-                    {"@odata.id", "/redfish/v1/Managers"}};
-                asyncResp->res.jsonValue["SessionService"] = {
-                    {"@odata.id", "/redfish/v1/SessionService"}};
-                asyncResp->res.jsonValue["Managers"] = {
-                    {"@odata.id", "/redfish/v1/Managers"}};
-                asyncResp->res.jsonValue["Systems"] = {
-                    {"@odata.id", "/redfish/v1/Systems"}};
-                asyncResp->res.jsonValue["Registries"] = {
-                    {"@odata.id", "/redfish/v1/Registries"}};
+                ServiceRoot_v1_ServiceRoot serviceRoot;
+                //TODO deal with odata.type ?
+                //asyncResp->res.jsonValue["@odata.type"] =
+                //    "#ServiceRoot.v1_5_0.ServiceRoot";
+                serviceRoot.id = "RootService";
+                //TODO deal with Id?
+                //asyncResp->res.jsonValue["@odata.id"] = "/redfish/v1";
+                serviceRoot.name = "Root Service";
+                serviceRoot.redfishVersion = "1.9.0";
+                serviceRoot.links.sessions = "/redfish/v1/SessionService/Sessions";
+                serviceRoot.accountService = "/redfish/v1/AccountService";
+                serviceRoot.chassis = "/redfish/v1/Chassis";
+                serviceRoot.jsonSchemas = "/redfish/v1/JsonSchemas";
+                serviceRoot.managers = "Managers";
+                serviceRoot.sessionService =  "/redfish/v1/SessionService";
+                serviceRoot.systems = "/redfish/v1/Systems";
+                serviceRoot.registries = "/redfish/v1/Registries";
+                serviceRoot.updateService = "/redfish/v1/UpdateService";
+                serviceRoot.UUID = uuid;
+                serviceRoot.certificateService = "/redfish/v1/CertificateService";
+                serviceRoot.tasks = "/redfish/v1/TaskService";
+                serviceRoot.eventService = "/redfish/v1/EventService";
+                serviceRoot.telemetryService = "/redfish/v1/TelemetryService";
 
-                asyncResp->res.jsonValue["UpdateService"] = {
-                    {"@odata.id", "/redfish/v1/UpdateService"}};
-                asyncResp->res.jsonValue["UUID"] = uuid;
-                asyncResp->res.jsonValue["CertificateService"] = {
-                    {"@odata.id", "/redfish/v1/CertificateService"}};
-                asyncResp->res.jsonValue["Tasks"] = {
-                    {"@odata.id", "/redfish/v1/TaskService"}};
-                asyncResp->res.jsonValue["EventService"] = {
-                    {"@odata.id", "/redfish/v1/EventService"}};
-                asyncResp->res.jsonValue["TelemetryService"] = {
-                    {"@odata.id", "/redfish/v1/TelemetryService"}};
+                json_serialize_serviceroot(asyncResp, &serviceRoot);
             });
 }
 
