@@ -123,6 +123,14 @@ class RedfishService
 #endif
 
         requestRoutesBMCLogServiceCollection(app);
+
+#ifdef BMCWEB_ENABLE_REDFISH_CHASSIS_LOG_ENTRIES
+        requestRoutesChassisLogServiceCollection(app);
+        requestRoutesDeviceLogService(app);
+        requestRoutesDeviceLogEntryCollection(app);
+        requestRoutesDeviceLogEntry(app);
+#endif
+
 #ifdef BMCWEB_ENABLE_REDFISH_BMC_JOURNAL
         requestRoutesBMCJournalLogService(app);
         requestRoutesBMCJournalLogEntryCollection(app);
