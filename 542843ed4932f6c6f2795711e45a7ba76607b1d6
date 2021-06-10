@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "205afb53_b39bfca5",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-06-10T13:57:06Z",
+      "side": 1,
+      "message": "Yep! Great find. \n\n                },\n                \"MaxImageSizeBytes\": {\n                    \"description\": \"The maximum size in bytes of the software update image that this service supports.\",\n                    \"longDescription\": \"This property shall indicate the maximum size of the software update image that clients can send to this update service.\",\n                    \"readonly\": true,\n                    \"type\": [\n                        \"integer\",\n                        \"null\"\n                    ],\n                    \"units\": \"By\",\n                    \"versionAdded\": \"v1_5_0\"\n                },",
+      "revId": "542843ed4932f6c6f2795711e45a7ba76607b1d6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
