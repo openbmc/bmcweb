@@ -7,7 +7,9 @@
 #include "registries/privilege_registry.hpp"
 #include "utils/chassis_utils.hpp"
 
+#include <boost/system/error_code.hpp>
 #include <boost/url/format.hpp>
+#include <sdbusplus/asio/property.hpp>
 
 #include <functional>
 #include <memory>
@@ -216,6 +218,56 @@ inline void addFanCommonProperties(crow::Response& resp,
     resp.jsonValue["Id"] = fanId;
     resp.jsonValue["@odata.id"] = boost::urls::format(
         "/redfish/v1/Chassis/{}/ThermalSubsystem/Fans/{}", chassisId, fanId);
+    resp.jsonValue["Status"]["State"] = "Enabled";
+    resp.jsonValue["Status"]["Health"] = "OK";
+}
+
+inline void getFanHealth(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                         const std::string& fanPath, const std::string& service)
+{
+    sdbusplus::asio::getProperty<bool>(
+        *crow::connections::systemBus, service, fanPath,
+        "xyz.openbmc_project.State.Decorator.OperationalStatus", "Functional",
+        [asyncResp](const boost::system::error_code& ec, const bool value) {
+        if (ec)
+        {
+            if (ec.value() != EBADR)
+            {
+                BMCWEB_LOG_ERROR << "DBUS response error for Health " << ec;
+                messages::internalError(asyncResp->res);
+            }
+            return;
+        }
+
+        if (!value)
+        {
+            asyncResp->res.jsonValue["Status"]["Health"] = "Critical";
+        }
+        });
+}
+
+inline void getFanState(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                        const std::string& fanPath, const std::string& service)
+{
+    sdbusplus::asio::getProperty<bool>(
+        *crow::connections::systemBus, service, fanPath,
+        "xyz.openbmc_project.Inventory.Item", "Present",
+        [asyncResp](const boost::system::error_code& ec, const bool value) {
+        if (ec)
+        {
+            if (ec.value() != EBADR)
+            {
+                BMCWEB_LOG_ERROR << "DBUS response error for State " << ec;
+                messages::internalError(asyncResp->res);
+            }
+            return;
+        }
+
+        if (!value)
+        {
+            asyncResp->res.jsonValue["Status"]["State"] = "Absent";
+        }
+        });
 }
 
 inline void doFanGet(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
@@ -228,11 +280,13 @@ inline void doFanGet(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
         return;
     }
 
-    getValidFanPath(
-        asyncResp, *validChassisPath, fanId,
-        [asyncResp, chassisId, fanId](const std::string&, const std::string&) {
+    getValidFanPath(asyncResp, *validChassisPath, fanId,
+                    [asyncResp, chassisId, fanId](const std::string& fanPath,
+                                                  const std::string& service) {
         addFanCommonProperties(asyncResp->res, chassisId, fanId);
-        });
+        getFanState(asyncResp, fanPath, service);
+        getFanHealth(asyncResp, fanPath, service);
+    });
 }
 
 inline void handleFanHead(App& app, const crow::Request& req,
