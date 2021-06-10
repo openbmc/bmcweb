@@ -84,6 +84,24 @@
     },
     {
       "key": {
+        "uuid": "25a580a5_6576c047",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-06-10T21:29:20Z",
+      "side": 1,
+      "message": "Cool.  Let me know when that proprietary backend is pushed for review, until then this is dead code.",
+      "parentUuid": "f38d944b_d144d969",
+      "revId": "bdf05afa03e30f22145e94876ca144ea040c850a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d6482eff_f0256db4",
         "filename": "redfish-core/lib/processor.hpp",
         "patchSetId": 3
