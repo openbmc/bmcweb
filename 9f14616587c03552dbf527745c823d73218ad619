@@ -1,0 +1,84 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9cc114ec_1e130877",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-06-10T00:54:16Z",
+      "side": 1,
+      "message": "This is cool. I really support this. Although it probably comes with some breaking changes to non-Admins roles, which hopefully should be limited since most users would still just use root/an admin role?",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 48
+      },
+      "revId": "9f14616587c03552dbf527745c823d73218ad619",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4da6afcd_5b7c6697",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-06-10T00:54:16Z",
+      "side": 1,
+      "message": "Could they still have the \n        .privileges({{\"ConfigureUsers\"}, {\"ConfigureSelf\"}}) ?\nI feel even without the OEM, this is still a huge step in the right direction",
+      "revId": "9f14616587c03552dbf527745c823d73218ad619",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "512526e6_2cb14789",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-06-10T00:54:16Z",
+      "side": 1,
+      "message": "we have an allow list.. but I won\u0027t think the unused variables would impact our binary size much. i.e. I wouldn\u0027t think this commit should increase our binary size much but that is just a guess. Do you have any numbers of how much this increases our binary size?",
+      "range": {
+        "startLine": 24,
+        "startChar": 0,
+        "endLine": 25,
+        "endChar": 55
+      },
+      "revId": "9f14616587c03552dbf527745c823d73218ad619",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0161324a_61b7c641",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-06-10T00:54:16Z",
+      "side": 1,
+      "message": "Like \n            \"SubordinateOverrides\": [\n                {\n                    \"Targets\": [\n                        \"ComputerSystem\",\n                        \"LogServiceCollection\",\n                        \"LogService\",\n                        \"LogEntryCollection\"\n                    ],\n                    \"OperationMap\": {\n                        \"PATCH\": [\n                            {\n                                \"Privilege\": [\n                                    \"ConfigureComponents\"\n                                ]\n?\n\nCan we have a separate variable for them?\n\nLike logEntryPatchPrivilegeOverride? or logEntryPatchPrivilegeComputerSystemOverride ?",
+      "revId": "9f14616587c03552dbf527745c823d73218ad619",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
