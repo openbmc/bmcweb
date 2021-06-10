@@ -32,7 +32,7 @@ inline void requestRoutesMessageRegistryFileCollection(App& app)
      * Functions triggers appropriate requests on DBus
      */
     BMCWEB_ROUTE(app, "/redfish/v1/Registries/")
-        .privileges({{"Login"}})
+        .privileges(redfish::privileges::getMessageRegistryFileCollection)
         .methods(boost::beast::http::verb::get)(
             [](const crow::Request&,
                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
@@ -57,7 +57,7 @@ inline void requestRoutesMessageRegistryFileCollection(App& app)
 inline void requestRoutesMessageRegistryFile(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/Registries/<str>/")
-        .privileges({{"Login"}})
+        .privileges(redfish::privileges::getMessageRegistryFile)
         .methods(boost::beast::http::verb::get)(
             [](const crow::Request&,
                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
@@ -123,7 +123,7 @@ inline void requestRoutesMessageRegistryFile(App& app)
 inline void requestRoutesMessageRegistry(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/Registries/<str>/<str>/")
-        .privileges({{"Login"}})
+        .privileges(redfish::privileges::getMessageRegistryFile)
         .methods(boost::beast::http::verb::get)(
             [](const crow::Request&,
                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
