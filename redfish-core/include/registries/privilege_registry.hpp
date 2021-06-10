@@ -474,6 +474,22 @@ const static auto& putFacilityCollection = privilegeSetConfigureComponents;
 const static auto& deleteFacilityCollection = privilegeSetConfigureComponents;
 const static auto& postFacilityCollection = privilegeSetConfigureComponents;
 
+// Fan
+const static auto& getFan = privilegeSetLogin;
+const static auto& headFan = privilegeSetLogin;
+const static auto& patchFan = privilegeSetConfigureManager;
+const static auto& putFan = privilegeSetConfigureManager;
+const static auto& deleteFan = privilegeSetConfigureManager;
+const static auto& postFan = privilegeSetConfigureManager;
+
+// FanCollection
+const static auto& getFanCollection = privilegeSetLogin;
+const static auto& headFanCollection = privilegeSetLogin;
+const static auto& patchFanCollection = privilegeSetConfigureManager;
+const static auto& putFanCollection = privilegeSetConfigureManager;
+const static auto& deleteFanCollection = privilegeSetConfigureManager;
+const static auto& postFanCollection = privilegeSetConfigureManager;
+
 // HostInterface
 const static auto& getHostInterface = privilegeSetLogin;
 const static auto& headHostInterface = privilegeSetLogin;
