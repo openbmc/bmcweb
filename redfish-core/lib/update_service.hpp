@@ -14,10 +14,10 @@
 // limitations under the License.
 */
 #pragma once
-
 #include "bmcweb_config.h"
 
 #include <app.hpp>
+#include <boost/algorithm/string.hpp>
 #include <boost/container/flat_map.hpp>
 #include <utils/fw_utils.hpp>
 
@@ -754,28 +754,29 @@ inline static void
     getRelatedItemsDrive(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
                          const sdbusplus::message::object_path& objPath)
 {
-    auto& relatedItem = aResp->res.jsonValue["RelatedItem"];
-    auto& relatedItemCount = aResp->res.jsonValue["RelatedItem@odata.count"];
-
     // Drive is expected to be under a Chassis
     crow::connections::systemBus->async_method_call(
-        [aResp, objPath, &relatedItem,
-         &relatedItemCount](const boost::system::error_code ec,
-                            const std::vector<std::string>& objects) {
+        [aResp, objPath](const boost::system::error_code ec,
+                         const std::vector<std::string>& objects) {
             if (ec)
             {
                 BMCWEB_LOG_DEBUG << "DBUS response error";
                 return;
             }
 
+            auto& relatedItem = aResp->res.jsonValue["RelatedItem"];
+            auto& relatedItemCount =
+                aResp->res.jsonValue["RelatedItem@odata.count"];
+
             for (const auto& object : objects)
             {
-                if (!boost::starts_with(objPath.str, object))
+                sdbusplus::message::object_path path(object);
+
+                if (!boost::algorithm::contains(objPath.str,
+                                                "/" + path.filename()))
                 {
                     continue;
                 }
-
-                sdbusplus::message::object_path path(object);
 
                 relatedItem.push_back(
                     {{"@odata.id", "/redfish/v1/"
@@ -795,6 +796,159 @@ inline static void
             "xyz.openbmc_project.Inventory.Item.Chassis"});
 }
 
+inline static void getRelatedItemsStorageController(
+    const std::shared_ptr<bmcweb::AsyncResp>& aResp,
+    const sdbusplus::message::object_path& objPath)
+{
+    crow::connections::systemBus->async_method_call(
+        [aResp, objPath](const boost::system::error_code ec,
+                         const std::vector<std::string>& objects) {
+            if (ec)
+            {
+                BMCWEB_LOG_DEBUG << "DBUS response error";
+                return;
+            }
+
+            for (const auto& object : objects)
+            {
+                sdbusplus::message::object_path path(object);
+
+                if (!boost::algorithm::contains(objPath.str,
+                                                "/" + path.filename()))
+                {
+                    continue;
+                }
+
+                const std::string& storageId = object;
+
+                crow::connections::systemBus->async_method_call(
+                    [aResp, objPath, storageId](
+                        const boost::system::error_code ec,
+                        const crow::openbmc_mapper::GetSubTreeType& subtree) {
+                        if (ec || !subtree.size())
+                        {
+                            // doesn't have to be there
+                            return;
+                        }
+                        auto& relatedItem = aResp->res.jsonValue["RelatedItem"];
+                        auto& relatedItemCount =
+                            aResp->res.jsonValue["RelatedItem@odata.count"];
+
+                        for (size_t i = 0; i < subtree.size(); ++i)
+                        {
+                            if (subtree[i].first != objPath.str)
+                            {
+                                continue;
+                            }
+
+                            relatedItem.push_back(
+                                {{"@odata.id",
+                                  "/redfish/v1/Systems/system/Storage/" +
+                                      storageId + "#/StorageControllers/" +
+                                      std::to_string(i)}});
+                            break;
+                        }
+
+                        relatedItemCount = relatedItem.size();
+                    },
+                    "xyz.openbmc_project.ObjectMapper",
+                    "/xyz/openbmc_project/object_mapper",
+                    "xyz.openbmc_project.ObjectMapper", "GetSubTree", object,
+                    int32_t(0),
+                    std::array<const char*, 1>{"xyz.openbmc_project.Inventory."
+                                               "Item.StorageController"});
+            }
+        },
+        "xyz.openbmc_project.ObjectMapper",
+        "/xyz/openbmc_project/object_mapper",
+        "xyz.openbmc_project.ObjectMapper", "GetSubTreePaths",
+        "/xyz/openbmc_project/inventory", 0,
+        std::array<std::string, 2>{
+            "xyz.openbmc_project.Inventory.Item.Board",
+            "xyz.openbmc_project.Inventory.Item.Chassis"});
+}
+
+inline static void
+    getRelatedItemsOther(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
+                         const sdbusplus::message::object_path& association)
+{
+
+    // Find supported device types.
+    crow::connections::systemBus->async_method_call(
+        [aResp, association](
+            const boost::system::error_code ec2,
+            const std::vector<std::pair<std::string, std::vector<std::string>>>&
+                objects) {
+            if (ec2)
+            {
+                BMCWEB_LOG_ERROR << "error_code = " << ec2;
+                BMCWEB_LOG_ERROR << "error msg = " << ec2.message();
+                return;
+            }
+            if (objects.empty())
+            {
+                return;
+            }
+
+            auto& relatedItem = aResp->res.jsonValue["RelatedItem"];
+            auto& relatedItemCount =
+                aResp->res.jsonValue["RelatedItem@odata.count"];
+
+            for (const auto& object : objects)
+            {
+                for (const auto& interfaces : object.second)
+                {
+                    if (interfaces == "xyz.openbmc_project.Inventory."
+                                      "Item.Drive")
+                    {
+                        getRelatedItemsDrive(aResp, association);
+                    }
+
+                    if (interfaces == "xyz.openbmc_project."
+                                      "Inventory."
+                                      "Item.Accelerator" ||
+                        interfaces == "xyz.openbmc_project."
+                                      "Inventory.Item.Cpu")
+                    {
+                        relatedItem.push_back(
+                            {{"@odata.id", "/redfish/v1/Systems/"
+                                           "system/"
+                                           "Processors/" +
+                                               association.filename()}});
+                    }
+
+                    if (interfaces == "xyz.openbmc_project.Inventory."
+                                      "Item.Board" ||
+                        interfaces == "xyz.openbmc_project.Inventory."
+                                      "Item.Chassis")
+                    {
+                        relatedItem.push_back(
+                            {{"@odata.id", "/redfish/v1/Chassis/" +
+                                               association.filename()}});
+                    }
+
+                    if (interfaces == "xyz.openbmc_project.Inventory."
+                                      "Item.StorageController")
+                    {
+                        getRelatedItemsStorageController(aResp, association);
+                    }
+                }
+            }
+
+            relatedItemCount = relatedItem.size();
+        },
+        "xyz.openbmc_project.ObjectMapper",
+        "/xyz/openbmc_project/object_mapper",
+        "xyz.openbmc_project.ObjectMapper", "GetObject", association.str,
+        std::array<const char*, 6>{
+            "xyz.openbmc_project.Inventory.Item.Accelerator",
+            "xyz.openbmc_project.Inventory.Item.Cpu",
+            "xyz.openbmc_project.Inventory.Item.Drive",
+            "xyz.openbmc_project.Inventory.Item.Board",
+            "xyz.openbmc_project.Inventory.Item.Chassis",
+            "xyz.openbmc_project.Inventory.Item.StorageController"});
+}
+
 /*
     Fill related item links for Software with other purposes.
     Use other purpose for device level softwares.
@@ -805,12 +959,9 @@ inline static void
 {
     BMCWEB_LOG_DEBUG << "getRelatedItemsOthers enter";
 
-    auto& relatedItem = aResp->res.jsonValue["RelatedItem"];
-    auto& relatedItemCount = aResp->res.jsonValue["RelatedItem@odata.count"];
-
     // Find the service and software object.
     crow::connections::systemBus->async_method_call(
-        [aResp, swId, &relatedItem, &relatedItemCount](
+        [aResp, swId](
             const boost::system::error_code ec,
             const std::vector<std::pair<std::string, std::vector<std::string>>>&
                 objects) {
@@ -827,7 +978,7 @@ inline static void
 
             // Fetch the Software Associations.
             crow::connections::systemBus->async_method_call(
-                [aResp, &relatedItem, &relatedItemCount](
+                [aResp](
                     const boost::system::error_code ec,
                     const std::variant<
                         std::vector<sdbusplus::message::object_path>>& resp) {
@@ -850,72 +1001,12 @@ inline static void
 
                     for (const auto& association : *associations)
                     {
-                        auto path = association;
-                        if (path.filename().empty())
+                        if (association.filename().empty())
                         {
                             continue;
                         }
 
-                        // Find supported device types.
-                        crow::connections::systemBus->async_method_call(
-                            [aResp, &relatedItem, &relatedItemCount,
-                             path](const boost::system::error_code ec2,
-                                   const std::vector<std::pair<
-                                       std::string, std::vector<std::string>>>&
-                                       objects) {
-                                if (ec2)
-                                {
-                                    BMCWEB_LOG_ERROR << "error_code = " << ec2;
-                                    BMCWEB_LOG_ERROR << "error msg = "
-                                                     << ec2.message();
-                                    return;
-                                }
-                                if (objects.empty())
-                                {
-                                    return;
-                                }
-
-                                for (const auto& object : objects)
-                                {
-                                    for (const auto& interfaces : object.second)
-                                    {
-                                        if (interfaces ==
-                                            "xyz.openbmc_project.Inventory."
-                                            "Item.Drive")
-                                        {
-                                            getRelatedItemsDrive(aResp, path);
-                                            break;
-                                        }
-
-                                        if (interfaces == "xyz.openbmc_project."
-                                                          "Inventory."
-                                                          "Item.Accelerator" ||
-                                            interfaces == "xyz.openbmc_project."
-                                                          "Inventory.Item.Cpu")
-                                        {
-                                            relatedItem.push_back(
-                                                {{"@odata.id",
-                                                  "/redfish/v1/Systems/"
-                                                  "system/"
-                                                  "Processors/" +
-                                                      path.filename()}});
-                                            break;
-                                        }
-                                    }
-                                }
-
-                                relatedItemCount = relatedItem.size();
-                            },
-                            "xyz.openbmc_project.ObjectMapper",
-                            "/xyz/openbmc_project/object_mapper",
-                            "xyz.openbmc_project.ObjectMapper", "GetObject",
-                            association.str,
-                            std::array<const char*, 4>{
-                                "xyz.openbmc_project.Inventory.Item."
-                                "Accelerator",
-                                "xyz.openbmc_project.Inventory.Item.Cpu",
-                                "xyz.openbmc_project.Inventory.Item."
-                                "Drive"});
+                        getRelatedItemsOther(aResp, association);
                     }
                 },
                 // Use only the first service it finds.
@@ -1013,6 +1104,11 @@ inline void requestRoutesSoftwareInventory(App& app)
                         found = true;
                         fw_util::getFwStatus(asyncResp, swId,
                                              obj.second[0].first);
+
+                        asyncResp->res.jsonValue["Updateable"] = false;
+                        asyncResp->res.jsonValue["WriteProtected"] = false;
+                        fw_util::getFirmwareStates(
+                            asyncResp, obj.second[0].first, obj.first);
 
                         crow::connections::systemBus->async_method_call(
                             [asyncResp, swId](
@@ -1113,11 +1209,10 @@ inline void requestRoutesSoftwareInventory(App& app)
                         return;
                     }
                     asyncResp->res.jsonValue["@odata.type"] =
-                        "#SoftwareInventory.v1_1_0.SoftwareInventory";
+                        "#SoftwareInventory.v1_3_0.SoftwareInventory";
                     asyncResp->res.jsonValue["Name"] = "Software Inventory";
                     asyncResp->res.jsonValue["Status"]["HealthRollup"] = "OK";
 
-                    asyncResp->res.jsonValue["Updateable"] = false;
                     fw_util::getFwUpdateableStatus(asyncResp, swId);
                 },
                 "xyz.openbmc_project.ObjectMapper",
