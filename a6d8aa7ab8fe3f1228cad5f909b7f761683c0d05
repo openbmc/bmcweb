@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7241df20_6101eef9",
+        "filename": "redfish-core/lib/service_root.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2021-06-10T22:33:01Z",
+      "side": 1,
+      "message": "I removed the second of the duplicate Managers. \nLet me know if I should have deleted the first Manager.",
+      "range": {
+        "startLine": 46,
+        "startChar": 0,
+        "endLine": 47,
+        "endChar": 59
+      },
+      "revId": "a6d8aa7ab8fe3f1228cad5f909b7f761683c0d05",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
