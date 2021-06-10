@@ -25,7 +25,7 @@ inline void requestRoutesServiceRoot(App& app)
 {
     std::string uuid = persistent_data::getConfig().systemUuid;
     BMCWEB_ROUTE(app, "/redfish/v1/")
-        .privileges({})
+        .privileges(redfish::privileges::getServiceRoot)
         .methods(boost::beast::http::verb::get)(
             [uuid](const crow::Request&,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
