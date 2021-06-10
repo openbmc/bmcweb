@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1838130d_0ae4a648",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-06-10T23:33:18Z",
+      "side": 1,
+      "message": "CI testing ran on bumps, example failure at ...\nOr atleast capitalize the T",
+      "revId": "60aa6d4f07fdc668a2a0bd8e58ab503e3fbe3dea",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9bfcfdf0_9510c9cf",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-06-10T23:33:18Z",
+      "side": 1,
+      "message": "spelling",
+      "range": {
+        "startLine": 12,
+        "startChar": 44,
+        "endLine": 12,
+        "endChar": 52
+      },
+      "revId": "60aa6d4f07fdc668a2a0bd8e58ab503e3fbe3dea",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "464a4647_a65de276",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-06-10T23:33:18Z",
+      "side": 1,
+      "message": "Not sure I would call it a regression.. \n\n\"This commit changes this code back to 200, even though 204 is valid and the test should pass for both, 200 with a success message more closely follows Redfish.\"",
+      "range": {
+        "startLine": 12,
+        "startChar": 28,
+        "endLine": 12,
+        "endChar": 38
+      },
+      "revId": "60aa6d4f07fdc668a2a0bd8e58ab503e3fbe3dea",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
