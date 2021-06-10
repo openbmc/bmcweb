@@ -101,7 +101,7 @@ inline void requestRoutesSession(App& app)
 
                 persistent_data::SessionStore::getInstance().removeSession(
                     session);
-                asyncResp->res.result(boost::beast::http::status::no_content);
+                messages::success(asyncResp->res);
             });
 
     BMCWEB_ROUTE(app, "/redfish/v1/SessionService/Sessions/")
