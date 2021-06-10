@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "9a398ea7_12d52d54",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-06-10T01:11:47Z",
+      "side": 1,
+      "message": "\u003e This is cool. I really support this. Although it probably comes with some breaking changes to non-Admins roles, which hopefully should be limited since most users would still just use root/an admin role?\n\nLets treat that in a different scope, because they\u0027re arguably bugs that should be fixed.  For the things that need weird, non-DMTF behavior we can always fall back to the hardcoded/old way, and ideally we\u0027d be maneuvering toward the \"right\" DMTF way in the long run.",
+      "parentUuid": "9cc114ec_1e130877",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 48
+      },
+      "revId": "9f14616587c03552dbf527745c823d73218ad619",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "4da6afcd_5b7c6697",
         "filename": "/COMMIT_MSG",
         "patchSetId": 1
@@ -36,6 +60,24 @@
       "writtenOn": "2021-06-10T00:54:16Z",
       "side": 1,
       "message": "Could they still have the \n        .privileges({{\"ConfigureUsers\"}, {\"ConfigureSelf\"}}) ?\nI feel even without the OEM, this is still a huge step in the right direction",
+      "revId": "9f14616587c03552dbf527745c823d73218ad619",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3e55074b_5d5d7c55",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-06-10T01:11:47Z",
+      "side": 1,
+      "message": "Initially they could, but I was kinda thinking we\u0027d check in something like a json patch, that would add privilege registry entries for the OEM schemas.  This is going to matter when/if we start publishing the PrivilegeRegistry from service root, but probably doesn\u0027t matter before that.",
+      "parentUuid": "4da6afcd_5b7c6697",
       "revId": "9f14616587c03552dbf527745c823d73218ad619",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
@@ -65,6 +107,30 @@
     },
     {
       "key": {
+        "uuid": "e7a5b0fa_a22da288",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-06-10T01:11:47Z",
+      "side": 1,
+      "message": "I have no numbers at this point, only suspicions that the variables can\u0027t be deleted, because technically they have non-trivial constructors.  How much of that code the compiler is able to delete because it\u0027s has no effect is a question mark.",
+      "parentUuid": "512526e6_2cb14789",
+      "range": {
+        "startLine": 24,
+        "startChar": 0,
+        "endLine": 25,
+        "endChar": 55
+      },
+      "revId": "9f14616587c03552dbf527745c823d73218ad619",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "0161324a_61b7c641",
         "filename": "/COMMIT_MSG",
         "patchSetId": 1
@@ -76,6 +142,24 @@
       "writtenOn": "2021-06-10T00:54:16Z",
       "side": 1,
       "message": "Like \n            \"SubordinateOverrides\": [\n                {\n                    \"Targets\": [\n                        \"ComputerSystem\",\n                        \"LogServiceCollection\",\n                        \"LogService\",\n                        \"LogEntryCollection\"\n                    ],\n                    \"OperationMap\": {\n                        \"PATCH\": [\n                            {\n                                \"Privilege\": [\n                                    \"ConfigureComponents\"\n                                ]\n?\n\nCan we have a separate variable for them?\n\nLike logEntryPatchPrivilegeOverride? or logEntryPatchPrivilegeComputerSystemOverride ?",
+      "revId": "9f14616587c03552dbf527745c823d73218ad619",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e7d01dc8_2007c37b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-06-10T01:11:47Z",
+      "side": 1,
+      "message": "\u003e Like \n\u003e             \"SubordinateOverrides\": [\n\u003e                 {\n\u003e                     \"Targets\": [\n\u003e                         \"ComputerSystem\",\n\u003e                         \"LogServiceCollection\",\n\u003e                         \"LogService\",\n\u003e                         \"LogEntryCollection\"\n\u003e                     ],\n\u003e                     \"OperationMap\": {\n\u003e                         \"PATCH\": [\n\u003e                             {\n\u003e                                 \"Privilege\": [\n\u003e                                     \"ConfigureComponents\"\n\u003e                                 ]\n\u003e ?\n\nYep, that would be a good example\n\n\u003e \n\u003e Can we have a separate variable for them?\n\u003e \n\u003e Like logEntryPatchPrivilegeOverride? or logEntryPatchPrivilegeComputerSystemOverride ?\n\nThat was kinda my thought, or we could put them in another namespace for \"default\" privileges, and \"overridden\" privileges.\n\nWith that said, i haven\u0027t given this much thought.",
+      "parentUuid": "0161324a_61b7c641",
       "revId": "9f14616587c03552dbf527745c823d73218ad619",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
