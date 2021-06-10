@@ -425,5 +425,47 @@ inline void
     return;
 }
 
+/**
+ * @brief Updates programmable settings of input swId into json response
+ *
+ * This function checks whether firmware inventory component's setting from
+ * D-bus. It only looks like the `WriteProtected` property to see if the
+ * firmware is write protect.
+ *
+ * @param[i,o] asyncResp  Async response object
+ * @param[i]   service    Service handling the firmware
+ * @param[i]   path       D-bus path of the firmware compoment
+ */
+inline void
+    getFirmwareSettings(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                        const std::string& service, const std::string& path)
+{
+    crow::connections::systemBus->async_method_call(
+        [asyncResp](
+            const boost::system::error_code errorCode,
+            const boost::container::flat_map<std::string, std::variant<bool>>&
+                propertiesList) {
+            asyncResp->res.jsonValue["WriteProtected"] = false;
+
+            if (errorCode)
+            {
+                // System can exist with no updateable/writable firmware,
+                // so don't throw error here.
+                return;
+            }
+            auto it = propertiesList.find("WriteProtected");
+            if (it != propertiesList.end())
+            {
+                const bool* writeProtected = std::get_if<bool>(&it->second);
+                if (writeProtected != nullptr && *writeProtected)
+                {
+                    asyncResp->res.jsonValue["WriteProtected"] = true;
+                }
+            }
+        },
+        service, path, "org.freedesktop.DBus.Properties", "GetAll",
+        "xyz.openbmc_project.Software.Settings");
+}
+
 } // namespace fw_util
 } // namespace redfish
