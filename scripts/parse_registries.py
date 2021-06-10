@@ -63,6 +63,9 @@ def make_getter(dmtf_name, header_name, type_name):
     return (path, json_file, type_name, url)
 
 
+def clang_format(filename):
+    subprocess.check_call(["clang-format-11", "-i", filename])
+
 files = []
 files.append(make_getter('Base.1.10.0.json',
                          'base_message_registry.hpp', 'base'))
@@ -115,4 +118,35 @@ for file, json_dict, namespace, url in files:
             registry.write("\"{}\",".format(message["Resolution"]))
             registry.write("}},")
         registry.write("};}\n")
-    subprocess.check_call(["clang-format-11", "-i", file])
+    clang_format(file)
+
+def make_privilege_registry():
+    path, json_file, type_name, url = make_getter('Redfish_1.1.0_PrivilegeRegistry.json',
+                                                'privilege_registry.hpp', 'privilege')
+
+    with open(path, 'w') as registry:
+        registry.write("#include <privileges.hpp>\n")
+        registry.write("namespace redfish::privileges{\n")
+        for mapping in json_file["Mappings"]:
+            entity = mapping["Entity"]
+            entity = entity.lower()[0] + entity[1:]
+            for operation, privilege_list in mapping["OperationMap"].items():
+                privilege_string = "{"
+                for privilege_json in privilege_list:
+                    privileges = privilege_json["Privilege"]
+                    privilege_string += "{"
+                    for privilege in privileges:
+                        privilege_string += "\""
+                        privilege_string += privilege
+                        privilege_string += "\", "
+                    privilege_string = privilege_string[:-2]
+                    privilege_string += "}"
+                    privilege_string += ", "
+                privilege_string = privilege_string[:-2]
+                privilege_string += "}"
+                operation = operation.upper()[0] + operation.lower()[1:]
+                registry.write("const std::vector<Privileges> {}{}Privilege = {};\n".format(entity, operation, privilege_string))
+        registry.write("} // namespace redfish::privileges\n")
+    clang_format(path)
+
+make_privilege_registry()
