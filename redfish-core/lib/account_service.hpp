@@ -1569,10 +1569,11 @@ inline void requestAccountServiceRoutes(App& app)
                 // check with the same permissions, minus ConfigureSelf.
                 Privileges effectiveUserPrivileges =
                     redfish::getUserPrivileges(req.userRole);
-                Privileges requiredPermissionsToChangeNonSelf = {
+                std::vector<Privileges> requiredPermissions = {
                     {"ConfigureUsers"}, {"ConfigureManager"}};
-                if (!effectiveUserPrivileges.isSupersetOf(
-                        requiredPermissionsToChangeNonSelf))
+
+                if (!isOperationAllowedWithPrivileges(requiredPermissions,
+                                                      effectiveUserPrivileges))
                 {
                     BMCWEB_LOG_DEBUG << "GET Account denied access";
                     messages::insufficientPrivilege(asyncResp->res);
