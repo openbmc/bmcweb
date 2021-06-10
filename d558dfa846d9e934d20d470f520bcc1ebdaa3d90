@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0957bde8_a4b7a57c",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 48
+      },
+      "lineNbr": 1869,
+      "author": {
+        "id": 1001027
+      },
+      "writtenOn": "2021-06-10T09:08:17Z",
+      "side": 1,
+      "message": "I hope to find a common place to call this method, so as to reduce code changes. But the Node class is going away, where do you think it is more appropriate to call it?",
+      "range": {
+        "startLine": 1869,
+        "startChar": 16,
+        "endLine": 1869,
+        "endChar": 77
+      },
+      "revId": "d558dfa846d9e934d20d470f520bcc1ebdaa3d90",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
