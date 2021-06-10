@@ -364,7 +364,7 @@ static void monitorForSoftwareAvailable(
                     asyncResp->res, url, "Image version already exists");
 
                 redfish::messages::resourceAlreadyExists(
-                    asyncResp->res, "UpdateService.v1_4_0.UpdateService",
+                    asyncResp->res, "UpdateService.v1_5_0.UpdateService",
                     "Version", "uploaded version");
             }
             else if (*type ==
@@ -513,7 +513,7 @@ inline void requestRoutesUpdateService(App& app)
                 get)([](const crow::Request&,
                         const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
             asyncResp->res.jsonValue["@odata.type"] =
-                "#UpdateService.v1_4_0.UpdateService";
+                "#UpdateService.v1_5_0.UpdateService";
             asyncResp->res.jsonValue["@odata.id"] = "/redfish/v1/UpdateService";
             asyncResp->res.jsonValue["Id"] = "UpdateService";
             asyncResp->res.jsonValue["Description"] =
