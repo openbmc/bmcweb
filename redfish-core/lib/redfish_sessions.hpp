@@ -46,7 +46,7 @@ void fillSessionObject(crow::Response& res,
 inline void requestRoutesSession(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/SessionService/Sessions/<str>/")
-        .privileges({{"Login"}})
+        .privileges(redfish::privileges::getSession)
         .methods(boost::beast::http::verb::get)(
             [](const crow::Request& /*req*/,
                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
@@ -66,7 +66,7 @@ inline void requestRoutesSession(App& app)
             });
 
     BMCWEB_ROUTE(app, "/redfish/v1/SessionService/Sessions/<str>/")
-        .privileges({{"ConfigureManager"}, {"ConfigureSelf"}})
+        .privileges(redfish::privileges::deleteSession)
         .methods(boost::beast::http::verb::delete_)(
             [](const crow::Request& req,
                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
@@ -105,7 +105,7 @@ inline void requestRoutesSession(App& app)
             });
 
     BMCWEB_ROUTE(app, "/redfish/v1/SessionService/Sessions/")
-        .privileges({{"Login"}})
+        .privileges(redfish::privileges::getSessionCollection)
         .methods(boost::beast::http::verb::get)(
             [](const crow::Request& /*req*/,
                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) -> void {
@@ -133,6 +133,11 @@ inline void requestRoutesSession(App& app)
             });
 
     BMCWEB_ROUTE(app, "/redfish/v1/SessionService/Sessions/")
+        // Note, this technically doesn't match the privilege registry given the
+        // way login mechanisms work.  The base privilege registry lists this
+        // endpoint as requiring login privilege, but because this is the
+        // endpoint responsible for giving the login privilege, and it is itself
+        // its own route, it needs to not require Login
         .privileges({})
         .methods(boost::beast::http::verb::post)(
             [](const crow::Request& req,
@@ -214,7 +219,7 @@ inline void requestRoutesSession(App& app)
             });
 
     BMCWEB_ROUTE(app, "/redfish/v1/SessionService/")
-        .privileges({{"Login"}})
+        .privileges(redfish::privileges::getSessionService)
         .methods(boost::beast::http::verb::get)(
             [](const crow::Request& /* req */,
                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) -> void {
@@ -235,7 +240,7 @@ inline void requestRoutesSession(App& app)
             });
 
     BMCWEB_ROUTE(app, "/redfish/v1/SessionService/")
-        .privileges({{"ConfigureManager"}})
+        .privileges(redfish::privileges::patchSessionService)
         .methods(boost::beast::http::verb::patch)(
             [](const crow::Request& req,
                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) -> void {
