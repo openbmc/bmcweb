@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a9c3c5fb_4c8cb4b0",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-06-10T13:55:47Z",
+      "side": 1,
+      "message": "or ?",
+      "range": {
+        "startLine": 20,
+        "startChar": 65,
+        "endLine": 20,
+        "endChar": 67
+      },
+      "revId": "99a2105feff4535c5cae2cbca94c24549024cf3e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8a23cbb7_b6356633",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-06-10T13:55:47Z",
+      "side": 1,
+      "message": "nitpick: \"Tested:\" field. \nFrom https://github.com/openbmc/bmcweb/blob/92696982a22d8952b16c399f88898623d9e8b8ab/DEVELOPING.md\nYour change should not introduce any new validator errors. Please include the Redfish Service Validator results as part of the commit message \"Tested\" field.",
+      "revId": "99a2105feff4535c5cae2cbca94c24549024cf3e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
