@@ -827,6 +827,8 @@ inline void requestRoutesSoftwareInventory(App& app)
                         found = true;
                         fw_util::getFwStatus(asyncResp, swId,
                                              obj.second[0].first);
+                        fw_util::getFirmwareSettings(
+                            asyncResp, obj.second[0].first, obj.first);
 
                         crow::connections::systemBus->async_method_call(
                             [asyncResp, swId](
@@ -926,7 +928,7 @@ inline void requestRoutesSoftwareInventory(App& app)
                         return;
                     }
                     asyncResp->res.jsonValue["@odata.type"] =
-                        "#SoftwareInventory.v1_1_0.SoftwareInventory";
+                        "#SoftwareInventory.v1_3_0.SoftwareInventory";
                     asyncResp->res.jsonValue["Name"] = "Software Inventory";
                     asyncResp->res.jsonValue["Status"]["HealthRollup"] = "OK";
 
@@ -940,6 +942,87 @@ inline void requestRoutesSoftwareInventory(App& app)
                 std::array<const char*, 1>{
                     "xyz.openbmc_project.Software.Version"});
         });
+
+    BMCWEB_ROUTE(app, "/redfish/v1/UpdateService/FirmwareInventory/<str>/")
+        .privileges({{"ConfigureComponents"}})
+        .methods(boost::beast::http::verb::patch)(
+            [](const crow::Request& req,
+               const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+               const std::string& swId) {
+                std::optional<bool> writeProtected;
+                if (!json_util::readJson(req, asyncResp->res, "WriteProtected",
+                                         writeProtected))
+                {
+                    return;
+                }
+
+                if (!writeProtected)
+                {
+                    return;
+                }
+
+                crow::connections::systemBus->async_method_call(
+                    [asyncResp, swId, writeProtected](
+                        const boost::system::error_code ec,
+                        const std::vector<std::pair<
+                            std::string,
+                            std::vector<std::pair<std::string,
+                                                  std::vector<std::string>>>>>&
+                            subtree) {
+                        BMCWEB_LOG_DEBUG << "doPatch callback...";
+                        if (ec)
+                        {
+                            messages::internalError(asyncResp->res);
+                            return;
+                        }
+
+                        // Ensure we find our input swId, otherwise return an
+                        // error
+                        auto foundFirmware = std::find_if(
+                            subtree.begin(), subtree.end(),
+                            [swId](const auto& firmware) {
+                                return sdbusplus::message::object_path path(
+                                           firmware.first)
+                                               .filename() != swId &&
+                                       firmware.second.size() < 1
+                            });
+
+                        if (foundFirmware == subtree.end())
+                        {
+                            messages::resourceNotFound(
+                                asyncResp->res,
+                                "#SoftwareInventory.v1_3_0.SoftwareInventory",
+                                swId);
+                            return;
+                        }
+
+                        // Set the requested image apply time value
+                        crow::connections::systemBus->async_method_call(
+                            [asyncResp, writeProtected](
+                                const boost::system::error_code ec) {
+                                if (ec)
+                                {
+                                    BMCWEB_LOG_ERROR
+                                        << "D-Bus responses error: " << ec;
+                                    messages::internalError(asyncResp->res);
+                                    return;
+                                }
+                                messages::success(asyncResp->res);
+                            },
+                            foundFirmware->second[0].first,
+                            foundFirmware->first,
+                            "org.freedesktop.DBus.Properties", "Set",
+                            "xyz.openbmc_project.Software.Settings",
+                            "WriteProtected",
+                            std::variant<bool>{writeProtected.value()});
+                    },
+                    "xyz.openbmc_project.ObjectMapper",
+                    "/xyz/openbmc_project/object_mapper",
+                    "xyz.openbmc_project.ObjectMapper", "GetSubTree", "/",
+                    static_cast<int32_t>(0),
+                    std::array<const char*, 1>{
+                        "xyz.openbmc_project.Software.Version"});
+            });
 }
 
 } // namespace redfish
