@@ -227,6 +227,30 @@
       "revId": "1101127a4952e51514a4c629ee2359528a8e1661",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "753f5faa_8fc65954",
+        "filename": "redfish-core/lib/pcie_slots.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 293,
+      "author": {
+        "id": 1000400
+      },
+      "writtenOn": "2021-06-10T02:33:14Z",
+      "side": 1,
+      "message": "This global variable is used to record the total number of pcieslot. It will be +1 in asynchronous calls (line 377), so we need to use a global variable",
+      "parentUuid": "46e8c53c_00da78b7",
+      "range": {
+        "startLine": 293,
+        "startChar": 0,
+        "endLine": 293,
+        "endChar": 23
+      },
+      "revId": "1101127a4952e51514a4c629ee2359528a8e1661",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
