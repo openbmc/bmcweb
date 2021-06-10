@@ -1105,6 +1105,11 @@ inline void requestRoutesSoftwareInventory(App& app)
                         fw_util::getFwStatus(asyncResp, swId,
                                              obj.second[0].first);
 
+                        asyncResp->res.jsonValue["Updateable"] = false;
+                        asyncResp->res.jsonValue["WriteProtected"] = false;
+                        fw_util::getFirmwareStates(
+                            asyncResp, obj.second[0].first, obj.first);
+
                         crow::connections::systemBus->async_method_call(
                             [asyncResp, swId](
                                 const boost::system::error_code errorCode,
@@ -1204,11 +1209,10 @@ inline void requestRoutesSoftwareInventory(App& app)
                         return;
                     }
                     asyncResp->res.jsonValue["@odata.type"] =
-                        "#SoftwareInventory.v1_1_0.SoftwareInventory";
+                        "#SoftwareInventory.v1_3_0.SoftwareInventory";
                     asyncResp->res.jsonValue["Name"] = "Software Inventory";
                     asyncResp->res.jsonValue["Status"]["HealthRollup"] = "OK";
 
-                    asyncResp->res.jsonValue["Updateable"] = false;
                     fw_util::getFwUpdateableStatus(asyncResp, swId);
                 },
                 "xyz.openbmc_project.ObjectMapper",
@@ -1217,6 +1221,84 @@ inline void requestRoutesSoftwareInventory(App& app)
                 static_cast<int32_t>(0),
                 std::array<const char*, 1>{
                     "xyz.openbmc_project.Software.Version"});
+        });
+
+    BMCWEB_ROUTE(app, "/redfish/v1/UpdateService/FirmwareInventory/<str>/")
+        .privileges({{"ConfigureComponents"}})
+        .methods(
+            boost::beast::http::verb::
+                patch)([](const crow::Request& req,
+                          const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                          const std::string& swId) {
+            std::optional<nlohmann::json> writeProtected;
+            if (!json_util::readJson(req, asyncResp->res, "WriteProtected",
+                                     writeProtected))
+            {
+                return;
+            }
+
+            if (writeProtected)
+            {
+                crow::connections::systemBus->async_method_call(
+                    [asyncResp, swId, writeProtected](
+                        const boost::system::error_code ec,
+                        const std::vector<std::pair<
+                            std::string,
+                            std::vector<std::pair<std::string,
+                                                  std::vector<std::string>>>>>&
+                            subtree) {
+                        BMCWEB_LOG_DEBUG << "doGet callback...";
+                        if (ec)
+                        {
+                            messages::internalError(asyncResp->res);
+                            return;
+                        }
+
+                        // Ensure we find our input swId, otherwise return an
+                        // error
+                        for (const std::pair<
+                                 std::string,
+                                 std::vector<std::pair<
+                                     std::string, std::vector<std::string>>>>&
+                                 obj : subtree)
+                        {
+                            if (!boost::ends_with(obj.first, swId))
+                            {
+                                continue;
+                            }
+
+                            if (obj.second.size() < 1)
+                            {
+                                continue;
+                            }
+
+                            // Set the requested image apply time value
+                            crow::connections::systemBus->async_method_call(
+                                [asyncResp, writeProtected](
+                                    const boost::system::error_code ec) {
+                                    if (ec)
+                                    {
+                                        BMCWEB_LOG_ERROR
+                                            << "D-Bus responses error: " << ec;
+                                        messages::internalError(asyncResp->res);
+                                        return;
+                                    }
+                                    messages::success(asyncResp->res);
+                                },
+                                obj.second[0].first, obj.first,
+                                "org.freedesktop.DBus.Properties", "Set",
+                                "xyz.openbmc_project.Software.State",
+                                "WriteProtected",
+                                std::variant<bool>{writeProtected.value()});
+                        }
+                    },
+                    "xyz.openbmc_project.ObjectMapper",
+                    "/xyz/openbmc_project/object_mapper",
+                    "xyz.openbmc_project.ObjectMapper", "GetSubTree", "/",
+                    static_cast<int32_t>(0),
+                    std::array<const char*, 1>{
+                        "xyz.openbmc_project.Software.Version"});
+            }
         });
 }
 
