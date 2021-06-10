@@ -825,6 +825,11 @@ inline void requestRoutesSoftwareInventory(App& app)
                         fw_util::getFwStatus(asyncResp, swId,
                                              obj.second[0].first);
 
+                        asyncResp->res.jsonValue["Updateable"] = false;
+                        asyncResp->res.jsonValue["WriteProtected"] = false;
+                        fw_util::getFirmwareStates(
+                            asyncResp, obj.second[0].first, obj.first);
+
                         crow::connections::systemBus->async_method_call(
                             [asyncResp, swId](
                                 const boost::system::error_code errorCode,
@@ -923,11 +928,10 @@ inline void requestRoutesSoftwareInventory(App& app)
                         return;
                     }
                     asyncResp->res.jsonValue["@odata.type"] =
-                        "#SoftwareInventory.v1_1_0.SoftwareInventory";
+                        "#SoftwareInventory.v1_3_0.SoftwareInventory";
                     asyncResp->res.jsonValue["Name"] = "Software Inventory";
                     asyncResp->res.jsonValue["Status"]["HealthRollup"] = "OK";
 
-                    asyncResp->res.jsonValue["Updateable"] = false;
                     fw_util::getFwUpdateableStatus(asyncResp, swId);
                 },
                 "xyz.openbmc_project.ObjectMapper",
