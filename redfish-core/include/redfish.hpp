@@ -113,6 +113,8 @@ class RedfishService
         requestRoutesStorageController(app);
         requestRoutesCable(app);
         requestRoutesCableCollection(app);
+        requestDriveResetAction(app);
+        requestRoutesDriveResetActionInfo(app);
 #ifdef BMCWEB_INSECURE_ENABLE_REDFISH_FW_TFTP_UPDATE
         requestRoutesUpdateServiceActionsSimpleUpdate(app);
 #endif
