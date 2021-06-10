@@ -814,6 +814,26 @@ inline static void
     }
 }
 
+inline static void
+    setWriteProtected(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                      const std::string& service, const std::string& path,
+                      const bool writeProtected)
+{
+    sdbusplus::asio::setProperty(
+        *crow::connections::systemBus, service, path,
+        "xyz.openbmc_project.Software.Settings", "WriteProtected",
+        writeProtected, [asyncResp](const boost::system::error_code ec) {
+            if (ec)
+            {
+                BMCWEB_LOG_ERROR << "setWriteProtected D-Bus responses error: "
+                                 << ec;
+                messages::internalError(asyncResp->res);
+                return;
+            }
+            messages::success(asyncResp->res);
+        });
+}
+
 inline void
     getSoftwareVersion(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                        const std::string& service, const std::string& path,
@@ -936,6 +956,8 @@ inline void requestRoutesSoftwareInventory(App& app)
                 sw_util::getSwStatus(asyncResp, swId, obj.second[0].first);
                 getSoftwareVersion(asyncResp, obj.second[0].first, obj.first,
                                    *swId);
+                sw_util::getSoftwareSettings(asyncResp, obj.second[0].first,
+                                             obj.first);
             }
             if (!found)
             {
@@ -947,7 +969,7 @@ inline void requestRoutesSoftwareInventory(App& app)
                 return;
             }
             asyncResp->res.jsonValue["@odata.type"] =
-                "#SoftwareInventory.v1_1_0.SoftwareInventory";
+                "#SoftwareInventory.v1_3_0.SoftwareInventory";
             asyncResp->res.jsonValue["Name"] = "Software Inventory";
             asyncResp->res.jsonValue["Status"]["HealthRollup"] = "OK";
 
@@ -956,9 +978,67 @@ inline void requestRoutesSoftwareInventory(App& app)
             },
             "xyz.openbmc_project.ObjectMapper",
             "/xyz/openbmc_project/object_mapper",
+            "xyz.openbmc_project.ObjectMapper", "GetSubTree",
+            "/xyz/openbmc_project/software", static_cast<int32_t>(0),
+            std::array<const char*, 2>{
+                "xyz.openbmc_project.Software.Version",
+                "xyz.openbmc_project.Software.Settings"});
+        });
+
+    BMCWEB_ROUTE(app, "/redfish/v1/UpdateService/FirmwareInventory/<str>/")
+        .privileges(redfish::privileges::patchSoftwareInventory)
+        .methods(boost::beast::http::verb::patch)(
+            [](const crow::Request& req,
+               const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+               const std::string& swId) {
+        bool writeProtected = false;
+        if (!json_util::readJsonPatch(req, asyncResp->res, "WriteProtected",
+                                      writeProtected))
+        {
+            BMCWEB_LOG_DEBUG << "WriteProtected is not in the patch input";
+            return;
+        }
+
+        crow::connections::systemBus->async_method_call(
+            [asyncResp, swId, writeProtected](
+                const boost::system::error_code ec,
+                const dbus::utility::MapperGetSubTreeResponse& subtree) {
+            if (ec)
+            {
+                messages::internalError(asyncResp->res);
+                return;
+            }
+            BMCWEB_LOG_DEBUG
+                << "Patching FirmwareInventory with .WriteProtected.";
+
+            for (const std::pair<std::string,
+                                 std::vector<std::pair<
+                                     std::string, std::vector<std::string>>>>&
+                     obj : subtree)
+            {
+
+                if (sdbusplus::message::object_path(obj.first).filename() !=
+                        swId ||
+                    obj.second.empty())
+                {
+                    continue;
+                }
+
+                setWriteProtected(asyncResp, obj.second[0].first, obj.first,
+                                  writeProtected);
+                return;
+            }
+
+            messages::resourceNotFound(
+                asyncResp->res, "#SoftwareInventory.v1_3_0.SoftwareInventory",
+                swId);
+            },
+            "xyz.openbmc_project.ObjectMapper",
+            "/xyz/openbmc_project/object_mapper",
             "xyz.openbmc_project.ObjectMapper", "GetSubTree", "/",
             static_cast<int32_t>(0),
-            std::array<const char*, 1>{"xyz.openbmc_project.Software.Version"});
+            std::array<const char*, 1>{
+                "xyz.openbmc_project.Software.Settings"});
         });
 }
 
