@@ -21,6 +21,7 @@
 #include "../lib/chassis.hpp"
 #include "../lib/ethernet.hpp"
 #include "../lib/event_service.hpp"
+#include "../lib/fan.hpp"
 #include "../lib/log_services.hpp"
 #include "../lib/managers.hpp"
 #include "../lib/memory.hpp"
@@ -72,6 +73,8 @@ class RedfishService
         requestRoutesNetworkProtocol(app);
         requestRoutesSession(app);
         requestEthernetInterfacesRoutes(app);
+        requestRoutesFan(app);
+        requestRoutesFanCollection(app);
         requestRoutesThermal(app);
         requestRoutesThermalSubsystem(app);
         requestRoutesManagerCollection(app);
