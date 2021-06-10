@@ -18,6 +18,7 @@
 #include "sensors.hpp"
 
 #include <app.hpp>
+#include <registries/privilege_registry.hpp>
 
 namespace redfish
 {
@@ -25,7 +26,7 @@ namespace redfish
 inline void requestRoutesThermal(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/Chassis/<str>/Thermal/")
-        .privileges({{"Login"}})
+        .privileges(redfish::privileges::getThermal)
         .methods(boost::beast::http::verb::get)(
             [](const crow::Request&,
                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
@@ -47,7 +48,7 @@ inline void requestRoutesThermal(App& app)
             });
 
     BMCWEB_ROUTE(app, "/redfish/v1/Chassis/<str>/Thermal/")
-        .privileges({{"ConfigureManager"}})
+        .privileges(redfish::privileges::patchThermal)
         .methods(boost::beast::http::verb::patch)(
             [](const crow::Request& req,
                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,

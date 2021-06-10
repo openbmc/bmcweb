@@ -5,6 +5,7 @@
 #include <boost/container/flat_set.hpp>
 #include <dbus_singleton.hpp>
 #include <error_messages.hpp>
+#include <registries/privilege_registry.hpp>
 #include <utils/json_utils.hpp>
 
 #include <optional>
@@ -725,7 +726,7 @@ inline void requestRoutesHypervisorSystems(App& app)
      */
 
     BMCWEB_ROUTE(app, "/redfish/v1/Systems/hypervisor/")
-        .privileges({{"Login"}})
+        .privileges(redfish::privileges::getComputerSystem)
         .methods(boost::beast::http::verb::get)(
             [](const crow::Request&,
                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
@@ -769,7 +770,7 @@ inline void requestRoutesHypervisorSystems(App& app)
      */
 
     BMCWEB_ROUTE(app, "/redfish/v1/Systems/hypervisor/EthernetInterfaces/")
-        .privileges({{"Login"}})
+        .privileges(redfish::privileges::getEthernetInterfaceCollection)
         .methods(boost::beast::http::verb::get)(
             [](const crow::Request&,
                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
@@ -825,7 +826,7 @@ inline void requestRoutesHypervisorSystems(App& app)
 
     BMCWEB_ROUTE(app,
                  "/redfish/v1/Systems/hypervisor/EthernetInterfaces/<str>/")
-        .privileges({{"Login"}})
+        .privileges(redfish::privileges::getEthernetInterface)
         .methods(
             boost::beast::http::verb::get)([](const crow::Request&,
                                               const std::shared_ptr<
@@ -856,7 +857,7 @@ inline void requestRoutesHypervisorSystems(App& app)
 
     BMCWEB_ROUTE(app,
                  "/redfish/v1/Systems/hypervisor/EthernetInterfaces/<str>/")
-        .privileges({{"ConfigureComponents"}})
+        .privileges(redfish::privileges::patchEthernetInterface)
         .methods(
             boost::beast::http::verb::
                 patch)([](const crow::Request& req,
@@ -970,7 +971,7 @@ inline void requestRoutesHypervisorSystems(App& app)
         });
 
     BMCWEB_ROUTE(app, "/redfish/v1/Systems/hypervisor/ResetActionInfo/")
-        .privileges({{"Login"}})
+        .privileges(redfish::privileges::getActionInfo)
         .methods(boost::beast::http::verb::get)(
             [](const crow::Request&,
                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
@@ -1029,7 +1030,7 @@ inline void requestRoutesHypervisorSystems(App& app)
 
     BMCWEB_ROUTE(app,
                  "/redfish/v1/Systems/hypervisor/Actions/ComputerSystem.Reset/")
-        .privileges({{"ConfigureComponents"}})
+        .privileges(redfish::privileges::postComputerSystem)
         .methods(boost::beast::http::verb::post)(
             [](const crow::Request& req,
                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {

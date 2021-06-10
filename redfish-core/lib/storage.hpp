@@ -19,13 +19,14 @@
 #include "openbmc_dbus_rest.hpp"
 
 #include <app.hpp>
+#include <registries/privilege_registry.hpp>
 
 namespace redfish
 {
 inline void requestRoutesStorageCollection(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/Systems/system/Storage/")
-        .privileges({{"Login"}})
+        .privileges(redfish::privileges::getStorageCollection)
         .methods(boost::beast::http::verb::get)(
             [](const crow::Request&,
                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
@@ -43,7 +44,7 @@ inline void requestRoutesStorageCollection(App& app)
 inline void requestRoutesStorage(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/Systems/system/Storage/1/")
-        .privileges({{"Login"}})
+        .privileges(redfish::privileges::getStorage)
         .methods(
             boost::beast::http::verb::
                 get)([](const crow::Request&,
@@ -266,7 +267,7 @@ inline void requestRoutesStorage(App& app)
 inline void requestRoutesDrive(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/Systems/system/Storage/1/Drives/<str>/")
-        .privileges({{"Login"}})
+        .privileges(redfish::privileges::getDrive)
         .methods(
             boost::beast::http::verb::get)([](const crow::Request&,
                                               const std::shared_ptr<
