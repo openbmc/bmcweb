@@ -47,8 +47,6 @@ inline void requestRoutesServiceRoot(App& app)
                     {"@odata.id", "/redfish/v1/Managers"}};
                 asyncResp->res.jsonValue["SessionService"] = {
                     {"@odata.id", "/redfish/v1/SessionService"}};
-                asyncResp->res.jsonValue["Managers"] = {
-                    {"@odata.id", "/redfish/v1/Managers"}};
                 asyncResp->res.jsonValue["Systems"] = {
                     {"@odata.id", "/redfish/v1/Systems"}};
                 asyncResp->res.jsonValue["Registries"] = {
