@@ -734,64 +734,66 @@ inline void requestRoutesUpdateService(App& app)
             std::bind_front(handleUpdateServicePost, std::ref(app)));
 }
 
+void handleSoftwareInventoryCollection(
+    App& app, const crow::Request& req,
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
+{
+    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+    {
+        return;
+    }
+    asyncResp->res.jsonValue["@odata.type"] =
+        "#SoftwareInventoryCollection.SoftwareInventoryCollection";
+    asyncResp->res.jsonValue["@odata.id"] =
+        "/redfish/v1/UpdateService/FirmwareInventory";
+    asyncResp->res.jsonValue["Name"] = "Software Inventory Collection";
+
+    // Note that only firmware levels associated with a device
+    // are stored under /xyz/openbmc_project/software therefore
+    // to ensure only real FirmwareInventory items are returned,
+    // this full object path must be used here as input to
+    // mapper
+    constexpr std::array<std::string_view, 1> interfaces = {
+        "xyz.openbmc_project.Software.Version"};
+    dbus::utility::getSubTree(
+        "/xyz/openbmc_project/software", 0, interfaces,
+        [asyncResp](const boost::system::error_code& ec,
+                    const dbus::utility::MapperGetSubTreeResponse& subtree) {
+        if (ec)
+        {
+            messages::internalError(asyncResp->res);
+            return;
+        }
+        asyncResp->res.jsonValue["Members"] = nlohmann::json::array();
+        asyncResp->res.jsonValue["Members@odata.count"] = 0;
+
+        for (const auto& obj : subtree)
+        {
+            sdbusplus::message::object_path path(obj.first);
+            std::string swId = path.filename();
+            if (swId.empty())
+            {
+                messages::internalError(asyncResp->res);
+                BMCWEB_LOG_DEBUG << "Can't parse firmware ID!!";
+                return;
+            }
+
+            nlohmann::json& members = asyncResp->res.jsonValue["Members"];
+            nlohmann::json::object_t member;
+            member["@odata.id"] =
+                "/redfish/v1/UpdateService/FirmwareInventory/" + swId;
+            members.push_back(std::move(member));
+            asyncResp->res.jsonValue["Members@odata.count"] = members.size();
+        }
+        });
+}
+
 inline void requestRoutesSoftwareInventoryCollection(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/UpdateService/FirmwareInventory/")
         .privileges(redfish::privileges::getSoftwareInventoryCollection)
         .methods(boost::beast::http::verb::get)(
-            [&app](const crow::Request& req,
-                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
-        if (!redfish::setUpRedfishRoute(app, req, asyncResp))
-        {
-            return;
-        }
-        asyncResp->res.jsonValue["@odata.type"] =
-            "#SoftwareInventoryCollection.SoftwareInventoryCollection";
-        asyncResp->res.jsonValue["@odata.id"] =
-            "/redfish/v1/UpdateService/FirmwareInventory";
-        asyncResp->res.jsonValue["Name"] = "Software Inventory Collection";
-
-        // Note that only firmware levels associated with a device
-        // are stored under /xyz/openbmc_project/software therefore
-        // to ensure only real FirmwareInventory items are returned,
-        // this full object path must be used here as input to
-        // mapper
-        constexpr std::array<std::string_view, 1> interfaces = {
-            "xyz.openbmc_project.Software.Version"};
-        dbus::utility::getSubTree(
-            "/xyz/openbmc_project/software", 0, interfaces,
-            [asyncResp](
-                const boost::system::error_code& ec,
-                const dbus::utility::MapperGetSubTreeResponse& subtree) {
-            if (ec)
-            {
-                messages::internalError(asyncResp->res);
-                return;
-            }
-            asyncResp->res.jsonValue["Members"] = nlohmann::json::array();
-            asyncResp->res.jsonValue["Members@odata.count"] = 0;
-
-            for (const auto& obj : subtree)
-            {
-                sdbusplus::message::object_path path(obj.first);
-                std::string swId = path.filename();
-                if (swId.empty())
-                {
-                    messages::internalError(asyncResp->res);
-                    BMCWEB_LOG_DEBUG << "Can't parse firmware ID!!";
-                    return;
-                }
-
-                nlohmann::json& members = asyncResp->res.jsonValue["Members"];
-                nlohmann::json::object_t member;
-                member["@odata.id"] =
-                    "/redfish/v1/UpdateService/FirmwareInventory/" + swId;
-                members.push_back(std::move(member));
-                asyncResp->res.jsonValue["Members@odata.count"] =
-                    members.size();
-            }
-            });
-        });
+            std::bind_front(handleSoftwareInventoryCollection, std::ref(app)));
 }
 /* Fill related item links (i.e. bmc, bios) in for inventory */
 inline static void
@@ -818,6 +820,26 @@ inline static void
     {
         BMCWEB_LOG_ERROR << "Unknown software purpose " << purpose;
     }
+}
+
+inline static void
+    setWriteProtected(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                      const std::string& service, const std::string& path,
+                      const bool writeProtected)
+{
+    sdbusplus::asio::setProperty(
+        *crow::connections::systemBus, service, path,
+        "xyz.openbmc_project.Software.Settings", "WriteProtected",
+        writeProtected, [asyncResp](const boost::system::error_code ec) {
+            if (ec)
+            {
+                BMCWEB_LOG_ERROR << "setWriteProtected D-Bus responses error: "
+                                 << ec;
+                messages::internalError(asyncResp->res);
+                return;
+            }
+            messages::success(asyncResp->res);
+        });
 }
 
 inline void
@@ -910,10 +932,11 @@ inline void requestRoutesSoftwareInventory(App& app)
         asyncResp->res.jsonValue["@odata.id"] =
             "/redfish/v1/UpdateService/FirmwareInventory/" + *swId;
 
-        constexpr std::array<std::string_view, 1> interfaces = {
-            "xyz.openbmc_project.Software.Version"};
+        constexpr std::array<std::string_view, 2> interfaces = {
+            "xyz.openbmc_project.Software.Version",
+            "xyz.openbmc_project.Software.Settings"};
         dbus::utility::getSubTree(
-            "/", 0, interfaces,
+            "/xyz/openbmc_project/software", 0, interfaces,
             [asyncResp,
              swId](const boost::system::error_code& ec,
                    const dbus::utility::MapperGetSubTreeResponse& subtree) {
@@ -945,6 +968,8 @@ inline void requestRoutesSoftwareInventory(App& app)
                 sw_util::getSwStatus(asyncResp, swId, obj.second[0].first);
                 getSoftwareVersion(asyncResp, obj.second[0].first, obj.first,
                                    *swId);
+                sw_util::getSoftwareSettings(asyncResp, obj.second[0].first,
+                                             obj.first);
             }
             if (!found)
             {
@@ -956,12 +981,91 @@ inline void requestRoutesSoftwareInventory(App& app)
                 return;
             }
             asyncResp->res.jsonValue["@odata.type"] =
-                "#SoftwareInventory.v1_1_0.SoftwareInventory";
+                "#SoftwareInventory.v1_3_0.SoftwareInventory";
             asyncResp->res.jsonValue["Name"] = "Software Inventory";
             asyncResp->res.jsonValue["Status"]["HealthRollup"] = "OK";
 
             asyncResp->res.jsonValue["Updateable"] = false;
             sw_util::getSwUpdatableStatus(asyncResp, swId);
+            });
+        });
+
+    BMCWEB_ROUTE(app, "/redfish/v1/UpdateService/FirmwareInventory/<str>/")
+        .privileges(redfish::privileges::patchSoftwareInventory)
+        .methods(boost::beast::http::verb::patch)(
+            [&app](const crow::Request& req,
+                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                   const std::string& swId) {
+        if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+        {
+            return;
+        }
+        bool writeProtected = false;
+        if (!json_util::readJsonPatch(req, asyncResp->res, "WriteProtected",
+                                      writeProtected))
+        {
+            BMCWEB_LOG_DEBUG << "WriteProtected is not in the patch input";
+            return;
+        }
+
+        constexpr std::array<std::string_view, 2> interfaces = {
+            "xyz.openbmc_project.Software.Version",
+            "xyz.openbmc_project.Software.Settings"};
+        dbus::utility::getSubTree(
+            "/xyz/openbmc_project/software", 0, interfaces,
+            [asyncResp, swId, writeProtected](
+                const boost::system::error_code& ec,
+                const dbus::utility::MapperGetSubTreeResponse& subtree) {
+            if (ec)
+            {
+                messages::internalError(asyncResp->res);
+                return;
+            }
+            BMCWEB_LOG_DEBUG
+                << "Patching FirmwareInventory with .WriteProtected.";
+
+            for (const std::pair<std::string, dbus::utility::MapperServiceMap>&
+                     obj : subtree)
+            {
+
+                if (sdbusplus::message::object_path(obj.first).filename() !=
+                        swId ||
+                    obj.second.empty())
+                {
+                    continue;
+                }
+
+                bool foundSetting = false;
+                bool foundVersion = false;
+
+                for (std::string_view interface : obj.second[0].second)
+                {
+                    if (interface == "xyz.openbmc_project.Software.Settings")
+                    {
+                        foundSetting = true;
+                    }
+                    if (interface == "xyz.openbmc_project.Software.Version")
+                    {
+                        foundVersion = true;
+                    }
+                    if (foundSetting && foundVersion)
+                    {
+                        break;
+                    }
+                }
+                // Did not find the Software Setting with Software Version.
+                if (!foundSetting || !foundVersion)
+                {
+                    continue;
+                }
+                setWriteProtected(asyncResp, obj.second[0].first, obj.first,
+                                  writeProtected);
+                return;
+            }
+
+            messages::resourceNotFound(
+                asyncResp->res, "#SoftwareInventory.v1_3_0.SoftwareInventory",
+                swId);
             });
         });
 }
