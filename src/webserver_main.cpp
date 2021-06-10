@@ -1,3 +1,4 @@
+#include <bmcweb_config.h>
 #include <systemd/sd-daemon.h>
 
 #include <app.hpp>

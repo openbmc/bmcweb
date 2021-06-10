@@ -63,6 +63,10 @@ def make_getter(dmtf_name, header_name, type_name):
     return (path, json_file, type_name, url)
 
 
+def clang_format(filename):
+    subprocess.check_call(["clang-format-11", "-i", filename])
+
+
 files = []
 files.append(make_getter('Base.1.10.0.json',
                          'base_message_registry.hpp', 'base'))
@@ -115,4 +119,71 @@ for file, json_dict, namespace, url in files:
             registry.write("\"{}\",".format(message["Resolution"]))
             registry.write("}},")
         registry.write("};}\n")
-    subprocess.check_call(["clang-format-11", "-i", file])
+    clang_format(file)
+
+
+def get_privilege_string_from_list(privilege_list):
+    privilege_string = "{{\n"
+    for privilege_json in privilege_list:
+        privileges = privilege_json["Privilege"]
+        privilege_string += "    {"
+        for privilege in privileges:
+            if privilege == "NoAuth":
+                continue
+            privilege_string += "\""
+            privilege_string += privilege
+            privilege_string += "\",\n"
+        if privilege != "NoAuth":
+            privilege_string = privilege_string[:-2]
+        privilege_string += "}"
+        privilege_string += ",\n"
+    privilege_string = privilege_string[:-2]
+    privilege_string += "\n}}"
+    return privilege_string
+
+def get_variable_name_for_privilege_set(privilege_list):
+    names = []
+    for privilege_json in privilege_list:
+        privileges = privilege_json["Privilege"]
+        names.append("And".join(privileges))
+    return "Or".join(names)
+
+def make_privilege_registry():
+    path, json_file, type_name, url = make_getter('Redfish_1.1.0_PrivilegeRegistry.json',
+                                                  'privilege_registry.hpp', 'privilege')
+    with open(path, 'w') as registry:
+        registry.write("//{} is generated.  Do not edit directly\n".format(os.path.basename(path)))
+
+        registry.write("#include <privileges.hpp>\n\n")
+        registry.write("namespace redfish::privileges{\n")
+
+        privilege_dict = {}
+        for mapping in json_file["Mappings"]:
+            # first pass, identify all the unique privilege sets
+            for operation, privilege_list in mapping["OperationMap"].items():
+                privilege_dict[get_privilege_string_from_list(
+                    privilege_list)] = (privilege_list, )
+        registry.write("// clang-format off\n")
+        for index, key in enumerate(privilege_dict):
+            (privilege_list, ) = privilege_dict[key]
+            name = get_variable_name_for_privilege_set(privilege_list)
+            registry.write("const std::array<Privileges, {}> privilegeSet{} = {};\n".format(
+                len(privilege_list), name, key))
+            privilege_dict[key] = (privilege_list, name)
+        registry.write("// clang-format on\n\n")
+
+        for mapping in json_file["Mappings"]:
+            entity = mapping["Entity"]
+            for operation, privilege_list in mapping["OperationMap"].items():
+                privilege_string = get_privilege_string_from_list(
+                    privilege_list)
+                operation = operation.lower()
+
+                registry.write("const auto& {}{} = privilegeSet{};".format(
+                   operation, entity , privilege_dict[privilege_string][1]))
+
+        registry.write("} // namespace redfish::privileges\n")
+    clang_format(path)
+
+
+make_privilege_registry()
