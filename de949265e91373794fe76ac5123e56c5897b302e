@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3a216bda_40fbacf1",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-06-10T23:38:40Z",
+      "side": 1,
+      "message": "processor ?\nIt is more than just a accelerator",
+      "range": {
+        "startLine": 106,
+        "startChar": 46,
+        "endLine": 106,
+        "endChar": 58
+      },
+      "revId": "de949265e91373794fe76ac5123e56c5897b302e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
