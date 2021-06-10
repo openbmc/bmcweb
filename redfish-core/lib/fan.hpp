@@ -42,12 +42,14 @@ inline bool checkFanId(const std::string& fanPath, const std::string& fanId)
 template <typename Callback>
 inline void handlerFanId(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                          const std::string& service, const std::string& fanPath,
-                         const std::string& fanId, Callback&& callback)
+                         const std::string& fanId,
+                         const std::vector<std::string>& interfaces,
+                         Callback&& callback)
 {
     sdbusplus::asio::getProperty<MapperGetAssociationResponse>(
         *crow::connections::systemBus, service, fanPath, assIntf,
         "Associations",
-        [asyncResp, fanId,
+        [asyncResp, service, fanPath, fanId, interfaces,
          callback](const boost::system::error_code ec,
                    const MapperGetAssociationResponse& associations) {
         if (ec)
@@ -66,7 +68,7 @@ inline void handlerFanId(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                 }
                 // Clear resourceNotFound response
                 asyncResp->res.clear();
-                callback();
+                callback(service, fanPath, interfaces, endpoint);
                 break;
             }
         }
@@ -97,6 +99,9 @@ inline void getValidfanId(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
             return;
         }
 
+        // Set the default value to resourceNotFound, and if we confirm that
+        // fanId is correct, the error response will be cleared.
+        messages::resourceNotFound(asyncResp->res, "fan", fanId);
         for (const auto& [fanPath, serviceMap] : subtree)
         {
             for (const auto& [service, interfaces] : serviceMap)
@@ -109,11 +114,12 @@ inline void getValidfanId(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                     {
                         // Clear resourceNotFound response
                         asyncResp->res.clear();
-                        callback();
+                        callback(service, fanPath, interfaces);
                     }
                     continue;
                 }
-                handlerFanId(asyncResp, service, fanPath, fanId, callback);
+                handlerFanId(asyncResp, service, fanPath, fanId, interfaces,
+                             callback);
             }
         }
     };
@@ -123,6 +129,86 @@ inline void getValidfanId(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
         "/xyz/openbmc_project/object_mapper",
         "xyz.openbmc_project.ObjectMapper", "GetSubTree", chassisPath, 0,
         std::array<const char*, 1>{"xyz.openbmc_project.Inventory.Item.Fan"});
+}
+
+inline void getFanHealth(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                         const std::string& service, const std::string& path,
+                         const std::string& intf)
+{
+    sdbusplus::asio::getProperty<bool>(
+        *crow::connections::systemBus, service, path, intf, "Functional",
+        [asyncResp](const boost::system::error_code ec, const bool value) {
+        if (ec)
+        {
+            return;
+        }
+
+        asyncResp->res.jsonValue["Status"]["Health"] =
+            value ? "OK" : "Critical";
+        });
+}
+
+inline void
+    getFanSensorStatus(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                       const std::string& service, const std::string& path,
+                       const std::vector<std::string>& interfaces)
+{
+    for (const auto& intf : interfaces)
+    {
+        if (intf == "xyz.openbmc_project.State.Decorator.OperationalStatus")
+        {
+            getFanHealth(asyncResp, service, path, intf);
+        }
+    }
+}
+
+inline void getFanState(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                        const std::string& service, const std::string& path,
+                        const std::string& intf)
+{
+    sdbusplus::asio::getProperty<bool>(
+        *crow::connections::systemBus, service, path, intf, "Present",
+        [asyncResp](const boost::system::error_code ec, const bool value) {
+        if (ec)
+        {
+            return;
+        }
+
+        asyncResp->res.jsonValue["Status"]["State"] =
+            value ? "Enabled" : "Absent";
+        });
+}
+
+template <typename Callback>
+inline void getObject(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                      const std::string& endpoint, Callback&& callback)
+{
+    if (endpoint.empty())
+    {
+        return;
+    }
+
+    crow::connections::systemBus->async_method_call(
+        [asyncResp, endpoint, callback{std::forward<Callback>(callback)}](
+            const boost::system::error_code ec,
+            const std::vector<std::pair<std::string, std::vector<std::string>>>&
+                object) {
+        if (ec)
+        {
+            messages::internalError(asyncResp->res);
+            return;
+        }
+
+        for (const auto& obj : object)
+        {
+            const std::string& service = obj.first;
+            callback(asyncResp, service, endpoint, obj.second);
+        }
+        },
+        "xyz.openbmc_project.ObjectMapper",
+        "/xyz/openbmc_project/object_mapper",
+        "xyz.openbmc_project.ObjectMapper", "GetObject", endpoint,
+        std::array<std::string, 0>());
 }
 
 inline void doFanCollection(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
@@ -227,7 +313,11 @@ inline void doFan(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
         return;
     }
 
-    auto getFanIdFunc = [asyncResp, chassisId, fanId]() {
+    auto getFanIdFunc = [asyncResp, chassisId,
+                         fanId](const std::string& service,
+                                const std::string& fanPath,
+                                const std::vector<std::string>& interfaces,
+                                const std::string& endpoint = "") {
         std::string newPath =
             "/redfish/v1/Chassis/" + chassisId + "/ThermalSubsystem/Fans/";
         asyncResp->res.jsonValue["@odata.type"] = "#Fan.v1_3_0.Fan";
@@ -240,6 +330,22 @@ inline void doFan(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
         asyncResp->res.addHeader(
             boost::beast::http::field::link,
             "</redfish/v1/JsonSchemas/Fan/Fan.json>; rel=describedby");
+
+        for (const auto& intf : interfaces)
+        {
+            if (intf == "xyz.openbmc_project.Inventory.Item")
+            {
+                getFanState(asyncResp, service, fanPath, intf);
+            }
+            if (intf ==
+                    "xyz.openbmc_project.State.Decorator.OperationalStatus" &&
+                endpoint.empty())
+            {
+                getFanHealth(asyncResp, service, fanPath, intf);
+            }
+        }
+
+        getObject(asyncResp, endpoint, std::move(getFanSensorStatus));
     };
 
     // Verify that the fan has the correct chassis and whether fan has a
