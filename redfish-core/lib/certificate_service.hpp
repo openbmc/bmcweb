@@ -42,7 +42,7 @@ constexpr char const* authorityObjectPath =
 inline void requestRoutesCertificateService(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/CertificateService/")
-        .privileges({{"Login"}})
+        .privileges(redfish::privileges::getCertificateService)
         .methods(boost::beast::http::verb::get)(
             [](const crow::Request&,
                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
@@ -228,6 +228,8 @@ inline void requestRoutesCertificateActionGenerateCSR(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/CertificateService/Actions/"
                       "CertificateService.GenerateCSR/")
+        // Incorrect Privilege;  Should be ConfigureManager
+        //.privileges(redfish::privileges::postCertificateService)
         .privileges({{"ConfigureComponents"}})
         .methods(boost::beast::http::verb::post)(
             [](const crow::Request& req,
@@ -667,6 +669,8 @@ inline void requestRoutesCertificateActionsReplaceCertificate(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/CertificateService/Actions/"
                       "CertificateService.ReplaceCertificate/")
+        // Incorrect Privilege;  Should be ConfigureManager
+        //.privileges(redfish::privileges::postCertificateService)
         .privileges({{"ConfigureComponents"}})
         .methods(
             boost::beast::http::verb::
@@ -785,6 +789,8 @@ inline void requestRoutesHTTPSCertificate(App& app)
     BMCWEB_ROUTE(
         app,
         "/redfish/v1/Managers/bmc/NetworkProtocol/HTTPS/Certificates/<str>/")
+        // Incorrect Privilege;  Should be ConfigureManager
+        //.privileges(redfish::privileges::getCertificate)
         .privileges({{"Login"}})
         .methods(
             boost::beast::http::verb::
@@ -819,6 +825,8 @@ inline void requestRoutesHTTPSCertificateCollection(App& app)
 {
     BMCWEB_ROUTE(app,
                  "/redfish/v1/Managers/bmc/NetworkProtocol/HTTPS/Certificates/")
+        // Incorrect Privilege;  Should be ConfigureManager
+        //.privileges(redfish::privileges::getCertificateCollection)
         .privileges({{"Login"}})
         .methods(
             boost::beast::http::verb::
@@ -864,6 +872,8 @@ inline void requestRoutesHTTPSCertificateCollection(App& app)
 
     BMCWEB_ROUTE(app,
                  "/redfish/v1/Managers/bmc/NetworkProtocol/HTTPS/Certificates/")
+        // Incorrect Privilege;  Should be ConfigureManager
+        //.privileges(redfish::privileges::postCertificateCollection)
         .privileges({{"ConfigureComponents"}})
         .methods(boost::beast::http::verb::post)(
             [](const crow::Request& req,
@@ -971,6 +981,8 @@ void getCertificateLocations(
 inline void requestRoutesCertificateLocations(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/CertificateService/CertificateLocations/")
+        // Incorrect Privilege;  Should be ConfigureManager
+        //.privileges(redfish::privileges::getCertificateLocations)
         .privileges({{"Login"}})
         .methods(
             boost::beast::http::verb::
@@ -1010,6 +1022,8 @@ inline void requestRoutesCertificateLocations(App& app)
 inline void requestRoutesLDAPCertificateCollection(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/AccountService/LDAP/Certificates/")
+        // Incorrect Privilege;  Should be ConfigureManager
+        //.privileges(redfish::privileges::getCertificateCollection)
         .privileges({{"Login"}})
         .methods(boost::beast::http::verb::get)(
             [](const crow::Request&,
@@ -1056,6 +1070,8 @@ inline void requestRoutesLDAPCertificateCollection(App& app)
             });
 
     BMCWEB_ROUTE(app, "/redfish/v1/AccountService/LDAP/Certificates/")
+        // Incorrect Privilege;  Should be ConfigureManager
+        //.privileges(redfish::privileges::postCertificateCollection)
         .privileges({{"ConfigureComponents"}})
         .methods(boost::beast::http::verb::post)(
             [](const crow::Request& req,
@@ -1113,6 +1129,8 @@ inline void requestRoutesLDAPCertificateCollection(App& app)
 inline void requestRoutesLDAPCertificate(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/AccountService/LDAP/Certificates/<str>/")
+        // Incorrect Privilege;  Should be ConfigureManager
+        //.privileges(redfish::privileges::getCertificate)
         .privileges({{"Login"}})
         .methods(boost::beast::http::verb::get)(
             [](const crow::Request& req,
@@ -1144,6 +1162,8 @@ inline void requestRoutesLDAPCertificate(App& app)
 inline void requestRoutesTrustStoreCertificateCollection(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/Managers/bmc/Truststore/Certificates/")
+        // Incorrect Privilege;  Should be ConfigureManager
+        //.privileges(redfish::privileges::getCertificate)
         .privileges({{"Login"}})
         .methods(boost::beast::http::verb::get)(
             [](const crow::Request&,
@@ -1188,6 +1208,8 @@ inline void requestRoutesTrustStoreCertificateCollection(App& app)
             });
 
     BMCWEB_ROUTE(app, "/redfish/v1/Managers/bmc/Truststore/Certificates/")
+        // Incorrect Privilege;  Should be ConfigureManager
+        //.privileges(redfish::privileges::postCertificateCollection)
         .privileges({{"ConfigureComponents"}})
         .methods(boost::beast::http::verb::post)(
             [](const crow::Request& req,
@@ -1246,7 +1268,9 @@ inline void requestRoutesTrustStoreCertificateCollection(App& app)
 inline void requestRoutesTrustStoreCertificate(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/Managers/bmc/Truststore/Certificates/<str>/")
-        .privileges({{"Loign"}})
+        // Incorrect Privilege;  Should be ConfigureManager
+        //.privileges(redfish::privileges::getCertificate)
+        .privileges({{"Login"}})
         .methods(boost::beast::http::verb::get)(
             [](const crow::Request& req,
                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
@@ -1272,6 +1296,8 @@ inline void requestRoutesTrustStoreCertificate(App& app)
             });
 
     BMCWEB_ROUTE(app, "/redfish/v1/Managers/bmc/Truststore/Certificates/<str>/")
+        // Incorrect Privilege;  Should be ConfigureManager
+        //.privileges(redfish::privileges::deleteCertificate)
         .privileges({{"ConfigureComponents"}})
         .methods(boost::beast::http::verb::delete_)(
             [](const crow::Request& req,
