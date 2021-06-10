@@ -27,6 +27,7 @@
 
 #include <span>
 #include <unordered_set>
+#include <variant>
 
 namespace redfish
 {
@@ -636,6 +637,14 @@ inline void requestRoutesDrive(App& app)
                     getDriveState(asyncResp, connectionName, path);
                     getDriveLocation(asyncResp, connectionName, path,
                                      connectionNames[0].second);
+
+                    asyncResp->res.jsonValue["Actions"]["#Drive.Reset"] = {
+                        {"target", "/redfish/v1/Systems/system/Storage/" +
+                                       storageId + "/Drives/" + driveId +
+                                       "/Actions/Drive.Reset"},
+                        {"@Redfish.ActionInfo",
+                         "/redfish/v1/Systems/system/Storage/" + storageId +
+                             "/Drives/" + driveId + "/ResetActionInfo/"}};
                 },
                 "xyz.openbmc_project.ObjectMapper",
                 "/xyz/openbmc_project/object_mapper",
@@ -645,4 +654,235 @@ inline void requestRoutesDrive(App& app)
                     "xyz.openbmc_project.Inventory.Item.Drive"});
         });
 }
+
+/**
+ * Function for the Drive to perform actions.
+ *
+ * @param[in] asyncResp - Shared pointer for completing asynchronous calls
+ * @param[in] driveId   - D-bus filename to identify the Drive
+ * @param[in] resetType - Reset type for the Drive
+ */
+inline void doDriveAction(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                          const std::string& driveId,
+                          std::optional<std::string> resetType)
+{
+    const char* interfaceName = "xyz.openbmc_project.State.Drive";
+
+    std::string action;
+    if (!resetType || *resetType == "PowerCycle")
+    {
+        action = "xyz.openbmc_project.State.Drive.Transition.Powercycle";
+    }
+    else if (*resetType == "ForceReset")
+    {
+        action = "xyz.openbmc_project.State.Drive.Transition.Reboot";
+    }
+    else
+    {
+        BMCWEB_LOG_DEBUG << "Invalid property value for ResetType: "
+                         << *resetType;
+        messages::actionParameterNotSupported(asyncResp->res, *resetType,
+                                              "ResetType");
+        return;
+    }
+
+    BMCWEB_LOG_DEBUG << "Reset Drive with " << action;
+    crow::connections::systemBus->async_method_call(
+        [asyncResp, driveId, action,
+         interfaceName](const boost::system::error_code ec,
+                        const crow::openbmc_mapper::GetSubTreeType& subtree) {
+            if (ec)
+            {
+                BMCWEB_LOG_ERROR << "Drive mapper call error";
+                messages::internalError(asyncResp->res);
+                return;
+            }
+
+            auto driveState = std::find_if(
+                subtree.begin(), subtree.end(), [&driveId](auto& object) {
+                    const sdbusplus::message::object_path path(object.first);
+                    return path.filename() == driveId;
+                });
+
+            if (driveState == subtree.end())
+            {
+                messages::resourceNotFound(asyncResp->res, "Drive Action",
+                                           driveId);
+                return;
+            }
+
+            const std::string& path = driveState->first;
+            const std::vector<std::pair<std::string, std::vector<std::string>>>&
+                connectionNames = driveState->second;
+
+            if (connectionNames.size() != 1)
+            {
+                BMCWEB_LOG_ERROR << "Connection size " << connectionNames.size()
+                                 << ", not equal to 1";
+                messages::internalError(asyncResp->res);
+                return;
+            }
+
+            const std::string& connectionName = connectionNames[0].first;
+            const char* destProperty = "RequestedDriveTransition";
+            std::variant<std::string> dbusPropertyValue(action);
+
+            crow::connections::systemBus->async_method_call(
+                [asyncResp, action](const boost::system::error_code ec) {
+                    if (ec)
+                    {
+                        BMCWEB_LOG_ERROR << "[Set] Bad D-Bus request error for "
+                                         << action << " : " << ec;
+                        messages::internalError(asyncResp->res);
+                        return;
+                    }
+
+                    messages::success(asyncResp->res);
+                },
+                connectionName.c_str(), path.c_str(),
+                "org.freedesktop.DBus.Properties", "Set", interfaceName,
+                destProperty, dbusPropertyValue);
+        },
+        "xyz.openbmc_project.ObjectMapper",
+        "/xyz/openbmc_project/object_mapper",
+        "xyz.openbmc_project.ObjectMapper", "GetSubTree",
+        "/xyz/openbmc_project/inventory", int32_t(0),
+        std::array<const char*, 1>{interfaceName});
+}
+
+/**
+ * DriveResetAction class supports the POST method for the Reset (reboot)
+ * action.
+ */
+inline void requestDriveResetAction(App& app)
+{
+    BMCWEB_ROUTE(app, "/redfish/v1/Systems/system/Storage/<str>/Drives/<str>/"
+                      "Actions/Drive.Reset/")
+        .privileges(redfish::privileges::postDrive)
+        .methods(boost::beast::http::verb::post)(
+            [](const crow::Request& req,
+               const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+               const std::string&, const std::string& driveId) {
+                BMCWEB_LOG_DEBUG << "Post Drive Reset.";
+
+                nlohmann::json jsonRequest;
+                std::optional<std::string> resetType;
+                // TODO(wltu): Update after
+                // https://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/49697
+                if (json_util::processJsonFromRequest(asyncResp->res, req,
+                                                      jsonRequest) &&
+                    !jsonRequest["ResetType"].empty())
+                {
+                    resetType = jsonRequest["ResetType"];
+                }
+
+                crow::connections::systemBus->async_method_call(
+                    [asyncResp, driveId, resetType](
+                        const boost::system::error_code ec,
+                        const crow::openbmc_mapper::GetSubTreeType& subtree) {
+                        if (ec)
+                        {
+                            BMCWEB_LOG_ERROR << "Drive mapper call error";
+                            messages::internalError(asyncResp->res);
+                            return;
+                        }
+
+                        auto drive = std::find_if(
+                            subtree.begin(), subtree.end(),
+                            [&driveId](
+                                const std::pair<std::string,
+                                                std::vector<std::pair<
+                                                    std::string,
+                                                    std::vector<std::string>>>>&
+                                    object) {
+                                return sdbusplus::message::object_path(
+                                           object.first)
+                                           .filename() == driveId;
+                            });
+
+                        if (drive == subtree.end())
+                        {
+                            messages::resourceNotFound(
+                                asyncResp->res, "Drive Action Reset", driveId);
+                            return;
+                        }
+
+                        doDriveAction(asyncResp, driveId, resetType);
+                    },
+                    "xyz.openbmc_project.ObjectMapper",
+                    "/xyz/openbmc_project/object_mapper",
+                    "xyz.openbmc_project.ObjectMapper", "GetSubTree",
+                    "/xyz/openbmc_project/inventory", int32_t(0),
+                    std::array<const char*, 1>{
+                        "xyz.openbmc_project.Inventory.Item.Drive"});
+            });
+}
+
+/**
+ * DriveResetActionInfo derived class for delivering Drive
+ * ResetType AllowableValues using ResetInfo schema.
+ */
+inline void requestRoutesDriveResetActionInfo(App& app)
+{
+    BMCWEB_ROUTE(app, "/redfish/v1/Systems/system/Storage/<str>/Drives/<str>/"
+                      "ResetActionInfo/")
+        .privileges(redfish::privileges::getActionInfo)
+        .methods(
+            boost::beast::http::verb::get)([](const crow::Request&,
+                                              const std::shared_ptr<
+                                                  bmcweb::AsyncResp>& asyncResp,
+                                              const std::string& storageId,
+                                              const std::string& driveId) {
+            crow::connections::systemBus->async_method_call(
+                [asyncResp, storageId,
+                 driveId](const boost::system::error_code ec,
+                          const crow::openbmc_mapper::GetSubTreeType& subtree) {
+                    if (ec)
+                    {
+                        BMCWEB_LOG_ERROR << "Drive mapper call error";
+                        messages::internalError(asyncResp->res);
+                        return;
+                    }
+
+                    auto drive = std::find_if(
+                        subtree.begin(), subtree.end(),
+                        [&driveId](const std::pair<
+                                   std::string,
+                                   std::vector<std::pair<
+                                       std::string, std::vector<std::string>>>>&
+                                       object) {
+                            return sdbusplus::message::object_path(object.first)
+                                       .filename() == driveId;
+                        });
+
+                    if (drive == subtree.end())
+                    {
+                        messages::resourceNotFound(
+                            asyncResp->res, "Drive ResetActionInfo", driveId);
+                        return;
+                    }
+
+                    asyncResp->res.jsonValue = {
+                        {"@odata.type", "#ActionInfo.v1_1_2.ActionInfo"},
+                        {"@odata.id", "/redfish/v1/Systems/system/Storage/" +
+                                          storageId + "/Drives/" + driveId +
+                                          "/ResetActionInfo/"},
+                        {"Name", "Reset Action Info"},
+                        {"Id", "ResetActionInfo"},
+                        {"Parameters",
+                         {{{"Name", "ResetType"},
+                           {"Required", true},
+                           {"DataType", "String"},
+                           {"AllowableValues",
+                            {"PowerCycle", "ForceRestart"}}}}}};
+                },
+                "xyz.openbmc_project.ObjectMapper",
+                "/xyz/openbmc_project/object_mapper",
+                "xyz.openbmc_project.ObjectMapper", "GetSubTree",
+                "/xyz/openbmc_project/inventory", int32_t(0),
+                std::array<const char*, 1>{
+                    "xyz.openbmc_project.Inventory.Item.Drive"});
+        });
+}
+
 } // namespace redfish
