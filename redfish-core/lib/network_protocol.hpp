@@ -447,7 +447,7 @@ void getNTPProtocolEnabled(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 inline void requestRoutesNetworkProtocol(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/Managers/bmc/NetworkProtocol/")
-        .privileges({{"ConfigureManager"}})
+        .privileges(redfish::privileges::patchManagerNetworkProtocol)
         .methods(boost::beast::http::verb::patch)(
             [](const crow::Request& req,
                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
@@ -539,7 +539,7 @@ inline void requestRoutesNetworkProtocol(App& app)
             });
 
     BMCWEB_ROUTE(app, "/redfish/v1/Managers/bmc/NetworkProtocol/")
-        .privileges({{"Login"}})
+        .privileges(redfish::privileges::getManagerNetworkProtocol)
         .methods(boost::beast::http::verb::get)(
             [](const crow::Request&,
                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {

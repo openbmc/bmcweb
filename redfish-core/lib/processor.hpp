@@ -1066,7 +1066,7 @@ inline void requestRoutesOperatingConfigCollection(App& app)
 
     BMCWEB_ROUTE(
         app, "/redfish/v1/Systems/system/Processors/<str>/OperatingConfigs/")
-        .privileges({{"Login"}})
+        .privileges(redfish::privileges::getOperatingConfigCollection)
         .methods(boost::beast::http::verb::get)(
             [](const crow::Request& req,
                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
@@ -1129,7 +1129,7 @@ inline void requestRoutesOperatingConfig(App& app)
     BMCWEB_ROUTE(
         app,
         "/redfish/v1/Systems/system/Processors/<str>/OperatingConfigs/<str>/")
-        .privileges({{"Login"}})
+        .privileges(redfish::privileges::getOperatingConfig)
         .methods(
             boost::beast::http::verb::get)([](const crow::Request& req,
                                               const std::shared_ptr<
@@ -1192,7 +1192,7 @@ inline void requestRoutesProcessorCollection(App& app)
      * Functions triggers appropriate requests on DBus
      */
     BMCWEB_ROUTE(app, "/redfish/v1/Systems/system/Processors/")
-        .privileges({{"Login"}})
+        .privileges(redfish::privileges::getProcessorCollection)
         .methods(boost::beast::http::verb::get)(
             [](const crow::Request&,
                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
@@ -1217,7 +1217,7 @@ inline void requestRoutesProcessor(App& app)
      */
 
     BMCWEB_ROUTE(app, "/redfish/v1/Systems/system/Processors/<str>/")
-        .privileges({{"Login"}})
+        .privileges(redfish::privileges::getProcessor)
         .methods(boost::beast::http::verb::get)(
             [](const crow::Request&,
                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
@@ -1231,7 +1231,7 @@ inline void requestRoutesProcessor(App& app)
             });
 
     BMCWEB_ROUTE(app, "/redfish/v1/Systems/system/Processors/<str>/")
-        .privileges({{"ConfigureComponents"}})
+        .privileges(redfish::privileges::patchProcessor)
         .methods(boost::beast::http::verb::patch)(
             [](const crow::Request& req,
                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
