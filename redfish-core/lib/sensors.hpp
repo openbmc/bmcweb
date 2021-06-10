@@ -21,6 +21,7 @@
 #include <boost/container/flat_map.hpp>
 #include <boost/range/algorithm/replace_copy_if.hpp>
 #include <dbus_singleton.hpp>
+#include <registries/privilege_registry.hpp>
 #include <utils/json_utils.hpp>
 
 #include <cmath>
@@ -2978,7 +2979,7 @@ inline void retrieveUriToDbusMap(const std::string& chassis,
 inline void requestRoutesSensorCollection(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/Chassis/<str>/Sensors/")
-        .privileges({{"Login"}})
+        .privileges(redfish::privileges::getSensorCollection)
         .methods(
             boost::beast::http::verb::get)([](const crow::Request&,
                                               const std::shared_ptr<
@@ -3034,7 +3035,7 @@ inline void requestRoutesSensorCollection(App& app)
 inline void requestRoutesSensor(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/Chassis/<str>/Sensors/<str>/")
-        .privileges({{"Login"}})
+        .privileges(redfish::privileges::getSensor)
         .methods(
             boost::beast::http::verb::get)([](const crow::Request&,
                                               const std::shared_ptr<

@@ -3,6 +3,7 @@
 #include "utils/telemetry_utils.hpp"
 
 #include <app.hpp>
+#include <registries/privilege_registry.hpp>
 
 #include <variant>
 
@@ -12,7 +13,7 @@ namespace redfish
 inline void requestRoutesTelemetryService(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/TelemetryService/")
-        .privileges({{"Login"}})
+        .privileges(redfish::privileges::getTelemetryService)
         .methods(
             boost::beast::http::verb::
                 get)([](const crow::Request&,

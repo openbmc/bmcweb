@@ -17,6 +17,8 @@
 #include "event_service_manager.hpp"
 
 #include <app.hpp>
+#include <registries/privilege_registry.hpp>
+
 namespace redfish
 {
 
@@ -40,7 +42,7 @@ static constexpr const uint8_t maxNoOfSubscriptions = 20;
 inline void requestRoutesEventService(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/EventService/")
-        .privileges({{"Login"}})
+        .privileges(redfish::privileges::getEventService)
         .methods(boost::beast::http::verb::get)(
             [](const crow::Request&,
                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
@@ -83,7 +85,7 @@ inline void requestRoutesEventService(App& app)
             });
 
     BMCWEB_ROUTE(app, "/redfish/v1/EventService/")
-        .privileges({{"ConfigureManager"}})
+        .privileges(redfish::privileges::patchEventService)
         .methods(boost::beast::http::verb::patch)(
             [](const crow::Request& req,
                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
@@ -149,7 +151,7 @@ inline void requestRoutesSubmitTestEvent(App& app)
 
     BMCWEB_ROUTE(
         app, "/redfish/v1/EventService/Actions/EventService.SubmitTestEvent/")
-        .privileges({{"ConfigureManager"}})
+        .privileges(redfish::privileges::postEventService)
         .methods(boost::beast::http::verb::post)(
             [](const crow::Request&,
                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
@@ -161,7 +163,7 @@ inline void requestRoutesSubmitTestEvent(App& app)
 inline void requestRoutesEventDestinationCollection(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/EventService/Subscriptions")
-        .privileges({{"Login"}})
+        .privileges(redfish::privileges::getEventDestinationCollection)
         .methods(boost::beast::http::verb::get)(
             [](const crow::Request&,
                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
@@ -188,6 +190,9 @@ inline void requestRoutesEventDestinationCollection(App& app)
                 }
             });
     BMCWEB_ROUTE(app, "/redfish/v1/EventService/Subscriptions/")
+        // The below privilege is wrong, it should be ConfigureManager OR
+        // ConfigureComponents
+        //.privileges(redfish::privileges::postEventDestinationCollection)
         .privileges({{"ConfigureManager"}})
         .methods(boost::beast::http::verb::post)(
             [](const crow::Request& req,
@@ -483,8 +488,8 @@ inline void requestRoutesEventDestinationCollection(App& app)
 
 inline void requestRoutesEventDestination(App& app)
 {
-    BMCWEB_ROUTE(app, "/redfish/v1/EventService/Subscriptions/<str>/")
-        .privileges({{"Login"}})
+    BMCWEB_ROUTE(app, "redfish/v1/EventService/Subscriptions/<str>/")
+        .privileges(redfish::privileges::getEventDestination)
         .methods(boost::beast::http::verb::get)(
             [](const crow::Request&,
                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
@@ -535,7 +540,11 @@ inline void requestRoutesEventDestination(App& app)
             });
     /////redfish/v1/EventService/Subscriptions/
     // ConfigureManager
-    BMCWEB_ROUTE(app, "/redfish/v1/EventService/Subscriptions/<str>/")
+    BMCWEB_ROUTE(app, "redfish/v1/EventService/Subscriptions/<str>/")
+        // The below privilege is wrong, it should be ConfigureManager OR
+        // ConfigureSelf
+        // TODO(ed) follow up with DMTF spec and understand ConfigureSelf
+        //.privileges(redfish::privileges::patchEventDestination)
         .privileges({{"ConfigureManager"}})
         .methods(boost::beast::http::verb::patch)(
             [](const crow::Request& req,
@@ -588,7 +597,10 @@ inline void requestRoutesEventDestination(App& app)
 
                 EventServiceManager::getInstance().updateSubscriptionData();
             });
-    BMCWEB_ROUTE(app, "/redfish/v1/EventService/Subscriptions/<str>/")
+    BMCWEB_ROUTE(app, "redfish/v1/EventService/Subscriptions/<str>/")
+        // The below privilege is wrong, it should be ConfigureManager OR
+        // ConfigureSelf
+        //.privileges(redfish::privileges::deleteEventDestination)
         .privileges({{"ConfigureManager"}})
         .methods(boost::beast::http::verb::delete_)(
             [](const crow::Request&,

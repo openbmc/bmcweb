@@ -19,6 +19,7 @@
 
 #include <app.hpp>
 #include <boost/container/flat_map.hpp>
+#include <registries/privilege_registry.hpp>
 #include <utils/fw_utils.hpp>
 
 #include <variant>
@@ -388,7 +389,7 @@ inline void requestRoutesUpdateServiceActionsSimpleUpdate(App& app)
 {
     BMCWEB_ROUTE(
         app, "/redfish/v1/UpdateService/Actions/UpdateService.SimpleUpdate/")
-        .privileges({{"ConfigureComponents"}})
+        .privileges(redfish::privileges::postUpdateService)
         .methods(
             boost::beast::http::verb::
                 post)([](const crow::Request& req,
@@ -507,7 +508,7 @@ inline void requestRoutesUpdateServiceActionsSimpleUpdate(App& app)
 inline void requestRoutesUpdateService(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/UpdateService/")
-        .privileges({{"Login"}})
+        .privileges(redfish::privileges::getUpdateService)
         .methods(
             boost::beast::http::verb::
                 get)([](const crow::Request&,
@@ -579,7 +580,7 @@ inline void requestRoutesUpdateService(App& app)
                 "xyz.openbmc_project.Software.ApplyTime", "RequestedApplyTime");
         });
     BMCWEB_ROUTE(app, "/redfish/v1/UpdateService/")
-        .privileges({{"ConfigureComponents"}})
+        .privileges(redfish::privileges::patchUpdateService)
         .methods(boost::beast::http::verb::patch)(
             [](const crow::Request& req,
                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
@@ -661,7 +662,7 @@ inline void requestRoutesUpdateService(App& app)
                 }
             });
     BMCWEB_ROUTE(app, "/redfish/v1/UpdateService/")
-        .privileges({{"ConfigureComponents"}})
+        .privileges(redfish::privileges::postUpdateService)
         .methods(boost::beast::http::verb::post)(
             [](const crow::Request& req,
                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
@@ -687,7 +688,7 @@ inline void requestRoutesUpdateService(App& app)
 inline void requestRoutesSoftwareInventoryCollection(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/UpdateService/FirmwareInventory/")
-        .privileges({{"Login"}})
+        .privileges(redfish::privileges::getSoftwareInventoryCollection)
         .methods(boost::beast::http::verb::get)(
             [](const crow::Request&,
                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
@@ -776,7 +777,7 @@ inline static void
 inline void requestRoutesSoftwareInventory(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/UpdateService/FirmwareInventory/<str>/")
-        .privileges({{"Login"}})
+        .privileges(redfish::privileges::getSoftwareInventory)
         .methods(
             boost::beast::http::verb::get)([](const crow::Request&,
                                               const std::shared_ptr<

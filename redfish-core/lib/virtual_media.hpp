@@ -21,8 +21,10 @@
 #include <boost/type_traits/has_dereference.hpp>
 #include <utils/json_utils.hpp>
 // for GetObjectType and ManagedObjectType
+
 #include <account_service.hpp>
 #include <boost/url/url_view.hpp>
+#include <registries/privilege_registry.hpp>
 
 namespace redfish
 {
@@ -775,7 +777,7 @@ inline void requestNBDVirtualMediaRoutes(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/Managers/<str>/VirtualMedia/<str>/Actions/"
                       "VirtualMedia.InsertMedia")
-        .privileges({{"ConfigureManager"}})
+        .privileges(redfish::privileges::postVirtualMedia)
         .methods(boost::beast::http::verb::post)(
             [](const crow::Request& req,
                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
@@ -920,7 +922,7 @@ inline void requestNBDVirtualMediaRoutes(App& app)
 
     BMCWEB_ROUTE(app, "/redfish/v1/Managers/<str>/VirtualMedia/<str>/Actions/"
                       "VirtualMedia.EjectMedia")
-        .privileges({{"ConfigureManager"}})
+        .privileges(redfish::privileges::postVirtualMedia)
         .methods(boost::beast::http::verb::post)(
             [](const crow::Request& req,
                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
@@ -1010,7 +1012,7 @@ inline void requestNBDVirtualMediaRoutes(App& app)
                     std::array<const char*, 0>());
             });
     BMCWEB_ROUTE(app, "/redfish/v1/Managers/<str>/VirtualMedia/")
-        .privileges({{"Login"}})
+        .privileges(redfish::privileges::getVirtualMediaCollection)
         .methods(boost::beast::http::verb::get)(
             [](const crow::Request& /* req */,
                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
@@ -1054,7 +1056,7 @@ inline void requestNBDVirtualMediaRoutes(App& app)
             });
 
     BMCWEB_ROUTE(app, "/redfish/v1/Managers/<str>/VirtualMedia/<str>/")
-        .privileges({{"Login"}})
+        .privileges(redfish::privileges::getVirtualMedia)
         .methods(boost::beast::http::verb::get)(
             [](const crow::Request& /* req */,
                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,

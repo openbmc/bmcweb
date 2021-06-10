@@ -20,6 +20,7 @@
 #include <error_messages.hpp>
 #include <openbmc_dbus_rest.hpp>
 #include <persistent_data.hpp>
+#include <registries/privilege_registry.hpp>
 #include <utils/json_utils.hpp>
 
 #include <variant>
@@ -1256,7 +1257,7 @@ inline void requestAccountServiceRoutes(App& app)
 {
 
     BMCWEB_ROUTE(app, "/redfish/v1/AccountService/")
-        .privileges({{"Login"}})
+        .privileges(redfish::privileges::getAccountService)
         .methods(
             boost::beast::http::verb::get)([](const crow::Request& req,
                                               const std::shared_ptr<
@@ -1375,7 +1376,7 @@ inline void requestAccountServiceRoutes(App& app)
         });
 
     BMCWEB_ROUTE(app, "/redfish/v1/AccountService/Accounts/")
-        .privileges({{"Login"}})
+        .privileges(redfish::privileges::getManagerAccountCollection)
         .methods(boost::beast::http::verb::get)(
             [](const crow::Request& req,
                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) -> void {
@@ -1447,7 +1448,7 @@ inline void requestAccountServiceRoutes(App& app)
             });
 
     BMCWEB_ROUTE(app, "/redfish/v1/AccountService/Accounts/")
-        .privileges({{"ConfigureUsers"}})
+        .privileges(redfish::privileges::postManagerAccountCollection)
         .methods(boost::beast::http::verb::post)([](const crow::Request& req,
                                                     const std::shared_ptr<
                                                         bmcweb::AsyncResp>&
@@ -1564,8 +1565,7 @@ inline void requestAccountServiceRoutes(App& app)
         });
 
     BMCWEB_ROUTE(app, "/redfish/v1/AccountService/Accounts/<str>/")
-        .privileges(
-            {{"ConfigureUsers"}, {"ConfigureManager"}, {"ConfigureSelf"}})
+        .privileges(redfish::privileges::getManagerAccount)
         .methods(
             boost::beast::http::verb::
                 get)([](const crow::Request& req,
@@ -1723,6 +1723,9 @@ inline void requestAccountServiceRoutes(App& app)
         });
 
     BMCWEB_ROUTE(app, "/redfish/v1/AccountService/Accounts/<str>/")
+        // TODO this privilege should be using the generated endpoints, but
+        // because of the special handling of ConfigureSelf, it's not able to
+        // yet
         .privileges({{"ConfigureUsers"}, {"ConfigureSelf"}})
         .methods(boost::beast::http::verb::patch)(
             [](const crow::Request& req,
@@ -1797,7 +1800,7 @@ inline void requestAccountServiceRoutes(App& app)
             });
 
     BMCWEB_ROUTE(app, "/redfish/v1/AccountService/Accounts/<str>/")
-        .privileges({{"ConfigureUsers"}})
+        .privileges(redfish::privileges::deleteManagerAccount)
         .methods(boost::beast::http::verb::delete_)(
             [](const crow::Request& /*req*/,
                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,

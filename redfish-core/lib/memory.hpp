@@ -20,6 +20,7 @@
 #include <app.hpp>
 #include <boost/container/flat_map.hpp>
 #include <boost/format.hpp>
+#include <registries/privilege_registry.hpp>
 #include <utils/collection.hpp>
 #include <utils/json_utils.hpp>
 
@@ -886,7 +887,7 @@ inline void requestRoutesMemoryCollection(App& app)
      * Functions triggers appropriate requests on DBus
      */
     BMCWEB_ROUTE(app, "/redfish/v1/Systems/system/Memory/")
-        .privileges({{"Login"}})
+        .privileges(redfish::privileges::getMemoryCollection)
         .methods(boost::beast::http::verb::get)(
             [](const crow::Request&,
                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
@@ -908,7 +909,7 @@ inline void requestRoutesMemory(App& app)
      * Functions triggers appropriate requests on DBus
      */
     BMCWEB_ROUTE(app, "/redfish/v1/Systems/system/Memory/<str>/")
-        .privileges({{"Login"}})
+        .privileges(redfish::privileges::getMemory)
         .methods(boost::beast::http::verb::get)(
             [](const crow::Request&,
                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,

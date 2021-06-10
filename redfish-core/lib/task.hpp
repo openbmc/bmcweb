@@ -19,6 +19,7 @@
 #include <boost/asio/post.hpp>
 #include <boost/asio/steady_timer.hpp>
 #include <boost/container/flat_map.hpp>
+#include <registries/privilege_registry.hpp>
 #include <task_messages.hpp>
 
 #include <chrono>
@@ -316,7 +317,7 @@ struct TaskData : std::enable_shared_from_this<TaskData>
 inline void requestRoutesTaskMonitor(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/TaskService/Tasks/<str>/Monitor/")
-        .privileges({{"Login"}})
+        .privileges(redfish::privileges::getTask)
         .methods(boost::beast::http::verb::get)(
             [](const crow::Request&,
                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
@@ -355,7 +356,7 @@ inline void requestRoutesTaskMonitor(App& app)
 inline void requestRoutesTask(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/TaskService/Tasks/<str>/")
-        .privileges({{"Login"}})
+        .privileges(redfish::privileges::getTask)
         .methods(boost::beast::http::verb::get)(
             [](const crow::Request&,
                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
@@ -423,7 +424,7 @@ inline void requestRoutesTask(App& app)
 inline void requestRoutesTaskCollection(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/TaskService/Tasks/")
-        .privileges({{"Login"}})
+        .privileges(redfish::privileges::getTaskCollection)
         .methods(boost::beast::http::verb::get)(
             [](const crow::Request&,
                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
@@ -453,7 +454,7 @@ inline void requestRoutesTaskCollection(App& app)
 inline void requestRoutesTaskService(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/TaskService/")
-        .privileges({{"Login"}})
+        .privileges(redfish::privileges::getTaskService)
         .methods(boost::beast::http::verb::get)(
             [](const crow::Request&,
                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {

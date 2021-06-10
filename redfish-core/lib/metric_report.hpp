@@ -3,6 +3,7 @@
 #include "utils/telemetry_utils.hpp"
 
 #include <app.hpp>
+#include <registries/privilege_registry.hpp>
 
 namespace redfish
 {
@@ -63,7 +64,7 @@ inline void fillReport(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
 inline void requestRoutesMetricReportCollection(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/TelemetryService/MetricReports/")
-        .privileges({{"Login"}})
+        .privileges(redfish::privileges::getMetricReportCollection)
         .methods(boost::beast::http::verb::get)(
             [](const crow::Request&,
                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
@@ -81,7 +82,7 @@ inline void requestRoutesMetricReportCollection(App& app)
 inline void requestRoutesMetricReport(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/TelemetryService/MetricReports/<str>/")
-        .privileges({{"Login"}})
+        .privileges(redfish::privileges::getMetricReport)
         .methods(boost::beast::http::verb::get)(
             [](const crow::Request&,
                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,

@@ -22,6 +22,7 @@
 
 #include <app.hpp>
 #include <boost/container/flat_map.hpp>
+#include <registries/privilege_registry.hpp>
 #include <utils/fw_utils.hpp>
 #include <utils/json_utils.hpp>
 
@@ -2220,7 +2221,7 @@ inline void setWDTProperties(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
 inline void requestRoutesSystemsCollection(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/Systems/")
-        .privileges({{"Login"}})
+        .privileges(redfish::privileges::getComputerSystemCollection)
         .methods(boost::beast::http::verb::get)(
             [](const crow::Request& req,
                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
@@ -2294,7 +2295,7 @@ inline void requestRoutesSystemActionsReset(App& app)
      */
     BMCWEB_ROUTE(app,
                  "/redfish/v1/Systems/system/Actions/ComputerSystem.Reset/")
-        .privileges({{"ConfigureComponent"}})
+        .privileges(redfish::privileges::postComputerSystem)
         .methods(
             boost::beast::http::verb::
                 post)([](const crow::Request& req,
@@ -2421,7 +2422,7 @@ inline void requestRoutesSystems(App& app)
      * Functions triggers appropriate requests on DBus
      */
     BMCWEB_ROUTE(app, "/redfish/v1/Systems/system/")
-        .privileges({{"Login"}})
+        .privileges(redfish::privileges::getComputerSystem)
         .methods(
             boost::beast::http::verb::
                 get)([](const crow::Request&,
@@ -2542,7 +2543,7 @@ inline void requestRoutesSystems(App& app)
             getPowerMode(asyncResp);
         });
     BMCWEB_ROUTE(app, "/redfish/v1/Systems/system/")
-        .privileges({{"ConfigureComponent"}})
+        .privileges(redfish::privileges::patchComputerSystem)
         .methods(boost::beast::http::verb::patch)(
             [](const crow::Request& req,
                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
@@ -2651,7 +2652,7 @@ inline void requestRoutesSystemResetActionInfo(App& app)
      * Functions triggers appropriate requests on DBus
      */
     BMCWEB_ROUTE(app, "/redfish/v1/Systems/system/ResetActionInfo/")
-        .privileges({{"Login"}})
+        .privileges(redfish::privileges::getActionInfo)
         .methods(boost::beast::http::verb::get)(
             [](const crow::Request&,
                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
