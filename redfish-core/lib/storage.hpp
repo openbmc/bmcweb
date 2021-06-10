@@ -21,6 +21,8 @@
 #include <app.hpp>
 #include <boost/algorithm/string.hpp>
 
+#include <variant>
+
 namespace redfish
 {
 inline void requestRoutesStorageCollection(App& app)
@@ -50,14 +52,17 @@ inline void getDrives(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
         [asyncResp, health, parent,
          storageId](const boost::system::error_code ec,
                     const std::vector<std::string>& storageList) {
+            nlohmann::json& storageArray = asyncResp->res.jsonValue["Drives"];
+            storageArray = nlohmann::json::array();
+            auto& count = asyncResp->res.jsonValue["Drives@odata.count"];
+            count = 0;
+
             if (ec)
             {
                 BMCWEB_LOG_ERROR << "Drive mapper call error";
                 messages::internalError(asyncResp->res);
                 return;
             }
-
-            nlohmann::json storageArray = nlohmann::json::array();
 
             health->inventory.insert(health->inventory.end(),
                                      storageList.begin(), storageList.end());
@@ -84,9 +89,7 @@ inline void getDrives(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                                        object.filename()}});
             }
 
-            asyncResp->res.jsonValue["Drives@odata.count"] =
-                storageArray.size();
-            asyncResp->res.jsonValue["Drives"] = std::move(storageArray);
+            count = storageArray.size();
         },
         "xyz.openbmc_project.ObjectMapper",
         "/xyz/openbmc_project/object_mapper",
@@ -469,6 +472,11 @@ inline void requestRoutesDrive(App& app)
                         },
                         connectionName, path, "org.freedesktop.DBus.Properties",
                         "Get", "xyz.openbmc_project.State.Drive", "Rebuilding");
+
+                    asyncResp->res
+                        .jsonValue["Actions"]["#Drive.Reset"]["target"] =
+                        "/redfish/v1/Systems/system/Storage/" + storageId +
+                        "/Drives/" + driveId + "/Actions/Drive.Reset";
                 },
                 "xyz.openbmc_project.ObjectMapper",
                 "/xyz/openbmc_project/object_mapper",
@@ -478,4 +486,155 @@ inline void requestRoutesDrive(App& app)
                     "xyz.openbmc_project.Inventory.Item.Drive"});
         });
 }
+
+/**
+ * Function for the Drive to perform actions.
+ *
+ * @param[in] asyncResp - Shared pointer for completing asynchronous calls
+ * @param[in] driveId   - D-bus filename to identify the Drive
+ * @param[in] action    - Action call to the Drive
+ */
+inline void doDriveAction(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                          const std::string& driveId, const std::string& action)
+{
+    const char* interfaceName = "xyz.openbmc_project.State.Drive";
+
+    crow::connections::systemBus->async_method_call(
+        [asyncResp, driveId, action,
+         interfaceName](const boost::system::error_code ec,
+                        const crow::openbmc_mapper::GetSubTreeType& subtree) {
+            if (ec)
+            {
+                BMCWEB_LOG_ERROR << "Drive mapper call error";
+                messages::internalError(asyncResp->res);
+                return;
+            }
+
+            auto driveState = std::find_if(
+                subtree.begin(), subtree.end(), [&driveId](auto& object) {
+                    const sdbusplus::message::object_path path(object.first);
+                    return path.filename() == driveId;
+                });
+
+            if (driveState == subtree.end())
+            {
+                messages::resourceNotFound(asyncResp->res, "Drive Action",
+                                           driveId);
+                return;
+            }
+
+            const std::string& path = driveState->first;
+            const std::vector<std::pair<std::string, std::vector<std::string>>>&
+                connectionNames = driveState->second;
+
+            if (connectionNames.size() != 1)
+            {
+                BMCWEB_LOG_ERROR << "Connection size " << connectionNames.size()
+                                 << ", greater than 1";
+                messages::internalError(asyncResp->res);
+                return;
+            }
+
+            const std::string& connectionName = connectionNames[0].first;
+            const std::string& propertyValue =
+                "xyz.openbmc_project.State.Drive.Transition." + action;
+            const char* destProperty = "RequestedDriveTransition";
+            std::variant<std::string> dbusPropertyValue(propertyValue);
+
+            crow::connections::systemBus->async_method_call(
+                [asyncResp, action](const boost::system::error_code ec) {
+                    if (ec)
+                    {
+                        BMCWEB_LOG_ERROR << "[Set] Bad D-Bus request error for "
+                                         << action << " : " << ec;
+                        messages::internalError(asyncResp->res);
+                        return;
+                    }
+
+                    messages::success(asyncResp->res);
+                },
+                connectionName.c_str(), path.c_str(),
+                "org.freedesktop.DBus.Properties", "Set", interfaceName,
+                destProperty, dbusPropertyValue);
+        },
+        "xyz.openbmc_project.ObjectMapper",
+        "/xyz/openbmc_project/object_mapper",
+        "xyz.openbmc_project.ObjectMapper", "GetSubTree",
+        "/xyz/openbmc_project/inventory", int32_t(0),
+        std::array<const char*, 1>{interfaceName});
+}
+
+/**
+ * DriveResetAction class supports the POST method for the Reset (reboot)
+ * action.
+ */
+inline void requestDriveResetAction(App& app)
+{
+    BMCWEB_ROUTE(app, "/redfish/v1/Systems/system/Storage/<str>/Drives/<str>/"
+                      "Actions/Drive.Reset/")
+        .privileges({{"ConfigureComponents"}})
+        .methods(boost::beast::http::verb::post)(
+            [](const crow::Request& req,
+               const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+               const std::string&, const std::string& driveId) {
+                BMCWEB_LOG_DEBUG << "Post Drive Reset.";
+
+                std::string resetType;
+
+                if (!json_util::readJson(req, asyncResp->res, "ResetType",
+                                         resetType))
+                {
+                    return;
+                }
+
+                if (resetType == "ForceRestart")
+                {
+                    BMCWEB_LOG_DEBUG << "Proceeding with " << resetType;
+                    doDriveAction(asyncResp, driveId, "Reboot");
+                    return;
+                }
+                if (resetType == "PowerCycle")
+                {
+                    BMCWEB_LOG_DEBUG << "Proceeding with " << resetType;
+                    doDriveAction(asyncResp, driveId, "Powercycle");
+                    return;
+                }
+
+                BMCWEB_LOG_DEBUG << "Invalid property value for ResetType: "
+                                 << resetType;
+                messages::actionParameterNotSupported(asyncResp->res, resetType,
+                                                      "ResetType");
+
+                return;
+            });
+}
+
+/**
+ * DriveResetActionInfo derived class for delivering Drive
+ * ResetType AllowableValues using ResetInfo schema.
+ */
+inline void requestRoutesDriveResetActionInfo(App& app)
+{
+    BMCWEB_ROUTE(app, "/redfish/v1/Systems/system/Storage/<str>/Drives/<str>/"
+                      "ResetActionInfo/")
+        .privileges({{"Login"}})
+        .methods(boost::beast::http::verb::get)(
+            [](const crow::Request&,
+               const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+               const std::string& storageId, const std::string& driveId) {
+                asyncResp->res.jsonValue = {
+                    {"@odata.type", "#ActionInfo.v1_1_2.ActionInfo"},
+                    {"@odata.id", "/redfish/v1/Systems/system/Storage/" +
+                                      storageId + "/Drives/" + driveId +
+                                      "/ResetActionInfo/"},
+                    {"Name", "Reset Action Info"},
+                    {"Id", "ResetActionInfo"},
+                    {"Parameters",
+                     {{{"Name", "ResetType"},
+                       {"Required", true},
+                       {"DataType", "String"},
+                       {"AllowableValues", {"ForceRestart", "PowerCycle"}}}}}};
+            });
+}
+
 } // namespace redfish
