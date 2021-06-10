@@ -421,5 +421,53 @@ inline void
     return;
 }
 
+/**
+ * @brief Updates programmable status of input swId into json response
+ *
+ * This function checks whether firmware inventory component
+ * can be programmable or not and fill's the "Updateable"
+ * Property.
+ *
+ * @param[i,o] asyncResp  Async response object
+ * @param[i]   fwId       The firmware ID
+ */
+inline void
+    getFirmwareStates(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                      const std::string& service, const std::string& path)
+{
+    crow::connections::systemBus->async_method_call(
+        [asyncResp](
+            const boost::system::error_code errorCode,
+            const boost::container::flat_map<std::string, std::variant<bool>>&
+                propertiesList) {
+            if (errorCode)
+            {
+                messages::internalError(asyncResp->res);
+                return;
+            }
+            auto it = propertiesList.find("WriteProtected");
+            if (it != propertiesList.end())
+            {
+                const bool* writeProtected = std::get_if<bool>(&it->second);
+                if (writeProtected != nullptr && *writeProtected)
+                {
+                    asyncResp->res.jsonValue["WriteProtected"] = true;
+                }
+            }
+
+            it = propertiesList.find("Updatable");
+            if (it != propertiesList.end())
+            {
+                const bool* updatable = std::get_if<bool>(&it->second);
+                if (updatable != nullptr && *updatable)
+                {
+                    asyncResp->res.jsonValue["Updateable"] = true;
+                }
+            }
+        },
+        service, path, "org.freedesktop.DBus.Properties", "GetAll",
+        "xyz.openbmc_project.Software.State");
+}
+
 } // namespace fw_util
 } // namespace redfish
