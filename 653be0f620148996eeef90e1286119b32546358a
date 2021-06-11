@@ -55,6 +55,24 @@
     },
     {
       "key": {
+        "uuid": "42e72854_d32702d3",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1291,
+      "author": {
+        "id": 1001083
+      },
+      "writtenOn": "2021-06-11T15:26:24Z",
+      "side": 1,
+      "message": "I check for an internal error below this on line 1298. \nif ( !tpmEnable) { //\"throw internalError\"  }",
+      "parentUuid": "e6079960_e8ae9c6b",
+      "revId": "653be0f620148996eeef90e1286119b32546358a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "05ccb258_1c075a7e",
         "filename": "redfish-core/lib/systems.hpp",
         "patchSetId": 3
