@@ -70,6 +70,30 @@
       "revId": "dab461bc70a1d21124c34f6accdf27f8db25e54d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4adf9daf_395427a1",
+        "filename": "redfish-core/lib/service_root.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-06-11T18:12:48Z",
+      "side": 1,
+      "message": "Maybe product is also OpenBMC?  Do we have access to the build machine name (ie witherspoon, tioga, ect) anywhere  on the filesystem or dbus?\n\nThat seems like it would be a decent fit for this field for the moment.",
+      "parentUuid": "503ac981_276b6e52",
+      "range": {
+        "startLine": 38,
+        "startChar": 0,
+        "endLine": 39,
+        "endChar": 63
+      },
+      "revId": "dab461bc70a1d21124c34f6accdf27f8db25e54d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
