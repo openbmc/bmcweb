@@ -22,6 +22,30 @@
       "revId": "dab461bc70a1d21124c34f6accdf27f8db25e54d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7dd1f477_27c11e1f",
+        "filename": "redfish-core/lib/service_root.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1000579
+      },
+      "writtenOn": "2021-06-11T09:45:09Z",
+      "side": 1,
+      "message": "I didn\u0027t found any supported DBus interface/property, which we can use to populate product details for the Service Root.\nNow the name represents the product, and in future if any DBus interface/property supports for this, then we can replace with it.",
+      "parentUuid": "003a7bc7_dd545895",
+      "range": {
+        "startLine": 38,
+        "startChar": 0,
+        "endLine": 39,
+        "endChar": 63
+      },
+      "revId": "dab461bc70a1d21124c34f6accdf27f8db25e54d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
