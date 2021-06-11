@@ -213,6 +213,7 @@ inline void requestRoutesMessageRegistry(App& app)
                     if (message->second.numberOfArgs > 0)
                     {
                         nlohmann::json& messageParamArray = obj["ParamTypes"];
+                        messageParamArray = nlohmann::json::array();
                         for (const char* str : message->second.paramTypes)
                         {
                             if (str == nullptr)
