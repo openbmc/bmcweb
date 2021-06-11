@@ -21,6 +21,7 @@
 #include <openbmc_dbus_rest.hpp>
 #include <persistent_data.hpp>
 #include <registries/privilege_registry.hpp>
+#include <sdbusplus/asio/property.hpp>
 #include <utils/json_utils.hpp>
 
 namespace redfish
@@ -1600,10 +1601,13 @@ inline void requestAccountServiceRoutes(App& app)
             }
 
             // Reading AllGroups property
-            crow::connections::systemBus->async_method_call(
+            sdbusplus::asio::getProperty<std::vector<std::string>>(
+                *crow::connections::systemBus,
+                "xyz.openbmc_project.User.Manager", "/xyz/openbmc_project/user",
+                "xyz.openbmc_project.User.Manager", "AllGroups",
                 [asyncResp, username, password{std::move(password)}, roleId,
                  enabled](const boost::system::error_code ec,
-                          const dbus::utility::DbusVariantType& allGroups) {
+                          const std::vector<std::string>& allGroupsList) {
                     if (ec)
                     {
                         BMCWEB_LOG_DEBUG << "ERROR with async_method_call";
@@ -1611,10 +1615,7 @@ inline void requestAccountServiceRoutes(App& app)
                         return;
                     }
 
-                    const std::vector<std::string>* allGroupsList =
-                        std::get_if<std::vector<std::string>>(&allGroups);
-
-                    if (allGroupsList == nullptr || allGroupsList->empty())
+                    if (allGroupsList.empty())
                     {
                         messages::internalError(asyncResp->res);
                         return;
@@ -1676,11 +1677,8 @@ inline void requestAccountServiceRoutes(App& app)
                         "xyz.openbmc_project.User.Manager",
                         "/xyz/openbmc_project/user",
                         "xyz.openbmc_project.User.Manager", "CreateUser",
-                        username, *allGroupsList, *roleId, *enabled);
-                },
-                "xyz.openbmc_project.User.Manager", "/xyz/openbmc_project/user",
-                "org.freedesktop.DBus.Properties", "Get",
-                "xyz.openbmc_project.User.Manager", "AllGroups");
+                        username, allGroupsList, *roleId, *enabled);
+                });
         });
 
     BMCWEB_ROUTE(app, "/redfish/v1/AccountService/Accounts/<str>/")

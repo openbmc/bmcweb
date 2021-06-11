@@ -6,6 +6,7 @@
 #include <app.hpp>
 #include <dbus_utility.hpp>
 #include <registries/privilege_registry.hpp>
+#include <sdbusplus/asio/property.hpp>
 
 namespace redfish
 {
@@ -35,7 +36,7 @@ inline nlohmann::json toMetricValues(const Readings& readings)
 }
 
 inline bool fillReport(nlohmann::json& json, const std::string& id,
-                       const dbus::utility::DbusVariantType& var)
+                       const TimestampReadings& timestampReadings)
 {
     json["@odata.type"] = "#MetricReport.v1_3_0.MetricReport";
     json["@odata.id"] = telemetry::metricReportUri + std::string("/") + id;
@@ -44,15 +45,7 @@ inline bool fillReport(nlohmann::json& json, const std::string& id,
     json["MetricReportDefinition"]["@odata.id"] =
         telemetry::metricReportDefinitionUri + std::string("/") + id;
 
-    const TimestampReadings* timestampReadings =
-        std::get_if<TimestampReadings>(&var);
-    if (!timestampReadings)
-    {
-        BMCWEB_LOG_ERROR << "Property type mismatch or property is missing";
-        return false;
-    }
-
-    const auto& [timestamp, readings] = *timestampReadings;
+    const auto& [timestamp, readings] = timestampReadings;
     json["Timestamp"] = crow::utility::getDateTimeUint(timestamp);
     json["MetricValues"] = toMetricValues(readings);
     return true;
@@ -105,10 +98,13 @@ inline void requestRoutesMetricReport(App& app)
                             return;
                         }
 
-                        crow::connections::systemBus->async_method_call(
+                        sdbusplus::asio::getProperty<
+                            telemetry::TimestampReadings>(
+                            *crow::connections::systemBus, telemetry::service,
+                            reportPath, telemetry::reportInterface, "Readings",
                             [asyncResp,
                              id](const boost::system::error_code ec,
-                                 const dbus::utility::DbusVariantType& ret) {
+                                 const telemetry::TimestampReadings& ret) {
                                 if (ec)
                                 {
                                     BMCWEB_LOG_ERROR
@@ -117,15 +113,9 @@ inline void requestRoutesMetricReport(App& app)
                                     return;
                                 }
 
-                                if (!telemetry::fillReport(
-                                        asyncResp->res.jsonValue, id, ret))
-                                {
-                                    messages::internalError(asyncResp->res);
-                                }
-                            },
-                            telemetry::service, reportPath,
-                            "org.freedesktop.DBus.Properties", "Get",
-                            telemetry::reportInterface, "Readings");
+                                telemetry::fillReport(asyncResp->res.jsonValue,
+                                                      id, ret);
+                            });
                     },
                     telemetry::service, reportPath, telemetry::reportInterface,
                     "Update");
