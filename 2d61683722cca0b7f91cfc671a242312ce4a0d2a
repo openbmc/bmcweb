@@ -70,6 +70,24 @@
       "revId": "2d61683722cca0b7f91cfc671a242312ce4a0d2a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "820b4794_dfc21fd7",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1000056
+      },
+      "writtenOn": "2021-06-11T05:02:26Z",
+      "side": 1,
+      "message": "Ed - we don\u0027t have approvals to upstream that daemon yet (primarily because of the protocol it implements to talk to GPUs). I understand your point about dead code, but to understand better - is this about testability or being able to look at the provider daemon code or both? Is all code in bmcweb testable on a certain reference platform or QEMU? A certain provider daemon may just not create any D-Bus objects on QEMU because the relevant hardware may not be emulated, right? In this particular case, you would not only need that daemon but additional hardware, to test.\n\nSince we can\u0027t push up that daemon, what would you recommend?",
+      "parentUuid": "2f63d45a_a65afc0a",
+      "revId": "2d61683722cca0b7f91cfc671a242312ce4a0d2a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
