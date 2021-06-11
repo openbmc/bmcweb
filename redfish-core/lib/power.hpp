@@ -68,57 +68,47 @@ inline void setPowerCapOverride(
         {
             return;
         }
-        auto valueHandler = [value, sensorsAsyncResp](
-                                const boost::system::error_code ec,
-                                const SensorVariant& powerCapEnable) {
-            if (ec)
-            {
-                messages::internalError(sensorsAsyncResp->asyncResp->res);
-                BMCWEB_LOG_ERROR << "powerCapEnable Get handler: Dbus error "
-                                 << ec;
-                return;
-            }
-            // Check PowerCapEnable
-            const bool* b = std::get_if<bool>(&powerCapEnable);
-            if (b == nullptr)
-            {
-                messages::internalError(sensorsAsyncResp->asyncResp->res);
-                BMCWEB_LOG_ERROR << "Fail to get PowerCapEnable status ";
-                return;
-            }
-            if (!(*b))
-            {
-                messages::actionNotSupported(
-                    sensorsAsyncResp->asyncResp->res,
-                    "Setting LimitInWatts when PowerLimit feature is disabled");
-                BMCWEB_LOG_ERROR << "PowerLimit feature is disabled ";
-                return;
-            }
-
-            crow::connections::systemBus->async_method_call(
-                [sensorsAsyncResp](const boost::system::error_code ec2) {
-                    if (ec2)
-                    {
-                        BMCWEB_LOG_DEBUG << "Power Limit Set: Dbus error: "
-                                         << ec2;
-                        messages::internalError(
-                            sensorsAsyncResp->asyncResp->res);
-                        return;
-                    }
-                    sensorsAsyncResp->asyncResp->res.result(
-                        boost::beast::http::status::no_content);
-                },
-                "xyz.openbmc_project.Settings",
-                "/xyz/openbmc_project/control/host0/power_cap",
-                "org.freedesktop.DBus.Properties", "Set",
-                "xyz.openbmc_project.Control.Power.Cap", "PowerCap",
-                std::variant<uint32_t>(*value));
-        };
-        crow::connections::systemBus->async_method_call(
-            std::move(valueHandler), "xyz.openbmc_project.Settings",
+        sdbusplus::asio::getProperty<bool>(
+            *crow::connections::systemBus, "xyz.openbmc_project.Settings",
             "/xyz/openbmc_project/control/host0/power_cap",
-            "org.freedesktop.DBus.Properties", "Get",
-            "xyz.openbmc_project.Control.Power.Cap", "PowerCapEnable");
+            "xyz.openbmc_project.Control.Power.Cap", "PowerCapEnable",
+            [value, sensorsAsyncResp](const boost::system::error_code ec,
+                                      bool powerCapEnable) {
+                if (ec)
+                {
+                    messages::internalError(sensorsAsyncResp->asyncResp->res);
+                    BMCWEB_LOG_ERROR
+                        << "powerCapEnable Get handler: Dbus error " << ec;
+                    return;
+                }
+                if (!powerCapEnable)
+                {
+                    messages::actionNotSupported(
+                        sensorsAsyncResp->asyncResp->res,
+                        "Setting LimitInWatts when PowerLimit feature is disabled");
+                    BMCWEB_LOG_ERROR << "PowerLimit feature is disabled ";
+                    return;
+                }
+
+                crow::connections::systemBus->async_method_call(
+                    [sensorsAsyncResp](const boost::system::error_code ec2) {
+                        if (ec2)
+                        {
+                            BMCWEB_LOG_DEBUG << "Power Limit Set: Dbus error: "
+                                             << ec2;
+                            messages::internalError(
+                                sensorsAsyncResp->asyncResp->res);
+                            return;
+                        }
+                        sensorsAsyncResp->asyncResp->res.result(
+                            boost::beast::http::status::no_content);
+                    },
+                    "xyz.openbmc_project.Settings",
+                    "/xyz/openbmc_project/control/host0/power_cap",
+                    "org.freedesktop.DBus.Properties", "Set",
+                    "xyz.openbmc_project.Control.Power.Cap", "PowerCap",
+                    std::variant<uint32_t>(*value));
+            });
     };
     getValidChassisPath(sensorsAsyncResp, std::move(getChassisPath));
 }

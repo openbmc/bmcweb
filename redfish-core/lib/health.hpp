@@ -21,6 +21,7 @@
 #include <boost/algorithm/string/predicate.hpp>
 #include <boost/container/flat_set.hpp>
 #include <dbus_singleton.hpp>
+#include <dbus_utility.hpp>
 
 #include <variant>
 
