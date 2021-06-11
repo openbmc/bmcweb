@@ -46,6 +46,30 @@
       "revId": "dab461bc70a1d21124c34f6accdf27f8db25e54d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "503ac981_276b6e52",
+        "filename": "redfish-core/lib/service_root.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-06-11T18:09:58Z",
+      "side": 1,
+      "message": "The mockups have \n\n    \"Vendor\": \"Contoso\",\n    \"Product\": \"WidgetDeluxe 8744\",\n\nNot sure how Product as is, helps anyone.",
+      "parentUuid": "7dd1f477_27c11e1f",
+      "range": {
+        "startLine": 38,
+        "startChar": 0,
+        "endLine": 39,
+        "endChar": 63
+      },
+      "revId": "dab461bc70a1d21124c34f6accdf27f8db25e54d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
