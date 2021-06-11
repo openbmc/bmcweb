@@ -19,6 +19,7 @@
 #include "openbmc_dbus_rest.hpp"
 
 #include <app.hpp>
+#include <sdbusplus/asio/property.hpp>
 #include <utils/json_utils.hpp>
 
 #include <optional>
@@ -226,30 +227,27 @@ void getNetworkData(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
                     asyncResp->res.jsonValue[rfServiceKey]["ProtocolEnabled"] =
                         (unitState == "running") || (unitState == "listening");
 
-                    crow::connections::systemBus->async_method_call(
+                    sdbusplus::asio::getProperty<
+                        std::vector<std::tuple<std::string, std::string>>>(
+                        *crow::connections::systemBus,
+                        "org.freedesktop.systemd1", socketPath,
+                        "org.freedesktop.systemd1.Socket", "Listen",
                         [asyncResp, rfServiceKey{std::string(rfServiceKey)}](
                             const boost::system::error_code ec,
-                            const std::variant<std::vector<
-                                std::tuple<std::string, std::string>>>& resp) {
+                            const std::vector<
+                                std::tuple<std::string, std::string>>& resp) {
                             if (ec)
                             {
                                 messages::internalError(asyncResp->res);
                                 return;
                             }
-                            const std::vector<
-                                std::tuple<std::string, std::string>>*
-                                responsePtr = std::get_if<std::vector<
-                                    std::tuple<std::string, std::string>>>(
-                                    &resp);
-                            if (responsePtr == nullptr ||
-                                responsePtr->size() < 1)
+                            if (resp.size() < 1)
                             {
                                 return;
                             }
 
                             const std::string& listenStream =
-                                std::get<NET_PROTO_LISTEN_STREAM>(
-                                    (*responsePtr)[0]);
+                                std::get<NET_PROTO_LISTEN_STREAM>((resp)[0]);
                             std::size_t lastColonPos = listenStream.rfind(':');
                             if (lastColonPos == std::string::npos)
                             {
@@ -274,10 +272,7 @@ void getNetworkData(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
                                     port;
                             }
                             return;
-                        },
-                        "org.freedesktop.systemd1", socketPath,
-                        "org.freedesktop.DBus.Properties", "Get",
-                        "org.freedesktop.systemd1.Socket", "Listen");
+                        });
 
                     // We found service, break the inner loop.
                     break;
@@ -424,29 +419,29 @@ std::string getHostName()
 
 void getNTPProtocolEnabled(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
-    crow::connections::systemBus->async_method_call(
+    sdbusplus::asio::getProperty<std::string>(
+        *crow::connections::systemBus, "xyz.openbmc_project.Settings",
+        "/xyz/openbmc_project/time/sync_method",
+        "xyz.openbmc_project.Time.Synchronization", "TimeSyncMethod",
         [asyncResp](const boost::system::error_code errorCode,
-                    const std::variant<std::string>& timeSyncMethod) {
+                    const std::string& timeSyncMethod) {
             if (errorCode)
             {
                 return;
             }
 
-            const std::string* s = std::get_if<std::string>(&timeSyncMethod);
-
-            if (*s == "xyz.openbmc_project.Time.Synchronization.Method.NTP")
+            if (timeSyncMethod ==
+                "xyz.openbmc_project.Time.Synchronization.Method.NTP")
             {
                 asyncResp->res.jsonValue["NTP"]["ProtocolEnabled"] = true;
             }
-            else if (*s == "xyz.openbmc_project.Time.Synchronization."
-                           "Method.Manual")
+            else if (timeSyncMethod ==
+                     "xyz.openbmc_project.Time.Synchronization."
+                     "Method.Manual")
             {
                 asyncResp->res.jsonValue["NTP"]["ProtocolEnabled"] = false;
             }
-        },
-        "xyz.openbmc_project.Settings", "/xyz/openbmc_project/time/sync_method",
-        "org.freedesktop.DBus.Properties", "Get",
-        "xyz.openbmc_project.Time.Synchronization", "TimeSyncMethod");
+        });
 }
 
 inline void requestRoutesNetworkProtocol(App& app)

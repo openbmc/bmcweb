@@ -15,10 +15,13 @@
 */
 #pragma once
 
+#include "dbus_singleton.hpp"
+#include "error_messages.hpp"
 #include "health.hpp"
 
 #include <app.hpp>
 #include <boost/container/flat_map.hpp>
+#include <boost/system/detail/errc.hpp>
 #include <sdbusplus/asio/property.hpp>
 #include <sdbusplus/message/native_types.hpp>
 #include <sdbusplus/utility/dedup_variant.hpp>
@@ -58,28 +61,19 @@ inline void getProcessorUUID(std::shared_ptr<bmcweb::AsyncResp> aResp,
                              const std::string& objPath)
 {
     BMCWEB_LOG_DEBUG << "Get Processor UUID";
-    crow::connections::systemBus->async_method_call(
-        [objPath,
-         aResp{std::move(aResp)}](const boost::system::error_code ec,
-                                  const std::variant<std::string>& property) {
+    sdbusplus::asio::getProperty<std::string>(
+        *crow::connections::systemBus, service, objPath,
+        "xyz.openbmc_project.Common.UUID", "UUID",
+        [objPath, aResp{std::move(aResp)}](const boost::system::error_code ec,
+                                           const std::string& property) {
             if (ec)
             {
                 BMCWEB_LOG_DEBUG << "DBUS response error";
                 messages::internalError(aResp->res);
                 return;
             }
-            const std::string* value = std::get_if<std::string>(&property);
-            if (value == nullptr)
-            {
-                BMCWEB_LOG_DEBUG << "Null value returned "
-                                    "for UUID";
-                messages::internalError(aResp->res);
-                return;
-            }
-            aResp->res.jsonValue["UUID"] = *value;
-        },
-        service, objPath, "org.freedesktop.DBus.Properties", "Get",
-        "xyz.openbmc_project.Common.UUID", "UUID");
+            aResp->res.jsonValue["UUID"] = property;
+        });
 }
 
 inline void
@@ -569,11 +563,15 @@ inline void getCpuConfigData(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
                     // Once we found the current applied config, queue another
                     // request to read the base freq core ids out of that
                     // config.
-                    crow::connections::systemBus->async_method_call(
+                    sdbusplus::asio::getProperty<
+                        BaseSpeedPrioritySettingsProperty>(
+                        *crow::connections::systemBus, service, dbusPath,
+                        "xyz.openbmc_project.Inventory.Item.Cpu."
+                        "OperatingConfig",
+                        "BaseSpeedPrioritySettings",
                         [aResp](
                             const boost::system::error_code ec,
-                            const std::variant<
-                                BaseSpeedPrioritySettingsProperty>& property) {
+                            const BaseSpeedPrioritySettingsProperty& property) {
                             if (ec)
                             {
                                 BMCWEB_LOG_WARNING
@@ -581,19 +579,8 @@ inline void getCpuConfigData(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
                                 messages::internalError(aResp->res);
                                 return;
                             }
-                            auto baseSpeedList =
-                                std::get_if<BaseSpeedPrioritySettingsProperty>(
-                                    &property);
-                            if (baseSpeedList != nullptr)
-                            {
-                                highSpeedCoreIdsHandler(aResp, *baseSpeedList);
-                            }
-                        },
-                        service, dbusPath, "org.freedesktop.DBus.Properties",
-                        "Get",
-                        "xyz.openbmc_project.Inventory.Item.Cpu."
-                        "OperatingConfig",
-                        "BaseSpeedPrioritySettings");
+                            highSpeedCoreIdsHandler(aResp, property);
+                        });
                 }
                 else if (dbusPropName == "BaseSpeedPriorityEnabled")
                 {
@@ -623,10 +610,11 @@ inline void getCpuLocationCode(std::shared_ptr<bmcweb::AsyncResp> aResp,
                                const std::string& objPath)
 {
     BMCWEB_LOG_DEBUG << "Get Cpu Location Data";
-    crow::connections::systemBus->async_method_call(
-        [objPath,
-         aResp{std::move(aResp)}](const boost::system::error_code ec,
-                                  const std::variant<std::string>& property) {
+    sdbusplus::asio::getProperty<std::string>(
+        *crow::connections::systemBus, service, objPath,
+        "xyz.openbmc_project.Inventory.Decorator.LocationCode", "LocationCode",
+        [objPath, aResp{std::move(aResp)}](const boost::system::error_code ec,
+                                           const std::string& property) {
             if (ec)
             {
                 BMCWEB_LOG_DEBUG << "DBUS response error";
@@ -634,21 +622,9 @@ inline void getCpuLocationCode(std::shared_ptr<bmcweb::AsyncResp> aResp,
                 return;
             }
 
-            const std::string* value = std::get_if<std::string>(&property);
-
-            if (value == nullptr)
-            {
-                // illegal value
-                BMCWEB_LOG_DEBUG << "Location code value error";
-                messages::internalError(aResp->res);
-                return;
-            }
-
             aResp->res.jsonValue["Location"]["PartLocation"]["ServiceLabel"] =
-                *value;
-        },
-        service, objPath, "org.freedesktop.DBus.Properties", "Get",
-        "xyz.openbmc_project.Inventory.Decorator.LocationCode", "LocationCode");
+                property;
+        });
 }
 
 /**
