@@ -7,6 +7,7 @@
 #include <dbus_utility.hpp>
 #include <error_messages.hpp>
 #include <registries/privilege_registry.hpp>
+#include <sdbusplus/asio/property.hpp>
 #include <utils/json_utils.hpp>
 
 #include <optional>
@@ -33,9 +34,12 @@ namespace redfish::hypervisor
 inline void getHypervisorState(const std::shared_ptr<bmcweb::AsyncResp>& aResp)
 {
     BMCWEB_LOG_DEBUG << "Get hypervisor state information.";
-    crow::connections::systemBus->async_method_call(
+    sdbusplus::asio::getProperty<std::string>(
+        *crow::connections::systemBus, "xyz.openbmc_project.State.Hypervisor",
+        "/xyz/openbmc_project/state/hypervisor0",
+        "xyz.openbmc_project.State.Host", "CurrentHostState",
         [aResp](const boost::system::error_code ec,
-                const dbus::utility::DbusVariantType& hostState) {
+                const std::string& hostState) {
             if (ec)
             {
                 BMCWEB_LOG_DEBUG << "DBUS response error " << ec;
@@ -44,45 +48,39 @@ inline void getHypervisorState(const std::shared_ptr<bmcweb::AsyncResp>& aResp)
                 return;
             }
 
-            const std::string* s = std::get_if<std::string>(&hostState);
-            if (s == nullptr)
-            {
-                messages::internalError(aResp->res);
-                return;
-            }
-
-            BMCWEB_LOG_DEBUG << "Hypervisor state: " << *s;
+            BMCWEB_LOG_DEBUG << "Hypervisor state: " << hostState;
             // Verify Host State
-            if (*s == "xyz.openbmc_project.State.Host.HostState.Running")
+            if (hostState == "xyz.openbmc_project.State.Host.HostState.Running")
             {
                 aResp->res.jsonValue["PowerState"] = "On";
                 aResp->res.jsonValue["Status"]["State"] = "Enabled";
             }
-            else if (*s == "xyz.openbmc_project.State.Host.HostState.Quiesced")
+            else if (hostState == "xyz.openbmc_project.State.Host.HostState."
+                                  "Quiesced")
             {
                 aResp->res.jsonValue["PowerState"] = "On";
                 aResp->res.jsonValue["Status"]["State"] = "Quiesced";
             }
-            else if (*s == "xyz.openbmc_project.State.Host.HostState.Standby")
+            else if (hostState == "xyz.openbmc_project.State.Host.HostState."
+                                  "Standby")
             {
                 aResp->res.jsonValue["PowerState"] = "On";
                 aResp->res.jsonValue["Status"]["State"] = "StandbyOffline";
             }
-            else if (
-                *s ==
-                "xyz.openbmc_project.State.Host.HostState.TransitioningToRunning")
+            else if (hostState == "xyz.openbmc_project.State.Host.HostState."
+                                  "TransitioningToRunning")
             {
                 aResp->res.jsonValue["PowerState"] = "PoweringOn";
                 aResp->res.jsonValue["Status"]["State"] = "Starting";
             }
-            else if (
-                *s ==
-                "xyz.openbmc_project.State.Host.HostState.TransitioningToOff")
+            else if (hostState == "xyz.openbmc_project.State.Host.HostState."
+                                  "TransitioningToOff")
             {
                 aResp->res.jsonValue["PowerState"] = "PoweringOff";
                 aResp->res.jsonValue["Status"]["State"] = "Enabled";
             }
-            else if (*s == "xyz.openbmc_project.State.Host.HostState.Off")
+            else if (hostState ==
+                     "xyz.openbmc_project.State.Host.HostState.Off")
             {
                 aResp->res.jsonValue["PowerState"] = "Off";
                 aResp->res.jsonValue["Status"]["State"] = "Disabled";
@@ -92,11 +90,7 @@ inline void getHypervisorState(const std::shared_ptr<bmcweb::AsyncResp>& aResp)
                 messages::internalError(aResp->res);
                 return;
             }
-        },
-        "xyz.openbmc_project.State.Hypervisor",
-        "/xyz/openbmc_project/state/hypervisor0",
-        "org.freedesktop.DBus.Properties", "Get",
-        "xyz.openbmc_project.State.Host", "CurrentHostState");
+        });
 }
 
 /**
@@ -737,10 +731,12 @@ inline void requestRoutesHypervisorSystems(App& app)
             boost::beast::http::verb::
                 get)([](const crow::Request&,
                         const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
-            crow::connections::systemBus->async_method_call(
-                [asyncResp](
-                    const boost::system::error_code ec,
-                    const dbus::utility::DbusVariantType& /*hostName*/) {
+            sdbusplus::asio::getProperty<std::string>(
+                *crow::connections::systemBus, "xyz.openbmc_project.Settings",
+                "/xyz/openbmc_project/network/hypervisor",
+                "xyz.openbmc_project.Network.SystemConfiguration", "HostName",
+                [asyncResp](const boost::system::error_code ec,
+                            const std::string& /*hostName*/) {
                     if (ec)
                     {
                         messages::resourceNotFound(asyncResp->res, "System",
@@ -765,11 +761,7 @@ inline void requestRoutesHypervisorSystems(App& app)
                     getHypervisorState(asyncResp);
                     getHypervisorActions(asyncResp);
                     // TODO: Add "SystemType" : "hypervisor"
-                },
-                "xyz.openbmc_project.Settings",
-                "/xyz/openbmc_project/network/hypervisor",
-                "org.freedesktop.DBus.Properties", "Get",
-                "xyz.openbmc_project.Network.SystemConfiguration", "HostName");
+                });
         });
 
     /**

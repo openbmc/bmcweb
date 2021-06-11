@@ -18,9 +18,9 @@
 #include <app.hpp>
 #include <dbus_utility.hpp>
 #include <registries/privilege_registry.hpp>
+#include <sdbusplus/asio/property.hpp>
 
 #include <variant>
-
 namespace redfish
 {
 
@@ -114,9 +114,13 @@ inline void requestRoutesRoleCollection(App& app)
                     {"Name", "Roles Collection"},
                     {"Description", "BMC User Roles"}};
 
-                crow::connections::systemBus->async_method_call(
+                sdbusplus::asio::getProperty<std::vector<std::string>>(
+                    *crow::connections::systemBus,
+                    "xyz.openbmc_project.User.Manager",
+                    "/xyz/openbmc_project/user",
+                    "xyz.openbmc_project.User.Manager", "AllPrivileges",
                     [asyncResp](const boost::system::error_code ec,
-                                const dbus::utility::DbusVariantType& resp) {
+                                const std::vector<std::string>& privList) {
                         if (ec)
                         {
                             messages::internalError(asyncResp->res);
@@ -125,14 +129,7 @@ inline void requestRoutesRoleCollection(App& app)
                         nlohmann::json& memberArray =
                             asyncResp->res.jsonValue["Members"];
                         memberArray = nlohmann::json::array();
-                        const std::vector<std::string>* privList =
-                            std::get_if<std::vector<std::string>>(&resp);
-                        if (privList == nullptr)
-                        {
-                            messages::internalError(asyncResp->res);
-                            return;
-                        }
-                        for (const std::string& priv : *privList)
+                        for (const std::string& priv : privList)
                         {
                             std::string role = getRoleFromPrivileges(priv);
                             if (!role.empty())
@@ -145,11 +142,7 @@ inline void requestRoutesRoleCollection(App& app)
                         }
                         asyncResp->res.jsonValue["Members@odata.count"] =
                             memberArray.size();
-                    },
-                    "xyz.openbmc_project.User.Manager",
-                    "/xyz/openbmc_project/user",
-                    "org.freedesktop.DBus.Properties", "Get",
-                    "xyz.openbmc_project.User.Manager", "AllPrivileges");
+                    });
             });
 }
 

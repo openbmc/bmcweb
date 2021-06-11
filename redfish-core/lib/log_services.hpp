@@ -3319,30 +3319,21 @@ static void
                          const uint64_t skip, const uint64_t top)
 {
     uint64_t entryCount = 0;
-    crow::connections::systemBus->async_method_call(
-        [aResp, entryCount, skip,
-         top](const boost::system::error_code ec,
-              const dbus::utility::DbusVariantType& bootCount) {
+    sdbusplus::asio::getProperty<uint16_t>(
+        *crow::connections::systemBus,
+        "xyz.openbmc_project.State.Boot.PostCode0",
+        "/xyz/openbmc_project/State/Boot/PostCode0",
+        "xyz.openbmc_project.State.Boot.PostCode", "CurrentBootCycleCount",
+        [aResp, entryCount, skip, top](const boost::system::error_code ec,
+                                       const uint16_t bootCount) {
             if (ec)
             {
                 BMCWEB_LOG_DEBUG << "DBUS response error " << ec;
                 messages::internalError(aResp->res);
                 return;
             }
-            auto pVal = std::get_if<uint16_t>(&bootCount);
-            if (pVal)
-            {
-                getPostCodeForBoot(aResp, 1, *pVal, entryCount, skip, top);
-            }
-            else
-            {
-                BMCWEB_LOG_DEBUG << "Post code boot index failed.";
-            }
-        },
-        "xyz.openbmc_project.State.Boot.PostCode0",
-        "/xyz/openbmc_project/State/Boot/PostCode0",
-        "org.freedesktop.DBus.Properties", "Get",
-        "xyz.openbmc_project.State.Boot.PostCode", "CurrentBootCycleCount");
+            getPostCodeForBoot(aResp, 1, bootCount, entryCount, skip, top);
+        });
 }
 
 inline void requestRoutesPostCodesEntryCollection(App& app)

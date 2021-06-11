@@ -23,6 +23,7 @@
 #include <dbus_singleton.hpp>
 #include <dbus_utility.hpp>
 #include <registries/privilege_registry.hpp>
+#include <sdbusplus/asio/property.hpp>
 #include <utils/json_utils.hpp>
 
 #include <cmath>
@@ -592,10 +593,12 @@ void getChassis(const std::shared_ptr<SensorsAsyncResp>& sensorsAsyncResp,
         sensorsAsyncResp->asyncResp->res.jsonValue["Name"] = chassisSubNode;
         // Get the list of all sensors for this Chassis element
         std::string sensorPath = *chassisPath + "/all_sensors";
-        crow::connections::systemBus->async_method_call(
+        sdbusplus::asio::getProperty<std::vector<std::string>>(
+            *crow::connections::systemBus, "xyz.openbmc_project.ObjectMapper",
+            sensorPath, "xyz.openbmc_project.Association", "endpoints",
             [sensorsAsyncResp, callback{std::move(callback)}](
                 const boost::system::error_code& e,
-                const dbus::utility::DbusVariantType& variantEndpoints) {
+                const std::vector<std::string>& nodeSensorList) {
                 if (e)
                 {
                     if (e.value() != EBADR)
@@ -605,32 +608,13 @@ void getChassis(const std::shared_ptr<SensorsAsyncResp>& sensorsAsyncResp,
                         return;
                     }
                 }
-                const std::vector<std::string>* nodeSensorList =
-                    std::get_if<std::vector<std::string>>(&(variantEndpoints));
-                if (nodeSensorList == nullptr)
-                {
-                    messages::resourceNotFound(
-                        sensorsAsyncResp->asyncResp->res,
-                        sensorsAsyncResp->chassisSubNode,
-                        sensorsAsyncResp->chassisSubNode ==
-                                sensors::node::thermal
-                            ? "Temperatures"
-                        : sensorsAsyncResp->chassisSubNode ==
-                                sensors::node::power
-                            ? "Voltages"
-                            : "Sensors");
-                    return;
-                }
                 const std::shared_ptr<boost::container::flat_set<std::string>>
                     culledSensorList = std::make_shared<
                         boost::container::flat_set<std::string>>();
-                reduceSensorList(sensorsAsyncResp, nodeSensorList,
+                reduceSensorList(sensorsAsyncResp, &nodeSensorList,
                                  culledSensorList);
                 callback(culledSensorList);
-            },
-            "xyz.openbmc_project.ObjectMapper", sensorPath,
-            "org.freedesktop.DBus.Properties", "Get",
-            "xyz.openbmc_project.Association", "endpoints");
+            });
     };
 
     // Get the Chassis Collection
@@ -1177,37 +1161,27 @@ inline void populateFanRedundancy(
                 }
 
                 const std::string& owner = objDict.begin()->first;
-                crow::connections::systemBus->async_method_call(
-                    [path, owner,
-                     sensorsAsyncResp](const boost::system::error_code e,
-                                       const dbus::utility::DbusVariantType&
-                                           variantEndpoints) {
+                sdbusplus::asio::getProperty<std::vector<std::string>>(
+                    *crow::connections::systemBus,
+                    "xyz.openbmc_project.ObjectMapper", path + "/chassis",
+                    "xyz.openbmc_project.Association", "endpoints",
+                    [path, owner, sensorsAsyncResp](
+                        const boost::system::error_code e,
+                        const std::vector<std::string>& endpoints) {
                         if (e)
                         {
                             return; // if they don't have an association we
                                     // can't tell what chassis is
                         }
-                        // verify part of the right chassis
-                        auto endpoints = std::get_if<std::vector<std::string>>(
-                            &variantEndpoints);
-
-                        if (endpoints == nullptr)
-                        {
-                            BMCWEB_LOG_ERROR << "Invalid association interface";
-                            messages::internalError(
-                                sensorsAsyncResp->asyncResp->res);
-                            return;
-                        }
-
                         auto found = std::find_if(
-                            endpoints->begin(), endpoints->end(),
+                            endpoints.begin(), endpoints.end(),
                             [sensorsAsyncResp](const std::string& entry) {
                                 return entry.find(
                                            sensorsAsyncResp->chassisId) !=
                                        std::string::npos;
                             });
 
-                        if (found == endpoints->end())
+                        if (found == endpoints.end())
                         {
                             return;
                         }
@@ -1347,10 +1321,7 @@ inline void populateFanRedundancy(
                             owner, path, "org.freedesktop.DBus.Properties",
                             "GetAll",
                             "xyz.openbmc_project.Control.FanRedundancy");
-                    },
-                    "xyz.openbmc_project.ObjectMapper", path + "/chassis",
-                    "org.freedesktop.DBus.Properties", "Get",
-                    "xyz.openbmc_project.Association", "endpoints");
+                    });
             }
         },
         "xyz.openbmc_project.ObjectMapper",
@@ -2013,39 +1984,35 @@ void getInventoryLedData(
         const std::string& ledPath = (*it).first;
         const std::string& ledConnection = (*it).second;
         // Response handler for Get State property
-        auto respHandler = [sensorsAsyncResp, inventoryItems, ledConnections,
-                            ledPath, callback{std::move(callback)},
-                            ledConnectionsIndex](
-                               const boost::system::error_code ec,
-                               const dbus::utility::DbusVariantType& ledState) {
-            BMCWEB_LOG_DEBUG << "getInventoryLedData respHandler enter";
-            if (ec)
-            {
-                BMCWEB_LOG_ERROR
-                    << "getInventoryLedData respHandler DBus error " << ec;
-                messages::internalError(sensorsAsyncResp->asyncResp->res);
-                return;
-            }
+        auto respHandler =
+            [sensorsAsyncResp, inventoryItems, ledConnections, ledPath,
+             callback{std::move(callback)}, ledConnectionsIndex](
+                const boost::system::error_code ec, const std::string& state) {
+                BMCWEB_LOG_DEBUG << "getInventoryLedData respHandler enter";
+                if (ec)
+                {
+                    BMCWEB_LOG_ERROR
+                        << "getInventoryLedData respHandler DBus error " << ec;
+                    messages::internalError(sensorsAsyncResp->asyncResp->res);
+                    return;
+                }
 
-            const std::string* state = std::get_if<std::string>(&ledState);
-            if (state != nullptr)
-            {
-                BMCWEB_LOG_DEBUG << "Led state: " << *state;
+                BMCWEB_LOG_DEBUG << "Led state: " << state;
                 // Find inventory item with this LED object path
                 InventoryItem* inventoryItem =
                     findInventoryItemForLed(*inventoryItems, ledPath);
                 if (inventoryItem != nullptr)
                 {
                     // Store LED state in InventoryItem
-                    if (boost::ends_with(*state, "On"))
+                    if (boost::ends_with(state, "On"))
                     {
                         inventoryItem->ledState = LedState::ON;
                     }
-                    else if (boost::ends_with(*state, "Blink"))
+                    else if (boost::ends_with(state, "Blink"))
                     {
                         inventoryItem->ledState = LedState::BLINK;
                     }
-                    else if (boost::ends_with(*state, "Off"))
+                    else if (boost::ends_with(state, "Off"))
                     {
                         inventoryItem->ledState = LedState::OFF;
                     }
@@ -2054,26 +2021,20 @@ void getInventoryLedData(
                         inventoryItem->ledState = LedState::UNKNOWN;
                     }
                 }
-            }
-            else
-            {
-                BMCWEB_LOG_DEBUG << "Failed to find State data for LED: "
-                                 << ledPath;
-            }
 
-            // Recurse to get LED data from next connection
-            getInventoryLedData(sensorsAsyncResp, inventoryItems,
-                                ledConnections, std::move(callback),
-                                ledConnectionsIndex + 1);
+                // Recurse to get LED data from next connection
+                getInventoryLedData(sensorsAsyncResp, inventoryItems,
+                                    ledConnections, std::move(callback),
+                                    ledConnectionsIndex + 1);
 
-            BMCWEB_LOG_DEBUG << "getInventoryLedData respHandler exit";
-        };
+                BMCWEB_LOG_DEBUG << "getInventoryLedData respHandler exit";
+            };
 
         // Get the State property for the current LED
-        crow::connections::systemBus->async_method_call(
-            std::move(respHandler), ledConnection, ledPath,
-            "org.freedesktop.DBus.Properties", "Get",
-            "xyz.openbmc_project.Led.Physical", "State");
+        sdbusplus::asio::getProperty<std::string>(
+            *crow::connections::systemBus, ledConnection, ledPath,
+            "xyz.openbmc_project.Led.Physical", "State",
+            std::move(respHandler));
     }
 
     BMCWEB_LOG_DEBUG << "getInventoryLedData exit";
@@ -2213,8 +2174,7 @@ void getPowerSupplyAttributesData(
     auto respHandler = [sensorsAsyncResp, inventoryItems,
                         callback{std::move(callback)}](
                            const boost::system::error_code ec,
-                           const dbus::utility::DbusVariantType&
-                               deratingFactor) {
+                           const uint32_t value) {
         BMCWEB_LOG_DEBUG << "getPowerSupplyAttributesData respHandler enter";
         if (ec)
         {
@@ -2224,24 +2184,15 @@ void getPowerSupplyAttributesData(
             return;
         }
 
-        const uint32_t* value = std::get_if<uint32_t>(&deratingFactor);
-        if (value != nullptr)
+        BMCWEB_LOG_DEBUG << "PS EfficiencyPercent value: " << value;
+        // Store value in Power Supply Inventory Items
+        for (InventoryItem& inventoryItem : *inventoryItems)
         {
-            BMCWEB_LOG_DEBUG << "PS EfficiencyPercent value: " << *value;
-            // Store value in Power Supply Inventory Items
-            for (InventoryItem& inventoryItem : *inventoryItems)
+            if (inventoryItem.isPowerSupply == true)
             {
-                if (inventoryItem.isPowerSupply == true)
-                {
-                    inventoryItem.powerSupplyEfficiencyPercent =
-                        static_cast<int>(*value);
-                }
+                inventoryItem.powerSupplyEfficiencyPercent =
+                    static_cast<int>(value);
             }
-        }
-        else
-        {
-            BMCWEB_LOG_DEBUG
-                << "Failed to find EfficiencyPercent value for PowerSupplies";
         }
 
         BMCWEB_LOG_DEBUG << "getPowerSupplyAttributesData respHandler exit";
@@ -2250,10 +2201,10 @@ void getPowerSupplyAttributesData(
 
     // Get the DeratingFactor property for the PowerSupplyAttributes
     // Currently only property on the interface/only one we care about
-    crow::connections::systemBus->async_method_call(
-        std::move(respHandler), psAttributesConnection, psAttributesPath,
-        "org.freedesktop.DBus.Properties", "Get",
-        "xyz.openbmc_project.Control.PowerSupplyAttributes", "DeratingFactor");
+    sdbusplus::asio::getProperty<uint32_t>(
+        *crow::connections::systemBus, psAttributesConnection, psAttributesPath,
+        "xyz.openbmc_project.Control.PowerSupplyAttributes", "DeratingFactor",
+        std::move(respHandler));
 
     BMCWEB_LOG_DEBUG << "getPowerSupplyAttributesData exit";
 }

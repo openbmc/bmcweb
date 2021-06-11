@@ -170,21 +170,20 @@ void getPortStatusAndPath(const std::string& serviceName,
 template <typename CallbackFunc>
 void getPortNumber(const std::string& socketPath, CallbackFunc&& callback)
 {
-    crow::connections::systemBus->async_method_call(
+    sdbusplus::asio::getProperty<
+        std::vector<std::tuple<std::string, std::string>>>(
+        *crow::connections::systemBus, "org.freedesktop.systemd1", socketPath,
+        "org.freedesktop.systemd1.Socket", "Listen",
         [callback{std::move(callback)}](
             const boost::system::error_code ec,
-            const dbus::utility::DbusVariantType& resp) {
+            const std::vector<std::tuple<std::string, std::string>>& resp) {
             if (ec)
             {
                 BMCWEB_LOG_ERROR << ec;
                 callback(ec, 0);
                 return;
             }
-            const std::vector<
-                std::tuple<std::string, std::string>>* responsePtr =
-                std::get_if<std::vector<std::tuple<std::string, std::string>>>(
-                    &resp);
-            if (responsePtr == nullptr || responsePtr->size() < 1)
+            if (resp.size() < 1)
             {
                 // Network Protocol Listen Response Elements is empty
                 boost::system::error_code ec1 =
@@ -196,7 +195,7 @@ void getPortNumber(const std::string& socketPath, CallbackFunc&& callback)
                 return;
             }
             const std::string& listenStream =
-                std::get<NET_PROTO_LISTEN_STREAM>((*responsePtr)[0]);
+                std::get<NET_PROTO_LISTEN_STREAM>(resp[0]);
             const char* pa = &listenStream[listenStream.rfind(':') + 1];
             int port{0};
             if (auto [p, ec2] = std::from_chars(pa, nullptr, port);
@@ -217,10 +216,7 @@ void getPortNumber(const std::string& socketPath, CallbackFunc&& callback)
                 BMCWEB_LOG_ERROR << ec3;
             }
             callback(ec, port);
-        },
-        "org.freedesktop.systemd1", socketPath,
-        "org.freedesktop.DBus.Properties", "Get",
-        "org.freedesktop.systemd1.Socket", "Listen");
+        });
 }
 
 } // namespace redfish

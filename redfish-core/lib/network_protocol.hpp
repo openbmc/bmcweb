@@ -22,6 +22,7 @@
 #include <app.hpp>
 #include <dbus_utility.hpp>
 #include <registries/privilege_registry.hpp>
+#include <sdbusplus/asio/property.hpp>
 #include <utils/json_utils.hpp>
 #include <utils/stl_utils.hpp>
 
@@ -369,29 +370,29 @@ inline std::string getHostName()
 inline void
     getNTPProtocolEnabled(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
-    crow::connections::systemBus->async_method_call(
+    sdbusplus::asio::getProperty<std::string>(
+        *crow::connections::systemBus, "xyz.openbmc_project.Settings",
+        "/xyz/openbmc_project/time/sync_method",
+        "xyz.openbmc_project.Time.Synchronization", "TimeSyncMethod",
         [asyncResp](const boost::system::error_code errorCode,
-                    const dbus::utility::DbusVariantType& timeSyncMethod) {
+                    const std::string& timeSyncMethod) {
             if (errorCode)
             {
                 return;
             }
 
-            const std::string* s = std::get_if<std::string>(&timeSyncMethod);
-
-            if (*s == "xyz.openbmc_project.Time.Synchronization.Method.NTP")
+            if (timeSyncMethod ==
+                "xyz.openbmc_project.Time.Synchronization.Method.NTP")
             {
                 asyncResp->res.jsonValue["NTP"]["ProtocolEnabled"] = true;
             }
-            else if (*s ==
-                     "xyz.openbmc_project.Time.Synchronization.Method.Manual")
+            else if (timeSyncMethod ==
+                     "xyz.openbmc_project.Time.Synchronization."
+                     "Method.Manual")
             {
                 asyncResp->res.jsonValue["NTP"]["ProtocolEnabled"] = false;
             }
-        },
-        "xyz.openbmc_project.Settings", "/xyz/openbmc_project/time/sync_method",
-        "org.freedesktop.DBus.Properties", "Get",
-        "xyz.openbmc_project.Time.Synchronization", "TimeSyncMethod");
+        });
 }
 
 inline void requestRoutesNetworkProtocol(App& app)
