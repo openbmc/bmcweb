@@ -812,22 +812,63 @@ inline void createDump(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     }
 
     crow::connections::systemBus->async_method_call(
-        [asyncResp, req, dumpPath, dumpType](const boost::system::error_code ec,
-                                             const uint32_t& dumpId) {
+        [asyncResp, req, dumpPath,
+         dumpType](const boost::system::error_code ec,
+                   const sdbusplus::message::object_path& objPath) {
             if (ec)
             {
                 BMCWEB_LOG_ERROR << "CreateDump resp_handler got error " << ec;
                 messages::internalError(asyncResp->res);
                 return;
             }
+
+            std::string path(objPath.str);
+            auto pos = path.rfind('/');
+            if (pos == std::string::npos)
+            {
+                return;
+            }
+
+            auto idString = path.substr(pos + 1);
+            auto dumpId = std::stoul(idString);
             BMCWEB_LOG_DEBUG << "Dump Created. Id: " << dumpId;
 
-            createDumpTaskCallback(req, asyncResp, dumpId, dumpPath, dumpType);
+            std::shared_ptr<task::TaskData> task = task::TaskData::createTask(
+                [dumpPath, dumpId](
+                    boost::system::error_code err, sdbusplus::message::message&,
+                    const std::shared_ptr<task::TaskData>& taskData) {
+                    if (err)
+                    {
+                        BMCWEB_LOG_ERROR << "CreateDump createTask got error"
+                                         << err;
+                        taskData->state = "Cancelled";
+                        return task::completed;
+                    }
+
+                    nlohmann::json retMessage = messages::success();
+                    taskData->messages.emplace_back(retMessage);
+
+                    std::string headerLoc =
+                        "Location: " + dumpPath + std::to_string(dumpId);
+                    taskData->payload->httpHeaders.emplace_back(
+                        std::move(headerLoc));
+
+                    taskData->state = "Completed";
+                    return task::completed;
+                },
+                "type='signal',interface='org.freedesktop.DBus."
+                "Properties',"
+                "member='PropertiesChanged',path='" +
+                    objPath.str + "'");
+            task->startTimer(std::chrono::minutes(5));
+            task->populateResp(asyncResp->res);
+            task->payload.emplace(req);
         },
         "xyz.openbmc_project.Dump.Manager",
         "/xyz/openbmc_project/dump/" +
             std::string(boost::algorithm::to_lower_copy(dumpType)),
-        "xyz.openbmc_project.Dump.Create", "CreateDump");
+        "xyz.openbmc_project.Dump.Create", "CreateDump",
+        std::array<std::pair<const char*, const char*>, 0>());
 }
 
 inline void clearDump(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
