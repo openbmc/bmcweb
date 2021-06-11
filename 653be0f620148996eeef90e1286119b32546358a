@@ -96,6 +96,30 @@
     },
     {
       "key": {
+        "uuid": "d0903f9a_8f0cc1e1",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1306,
+      "author": {
+        "id": 1001083
+      },
+      "writtenOn": "2021-06-11T15:39:26Z",
+      "side": 1,
+      "message": "Moved to a if{},else{} construct.",
+      "parentUuid": "05ccb258_1c075a7e",
+      "range": {
+        "startLine": 1306,
+        "startChar": 40,
+        "endLine": 1306,
+        "endChar": 41
+      },
+      "revId": "653be0f620148996eeef90e1286119b32546358a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d4899bb0_44d25876",
         "filename": "redfish-core/lib/systems.hpp",
         "patchSetId": 3
@@ -119,6 +143,30 @@
     },
     {
       "key": {
+        "uuid": "d4bb3dd4_2e405b25",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1308,
+      "author": {
+        "id": 1001083
+      },
+      "writtenOn": "2021-06-11T15:39:26Z",
+      "side": 1,
+      "message": "Done.",
+      "parentUuid": "d4899bb0_44d25876",
+      "range": {
+        "startLine": 1308,
+        "startChar": 17,
+        "endLine": 1308,
+        "endChar": 45
+      },
+      "revId": "653be0f620148996eeef90e1286119b32546358a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3c706f7e_01d96ce3",
         "filename": "redfish-core/lib/systems.hpp",
         "patchSetId": 3
@@ -139,6 +187,30 @@
       "revId": "653be0f620148996eeef90e1286119b32546358a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "480455d0_5786f058",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1314,
+      "author": {
+        "id": 1001083
+      },
+      "writtenOn": "2021-06-11T15:39:26Z",
+      "side": 1,
+      "message": "I have switched to GetSubTree. Done.",
+      "parentUuid": "3c706f7e_01d96ce3",
+      "range": {
+        "startLine": 1314,
+        "startChar": 45,
+        "endLine": 1314,
+        "endChar": 60
+      },
+      "revId": "653be0f620148996eeef90e1286119b32546358a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
