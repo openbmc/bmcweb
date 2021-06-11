@@ -20,6 +20,7 @@
 #include <app.hpp>
 #include <boost/container/flat_map.hpp>
 #include <registries/privilege_registry.hpp>
+#include <sdbusplus/asio/property.hpp>
 #include <utils/fw_utils.hpp>
 
 #include <variant>
@@ -542,9 +543,12 @@ inline void requestRoutesUpdateService(App& app)
                 {"TFTP"};
 #endif
             // Get the current ApplyTime value
-            crow::connections::systemBus->async_method_call(
+            sdbusplus::asio::getProperty<std::string>(
+                *crow::connections::systemBus, "xyz.openbmc_project.Settings",
+                "/xyz/openbmc_project/software/apply_time",
+                "xyz.openbmc_project.Software.ApplyTime", "RequestedApplyTime",
                 [asyncResp](const boost::system::error_code ec,
-                            const std::variant<std::string>& applyTime) {
+                            const std::string& applyTime) {
                     if (ec)
                     {
                         BMCWEB_LOG_DEBUG << "DBUS response error " << ec;
@@ -552,34 +556,25 @@ inline void requestRoutesUpdateService(App& app)
                         return;
                     }
 
-                    const std::string* s = std::get_if<std::string>(&applyTime);
-                    if (s == nullptr)
-                    {
-                        return;
-                    }
                     // Store the ApplyTime Value
-                    if (*s ==
-                        "xyz.openbmc_project.Software.ApplyTime.RequestedApplyTimes.Immediate")
+                    if (applyTime == "xyz.openbmc_project.Software.ApplyTime."
+                                     "RequestedApplyTimes.Immediate")
                     {
                         asyncResp->res
                             .jsonValue["HttpPushUriOptions"]
                                       ["HttpPushUriApplyTime"]["ApplyTime"] =
                             "Immediate";
                     }
-                    else if (
-                        *s ==
-                        "xyz.openbmc_project.Software.ApplyTime.RequestedApplyTimes.OnReset")
+                    else if (applyTime ==
+                             "xyz.openbmc_project.Software.ApplyTime."
+                             "RequestedApplyTimes.OnReset")
                     {
                         asyncResp->res
                             .jsonValue["HttpPushUriOptions"]
                                       ["HttpPushUriApplyTime"]["ApplyTime"] =
                             "OnReset";
                     }
-                },
-                "xyz.openbmc_project.Settings",
-                "/xyz/openbmc_project/software/apply_time",
-                "org.freedesktop.DBus.Properties", "Get",
-                "xyz.openbmc_project.Software.ApplyTime", "RequestedApplyTime");
+                });
         });
     BMCWEB_ROUTE(app, "/redfish/v1/UpdateService/")
         .privileges(redfish::privileges::patchUpdateService)
