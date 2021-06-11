@@ -19,6 +19,7 @@
 #include "openbmc_dbus_rest.hpp"
 
 #include <app.hpp>
+#include <sdbusplus/asio/property.hpp>
 
 namespace redfish
 {
@@ -158,36 +159,26 @@ inline void requestRoutesStorage(App& app)
                         storageController["MemberId"] = id;
                         storageController["Status"]["State"] = "Enabled";
 
-                        crow::connections::systemBus->async_method_call(
+                        sdbusplus::asio::getProperty<bool>(
+                            *crow::connections::systemBus, connectionName, path,
+                            "xyz.openbmc_project.Inventory.Item", "Present",
                             [asyncResp,
                              index](const boost::system::error_code ec2,
-                                    const std::variant<bool> present) {
+                                    bool enabled) {
                                 // this interface isn't necessary, only check it
                                 // if we get a good return
                                 if (ec2)
                                 {
                                     return;
                                 }
-                                const bool* enabled =
-                                    std::get_if<bool>(&present);
-                                if (enabled == nullptr)
-                                {
-                                    BMCWEB_LOG_DEBUG
-                                        << "Illegal property present";
-                                    messages::internalError(asyncResp->res);
-                                    return;
-                                }
-                                if (!(*enabled))
+                                if (!enabled)
                                 {
                                     asyncResp->res
                                         .jsonValue["StorageControllers"][index]
                                                   ["Status"]["State"] =
                                         "Disabled";
                                 }
-                            },
-                            connectionName, path,
-                            "org.freedesktop.DBus.Properties", "Get",
-                            "xyz.openbmc_project.Inventory.Item", "Present");
+                            });
 
                         crow::connections::systemBus->async_method_call(
                             [asyncResp, index](
@@ -382,61 +373,45 @@ inline void requestRoutesDrive(App& app)
                     health->inventory.emplace_back(path);
                     health->populate();
 
-                    crow::connections::systemBus->async_method_call(
+                    sdbusplus::asio::getProperty<bool>(
+                        *crow::connections::systemBus, connectionName, path,
+                        "xyz.openbmc_project.Inventory.Item", "Present",
                         [asyncResp, path](const boost::system::error_code ec2,
-                                          const std::variant<bool> present) {
+                                          bool enabled) {
                             // this interface isn't necessary, only check it if
                             // we get a good return
                             if (ec2)
                             {
                                 return;
                             }
-                            const bool* enabled = std::get_if<bool>(&present);
-                            if (enabled == nullptr)
-                            {
-                                BMCWEB_LOG_DEBUG << "Illegal property present";
-                                messages::internalError(asyncResp->res);
-                                return;
-                            }
-                            if (!(*enabled))
+                            if (!enabled)
                             {
                                 asyncResp->res.jsonValue["Status"]["State"] =
                                     "Disabled";
                             }
-                        },
-                        connectionName, path, "org.freedesktop.DBus.Properties",
-                        "Get", "xyz.openbmc_project.Inventory.Item", "Present");
+                        });
 
-                    crow::connections::systemBus->async_method_call(
+                    sdbusplus::asio::getProperty<bool>(
+                        *crow::connections::systemBus, connectionName, path,
+                        "xyz.openbmc_project.State.Drive", "Rebuilding",
                         [asyncResp](const boost::system::error_code ec2,
-                                    const std::variant<bool> rebuilding) {
+                                    bool updating) {
                             // this interface isn't necessary, only check it if
                             // we get a good return
                             if (ec2)
                             {
                                 return;
                             }
-                            const bool* updating =
-                                std::get_if<bool>(&rebuilding);
-                            if (updating == nullptr)
-                            {
-                                BMCWEB_LOG_DEBUG << "Illegal property present";
-                                messages::internalError(asyncResp->res);
-                                return;
-                            }
-
                             // updating and disabled in the backend shouldn't be
                             // able to be set at the same time, so we don't need
                             // to check for the race condition of these two
                             // calls
-                            if ((*updating))
+                            if (updating)
                             {
                                 asyncResp->res.jsonValue["Status"]["State"] =
                                     "Updating";
                             }
-                        },
-                        connectionName, path, "org.freedesktop.DBus.Properties",
-                        "Get", "xyz.openbmc_project.State.Drive", "Rebuilding");
+                        });
                 },
                 "xyz.openbmc_project.ObjectMapper",
                 "/xyz/openbmc_project/object_mapper",

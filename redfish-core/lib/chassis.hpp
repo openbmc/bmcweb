@@ -20,6 +20,7 @@
 
 #include <app.hpp>
 #include <boost/container/flat_map.hpp>
+#include <sdbusplus/asio/property.hpp>
 #include <utils/collection.hpp>
 
 #include <variant>
@@ -36,10 +37,13 @@ namespace redfish
  */
 inline void getChassisState(std::shared_ptr<bmcweb::AsyncResp> aResp)
 {
-    crow::connections::systemBus->async_method_call(
-        [aResp{std::move(aResp)}](
-            const boost::system::error_code ec,
-            const std::variant<std::string>& chassisState) {
+    // crow::connections::systemBus->async_method_call(
+    sdbusplus::asio::getProperty<std::string>(
+        *crow::connections::systemBus, "xyz.openbmc_project.State.Chassis",
+        "/xyz/openbmc_project/state/chassis0",
+        "xyz.openbmc_project.State.Chassis", "CurrentPowerState",
+        [aResp{std::move(aResp)}](const boost::system::error_code ec,
+                                  const std::string& chassisState) {
             if (ec)
             {
                 BMCWEB_LOG_DEBUG << "DBUS response error " << ec;
@@ -47,28 +51,21 @@ inline void getChassisState(std::shared_ptr<bmcweb::AsyncResp> aResp)
                 return;
             }
 
-            const std::string* s = std::get_if<std::string>(&chassisState);
-            BMCWEB_LOG_DEBUG << "Chassis state: " << *s;
-            if (s != nullptr)
+            BMCWEB_LOG_DEBUG << "Chassis state: " << chassisState;
+            // Verify Chassis State
+            if (chassisState ==
+                "xyz.openbmc_project.State.Chassis.PowerState.On")
             {
-                // Verify Chassis State
-                if (*s == "xyz.openbmc_project.State.Chassis.PowerState.On")
-                {
-                    aResp->res.jsonValue["PowerState"] = "On";
-                    aResp->res.jsonValue["Status"]["State"] = "Enabled";
-                }
-                else if (*s ==
-                         "xyz.openbmc_project.State.Chassis.PowerState.Off")
-                {
-                    aResp->res.jsonValue["PowerState"] = "Off";
-                    aResp->res.jsonValue["Status"]["State"] = "StandbyOffline";
-                }
+                aResp->res.jsonValue["PowerState"] = "On";
+                aResp->res.jsonValue["Status"]["State"] = "Enabled";
             }
-        },
-        "xyz.openbmc_project.State.Chassis",
-        "/xyz/openbmc_project/state/chassis0",
-        "org.freedesktop.DBus.Properties", "Get",
-        "xyz.openbmc_project.State.Chassis", "CurrentPowerState");
+            else if (chassisState ==
+                     "xyz.openbmc_project.State.Chassis.PowerState.Off")
+            {
+                aResp->res.jsonValue["PowerState"] = "Off";
+                aResp->res.jsonValue["Status"]["State"] = "StandbyOffline";
+            }
+        });
 }
 
 /**
@@ -92,9 +89,11 @@ inline void getIntrusionByService(std::shared_ptr<bmcweb::AsyncResp> aResp,
 {
     BMCWEB_LOG_DEBUG << "Get intrusion status by service \n";
 
-    crow::connections::systemBus->async_method_call(
+    sdbusplus::asio::getProperty<std::string>(
+        *crow::connections::systemBus, service, objPath,
+        "xyz.openbmc_project.Chassis.Intrusion", "Status",
         [aResp{std::move(aResp)}](const boost::system::error_code ec,
-                                  const std::variant<std::string>& value) {
+                                  const std::string& value) {
             if (ec)
             {
                 // do not add err msg in redfish response, because this is not
@@ -103,19 +102,9 @@ inline void getIntrusionByService(std::shared_ptr<bmcweb::AsyncResp> aResp,
                 return;
             }
 
-            const std::string* status = std::get_if<std::string>(&value);
-
-            if (status == nullptr)
-            {
-                BMCWEB_LOG_ERROR << "intrusion status read error \n";
-                return;
-            }
-
             aResp->res.jsonValue["PhysicalSecurity"] = {
-                {"IntrusionSensorNumber", 1}, {"IntrusionSensor", *status}};
-        },
-        service, objPath, "org.freedesktop.DBus.Properties", "Get",
-        "xyz.openbmc_project.Chassis.Intrusion", "Status");
+                {"IntrusionSensorNumber", 1}, {"IntrusionSensor", value}};
+        });
 }
 
 /**
@@ -224,27 +213,19 @@ inline void requestRoutesChassis(App& app)
                         auto health =
                             std::make_shared<HealthPopulate>(asyncResp);
 
-                        crow::connections::systemBus->async_method_call(
-                            [health](
-                                const boost::system::error_code ec2,
-                                std::variant<std::vector<std::string>>& resp) {
+                        sdbusplus::asio::getProperty<std::vector<std::string>>(
+                            *crow::connections::systemBus,
+                            "xyz.openbmc_project.ObjectMapper",
+                            path + "/all_sensors",
+                            "xyz.openbmc_project.Association", "endpoints",
+                            [health](const boost::system::error_code ec2,
+                                     const std::vector<std::string>& resp) {
                                 if (ec2)
                                 {
                                     return; // no sensors = no failures
                                 }
-                                std::vector<std::string>* data =
-                                    std::get_if<std::vector<std::string>>(
-                                        &resp);
-                                if (data == nullptr)
-                                {
-                                    return;
-                                }
-                                health->inventory = std::move(*data);
-                            },
-                            "xyz.openbmc_project.ObjectMapper",
-                            path + "/all_sensors",
-                            "org.freedesktop.DBus.Properties", "Get",
-                            "xyz.openbmc_project.Association", "endpoints");
+                                health->inventory = resp;
+                            });
 
                         health->populate();
 
@@ -298,10 +279,12 @@ inline void requestRoutesChassis(App& app)
                         if (std::find(interfaces2.begin(), interfaces2.end(),
                                       locationInterface) != interfaces2.end())
                         {
-                            crow::connections::systemBus->async_method_call(
+                            sdbusplus::asio::getProperty<std::string>(
+                                *crow::connections::systemBus, connectionName,
+                                path, locationInterface, "LocationCode",
                                 [asyncResp, chassisId(std::string(chassisId))](
                                     const boost::system::error_code ec,
-                                    const std::variant<std::string>& property) {
+                                    const std::string& property) {
                                     if (ec)
                                     {
                                         BMCWEB_LOG_DEBUG
@@ -311,23 +294,10 @@ inline void requestRoutesChassis(App& app)
                                         return;
                                     }
 
-                                    const std::string* value =
-                                        std::get_if<std::string>(&property);
-                                    if (value == nullptr)
-                                    {
-                                        BMCWEB_LOG_DEBUG
-                                            << "Null value returned "
-                                               "for locaton code";
-                                        messages::internalError(asyncResp->res);
-                                        return;
-                                    }
                                     asyncResp->res
                                         .jsonValue["Location"]["PartLocation"]
-                                                  ["ServiceLabel"] = *value;
-                                },
-                                connectionName, path,
-                                "org.freedesktop.DBus.Properties", "Get",
-                                locationInterface, "LocationCode");
+                                                  ["ServiceLabel"] = property;
+                                });
                         }
 
                         crow::connections::systemBus->async_method_call(
