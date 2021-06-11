@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "42e3e91c_179ac020",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000415
+      },
+      "writtenOn": "2021-06-11T10:21:01Z",
+      "side": 1,
+      "message": "Kept \"logs\". Due to 52 title char limit.",
+      "parentUuid": "40c6bfa7_74cc8fb1",
+      "range": {
+        "startLine": 7,
+        "startChar": 29,
+        "endLine": 7,
+        "endChar": 33
+      },
+      "revId": "96aee905cc194cbbbc2bd84948a16e054c88da97",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "ee565903_5e6d9cdb",
         "filename": "/COMMIT_MSG",
         "patchSetId": 8
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "6b3c5b10_2825689c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000415
+      },
+      "writtenOn": "2021-06-11T10:21:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ee565903_5e6d9cdb",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 11
+      },
+      "revId": "96aee905cc194cbbbc2bd84948a16e054c88da97",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "01c3c80a_d2c37426",
         "filename": "/COMMIT_MSG",
         "patchSetId": 8
@@ -59,6 +107,30 @@
       "writtenOn": "2021-06-08T01:04:02Z",
       "side": 1,
       "message": "With no other patches?",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 18,
+        "endChar": 64
+      },
+      "revId": "96aee905cc194cbbbc2bd84948a16e054c88da97",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "62060fa7_8b4a6b8a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1000415
+      },
+      "writtenOn": "2021-06-11T10:21:01Z",
+      "side": 1,
+      "message": "My bad, I added you there as reviewer but forgot to give patch here. https://gerrit.openbmc-project.xyz/c/openbmc/openbmc/+/43154",
+      "parentUuid": "01c3c80a_d2c37426",
       "range": {
         "startLine": 18,
         "startChar": 0,
