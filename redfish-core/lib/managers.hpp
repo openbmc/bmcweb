@@ -1688,9 +1688,11 @@ inline void getLocation(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
 {
     BMCWEB_LOG_DEBUG << "Get BMC manager Location data.";
 
-    crow::connections::systemBus->async_method_call(
+    sdbusplus::asio::getProperty<std::string>(
+        *crow::connections::systemBus, connectionName, path,
+        "xyz.openbmc_project.Inventory.Decorator.LocationCode", "LocationCode",
         [aResp](const boost::system::error_code ec,
-                const std::variant<std::string>& property) {
+                const std::string& property) {
             if (ec)
             {
                 BMCWEB_LOG_DEBUG << "DBUS response error for "
@@ -1699,20 +1701,9 @@ inline void getLocation(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
                 return;
             }
 
-            const std::string* value = std::get_if<std::string>(&property);
-
-            if (value == nullptr)
-            {
-                // illegal value
-                messages::internalError(aResp->res);
-                return;
-            }
-
             aResp->res.jsonValue["Location"]["PartLocation"]["ServiceLabel"] =
-                *value;
-        },
-        connectionName, path, "org.freedesktop.DBus.Properties", "Get",
-        "xyz.openbmc_project.Inventory.Decorator.LocationCode", "LocationCode");
+                property;
+        });
 }
 // avoid name collision systems.hpp
 inline void
@@ -1720,35 +1711,27 @@ inline void
 {
     BMCWEB_LOG_DEBUG << "Getting Manager Last Reset Time";
 
-    crow::connections::systemBus->async_method_call(
+    sdbusplus::asio::getProperty<uint64_t>(
+        *crow::connections::systemBus, "xyz.openbmc_project.State.BMC",
+        "/xyz/openbmc_project/state/bmc0", "xyz.openbmc_project.State.BMC",
+        "LastRebootTime",
         [aResp](const boost::system::error_code ec,
-                std::variant<uint64_t>& lastResetTime) {
+                const uint64_t lastResetTime) {
             if (ec)
             {
                 BMCWEB_LOG_DEBUG << "D-BUS response error " << ec;
                 return;
             }
 
-            const uint64_t* lastResetTimePtr =
-                std::get_if<uint64_t>(&lastResetTime);
-
-            if (!lastResetTimePtr)
-            {
-                messages::internalError(aResp->res);
-                return;
-            }
             // LastRebootTime is epoch time, in milliseconds
             // https://github.com/openbmc/phosphor-dbus-interfaces/blob/7f9a128eb9296e926422ddc312c148b625890bb6/xyz/openbmc_project/State/BMC.interface.yaml#L19
             time_t lastResetTimeStamp =
-                static_cast<time_t>(*lastResetTimePtr / 1000);
+                static_cast<time_t>(lastResetTime / 1000);
 
             // Convert to ISO 8601 standard
             aResp->res.jsonValue["LastResetTime"] =
                 crow::utility::getDateTime(lastResetTimeStamp);
-        },
-        "xyz.openbmc_project.State.BMC", "/xyz/openbmc_project/state/bmc0",
-        "org.freedesktop.DBus.Properties", "Get",
-        "xyz.openbmc_project.State.BMC", "LastRebootTime");
+        });
 }
 
 /**
@@ -2036,33 +2019,25 @@ inline void requestRoutesManager(App& app)
 
             if (!started)
             {
-                crow::connections::systemBus->async_method_call(
+                sdbusplus::asio::getProperty<double>(
+                    *crow::connections::systemBus, "org.freedesktop.systemd1",
+                    "/org/freedesktop/systemd1",
+                    "org.freedesktop.systemd1.Manager", "Progress",
                     [asyncResp](const boost::system::error_code ec,
-                                const std::variant<double>& resp) {
+                                const double& val) {
                         if (ec)
                         {
                             BMCWEB_LOG_ERROR << "Error while getting progress";
                             messages::internalError(asyncResp->res);
                             return;
                         }
-                        const double* val = std::get_if<double>(&resp);
-                        if (val == nullptr)
-                        {
-                            BMCWEB_LOG_ERROR
-                                << "Invalid response while getting progress";
-                            messages::internalError(asyncResp->res);
-                            return;
-                        }
-                        if (*val < 1.0)
+                        if (val < 1.0)
                         {
                             asyncResp->res.jsonValue["Status"]["State"] =
                                 "Starting";
                             started = true;
                         }
-                    },
-                    "org.freedesktop.systemd1", "/org/freedesktop/systemd1",
-                    "org.freedesktop.DBus.Properties", "Get",
-                    "org.freedesktop.systemd1.Manager", "Progress");
+                    });
             }
 
             crow::connections::systemBus->async_method_call(

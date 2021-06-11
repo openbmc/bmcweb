@@ -505,9 +505,8 @@ class Subscription : public persistent_data::UserSubscription
     }
 #endif
 
-    void filterAndSendReports(
-        const std::string& id,
-        const std::variant<telemetry::TimestampReadings>& var)
+    void filterAndSendReports(const std::string& id,
+                              const telemetry::TimestampReadings& var)
     {
         std::string mrdUri = telemetry::metricReportDefinitionUri + ("/" + id);
 
@@ -1322,15 +1321,21 @@ class EventServiceManager
             return;
         }
 
-        const std::variant<telemetry::TimestampReadings>& readings =
-            found->second;
+        const telemetry::TimestampReadings* readings =
+            std::get_if<telemetry::TimestampReadings>(&found->second);
+        if (!readings)
+        {
+            BMCWEB_LOG_INFO << "Failed to get Readings from Report properties";
+            return;
+        }
+
         for (const auto& it :
              EventServiceManager::getInstance().subscriptionsMap)
         {
             Subscription& entry = *it.second.get();
             if (entry.eventFormatType == metricReportFormatType)
             {
-                entry.filterAndSendReports(id, readings);
+                entry.filterAndSendReports(id, *readings);
             }
         }
     }
