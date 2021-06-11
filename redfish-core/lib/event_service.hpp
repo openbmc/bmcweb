@@ -483,7 +483,7 @@ inline void requestRoutesEventDestinationCollection(App& app)
 
 inline void requestRoutesEventDestination(App& app)
 {
-    BMCWEB_ROUTE(app, "redfish/v1/EventService/Subscriptions/<str>/")
+    BMCWEB_ROUTE(app, "/redfish/v1/EventService/Subscriptions/<str>/")
         .privileges({"Login"})
         .methods(boost::beast::http::verb::get)(
             [](const crow::Request&,
@@ -535,7 +535,7 @@ inline void requestRoutesEventDestination(App& app)
             });
     /////redfish/v1/EventService/Subscriptions/
     // ConfigureManager
-    BMCWEB_ROUTE(app, "redfish/v1/EventService/Subscriptions/<str>/")
+    BMCWEB_ROUTE(app, "/redfish/v1/EventService/Subscriptions/<str>/")
         .privileges({"ConfigureManager"})
         .methods(boost::beast::http::verb::patch)(
             [](const crow::Request& req,
@@ -588,7 +588,7 @@ inline void requestRoutesEventDestination(App& app)
 
                 EventServiceManager::getInstance().updateSubscriptionData();
             });
-    BMCWEB_ROUTE(app, "redfish/v1/EventService/Subscriptions/<str>/")
+    BMCWEB_ROUTE(app, "/redfish/v1/EventService/Subscriptions/<str>/")
         .privileges({"ConfigureManager"})
         .methods(boost::beast::http::verb::delete_)(
             [](const crow::Request&,
