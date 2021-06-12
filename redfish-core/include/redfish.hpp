@@ -30,7 +30,10 @@
 #include "../lib/network_protocol.hpp"
 #include "../lib/pcie.hpp"
 #include "../lib/pcie_slots.hpp"
+#ifdef BMCWEB_ALLOW_DEPRECATED_POWER_THERMAL
 #include "../lib/power.hpp"
+#include "../lib/thermal.hpp"
+#endif
 #include "../lib/power_subsystem.hpp"
 #include "../lib/power_supply.hpp"
 #include "../lib/processor.hpp"
@@ -42,7 +45,6 @@
 #include "../lib/systems.hpp"
 #include "../lib/task.hpp"
 #include "../lib/telemetry_service.hpp"
-#include "../lib/thermal.hpp"
 #include "../lib/update_service.hpp"
 #ifdef BMCWEB_ENABLE_VM_NBDPROXY
 #include "../lib/virtual_media.hpp"
@@ -73,13 +75,15 @@ class RedfishService
         requestRoutesNetworkProtocol(app);
         requestRoutesSession(app);
         requestEthernetInterfacesRoutes(app);
+#ifdef BMCWEB_ALLOW_DEPRECATED_POWER_THERMAL
         requestRoutesThermal(app);
+        requestRoutesPower(app);
+#endif
         requestRoutesManagerCollection(app);
         requestRoutesManager(app);
         requestRoutesManagerResetAction(app);
         requestRoutesManagerResetActionInfo(app);
         requestRoutesManagerResetToDefaultsAction(app);
-        requestRoutesPower(app);
         requestRoutesPowerSubsystem(app);
         requestRoutesPowerSupplyCollection(app);
         requestRoutesPowerSupply(app);
