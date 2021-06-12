@@ -213,6 +213,15 @@ if (cxx.get_id() == 'gcc' and cxx.version().version_compare('>8.0'))
               },section : 'Enabled Features')
     endif
 
+    if( get_option('redfish-allow-deprecated-power-thermal').enabled())
+     add_project_arguments([
+       '-DBMCWEB_ALLOW_DEPRECATED_POWER_THERMAL'
+       ],
+      language : 'cpp')
+
+      summary({'power-thermal' :'-DBMCWEB_ALLOW_DEPRECATED_POWER_THERMAL'
+              },section : 'Enabled Features')
+    endif
   endif
 endif
 
