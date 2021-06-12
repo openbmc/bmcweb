@@ -68,13 +68,15 @@ class RedfishService
         requestRoutesNetworkProtocol(app);
         requestRoutesSession(app);
         requestEthernetInterfacesRoutes(app);
+#ifdef BMCWEB_ALLOW_DEPRECATED_POWER_THERMAL
         requestRoutesThermal(app);
+        requestRoutesPower(app);
+#endif
         requestRoutesManagerCollection(app);
         requestRoutesManager(app);
         requestRoutesManagerResetAction(app);
         requestRoutesManagerResetActionInfo(app);
         requestRoutesManagerResetToDefaultsAction(app);
-        requestRoutesPower(app);
         requestRoutesChassisCollection(app);
         requestRoutesChassis(app);
         requestRoutesChassisResetAction(app);

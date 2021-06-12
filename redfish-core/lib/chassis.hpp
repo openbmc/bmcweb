@@ -362,6 +362,7 @@ inline void requestRoutesChassis(App& app)
                                 }
                                 asyncResp->res.jsonValue["Name"] = chassisId;
                                 asyncResp->res.jsonValue["Id"] = chassisId;
+#ifdef BMCWEB_ALLOW_DEPRECATED_POWER_THERMAL
                                 asyncResp->res.jsonValue["Thermal"] = {
                                     {"@odata.id", "/redfish/v1/Chassis/" +
                                                       chassisId + "/Thermal"}};
@@ -369,6 +370,7 @@ inline void requestRoutesChassis(App& app)
                                 asyncResp->res.jsonValue["Power"] = {
                                     {"@odata.id", "/redfish/v1/Chassis/" +
                                                       chassisId + "/Power"}};
+#endif
                                 // SensorCollection
                                 asyncResp->res.jsonValue["Sensors"] = {
                                     {"@odata.id", "/redfish/v1/Chassis/" +
