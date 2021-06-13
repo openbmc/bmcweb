@@ -26,6 +26,7 @@ namespace redfish
         "Chassis",
         "ComputerSystem",
         "Drive",
+        "EnvironmentMetrics",
         "EthernetInterface",
         "Event",
         "EventDestination",
