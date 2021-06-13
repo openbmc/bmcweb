@@ -20,6 +20,7 @@
 #include "../lib/cable.hpp"
 #include "../lib/certificate_service.hpp"
 #include "../lib/chassis.hpp"
+#include "../lib/environment_metrics.hpp"
 #include "../lib/ethernet.hpp"
 #include "../lib/event_service.hpp"
 #include "../lib/hypervisor_system.hpp"
@@ -79,6 +80,7 @@ class RedfishService
         requestRoutesPower(app);
 #endif
 #ifdef BMCWEB_NEW_POWERSUBSYSTEM_THERMALSUBSYSTEM
+        requestRoutesEnvironmentMetrics(app);
         requestRoutesPowerSubsystem(app);
         requestRoutesThermalSubsystem(app);
 #endif
