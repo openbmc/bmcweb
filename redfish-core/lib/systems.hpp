@@ -794,6 +794,7 @@ inline int assignBootParameters(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
     }
     return 0;
 }
+
 /**
  * @brief Retrieves boot progress of the system
  *
@@ -1243,6 +1244,105 @@ inline void
         "org.freedesktop.DBus.Properties", "Get",
         "xyz.openbmc_project.Control.Power.RestorePolicy",
         "PowerRestorePolicy");
+}
+
+/**
+ * @brief Get TrustedModuleRequiredToBoot property. Determines whether or not
+ * TPM is required for booting the host.
+ *
+ * @param[in] aResp     Shared pointer for generating response message.
+ *
+ * @return None.
+ */
+inline void getTrustedModuleRequiredToBoot(
+    const std::shared_ptr<bmcweb::AsyncResp>& aResp)
+{
+    BMCWEB_LOG_DEBUG << "Get TPM required to boot.";
+
+    crow::connections::systemBus->async_method_call(
+        [aResp](
+            const boost::system::error_code ec,
+            std::vector<std::pair<
+                std::string,
+                std::vector<std::pair<std::string, std::vector<std::string>>>>>&
+                subtree) {
+            if (ec)
+            {
+                BMCWEB_LOG_DEBUG
+                    << "DBUS response error on TPM.Policy GetSubTree" << ec;
+                // This is an optional D-Bus object so just return if
+                // error occurs
+                return;
+            }
+            if (subtree.size() == 0)
+            {
+                // As noted above, this is an optional interface so just return
+                // if there is no instance found
+                return;
+            }
+
+            /* When there is more than one TPMEnable object... */
+            if (subtree.size() > 1)
+            {
+                BMCWEB_LOG_DEBUG
+                    << "DBUS response has more than 1 TPM Enable object:"
+                    << subtree.size();
+                // Throw an internal Error and return
+                messages::internalError(aResp->res);
+                return;
+            }
+
+            // Make sure the Dbus response map has a service and objectPath
+            // field
+            if (subtree[0].first.empty() || subtree[0].second.size() != 1)
+            {
+                BMCWEB_LOG_DEBUG << "TPM.Policy mapper error!";
+                messages::internalError(aResp->res);
+                return;
+            }
+
+            const std::string& path = subtree[0].first;
+            const std::string& serv = subtree[0].second.begin()->first;
+
+            // Valid TPM Enable object found, now reading the current value
+            crow::connections::systemBus->async_method_call(
+                [aResp](const boost::system::error_code ec,
+                        std::variant<bool>& tpmRequired) {
+                    if (ec)
+                    {
+                        BMCWEB_LOG_DEBUG
+                            << "D-BUS response error on TPM.Policy Get" << ec;
+                        return;
+                    }
+
+                    const bool* tpmRequiredVal = std::get_if<bool>(&tpmRequired);
+
+                    if (!tpmRequiredVal)
+                    {
+                        messages::internalError(aResp->res);
+                        return;
+                    }
+
+                    if (*tpmRequiredVal == true)
+                    {
+                        aResp->res
+                            .jsonValue["Boot"]["TrustedModuleRequiredToBoot"] =
+                            "Required";
+                    }
+                    else
+                    {
+                        aResp->res
+                            .jsonValue["Boot"]["TrustedModuleRequiredToBoot"] =
+                            "Disabled";
+                    }
+                },
+                serv, path, "org.freedesktop.DBus.Properties", "Get",
+                "xyz.openbmc_project.Control.TPM.Policy", "TPMEnable");
+        },
+        "xyz.openbmc_project.ObjectMapper",
+        "/xyz/openbmc_project/object_mapper",
+        "xyz.openbmc_project.ObjectMapper", "GetSubTree", "/", int32_t(0),
+        std::array<const char*, 1>{"xyz.openbmc_project.Control.TPM.Policy"});
 }
 
 /**
@@ -2068,7 +2168,7 @@ inline void requestRoutesSystems(App& app)
                 get)([](const crow::Request&,
                         const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
             asyncResp->res.jsonValue["@odata.type"] =
-                "#ComputerSystem.v1_13_0.ComputerSystem";
+                "#ComputerSystem.v1_14_0.ComputerSystem";
             asyncResp->res.jsonValue["Name"] = "system";
             asyncResp->res.jsonValue["Id"] = "system";
             asyncResp->res.jsonValue["SystemType"] = "Physical";
@@ -2156,6 +2256,7 @@ inline void requestRoutesSystems(App& app)
 #ifdef BMCWEB_ENABLE_REDFISH_PROVISIONING_FEATURE
             getProvisioningStatus(asyncResp);
 #endif
+            getTrustedModuleRequiredToBoot(asyncResp);
         });
     BMCWEB_ROUTE(app, "/redfish/v1/Systems/system/")
         .privileges({"ConfigureComponent"})
