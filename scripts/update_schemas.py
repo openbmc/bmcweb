@@ -30,6 +30,7 @@ include_list = [
     'ComputerSystemCollection',
     'Drive',
     'DriveCollection',
+    'EnvironmentMetrics',
     'EthernetInterface',
     'EthernetInterfaceCollection',
     'Event',
