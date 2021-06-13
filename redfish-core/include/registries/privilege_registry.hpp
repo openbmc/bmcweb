@@ -351,6 +351,14 @@ const static auto& putEndpointGroupCollection = privilegeSetConfigureComponents;
 const static auto& deleteEndpointGroupCollection =
     privilegeSetConfigureComponents;
 
+// EnvironmentMetrics
+const static auto& getEnvironmentMetrics = privilegeSetLogin;
+const static auto& headEnvironmentMetrics = privilegeSetLogin;
+const static auto& patchEnvironmentMetrics = privilegeSetConfigureComponents;
+const static auto& postEnvironmentMetrics = privilegeSetConfigureComponents;
+const static auto& putEnvironmentMetrics = privilegeSetConfigureComponents;
+const static auto& deleteEnvironmentMetrics = privilegeSetConfigureComponents;
+
 // EthernetInterface
 const static auto& getEthernetInterface = privilegeSetLogin;
 const static auto& headEthernetInterface = privilegeSetLogin;
