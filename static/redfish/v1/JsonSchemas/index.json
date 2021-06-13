@@ -40,6 +40,9 @@
       "@odata.id": "/redfish/v1/JsonSchemas/Drive"
     },
     {
+      "@odata.id": "/redfish/v1/JsonSchemas/EnvironmentMetrics"
+    },
+    {
       "@odata.id": "/redfish/v1/JsonSchemas/EthernetInterface"
     },
     {
