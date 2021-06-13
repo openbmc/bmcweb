@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "6c26e82d_bb1f19e1",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 3196,
+      "author": {
+        "id": 1001027
+      },
+      "writtenOn": "2021-06-13T08:54:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3f1b2860_e6cf4ddd",
+      "range": {
+        "startLine": 3196,
+        "startChar": 4,
+        "endLine": 3196,
+        "endChar": 49
+      },
+      "revId": "a80a6cb69dd86a2d2198a62c550ae7a4fddf00b1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f4e25e44_0c5f84b3",
         "filename": "redfish-core/lib/sensors.hpp",
         "patchSetId": 13
@@ -45,6 +69,30 @@
       "revId": "a80a6cb69dd86a2d2198a62c550ae7a4fddf00b1",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9f8a8907_4853e8a9",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 3245,
+      "author": {
+        "id": 1001027
+      },
+      "writtenOn": "2021-06-13T08:54:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f4e25e44_0c5f84b3",
+      "range": {
+        "startLine": 3245,
+        "startChar": 12,
+        "endLine": 3245,
+        "endChar": 60
+      },
+      "revId": "a80a6cb69dd86a2d2198a62c550ae7a4fddf00b1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "9e902749_40770ce3",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 3258,
+      "author": {
+        "id": 1001027
+      },
+      "writtenOn": "2021-06-13T08:54:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "06d16e05_69ee9cc7",
+      "range": {
+        "startLine": 3257,
+        "startChar": 16,
+        "endLine": 3258,
+        "endChar": 44
+      },
+      "revId": "a80a6cb69dd86a2d2198a62c550ae7a4fddf00b1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e7f3f6bb_1e2d18b5",
         "filename": "redfish-core/lib/sensors.hpp",
         "patchSetId": 13
@@ -91,6 +163,30 @@
       "revId": "a80a6cb69dd86a2d2198a62c550ae7a4fddf00b1",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "76c299ad_28596696",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 3313,
+      "author": {
+        "id": 1001027
+      },
+      "writtenOn": "2021-06-13T08:54:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e7f3f6bb_1e2d18b5",
+      "range": {
+        "startLine": 3313,
+        "startChar": 9,
+        "endLine": 3313,
+        "endChar": 59
+      },
+      "revId": "a80a6cb69dd86a2d2198a62c550ae7a4fddf00b1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "559dcbfc_d7785c9f",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 3328,
+      "author": {
+        "id": 1001027
+      },
+      "writtenOn": "2021-06-13T08:54:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cc95dc3e_659e223f",
+      "range": {
+        "startLine": 3328,
+        "startChar": 2,
+        "endLine": 3328,
+        "endChar": 52
+      },
+      "revId": "a80a6cb69dd86a2d2198a62c550ae7a4fddf00b1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "31c763ed_18eff0c1",
         "filename": "redfish-core/lib/sensors.hpp",
         "patchSetId": 13
@@ -140,6 +260,30 @@
     },
     {
       "key": {
+        "uuid": "8da6d3b7_b8b95969",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 3338,
+      "author": {
+        "id": 1001027
+      },
+      "writtenOn": "2021-06-13T08:54:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "31c763ed_18eff0c1",
+      "range": {
+        "startLine": 3338,
+        "startChar": 12,
+        "endLine": 3338,
+        "endChar": 56
+      },
+      "revId": "a80a6cb69dd86a2d2198a62c550ae7a4fddf00b1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d04f0f0f_e0470e5c",
         "filename": "redfish-core/lib/sensors.hpp",
         "patchSetId": 13
@@ -160,6 +304,30 @@
       "revId": "a80a6cb69dd86a2d2198a62c550ae7a4fddf00b1",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2b5a4cfa_a524886e",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 3396,
+      "author": {
+        "id": 1001027
+      },
+      "writtenOn": "2021-06-13T08:54:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d04f0f0f_e0470e5c",
+      "range": {
+        "startLine": 3396,
+        "startChar": 3,
+        "endLine": 3396,
+        "endChar": 46
+      },
+      "revId": "a80a6cb69dd86a2d2198a62c550ae7a4fddf00b1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
