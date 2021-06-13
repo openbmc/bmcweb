@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d5425dc6_33f54e3f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1001083
+      },
+      "writtenOn": "2021-06-13T19:25:39Z",
+      "side": 1,
+      "message": "If easily possible, can you add a reference to this information?",
+      "revId": "401be2975906448971e7cf946d26ea86c0d6fffb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
