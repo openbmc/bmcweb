@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e66fc25a_ca2044d6",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1000444
+      },
+      "writtenOn": "2021-06-13T07:53:18Z",
+      "side": 1,
+      "message": "Add some reference documents?\n\nReference:\nhttps://www.dmtf.org/sites/default/files/standards/documents/DSP0268_2020.4.pdf\nhttps://github.com/openbmc/docs/blob/a5c51bbd499ca747837ba3f4864ee283c4bd67cb/architecture/LED-architecture.md",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 0
+      },
+      "revId": "e7012a1d7f50b0b54db5780d5ef296bdb63b90ee",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
