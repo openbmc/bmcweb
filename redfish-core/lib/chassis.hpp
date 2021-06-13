@@ -403,6 +403,10 @@ inline void
                 asyncResp->res.jsonValue["ThermalSubsystem"]["@odata.id"] =
                     crow::utility::urlFromPieces("redfish", "v1", "Chassis",
                                                  chassisId, "ThermalSubsystem");
+                asyncResp->res.jsonValue["EnvironmentMetrics"]["@odata.id"] =
+                    crow::utility::urlFromPieces("redfish", "v1", "Chassis",
+                                                 chassisId,
+                                                 "EnvironmentMetrics");
 #endif
                 // SensorCollection
                 asyncResp->res.jsonValue["Sensors"]["@odata.id"] =
