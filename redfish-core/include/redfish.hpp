@@ -20,6 +20,7 @@
 #include "../lib/cable.hpp"
 #include "../lib/certificate_service.hpp"
 #include "../lib/chassis.hpp"
+#include "../lib/environment_metrics.hpp"
 #include "../lib/ethernet.hpp"
 #include "../lib/event_service.hpp"
 #include "../lib/hypervisor_system.hpp"
@@ -220,6 +221,10 @@ class RedfishService
         requestRoutesMetricReport(app);
         requestRoutesTriggerCollection(app);
         requestRoutesTrigger(app);
+
+#ifdef BMCWEB_NEW_POWERSUBSYSTEM_THERMALSUBSYSTEM
+        requestRoutesEnvironmentMetrics(app);
+#endif
 
         // Note, this must be the last route registered
         requestRoutesRedfish(app);
