@@ -157,6 +157,12 @@ Chassis to Drives, The name of the association is "chassis<->drive")
 - Status
 (this is dependant on a entity manager association from Chassis to Drives)
 
+#### /redfish/v1/Chassis/{ChassisId}/EnvironmentMetrics/
+##### EnvironmentMetrics
+- FanSpeedsPercent
+- PowerLimitWatts
+- PowerWatts
+
 #### /redfish/v1/Chassis/{ChassisId}/Power/
 ##### Power
 - PowerControl
