@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "5943fbd6_d5d45f2f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2021-06-14T15:00:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ba92ab19_654017eb",
+      "revId": "0cdb3fdbf74b598bc35327ac33586f69cb9e5838",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b7613aa1_5f6727c8",
         "filename": "/COMMIT_MSG",
         "patchSetId": 1
@@ -66,6 +84,47 @@
       "side": 1,
       "message": "As long this doesn\u0027t introduce any new errors, you are good. \n\nI would think it would be worth the investment to fix up your system so it passes the Redfish validator. :)",
       "parentUuid": "2f603ca0_b1f5c545",
+      "revId": "0cdb3fdbf74b598bc35327ac33586f69cb9e5838",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dabfab5d_91409cff",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2021-06-14T15:00:52Z",
+      "side": 1,
+      "message": "sounds good. thanks.\n\nI\u0027ll see if we can fix the system as a whole.",
+      "parentUuid": "3c47a192_495af1fb",
+      "revId": "0cdb3fdbf74b598bc35327ac33586f69cb9e5838",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "87361802_e9ef99cf",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 464,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2021-06-14T15:00:52Z",
+      "side": 1,
+      "message": "Do we want to have this error here? Doesn\u0027t this force the users to have this property for Drive? do we want that in general?",
+      "range": {
+        "startLine": 464,
+        "startChar": 28,
+        "endLine": 464,
+        "endChar": 68
+      },
       "revId": "0cdb3fdbf74b598bc35327ac33586f69cb9e5838",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
