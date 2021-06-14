@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "e1a329bb_f30f2045",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-06-14T20:30:37Z",
+      "side": 1,
+      "message": "\u003e Note that running the parse_registries.py script is a manual process which results in writing the privilege_registry.hpp file.\n\nThis was true before this patch.  Not sure what this comment is trying to convey.\n\n\u003e I propose enhancing parse_registries.py to read an optional OEM_PrivilegeRegistry.json file along with Redfish_1.1.0_PrivilegeRegistry.json.\n\u003e \n\u003e My initial idea for how an OEM can define custom privileges, assuming the OEM URIs are #ifdef\u0027d in the upstream BMCWeb:\n\nCustom privileges and OEM privileges are two different problems.  OEM privileges I think we need to solve in the near future because we currently have OEM resources that would need this, custom privileges I think are a different patchset.  Unless this patchset conflicts with your goals in generating custom registries, lets keep the discussion of custom registries into a patch/design for custom privilege registries.\n\n\u003e 1. The OEM creates a custom OEM_PrivilegeRegistry.json (and optionally (not recommended) edits their copy of Redfish_1.1.0_PrivilegeRegistry.json).\n\nI had imagined this would take the form of a json patch that we could apply ahead of time.\n\n\u003e 2. The OEM runs the enhanced parse_registries.py script on their custom registries, and then merges their resulting custom copy of privilege_registry.hpp into their downstream repo or layer.\n\nI don\u0027t particularly care what anyone does in their downstream private repos, and we shouldn\u0027t be designing around it;  The code is open source, which means we can\u0027t dictate what downstream repos can and will do.  I\u0027m happy to discuss what we should do in upstream.\n\n\u003e 3. The OEM customizes their code to use the names in their custom privilege_registry.hpp.\n\u003e 4. Build and test.",
+      "parentUuid": "3242bb63_e5646a67",
+      "revId": "8671b5778aafb3b02792367d48a6601270d1ac8c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d4dadd56_456e48c4",
         "filename": "/COMMIT_MSG",
         "patchSetId": 8
@@ -30,6 +48,24 @@
       "writtenOn": "2021-06-14T20:16:34Z",
       "side": 1,
       "message": "Here is my view how to handle overrides (see Redfish DSP0266 \"Mapping overrides syntax\"):\n\nProperty override:\n- Redfish \"property overrides\" are more granular than BMC\u0027s privilege checking which is at the URI+verb level.\n- The current Redfish PrivilegeRegistry 1.1.0 specifies a ManagerAccount Password property override: https://redfish.dmtf.org/registries/Redfish_1.1.0_PrivilegeRegistry.json \n- Property overrides are handled in BMCWeb code https://github.com/ibm-openbmc/bmcweb/blob/master/redfish-core/lib/account_service.hpp by two items working together:\n- 1. The verb handler specifies an overly permissive privilege for the URI+verb.  (It includes ConfigureSelf.)  This allows the router to flow code into the verb handler so it can perform a more specific property check in item 2.\n- 2. The verb handler knows which properties were specified in the request, and it has a hand-coded check for the exact conditions (\"Perform a proper ConfigureSelf authority check\").  For example, it can perform the checks needed to implement the property override. \n- That\u0027s how it currently works.  I am okay with BMCWeb continuing to hand-code property overrides.  To continue like this, we would need to tweak the privilege set, for example, define a privilege set called `patchAccountServicePrivilege_withPropertyOverrides` which has the ConfigureSelf privilege.\n- If this seems correct, I can explain this better with code. \n\nSubordinate override\n- For example, these apply to an EthernetInterface when it is under a Manager.EthernetInterfaceCollection such as in URI /redfish/v1/Managers/bmc/EthernetInterfaces/eth0.\n- We need to model these per https://github.com/openbmc/bmcweb/issues/209.\n- I would like parse_registries.py to create a second privilege set for types which have subordinate overrides.  For example, it could create one called:  patchEthernetInterfacePrivilege_whenSubordinateTo_Manager_EthernetInterfaceCollection\n- Then the code can name this alternate privilege set.\n\nResource URI override\n- I don\u0027t see any Resource URI overrides defined or in use.  If needed, these could be handled similarly to the subordinate overrides, with names like: patchSomeTypePrivilege_withURI_xyz",
+      "revId": "8671b5778aafb3b02792367d48a6601270d1ac8c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4d927e49_20bea587",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-06-14T20:30:37Z",
+      "side": 1,
+      "message": "\u003e Here is my view how to handle overrides (see Redfish DSP0266 \"Mapping overrides syntax\"):\n\u003e \n\u003e Property override:\n\u003e - Redfish \"property overrides\" are more granular than BMC\u0027s privilege checking which is at the URI+verb level.\n\u003e - The current Redfish PrivilegeRegistry 1.1.0 specifies a ManagerAccount Password property override: https://redfish.dmtf.org/registries/Redfish_1.1.0_PrivilegeRegistry.json \n\u003e - Property overrides are handled in BMCWeb code https://github.com/ibm-openbmc/bmcweb/blob/master/redfish-core/lib/account_service.hpp by two items working together:\n\u003e - 1. The verb handler specifies an overly permissive privilege for the URI+verb.  (It includes ConfigureSelf.)  This allows the router to flow code into the verb handler so it can perform a more specific property check in item 2.\n\u003e - 2. The verb handler knows which properties were specified in the request, and it has a hand-coded check for the exact conditions (\"Perform a proper ConfigureSelf authority check\").  For example, it can perform the checks needed to implement the property override. \n\u003e - That\u0027s how it currently works.  I am okay with BMCWeb continuing to hand-code property overrides.  To continue like this, we would need to tweak the privilege set, for example, define a privilege set called `patchAccountServicePrivilege_withPropertyOverrides` which has the ConfigureSelf privilege.\n\u003e - If this seems correct, I can explain this better with code. \n\u003e \n\u003e Subordinate override\n\u003e - For example, these apply to an EthernetInterface when it is under a Manager.EthernetInterfaceCollection such as in URI /redfish/v1/Managers/bmc/EthernetInterfaces/eth0.\n\u003e - We need to model these per https://github.com/openbmc/bmcweb/issues/209.\n\u003e - I would like parse_registries.py to create a second privilege set for types which have subordinate overrides.  For example, it could create one called:  patchEthernetInterfacePrivilege_whenSubordinateTo_Manager_EthernetInterfaceCollection\n\u003e - Then the code can name this alternate privilege set.\n\u003e \n\u003e Resource URI override\n\u003e - I don\u0027t see any Resource URI overrides defined or in use.  If needed, these could be handled similarly to the subordinate overrides, with names like: patchSomeTypePrivilege_withURI_xyz\n\nSeems mostly reasonable.  I\u0027m thinking we\u0027ll get this patchset in to solve the 90% case, then have another patchset where we can design the Override cases, and deal with the fact that we got some of them wrong.",
+      "parentUuid": "d4dadd56_456e48c4",
       "revId": "8671b5778aafb3b02792367d48a6601270d1ac8c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
