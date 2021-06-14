@@ -156,7 +156,7 @@ static std::shared_ptr<Handler> handler;
 inline void requestRoutes(App& app)
 {
     BMCWEB_ROUTE(app, "/vm/0/0")
-        .privileges({"ConfigureComponents", "ConfigureManager"})
+        .privileges({{"ConfigureComponents", "ConfigureManager"}})
         .websocket()
         .onopen([](crow::websocket::Connection& conn,
                    const std::shared_ptr<bmcweb::AsyncResp>&) {

@@ -25,7 +25,7 @@ namespace redfish
 inline void requestRoutesThermal(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/Chassis/<str>/Thermal/")
-        .privileges({"Login"})
+        .privileges({{"Login"}})
         .methods(boost::beast::http::verb::get)(
             [](const crow::Request&,
                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
@@ -47,7 +47,7 @@ inline void requestRoutesThermal(App& app)
             });
 
     BMCWEB_ROUTE(app, "/redfish/v1/Chassis/<str>/Thermal/")
-        .privileges({"ConfigureManager"})
+        .privileges({{"ConfigureManager"}})
         .methods(boost::beast::http::verb::patch)(
             [](const crow::Request& req,
                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,

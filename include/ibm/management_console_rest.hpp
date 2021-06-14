@@ -688,7 +688,7 @@ inline void requestRoutes(App& app)
 
     // allowed only for admin
     BMCWEB_ROUTE(app, "/ibm/v1/")
-        .privileges({"ConfigureComponents", "ConfigureManager"})
+        .privileges({{"ConfigureComponents", "ConfigureManager"}})
         .methods(boost::beast::http::verb::get)(
             [](const crow::Request&,
                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
@@ -706,7 +706,7 @@ inline void requestRoutes(App& app)
             });
 
     BMCWEB_ROUTE(app, "/ibm/v1/Host/ConfigFiles")
-        .privileges({"ConfigureComponents", "ConfigureManager"})
+        .privileges({{"ConfigureComponents", "ConfigureManager"}})
         .methods(boost::beast::http::verb::get)(
             [](const crow::Request&,
                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
@@ -715,7 +715,7 @@ inline void requestRoutes(App& app)
 
     BMCWEB_ROUTE(app,
                  "/ibm/v1/Host/ConfigFiles/Actions/IBMConfigFiles.DeleteAll")
-        .privileges({"ConfigureComponents", "ConfigureManager"})
+        .privileges({{"ConfigureComponents", "ConfigureManager"}})
         .methods(boost::beast::http::verb::post)(
             [](const crow::Request&,
                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
@@ -723,7 +723,7 @@ inline void requestRoutes(App& app)
             });
 
     BMCWEB_ROUTE(app, "/ibm/v1/Host/ConfigFiles/<str>")
-        .privileges({"ConfigureComponents", "ConfigureManager"})
+        .privileges({{"ConfigureComponents", "ConfigureManager"}})
         .methods(boost::beast::http::verb::put, boost::beast::http::verb::get,
                  boost::beast::http::verb::delete_)(
             [](const crow::Request& req,
@@ -741,7 +741,7 @@ inline void requestRoutes(App& app)
             });
 
     BMCWEB_ROUTE(app, "/ibm/v1/HMC/LockService")
-        .privileges({"ConfigureComponents", "ConfigureManager"})
+        .privileges({{"ConfigureComponents", "ConfigureManager"}})
         .methods(boost::beast::http::verb::get)(
             [](const crow::Request&,
                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
@@ -749,7 +749,7 @@ inline void requestRoutes(App& app)
             });
 
     BMCWEB_ROUTE(app, "/ibm/v1/HMC/LockService/Actions/LockService.AcquireLock")
-        .privileges({"ConfigureComponents", "ConfigureManager"})
+        .privileges({{"ConfigureComponents", "ConfigureManager"}})
         .methods(boost::beast::http::verb::post)(
             [](const crow::Request& req,
                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
@@ -765,7 +765,7 @@ inline void requestRoutes(App& app)
                 handleAcquireLockAPI(req, asyncResp, body);
             });
     BMCWEB_ROUTE(app, "/ibm/v1/HMC/LockService/Actions/LockService.ReleaseLock")
-        .privileges({"ConfigureComponents", "ConfigureManager"})
+        .privileges({{"ConfigureComponents", "ConfigureManager"}})
         .methods(boost::beast::http::verb::post)(
             [](const crow::Request& req,
                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
@@ -797,7 +797,7 @@ inline void requestRoutes(App& app)
                 }
             });
     BMCWEB_ROUTE(app, "/ibm/v1/HMC/LockService/Actions/LockService.GetLockList")
-        .privileges({"ConfigureComponents", "ConfigureManager"})
+        .privileges({{"ConfigureComponents", "ConfigureManager"}})
         .methods(boost::beast::http::verb::post)(
             [](const crow::Request& req,
                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
@@ -814,7 +814,7 @@ inline void requestRoutes(App& app)
             });
 
     BMCWEB_ROUTE(app, "/ibm/v1/HMC/BroadcastService")
-        .privileges({"ConfigureComponents", "ConfigureManager"})
+        .privileges({{"ConfigureComponents", "ConfigureManager"}})
         .methods(boost::beast::http::verb::post)(
             [](const crow::Request& req,
                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
