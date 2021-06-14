@@ -14,7 +14,7 @@ import subprocess
 import xml.etree.ElementTree as ET
 
 REGISTRY_HEADER = '''/*
-// Copyright (c) 2020 Intel Corporation
+// Copyright (c) 2020 OpenBMC Corporation
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
