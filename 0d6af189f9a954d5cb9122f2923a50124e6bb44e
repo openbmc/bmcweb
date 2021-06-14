@@ -45,6 +45,30 @@
       "revId": "0d6af189f9a954d5cb9122f2923a50124e6bb44e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3ab40ce4_9aa160dc",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1000534
+      },
+      "writtenOn": "2021-06-14T11:14:30Z",
+      "side": 1,
+      "message": "Moving methods separate compilation units would be super great, as now any modification of bmcweb takes very long time to recompile... +1 for this route",
+      "parentUuid": "521b03dc_b4e34a49",
+      "range": {
+        "startLine": 34,
+        "startChar": 0,
+        "endLine": 36,
+        "endChar": 22
+      },
+      "revId": "0d6af189f9a954d5cb9122f2923a50124e6bb44e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
