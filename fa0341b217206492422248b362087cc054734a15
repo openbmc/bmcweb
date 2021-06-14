@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "dbf57c78_b2321ed9",
+        "filename": "redfish-core/lib/service_root.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1000003
+      },
+      "writtenOn": "2021-06-14T20:11:20Z",
+      "side": 1,
+      "message": "If you were to refresh this patch, you could move Vendor above Product so that all the hardcoded values are at the top, and also they\u0027re listed from more general to more specific, just a subjective suggestion.",
+      "revId": "fa0341b217206492422248b362087cc054734a15",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
