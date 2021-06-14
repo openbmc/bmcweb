@@ -200,6 +200,7 @@ class Privileges
   private:
     Privileges(const std::bitset<maxPrivilegeCount>& p) : privilegeBitset{p}
     {}
+  public:
     std::bitset<maxPrivilegeCount> privilegeBitset = 0;
 };
 

@@ -433,19 +433,10 @@ struct RuleParameterTraits
         return *self;
     }
 
-    template <typename... MethodArgs>
-    self_t& privileges(std::initializer_list<const char*> l)
+    self_t& privileges(const std::initializer_list<std::initializer_list<const char*>>& p)
     {
         self_t* self = static_cast<self_t*>(this);
-        self->privilegesSet.emplace_back(l);
-        return *self;
-    }
-
-    template <typename... MethodArgs>
-    self_t& privileges(const std::vector<redfish::Privileges>& p)
-    {
-        self_t* self = static_cast<self_t*>(this);
-        for (const redfish::Privileges& privilege : p)
+        for (const std::initializer_list<const char*>& privilege : p)
         {
             self->privilegesSet.emplace_back(privilege);
         }

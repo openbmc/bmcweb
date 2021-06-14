@@ -128,7 +128,7 @@ inline void requestRoutesPower(App& app)
 {
 
     BMCWEB_ROUTE(app, "/redfish/v1/Chassis/<str>/Power/")
-        .privileges({"Login"})
+        .privileges({{"Login"}})
         .methods(boost::beast::http::verb::get)(
             [](const crow::Request&,
                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
@@ -319,7 +319,7 @@ inline void requestRoutesPower(App& app)
             });
 
     BMCWEB_ROUTE(app, "/redfish/v1/Chassis/<str>/Power/")
-        .privileges({"ConfigureManager"})
+        .privileges({{"ConfigureManager"}})
         .methods(boost::beast::http::verb::patch)(
             [](const crow::Request& req,
                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,

@@ -42,7 +42,7 @@ constexpr char const* authorityObjectPath =
 inline void requestRoutesCertificateService(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/CertificateService/")
-        .privileges({"Login"})
+        .privileges({{"Login"}})
         .methods(boost::beast::http::verb::get)(
             [](const crow::Request&,
                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
@@ -228,7 +228,7 @@ inline void requestRoutesCertificateActionGenerateCSR(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/CertificateService/Actions/"
                       "CertificateService.GenerateCSR/")
-        .privileges({"ConfigureComponents"})
+        .privileges({{"ConfigureComponents"}})
         .methods(boost::beast::http::verb::post)(
             [](const crow::Request& req,
                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
@@ -667,7 +667,7 @@ inline void requestRoutesCertificateActionsReplaceCertificate(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/CertificateService/Actions/"
                       "CertificateService.ReplaceCertificate/")
-        .privileges({"ConfigureComponents"})
+        .privileges({{"ConfigureComponents"}})
         .methods(
             boost::beast::http::verb::
                 post)([](const crow::Request& req,
@@ -785,7 +785,7 @@ inline void requestRoutesHTTPSCertificate(App& app)
     BMCWEB_ROUTE(
         app,
         "/redfish/v1/Managers/bmc/NetworkProtocol/HTTPS/Certificates/<str>/")
-        .privileges({"Login"})
+        .privileges({{"Login"}})
         .methods(
             boost::beast::http::verb::
                 get)([](const crow::Request& req,
@@ -819,7 +819,7 @@ inline void requestRoutesHTTPSCertificateCollection(App& app)
 {
     BMCWEB_ROUTE(app,
                  "/redfish/v1/Managers/bmc/NetworkProtocol/HTTPS/Certificates/")
-        .privileges({"Login"})
+        .privileges({{"Login"}})
         .methods(
             boost::beast::http::verb::
                 get)([](const crow::Request&,
@@ -864,7 +864,7 @@ inline void requestRoutesHTTPSCertificateCollection(App& app)
 
     BMCWEB_ROUTE(app,
                  "/redfish/v1/Managers/bmc/NetworkProtocol/HTTPS/Certificates/")
-        .privileges({"ConfigureComponents"})
+        .privileges({{"ConfigureComponents"}})
         .methods(boost::beast::http::verb::post)(
             [](const crow::Request& req,
                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
@@ -971,7 +971,7 @@ void getCertificateLocations(
 inline void requestRoutesCertificateLocations(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/CertificateService/CertificateLocations/")
-        .privileges({"Login"})
+        .privileges({{"Login"}})
         .methods(
             boost::beast::http::verb::
                 get)([](const crow::Request&,
@@ -1010,7 +1010,7 @@ inline void requestRoutesCertificateLocations(App& app)
 inline void requestRoutesLDAPCertificateCollection(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/AccountService/LDAP/Certificates/")
-        .privileges({"Login"})
+        .privileges({{"Login"}})
         .methods(boost::beast::http::verb::get)(
             [](const crow::Request&,
                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
@@ -1056,7 +1056,7 @@ inline void requestRoutesLDAPCertificateCollection(App& app)
             });
 
     BMCWEB_ROUTE(app, "/redfish/v1/AccountService/LDAP/Certificates/")
-        .privileges({"ConfigureComponents"})
+        .privileges({{"ConfigureComponents"}})
         .methods(boost::beast::http::verb::post)(
             [](const crow::Request& req,
                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
@@ -1113,7 +1113,7 @@ inline void requestRoutesLDAPCertificateCollection(App& app)
 inline void requestRoutesLDAPCertificate(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/AccountService/LDAP/Certificates/<str>/")
-        .privileges({"Login"})
+        .privileges({{"Login"}})
         .methods(boost::beast::http::verb::get)(
             [](const crow::Request& req,
                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
@@ -1144,7 +1144,7 @@ inline void requestRoutesLDAPCertificate(App& app)
 inline void requestRoutesTrustStoreCertificateCollection(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/Managers/bmc/Truststore/Certificates/")
-        .privileges({"Login"})
+        .privileges({{"Login"}})
         .methods(boost::beast::http::verb::get)(
             [](const crow::Request&,
                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
@@ -1188,7 +1188,7 @@ inline void requestRoutesTrustStoreCertificateCollection(App& app)
             });
 
     BMCWEB_ROUTE(app, "/redfish/v1/Managers/bmc/Truststore/Certificates/")
-        .privileges({"ConfigureComponents"})
+        .privileges({{"ConfigureComponents"}})
         .methods(boost::beast::http::verb::post)(
             [](const crow::Request& req,
                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
@@ -1246,7 +1246,7 @@ inline void requestRoutesTrustStoreCertificateCollection(App& app)
 inline void requestRoutesTrustStoreCertificate(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/Managers/bmc/Truststore/Certificates/<str>/")
-        .privileges({"Loign"})
+        .privileges({{"Loign"}})
         .methods(boost::beast::http::verb::get)(
             [](const crow::Request& req,
                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
@@ -1272,7 +1272,7 @@ inline void requestRoutesTrustStoreCertificate(App& app)
             });
 
     BMCWEB_ROUTE(app, "/redfish/v1/Managers/bmc/Truststore/Certificates/<str>/")
-        .privileges({"ConfigureComponents"})
+        .privileges({{"ConfigureComponents"}})
         .methods(boost::beast::http::verb::delete_)(
             [](const crow::Request& req,
                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
