@@ -12,7 +12,7 @@ namespace redfish
 inline void requestRoutesTelemetryService(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/TelemetryService/")
-        .privileges({"Login"})
+        .privileges({{"Login"}})
         .methods(
             boost::beast::http::verb::
                 get)([](const crow::Request&,

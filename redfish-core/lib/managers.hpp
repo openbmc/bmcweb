@@ -109,7 +109,7 @@ inline void requestRoutesManagerResetAction(App& app)
      */
 
     BMCWEB_ROUTE(app, "/redfish/v1/Managers/bmc/Actions/Manager.Reset/")
-        .privileges({"ConfigureManager"})
+        .privileges({{"ConfigureManager"}})
         .methods(boost::beast::http::verb::post)(
             [](const crow::Request& req,
                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
@@ -165,7 +165,7 @@ inline void requestRoutesManagerResetToDefaultsAction(App& app)
 
     BMCWEB_ROUTE(app,
                  "/redfish/v1/Managers/bmc/Actions/Manager.ResetToDefaults/")
-        .privileges({"ConfigureManager"})
+        .privileges({{"ConfigureManager"}})
         .methods(boost::beast::http::verb::post)(
             [](const crow::Request& req,
                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
@@ -224,7 +224,7 @@ inline void requestRoutesManagerResetActionInfo(App& app)
      */
 
     BMCWEB_ROUTE(app, "/redfish/v1/Managers/bmc/ResetActionInfo/")
-        .privileges({"Login"})
+        .privileges({{"Login"}})
         .methods(boost::beast::http::verb::get)(
             [](const crow::Request&,
                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
@@ -1923,7 +1923,7 @@ inline void requestRoutesManager(App& app)
     std::string uuid = persistent_data::getConfig().systemUuid;
 
     BMCWEB_ROUTE(app, "/redfish/v1/Managers/bmc/")
-        .privileges({"Login"})
+        .privileges({{"Login"}})
         .methods(boost::beast::http::verb::get)([uuid](const crow::Request&,
                                                        const std::shared_ptr<
                                                            bmcweb::AsyncResp>&
@@ -2179,7 +2179,7 @@ inline void requestRoutesManager(App& app)
         });
 
     BMCWEB_ROUTE(app, "/redfish/v1/Managers/bmc/")
-        .privileges({"ConfigureManager"})
+        .privileges({{"ConfigureManager"}})
         .methods(
             boost::beast::http::verb::
                 patch)([](const crow::Request& req,
@@ -2262,7 +2262,7 @@ inline void requestRoutesManager(App& app)
 inline void requestRoutesManagerCollection(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/Managers/")
-        .privileges({"Login"})
+        .privileges({{"Login"}})
         .methods(boost::beast::http::verb::get)(
             [](const crow::Request&,
                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {

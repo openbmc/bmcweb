@@ -2068,7 +2068,7 @@ inline void handleDBusUrl(const crow::Request& req,
 inline void requestRoutes(App& app)
 {
     BMCWEB_ROUTE(app, "/bus/")
-        .privileges({"Login"})
+        .privileges({{"Login"}})
         .methods(boost::beast::http::verb::get)(
             [](const crow::Request&,
                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
@@ -2077,7 +2077,7 @@ inline void requestRoutes(App& app)
             });
 
     BMCWEB_ROUTE(app, "/bus/system/")
-        .privileges({"Login"})
+        .privileges({{"Login"}})
         .methods(boost::beast::http::verb::get)(
             [](const crow::Request&,
                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
@@ -2107,7 +2107,7 @@ inline void requestRoutes(App& app)
             });
 
     BMCWEB_ROUTE(app, "/list/")
-        .privileges({"Login"})
+        .privileges({{"Login"}})
         .methods(boost::beast::http::verb::get)(
             [](const crow::Request&,
                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
@@ -2115,7 +2115,7 @@ inline void requestRoutes(App& app)
             });
 
     BMCWEB_ROUTE(app, "/xyz/<path>")
-        .privileges({"Login"})
+        .privileges({{"Login"}})
         .methods(boost::beast::http::verb::get)(
             [](const crow::Request& req,
                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
@@ -2125,7 +2125,7 @@ inline void requestRoutes(App& app)
             });
 
     BMCWEB_ROUTE(app, "/xyz/<path>")
-        .privileges({"ConfigureComponents", "ConfigureManager"})
+        .privileges({{"ConfigureComponents", "ConfigureManager"}})
         .methods(boost::beast::http::verb::put, boost::beast::http::verb::post,
                  boost::beast::http::verb::delete_)(
             [](const crow::Request& req,
@@ -2136,7 +2136,7 @@ inline void requestRoutes(App& app)
             });
 
     BMCWEB_ROUTE(app, "/org/<path>")
-        .privileges({"Login"})
+        .privileges({{"Login"}})
         .methods(boost::beast::http::verb::get)(
             [](const crow::Request& req,
                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
@@ -2146,7 +2146,7 @@ inline void requestRoutes(App& app)
             });
 
     BMCWEB_ROUTE(app, "/org/<path>")
-        .privileges({"ConfigureComponents", "ConfigureManager"})
+        .privileges({{"ConfigureComponents", "ConfigureManager"}})
         .methods(boost::beast::http::verb::put, boost::beast::http::verb::post,
                  boost::beast::http::verb::delete_)(
             [](const crow::Request& req,
@@ -2157,7 +2157,7 @@ inline void requestRoutes(App& app)
             });
 
     BMCWEB_ROUTE(app, "/download/dump/<str>/")
-        .privileges({"ConfigureManager"})
+        .privileges({{"ConfigureManager"}})
         .methods(boost::beast::http::verb::get)(
             [](const crow::Request&,
                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
@@ -2227,7 +2227,7 @@ inline void requestRoutes(App& app)
             });
 
     BMCWEB_ROUTE(app, "/bus/system/<str>/")
-        .privileges({"Login"})
+        .privileges({{"Login"}})
 
         .methods(boost::beast::http::verb::get)(
             [](const crow::Request&,
@@ -2239,7 +2239,7 @@ inline void requestRoutes(App& app)
             });
 
     BMCWEB_ROUTE(app, "/bus/system/<str>/<path>")
-        .privileges({"ConfigureComponents", "ConfigureManager"})
+        .privileges({{"ConfigureComponents", "ConfigureManager"}})
         .methods(boost::beast::http::verb::get, boost::beast::http::verb::post)(
             [](const crow::Request& req,
                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,

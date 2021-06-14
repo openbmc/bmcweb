@@ -75,7 +75,7 @@ inline void requestRoutesSystemPCIeDeviceCollection(App& app)
      * Functions triggers appropriate requests on DBus
      */
     BMCWEB_ROUTE(app, "/redfish/v1/Systems/system/PCIeDevices/")
-        .privileges({"Login"})
+        .privileges({{"Login"}})
         .methods(boost::beast::http::verb::get)(
             [](const crow::Request&,
                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
@@ -96,7 +96,7 @@ inline void requestRoutesSystemPCIeDeviceCollection(App& app)
 inline void requestRoutesSystemPCIeDevice(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/Systems/system/PCIeDevices/<str>/")
-        .privileges({"Login"})
+        .privileges({{"Login"}})
         .methods(boost::beast::http::verb::get)(
             [](const crow::Request&,
                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
@@ -170,7 +170,7 @@ inline void requestRoutesSystemPCIeFunctionCollection(App& app)
      */
     BMCWEB_ROUTE(app,
                  "/redfish/v1/Systems/system/PCIeDevices/<str>/PCIeFunctions/")
-        .privileges({"Login"})
+        .privileges({{"Login"}})
         .methods(boost::beast::http::verb::get)(
             [](const crow::Request&,
                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
@@ -251,7 +251,7 @@ inline void requestRoutesSystemPCIeFunction(App& app)
     BMCWEB_ROUTE(
         app,
         "/redfish/v1/Systems/system/PCIeDevices/<str>/PCIeFunctions/<str>/")
-        .privileges({"Login"})
+        .privileges({{"Login"}})
         .methods(
             boost::beast::http::verb::get)([](const crow::Request&,
                                               const std::shared_ptr<
