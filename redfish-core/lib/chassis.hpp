@@ -162,7 +162,7 @@ inline void getPhysicalSecurityData(std::shared_ptr<bmcweb::AsyncResp> aResp)
 inline void requestRoutesChassisCollection(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/Chassis/")
-        .privileges({"Login"})
+        .privileges({{"Login"}})
         .methods(boost::beast::http::verb::get)(
             [](const crow::Request&,
                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
@@ -185,7 +185,7 @@ inline void requestRoutesChassisCollection(App& app)
 inline void requestRoutesChassis(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/Chassis/<str>/")
-        .privileges({"Login"})
+        .privileges({{"Login"}})
         .methods(
             boost::beast::http::verb::get)([](const crow::Request&,
                                               const std::shared_ptr<
@@ -441,7 +441,7 @@ inline void requestRoutesChassis(App& app)
         });
 
     BMCWEB_ROUTE(app, "/redfish/v1/Chassis/<str>/")
-        .privileges({"ConfigureComponents"})
+        .privileges({{"ConfigureComponents"}})
         .methods(
             boost::beast::http::verb::
                 patch)([](const crow::Request& req,
@@ -640,7 +640,7 @@ inline void
 inline void requestRoutesChassisResetAction(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/Chassis/<str>/Actions/Chassis.Reset/")
-        .privileges({"ConfigureComponents"})
+        .privileges({{"ConfigureComponents"}})
         .methods(boost::beast::http::verb::post)(
             [](const crow::Request& req,
                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
@@ -675,7 +675,7 @@ inline void requestRoutesChassisResetAction(App& app)
 inline void requestRoutesChassisResetActionInfo(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/Chassis/<str>/ResetActionInfo/")
-        .privileges({"Login"})
+        .privileges({{"Login"}})
         .methods(boost::beast::http::verb::get)(
             [](const crow::Request&,
                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
