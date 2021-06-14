@@ -52,6 +52,24 @@
       "revId": "401be2975906448971e7cf946d26ea86c0d6fffb",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3c3e9538_1fe6d72a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1001099
+      },
+      "writtenOn": "2021-06-14T15:32:48Z",
+      "side": 1,
+      "message": "That is DMTF related stuff, our project depend on that, So I think that is ok to add. where this link might be get omission.",
+      "parentUuid": "9747f68d_874c795a",
+      "revId": "401be2975906448971e7cf946d26ea86c0d6fffb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
