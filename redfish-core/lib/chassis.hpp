@@ -22,6 +22,7 @@
 #include <boost/container/flat_map.hpp>
 #include <registries/privilege_registry.hpp>
 #include <utils/collection.hpp>
+#include <utils/location_utils.hpp>
 #include <utils/name_utils.hpp>
 
 #include <variant>
@@ -346,44 +347,6 @@ inline void requestRoutesChassis(App& app)
                             }
                         }
 
-                        const std::string locationInterface =
-                            "xyz.openbmc_project.Inventory.Decorator."
-                            "LocationCode";
-                        if (std::find(interfaces2.begin(), interfaces2.end(),
-                                      locationInterface) != interfaces2.end())
-                        {
-                            crow::connections::systemBus->async_method_call(
-                                [asyncResp, chassisId(std::string(chassisId))](
-                                    const boost::system::error_code ec,
-                                    const std::variant<std::string>& property) {
-                                    if (ec)
-                                    {
-                                        BMCWEB_LOG_DEBUG
-                                            << "DBUS response error for "
-                                               "Location";
-                                        messages::internalError(asyncResp->res);
-                                        return;
-                                    }
-
-                                    const std::string* value =
-                                        std::get_if<std::string>(&property);
-                                    if (value == nullptr)
-                                    {
-                                        BMCWEB_LOG_DEBUG
-                                            << "Null value returned "
-                                               "for locaton code";
-                                        messages::internalError(asyncResp->res);
-                                        return;
-                                    }
-                                    asyncResp->res
-                                        .jsonValue["Location"]["PartLocation"]
-                                                  ["ServiceLabel"] = *value;
-                                },
-                                connectionName, path,
-                                "org.freedesktop.DBus.Properties", "Get",
-                                locationInterface, "LocationCode");
-                        }
-
                         crow::connections::systemBus->async_method_call(
                             [asyncResp, chassisId(std::string(chassisId)), path,
                              interfaces](
@@ -508,6 +471,10 @@ inline void requestRoutesChassis(App& app)
                 "/xyz/openbmc_project/inventory", 0, interfaces);
 
             getPhysicalSecurityData(asyncResp);
+            location_util::getLocation(
+                asyncResp, chassisId,
+                std::vector<const char*>(interfaces.begin(), interfaces.end()),
+                &asyncResp->res.jsonValue, "Location");
         });
 
     BMCWEB_ROUTE(app, "/redfish/v1/Chassis/<str>/")
