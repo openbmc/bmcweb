@@ -104,6 +104,24 @@
       "revId": "497148ac0d4614dd256c19e99310968cf08ff7a9",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "36ed5456_cb1d34d4",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 293,
+      "author": {
+        "id": 1000579
+      },
+      "writtenOn": "2021-06-15T06:06:57Z",
+      "side": 1,
+      "message": "Please review the latest updated patch set.",
+      "parentUuid": "5d2d44c2_b4575fb8",
+      "revId": "497148ac0d4614dd256c19e99310968cf08ff7a9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
