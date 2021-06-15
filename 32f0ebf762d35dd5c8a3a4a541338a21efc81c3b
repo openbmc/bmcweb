@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "777e7341_8e4ec8f7",
+        "filename": "http/routing.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 437,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-06-15T16:49:25Z",
+      "side": 1,
+      "message": "Because it\u0027s a set of sets.  The top level set determines the parameters that are ORed together, and the second set determines the parameters that are ANDed together;  More information is available in the Redfish spec and the PrivilegeRegistry documentation if you\u0027re interested.",
+      "parentUuid": "49efe33d_991ad0ce",
+      "revId": "32f0ebf762d35dd5c8a3a4a541338a21efc81c3b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "6525b0fc_f193fbfe",
         "filename": "redfish-core/include/privileges.hpp",
         "patchSetId": 2
@@ -30,6 +48,24 @@
       "writtenOn": "2021-06-15T14:16:04Z",
       "side": 1,
       "message": "why it is public? is that for test?",
+      "revId": "32f0ebf762d35dd5c8a3a4a541338a21efc81c3b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "32aaeb37_4c90b46f",
+        "filename": "redfish-core/include/privileges.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 205,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-06-15T16:49:25Z",
+      "side": 1,
+      "message": "Yep, this was a mistake, and I didn\u0027t mean to add this file.  Fixed.",
+      "parentUuid": "6525b0fc_f193fbfe",
       "revId": "32f0ebf762d35dd5c8a3a4a541338a21efc81c3b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
