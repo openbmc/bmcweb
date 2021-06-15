@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "95d4ce06_40bc6e6a",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 45
+      },
+      "lineNbr": 172,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-06-15T17:57:49Z",
+      "side": 1,
+      "message": "Why is this unessesary?  filename() returns empty string when it fails.",
+      "parentUuid": "09332623_5e92d7fa",
+      "range": {
+        "startLine": 169,
+        "startChar": 16,
+        "endLine": 172,
+        "endChar": 17
+      },
+      "revId": "695109729f5df2a3270b170dad56b37f09f7e8c4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "90b7daa9_b4206731",
         "filename": "redfish-core/lib/fan.hpp",
         "patchSetId": 45

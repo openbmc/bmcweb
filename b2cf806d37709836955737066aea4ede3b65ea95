@@ -144,6 +144,30 @@
     },
     {
       "key": {
+        "uuid": "265ee444_5722c12c",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 28
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-06-15T17:57:49Z",
+      "side": 1,
+      "message": "Regardless, this is wrong, because the code below sets internal error if it can\u0027t get the value, so there should be no default how it\u0027s written, it should be set or not set on line 35.",
+      "parentUuid": "12d5fd8d_4f206208",
+      "range": {
+        "startLine": 14,
+        "startChar": 4,
+        "endLine": 15,
+        "endChar": 60
+      },
+      "revId": "b2cf806d37709836955737066aea4ede3b65ea95",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "ef9a5e70_89bdd30a",
         "filename": "redfish-core/lib/fan.hpp",
         "patchSetId": 28
@@ -227,6 +251,30 @@
       "side": 1,
       "message": "I understand what you said, it\u0027s better this way.\nWhat I want to say is that it’s not just that I have this problem here, but some other submissions also have the same problem. Are you considering opening a new patch to specifically solve this type of problem?@Ed Tanous",
       "parentUuid": "6c3ab213_84089f29",
+      "range": {
+        "startLine": 91,
+        "startChar": 12,
+        "endLine": 91,
+        "endChar": 42
+      },
+      "revId": "b2cf806d37709836955737066aea4ede3b65ea95",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dcae74fa_1b7ed47f",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 28
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-06-15T17:57:49Z",
+      "side": 1,
+      "message": "I\u0027d like this code to remain just because it makes this match everything else.\n\nAt point point, i intend to come up with one global variant type for bmcweb that will be used everywhere, at which point checks like this will be important.",
+      "parentUuid": "c2d66c58_496c0626",
       "range": {
         "startLine": 91,
         "startChar": 12,
