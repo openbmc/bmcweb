@@ -23,6 +23,7 @@
 #include <query.hpp>
 #include <registries/privilege_registry.hpp>
 #include <sdbusplus/asio/property.hpp>
+#include <utils/location_utils.hpp>
 
 namespace redfish
 {
@@ -145,6 +146,18 @@ inline void
             storageController["Name"] = id;
             storageController["MemberId"] = id;
             storageController["Status"]["State"] = "Enabled";
+            storageController["PartLocation"]["LocationType"] = "Embedded";
+            for (const std::string& interface : interfaceDict.front())
+            {
+                if (interface ==
+                    "xyz.openbmc_project.Inventory.Decorator.LocationCode")
+                {
+                    location_util::getLocationCode(
+                        asyncResp, service, path,
+                        "/StorageControllers"_json_pointer / index /
+                            "Location");
+                }
+            }
 
             sdbusplus::asio::getProperty<bool>(
                 *crow::connections::systemBus, connectionName, path,
@@ -563,6 +576,27 @@ inline void requestRoutesDrive(App& app)
                          "xyz.openbmc_project.Inventory.Item.Drive")
                 {
                     getDriveItemProperties(asyncResp, connectionName, path);
+                }
+                else if (interface ==
+                         "xyz.openbmc_project.Inventory.Decorator.LocationCode")
+                {
+                    location_util::getLocationCode(
+                        asyncResp, connectionName, path,
+                        "/PhysicalLocation"_json_pointer);
+                }
+                else
+                {
+                    std::optional<std::string> locationType =
+                        location_util::getLocationType(interface);
+                    if (!locationType)
+                    {
+                        BMCWEB_LOG_DEBUG
+                            << "getLocationType for Drive failed for "
+                            << interface;
+                        continue;
+                    }
+                    asyncResp->res.jsonValue["PhysicalLocation"]["PartLocation"]
+                                            ["LocationType"] = *locationType;
                 }
             }
             },
