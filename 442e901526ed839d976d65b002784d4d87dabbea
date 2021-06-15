@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "461480de_c9f20bb7",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2021-06-15T16:24:36Z",
+      "side": 1,
+      "message": "I have noticed that this only pass if there are one or less log entry.\n\nIf there are more than one LogEntries in Status.Conditions, then only the last one is process correctly. The others seems to result in blank response.\n\nDoes anyone what any idea how to fix that?",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 16,
+        "endChar": 3
+      },
+      "revId": "442e901526ed839d976d65b002784d4d87dabbea",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
