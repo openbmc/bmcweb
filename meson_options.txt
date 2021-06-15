@@ -41,3 +41,6 @@ option ('insecure-disable-auth', type : 'feature', value : 'disabled', descripti
 option ('insecure-disable-xss', type : 'feature', value : 'disabled', description : 'Disable XSS preventions')
 option ('insecure-tftp-update', type : 'feature', value : 'disabled', description : '''Enable TFTP based firmware update transactions through Redfish UpdateService.SimpleUpdate.''')
 option ('insecure-push-style-notification',type : 'feature', value : 'disabled', description : 'Enable HTTP push style eventing feature')
+
+# Port number
+option ('port_num', type : 'integer', min : 1, max : 65535, value : 443, description : 'Port number.')
