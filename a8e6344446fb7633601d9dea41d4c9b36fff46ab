@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2804802e_1abc7f26",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 849,
+      "author": {
+        "id": 1000466
+      },
+      "writtenOn": "2021-06-15T18:57:49Z",
+      "side": 1,
+      "message": "I\u0027m guessing that whether this gets associated to Chassis, StorageController, or Drive is determined by the dbus representation?\n\nI don\u0027t think we need to change the association, I\u0027m just asking for context to know how much flexibility we can have in the future.",
+      "range": {
+        "startLine": 835,
+        "startChar": 40,
+        "endLine": 849,
+        "endChar": 41
+      },
+      "revId": "a8e6344446fb7633601d9dea41d4c9b36fff46ab",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    }
+  ]
+}
