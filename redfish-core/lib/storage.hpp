@@ -20,6 +20,7 @@
 
 #include <app.hpp>
 #include <registries/privilege_registry.hpp>
+#include <utils/location_utils.hpp>
 #include <utils/name_utils.hpp>
 
 namespace redfish
@@ -155,10 +156,15 @@ inline void
                 storageController["MemberId"] = id;
                 storageController["Status"]["State"] = "Enabled";
 
-                auto namePointer =
-                    "/StorageControllers"_json_pointer / index / "Name";
+                auto storageControllerPointer =
+                    "/StorageControllers"_json_pointer / index;
                 name_util::getPrettyName(asyncResp, path, interfaceDict,
-                                         namePointer);
+                                         storageControllerPointer / "Name");
+
+                location_util::getLocation(asyncResp, path, connectionName,
+                                           interfaceDict.front().second,
+                                           storageControllerPointer /
+                                               "Location");
 
                 crow::connections::systemBus->async_method_call(
                     [asyncResp, index](const boost::system::error_code ec2,
@@ -325,10 +331,14 @@ inline void requestRoutesStorage(App& app)
                         health->populate();
 
                         sdbusplus::message::object_path path(storagePath);
-
                         getDrives(asyncResp, health, path, storageId);
                         getStorageControllers(asyncResp, health, path,
                                               storageId);
+
+                        location_util::getLocation(
+                            asyncResp, path, connectionNames[0].first,
+                            connectionNames[0].second,
+                            "/PhysicalLocation"_json_pointer);
                     },
                     "xyz.openbmc_project.ObjectMapper",
                     "/xyz/openbmc_project/object_mapper",
@@ -474,8 +484,8 @@ inline void requestRoutesDrive(App& app)
                     crow::connections::systemBus->async_method_call(
                         [asyncResp, path](const boost::system::error_code ec2,
                                           const std::variant<bool> present) {
-                            // this interface isn't necessary, only check it if
-                            // we get a good return
+                            // this interface isn't necessary, only check it
+                            // if we get a good return
                             if (ec2)
                             {
                                 return;
@@ -499,8 +509,8 @@ inline void requestRoutesDrive(App& app)
                     crow::connections::systemBus->async_method_call(
                         [asyncResp](const boost::system::error_code ec2,
                                     const std::variant<bool> rebuilding) {
-                            // this interface isn't necessary, only check it if
-                            // we get a good return
+                            // this interface isn't necessary, only check it
+                            // if we get a good return
                             if (ec2)
                             {
                                 return;
@@ -514,10 +524,10 @@ inline void requestRoutesDrive(App& app)
                                 return;
                             }
 
-                            // updating and disabled in the backend shouldn't be
-                            // able to be set at the same time, so we don't need
-                            // to check for the race condition of these two
-                            // calls
+                            // updating and disabled in the backend
+                            // shouldn't be able to be set at the same time,
+                            // so we don't need to check for the race
+                            // condition of these two calls
                             if ((*updating))
                             {
                                 asyncResp->res.jsonValue["Status"]["State"] =
@@ -526,6 +536,11 @@ inline void requestRoutesDrive(App& app)
                         },
                         connectionName, path, "org.freedesktop.DBus.Properties",
                         "Get", "xyz.openbmc_project.State.Drive", "Rebuilding");
+
+                    location_util::getLocation(
+                        asyncResp, path, connectionName,
+                        connectionNames[0].second,
+                        "/PhysicalLocation"_json_pointer);
                 },
                 "xyz.openbmc_project.ObjectMapper",
                 "/xyz/openbmc_project/object_mapper",
