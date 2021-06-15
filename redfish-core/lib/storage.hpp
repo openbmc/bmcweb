@@ -25,6 +25,7 @@
 #include <sdbusplus/asio/property.hpp>
 #include <sdbusplus/unpack_properties.hpp>
 #include <utils/dbus_utils.hpp>
+#include <utils/location_utils.hpp>
 
 namespace redfish
 {
@@ -148,6 +149,7 @@ inline void
             storageController["Name"] = id;
             storageController["MemberId"] = id;
             storageController["Status"]["State"] = "Enabled";
+            storageController["PartLocation"]["LocationType"] = "Embedded";
 
             sdbusplus::asio::getProperty<bool>(
                 *crow::connections::systemBus, connectionName, path,
@@ -540,6 +542,24 @@ static void addAllDriveInfo(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
         else if (interface == "xyz.openbmc_project.Inventory.Item.Drive")
         {
             getDriveItemProperties(asyncResp, connectionName, path);
+        }
+        else if (interface ==
+                 "xyz.openbmc_project.Inventory.Decorator.LocationCode")
+        {
+            location_util::getLocationCode(asyncResp, connectionName, path,
+                                           "/PhysicalLocation"_json_pointer);
+        }
+        else
+        {
+            std::optional<std::string> locationType =
+                location_util::getLocationType(interface);
+            if (!locationType)
+            {
+                continue;
+            }
+            asyncResp->res
+                .jsonValue["PhysicalLocation"]["PartLocation"]["LocationType"] =
+                *locationType;
         }
     }
 }
