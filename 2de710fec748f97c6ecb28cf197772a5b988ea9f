@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ed72db82_855f9516",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-06-15T18:38:49Z",
+      "side": 1,
+      "message": "Can we call this \"https_port\" so that when redirection lands, it\u0027s not ambiguous?",
+      "range": {
+        "startLine": 9,
+        "startChar": 56,
+        "endLine": 9,
+        "endChar": 64
+      },
+      "revId": "2de710fec748f97c6ecb28cf197772a5b988ea9f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f7aeb88f_af7ac5c4",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-06-15T18:38:49Z",
+      "side": 1,
+      "message": "Tested?",
+      "revId": "2de710fec748f97c6ecb28cf197772a5b988ea9f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1600da81_0e41aeb9",
+        "filename": "meson_options.txt",
+        "patchSetId": 2
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-06-15T18:38:49Z",
+      "side": 1,
+      "message": "Please put this somewhere near line 34 to keep the insecure options in their own section, and put this with the other http options.",
+      "range": {
+        "startLine": 45,
+        "startChar": 0,
+        "endLine": 46,
+        "endChar": 102
+      },
+      "revId": "2de710fec748f97c6ecb28cf197772a5b988ea9f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
