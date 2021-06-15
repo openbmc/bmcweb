@@ -22,6 +22,7 @@
 #include <boost/container/flat_map.hpp>
 #include <registries/privilege_registry.hpp>
 #include <utils/collection.hpp>
+#include <utils/location_utils.hpp>
 #include <utils/name_utils.hpp>
 
 #include <variant>
@@ -542,6 +543,9 @@ inline void requestRoutesChassis(App& app)
                                                        connectionName, path);
                             }
                         }
+
+                        location_util::getLocation(asyncResp, path,
+                                                   connectionName, interfaces2);
 
                         return;
                     }

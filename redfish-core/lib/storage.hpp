@@ -20,6 +20,7 @@
 
 #include <app.hpp>
 #include <registries/privilege_registry.hpp>
+#include <utils/location_utils.hpp>
 #include <utils/name_utils.hpp>
 
 namespace redfish
@@ -155,10 +156,16 @@ inline void
                 storageController["MemberId"] = id;
                 storageController["Status"]["State"] = "Enabled";
 
-                const nlohmann::json_pointer<nlohmann::json>& namePointer =
-                    "/StorageControllers"_json_pointer / index / "Name";
+                const nlohmann::json_pointer<nlohmann::json>&
+                    storageControllerPointer =
+                        "/StorageControllers"_json_pointer / index;
                 name_util::getPrettyName(asyncResp, connectionName, path,
-                                         namePointer);
+                                         storageControllerPointer / "Name");
+
+                location_util::getLocation(asyncResp, path, connectionName,
+                                           interfaceDict.front().second,
+                                           storageControllerPointer /
+                                               "Location");
 
                 crow::connections::systemBus->async_method_call(
                     [asyncResp, index](const boost::system::error_code ec2,
@@ -325,10 +332,14 @@ inline void requestRoutesStorage(App& app)
                         health->populate();
 
                         sdbusplus::message::object_path path(storagePath);
-
                         getDrives(asyncResp, health, path, storageId);
                         getStorageControllers(asyncResp, health, path,
                                               storageId);
+
+                        location_util::getLocation(
+                            asyncResp, path, connectionNames[0].first,
+                            connectionNames[0].second,
+                            "/PhysicalLocation"_json_pointer);
                     },
                     "xyz.openbmc_project.ObjectMapper",
                     "/xyz/openbmc_project/object_mapper",
@@ -532,6 +543,10 @@ inline void requestRoutesDrive(App& app)
 
                     name_util::getPrettyName(asyncResp, connectionName, path,
                                              "/Name"_json_pointer);
+                    location_util::getLocation(
+                        asyncResp, path, connectionName,
+                        connectionNames[0].second,
+                        "/PhysicalLocation"_json_pointer);
                     getDriveAsset(asyncResp, connectionName, path);
                     getDrivePresent(asyncResp, connectionName, path);
                     getDriveState(asyncResp, connectionName, path);
