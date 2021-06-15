@@ -2210,7 +2210,7 @@ inline void requestRoutesSystemDumpEntryCollection(App& app)
     /**
      * Functions triggers appropriate requests on DBus
      */
-    BMCWEB_ROUTE(app, "/redfish/v1/Managers/bmc/LogServices/Dump/Entries/")
+    BMCWEB_ROUTE(app, "/redfish/v1/Systems/system/LogServices/Dump/Entries/")
         .privileges({"Login"})
         .methods(boost::beast::http::verb::get)(
             [](const crow::Request&,
