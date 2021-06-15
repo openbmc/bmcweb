@@ -24,6 +24,7 @@
 #include <dbus_utility.hpp>
 #include <registries/privilege_registry.hpp>
 #include <utils/fw_utils.hpp>
+#include <utils/name_utils.hpp>
 #include <utils/systemd_utils.hpp>
 
 #include <cstdint>
@@ -1683,48 +1684,6 @@ struct SetPIDValues : std::enable_shared_from_this<SetPIDValues>
     size_t objectCount = 0;
 };
 
-/**
- * @brief Retrieves BMC manager location data over DBus
- *
- * @param[in] aResp Shared pointer for completing asynchronous calls
- * @param[in] connectionName - service name
- * @param[in] path - object path
- * @return none
- */
-inline void getLocation(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
-                        const std::string& connectionName,
-                        const std::string& path)
-{
-    BMCWEB_LOG_DEBUG << "Get BMC manager Location data.";
-
-    crow::connections::systemBus->async_method_call(
-        [aResp](const boost::system::error_code ec,
-                const std::variant<std::string>& property) {
-            if (ec)
-            {
-                BMCWEB_LOG_DEBUG << "DBUS response error for "
-                                    "Location";
-                messages::internalError(aResp->res);
-                return;
-            }
-
-            const std::string* value = std::get_if<std::string>(&property);
-
-            if (value == nullptr)
-            {
-                // illegal value
-                messages::internalError(aResp->res);
-                return;
-            }
-
-            aResp->res.jsonValue["Location"]["PartLocation"]["ServiceLabel"] =
-                *value;
-        },
-        connectionName, path, "org.freedesktop.DBus.Properties", "Get",
-        "xyz.openbmc_project.Inventory.Decorator."
-        "LocationCode",
-        "LocationCode");
-}
 // avoid name collision systems.hpp
 inline void
     managerGetLastResetTime(const std::shared_ptr<bmcweb::AsyncResp>& aResp)
@@ -2175,7 +2134,15 @@ inline void requestRoutesManager(App& app)
                                  "xyz.openbmc_project.Inventory."
                                  "Decorator.LocationCode")
                         {
-                            getLocation(asyncResp, connectionName, path);
+                            location_util::getLocationCode(
+                                asyncResp, connectionName, path);
+                        }
+                        else if (boost::starts_with(
+                                     interfaceName,
+                                     "xyz.openbmc_project.Inventory.Connector"))
+                        {
+                            location_util::getLocationType(asyncResp,
+                                                           interfaceName);
                         }
                     }
                 },
