@@ -20,6 +20,7 @@
 
 #include <app.hpp>
 #include <registries/privilege_registry.hpp>
+#include <utils/location_utils.hpp>
 
 namespace redfish
 {
@@ -159,6 +160,14 @@ inline void requestRoutesStorage(App& app)
                         storageController["MemberId"] = id;
                         storageController["Status"]["State"] = "Enabled";
 
+                        location_util::getLocation(
+                            asyncResp,
+                            sdbusplus::message::object_path(path).filenßßame(),
+                            std::vector<const char*>{
+                                "xyz.openbmc_project.Inventory.Item."
+                                "StorageController"},
+                            &storageController, "Location");
+
                         crow::connections::systemBus->async_method_call(
                             [asyncResp,
                              index](const boost::system::error_code ec2,
@@ -261,6 +270,12 @@ inline void requestRoutesStorage(App& app)
                 "/xyz/openbmc_project/inventory", int32_t(0),
                 std::array<const char*, 1>{
                     "xyz.openbmc_project.Inventory.Item.StorageController"});
+
+            location_util::getLocation(
+                asyncResp, storageId,
+                std::vector<const char*>{
+                    "xyz.openbmc_project.Inventory.Item.Storage"},
+                &asyncResp->res.jsonValue, "Location");
         });
 }
 
@@ -445,6 +460,12 @@ inline void requestRoutesDrive(App& app)
                 "/xyz/openbmc_project/inventory", int32_t(0),
                 std::array<const char*, 1>{
                     "xyz.openbmc_project.Inventory.Item.Drive"});
+
+            location_util::getLocation(
+                asyncResp, driveId,
+                std::vector<const char*>{
+                    "xyz.openbmc_project.Inventory.Item.Drive"},
+                &asyncResp->res.jsonValue, "PhysicalLocation");
         });
 }
 } // namespace redfish
