@@ -22,6 +22,30 @@
       "revId": "442e901526ed839d976d65b002784d4d87dabbea",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "387656d4_60b8496b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2021-06-15T16:54:12Z",
+      "side": 1,
+      "message": "yeah, seems like error 500...\n\n```\n*** /redfish/v1/Chassis/board_0/LogServices/DeviceLog/Entries/log0\nRegetting resource from URI /redfish/v1/Chassis/board_0/LogServices/DeviceLog/Entries/log0\n/redfish/v1/Chassis/board_0/LogServices/DeviceLog/Entries/log0:  URI could not be acquired: 500\nCould not acquire resource, reverting to original payload...\nLimiting namespace has no version, erasing: #LogEntryCollection.LogEntryCollection\n         Type (LogEntry.v1_9_0.LogEntry), GET SUCCESS (time: 0)\nEntryType: Mandatory prop does not exist\nId: Mandatory prop does not exist\nName: Mandatory prop does not exist\n          FAIL...\n```\n\nError 500 doesn\u0027t really tell me much.",
+      "parentUuid": "461480de_c9f20bb7",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 16,
+        "endChar": 3
+      },
+      "revId": "442e901526ed839d976d65b002784d4d87dabbea",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
