@@ -68,6 +68,30 @@
       "revId": "ba016428e8e5d5a5c9bc4cac7b9bad06373c8a8c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "14bb7601_4dad64ba",
+        "filename": "redfish-core/lib/certificate_service.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1001099
+      },
+      "writtenOn": "2021-06-15T18:29:05Z",
+      "side": 1,
+      "message": "It does not appear as a hyperlink in my browser, and even validator is not looking for that.\nSo in the future, we are gone used it as a hyperlink, then I will restrict that code.",
+      "parentUuid": "d2ed0f0e_128668ed",
+      "range": {
+        "startLine": 69,
+        "startChar": 0,
+        "endLine": 77,
+        "endChar": 62
+      },
+      "revId": "ba016428e8e5d5a5c9bc4cac7b9bad06373c8a8c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
