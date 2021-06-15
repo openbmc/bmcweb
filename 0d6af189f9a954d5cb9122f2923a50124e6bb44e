@@ -143,6 +143,30 @@
     },
     {
       "key": {
+        "uuid": "354248fa_87fdeb17",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 1363,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-06-15T04:00:49Z",
+      "side": 1,
+      "message": "Wasn\u0027t changed in this patch, but Privilege structure is the size of uint32_t, so it can be taken by value like you would an int.",
+      "parentUuid": "f02c61c4_2d4678be",
+      "range": {
+        "startLine": 1363,
+        "startChar": 4,
+        "endLine": 1363,
+        "endChar": 15
+      },
+      "revId": "0d6af189f9a954d5cb9122f2923a50124e6bb44e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "88d7b369_9a23daa1",
         "filename": "redfish-core/lib/account_service.hpp",
         "patchSetId": 7
@@ -154,6 +178,30 @@
       "writtenOn": "2021-06-15T03:35:51Z",
       "side": 1,
       "message": "reference?",
+      "range": {
+        "startLine": 1366,
+        "startChar": 4,
+        "endLine": 1366,
+        "endChar": 24
+      },
+      "revId": "0d6af189f9a954d5cb9122f2923a50124e6bb44e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4449d8f7_e58511d2",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 1366,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-06-15T04:00:49Z",
+      "side": 1,
+      "message": "Not changed here, but yes, this would likely be better as a reference.",
+      "parentUuid": "88d7b369_9a23daa1",
       "range": {
         "startLine": 1366,
         "startChar": 4,
@@ -189,6 +237,30 @@
     },
     {
       "key": {
+        "uuid": "da258af7_7ece4493",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 1376,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-06-15T04:00:49Z",
+      "side": 1,
+      "message": "This isn\u0027t changed in this patchset.",
+      "parentUuid": "3760de42_a238a9de",
+      "range": {
+        "startLine": 1372,
+        "startChar": 2,
+        "endLine": 1376,
+        "endChar": 13
+      },
+      "revId": "0d6af189f9a954d5cb9122f2923a50124e6bb44e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "f59b6eb0_b6fee2c2",
         "filename": "redfish-core/lib/account_service.hpp",
         "patchSetId": 7
@@ -212,6 +284,30 @@
     },
     {
       "key": {
+        "uuid": "efb01b81_767497c5",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 1393,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-06-15T04:00:49Z",
+      "side": 1,
+      "message": "Also isn\u0027t changed in this patchset.",
+      "parentUuid": "f59b6eb0_b6fee2c2",
+      "range": {
+        "startLine": 1393,
+        "startChar": 40,
+        "endLine": 1393,
+        "endChar": 60
+      },
+      "revId": "0d6af189f9a954d5cb9122f2923a50124e6bb44e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "fbdb4a93_806123f1",
         "filename": "redfish-core/lib/account_service.hpp",
         "patchSetId": 7
@@ -223,6 +319,30 @@
       "writtenOn": "2021-06-15T03:35:51Z",
       "side": 1,
       "message": "refrence?",
+      "range": {
+        "startLine": 1433,
+        "startChar": 4,
+        "endLine": 1433,
+        "endChar": 20
+      },
+      "revId": "0d6af189f9a954d5cb9122f2923a50124e6bb44e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "433c3e16_df6f10fd",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 1433,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-06-15T04:00:49Z",
+      "side": 1,
+      "message": "Isn\u0027t changed in this patchset, although I\u0027m not sure it can be a reference, but lets discuss in a different patchset if this is a change you\u0027d like to see.",
+      "parentUuid": "fbdb4a93_806123f1",
       "range": {
         "startLine": 1433,
         "startChar": 4,
