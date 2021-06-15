@@ -88,6 +88,24 @@
       "revId": "2d61683722cca0b7f91cfc671a242312ce4a0d2a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b80b35e3_f953cc0b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-06-15T16:56:54Z",
+      "side": 1,
+      "message": "\u003e Ed - we don\u0027t have approvals to upstream that daemon yet (primarily because of the protocol it implements to talk to GPUs). I understand your point about dead code, but to understand better - is this about testability or being able to look at the provider daemon code or both? Is all code in bmcweb testable on a certain reference platform or QEMU? A certain provider daemon may just not create any D-Bus objects on QEMU because the relevant hardware may not be emulated, right? In this particular case, you would not only need that daemon but additional hardware, to test.\n\u003e \n\u003e Since we can\u0027t push up that daemon, what would you recommend?\n\nTalking to your management chain about how open source software functions, and relaying the fact that open source can\u0027t maintain code we can\u0027t see.  While I do want to see these features made available, if the project is unable to support them because the useful half the code has been held back, that doesn\u0027t help the project overall, and means that this code effectively doesn\u0027t function for anyone in the open source capacity, which largely defeats the \"Open\" part of OpenBMC.\n\nWe discussed a little on discord.\n\nI understand your company has worries about disclosing hardware early, which I can respect.  The best advice I can think of would be to implement these features against something that\u0027s already shipping and public (doesn\u0027t even have to be your companies hardware).  That would make sure that the appropriate backends existed for these things, and they could be tested and used by someone on a supported system.  I\u0027m sure there are people in open source (myself included) that would help you to test on other systems if you\u0027re unable to source your own.\n\nFrom my perspective, as a maintainer, I can\u0027t maintain code that I can\u0027t see.  If this interface needed to change tomorrow, which happens from time to time, there\u0027s no way to make sure it doesn\u0027t break if there\u0027s no backend for it.\n\nHopefully that somewhat explains that rationale for waiting for backend support on this patch.",
+      "parentUuid": "820b4794_dfc21fd7",
+      "revId": "2d61683722cca0b7f91cfc671a242312ce4a0d2a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
