@@ -20,6 +20,7 @@
 
 #include <app.hpp>
 #include <registries/privilege_registry.hpp>
+#include <utils/location_utils.hpp>
 
 namespace redfish
 {
@@ -261,6 +262,11 @@ inline void requestRoutesStorage(App& app)
                 "/xyz/openbmc_project/inventory", int32_t(0),
                 std::array<const char*, 1>{
                     "xyz.openbmc_project.Inventory.Item.StorageController"});
+
+            location_util::getLocation(
+                asyncResp, storageId,
+                std::vector<const char*>{
+                    "xyz.openbmc_project.Inventory.Item.Storage"});
         });
 }
 

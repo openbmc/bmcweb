@@ -24,6 +24,7 @@
 #include <sdbusplus/utility/dedup_variant.hpp>
 #include <utils/collection.hpp>
 #include <utils/json_utils.hpp>
+#include <utils/location_utils.hpp>
 
 namespace redfish
 {
@@ -1229,6 +1230,10 @@ inline void requestRoutesProcessor(App& app)
                     "/redfish/v1/Systems/system/Processors/" + processorId;
 
                 getProcessorObject(asyncResp, processorId, getProcessorData);
+                location_util::getLocation(
+                    asyncResp, processorId,
+                    std::vector<const char*>(processorInterfaces.begin(),
+                                             processorInterfaces.end()));
             });
 
     BMCWEB_ROUTE(app, "/redfish/v1/Systems/system/Processors/<str>/")
