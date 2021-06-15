@@ -61,12 +61,12 @@ inline std::optional<std::string> getLocationType(std::string_view interface)
  */
 inline void
     getLocationCode(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                    std::string_view connectionName, std::string_view path,
+                    const std::string& connectionName, const std::string& path,
                     const nlohmann::json_pointer<nlohmann::json>& location =
                         "/Location"_json_pointer)
 {
     sdbusplus::asio::getProperty<std::string>(
-        *crow::connections::systemBus, connectionName.data(), path.data(),
+        *crow::connections::systemBus, connectionName, path,
         "xyz.openbmc_project.Inventory.Decorator.LocationCode", "LocationCode",
         [asyncResp, location](const boost::system::error_code ec,
                               const std::string& property) {
