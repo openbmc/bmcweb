@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2d9e38c3_9fd16c35",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-06-15T17:56:48Z",
+      "side": 1,
+      "message": "Can you clarify a bit more this is just GET support? \n\nDo you plan to add PATCH support?",
+      "revId": "6fe79dacd5bb0784b0764e412fc36afcbc45dca6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4089b9fa_39db92bc",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-06-15T17:56:48Z",
+      "side": 1,
+      "message": "Can you explain more why we need for Chassis? When would you need a chassis asset tag when you already have a system asset tag?",
+      "revId": "6fe79dacd5bb0784b0764e412fc36afcbc45dca6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "447826e8_01998da2",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 308,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-06-15T17:56:48Z",
+      "side": 1,
+      "message": "spelling",
+      "range": {
+        "startLine": 308,
+        "startChar": 52,
+        "endLine": 308,
+        "endChar": 59
+      },
+      "revId": "6fe79dacd5bb0784b0764e412fc36afcbc45dca6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
