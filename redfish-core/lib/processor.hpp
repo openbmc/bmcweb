@@ -28,6 +28,7 @@
 #include <sdbusplus/utility/dedup_variant.hpp>
 #include <utils/collection.hpp>
 #include <utils/json_utils.hpp>
+#include <utils/location_utils.hpp>
 
 namespace redfish
 {
@@ -625,36 +626,6 @@ inline void getCpuConfigData(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
 }
 
 /**
- * @brief Fill out location info of a processor by
- * requesting data from the given D-Bus object.
- *
- * @param[in,out]   aResp       Async HTTP response.
- * @param[in]       service     D-Bus service to query.
- * @param[in]       objPath     D-Bus object to query.
- */
-inline void getCpuLocationCode(std::shared_ptr<bmcweb::AsyncResp> aResp,
-                               const std::string& service,
-                               const std::string& objPath)
-{
-    BMCWEB_LOG_DEBUG << "Get Cpu Location Data";
-    sdbusplus::asio::getProperty<std::string>(
-        *crow::connections::systemBus, service, objPath,
-        "xyz.openbmc_project.Inventory.Decorator.LocationCode", "LocationCode",
-        [objPath, aResp{std::move(aResp)}](const boost::system::error_code ec,
-                                           const std::string& property) {
-            if (ec)
-            {
-                BMCWEB_LOG_DEBUG << "DBUS response error";
-                messages::internalError(aResp->res);
-                return;
-            }
-
-            aResp->res.jsonValue["Location"]["PartLocation"]["ServiceLabel"] =
-                property;
-        });
-}
-
-/**
  * Populate the unique identifier in a Processor resource by requesting data
  * from the given D-Bus object.
  *
@@ -803,7 +774,7 @@ inline void getProcessorData(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
             else if (interface ==
                      "xyz.openbmc_project.Inventory.Decorator.LocationCode")
             {
-                getCpuLocationCode(aResp, serviceName, objectPath);
+                location_util::getLocationCode(aResp, serviceName, objectPath);
             }
             else if (interface == "xyz.openbmc_project.Common.UUID")
             {
@@ -813,6 +784,22 @@ inline void getProcessorData(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
                      "xyz.openbmc_project.Inventory.Decorator.UniqueIdentifier")
             {
                 getCpuUniqueId(aResp, serviceName, objectPath);
+            }
+            else if (location_util::isConnector(interface))
+            {
+                std::optional<std::string> locationType =
+                    location_util::getLocationType(aResp, interface);
+                if (!locationType)
+                {
+                    BMCWEB_LOG_DEBUG
+                        << "getLocationType for Chassis failed for "
+                        << interface;
+                    continue;
+                }
+
+                aResp->res
+                    .jsonValue["Location"]["PartLocation"]["LocationType"] =
+                    *locationType;
             }
         }
     }

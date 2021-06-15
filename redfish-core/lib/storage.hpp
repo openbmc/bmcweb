@@ -23,6 +23,7 @@
 #include <dbus_utility.hpp>
 #include <registries/privilege_registry.hpp>
 #include <sdbusplus/asio/property.hpp>
+#include <utils/location_utils.hpp>
 
 #include <unordered_set>
 
@@ -97,6 +98,38 @@ inline void getDrives(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
         std::array<const char*, 1>{"xyz.openbmc_project.Inventory.Item.Drive"});
 }
 
+inline void getStorageControllerLocation(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp, std::string_view path,
+    std::string_view service, const std::vector<std::string>& interfaces,
+    size_t index)
+{
+    nlohmann::json_pointer<nlohmann::json> locationPtr =
+        "/StorageControllers"_json_pointer / index / "Location";
+    for (const std::string& interface : interfaces)
+    {
+        if (interface == "xyz.openbmc_project.Inventory.Decorator.LocationCode")
+        {
+            location_util::getLocationCode(asyncResp, service, path,
+                                           locationPtr);
+        }
+        if (location_util::isConnector(interface))
+        {
+            std::optional<std::string> locationType =
+                location_util::getLocationType(asyncResp, interface);
+            if (!locationType)
+            {
+                BMCWEB_LOG_DEBUG
+                    << "getLocationType for StorageController failed for "
+                    << interface;
+                continue;
+            }
+            asyncResp->res
+                .jsonValue[locationPtr]["PartLocation"]["LocationType"] =
+                *locationType;
+        }
+    }
+}
+
 inline void
     findStorageControllers(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                            const crow::openbmc_mapper::GetSubTreeType& subtree,
@@ -167,6 +200,10 @@ inline void
                 storageController["Name"] = id;
                 storageController["MemberId"] = id;
                 storageController["Status"]["State"] = "Enabled";
+
+                getStorageControllerLocation(asyncResp, path, connectionName,
+                                             interfaceDict.front().second,
+                                             index);
 
                 sdbusplus::asio::getProperty<bool>(
                     *crow::connections::systemBus, connectionName, path,
@@ -442,6 +479,35 @@ inline void getDriveState(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
         });
 }
 
+inline void
+    getDriveLocation(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                     std::string_view path, std::string_view service,
+                     const std::vector<std::string>& interfaces)
+{
+    for (const std::string& interface : interfaces)
+    {
+        if (interface == "xyz.openbmc_project.Inventory.Decorator.LocationCode")
+        {
+            location_util::getLocationCode(asyncResp, service, path,
+                                           "/PhysicalLocation"_json_pointer);
+        }
+        if (location_util::isConnector(interface))
+        {
+            std::optional<std::string> locationType =
+                location_util::getLocationType(asyncResp, interface);
+            if (!locationType)
+            {
+                BMCWEB_LOG_DEBUG << "getLocationType for Drive failed for "
+                                 << interface;
+                continue;
+            }
+            asyncResp->res
+                .jsonValue["PhysicalLocation"]["PartLocation"]["LocationType"] =
+                *locationType;
+        }
+    }
+}
+
 inline void requestRoutesDrive(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/Systems/system/Storage/<str>/Drives/<str>/")
@@ -453,7 +519,7 @@ inline void requestRoutesDrive(App& app)
                                               const std::string& storageId,
                                               const std::string& driveId) {
             crow::connections::systemBus->async_method_call(
-                [asyncResp,
+                [asyncResp, storageId,
                  driveId](const boost::system::error_code ec,
                           const crow::openbmc_mapper::GetSubTreeType& subtree) {
                     if (ec)
@@ -489,8 +555,8 @@ inline void requestRoutesDrive(App& app)
                     asyncResp->res.jsonValue["@odata.type"] =
                         "#Drive.v1_7_0.Drive";
                     asyncResp->res.jsonValue["@odata.id"] =
-                        "/redfish/v1/Systems/system/Storage/1/Drives/" +
-                        driveId;
+                        "/redfish/v1/Systems/system/Storage/" + storageId +
+                        "/Drives/" + driveId;
                     asyncResp->res.jsonValue["Name"] = driveId;
                     asyncResp->res.jsonValue["Id"] = driveId;
 
@@ -530,6 +596,8 @@ inline void requestRoutesDrive(App& app)
                     getDriveAsset(asyncResp, connectionName, path);
                     getDrivePresent(asyncResp, connectionName, path);
                     getDriveState(asyncResp, connectionName, path);
+                    getDriveLocation(asyncResp, connectionName, path,
+                                     connectionNames[0].second);
                 },
                 "xyz.openbmc_project.ObjectMapper",
                 "/xyz/openbmc_project/object_mapper",

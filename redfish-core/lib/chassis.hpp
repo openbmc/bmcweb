@@ -25,6 +25,7 @@
 #include <registries/privilege_registry.hpp>
 #include <sdbusplus/asio/property.hpp>
 #include <utils/collection.hpp>
+#include <utils/location_utils.hpp>
 
 namespace redfish
 {
@@ -164,29 +165,6 @@ inline void requestRoutesChassisCollection(App& app)
                     {"xyz.openbmc_project.Inventory.Item.Board",
                      "xyz.openbmc_project.Inventory.Item.Chassis"});
             });
-}
-
-inline void
-    getChassisLocationCode(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                           const std::string& connectionName,
-                           const std::string& path)
-{
-    sdbusplus::asio::getProperty<std::string>(
-        *crow::connections::systemBus, connectionName, path,
-        "xyz.openbmc_project.Inventory.Decorator.LocationCode", "LocationCode",
-        [asyncResp](const boost::system::error_code ec,
-                    const std::string& property) {
-            if (ec)
-            {
-                BMCWEB_LOG_DEBUG << "DBUS response error for Location";
-                messages::internalError(asyncResp->res);
-                return;
-            }
-
-            asyncResp->res
-                .jsonValue["Location"]["PartLocation"]["ServiceLabel"] =
-                property;
-        });
 }
 
 inline void getChassisUUID(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
@@ -433,8 +411,25 @@ inline void requestRoutesChassis(App& app)
                                 interface ==
                                 "xyz.openbmc_project.Inventory.Decorator.LocationCode")
                             {
-                                getChassisLocationCode(asyncResp,
-                                                       connectionName, path);
+                                location_util::getLocationCode(
+                                    asyncResp, connectionName, path);
+                            }
+                            else if (location_util::isConnector(interface))
+                            {
+                                std::optional<std::string> locationType =
+                                    location_util::getLocationType(asyncResp,
+                                                                   interface);
+                                if (!locationType)
+                                {
+                                    BMCWEB_LOG_DEBUG
+                                        << "getLocationType for Chassis failed for "
+                                        << interface;
+                                    continue;
+                                }
+
+                                asyncResp->res
+                                    .jsonValue["Location"]["PartLocation"]
+                                              ["LocationType"] = *locationType;
                             }
                         }
 
