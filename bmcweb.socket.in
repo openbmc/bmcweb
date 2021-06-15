@@ -2,7 +2,7 @@
 Description=BMC Webserver socket
 
 [Socket]
-ListenStream=443
+ListenStream=@HTTPS_PORT@
 ReusePort=true
 
 [Install]
