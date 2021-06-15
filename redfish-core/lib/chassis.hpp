@@ -295,11 +295,40 @@ inline void requestRoutesChassis(App& app)
                         const std::string locationInterface =
                             "xyz.openbmc_project.Inventory.Decorator."
                             "LocationCode";
+                        const boost::container::flat_map<std::string,
+                                                         std::string>
+                            supportedLocationTypes = {
+                                {"xyz.openbmc_project.Inventory.Item.Bay",
+                                 "Bay"},
+                                {"xyz.openbmc_project.Inventory.Item.Connector",
+                                 "Connector"},
+                                {"xyz.openbmc_project.Inventory.Item.Embedded",
+                                 "Embedded"},
+                                {"xyz.openbmc_project.Inventory.Item.PCIeSlot",
+                                 "Slot"},
+                                {"xyz.openbmc_project.Inventory.Item.Socket",
+                                 "Socket"},
+                            };
+
                         if (std::find(interfaces2.begin(), interfaces2.end(),
                                       locationInterface) != interfaces2.end())
                         {
+                            std::string locationType = "Slot";
+                            for (const auto& [typeInterface, type] :
+                                 supportedLocationTypes)
+                            {
+                                if (std::find(
+                                        interfaces2.begin(), interfaces2.end(),
+                                        typeInterface) != interfaces2.end())
+                                {
+                                    locationType = type;
+                                    break;
+                                }
+                            }
+
                             crow::connections::systemBus->async_method_call(
-                                [asyncResp, chassisId(std::string(chassisId))](
+                                [asyncResp, chassisId(std::string(chassisId)),
+                                 locationType](
                                     const boost::system::error_code ec,
                                     const std::variant<std::string>& property) {
                                     if (ec)
@@ -324,6 +353,10 @@ inline void requestRoutesChassis(App& app)
                                     asyncResp->res
                                         .jsonValue["Location"]["PartLocation"]
                                                   ["ServiceLabel"] = *value;
+                                    asyncResp->res
+                                        .jsonValue["Location"]["PartLocation"]
+                                                  ["LocationType"] =
+                                        locationType;
                                 },
                                 connectionName, path,
                                 "org.freedesktop.DBus.Properties", "Get",
