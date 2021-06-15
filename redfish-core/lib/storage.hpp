@@ -22,6 +22,7 @@
 #include <dbus_utility.hpp>
 #include <registries/privilege_registry.hpp>
 #include <sdbusplus/asio/property.hpp>
+#include <utils/location_utils.hpp>
 
 namespace redfish
 {
@@ -159,6 +160,8 @@ inline void requestRoutesStorage(App& app)
                         storageController["Name"] = id;
                         storageController["MemberId"] = id;
                         storageController["Status"]["State"] = "Enabled";
+                        storageController["PartLocation"]["LocationType"] =
+                            "Embedded";
 
                         sdbusplus::asio::getProperty<bool>(
                             *crow::connections::systemBus, connectionName, path,
@@ -471,6 +474,35 @@ inline void
         });
 }
 
+inline void
+    getDriveLocation(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                     const std::string& path, const std::string& service,
+                     const std::vector<std::string>& interfaces)
+{
+    for (const std::string& interface : interfaces)
+    {
+        if (interface == "xyz.openbmc_project.Inventory.Decorator.LocationCode")
+        {
+            location_util::getLocationCode(asyncResp, service, path,
+                                           "/PhysicalLocation"_json_pointer);
+        }
+        if (location_util::isConnector(interface))
+        {
+            std::optional<std::string> locationType =
+                location_util::getLocationType(interface);
+            if (!locationType)
+            {
+                BMCWEB_LOG_DEBUG << "getLocationType for Drive failed for "
+                                 << interface;
+                continue;
+            }
+            asyncResp->res
+                .jsonValue["PhysicalLocation"]["PartLocation"]["LocationType"] =
+                *locationType;
+        }
+    }
+}
+
 inline void requestRoutesDrive(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/Systems/system/Storage/1/Drives/<str>/")
@@ -554,6 +586,8 @@ inline void requestRoutesDrive(App& app)
                     getDrivePresent(asyncResp, connectionName, path);
                     getDriveState(asyncResp, connectionName, path);
                     getDriveItemProperties(asyncResp, connectionName, path);
+                    getDriveLocation(asyncResp, connectionName, path,
+                                     connectionNames[0].second);
                 },
                 "xyz.openbmc_project.ObjectMapper",
                 "/xyz/openbmc_project/object_mapper",

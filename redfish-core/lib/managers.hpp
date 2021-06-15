@@ -2166,7 +2166,9 @@ inline void requestRoutesManager(App& app)
                             interfaceName ==
                             "xyz.openbmc_project.Inventory.Decorator.LocationCode")
                         {
-                            getLocation(asyncResp, connectionName, path);
+                            location_util::getLocationCode(
+                                asyncResp, connectionName, path,
+                                "/Location"_json_pointer);
                         }
                     }
                 },
