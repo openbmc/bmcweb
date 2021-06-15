@@ -23,6 +23,7 @@
 #include <dbus_utility.hpp>
 #include <registries/privilege_registry.hpp>
 #include <sdbusplus/asio/property.hpp>
+#include <utils/location_utils.hpp>
 
 #include <unordered_set>
 
@@ -167,6 +168,15 @@ inline void
                 storageController["Name"] = id;
                 storageController["MemberId"] = id;
                 storageController["Status"]["State"] = "Enabled";
+
+                const nlohmann::json_pointer<nlohmann::json>&
+                    storageControllerPointer =
+                        "/StorageControllers"_json_pointer / index;
+
+                location_util::getLocation(asyncResp, path, connectionName,
+                                           interfaceDict.front().second,
+                                           storageControllerPointer /
+                                               "Location");
 
                 sdbusplus::asio::getProperty<bool>(
                     *crow::connections::systemBus, connectionName, path,
@@ -341,6 +351,11 @@ inline void requestRoutesStorage(App& app)
                     getDrives(asyncResp, health, storagePath, storageId);
                     getStorageControllers(asyncResp, health, storagePath,
                                           storageId);
+
+                    location_util::getLocation(
+                        asyncResp, storagePath, connectionNames[0].first,
+                        connectionNames[0].second,
+                        "/PhysicalLocation"_json_pointer);
                 },
                 "xyz.openbmc_project.ObjectMapper",
                 "/xyz/openbmc_project/object_mapper",
@@ -530,6 +545,11 @@ inline void requestRoutesDrive(App& app)
                     getDriveAsset(asyncResp, connectionName, path);
                     getDrivePresent(asyncResp, connectionName, path);
                     getDriveState(asyncResp, connectionName, path);
+
+                    location_util::getLocation(
+                        asyncResp, path, connectionName,
+                        connectionNames[0].second,
+                        "/PhysicalLocation"_json_pointer);
                 },
                 "xyz.openbmc_project.ObjectMapper",
                 "/xyz/openbmc_project/object_mapper",

@@ -25,6 +25,7 @@
 #include <registries/privilege_registry.hpp>
 #include <sdbusplus/asio/property.hpp>
 #include <utils/collection.hpp>
+#include <utils/location_utils.hpp>
 
 namespace redfish
 {
@@ -437,6 +438,9 @@ inline void requestRoutesChassis(App& app)
                                                        connectionName, path);
                             }
                         }
+
+                        location_util::getLocation(asyncResp, path,
+                                                   connectionName, interfaces2);
 
                         return;
                     }
