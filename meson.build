@@ -361,6 +361,7 @@ conf_data.set('BMCWEB_HTTP_REQ_BODY_LIMIT_MB', get_option('http-body-limit'))
 xss_enabled = get_option('insecure-disable-xss')
 conf_data.set10('BMCWEB_INSECURE_DISABLE_XSS_PREVENTION', xss_enabled.enabled())
 conf_data.set('MESON_INSTALL_PREFIX', get_option('prefix'))
+conf_data.set('HTTPS_PORT', get_option('https_port'))
 configure_file(input: 'bmcweb_config.h.in',
                output: 'bmcweb_config.h',
                configuration: conf_data)
@@ -377,10 +378,10 @@ summary({
           'systemd unit directory' : systemd_system_unit_dir
         }, section : 'Directories')
 
-configure_file(input : 'bmcweb.socket',
+configure_file(input : 'bmcweb.socket.in',
                output : 'bmcweb.socket',
-               copy : true,
                install_dir: systemd_system_unit_dir,
+               configuration: conf_data,
                install : true)
 
 configure_file(input : 'bmcweb.service.in',
