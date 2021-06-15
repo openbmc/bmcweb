@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "930c8120_931d924c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 9
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-06-15T17:52:36Z",
+      "side": 1,
+      "message": "restricts a user without \"ConfigureManager\"? \nrestricts a user without \"ConfigureManager\" from accessing the CertificateCollection and Certificate scehamas?",
+      "range": {
+        "startLine": 12,
+        "startChar": 12,
+        "endLine": 12,
+        "endChar": 17
+      },
+      "revId": "ba016428e8e5d5a5c9bc4cac7b9bad06373c8a8c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2298f0bd_b1d4d46f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 9
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-06-15T17:52:36Z",
+      "side": 1,
+      "message": "remove",
+      "range": {
+        "startLine": 23,
+        "startChar": 32,
+        "endLine": 23,
+        "endChar": 36
+      },
+      "revId": "ba016428e8e5d5a5c9bc4cac7b9bad06373c8a8c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d2ed0f0e_128668ed",
+        "filename": "redfish-core/lib/certificate_service.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-06-15T17:52:36Z",
+      "side": 1,
+      "message": "What about these? ConfigureManager permission is needed, should these also be in the if?",
+      "range": {
+        "startLine": 69,
+        "startChar": 0,
+        "endLine": 77,
+        "endChar": 62
+      },
+      "revId": "ba016428e8e5d5a5c9bc4cac7b9bad06373c8a8c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
