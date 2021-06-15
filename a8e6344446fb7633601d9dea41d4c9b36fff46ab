@@ -22,6 +22,30 @@
       "revId": "a8e6344446fb7633601d9dea41d4c9b36fff46ab",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "77fbf841_043a9c19",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 849,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2021-06-15T21:36:49Z",
+      "side": 1,
+      "message": "yeah, that is right.\n\nFor all SoftwareInventory with purpose set to other,\n\nI wanted to be a bit more flexible and just check the relatedItem to see if it has some supported Interfaces which maps to a URI.\n\nMore interfaces can be added easily.",
+      "parentUuid": "2804802e_1abc7f26",
+      "range": {
+        "startLine": 835,
+        "startChar": 40,
+        "endLine": 849,
+        "endChar": 41
+      },
+      "revId": "a8e6344446fb7633601d9dea41d4c9b36fff46ab",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
