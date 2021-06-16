@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "0bdbbf26_b8e1aa06",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000579
+      },
+      "writtenOn": "2021-06-16T09:31:39Z",
+      "side": 1,
+      "message": "With this patch, currently supporting only for the GET method.",
+      "parentUuid": "2d9e38c3_9fd16c35",
+      "revId": "6fe79dacd5bb0784b0764e412fc36afcbc45dca6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4089b9fa_39db92bc",
         "filename": "/COMMIT_MSG",
         "patchSetId": 3
@@ -33,6 +51,24 @@
       "revId": "6fe79dacd5bb0784b0764e412fc36afcbc45dca6",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8b307a54_f3ba04d6",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1000579
+      },
+      "writtenOn": "2021-06-16T09:31:39Z",
+      "side": 1,
+      "message": "As Redfish Service supports for multiple Chassis instances,\nso each Chassis instance will have it\u0027s own AssetTag.\nwhich can be used to track each chassis for the inventory purposes.",
+      "parentUuid": "4089b9fa_39db92bc",
+      "revId": "6fe79dacd5bb0784b0764e412fc36afcbc45dca6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -56,6 +92,30 @@
       "revId": "6fe79dacd5bb0784b0764e412fc36afcbc45dca6",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ac032da5_ed45e6f6",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 308,
+      "author": {
+        "id": 1000579
+      },
+      "writtenOn": "2021-06-16T09:31:39Z",
+      "side": 1,
+      "message": "Done.",
+      "parentUuid": "447826e8_01998da2",
+      "range": {
+        "startLine": 308,
+        "startChar": 52,
+        "endLine": 308,
+        "endChar": 59
+      },
+      "revId": "6fe79dacd5bb0784b0764e412fc36afcbc45dca6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
