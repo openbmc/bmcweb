@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "92a308b3_ffc4292d",
+        "filename": "redfish-core/include/utils/name_utils.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1000654
+      },
+      "writtenOn": "2021-06-16T21:18:19Z",
+      "side": 1,
+      "message": "Just to confirm (I\u0027m not familiar with everything), is it true that there is only 1 service that matches this prettyName? or will that be an issue if there are multiple services with the same prettyName?",
+      "revId": "847e0f788d935efb23f14460656708579da92166",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
