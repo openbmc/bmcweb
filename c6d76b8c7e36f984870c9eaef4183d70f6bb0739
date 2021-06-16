@@ -19,6 +19,47 @@
     },
     {
       "key": {
+        "uuid": "83c518f6_ab7655b6",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 11
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2021-06-16T21:42:26Z",
+      "side": 1,
+      "message": "Since right now we are only using Storage/1/ to manage all the Drives,\n\nSince Storage is basically used as a Drive/StorageController Collections... I thought it is safe to just have a Storage be default to each chassis. This will allow better Storage/Drive managements.",
+      "parentUuid": "84d06137_f77df8a5",
+      "revId": "c6d76b8c7e36f984870c9eaef4183d70f6bb0739",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7f61c448_088c3900",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 390,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2021-06-16T21:42:26Z",
+      "side": 1,
+      "message": "This link will also be affected depending on the changes that is made to how Storage is makde.",
+      "range": {
+        "startLine": 387,
+        "startChar": 32,
+        "endLine": 390,
+        "endChar": 55
+      },
+      "revId": "c6d76b8c7e36f984870c9eaef4183d70f6bb0739",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "7d17d50b_108252b5",
         "filename": "redfish-core/lib/storage.hpp",
         "patchSetId": 11
@@ -42,6 +83,30 @@
     },
     {
       "key": {
+        "uuid": "0254a784_fe1b29d4",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2021-06-16T21:42:26Z",
+      "side": 1,
+      "message": "I just thought it was simple to get chassis/board to have an empty Storage and good to go.\n\nBut we can also do some more check for this.\n\nI am not sure if we can just search for `xyz.openbmc_project.Inventory.Item.Drive` or `xyz.openbmc_project.Inventory.Item.StorageController` for this. Since the Drive + StorageController might be linked together by the Storage.\n\nHow about we parse the Board/Chassis and search the subpaths for paths that has StorageController or Drive to include it in here. This way... only the ones that actually have a storage subsystem have a link to a storage... \n\nThis also won\u0027t affect the Storage implementations.",
+      "parentUuid": "7d17d50b_108252b5",
+      "range": {
+        "startLine": 40,
+        "startChar": 0,
+        "endLine": 41,
+        "endChar": 66
+      },
+      "revId": "c6d76b8c7e36f984870c9eaef4183d70f6bb0739",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "5046184e_479df19c",
         "filename": "redfish-core/lib/storage.hpp",
         "patchSetId": 11
@@ -53,6 +118,30 @@
       "writtenOn": "2021-06-16T01:20:40Z",
       "side": 1,
       "message": "Don\u0027t we need to handle resource not found now?\n\nE.g. /redfish/v1/Systems/system/Storage/badStorageId\n\nI believe same above",
+      "range": {
+        "startLine": 284,
+        "startChar": 23,
+        "endLine": 284,
+        "endChar": 64
+      },
+      "revId": "c6d76b8c7e36f984870c9eaef4183d70f6bb0739",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "86b26616_1cf0ddf1",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 284,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2021-06-16T21:42:26Z",
+      "side": 1,
+      "message": "oh yeah. this will just return an empty output.\n\nI guess we don\u0027t want that.",
+      "parentUuid": "5046184e_479df19c",
       "range": {
         "startLine": 284,
         "startChar": 23,
