@@ -22,6 +22,30 @@
       "revId": "26e0398362e10cd8541767eef67f0b572be3b8a4",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7013e1c5_37fcbced",
+        "filename": "scripts/parse_registries.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1000049
+      },
+      "writtenOn": "2021-06-16T13:19:56Z",
+      "side": 1,
+      "message": "Technically, it would be the LF that would own any project claim. But, since this file is generated, it is not required at all (imagine claiming the output of \u0027ls\u0027 as copyrighted material). It is strange that it has been inserted in the first place, but it doesn\u0027t really hurt anything. It is more a reference for which entity pushed this file initially.",
+      "parentUuid": "c438956a_12588bae",
+      "range": {
+        "startLine": 17,
+        "startChar": 22,
+        "endLine": 17,
+        "endChar": 41
+      },
+      "revId": "26e0398362e10cd8541767eef67f0b572be3b8a4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
