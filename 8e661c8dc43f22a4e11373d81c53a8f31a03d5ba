@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b235ec35_fd882c37",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-06-16T01:13:40Z",
+      "side": 1,
+      "message": "I think a better summary would be around adding these new properties. E.g. \nSoftwareInventory: Get Updatable and WriteProtected from new D-Bus interface\nor \nPopulate Software.State Updatable and WriteProtected\n\nBumping to 1_3_0 is a 1 line change.",
+      "revId": "8e661c8dc43f22a4e11373d81c53a8f31a03d5ba",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ece3e2ea_16c9316b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-06-16T01:13:40Z",
+      "side": 1,
+      "message": "other values? \n\nE.g. (This is rough, just an example) \nAdded WriteProtected and now get Updateable from D-Bus. Before Updateable was hardcoded. It can now be set to True via D-Bus. \n\n\"Custom outputs\" just doesn\u0027t sounds correct to me.",
+      "range": {
+        "startLine": 16,
+        "startChar": 9,
+        "endLine": 16,
+        "endChar": 23
+      },
+      "revId": "8e661c8dc43f22a4e11373d81c53a8f31a03d5ba",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f9944059_939de965",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-06-16T01:13:40Z",
+      "side": 1,
+      "message": "Cool!",
+      "revId": "8e661c8dc43f22a4e11373d81c53a8f31a03d5ba",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
