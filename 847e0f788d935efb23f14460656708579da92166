@@ -16,6 +16,24 @@
       "revId": "847e0f788d935efb23f14460656708579da92166",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fc8a3b93_5a57aae2",
+        "filename": "redfish-core/include/utils/name_utils.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2021-06-16T21:26:53Z",
+      "side": 1,
+      "message": "I think it is possible that multiple services can have prettyName. But I am assuming that the one that actually include it will be the one that we want.\n\nI am assuming that prettyName is only included in the service that we care about. Maybe that\u0027s wrong assumption to make.",
+      "parentUuid": "92a308b3_ffc4292d",
+      "revId": "847e0f788d935efb23f14460656708579da92166",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
