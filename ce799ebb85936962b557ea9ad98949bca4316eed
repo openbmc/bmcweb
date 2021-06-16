@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ba0f9dfc_8c63264d",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 457,
+      "author": {
+        "id": 1000654
+      },
+      "writtenOn": "2021-06-16T21:09:40Z",
+      "side": 1,
+      "message": "location?",
+      "range": {
+        "startLine": 457,
+        "startChar": 57,
+        "endLine": 457,
+        "endChar": 64
+      },
+      "revId": "ce799ebb85936962b557ea9ad98949bca4316eed",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
