@@ -173,6 +173,7 @@ class Connection :
                     isKeyUsageKeyAgreement = true;
                 }
             }
+            ASN1_BIT_STRING_free(usage);
 
             if (!isKeyUsageDigitalSignature || !isKeyUsageKeyAgreement)
             {
@@ -182,7 +183,6 @@ class Connection :
                                     "be used for user authentication";
                 return true;
             }
-            ASN1_BIT_STRING_free(usage);
 
             // Determine that ExtendedKeyUsage includes Client Auth
 
