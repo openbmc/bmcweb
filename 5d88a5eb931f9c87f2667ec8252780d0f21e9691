@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "aa41e902_48a3d551",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-06-16T20:22:35Z",
+      "side": 1,
+      "message": "id, and odata.id are different fields.",
+      "range": {
+        "startLine": 22,
+        "startChar": 0,
+        "endLine": 22,
+        "endChar": 60
+      },
+      "revId": "5d88a5eb931f9c87f2667ec8252780d0f21e9691",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1cf68f5f_22f06d69",
+        "filename": "static/dataModel/AccelerationFunction_v1.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-06-16T20:22:35Z",
+      "side": 1,
+      "message": "Putting all this stuff in static is going to make it be included in the primary www folder and get hosted by the bmc, which isn\u0027t what we want, we\u0027ll need to come up with another folder for that.  maybe \"generated\" in the build folder?",
+      "revId": "5d88a5eb931f9c87f2667ec8252780d0f21e9691",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "205a657f_51cc463f",
+        "filename": "static/serialize/json_serviceroot.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-06-16T20:22:35Z",
+      "side": 1,
+      "message": "These all need some way of checking whether or not the value was filled in before they put it in the json, otherwise most things will end up blank (as you\u0027ve found here).",
+      "range": {
+        "startLine": 45,
+        "startChar": 0,
+        "endLine": 52,
+        "endChar": 60
+      },
+      "revId": "5d88a5eb931f9c87f2667ec8252780d0f21e9691",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
