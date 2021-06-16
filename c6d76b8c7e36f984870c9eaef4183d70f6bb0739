@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "84d06137_f77df8a5",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 11
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-06-16T01:20:40Z",
+      "side": 1,
+      "message": "Why?",
+      "revId": "c6d76b8c7e36f984870c9eaef4183d70f6bb0739",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7d17d50b_108252b5",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-06-16T01:20:40Z",
+      "side": 1,
+      "message": "Going to have to explain this.. \nI think we should look for xyz.openbmc_project.Inventory.Item.Storage or xyz.openbmc_project.Inventory.Item.Drive or whatever inventory item(s) would map to Redfish\u0027s storage definition. I don\u0027t think Board and Chassis should map to Redfish Storage resources. \n\n\"The Storage schema defines a storage subsystem and its respective properties. A storage subsystem represents a set of physical or virtual storage controllers and the resources, such as volumes, that can be accessed from that subsystem.\"",
+      "range": {
+        "startLine": 40,
+        "startChar": 0,
+        "endLine": 41,
+        "endChar": 66
+      },
+      "revId": "c6d76b8c7e36f984870c9eaef4183d70f6bb0739",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5046184e_479df19c",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 284,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-06-16T01:20:40Z",
+      "side": 1,
+      "message": "Don\u0027t we need to handle resource not found now?\n\nE.g. /redfish/v1/Systems/system/Storage/badStorageId\n\nI believe same above",
+      "range": {
+        "startLine": 284,
+        "startChar": 23,
+        "endLine": 284,
+        "endChar": 64
+      },
+      "revId": "c6d76b8c7e36f984870c9eaef4183d70f6bb0739",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
