@@ -3,6 +3,7 @@ option('yocto-deps', type: 'feature', value: 'disabled', description : 'Use YOCT
 option('kvm', type : 'feature',value : 'enabled', description : 'Enable the KVM host video WebSocket.  Path is \'/kvm/0\'.  Video is from the BMC\'s \'/dev/video\' device.')
 option ('tests', type : 'feature', value : 'enabled', description : 'Enable Unit tests for bmcweb')
 option('vm-websocket', type : 'feature', value : 'enabled', description : '''Enable the Virtual Media WebSocket. Path is \'/vm/0/0\'to open the websocket. See https://github.com/openbmc/jsnbd/blob/master/README.''')
+option('rsyslog', type: 'feature', value : 'disabled', description : 'Install configuration files for rsyslog')
 
 # if you use this option and are seeing this comment, please comment here:
 # https://github.com/openbmc/bmcweb/issues/188 and put forward your intentions

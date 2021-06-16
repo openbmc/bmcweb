@@ -419,3 +419,8 @@ if(get_option('tests').enabled())
                               ]))
   endforeach
 endif
+
+if(get_option('rsyslog').enabled())
+  install_data(['rsyslog/50-redfish.conf', 'rsyslog/50-crash.conf'],
+               install_dir : '/etc/rsyslog.d')
+endif
