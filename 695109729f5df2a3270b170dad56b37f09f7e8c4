@@ -164,6 +164,98 @@
       "revId": "695109729f5df2a3270b170dad56b37f09f7e8c4",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "042d5ca3_06006dd8",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 45
+      },
+      "lineNbr": 314,
+      "author": {
+        "id": 1001027
+      },
+      "writtenOn": "2021-06-16T06:23:35Z",
+      "side": 1,
+      "message": "This looks useless.",
+      "range": {
+        "startLine": 314,
+        "startChar": 35,
+        "endLine": 314,
+        "endChar": 43
+      },
+      "revId": "695109729f5df2a3270b170dad56b37f09f7e8c4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8514b955_f6341240",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 45
+      },
+      "lineNbr": 353,
+      "author": {
+        "id": 1001027
+      },
+      "writtenOn": "2021-06-16T06:23:35Z",
+      "side": 1,
+      "message": "Add this?\nif (fanName.empty())\n{\n    continue;\n}",
+      "range": {
+        "startLine": 353,
+        "startChar": 47,
+        "endLine": 353,
+        "endChar": 54
+      },
+      "revId": "695109729f5df2a3270b170dad56b37f09f7e8c4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "636ea2a7_7cf3baa3",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 45
+      },
+      "lineNbr": 496,
+      "author": {
+        "id": 1001027
+      },
+      "writtenOn": "2021-06-16T06:23:35Z",
+      "side": 1,
+      "message": "Same as above.",
+      "range": {
+        "startLine": 496,
+        "startChar": 47,
+        "endLine": 496,
+        "endChar": 54
+      },
+      "revId": "695109729f5df2a3270b170dad56b37f09f7e8c4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1cd5471e_fd0635d6",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 45
+      },
+      "lineNbr": 545,
+      "author": {
+        "id": 1001027
+      },
+      "writtenOn": "2021-06-16T06:23:35Z",
+      "side": 1,
+      "message": "I think you can put this code in front of async_method_call(), and the content inside {} remains here.",
+      "range": {
+        "startLine": 545,
+        "startChar": 36,
+        "endLine": 545,
+        "endChar": 57
+      },
+      "revId": "695109729f5df2a3270b170dad56b37f09f7e8c4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
