@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "efbb79fc_3a0431c1",
+        "filename": "meson_options.txt",
+        "patchSetId": 2
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-06-16T22:39:47Z",
+      "side": 1,
+      "message": "This kind of commentary is better put in the commit message.",
+      "range": {
+        "startLine": 32,
+        "startChar": 199,
+        "endLine": 32,
+        "endChar": 332
+      },
+      "revId": "d2b9f807550178f0a1bcb0d07cf78e555ef45868",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "36bd6670_c257259a",
         "filename": "redfish-core/include/redfish.hpp",
         "patchSetId": 2
