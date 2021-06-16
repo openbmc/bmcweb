@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b9d8c26c_00e92fba",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-06-16T20:44:50Z",
+      "side": 1,
+      "message": "method ?\n\nChange account service privileges to use isOperationAllowed ?",
+      "range": {
+        "startLine": 7,
+        "startChar": 41,
+        "endLine": 7,
+        "endChar": 48
+      },
+      "revId": "db57031d965eb1df2f53168c3525d58df38a33da",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c175d4c1_75553ad2",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-06-16T20:44:50Z",
+      "side": 1,
+      "message": "Can we drop the Is? \nE.g.\nWhen the original patchset for account service was wrote, it did not use the existing method for doing multi-permission checking.",
+      "range": {
+        "startLine": 9,
+        "startChar": 4,
+        "endLine": 9,
+        "endChar": 7
+      },
+      "revId": "db57031d965eb1df2f53168c3525d58df38a33da",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "65909b0f_8a269ba3",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-06-16T20:44:50Z",
+      "side": 1,
+      "message": "Can you drop the I think? \nFor ...\n\nFollow \"5. Use the imperative mood in the subject line\" from https://chris.beams.io/posts/git-commit/",
+      "range": {
+        "startLine": 11,
+        "startChar": 41,
+        "endLine": 11,
+        "endChar": 48
+      },
+      "revId": "db57031d965eb1df2f53168c3525d58df38a33da",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
