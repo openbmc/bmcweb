@@ -141,6 +141,29 @@
       "revId": "695109729f5df2a3270b170dad56b37f09f7e8c4",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7453a5d2_43995034",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 45
+      },
+      "lineNbr": 293,
+      "author": {
+        "id": 1001027
+      },
+      "writtenOn": "2021-06-16T06:07:32Z",
+      "side": 1,
+      "message": "nit: The value will override jsonValue.\nIt would be better to use this way：\nasyncResp-\u003eres.jsonValue[\"@odata.type\"]\u003d\"#FanCollection.FanCollection\";",
+      "range": {
+        "startLine": 287,
+        "startChar": 0,
+        "endLine": 293,
+        "endChar": 67
+      },
+      "revId": "695109729f5df2a3270b170dad56b37f09f7e8c4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
