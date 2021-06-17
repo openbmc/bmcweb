@@ -81,6 +81,30 @@
       "revId": "91736d638f30e474c43661181c2f6146776704be",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "df4f4a9d_f15595c9",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 3359,
+      "author": {
+        "id": 1000466
+      },
+      "writtenOn": "2021-06-17T18:25:59Z",
+      "side": 1,
+      "message": "See LogEntry 1.8.0 in the Redfish schema.\n\nAh I suppose Redfish is using it as AdditionalDataURI and AdditionalDataSizeBytes. It seems like Redfish services have the option of hosting their AdditionalData in some separate URI that can be fetched. This sort of implies that AdditionalDataURI in Redfish is freeform bytes, and not necessarily a JSON.\n\nSo that would make my suggestion of AdditionalData[\"OemRecordFormat\"] kind of yucky as you can\u0027t just use AdditionalData as-is if OpenBMC ever wanted to serve it at AdditionalDataURI. Although I can\u0027t tell if anyone would want to serve AdditionalData as a map as-is to begin with, given that it is \"Additional information in the form of metadata field strings VAR\u003dval\"",
+      "parentUuid": "144c2c21_545c60ee",
+      "range": {
+        "startLine": 3355,
+        "startChar": 0,
+        "endLine": 3359,
+        "endChar": 33
+      },
+      "revId": "91736d638f30e474c43661181c2f6146776704be",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
