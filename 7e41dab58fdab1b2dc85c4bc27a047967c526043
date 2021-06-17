@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2b00199c_8177400f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-06-17T22:05:47Z",
+      "side": 1,
+      "message": "Can you please add each of these as part of adding each feature, especially considering they\u0027re required to make the validator pass, and we don\u0027t want to break the validator when the first commits hit CI.",
+      "range": {
+        "startLine": 10,
+        "startChar": 0,
+        "endLine": 13,
+        "endChar": 39
+      },
+      "revId": "7e41dab58fdab1b2dc85c4bc27a047967c526043",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
