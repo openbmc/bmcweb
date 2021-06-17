@@ -79,6 +79,10 @@ inline void handleTelemetryServiceGet(
                 time_utils::toDurationString(std::chrono::milliseconds(
                     static_cast<time_t>(*minInterval)));
         }
+
+        asyncResp->res.jsonValue["SupportedCollectionFunctions"] =
+            std::array<std::string_view, 4>(
+                {"Maximum", "Minimum", "Average", "Summation"});
         });
 }
 
