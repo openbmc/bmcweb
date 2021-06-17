@@ -33,6 +33,24 @@
       "revId": "d87af8432401d531ba71067dfe7ee8e3f7fcf651",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f535e049_2ccf5126",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 489,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2021-06-17T15:00:26Z",
+      "side": 1,
+      "message": "I am not sure what you mean here.\n\nThe format has to be\n```\nRegistryName.MajorVersion.MinorVersion.MessageKey\n```\n\nhttps://www.dmtf.org/sites/default/files/standards/documents/DSP0266_1.8.0.pdf#page\u003d70\n\n\nSo do you mean\n```\nOpenBmc.0.0.\" + entryPath\n```\n?\n\nI guess the main question is that I don\u0027t know is what registry names are available.",
+      "parentUuid": "6984197a_1928fc5e",
+      "revId": "d87af8432401d531ba71067dfe7ee8e3f7fcf651",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
