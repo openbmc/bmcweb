@@ -105,6 +105,24 @@
       "revId": "e8a3ac4c43c2487bdd14c483bb2763f85984cd35",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "467b6bbb_437d21e6",
+        "filename": "include/authorization.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-06-17T17:33:38Z",
+      "side": 1,
+      "message": "Correct, we would read the user role from our pam conversation, that way, we\u0027re rooting our security in linux, instead of something we invented.\n\nEventually, it would be great if user sessions became real linux user sessions, such that dbus permissions could directly determine a users privilege level, but we\u0027re a ways off from that;  Relying on dbus for role information is not something any linux distribution I\u0027m aware of does.",
+      "parentUuid": "1bce075a_4a774e19",
+      "revId": "e8a3ac4c43c2487bdd14c483bb2763f85984cd35",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
