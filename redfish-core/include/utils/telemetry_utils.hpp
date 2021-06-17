@@ -81,5 +81,71 @@ inline std::optional<IncorrectMetricUri> getChassisSensorNode(
     return std::nullopt;
 }
 
+inline std::string toRedfishCollectionFunction(std::string_view dbusValue)
+{
+    if (dbusValue ==
+        "xyz.openbmc_project.Telemetry.Report.OperationType.Maximum")
+    {
+        return "Maximum";
+    }
+    else if (dbusValue ==
+             "xyz.openbmc_project.Telemetry.Report.OperationType.Minimum")
+    {
+        return "Minimum";
+    }
+    else if (dbusValue ==
+             "xyz.openbmc_project.Telemetry.Report.OperationType.Average")
+    {
+        return "Average";
+    }
+    else if (dbusValue ==
+             "xyz.openbmc_project.Telemetry.Report.OperationType.Summation")
+    {
+        return "Summation";
+    }
+    return "";
+}
+
+inline std::string toDbusCollectionFunction(std::string_view redfishValue)
+{
+    if (redfishValue == "Maximum")
+    {
+        return "xyz.openbmc_project.Telemetry.Report.OperationType.Maximum";
+    }
+    else if (redfishValue == "Minimum")
+    {
+        return "xyz.openbmc_project.Telemetry.Report.OperationType.Minimum";
+    }
+    else if (redfishValue == "Average")
+    {
+        return "xyz.openbmc_project.Telemetry.Report.OperationType.Average";
+    }
+    else if (redfishValue == "Summation")
+    {
+        return "xyz.openbmc_project.Telemetry.Report.OperationType.Summation";
+    }
+    return "";
+}
+
+inline std::optional<std::vector<std::string>>
+    toRedfishCollectionFunctions(const std::vector<std::string>& dbusEnums)
+{
+    std::vector<std::string> redfishEnums;
+    redfishEnums.reserve(dbusEnums.size());
+
+    for (const auto& dbusValue : dbusEnums)
+    {
+        std::string redfishValue = toRedfishCollectionFunction(dbusValue);
+
+        if (redfishValue.empty())
+        {
+            return std::nullopt;
+        }
+
+        redfishEnums.emplace_back(redfishValue);
+    }
+    return redfishEnums;
+}
+
 } // namespace telemetry
 } // namespace redfish

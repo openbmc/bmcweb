@@ -19,18 +19,16 @@ namespace redfish
 namespace telemetry
 {
 
-using Readings =
-    std::vector<std::tuple<std::string, std::string, double, uint64_t>>;
+using Readings = std::vector<std::tuple<std::string, double, uint64_t>>;
 using TimestampReadings = std::tuple<uint64_t, Readings>;
 
 inline nlohmann::json toMetricValues(const Readings& readings)
 {
     nlohmann::json metricValues = nlohmann::json::array_t();
 
-    for (const auto& [id, metadata, sensorValue, timestamp] : readings)
+    for (const auto& [metadata, sensorValue, timestamp] : readings)
     {
         nlohmann::json::object_t metricReport;
-        metricReport["MetricId"] = id;
         metricReport["MetricProperty"] = metadata;
         metricReport["MetricValue"] = std::to_string(sensorValue);
         metricReport["Timestamp"] =
