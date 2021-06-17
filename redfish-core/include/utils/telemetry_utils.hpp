@@ -1,6 +1,7 @@
 #pragma once
 
 #include "dbus_utility.hpp"
+#include "generated/enums/metric_report_definition.hpp"
 #include "http/utility.hpp"
 #include "logging.hpp"
 #include "utility.hpp"
@@ -40,7 +41,7 @@ struct IncorrectMetricUri
 };
 
 inline std::optional<IncorrectMetricUri> getChassisSensorNode(
-    const std::vector<std::string>& uris,
+    std::span<const std::string> uris,
     boost::container::flat_set<std::pair<std::string, std::string>>& matched)
 {
     size_t uriIdx = 0;
@@ -87,6 +88,75 @@ inline std::optional<IncorrectMetricUri> getChassisSensorNode(
         return std::make_optional<IncorrectMetricUri>({uri, uriIdx});
     }
     return std::nullopt;
+}
+
+inline metric_report_definition::CalculationAlgorithmEnum
+    toRedfishCollectionFunction(std::string_view dbusValue)
+{
+    if (dbusValue ==
+        "xyz.openbmc_project.Telemetry.Report.OperationType.Maximum")
+    {
+        return metric_report_definition::CalculationAlgorithmEnum::Maximum;
+    }
+    if (dbusValue ==
+        "xyz.openbmc_project.Telemetry.Report.OperationType.Minimum")
+    {
+        return metric_report_definition::CalculationAlgorithmEnum::Minimum;
+    }
+    if (dbusValue ==
+        "xyz.openbmc_project.Telemetry.Report.OperationType.Average")
+    {
+        return metric_report_definition::CalculationAlgorithmEnum::Average;
+    }
+    if (dbusValue ==
+        "xyz.openbmc_project.Telemetry.Report.OperationType.Summation")
+    {
+        return metric_report_definition::CalculationAlgorithmEnum::Summation;
+    }
+    return metric_report_definition::CalculationAlgorithmEnum::Invalid;
+}
+
+inline std::string toDbusCollectionFunction(std::string_view redfishValue)
+{
+    if (redfishValue == "Maximum")
+    {
+        return "xyz.openbmc_project.Telemetry.Report.OperationType.Maximum";
+    }
+    if (redfishValue == "Minimum")
+    {
+        return "xyz.openbmc_project.Telemetry.Report.OperationType.Minimum";
+    }
+    if (redfishValue == "Average")
+    {
+        return "xyz.openbmc_project.Telemetry.Report.OperationType.Average";
+    }
+    if (redfishValue == "Summation")
+    {
+        return "xyz.openbmc_project.Telemetry.Report.OperationType.Summation";
+    }
+    return "";
+}
+
+inline std::optional<nlohmann::json::array_t>
+    toRedfishCollectionFunctions(std::span<const std::string> dbusEnums)
+{
+    nlohmann::json::array_t redfishEnums;
+    redfishEnums.reserve(dbusEnums.size());
+
+    for (const auto& dbusValue : dbusEnums)
+    {
+        metric_report_definition::CalculationAlgorithmEnum redfishValue =
+            toRedfishCollectionFunction(dbusValue);
+
+        if (redfishValue ==
+            metric_report_definition::CalculationAlgorithmEnum::Invalid)
+        {
+            return std::nullopt;
+        }
+
+        redfishEnums.emplace_back(redfishValue);
+    }
+    return redfishEnums;
 }
 
 } // namespace telemetry

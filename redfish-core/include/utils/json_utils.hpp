@@ -589,6 +589,5 @@ bool readJsonAction(const crow::Request& req, crow::Response& res,
     }
     return readJson(jsonRequest, res, key, std::forward<UnpackTypes&&>(in)...);
 }
-
 } // namespace json_util
 } // namespace redfish

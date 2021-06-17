@@ -79,6 +79,14 @@ inline void handleTelemetryServiceGet(
                 time_utils::toDurationString(std::chrono::milliseconds(
                     static_cast<time_t>(*minInterval)));
         }
+        nlohmann::json::array_t supportedCollectionFunctions;
+        supportedCollectionFunctions.emplace_back("Maximum");
+        supportedCollectionFunctions.emplace_back("Minimum");
+        supportedCollectionFunctions.emplace_back("Average");
+        supportedCollectionFunctions.emplace_back("Summation");
+
+        asyncResp->res.jsonValue["SupportedCollectionFunctions"] =
+            std::move(supportedCollectionFunctions);
         });
 }
 
