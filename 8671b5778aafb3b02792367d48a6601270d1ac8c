@@ -55,6 +55,24 @@
     },
     {
       "key": {
+        "uuid": "38c3871a_db3144c9",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-06-17T16:53:54Z",
+      "side": 1,
+      "message": "\u003e This approach works for me, but I\u0027m not clear on the development process to customize the meta-layers:\n\nLike I said earlier, this is not considered as part of this patchset.  Happy to discuss in another patchset if you have ideas here, but lets not boil the ocean in one review, unless this has direct conflicts with custom privileges.\n\n\u003e - Upstream custom meta-layers can supply their own custom \"Redfish_1.1.0_PrivilegeRegistry.json\" file and manually run the parse_registries.py tool on it to create the privilege_registry.hpp file.\n\nThis doesn\u0027t scale. This would require that the N maintainers of the N registries sign off, and update their registry on every new route we add.  I have no desire to break builds every endpoint we add.\n\n\u003e - Would my meta-layer (bmcweb.bbappend) patch the json file, or patch the privilege_registry.hpp file?\n\nNeither.  You would likely use a json patch, but again, this is discussion for another review.\n\n\u003e - When Redfish updates the PrivilegeRegistry.json and BMCWeb updates privilege_registry.hpp, how should the OpenBMC upstream meta-layers adapt?  I\u0027m a bit lost here.  You mentioned a json patch, but the json is not consumed by the bitbake build process.\n\nI\u0027m not sure what you mean by \"not consumed by the bitbake build process\".  I\u0027m assuming you mean meson?  That would obviously need to change, and the script that this commit is adding would need to be run at build time.\n\n\u003e Will you please explain the development steps you foresee.\n\nFor each OEM schema we add, we would have a privilege registry json patch  RFC 6902, that we would apply to the registry before running the script.  I don\u0027t think anything would be included in meta layers, we would simply feature by feature apply json patches.  With that said, there\u0027s like 3 patches we need to sort out before that:\n\n1. How do we handle OEM schemas\n2. move the python script to build time instead of commit time and check in the privilege registry.\n3. Build the /redfish/v1/PrivilegeRegistry route\n\nTHEN, we can likely discuss custom privileges, because we\u0027ll have the infrastructure to deal with them.  Anything before that is just conjecture.\n\n\u003e \n\u003e I believe the basic approach for upstream would also work for my downstream needs, so agreed, we only need to discuss upstream.\n\nGreat, although it still doesn\u0027t matter in this context, as we\u0027re never going to write a \"here\u0027s the recommended way to fork the project\" document, nor support any stable APIs that facilitate making forking easier.",
+      "parentUuid": "765dc544_491bd9e0",
+      "revId": "8671b5778aafb3b02792367d48a6601270d1ac8c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d4dadd56_456e48c4",
         "filename": "/COMMIT_MSG",
         "patchSetId": 8
@@ -102,6 +120,24 @@
       "side": 1,
       "message": "Merging this commit (with no support for overrides) works for me.  To make this happen:\n1. Apply privilegeSet constants (like those prototyped in account_service.hpp) across all (except see 1b) URI methods.\n1a. Ensure this changes results in no changes to the privilegeSets, or understand what is changing.\n1b. Except, identify priviegeSets implemented by BMCWeb which implement overrides.  Do not change these.\n2. Perform authority testing.",
       "parentUuid": "4d927e49_20bea587",
+      "revId": "8671b5778aafb3b02792367d48a6601270d1ac8c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "62a7f2de_cee08a2c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-06-17T16:53:54Z",
+      "side": 1,
+      "message": "\u003e Merging this commit (with no support for overrides) works for me.  To make this happen:\n\u003e 1. Apply privilegeSet constants (like those prototyped in account_service.hpp) across all (except see 1b) URI methods.\n\u003e 1a. Ensure this changes results in no changes to the privilegeSets, or understand what is changing.\n\nWe will leave these be for the moment, and leave comments that they\u0027re incorrect.\n\n\u003e 1b. Except, identify priviegeSets implemented by BMCWeb which implement overrides.  Do not change these.\n\u003e 2. Perform authority testing.\n\nI have no idea what \"authority testing\" is, but the rest sounds right.",
+      "parentUuid": "9852e335_25a96d38",
       "revId": "8671b5778aafb3b02792367d48a6601270d1ac8c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
