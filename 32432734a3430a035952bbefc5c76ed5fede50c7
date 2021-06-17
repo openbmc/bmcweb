@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8e00cfb8_ce665cb4",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 1739,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-06-17T13:25:30Z",
+      "side": 1,
+      "message": "Need an AllowableValues since we don\u0027t support all of them. E.g. \n\n  asyncResp-\u003eres.jsonValue[\"PowerMode@Redfish.AllowableValues\"] \u003d {\n                                        \"Static\", \"MaximumPerformance\", \"PowerSaving\"};\n\nhttps://github.com/openbmc/bmcweb/search?l\u003dC%2B%2B\u0026q\u003dAllowableValues (and it is Redfish.AllowableValues; I think we have it wrong in a place where we are missing the Redfish).\n\nI think it makes sense it goes here. I.e. only if you made it this far put the allowablevalues out.",
+      "revId": "32432734a3430a035952bbefc5c76ed5fede50c7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
