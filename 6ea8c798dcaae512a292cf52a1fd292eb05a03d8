@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "263f1e2c_78c979e8",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-06-17T14:09:18Z",
+      "side": 1,
+      "message": "\"Keep AutoLinking; Remove extra \\\" ?",
+      "revId": "6ea8c798dcaae512a292cf52a1fd292eb05a03d8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bbd01d24_aa26d00e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-06-17T14:09:18Z",
+      "side": 1,
+      "message": "Can you add more about which commits added this? Make clear this just removes the \\ (and doesn\u0027t actually add back autolinking (autolinking is still there)) ?\nE.g.\nCommits 2ebb968 and cb0d27e added an extra \\. This failed to disable autolinking. This commit removes that extra \\.",
+      "revId": "6ea8c798dcaae512a292cf52a1fd292eb05a03d8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
