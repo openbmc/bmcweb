@@ -1246,6 +1246,50 @@ inline void
 }
 
 /**
+ * @brief Stop Boot On Fault over DBUS.
+ *
+ * @param[in] aResp     Shared pointer for generating response message.
+ *
+ * @return None.
+ */
+inline void getStopBootOnFault(const std::shared_ptr<bmcweb::AsyncResp>& aResp)
+{
+    BMCWEB_LOG_DEBUG << "Get Stop Boot On Fault";
+
+    crow::connections::systemBus->async_method_call(
+        [aResp](const boost::system::error_code ec,
+                std::variant<bool>& quiesceOnHwError) {
+            if (ec)
+            {
+                BMCWEB_LOG_DEBUG << "DBUS response error " << ec;
+                return;
+            }
+
+            const bool* quiesceOnHwErrorPtr =
+                std::get_if<bool>(&quiesceOnHwError);
+
+            if (!quiesceOnHwErrorPtr)
+            {
+                messages::internalError(aResp->res);
+                return;
+            }
+
+            BMCWEB_LOG_DEBUG << "Stop Boot On Fault: " << *quiesceOnHwErrorPtr;
+            if (*quiesceOnHwErrorPtr == true)
+            {
+                aResp->res.jsonValue["Boot"]["StopBootOnFault"] = "AnyFault";
+            }
+            else
+            {
+                aResp->res.jsonValue["Boot"]["StopBootOnFault"] = "Never";
+            }
+        },
+        "xyz.openbmc_project.Settings", "/xyz/openbmc_project/logging/settings",
+        "org.freedesktop.DBus.Properties", "Get",
+        "xyz.openbmc_project.Logging.Settings", "QuiesceOnHwError");
+}
+
+/**
  * @brief Sets boot properties into DBUS object(s).
  *
  * @param[in] aResp           Shared pointer for generating response message.
@@ -1536,6 +1580,44 @@ inline void setAutomaticRetry(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
         "org.freedesktop.DBus.Properties", "Set",
         "xyz.openbmc_project.Control.Boot.RebootPolicy", "AutoReboot",
         std::variant<bool>(autoRebootEnabled));
+}
+
+/**
+ * @brief Sets automaticRetry (Auto Reboot)
+ *
+ * @param[in] aResp   Shared pointer for generating response message.
+ * @param[in] automaticRetryConfig  "AutomaticRetryConfig" from request.
+ *
+ * @return None.
+ */
+inline void setStopBootOnFault(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
+                               const std::string& autostopBootOnFault)
+{
+    BMCWEB_LOG_DEBUG << "Set Stop Boot On Fault.";
+
+    bool autoStopBootEnabled;
+
+    if (autostopBootOnFault == "AnyFault")
+    {
+        autoStopBootEnabled = true;
+    }
+    else if (autostopBootOnFault == "Never")
+    {
+        autoStopBootEnabled = false;
+    }
+
+    crow::connections::systemBus->async_method_call(
+        [aResp](const boost::system::error_code ec) {
+            if (ec)
+            {
+                messages::internalError(aResp->res);
+                return;
+            }
+        },
+        "xyz.openbmc_project.Settings", "/xyz/openbmc_project/logging/settings",
+        "org.freedesktop.DBus.Properties", "Set",
+        "xyz.openbmc_project.Logging.Settings", "QuiesceOnHwError",
+        std::variant<bool>(autoStopBootEnabled));
 }
 
 /**
@@ -2068,7 +2150,7 @@ inline void requestRoutesSystems(App& app)
                 get)([](const crow::Request&,
                         const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
             asyncResp->res.jsonValue["@odata.type"] =
-                "#ComputerSystem.v1_13_0.ComputerSystem";
+                "#ComputerSystem.v1_15_0.ComputerSystem";
             asyncResp->res.jsonValue["Name"] = "system";
             asyncResp->res.jsonValue["Id"] = "system";
             asyncResp->res.jsonValue["SystemType"] = "Physical";
@@ -2151,6 +2233,7 @@ inline void requestRoutesSystems(App& app)
             getPCIeDeviceList(asyncResp, "PCIeDevices");
             getHostWatchdogTimer(asyncResp);
             getPowerRestorePolicy(asyncResp);
+            getStopBootOnFault(asyncResp);
             getAutomaticRetry(asyncResp);
             getLastResetTime(asyncResp);
 #ifdef BMCWEB_ENABLE_REDFISH_PROVISIONING_FEATURE
@@ -2205,12 +2288,14 @@ inline void requestRoutesSystems(App& app)
                     std::optional<std::string> bootSource;
                     std::optional<std::string> bootEnable;
                     std::optional<std::string> automaticRetryConfig;
+                    std::optional<std::string> stopBootOnFault;
 
                     if (!json_util::readJson(
                             *bootProps, asyncResp->res,
                             "BootSourceOverrideTarget", bootSource,
                             "BootSourceOverrideEnabled", bootEnable,
-                            "AutomaticRetryConfig", automaticRetryConfig))
+                            "AutomaticRetryConfig", automaticRetryConfig,
+                            "StopBootOnFault", stopBootOnFault))
                     {
                         return;
                     }
@@ -2223,6 +2308,10 @@ inline void requestRoutesSystems(App& app)
                     if (automaticRetryConfig)
                     {
                         setAutomaticRetry(asyncResp, *automaticRetryConfig);
+                    }
+                    if (stopBootOnFault)
+                    {
+                        setStopBootOnFault(asyncResp, *stopBootOnFault);
                     }
                 }
 
