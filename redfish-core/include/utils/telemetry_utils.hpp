@@ -18,7 +18,6 @@ namespace telemetry
 {
 constexpr const char* service = "xyz.openbmc_project.Telemetry";
 constexpr const char* reportInterface = "xyz.openbmc_project.Telemetry.Report";
-
 inline std::string getDbusReportPath(const std::string& id)
 {
     sdbusplus::message::object_path reportsPath(
@@ -40,7 +39,7 @@ struct IncorrectMetricUri
 };
 
 inline std::optional<IncorrectMetricUri> getChassisSensorNode(
-    const std::vector<std::string>& uris,
+    std::span<const std::string> uris,
     boost::container::flat_set<std::pair<std::string, std::string>>& matched)
 {
     size_t uriIdx = 0;
@@ -87,6 +86,72 @@ inline std::optional<IncorrectMetricUri> getChassisSensorNode(
         return std::make_optional<IncorrectMetricUri>({uri, uriIdx});
     }
     return std::nullopt;
+}
+
+inline std::string toRedfishCollectionFunction(std::string_view dbusValue)
+{
+    if (dbusValue ==
+        "xyz.openbmc_project.Telemetry.Report.OperationType.Maximum")
+    {
+        return "Maximum";
+    }
+    if (dbusValue ==
+        "xyz.openbmc_project.Telemetry.Report.OperationType.Minimum")
+    {
+        return "Minimum";
+    }
+    if (dbusValue ==
+        "xyz.openbmc_project.Telemetry.Report.OperationType.Average")
+    {
+        return "Average";
+    }
+    if (dbusValue ==
+        "xyz.openbmc_project.Telemetry.Report.OperationType.Summation")
+    {
+        return "Summation";
+    }
+    return "";
+}
+
+inline std::string toDbusCollectionFunction(std::string_view redfishValue)
+{
+    if (redfishValue == "Maximum")
+    {
+        return "xyz.openbmc_project.Telemetry.Report.OperationType.Maximum";
+    }
+    if (redfishValue == "Minimum")
+    {
+        return "xyz.openbmc_project.Telemetry.Report.OperationType.Minimum";
+    }
+    if (redfishValue == "Average")
+    {
+        return "xyz.openbmc_project.Telemetry.Report.OperationType.Average";
+    }
+    if (redfishValue == "Summation")
+    {
+        return "xyz.openbmc_project.Telemetry.Report.OperationType.Summation";
+    }
+    return "";
+}
+
+inline std::optional<std::vector<std::string>>
+    toRedfishCollectionFunctions(std::span<const std::string> dbusEnums)
+{
+    std::vector<std::string> redfishEnums;
+    redfishEnums.reserve(dbusEnums.size());
+
+    for (const auto& dbusValue : dbusEnums)
+    {
+        std::string redfishValue = toRedfishCollectionFunction(dbusValue);
+
+        if (redfishValue.empty())
+        {
+            return std::nullopt;
+        }
+
+        redfishEnums.emplace_back(redfishValue);
+    }
+    return redfishEnums;
 }
 
 } // namespace telemetry
