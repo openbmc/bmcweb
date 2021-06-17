@@ -94,6 +94,30 @@
       "revId": "26e0398362e10cd8541767eef67f0b572be3b8a4",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "92912c04_597c3db6",
+        "filename": "scripts/parse_registries.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2021-06-17T11:51:12Z",
+      "side": 1,
+      "message": "\u003e imagine claiming the output of \u0027ls\u0027 as copyrighted material\n\nThis is not really the appropriate analogy.\n\nFrom a copyright perspective, generated code is typically treated as a combined derivative work of both the template (this code) and the data fed into it.  Without any additional disclaimers, the generated code by default would have the licensing constraints of *both* those works.\n\nThis is why compilers, for example, have exceptions which clear the \"Target Code\" from the underlying license of the compiler.  For example: https://github.com/gcc-mirror/gcc/blob/master/COPYING.RUNTIME#L38\n\nPeople have raised similar questions to me w.r.t. the sdbusplus generators and I have given them this opinion as well (that the generated code is a derivative of both) but since the derivative code links against the sdbusplus Apache-licensed code, they\u0027re already subject to the Apache license anyhow, so this really adds no additional constraints on them.\n\nIn terms of the copyright header, like this, I\u0027ve chosen to not put it into the sdbusplus generated code because, in my opinion, the bulk of the unique IP for the derivative work comes from the input data (the YAML) and not from the template so I should not be inserting a copyright claim over their IP.\n\nHaving said all that, I\u0027d prefer it to be removed here as well.",
+      "parentUuid": "8487c791_e8d4012d",
+      "range": {
+        "startLine": 17,
+        "startChar": 22,
+        "endLine": 17,
+        "endChar": 41
+      },
+      "revId": "26e0398362e10cd8541767eef67f0b572be3b8a4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
