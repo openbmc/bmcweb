@@ -87,6 +87,24 @@
       "revId": "d87af8432401d531ba71067dfe7ee8e3f7fcf651",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bc527af9_e2ae3242",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 489,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2021-06-17T17:01:13Z",
+      "side": 1,
+      "message": "ah, sounds good. Thanks.\n\nI think I will do \n\n```\nOpenBmc.0.2.DriveError\n```\n\nthen.",
+      "parentUuid": "fca2b1d1_c6bddfbb",
+      "revId": "d87af8432401d531ba71067dfe7ee8e3f7fcf651",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
