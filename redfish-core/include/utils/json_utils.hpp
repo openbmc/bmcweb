@@ -591,5 +591,41 @@ bool readJsonAction(const crow::Request& req, crow::Response& res,
     return readJson(jsonRequest, res, key, std::forward<UnpackTypes&&>(in)...);
 }
 
+template <typename T>
+inline std::optional<T> toEnum(const std::optional<std::string>& input)
+{
+    if (!input)
+    {
+        return std::nullopt;
+    }
+
+    T result = T::Invalid;
+
+    nlohmann::json tmp = *input;
+    from_json(tmp, result);
+
+    return result;
+}
+
+template <typename T>
+inline std::optional<std::vector<T>>
+    toEnum(const std::optional<std::vector<std::string>>& input)
+{
+    if (!input)
+    {
+        return std::nullopt;
+    }
+
+    std::vector<T> result;
+
+    for (std::string_view item : *input)
+    {
+        nlohmann::json tmp = item;
+        from_json(tmp, result.emplace_back(T::Invalid));
+    }
+
+    return result;
+}
+
 } // namespace json_util
 } // namespace redfish
