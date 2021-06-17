@@ -87,6 +87,24 @@
       "revId": "e8a3ac4c43c2487bdd14c483bb2763f85984cd35",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1bce075a_4a774e19",
+        "filename": "include/authorization.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2021-06-17T16:29:35Z",
+      "side": 1,
+      "message": "I got that, see an issue having async method call to get user role as this method returns session. it may need some restructuring.\n\n\n\" Ideally this information would come from PAM\"-\u003e you mean we don\u0027t need read user role here?",
+      "parentUuid": "c5a27671_aa545849",
+      "revId": "e8a3ac4c43c2487bdd14c483bb2763f85984cd35",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
