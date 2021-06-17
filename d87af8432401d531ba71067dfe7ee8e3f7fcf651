@@ -69,6 +69,24 @@
       "revId": "d87af8432401d531ba71067dfe7ee8e3f7fcf651",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fca2b1d1_c6bddfbb",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 489,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2021-06-17T16:54:31Z",
+      "side": 1,
+      "message": "The registry names are in https://github.com/openbmc/bmcweb/tree/master/redfish-core/include/registries",
+      "parentUuid": "f535e049_2ccf5126",
+      "revId": "d87af8432401d531ba71067dfe7ee8e3f7fcf651",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
