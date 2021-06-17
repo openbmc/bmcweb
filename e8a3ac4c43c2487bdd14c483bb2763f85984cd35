@@ -69,6 +69,24 @@
       "revId": "e8a3ac4c43c2487bdd14c483bb2763f85984cd35",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c5a27671_aa545849",
+        "filename": "include/authorization.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-06-17T15:53:09Z",
+      "side": 1,
+      "message": "What input are you looking for?  Blocking calls are disallowed for good reason.  Ideally this information would come from PAM.",
+      "parentUuid": "d1772947_6b36e085",
+      "revId": "e8a3ac4c43c2487bdd14c483bb2763f85984cd35",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
