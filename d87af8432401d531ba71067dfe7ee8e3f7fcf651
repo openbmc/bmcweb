@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "172b4ec8_b7784494",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 10
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-06-17T14:41:51Z",
+      "side": 1,
+      "message": "Can you explain this more? Seems like you are using Redfish Conditions. Can you explain those and how you are using the link in Conditions ? I think of Conditions as an array of Messages, seems you are using it pretty differently than I would expect.",
+      "revId": "d87af8432401d531ba71067dfe7ee8e3f7fcf651",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6984197a_1928fc5e",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 489,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-06-17T14:41:51Z",
+      "side": 1,
+      "message": "Shouldn\u0027t this be like a OpenBMC Message? Or a Redfish Message?",
+      "revId": "d87af8432401d531ba71067dfe7ee8e3f7fcf651",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
