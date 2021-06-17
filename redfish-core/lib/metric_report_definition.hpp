@@ -18,42 +18,64 @@ namespace redfish
 namespace telemetry
 {
 
-using ReadingParameters =
-    std::vector<std::tuple<sdbusplus::message::object_path, std::string,
-                           std::string, std::string>>;
+using ReadingParameters = std::vector<std::tuple<
+    std::vector<std::tuple<sdbusplus::message::object_path, std::string>>,
+    std::string, std::string, std::string, uint64_t>>;
+
+std::string toReadfishReportAction(std::string_view action)
+{
+    if (action == "EmitsReadingsUpdate")
+    {
+        return "RedfishEvent";
+    }
+    if (action == "LogToMetricReportsCollection")
+    {
+        return "LogToMetricReportsCollection";
+    }
+    return "";
+}
+
+std::string toDbusReportAction(std::string_view action)
+{
+    if (action == "RedfishEvent")
+    {
+        return "EmitsReadingsUpdate";
+    }
+    if (action == "LogToMetricReportsCollection")
+    {
+        return "LogToMetricReportsCollection";
+    }
+    return "";
+}
 
 inline void fillReportDefinition(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp, const std::string& id,
     const std::vector<std::pair<std::string, dbus::utility::DbusVariantType>>&
-        ret)
+        properties)
 {
-    asyncResp->res.jsonValue["@odata.type"] =
-        "#MetricReportDefinition.v1_3_0.MetricReportDefinition";
-    asyncResp->res.jsonValue["@odata.id"] =
-        telemetry::metricReportDefinitionUri + std::string("/") + id;
-    asyncResp->res.jsonValue["Id"] = id;
-    asyncResp->res.jsonValue["Name"] = id;
-    asyncResp->res.jsonValue["MetricReport"]["@odata.id"] =
-        telemetry::metricReportUri + std::string("/") + id;
-    asyncResp->res.jsonValue["Status"]["State"] = "Enabled";
-    asyncResp->res.jsonValue["ReportUpdates"] = "Overwrite";
-
-    const bool* emitsReadingsUpdate = nullptr;
-    const bool* logToMetricReportsCollection = nullptr;
+    const std::vector<std::string>* reportActions = nullptr;
     const ReadingParameters* readingParams = nullptr;
     const std::string* reportingType = nullptr;
+    const std::string* reportUpdates = nullptr;
+    const std::string* name = nullptr;
+    const uint64_t* appendLimit = nullptr;
     const uint64_t* interval = nullptr;
-    for (const auto& [key, var] : ret)
+
+    for (const auto& [key, var] : properties)
     {
-        if (key == "EmitsReadingsUpdate")
+        if (key == "ReportActions")
         {
-            emitsReadingsUpdate = std::get_if<bool>(&var);
+            reportActions = std::get_if<std::vector<std::string>>(&var);
         }
-        else if (key == "LogToMetricReportsCollection")
+        else if (key == "ReportUpdates")
         {
-            logToMetricReportsCollection = std::get_if<bool>(&var);
+            reportUpdates = std::get_if<std::string>(&var);
         }
-        else if (key == "ReadingParameters")
+        else if (key == "AppendLimit")
+        {
+            appendLimit = std::get_if<uint64_t>(&var);
+        }
+        else if (key == "ReadingParametersFutureVersion")
         {
             readingParams = std::get_if<ReadingParameters>(&var);
         }
@@ -65,10 +87,15 @@ inline void fillReportDefinition(
         {
             interval = std::get_if<uint64_t>(&var);
         }
+        else if (key == "Name")
+        {
+            name = std::get_if<std::string>(&var);
+        }
     }
-    if (emitsReadingsUpdate == nullptr ||
-        logToMetricReportsCollection == nullptr || readingParams == nullptr ||
-        reportingType == nullptr || interval == nullptr)
+
+    if (reportActions == nullptr || readingParams == nullptr ||
+        reportingType == nullptr || reportUpdates == nullptr ||
+        name == nullptr || appendLimit == nullptr || interval == nullptr)
     {
         BMCWEB_LOG_ERROR << "Property type mismatch or property is missing";
         messages::internalError(asyncResp->res);
@@ -76,62 +103,96 @@ inline void fillReportDefinition(
     }
 
     std::vector<std::string> redfishReportActions;
-    redfishReportActions.reserve(2);
-    if (*emitsReadingsUpdate)
+
+    for (const std::string& action : *reportActions)
     {
-        redfishReportActions.emplace_back("RedfishEvent");
-    }
-    if (*logToMetricReportsCollection)
-    {
-        redfishReportActions.emplace_back("LogToMetricReportsCollection");
+        std::string redfishAction = toReadfishReportAction(action);
+
+        if (redfishAction.empty())
+        {
+            messages::internalError(asyncResp->res);
+            return;
+        }
+
+        redfishReportActions.emplace_back(std::move(redfishAction));
     }
 
     nlohmann::json metrics = nlohmann::json::array();
-    for (const auto& [sensorPath, operationType, id, metadata] : *readingParams)
+    for (auto& [sensorData, collectionFunction, id, collectionTimeScope,
+                collectionDuration] : *readingParams)
     {
-        metrics.push_back({
-            {"MetricId", id},
-            {"MetricProperties", {metadata}},
-        });
+        std::vector<std::string> metricProperties;
+
+        for (const auto& [sensorPath, sensorMetadata] : sensorData)
+        {
+            metricProperties.emplace_back(sensorMetadata);
+        }
+
+        metrics.push_back({{"MetricId", id},
+                           {"MetricProperties", std::move(metricProperties)},
+                           {"CollectionFunction", collectionFunction},
+                           {"CollectionDuration",
+                            time_utils::toDurationString(
+                                std::chrono::milliseconds(collectionDuration))},
+                           {"CollectionTimeScope", collectionTimeScope}});
     }
+
+    asyncResp->res.jsonValue["@odata.type"] =
+        "#MetricReportDefinition.v1_3_0.MetricReportDefinition";
+    asyncResp->res.jsonValue["@odata.id"] =
+        telemetry::metricReportDefinitionUri + std::string("/") + id;
+    asyncResp->res.jsonValue["Id"] = id;
+    asyncResp->res.jsonValue["Name"] = *name;
+    asyncResp->res.jsonValue["MetricReport"]["@odata.id"] =
+        telemetry::metricReportUri + std::string("/") + id;
+    asyncResp->res.jsonValue["Status"]["State"] = "Enabled";
+    asyncResp->res.jsonValue["ReportUpdates"] = *reportUpdates;
+    asyncResp->res.jsonValue["AppendLimit"] = *appendLimit;
     asyncResp->res.jsonValue["Metrics"] = metrics;
     asyncResp->res.jsonValue["MetricReportDefinitionType"] = *reportingType;
-    asyncResp->res.jsonValue["ReportActions"] = redfishReportActions;
+    asyncResp->res.jsonValue["ReportActions"] = std::move(redfishReportActions);
     asyncResp->res.jsonValue["Schedule"]["RecurrenceInterval"] =
         time_utils::toDurationString(std::chrono::milliseconds(*interval));
 }
 
 struct AddReportArgs
 {
-    std::string name;
+    struct MetricArgs
+    {
+        std::string id;
+        std::vector<std::string> uris;
+        std::optional<std::string> collectionFunction;
+        std::optional<std::string> collectionTimeScope;
+        std::optional<uint64_t> collectionDuration;
+    };
+
+    std::optional<std::string> id;
+    std::optional<std::string> name;
     std::string reportingType;
-    bool emitsReadingsUpdate = false;
-    bool logToMetricReportsCollection = false;
+    std::optional<std::string> reportUpdates;
+    std::optional<uint64_t> appendLimit;
+    std::vector<std::string> reportActions;
     uint64_t interval = 0;
-    std::vector<std::pair<std::string, std::vector<std::string>>> metrics;
+    std::vector<MetricArgs> metrics;
 };
 
 inline bool toDbusReportActions(crow::Response& res,
-                                std::vector<std::string>& actions,
+                                const std::vector<std::string>& actions,
                                 AddReportArgs& args)
 {
     size_t index = 0;
-    for (auto& action : actions)
+    for (const auto& action : actions)
     {
-        if (action == "RedfishEvent")
-        {
-            args.emitsReadingsUpdate = true;
-        }
-        else if (action == "LogToMetricReportsCollection")
-        {
-            args.logToMetricReportsCollection = true;
-        }
-        else
+        std::string dbusReportAction = toDbusReportAction(action);
+
+        if (dbusReportAction.empty())
         {
             messages::propertyValueNotInList(
                 res, action, "ReportActions/" + std::to_string(index));
             return false;
         }
+
+        args.reportActions.emplace_back(std::move(dbusReportAction));
         index++;
     }
     return true;
@@ -143,27 +204,17 @@ inline bool getUserParameters(crow::Response& res, const crow::Request& req,
     std::vector<nlohmann::json> metrics;
     std::vector<std::string> reportActions;
     std::optional<nlohmann::json> schedule;
-    if (!json_util::readJsonPatch(req, res, "Id", args.name, "Metrics", metrics,
-                                  "MetricReportDefinitionType",
-                                  args.reportingType, "ReportActions",
-                                  reportActions, "Schedule", schedule))
+    if (!json_util::readJsonPatch(
+            req, res, "Id", args.id, "Name", args.name, "Metrics", metrics,
+            "MetricReportDefinitionType", args.reportingType, "ReportUpdates",
+            args.reportUpdates, "AppendLimit", args.appendLimit,
+            "ReportActions", reportActions, "Schedule", schedule))
     {
         return false;
     }
 
-    constexpr const char* allowedCharactersInName =
-        "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_";
-    if (args.name.empty() || args.name.find_first_not_of(
-                                 allowedCharactersInName) != std::string::npos)
-    {
-        BMCWEB_LOG_ERROR << "Failed to match " << args.name
-                         << " with allowed character "
-                         << allowedCharactersInName;
-        messages::propertyValueIncorrect(res, "Id", args.name);
-        return false;
-    }
-
-    if (args.reportingType != "Periodic" && args.reportingType != "OnRequest")
+    if (args.reportingType != "Periodic" && args.reportingType != "OnRequest" &&
+        args.reportingType != "OnChange")
     {
         messages::propertyValueNotInList(res, args.reportingType,
                                          "MetricReportDefinitionType");
@@ -204,15 +255,35 @@ inline bool getUserParameters(crow::Response& res, const crow::Request& req,
     args.metrics.reserve(metrics.size());
     for (auto& m : metrics)
     {
-        std::string id;
-        std::vector<std::string> uris;
-        if (!json_util::readJson(m, res, "MetricId", id, "MetricProperties",
-                                 uris))
+        std::optional<std::string> collectionDurationStr;
+        AddReportArgs::MetricArgs metricArgs;
+        if (!json_util::readJson(
+                m, res, "MetricId", metricArgs.id, "MetricProperties",
+                metricArgs.uris, "CollectionFunction",
+                metricArgs.collectionFunction, "CollectionTimeScope",
+                metricArgs.collectionTimeScope, "CollectionDuration",
+                collectionDurationStr))
         {
             return false;
         }
 
-        args.metrics.emplace_back(std::move(id), std::move(uris));
+        if (collectionDurationStr)
+        {
+            std::optional<std::chrono::milliseconds> duration =
+                time_utils::fromDurationString(*collectionDurationStr);
+
+            if (!duration || duration->count() < 0)
+            {
+                messages::propertyValueIncorrect(res, "CollectionDuration",
+                                                 *collectionDurationStr);
+                return false;
+            }
+
+            metricArgs.collectionDuration =
+                static_cast<uint64_t>(duration->count());
+        }
+
+        args.metrics.emplace_back(std::move(metricArgs));
     }
 
     return true;
@@ -220,15 +291,14 @@ inline bool getUserParameters(crow::Response& res, const crow::Request& req,
 
 inline bool getChassisSensorNode(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-    const std::vector<std::pair<std::string, std::vector<std::string>>>&
-        metrics,
+    const std::vector<AddReportArgs::MetricArgs>& metrics,
     boost::container::flat_set<std::pair<std::string, std::string>>& matched)
 {
-    for (const auto& [id, uris] : metrics)
+    for (const auto& metric : metrics)
     {
-        for (size_t i = 0; i < uris.size(); i++)
+        for (size_t i = 0; i < metric.uris.size(); i++)
         {
-            const std::string& uri = uris[i];
+            const std::string& uri = metric.uris[i];
             std::string chassis;
             std::string node;
 
@@ -273,11 +343,16 @@ class AddReport
         telemetry::ReadingParameters readingParams;
         readingParams.reserve(args.metrics.size());
 
-        for (const auto& [id, uris] : args.metrics)
+        for (auto& metric : args.metrics)
         {
-            for (size_t i = 0; i < uris.size(); i++)
+            std::vector<
+                std::tuple<sdbusplus::message::object_path, std::string>>
+                sensorParams;
+            sensorParams.reserve(metric.uris.size());
+
+            for (size_t i = 0; i < metric.uris.size(); i++)
             {
-                const std::string& uri = uris[i];
+                const std::string& uri = metric.uris[i];
                 auto el = uriToDbus.find(uri);
                 if (el == uriToDbus.end())
                 {
@@ -291,17 +366,23 @@ class AddReport
                 }
 
                 const std::string& dbusPath = el->second;
-                readingParams.emplace_back(dbusPath, "SINGLE", id, uri);
+                sensorParams.emplace_back(dbusPath, uri);
             }
+
+            readingParams.emplace_back(
+                std::move(sensorParams), metric.collectionFunction.value_or(""),
+                std::move(metric.id), metric.collectionTimeScope.value_or(""),
+                metric.collectionDuration.value_or(0U));
         }
         const std::shared_ptr<bmcweb::AsyncResp> aResp = asyncResp;
         crow::connections::systemBus->async_method_call(
-            [aResp, name = args.name, uriToDbus = std::move(uriToDbus)](
+            [aResp, id = args.id.value_or(""),
+             uriToDbus = std::move(uriToDbus)](
                 const boost::system::error_code ec, const std::string&) {
                 if (ec == boost::system::errc::file_exists)
                 {
                     messages::resourceAlreadyExists(
-                        aResp->res, "MetricReportDefinition", "Id", name);
+                        aResp->res, "MetricReportDefinition", "Id", id);
                     return;
                 }
                 if (ec == boost::system::errc::too_many_files_open)
@@ -331,10 +412,12 @@ class AddReport
                 messages::created(aResp->res);
             },
             telemetry::service, "/xyz/openbmc_project/Telemetry/Reports",
-            "xyz.openbmc_project.Telemetry.ReportManager", "AddReport",
-            "TelemetryService/" + args.name, args.reportingType,
-            args.emitsReadingsUpdate, args.logToMetricReportsCollection,
-            args.interval, readingParams);
+            "xyz.openbmc_project.Telemetry.ReportManager",
+            "AddReportFutureVersion",
+            "TelemetryService/" + args.id.value_or(""), args.name.value_or(""),
+            args.reportingType, args.reportUpdates.value_or("Overwrite"),
+            args.appendLimit.value_or(0), args.reportActions, args.interval,
+            readingParams);
     }
 
     AddReport(const AddReport&) = delete;
@@ -429,10 +512,10 @@ inline void requestRoutesMetricReportDefinition(App& app)
                const std::string& id) {
                 crow::connections::systemBus->async_method_call(
                     [asyncResp,
-                     id](const boost::system::error_code ec,
+                     id](boost::system::error_code ec,
                          const std::vector<std::pair<
                              std::string, dbus::utility::DbusVariantType>>&
-                             ret) {
+                             properties) {
                         if (ec.value() == EBADR ||
                             ec == boost::system::errc::host_unreachable)
                         {
@@ -447,12 +530,14 @@ inline void requestRoutesMetricReportDefinition(App& app)
                             return;
                         }
 
-                        telemetry::fillReportDefinition(asyncResp, id, ret);
+                        telemetry::fillReportDefinition(asyncResp, id,
+                                                        properties);
                     },
                     telemetry::service, telemetry::getDbusReportPath(id),
                     "org.freedesktop.DBus.Properties", "GetAll",
                     telemetry::reportInterface);
             });
+
     BMCWEB_ROUTE(app,
                  "/redfish/v1/TelemetryService/MetricReportDefinitions/<str>/")
         .privileges(redfish::privileges::deleteMetricReportDefinitionCollection)
