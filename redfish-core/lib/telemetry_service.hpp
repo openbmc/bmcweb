@@ -50,6 +50,7 @@ inline void handleTelemetryServiceGet(
 
         const size_t* maxReports = nullptr;
         const uint64_t* minInterval = nullptr;
+        const std::vector<std::string>* supportedCollectionFunctions = nullptr;
         for (const auto& [key, var] : ret)
         {
             if (key == "MaxReports")
@@ -59,6 +60,11 @@ inline void handleTelemetryServiceGet(
             else if (key == "MinInterval")
             {
                 minInterval = std::get_if<uint64_t>(&var);
+            }
+            else if (key == "SupportedOperationTypes")
+            {
+                supportedCollectionFunctions =
+                    std::get_if<std::vector<std::string>>(&var);
             }
         }
         if (maxReports == nullptr || minInterval == nullptr)
@@ -72,6 +78,12 @@ inline void handleTelemetryServiceGet(
         asyncResp->res.jsonValue["MinCollectionInterval"] =
             time_utils::toDurationString(
                 std::chrono::milliseconds(static_cast<time_t>(*minInterval)));
+
+        if (supportedCollectionFunctions != nullptr)
+        {
+            asyncResp->res.jsonValue["SupportedCollectionFunctions"] =
+                *supportedCollectionFunctions;
+        }
         },
         telemetry::service, "/xyz/openbmc_project/Telemetry/Reports",
         "org.freedesktop.DBus.Properties", "GetAll",
