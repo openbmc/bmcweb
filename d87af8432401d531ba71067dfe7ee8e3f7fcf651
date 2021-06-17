@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "229a2ab1_9d0d5326",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 10
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2021-06-17T15:27:37Z",
+      "side": 1,
+      "message": "ok, sounds good. I have added some more info. please take a look.\n\nI think the main issue I had with Conditions is that how do we (if we actually do it in bmcweb) configure the messages in Condition?\n\nI am using LogEntry... because it allows us to use the Log Entry d-bus API to setup the messages.",
+      "parentUuid": "172b4ec8_b7784494",
+      "revId": "d87af8432401d531ba71067dfe7ee8e3f7fcf651",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "6984197a_1928fc5e",
         "filename": "redfish-core/lib/storage.hpp",
         "patchSetId": 10
