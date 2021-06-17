@@ -2,6 +2,40 @@
   "comments": [
     {
       "key": {
+        "uuid": "44feaa8f_e407a342",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 9
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1000235
+      },
+      "writtenOn": "2021-06-17T16:34:59Z",
+      "side": 1,
+      "message": "Can you show which one will have trouble and explain.  I think I need education here.\nFor this commit, I think the answer is that code would stay the same (and continue to work as before).",
+      "revId": "743dcac8fe97273922b2643425506e72d88e34e9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b6e74b43_8e85e8fc",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 9
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1000235
+      },
+      "writtenOn": "2021-06-17T16:34:59Z",
+      "side": 1,
+      "message": "We can check the binary when we test.  I expect unused constants to be removed.",
+      "revId": "743dcac8fe97273922b2643425506e72d88e34e9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "8c047981_98f3df2b",
         "filename": "/COMMIT_MSG",
         "patchSetId": 9
@@ -48,6 +82,24 @@
       "side": 1,
       "message": "Ack",
       "parentUuid": "95844e46_0831000a",
+      "revId": "743dcac8fe97273922b2643425506e72d88e34e9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6b6c7344_10a153c3",
+        "filename": "redfish-core/include/registries/privilege_registry.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1000235
+      },
+      "writtenOn": "2021-06-17T16:34:59Z",
+      "side": 1,
+      "message": "Are you asking why we need to indirection (a const defined by another const)?\n\nI prefer for this file to provide the mapping from {verb+RedfishType} to privilegeSet so we can use the const names (which are defined in this section) in the code which implements the methods.",
+      "parentUuid": "c9236473_c9cf9389",
       "revId": "743dcac8fe97273922b2643425506e72d88e34e9",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": false

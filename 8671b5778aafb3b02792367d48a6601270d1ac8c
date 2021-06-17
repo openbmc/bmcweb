@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "765dc544_491bd9e0",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1000235
+      },
+      "writtenOn": "2021-06-17T16:34:59Z",
+      "side": 1,
+      "message": "This approach works for me, but I\u0027m not clear on the development process to customize the meta-layers:\n- Upstream custom meta-layers can supply their own custom \"Redfish_1.1.0_PrivilegeRegistry.json\" file and manually run the parse_registries.py tool on it to create the privilege_registry.hpp file.\n- Would my meta-layer (bmcweb.bbappend) patch the json file, or patch the privilege_registry.hpp file?\n- When Redfish updates the PrivilegeRegistry.json and BMCWeb updates privilege_registry.hpp, how should the OpenBMC upstream meta-layers adapt?  I\u0027m a bit lost here.  You mentioned a json patch, but the json is not consumed by the bitbake build process.  Will you please explain the development steps you foresee.\n\nI believe the basic approach for upstream would also work for my downstream needs, so agreed, we only need to discuss upstream.",
+      "parentUuid": "e1a329bb_f30f2045",
+      "revId": "8671b5778aafb3b02792367d48a6601270d1ac8c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d4dadd56_456e48c4",
         "filename": "/COMMIT_MSG",
         "patchSetId": 8
@@ -66,6 +84,24 @@
       "side": 1,
       "message": "\u003e Here is my view how to handle overrides (see Redfish DSP0266 \"Mapping overrides syntax\"):\n\u003e \n\u003e Property override:\n\u003e - Redfish \"property overrides\" are more granular than BMC\u0027s privilege checking which is at the URI+verb level.\n\u003e - The current Redfish PrivilegeRegistry 1.1.0 specifies a ManagerAccount Password property override: https://redfish.dmtf.org/registries/Redfish_1.1.0_PrivilegeRegistry.json \n\u003e - Property overrides are handled in BMCWeb code https://github.com/ibm-openbmc/bmcweb/blob/master/redfish-core/lib/account_service.hpp by two items working together:\n\u003e - 1. The verb handler specifies an overly permissive privilege for the URI+verb.  (It includes ConfigureSelf.)  This allows the router to flow code into the verb handler so it can perform a more specific property check in item 2.\n\u003e - 2. The verb handler knows which properties were specified in the request, and it has a hand-coded check for the exact conditions (\"Perform a proper ConfigureSelf authority check\").  For example, it can perform the checks needed to implement the property override. \n\u003e - That\u0027s how it currently works.  I am okay with BMCWeb continuing to hand-code property overrides.  To continue like this, we would need to tweak the privilege set, for example, define a privilege set called `patchAccountServicePrivilege_withPropertyOverrides` which has the ConfigureSelf privilege.\n\u003e - If this seems correct, I can explain this better with code. \n\u003e \n\u003e Subordinate override\n\u003e - For example, these apply to an EthernetInterface when it is under a Manager.EthernetInterfaceCollection such as in URI /redfish/v1/Managers/bmc/EthernetInterfaces/eth0.\n\u003e - We need to model these per https://github.com/openbmc/bmcweb/issues/209.\n\u003e - I would like parse_registries.py to create a second privilege set for types which have subordinate overrides.  For example, it could create one called:  patchEthernetInterfacePrivilege_whenSubordinateTo_Manager_EthernetInterfaceCollection\n\u003e - Then the code can name this alternate privilege set.\n\u003e \n\u003e Resource URI override\n\u003e - I don\u0027t see any Resource URI overrides defined or in use.  If needed, these could be handled similarly to the subordinate overrides, with names like: patchSomeTypePrivilege_withURI_xyz\n\nSeems mostly reasonable.  I\u0027m thinking we\u0027ll get this patchset in to solve the 90% case, then have another patchset where we can design the Override cases, and deal with the fact that we got some of them wrong.",
       "parentUuid": "d4dadd56_456e48c4",
+      "revId": "8671b5778aafb3b02792367d48a6601270d1ac8c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9852e335_25a96d38",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1000235
+      },
+      "writtenOn": "2021-06-17T16:34:59Z",
+      "side": 1,
+      "message": "Merging this commit (with no support for overrides) works for me.  To make this happen:\n1. Apply privilegeSet constants (like those prototyped in account_service.hpp) across all (except see 1b) URI methods.\n1a. Ensure this changes results in no changes to the privilegeSets, or understand what is changing.\n1b. Except, identify priviegeSets implemented by BMCWeb which implement overrides.  Do not change these.\n2. Perform authority testing.",
+      "parentUuid": "4d927e49_20bea587",
       "revId": "8671b5778aafb3b02792367d48a6601270d1ac8c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
