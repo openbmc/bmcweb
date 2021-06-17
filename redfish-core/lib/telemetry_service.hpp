@@ -56,10 +56,12 @@ inline void handleTelemetryServiceGet(
 
         const size_t* maxReports = nullptr;
         const uint64_t* minInterval = nullptr;
+        const std::vector<std::string>* supportedCollectionFunctions = nullptr;
 
         const bool success = sdbusplus::unpackPropertiesNoThrow(
             dbus_utils::UnpackErrorPrinter(), ret, "MaxReports", maxReports,
-            "MinInterval", minInterval);
+            "MinInterval", minInterval, "SupportedOperationTypes",
+            supportedCollectionFunctions);
 
         if (!success)
         {
@@ -77,6 +79,12 @@ inline void handleTelemetryServiceGet(
             asyncResp->res.jsonValue["MinCollectionInterval"] =
                 time_utils::toDurationString(std::chrono::milliseconds(
                     static_cast<time_t>(*minInterval)));
+        }
+
+        if (supportedCollectionFunctions != nullptr)
+        {
+            asyncResp->res.jsonValue["SupportedCollectionFunctions"] =
+                *supportedCollectionFunctions;
         }
         });
 }
