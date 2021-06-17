@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "9a72f91f_43e2fab3",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 3233,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2021-06-17T18:18:04Z",
+      "side": 1,
+      "message": "There are no fixed service that is exporting this log. So no specific information on the backend.\n\nI have set it up in a way that any service can export the log... as long as it is under `/xyz/openbmc_project/logging/devices/`.",
+      "parentUuid": "f6fa5bf6_651b1708",
+      "revId": "91736d638f30e474c43661181c2f6146776704be",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d3eca7d0_19122c07",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 9
@@ -30,6 +48,30 @@
       "writtenOn": "2021-06-17T18:01:50Z",
       "side": 1,
       "message": "Would it be good form to use AdditionalData to store the OemRecordFormat instead of having a whole other field for it?\n\nThis is just my naive observation as a non-BMC contributor. I\u0027m seeing that OemRecordFormat and EntryType break down the generic modelling of the record in Logging/Entry according to the discussion of https://gerrit.openbmc-project.xyz/c/openbmc/phosphor-dbus-interfaces/+/43831/. \n\nWhatever instance wants to produce an OEM log that they know will be consumed by bmcweb could populate AdditionalData[\"OemRecordFormat\"] and have that value be propagated. How does AdditionalData get used elsewhere in the codebase?",
+      "range": {
+        "startLine": 3355,
+        "startChar": 0,
+        "endLine": 3359,
+        "endChar": 33
+      },
+      "revId": "91736d638f30e474c43661181c2f6146776704be",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "144c2c21_545c60ee",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 3359,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2021-06-17T18:18:04Z",
+      "side": 1,
+      "message": "AdditionalData is not being used at all.\n\nAlso, can you link me the resource where AdditionalData is used in the redfish spec? I don\u0027t think LogEntry as it exactly how you described it. It has  `AdditionalDataURI`... but that links to something else that I am not sure what it is suppose to look like.",
+      "parentUuid": "d3eca7d0_19122c07",
       "range": {
         "startLine": 3355,
         "startChar": 0,
