@@ -106,6 +106,24 @@
     },
     {
       "key": {
+        "uuid": "68b0b0c4_3ad6e1b1",
+        "filename": "redfish-core/include/registries/privilege_registry.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1001099
+      },
+      "writtenOn": "2021-06-17T16:40:34Z",
+      "side": 1,
+      "message": "I get that little later 😄",
+      "parentUuid": "6b6c7344_10a153c3",
+      "revId": "743dcac8fe97273922b2643425506e72d88e34e9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fc1ace9e_ff392293",
         "filename": "scripts/parse_registries.py",
         "patchSetId": 9
