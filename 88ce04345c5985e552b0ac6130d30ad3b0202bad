@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "678e77ca_6c1049d1",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1307,
+      "author": {
+        "id": 1000238
+      },
+      "writtenOn": "2021-06-17T17:45:42Z",
+      "side": 1,
+      "message": "This change was supposed to be on line 1409",
+      "parentUuid": "56370f94_c9bc78f2",
+      "range": {
+        "startLine": 1307,
+        "startChar": 45,
+        "endLine": 1307,
+        "endChar": 67
+      },
+      "revId": "88ce04345c5985e552b0ac6130d30ad3b0202bad",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "86f62f87_8e786bdd",
         "filename": "redfish-core/lib/systems.hpp",
         "patchSetId": 2
