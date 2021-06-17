@@ -877,6 +877,7 @@ other.
 - MinCollectionInterval
 - Status
 - Triggers
+- SupportedCollectionFunctions
 
 ### /redfish/v1/TelemetryService/MetricReportDefinitions/
 
@@ -885,12 +886,38 @@ other.
 - Members
 - Members@odata.count
 
+### /redfish/v1/TelemetryService/MetricReportDefinitions/{MetricReportDefinitionId}/
+
+#### MetricReportDefinition
+
+ - AppendLimit
+ - Id
+ - MetricReport
+ - MetricReportDefinitionEnabled
+ - MetricReportDefinitionType
+ - Metrics
+ - Name
+ - ReportActions
+ - ReportUpdates
+ - Schedule
+ - Status
+
 ### /redfish/v1/TelemetryService/MetricReports/
 
 #### MetricReportCollection
 
 - Members
 - Members@odata.count
+
+### /redfish/v1/TelemetryService/MetricReports/{MetricReportId}/
+
+#### MetricReport
+
+ - Id
+ - MetricReportDefinition
+ - MetricValues
+ - Name
+ - Timestamp
 
 ### /redfish/v1/TelemetryService/Triggers/
 
