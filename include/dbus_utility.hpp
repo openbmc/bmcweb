@@ -50,8 +50,9 @@ using DbusVariantType = std::variant<
     std::vector<std::tuple<std::string, std::string>>,
     std::vector<std::tuple<uint32_t, std::vector<uint32_t>>>,
     std::vector<std::tuple<uint32_t, size_t>>,
-    std::vector<std::tuple<sdbusplus::message::object_path, std::string,
-                           std::string, std::string>>
+    std::vector<std::tuple<
+      std::vector<std::tuple<sdbusplus::message::object_path, std::string>>,
+      std::string, std::string, std::string, uint64_t>>
  >;
 
 // clang-format on
