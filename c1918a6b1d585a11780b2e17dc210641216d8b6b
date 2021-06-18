@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fa9de56e_1fac66df",
+        "filename": "http/utility.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 614,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-06-18T18:21:14Z",
+      "side": 1,
+      "message": "Please check your range before calling substr.  If size() returns 0, this will wrap around and throw an exception.",
+      "range": {
+        "startLine": 614,
+        "startChar": 0,
+        "endLine": 614,
+        "endChar": 66
+      },
+      "revId": "c1918a6b1d585a11780b2e17dc210641216d8b6b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
