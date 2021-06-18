@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6d4c2fb8_b8a7cbaa",
+        "filename": "include/sessions.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 198,
+      "author": {
+        "id": 1000235
+      },
+      "writtenOn": "2021-06-18T00:05:20Z",
+      "side": 1,
+      "message": "What is the recovery from this?  Restart bmcweb, or re-read all the users?\nI\u0027m just curious, not asking for a code change.",
+      "revId": "41e11d95b2acccb4e8d37864648ee989c9af2f6f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ee9fbc07_086d8e83",
+        "filename": "include/sessions.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 251,
+      "author": {
+        "id": 1000235
+      },
+      "writtenOn": "2021-06-18T00:05:20Z",
+      "side": 1,
+      "message": "Per agreement in the Feb 19 comments, can we enhance this cache the UserPasswordExpired property?  Then in routing.cpp, change the code to test if UserPasswordExpired\u003d\u003dtrue then that user\u0027s role doesn\u0027t figure into privilege calculations, and per Redfish spec DSP0266 \"Password change required handling\" BMCWeb should check authority as if the user had only the ConfigureSelf privilege.\nSee also https://github.com/openbmc/phosphor-user-manager/issues/9",
+      "revId": "41e11d95b2acccb4e8d37864648ee989c9af2f6f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
