@@ -34,6 +34,75 @@
       "revId": "91b246fe279041eda701a530f84151676504ad8b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "83f6686f_4fb051e3",
+        "filename": "redfish-core/include/utils/fw_utils.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-06-18T18:24:06Z",
+      "side": 1,
+      "message": "nit: declare where it\u0027s used please",
+      "range": {
+        "startLine": 21,
+        "startChar": 0,
+        "endLine": 22,
+        "endChar": 58
+      },
+      "revId": "91b246fe279041eda701a530f84151676504ad8b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3c5d0d75_d3f0c2e4",
+        "filename": "redfish-core/include/utils/fw_utils.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 438,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-06-18T18:24:06Z",
+      "side": 1,
+      "message": "We\u0027re reading a file from disk here, which means this will be a problem when we go to Resources eventing and caching (which is in review in some form).  Should this be exposed through dbus instead, in the same way we get the version information?  That seems less error prone, and would bifurcate the code less.",
+      "range": {
+        "startLine": 438,
+        "startChar": 18,
+        "endLine": 438,
+        "endChar": 23
+      },
+      "revId": "91b246fe279041eda701a530f84151676504ad8b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5e8ccedf_0dc8c0e2",
+        "filename": "redfish-core/lib/service_root.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-06-18T18:24:06Z",
+      "side": 1,
+      "message": "nit: std::move()",
+      "range": {
+        "startLine": 45,
+        "startChar": 58,
+        "endLine": 45,
+        "endChar": 68
+      },
+      "revId": "91b246fe279041eda701a530f84151676504ad8b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
