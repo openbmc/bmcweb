@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "7910d026_5cbc39ef",
+        "filename": "include/sessions.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 198,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-06-18T18:28:09Z",
+      "side": 1,
+      "message": "If we hit this branch, it means that the dbus signals were disobeyed (ie, we got a propertieschanged event, but never receieved an interfacesadded event).  There is no real recovery that I can think of aside from restarting phosphor-user-manager (or the whole bmc).",
+      "parentUuid": "6d4c2fb8_b8a7cbaa",
+      "revId": "41e11d95b2acccb4e8d37864648ee989c9af2f6f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "ee9fbc07_086d8e83",
         "filename": "include/sessions.hpp",
         "patchSetId": 8
