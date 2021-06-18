@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2775ad8a_aa0b182b",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 35
+      },
+      "lineNbr": 765,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-06-18T19:39:23Z",
+      "side": 1,
+      "message": "This needs to encode each section separately.  I suspect you need to capture dumpId separately, from dumpEntryPath, then only call encode on that.",
+      "range": {
+        "startLine": 765,
+        "startChar": 31,
+        "endLine": 765,
+        "endChar": 69
+      },
+      "revId": "9ba18a17d08ddf9144de70e3e9fe02c2bc5bf940",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
