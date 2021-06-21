@@ -63,6 +63,10 @@ inline void requestRoutesSession(App& app)
                 }
 
                 fillSessionObject(asyncResp->res, *session);
+                asyncResp->res.jsonValue["Status"] = {
+                    {"Health", "OK"},
+                    {"State", "Enabled"},
+                };
             });
 
     BMCWEB_ROUTE(app, "/redfish/v1/SessionService/Sessions/<str>/")
