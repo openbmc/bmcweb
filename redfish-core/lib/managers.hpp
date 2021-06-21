@@ -1682,6 +1682,159 @@ struct SetPIDValues : std::enable_shared_from_this<SetPIDValues>
     size_t objectCount = 0;
 };
 
+inline std::string getStateType(const std::string& stateType)
+{
+    if (stateType == "xyz.openbmc_project.State.Decorator.OperationalStatus."
+                     "StateType.Absent")
+    {
+        return "Absent";
+    }
+    if (stateType == "xyz.openbmc_project.State.Decorator.OperationalStatus."
+                     "StateType.Deferring")
+    {
+        return "Deferring";
+    }
+    if (stateType == "xyz.openbmc_project.State.Decorator.OperationalStatus."
+                     "StateType.Disabled")
+    {
+        return "Disabled";
+    }
+    if (stateType == "xyz.openbmc_project.State.Decorator.OperationalStatus."
+                     "StateType.Enabled")
+    {
+        return "Enabled";
+    }
+    if (stateType == "xyz.openbmc_project.State.Decorator.OperationalStatus."
+                     "StateType.StandbyOffline")
+    {
+        return "StandbyOffline";
+    }
+    if (stateType == "xyz.openbmc_project.State.Decorator.OperationalStatus."
+                     "StateType.Starting")
+    {
+        return "Starting";
+    }
+    if (stateType == "xyz.openbmc_project.State.Decorator.OperationalStatus."
+                     "StateType.UnavailableOffline")
+    {
+        return "UnavailableOffline";
+    }
+    if (stateType == "xyz.openbmc_project.State.Decorator.OperationalStatus."
+                     "StateType.Updating")
+    {
+        return "Updating";
+    }
+    // Unknown or others
+    return std::string();
+}
+
+/**
+ * @brief Retrieves manager service state data over DBus
+ *
+ * @param[in] aResp Shared pointer for completing asynchronous calls
+ * @param[in] connectionName - service name
+ * @param[in] path - object path
+ * @return none
+ */
+inline void getManagerState(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
+                            const std::string& connectionName,
+                            const std::string& path)
+{
+    BMCWEB_LOG_DEBUG << "Get manager service state.";
+
+    crow::connections::systemBus->async_method_call(
+        [aResp](const boost::system::error_code ec,
+                const std::vector<std::pair<
+                    std::string, std::variant<std::string>>>& propertiesList) {
+            if (ec)
+            {
+                BMCWEB_LOG_DEBUG << "Error in getting manager service state";
+                messages::internalError(aResp->res);
+                return;
+            }
+            for (const std::pair<std::string, std::variant<std::string>>&
+                     property : propertiesList)
+            {
+                if (property.first == "State")
+                {
+                    const std::string* value =
+                        std::get_if<std::string>(&property.second);
+                    if (value == nullptr)
+                    {
+                        BMCWEB_LOG_DEBUG << "Null value returned "
+                                            "for manager service state";
+                        messages::internalError(aResp->res);
+                        return;
+                    }
+                    std::string state = getStateType(*value);
+                    aResp->res.jsonValue["Status"]["State"] = state;
+                    if (state == "Enabled")
+                    {
+                        aResp->res.jsonValue["Status"]["Health"] = "OK";
+                    }
+                    else
+                    {
+                        aResp->res.jsonValue["Status"]["Health"] = "Critical";
+                    }
+                }
+            }
+        },
+        connectionName, path, "org.freedesktop.DBus.Properties", "GetAll",
+        "xyz.openbmc_project.State.Decorator.OperationalStatus");
+}
+
+/**
+ * @brief Retrieves BMC asset properties data over DBus
+ *
+ * @param[in] aResp Shared pointer for completing asynchronous calls
+ * @param[in] connectionName - service name
+ * @param[in] path - object path
+ * @return none
+ */
+inline void getBMCAssetData(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
+                            const std::string& connectionName,
+                            const std::string& path)
+{
+    BMCWEB_LOG_DEBUG << "Get BMC manager asset data.";
+    crow::connections::systemBus->async_method_call(
+        [aResp](const boost::system::error_code ec,
+                const std::vector<std::pair<
+                    std::string, std::variant<std::string>>>& propertiesList) {
+            if (ec)
+            {
+                BMCWEB_LOG_DEBUG << "Can't get bmc asset!";
+                messages::internalError(aResp->res);
+                return;
+            }
+            for (const std::pair<std::string, std::variant<std::string>>&
+                     property : propertiesList)
+            {
+                const std::string& propertyName = property.first;
+
+                if ((propertyName == "PartNumber") ||
+                    (propertyName == "SerialNumber") ||
+                    (propertyName == "Manufacturer") ||
+                    (propertyName == "Model") ||
+                    (propertyName == "SparePartNumber") ||
+                    (propertyName == "Name"))
+                {
+                    const std::string* value =
+                        std::get_if<std::string>(&property.second);
+                    if (value == nullptr)
+                    {
+                        // illegal property
+                        messages::internalError(aResp->res);
+                        return;
+                    }
+                    aResp->res.jsonValue[propertyName] = *value;
+                }
+            }
+        },
+        connectionName, path, "org.freedesktop.DBus.Properties", "GetAll",
+        "xyz.openbmc_project.Inventory.Decorator."
+        "Asset");
+}
+
 /**
  * @brief Retrieves BMC manager location data over DBus
  *
@@ -1922,268 +2075,322 @@ inline void requestRoutesManager(App& app)
 {
     std::string uuid = persistent_data::getConfig().systemUuid;
 
-    BMCWEB_ROUTE(app, "/redfish/v1/Managers/bmc/")
+    BMCWEB_ROUTE(app, "/redfish/v1/Managers/<str>/")
         .privileges({{"Login"}})
-        .methods(boost::beast::http::verb::get)([uuid](const crow::Request&,
-                                                       const std::shared_ptr<
-                                                           bmcweb::AsyncResp>&
-                                                           asyncResp) {
-            asyncResp->res.jsonValue["@odata.id"] = "/redfish/v1/Managers/bmc";
-            asyncResp->res.jsonValue["@odata.type"] =
-                "#Manager.v1_11_0.Manager";
-            asyncResp->res.jsonValue["Id"] = "bmc";
-            asyncResp->res.jsonValue["Name"] = "OpenBmc Manager";
-            asyncResp->res.jsonValue["Description"] =
-                "Baseboard Management Controller";
-            asyncResp->res.jsonValue["PowerState"] = "On";
-            asyncResp->res.jsonValue["Status"] = {{"State", "Enabled"},
-                                                  {"Health", "OK"}};
-            asyncResp->res.jsonValue["ManagerType"] = "BMC";
-            asyncResp->res.jsonValue["UUID"] = systemd_utils::getUuid();
-            asyncResp->res.jsonValue["ServiceEntryPointUUID"] = uuid;
-            asyncResp->res.jsonValue["Model"] =
-                "OpenBmc"; // TODO(ed), get model
+        .methods(
+            boost::beast::http::verb::
+                get)([uuid](const crow::Request&,
+                            const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                            const std::string& bmcId) {
+            if (bmcId == "bmc")
+            {
+                asyncResp->res.jsonValue["@odata.id"] =
+                    "/redfish/v1/Managers/bmc";
+                asyncResp->res.jsonValue["@odata.type"] =
+                    "#Manager.v1_11_0.Manager";
+                asyncResp->res.jsonValue["Id"] = "bmc";
+                asyncResp->res.jsonValue["Name"] = "OpenBmc Manager";
+                asyncResp->res.jsonValue["Description"] =
+                    "Baseboard Management Controller";
+                asyncResp->res.jsonValue["PowerState"] = "On";
+                asyncResp->res.jsonValue["Status"] = {{"State", "Enabled"},
+                                                      {"Health", "OK"}};
+                asyncResp->res.jsonValue["ManagerType"] = "BMC";
+                asyncResp->res.jsonValue["UUID"] = systemd_utils::getUuid();
+                asyncResp->res.jsonValue["ServiceEntryPointUUID"] = uuid;
+                asyncResp->res.jsonValue["Model"] =
+                    "OpenBmc"; // TODO(ed), get model
 
-            asyncResp->res.jsonValue["LogServices"] = {
-                {"@odata.id", "/redfish/v1/Managers/bmc/LogServices"}};
+                asyncResp->res.jsonValue["LogServices"] = {
+                    {"@odata.id", "/redfish/v1/Managers/bmc/LogServices"}};
 
-            asyncResp->res.jsonValue["NetworkProtocol"] = {
-                {"@odata.id", "/redfish/v1/Managers/bmc/NetworkProtocol"}};
+                asyncResp->res.jsonValue["NetworkProtocol"] = {
+                    {"@odata.id", "/redfish/v1/Managers/bmc/NetworkProtocol"}};
 
-            asyncResp->res.jsonValue["EthernetInterfaces"] = {
-                {"@odata.id", "/redfish/v1/Managers/bmc/EthernetInterfaces"}};
+                asyncResp->res.jsonValue["EthernetInterfaces"] = {
+                    {"@odata.id",
+                     "/redfish/v1/Managers/bmc/EthernetInterfaces"}};
 
 #ifdef BMCWEB_ENABLE_VM_NBDPROXY
-            asyncResp->res.jsonValue["VirtualMedia"] = {
-                {"@odata.id", "/redfish/v1/Managers/bmc/VirtualMedia"}};
+                asyncResp->res.jsonValue["VirtualMedia"] = {
+                    {"@odata.id", "/redfish/v1/Managers/bmc/VirtualMedia"}};
 #endif // BMCWEB_ENABLE_VM_NBDPROXY
 
-            // default oem data
-            nlohmann::json& oem = asyncResp->res.jsonValue["Oem"];
-            nlohmann::json& oemOpenbmc = oem["OpenBmc"];
-            oem["@odata.type"] = "#OemManager.Oem";
-            oem["@odata.id"] = "/redfish/v1/Managers/bmc#/Oem";
-            oemOpenbmc["@odata.type"] = "#OemManager.OpenBmc";
-            oemOpenbmc["@odata.id"] = "/redfish/v1/Managers/bmc#/Oem/OpenBmc";
-            oemOpenbmc["Certificates"] = {
-                {"@odata.id",
-                 "/redfish/v1/Managers/bmc/Truststore/Certificates"}};
+                // default oem data
+                nlohmann::json& oem = asyncResp->res.jsonValue["Oem"];
+                nlohmann::json& oemOpenbmc = oem["OpenBmc"];
+                oem["@odata.type"] = "#OemManager.Oem";
+                oem["@odata.id"] = "/redfish/v1/Managers/bmc#/Oem";
+                oemOpenbmc["@odata.type"] = "#OemManager.OpenBmc";
+                oemOpenbmc["@odata.id"] =
+                    "/redfish/v1/Managers/bmc#/Oem/OpenBmc";
+                oemOpenbmc["Certificates"] = {
+                    {"@odata.id",
+                     "/redfish/v1/Managers/bmc/Truststore/Certificates"}};
 
-            // Manager.Reset (an action) can be many values, OpenBMC only
-            // supports BMC reboot.
-            nlohmann::json& managerReset =
-                asyncResp->res.jsonValue["Actions"]["#Manager.Reset"];
-            managerReset["target"] =
-                "/redfish/v1/Managers/bmc/Actions/Manager.Reset";
-            managerReset["@Redfish.ActionInfo"] =
-                "/redfish/v1/Managers/bmc/ResetActionInfo";
+                // Manager.Reset (an action) can be many values, OpenBMC only
+                // supports BMC reboot.
+                nlohmann::json& managerReset =
+                    asyncResp->res.jsonValue["Actions"]["#Manager.Reset"];
+                managerReset["target"] =
+                    "/redfish/v1/Managers/bmc/Actions/Manager.Reset";
+                managerReset["@Redfish.ActionInfo"] =
+                    "/redfish/v1/Managers/bmc/ResetActionInfo";
 
-            // ResetToDefaults (Factory Reset) has values like
-            // PreserveNetworkAndUsers and PreserveNetwork that aren't supported
-            // on OpenBMC
-            nlohmann::json& resetToDefaults =
-                asyncResp->res.jsonValue["Actions"]["#Manager.ResetToDefaults"];
-            resetToDefaults["target"] =
-                "/redfish/v1/Managers/bmc/Actions/Manager.ResetToDefaults";
-            resetToDefaults["ResetType@Redfish.AllowableValues"] = {"ResetAll"};
+                // ResetToDefaults (Factory Reset) has values like
+                // PreserveNetworkAndUsers and PreserveNetwork that aren't
+                // supported on OpenBMC
+                nlohmann::json& resetToDefaults =
+                    asyncResp->res
+                        .jsonValue["Actions"]["#Manager.ResetToDefaults"];
+                resetToDefaults["target"] =
+                    "/redfish/v1/Managers/bmc/Actions/Manager.ResetToDefaults";
+                resetToDefaults["ResetType@Redfish.AllowableValues"] = {
+                    "ResetAll"};
 
-            std::pair<std::string, std::string> redfishDateTimeOffset =
-                crow::utility::getDateTimeOffsetNow();
+                std::pair<std::string, std::string> redfishDateTimeOffset =
+                    crow::utility::getDateTimeOffsetNow();
 
-            asyncResp->res.jsonValue["DateTime"] = redfishDateTimeOffset.first;
-            asyncResp->res.jsonValue["DateTimeLocalOffset"] =
-                redfishDateTimeOffset.second;
+                asyncResp->res.jsonValue["DateTime"] =
+                    redfishDateTimeOffset.first;
+                asyncResp->res.jsonValue["DateTimeLocalOffset"] =
+                    redfishDateTimeOffset.second;
 
-            // TODO (Gunnar): Remove these one day since moved to ComputerSystem
-            // Still used by OCP profiles
-            // https://github.com/opencomputeproject/OCP-Profiles/issues/23
-            // Fill in SerialConsole info
-            asyncResp->res.jsonValue["SerialConsole"]["ServiceEnabled"] = true;
-            asyncResp->res.jsonValue["SerialConsole"]["MaxConcurrentSessions"] =
-                15;
-            asyncResp->res.jsonValue["SerialConsole"]["ConnectTypesSupported"] =
-                {"IPMI", "SSH"};
+                // TODO (Gunnar): Remove these one day since moved to
+                // ComputerSystem Still used by OCP profiles
+                // https://github.com/opencomputeproject/OCP-Profiles/issues/23
+                // Fill in SerialConsole info
+                asyncResp->res.jsonValue["SerialConsole"]["ServiceEnabled"] =
+                    true;
+                asyncResp->res
+                    .jsonValue["SerialConsole"]["MaxConcurrentSessions"] = 15;
+                asyncResp->res
+                    .jsonValue["SerialConsole"]["ConnectTypesSupported"] = {
+                    "IPMI", "SSH"};
 #ifdef BMCWEB_ENABLE_KVM
-            // Fill in GraphicalConsole info
-            asyncResp->res.jsonValue["GraphicalConsole"]["ServiceEnabled"] =
-                true;
-            asyncResp->res
-                .jsonValue["GraphicalConsole"]["MaxConcurrentSessions"] = 4;
-            asyncResp->res.jsonValue["GraphicalConsole"]
-                                    ["ConnectTypesSupported"] = {"KVMIP"};
+                // Fill in GraphicalConsole info
+                asyncResp->res.jsonValue["GraphicalConsole"]["ServiceEnabled"] =
+                    true;
+                asyncResp->res
+                    .jsonValue["GraphicalConsole"]["MaxConcurrentSessions"] = 4;
+                asyncResp->res.jsonValue["GraphicalConsole"]
+                                        ["ConnectTypesSupported"] = {"KVMIP"};
 #endif // BMCWEB_ENABLE_KVM
 
-            asyncResp->res.jsonValue["Links"]["ManagerForServers@odata.count"] =
-                1;
-            asyncResp->res.jsonValue["Links"]["ManagerForServers"] = {
-                {{"@odata.id", "/redfish/v1/Systems/system"}}};
+                asyncResp->res
+                    .jsonValue["Links"]["ManagerForServers@odata.count"] = 1;
+                asyncResp->res.jsonValue["Links"]["ManagerForServers"] = {
+                    {{"@odata.id", "/redfish/v1/Systems/system"}}};
 
-            auto health = std::make_shared<HealthPopulate>(asyncResp);
-            health->isManagersHealth = true;
-            health->populate();
+                auto health = std::make_shared<HealthPopulate>(asyncResp);
+                health->isManagersHealth = true;
+                health->populate();
 
-            fw_util::populateFirmwareInformation(asyncResp, fw_util::bmcPurpose,
-                                                 "FirmwareVersion", true);
+                fw_util::populateFirmwareInformation(
+                    asyncResp, fw_util::bmcPurpose, "FirmwareVersion", true);
 
-            managerGetLastResetTime(asyncResp);
+                managerGetLastResetTime(asyncResp);
 
-            auto pids = std::make_shared<GetPIDValues>(asyncResp);
-            pids->run();
+                auto pids = std::make_shared<GetPIDValues>(asyncResp);
+                pids->run();
 
-            getMainChassisId(
-                asyncResp, [](const std::string& chassisId,
-                              const std::shared_ptr<bmcweb::AsyncResp>& aRsp) {
-                    aRsp->res
-                        .jsonValue["Links"]["ManagerForChassis@odata.count"] =
-                        1;
-                    aRsp->res.jsonValue["Links"]["ManagerForChassis"] = {
-                        {{"@odata.id", "/redfish/v1/Chassis/" + chassisId}}};
-                    aRsp->res.jsonValue["Links"]["ManagerInChassis"] = {
-                        {"@odata.id", "/redfish/v1/Chassis/" + chassisId}};
-                });
+                getMainChassisId(
+                    asyncResp,
+                    [](const std::string& chassisId,
+                       const std::shared_ptr<bmcweb::AsyncResp>& aRsp) {
+                        aRsp->res.jsonValue["Links"]
+                                           ["ManagerForChassis@odata.count"] =
+                            1;
+                        aRsp->res.jsonValue["Links"]["ManagerForChassis"] = {
+                            {{"@odata.id",
+                              "/redfish/v1/Chassis/" + chassisId}}};
+                        aRsp->res.jsonValue["Links"]["ManagerInChassis"] = {
+                            {"@odata.id", "/redfish/v1/Chassis/" + chassisId}};
+                    });
 
-            static bool started = false;
+                static bool started = false;
 
-            if (!started)
-            {
+                if (!started)
+                {
+                    crow::connections::systemBus->async_method_call(
+                        [asyncResp](const boost::system::error_code ec,
+                                    const std::variant<double>& resp) {
+                            if (ec)
+                            {
+                                BMCWEB_LOG_ERROR
+                                    << "Error while getting progress";
+                                messages::internalError(asyncResp->res);
+                                return;
+                            }
+                            const double* val = std::get_if<double>(&resp);
+                            if (val == nullptr)
+                            {
+                                BMCWEB_LOG_ERROR << "Invalid response while "
+                                                    "getting progress";
+                                messages::internalError(asyncResp->res);
+                                return;
+                            }
+                            if (*val < 1.0)
+                            {
+                                asyncResp->res.jsonValue["Status"]["State"] =
+                                    "Starting";
+                                started = true;
+                            }
+                        },
+                        "org.freedesktop.systemd1", "/org/freedesktop/systemd1",
+                        "org.freedesktop.DBus.Properties", "Get",
+                        "org.freedesktop.systemd1.Manager", "Progress");
+                }
+
                 crow::connections::systemBus->async_method_call(
-                    [asyncResp](const boost::system::error_code ec,
-                                const std::variant<double>& resp) {
+                    [asyncResp](
+                        const boost::system::error_code ec,
+                        const std::vector<std::pair<
+                            std::string,
+                            std::vector<std::pair<std::string,
+                                                  std::vector<std::string>>>>>&
+                            subtree) {
                         if (ec)
                         {
-                            BMCWEB_LOG_ERROR << "Error while getting progress";
+                            BMCWEB_LOG_DEBUG
+                                << "D-Bus response error on GetSubTree " << ec;
+                            return;
+                        }
+                        if (subtree.size() == 0)
+                        {
+                            BMCWEB_LOG_DEBUG << "Can't find bmc D-Bus object!";
+                            return;
+                        }
+                        // Assume only 1 bmc D-Bus object
+                        // Throw an error if there is more than 1
+                        if (subtree.size() > 1)
+                        {
+                            BMCWEB_LOG_DEBUG
+                                << "Found more than 1 bmc D-Bus object!";
                             messages::internalError(asyncResp->res);
                             return;
                         }
-                        const double* val = std::get_if<double>(&resp);
-                        if (val == nullptr)
+
+                        if (subtree[0].first.empty() ||
+                            subtree[0].second.size() != 1)
                         {
-                            BMCWEB_LOG_ERROR
-                                << "Invalid response while getting progress";
+                            BMCWEB_LOG_DEBUG
+                                << "Error getting bmc D-Bus object!";
                             messages::internalError(asyncResp->res);
                             return;
                         }
-                        if (*val < 1.0)
+
+                        const std::string& path = subtree[0].first;
+                        const std::string& connectionName =
+                            subtree[0].second[0].first;
+
+                        for (const auto& interfaceName :
+                             subtree[0].second[0].second)
                         {
-                            asyncResp->res.jsonValue["Status"]["State"] =
-                                "Starting";
-                            started = true;
+                            if (interfaceName ==
+                                "xyz.openbmc_project.Inventory.Decorator.Asset")
+                            {
+                                getBMCAssetData(asyncResp, connectionName,
+                                                path);
+                            }
+                            else if (interfaceName ==
+                                     "xyz.openbmc_project.Inventory."
+                                     "Decorator.LocationCode")
+                            {
+                                getLocation(asyncResp, connectionName, path);
+                            }
                         }
                     },
-                    "org.freedesktop.systemd1", "/org/freedesktop/systemd1",
-                    "org.freedesktop.DBus.Properties", "Get",
-                    "org.freedesktop.systemd1.Manager", "Progress");
+                    "xyz.openbmc_project.ObjectMapper",
+                    "/xyz/openbmc_project/object_mapper",
+                    "xyz.openbmc_project.ObjectMapper", "GetSubTree",
+                    "/xyz/openbmc_project/inventory", int32_t(0),
+                    std::array<const char*, 1>{
+                        "xyz.openbmc_project.Inventory.Item.Bmc"});
             }
-
-            crow::connections::systemBus->async_method_call(
-                [asyncResp](
-                    const boost::system::error_code ec,
-                    const std::vector<
-                        std::pair<std::string,
-                                  std::vector<std::pair<
-                                      std::string, std::vector<std::string>>>>>&
-                        subtree) {
-                    if (ec)
-                    {
-                        BMCWEB_LOG_DEBUG
-                            << "D-Bus response error on GetSubTree " << ec;
-                        return;
-                    }
-                    if (subtree.size() == 0)
-                    {
-                        BMCWEB_LOG_DEBUG << "Can't find bmc D-Bus object!";
-                        return;
-                    }
-                    // Assume only 1 bmc D-Bus object
-                    // Throw an error if there is more than 1
-                    if (subtree.size() > 1)
-                    {
-                        BMCWEB_LOG_DEBUG
-                            << "Found more than 1 bmc D-Bus object!";
-                        messages::internalError(asyncResp->res);
-                        return;
-                    }
-
-                    if (subtree[0].first.empty() ||
-                        subtree[0].second.size() != 1)
-                    {
-                        BMCWEB_LOG_DEBUG << "Error getting bmc D-Bus object!";
-                        messages::internalError(asyncResp->res);
-                        return;
-                    }
-
-                    const std::string& path = subtree[0].first;
-                    const std::string& connectionName =
-                        subtree[0].second[0].first;
-
-                    for (const auto& interfaceName :
-                         subtree[0].second[0].second)
-                    {
-                        if (interfaceName ==
-                            "xyz.openbmc_project.Inventory.Decorator.Asset")
+            else
+            {
+                crow::connections::systemBus->async_method_call(
+                    [asyncResp, bmcId](
+                        const boost::system::error_code ec,
+                        const std::vector<std::pair<
+                            std::string,
+                            std::vector<std::pair<std::string,
+                                                  std::vector<std::string>>>>>&
+                            subtree) {
+                        if (ec)
                         {
-                            crow::connections::systemBus->async_method_call(
-                                [asyncResp](
-                                    const boost::system::error_code ec,
-                                    const std::vector<
-                                        std::pair<std::string,
-                                                  std::variant<std::string>>>&
-                                        propertiesList) {
-                                    if (ec)
-                                    {
-                                        BMCWEB_LOG_DEBUG
-                                            << "Can't get bmc asset!";
-                                        return;
-                                    }
-                                    for (const std::pair<
-                                             std::string,
-                                             std::variant<std::string>>&
-                                             property : propertiesList)
-                                    {
-                                        const std::string& propertyName =
-                                            property.first;
-
-                                        if ((propertyName == "PartNumber") ||
-                                            (propertyName == "SerialNumber") ||
-                                            (propertyName == "Manufacturer") ||
-                                            (propertyName == "Model") ||
-                                            (propertyName == "SparePartNumber"))
-                                        {
-                                            const std::string* value =
-                                                std::get_if<std::string>(
-                                                    &property.second);
-                                            if (value == nullptr)
-                                            {
-                                                // illegal property
-                                                messages::internalError(
-                                                    asyncResp->res);
-                                                return;
-                                            }
-                                            asyncResp->res
-                                                .jsonValue[propertyName] =
-                                                *value;
-                                        }
-                                    }
-                                },
-                                connectionName, path,
-                                "org.freedesktop.DBus.Properties", "GetAll",
-                                "xyz.openbmc_project.Inventory.Decorator."
-                                "Asset");
+                            BMCWEB_LOG_DEBUG
+                                << "D-Bus response error on GetSubTree " << ec;
+                            return;
                         }
-                        else if (interfaceName ==
-                                 "xyz.openbmc_project.Inventory."
-                                 "Decorator.LocationCode")
+                        // Iterate over all retrieved ObjectPaths.
+                        for (const std::pair<
+                                 std::string,
+                                 std::vector<std::pair<
+                                     std::string, std::vector<std::string>>>>&
+                                 object : subtree)
                         {
-                            getLocation(asyncResp, connectionName, path);
+                            const std::string& path = object.first;
+                            const std::vector<std::pair<
+                                std::string, std::vector<std::string>>>&
+                                connectionNames = object.second;
+
+                            if (!boost::ends_with(path, bmcId))
+                            {
+                                continue;
+                            }
+                            if (connectionNames.size() < 1)
+                            {
+                                BMCWEB_LOG_ERROR << "Got 0 Connection names";
+                                continue;
+                            }
+
+                            asyncResp->res.jsonValue["@odata.id"] =
+                                "/redfish/v1/Managers/" + bmcId;
+                            asyncResp->res.jsonValue["@odata.type"] =
+                                "#Manager.v1_11_0.Manager";
+                            asyncResp->res.jsonValue["Id"] = bmcId;
+                            asyncResp->res.jsonValue["Name"] =
+                                "OpenBmc Manager Service";
+                            asyncResp->res.jsonValue["Description"] =
+                                "Software Service for Baseboard Management "
+                                "Functions";
+
+                            const std::string& connectionName =
+                                connectionNames[0].first;
+                            const std::vector<std::string>& interfaces =
+                                connectionNames[0].second;
+
+                            for (const auto& interfaceName : interfaces)
+                            {
+                                if (interfaceName ==
+                                    "xyz.openbmc_project.Inventory.Decorator."
+                                    "Asset")
+                                {
+                                    getBMCAssetData(asyncResp, connectionName,
+                                                    path);
+                                }
+                                else if (interfaceName ==
+                                         "xyz.openbmc_project.State."
+                                         "Decorator.OperationalStatus")
+                                {
+                                    getManagerState(asyncResp, connectionName,
+                                                    path);
+                                }
+                            }
+                            return;
                         }
-                    }
-                },
-                "xyz.openbmc_project.ObjectMapper",
-                "/xyz/openbmc_project/object_mapper",
-                "xyz.openbmc_project.ObjectMapper", "GetSubTree",
-                "/xyz/openbmc_project/inventory", int32_t(0),
-                std::array<const char*, 1>{
-                    "xyz.openbmc_project.Inventory.Item.Bmc"});
+                        messages::resourceNotFound(
+                            asyncResp->res, "#Manager.v1_11_0.Manager", bmcId);
+                    },
+                    "xyz.openbmc_project.ObjectMapper",
+                    "/xyz/openbmc_project/object_mapper",
+                    "xyz.openbmc_project.ObjectMapper", "GetSubTree",
+                    "/xyz/openbmc_project/inventory", int32_t(0),
+                    std::array<const char*, 1>{"xyz.openbmc_project.Inventory."
+                                               "Item.ManagementService"});
+            }
         });
 
     BMCWEB_ROUTE(app, "/redfish/v1/Managers/bmc/")
@@ -2271,18 +2478,56 @@ inline void requestRoutesManagerCollection(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/Managers/")
         .privileges({{"Login"}})
-        .methods(boost::beast::http::verb::get)(
-            [](const crow::Request&,
-               const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
-                // Collections don't include the static data added by SubRoute
-                // because it has a duplicate entry for members
-                asyncResp->res.jsonValue["@odata.id"] = "/redfish/v1/Managers";
-                asyncResp->res.jsonValue["@odata.type"] =
-                    "#ManagerCollection.ManagerCollection";
-                asyncResp->res.jsonValue["Name"] = "Manager Collection";
-                asyncResp->res.jsonValue["Members@odata.count"] = 1;
-                asyncResp->res.jsonValue["Members"] = {
-                    {{"@odata.id", "/redfish/v1/Managers/bmc"}}};
-            });
+        .methods(
+            boost::beast::http::verb::
+                get)([](const crow::Request&,
+                        const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
+            const std::array<const char*, 1> interface = {
+                "xyz.openbmc_project.Inventory.Item.ManagementService"};
+            const std::string collectionPath = "/redfish/v1/Managers";
+            // Collections don't include the static data added by SubRoute
+            // because it has a duplicate entry for members
+            asyncResp->res.jsonValue["@odata.id"] = collectionPath;
+            asyncResp->res.jsonValue["@odata.type"] =
+                "#ManagerCollection.ManagerCollection";
+            asyncResp->res.jsonValue["Name"] = "Manager Collection";
+            nlohmann::json& members = asyncResp->res.jsonValue["Members"];
+            members = nlohmann::json::array();
+            // Add bmc path
+            members.push_back({{"@odata.id", "/redfish/v1/Managers/bmc"}});
+            // Collect additional management services
+            crow::connections::systemBus->async_method_call(
+                [collectionPath,
+                 asyncResp](const boost::system::error_code ec,
+                            const std::vector<std::string>& objects) {
+                    if (ec)
+                    {
+                        BMCWEB_LOG_DEBUG << "DBUS response error";
+                        messages::internalError(asyncResp->res);
+                        return;
+                    }
+                    nlohmann::json& members =
+                        asyncResp->res.jsonValue["Members"];
+                    for (const auto& object : objects)
+                    {
+                        sdbusplus::message::object_path path(object);
+                        std::string leaf = path.filename();
+                        if (leaf.empty())
+                        {
+                            continue;
+                        }
+                        std::string newPath = collectionPath;
+                        newPath += '/';
+                        newPath += leaf;
+                        members.push_back({{"@odata.id", std::move(newPath)}});
+                    }
+                    asyncResp->res.jsonValue["Members@odata.count"] =
+                        members.size();
+                },
+                "xyz.openbmc_project.ObjectMapper",
+                "/xyz/openbmc_project/object_mapper",
+                "xyz.openbmc_project.ObjectMapper", "GetSubTreePaths",
+                "/xyz/openbmc_project/inventory", 0, interface);
+        });
 }
 } // namespace redfish
