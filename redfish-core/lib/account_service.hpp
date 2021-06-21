@@ -565,7 +565,7 @@ inline void getLDAPConfigData(const std::string& ldapType,
  * @param userName  userName to be filled from the given JSON.
  * @param password  password to be filled from the given JSON.
  */
-void parseLDAPAuthenticationJson(
+inline void parseLDAPAuthenticationJson(
     nlohmann::json input, const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     std::optional<std::string>& username, std::optional<std::string>& password)
 {
@@ -597,11 +597,12 @@ void parseLDAPAuthenticationJson(
  * @param groupaAttribute  password to be filled from the given JSON.
  */
 
-void parseLDAPServiceJson(nlohmann::json input,
-                          const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                          std::optional<std::vector<std::string>>& baseDNList,
-                          std::optional<std::string>& userNameAttribute,
-                          std::optional<std::string>& groupsAttribute)
+inline void
+    parseLDAPServiceJson(nlohmann::json input,
+                         const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                         std::optional<std::vector<std::string>>& baseDNList,
+                         std::optional<std::string>& userNameAttribute,
+                         std::optional<std::string>& groupsAttribute)
 {
     std::optional<nlohmann::json> searchSettings;
 
@@ -631,7 +632,7 @@ void parseLDAPServiceJson(nlohmann::json input,
  server(openLDAP/ActiveDirectory)
  */
 
-void handleServiceAddressPatch(
+inline void handleServiceAddressPatch(
     const std::vector<std::string>& serviceAddressList,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& ldapServerElementName,
@@ -673,10 +674,11 @@ void handleServiceAddressPatch(
  server(openLDAP/ActiveDirectory)
  */
 
-void handleUserNamePatch(const std::string& username,
-                         const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                         const std::string& ldapServerElementName,
-                         const std::string& ldapConfigObject)
+inline void
+    handleUserNamePatch(const std::string& username,
+                        const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                        const std::string& ldapServerElementName,
+                        const std::string& ldapConfigObject)
 {
     crow::connections::systemBus->async_method_call(
         [asyncResp, username,
@@ -703,10 +705,11 @@ void handleUserNamePatch(const std::string& username,
  *        server(openLDAP/ActiveDirectory)
  */
 
-void handlePasswordPatch(const std::string& password,
-                         const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                         const std::string& ldapServerElementName,
-                         const std::string& ldapConfigObject)
+inline void
+    handlePasswordPatch(const std::string& password,
+                        const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                        const std::string& ldapServerElementName,
+                        const std::string& ldapConfigObject)
 {
     crow::connections::systemBus->async_method_call(
         [asyncResp, password,
@@ -735,10 +738,11 @@ void handlePasswordPatch(const std::string& password,
  server(openLDAP/ActiveDirectory)
  */
 
-void handleBaseDNPatch(const std::vector<std::string>& baseDNList,
-                       const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                       const std::string& ldapServerElementName,
-                       const std::string& ldapConfigObject)
+inline void
+    handleBaseDNPatch(const std::vector<std::string>& baseDNList,
+                      const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                      const std::string& ldapServerElementName,
+                      const std::string& ldapConfigObject)
 {
     crow::connections::systemBus->async_method_call(
         [asyncResp, baseDNList,
@@ -776,11 +780,11 @@ void handleBaseDNPatch(const std::vector<std::string>& baseDNList,
  server(openLDAP/ActiveDirectory)
  */
 
-void handleUserNameAttrPatch(
-    const std::string& userNameAttribute,
-    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-    const std::string& ldapServerElementName,
-    const std::string& ldapConfigObject)
+inline void
+    handleUserNameAttrPatch(const std::string& userNameAttribute,
+                            const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                            const std::string& ldapServerElementName,
+                            const std::string& ldapConfigObject)
 {
     crow::connections::systemBus->async_method_call(
         [asyncResp, userNameAttribute,
@@ -812,7 +816,7 @@ void handleUserNameAttrPatch(
  server(openLDAP/ActiveDirectory)
  */
 
-void handleGroupNameAttrPatch(
+inline void handleGroupNameAttrPatch(
     const std::string& groupsAttribute,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& ldapServerElementName,
@@ -848,7 +852,7 @@ void handleGroupNameAttrPatch(
  server(openLDAP/ActiveDirectory)
  */
 
-void handleServiceEnablePatch(
+inline void handleServiceEnablePatch(
     bool serviceEnabled, const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& ldapServerElementName,
     const std::string& ldapConfigObject)
@@ -871,8 +875,9 @@ void handleServiceEnablePatch(
         ldapEnableInterface, "Enabled", std::variant<bool>(serviceEnabled));
 }
 
-void handleAuthMethodsPatch(nlohmann::json& input,
-                            const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
+inline void
+    handleAuthMethodsPatch(nlohmann::json& input,
+                           const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
     std::optional<bool> basicAuth;
     std::optional<bool> cookie;
@@ -1404,11 +1409,11 @@ inline void requestAccountServiceRoutes(App& app)
 
                         bool userCanSeeAllAccounts =
                             effectiveUserPrivileges.isSupersetOf(
-                                {{"ConfigureUsers"}});
+                                {"ConfigureUsers"});
 
                         bool userCanSeeSelf =
                             effectiveUserPrivileges.isSupersetOf(
-                                {{"ConfigureSelf"}});
+                                {"ConfigureSelf"});
 
                         nlohmann::json& memberArray =
                             asyncResp->res.jsonValue["Members"];
@@ -1580,7 +1585,7 @@ inline void requestAccountServiceRoutes(App& app)
                 Privileges effectiveUserPrivileges =
                     redfish::getUserPrivileges(req.userRole);
                 Privileges requiredPermissionsToChangeNonSelf = {
-                    {"ConfigureUsers"}, {"ConfigureManager"}};
+                    "ConfigureUsers", "ConfigureManager"};
                 if (!effectiveUserPrivileges.isSupersetOf(
                         requiredPermissionsToChangeNonSelf))
                 {
@@ -1754,7 +1759,7 @@ inline void requestAccountServiceRoutes(App& app)
                 if ((username != req.session->username))
                 {
                     Privileges requiredPermissionsToChangeNonSelf = {
-                        {"ConfigureUsers"}};
+                        "ConfigureUsers"};
                     Privileges effectiveUserPrivileges =
                         redfish::getUserPrivileges(req.userRole);
 

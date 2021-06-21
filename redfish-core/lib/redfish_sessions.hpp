@@ -26,8 +26,8 @@ namespace redfish
 
 class SessionCollection;
 
-void fillSessionObject(crow::Response& res,
-                       const persistent_data::UserSession& session)
+inline void fillSessionObject(crow::Response& res,
+                              const persistent_data::UserSession& session)
 {
     res.jsonValue["Id"] = session.uniqueId;
     res.jsonValue["UserName"] = session.username;
@@ -93,7 +93,7 @@ inline void requestRoutesSession(App& app)
                         redfish::getUserPrivileges(req.userRole);
 
                     if (!effectiveUserPrivileges.isSupersetOf(
-                            {{"ConfigureUsers"}}))
+                            {"ConfigureUsers"}))
                     {
                         messages::insufficientPrivilege(asyncResp->res);
                         return;
