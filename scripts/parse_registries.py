@@ -50,7 +50,7 @@ def make_getter(dmtf_name, header_name, type_name):
 
 
 def clang_format(filename):
-    subprocess.check_call(["clang-format-11", "-i", filename])
+    subprocess.check_call(["clang-format-12", "-i", filename])
 
 
 files = []
@@ -167,7 +167,7 @@ def make_privilege_registry():
                     privilege_list)
                 operation = operation.lower()
 
-                registry.write("const auto& {}{} = privilegeSet{};\n".format(
+                registry.write("const static auto& {}{} = privilegeSet{};\n".format(
                    operation, entity , privilege_dict[privilege_string][1]))
             registry.write("\n")
         registry.write("} // namespace redfish::privileges\n")

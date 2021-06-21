@@ -1625,8 +1625,7 @@ inline void requestRoutesDBusEventLogEntry(App& app)
                 BMCWEB_LOG_DEBUG << "Set Resolved";
 
                 crow::connections::systemBus->async_method_call(
-                    [asyncResp, resolved,
-                     entryId](const boost::system::error_code ec) {
+                    [asyncResp, entryId](const boost::system::error_code ec) {
                         if (ec)
                         {
                             BMCWEB_LOG_DEBUG << "DBUS response error " << ec;

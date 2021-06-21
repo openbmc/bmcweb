@@ -1024,8 +1024,9 @@ void getEthernetIfaceList(CallbackFunc&& callback)
         "org.freedesktop.DBus.ObjectManager", "GetManagedObjects");
 }
 
-void handleHostnamePatch(const std::string& hostname,
-                         const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
+inline void
+    handleHostnamePatch(const std::string& hostname,
+                        const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
     // SHOULD handle host names of up to 255 characters(RFC 1123)
     if (hostname.length() > 255)
@@ -1047,9 +1048,10 @@ void handleHostnamePatch(const std::string& hostname,
         std::variant<std::string>(hostname));
 }
 
-void handleDomainnamePatch(const std::string& ifaceId,
-                           const std::string& domainname,
-                           const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
+inline void
+    handleDomainnamePatch(const std::string& ifaceId,
+                          const std::string& domainname,
+                          const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
     std::vector<std::string> vectorDomainname = {domainname};
     crow::connections::systemBus->async_method_call(
@@ -1066,7 +1068,7 @@ void handleDomainnamePatch(const std::string& ifaceId,
         std::variant<std::vector<std::string>>(vectorDomainname));
 }
 
-bool isHostnameValid(const std::string& hostname)
+inline bool isHostnameValid(const std::string& hostname)
 {
     // A valid host name can never have the dotted-decimal form (RFC 1123)
     if (std::all_of(hostname.begin(), hostname.end(), ::isdigit))
@@ -1083,7 +1085,7 @@ bool isHostnameValid(const std::string& hostname)
     return std::regex_match(hostname, pattern);
 }
 
-bool isDomainnameValid(const std::string& domainname)
+inline bool isDomainnameValid(const std::string& domainname)
 {
     // Can have multiple subdomains
     // Top Level Domain's min length is 2 character
@@ -1093,8 +1095,8 @@ bool isDomainnameValid(const std::string& domainname)
     return std::regex_match(domainname, pattern);
 }
 
-void handleFqdnPatch(const std::string& ifaceId, const std::string& fqdn,
-                     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
+inline void handleFqdnPatch(const std::string& ifaceId, const std::string& fqdn,
+                            const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
     // Total length of FQDN must not exceed 255 characters(RFC 1035)
     if (fqdn.length() > 255)
@@ -1125,9 +1127,10 @@ void handleFqdnPatch(const std::string& ifaceId, const std::string& fqdn,
     handleDomainnamePatch(ifaceId, domainname, asyncResp);
 }
 
-void handleMACAddressPatch(const std::string& ifaceId,
-                           const std::string& macAddress,
-                           const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
+inline void
+    handleMACAddressPatch(const std::string& ifaceId,
+                          const std::string& macAddress,
+                          const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
     crow::connections::systemBus->async_method_call(
         [asyncResp, macAddress](const boost::system::error_code ec) {
@@ -1144,9 +1147,10 @@ void handleMACAddressPatch(const std::string& ifaceId,
         std::variant<std::string>(macAddress));
 }
 
-void setDHCPEnabled(const std::string& ifaceId, const std::string& propertyName,
-                    const bool v4Value, const bool v6Value,
-                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
+inline void setDHCPEnabled(const std::string& ifaceId,
+                           const std::string& propertyName, const bool v4Value,
+                           const bool v6Value,
+                           const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
     const std::string dhcp = getDhcpEnabledEnumeration(v4Value, v6Value);
     crow::connections::systemBus->async_method_call(
@@ -1166,7 +1170,7 @@ void setDHCPEnabled(const std::string& ifaceId, const std::string& propertyName,
         std::variant<std::string>{dhcp});
 }
 
-void setEthernetInterfaceBoolProperty(
+inline void setEthernetInterfaceBoolProperty(
     const std::string& ifaceId, const std::string& propertyName,
     const bool& value, const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
@@ -1186,8 +1190,8 @@ void setEthernetInterfaceBoolProperty(
         std::variant<bool>{value});
 }
 
-void setDHCPv4Config(const std::string& propertyName, const bool& value,
-                     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
+inline void setDHCPv4Config(const std::string& propertyName, const bool& value,
+                            const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
     BMCWEB_LOG_DEBUG << propertyName << " = " << value;
     crow::connections::systemBus->async_method_call(
@@ -1206,11 +1210,11 @@ void setDHCPv4Config(const std::string& propertyName, const bool& value,
         std::variant<bool>{value});
 }
 
-void handleDHCPPatch(const std::string& ifaceId,
-                     const EthernetInterfaceData& ethData,
-                     const DHCPParameters& v4dhcpParms,
-                     const DHCPParameters& v6dhcpParms,
-                     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
+inline void handleDHCPPatch(const std::string& ifaceId,
+                            const EthernetInterfaceData& ethData,
+                            const DHCPParameters& v4dhcpParms,
+                            const DHCPParameters& v6dhcpParms,
+                            const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
     bool ipv4Active = translateDHCPEnabledToBool(ethData.DHCPEnabled, true);
     bool ipv6Active = translateDHCPEnabledToBool(ethData.DHCPEnabled, false);
@@ -1317,7 +1321,7 @@ void handleDHCPPatch(const std::string& ifaceId,
     setDHCPv4Config("HostNameEnabled", nextUseDomain, asyncResp);
 }
 
-boost::container::flat_set<IPv4AddressData>::const_iterator
+inline boost::container::flat_set<IPv4AddressData>::const_iterator
     getNextStaticIpEntry(
         const boost::container::flat_set<IPv4AddressData>::const_iterator& head,
         const boost::container::flat_set<IPv4AddressData>::const_iterator& end)
@@ -1327,7 +1331,7 @@ boost::container::flat_set<IPv4AddressData>::const_iterator
     });
 }
 
-boost::container::flat_set<IPv6AddressData>::const_iterator
+inline boost::container::flat_set<IPv6AddressData>::const_iterator
     getNextStaticIpEntry(
         const boost::container::flat_set<IPv6AddressData>::const_iterator& head,
         const boost::container::flat_set<IPv6AddressData>::const_iterator& end)
@@ -1337,7 +1341,7 @@ boost::container::flat_set<IPv6AddressData>::const_iterator
     });
 }
 
-void handleIPv4StaticPatch(
+inline void handleIPv4StaticPatch(
     const std::string& ifaceId, nlohmann::json& input,
     const boost::container::flat_set<IPv4AddressData>& ipv4Data,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
@@ -1519,7 +1523,7 @@ void handleIPv4StaticPatch(
     }
 }
 
-void handleStaticNameServersPatch(
+inline void handleStaticNameServersPatch(
     const std::string& ifaceId,
     const std::vector<std::string>& updatedStaticNameServers,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
@@ -1539,7 +1543,7 @@ void handleStaticNameServersPatch(
         std::variant<std::vector<std::string>>{updatedStaticNameServers});
 }
 
-void handleIPv6StaticAddressesPatch(
+inline void handleIPv6StaticAddressesPatch(
     const std::string& ifaceId, const nlohmann::json& input,
     const boost::container::flat_set<IPv6AddressData>& ipv6Data,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
@@ -1660,7 +1664,7 @@ void handleIPv6StaticAddressesPatch(
     }
 }
 
-void parseInterfaceData(
+inline void parseInterfaceData(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& ifaceId, const EthernetInterfaceData& ethData,
     const boost::container::flat_set<IPv4AddressData>& ipv4Data,
@@ -1801,10 +1805,10 @@ void parseInterfaceData(
     }
 }
 
-void parseInterfaceData(nlohmann::json& jsonResponse,
-                        const std::string& parentIfaceId,
-                        const std::string& ifaceId,
-                        const EthernetInterfaceData& ethData)
+inline void parseInterfaceData(nlohmann::json& jsonResponse,
+                               const std::string& parentIfaceId,
+                               const std::string& ifaceId,
+                               const EthernetInterfaceData& ethData)
 {
     // Fill out obvious data...
     jsonResponse["Id"] = ifaceId;
@@ -1818,7 +1822,7 @@ void parseInterfaceData(nlohmann::json& jsonResponse,
     }
 }
 
-bool verifyNames(const std::string& parent, const std::string& iface)
+inline bool verifyNames(const std::string& parent, const std::string& iface)
 {
     if (!boost::starts_with(iface, parent + "_"))
     {
