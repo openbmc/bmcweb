@@ -92,7 +92,7 @@ bool fromDurationItem(std::string_view& fmt, const char postfix,
  * @brief Convert string that represents value in Duration Format to its numeric
  *        equivalent.
  */
-std::optional<std::chrono::milliseconds>
+inline std::optional<std::chrono::milliseconds>
     fromDurationString(const std::string& str)
 {
     std::chrono::milliseconds out = std::chrono::milliseconds::zero();

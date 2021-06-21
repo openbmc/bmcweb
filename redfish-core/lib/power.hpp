@@ -23,7 +23,7 @@
 
 namespace redfish
 {
-void setPowerCapOverride(
+inline void setPowerCapOverride(
     const std::shared_ptr<SensorsAsyncResp>& sensorsAsyncResp,
     std::vector<nlohmann::json>& powerControlCollections)
 {
