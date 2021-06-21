@@ -19,6 +19,34 @@
 namespace redfish
 {
 
+enum NetworkProtocolUnitStructFields
+{
+    NET_PROTO_UNIT_NAME,
+    NET_PROTO_UNIT_DESC,
+    NET_PROTO_UNIT_LOAD_STATE,
+    NET_PROTO_UNIT_ACTIVE_STATE,
+    NET_PROTO_UNIT_SUB_STATE,
+    NET_PROTO_UNIT_DEVICE,
+    NET_PROTO_UNIT_OBJ_PATH,
+    NET_PROTO_UNIT_ALWAYS_0,
+    NET_PROTO_UNIT_ALWAYS_EMPTY,
+    NET_PROTO_UNIT_ALWAYS_ROOT_PATH
+};
+
+enum NetworkProtocolListenResponseElements
+{
+    NET_PROTO_LISTEN_TYPE,
+    NET_PROTO_LISTEN_STREAM
+};
+
+/**
+ * @brief D-Bus Unit structure returned in array from ListUnits Method
+ */
+using UnitStruct =
+    std::tuple<std::string, std::string, std::string, std::string, std::string,
+               std::string, sdbusplus::message::object_path, uint32_t,
+               std::string, sdbusplus::message::object_path>;
+
 template <typename CallbackFunc>
 void getMainChassisId(std::shared_ptr<bmcweb::AsyncResp> asyncResp,
                       CallbackFunc&& callback)
@@ -59,5 +87,113 @@ void getMainChassisId(std::shared_ptr<bmcweb::AsyncResp> asyncResp,
             "xyz.openbmc_project.Inventory.Item.Board",
             "xyz.openbmc_project.Inventory.Item.Chassis"});
 }
+
+template <typename CallbackFunc>
+void getPortStatusAndPath(const char* serviceName, CallbackFunc&& callback)
+{
+    if (!serviceName)
+    {
+        return;
+    }
+
+    crow::connections::systemBus->async_method_call(
+        [serviceName{std::string(serviceName)},
+         callback](const boost::system::error_code e,
+                   const std::vector<UnitStruct>& r) {
+            if (e)
+            {
+                return;
+            }
+
+            for (auto& unit : r)
+            {
+                // Only traverse through <xyz>.socket units
+                const std::string& unitName =
+                    std::get<NET_PROTO_UNIT_NAME>(unit);
+                if (!boost::ends_with(unitName, ".socket"))
+                {
+                    continue;
+                }
+
+                size_t lastCharPos = unitName.rfind('@');
+                if (lastCharPos == std::string::npos)
+                {
+                    lastCharPos = unitName.rfind('.');
+                    if (lastCharPos == std::string::npos)
+                    {
+                        return;
+                    }
+                }
+                // unitsName without "@eth(x).socket", only <xyz>
+                // unitsName without ".socket", only <xyz>
+                std::string unitNameStr = unitName.substr(0, lastCharPos);
+
+                // We are interested in services, which starts with
+                // mapped service name
+                if (!boost::starts_with(unitName, serviceName))
+                {
+                    continue;
+                }
+
+                const std::string& socketPath =
+                    std::get<NET_PROTO_UNIT_OBJ_PATH>(unit);
+                const std::string& unitState =
+                    std::get<NET_PROTO_UNIT_SUB_STATE>(unit);
+
+                bool isProtocolEnabled =
+                    ((unitState == "running") || (unitState == "listening"));
+                // We found service, return from inner loop.
+                callback(socketPath, isProtocolEnabled);
+                return;
+            }
+        },
+        "org.freedesktop.systemd1", "/org/freedesktop/systemd1",
+        "org.freedesktop.systemd1.Manager", "ListUnits");
+}
+
+template <typename CallbackFunc>
+void getPortNumber(const std::string& socketPath, CallbackFunc&& callback)
+{
+    if (socketPath.empty())
+    {
+        return;
+    }
+    crow::connections::systemBus->async_method_call(
+        [callback](
+            const boost::system::error_code ec,
+            const std::variant<
+                std::vector<std::tuple<std::string, std::string>>>& resp) {
+            if (ec)
+            {
+                return;
+            }
+            const std::vector<
+                std::tuple<std::string, std::string>>* responsePtr =
+                std::get_if<std::vector<std::tuple<std::string, std::string>>>(
+                    &resp);
+            if (responsePtr == nullptr || responsePtr->size() < 1)
+            {
+                return;
+            }
+            const std::string& listenStream =
+                std::get<NET_PROTO_LISTEN_STREAM>((*responsePtr)[0]);
+            const char* pa = &listenStream[(listenStream.rfind(':') + 1)];
+            int port;
+            if (auto [p, ec] = std::from_chars(pa, nullptr, port);
+                ec == std::errc())
+            {
+                callback(port);
+            }
+            else
+            {
+                std::error_code errorCode = std::make_error_code(ec);
+                BMCWEB_LOG_ERROR << errorCode.category().name();
+            }
+        },
+        "org.freedesktop.systemd1", socketPath,
+        "org.freedesktop.DBus.Properties", "Get",
+        "org.freedesktop.systemd1.Socket", "Listen");
+}
+
 } // namespace redfish
 #endif
