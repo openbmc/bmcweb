@@ -1863,7 +1863,7 @@ inline void requestRoutesSystemsCollection(App& app)
     BMCWEB_ROUTE(app, "/redfish/v1/Systems/")
         .privileges(redfish::privileges::getComputerSystemCollection)
         .methods(boost::beast::http::verb::get)(
-            [](const crow::Request& req,
+            [](const crow::Request& /*req*/,
                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
                 asyncResp->res.jsonValue["@odata.type"] =
                     "#ComputerSystemCollection.ComputerSystemCollection";
@@ -1871,9 +1871,8 @@ inline void requestRoutesSystemsCollection(App& app)
                 asyncResp->res.jsonValue["Name"] = "Computer System Collection";
 
                 crow::connections::systemBus->async_method_call(
-                    [asyncResp,
-                     &req](const boost::system::error_code ec,
-                           const std::variant<std::string>& /*hostName*/) {
+                    [asyncResp](const boost::system::error_code ec,
+                                const std::variant<std::string>& /*hostName*/) {
                         nlohmann::json& ifaceArray =
                             asyncResp->res.jsonValue["Members"];
                         ifaceArray = nlohmann::json::array();
@@ -1902,7 +1901,7 @@ inline void requestRoutesSystemsCollection(App& app)
 /**
  * Function transceives data with dbus directly.
  */
-void doNMI(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
+inline void doNMI(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
     constexpr char const* serviceName = "xyz.openbmc_project.Control.Host.NMI";
     constexpr char const* objectPath = "/xyz/openbmc_project/control/host0/nmi";
