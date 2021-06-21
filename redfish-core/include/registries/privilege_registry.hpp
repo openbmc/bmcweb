@@ -37,1306 +37,1406 @@ const std::array<Privileges, 2> privilegeSetLoginOrNoAuth = {{
 // clang-format on
 
 // AccelerationFunction
-const auto& getAccelerationFunction = privilegeSetLogin;
-const auto& headAccelerationFunction = privilegeSetLogin;
-const auto& patchAccelerationFunction = privilegeSetConfigureComponents;
-const auto& putAccelerationFunction = privilegeSetConfigureComponents;
-const auto& deleteAccelerationFunction = privilegeSetConfigureComponents;
-const auto& postAccelerationFunction = privilegeSetConfigureComponents;
+const static auto& getAccelerationFunction = privilegeSetLogin;
+const static auto& headAccelerationFunction = privilegeSetLogin;
+const static auto& patchAccelerationFunction = privilegeSetConfigureComponents;
+const static auto& putAccelerationFunction = privilegeSetConfigureComponents;
+const static auto& deleteAccelerationFunction = privilegeSetConfigureComponents;
+const static auto& postAccelerationFunction = privilegeSetConfigureComponents;
 
 // AccelerationFunctionCollection
-const auto& getAccelerationFunctionCollection = privilegeSetLogin;
-const auto& headAccelerationFunctionCollection = privilegeSetLogin;
-const auto& patchAccelerationFunctionCollection =
+const static auto& getAccelerationFunctionCollection = privilegeSetLogin;
+const static auto& headAccelerationFunctionCollection = privilegeSetLogin;
+const static auto& patchAccelerationFunctionCollection =
     privilegeSetConfigureComponents;
-const auto& putAccelerationFunctionCollection = privilegeSetConfigureComponents;
-const auto& deleteAccelerationFunctionCollection =
+const static auto& putAccelerationFunctionCollection =
     privilegeSetConfigureComponents;
-const auto& postAccelerationFunctionCollection =
+const static auto& deleteAccelerationFunctionCollection =
+    privilegeSetConfigureComponents;
+const static auto& postAccelerationFunctionCollection =
     privilegeSetConfigureComponents;
 
 // AccountService
-const auto& getAccountService = privilegeSetLogin;
-const auto& headAccountService = privilegeSetLogin;
-const auto& patchAccountService = privilegeSetConfigureUsers;
-const auto& putAccountService = privilegeSetConfigureUsers;
-const auto& deleteAccountService = privilegeSetConfigureUsers;
-const auto& postAccountService = privilegeSetConfigureUsers;
+const static auto& getAccountService = privilegeSetLogin;
+const static auto& headAccountService = privilegeSetLogin;
+const static auto& patchAccountService = privilegeSetConfigureUsers;
+const static auto& putAccountService = privilegeSetConfigureUsers;
+const static auto& deleteAccountService = privilegeSetConfigureUsers;
+const static auto& postAccountService = privilegeSetConfigureUsers;
 
 // ActionInfo
-const auto& getActionInfo = privilegeSetLogin;
-const auto& headActionInfo = privilegeSetLogin;
-const auto& patchActionInfo = privilegeSetConfigureManager;
-const auto& putActionInfo = privilegeSetConfigureManager;
-const auto& deleteActionInfo = privilegeSetConfigureManager;
-const auto& postActionInfo = privilegeSetConfigureManager;
+const static auto& getActionInfo = privilegeSetLogin;
+const static auto& headActionInfo = privilegeSetLogin;
+const static auto& patchActionInfo = privilegeSetConfigureManager;
+const static auto& putActionInfo = privilegeSetConfigureManager;
+const static auto& deleteActionInfo = privilegeSetConfigureManager;
+const static auto& postActionInfo = privilegeSetConfigureManager;
 
 // AddressPool
-const auto& getAddressPool = privilegeSetLogin;
-const auto& headAddressPool = privilegeSetLogin;
-const auto& patchAddressPool = privilegeSetConfigureComponents;
-const auto& putAddressPool = privilegeSetConfigureComponents;
-const auto& deleteAddressPool = privilegeSetConfigureComponents;
-const auto& postAddressPool = privilegeSetConfigureComponents;
+const static auto& getAddressPool = privilegeSetLogin;
+const static auto& headAddressPool = privilegeSetLogin;
+const static auto& patchAddressPool = privilegeSetConfigureComponents;
+const static auto& putAddressPool = privilegeSetConfigureComponents;
+const static auto& deleteAddressPool = privilegeSetConfigureComponents;
+const static auto& postAddressPool = privilegeSetConfigureComponents;
 
 // AddressPoolCollection
-const auto& getAddressPoolCollection = privilegeSetLogin;
-const auto& headAddressPoolCollection = privilegeSetLogin;
-const auto& patchAddressPoolCollection = privilegeSetConfigureComponents;
-const auto& putAddressPoolCollection = privilegeSetConfigureComponents;
-const auto& deleteAddressPoolCollection = privilegeSetConfigureComponents;
-const auto& postAddressPoolCollection = privilegeSetConfigureComponents;
+const static auto& getAddressPoolCollection = privilegeSetLogin;
+const static auto& headAddressPoolCollection = privilegeSetLogin;
+const static auto& patchAddressPoolCollection = privilegeSetConfigureComponents;
+const static auto& putAddressPoolCollection = privilegeSetConfigureComponents;
+const static auto& deleteAddressPoolCollection =
+    privilegeSetConfigureComponents;
+const static auto& postAddressPoolCollection = privilegeSetConfigureComponents;
 
 // Aggregate
-const auto& getAggregate = privilegeSetLogin;
-const auto& headAggregate = privilegeSetLogin;
-const auto& patchAggregate = privilegeSetConfigureManagerOrConfigureComponents;
-const auto& putAggregate = privilegeSetConfigureManagerOrConfigureComponents;
-const auto& deleteAggregate = privilegeSetConfigureManagerOrConfigureComponents;
-const auto& postAggregate = privilegeSetConfigureManagerOrConfigureComponents;
+const static auto& getAggregate = privilegeSetLogin;
+const static auto& headAggregate = privilegeSetLogin;
+const static auto& patchAggregate =
+    privilegeSetConfigureManagerOrConfigureComponents;
+const static auto& putAggregate =
+    privilegeSetConfigureManagerOrConfigureComponents;
+const static auto& deleteAggregate =
+    privilegeSetConfigureManagerOrConfigureComponents;
+const static auto& postAggregate =
+    privilegeSetConfigureManagerOrConfigureComponents;
 
 // AggregateCollection
-const auto& getAggregateCollection = privilegeSetLogin;
-const auto& headAggregateCollection = privilegeSetLogin;
-const auto& patchAggregateCollection =
+const static auto& getAggregateCollection = privilegeSetLogin;
+const static auto& headAggregateCollection = privilegeSetLogin;
+const static auto& patchAggregateCollection =
     privilegeSetConfigureManagerOrConfigureComponents;
-const auto& putAggregateCollection =
+const static auto& putAggregateCollection =
     privilegeSetConfigureManagerOrConfigureComponents;
-const auto& deleteAggregateCollection =
+const static auto& deleteAggregateCollection =
     privilegeSetConfigureManagerOrConfigureComponents;
-const auto& postAggregateCollection =
+const static auto& postAggregateCollection =
     privilegeSetConfigureManagerOrConfigureComponents;
 
 // AggregationService
-const auto& getAggregationService = privilegeSetLogin;
-const auto& headAggregationService = privilegeSetLogin;
-const auto& patchAggregationService = privilegeSetConfigureManager;
-const auto& putAggregationService = privilegeSetConfigureManager;
-const auto& deleteAggregationService = privilegeSetConfigureManager;
-const auto& postAggregationService = privilegeSetConfigureManager;
+const static auto& getAggregationService = privilegeSetLogin;
+const static auto& headAggregationService = privilegeSetLogin;
+const static auto& patchAggregationService = privilegeSetConfigureManager;
+const static auto& putAggregationService = privilegeSetConfigureManager;
+const static auto& deleteAggregationService = privilegeSetConfigureManager;
+const static auto& postAggregationService = privilegeSetConfigureManager;
 
 // AggregationSource
-const auto& getAggregationSource = privilegeSetLogin;
-const auto& headAggregationSource = privilegeSetLogin;
-const auto& patchAggregationSource = privilegeSetConfigureManager;
-const auto& putAggregationSource = privilegeSetConfigureManager;
-const auto& deleteAggregationSource = privilegeSetConfigureManager;
-const auto& postAggregationSource = privilegeSetConfigureManager;
+const static auto& getAggregationSource = privilegeSetLogin;
+const static auto& headAggregationSource = privilegeSetLogin;
+const static auto& patchAggregationSource = privilegeSetConfigureManager;
+const static auto& putAggregationSource = privilegeSetConfigureManager;
+const static auto& deleteAggregationSource = privilegeSetConfigureManager;
+const static auto& postAggregationSource = privilegeSetConfigureManager;
 
 // AggregationSourceCollection
-const auto& getAggregationSourceCollection = privilegeSetLogin;
-const auto& headAggregationSourceCollection = privilegeSetLogin;
-const auto& patchAggregationSourceCollection = privilegeSetConfigureManager;
-const auto& putAggregationSourceCollection = privilegeSetConfigureManager;
-const auto& deleteAggregationSourceCollection = privilegeSetConfigureManager;
-const auto& postAggregationSourceCollection = privilegeSetConfigureManager;
+const static auto& getAggregationSourceCollection = privilegeSetLogin;
+const static auto& headAggregationSourceCollection = privilegeSetLogin;
+const static auto& patchAggregationSourceCollection =
+    privilegeSetConfigureManager;
+const static auto& putAggregationSourceCollection =
+    privilegeSetConfigureManager;
+const static auto& deleteAggregationSourceCollection =
+    privilegeSetConfigureManager;
+const static auto& postAggregationSourceCollection =
+    privilegeSetConfigureManager;
 
 // Assembly
-const auto& getAssembly = privilegeSetLogin;
-const auto& headAssembly = privilegeSetLogin;
-const auto& patchAssembly = privilegeSetConfigureComponents;
-const auto& putAssembly = privilegeSetConfigureComponents;
-const auto& deleteAssembly = privilegeSetConfigureComponents;
-const auto& postAssembly = privilegeSetConfigureComponents;
+const static auto& getAssembly = privilegeSetLogin;
+const static auto& headAssembly = privilegeSetLogin;
+const static auto& patchAssembly = privilegeSetConfigureComponents;
+const static auto& putAssembly = privilegeSetConfigureComponents;
+const static auto& deleteAssembly = privilegeSetConfigureComponents;
+const static auto& postAssembly = privilegeSetConfigureComponents;
 
 // Bios
-const auto& getBios = privilegeSetLogin;
-const auto& headBios = privilegeSetLogin;
-const auto& patchBios = privilegeSetConfigureComponents;
-const auto& postBios = privilegeSetConfigureComponents;
-const auto& putBios = privilegeSetConfigureComponents;
-const auto& deleteBios = privilegeSetConfigureComponents;
+const static auto& getBios = privilegeSetLogin;
+const static auto& headBios = privilegeSetLogin;
+const static auto& patchBios = privilegeSetConfigureComponents;
+const static auto& postBios = privilegeSetConfigureComponents;
+const static auto& putBios = privilegeSetConfigureComponents;
+const static auto& deleteBios = privilegeSetConfigureComponents;
 
 // BootOption
-const auto& getBootOption = privilegeSetLogin;
-const auto& headBootOption = privilegeSetLogin;
-const auto& patchBootOption = privilegeSetConfigureComponents;
-const auto& putBootOption = privilegeSetConfigureComponents;
-const auto& deleteBootOption = privilegeSetConfigureComponents;
-const auto& postBootOption = privilegeSetConfigureComponents;
+const static auto& getBootOption = privilegeSetLogin;
+const static auto& headBootOption = privilegeSetLogin;
+const static auto& patchBootOption = privilegeSetConfigureComponents;
+const static auto& putBootOption = privilegeSetConfigureComponents;
+const static auto& deleteBootOption = privilegeSetConfigureComponents;
+const static auto& postBootOption = privilegeSetConfigureComponents;
 
 // BootOptionCollection
-const auto& getBootOptionCollection = privilegeSetLogin;
-const auto& headBootOptionCollection = privilegeSetLogin;
-const auto& patchBootOptionCollection = privilegeSetConfigureComponents;
-const auto& putBootOptionCollection = privilegeSetConfigureComponents;
-const auto& deleteBootOptionCollection = privilegeSetConfigureComponents;
-const auto& postBootOptionCollection = privilegeSetConfigureComponents;
+const static auto& getBootOptionCollection = privilegeSetLogin;
+const static auto& headBootOptionCollection = privilegeSetLogin;
+const static auto& patchBootOptionCollection = privilegeSetConfigureComponents;
+const static auto& putBootOptionCollection = privilegeSetConfigureComponents;
+const static auto& deleteBootOptionCollection = privilegeSetConfigureComponents;
+const static auto& postBootOptionCollection = privilegeSetConfigureComponents;
 
 // Certificate
-const auto& getCertificate = privilegeSetConfigureManager;
-const auto& headCertificate = privilegeSetConfigureManager;
-const auto& patchCertificate = privilegeSetConfigureManager;
-const auto& putCertificate = privilegeSetConfigureManager;
-const auto& deleteCertificate = privilegeSetConfigureManager;
-const auto& postCertificate = privilegeSetConfigureManager;
+const static auto& getCertificate = privilegeSetConfigureManager;
+const static auto& headCertificate = privilegeSetConfigureManager;
+const static auto& patchCertificate = privilegeSetConfigureManager;
+const static auto& putCertificate = privilegeSetConfigureManager;
+const static auto& deleteCertificate = privilegeSetConfigureManager;
+const static auto& postCertificate = privilegeSetConfigureManager;
 
 // CertificateCollection
-const auto& getCertificateCollection = privilegeSetConfigureManager;
-const auto& headCertificateCollection = privilegeSetConfigureManager;
-const auto& patchCertificateCollection = privilegeSetConfigureManager;
-const auto& putCertificateCollection = privilegeSetConfigureManager;
-const auto& deleteCertificateCollection = privilegeSetConfigureManager;
-const auto& postCertificateCollection = privilegeSetConfigureManager;
+const static auto& getCertificateCollection = privilegeSetConfigureManager;
+const static auto& headCertificateCollection = privilegeSetConfigureManager;
+const static auto& patchCertificateCollection = privilegeSetConfigureManager;
+const static auto& putCertificateCollection = privilegeSetConfigureManager;
+const static auto& deleteCertificateCollection = privilegeSetConfigureManager;
+const static auto& postCertificateCollection = privilegeSetConfigureManager;
 
 // CertificateLocations
-const auto& getCertificateLocations = privilegeSetConfigureManager;
-const auto& headCertificateLocations = privilegeSetConfigureManager;
-const auto& patchCertificateLocations = privilegeSetConfigureManager;
-const auto& putCertificateLocations = privilegeSetConfigureManager;
-const auto& deleteCertificateLocations = privilegeSetConfigureManager;
-const auto& postCertificateLocations = privilegeSetConfigureManager;
+const static auto& getCertificateLocations = privilegeSetConfigureManager;
+const static auto& headCertificateLocations = privilegeSetConfigureManager;
+const static auto& patchCertificateLocations = privilegeSetConfigureManager;
+const static auto& putCertificateLocations = privilegeSetConfigureManager;
+const static auto& deleteCertificateLocations = privilegeSetConfigureManager;
+const static auto& postCertificateLocations = privilegeSetConfigureManager;
 
 // CertificateService
-const auto& getCertificateService = privilegeSetLogin;
-const auto& headCertificateService = privilegeSetLogin;
-const auto& patchCertificateService = privilegeSetConfigureManager;
-const auto& putCertificateService = privilegeSetConfigureManager;
-const auto& deleteCertificateService = privilegeSetConfigureManager;
-const auto& postCertificateService = privilegeSetConfigureManager;
+const static auto& getCertificateService = privilegeSetLogin;
+const static auto& headCertificateService = privilegeSetLogin;
+const static auto& patchCertificateService = privilegeSetConfigureManager;
+const static auto& putCertificateService = privilegeSetConfigureManager;
+const static auto& deleteCertificateService = privilegeSetConfigureManager;
+const static auto& postCertificateService = privilegeSetConfigureManager;
 
 // Chassis
-const auto& getChassis = privilegeSetLogin;
-const auto& headChassis = privilegeSetLogin;
-const auto& patchChassis = privilegeSetConfigureComponents;
-const auto& putChassis = privilegeSetConfigureComponents;
-const auto& deleteChassis = privilegeSetConfigureComponents;
-const auto& postChassis = privilegeSetConfigureComponents;
+const static auto& getChassis = privilegeSetLogin;
+const static auto& headChassis = privilegeSetLogin;
+const static auto& patchChassis = privilegeSetConfigureComponents;
+const static auto& putChassis = privilegeSetConfigureComponents;
+const static auto& deleteChassis = privilegeSetConfigureComponents;
+const static auto& postChassis = privilegeSetConfigureComponents;
 
 // ChassisCollection
-const auto& getChassisCollection = privilegeSetLogin;
-const auto& headChassisCollection = privilegeSetLogin;
-const auto& patchChassisCollection = privilegeSetConfigureComponents;
-const auto& putChassisCollection = privilegeSetConfigureComponents;
-const auto& deleteChassisCollection = privilegeSetConfigureComponents;
-const auto& postChassisCollection = privilegeSetConfigureComponents;
+const static auto& getChassisCollection = privilegeSetLogin;
+const static auto& headChassisCollection = privilegeSetLogin;
+const static auto& patchChassisCollection = privilegeSetConfigureComponents;
+const static auto& putChassisCollection = privilegeSetConfigureComponents;
+const static auto& deleteChassisCollection = privilegeSetConfigureComponents;
+const static auto& postChassisCollection = privilegeSetConfigureComponents;
 
 // Circuit
-const auto& getCircuit = privilegeSetLogin;
-const auto& headCircuit = privilegeSetLogin;
-const auto& patchCircuit = privilegeSetConfigureComponents;
-const auto& putCircuit = privilegeSetConfigureComponents;
-const auto& deleteCircuit = privilegeSetConfigureComponents;
-const auto& postCircuit = privilegeSetConfigureComponents;
+const static auto& getCircuit = privilegeSetLogin;
+const static auto& headCircuit = privilegeSetLogin;
+const static auto& patchCircuit = privilegeSetConfigureComponents;
+const static auto& putCircuit = privilegeSetConfigureComponents;
+const static auto& deleteCircuit = privilegeSetConfigureComponents;
+const static auto& postCircuit = privilegeSetConfigureComponents;
 
 // CircuitCollection
-const auto& getCircuitCollection = privilegeSetLogin;
-const auto& headCircuitCollection = privilegeSetLogin;
-const auto& patchCircuitCollection = privilegeSetConfigureComponents;
-const auto& putCircuitCollection = privilegeSetConfigureComponents;
-const auto& deleteCircuitCollection = privilegeSetConfigureComponents;
-const auto& postCircuitCollection = privilegeSetConfigureComponents;
+const static auto& getCircuitCollection = privilegeSetLogin;
+const static auto& headCircuitCollection = privilegeSetLogin;
+const static auto& patchCircuitCollection = privilegeSetConfigureComponents;
+const static auto& putCircuitCollection = privilegeSetConfigureComponents;
+const static auto& deleteCircuitCollection = privilegeSetConfigureComponents;
+const static auto& postCircuitCollection = privilegeSetConfigureComponents;
 
 // CompositionService
-const auto& getCompositionService = privilegeSetLogin;
-const auto& headCompositionService = privilegeSetLogin;
-const auto& patchCompositionService = privilegeSetConfigureManager;
-const auto& putCompositionService = privilegeSetConfigureManager;
-const auto& deleteCompositionService = privilegeSetConfigureManager;
-const auto& postCompositionService = privilegeSetConfigureManager;
+const static auto& getCompositionService = privilegeSetLogin;
+const static auto& headCompositionService = privilegeSetLogin;
+const static auto& patchCompositionService = privilegeSetConfigureManager;
+const static auto& putCompositionService = privilegeSetConfigureManager;
+const static auto& deleteCompositionService = privilegeSetConfigureManager;
+const static auto& postCompositionService = privilegeSetConfigureManager;
 
 // ComputerSystem
-const auto& getComputerSystem = privilegeSetLogin;
-const auto& headComputerSystem = privilegeSetLogin;
-const auto& patchComputerSystem = privilegeSetConfigureComponents;
-const auto& postComputerSystem = privilegeSetConfigureComponents;
-const auto& putComputerSystem = privilegeSetConfigureComponents;
-const auto& deleteComputerSystem = privilegeSetConfigureComponents;
+const static auto& getComputerSystem = privilegeSetLogin;
+const static auto& headComputerSystem = privilegeSetLogin;
+const static auto& patchComputerSystem = privilegeSetConfigureComponents;
+const static auto& postComputerSystem = privilegeSetConfigureComponents;
+const static auto& putComputerSystem = privilegeSetConfigureComponents;
+const static auto& deleteComputerSystem = privilegeSetConfigureComponents;
 
 // ComputerSystemCollection
-const auto& getComputerSystemCollection = privilegeSetLogin;
-const auto& headComputerSystemCollection = privilegeSetLogin;
-const auto& patchComputerSystemCollection = privilegeSetConfigureComponents;
-const auto& postComputerSystemCollection = privilegeSetConfigureComponents;
-const auto& putComputerSystemCollection = privilegeSetConfigureComponents;
-const auto& deleteComputerSystemCollection = privilegeSetConfigureComponents;
+const static auto& getComputerSystemCollection = privilegeSetLogin;
+const static auto& headComputerSystemCollection = privilegeSetLogin;
+const static auto& patchComputerSystemCollection =
+    privilegeSetConfigureComponents;
+const static auto& postComputerSystemCollection =
+    privilegeSetConfigureComponents;
+const static auto& putComputerSystemCollection =
+    privilegeSetConfigureComponents;
+const static auto& deleteComputerSystemCollection =
+    privilegeSetConfigureComponents;
 
 // Connection
-const auto& getConnection = privilegeSetLogin;
-const auto& headConnection = privilegeSetLogin;
-const auto& patchConnection = privilegeSetConfigureComponents;
-const auto& postConnection = privilegeSetConfigureComponents;
-const auto& putConnection = privilegeSetConfigureComponents;
-const auto& deleteConnection = privilegeSetConfigureComponents;
+const static auto& getConnection = privilegeSetLogin;
+const static auto& headConnection = privilegeSetLogin;
+const static auto& patchConnection = privilegeSetConfigureComponents;
+const static auto& postConnection = privilegeSetConfigureComponents;
+const static auto& putConnection = privilegeSetConfigureComponents;
+const static auto& deleteConnection = privilegeSetConfigureComponents;
 
 // ConnectionCollection
-const auto& getConnectionCollection = privilegeSetLogin;
-const auto& headConnectionCollection = privilegeSetLogin;
-const auto& patchConnectionCollection = privilegeSetConfigureComponents;
-const auto& postConnectionCollection = privilegeSetConfigureComponents;
-const auto& putConnectionCollection = privilegeSetConfigureComponents;
-const auto& deleteConnectionCollection = privilegeSetConfigureComponents;
+const static auto& getConnectionCollection = privilegeSetLogin;
+const static auto& headConnectionCollection = privilegeSetLogin;
+const static auto& patchConnectionCollection = privilegeSetConfigureComponents;
+const static auto& postConnectionCollection = privilegeSetConfigureComponents;
+const static auto& putConnectionCollection = privilegeSetConfigureComponents;
+const static auto& deleteConnectionCollection = privilegeSetConfigureComponents;
 
 // ConnectionMethod
-const auto& getConnectionMethod = privilegeSetLogin;
-const auto& headConnectionMethod = privilegeSetLogin;
-const auto& patchConnectionMethod = privilegeSetConfigureManager;
-const auto& putConnectionMethod = privilegeSetConfigureManager;
-const auto& deleteConnectionMethod = privilegeSetConfigureManager;
-const auto& postConnectionMethod = privilegeSetConfigureManager;
+const static auto& getConnectionMethod = privilegeSetLogin;
+const static auto& headConnectionMethod = privilegeSetLogin;
+const static auto& patchConnectionMethod = privilegeSetConfigureManager;
+const static auto& putConnectionMethod = privilegeSetConfigureManager;
+const static auto& deleteConnectionMethod = privilegeSetConfigureManager;
+const static auto& postConnectionMethod = privilegeSetConfigureManager;
 
 // ConnectionMethodCollection
-const auto& getConnectionMethodCollection = privilegeSetLogin;
-const auto& headConnectionMethodCollection = privilegeSetLogin;
-const auto& patchConnectionMethodCollection = privilegeSetConfigureManager;
-const auto& putConnectionMethodCollection = privilegeSetConfigureManager;
-const auto& deleteConnectionMethodCollection = privilegeSetConfigureManager;
-const auto& postConnectionMethodCollection = privilegeSetConfigureManager;
+const static auto& getConnectionMethodCollection = privilegeSetLogin;
+const static auto& headConnectionMethodCollection = privilegeSetLogin;
+const static auto& patchConnectionMethodCollection =
+    privilegeSetConfigureManager;
+const static auto& putConnectionMethodCollection = privilegeSetConfigureManager;
+const static auto& deleteConnectionMethodCollection =
+    privilegeSetConfigureManager;
+const static auto& postConnectionMethodCollection =
+    privilegeSetConfigureManager;
 
 // Drive
-const auto& getDrive = privilegeSetLogin;
-const auto& headDrive = privilegeSetLogin;
-const auto& patchDrive = privilegeSetConfigureComponents;
-const auto& postDrive = privilegeSetConfigureComponents;
-const auto& putDrive = privilegeSetConfigureComponents;
-const auto& deleteDrive = privilegeSetConfigureComponents;
+const static auto& getDrive = privilegeSetLogin;
+const static auto& headDrive = privilegeSetLogin;
+const static auto& patchDrive = privilegeSetConfigureComponents;
+const static auto& postDrive = privilegeSetConfigureComponents;
+const static auto& putDrive = privilegeSetConfigureComponents;
+const static auto& deleteDrive = privilegeSetConfigureComponents;
 
 // DriveCollection
-const auto& getDriveCollection = privilegeSetLogin;
-const auto& headDriveCollection = privilegeSetLogin;
-const auto& patchDriveCollection = privilegeSetConfigureComponents;
-const auto& postDriveCollection = privilegeSetConfigureComponents;
-const auto& putDriveCollection = privilegeSetConfigureComponents;
-const auto& deleteDriveCollection = privilegeSetConfigureComponents;
+const static auto& getDriveCollection = privilegeSetLogin;
+const static auto& headDriveCollection = privilegeSetLogin;
+const static auto& patchDriveCollection = privilegeSetConfigureComponents;
+const static auto& postDriveCollection = privilegeSetConfigureComponents;
+const static auto& putDriveCollection = privilegeSetConfigureComponents;
+const static auto& deleteDriveCollection = privilegeSetConfigureComponents;
 
 // Endpoint
-const auto& getEndpoint = privilegeSetLogin;
-const auto& headEndpoint = privilegeSetLogin;
-const auto& patchEndpoint = privilegeSetConfigureComponents;
-const auto& postEndpoint = privilegeSetConfigureComponents;
-const auto& putEndpoint = privilegeSetConfigureComponents;
-const auto& deleteEndpoint = privilegeSetConfigureComponents;
+const static auto& getEndpoint = privilegeSetLogin;
+const static auto& headEndpoint = privilegeSetLogin;
+const static auto& patchEndpoint = privilegeSetConfigureComponents;
+const static auto& postEndpoint = privilegeSetConfigureComponents;
+const static auto& putEndpoint = privilegeSetConfigureComponents;
+const static auto& deleteEndpoint = privilegeSetConfigureComponents;
 
 // EndpointCollection
-const auto& getEndpointCollection = privilegeSetLogin;
-const auto& headEndpointCollection = privilegeSetLogin;
-const auto& patchEndpointCollection = privilegeSetConfigureComponents;
-const auto& postEndpointCollection = privilegeSetConfigureComponents;
-const auto& putEndpointCollection = privilegeSetConfigureComponents;
-const auto& deleteEndpointCollection = privilegeSetConfigureComponents;
+const static auto& getEndpointCollection = privilegeSetLogin;
+const static auto& headEndpointCollection = privilegeSetLogin;
+const static auto& patchEndpointCollection = privilegeSetConfigureComponents;
+const static auto& postEndpointCollection = privilegeSetConfigureComponents;
+const static auto& putEndpointCollection = privilegeSetConfigureComponents;
+const static auto& deleteEndpointCollection = privilegeSetConfigureComponents;
 
 // EndpointGroup
-const auto& getEndpointGroup = privilegeSetLogin;
-const auto& headEndpointGroup = privilegeSetLogin;
-const auto& patchEndpointGroup = privilegeSetConfigureComponents;
-const auto& postEndpointGroup = privilegeSetConfigureComponents;
-const auto& putEndpointGroup = privilegeSetConfigureComponents;
-const auto& deleteEndpointGroup = privilegeSetConfigureComponents;
+const static auto& getEndpointGroup = privilegeSetLogin;
+const static auto& headEndpointGroup = privilegeSetLogin;
+const static auto& patchEndpointGroup = privilegeSetConfigureComponents;
+const static auto& postEndpointGroup = privilegeSetConfigureComponents;
+const static auto& putEndpointGroup = privilegeSetConfigureComponents;
+const static auto& deleteEndpointGroup = privilegeSetConfigureComponents;
 
 // EndpointGroupCollection
-const auto& getEndpointGroupCollection = privilegeSetLogin;
-const auto& headEndpointGroupCollection = privilegeSetLogin;
-const auto& patchEndpointGroupCollection = privilegeSetConfigureComponents;
-const auto& postEndpointGroupCollection = privilegeSetConfigureComponents;
-const auto& putEndpointGroupCollection = privilegeSetConfigureComponents;
-const auto& deleteEndpointGroupCollection = privilegeSetConfigureComponents;
+const static auto& getEndpointGroupCollection = privilegeSetLogin;
+const static auto& headEndpointGroupCollection = privilegeSetLogin;
+const static auto& patchEndpointGroupCollection =
+    privilegeSetConfigureComponents;
+const static auto& postEndpointGroupCollection =
+    privilegeSetConfigureComponents;
+const static auto& putEndpointGroupCollection = privilegeSetConfigureComponents;
+const static auto& deleteEndpointGroupCollection =
+    privilegeSetConfigureComponents;
 
 // EthernetInterface
-const auto& getEthernetInterface = privilegeSetLogin;
-const auto& headEthernetInterface = privilegeSetLogin;
-const auto& patchEthernetInterface = privilegeSetConfigureComponents;
-const auto& postEthernetInterface = privilegeSetConfigureComponents;
-const auto& putEthernetInterface = privilegeSetConfigureComponents;
-const auto& deleteEthernetInterface = privilegeSetConfigureComponents;
+const static auto& getEthernetInterface = privilegeSetLogin;
+const static auto& headEthernetInterface = privilegeSetLogin;
+const static auto& patchEthernetInterface = privilegeSetConfigureComponents;
+const static auto& postEthernetInterface = privilegeSetConfigureComponents;
+const static auto& putEthernetInterface = privilegeSetConfigureComponents;
+const static auto& deleteEthernetInterface = privilegeSetConfigureComponents;
 
 // EthernetInterfaceCollection
-const auto& getEthernetInterfaceCollection = privilegeSetLogin;
-const auto& headEthernetInterfaceCollection = privilegeSetLogin;
-const auto& patchEthernetInterfaceCollection = privilegeSetConfigureComponents;
-const auto& postEthernetInterfaceCollection = privilegeSetConfigureComponents;
-const auto& putEthernetInterfaceCollection = privilegeSetConfigureComponents;
-const auto& deleteEthernetInterfaceCollection = privilegeSetConfigureComponents;
+const static auto& getEthernetInterfaceCollection = privilegeSetLogin;
+const static auto& headEthernetInterfaceCollection = privilegeSetLogin;
+const static auto& patchEthernetInterfaceCollection =
+    privilegeSetConfigureComponents;
+const static auto& postEthernetInterfaceCollection =
+    privilegeSetConfigureComponents;
+const static auto& putEthernetInterfaceCollection =
+    privilegeSetConfigureComponents;
+const static auto& deleteEthernetInterfaceCollection =
+    privilegeSetConfigureComponents;
 
 // EventDestination
-const auto& getEventDestination = privilegeSetLogin;
-const auto& headEventDestination = privilegeSetLogin;
-const auto& patchEventDestination = privilegeSetConfigureManagerOrConfigureSelf;
-const auto& postEventDestination = privilegeSetConfigureManagerOrConfigureSelf;
-const auto& putEventDestination = privilegeSetConfigureManagerOrConfigureSelf;
-const auto& deleteEventDestination =
+const static auto& getEventDestination = privilegeSetLogin;
+const static auto& headEventDestination = privilegeSetLogin;
+const static auto& patchEventDestination =
+    privilegeSetConfigureManagerOrConfigureSelf;
+const static auto& postEventDestination =
+    privilegeSetConfigureManagerOrConfigureSelf;
+const static auto& putEventDestination =
+    privilegeSetConfigureManagerOrConfigureSelf;
+const static auto& deleteEventDestination =
     privilegeSetConfigureManagerOrConfigureSelf;
 
 // EventDestinationCollection
-const auto& getEventDestinationCollection = privilegeSetLogin;
-const auto& headEventDestinationCollection = privilegeSetLogin;
-const auto& patchEventDestinationCollection =
+const static auto& getEventDestinationCollection = privilegeSetLogin;
+const static auto& headEventDestinationCollection = privilegeSetLogin;
+const static auto& patchEventDestinationCollection =
     privilegeSetConfigureManagerOrConfigureComponents;
-const auto& postEventDestinationCollection =
+const static auto& postEventDestinationCollection =
     privilegeSetConfigureManagerOrConfigureComponents;
-const auto& putEventDestinationCollection =
+const static auto& putEventDestinationCollection =
     privilegeSetConfigureManagerOrConfigureComponents;
-const auto& deleteEventDestinationCollection =
+const static auto& deleteEventDestinationCollection =
     privilegeSetConfigureManagerOrConfigureComponents;
 
 // EventService
-const auto& getEventService = privilegeSetLogin;
-const auto& headEventService = privilegeSetLogin;
-const auto& patchEventService = privilegeSetConfigureManager;
-const auto& postEventService = privilegeSetConfigureManager;
-const auto& putEventService = privilegeSetConfigureManager;
-const auto& deleteEventService = privilegeSetConfigureManager;
+const static auto& getEventService = privilegeSetLogin;
+const static auto& headEventService = privilegeSetLogin;
+const static auto& patchEventService = privilegeSetConfigureManager;
+const static auto& postEventService = privilegeSetConfigureManager;
+const static auto& putEventService = privilegeSetConfigureManager;
+const static auto& deleteEventService = privilegeSetConfigureManager;
 
 // ExternalAccountProvider
-const auto& getExternalAccountProvider = privilegeSetLogin;
-const auto& headExternalAccountProvider = privilegeSetLogin;
-const auto& patchExternalAccountProvider = privilegeSetConfigureManager;
-const auto& putExternalAccountProvider = privilegeSetConfigureManager;
-const auto& deleteExternalAccountProvider = privilegeSetConfigureManager;
-const auto& postExternalAccountProvider = privilegeSetConfigureManager;
+const static auto& getExternalAccountProvider = privilegeSetLogin;
+const static auto& headExternalAccountProvider = privilegeSetLogin;
+const static auto& patchExternalAccountProvider = privilegeSetConfigureManager;
+const static auto& putExternalAccountProvider = privilegeSetConfigureManager;
+const static auto& deleteExternalAccountProvider = privilegeSetConfigureManager;
+const static auto& postExternalAccountProvider = privilegeSetConfigureManager;
 
 // ExternalAccountProviderCollection
-const auto& getExternalAccountProviderCollection = privilegeSetLogin;
-const auto& headExternalAccountProviderCollection = privilegeSetLogin;
-const auto& patchExternalAccountProviderCollection =
+const static auto& getExternalAccountProviderCollection = privilegeSetLogin;
+const static auto& headExternalAccountProviderCollection = privilegeSetLogin;
+const static auto& patchExternalAccountProviderCollection =
     privilegeSetConfigureManager;
-const auto& putExternalAccountProviderCollection = privilegeSetConfigureManager;
-const auto& deleteExternalAccountProviderCollection =
+const static auto& putExternalAccountProviderCollection =
     privilegeSetConfigureManager;
-const auto& postExternalAccountProviderCollection =
+const static auto& deleteExternalAccountProviderCollection =
+    privilegeSetConfigureManager;
+const static auto& postExternalAccountProviderCollection =
     privilegeSetConfigureManager;
 
 // Fabric
-const auto& getFabric = privilegeSetLogin;
-const auto& headFabric = privilegeSetLogin;
-const auto& patchFabric = privilegeSetConfigureComponents;
-const auto& postFabric = privilegeSetConfigureComponents;
-const auto& putFabric = privilegeSetConfigureComponents;
-const auto& deleteFabric = privilegeSetConfigureComponents;
+const static auto& getFabric = privilegeSetLogin;
+const static auto& headFabric = privilegeSetLogin;
+const static auto& patchFabric = privilegeSetConfigureComponents;
+const static auto& postFabric = privilegeSetConfigureComponents;
+const static auto& putFabric = privilegeSetConfigureComponents;
+const static auto& deleteFabric = privilegeSetConfigureComponents;
 
 // FabricCollection
-const auto& getFabricCollection = privilegeSetLogin;
-const auto& headFabricCollection = privilegeSetLogin;
-const auto& patchFabricCollection = privilegeSetConfigureComponents;
-const auto& postFabricCollection = privilegeSetConfigureComponents;
-const auto& putFabricCollection = privilegeSetConfigureComponents;
-const auto& deleteFabricCollection = privilegeSetConfigureComponents;
+const static auto& getFabricCollection = privilegeSetLogin;
+const static auto& headFabricCollection = privilegeSetLogin;
+const static auto& patchFabricCollection = privilegeSetConfigureComponents;
+const static auto& postFabricCollection = privilegeSetConfigureComponents;
+const static auto& putFabricCollection = privilegeSetConfigureComponents;
+const static auto& deleteFabricCollection = privilegeSetConfigureComponents;
 
 // FabricAdapter
-const auto& getFabricAdapter = privilegeSetLogin;
-const auto& headFabricAdapter = privilegeSetLogin;
-const auto& patchFabricAdapter = privilegeSetConfigureComponents;
-const auto& postFabricAdapter = privilegeSetConfigureComponents;
-const auto& putFabricAdapter = privilegeSetConfigureComponents;
-const auto& deleteFabricAdapter = privilegeSetConfigureComponents;
+const static auto& getFabricAdapter = privilegeSetLogin;
+const static auto& headFabricAdapter = privilegeSetLogin;
+const static auto& patchFabricAdapter = privilegeSetConfigureComponents;
+const static auto& postFabricAdapter = privilegeSetConfigureComponents;
+const static auto& putFabricAdapter = privilegeSetConfigureComponents;
+const static auto& deleteFabricAdapter = privilegeSetConfigureComponents;
 
 // FabricAdapterCollection
-const auto& getFabricAdapterCollection = privilegeSetLogin;
-const auto& headFabricAdapterCollection = privilegeSetLogin;
-const auto& patchFabricAdapterCollection = privilegeSetConfigureComponents;
-const auto& postFabricAdapterCollection = privilegeSetConfigureComponents;
-const auto& putFabricAdapterCollection = privilegeSetConfigureComponents;
-const auto& deleteFabricAdapterCollection = privilegeSetConfigureComponents;
+const static auto& getFabricAdapterCollection = privilegeSetLogin;
+const static auto& headFabricAdapterCollection = privilegeSetLogin;
+const static auto& patchFabricAdapterCollection =
+    privilegeSetConfigureComponents;
+const static auto& postFabricAdapterCollection =
+    privilegeSetConfigureComponents;
+const static auto& putFabricAdapterCollection = privilegeSetConfigureComponents;
+const static auto& deleteFabricAdapterCollection =
+    privilegeSetConfigureComponents;
 
 // Facility
-const auto& getFacility = privilegeSetLogin;
-const auto& headFacility = privilegeSetLogin;
-const auto& patchFacility = privilegeSetConfigureComponents;
-const auto& putFacility = privilegeSetConfigureComponents;
-const auto& deleteFacility = privilegeSetConfigureComponents;
-const auto& postFacility = privilegeSetConfigureComponents;
+const static auto& getFacility = privilegeSetLogin;
+const static auto& headFacility = privilegeSetLogin;
+const static auto& patchFacility = privilegeSetConfigureComponents;
+const static auto& putFacility = privilegeSetConfigureComponents;
+const static auto& deleteFacility = privilegeSetConfigureComponents;
+const static auto& postFacility = privilegeSetConfigureComponents;
 
 // FacilityCollection
-const auto& getFacilityCollection = privilegeSetLogin;
-const auto& headFacilityCollection = privilegeSetLogin;
-const auto& patchFacilityCollection = privilegeSetConfigureComponents;
-const auto& putFacilityCollection = privilegeSetConfigureComponents;
-const auto& deleteFacilityCollection = privilegeSetConfigureComponents;
-const auto& postFacilityCollection = privilegeSetConfigureComponents;
+const static auto& getFacilityCollection = privilegeSetLogin;
+const static auto& headFacilityCollection = privilegeSetLogin;
+const static auto& patchFacilityCollection = privilegeSetConfigureComponents;
+const static auto& putFacilityCollection = privilegeSetConfigureComponents;
+const static auto& deleteFacilityCollection = privilegeSetConfigureComponents;
+const static auto& postFacilityCollection = privilegeSetConfigureComponents;
 
 // HostInterface
-const auto& getHostInterface = privilegeSetLogin;
-const auto& headHostInterface = privilegeSetLogin;
-const auto& patchHostInterface = privilegeSetConfigureManager;
-const auto& postHostInterface = privilegeSetConfigureManager;
-const auto& putHostInterface = privilegeSetConfigureManager;
-const auto& deleteHostInterface = privilegeSetConfigureManager;
+const static auto& getHostInterface = privilegeSetLogin;
+const static auto& headHostInterface = privilegeSetLogin;
+const static auto& patchHostInterface = privilegeSetConfigureManager;
+const static auto& postHostInterface = privilegeSetConfigureManager;
+const static auto& putHostInterface = privilegeSetConfigureManager;
+const static auto& deleteHostInterface = privilegeSetConfigureManager;
 
 // HostInterfaceCollection
-const auto& getHostInterfaceCollection = privilegeSetLogin;
-const auto& headHostInterfaceCollection = privilegeSetLogin;
-const auto& patchHostInterfaceCollection = privilegeSetConfigureManager;
-const auto& postHostInterfaceCollection = privilegeSetConfigureManager;
-const auto& putHostInterfaceCollection = privilegeSetConfigureManager;
-const auto& deleteHostInterfaceCollection = privilegeSetConfigureManager;
+const static auto& getHostInterfaceCollection = privilegeSetLogin;
+const static auto& headHostInterfaceCollection = privilegeSetLogin;
+const static auto& patchHostInterfaceCollection = privilegeSetConfigureManager;
+const static auto& postHostInterfaceCollection = privilegeSetConfigureManager;
+const static auto& putHostInterfaceCollection = privilegeSetConfigureManager;
+const static auto& deleteHostInterfaceCollection = privilegeSetConfigureManager;
 
 // Job
-const auto& getJob = privilegeSetLogin;
-const auto& headJob = privilegeSetLogin;
-const auto& patchJob = privilegeSetConfigureManager;
-const auto& putJob = privilegeSetConfigureManager;
-const auto& deleteJob = privilegeSetConfigureManager;
-const auto& postJob = privilegeSetConfigureManager;
+const static auto& getJob = privilegeSetLogin;
+const static auto& headJob = privilegeSetLogin;
+const static auto& patchJob = privilegeSetConfigureManager;
+const static auto& putJob = privilegeSetConfigureManager;
+const static auto& deleteJob = privilegeSetConfigureManager;
+const static auto& postJob = privilegeSetConfigureManager;
 
 // JobCollection
-const auto& getJobCollection = privilegeSetLogin;
-const auto& headJobCollection = privilegeSetLogin;
-const auto& patchJobCollection = privilegeSetConfigureManager;
-const auto& putJobCollection = privilegeSetConfigureManager;
-const auto& deleteJobCollection = privilegeSetConfigureManager;
-const auto& postJobCollection = privilegeSetConfigureManager;
+const static auto& getJobCollection = privilegeSetLogin;
+const static auto& headJobCollection = privilegeSetLogin;
+const static auto& patchJobCollection = privilegeSetConfigureManager;
+const static auto& putJobCollection = privilegeSetConfigureManager;
+const static auto& deleteJobCollection = privilegeSetConfigureManager;
+const static auto& postJobCollection = privilegeSetConfigureManager;
 
 // JobService
-const auto& getJobService = privilegeSetLogin;
-const auto& headJobService = privilegeSetLogin;
-const auto& patchJobService = privilegeSetConfigureManager;
-const auto& putJobService = privilegeSetConfigureManager;
-const auto& deleteJobService = privilegeSetConfigureManager;
-const auto& postJobService = privilegeSetConfigureManager;
+const static auto& getJobService = privilegeSetLogin;
+const static auto& headJobService = privilegeSetLogin;
+const static auto& patchJobService = privilegeSetConfigureManager;
+const static auto& putJobService = privilegeSetConfigureManager;
+const static auto& deleteJobService = privilegeSetConfigureManager;
+const static auto& postJobService = privilegeSetConfigureManager;
 
 // JsonSchemaFile
-const auto& getJsonSchemaFile = privilegeSetLogin;
-const auto& headJsonSchemaFile = privilegeSetLogin;
-const auto& patchJsonSchemaFile = privilegeSetConfigureManager;
-const auto& postJsonSchemaFile = privilegeSetConfigureManager;
-const auto& putJsonSchemaFile = privilegeSetConfigureManager;
-const auto& deleteJsonSchemaFile = privilegeSetConfigureManager;
+const static auto& getJsonSchemaFile = privilegeSetLogin;
+const static auto& headJsonSchemaFile = privilegeSetLogin;
+const static auto& patchJsonSchemaFile = privilegeSetConfigureManager;
+const static auto& postJsonSchemaFile = privilegeSetConfigureManager;
+const static auto& putJsonSchemaFile = privilegeSetConfigureManager;
+const static auto& deleteJsonSchemaFile = privilegeSetConfigureManager;
 
 // JsonSchemaFileCollection
-const auto& getJsonSchemaFileCollection = privilegeSetLogin;
-const auto& headJsonSchemaFileCollection = privilegeSetLogin;
-const auto& patchJsonSchemaFileCollection = privilegeSetConfigureManager;
-const auto& postJsonSchemaFileCollection = privilegeSetConfigureManager;
-const auto& putJsonSchemaFileCollection = privilegeSetConfigureManager;
-const auto& deleteJsonSchemaFileCollection = privilegeSetConfigureManager;
+const static auto& getJsonSchemaFileCollection = privilegeSetLogin;
+const static auto& headJsonSchemaFileCollection = privilegeSetLogin;
+const static auto& patchJsonSchemaFileCollection = privilegeSetConfigureManager;
+const static auto& postJsonSchemaFileCollection = privilegeSetConfigureManager;
+const static auto& putJsonSchemaFileCollection = privilegeSetConfigureManager;
+const static auto& deleteJsonSchemaFileCollection =
+    privilegeSetConfigureManager;
 
 // LogEntry
-const auto& getLogEntry = privilegeSetLogin;
-const auto& headLogEntry = privilegeSetLogin;
-const auto& patchLogEntry = privilegeSetConfigureManager;
-const auto& putLogEntry = privilegeSetConfigureManager;
-const auto& deleteLogEntry = privilegeSetConfigureManager;
-const auto& postLogEntry = privilegeSetConfigureManager;
+const static auto& getLogEntry = privilegeSetLogin;
+const static auto& headLogEntry = privilegeSetLogin;
+const static auto& patchLogEntry = privilegeSetConfigureManager;
+const static auto& putLogEntry = privilegeSetConfigureManager;
+const static auto& deleteLogEntry = privilegeSetConfigureManager;
+const static auto& postLogEntry = privilegeSetConfigureManager;
 
 // LogEntryCollection
-const auto& getLogEntryCollection = privilegeSetLogin;
-const auto& headLogEntryCollection = privilegeSetLogin;
-const auto& patchLogEntryCollection = privilegeSetConfigureManager;
-const auto& putLogEntryCollection = privilegeSetConfigureManager;
-const auto& deleteLogEntryCollection = privilegeSetConfigureManager;
-const auto& postLogEntryCollection = privilegeSetConfigureManager;
+const static auto& getLogEntryCollection = privilegeSetLogin;
+const static auto& headLogEntryCollection = privilegeSetLogin;
+const static auto& patchLogEntryCollection = privilegeSetConfigureManager;
+const static auto& putLogEntryCollection = privilegeSetConfigureManager;
+const static auto& deleteLogEntryCollection = privilegeSetConfigureManager;
+const static auto& postLogEntryCollection = privilegeSetConfigureManager;
 
 // LogService
-const auto& getLogService = privilegeSetLogin;
-const auto& headLogService = privilegeSetLogin;
-const auto& patchLogService = privilegeSetConfigureManager;
-const auto& putLogService = privilegeSetConfigureManager;
-const auto& deleteLogService = privilegeSetConfigureManager;
-const auto& postLogService = privilegeSetConfigureManager;
+const static auto& getLogService = privilegeSetLogin;
+const static auto& headLogService = privilegeSetLogin;
+const static auto& patchLogService = privilegeSetConfigureManager;
+const static auto& putLogService = privilegeSetConfigureManager;
+const static auto& deleteLogService = privilegeSetConfigureManager;
+const static auto& postLogService = privilegeSetConfigureManager;
 
 // LogServiceCollection
-const auto& getLogServiceCollection = privilegeSetLogin;
-const auto& headLogServiceCollection = privilegeSetLogin;
-const auto& patchLogServiceCollection = privilegeSetConfigureManager;
-const auto& putLogServiceCollection = privilegeSetConfigureManager;
-const auto& deleteLogServiceCollection = privilegeSetConfigureManager;
-const auto& postLogServiceCollection = privilegeSetConfigureManager;
+const static auto& getLogServiceCollection = privilegeSetLogin;
+const static auto& headLogServiceCollection = privilegeSetLogin;
+const static auto& patchLogServiceCollection = privilegeSetConfigureManager;
+const static auto& putLogServiceCollection = privilegeSetConfigureManager;
+const static auto& deleteLogServiceCollection = privilegeSetConfigureManager;
+const static auto& postLogServiceCollection = privilegeSetConfigureManager;
 
 // Manager
-const auto& getManager = privilegeSetLogin;
-const auto& headManager = privilegeSetLogin;
-const auto& patchManager = privilegeSetConfigureManager;
-const auto& postManager = privilegeSetConfigureManager;
-const auto& putManager = privilegeSetConfigureManager;
-const auto& deleteManager = privilegeSetConfigureManager;
+const static auto& getManager = privilegeSetLogin;
+const static auto& headManager = privilegeSetLogin;
+const static auto& patchManager = privilegeSetConfigureManager;
+const static auto& postManager = privilegeSetConfigureManager;
+const static auto& putManager = privilegeSetConfigureManager;
+const static auto& deleteManager = privilegeSetConfigureManager;
 
 // ManagerCollection
-const auto& getManagerCollection = privilegeSetLogin;
-const auto& headManagerCollection = privilegeSetLogin;
-const auto& patchManagerCollection = privilegeSetConfigureManager;
-const auto& postManagerCollection = privilegeSetConfigureManager;
-const auto& putManagerCollection = privilegeSetConfigureManager;
-const auto& deleteManagerCollection = privilegeSetConfigureManager;
+const static auto& getManagerCollection = privilegeSetLogin;
+const static auto& headManagerCollection = privilegeSetLogin;
+const static auto& patchManagerCollection = privilegeSetConfigureManager;
+const static auto& postManagerCollection = privilegeSetConfigureManager;
+const static auto& putManagerCollection = privilegeSetConfigureManager;
+const static auto& deleteManagerCollection = privilegeSetConfigureManager;
 
 // ManagerAccount
-const auto& getManagerAccount =
+const static auto& getManagerAccount =
     privilegeSetConfigureManagerOrConfigureUsersOrConfigureSelf;
-const auto& headManagerAccount = privilegeSetLogin;
-const auto& patchManagerAccount = privilegeSetConfigureUsers;
-const auto& postManagerAccount = privilegeSetConfigureUsers;
-const auto& putManagerAccount = privilegeSetConfigureUsers;
-const auto& deleteManagerAccount = privilegeSetConfigureUsers;
+const static auto& headManagerAccount = privilegeSetLogin;
+const static auto& patchManagerAccount = privilegeSetConfigureUsers;
+const static auto& postManagerAccount = privilegeSetConfigureUsers;
+const static auto& putManagerAccount = privilegeSetConfigureUsers;
+const static auto& deleteManagerAccount = privilegeSetConfigureUsers;
 
 // ManagerAccountCollection
-const auto& getManagerAccountCollection = privilegeSetLogin;
-const auto& headManagerAccountCollection = privilegeSetLogin;
-const auto& patchManagerAccountCollection = privilegeSetConfigureUsers;
-const auto& putManagerAccountCollection = privilegeSetConfigureUsers;
-const auto& deleteManagerAccountCollection = privilegeSetConfigureUsers;
-const auto& postManagerAccountCollection = privilegeSetConfigureUsers;
+const static auto& getManagerAccountCollection = privilegeSetLogin;
+const static auto& headManagerAccountCollection = privilegeSetLogin;
+const static auto& patchManagerAccountCollection = privilegeSetConfigureUsers;
+const static auto& putManagerAccountCollection = privilegeSetConfigureUsers;
+const static auto& deleteManagerAccountCollection = privilegeSetConfigureUsers;
+const static auto& postManagerAccountCollection = privilegeSetConfigureUsers;
 
 // ManagerNetworkProtocol
-const auto& getManagerNetworkProtocol = privilegeSetLogin;
-const auto& headManagerNetworkProtocol = privilegeSetLogin;
-const auto& patchManagerNetworkProtocol = privilegeSetConfigureManager;
-const auto& postManagerNetworkProtocol = privilegeSetConfigureManager;
-const auto& putManagerNetworkProtocol = privilegeSetConfigureManager;
-const auto& deleteManagerNetworkProtocol = privilegeSetConfigureManager;
+const static auto& getManagerNetworkProtocol = privilegeSetLogin;
+const static auto& headManagerNetworkProtocol = privilegeSetLogin;
+const static auto& patchManagerNetworkProtocol = privilegeSetConfigureManager;
+const static auto& postManagerNetworkProtocol = privilegeSetConfigureManager;
+const static auto& putManagerNetworkProtocol = privilegeSetConfigureManager;
+const static auto& deleteManagerNetworkProtocol = privilegeSetConfigureManager;
 
 // MediaController
-const auto& getMediaController = privilegeSetLogin;
-const auto& headMediaController = privilegeSetLogin;
-const auto& patchMediaController = privilegeSetConfigureComponents;
-const auto& postMediaController = privilegeSetConfigureComponents;
-const auto& putMediaController = privilegeSetConfigureComponents;
-const auto& deleteMediaController = privilegeSetConfigureComponents;
+const static auto& getMediaController = privilegeSetLogin;
+const static auto& headMediaController = privilegeSetLogin;
+const static auto& patchMediaController = privilegeSetConfigureComponents;
+const static auto& postMediaController = privilegeSetConfigureComponents;
+const static auto& putMediaController = privilegeSetConfigureComponents;
+const static auto& deleteMediaController = privilegeSetConfigureComponents;
 
 // MediaControllerCollection
-const auto& getMediaControllerCollection = privilegeSetLogin;
-const auto& headMediaControllerCollection = privilegeSetLogin;
-const auto& patchMediaControllerCollection = privilegeSetConfigureComponents;
-const auto& postMediaControllerCollection = privilegeSetConfigureComponents;
-const auto& putMediaControllerCollection = privilegeSetConfigureComponents;
-const auto& deleteMediaControllerCollection = privilegeSetConfigureComponents;
+const static auto& getMediaControllerCollection = privilegeSetLogin;
+const static auto& headMediaControllerCollection = privilegeSetLogin;
+const static auto& patchMediaControllerCollection =
+    privilegeSetConfigureComponents;
+const static auto& postMediaControllerCollection =
+    privilegeSetConfigureComponents;
+const static auto& putMediaControllerCollection =
+    privilegeSetConfigureComponents;
+const static auto& deleteMediaControllerCollection =
+    privilegeSetConfigureComponents;
 
 // Memory
-const auto& getMemory = privilegeSetLogin;
-const auto& headMemory = privilegeSetLogin;
-const auto& patchMemory = privilegeSetConfigureComponents;
-const auto& postMemory = privilegeSetConfigureComponents;
-const auto& putMemory = privilegeSetConfigureComponents;
-const auto& deleteMemory = privilegeSetConfigureComponents;
+const static auto& getMemory = privilegeSetLogin;
+const static auto& headMemory = privilegeSetLogin;
+const static auto& patchMemory = privilegeSetConfigureComponents;
+const static auto& postMemory = privilegeSetConfigureComponents;
+const static auto& putMemory = privilegeSetConfigureComponents;
+const static auto& deleteMemory = privilegeSetConfigureComponents;
 
 // MemoryCollection
-const auto& getMemoryCollection = privilegeSetLogin;
-const auto& headMemoryCollection = privilegeSetLogin;
-const auto& patchMemoryCollection = privilegeSetConfigureComponents;
-const auto& postMemoryCollection = privilegeSetConfigureComponents;
-const auto& putMemoryCollection = privilegeSetConfigureComponents;
-const auto& deleteMemoryCollection = privilegeSetConfigureComponents;
+const static auto& getMemoryCollection = privilegeSetLogin;
+const static auto& headMemoryCollection = privilegeSetLogin;
+const static auto& patchMemoryCollection = privilegeSetConfigureComponents;
+const static auto& postMemoryCollection = privilegeSetConfigureComponents;
+const static auto& putMemoryCollection = privilegeSetConfigureComponents;
+const static auto& deleteMemoryCollection = privilegeSetConfigureComponents;
 
 // MemoryChunks
-const auto& getMemoryChunks = privilegeSetLogin;
-const auto& headMemoryChunks = privilegeSetLogin;
-const auto& patchMemoryChunks = privilegeSetConfigureComponents;
-const auto& postMemoryChunks = privilegeSetConfigureComponents;
-const auto& putMemoryChunks = privilegeSetConfigureComponents;
-const auto& deleteMemoryChunks = privilegeSetConfigureComponents;
+const static auto& getMemoryChunks = privilegeSetLogin;
+const static auto& headMemoryChunks = privilegeSetLogin;
+const static auto& patchMemoryChunks = privilegeSetConfigureComponents;
+const static auto& postMemoryChunks = privilegeSetConfigureComponents;
+const static auto& putMemoryChunks = privilegeSetConfigureComponents;
+const static auto& deleteMemoryChunks = privilegeSetConfigureComponents;
 
 // MemoryChunksCollection
-const auto& getMemoryChunksCollection = privilegeSetLogin;
-const auto& headMemoryChunksCollection = privilegeSetLogin;
-const auto& patchMemoryChunksCollection = privilegeSetConfigureComponents;
-const auto& postMemoryChunksCollection = privilegeSetConfigureComponents;
-const auto& putMemoryChunksCollection = privilegeSetConfigureComponents;
-const auto& deleteMemoryChunksCollection = privilegeSetConfigureComponents;
+const static auto& getMemoryChunksCollection = privilegeSetLogin;
+const static auto& headMemoryChunksCollection = privilegeSetLogin;
+const static auto& patchMemoryChunksCollection =
+    privilegeSetConfigureComponents;
+const static auto& postMemoryChunksCollection = privilegeSetConfigureComponents;
+const static auto& putMemoryChunksCollection = privilegeSetConfigureComponents;
+const static auto& deleteMemoryChunksCollection =
+    privilegeSetConfigureComponents;
 
 // MemoryDomain
-const auto& getMemoryDomain = privilegeSetLogin;
-const auto& headMemoryDomain = privilegeSetLogin;
-const auto& patchMemoryDomain = privilegeSetConfigureComponents;
-const auto& postMemoryDomain = privilegeSetConfigureComponents;
-const auto& putMemoryDomain = privilegeSetConfigureComponents;
-const auto& deleteMemoryDomain = privilegeSetConfigureComponents;
+const static auto& getMemoryDomain = privilegeSetLogin;
+const static auto& headMemoryDomain = privilegeSetLogin;
+const static auto& patchMemoryDomain = privilegeSetConfigureComponents;
+const static auto& postMemoryDomain = privilegeSetConfigureComponents;
+const static auto& putMemoryDomain = privilegeSetConfigureComponents;
+const static auto& deleteMemoryDomain = privilegeSetConfigureComponents;
 
 // MemoryDomainCollection
-const auto& getMemoryDomainCollection = privilegeSetLogin;
-const auto& headMemoryDomainCollection = privilegeSetLogin;
-const auto& patchMemoryDomainCollection = privilegeSetConfigureComponents;
-const auto& postMemoryDomainCollection = privilegeSetConfigureComponents;
-const auto& putMemoryDomainCollection = privilegeSetConfigureComponents;
-const auto& deleteMemoryDomainCollection = privilegeSetConfigureComponents;
+const static auto& getMemoryDomainCollection = privilegeSetLogin;
+const static auto& headMemoryDomainCollection = privilegeSetLogin;
+const static auto& patchMemoryDomainCollection =
+    privilegeSetConfigureComponents;
+const static auto& postMemoryDomainCollection = privilegeSetConfigureComponents;
+const static auto& putMemoryDomainCollection = privilegeSetConfigureComponents;
+const static auto& deleteMemoryDomainCollection =
+    privilegeSetConfigureComponents;
 
 // MemoryMetrics
-const auto& getMemoryMetrics = privilegeSetLogin;
-const auto& headMemoryMetrics = privilegeSetLogin;
-const auto& patchMemoryMetrics = privilegeSetConfigureComponents;
-const auto& postMemoryMetrics = privilegeSetConfigureComponents;
-const auto& putMemoryMetrics = privilegeSetConfigureComponents;
-const auto& deleteMemoryMetrics = privilegeSetConfigureComponents;
+const static auto& getMemoryMetrics = privilegeSetLogin;
+const static auto& headMemoryMetrics = privilegeSetLogin;
+const static auto& patchMemoryMetrics = privilegeSetConfigureComponents;
+const static auto& postMemoryMetrics = privilegeSetConfigureComponents;
+const static auto& putMemoryMetrics = privilegeSetConfigureComponents;
+const static auto& deleteMemoryMetrics = privilegeSetConfigureComponents;
 
 // MessageRegistryFile
-const auto& getMessageRegistryFile = privilegeSetLogin;
-const auto& headMessageRegistryFile = privilegeSetLogin;
-const auto& patchMessageRegistryFile = privilegeSetConfigureManager;
-const auto& postMessageRegistryFile = privilegeSetConfigureManager;
-const auto& putMessageRegistryFile = privilegeSetConfigureManager;
-const auto& deleteMessageRegistryFile = privilegeSetConfigureManager;
+const static auto& getMessageRegistryFile = privilegeSetLogin;
+const static auto& headMessageRegistryFile = privilegeSetLogin;
+const static auto& patchMessageRegistryFile = privilegeSetConfigureManager;
+const static auto& postMessageRegistryFile = privilegeSetConfigureManager;
+const static auto& putMessageRegistryFile = privilegeSetConfigureManager;
+const static auto& deleteMessageRegistryFile = privilegeSetConfigureManager;
 
 // MessageRegistryFileCollection
-const auto& getMessageRegistryFileCollection = privilegeSetLogin;
-const auto& headMessageRegistryFileCollection = privilegeSetLogin;
-const auto& patchMessageRegistryFileCollection = privilegeSetConfigureManager;
-const auto& postMessageRegistryFileCollection = privilegeSetConfigureManager;
-const auto& putMessageRegistryFileCollection = privilegeSetConfigureManager;
-const auto& deleteMessageRegistryFileCollection = privilegeSetConfigureManager;
+const static auto& getMessageRegistryFileCollection = privilegeSetLogin;
+const static auto& headMessageRegistryFileCollection = privilegeSetLogin;
+const static auto& patchMessageRegistryFileCollection =
+    privilegeSetConfigureManager;
+const static auto& postMessageRegistryFileCollection =
+    privilegeSetConfigureManager;
+const static auto& putMessageRegistryFileCollection =
+    privilegeSetConfigureManager;
+const static auto& deleteMessageRegistryFileCollection =
+    privilegeSetConfigureManager;
 
 // MetricDefinition
-const auto& getMetricDefinition = privilegeSetLogin;
-const auto& headMetricDefinition = privilegeSetLogin;
-const auto& patchMetricDefinition = privilegeSetConfigureManager;
-const auto& putMetricDefinition = privilegeSetConfigureManager;
-const auto& deleteMetricDefinition = privilegeSetConfigureManager;
-const auto& postMetricDefinition = privilegeSetConfigureManager;
+const static auto& getMetricDefinition = privilegeSetLogin;
+const static auto& headMetricDefinition = privilegeSetLogin;
+const static auto& patchMetricDefinition = privilegeSetConfigureManager;
+const static auto& putMetricDefinition = privilegeSetConfigureManager;
+const static auto& deleteMetricDefinition = privilegeSetConfigureManager;
+const static auto& postMetricDefinition = privilegeSetConfigureManager;
 
 // MetricDefinitionCollection
-const auto& getMetricDefinitionCollection = privilegeSetLogin;
-const auto& headMetricDefinitionCollection = privilegeSetLogin;
-const auto& patchMetricDefinitionCollection = privilegeSetConfigureManager;
-const auto& putMetricDefinitionCollection = privilegeSetConfigureManager;
-const auto& deleteMetricDefinitionCollection = privilegeSetConfigureManager;
-const auto& postMetricDefinitionCollection = privilegeSetConfigureManager;
+const static auto& getMetricDefinitionCollection = privilegeSetLogin;
+const static auto& headMetricDefinitionCollection = privilegeSetLogin;
+const static auto& patchMetricDefinitionCollection =
+    privilegeSetConfigureManager;
+const static auto& putMetricDefinitionCollection = privilegeSetConfigureManager;
+const static auto& deleteMetricDefinitionCollection =
+    privilegeSetConfigureManager;
+const static auto& postMetricDefinitionCollection =
+    privilegeSetConfigureManager;
 
 // MetricReport
-const auto& getMetricReport = privilegeSetLogin;
-const auto& headMetricReport = privilegeSetLogin;
-const auto& patchMetricReport = privilegeSetConfigureManager;
-const auto& putMetricReport = privilegeSetConfigureManager;
-const auto& deleteMetricReport = privilegeSetConfigureManager;
-const auto& postMetricReport = privilegeSetConfigureManager;
+const static auto& getMetricReport = privilegeSetLogin;
+const static auto& headMetricReport = privilegeSetLogin;
+const static auto& patchMetricReport = privilegeSetConfigureManager;
+const static auto& putMetricReport = privilegeSetConfigureManager;
+const static auto& deleteMetricReport = privilegeSetConfigureManager;
+const static auto& postMetricReport = privilegeSetConfigureManager;
 
 // MetricReportCollection
-const auto& getMetricReportCollection = privilegeSetLogin;
-const auto& headMetricReportCollection = privilegeSetLogin;
-const auto& patchMetricReportCollection = privilegeSetConfigureManager;
-const auto& putMetricReportCollection = privilegeSetConfigureManager;
-const auto& deleteMetricReportCollection = privilegeSetConfigureManager;
-const auto& postMetricReportCollection = privilegeSetConfigureManager;
+const static auto& getMetricReportCollection = privilegeSetLogin;
+const static auto& headMetricReportCollection = privilegeSetLogin;
+const static auto& patchMetricReportCollection = privilegeSetConfigureManager;
+const static auto& putMetricReportCollection = privilegeSetConfigureManager;
+const static auto& deleteMetricReportCollection = privilegeSetConfigureManager;
+const static auto& postMetricReportCollection = privilegeSetConfigureManager;
 
 // MetricReportDefinition
-const auto& getMetricReportDefinition = privilegeSetLogin;
-const auto& headMetricReportDefinition = privilegeSetLogin;
-const auto& patchMetricReportDefinition = privilegeSetConfigureManager;
-const auto& putMetricReportDefinition = privilegeSetConfigureManager;
-const auto& deleteMetricReportDefinition = privilegeSetConfigureManager;
-const auto& postMetricReportDefinition = privilegeSetConfigureManager;
+const static auto& getMetricReportDefinition = privilegeSetLogin;
+const static auto& headMetricReportDefinition = privilegeSetLogin;
+const static auto& patchMetricReportDefinition = privilegeSetConfigureManager;
+const static auto& putMetricReportDefinition = privilegeSetConfigureManager;
+const static auto& deleteMetricReportDefinition = privilegeSetConfigureManager;
+const static auto& postMetricReportDefinition = privilegeSetConfigureManager;
 
 // MetricReportDefinitionCollection
-const auto& getMetricReportDefinitionCollection = privilegeSetLogin;
-const auto& headMetricReportDefinitionCollection = privilegeSetLogin;
-const auto& patchMetricReportDefinitionCollection =
+const static auto& getMetricReportDefinitionCollection = privilegeSetLogin;
+const static auto& headMetricReportDefinitionCollection = privilegeSetLogin;
+const static auto& patchMetricReportDefinitionCollection =
     privilegeSetConfigureManager;
-const auto& putMetricReportDefinitionCollection = privilegeSetConfigureManager;
-const auto& deleteMetricReportDefinitionCollection =
+const static auto& putMetricReportDefinitionCollection =
     privilegeSetConfigureManager;
-const auto& postMetricReportDefinitionCollection = privilegeSetConfigureManager;
+const static auto& deleteMetricReportDefinitionCollection =
+    privilegeSetConfigureManager;
+const static auto& postMetricReportDefinitionCollection =
+    privilegeSetConfigureManager;
 
 // NetworkAdapter
-const auto& getNetworkAdapter = privilegeSetLogin;
-const auto& headNetworkAdapter = privilegeSetLogin;
-const auto& patchNetworkAdapter = privilegeSetConfigureComponents;
-const auto& postNetworkAdapter = privilegeSetConfigureComponents;
-const auto& putNetworkAdapter = privilegeSetConfigureComponents;
-const auto& deleteNetworkAdapter = privilegeSetConfigureComponents;
+const static auto& getNetworkAdapter = privilegeSetLogin;
+const static auto& headNetworkAdapter = privilegeSetLogin;
+const static auto& patchNetworkAdapter = privilegeSetConfigureComponents;
+const static auto& postNetworkAdapter = privilegeSetConfigureComponents;
+const static auto& putNetworkAdapter = privilegeSetConfigureComponents;
+const static auto& deleteNetworkAdapter = privilegeSetConfigureComponents;
 
 // NetworkAdapterCollection
-const auto& getNetworkAdapterCollection = privilegeSetLogin;
-const auto& headNetworkAdapterCollection = privilegeSetLogin;
-const auto& patchNetworkAdapterCollection = privilegeSetConfigureComponents;
-const auto& postNetworkAdapterCollection = privilegeSetConfigureComponents;
-const auto& putNetworkAdapterCollection = privilegeSetConfigureComponents;
-const auto& deleteNetworkAdapterCollection = privilegeSetConfigureComponents;
+const static auto& getNetworkAdapterCollection = privilegeSetLogin;
+const static auto& headNetworkAdapterCollection = privilegeSetLogin;
+const static auto& patchNetworkAdapterCollection =
+    privilegeSetConfigureComponents;
+const static auto& postNetworkAdapterCollection =
+    privilegeSetConfigureComponents;
+const static auto& putNetworkAdapterCollection =
+    privilegeSetConfigureComponents;
+const static auto& deleteNetworkAdapterCollection =
+    privilegeSetConfigureComponents;
 
 // NetworkDeviceFunction
-const auto& getNetworkDeviceFunction = privilegeSetLogin;
-const auto& headNetworkDeviceFunction = privilegeSetLogin;
-const auto& patchNetworkDeviceFunction = privilegeSetConfigureComponents;
-const auto& postNetworkDeviceFunction = privilegeSetConfigureComponents;
-const auto& putNetworkDeviceFunction = privilegeSetConfigureComponents;
-const auto& deleteNetworkDeviceFunction = privilegeSetConfigureComponents;
+const static auto& getNetworkDeviceFunction = privilegeSetLogin;
+const static auto& headNetworkDeviceFunction = privilegeSetLogin;
+const static auto& patchNetworkDeviceFunction = privilegeSetConfigureComponents;
+const static auto& postNetworkDeviceFunction = privilegeSetConfigureComponents;
+const static auto& putNetworkDeviceFunction = privilegeSetConfigureComponents;
+const static auto& deleteNetworkDeviceFunction =
+    privilegeSetConfigureComponents;
 
 // NetworkDeviceFunctionCollection
-const auto& getNetworkDeviceFunctionCollection = privilegeSetLogin;
-const auto& headNetworkDeviceFunctionCollection = privilegeSetLogin;
-const auto& patchNetworkDeviceFunctionCollection =
+const static auto& getNetworkDeviceFunctionCollection = privilegeSetLogin;
+const static auto& headNetworkDeviceFunctionCollection = privilegeSetLogin;
+const static auto& patchNetworkDeviceFunctionCollection =
     privilegeSetConfigureComponents;
-const auto& postNetworkDeviceFunctionCollection =
+const static auto& postNetworkDeviceFunctionCollection =
     privilegeSetConfigureComponents;
-const auto& putNetworkDeviceFunctionCollection =
+const static auto& putNetworkDeviceFunctionCollection =
     privilegeSetConfigureComponents;
-const auto& deleteNetworkDeviceFunctionCollection =
+const static auto& deleteNetworkDeviceFunctionCollection =
     privilegeSetConfigureComponents;
 
 // NetworkInterface
-const auto& getNetworkInterface = privilegeSetLogin;
-const auto& headNetworkInterface = privilegeSetLogin;
-const auto& patchNetworkInterface = privilegeSetConfigureComponents;
-const auto& postNetworkInterface = privilegeSetConfigureComponents;
-const auto& putNetworkInterface = privilegeSetConfigureComponents;
-const auto& deleteNetworkInterface = privilegeSetConfigureComponents;
+const static auto& getNetworkInterface = privilegeSetLogin;
+const static auto& headNetworkInterface = privilegeSetLogin;
+const static auto& patchNetworkInterface = privilegeSetConfigureComponents;
+const static auto& postNetworkInterface = privilegeSetConfigureComponents;
+const static auto& putNetworkInterface = privilegeSetConfigureComponents;
+const static auto& deleteNetworkInterface = privilegeSetConfigureComponents;
 
 // NetworkInterfaceCollection
-const auto& getNetworkInterfaceCollection = privilegeSetLogin;
-const auto& headNetworkInterfaceCollection = privilegeSetLogin;
-const auto& patchNetworkInterfaceCollection = privilegeSetConfigureComponents;
-const auto& postNetworkInterfaceCollection = privilegeSetConfigureComponents;
-const auto& putNetworkInterfaceCollection = privilegeSetConfigureComponents;
-const auto& deleteNetworkInterfaceCollection = privilegeSetConfigureComponents;
+const static auto& getNetworkInterfaceCollection = privilegeSetLogin;
+const static auto& headNetworkInterfaceCollection = privilegeSetLogin;
+const static auto& patchNetworkInterfaceCollection =
+    privilegeSetConfigureComponents;
+const static auto& postNetworkInterfaceCollection =
+    privilegeSetConfigureComponents;
+const static auto& putNetworkInterfaceCollection =
+    privilegeSetConfigureComponents;
+const static auto& deleteNetworkInterfaceCollection =
+    privilegeSetConfigureComponents;
 
 // NetworkPort
-const auto& getNetworkPort = privilegeSetLogin;
-const auto& headNetworkPort = privilegeSetLogin;
-const auto& patchNetworkPort = privilegeSetConfigureComponents;
-const auto& postNetworkPort = privilegeSetConfigureComponents;
-const auto& putNetworkPort = privilegeSetConfigureComponents;
-const auto& deleteNetworkPort = privilegeSetConfigureComponents;
+const static auto& getNetworkPort = privilegeSetLogin;
+const static auto& headNetworkPort = privilegeSetLogin;
+const static auto& patchNetworkPort = privilegeSetConfigureComponents;
+const static auto& postNetworkPort = privilegeSetConfigureComponents;
+const static auto& putNetworkPort = privilegeSetConfigureComponents;
+const static auto& deleteNetworkPort = privilegeSetConfigureComponents;
 
 // NetworkPortCollection
-const auto& getNetworkPortCollection = privilegeSetLogin;
-const auto& headNetworkPortCollection = privilegeSetLogin;
-const auto& patchNetworkPortCollection = privilegeSetConfigureComponents;
-const auto& postNetworkPortCollection = privilegeSetConfigureComponents;
-const auto& putNetworkPortCollection = privilegeSetConfigureComponents;
-const auto& deleteNetworkPortCollection = privilegeSetConfigureComponents;
+const static auto& getNetworkPortCollection = privilegeSetLogin;
+const static auto& headNetworkPortCollection = privilegeSetLogin;
+const static auto& patchNetworkPortCollection = privilegeSetConfigureComponents;
+const static auto& postNetworkPortCollection = privilegeSetConfigureComponents;
+const static auto& putNetworkPortCollection = privilegeSetConfigureComponents;
+const static auto& deleteNetworkPortCollection =
+    privilegeSetConfigureComponents;
 
 // OperatingConfig
-const auto& getOperatingConfig = privilegeSetLogin;
-const auto& headOperatingConfig = privilegeSetLogin;
-const auto& patchOperatingConfig = privilegeSetConfigureComponents;
-const auto& postOperatingConfig = privilegeSetConfigureComponents;
-const auto& putOperatingConfig = privilegeSetConfigureComponents;
-const auto& deleteOperatingConfig = privilegeSetConfigureComponents;
+const static auto& getOperatingConfig = privilegeSetLogin;
+const static auto& headOperatingConfig = privilegeSetLogin;
+const static auto& patchOperatingConfig = privilegeSetConfigureComponents;
+const static auto& postOperatingConfig = privilegeSetConfigureComponents;
+const static auto& putOperatingConfig = privilegeSetConfigureComponents;
+const static auto& deleteOperatingConfig = privilegeSetConfigureComponents;
 
 // OperatingConfigCollection
-const auto& getOperatingConfigCollection = privilegeSetLogin;
-const auto& headOperatingConfigCollection = privilegeSetLogin;
-const auto& patchOperatingConfigCollection = privilegeSetConfigureComponents;
-const auto& postOperatingConfigCollection = privilegeSetConfigureComponents;
-const auto& putOperatingConfigCollection = privilegeSetConfigureComponents;
-const auto& deleteOperatingConfigCollection = privilegeSetConfigureComponents;
+const static auto& getOperatingConfigCollection = privilegeSetLogin;
+const static auto& headOperatingConfigCollection = privilegeSetLogin;
+const static auto& patchOperatingConfigCollection =
+    privilegeSetConfigureComponents;
+const static auto& postOperatingConfigCollection =
+    privilegeSetConfigureComponents;
+const static auto& putOperatingConfigCollection =
+    privilegeSetConfigureComponents;
+const static auto& deleteOperatingConfigCollection =
+    privilegeSetConfigureComponents;
 
 // Outlet
-const auto& getOutlet = privilegeSetLogin;
-const auto& headOutlet = privilegeSetLogin;
-const auto& patchOutlet = privilegeSetConfigureComponents;
-const auto& postOutlet = privilegeSetConfigureComponents;
-const auto& putOutlet = privilegeSetConfigureComponents;
-const auto& deleteOutlet = privilegeSetConfigureComponents;
+const static auto& getOutlet = privilegeSetLogin;
+const static auto& headOutlet = privilegeSetLogin;
+const static auto& patchOutlet = privilegeSetConfigureComponents;
+const static auto& postOutlet = privilegeSetConfigureComponents;
+const static auto& putOutlet = privilegeSetConfigureComponents;
+const static auto& deleteOutlet = privilegeSetConfigureComponents;
 
 // OutletCollection
-const auto& getOutletCollection = privilegeSetLogin;
-const auto& headOutletCollection = privilegeSetLogin;
-const auto& patchOutletCollection = privilegeSetConfigureComponents;
-const auto& postOutletCollection = privilegeSetConfigureComponents;
-const auto& putOutletCollection = privilegeSetConfigureComponents;
-const auto& deleteOutletCollection = privilegeSetConfigureComponents;
+const static auto& getOutletCollection = privilegeSetLogin;
+const static auto& headOutletCollection = privilegeSetLogin;
+const static auto& patchOutletCollection = privilegeSetConfigureComponents;
+const static auto& postOutletCollection = privilegeSetConfigureComponents;
+const static auto& putOutletCollection = privilegeSetConfigureComponents;
+const static auto& deleteOutletCollection = privilegeSetConfigureComponents;
 
 // OutletGroup
-const auto& getOutletGroup = privilegeSetLogin;
-const auto& headOutletGroup = privilegeSetLogin;
-const auto& patchOutletGroup = privilegeSetConfigureComponents;
-const auto& postOutletGroup = privilegeSetConfigureComponents;
-const auto& putOutletGroup = privilegeSetConfigureComponents;
-const auto& deleteOutletGroup = privilegeSetConfigureComponents;
+const static auto& getOutletGroup = privilegeSetLogin;
+const static auto& headOutletGroup = privilegeSetLogin;
+const static auto& patchOutletGroup = privilegeSetConfigureComponents;
+const static auto& postOutletGroup = privilegeSetConfigureComponents;
+const static auto& putOutletGroup = privilegeSetConfigureComponents;
+const static auto& deleteOutletGroup = privilegeSetConfigureComponents;
 
 // OutletGroupCollection
-const auto& getOutletGroupCollection = privilegeSetLogin;
-const auto& headOutletGroupCollection = privilegeSetLogin;
-const auto& patchOutletGroupCollection = privilegeSetConfigureComponents;
-const auto& postOutletGroupCollection = privilegeSetConfigureComponents;
-const auto& putOutletGroupCollection = privilegeSetConfigureComponents;
-const auto& deleteOutletGroupCollection = privilegeSetConfigureComponents;
+const static auto& getOutletGroupCollection = privilegeSetLogin;
+const static auto& headOutletGroupCollection = privilegeSetLogin;
+const static auto& patchOutletGroupCollection = privilegeSetConfigureComponents;
+const static auto& postOutletGroupCollection = privilegeSetConfigureComponents;
+const static auto& putOutletGroupCollection = privilegeSetConfigureComponents;
+const static auto& deleteOutletGroupCollection =
+    privilegeSetConfigureComponents;
 
 // PCIeDevice
-const auto& getPCIeDevice = privilegeSetLogin;
-const auto& headPCIeDevice = privilegeSetLogin;
-const auto& patchPCIeDevice = privilegeSetConfigureComponents;
-const auto& postPCIeDevice = privilegeSetConfigureComponents;
-const auto& putPCIeDevice = privilegeSetConfigureComponents;
-const auto& deletePCIeDevice = privilegeSetConfigureComponents;
+const static auto& getPCIeDevice = privilegeSetLogin;
+const static auto& headPCIeDevice = privilegeSetLogin;
+const static auto& patchPCIeDevice = privilegeSetConfigureComponents;
+const static auto& postPCIeDevice = privilegeSetConfigureComponents;
+const static auto& putPCIeDevice = privilegeSetConfigureComponents;
+const static auto& deletePCIeDevice = privilegeSetConfigureComponents;
 
 // PCIeDeviceCollection
-const auto& getPCIeDeviceCollection = privilegeSetLogin;
-const auto& headPCIeDeviceCollection = privilegeSetLogin;
-const auto& patchPCIeDeviceCollection = privilegeSetConfigureComponents;
-const auto& postPCIeDeviceCollection = privilegeSetConfigureComponents;
-const auto& putPCIeDeviceCollection = privilegeSetConfigureComponents;
-const auto& deletePCIeDeviceCollection = privilegeSetConfigureComponents;
+const static auto& getPCIeDeviceCollection = privilegeSetLogin;
+const static auto& headPCIeDeviceCollection = privilegeSetLogin;
+const static auto& patchPCIeDeviceCollection = privilegeSetConfigureComponents;
+const static auto& postPCIeDeviceCollection = privilegeSetConfigureComponents;
+const static auto& putPCIeDeviceCollection = privilegeSetConfigureComponents;
+const static auto& deletePCIeDeviceCollection = privilegeSetConfigureComponents;
 
 // PCIeFunction
-const auto& getPCIeFunction = privilegeSetLogin;
-const auto& headPCIeFunction = privilegeSetLogin;
-const auto& patchPCIeFunction = privilegeSetConfigureComponents;
-const auto& postPCIeFunction = privilegeSetConfigureComponents;
-const auto& putPCIeFunction = privilegeSetConfigureComponents;
-const auto& deletePCIeFunction = privilegeSetConfigureComponents;
+const static auto& getPCIeFunction = privilegeSetLogin;
+const static auto& headPCIeFunction = privilegeSetLogin;
+const static auto& patchPCIeFunction = privilegeSetConfigureComponents;
+const static auto& postPCIeFunction = privilegeSetConfigureComponents;
+const static auto& putPCIeFunction = privilegeSetConfigureComponents;
+const static auto& deletePCIeFunction = privilegeSetConfigureComponents;
 
 // PCIeFunctionCollection
-const auto& getPCIeFunctionCollection = privilegeSetLogin;
-const auto& headPCIeFunctionCollection = privilegeSetLogin;
-const auto& patchPCIeFunctionCollection = privilegeSetConfigureComponents;
-const auto& postPCIeFunctionCollection = privilegeSetConfigureComponents;
-const auto& putPCIeFunctionCollection = privilegeSetConfigureComponents;
-const auto& deletePCIeFunctionCollection = privilegeSetConfigureComponents;
+const static auto& getPCIeFunctionCollection = privilegeSetLogin;
+const static auto& headPCIeFunctionCollection = privilegeSetLogin;
+const static auto& patchPCIeFunctionCollection =
+    privilegeSetConfigureComponents;
+const static auto& postPCIeFunctionCollection = privilegeSetConfigureComponents;
+const static auto& putPCIeFunctionCollection = privilegeSetConfigureComponents;
+const static auto& deletePCIeFunctionCollection =
+    privilegeSetConfigureComponents;
 
 // PCIeSlots
-const auto& getPCIeSlots = privilegeSetLogin;
-const auto& headPCIeSlots = privilegeSetLogin;
-const auto& patchPCIeSlots = privilegeSetConfigureComponents;
-const auto& postPCIeSlots = privilegeSetConfigureComponents;
-const auto& putPCIeSlots = privilegeSetConfigureComponents;
-const auto& deletePCIeSlots = privilegeSetConfigureComponents;
+const static auto& getPCIeSlots = privilegeSetLogin;
+const static auto& headPCIeSlots = privilegeSetLogin;
+const static auto& patchPCIeSlots = privilegeSetConfigureComponents;
+const static auto& postPCIeSlots = privilegeSetConfigureComponents;
+const static auto& putPCIeSlots = privilegeSetConfigureComponents;
+const static auto& deletePCIeSlots = privilegeSetConfigureComponents;
 
 // Port
-const auto& getPort = privilegeSetLogin;
-const auto& headPort = privilegeSetLogin;
-const auto& patchPort = privilegeSetConfigureComponents;
-const auto& postPort = privilegeSetConfigureComponents;
-const auto& putPort = privilegeSetConfigureComponents;
-const auto& deletePort = privilegeSetConfigureComponents;
+const static auto& getPort = privilegeSetLogin;
+const static auto& headPort = privilegeSetLogin;
+const static auto& patchPort = privilegeSetConfigureComponents;
+const static auto& postPort = privilegeSetConfigureComponents;
+const static auto& putPort = privilegeSetConfigureComponents;
+const static auto& deletePort = privilegeSetConfigureComponents;
 
 // PortCollection
-const auto& getPortCollection = privilegeSetLogin;
-const auto& headPortCollection = privilegeSetLogin;
-const auto& patchPortCollection = privilegeSetConfigureComponents;
-const auto& postPortCollection = privilegeSetConfigureComponents;
-const auto& putPortCollection = privilegeSetConfigureComponents;
-const auto& deletePortCollection = privilegeSetConfigureComponents;
+const static auto& getPortCollection = privilegeSetLogin;
+const static auto& headPortCollection = privilegeSetLogin;
+const static auto& patchPortCollection = privilegeSetConfigureComponents;
+const static auto& postPortCollection = privilegeSetConfigureComponents;
+const static auto& putPortCollection = privilegeSetConfigureComponents;
+const static auto& deletePortCollection = privilegeSetConfigureComponents;
 
 // PortMetrics
-const auto& getPortMetrics = privilegeSetLogin;
-const auto& headPortMetrics = privilegeSetLogin;
-const auto& patchPortMetrics = privilegeSetConfigureComponents;
-const auto& postPortMetrics = privilegeSetConfigureComponents;
-const auto& putPortMetrics = privilegeSetConfigureComponents;
-const auto& deletePortMetrics = privilegeSetConfigureComponents;
+const static auto& getPortMetrics = privilegeSetLogin;
+const static auto& headPortMetrics = privilegeSetLogin;
+const static auto& patchPortMetrics = privilegeSetConfigureComponents;
+const static auto& postPortMetrics = privilegeSetConfigureComponents;
+const static auto& putPortMetrics = privilegeSetConfigureComponents;
+const static auto& deletePortMetrics = privilegeSetConfigureComponents;
 
 // Power
-const auto& getPower = privilegeSetLogin;
-const auto& headPower = privilegeSetLogin;
-const auto& patchPower = privilegeSetConfigureManager;
-const auto& putPower = privilegeSetConfigureManager;
-const auto& deletePower = privilegeSetConfigureManager;
-const auto& postPower = privilegeSetConfigureManager;
+const static auto& getPower = privilegeSetLogin;
+const static auto& headPower = privilegeSetLogin;
+const static auto& patchPower = privilegeSetConfigureManager;
+const static auto& putPower = privilegeSetConfigureManager;
+const static auto& deletePower = privilegeSetConfigureManager;
+const static auto& postPower = privilegeSetConfigureManager;
 
 // PowerDistribution
-const auto& getPowerDistribution = privilegeSetLogin;
-const auto& headPowerDistribution = privilegeSetLogin;
-const auto& patchPowerDistribution = privilegeSetConfigureComponents;
-const auto& postPowerDistribution = privilegeSetConfigureComponents;
-const auto& putPowerDistribution = privilegeSetConfigureComponents;
-const auto& deletePowerDistribution = privilegeSetConfigureComponents;
+const static auto& getPowerDistribution = privilegeSetLogin;
+const static auto& headPowerDistribution = privilegeSetLogin;
+const static auto& patchPowerDistribution = privilegeSetConfigureComponents;
+const static auto& postPowerDistribution = privilegeSetConfigureComponents;
+const static auto& putPowerDistribution = privilegeSetConfigureComponents;
+const static auto& deletePowerDistribution = privilegeSetConfigureComponents;
 
 // PowerDistributionCollection
-const auto& getPowerDistributionCollection = privilegeSetLogin;
-const auto& headPowerDistributionCollection = privilegeSetLogin;
-const auto& patchPowerDistributionCollection = privilegeSetConfigureComponents;
-const auto& postPowerDistributionCollection = privilegeSetConfigureComponents;
-const auto& putPowerDistributionCollection = privilegeSetConfigureComponents;
-const auto& deletePowerDistributionCollection = privilegeSetConfigureComponents;
+const static auto& getPowerDistributionCollection = privilegeSetLogin;
+const static auto& headPowerDistributionCollection = privilegeSetLogin;
+const static auto& patchPowerDistributionCollection =
+    privilegeSetConfigureComponents;
+const static auto& postPowerDistributionCollection =
+    privilegeSetConfigureComponents;
+const static auto& putPowerDistributionCollection =
+    privilegeSetConfigureComponents;
+const static auto& deletePowerDistributionCollection =
+    privilegeSetConfigureComponents;
 
 // PowerDistributionMetrics
-const auto& getPowerDistributionMetrics = privilegeSetLogin;
-const auto& headPowerDistributionMetrics = privilegeSetLogin;
-const auto& patchPowerDistributionMetrics = privilegeSetConfigureComponents;
-const auto& postPowerDistributionMetrics = privilegeSetConfigureComponents;
-const auto& putPowerDistributionMetrics = privilegeSetConfigureComponents;
-const auto& deletePowerDistributionMetrics = privilegeSetConfigureComponents;
+const static auto& getPowerDistributionMetrics = privilegeSetLogin;
+const static auto& headPowerDistributionMetrics = privilegeSetLogin;
+const static auto& patchPowerDistributionMetrics =
+    privilegeSetConfigureComponents;
+const static auto& postPowerDistributionMetrics =
+    privilegeSetConfigureComponents;
+const static auto& putPowerDistributionMetrics =
+    privilegeSetConfigureComponents;
+const static auto& deletePowerDistributionMetrics =
+    privilegeSetConfigureComponents;
 
 // Processor
-const auto& getProcessor = privilegeSetLogin;
-const auto& headProcessor = privilegeSetLogin;
-const auto& patchProcessor = privilegeSetConfigureComponents;
-const auto& putProcessor = privilegeSetConfigureComponents;
-const auto& deleteProcessor = privilegeSetConfigureComponents;
-const auto& postProcessor = privilegeSetConfigureComponents;
+const static auto& getProcessor = privilegeSetLogin;
+const static auto& headProcessor = privilegeSetLogin;
+const static auto& patchProcessor = privilegeSetConfigureComponents;
+const static auto& putProcessor = privilegeSetConfigureComponents;
+const static auto& deleteProcessor = privilegeSetConfigureComponents;
+const static auto& postProcessor = privilegeSetConfigureComponents;
 
 // ProcessorCollection
-const auto& getProcessorCollection = privilegeSetLogin;
-const auto& headProcessorCollection = privilegeSetLogin;
-const auto& patchProcessorCollection = privilegeSetConfigureComponents;
-const auto& putProcessorCollection = privilegeSetConfigureComponents;
-const auto& deleteProcessorCollection = privilegeSetConfigureComponents;
-const auto& postProcessorCollection = privilegeSetConfigureComponents;
+const static auto& getProcessorCollection = privilegeSetLogin;
+const static auto& headProcessorCollection = privilegeSetLogin;
+const static auto& patchProcessorCollection = privilegeSetConfigureComponents;
+const static auto& putProcessorCollection = privilegeSetConfigureComponents;
+const static auto& deleteProcessorCollection = privilegeSetConfigureComponents;
+const static auto& postProcessorCollection = privilegeSetConfigureComponents;
 
 // ProcessorMetrics
-const auto& getProcessorMetrics = privilegeSetLogin;
-const auto& headProcessorMetrics = privilegeSetLogin;
-const auto& patchProcessorMetrics = privilegeSetConfigureComponents;
-const auto& putProcessorMetrics = privilegeSetConfigureComponents;
-const auto& deleteProcessorMetrics = privilegeSetConfigureComponents;
-const auto& postProcessorMetrics = privilegeSetConfigureComponents;
+const static auto& getProcessorMetrics = privilegeSetLogin;
+const static auto& headProcessorMetrics = privilegeSetLogin;
+const static auto& patchProcessorMetrics = privilegeSetConfigureComponents;
+const static auto& putProcessorMetrics = privilegeSetConfigureComponents;
+const static auto& deleteProcessorMetrics = privilegeSetConfigureComponents;
+const static auto& postProcessorMetrics = privilegeSetConfigureComponents;
 
 // ResourceBlock
-const auto& getResourceBlock = privilegeSetLogin;
-const auto& headResourceBlock = privilegeSetLogin;
-const auto& patchResourceBlock = privilegeSetConfigureComponents;
-const auto& putResourceBlock = privilegeSetConfigureComponents;
-const auto& deleteResourceBlock = privilegeSetConfigureComponents;
-const auto& postResourceBlock = privilegeSetConfigureComponents;
+const static auto& getResourceBlock = privilegeSetLogin;
+const static auto& headResourceBlock = privilegeSetLogin;
+const static auto& patchResourceBlock = privilegeSetConfigureComponents;
+const static auto& putResourceBlock = privilegeSetConfigureComponents;
+const static auto& deleteResourceBlock = privilegeSetConfigureComponents;
+const static auto& postResourceBlock = privilegeSetConfigureComponents;
 
 // ResourceBlockCollection
-const auto& getResourceBlockCollection = privilegeSetLogin;
-const auto& headResourceBlockCollection = privilegeSetLogin;
-const auto& patchResourceBlockCollection = privilegeSetConfigureComponents;
-const auto& putResourceBlockCollection = privilegeSetConfigureComponents;
-const auto& deleteResourceBlockCollection = privilegeSetConfigureComponents;
-const auto& postResourceBlockCollection = privilegeSetConfigureComponents;
+const static auto& getResourceBlockCollection = privilegeSetLogin;
+const static auto& headResourceBlockCollection = privilegeSetLogin;
+const static auto& patchResourceBlockCollection =
+    privilegeSetConfigureComponents;
+const static auto& putResourceBlockCollection = privilegeSetConfigureComponents;
+const static auto& deleteResourceBlockCollection =
+    privilegeSetConfigureComponents;
+const static auto& postResourceBlockCollection =
+    privilegeSetConfigureComponents;
 
 // Role
-const auto& getRole = privilegeSetLogin;
-const auto& headRole = privilegeSetLogin;
-const auto& patchRole = privilegeSetConfigureManager;
-const auto& putRole = privilegeSetConfigureManager;
-const auto& deleteRole = privilegeSetConfigureManager;
-const auto& postRole = privilegeSetConfigureManager;
+const static auto& getRole = privilegeSetLogin;
+const static auto& headRole = privilegeSetLogin;
+const static auto& patchRole = privilegeSetConfigureManager;
+const static auto& putRole = privilegeSetConfigureManager;
+const static auto& deleteRole = privilegeSetConfigureManager;
+const static auto& postRole = privilegeSetConfigureManager;
 
 // RoleCollection
-const auto& getRoleCollection = privilegeSetLogin;
-const auto& headRoleCollection = privilegeSetLogin;
-const auto& patchRoleCollection = privilegeSetConfigureManager;
-const auto& putRoleCollection = privilegeSetConfigureManager;
-const auto& deleteRoleCollection = privilegeSetConfigureManager;
-const auto& postRoleCollection = privilegeSetConfigureManager;
+const static auto& getRoleCollection = privilegeSetLogin;
+const static auto& headRoleCollection = privilegeSetLogin;
+const static auto& patchRoleCollection = privilegeSetConfigureManager;
+const static auto& putRoleCollection = privilegeSetConfigureManager;
+const static auto& deleteRoleCollection = privilegeSetConfigureManager;
+const static auto& postRoleCollection = privilegeSetConfigureManager;
 
 // RouteEntry
-const auto& getRouteEntry = privilegeSetLogin;
-const auto& headRouteEntry = privilegeSetLogin;
-const auto& patchRouteEntry = privilegeSetConfigureComponents;
-const auto& putRouteEntry = privilegeSetConfigureComponents;
-const auto& deleteRouteEntry = privilegeSetConfigureComponents;
-const auto& postRouteEntry = privilegeSetConfigureComponents;
+const static auto& getRouteEntry = privilegeSetLogin;
+const static auto& headRouteEntry = privilegeSetLogin;
+const static auto& patchRouteEntry = privilegeSetConfigureComponents;
+const static auto& putRouteEntry = privilegeSetConfigureComponents;
+const static auto& deleteRouteEntry = privilegeSetConfigureComponents;
+const static auto& postRouteEntry = privilegeSetConfigureComponents;
 
 // RouteEntryCollection
-const auto& getRouteEntryCollection = privilegeSetLogin;
-const auto& headRouteEntryCollection = privilegeSetLogin;
-const auto& patchRouteEntryCollection = privilegeSetConfigureComponents;
-const auto& putRouteEntryCollection = privilegeSetConfigureComponents;
-const auto& deleteRouteEntryCollection = privilegeSetConfigureComponents;
-const auto& postRouteEntryCollection = privilegeSetConfigureComponents;
+const static auto& getRouteEntryCollection = privilegeSetLogin;
+const static auto& headRouteEntryCollection = privilegeSetLogin;
+const static auto& patchRouteEntryCollection = privilegeSetConfigureComponents;
+const static auto& putRouteEntryCollection = privilegeSetConfigureComponents;
+const static auto& deleteRouteEntryCollection = privilegeSetConfigureComponents;
+const static auto& postRouteEntryCollection = privilegeSetConfigureComponents;
 
 // RouteEntrySet
-const auto& getRouteEntrySet = privilegeSetLogin;
-const auto& headRouteEntrySet = privilegeSetLogin;
-const auto& patchRouteEntrySet = privilegeSetConfigureComponents;
-const auto& putRouteEntrySet = privilegeSetConfigureComponents;
-const auto& deleteRouteEntrySet = privilegeSetConfigureComponents;
-const auto& postRouteEntrySet = privilegeSetConfigureComponents;
+const static auto& getRouteEntrySet = privilegeSetLogin;
+const static auto& headRouteEntrySet = privilegeSetLogin;
+const static auto& patchRouteEntrySet = privilegeSetConfigureComponents;
+const static auto& putRouteEntrySet = privilegeSetConfigureComponents;
+const static auto& deleteRouteEntrySet = privilegeSetConfigureComponents;
+const static auto& postRouteEntrySet = privilegeSetConfigureComponents;
 
 // RouteEntrySetCollection
-const auto& getRouteEntrySetCollection = privilegeSetLogin;
-const auto& headRouteEntrySetCollection = privilegeSetLogin;
-const auto& patchRouteEntrySetCollection = privilegeSetConfigureComponents;
-const auto& putRouteEntrySetCollection = privilegeSetConfigureComponents;
-const auto& deleteRouteEntrySetCollection = privilegeSetConfigureComponents;
-const auto& postRouteEntrySetCollection = privilegeSetConfigureComponents;
+const static auto& getRouteEntrySetCollection = privilegeSetLogin;
+const static auto& headRouteEntrySetCollection = privilegeSetLogin;
+const static auto& patchRouteEntrySetCollection =
+    privilegeSetConfigureComponents;
+const static auto& putRouteEntrySetCollection = privilegeSetConfigureComponents;
+const static auto& deleteRouteEntrySetCollection =
+    privilegeSetConfigureComponents;
+const static auto& postRouteEntrySetCollection =
+    privilegeSetConfigureComponents;
 
 // SecureBoot
-const auto& getSecureBoot = privilegeSetLogin;
-const auto& headSecureBoot = privilegeSetLogin;
-const auto& patchSecureBoot = privilegeSetConfigureComponents;
-const auto& postSecureBoot = privilegeSetConfigureComponents;
-const auto& putSecureBoot = privilegeSetConfigureComponents;
-const auto& deleteSecureBoot = privilegeSetConfigureComponents;
+const static auto& getSecureBoot = privilegeSetLogin;
+const static auto& headSecureBoot = privilegeSetLogin;
+const static auto& patchSecureBoot = privilegeSetConfigureComponents;
+const static auto& postSecureBoot = privilegeSetConfigureComponents;
+const static auto& putSecureBoot = privilegeSetConfigureComponents;
+const static auto& deleteSecureBoot = privilegeSetConfigureComponents;
 
 // SecureBootDatabase
-const auto& getSecureBootDatabase = privilegeSetLogin;
-const auto& headSecureBootDatabase = privilegeSetLogin;
-const auto& patchSecureBootDatabase = privilegeSetConfigureComponents;
-const auto& postSecureBootDatabase = privilegeSetConfigureComponents;
-const auto& putSecureBootDatabase = privilegeSetConfigureComponents;
-const auto& deleteSecureBootDatabase = privilegeSetConfigureComponents;
+const static auto& getSecureBootDatabase = privilegeSetLogin;
+const static auto& headSecureBootDatabase = privilegeSetLogin;
+const static auto& patchSecureBootDatabase = privilegeSetConfigureComponents;
+const static auto& postSecureBootDatabase = privilegeSetConfigureComponents;
+const static auto& putSecureBootDatabase = privilegeSetConfigureComponents;
+const static auto& deleteSecureBootDatabase = privilegeSetConfigureComponents;
 
 // SecureBootDatabaseCollection
-const auto& getSecureBootDatabaseCollection = privilegeSetLogin;
-const auto& headSecureBootDatabaseCollection = privilegeSetLogin;
-const auto& patchSecureBootDatabaseCollection = privilegeSetConfigureComponents;
-const auto& postSecureBootDatabaseCollection = privilegeSetConfigureComponents;
-const auto& putSecureBootDatabaseCollection = privilegeSetConfigureComponents;
-const auto& deleteSecureBootDatabaseCollection =
+const static auto& getSecureBootDatabaseCollection = privilegeSetLogin;
+const static auto& headSecureBootDatabaseCollection = privilegeSetLogin;
+const static auto& patchSecureBootDatabaseCollection =
+    privilegeSetConfigureComponents;
+const static auto& postSecureBootDatabaseCollection =
+    privilegeSetConfigureComponents;
+const static auto& putSecureBootDatabaseCollection =
+    privilegeSetConfigureComponents;
+const static auto& deleteSecureBootDatabaseCollection =
     privilegeSetConfigureComponents;
 
 // Sensor
-const auto& getSensor = privilegeSetLogin;
-const auto& headSensor = privilegeSetLogin;
-const auto& patchSensor = privilegeSetConfigureComponents;
-const auto& postSensor = privilegeSetConfigureComponents;
-const auto& putSensor = privilegeSetConfigureComponents;
-const auto& deleteSensor = privilegeSetConfigureComponents;
+const static auto& getSensor = privilegeSetLogin;
+const static auto& headSensor = privilegeSetLogin;
+const static auto& patchSensor = privilegeSetConfigureComponents;
+const static auto& postSensor = privilegeSetConfigureComponents;
+const static auto& putSensor = privilegeSetConfigureComponents;
+const static auto& deleteSensor = privilegeSetConfigureComponents;
 
 // SensorCollection
-const auto& getSensorCollection = privilegeSetLogin;
-const auto& headSensorCollection = privilegeSetLogin;
-const auto& patchSensorCollection = privilegeSetConfigureComponents;
-const auto& postSensorCollection = privilegeSetConfigureComponents;
-const auto& putSensorCollection = privilegeSetConfigureComponents;
-const auto& deleteSensorCollection = privilegeSetConfigureComponents;
+const static auto& getSensorCollection = privilegeSetLogin;
+const static auto& headSensorCollection = privilegeSetLogin;
+const static auto& patchSensorCollection = privilegeSetConfigureComponents;
+const static auto& postSensorCollection = privilegeSetConfigureComponents;
+const static auto& putSensorCollection = privilegeSetConfigureComponents;
+const static auto& deleteSensorCollection = privilegeSetConfigureComponents;
 
 // SerialInterface
-const auto& getSerialInterface = privilegeSetLogin;
-const auto& headSerialInterface = privilegeSetLogin;
-const auto& patchSerialInterface = privilegeSetConfigureManager;
-const auto& putSerialInterface = privilegeSetConfigureManager;
-const auto& deleteSerialInterface = privilegeSetConfigureManager;
-const auto& postSerialInterface = privilegeSetConfigureManager;
+const static auto& getSerialInterface = privilegeSetLogin;
+const static auto& headSerialInterface = privilegeSetLogin;
+const static auto& patchSerialInterface = privilegeSetConfigureManager;
+const static auto& putSerialInterface = privilegeSetConfigureManager;
+const static auto& deleteSerialInterface = privilegeSetConfigureManager;
+const static auto& postSerialInterface = privilegeSetConfigureManager;
 
 // SerialInterfaceCollection
-const auto& getSerialInterfaceCollection = privilegeSetLogin;
-const auto& headSerialInterfaceCollection = privilegeSetLogin;
-const auto& patchSerialInterfaceCollection = privilegeSetConfigureManager;
-const auto& putSerialInterfaceCollection = privilegeSetConfigureManager;
-const auto& deleteSerialInterfaceCollection = privilegeSetConfigureManager;
-const auto& postSerialInterfaceCollection = privilegeSetConfigureManager;
+const static auto& getSerialInterfaceCollection = privilegeSetLogin;
+const static auto& headSerialInterfaceCollection = privilegeSetLogin;
+const static auto& patchSerialInterfaceCollection =
+    privilegeSetConfigureManager;
+const static auto& putSerialInterfaceCollection = privilegeSetConfigureManager;
+const static auto& deleteSerialInterfaceCollection =
+    privilegeSetConfigureManager;
+const static auto& postSerialInterfaceCollection = privilegeSetConfigureManager;
 
 // ServiceRoot
-const auto& getServiceRoot = privilegeSetLoginOrNoAuth;
-const auto& headServiceRoot = privilegeSetLoginOrNoAuth;
-const auto& patchServiceRoot = privilegeSetConfigureManager;
-const auto& putServiceRoot = privilegeSetConfigureManager;
-const auto& deleteServiceRoot = privilegeSetConfigureManager;
-const auto& postServiceRoot = privilegeSetConfigureManager;
+const static auto& getServiceRoot = privilegeSetLoginOrNoAuth;
+const static auto& headServiceRoot = privilegeSetLoginOrNoAuth;
+const static auto& patchServiceRoot = privilegeSetConfigureManager;
+const static auto& putServiceRoot = privilegeSetConfigureManager;
+const static auto& deleteServiceRoot = privilegeSetConfigureManager;
+const static auto& postServiceRoot = privilegeSetConfigureManager;
 
 // Session
-const auto& getSession = privilegeSetLogin;
-const auto& headSession = privilegeSetLogin;
-const auto& patchSession = privilegeSetConfigureManager;
-const auto& putSession = privilegeSetConfigureManager;
-const auto& deleteSession = privilegeSetConfigureManagerOrConfigureSelf;
-const auto& postSession = privilegeSetConfigureManager;
+const static auto& getSession = privilegeSetLogin;
+const static auto& headSession = privilegeSetLogin;
+const static auto& patchSession = privilegeSetConfigureManager;
+const static auto& putSession = privilegeSetConfigureManager;
+const static auto& deleteSession = privilegeSetConfigureManagerOrConfigureSelf;
+const static auto& postSession = privilegeSetConfigureManager;
 
 // SessionCollection
-const auto& getSessionCollection = privilegeSetLogin;
-const auto& headSessionCollection = privilegeSetLogin;
-const auto& patchSessionCollection = privilegeSetConfigureManager;
-const auto& putSessionCollection = privilegeSetConfigureManager;
-const auto& deleteSessionCollection = privilegeSetConfigureManager;
-const auto& postSessionCollection = privilegeSetLogin;
+const static auto& getSessionCollection = privilegeSetLogin;
+const static auto& headSessionCollection = privilegeSetLogin;
+const static auto& patchSessionCollection = privilegeSetConfigureManager;
+const static auto& putSessionCollection = privilegeSetConfigureManager;
+const static auto& deleteSessionCollection = privilegeSetConfigureManager;
+const static auto& postSessionCollection = privilegeSetLogin;
 
 // SessionService
-const auto& getSessionService = privilegeSetLogin;
-const auto& headSessionService = privilegeSetLogin;
-const auto& patchSessionService = privilegeSetConfigureManager;
-const auto& putSessionService = privilegeSetConfigureManager;
-const auto& deleteSessionService = privilegeSetConfigureManager;
-const auto& postSessionService = privilegeSetConfigureManager;
+const static auto& getSessionService = privilegeSetLogin;
+const static auto& headSessionService = privilegeSetLogin;
+const static auto& patchSessionService = privilegeSetConfigureManager;
+const static auto& putSessionService = privilegeSetConfigureManager;
+const static auto& deleteSessionService = privilegeSetConfigureManager;
+const static auto& postSessionService = privilegeSetConfigureManager;
 
 // Signature
-const auto& getSignature = privilegeSetLogin;
-const auto& headSignature = privilegeSetLogin;
-const auto& patchSignature = privilegeSetConfigureComponents;
-const auto& postSignature = privilegeSetConfigureComponents;
-const auto& putSignature = privilegeSetConfigureComponents;
-const auto& deleteSignature = privilegeSetConfigureComponents;
+const static auto& getSignature = privilegeSetLogin;
+const static auto& headSignature = privilegeSetLogin;
+const static auto& patchSignature = privilegeSetConfigureComponents;
+const static auto& postSignature = privilegeSetConfigureComponents;
+const static auto& putSignature = privilegeSetConfigureComponents;
+const static auto& deleteSignature = privilegeSetConfigureComponents;
 
 // SignatureCollection
-const auto& getSignatureCollection = privilegeSetLogin;
-const auto& headSignatureCollection = privilegeSetLogin;
-const auto& patchSignatureCollection = privilegeSetConfigureComponents;
-const auto& postSignatureCollection = privilegeSetConfigureComponents;
-const auto& putSignatureCollection = privilegeSetConfigureComponents;
-const auto& deleteSignatureCollection = privilegeSetConfigureComponents;
+const static auto& getSignatureCollection = privilegeSetLogin;
+const static auto& headSignatureCollection = privilegeSetLogin;
+const static auto& patchSignatureCollection = privilegeSetConfigureComponents;
+const static auto& postSignatureCollection = privilegeSetConfigureComponents;
+const static auto& putSignatureCollection = privilegeSetConfigureComponents;
+const static auto& deleteSignatureCollection = privilegeSetConfigureComponents;
 
 // SimpleStorage
-const auto& getSimpleStorage = privilegeSetLogin;
-const auto& headSimpleStorage = privilegeSetLogin;
-const auto& patchSimpleStorage = privilegeSetConfigureComponents;
-const auto& postSimpleStorage = privilegeSetConfigureComponents;
-const auto& putSimpleStorage = privilegeSetConfigureComponents;
-const auto& deleteSimpleStorage = privilegeSetConfigureComponents;
+const static auto& getSimpleStorage = privilegeSetLogin;
+const static auto& headSimpleStorage = privilegeSetLogin;
+const static auto& patchSimpleStorage = privilegeSetConfigureComponents;
+const static auto& postSimpleStorage = privilegeSetConfigureComponents;
+const static auto& putSimpleStorage = privilegeSetConfigureComponents;
+const static auto& deleteSimpleStorage = privilegeSetConfigureComponents;
 
 // SimpleStorageCollection
-const auto& getSimpleStorageCollection = privilegeSetLogin;
-const auto& headSimpleStorageCollection = privilegeSetLogin;
-const auto& patchSimpleStorageCollection = privilegeSetConfigureComponents;
-const auto& postSimpleStorageCollection = privilegeSetConfigureComponents;
-const auto& putSimpleStorageCollection = privilegeSetConfigureComponents;
-const auto& deleteSimpleStorageCollection = privilegeSetConfigureComponents;
+const static auto& getSimpleStorageCollection = privilegeSetLogin;
+const static auto& headSimpleStorageCollection = privilegeSetLogin;
+const static auto& patchSimpleStorageCollection =
+    privilegeSetConfigureComponents;
+const static auto& postSimpleStorageCollection =
+    privilegeSetConfigureComponents;
+const static auto& putSimpleStorageCollection = privilegeSetConfigureComponents;
+const static auto& deleteSimpleStorageCollection =
+    privilegeSetConfigureComponents;
 
 // SoftwareInventory
-const auto& getSoftwareInventory = privilegeSetLogin;
-const auto& headSoftwareInventory = privilegeSetLogin;
-const auto& patchSoftwareInventory = privilegeSetConfigureComponents;
-const auto& postSoftwareInventory = privilegeSetConfigureComponents;
-const auto& putSoftwareInventory = privilegeSetConfigureComponents;
-const auto& deleteSoftwareInventory = privilegeSetConfigureComponents;
+const static auto& getSoftwareInventory = privilegeSetLogin;
+const static auto& headSoftwareInventory = privilegeSetLogin;
+const static auto& patchSoftwareInventory = privilegeSetConfigureComponents;
+const static auto& postSoftwareInventory = privilegeSetConfigureComponents;
+const static auto& putSoftwareInventory = privilegeSetConfigureComponents;
+const static auto& deleteSoftwareInventory = privilegeSetConfigureComponents;
 
 // SoftwareInventoryCollection
-const auto& getSoftwareInventoryCollection = privilegeSetLogin;
-const auto& headSoftwareInventoryCollection = privilegeSetLogin;
-const auto& patchSoftwareInventoryCollection = privilegeSetConfigureComponents;
-const auto& postSoftwareInventoryCollection = privilegeSetConfigureComponents;
-const auto& putSoftwareInventoryCollection = privilegeSetConfigureComponents;
-const auto& deleteSoftwareInventoryCollection = privilegeSetConfigureComponents;
+const static auto& getSoftwareInventoryCollection = privilegeSetLogin;
+const static auto& headSoftwareInventoryCollection = privilegeSetLogin;
+const static auto& patchSoftwareInventoryCollection =
+    privilegeSetConfigureComponents;
+const static auto& postSoftwareInventoryCollection =
+    privilegeSetConfigureComponents;
+const static auto& putSoftwareInventoryCollection =
+    privilegeSetConfigureComponents;
+const static auto& deleteSoftwareInventoryCollection =
+    privilegeSetConfigureComponents;
 
 // Storage
-const auto& getStorage = privilegeSetLogin;
-const auto& headStorage = privilegeSetLogin;
-const auto& patchStorage = privilegeSetConfigureComponents;
-const auto& postStorage = privilegeSetConfigureComponents;
-const auto& putStorage = privilegeSetConfigureComponents;
-const auto& deleteStorage = privilegeSetConfigureComponents;
+const static auto& getStorage = privilegeSetLogin;
+const static auto& headStorage = privilegeSetLogin;
+const static auto& patchStorage = privilegeSetConfigureComponents;
+const static auto& postStorage = privilegeSetConfigureComponents;
+const static auto& putStorage = privilegeSetConfigureComponents;
+const static auto& deleteStorage = privilegeSetConfigureComponents;
 
 // StorageCollection
-const auto& getStorageCollection = privilegeSetLogin;
-const auto& headStorageCollection = privilegeSetLogin;
-const auto& patchStorageCollection = privilegeSetConfigureComponents;
-const auto& postStorageCollection = privilegeSetConfigureComponents;
-const auto& putStorageCollection = privilegeSetConfigureComponents;
-const auto& deleteStorageCollection = privilegeSetConfigureComponents;
+const static auto& getStorageCollection = privilegeSetLogin;
+const static auto& headStorageCollection = privilegeSetLogin;
+const static auto& patchStorageCollection = privilegeSetConfigureComponents;
+const static auto& postStorageCollection = privilegeSetConfigureComponents;
+const static auto& putStorageCollection = privilegeSetConfigureComponents;
+const static auto& deleteStorageCollection = privilegeSetConfigureComponents;
 
 // StorageController
-const auto& getStorageController = privilegeSetLogin;
-const auto& headStorageController = privilegeSetLogin;
-const auto& patchStorageController = privilegeSetConfigureComponents;
-const auto& postStorageController = privilegeSetConfigureComponents;
-const auto& putStorageController = privilegeSetConfigureComponents;
-const auto& deleteStorageController = privilegeSetConfigureComponents;
+const static auto& getStorageController = privilegeSetLogin;
+const static auto& headStorageController = privilegeSetLogin;
+const static auto& patchStorageController = privilegeSetConfigureComponents;
+const static auto& postStorageController = privilegeSetConfigureComponents;
+const static auto& putStorageController = privilegeSetConfigureComponents;
+const static auto& deleteStorageController = privilegeSetConfigureComponents;
 
 // StorageControllerCollection
-const auto& getStorageControllerCollection = privilegeSetLogin;
-const auto& headStorageControllerCollection = privilegeSetLogin;
-const auto& patchStorageControllerCollection = privilegeSetConfigureComponents;
-const auto& postStorageControllerCollection = privilegeSetConfigureComponents;
-const auto& putStorageControllerCollection = privilegeSetConfigureComponents;
-const auto& deleteStorageControllerCollection = privilegeSetConfigureComponents;
+const static auto& getStorageControllerCollection = privilegeSetLogin;
+const static auto& headStorageControllerCollection = privilegeSetLogin;
+const static auto& patchStorageControllerCollection =
+    privilegeSetConfigureComponents;
+const static auto& postStorageControllerCollection =
+    privilegeSetConfigureComponents;
+const static auto& putStorageControllerCollection =
+    privilegeSetConfigureComponents;
+const static auto& deleteStorageControllerCollection =
+    privilegeSetConfigureComponents;
 
 // Switch
-const auto& getSwitch = privilegeSetLogin;
-const auto& headSwitch = privilegeSetLogin;
-const auto& patchSwitch = privilegeSetConfigureComponents;
-const auto& postSwitch = privilegeSetConfigureComponents;
-const auto& putSwitch = privilegeSetConfigureComponents;
-const auto& deleteSwitch = privilegeSetConfigureComponents;
+const static auto& getSwitch = privilegeSetLogin;
+const static auto& headSwitch = privilegeSetLogin;
+const static auto& patchSwitch = privilegeSetConfigureComponents;
+const static auto& postSwitch = privilegeSetConfigureComponents;
+const static auto& putSwitch = privilegeSetConfigureComponents;
+const static auto& deleteSwitch = privilegeSetConfigureComponents;
 
 // SwitchCollection
-const auto& getSwitchCollection = privilegeSetLogin;
-const auto& headSwitchCollection = privilegeSetLogin;
-const auto& patchSwitchCollection = privilegeSetConfigureComponents;
-const auto& postSwitchCollection = privilegeSetConfigureComponents;
-const auto& putSwitchCollection = privilegeSetConfigureComponents;
-const auto& deleteSwitchCollection = privilegeSetConfigureComponents;
+const static auto& getSwitchCollection = privilegeSetLogin;
+const static auto& headSwitchCollection = privilegeSetLogin;
+const static auto& patchSwitchCollection = privilegeSetConfigureComponents;
+const static auto& postSwitchCollection = privilegeSetConfigureComponents;
+const static auto& putSwitchCollection = privilegeSetConfigureComponents;
+const static auto& deleteSwitchCollection = privilegeSetConfigureComponents;
 
 // Task
-const auto& getTask = privilegeSetLogin;
-const auto& headTask = privilegeSetLogin;
-const auto& patchTask = privilegeSetConfigureManager;
-const auto& putTask = privilegeSetConfigureManager;
-const auto& deleteTask = privilegeSetConfigureManager;
-const auto& postTask = privilegeSetConfigureManager;
+const static auto& getTask = privilegeSetLogin;
+const static auto& headTask = privilegeSetLogin;
+const static auto& patchTask = privilegeSetConfigureManager;
+const static auto& putTask = privilegeSetConfigureManager;
+const static auto& deleteTask = privilegeSetConfigureManager;
+const static auto& postTask = privilegeSetConfigureManager;
 
 // TaskCollection
-const auto& getTaskCollection = privilegeSetLogin;
-const auto& headTaskCollection = privilegeSetLogin;
-const auto& patchTaskCollection = privilegeSetConfigureManager;
-const auto& putTaskCollection = privilegeSetConfigureManager;
-const auto& deleteTaskCollection = privilegeSetConfigureManager;
-const auto& postTaskCollection = privilegeSetConfigureManager;
+const static auto& getTaskCollection = privilegeSetLogin;
+const static auto& headTaskCollection = privilegeSetLogin;
+const static auto& patchTaskCollection = privilegeSetConfigureManager;
+const static auto& putTaskCollection = privilegeSetConfigureManager;
+const static auto& deleteTaskCollection = privilegeSetConfigureManager;
+const static auto& postTaskCollection = privilegeSetConfigureManager;
 
 // TaskService
-const auto& getTaskService = privilegeSetLogin;
-const auto& headTaskService = privilegeSetLogin;
-const auto& patchTaskService = privilegeSetConfigureManager;
-const auto& putTaskService = privilegeSetConfigureManager;
-const auto& deleteTaskService = privilegeSetConfigureManager;
-const auto& postTaskService = privilegeSetConfigureManager;
+const static auto& getTaskService = privilegeSetLogin;
+const static auto& headTaskService = privilegeSetLogin;
+const static auto& patchTaskService = privilegeSetConfigureManager;
+const static auto& putTaskService = privilegeSetConfigureManager;
+const static auto& deleteTaskService = privilegeSetConfigureManager;
+const static auto& postTaskService = privilegeSetConfigureManager;
 
 // TelemetryService
-const auto& getTelemetryService = privilegeSetLogin;
-const auto& headTelemetryService = privilegeSetLogin;
-const auto& patchTelemetryService = privilegeSetConfigureManager;
-const auto& putTelemetryService = privilegeSetConfigureManager;
-const auto& deleteTelemetryService = privilegeSetConfigureManager;
-const auto& postTelemetryService = privilegeSetConfigureManager;
+const static auto& getTelemetryService = privilegeSetLogin;
+const static auto& headTelemetryService = privilegeSetLogin;
+const static auto& patchTelemetryService = privilegeSetConfigureManager;
+const static auto& putTelemetryService = privilegeSetConfigureManager;
+const static auto& deleteTelemetryService = privilegeSetConfigureManager;
+const static auto& postTelemetryService = privilegeSetConfigureManager;
 
 // Thermal
-const auto& getThermal = privilegeSetLogin;
-const auto& headThermal = privilegeSetLogin;
-const auto& patchThermal = privilegeSetConfigureManager;
-const auto& putThermal = privilegeSetConfigureManager;
-const auto& deleteThermal = privilegeSetConfigureManager;
-const auto& postThermal = privilegeSetConfigureManager;
+const static auto& getThermal = privilegeSetLogin;
+const static auto& headThermal = privilegeSetLogin;
+const static auto& patchThermal = privilegeSetConfigureManager;
+const static auto& putThermal = privilegeSetConfigureManager;
+const static auto& deleteThermal = privilegeSetConfigureManager;
+const static auto& postThermal = privilegeSetConfigureManager;
 
 // Triggers
-const auto& getTriggers = privilegeSetLogin;
-const auto& headTriggers = privilegeSetLogin;
-const auto& patchTriggers = privilegeSetConfigureManager;
-const auto& putTriggers = privilegeSetConfigureManager;
-const auto& deleteTriggers = privilegeSetConfigureManager;
-const auto& postTriggers = privilegeSetConfigureManager;
+const static auto& getTriggers = privilegeSetLogin;
+const static auto& headTriggers = privilegeSetLogin;
+const static auto& patchTriggers = privilegeSetConfigureManager;
+const static auto& putTriggers = privilegeSetConfigureManager;
+const static auto& deleteTriggers = privilegeSetConfigureManager;
+const static auto& postTriggers = privilegeSetConfigureManager;
 
 // TriggersCollection
-const auto& getTriggersCollection = privilegeSetLogin;
-const auto& headTriggersCollection = privilegeSetLogin;
-const auto& patchTriggersCollection = privilegeSetConfigureManager;
-const auto& putTriggersCollection = privilegeSetConfigureManager;
-const auto& deleteTriggersCollection = privilegeSetConfigureManager;
-const auto& postTriggersCollection = privilegeSetConfigureManager;
+const static auto& getTriggersCollection = privilegeSetLogin;
+const static auto& headTriggersCollection = privilegeSetLogin;
+const static auto& patchTriggersCollection = privilegeSetConfigureManager;
+const static auto& putTriggersCollection = privilegeSetConfigureManager;
+const static auto& deleteTriggersCollection = privilegeSetConfigureManager;
+const static auto& postTriggersCollection = privilegeSetConfigureManager;
 
 // UpdateService
-const auto& getUpdateService = privilegeSetLogin;
-const auto& headUpdateService = privilegeSetLogin;
-const auto& patchUpdateService = privilegeSetConfigureComponents;
-const auto& postUpdateService = privilegeSetConfigureComponents;
-const auto& putUpdateService = privilegeSetConfigureComponents;
-const auto& deleteUpdateService = privilegeSetConfigureComponents;
+const static auto& getUpdateService = privilegeSetLogin;
+const static auto& headUpdateService = privilegeSetLogin;
+const static auto& patchUpdateService = privilegeSetConfigureComponents;
+const static auto& postUpdateService = privilegeSetConfigureComponents;
+const static auto& putUpdateService = privilegeSetConfigureComponents;
+const static auto& deleteUpdateService = privilegeSetConfigureComponents;
 
 // VCATEntry
-const auto& getVCATEntry = privilegeSetLogin;
-const auto& headVCATEntry = privilegeSetLogin;
-const auto& patchVCATEntry = privilegeSetConfigureComponents;
-const auto& putVCATEntry = privilegeSetConfigureComponents;
-const auto& deleteVCATEntry = privilegeSetConfigureComponents;
-const auto& postVCATEntry = privilegeSetConfigureComponents;
+const static auto& getVCATEntry = privilegeSetLogin;
+const static auto& headVCATEntry = privilegeSetLogin;
+const static auto& patchVCATEntry = privilegeSetConfigureComponents;
+const static auto& putVCATEntry = privilegeSetConfigureComponents;
+const static auto& deleteVCATEntry = privilegeSetConfigureComponents;
+const static auto& postVCATEntry = privilegeSetConfigureComponents;
 
 // VCATEntryCollection
-const auto& getVCATEntryCollection = privilegeSetLogin;
-const auto& headVCATEntryCollection = privilegeSetLogin;
-const auto& patchVCATEntryCollection = privilegeSetConfigureComponents;
-const auto& putVCATEntryCollection = privilegeSetConfigureComponents;
-const auto& deleteVCATEntryCollection = privilegeSetConfigureComponents;
-const auto& postVCATEntryCollection = privilegeSetConfigureComponents;
+const static auto& getVCATEntryCollection = privilegeSetLogin;
+const static auto& headVCATEntryCollection = privilegeSetLogin;
+const static auto& patchVCATEntryCollection = privilegeSetConfigureComponents;
+const static auto& putVCATEntryCollection = privilegeSetConfigureComponents;
+const static auto& deleteVCATEntryCollection = privilegeSetConfigureComponents;
+const static auto& postVCATEntryCollection = privilegeSetConfigureComponents;
 
 // VLanNetworkInterface
-const auto& getVLanNetworkInterface = privilegeSetLogin;
-const auto& headVLanNetworkInterface = privilegeSetLogin;
-const auto& patchVLanNetworkInterface = privilegeSetConfigureManager;
-const auto& putVLanNetworkInterface = privilegeSetConfigureManager;
-const auto& deleteVLanNetworkInterface = privilegeSetConfigureManager;
-const auto& postVLanNetworkInterface = privilegeSetConfigureManager;
+const static auto& getVLanNetworkInterface = privilegeSetLogin;
+const static auto& headVLanNetworkInterface = privilegeSetLogin;
+const static auto& patchVLanNetworkInterface = privilegeSetConfigureManager;
+const static auto& putVLanNetworkInterface = privilegeSetConfigureManager;
+const static auto& deleteVLanNetworkInterface = privilegeSetConfigureManager;
+const static auto& postVLanNetworkInterface = privilegeSetConfigureManager;
 
 // VLanNetworkInterfaceCollection
-const auto& getVLanNetworkInterfaceCollection = privilegeSetLogin;
-const auto& headVLanNetworkInterfaceCollection = privilegeSetLogin;
-const auto& patchVLanNetworkInterfaceCollection = privilegeSetConfigureManager;
-const auto& putVLanNetworkInterfaceCollection = privilegeSetConfigureManager;
-const auto& deleteVLanNetworkInterfaceCollection = privilegeSetConfigureManager;
-const auto& postVLanNetworkInterfaceCollection = privilegeSetConfigureManager;
+const static auto& getVLanNetworkInterfaceCollection = privilegeSetLogin;
+const static auto& headVLanNetworkInterfaceCollection = privilegeSetLogin;
+const static auto& patchVLanNetworkInterfaceCollection =
+    privilegeSetConfigureManager;
+const static auto& putVLanNetworkInterfaceCollection =
+    privilegeSetConfigureManager;
+const static auto& deleteVLanNetworkInterfaceCollection =
+    privilegeSetConfigureManager;
+const static auto& postVLanNetworkInterfaceCollection =
+    privilegeSetConfigureManager;
 
 // VirtualMedia
-const auto& getVirtualMedia = privilegeSetLogin;
-const auto& headVirtualMedia = privilegeSetLogin;
-const auto& patchVirtualMedia = privilegeSetConfigureManager;
-const auto& putVirtualMedia = privilegeSetConfigureManager;
-const auto& deleteVirtualMedia = privilegeSetConfigureManager;
-const auto& postVirtualMedia = privilegeSetConfigureManager;
+const static auto& getVirtualMedia = privilegeSetLogin;
+const static auto& headVirtualMedia = privilegeSetLogin;
+const static auto& patchVirtualMedia = privilegeSetConfigureManager;
+const static auto& putVirtualMedia = privilegeSetConfigureManager;
+const static auto& deleteVirtualMedia = privilegeSetConfigureManager;
+const static auto& postVirtualMedia = privilegeSetConfigureManager;
 
 // VirtualMediaCollection
-const auto& getVirtualMediaCollection = privilegeSetLogin;
-const auto& headVirtualMediaCollection = privilegeSetLogin;
-const auto& patchVirtualMediaCollection = privilegeSetConfigureManager;
-const auto& putVirtualMediaCollection = privilegeSetConfigureManager;
-const auto& deleteVirtualMediaCollection = privilegeSetConfigureManager;
-const auto& postVirtualMediaCollection = privilegeSetConfigureManager;
+const static auto& getVirtualMediaCollection = privilegeSetLogin;
+const static auto& headVirtualMediaCollection = privilegeSetLogin;
+const static auto& patchVirtualMediaCollection = privilegeSetConfigureManager;
+const static auto& putVirtualMediaCollection = privilegeSetConfigureManager;
+const static auto& deleteVirtualMediaCollection = privilegeSetConfigureManager;
+const static auto& postVirtualMediaCollection = privilegeSetConfigureManager;
 
 // Volume
-const auto& getVolume = privilegeSetLogin;
-const auto& headVolume = privilegeSetLogin;
-const auto& patchVolume = privilegeSetConfigureComponents;
-const auto& postVolume = privilegeSetConfigureComponents;
-const auto& putVolume = privilegeSetConfigureComponents;
-const auto& deleteVolume = privilegeSetConfigureComponents;
+const static auto& getVolume = privilegeSetLogin;
+const static auto& headVolume = privilegeSetLogin;
+const static auto& patchVolume = privilegeSetConfigureComponents;
+const static auto& postVolume = privilegeSetConfigureComponents;
+const static auto& putVolume = privilegeSetConfigureComponents;
+const static auto& deleteVolume = privilegeSetConfigureComponents;
 
 // VolumeCollection
-const auto& getVolumeCollection = privilegeSetLogin;
-const auto& headVolumeCollection = privilegeSetLogin;
-const auto& patchVolumeCollection = privilegeSetConfigureComponents;
-const auto& postVolumeCollection = privilegeSetConfigureComponents;
-const auto& putVolumeCollection = privilegeSetConfigureComponents;
-const auto& deleteVolumeCollection = privilegeSetConfigureComponents;
+const static auto& getVolumeCollection = privilegeSetLogin;
+const static auto& headVolumeCollection = privilegeSetLogin;
+const static auto& patchVolumeCollection = privilegeSetConfigureComponents;
+const static auto& postVolumeCollection = privilegeSetConfigureComponents;
+const static auto& putVolumeCollection = privilegeSetConfigureComponents;
+const static auto& deleteVolumeCollection = privilegeSetConfigureComponents;
 
 // Zone
-const auto& getZone = privilegeSetLogin;
-const auto& headZone = privilegeSetLogin;
-const auto& patchZone = privilegeSetConfigureComponents;
-const auto& postZone = privilegeSetConfigureComponents;
-const auto& putZone = privilegeSetConfigureComponents;
-const auto& deleteZone = privilegeSetConfigureComponents;
+const static auto& getZone = privilegeSetLogin;
+const static auto& headZone = privilegeSetLogin;
+const static auto& patchZone = privilegeSetConfigureComponents;
+const static auto& postZone = privilegeSetConfigureComponents;
+const static auto& putZone = privilegeSetConfigureComponents;
+const static auto& deleteZone = privilegeSetConfigureComponents;
 
 // ZoneCollection
-const auto& getZoneCollection = privilegeSetLogin;
-const auto& headZoneCollection = privilegeSetLogin;
-const auto& patchZoneCollection = privilegeSetConfigureComponents;
-const auto& postZoneCollection = privilegeSetConfigureComponents;
-const auto& putZoneCollection = privilegeSetConfigureComponents;
-const auto& deleteZoneCollection = privilegeSetConfigureComponents;
+const static auto& getZoneCollection = privilegeSetLogin;
+const static auto& headZoneCollection = privilegeSetLogin;
+const static auto& patchZoneCollection = privilegeSetConfigureComponents;
+const static auto& postZoneCollection = privilegeSetConfigureComponents;
+const static auto& putZoneCollection = privilegeSetConfigureComponents;
+const static auto& deleteZoneCollection = privilegeSetConfigureComponents;
 
 } // namespace redfish::privileges

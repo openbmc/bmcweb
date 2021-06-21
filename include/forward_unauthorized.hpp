@@ -6,7 +6,7 @@
 namespace forward_unauthorized
 {
 
-bool hasWebuiRoute = false;
+static bool hasWebuiRoute = false;
 
 inline void sendUnauthorized(const crow::Request& req, crow::Response& res)
 {
