@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5b58fb7d_ad134dad",
+        "filename": "http/utility.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 616,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-06-21T15:23:14Z",
+      "side": 1,
+      "message": "magic number?",
+      "range": {
+        "startLine": 616,
+        "startChar": 19,
+        "endLine": 616,
+        "endChar": 21
+      },
+      "revId": "ccda820a3adf02a817920d7ed0912960bf09ea76",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
