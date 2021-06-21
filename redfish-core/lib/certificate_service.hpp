@@ -940,10 +940,10 @@ inline void requestRoutesHTTPSCertificateCollection(App& app)
  * @param[in] path  Path of the D-Bus service object
  * @return None
  */
-void getCertificateLocations(
-    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-    const std::string& certURL, const std::string& path,
-    const std::string& service)
+inline void
+    getCertificateLocations(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                            const std::string& certURL, const std::string& path,
+                            const std::string& service)
 {
     BMCWEB_LOG_DEBUG << "getCertificateLocations URI=" << certURL
                      << " Path=" << path << " service= " << service;

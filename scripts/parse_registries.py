@@ -180,7 +180,7 @@ def make_privilege_registry():
                     privilege_list)
                 operation = operation.lower()
 
-                registry.write("const auto& {}{} = privilegeSet{};\n".format(
+                registry.write("const static auto& {}{} = privilegeSet{};\n".format(
                    operation, entity , privilege_dict[privilege_string][1]))
             registry.write("\n")
         registry.write("} // namespace redfish::privileges\n")
