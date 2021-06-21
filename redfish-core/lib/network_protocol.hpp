@@ -129,7 +129,7 @@ void getEthernetIfaceData(CallbackFunc&& callback)
         "org.freedesktop.DBus.ObjectManager", "GetManagedObjects");
 }
 
-void getNetworkData(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+inline void getNetworkData(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                     const crow::Request& req)
 {
     asyncResp->res.jsonValue["@odata.type"] =
@@ -301,8 +301,9 @@ void getNetworkData(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
 }
 
 #ifdef BMCWEB_ALLOW_DEPRECATED_HOSTNAME_PATCH
-void handleHostnamePatch(const std::string& hostName,
-                         const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
+inline void
+    handleHostnamePatch(const std::string& hostName,
+                        const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
     crow::connections::systemBus->async_method_call(
         [asyncResp](const boost::system::error_code ec) {
@@ -319,7 +320,7 @@ void handleHostnamePatch(const std::string& hostName,
 }
 #endif
 
-void handleNTPProtocolEnabled(
+inline void handleNTPProtocolEnabled(
     const bool& ntpEnabled, const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
     std::string timeSyncMethod;
@@ -346,8 +347,9 @@ void handleNTPProtocolEnabled(
         std::variant<std::string>{timeSyncMethod});
 }
 
-void handleNTPServersPatch(const std::vector<std::string>& ntpServers,
-                           const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
+inline void
+    handleNTPServersPatch(const std::vector<std::string>& ntpServers,
+                          const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
     crow::connections::systemBus->async_method_call(
         [asyncResp](const boost::system::error_code ec) {
@@ -363,9 +365,10 @@ void handleNTPServersPatch(const std::vector<std::string>& ntpServers,
         std::variant<std::vector<std::string>>{ntpServers});
 }
 
-void handleProtocolEnabled(const bool protocolEnabled,
-                           const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                           const std::string_view netBasePath)
+inline void
+    handleProtocolEnabled(const bool protocolEnabled,
+                          const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                          const std::string_view netBasePath)
 {
     crow::connections::systemBus->async_method_call(
         [protocolEnabled, asyncResp,
@@ -417,7 +420,7 @@ void handleProtocolEnabled(const bool protocolEnabled,
             "xyz.openbmc_project.Control.Service.Attributes"});
 }
 
-std::string getHostName()
+inline std::string getHostName()
 {
     std::string hostName;
 
@@ -429,7 +432,8 @@ std::string getHostName()
     return hostName;
 }
 
-void getNTPProtocolEnabled(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
+inline void
+    getNTPProtocolEnabled(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
     crow::connections::systemBus->async_method_call(
         [asyncResp](const boost::system::error_code errorCode,
