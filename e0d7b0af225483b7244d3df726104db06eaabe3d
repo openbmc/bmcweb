@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "afaffcc6_5fe886ce",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 670,
+      "author": {
+        "id": 1000559
+      },
+      "writtenOn": "2021-06-21T23:51:20Z",
+      "side": 1,
+      "message": "nit: I don\u0027t think it makes a huge difference, but is there a particular reason why ec is not tested first before attempting to parse property?",
+      "range": {
+        "startLine": 669,
+        "startChar": 12,
+        "endLine": 670,
+        "endChar": 36
+      },
+      "revId": "e0d7b0af225483b7244d3df726104db06eaabe3d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
