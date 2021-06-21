@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "514a8c1b_41821e98",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-06-21T20:13:30Z",
+      "side": 1,
+      "message": "I think something like would be more clear\n\nWith DHCP disabled: \ncurl -k -v -H \"Content-Type: application/json\" -H \"X-Auth-Token: $bmc_token\" -X PATCH -d \u0027{\"IPv4StaticAddresses\": [null]}\u0027 https://${bmc_ip}/redfish/v1/Systems/hypervisor/EthernetInterfaces/eth0\n...\n\u003cinsert http response codes\u003e\n...\n\nWith DHCP enabled: \n curl -k -H \"Content-Type: application/json\" -H \"X-Auth-Token: $bmc_token\" -X PATCH -d \u0027{\"IPv4StaticAddresses\": [null]}\u0027 https://${bmc_ip}/redfish/v1/Systems/hypervisor/EthernetInterfaces/eth0\n{\n  \"error\": {\n    \"@Message.ExtendedInfo\": [",
+      "revId": "ddb8a7a9e0627a9a2dcc30e49d8c5e0989ef6a97",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "7f9d999c_d9dc215a",
         "filename": "redfish-core/lib/hypervisor_system.hpp",
         "patchSetId": 7
