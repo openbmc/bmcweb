@@ -19,6 +19,34 @@
 namespace redfish
 {
 
+enum NetworkProtocolUnitStructFields
+{
+    NET_PROTO_UNIT_NAME,
+    NET_PROTO_UNIT_DESC,
+    NET_PROTO_UNIT_LOAD_STATE,
+    NET_PROTO_UNIT_ACTIVE_STATE,
+    NET_PROTO_UNIT_SUB_STATE,
+    NET_PROTO_UNIT_DEVICE,
+    NET_PROTO_UNIT_OBJ_PATH,
+    NET_PROTO_UNIT_ALWAYS_0,
+    NET_PROTO_UNIT_ALWAYS_EMPTY,
+    NET_PROTO_UNIT_ALWAYS_ROOT_PATH
+};
+
+enum NetworkProtocolListenResponseElements
+{
+    NET_PROTO_LISTEN_TYPE,
+    NET_PROTO_LISTEN_STREAM
+};
+
+/**
+ * @brief D-Bus Unit structure returned in array from ListUnits Method
+ */
+using UnitStruct =
+    std::tuple<std::string, std::string, std::string, std::string, std::string,
+               std::string, sdbusplus::message::object_path, uint32_t,
+               std::string, sdbusplus::message::object_path>;
+
 template <typename CallbackFunc>
 void getMainChassisId(std::shared_ptr<bmcweb::AsyncResp> asyncResp,
                       CallbackFunc&& callback)
@@ -59,5 +87,115 @@ void getMainChassisId(std::shared_ptr<bmcweb::AsyncResp> asyncResp,
             "xyz.openbmc_project.Inventory.Item.Board",
             "xyz.openbmc_project.Inventory.Item.Chassis"});
 }
+
+template <typename CallbackFunc>
+void getPortInfo(
+    std::shared_ptr<bmcweb::AsyncResp> asyncResp,
+    const std::vector<std::pair<const char*, const char*>>& protocolToDBus,
+    CallbackFunc&& callback)
+{
+    crow::connections::systemBus->async_method_call(
+        [asyncResp, protocolToDBus,
+         callback](const boost::system::error_code e,
+                   const std::vector<UnitStruct>& r) {
+            if (e)
+            {
+                asyncResp->res.jsonValue = nlohmann::json::object();
+                messages::internalError(asyncResp->res);
+                return;
+            }
+
+            // Attach JSON Data
+            callback(asyncResp);
+
+            for (auto& unit : r)
+            {
+                // Only traverse through <xyz>.socket units
+                const std::string& unitName =
+                    std::get<NET_PROTO_UNIT_NAME>(unit);
+                if (!boost::ends_with(unitName, ".socket"))
+                {
+                    continue;
+                }
+
+                for (auto& kv : protocolToDBus)
+                {
+                    // We are interested in services, which starts with
+                    // mapped service name
+                    if (!boost::starts_with(unitName, kv.second))
+                    {
+                        continue;
+                    }
+                    const char* rfServiceKey = kv.first;
+                    const std::string& socketPath =
+                        std::get<NET_PROTO_UNIT_OBJ_PATH>(unit);
+                    const std::string& unitState =
+                        std::get<NET_PROTO_UNIT_SUB_STATE>(unit);
+
+                    asyncResp->res.jsonValue[rfServiceKey]["ProtocolEnabled"] =
+                        (unitState == "running") || (unitState == "listening");
+
+                    crow::connections::systemBus->async_method_call(
+                        [asyncResp, rfServiceKey{std::string(rfServiceKey)}](
+                            const boost::system::error_code ec,
+                            const std::variant<std::vector<
+                                std::tuple<std::string, std::string>>>& resp) {
+                            if (ec)
+                            {
+                                messages::internalError(asyncResp->res);
+                                return;
+                            }
+                            const std::vector<
+                                std::tuple<std::string, std::string>>*
+                                responsePtr = std::get_if<std::vector<
+                                    std::tuple<std::string, std::string>>>(
+                                    &resp);
+                            if (responsePtr == nullptr ||
+                                responsePtr->size() < 1)
+                            {
+                                return;
+                            }
+
+                            const std::string& listenStream =
+                                std::get<NET_PROTO_LISTEN_STREAM>(
+                                    (*responsePtr)[0]);
+                            std::size_t lastColonPos = listenStream.rfind(':');
+                            if (lastColonPos == std::string::npos)
+                            {
+                                // Not a port
+                                return;
+                            }
+                            std::string portStr =
+                                listenStream.substr(lastColonPos + 1);
+                            if (portStr.empty())
+                            {
+                                return;
+                            }
+                            char* endPtr = nullptr;
+                            errno = 0;
+                            // Use strtol instead of stroi to avoid
+                            // exceptions
+                            long port =
+                                std::strtol(portStr.c_str(), &endPtr, 10);
+                            if ((errno == 0) && (*endPtr == '\0'))
+                            {
+                                asyncResp->res.jsonValue[rfServiceKey]["Port"] =
+                                    port;
+                            }
+                            return;
+                        },
+                        "org.freedesktop.systemd1", socketPath,
+                        "org.freedesktop.DBus.Properties", "Get",
+                        "org.freedesktop.systemd1.Socket", "Listen");
+
+                    // We found service, break the inner loop.
+                    break;
+                }
+            }
+        },
+        "org.freedesktop.systemd1", "/org/freedesktop/systemd1",
+        "org.freedesktop.systemd1.Manager", "ListUnits");
+}
+
 } // namespace redfish
 #endif
