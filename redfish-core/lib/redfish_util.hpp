@@ -19,6 +19,34 @@
 namespace redfish
 {
 
+enum NetworkProtocolUnitStructFields
+{
+    NET_PROTO_UNIT_NAME,
+    NET_PROTO_UNIT_DESC,
+    NET_PROTO_UNIT_LOAD_STATE,
+    NET_PROTO_UNIT_ACTIVE_STATE,
+    NET_PROTO_UNIT_SUB_STATE,
+    NET_PROTO_UNIT_DEVICE,
+    NET_PROTO_UNIT_OBJ_PATH,
+    NET_PROTO_UNIT_ALWAYS_0,
+    NET_PROTO_UNIT_ALWAYS_EMPTY,
+    NET_PROTO_UNIT_ALWAYS_ROOT_PATH
+};
+
+enum NetworkProtocolListenResponseElements
+{
+    NET_PROTO_LISTEN_TYPE,
+    NET_PROTO_LISTEN_STREAM
+};
+
+/**
+ * @brief D-Bus Unit structure returned in array from ListUnits Method
+ */
+using UnitStruct =
+    std::tuple<std::string, std::string, std::string, std::string, std::string,
+               std::string, sdbusplus::message::object_path, uint32_t,
+               std::string, sdbusplus::message::object_path>;
+
 template <typename CallbackFunc>
 void getMainChassisId(std::shared_ptr<bmcweb::AsyncResp> asyncResp,
                       CallbackFunc&& callback)
@@ -59,5 +87,141 @@ void getMainChassisId(std::shared_ptr<bmcweb::AsyncResp> asyncResp,
             "xyz.openbmc_project.Inventory.Item.Board",
             "xyz.openbmc_project.Inventory.Item.Chassis"});
 }
+
+template <typename CallbackFunc>
+void getPortStatusAndPath(const std::string& serviceName,
+                          CallbackFunc&& callback)
+{
+    crow::connections::systemBus->async_method_call(
+        [serviceName,
+         callback{std::move(callback)}](const boost::system::error_code ec,
+                                        const std::vector<UnitStruct>& r) {
+            if (ec)
+            {
+                BMCWEB_LOG_ERROR << ec;
+                // return error code
+                callback(ec, "", false);
+                return;
+            }
+
+            for (const UnitStruct& unit : r)
+            {
+                // Only traverse through <xyz>.socket units
+                const std::string& unitName =
+                    std::get<NET_PROTO_UNIT_NAME>(unit);
+
+                // find "." into unitsName
+                size_t lastCharPos = unitName.rfind('.');
+                if (lastCharPos == std::string::npos)
+                {
+                    continue;
+                }
+
+                // is unitsName end with ".socket"
+                std::string unitNameEnd = unitName.substr(lastCharPos);
+                if (unitNameEnd.compare(".socket") != 0)
+                {
+                    continue;
+                }
+
+                // find "@" into unitsName
+                if (size_t atCharPos = unitName.rfind('@');
+                    atCharPos != std::string::npos)
+                {
+                    lastCharPos = atCharPos;
+                }
+
+                // unitsName without "@eth(x).socket", only <xyz>
+                // unitsName without ".socket", only <xyz>
+                std::string unitNameStr = unitName.substr(0, lastCharPos);
+
+                // We are interested in services, which starts with
+                // mapped service name
+                if (unitNameStr != serviceName)
+                {
+                    continue;
+                }
+
+                const std::string& socketPath =
+                    std::get<NET_PROTO_UNIT_OBJ_PATH>(unit);
+                const std::string& unitState =
+                    std::get<NET_PROTO_UNIT_SUB_STATE>(unit);
+
+                bool isProtocolEnabled =
+                    ((unitState == "running") || (unitState == "listening"));
+                // We found service, return from inner loop.
+                callback(ec, socketPath, isProtocolEnabled);
+                return;
+            }
+
+            //  no service foudn, throw error
+            boost::system::error_code ec1 =
+                boost::system::errc::make_error_code(
+                    boost::system::errc::no_such_process);
+            // return error code
+            callback(ec1, "", false);
+            BMCWEB_LOG_ERROR << ec1;
+        },
+        "org.freedesktop.systemd1", "/org/freedesktop/systemd1",
+        "org.freedesktop.systemd1.Manager", "ListUnits");
+}
+
+template <typename CallbackFunc>
+void getPortNumber(const std::string& socketPath, CallbackFunc&& callback)
+{
+    crow::connections::systemBus->async_method_call(
+        [callback{std::move(callback)}](
+            const boost::system::error_code ec,
+            const std::variant<
+                std::vector<std::tuple<std::string, std::string>>>& resp) {
+            if (ec)
+            {
+                BMCWEB_LOG_ERROR << ec;
+                callback(ec, 0);
+                return;
+            }
+            const std::vector<
+                std::tuple<std::string, std::string>>* responsePtr =
+                std::get_if<std::vector<std::tuple<std::string, std::string>>>(
+                    &resp);
+            if (responsePtr == nullptr || responsePtr->size() < 1)
+            {
+                // Network Protocol Listen Response Elements is empty
+                boost::system::error_code ec1 =
+                    boost::system::errc::make_error_code(
+                        boost::system::errc::bad_message);
+                // return error code
+                callback(ec1, 0);
+                BMCWEB_LOG_ERROR << ec1;
+                return;
+            }
+            const std::string& listenStream =
+                std::get<NET_PROTO_LISTEN_STREAM>((*responsePtr)[0]);
+            const char* pa = &listenStream[listenStream.rfind(':') + 1];
+            int port{0};
+            if (auto [p, ec2] = std::from_chars(pa, nullptr, port);
+                ec2 != std::errc())
+            {
+                // there is only two possibility invalid_argument and
+                // result_out_of_range
+                boost::system::error_code ec3 =
+                    boost::system::errc::make_error_code(
+                        boost::system::errc::invalid_argument);
+                if (ec2 == std::errc::result_out_of_range)
+                {
+                    ec3 = boost::system::errc::make_error_code(
+                        boost::system::errc::result_out_of_range);
+                }
+                // return error code
+                callback(ec3, 0);
+                BMCWEB_LOG_ERROR << ec3;
+            }
+            callback(ec, port);
+        },
+        "org.freedesktop.systemd1", socketPath,
+        "org.freedesktop.DBus.Properties", "Get",
+        "org.freedesktop.systemd1.Socket", "Listen");
+}
+
 } // namespace redfish
 #endif
