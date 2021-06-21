@@ -49,6 +49,23 @@
     },
     {
       "key": {
+        "uuid": "bf1b139b_939d0776",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-06-21T17:24:41Z",
+      "side": 1,
+      "message": "I would like to see some of this conversation / direction in the commit msg",
+      "revId": "9f14616587c03552dbf527745c823d73218ad619",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "4da6afcd_5b7c6697",
         "filename": "/COMMIT_MSG",
         "patchSetId": 1
@@ -131,6 +148,30 @@
     },
     {
       "key": {
+        "uuid": "5d1e19b7_5d7b2bc0",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-06-21T17:24:41Z",
+      "side": 1,
+      "message": "Are you still worried about binary size? Did that get tested?",
+      "parentUuid": "e7a5b0fa_a22da288",
+      "range": {
+        "startLine": 24,
+        "startChar": 0,
+        "endLine": 25,
+        "endChar": 55
+      },
+      "revId": "9f14616587c03552dbf527745c823d73218ad619",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "0161324a_61b7c641",
         "filename": "/COMMIT_MSG",
         "patchSetId": 1
@@ -160,6 +201,24 @@
       "side": 1,
       "message": "\u003e Like \n\u003e             \"SubordinateOverrides\": [\n\u003e                 {\n\u003e                     \"Targets\": [\n\u003e                         \"ComputerSystem\",\n\u003e                         \"LogServiceCollection\",\n\u003e                         \"LogService\",\n\u003e                         \"LogEntryCollection\"\n\u003e                     ],\n\u003e                     \"OperationMap\": {\n\u003e                         \"PATCH\": [\n\u003e                             {\n\u003e                                 \"Privilege\": [\n\u003e                                     \"ConfigureComponents\"\n\u003e                                 ]\n\u003e ?\n\nYep, that would be a good example\n\n\u003e \n\u003e Can we have a separate variable for them?\n\u003e \n\u003e Like logEntryPatchPrivilegeOverride? or logEntryPatchPrivilegeComputerSystemOverride ?\n\nThat was kinda my thought, or we could put them in another namespace for \"default\" privileges, and \"overridden\" privileges.\n\nWith that said, i haven\u0027t given this much thought.",
       "parentUuid": "0161324a_61b7c641",
+      "revId": "9f14616587c03552dbf527745c823d73218ad619",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "96cf15dd_7a22d2ae",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-06-21T17:24:41Z",
+      "side": 1,
+      "message": "Can you document the plan for Override ? Or atleast document this commit does not solve it? I.e. Add a sentence to the commit msg around this ?",
+      "parentUuid": "e7d01dc8_2007c37b",
       "revId": "9f14616587c03552dbf527745c823d73218ad619",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
