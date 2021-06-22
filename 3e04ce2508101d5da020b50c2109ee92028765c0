@@ -42,6 +42,30 @@
     },
     {
       "key": {
+        "uuid": "7f171cab_ed39cf46",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 767,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2021-06-22T21:46:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "84defe92_d037d7c7",
+      "range": {
+        "startLine": 767,
+        "startChar": 12,
+        "endLine": 767,
+        "endChar": 16
+      },
+      "revId": "3e04ce2508101d5da020b50c2109ee92028765c0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "03ab3e79_955d974e",
         "filename": "redfish-core/lib/update_service.hpp",
         "patchSetId": 19
@@ -65,6 +89,30 @@
     },
     {
       "key": {
+        "uuid": "a08c8b43_d89c6045",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 879,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2021-06-22T21:46:51Z",
+      "side": 1,
+      "message": "Done. Not really. I copied the structure from other part of the file.",
+      "parentUuid": "03ab3e79_955d974e",
+      "range": {
+        "startLine": 879,
+        "startChar": 44,
+        "endLine": 879,
+        "endChar": 47
+      },
+      "revId": "3e04ce2508101d5da020b50c2109ee92028765c0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "06f1846a_5190abcc",
         "filename": "redfish-core/lib/update_service.hpp",
         "patchSetId": 19
@@ -79,6 +127,24 @@
       "revId": "3e04ce2508101d5da020b50c2109ee92028765c0",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "25860d2d_36413db0",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 884,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2021-06-22T21:46:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "06f1846a_5190abcc",
+      "revId": "3e04ce2508101d5da020b50c2109ee92028765c0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -102,6 +168,30 @@
       "revId": "3e04ce2508101d5da020b50c2109ee92028765c0",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0ccfeb50_4ff68ff6",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 987,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2021-06-22T21:46:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c2879652_be65b8a8",
+      "range": {
+        "startLine": 987,
+        "startChar": 24,
+        "endLine": 987,
+        "endChar": 40
+      },
+      "revId": "3e04ce2508101d5da020b50c2109ee92028765c0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
