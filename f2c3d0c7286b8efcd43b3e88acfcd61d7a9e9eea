@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "49140273_45ec14f0",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 18
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-06-22T18:05:42Z",
+      "side": 1,
+      "message": "ACK",
+      "parentUuid": "f1f53e2f_a52982e4",
+      "range": {
+        "startLine": 19,
+        "startChar": 38,
+        "endLine": 19,
+        "endChar": 53
+      },
+      "revId": "f2c3d0c7286b8efcd43b3e88acfcd61d7a9e9eea",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e3be8075_e34a276c",
         "filename": "/COMMIT_MSG",
         "patchSetId": 18
@@ -42,6 +66,24 @@
     },
     {
       "key": {
+        "uuid": "7d537a47_d807dc9f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 18
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-06-22T18:05:42Z",
+      "side": 1,
+      "message": "ACK",
+      "parentUuid": "e3be8075_e34a276c",
+      "revId": "f2c3d0c7286b8efcd43b3e88acfcd61d7a9e9eea",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "8a5b591d_c87d46dd",
         "filename": "/COMMIT_MSG",
         "patchSetId": 18
@@ -53,6 +95,30 @@
       "writtenOn": "2021-06-21T17:24:41Z",
       "side": 1,
       "message": "not a typically thing I see.. \nDon\u0027t see how this helps now that we are on patchset 18..",
+      "range": {
+        "startLine": 22,
+        "startChar": 0,
+        "endLine": 33,
+        "endChar": 72
+      },
+      "revId": "f2c3d0c7286b8efcd43b3e88acfcd61d7a9e9eea",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "412f41de_212653a2",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 18
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-06-22T18:05:42Z",
+      "side": 1,
+      "message": "I can remove it.  I was thinking it would help people review, because I was pushing new patches kinda fast.  Will remove.",
+      "parentUuid": "8a5b591d_c87d46dd",
       "range": {
         "startLine": 22,
         "startChar": 0,
