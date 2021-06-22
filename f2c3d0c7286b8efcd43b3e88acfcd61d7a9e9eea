@@ -148,6 +148,24 @@
     },
     {
       "key": {
+        "uuid": "8a78645d_5189ef8b",
+        "filename": "redfish-core/lib/certificate_service.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 673,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-06-22T18:08:07Z",
+      "side": 1,
+      "message": "I\u0027d like to keep anywhere we\u0027re actually changing privileges into it\u0027s own commit, because it will need to include some statements about backward compatibility.",
+      "parentUuid": "10f31597_4a053a08",
+      "revId": "f2c3d0c7286b8efcd43b3e88acfcd61d7a9e9eea",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "5f6fc7ab_5f233ef3",
         "filename": "redfish-core/lib/service_root.hpp",
         "patchSetId": 18
@@ -159,6 +177,24 @@
       "writtenOn": "2021-06-22T14:08:42Z",
       "side": 1,
       "message": "privilegeSetLoginOrNoAuth is use for getServiceRoot, where in old code it is \"{}\".\n\nso is there privileges is change?",
+      "revId": "f2c3d0c7286b8efcd43b3e88acfcd61d7a9e9eea",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "234fcef1_c3e630b4",
+        "filename": "redfish-core/lib/service_root.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-06-22T18:08:07Z",
+      "side": 1,
+      "message": "{} is the same as noauth.  While this technically changes it to \"Login OR NoAuth\", functionally it is identical in practice, as NoAuth applies to every request.",
+      "parentUuid": "5f6fc7ab_5f233ef3",
       "revId": "f2c3d0c7286b8efcd43b3e88acfcd61d7a9e9eea",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
