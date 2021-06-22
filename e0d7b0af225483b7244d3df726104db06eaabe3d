@@ -22,6 +22,30 @@
       "revId": "e0d7b0af225483b7244d3df726104db06eaabe3d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "aca41964_0b598991",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 670,
+      "author": {
+        "id": 1000900
+      },
+      "writtenOn": "2021-06-22T01:07:31Z",
+      "side": 1,
+      "message": "Yes, to save having a second error message block, and the few bytes that takes up. Haha, if you read this whole review we were discussing binary size so I guess that was on my mind when I wrote this. But there is no downside to this pattern that I can see.",
+      "parentUuid": "afaffcc6_5fe886ce",
+      "range": {
+        "startLine": 669,
+        "startChar": 12,
+        "endLine": 670,
+        "endChar": 36
+      },
+      "revId": "e0d7b0af225483b7244d3df726104db06eaabe3d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
