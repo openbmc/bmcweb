@@ -22,6 +22,30 @@
       "revId": "ccda820a3adf02a817920d7ed0912960bf09ea76",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "596c63de_767fc553",
+        "filename": "http/utility.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 616,
+      "author": {
+        "id": 1000579
+      },
+      "writtenOn": "2021-06-22T07:33:21Z",
+      "side": 1,
+      "message": "Done, Updated the new patch set.",
+      "parentUuid": "5b58fb7d_ad134dad",
+      "range": {
+        "startLine": 616,
+        "startChar": 19,
+        "endLine": 616,
+        "endChar": 21
+      },
+      "revId": "ccda820a3adf02a817920d7ed0912960bf09ea76",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
