@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e173387d_17a58907",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-06-22T02:47:39Z",
+      "side": 1,
+      "message": "I think this needs a OpenBMC design doc. This is a huge change in direction.",
+      "revId": "1f554c43cc9fb7868a7f92e534fc95fef418b104",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
