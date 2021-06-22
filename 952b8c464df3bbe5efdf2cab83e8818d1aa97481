@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9524096b_ad4a6f32",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-06-22T02:54:42Z",
+      "side": 1,
+      "message": "This does not sound correct. \n\"Move getPortInfo to Redfish Utility\" ?",
+      "revId": "952b8c464df3bbe5efdf2cab83e8818d1aa97481",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0c790924_d10ca13a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-06-22T02:54:42Z",
+      "side": 1,
+      "message": "This sounds off too..\nPlan to use getPortInfo() to get the SSH SerialConsole in the ComputerSystem ?",
+      "revId": "952b8c464df3bbe5efdf2cab83e8818d1aa97481",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d47b62a5_cd70da0f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-06-22T02:54:42Z",
+      "side": 1,
+      "message": "\"This commit moves the getPortInfo funcitonality into the redfish utility\" ?",
+      "revId": "952b8c464df3bbe5efdf2cab83e8818d1aa97481",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3c3290bf_ec7c91d0",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-06-22T02:54:42Z",
+      "side": 1,
+      "message": "All Redfish commits should still have the validator ran.",
+      "revId": "952b8c464df3bbe5efdf2cab83e8818d1aa97481",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
