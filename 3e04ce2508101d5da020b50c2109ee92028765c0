@@ -16,6 +16,92 @@
       "revId": "3e04ce2508101d5da020b50c2109ee92028765c0",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "84defe92_d037d7c7",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 767,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2021-06-22T20:41:26Z",
+      "side": 1,
+      "message": "for here and anywhere else: prefer explicit type",
+      "range": {
+        "startLine": 767,
+        "startChar": 12,
+        "endLine": 767,
+        "endChar": 16
+      },
+      "revId": "3e04ce2508101d5da020b50c2109ee92028765c0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "03ab3e79_955d974e",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 879,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2021-06-22T20:41:26Z",
+      "side": 1,
+      "message": "any reason why ec\"2\" here?",
+      "range": {
+        "startLine": 879,
+        "startChar": 44,
+        "endLine": 879,
+        "endChar": 47
+      },
+      "revId": "3e04ce2508101d5da020b50c2109ee92028765c0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "06f1846a_5190abcc",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 884,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2021-06-22T20:41:26Z",
+      "side": 1,
+      "message": "can be combined into one line?",
+      "revId": "3e04ce2508101d5da020b50c2109ee92028765c0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c2879652_be65b8a8",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 987,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2021-06-22T20:41:26Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 987,
+        "startChar": 24,
+        "endLine": 987,
+        "endChar": 40
+      },
+      "revId": "3e04ce2508101d5da020b50c2109ee92028765c0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
