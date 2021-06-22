@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "de2b511d_df2b761a",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2021-06-22T22:10:52Z",
+      "side": 1,
+      "message": "I can\u0027t say that I know a lot about this... but I guess https://github.com/nlohmann/json will have more info.\n\nI think it is because `asyncResp-\u003eres.jsonValue[\"Drives\"]` itself doesn\u0027t know that it is an array.",
+      "parentUuid": "2c5728ba_066ba80b",
+      "range": {
+        "startLine": 54,
+        "startChar": 12,
+        "endLine": 54,
+        "endChar": 24
+      },
+      "revId": "0d6aa02a22df52b991471d543013d30c9380cd8e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "eb765bcc_0b28e7dc",
         "filename": "redfish-core/lib/storage.hpp",
         "patchSetId": 14
@@ -45,6 +69,30 @@
       "revId": "0d6aa02a22df52b991471d543013d30c9380cd8e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6fe94cfe_d99688ec",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2021-06-22T22:10:52Z",
+      "side": 1,
+      "message": "yeah, this is finding the last index and getting the string after it.\n\nI think it is better to use sdbusplus::message::object_path for this.",
+      "parentUuid": "eb765bcc_0b28e7dc",
+      "range": {
+        "startLine": 76,
+        "startChar": 52,
+        "endLine": 76,
+        "endChar": 55
+      },
+      "revId": "0d6aa02a22df52b991471d543013d30c9380cd8e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "9976614b_6d1c0250",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2021-06-22T22:10:52Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "f87f2876_65655aa8",
+      "range": {
+        "startLine": 125,
+        "startChar": 49,
+        "endLine": 125,
+        "endChar": 52
+      },
+      "revId": "0d6aa02a22df52b991471d543013d30c9380cd8e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "dae5ff74_740579ff",
         "filename": "redfish-core/lib/storage.hpp",
         "patchSetId": 14
@@ -82,6 +154,30 @@
       "writtenOn": "2021-06-22T16:45:04Z",
       "side": 1,
       "message": "If a name ends is \"/\" it will be an issue. I really don\u0027t think it is possible, but I don\u0027t know. and on line 78",
+      "range": {
+        "startLine": 148,
+        "startChar": 53,
+        "endLine": 148,
+        "endChar": 57
+      },
+      "revId": "0d6aa02a22df52b991471d543013d30c9380cd8e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4e2b3b57_83785203",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2021-06-22T22:10:52Z",
+      "side": 1,
+      "message": "using sdbusplus::message::object_path will solve this.",
+      "parentUuid": "dae5ff74_740579ff",
       "range": {
         "startLine": 148,
         "startChar": 53,
