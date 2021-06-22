@@ -62,6 +62,40 @@
       "revId": "f2c3d0c7286b8efcd43b3e88acfcd61d7a9e9eea",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "10f31597_4a053a08",
+        "filename": "redfish-core/lib/certificate_service.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 673,
+      "author": {
+        "id": 1001099
+      },
+      "writtenOn": "2021-06-22T14:08:42Z",
+      "side": 1,
+      "message": "if we do this here than we can Abandon this https://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/43710",
+      "revId": "f2c3d0c7286b8efcd43b3e88acfcd61d7a9e9eea",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5f6fc7ab_5f233ef3",
+        "filename": "redfish-core/lib/service_root.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1001099
+      },
+      "writtenOn": "2021-06-22T14:08:42Z",
+      "side": 1,
+      "message": "privilegeSetLoginOrNoAuth is use for getServiceRoot, where in old code it is \"{}\".\n\nso is there privileges is change?",
+      "revId": "f2c3d0c7286b8efcd43b3e88acfcd61d7a9e9eea",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
