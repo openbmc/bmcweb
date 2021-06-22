@@ -118,6 +118,30 @@
       "revId": "26e0398362e10cd8541767eef67f0b572be3b8a4",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "845a34c5_b53067a8",
+        "filename": "scripts/parse_registries.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1000276
+      },
+      "writtenOn": "2021-06-22T00:26:24Z",
+      "side": 1,
+      "message": "I\u0027m not sure if I\u0027m the right person, but I can act like it. 😊 I\u0027m okay with removing it.",
+      "parentUuid": "92912c04_597c3db6",
+      "range": {
+        "startLine": 17,
+        "startChar": 22,
+        "endLine": 17,
+        "endChar": 41
+      },
+      "revId": "26e0398362e10cd8541767eef67f0b572be3b8a4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
