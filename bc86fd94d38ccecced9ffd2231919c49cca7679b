@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9d2c3183_53b0c4be",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 2092,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-06-23T12:57:15Z",
+      "side": 1,
+      "message": "There is other LogServices. Who should add this for them?",
+      "revId": "bc86fd94d38ccecced9ffd2231919c49cca7679b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4bb1446f_e6a031e8",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 2194,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-06-23T12:57:15Z",
+      "side": 1,
+      "message": "There is other LogServices in here like Dump. Is it on the authors who care about those to add this ?",
+      "revId": "bc86fd94d38ccecced9ffd2231919c49cca7679b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "74fb1267_d0664ab1",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 2307,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-06-23T12:57:15Z",
+      "side": 1,
+      "message": "Another LogService",
+      "revId": "bc86fd94d38ccecced9ffd2231919c49cca7679b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
