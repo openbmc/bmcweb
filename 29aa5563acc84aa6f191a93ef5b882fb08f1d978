@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ccf7e4c4_c6cd56ab",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-06-23T20:47:50Z",
+      "side": 1,
+      "message": "I really struggle if this is worth the complexity and increase in binary size..",
+      "revId": "29aa5563acc84aa6f191a93ef5b882fb08f1d978",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b4a09813_202c7300",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-06-23T20:47:50Z",
+      "side": 1,
+      "message": "How do we deal with OEM ? \nI would like to see the increase in binary size",
+      "revId": "29aa5563acc84aa6f191a93ef5b882fb08f1d978",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7d66aca5_f0c1184c",
+        "filename": "redfish-core/lib/service_root.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-06-23T20:47:50Z",
+      "side": 1,
+      "message": "This is a fairly simple schema..",
+      "revId": "29aa5563acc84aa6f191a93ef5b882fb08f1d978",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5c979c8e_609e3d2c",
+        "filename": "scripts/schemas.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-06-23T20:47:50Z",
+      "side": 1,
+      "message": "What about the current update schema script and the current allow list there?",
+      "revId": "29aa5563acc84aa6f191a93ef5b882fb08f1d978",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
