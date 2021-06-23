@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "24306a41_92781c8b",
+        "filename": "redfish-core/include/utils/log_utils.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2021-06-23T10:04:22Z",
+      "side": 1,
+      "message": "What does this comment mean? Did you perhaps forgot to remove it?",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 12,
+        "endChar": 40
+      },
+      "revId": "7c9d0c244eba64c5b3fd1fc5d4d12055329f3d40",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "25dc2755_77db1c80",
+        "filename": "redfish-core/include/utils/log_utils.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2021-06-23T10:04:22Z",
+      "side": 1,
+      "message": "Since it doesn\u0027t produce error in response, it doesn\u0027t look like error information. How about changing log severity to warning?",
+      "range": {
+        "startLine": 47,
+        "startChar": 19,
+        "endLine": 48,
+        "endChar": 50
+      },
+      "revId": "7c9d0c244eba64c5b3fd1fc5d4d12055329f3d40",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e5c662a5_16dccbf1",
+        "filename": "redfish-core/include/utils/log_utils.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2021-06-23T10:04:22Z",
+      "side": 1,
+      "message": "Can you explain this. Why it is here? And how it is related to finding first service only.",
+      "range": {
+        "startLine": 67,
+        "startChar": 8,
+        "endLine": 67,
+        "endChar": 47
+      },
+      "revId": "7c9d0c244eba64c5b3fd1fc5d4d12055329f3d40",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d4adedc5_e40f1a82",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 1066,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2021-06-23T10:04:22Z",
+      "side": 1,
+      "message": "What are this objects? Are this chassis objects? Also this name shadows the one in 1047, are there two object refer to same resource on dbus?",
+      "range": {
+        "startLine": 1066,
+        "startChar": 41,
+        "endLine": 1066,
+        "endChar": 57
+      },
+      "revId": "7c9d0c244eba64c5b3fd1fc5d4d12055329f3d40",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
