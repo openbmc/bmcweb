@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "326c777c_8a0eb493",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1001094
+      },
+      "writtenOn": "2021-06-23T10:26:31Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "83dc4877_8f33b443",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 64
+      },
+      "revId": "1cf9a92a4bbbabc14b2a1c729be8a8d4fee83f1c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8e313a01_36fd57d8",
         "filename": "/COMMIT_MSG",
         "patchSetId": 1
@@ -72,6 +96,30 @@
     },
     {
       "key": {
+        "uuid": "bf2fadf6_72b403ac",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1001094
+      },
+      "writtenOn": "2021-06-23T10:26:31Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "8e313a01_36fd57d8",
+      "range": {
+        "startLine": 55,
+        "startChar": 15,
+        "endLine": 55,
+        "endChar": 24
+      },
+      "revId": "1cf9a92a4bbbabc14b2a1c729be8a8d4fee83f1c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "544f4cca_1e0f3a5f",
         "filename": "redfish-core/lib/redfish_sessions.hpp",
         "patchSetId": 1
@@ -83,6 +131,30 @@
       "writtenOn": "2021-06-21T15:20:32Z",
       "side": 1,
       "message": "Considering this is just hardcoded, why is this useful?",
+      "range": {
+        "startLine": 67,
+        "startChar": 0,
+        "endLine": 69,
+        "endChar": 18
+      },
+      "revId": "1cf9a92a4bbbabc14b2a1c729be8a8d4fee83f1c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "36c4dc5d_9733dc57",
+        "filename": "redfish-core/lib/redfish_sessions.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1001094
+      },
+      "writtenOn": "2021-06-23T10:26:31Z",
+      "side": 1,
+      "message": "Status is a mandatory attributes for Session or any Services. It hit here only incase of session is available and accessible. if session is not available we just return and show redfish message resource not found. We don\u0027t display any Status.",
+      "parentUuid": "544f4cca_1e0f3a5f",
       "range": {
         "startLine": 67,
         "startChar": 0,
