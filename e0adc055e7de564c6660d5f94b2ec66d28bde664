@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "6f29f075_95081859",
+        "filename": "redfish-core/lib/power_supply.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2021-06-23T09:25:19Z",
+      "side": 1,
+      "message": "Marking it as resolved. There will be global fix for all cases in the future.\n\nhttps://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/41086/28/redfish-core/lib/fan.hpp#91",
+      "parentUuid": "831a0bed_39da34b8",
+      "range": {
+        "startLine": 37,
+        "startChar": 0,
+        "endLine": 43,
+        "endChar": 21
+      },
+      "revId": "e0adc055e7de564c6660d5f94b2ec66d28bde664",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2f9f8052_b0357900",
         "filename": "redfish-core/lib/power_supply.hpp",
         "patchSetId": 14
@@ -45,6 +69,30 @@
       "revId": "e0adc055e7de564c6660d5f94b2ec66d28bde664",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "406b6167_ed20cbc1",
+        "filename": "redfish-core/lib/power_supply.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2021-06-23T09:25:19Z",
+      "side": 1,
+      "message": "Marking it as resolved. It duplicates other comment.",
+      "parentUuid": "2f9f8052_b0357900",
+      "range": {
+        "startLine": 58,
+        "startChar": 4,
+        "endLine": 60,
+        "endChar": 0
+      },
+      "revId": "e0adc055e7de564c6660d5f94b2ec66d28bde664",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
