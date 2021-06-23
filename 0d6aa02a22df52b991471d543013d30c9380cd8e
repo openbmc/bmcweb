@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "e3d85af1_7b55ddf0",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2021-06-23T17:56:04Z",
+      "side": 1,
+      "message": "Thanks for the explanation. \n\nMoving the assignments after the error handling sounds like an good idea.",
+      "parentUuid": "7620b808_db320f4d",
+      "range": {
+        "startLine": 54,
+        "startChar": 12,
+        "endLine": 54,
+        "endChar": 24
+      },
+      "revId": "0d6aa02a22df52b991471d543013d30c9380cd8e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "eb765bcc_0b28e7dc",
         "filename": "redfish-core/lib/storage.hpp",
         "patchSetId": 14
