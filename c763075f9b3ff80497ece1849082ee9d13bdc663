@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "75b93131_90b395f9",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 279,
+      "author": {
+        "id": 1000654
+      },
+      "writtenOn": "2021-06-23T03:20:52Z",
+      "side": 1,
+      "message": "quick question, does this mean whenever we enable redfish chassis log entries, warthog_2 will be presented? in other words, what if there are no warthog_2 and we still need the chassis log entries?",
+      "range": {
+        "startLine": 279,
+        "startChar": 50,
+        "endLine": 279,
+        "endChar": 59
+      },
+      "revId": "c763075f9b3ff80497ece1849082ee9d13bdc663",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}

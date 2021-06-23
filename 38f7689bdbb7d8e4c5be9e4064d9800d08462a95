@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "2cb25718_730c56fb",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 279,
+      "author": {
+        "id": 1000654
+      },
+      "writtenOn": "2021-06-23T03:20:52Z",
+      "side": 1,
+      "message": "just curious, there are no warthog_0 or warthog_1, why do we use warthog_2?",
+      "range": {
+        "startLine": 279,
+        "startChar": 50,
+        "endLine": 279,
+        "endChar": 59
+      },
+      "revId": "38f7689bdbb7d8e4c5be9e4064d9800d08462a95",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d4b1aefb_7e5f26dd",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 7
