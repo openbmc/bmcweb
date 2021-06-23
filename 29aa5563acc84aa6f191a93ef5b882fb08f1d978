@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "38e8a14f_1689f1d1",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2021-06-23T23:41:57Z",
+      "side": 1,
+      "message": "I don\u0027t think it is much more complicated.\nBut I don\u0027t know what this will do the binary size.\n\nIf there are substantial size implications it will be dropped.",
+      "parentUuid": "ccf7e4c4_c6cd56ab",
+      "revId": "29aa5563acc84aa6f191a93ef5b882fb08f1d978",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "b4a09813_202c7300",
         "filename": "/COMMIT_MSG",
         "patchSetId": 6
@@ -30,6 +48,24 @@
       "writtenOn": "2021-06-23T20:47:50Z",
       "side": 1,
       "message": "How do we deal with OEM ? \nI would like to see the increase in binary size",
+      "revId": "29aa5563acc84aa6f191a93ef5b882fb08f1d978",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f21f1408_cf8fae17",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2021-06-23T23:41:57Z",
+      "side": 1,
+      "message": "I assume OEM structs and serializes will need to be written, but I have not thought about OEM in great detail.",
+      "parentUuid": "b4a09813_202c7300",
       "revId": "29aa5563acc84aa6f191a93ef5b882fb08f1d978",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "b5512f2a_7e38d846",
+        "filename": "redfish-core/lib/service_root.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2021-06-23T23:41:57Z",
+      "side": 1,
+      "message": "I agree with you. service_root is as easy as the come.\n\nI will start making similar changes to a more involved redfish route, if there are no objections, or issues spotted here.",
+      "parentUuid": "7d66aca5_f0c1184c",
+      "revId": "29aa5563acc84aa6f191a93ef5b882fb08f1d978",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "5c979c8e_609e3d2c",
         "filename": "scripts/schemas.py",
         "patchSetId": 6
@@ -64,6 +118,24 @@
       "writtenOn": "2021-06-23T20:47:50Z",
       "side": 1,
       "message": "What about the current update schema script and the current allow list there?",
+      "revId": "29aa5563acc84aa6f191a93ef5b882fb08f1d978",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "987de5f7_ec248f1b",
+        "filename": "scripts/schemas.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2021-06-23T23:41:57Z",
+      "side": 1,
+      "message": "I might need some context.\nWhat do you mean by \"current update schema script\" and \"current allow list\"\n\nThere are many things that less then ideal in the script below.",
+      "parentUuid": "5c979c8e_609e3d2c",
       "revId": "29aa5563acc84aa6f191a93ef5b882fb08f1d978",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
