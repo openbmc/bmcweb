@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "34f316ff_b82df66b",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 511,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2021-06-23T17:55:45Z",
+      "side": 1,
+      "message": "Done. I have renamed it to driveState.",
+      "parentUuid": "0aa7b99a_0900149b",
+      "range": {
+        "startLine": 511,
+        "startChar": 17,
+        "endLine": 511,
+        "endChar": 25
+      },
+      "revId": "bc6f67a126908badb6410e00a41dbf8df99e3c85",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7f15ce78_06ba0f99",
         "filename": "redfish-core/lib/storage.hpp",
         "patchSetId": 10
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "9426ec9b_75530ae4",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 541,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2021-06-23T17:55:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7f15ce78_06ba0f99",
+      "range": {
+        "startLine": 541,
+        "startChar": 13,
+        "endLine": 541,
+        "endChar": 55
+      },
+      "revId": "bc6f67a126908badb6410e00a41dbf8df99e3c85",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a4a7b6e2_acb748a7",
         "filename": "redfish-core/lib/storage.hpp",
         "patchSetId": 10
@@ -68,6 +116,30 @@
       "revId": "bc6f67a126908badb6410e00a41dbf8df99e3c85",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e3b228dd_51dcc245",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 546,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2021-06-23T17:55:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a4a7b6e2_acb748a7",
+      "range": {
+        "startLine": 546,
+        "startChar": 20,
+        "endLine": 546,
+        "endChar": 66
+      },
+      "revId": "bc6f67a126908badb6410e00a41dbf8df99e3c85",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
