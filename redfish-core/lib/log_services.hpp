@@ -1416,8 +1416,15 @@ inline void requestRoutesDBusEventLogEntryCollection(App& app)
                         std::string jsonMessage;
                         std::string* filePath = nullptr;
                         bool resolved = false;
+                        bool skip =
+                            false; // Indicate if this entry shall be skipped
+
                         for (auto& interfaceMap : objectPath.second)
                         {
+                            if (skip)
+                            {
+                                break;
+                            }
                             if (interfaceMap.first ==
                                 "xyz.openbmc_project.Logging.Entry")
                             {
@@ -1462,6 +1469,14 @@ inline void requestRoutesDBusEventLogEntryCollection(App& app)
                                     {
                                         message = std::get_if<std::string>(
                                             &propertyMap.second);
+                                        if (*message ==
+                                            "xyz.openbmc_project.Common.Error."
+                                            "InternalFailure")
+                                        {
+                                            // Skip this entry
+                                            skip = true;
+                                            break;
+                                        }
                                     }
                                     else if (propertyMap.first == "Resolved")
                                     {
@@ -1517,7 +1532,7 @@ inline void requestRoutesDBusEventLogEntryCollection(App& app)
                         // xyz.openbmc_project.Logging.Entry interface, ignore
                         // and continue.
                         if (id == nullptr || message == nullptr ||
-                            severity == nullptr)
+                            severity == nullptr || skip)
                         {
                             continue;
                         }
