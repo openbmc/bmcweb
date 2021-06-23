@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "c5bd820d_4432c1e5",
+        "filename": "redfish-core/include/utils/fw_utils.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 447,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2021-06-23T09:43:30Z",
+      "side": 1,
+      "message": "I think that:\nasyncResp-\u003eres.jsonValue[\"Updateable\"] \u003d false;\nasyncResp-\u003eres.jsonValue[\"WriteProtected\"] \u003d false;\n\nShould be moved inside this helper function just before checking error code. Since this function fills this two fields it seems will be perfect place for it.",
+      "revId": "1b015af8e0b6ba587a4c3984ad36b4fd94c02d83",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "03fe2331_0ee58cf8",
         "filename": "redfish-core/include/utils/fw_utils.hpp",
         "patchSetId": 13
@@ -22,6 +39,30 @@
       "revId": "1b015af8e0b6ba587a4c3984ad36b4fd94c02d83",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7108eca7_0c7cb99f",
+        "filename": "redfish-core/include/utils/fw_utils.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 460,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2021-06-23T09:43:30Z",
+      "side": 1,
+      "message": "Please ignore this comment.",
+      "parentUuid": "03fe2331_0ee58cf8",
+      "range": {
+        "startLine": 457,
+        "startChar": 0,
+        "endLine": 460,
+        "endChar": 17
+      },
+      "revId": "1b015af8e0b6ba587a4c3984ad36b4fd94c02d83",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
