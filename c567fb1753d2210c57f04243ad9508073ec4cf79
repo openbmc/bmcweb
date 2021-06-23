@@ -2,6 +2,57 @@
   "comments": [
     {
       "key": {
+        "uuid": "bcdcf138_687c6464",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-06-23T18:24:54Z",
+      "side": 1,
+      "message": "Thanks for this commit! \nWe follow https://chris.beams.io/posts/git-commit/ for commit msgs \n\nLimit the subject line to 50 characters\nWrap the body at 72 characters\n\nCan the subject be more like \"EventService: Move persistent data\" or something that doesn\u0027t repeat EventService and persistent json twice and is under 50 chars. \n\nCan you wrap the body below ( i care less about testing data) but for the commit msg body (e.g. line 10) definitely makes it easier to read. \nSee https://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/44060 as an example",
+      "revId": "c567fb1753d2210c57f04243ad9508073ec4cf79",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9add6d7f_0e5691ef",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-06-23T18:24:54Z",
+      "side": 1,
+      "message": "You can use \"resolves https://github.com/openbmc/bmcweb/issues/168\" or \"resolves #openbmc/bmcweb#168\" or a lot of other keywords and it will automatically close when this is merged. \nhttps://docs.github.com/en/issues/tracking-your-work-with-issues/linking-a-pull-request-to-an-issue",
+      "revId": "c567fb1753d2210c57f04243ad9508073ec4cf79",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "62cd0df6_7bdb7904",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-06-23T18:24:54Z",
+      "side": 1,
+      "message": "Can you add a why we need this commit? \nE.g. I took from https://github.com/openbmc/bmcweb/issues/168 \n\n\"This makes it very difficult to keep in sync with the existing files, and has caused several bugs because the path it uses is different than the existing bmcweb_persistent_data.json, and it\u0027s missing several error code checks.\"",
+      "revId": "c567fb1753d2210c57f04243ad9508073ec4cf79",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "76721c9d_e0c3fa94",
         "filename": "include/eventservicestore.hpp",
         "patchSetId": 6
