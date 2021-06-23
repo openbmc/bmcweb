@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "94a47739_9845a984",
+        "filename": "redfish-core/include/utils/fw_utils.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 447,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2021-06-23T17:46:27Z",
+      "side": 1,
+      "message": "Done. I have moved it inside the function.\n\nNote: I have removed Updateable support... to reflect the d-bus API changes.",
+      "parentUuid": "c5bd820d_4432c1e5",
+      "revId": "1b015af8e0b6ba587a4c3984ad36b4fd94c02d83",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "03fe2331_0ee58cf8",
         "filename": "redfish-core/include/utils/fw_utils.hpp",
         "patchSetId": 13
