@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8d6db879_0b93f178",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 36
+      },
+      "lineNbr": 718,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-06-23T23:01:02Z",
+      "side": 0,
+      "message": "This check got deleted?  This seems like it would be required to avoid failures if we have 2 tasks running at the same time.",
+      "range": {
+        "startLine": 714,
+        "startChar": 0,
+        "endLine": 718,
+        "endChar": 55
+      },
+      "revId": "0256b69420e2b99eb0494334da71dd50f457a8e8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "43414e6d_210d6a4e",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 36
+      },
+      "lineNbr": 735,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-06-23T23:01:02Z",
+      "side": 0,
+      "message": "Do we have any services that are now broken because we\u0027re not waiting for this object to be created?",
+      "range": {
+        "startLine": 735,
+        "startChar": 0,
+        "endLine": 735,
+        "endChar": 36
+      },
+      "revId": "0256b69420e2b99eb0494334da71dd50f457a8e8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}

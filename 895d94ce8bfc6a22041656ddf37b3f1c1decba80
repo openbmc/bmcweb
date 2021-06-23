@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2917fbe1_02b8012e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 36
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-06-23T23:01:02Z",
+      "side": 1,
+      "message": "Why is this change important?  Are there any user impacts?  Are there any dump services that haven\u0027t been patched to use the new API?",
+      "range": {
+        "startLine": 12,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 52
+      },
+      "revId": "895d94ce8bfc6a22041656ddf37b3f1c1decba80",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a6f9891b_e25e7ae6",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 36
+      },
+      "lineNbr": 725,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-06-23T23:01:02Z",
+      "side": 1,
+      "message": "This method is now big enough that it really shouldn\u0027t be a lambda.",
+      "revId": "895d94ce8bfc6a22041656ddf37b3f1c1decba80",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "47e58132_786c1256",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 36
+      },
+      "lineNbr": 746,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-06-23T23:01:02Z",
+      "side": 1,
+      "message": "Simplify this to:\nreturn statusProp.first \u003d\u003d \"Status\"",
+      "range": {
+        "startLine": 742,
+        "startChar": 0,
+        "endLine": 746,
+        "endChar": 33
+      },
+      "revId": "895d94ce8bfc6a22041656ddf37b3f1c1decba80",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a4546390_2ddd6c0b",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 36
+      },
+      "lineNbr": 750,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-06-23T23:01:02Z",
+      "side": 1,
+      "message": "This method is called out by name in COMMON_ERRORS.md",
+      "range": {
+        "startLine": 750,
+        "startChar": 17,
+        "endLine": 750,
+        "endChar": 25
+      },
+      "revId": "895d94ce8bfc6a22041656ddf37b3f1c1decba80",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
