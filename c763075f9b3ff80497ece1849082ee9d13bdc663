@@ -22,6 +22,30 @@
       "revId": "c763075f9b3ff80497ece1849082ee9d13bdc663",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "17c2a89c_bdbf3e88",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 279,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2021-06-23T05:55:39Z",
+      "side": 1,
+      "message": "will remove this. I had it when I was debugging.\n\nSo basically, I have the log service link to any chassis that that is created. The logs will/can be link to one of the devices under the chassis. Each Chassis is created by Item.Board or Item.Chassis. With EntityManager, any Fru with type Board will create a chassis in bmcweb... \n\nSo I utilize that to create a log service under that chassis to manager all the logs that is related to that Chassis.\n\nI have added some more details in the commit message.",
+      "parentUuid": "75b93131_90b395f9",
+      "range": {
+        "startLine": 279,
+        "startChar": 50,
+        "endLine": 279,
+        "endChar": 59
+      },
+      "revId": "c763075f9b3ff80497ece1849082ee9d13bdc663",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
