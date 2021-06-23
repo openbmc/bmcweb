@@ -99,9 +99,11 @@ static const Message* getMessage(const std::string_view& messageID)
 
 namespace fs = std::filesystem;
 
+using AdditionalDataList = std::vector<std::string>;
 using GetManagedPropertyType = boost::container::flat_map<
-    std::string, std::variant<std::string, bool, uint8_t, int16_t, uint16_t,
-                              int32_t, uint32_t, int64_t, uint64_t, double>>;
+    std::string,
+    std::variant<std::string, bool, uint8_t, int16_t, uint16_t, int32_t,
+                 uint32_t, int64_t, uint64_t, double, AdditionalDataList>>;
 
 using GetManagedObjectsType = boost::container::flat_map<
     sdbusplus::message::object_path,
@@ -901,6 +903,73 @@ inline static void parseCrashdumpParameters(
     }
 }
 
+static std::string parseAdditionalData(const AdditionalDataList& d)
+{
+    // Parse the logging's AdditionalData into a message string
+    // See
+    // https://github.com/openbmc/phosphor-dbus-interfaces/blob/master/yaml/xyz/openbmc_project/Logging/SEL.metadata.yaml
+    constexpr std::string_view svSensorPath = "SENSOR_PATH=";
+    constexpr std::string_view svSensorData = "SENSOR_DATA=";
+    constexpr std::string_view svEventDir = "EVENT_DIR=";
+
+    std::optional<std::string> sensorPath;
+    std::optional<std::string> sensorData;
+    std::optional<std::string> eventDir;
+    for (const auto& item : d)
+    {
+        if (item.compare(0, svSensorPath.size(), svSensorPath.data()) == 0)
+        {
+            if (item.size() > svSensorPath.size())
+            {
+                sensorPath = item.substr(svSensorPath.size());
+            }
+        }
+        else if (item.compare(0, svSensorData.size(), svSensorData.data()) == 0)
+        {
+            if (item.size() > svSensorData.size())
+            {
+                sensorData = item.substr(svSensorData.size());
+            }
+        }
+        else if (item.compare(0, svEventDir.size(), svEventDir.data()) == 0)
+        {
+            if (item.size() > svEventDir.size())
+            {
+                eventDir = item.substr(svEventDir.size());
+            }
+        }
+    }
+    if (!sensorPath || !sensorData || !eventDir)
+    {
+        return {};
+    }
+
+    std::string msg = sensorPath->substr(sensorPath->find_last_of('/') + 1);
+    if (msg.empty())
+    {
+        // Invalid sensor path
+        return {};
+    }
+
+    std::string assertStr;
+    if (*eventDir == "1")
+    {
+        assertStr = "Asserted";
+    }
+    else if (*eventDir == "0")
+    {
+        assertStr = "Deasserted";
+    }
+    if (assertStr.empty())
+    {
+        // Invalid event dir
+        return {};
+    }
+
+    msg = msg + ", " + *sensorData + ", " + assertStr;
+    return msg;
+}
+
 constexpr char const* postCodeIface = "xyz.openbmc_project.State.Boot.PostCode";
 inline void requestRoutesSystemLogServiceCollection(App& app)
 {
@@ -1344,6 +1413,7 @@ inline void requestRoutesDBusEventLogEntryCollection(App& app)
                         std::time_t updateTimestamp{};
                         std::string* severity = nullptr;
                         std::string* message = nullptr;
+                        std::string jsonMessage;
                         std::string* filePath = nullptr;
                         bool resolved = false;
                         for (auto& interfaceMap : objectPath.second)
@@ -1405,12 +1475,29 @@ inline void requestRoutesDBusEventLogEntryCollection(App& app)
                                         }
                                         resolved = *resolveptr;
                                     }
+                                    else if (propertyMap.first ==
+                                             "AdditionalData")
+                                    {
+                                        // AdditionalData is optional
+                                        auto additionalDataList =
+                                            std::get_if<AdditionalDataList>(
+                                                &propertyMap.second);
+                                        if (additionalDataList != nullptr)
+                                        {
+                                            jsonMessage = parseAdditionalData(
+                                                *additionalDataList);
+                                        }
+                                    }
                                 }
                                 if (id == nullptr || message == nullptr ||
                                     severity == nullptr)
                                 {
                                     messages::internalError(asyncResp->res);
                                     return;
+                                }
+                                if (jsonMessage.empty())
+                                {
+                                    jsonMessage = *message;
                                 }
                             }
                             else if (interfaceMap.first ==
@@ -1443,7 +1530,7 @@ inline void requestRoutesDBusEventLogEntryCollection(App& app)
                             std::to_string(*id);
                         thisEntry["Name"] = "System Event Log Entry";
                         thisEntry["Id"] = std::to_string(*id);
-                        thisEntry["Message"] = *message;
+                        thisEntry["Message"] = jsonMessage;
                         thisEntry["Resolved"] = resolved;
                         thisEntry["EntryType"] = "Event";
                         thisEntry["Severity"] =
@@ -1512,6 +1599,7 @@ inline void requestRoutesDBusEventLogEntry(App& app)
                         std::time_t updateTimestamp{};
                         std::string* severity = nullptr;
                         std::string* message = nullptr;
+                        std::string jsonMessage;
                         std::string* filePath = nullptr;
                         bool resolved = false;
 
@@ -1568,12 +1656,28 @@ inline void requestRoutesDBusEventLogEntry(App& app)
                                 filePath = std::get_if<std::string>(
                                     &propertyMap.second);
                             }
+                            else if (propertyMap.first == "AdditionalData")
+                            {
+                                // AdditionalData is optional
+                                auto additionalDataList =
+                                    std::get_if<AdditionalDataList>(
+                                        &propertyMap.second);
+                                if (additionalDataList != nullptr)
+                                {
+                                    jsonMessage = parseAdditionalData(
+                                        *additionalDataList);
+                                }
+                            }
                         }
                         if (id == nullptr || message == nullptr ||
                             severity == nullptr)
                         {
                             messages::internalError(asyncResp->res);
                             return;
+                        }
+                        if (jsonMessage.empty())
+                        {
+                            jsonMessage = *message;
                         }
                         asyncResp->res.jsonValue["@odata.type"] =
                             "#LogEntry.v1_8_0.LogEntry";
@@ -1584,7 +1688,7 @@ inline void requestRoutesDBusEventLogEntry(App& app)
                         asyncResp->res.jsonValue["Name"] =
                             "System Event Log Entry";
                         asyncResp->res.jsonValue["Id"] = std::to_string(*id);
-                        asyncResp->res.jsonValue["Message"] = *message;
+                        asyncResp->res.jsonValue["Message"] = jsonMessage;
                         asyncResp->res.jsonValue["Resolved"] = resolved;
                         asyncResp->res.jsonValue["EntryType"] = "Event";
                         asyncResp->res.jsonValue["Severity"] =
