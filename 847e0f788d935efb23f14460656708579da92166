@@ -34,6 +34,24 @@
       "revId": "847e0f788d935efb23f14460656708579da92166",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e9fbf845_82266ae1",
+        "filename": "redfish-core/include/utils/name_utils.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1000654
+      },
+      "writtenOn": "2021-06-23T03:38:16Z",
+      "side": 1,
+      "message": "Do you think it is necessary that we add something to check whether there are multiple services with the same PrettyName? I mean if that\u0027s not what we expect, probably we should log that. I\u0027m thinking about a wrong service with the same PrettyName is used.",
+      "parentUuid": "fc8a3b93_5a57aae2",
+      "revId": "847e0f788d935efb23f14460656708579da92166",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
