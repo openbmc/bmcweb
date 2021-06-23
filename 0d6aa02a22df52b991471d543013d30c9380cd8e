@@ -97,6 +97,30 @@
     },
     {
       "key": {
+        "uuid": "fa0313e7_021728eb",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2021-06-23T18:12:35Z",
+      "side": 1,
+      "message": "thanks. I have move this to follow your suggestion.",
+      "parentUuid": "e3d85af1_7b55ddf0",
+      "range": {
+        "startLine": 54,
+        "startChar": 12,
+        "endLine": 54,
+        "endChar": 24
+      },
+      "revId": "0d6aa02a22df52b991471d543013d30c9380cd8e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "eb765bcc_0b28e7dc",
         "filename": "redfish-core/lib/storage.hpp",
         "patchSetId": 14
