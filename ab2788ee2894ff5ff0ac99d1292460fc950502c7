@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "806e8e0a_276a2535",
+        "filename": "http/utility.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 616,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-06-23T07:02:22Z",
+      "side": 1,
+      "message": "This still appears to be a magic number.  Worst case, give this a descriptive name.",
+      "range": {
+        "startLine": 616,
+        "startChar": 18,
+        "endLine": 616,
+        "endChar": 19
+      },
+      "revId": "ab2788ee2894ff5ff0ac99d1292460fc950502c7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
