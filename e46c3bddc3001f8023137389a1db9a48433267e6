@@ -16,6 +16,23 @@
       "revId": "e46c3bddc3001f8023137389a1db9a48433267e6",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dfe957e7_a07e33dc",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-06-23T18:12:45Z",
+      "side": 1,
+      "message": "Cool! Can you add a bit more about how this should work? E.g. sentence about if PrettyName isn\u0027t found and following back to the resource using a hardcoded Name.",
+      "revId": "e46c3bddc3001f8023137389a1db9a48433267e6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
