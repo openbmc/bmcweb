@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0aa7b99a_0900149b",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 511,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2021-06-23T09:47:21Z",
+      "side": 1,
+      "message": "This name \u0027object2\u0027 doesn\u0027t explain what it is. I think it should be renamed to be more descriptive.",
+      "range": {
+        "startLine": 511,
+        "startChar": 17,
+        "endLine": 511,
+        "endChar": 25
+      },
+      "revId": "bc6f67a126908badb6410e00a41dbf8df99e3c85",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7f15ce78_06ba0f99",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 541,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2021-06-23T09:47:21Z",
+      "side": 1,
+      "message": "No need to comment obvious",
+      "range": {
+        "startLine": 541,
+        "startChar": 13,
+        "endLine": 541,
+        "endChar": 55
+      },
+      "revId": "bc6f67a126908badb6410e00a41dbf8df99e3c85",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a4a7b6e2_acb748a7",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 546,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2021-06-23T09:47:21Z",
+      "side": 1,
+      "message": "No need to comment obvious",
+      "range": {
+        "startLine": 546,
+        "startChar": 20,
+        "endLine": 546,
+        "endChar": 66
+      },
+      "revId": "bc6f67a126908badb6410e00a41dbf8df99e3c85",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
