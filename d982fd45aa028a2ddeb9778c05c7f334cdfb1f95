@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5b09f132_8c29b3a8",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 73
+      },
+      "lineNbr": 879,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2021-06-23T09:15:56Z",
+      "side": 1,
+      "message": "This part looks the same as the one in lines 1012, looks like you can put this into function to remove this duplication.",
+      "range": {
+        "startLine": 865,
+        "startChar": 0,
+        "endLine": 879,
+        "endChar": 17
+      },
+      "revId": "d982fd45aa028a2ddeb9778c05c7f334cdfb1f95",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
