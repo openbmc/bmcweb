@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "03fe2331_0ee58cf8",
+        "filename": "redfish-core/include/utils/fw_utils.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 460,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2021-06-23T09:37:39Z",
+      "side": 1,
+      "message": "I think we should also do [\"WriteProtected\"] \u003d false when property value is false. Same below with Updateable, if we have valid source of data we should add it to response otherwise it will be impossible to tell if property is false or if it\u0027s missing.",
+      "range": {
+        "startLine": 457,
+        "startChar": 0,
+        "endLine": 460,
+        "endChar": 17
+      },
+      "revId": "1b015af8e0b6ba587a4c3984ad36b4fd94c02d83",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
