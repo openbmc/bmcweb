@@ -143,6 +143,30 @@
     },
     {
       "key": {
+        "uuid": "3cd88334_47e89323",
+        "filename": "include/login_routes.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2021-06-23T10:39:55Z",
+      "side": 1,
+      "message": "std::map should be slower than std::vector of pairs, number of elements returned from async_method_call is quite small so sorting and fragmenting memory in this use case won\u0027t bring any benefits. vector of pairs should be faster and more memory efficient.\n\nflat_map is sorted vector of pairs. We if compared to std::vector of pairs we only have extra sorting. Again considering number of elements in that container it may be not worth it from performance point of view (I may be wrong here), still I would say yes we won\u0027t notice the difference between flat_map and vector of pairs while we might notice the difference if std::map is used (mostly because memory allocations).\n\nAnyway I\u0027m not the one to decide here.",
+      "parentUuid": "6f67ba78_7837509b",
+      "range": {
+        "startLine": 146,
+        "startChar": 0,
+        "endLine": 148,
+        "endChar": 76
+      },
+      "revId": "511be1755161ffe8c3ac6b2fa3b6f39207a7c4ce",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e1827281_11823abb",
         "filename": "include/login_routes.hpp",
         "patchSetId": 8
@@ -331,6 +355,30 @@
     },
     {
       "key": {
+        "uuid": "5decb993_996b5c65",
+        "filename": "redfish-core/lib/redfish_sessions.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 195,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2021-06-23T10:39:55Z",
+      "side": 1,
+      "message": "If you need only ipAddress do it like this:\n\nipAddress \u003d req.ipAddress this way you only capture what you need.",
+      "parentUuid": "ea30f015_8cbba978",
+      "range": {
+        "startLine": 195,
+        "startChar": 21,
+        "endLine": 195,
+        "endChar": 24
+      },
+      "revId": "511be1755161ffe8c3ac6b2fa3b6f39207a7c4ce",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "177a5275_8a02c6a7",
         "filename": "redfish-core/lib/redfish_sessions.hpp",
         "patchSetId": 8
@@ -371,6 +419,29 @@
         "startChar": 0,
         "endLine": 225,
         "endChar": 74
+      },
+      "revId": "511be1755161ffe8c3ac6b2fa3b6f39207a7c4ce",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6f1cd99e_cf3b100a",
+        "filename": "redfish-core/lib/redfish_sessions.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 280,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2021-06-23T10:39:55Z",
+      "side": 1,
+      "message": "Why not delete it?",
+      "range": {
+        "startLine": 259,
+        "startChar": 0,
+        "endLine": 280,
+        "endChar": 6
       },
       "revId": "511be1755161ffe8c3ac6b2fa3b6f39207a7c4ce",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
