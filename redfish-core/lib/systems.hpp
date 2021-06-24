@@ -31,6 +31,10 @@
 namespace redfish
 {
 
+const static std::array<std::pair<std::string, std::string>, 3>
+    protocolToDBusForSystems{
+        {{"SSH", "obmc-console-ssh"}, {"IPMI", "phosphor-ipmi-net"}}};
+
 /**
  * @brief Updates the Functional State of DIMMs
  *
@@ -2472,16 +2476,51 @@ inline void requestRoutesSystems(App& app)
             // Fill in SerialConsole info
             asyncResp->res.jsonValue["SerialConsole"]["MaxConcurrentSessions"] =
                 15;
-            asyncResp->res.jsonValue["SerialConsole"]["IPMI"] = {
-                {"ServiceEnabled", true},
-            };
-            // TODO (Gunnar): Should look for obmc-console-ssh@2200.service
-            asyncResp->res.jsonValue["SerialConsole"]["SSH"] = {
-                {"ServiceEnabled", true},
-                {"Port", 2200},
-                // https://github.com/openbmc/docs/blob/master/console.md
-                {"HotKeySequenceDisplay", "Press ~. to exit console"},
-            };
+
+            nlohmann::json& dataJson =
+                asyncResp->res.jsonValue["SerialConsole"];
+            dataJson["SSH"]["HotKeySequenceDisplay"] =
+                "Press ~. to exit console";
+
+            for (const auto& protocol : protocolToDBusForSystems)
+            {
+                const std::string& protocolName = protocol.first;
+                const std::string& serviceName = protocol.second;
+                getPortStatusAndPath(
+                    serviceName,
+                    [asyncResp, protocolName, serviceName](
+                        const boost::system::error_code ec,
+                        const std::string& socketPath, bool isProtocolEnabled) {
+                        if (ec)
+                        {
+                            messages::internalError(asyncResp->res);
+                            return;
+                        }
+                        nlohmann::json& dataJson =
+                            asyncResp->res.jsonValue["SerialConsole"];
+                        dataJson[protocolName]["ServiceEnabled"] =
+                            isProtocolEnabled;
+                        // not need to retrieve port number for
+                        // phosphor-ipmi-net service
+                        if (serviceName.compare("phosphor-ipmi-net") == 0)
+                        {
+                            return;
+                        }
+                        getPortNumber(
+                            socketPath, [asyncResp, protocolName](
+                                            const boost::system::error_code ec,
+                                            int portNumber) {
+                                if (ec)
+                                {
+                                    messages::internalError(asyncResp->res);
+                                    return;
+                                }
+                                nlohmann::json& dataJson =
+                                    asyncResp->res.jsonValue["SerialConsole"];
+                                dataJson[protocolName]["Port"] = portNumber;
+                            });
+                    });
+            }
 
 #ifdef BMCWEB_ENABLE_KVM
             // Fill in GraphicalConsole info
