@@ -2472,16 +2472,56 @@ inline void requestRoutesSystems(App& app)
             // Fill in SerialConsole info
             asyncResp->res.jsonValue["SerialConsole"]["MaxConcurrentSessions"] =
                 15;
-            asyncResp->res.jsonValue["SerialConsole"]["IPMI"] = {
-                {"ServiceEnabled", true},
-            };
-            // TODO (Gunnar): Should look for obmc-console-ssh@2200.service
-            asyncResp->res.jsonValue["SerialConsole"]["SSH"] = {
-                {"ServiceEnabled", true},
-                {"Port", 2200},
-                // https://github.com/openbmc/docs/blob/master/console.md
-                {"HotKeySequenceDisplay", "Press ~. to exit console"},
-            };
+
+            // retrieve IPMI service enable or not
+            getPortStatusAndPath(
+                "phosphor-ipmi-net",
+                [asyncResp](const boost::system::error_code ec,
+                            [[maybe_unused]] const std::string& socketPath,
+                            bool isProtocolEnabled) {
+                    if (ec)
+                    {
+                        messages::internalError(asyncResp->res);
+                        return;
+                    }
+                    nlohmann::json& dataJson =
+                        asyncResp->res.jsonValue["SerialConsole"];
+                    dataJson["IPMI"]["ServiceEnabled"] = isProtocolEnabled;
+                });
+
+            nlohmann::json& dataJson =
+                asyncResp->res.jsonValue["SerialConsole"];
+            dataJson["SSH"]["HotKeySequenceDisplay"] =
+                "Press ~. to exit console";
+
+            getPortStatusAndPath(
+                "obmc-console-ssh",
+                [asyncResp](const boost::system::error_code ec,
+                            const std::string& socketPath,
+                            bool isProtocolEnabled) {
+                    if (ec)
+                    {
+                        messages::internalError(asyncResp->res);
+                        return;
+                    }
+                    nlohmann::json& dataJson =
+                        asyncResp->res.jsonValue["SerialConsole"];
+                    dataJson["SSH"]["ServiceEnabled"] = isProtocolEnabled;
+                    dataJson["SSH"]["Port"] = nlohmann::detail::value_t::null;
+                    getPortNumber(
+                        socketPath,
+                        [asyncResp](const boost::system::error_code ec,
+                                    int portNumber) {
+                            if (ec)
+                            {
+                                messages::internalError(asyncResp->res);
+                                return;
+                            }
+                            nlohmann::json& dataJson =
+                                asyncResp->res.jsonValue["SerialConsole"];
+                            dataJson["SSH"]["Port"] = portNumber;
+                        });
+                });
 
 #ifdef BMCWEB_ENABLE_KVM
             // Fill in GraphicalConsole info
