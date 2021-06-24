@@ -35,6 +35,10 @@
 namespace redfish
 {
 
+const static std::array<std::pair<std::string, std::string>, 2>
+    protocolToDBusForSystems{
+        {{"SSH", "obmc-console-ssh"}, {"IPMI", "phosphor-ipmi-net"}}};
+
 /**
  * @brief Updates the Functional State of DIMMs
  *
@@ -2822,65 +2826,96 @@ inline void requestRoutesSystems(App& app)
      */
     BMCWEB_ROUTE(app, "/redfish/v1/Systems/system/")
         .privileges(redfish::privileges::getComputerSystem)
-        .methods(boost::beast::http::verb::get)(
-            [&app](const crow::Request& req,
-                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
-        if (!redfish::setUpRedfishRoute(app, req, asyncResp))
-        {
-            return;
-        }
-        asyncResp->res.jsonValue["@odata.type"] =
-            "#ComputerSystem.v1_16_0.ComputerSystem";
-        asyncResp->res.jsonValue["Name"] = "system";
-        asyncResp->res.jsonValue["Id"] = "system";
-        asyncResp->res.jsonValue["SystemType"] = "Physical";
-        asyncResp->res.jsonValue["Description"] = "Computer System";
-        asyncResp->res.jsonValue["ProcessorSummary"]["Count"] = 0;
-        asyncResp->res.jsonValue["ProcessorSummary"]["Status"]["State"] =
-            "Disabled";
-        asyncResp->res.jsonValue["MemorySummary"]["TotalSystemMemoryGiB"] =
-            uint64_t(0);
-        asyncResp->res.jsonValue["MemorySummary"]["Status"]["State"] =
-            "Disabled";
-        asyncResp->res.jsonValue["@odata.id"] = "/redfish/v1/Systems/system";
+        .methods(
+            boost::beast::http::verb::
+                get)([](const crow::Request&,
+                        const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
+            asyncResp->res.jsonValue["@odata.type"] =
+                "#ComputerSystem.v1_15_0.ComputerSystem";
+            asyncResp->res.jsonValue["Name"] = "system";
+            asyncResp->res.jsonValue["Id"] = "system";
+            asyncResp->res.jsonValue["SystemType"] = "Physical";
+            asyncResp->res.jsonValue["Description"] = "Computer System";
+            asyncResp->res.jsonValue["ProcessorSummary"]["Count"] = 0;
+            asyncResp->res.jsonValue["ProcessorSummary"]["Status"]["State"] =
+                "Disabled";
+            asyncResp->res.jsonValue["MemorySummary"]["TotalSystemMemoryGiB"] =
+                uint64_t(0);
+            asyncResp->res.jsonValue["MemorySummary"]["Status"]["State"] =
+                "Disabled";
+            asyncResp->res.jsonValue["@odata.id"] =
+                "/redfish/v1/Systems/system";
 
-        asyncResp->res.jsonValue["Processors"]["@odata.id"] =
-            "/redfish/v1/Systems/system/Processors";
-        asyncResp->res.jsonValue["Memory"]["@odata.id"] =
-            "/redfish/v1/Systems/system/Memory";
-        asyncResp->res.jsonValue["Storage"]["@odata.id"] =
-            "/redfish/v1/Systems/system/Storage";
+            asyncResp->res.jsonValue["Processors"] = {
+                {"@odata.id", "/redfish/v1/Systems/system/Processors"}};
+            asyncResp->res.jsonValue["Memory"] = {
+                {"@odata.id", "/redfish/v1/Systems/system/Memory"}};
+            asyncResp->res.jsonValue["Storage"] = {
+                {"@odata.id", "/redfish/v1/Systems/system/Storage"}};
 
-        asyncResp->res.jsonValue["Actions"]["#ComputerSystem.Reset"]["target"] =
-            "/redfish/v1/Systems/system/Actions/ComputerSystem.Reset";
-        asyncResp->res.jsonValue["Actions"]["#ComputerSystem.Reset"]
-                                ["@Redfish.ActionInfo"] =
-            "/redfish/v1/Systems/system/ResetActionInfo";
+            asyncResp->res.jsonValue["Actions"]["#ComputerSystem.Reset"] = {
+                {"target",
+                 "/redfish/v1/Systems/system/Actions/ComputerSystem.Reset"},
+                {"@Redfish.ActionInfo",
+                 "/redfish/v1/Systems/system/ResetActionInfo"}};
 
-        asyncResp->res.jsonValue["LogServices"]["@odata.id"] =
-            "/redfish/v1/Systems/system/LogServices";
-        asyncResp->res.jsonValue["Bios"]["@odata.id"] =
-            "/redfish/v1/Systems/system/Bios";
+            asyncResp->res.jsonValue["LogServices"] = {
+                {"@odata.id", "/redfish/v1/Systems/system/LogServices"}};
 
-        nlohmann::json::array_t managedBy;
-        nlohmann::json& manager = managedBy.emplace_back();
-        manager["@odata.id"] = "/redfish/v1/Managers/bmc";
-        asyncResp->res.jsonValue["Links"]["ManagedBy"] = std::move(managedBy);
-        asyncResp->res.jsonValue["Status"]["Health"] = "OK";
-        asyncResp->res.jsonValue["Status"]["State"] = "Enabled";
+            asyncResp->res.jsonValue["Bios"] = {
+                {"@odata.id", "/redfish/v1/Systems/system/Bios"}};
 
-        // Fill in SerialConsole info
-        asyncResp->res.jsonValue["SerialConsole"]["MaxConcurrentSessions"] = 15;
-        asyncResp->res.jsonValue["SerialConsole"]["IPMI"]["ServiceEnabled"] =
-            true;
+            asyncResp->res.jsonValue["Links"]["ManagedBy"] = {
+                {{"@odata.id", "/redfish/v1/Managers/bmc"}}};
 
-        // TODO (Gunnar): Should look for obmc-console-ssh@2200.service
-        asyncResp->res.jsonValue["SerialConsole"]["SSH"]["ServiceEnabled"] =
-            true;
-        asyncResp->res.jsonValue["SerialConsole"]["SSH"]["Port"] = 2200;
-        asyncResp->res
-            .jsonValue["SerialConsole"]["SSH"]["HotKeySequenceDisplay"] =
-            "Press ~. to exit console";
+            asyncResp->res.jsonValue["Status"] = {
+                {"Health", "OK"},
+                {"State", "Enabled"},
+            };
+
+            // Fill in SerialConsole info
+            asyncResp->res.jsonValue["SerialConsole"]["MaxConcurrentSessions"] =
+                15;
+
+            nlohmann::json& dataJson =
+                asyncResp->res.jsonValue["SerialConsole"];
+            dataJson["SSH"]["HotKeySequenceDisplay"] =
+                "Press ~. to exit console";
+
+            getPortStatusAndPath(
+                protocolToDBusForSystems,
+                [asyncResp](const boost::system::error_code ec,
+                            const std::string& socketPath,
+                            const std::string& protocolName,
+                            bool isProtocolEnabled) {
+                    if (ec)
+                    {
+                        messages::internalError(asyncResp->res);
+                        return;
+                    }
+                    nlohmann::json& dataJson =
+                        asyncResp->res.jsonValue["SerialConsole"];
+                    dataJson[protocolName]["ServiceEnabled"] =
+                        isProtocolEnabled;
+                    // need to retrieve port number for
+                    // obmc-console-ssh service
+                    if (protocolName == "SSH")
+                    {
+                        getPortNumber(
+                            socketPath, [asyncResp, protocolName](
+                                            const boost::system::error_code ec,
+                                            int portNumber) {
+                                if (ec)
+                                {
+                                    messages::internalError(asyncResp->res);
+                                    return;
+                                }
+                                nlohmann::json& dataJson =
+                                    asyncResp->res.jsonValue["SerialConsole"];
+                                dataJson[protocolName]["Port"] = portNumber;
+                            });
+                    }
+                });
 
 #ifdef BMCWEB_ENABLE_KVM
         // Fill in GraphicalConsole info

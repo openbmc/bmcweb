@@ -89,77 +89,78 @@ void getMainChassisId(std::shared_ptr<bmcweb::AsyncResp> asyncResp,
             "xyz.openbmc_project.Inventory.Item.Chassis"});
 }
 
-template <typename CallbackFunc>
-void getPortStatusAndPath(const std::string& serviceName,
-                          CallbackFunc&& callback)
+template <size_t N, typename CallbackFunc>
+void getPortStatusAndPath(
+    const std::array<std::pair<std::string, std::string>, N>& protocolToDBus,
+    CallbackFunc&& callback)
 {
     crow::connections::systemBus->async_method_call(
-        [serviceName, callback{std::forward<CallbackFunc>(callback)}](
-            const boost::system::error_code ec,
-            const std::vector<UnitStruct>& r) {
-        if (ec)
-        {
-            BMCWEB_LOG_ERROR << ec;
-            // return error code
-            callback(ec, "", false);
-            return;
-        }
-
-        for (const UnitStruct& unit : r)
-        {
-            // Only traverse through <xyz>.socket units
-            const std::string& unitName = std::get<NET_PROTO_UNIT_NAME>(unit);
-
-            // find "." into unitsName
-            size_t lastCharPos = unitName.rfind('.');
-            if (lastCharPos == std::string::npos)
+        [protocolToDBus,
+         callback{std::move(callback)}](const boost::system::error_code ec,
+                                        const std::vector<UnitStruct>& r) {
+            if (ec)
             {
-                continue;
+                BMCWEB_LOG_ERROR << ec;
+                // return error code
+                callback(ec, "", "", false);
+                return;
             }
 
             // is unitsName end with ".socket"
             std::string unitNameEnd = unitName.substr(lastCharPos);
             if (unitNameEnd != ".socket")
             {
-                continue;
+                // Only traverse through <xyz>.socket units
+                const std::string& unitName =
+                    std::get<NET_PROTO_UNIT_NAME>(unit);
+
+                // find "." into unitsName
+                size_t lastCharPos = unitName.rfind('.');
+                if (lastCharPos == std::string::npos)
+                {
+                    continue;
+                }
+
+                // is unitsName end with ".socket"
+                std::string unitNameEnd = unitName.substr(lastCharPos);
+                if (unitNameEnd.compare(".socket") != 0)
+                {
+                    continue;
+                }
+
+                // find "@" into unitsName
+                if (size_t atCharPos = unitName.rfind('@');
+                    atCharPos != std::string::npos)
+                {
+                    lastCharPos = atCharPos;
+                }
+
+                // unitsName without "@eth(x).socket", only <xyz>
+                // unitsName without ".socket", only <xyz>
+                std::string unitNameStr = unitName.substr(0, lastCharPos);
+
+                for (const std::pair<std::string, std::string>& kv :
+                     protocolToDBus)
+                {
+                    // We are interested in services, which starts with
+                    // mapped service name
+                    if (unitNameStr != kv.second)
+                    {
+                        continue;
+                    }
+
+                    const std::string& socketPath =
+                        std::get<NET_PROTO_UNIT_OBJ_PATH>(unit);
+                    const std::string& unitState =
+                        std::get<NET_PROTO_UNIT_SUB_STATE>(unit);
+
+                    bool isProtocolEnabled = ((unitState == "running") ||
+                                              (unitState == "listening"));
+                    // We found service, return from inner loop.
+                    callback(ec, socketPath, kv.first, isProtocolEnabled);
+                    break;
+                }
             }
-
-            // find "@" into unitsName
-            if (size_t atCharPos = unitName.rfind('@');
-                atCharPos != std::string::npos)
-            {
-                lastCharPos = atCharPos;
-            }
-
-            // unitsName without "@eth(x).socket", only <xyz>
-            // unitsName without ".socket", only <xyz>
-            std::string unitNameStr = unitName.substr(0, lastCharPos);
-
-            // We are interested in services, which starts with
-            // mapped service name
-            if (unitNameStr != serviceName)
-            {
-                continue;
-            }
-
-            const std::string& socketPath =
-                std::get<NET_PROTO_UNIT_OBJ_PATH>(unit);
-            const std::string& unitState =
-                std::get<NET_PROTO_UNIT_SUB_STATE>(unit);
-
-            bool isProtocolEnabled =
-                ((unitState == "running") || (unitState == "listening"));
-            // We found service, return from inner loop.
-            callback(ec, socketPath, isProtocolEnabled);
-            return;
-        }
-
-        //  no service foudn, throw error
-        boost::system::error_code ec1 = boost::system::errc::make_error_code(
-            boost::system::errc::no_such_process);
-        // return error code
-        callback(ec1, "", false);
-        BMCWEB_LOG_ERROR << ec1;
         },
         "org.freedesktop.systemd1", "/org/freedesktop/systemd1",
         "org.freedesktop.systemd1.Manager", "ListUnits");
