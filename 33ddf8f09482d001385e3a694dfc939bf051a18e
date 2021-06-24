@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "32ad2c22_a8e2e553",
+        "filename": "redfish-core/lib/fabric.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-06-24T19:06:58Z",
+      "side": 1,
+      "message": "Do you need..? These tend not to be updated. \nI removed IBM\u0027s here: https://github.com/openbmc/bmcweb/commit/0daf14e053114a8e3b6da669a5240556ced9184a \nUp to you.",
+      "revId": "33ddf8f09482d001385e3a694dfc939bf051a18e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7f27b500_ffd216ef",
+        "filename": "redfish-core/lib/fabric.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-06-24T19:06:58Z",
+      "side": 1,
+      "message": "What happens if this is empty? It is a validator error right? I think for these we should check for empty and not out if it is empty. Or we could just return Oem for everything else? Like https://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/43761",
+      "revId": "33ddf8f09482d001385e3a694dfc939bf051a18e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
