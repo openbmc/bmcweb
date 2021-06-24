@@ -124,15 +124,10 @@ static const Message* formatMessage(const std::string_view& messageID)
 
 namespace event_log
 {
-inline bool getUniqueEntryID(const std::string& logEntry, std::string& entryID,
-                             const bool firstEntry = true)
+inline bool getUniqueEntryID(const std::string& logEntry, std::string& entryID)
 {
     static time_t prevTs = 0;
     static int index = 0;
-    if (firstEntry)
-    {
-        prevTs = 0;
-    }
 
     // Get the entry timestamp
     std::time_t curTs = 0;
@@ -620,6 +615,7 @@ class EventServiceManager
     }
 
     std::string lastEventTStr;
+    std::streampos redfishLogFilePosition{0};
     size_t noOfEventLogSubscribers{0};
     size_t noOfMetricReportSubscribers{0};
     std::shared_ptr<sdbusplus::bus::match::match> matchTelemetryMonitor;
@@ -1128,7 +1124,22 @@ class EventServiceManager
 #ifndef BMCWEB_ENABLE_REDFISH_DBUS_LOG_ENTRIES
     void cacheLastEventTimestamp()
     {
-        lastEventTStr.clear();
+        // Control comes here when :
+        // 1. Subscription is added and lastEventTStr is empty
+        // 2. lastEventTStr is empty
+        // 3. When a new Redfish file is created
+
+        if (!lastEventTStr.empty())
+        {
+            // Control would be here when Redfish file is created.
+            // Reset File Position as new file is created
+            redfishLogFilePosition = 0;
+            return;
+        }
+
+        // Open the redfish file and read till the last record to get the
+        // last event's time stamp.
+
         std::ifstream logStream(redfishEventLogFile);
         if (!logStream.good())
         {
@@ -1136,27 +1147,44 @@ class EventServiceManager
             return;
         }
         std::string logEntry;
+        std::string prev_logEntry;
         while (std::getline(logStream, logEntry))
         {
-            size_t space = logEntry.find_first_of(' ');
-            if (space == std::string::npos)
-            {
-                // Shouldn't enter here but lets skip it.
-                BMCWEB_LOG_DEBUG << "Invalid log entry found.";
-                continue;
-            }
-            lastEventTStr = logEntry.substr(0, space);
+            prev_logEntry = logEntry;
+            redfishLogFilePosition = logStream.tellg();
         }
+
+        if (prev_logEntry.empty())
+        {
+            BMCWEB_LOG_ERROR
+                << "Last Event Time Stamp Caching Failed : No Records";
+            redfishLogFilePosition = 0;
+            return;
+        }
+
+        size_t space = prev_logEntry.find_first_of(' ');
+        if (space == std::string::npos)
+        {
+            // Shouldn't enter here but lets skip it.
+            BMCWEB_LOG_DEBUG << "Invalid log entry found.";
+            BMCWEB_LOG_ERROR << "Last Event Time Stamp Caching Failed";
+            return;
+        }
+        lastEventTStr = prev_logEntry.substr(0, space);
         BMCWEB_LOG_DEBUG << "Last Event time stamp set: " << lastEventTStr;
+        BMCWEB_LOG_DEBUG << "Next Log Position : " << redfishLogFilePosition;
     }
 
     void readEventLogsFromFile()
     {
-        if (!serviceEnabled || !noOfEventLogSubscribers)
+        if (lastEventTStr.empty())
         {
-            BMCWEB_LOG_DEBUG << "EventService disabled or no Subscriptions.";
-            return;
+            // Shouldn't ideally enter here.
+            // Last event Time stamp would be set by now.
+            // Just incase of any failures before.
+            cacheLastEventTimestamp();
         }
+
         std::ifstream logStream(redfishEventLogFile);
         if (!logStream.good())
         {
@@ -1166,27 +1194,21 @@ class EventServiceManager
 
         std::vector<EventLogObjectsType> eventRecords;
 
-        bool startLogCollection = false;
-        bool firstEntry = true;
-
         std::string logEntry;
+
+        // Get the read pointer to the next log to be read.
+        logStream.seekg(redfishLogFilePosition);
+
         while (std::getline(logStream, logEntry))
         {
-            if (!startLogCollection && !lastEventTStr.empty())
-            {
-                if (boost::starts_with(logEntry, lastEventTStr))
-                {
-                    startLogCollection = true;
-                }
-                continue;
-            }
+            // Update Pointer position
+            redfishLogFilePosition = logStream.tellg();
 
             std::string idStr;
-            if (!event_log::getUniqueEntryID(logEntry, idStr, firstEntry))
+            if (!event_log::getUniqueEntryID(logEntry, idStr))
             {
                 continue;
             }
-            firstEntry = false;
 
             std::string timestamp;
             std::string messageID;
@@ -1195,6 +1217,16 @@ class EventServiceManager
                                              messageArgs) != 0)
             {
                 BMCWEB_LOG_DEBUG << "Read eventLog entry params failed";
+                continue;
+            }
+
+            lastEventTStr = timestamp;
+
+            if (!serviceEnabled || !noOfEventLogSubscribers)
+            {
+                // If Service is not enabled, no need to compute
+                // the remaining items below.
+                // But, Loop must continue to keep track of Timestamp
                 continue;
             }
 
@@ -1207,9 +1239,21 @@ class EventServiceManager
                 continue;
             }
 
-            lastEventTStr = timestamp;
             eventRecords.emplace_back(idStr, timestamp, messageID, registryName,
                                       messageKey, messageArgs);
+        }
+
+        if (!serviceEnabled || !noOfEventLogSubscribers)
+        {
+            BMCWEB_LOG_DEBUG << "EventService disabled or no Subscriptions.";
+            return;
+        }
+
+        if (eventRecords.empty())
+        {
+            // No Records to send
+            BMCWEB_LOG_DEBUG << "No log entries available to be transferred.";
+            return;
         }
 
         for (const auto& it : this->subscriptionsMap)
