@@ -157,6 +157,24 @@
       "revId": "29aa5563acc84aa6f191a93ef5b882fb08f1d978",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6fa62d57_2b03ab8c",
+        "filename": "scripts/schemas.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2021-06-24T20:51:24Z",
+      "side": 1,
+      "message": "That is good insight. I was unaware there were schemas not saved in flash.\n\nI can change the python code to download all the schemas to a temporary file. So no changes are made to the /static/ directory structure.",
+      "parentUuid": "460753b8_572982d2",
+      "revId": "29aa5563acc84aa6f191a93ef5b882fb08f1d978",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
