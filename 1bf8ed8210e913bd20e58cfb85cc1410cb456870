@@ -22,6 +22,30 @@
       "revId": "1bf8ed8210e913bd20e58cfb85cc1410cb456870",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5825de4b_922dd015",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2021-06-24T23:35:22Z",
+      "side": 1,
+      "message": "this one is a bit different. I don\u0027t know if it will actually work.\n\nSince the actual content are added in the lambda function... which who knows when will be called.\n\nIf I set it outside of those functions.. it will be set to an empty json. So it will be the same as what we have here.\n\nI think it is fine to leave it as is for this one.",
+      "parentUuid": "c51b7ddb_a9d30525",
+      "range": {
+        "startLine": 116,
+        "startChar": 0,
+        "endLine": 116,
+        "endChar": 43
+      },
+      "revId": "1bf8ed8210e913bd20e58cfb85cc1410cb456870",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
