@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "c71cba90_f44a32a4",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 36
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2021-06-24T10:20:35Z",
+      "side": 1,
+      "message": "Replied here: https://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/38954/36/redfish-core/lib/log_services.hpp#b735\n\nThere are no user impacts on the same. It is going to function the same, just that the underlying implementation is changed.\n\nThis commit is actually created w.r.t the changes in the backend that i have mentioned ut below in the commit message. Both the changes are merged long back.",
+      "parentUuid": "2917fbe1_02b8012e",
+      "range": {
+        "startLine": 12,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 52
+      },
+      "revId": "895d94ce8bfc6a22041656ddf37b3f1c1decba80",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a6f9891b_e25e7ae6",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 36
@@ -65,6 +89,30 @@
     },
     {
       "key": {
+        "uuid": "3bcef8ac_af24d32c",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 36
+      },
+      "lineNbr": 746,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2021-06-24T10:20:35Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "47e58132_786c1256",
+      "range": {
+        "startLine": 742,
+        "startChar": 0,
+        "endLine": 746,
+        "endChar": 33
+      },
+      "revId": "895d94ce8bfc6a22041656ddf37b3f1c1decba80",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a4546390_2ddd6c0b",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 36
@@ -85,6 +133,30 @@
       "revId": "895d94ce8bfc6a22041656ddf37b3f1c1decba80",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ad8dfbad_eab242bb",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 36
+      },
+      "lineNbr": 750,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2021-06-24T10:20:35Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "a4546390_2ddd6c0b",
+      "range": {
+        "startLine": 750,
+        "startChar": 17,
+        "endLine": 750,
+        "endChar": 25
+      },
+      "revId": "895d94ce8bfc6a22041656ddf37b3f1c1decba80",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
