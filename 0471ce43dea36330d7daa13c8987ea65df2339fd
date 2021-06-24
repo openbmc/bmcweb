@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f9dc7699_a454ca15",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 514,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2021-06-24T06:11:59Z",
+      "side": 1,
+      "message": "nit: Looks like you can use:\n\nconst sdbusplus::message::object_path path \u003d object.fist;\nreturn path.filename() \u003d\u003d driveId;",
+      "range": {
+        "startLine": 513,
+        "startChar": 20,
+        "endLine": 514,
+        "endChar": 65
+      },
+      "revId": "0471ce43dea36330d7daa13c8987ea65df2339fd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e05112b3_867574b5",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 615,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2021-06-24T06:11:59Z",
+      "side": 1,
+      "message": "This method and the one above looks very similar. Is this the only difference between them or there is something I am missing?",
+      "range": {
+        "startLine": 615,
+        "startChar": 60,
+        "endLine": 615,
+        "endChar": 70
+      },
+      "revId": "0471ce43dea36330d7daa13c8987ea65df2339fd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
