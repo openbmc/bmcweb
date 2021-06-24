@@ -30,6 +30,9 @@
 namespace redfish
 {
 
+static const std::pair<const char*, const char*> serialConsoleProtocolToDBus{
+    "SSH", "obmc-console-ssh"};
+
 /**
  * @brief Updates the Functional State of DIMMs
  *
@@ -2116,13 +2119,28 @@ inline void requestRoutesSystems(App& app)
             asyncResp->res.jsonValue["SerialConsole"]["IPMI"] = {
                 {"ServiceEnabled", true},
             };
-            // TODO (Gunnar): Should look for obmc-console-ssh@2200.service
-            asyncResp->res.jsonValue["SerialConsole"]["SSH"] = {
-                {"ServiceEnabled", true},
-                {"Port", 2200},
-                // https://github.com/openbmc/docs/blob/master/console.md
-                {"HotKeySequenceDisplay", "Press ~. to exit console"},
-            };
+
+            const std::string keyValue{serialConsoleProtocolToDBus.first};
+            nlohmann::json& dataJson =
+                asyncResp->res.jsonValue["SerialConsole"];
+            dataJson[keyValue]["HotKeySequenceDisplay"] =
+                "Press ~. to exit console";
+
+            getPortStatusAndPath(
+                serialConsoleProtocolToDBus.second,
+                [&dataJson, keyValue](const std::string& socketPath,
+                                      bool isProtocolEnabled) {
+                    dataJson[keyValue]["ProtocolEnabled"] = isProtocolEnabled;
+                    dataJson[keyValue]["Port"] =
+                        nlohmann::detail::value_t::null;
+                    if (isProtocolEnabled)
+                    {
+                        getPortNumber(
+                            socketPath, [&dataJson, keyValue](int portNumber) {
+                                dataJson[keyValue]["Port"] = portNumber;
+                            });
+                    }
+                });
 
 #ifdef BMCWEB_ENABLE_KVM
             // Fill in GraphicalConsole info
