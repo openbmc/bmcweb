@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "6454f7c2_cdcf90ac",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 36
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-06-24T17:21:25Z",
+      "side": 1,
+      "message": "Can you add a bit of https://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/38954/36/redfish-core/lib/log_services.hpp#b735 to the commit msg? \n\nThat is really what reviewers are looking for when they ask questions like this on a commit msg. They are looking for more explanation in the commit msg. :)",
+      "parentUuid": "c71cba90_f44a32a4",
+      "range": {
+        "startLine": 12,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 52
+      },
+      "revId": "895d94ce8bfc6a22041656ddf37b3f1c1decba80",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a6f9891b_e25e7ae6",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 36
