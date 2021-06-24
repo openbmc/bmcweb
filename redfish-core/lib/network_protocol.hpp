@@ -30,8 +30,10 @@ namespace redfish
 void getNTPProtocolEnabled(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp);
 std::string getHostName();
 
-const static std::vector<std::pair<const char*, const char*>> protocolToDBus{
-    {{"SSH", "dropbear"}, {"HTTPS", "bmcweb"}, {"IPMI", "phosphor-ipmi-net"}}};
+const static std::vector<std::pair<const char*, const char*>>
+    protocolToDBusNetwork{{{"SSH", "dropbear"},
+                           {"HTTPS", "bmcweb"},
+                           {"IPMI", "phosphor-ipmi-net"}}};
 
 inline void
     extractNTPServersAndDomainNamesData(const GetManagedObjects& dbusData,
@@ -121,7 +123,7 @@ void getNetworkData(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
     asyncResp->res.jsonValue["HTTP"]["Port"] = 0;
     asyncResp->res.jsonValue["HTTP"]["ProtocolEnabled"] = false;
 
-    for (auto& protocol : protocolToDBus)
+    for (auto& protocol : protocolToDBusNetwork)
     {
         asyncResp->res.jsonValue[protocol.first]["Port"] =
             nlohmann::detail::value_t::null;
@@ -159,13 +161,20 @@ void getNetworkData(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
             }
         });
 
-    getPortInfo(asyncResp, protocolToDBus,
-                [](const std::shared_ptr<bmcweb::AsyncResp>& aRsp) {
-                    aRsp->res.jsonValue["HTTPS"]["Certificates"] = {
-                        {"@odata.id",
-                         "/redfish/v1/Managers/bmc/NetworkProtocol/"
-                         "HTTPS/Certificates"}};
-                });
+    asyncResp->res.jsonValue["HTTPS"]["Certificates"] = {
+        {"@odata.id",
+         "/redfish/v1/Managers/bmc/NetworkProtocol/HTTPS/Certificates"}};
+    for (auto& protocol : protocolToDBusNetwork)
+    {
+        getPortInfo(asyncResp, protocol,
+                    [](const bool protocolEnabled, const long& portNumber,
+                       const std::string& rfServiceKey,
+                       const std::shared_ptr<bmcweb::AsyncResp>& aRsp) {
+                        aRsp->res.jsonValue[rfServiceKey]["ProtocolEnabled"] =
+                            protocolEnabled;
+                        aRsp->res.jsonValue[rfServiceKey]["Port"] = portNumber;
+                    });
+    }
 }
 
 #ifdef BMCWEB_ALLOW_DEPRECATED_HOSTNAME_PATCH

@@ -89,24 +89,19 @@ void getMainChassisId(std::shared_ptr<bmcweb::AsyncResp> asyncResp,
 }
 
 template <typename CallbackFunc>
-void getPortInfo(
-    std::shared_ptr<bmcweb::AsyncResp> asyncResp,
-    const std::vector<std::pair<const char*, const char*>>& protocolToDBus,
-    CallbackFunc&& callback)
+void getPortInfo(std::shared_ptr<bmcweb::AsyncResp> asyncResp,
+                 const std::pair<const char*, const char*>& kv,
+                 CallbackFunc&& callback)
 {
     crow::connections::systemBus->async_method_call(
-        [asyncResp, protocolToDBus,
-         callback](const boost::system::error_code e,
-                   const std::vector<UnitStruct>& r) {
+        [asyncResp, &kv, callback](const boost::system::error_code e,
+                                   const std::vector<UnitStruct>& r) {
             if (e)
             {
                 asyncResp->res.jsonValue = nlohmann::json::object();
                 messages::internalError(asyncResp->res);
                 return;
             }
-
-            // Attach JSON Data
-            callback(asyncResp);
 
             for (auto& unit : r)
             {
@@ -118,79 +113,69 @@ void getPortInfo(
                     continue;
                 }
 
-                for (auto& kv : protocolToDBus)
+                // We are interested in services, which starts with
+                // mapped service name
+                if (!boost::starts_with(unitName, kv.second))
                 {
-                    // We are interested in services, which starts with
-                    // mapped service name
-                    if (!boost::starts_with(unitName, kv.second))
-                    {
-                        continue;
-                    }
-                    const char* rfServiceKey = kv.first;
-                    const std::string& socketPath =
-                        std::get<NET_PROTO_UNIT_OBJ_PATH>(unit);
-                    const std::string& unitState =
-                        std::get<NET_PROTO_UNIT_SUB_STATE>(unit);
-
-                    asyncResp->res.jsonValue[rfServiceKey]["ProtocolEnabled"] =
-                        (unitState == "running") || (unitState == "listening");
-
-                    crow::connections::systemBus->async_method_call(
-                        [asyncResp, rfServiceKey{std::string(rfServiceKey)}](
-                            const boost::system::error_code ec,
-                            const std::variant<std::vector<
-                                std::tuple<std::string, std::string>>>& resp) {
-                            if (ec)
-                            {
-                                messages::internalError(asyncResp->res);
-                                return;
-                            }
-                            const std::vector<
-                                std::tuple<std::string, std::string>>*
-                                responsePtr = std::get_if<std::vector<
-                                    std::tuple<std::string, std::string>>>(
-                                    &resp);
-                            if (responsePtr == nullptr ||
-                                responsePtr->size() < 1)
-                            {
-                                return;
-                            }
-
-                            const std::string& listenStream =
-                                std::get<NET_PROTO_LISTEN_STREAM>(
-                                    (*responsePtr)[0]);
-                            std::size_t lastColonPos = listenStream.rfind(':');
-                            if (lastColonPos == std::string::npos)
-                            {
-                                // Not a port
-                                return;
-                            }
-                            std::string portStr =
-                                listenStream.substr(lastColonPos + 1);
-                            if (portStr.empty())
-                            {
-                                return;
-                            }
-                            char* endPtr = nullptr;
-                            errno = 0;
-                            // Use strtol instead of stroi to avoid
-                            // exceptions
-                            long port =
-                                std::strtol(portStr.c_str(), &endPtr, 10);
-                            if ((errno == 0) && (*endPtr == '\0'))
-                            {
-                                asyncResp->res.jsonValue[rfServiceKey]["Port"] =
-                                    port;
-                            }
-                            return;
-                        },
-                        "org.freedesktop.systemd1", socketPath,
-                        "org.freedesktop.DBus.Properties", "Get",
-                        "org.freedesktop.systemd1.Socket", "Listen");
-
-                    // We found service, break the inner loop.
-                    break;
+                    continue;
                 }
+                const char* rfServiceKey = kv.first;
+                const std::string& socketPath =
+                    std::get<NET_PROTO_UNIT_OBJ_PATH>(unit);
+                const std::string& unitState =
+                    std::get<NET_PROTO_UNIT_SUB_STATE>(unit);
+
+                bool protocolEnabled =
+                    ((unitState == "running") || (unitState == "listening"));
+                crow::connections::systemBus->async_method_call(
+                    [asyncResp, protocolEnabled, callback,
+                     rfServiceKey{std::string(rfServiceKey)}](
+                        const boost::system::error_code ec,
+                        const std::variant<std::vector<
+                            std::tuple<std::string, std::string>>>& resp) {
+                        if (ec)
+                        {
+                            messages::internalError(asyncResp->res);
+                            return;
+                        }
+                        const std::vector<std::tuple<std::string, std::string>>*
+                            responsePtr = std::get_if<std::vector<
+                                std::tuple<std::string, std::string>>>(&resp);
+                        if (responsePtr == nullptr || responsePtr->size() < 1)
+                        {
+                            return;
+                        }
+
+                        const std::string& listenStream =
+                            std::get<NET_PROTO_LISTEN_STREAM>(
+                                (*responsePtr)[0]);
+                        std::size_t lastColonPos = listenStream.rfind(':');
+                        if (lastColonPos == std::string::npos)
+                        {
+                            // Not a port
+                            return;
+                        }
+                        std::string portStr =
+                            listenStream.substr(lastColonPos + 1);
+                        if (portStr.empty())
+                        {
+                            return;
+                        }
+                        char* endPtr = nullptr;
+                        errno = 0;
+                        // Use strtol instead of stroi to avoid
+                        // exceptions
+                        long port = std::strtol(portStr.c_str(), &endPtr, 10);
+                        if ((errno == 0) && (*endPtr == '\0'))
+                        {
+                            callback(protocolEnabled, port, rfServiceKey,
+                                     asyncResp);
+                        }
+                        return;
+                    },
+                    "org.freedesktop.systemd1", socketPath,
+                    "org.freedesktop.DBus.Properties", "Get",
+                    "org.freedesktop.systemd1.Socket", "Listen");
             }
         },
         "org.freedesktop.systemd1", "/org/freedesktop/systemd1",
