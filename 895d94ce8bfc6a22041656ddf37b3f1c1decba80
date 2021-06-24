@@ -66,6 +66,24 @@
     },
     {
       "key": {
+        "uuid": "93c2f69d_4414f83e",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 36
+      },
+      "lineNbr": 725,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2021-06-24T16:48:59Z",
+      "side": 1,
+      "message": "Ah, do you think pulling some parts of code into another method would be better here?",
+      "parentUuid": "a6f9891b_e25e7ae6",
+      "revId": "895d94ce8bfc6a22041656ddf37b3f1c1decba80",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "47e58132_786c1256",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 36
