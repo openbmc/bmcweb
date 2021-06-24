@@ -35,6 +35,10 @@
 namespace redfish
 {
 
+const static std::array<std::pair<std::string, std::string>, 2>
+    protocolToDBusForSystems{
+        {{"SSH", "obmc-console-ssh"}, {"IPMI", "phosphor-ipmi-net"}}};
+
 /**
  * @brief Updates the Functional State of DIMMs
  *
@@ -2881,6 +2885,45 @@ inline void requestRoutesSystems(App& app)
         asyncResp->res
             .jsonValue["SerialConsole"]["SSH"]["HotKeySequenceDisplay"] =
             "Press ~. to exit console";
+        getPortStatusAndPath(
+            std::span{protocolToDBusForSystems},
+            [asyncResp](
+                const boost::system::error_code ec,
+                const std::vector<std::tuple<std::string, std::string, bool>>&
+                    socketData) {
+            if (ec)
+            {
+                messages::internalError(asyncResp->res);
+                return;
+            }
+            for (const auto& data : socketData)
+            {
+                const std::string& socketPath = get<0>(data);
+                const std::string& protocolName = get<1>(data);
+                bool isProtocolEnabled = get<2>(data);
+                nlohmann::json& dataJson =
+                    asyncResp->res.jsonValue["SerialConsole"];
+                dataJson[protocolName]["ServiceEnabled"] = isProtocolEnabled;
+                // need to retrieve port number for
+                // obmc-console-ssh service
+                if (protocolName == "SSH")
+                {
+                    getPortNumber(socketPath,
+                                  [asyncResp, protocolName](
+                                      const boost::system::error_code ec,
+                                      int portNumber) {
+                        if (ec)
+                        {
+                            messages::internalError(asyncResp->res);
+                            return;
+                        }
+                        nlohmann::json& dataJson =
+                            asyncResp->res.jsonValue["SerialConsole"];
+                        dataJson[protocolName]["Port"] = portNumber;
+                    });
+                }
+            }
+            });
 
 #ifdef BMCWEB_ENABLE_KVM
         // Fill in GraphicalConsole info

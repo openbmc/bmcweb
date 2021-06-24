@@ -36,8 +36,10 @@ namespace redfish
 void getNTPProtocolEnabled(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp);
 std::string getHostName();
 
-const static std::array<std::pair<std::string, std::string>, 3> protocolToDBus{
-    {{"SSH", "dropbear"}, {"HTTPS", "bmcweb"}, {"IPMI", "phosphor-ipmi-net"}}};
+const static std::array<std::pair<std::string, std::string>, 3>
+    protocolToDBusForNetwork{{{"SSH", "dropbear"},
+                              {"HTTPS", "bmcweb"},
+                              {"IPMI", "phosphor-ipmi-net"}}};
 
 inline void extractNTPServersAndDomainNamesData(
     const dbus::utility::ManagedObjectType& dbusData,
@@ -125,6 +127,13 @@ inline void getNetworkData(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     asyncResp->res.jsonValue["HTTP"]["Port"] = 0;
     asyncResp->res.jsonValue["HTTP"]["ProtocolEnabled"] = false;
 
+    for (const auto& protocol : protocolToDBusForNetwork)
+    {
+        asyncResp->res.jsonValue[protocol.first]["Port"] =
+            nlohmann::detail::value_t::null;
+        asyncResp->res.jsonValue[protocol.first]["ProtocolEnabled"] = false;
+    }
+
     std::string hostName = getHostName();
 
     asyncResp->res.jsonValue["HostName"] = hostName;
@@ -168,29 +177,23 @@ inline void getNetworkData(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
             "/redfish/v1/Managers/bmc/NetworkProtocol/HTTPS/Certificates";
     }
 
-    for (const auto& protocol : protocolToDBus)
-    {
-        const std::string& protocolName = protocol.first;
-        const std::string& serviceName = protocol.second;
-        getPortStatusAndPath(
-            serviceName,
-            [asyncResp, protocolName](const boost::system::error_code ec,
-                                      const std::string& socketPath,
-                                      bool isProtocolEnabled) {
-            // If the service is not installed, that is not an error
-            if (ec == boost::system::errc::no_such_process)
-            {
-                asyncResp->res.jsonValue[protocolName]["Port"] =
-                    nlohmann::detail::value_t::null;
-                asyncResp->res.jsonValue[protocolName]["ProtocolEnabled"] =
-                    false;
-                return;
-            }
-            if (ec)
-            {
-                messages::internalError(asyncResp->res);
-                return;
-            }
+    getPortStatusAndPath(
+        std::span{protocolToDBusForNetwork},
+        [asyncResp](
+            const boost::system::error_code ec,
+            const std::vector<std::tuple<std::string, std::string, bool>>&
+                socketData) {
+        if (ec)
+        {
+            messages::internalError(asyncResp->res);
+            return;
+        }
+        for (const auto& data : socketData)
+        {
+            const std::string& socketPath = get<0>(data);
+            const std::string& protocolName = get<1>(data);
+            bool isProtocolEnabled = get<2>(data);
+
             asyncResp->res.jsonValue[protocolName]["ProtocolEnabled"] =
                 isProtocolEnabled;
             getPortNumber(socketPath, [asyncResp, protocolName](
@@ -203,8 +206,8 @@ inline void getNetworkData(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                 }
                 asyncResp->res.jsonValue[protocolName]["Port"] = portNumber;
             });
-            });
-    }
+        }
+        });
 } // namespace redfish
 
 inline void handleNTPProtocolEnabled(
