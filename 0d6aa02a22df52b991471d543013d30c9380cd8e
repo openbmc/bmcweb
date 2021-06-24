@@ -121,6 +121,30 @@
     },
     {
       "key": {
+        "uuid": "9cf05777_b1455150",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2021-06-24T23:01:27Z",
+      "side": 1,
+      "message": "Looks good to me. Thank you",
+      "parentUuid": "fa0313e7_021728eb",
+      "range": {
+        "startLine": 54,
+        "startChar": 12,
+        "endLine": 54,
+        "endChar": 24
+      },
+      "revId": "0d6aa02a22df52b991471d543013d30c9380cd8e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "eb765bcc_0b28e7dc",
         "filename": "redfish-core/lib/storage.hpp",
         "patchSetId": 14
