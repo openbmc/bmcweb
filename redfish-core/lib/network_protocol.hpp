@@ -30,8 +30,10 @@ namespace redfish
 void getNTPProtocolEnabled(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp);
 std::string getHostName();
 
-const static std::vector<std::pair<const char*, const char*>> protocolToDBus{
-    {{"SSH", "dropbear"}, {"HTTPS", "bmcweb"}, {"IPMI", "phosphor-ipmi-net"}}};
+const static std::vector<std::pair<const char*, const char*>>
+    protocolToDBusService{{{"SSH", "dropbear"},
+                           {"HTTPS", "bmcweb"},
+                           {"IPMI", "phosphor-ipmi-net"}}};
 
 inline void
     extractNTPServersAndDomainNamesData(const GetManagedObjects& dbusData,
@@ -122,7 +124,7 @@ void getNetworkData(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     asyncResp->res.jsonValue["HTTP"]["Port"] = 0;
     asyncResp->res.jsonValue["HTTP"]["ProtocolEnabled"] = false;
 
-    for (auto& protocol : protocolToDBus)
+    for (auto& protocol : protocolToDBusService)
     {
         asyncResp->res.jsonValue[protocol.first]["Port"] =
             nlohmann::detail::value_t::null;
@@ -174,7 +176,7 @@ void getNetworkData(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
              "/redfish/v1/Managers/bmc/NetworkProtocol/HTTPS/Certificates"}};
     }
 
-    for (const auto& protocol : protocolToDBus)
+    for (const auto& protocol : protocolToDBusService)
     {
         const std::string& keyValue = protocol.first;
         getPortStatusAndPath(protocol.second, [asyncResp, keyValue](
