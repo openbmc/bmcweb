@@ -41,6 +41,10 @@
 namespace redfish
 {
 
+const static std::array<std::pair<std::string_view, std::string_view>, 2>
+    protocolToDBusForSystems{
+        {{"SSH", "obmc-console-ssh"}, {"IPMI", "phosphor-ipmi-net"}}};
+
 /**
  * @brief Updates the Functional State of DIMMs
  *
@@ -2879,6 +2883,42 @@ inline void handleComputerSystemCollectionHead(
         "</redfish/v1/JsonSchemas/ComputerSystem/ComputerSystem.json>; rel=describedby");
 }
 
+inline void afterPortRequest(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const boost::system::error_code& ec,
+    const std::vector<std::tuple<std::string, std::string, bool>>& socketData)
+{
+    if (ec)
+    {
+        messages::internalError(asyncResp->res);
+        return;
+    }
+    for (const auto& data : socketData)
+    {
+        const std::string& socketPath = get<0>(data);
+        const std::string& protocolName = get<1>(data);
+        bool isProtocolEnabled = get<2>(data);
+        nlohmann::json& dataJson = asyncResp->res.jsonValue["SerialConsole"];
+        dataJson[protocolName]["ServiceEnabled"] = isProtocolEnabled;
+        // need to retrieve port number for
+        // obmc-console-ssh service
+        if (protocolName == "SSH")
+        {
+            getPortNumber(socketPath, [asyncResp, protocolName](
+                                          const boost::system::error_code ec1,
+                                          int portNumber) {
+                if (ec1)
+                {
+                    messages::internalError(asyncResp->res);
+                    return;
+                }
+                nlohmann::json& dataJson1 =
+                    asyncResp->res.jsonValue["SerialConsole"];
+                dataJson1[protocolName]["Port"] = portNumber;
+            });
+        }
+    }
+}
 /**
  * Systems derived class for delivering Computer Systems Schema.
  */
@@ -2965,6 +3005,8 @@ inline void requestRoutesSystems(App& app)
         asyncResp->res
             .jsonValue["SerialConsole"]["SSH"]["HotKeySequenceDisplay"] =
             "Press ~. to exit console";
+        getPortStatusAndPath(std::span{protocolToDBusForSystems},
+                             std::bind_front(afterPortRequest, asyncResp));
 
 #ifdef BMCWEB_ENABLE_KVM
         // Fill in GraphicalConsole info

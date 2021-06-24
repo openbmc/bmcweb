@@ -97,21 +97,25 @@ void getMainChassisId(std::shared_ptr<bmcweb::AsyncResp> asyncResp,
 }
 
 template <typename CallbackFunc>
-void getPortStatusAndPath(const std::string& serviceName,
-                          CallbackFunc&& callback)
+void getPortStatusAndPath(
+    std::span<const std::pair<std::string_view, std::string_view>>
+        protocolToDBus,
+    CallbackFunc&& callback)
 {
     crow::connections::systemBus->async_method_call(
-        [serviceName, callback{std::forward<CallbackFunc>(callback)}](
+        [protocolToDBus, callback{std::forward<CallbackFunc>(callback)}](
             const boost::system::error_code& ec,
             const std::vector<UnitStruct>& r) {
+        std::vector<std::tuple<std::string, std::string, bool>> socketData;
         if (ec)
         {
             BMCWEB_LOG_ERROR << ec;
             // return error code
-            callback(ec, "", false);
+            callback(ec, socketData);
             return;
         }
 
+        // save all service output into vector
         for (const UnitStruct& unit : r)
         {
             // Only traverse through <xyz>.socket units
@@ -142,31 +146,31 @@ void getPortStatusAndPath(const std::string& serviceName,
             // unitsName without ".socket", only <xyz>
             std::string unitNameStr = unitName.substr(0, lastCharPos);
 
-            // We are interested in services, which starts with
-            // mapped service name
-            if (unitNameStr != serviceName)
+            for (const auto& kv : protocolToDBus)
             {
-                continue;
+                // We are interested in services, which starts with
+                // mapped service name
+                if (unitNameStr != kv.second)
+                {
+                    continue;
+                }
+
+                const std::string& socketPath =
+                    std::get<NET_PROTO_UNIT_OBJ_PATH>(unit);
+                const std::string& unitState =
+                    std::get<NET_PROTO_UNIT_SUB_STATE>(unit);
+
+                bool isProtocolEnabled =
+                    ((unitState == "running") || (unitState == "listening"));
+
+                socketData.emplace_back(socketPath, std::string(kv.first),
+                                        isProtocolEnabled);
+                // We found service, return from inner loop.
+                break;
             }
-
-            const std::string& socketPath =
-                std::get<NET_PROTO_UNIT_OBJ_PATH>(unit);
-            const std::string& unitState =
-                std::get<NET_PROTO_UNIT_SUB_STATE>(unit);
-
-            bool isProtocolEnabled =
-                ((unitState == "running") || (unitState == "listening"));
-            // We found service, return from inner loop.
-            callback(ec, socketPath, isProtocolEnabled);
-            return;
         }
 
-        //  no service foudn, throw error
-        boost::system::error_code ec1 = boost::system::errc::make_error_code(
-            boost::system::errc::no_such_process);
-        // return error code
-        callback(ec1, "", false);
-        BMCWEB_LOG_ERROR << ec1;
+        callback(ec, socketData);
         },
         "org.freedesktop.systemd1", "/org/freedesktop/systemd1",
         "org.freedesktop.systemd1.Manager", "ListUnits");
