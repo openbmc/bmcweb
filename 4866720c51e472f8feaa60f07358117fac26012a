@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8ca2996a_d86dd8fa",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 1763,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-06-25T04:13:07Z",
+      "side": 1,
+      "message": "Any other mode should be an internal error, considering that those modes are the only ones supported by the interface.",
+      "range": {
+        "startLine": 1763,
+        "startChar": 61,
+        "endLine": 1763,
+        "endChar": 64
+      },
+      "revId": "4866720c51e472f8feaa60f07358117fac26012a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0f692fed_fbbc5db9",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 1764,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-06-25T04:13:07Z",
+      "side": 1,
+      "message": "Please put this in its own method.",
+      "range": {
+        "startLine": 1743,
+        "startChar": 0,
+        "endLine": 1764,
+        "endChar": 21
+      },
+      "revId": "4866720c51e472f8feaa60f07358117fac26012a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "435a1c7e_c379b0c4",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 1836,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-06-25T04:13:07Z",
+      "side": 1,
+      "message": "This is a very inefficient way to do a lookup, and is generally a banned anti-pattern in bmcweb.  Please do what you did on line 1743, and put it in its own method",
+      "range": {
+        "startLine": 1836,
+        "startChar": 0,
+        "endLine": 1836,
+        "endChar": 70
+      },
+      "revId": "4866720c51e472f8feaa60f07358117fac26012a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "28c68e73_e47d42a0",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 1848,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-06-25T04:13:07Z",
+      "side": 1,
+      "message": "Please remove from this list.  Unless the OEM policy is followed, this redfish interface will not accept OEM APIs, and if it does, that is a discussion for another commit.",
+      "range": {
+        "startLine": 1848,
+        "startChar": 29,
+        "endLine": 1848,
+        "endChar": 32
+      },
+      "revId": "4866720c51e472f8feaa60f07358117fac26012a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2e249369_3dd2edc5",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 1853,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-06-25T04:13:07Z",
+      "side": 1,
+      "message": "This check should be done before calling getSubTree.",
+      "range": {
+        "startLine": 1853,
+        "startChar": 26,
+        "endLine": 1853,
+        "endChar": 48
+      },
+      "revId": "4866720c51e472f8feaa60f07358117fac26012a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1b68c5b4_2820447f",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 1858,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-06-25T04:13:07Z",
+      "side": 1,
+      "message": "String copy.",
+      "range": {
+        "startLine": 1858,
+        "startChar": 17,
+        "endLine": 1858,
+        "endChar": 23
+      },
+      "revId": "4866720c51e472f8feaa60f07358117fac26012a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
