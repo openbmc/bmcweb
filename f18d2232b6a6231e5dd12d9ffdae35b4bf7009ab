@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "01818c32_d5b6e49e",
+        "filename": "redfish-core/lib/network_protocol.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-06-25T04:50:32Z",
+      "side": 1,
+      "message": "nit:  technically this should be std::array, to ensure we\u0027re not allocating memory pre main().  If you end up doing another patch, please fix this at the same time.",
+      "range": {
+        "startLine": 33,
+        "startChar": 18,
+        "endLine": 33,
+        "endChar": 24
+      },
+      "revId": "f18d2232b6a6231e5dd12d9ffdae35b4bf7009ab",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ce9c684b_ac6a9283",
+        "filename": "redfish-core/lib/network_protocol.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-06-25T04:50:32Z",
+      "side": 1,
+      "message": "long can be passed by value.",
+      "range": {
+        "startLine": 170,
+        "startChar": 57,
+        "endLine": 170,
+        "endChar": 62
+      },
+      "revId": "f18d2232b6a6231e5dd12d9ffdae35b4bf7009ab",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "25f0cdf1_956e688b",
+        "filename": "redfish-core/lib/network_protocol.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 172,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-06-25T04:50:32Z",
+      "side": 1,
+      "message": "If this variable is needed, it should be captured through the lambda, not passed through.",
+      "range": {
+        "startLine": 172,
+        "startChar": 23,
+        "endLine": 172,
+        "endChar": 69
+      },
+      "revId": "f18d2232b6a6231e5dd12d9ffdae35b4bf7009ab",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b721919b_a435ef3c",
+        "filename": "redfish-core/lib/redfish_util.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-06-25T04:50:32Z",
+      "side": 1,
+      "message": "This has lifetime issues.  Please capture by value.",
+      "range": {
+        "startLine": 97,
+        "startChar": 21,
+        "endLine": 97,
+        "endChar": 23
+      },
+      "revId": "f18d2232b6a6231e5dd12d9ffdae35b4bf7009ab",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "586a8d95_bfa8040b",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 2123,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-06-25T04:50:32Z",
+      "side": 1,
+      "message": "getPortInfo can\u0027t ever error out?  That seems wrong.",
+      "range": {
+        "startLine": 2123,
+        "startChar": 12,
+        "endLine": 2123,
+        "endChar": 23
+      },
+      "revId": "f18d2232b6a6231e5dd12d9ffdae35b4bf7009ab",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
