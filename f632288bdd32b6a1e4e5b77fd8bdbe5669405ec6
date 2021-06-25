@@ -120,6 +120,30 @@
     },
     {
       "key": {
+        "uuid": "3baccc5f_6fbece25",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1938,
+      "author": {
+        "id": 1001099
+      },
+      "writtenOn": "2021-06-25T16:56:05Z",
+      "side": 1,
+      "message": "Done\nhttps://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/44438",
+      "parentUuid": "b2a59ef2_7970af18",
+      "range": {
+        "startLine": 1938,
+        "startChar": 0,
+        "endLine": 1938,
+        "endChar": 61
+      },
+      "revId": "f632288bdd32b6a1e4e5b77fd8bdbe5669405ec6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0d9a68cf_8bf59df9",
         "filename": "redfish-core/lib/systems.hpp",
         "patchSetId": 1
