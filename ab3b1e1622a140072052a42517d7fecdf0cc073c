@@ -107,6 +107,24 @@
     },
     {
       "key": {
+        "uuid": "b388e13b_93903b2f",
+        "filename": "redfish-core/lib/redfish_util.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-06-25T17:32:54Z",
+      "side": 1,
+      "message": "I don\u0027t see the splitting up that you\u0027re talking about in that commit;  It still goes 7 scopes deep in places.",
+      "parentUuid": "30dba3ca_9240ae7d",
+      "revId": "ab3b1e1622a140072052a42517d7fecdf0cc073c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "40581507_b49c7e1d",
         "filename": "redfish-core/lib/redfish_util.hpp",
         "patchSetId": 5
@@ -236,6 +254,30 @@
       "side": 1,
       "message": "No.. This changes should be in this commit, same for the others",
       "parentUuid": "e4db0ecb_80a241f3",
+      "range": {
+        "startLine": 125,
+        "startChar": 32,
+        "endLine": 125,
+        "endChar": 43
+      },
+      "revId": "ab3b1e1622a140072052a42517d7fecdf0cc073c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "54470869_255ee950",
+        "filename": "redfish-core/lib/redfish_util.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-06-25T17:32:54Z",
+      "side": 1,
+      "message": "+1",
+      "parentUuid": "7a4fa590_cc02099e",
       "range": {
         "startLine": 125,
         "startChar": 32,
