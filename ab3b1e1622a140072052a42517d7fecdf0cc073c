@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "7edf10ff_9a76649d",
+        "filename": "redfish-core/lib/network_protocol.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1001099
+      },
+      "writtenOn": "2021-06-25T16:45:10Z",
+      "side": 1,
+      "message": "https://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/44438, I need to create same pair for system SerialConsole data fetch, so that\u0027s why.",
+      "parentUuid": "acbe62d0_4cfc02d8",
+      "range": {
+        "startLine": 33,
+        "startChar": 62,
+        "endLine": 33,
+        "endChar": 76
+      },
+      "revId": "ab3b1e1622a140072052a42517d7fecdf0cc073c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "7b2dc8dd_bad24bef",
         "filename": "redfish-core/lib/redfish_util.hpp",
         "patchSetId": 5
