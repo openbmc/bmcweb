@@ -1,0 +1,159 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "acbe62d0_4cfc02d8",
+        "filename": "redfish-core/lib/network_protocol.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-06-25T04:45:46Z",
+      "side": 1,
+      "message": "Why wasn\u0027t this moved.  This seems like a core part of the method that got moved.",
+      "range": {
+        "startLine": 33,
+        "startChar": 62,
+        "endLine": 33,
+        "endChar": 76
+      },
+      "revId": "ab3b1e1622a140072052a42517d7fecdf0cc073c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7b2dc8dd_bad24bef",
+        "filename": "redfish-core/lib/redfish_util.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-06-25T04:45:46Z",
+      "side": 1,
+      "message": "This method goes 7 scopes deep in places.  Please split it up a little",
+      "revId": "ab3b1e1622a140072052a42517d7fecdf0cc073c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5d0ad9f1_48aadc06",
+        "filename": "redfish-core/lib/redfish_util.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-06-25T04:45:46Z",
+      "side": 1,
+      "message": "in general, a method like this would either be directly filling in the values, or would be returning an error code + the data to a callback that could fill it in.  This seems to do a combination of both.",
+      "range": {
+        "startLine": 93,
+        "startChar": 39,
+        "endLine": 93,
+        "endChar": 48
+      },
+      "revId": "ab3b1e1622a140072052a42517d7fecdf0cc073c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "40581507_b49c7e1d",
+        "filename": "redfish-core/lib/redfish_util.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-06-25T04:45:46Z",
+      "side": 1,
+      "message": "This isn\u0027t required.",
+      "range": {
+        "startLine": 103,
+        "startChar": 0,
+        "endLine": 103,
+        "endChar": 68
+      },
+      "revId": "ab3b1e1622a140072052a42517d7fecdf0cc073c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "37b9e694_a75fb239",
+        "filename": "redfish-core/lib/redfish_util.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-06-25T04:45:46Z",
+      "side": 1,
+      "message": "We call the callback before any data processing is done?  That seems wrong.",
+      "range": {
+        "startLine": 109,
+        "startChar": 0,
+        "endLine": 109,
+        "endChar": 32
+      },
+      "revId": "ab3b1e1622a140072052a42517d7fecdf0cc073c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4bdaa246_0e24fb9b",
+        "filename": "redfish-core/lib/redfish_util.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-06-25T04:45:46Z",
+      "side": 1,
+      "message": "common error #12",
+      "range": {
+        "startLine": 125,
+        "startChar": 32,
+        "endLine": 125,
+        "endChar": 43
+      },
+      "revId": "ab3b1e1622a140072052a42517d7fecdf0cc073c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c392cdb3_10a39e84",
+        "filename": "redfish-core/lib/redfish_util.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-06-25T04:45:46Z",
+      "side": 1,
+      "message": "Modern code should use std::from_chars.",
+      "range": {
+        "startLine": 176,
+        "startChar": 28,
+        "endLine": 178,
+        "endChar": 0
+      },
+      "revId": "ab3b1e1622a140072052a42517d7fecdf0cc073c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
