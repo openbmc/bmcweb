@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "87bddd82_7cf45507",
+        "filename": "redfish-core/include/utils/name_utils.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2021-06-25T21:02:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "052d5626_4a583afb",
+      "range": {
+        "startLine": 49,
+        "startChar": 0,
+        "endLine": 50,
+        "endChar": 17
+      },
+      "revId": "847e0f788d935efb23f14460656708579da92166",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "92a308b3_ffc4292d",
         "filename": "redfish-core/include/utils/name_utils.hpp",
         "patchSetId": 4
@@ -93,6 +117,24 @@
       "revId": "847e0f788d935efb23f14460656708579da92166",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c8645bb3_788f97c5",
+        "filename": "redfish-core/include/utils/name_utils.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2021-06-25T21:02:06Z",
+      "side": 1,
+      "message": "Actually, I will force it to have only one service that expose the path.",
+      "parentUuid": "61431556_9e950e2b",
+      "revId": "847e0f788d935efb23f14460656708579da92166",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
