@@ -167,6 +167,30 @@
     },
     {
       "key": {
+        "uuid": "cc94ff9a_df898608",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1940,
+      "author": {
+        "id": 1000021
+      },
+      "writtenOn": "2021-06-25T16:23:28Z",
+      "side": 1,
+      "message": "It comes from the ssh client escape and disconnect session sequence",
+      "parentUuid": "3398ec1c_39010172",
+      "range": {
+        "startLine": 1940,
+        "startChar": 13,
+        "endLine": 1940,
+        "endChar": 38
+      },
+      "revId": "f632288bdd32b6a1e4e5b77fd8bdbe5669405ec6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "db719c29_da571f16",
         "filename": "redfish-core/lib/systems.hpp",
         "patchSetId": 1
