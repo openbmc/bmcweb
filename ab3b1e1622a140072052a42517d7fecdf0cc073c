@@ -290,6 +290,30 @@
     },
     {
       "key": {
+        "uuid": "7fcca0e0_fd0b837e",
+        "filename": "redfish-core/lib/redfish_util.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 1001099
+      },
+      "writtenOn": "2021-06-25T17:51:33Z",
+      "side": 1,
+      "message": "Got it, let me then change this commit first",
+      "parentUuid": "54470869_255ee950",
+      "range": {
+        "startLine": 125,
+        "startChar": 32,
+        "endLine": 125,
+        "endChar": 43
+      },
+      "revId": "ab3b1e1622a140072052a42517d7fecdf0cc073c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c392cdb3_10a39e84",
         "filename": "redfish-core/lib/redfish_util.hpp",
         "patchSetId": 5
