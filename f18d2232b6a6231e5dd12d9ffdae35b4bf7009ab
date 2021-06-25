@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "49ea14b2_c346a90c",
+        "filename": "redfish-core/lib/network_protocol.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1001099
+      },
+      "writtenOn": "2021-06-25T17:10:22Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "01818c32_d5b6e49e",
+      "range": {
+        "startLine": 33,
+        "startChar": 18,
+        "endLine": 33,
+        "endChar": 24
+      },
+      "revId": "f18d2232b6a6231e5dd12d9ffdae35b4bf7009ab",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ce9c684b_ac6a9283",
         "filename": "redfish-core/lib/network_protocol.hpp",
         "patchSetId": 3
@@ -45,6 +69,30 @@
       "revId": "f18d2232b6a6231e5dd12d9ffdae35b4bf7009ab",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "39123f91_7e87dc89",
+        "filename": "redfish-core/lib/network_protocol.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 1001099
+      },
+      "writtenOn": "2021-06-25T17:10:22Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "ce9c684b_ac6a9283",
+      "range": {
+        "startLine": 170,
+        "startChar": 57,
+        "endLine": 170,
+        "endChar": 62
+      },
+      "revId": "f18d2232b6a6231e5dd12d9ffdae35b4bf7009ab",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -94,6 +142,30 @@
     },
     {
       "key": {
+        "uuid": "9e860d70_67190cd7",
+        "filename": "redfish-core/lib/redfish_util.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1001099
+      },
+      "writtenOn": "2021-06-25T17:10:22Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "b721919b_a435ef3c",
+      "range": {
+        "startLine": 97,
+        "startChar": 21,
+        "endLine": 97,
+        "endChar": 23
+      },
+      "revId": "f18d2232b6a6231e5dd12d9ffdae35b4bf7009ab",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "586a8d95_bfa8040b",
         "filename": "redfish-core/lib/systems.hpp",
         "patchSetId": 3
@@ -105,6 +177,30 @@
       "writtenOn": "2021-06-25T04:50:32Z",
       "side": 1,
       "message": "getPortInfo can\u0027t ever error out?  That seems wrong.",
+      "range": {
+        "startLine": 2123,
+        "startChar": 12,
+        "endLine": 2123,
+        "endChar": 23
+      },
+      "revId": "f18d2232b6a6231e5dd12d9ffdae35b4bf7009ab",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6a6ea742_be695205",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 2123,
+      "author": {
+        "id": 1001099
+      },
+      "writtenOn": "2021-06-25T17:10:22Z",
+      "side": 1,
+      "message": "that we handle inside that method. we are passing asyncResp into it too.",
+      "parentUuid": "586a8d95_bfa8040b",
       "range": {
         "startLine": 2123,
         "startChar": 12,
