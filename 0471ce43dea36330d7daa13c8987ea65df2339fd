@@ -93,6 +93,30 @@
       "revId": "0471ce43dea36330d7daa13c8987ea65df2339fd",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f4949811_3806509d",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 615,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2021-06-25T06:58:00Z",
+      "side": 1,
+      "message": "For now we should remove this code duplication. In the future we can split this code again, but in meantime we won\u0027t suffer from code duplication. Who knows maybe it will be enough to add another parameter or callback. Assuming that this two functions will contain 100% different code in the future seems unlikely.",
+      "parentUuid": "aea0f17c_4fa6b1e8",
+      "range": {
+        "startLine": 615,
+        "startChar": 60,
+        "endLine": 615,
+        "endChar": 70
+      },
+      "revId": "0471ce43dea36330d7daa13c8987ea65df2339fd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
