@@ -27,7 +27,7 @@ struct Request
 
     const std::string& body;
 
-    boost::asio::io_context* ioService{};
+    boost::asio::io_context* ioService;
     boost::asio::ip::address ipAddress{};
 
     std::shared_ptr<persistent_data::UserSession> session;
@@ -38,7 +38,20 @@ struct Request
         req(reqIn),
         fields(reqIn.base()), body(reqIn.body())
     {}
-
+    /*
+        Request() {
+            req = NULL;
+            fields = boost::beast::http::fields();
+            url = std::string_view();
+            urlView = boost::urls::url_view();
+            urlParams = boost::urls::url_view::params_type();
+            isSecure = false;
+            body = std::string();
+            ioService = NULL;
+            ipAddress = boost::asio::ip::address();
+            userRole =  std::string();
+        }
+    */
     boost::beast::http::verb method() const
     {
         return req.method();
