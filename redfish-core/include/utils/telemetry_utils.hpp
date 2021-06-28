@@ -17,6 +17,28 @@ constexpr const char* metricReportDefinitionUri =
 constexpr const char* metricReportUri =
     "/redfish/v1/TelemetryService/MetricReports/";
 
+struct ReadingMetadata
+{
+    sdbusplus::message::object_path sensorDbusPath;
+    std::string sensorRedfishUri;
+};
+
+struct MetricMetadata
+{
+    std::vector<std::string> metricProperties;
+};
+
+void from_json(const nlohmann::json& j, ReadingMetadata& rm)
+{
+    rm.sensorDbusPath = sdbusplus::message::object_path(j.at("SensorDbusPath"));
+    j.at("SensorRedfishUri").get_to(rm.sensorRedfishUri);
+}
+
+void to_json(nlohmann::json& j, const MetricMetadata& mm)
+{
+    j["MetricProperties"] = mm.metricProperties;
+}
+
 inline void
     getReportCollection(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                         const std::string& uri)
