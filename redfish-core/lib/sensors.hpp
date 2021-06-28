@@ -21,6 +21,8 @@
 #include <boost/container/flat_map.hpp>
 #include <boost/range/algorithm/replace_copy_if.hpp>
 #include <dbus_singleton.hpp>
+#include <dbus_utility.hpp>
+#include <error_messages.hpp>
 #include <registries/privilege_registry.hpp>
 #include <utils/json_utils.hpp>
 
