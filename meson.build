@@ -431,7 +431,8 @@ if(get_option('tests').enabled())
         'src/boost_url.cpp',
         'src/boost_beast.cpp',
         'src/boost_asio.cpp',
-        'src/boost_asio_ssl.cpp',],
+        'src/boost_asio_ssl.cpp',
+        'redfish-core/src/error_messages.cpp'],
                 include_directories : incdir,
                 install_dir: bindir,
                 dependencies: [
