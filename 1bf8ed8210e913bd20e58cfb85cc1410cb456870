@@ -2,6 +2,40 @@
   "comments": [
     {
       "key": {
+        "uuid": "6c6aa80c_864e24f6",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 392,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-06-28T19:00:09Z",
+      "side": 1,
+      "message": "This just doesn\u0027t feel correct..",
+      "revId": "1bf8ed8210e913bd20e58cfb85cc1410cb456870",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "060ac8e4_4baf4622",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-06-28T19:00:09Z",
+      "side": 1,
+      "message": "Can we do .parent_path() and do exact matching? So we are looking at the D-Bus path to determine containment ? \n\nProposal I over at https://gerrit.openbmc-project.xyz/c/openbmc/docs/+/41468/4/architecture/dbus-inventory.md#1 ?\nWe might to settle on a direction there first on that architecture doc.",
+      "revId": "1bf8ed8210e913bd20e58cfb85cc1410cb456870",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c51b7ddb_a9d30525",
         "filename": "redfish-core/lib/storage.hpp",
         "patchSetId": 17
@@ -70,6 +104,69 @@
       "revId": "1bf8ed8210e913bd20e58cfb85cc1410cb456870",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "01698125_9fb0345d",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 253,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-06-28T19:00:09Z",
+      "side": 1,
+      "message": "I still don\u0027t see 404 addressed, /redfish/v1/Systems/system/Storage/badStorageId/, unless I am missing something ?",
+      "range": {
+        "startLine": 253,
+        "startChar": 23,
+        "endLine": 253,
+        "endChar": 64
+      },
+      "revId": "1bf8ed8210e913bd20e58cfb85cc1410cb456870",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f3eaa730_0a627c79",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 282,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-06-28T19:00:09Z",
+      "side": 1,
+      "message": "https://github.com/openbmc/bmcweb/blob/master/COMMON_ERRORS.md#12-imprecise-matching \nCan we use \n\nsdbusplus::message::object_path\n....filename(); \nhttps://github.com/openbmc/bmcweb/search?q\u003dsdbusplus%3A%3Amessage%3A%3Aobject_path ?",
+      "revId": "1bf8ed8210e913bd20e58cfb85cc1410cb456870",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bd2d52be_4e209f0e",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 305,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-06-28T19:00:09Z",
+      "side": 1,
+      "message": "again here, don\u0027t see 404 addressed.\nhttps://github.com/openbmc/bmcweb/blob/master/COMMON_ERRORS.md#11-not-responding-to-404",
+      "range": {
+        "startLine": 305,
+        "startChar": 23,
+        "endLine": 305,
+        "endChar": 63
+      },
+      "revId": "1bf8ed8210e913bd20e58cfb85cc1410cb456870",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }

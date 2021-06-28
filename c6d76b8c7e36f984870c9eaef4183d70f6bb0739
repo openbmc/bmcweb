@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "ae38cac8_d4477815",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 11
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-06-28T19:00:09Z",
+      "side": 1,
+      "message": "I don\u0027t think this scales to other implementations very well.\nI feel this is not a very robust solution and isn\u0027t what we have done other places. \n \nDo we need new inventory items? A storage inventory item? Do we need to create associations between this new storage inventory item and chassis? \n\nhttps://gerrit.openbmc-project.xyz/c/openbmc/docs/+/41468 \n\nCan we do the same with Drives? New documented associations and new inventory items if we need?",
+      "parentUuid": "83c518f6_ab7655b6",
+      "revId": "c6d76b8c7e36f984870c9eaef4183d70f6bb0739",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "7f61c448_088c3900",
         "filename": "redfish-core/lib/chassis.hpp",
         "patchSetId": 11
