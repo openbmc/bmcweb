@@ -1,5 +1,6 @@
 #pragma once
 
+#include "sensors.hpp"
 #include "utils/collection.hpp"
 #include "utils/telemetry_utils.hpp"
 
@@ -16,34 +17,56 @@ using Readings =
     std::vector<std::tuple<std::string, std::string, double, uint64_t>>;
 using TimestampReadings = std::tuple<uint64_t, Readings>;
 
-inline nlohmann::json toMetricValues(const Readings& readings)
+inline bool fillMetricValues(nlohmann::json& metricValues,
+                             const Readings& readings)
 {
-    nlohmann::json metricValues = nlohmann::json::array_t();
-
-    for (auto& [id, metadata, sensorValue, timestamp] : readings)
+    for (auto& [id, metadataStr, sensorValue, timestamp] : readings)
     {
+        std::optional<nlohmann::json> readingMetadataJson =
+            getMetadataJson(metadataStr);
+        if (!readingMetadataJson)
+        {
+            return false;
+        }
+
+        std::optional<std::string> sensorDbusPath =
+            readStringFromMetadata(*readingMetadataJson, "SensorDbusPath");
+        if (!sensorDbusPath)
+        {
+            return false;
+        }
+
+        std::optional<std::string> sensorRedfishUri =
+            readStringFromMetadata(*readingMetadataJson, "SensorRedfishUri");
+        if (!sensorRedfishUri)
+        {
+            return false;
+        }
+
+        std::string metricDefinition =
+            std::string(metricDefinitionUri) +
+            sensors::toReadingType(
+                sdbusplus::message::object_path(*sensorDbusPath)
+                    .parent_path()
+                    .filename());
+
         metricValues.push_back({
+            {"MetricDefinition",
+             nlohmann::json{{"@odata.id", metricDefinition}}},
             {"MetricId", id},
-            {"MetricProperty", metadata},
+            {"MetricProperty", *sensorRedfishUri},
             {"MetricValue", std::to_string(sensorValue)},
             {"Timestamp",
              crow::utility::getDateTime(static_cast<time_t>(timestamp))},
         });
     }
 
-    return metricValues;
+    return true;
 }
 
 inline bool fillReport(nlohmann::json& json, const std::string& id,
                        const std::variant<TimestampReadings>& var)
 {
-    json["@odata.type"] = "#MetricReport.v1_3_0.MetricReport";
-    json["@odata.id"] = telemetry::metricReportUri + std::string("/") + id;
-    json["Id"] = id;
-    json["Name"] = id;
-    json["MetricReportDefinition"]["@odata.id"] =
-        telemetry::metricReportDefinitionUri + std::string("/") + id;
-
     const TimestampReadings* timestampReadings =
         std::get_if<TimestampReadings>(&var);
     if (!timestampReadings)
@@ -53,9 +76,22 @@ inline bool fillReport(nlohmann::json& json, const std::string& id,
     }
 
     const auto& [timestamp, readings] = *timestampReadings;
+    nlohmann::json metricValues = nlohmann::json::array();
+    if (!fillMetricValues(metricValues, readings))
+    {
+        return false;
+    }
+
+    json["@odata.type"] = "#MetricReport.v1_3_0.MetricReport";
+    json["@odata.id"] = telemetry::metricReportUri + std::string("/") + id;
+    json["Id"] = id;
+    json["Name"] = id;
+    json["MetricReportDefinition"]["@odata.id"] =
+        telemetry::metricReportDefinitionUri + std::string("/") + id;
     json["Timestamp"] =
         crow::utility::getDateTime(static_cast<time_t>(timestamp));
-    json["MetricValues"] = toMetricValues(readings);
+    json["MetricValues"] = metricValues;
+
     return true;
 }
 } // namespace telemetry
