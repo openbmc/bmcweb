@@ -1370,6 +1370,24 @@ inline void setBootModeOrSource(std::shared_ptr<bmcweb::AsyncResp> aResp,
     bool oneTimeSetting = oneTimeEnabled;
     bool useBootSource = true;
 
+    bool bootValid = true;
+    const char* bootValidObj =
+        "/xyz/openbmc_project/control/host0/boot/one_time";
+    crow::connections::systemBus->async_method_call(
+        [aResp](const boost::system::error_code ec) {
+            if (ec)
+            {
+                BMCWEB_LOG_DEBUG << "DBUS response error " << ec;
+                messages::internalError(aResp->res);
+                return;
+            }
+            BMCWEB_LOG_DEBUG << "Boot source update done.";
+        },
+        "xyz.openbmc_project.Settings", bootValidObj,
+        "org.freedesktop.DBus.Properties", "Set",
+        "xyz.openbmc_project.Control.Boot.Source", "Valid",
+        std::variant<bool>(bootValid));
+
     // Validate incoming parameters
     if (bootEnable)
     {
