@@ -280,9 +280,9 @@ class AddReport
         for (const auto& [id, uris] : args.metrics)
         {
             std::vector<sdbusplus::message::object_path> dbusPaths;
+            MetricMetadata metadata;
             dbusPaths.reserve(uris.size());
-            nlohmann::json metadata;
-            metadata["MetricProperties"] = nlohmann::json::array();
+            metadata.metricProperties.reserve(uris.size());
 
             for (size_t i = 0; i < uris.size(); i++)
             {
@@ -301,11 +301,12 @@ class AddReport
 
                 const std::string& dbusPath = el->second;
                 dbusPaths.emplace_back(dbusPath);
-                metadata["MetricProperties"].emplace_back(uri);
+                metadata.metricProperties.emplace_back(uri);
             }
 
-            readingParams.emplace_back(dbusPaths, "SINGLE", id, metadata.dump(),
-                                       "Point", 0u);
+            readingParams.emplace_back(dbusPaths, "SINGLE", id,
+                                       nlohmann::json(metadata).dump(), "Point",
+                                       0u);
         }
         const std::shared_ptr<bmcweb::AsyncResp> aResp = asyncResp;
         crow::connections::systemBus->async_method_call(
