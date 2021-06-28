@@ -97,6 +97,30 @@
     },
     {
       "key": {
+        "uuid": "c3e8cc72_8c836012",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2021-06-28T07:47:38Z",
+      "side": 1,
+      "message": "DHCP address is not in  IPv4StaticAddresses, but when we try to patch  IPv4StaticAddresses with null, its deleting DHCP address which is not correct.\nthis commit corrects this behaviour by not allowing IPv4StaticAddresses patch while DHCP enabled.(as discussed we support only one IP on this hypervisor interface)",
+      "parentUuid": "3e9250ab_2b2cc313",
+      "range": {
+        "startLine": 12,
+        "startChar": 0,
+        "endLine": 13,
+        "endChar": 14
+      },
+      "revId": "3274f33d4cfddd228c9bc080403c893e3b17c48c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "ccf2ef72_d331e35e",
         "filename": "/COMMIT_MSG",
         "patchSetId": 5
