@@ -117,6 +117,30 @@
       "revId": "0471ce43dea36330d7daa13c8987ea65df2339fd",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "13074c90_d0c0c458",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 615,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2021-06-28T00:16:23Z",
+      "side": 1,
+      "message": "Done. I just pass in a string to support different action types.",
+      "parentUuid": "f4949811_3806509d",
+      "range": {
+        "startLine": 615,
+        "startChar": 60,
+        "endLine": 615,
+        "endChar": 70
+      },
+      "revId": "0471ce43dea36330d7daa13c8987ea65df2339fd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
