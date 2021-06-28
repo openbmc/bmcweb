@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ca076fb3_346c567d",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 617,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-06-28T18:37:19Z",
+      "side": 1,
+      "message": "What about \n/redfish/v1/Systems/system/Storage/\u003cstr\u003e/Drives/badDriveId ?\n\nWhat about /redfish/v1/Systems/system/Storage/badStorageId/Drives/... ?\n\nhttps://github.com/openbmc/bmcweb/blob/master/COMMON_ERRORS.md#11-not-responding-to-404\n\nSame above in the Post",
+      "revId": "6359e533284eba9691f44f0bfecc97a8646d4616",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
