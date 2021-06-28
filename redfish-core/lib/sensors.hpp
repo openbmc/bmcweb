@@ -21,6 +21,7 @@
 #include <boost/container/flat_map.hpp>
 #include <boost/range/algorithm/replace_copy_if.hpp>
 #include <dbus_singleton.hpp>
+#include <dbus_utility.hpp>
 #include <utils/json_utils.hpp>
 
 #include <cmath>
