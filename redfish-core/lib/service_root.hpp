@@ -17,18 +17,16 @@
 
 #include <app.hpp>
 #include <utils/systemd_utils.hpp>
+#include <persistent_data.hpp>
 
 namespace redfish
 {
 
-inline void requestRoutesServiceRoot(App& app)
-{
-    std::string uuid = persistent_data::getConfig().systemUuid;
-    BMCWEB_ROUTE(app, "/redfish/v1/")
-        .privileges({})
-        .methods(boost::beast::http::verb::get)(
-            [uuid](const crow::Request&,
-                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
+            void handleServiceRootGet(const crow::Request&,
+                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
+            {
+
+                std::string uuid = persistent_data::getConfig().systemUuid;
                 asyncResp->res.jsonValue["@odata.type"] =
                     "#ServiceRoot.v1_5_0.ServiceRoot";
                 asyncResp->res.jsonValue["@odata.id"] = "/redfish/v1";
@@ -63,7 +61,13 @@ inline void requestRoutesServiceRoot(App& app)
                     {"@odata.id", "/redfish/v1/EventService"}};
                 asyncResp->res.jsonValue["TelemetryService"] = {
                     {"@odata.id", "/redfish/v1/TelemetryService"}};
-            });
+            }
+
+inline void requestRoutesServiceRoot(App& app)
+{
+    BMCWEB_ROUTE(app, "/redfish/v1/")
+        .privileges({})
+        .methods(boost::beast::http::verb::get)(handleServiceRootGet);
 }
 
 } // namespace redfish
