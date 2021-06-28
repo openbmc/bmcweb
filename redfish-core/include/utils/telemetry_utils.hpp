@@ -17,6 +17,53 @@ constexpr const char* metricReportDefinitionUri =
 constexpr const char* metricReportUri =
     "/redfish/v1/TelemetryService/MetricReports/";
 
+inline std::optional<nlohmann::json>
+    getMetadataJson(const std::string& metadataStr)
+{
+    std::optional<nlohmann::json> res =
+        nlohmann::json::parse(metadataStr, nullptr, false);
+    if (res->is_discarded())
+    {
+        BMCWEB_LOG_ERROR << "Malformed reading metatadata JSON provided by "
+                            "telemetry service.";
+        return std::nullopt;
+    }
+    return res;
+}
+
+inline std::optional<std::string>
+    readStringFromMetadata(const nlohmann::json& metadataJson, const char* key)
+{
+    std::optional<std::string> res;
+    if (auto it = metadataJson.find(key); it != metadataJson.end())
+    {
+        if (it->type() == nlohmann::json::value_t::string)
+        {
+            res = it->get<std::string>();
+        }
+        else
+        {
+            BMCWEB_LOG_ERROR << "Incorrect reading metatadata JSON provided by "
+                                "telemetry service. Missing key '"
+                             << key << "'.";
+        }
+    }
+    else
+    {
+        BMCWEB_LOG_ERROR << "Incorrect reading metatadata JSON provided by "
+                            "telemetry service. Key '"
+                         << key << "' has a wrong type.";
+    }
+    return res;
+}
+
+inline std::optional<std::string>
+    readStringFromMetadata(const nlohmann::json& metadataJson,
+                           const std::string& key)
+{
+    return readStringFromMetadata(metadataJson, key.c_str());
+}
+
 inline void
     getReportCollection(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                         const std::string& uri)

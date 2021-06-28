@@ -199,8 +199,8 @@ class SensorsAsyncResp
             boost::beast::http::status::internal_server_error)
         {
             // Reset the json object to clear out any data that made it in
-            // before the error happened todo(ed) handle error condition with
-            // proper code
+            // before the error happened todo(ed) handle error condition
+            // with proper code
             asyncResp->res.jsonValue = nlohmann::json::object();
         }
 
@@ -333,8 +333,8 @@ void getObjectsWithConnection(
 
         BMCWEB_LOG_DEBUG << "Found " << subtree.size() << " subtrees";
 
-        // Make unique list of connections only for requested sensor types and
-        // found in the chassis
+        // Make unique list of connections only for requested sensor types
+        // and found in the chassis
         boost::container::flat_set<std::string> connections;
         std::set<std::pair<std::string, std::string>> objectsWithConnection;
         // Intrinsic to avoid malloc.  Most systems will have < 8 sensor
@@ -500,7 +500,8 @@ void getValidChassisPath(const std::shared_ptr<SensorsAsyncResp>& asyncResp,
 }
 
 /**
- * @brief Retrieves requested chassis sensors and redundancy data from DBus .
+ * @brief Retrieves requested chassis sensors and redundancy data from DBus
+ * .
  * @param SensorsAsyncResp   Pointer to object holding response data
  * @param callback  Callback for next step in gathered sensor processing
  */
@@ -641,8 +642,8 @@ void getChassis(const std::shared_ptr<SensorsAsyncResp>& sensorsAsyncResp,
  *
  * Creates a mapping from the associated connection name to the object path.
  *
- * Finds the object paths asynchronously.  Invokes callback when information has
- * been obtained.
+ * Finds the object paths asynchronously.  Invokes callback when information
+ * has been obtained.
  *
  * The callback must have the following signature:
  *   @code
@@ -727,8 +728,8 @@ inline std::string getState(const InventoryItem* inventoryItem)
  * @brief Returns the Redfish Health value for the specified sensor.
  * @param sensorJson Sensor JSON object.
  * @param interfacesDict Map of all sensor interfaces.
- * @param inventoryItem D-Bus inventory item associated with the sensor.  Will
- * be nullptr if no associated inventory item was found.
+ * @param inventoryItem D-Bus inventory item associated with the sensor.
+ * Will be nullptr if no associated inventory item was found.
  * @return Health value for sensor.
  */
 inline std::string getHealth(
@@ -738,9 +739,10 @@ inline std::string getHealth(
         interfacesDict,
     const InventoryItem* inventoryItem)
 {
-    // Get current health value (if any) in the sensor JSON object.  Some JSON
-    // objects contain multiple sensors (such as PowerSupplies).  We want to set
-    // the overall health to be the most severe of any of the sensors.
+    // Get current health value (if any) in the sensor JSON object.  Some
+    // JSON objects contain multiple sensors (such as PowerSupplies).  We
+    // want to set the overall health to be the most severe of any of the
+    // sensors.
     std::string currentHealth;
     auto statusIt = sensorJson.find("Status");
     if (statusIt != sensorJson.end())
@@ -756,8 +758,8 @@ inline std::string getHealth(
         }
     }
 
-    // If current health in JSON object is already Critical, return that.  This
-    // should override the sensor health, which might be less severe.
+    // If current health in JSON object is already Critical, return that.
+    // This should override the sensor health, which might be less severe.
     if (currentHealth == "Critical")
     {
         return "Critical";
@@ -804,8 +806,8 @@ inline std::string getHealth(
         return "Critical";
     }
 
-    // If current health in JSON object is already Warning, return that.  This
-    // should override the sensor status, which might be less severe.
+    // If current health in JSON object is already Warning, return that.
+    // This should override the sensor status, which might be less severe.
     if (currentHealth == "Warning")
     {
         return "Warning";
@@ -877,11 +879,11 @@ inline void setLedState(nlohmann::json& sensorJson,
  * @param sensorType  The type (temperature, fan_tach, etc) of the sensor to
  * build
  * @param sensorsAsyncResp  Sensor metadata
- * @param interfacesDict  A dictionary of the interfaces and properties of said
- * interfaces to be built from
+ * @param interfacesDict  A dictionary of the interfaces and properties of
+ * said interfaces to be built from
  * @param sensor_json  The json object to fill
- * @param inventoryItem D-Bus inventory item associated with the sensor.  Will
- * be nullptr if no associated inventory item was found.
+ * @param inventoryItem D-Bus inventory item associated with the sensor.
+ * Will be nullptr if no associated inventory item was found.
  */
 inline void objectInterfacesToJson(
     const std::string& sensorName, const std::string& sensorType,
@@ -922,9 +924,9 @@ inline void objectInterfacesToJson(
     }
     else if (sensorType != "power")
     {
-        // Set MemberId and Name for non-power sensors.  For PowerSupplies and
-        // PowerControl, those properties have more general values because
-        // multiple sensors can be stored in the same JSON object.
+        // Set MemberId and Name for non-power sensors.  For PowerSupplies
+        // and PowerControl, those properties have more general values
+        // because multiple sensors can be stored in the same JSON object.
         sensorJson["MemberId"] = sensorName;
         sensorJson["Name"] = boost::replace_all_copy(sensorName, "_", " ");
     }
@@ -933,9 +935,9 @@ inline void objectInterfacesToJson(
     sensorJson["Status"]["Health"] =
         getHealth(sensorJson, interfacesDict, inventoryItem);
 
-    // Parameter to set to override the type we get from dbus, and force it to
-    // int, regardless of what is available.  This is used for schemas like fan,
-    // that require integers, not floats.
+    // Parameter to set to override the type we get from dbus, and force it
+    // to int, regardless of what is available.  This is used for schemas
+    // like fan, that require integers, not floats.
     bool forceToInt = false;
 
     nlohmann::json::json_pointer unit("/Reading");
@@ -1021,7 +1023,8 @@ inline void objectInterfacesToJson(
         BMCWEB_LOG_ERROR << "Redfish cannot map object type for " << sensorName;
         return;
     }
-    // Map of dbus interface name, dbus property name and redfish property_name
+    // Map of dbus interface name, dbus property name and redfish
+    // property_name
     std::vector<
         std::tuple<const char*, const char*, nlohmann::json::json_pointer>>
         properties;
@@ -1289,9 +1292,10 @@ inline void populateFanRedundancy(
                                         continue;
                                     }
                                     /*
-                                    todo(ed): merge patch that fixes the names
-                                    std::replace(itemName.begin(),
-                                                 itemName.end(), '_', ' ');*/
+                                    todo(ed): merge patch that fixes the
+                                    names std::replace(itemName.begin(),
+                                                 itemName.end(), '_', '
+                                    ');*/
                                     auto schemaItem = std::find_if(
                                         fanRedfish.begin(), fanRedfish.end(),
                                         [itemName](const nlohmann::json& fan) {
@@ -1306,7 +1310,8 @@ inline void populateFanRedundancy(
                                     else
                                     {
                                         BMCWEB_LOG_ERROR
-                                            << "failed to find fan in schema";
+                                            << "failed to find fan in "
+                                               "schema";
                                         messages::internalError(
                                             sensorsAsyncResp->asyncResp->res);
                                         return;
@@ -1459,11 +1464,11 @@ inline InventoryItem*
  * @brief Adds inventory item and associated sensor to specified vector.
  *
  * Adds a new InventoryItem to the vector if necessary.  Searches for an
- * existing InventoryItem with the specified object path.  If not found, one is
- * added to the vector.
+ * existing InventoryItem with the specified object path.  If not found, one
+ * is added to the vector.
  *
- * Next, the specified sensor is added to the set of sensors associated with the
- * InventoryItem.
+ * Next, the specified sensor is added to the set of sensors associated with
+ * the InventoryItem.
  *
  * @param inventoryItems D-Bus inventory items associated with sensors.
  * @param invItemObjPath D-Bus object path of inventory item.
@@ -1491,15 +1496,15 @@ inline void addInventoryItem(
 /**
  * @brief Stores D-Bus data in the specified inventory item.
  *
- * Finds D-Bus data in the specified map of interfaces.  Stores the data in the
- * specified InventoryItem.
+ * Finds D-Bus data in the specified map of interfaces.  Stores the data in
+ * the specified InventoryItem.
  *
  * This data is later used to provide sensor property values in the JSON
  * response.
  *
  * @param inventoryItem Inventory item where data will be stored.
- * @param interfacesDict Map containing D-Bus interfaces and their properties
- * for the specified inventory item.
+ * @param interfacesDict Map containing D-Bus interfaces and their
+ * properties for the specified inventory item.
  */
 inline void storeInventoryItemData(
     InventoryItem& inventoryItem,
@@ -1601,33 +1606,34 @@ inline void storeInventoryItemData(
 /**
  * @brief Gets D-Bus data for inventory items associated with sensors.
  *
- * Uses the specified connections (services) to obtain D-Bus data for inventory
- * items associated with sensors.  Stores the resulting data in the
- * inventoryItems vector.
+ * Uses the specified connections (services) to obtain D-Bus data for
+ * inventory items associated with sensors.  Stores the resulting data in
+ * the inventoryItems vector.
  *
  * This data is later used to provide sensor property values in the JSON
  * response.
  *
- * Finds the inventory item data asynchronously.  Invokes callback when data has
- * been obtained.
+ * Finds the inventory item data asynchronously.  Invokes callback when data
+ * has been obtained.
  *
  * The callback must have the following signature:
  *   @code
  *   callback(void)
  *   @endcode
  *
- * This function is called recursively, obtaining data asynchronously from one
- * connection in each call.  This ensures the callback is not invoked until the
- * last asynchronous function has completed.
+ * This function is called recursively, obtaining data asynchronously from
+ * one connection in each call.  This ensures the callback is not invoked
+ * until the last asynchronous function has completed.
  *
  * @param sensorsAsyncResp Pointer to object holding response data.
  * @param inventoryItems D-Bus inventory items associated with sensors.
- * @param invConnections Connections that provide data for the inventory items.
- * @param objectMgrPaths Mappings from connection name to DBus object path that
- * implements ObjectManager.
+ * @param invConnections Connections that provide data for the inventory
+ * items.
+ * @param objectMgrPaths Mappings from connection name to DBus object path
+ * that implements ObjectManager.
  * @param callback Callback to invoke when inventory data has been obtained.
- * @param invConnectionsIndex Current index in invConnections.  Only specified
- * in recursive calls to this function.
+ * @param invConnectionsIndex Current index in invConnections.  Only
+ * specified in recursive calls to this function.
  */
 template <typename Callback>
 static void getInventoryItemsData(
@@ -1675,7 +1681,8 @@ static void getInventoryItemsData(
                 const std::string& objPath =
                     static_cast<const std::string&>(objDictEntry.first);
 
-                // If this object path is one of the specified inventory items
+                // If this object path is one of the specified inventory
+                // items
                 InventoryItem* inventoryItem =
                     findInventoryItem(inventoryItems, objPath);
                 if (inventoryItem != nullptr)
@@ -1693,8 +1700,8 @@ static void getInventoryItemsData(
             BMCWEB_LOG_DEBUG << "getInventoryItemsData respHandler exit";
         };
 
-        // Find DBus object path that implements ObjectManager for the current
-        // connection.  If no mapping found, default to "/".
+        // Find DBus object path that implements ObjectManager for the
+        // current connection.  If no mapping found, default to "/".
         auto iter = objectMgrPaths->find(invConnection);
         const std::string& objectMgrPath =
             (iter != objectMgrPaths->end()) ? iter->second : "/";
@@ -1716,8 +1723,8 @@ static void getInventoryItemsData(
  * Gets the D-Bus connections (services) that provide data for the inventory
  * items that are associated with sensors.
  *
- * Finds the connections asynchronously.  Invokes callback when information has
- * been obtained.
+ * Finds the connections asynchronously.  Invokes callback when information
+ * has been obtained.
  *
  * The callback must have the following signature:
  *   @code
@@ -1799,11 +1806,11 @@ static void getInventoryItemsConnections(
  * @brief Gets associations from sensors to inventory items.
  *
  * Looks for ObjectMapper associations from the specified sensors to related
- * inventory items. Then finds the associations from those inventory items to
- * their LEDs, if any.
+ * inventory items. Then finds the associations from those inventory items
+ * to their LEDs, if any.
  *
- * Finds the inventory items asynchronously.  Invokes callback when information
- * has been obtained.
+ * Finds the inventory items asynchronously.  Invokes callback when
+ * information has been obtained.
  *
  * The callback must have the following signature:
  *   @code
@@ -1812,9 +1819,10 @@ static void getInventoryItemsConnections(
  *
  * @param sensorsAsyncResp Pointer to object holding response data.
  * @param sensorNames All sensors within the current chassis.
- * @param objectMgrPaths Mappings from connection name to DBus object path that
- * implements ObjectManager.
- * @param callback Callback to invoke when inventory items have been obtained.
+ * @param objectMgrPaths Mappings from connection name to DBus object path
+ * that implements ObjectManager.
+ * @param callback Callback to invoke when inventory items have been
+ * obtained.
  */
 template <typename Callback>
 static void getInventoryItemAssociations(
@@ -1855,7 +1863,8 @@ static void getInventoryItemAssociations(
                                  std::string, dbus::utility::DbusVariantType>>&
                 interfacesDict = objDictEntry.second;
 
-            // If path is inventory association for one of the specified sensors
+            // If path is inventory association for one of the specified
+            // sensors
             for (const std::string& sensorName : *sensorNames)
             {
                 sensorAssocPath = sensorName;
@@ -1955,31 +1964,32 @@ static void getInventoryItemAssociations(
 /**
  * @brief Gets D-Bus data for inventory item leds associated with sensors.
  *
- * Uses the specified connections (services) to obtain D-Bus data for inventory
- * item leds associated with sensors.  Stores the resulting data in the
- * inventoryItems vector.
+ * Uses the specified connections (services) to obtain D-Bus data for
+ * inventory item leds associated with sensors.  Stores the resulting data
+ * in the inventoryItems vector.
  *
  * This data is later used to provide sensor property values in the JSON
  * response.
  *
- * Finds the inventory item led data asynchronously.  Invokes callback when data
- * has been obtained.
+ * Finds the inventory item led data asynchronously.  Invokes callback when
+ * data has been obtained.
  *
  * The callback must have the following signature:
  *   @code
  *   callback()
  *   @endcode
  *
- * This function is called recursively, obtaining data asynchronously from one
- * connection in each call.  This ensures the callback is not invoked until the
- * last asynchronous function has completed.
+ * This function is called recursively, obtaining data asynchronously from
+ * one connection in each call.  This ensures the callback is not invoked
+ * until the last asynchronous function has completed.
  *
  * @param sensorsAsyncResp Pointer to object holding response data.
  * @param inventoryItems D-Bus inventory items associated with sensors.
- * @param ledConnections Connections that provide data for the inventory leds.
+ * @param ledConnections Connections that provide data for the inventory
+ * leds.
  * @param callback Callback to invoke when inventory data has been obtained.
- * @param ledConnectionsIndex Current index in ledConnections.  Only specified
- * in recursive calls to this function.
+ * @param ledConnectionsIndex Current index in ledConnections.  Only
+ * specified in recursive calls to this function.
  */
 template <typename Callback>
 void getInventoryLedData(
@@ -2076,8 +2086,8 @@ void getInventoryLedData(
  * @brief Gets LED data for LEDs associated with given inventory items.
  *
  * Gets the D-Bus connections (services) that provide LED data for the LEDs
- * associated with the specified inventory items.  Then gets the LED data from
- * each connection and stores it in the inventory item.
+ * associated with the specified inventory items.  Then gets the LED data
+ * from each connection and stores it in the inventory item.
  *
  * This data is later used to provide sensor property values in the JSON
  * response.
@@ -2092,7 +2102,8 @@ void getInventoryLedData(
  *
  * @param sensorsAsyncResp Pointer to object holding response data.
  * @param inventoryItems D-Bus inventory items associated with sensors.
- * @param callback Callback to invoke when inventory items have been obtained.
+ * @param callback Callback to invoke when inventory items have been
+ * obtained.
  */
 template <typename Callback>
 void getInventoryLeds(
@@ -2130,8 +2141,8 @@ void getInventoryLeds(
                  std::vector<std::pair<std::string, std::vector<std::string>>>>&
                  object : subtree)
         {
-            // Check if object path is LED for one of the specified inventory
-            // items
+            // Check if object path is LED for one of the specified
+            // inventory items
             const std::string& ledPath = object.first;
             if (findInventoryItemForLed(*inventoryItems, ledPath) != nullptr)
             {
@@ -2156,11 +2167,13 @@ void getInventoryLeds(
 }
 
 /**
- * @brief Gets D-Bus data for Power Supply Attributes such as EfficiencyPercent
+ * @brief Gets D-Bus data for Power Supply Attributes such as
+ * EfficiencyPercent
  *
  * Uses the specified connections (services) (currently assumes just one) to
- * obtain D-Bus data for Power Supply Attributes. Stores the resulting data in
- * the inventoryItems vector. Only stores data in Power Supply inventoryItems.
+ * obtain D-Bus data for Power Supply Attributes. Stores the resulting data
+ * in the inventoryItems vector. Only stores data in Power Supply
+ * inventoryItems.
  *
  * This data is later used to provide sensor property values in the JSON
  * response.
@@ -2175,8 +2188,8 @@ void getInventoryLeds(
  *
  * @param sensorsAsyncResp Pointer to object holding response data.
  * @param inventoryItems D-Bus inventory items associated with sensors.
- * @param psAttributesConnections Connections that provide data for the Power
- *        Supply Attributes
+ * @param psAttributesConnections Connections that provide data for the
+ * Power Supply Attributes
  * @param callback Callback to invoke when data has been obtained.
  */
 template <typename Callback>
@@ -2232,8 +2245,8 @@ void getPowerSupplyAttributesData(
         }
         else
         {
-            BMCWEB_LOG_DEBUG
-                << "Failed to find EfficiencyPercent value for PowerSupplies";
+            BMCWEB_LOG_DEBUG << "Failed to find EfficiencyPercent value "
+                                "for PowerSupplies";
         }
 
         BMCWEB_LOG_DEBUG << "getPowerSupplyAttributesData respHandler exit";
@@ -2255,11 +2268,12 @@ void getPowerSupplyAttributesData(
  *
  * Gets the D-Bus connection (service) that provides Power Supply Attributes
  * data. Then gets the Power Supply Attributes data from the connection
- * (currently just assumes 1 connection) and stores the data in the inventory
- * item.
+ * (currently just assumes 1 connection) and stores the data in the
+ * inventory item.
  *
  * This data is later used to provide sensor property values in the JSON
- * response. DeratingFactor on D-Bus is mapped to EfficiencyPercent on Redfish.
+ * response. DeratingFactor on D-Bus is mapped to EfficiencyPercent on
+ * Redfish.
  *
  * Finds the Power Supply Attributes data asynchronously. Invokes callback
  * when information has been obtained.
@@ -2371,9 +2385,10 @@ void getPowerSupplyAttributes(
  *
  * @param sensorsAsyncResp Pointer to object holding response data.
  * @param sensorNames All sensors within the current chassis.
- * @param objectMgrPaths Mappings from connection name to DBus object path that
- * implements ObjectManager.
- * @param callback Callback to invoke when inventory items have been obtained.
+ * @param objectMgrPaths Mappings from connection name to DBus object path
+ * that implements ObjectManager.
+ * @param callback Callback to invoke when inventory items have been
+ * obtained.
  */
 template <typename Callback>
 static void getInventoryItems(
@@ -2440,15 +2455,16 @@ static void getInventoryItems(
 /**
  * @brief Returns JSON PowerSupply object for the specified inventory item.
  *
- * Searches for a JSON PowerSupply object that matches the specified inventory
- * item.  If one is not found, a new PowerSupply object is added to the JSON
- * array.
+ * Searches for a JSON PowerSupply object that matches the specified
+ * inventory item.  If one is not found, a new PowerSupply object is added
+ * to the JSON array.
  *
- * Multiple sensors are often associated with one power supply inventory item.
- * As a result, multiple sensor values are stored in one JSON PowerSupply
- * object.
+ * Multiple sensors are often associated with one power supply inventory
+ * item. As a result, multiple sensor values are stored in one JSON
+ * PowerSupply object.
  *
- * @param powerSupplyArray JSON array containing Redfish PowerSupply objects.
+ * @param powerSupplyArray JSON array containing Redfish PowerSupply
+ * objects.
  * @param inventoryItem Inventory item for the power supply.
  * @param chassisId Chassis that contains the power supply.
  * @return JSON PowerSupply object for the specified inventory item.
@@ -2500,25 +2516,28 @@ inline nlohmann::json& getPowerSupply(nlohmann::json& powerSupplyArray,
  * Gets the sensor values asynchronously.  Stores the results later when the
  * information has been obtained.
  *
- * The sensorNames set contains all requested sensors for the current chassis.
+ * The sensorNames set contains all requested sensors for the current
+ * chassis.
  *
  * To minimize the number of DBus calls, the DBus method
  * org.freedesktop.DBus.ObjectManager.GetManagedObjects() is used to get the
  * values of all sensors provided by a connection (service).
  *
- * The connections set contains all the connections that provide sensor values.
+ * The connections set contains all the connections that provide sensor
+ * values.
  *
  * The objectMgrPaths map contains mappings from a connection name to the
  * corresponding DBus object path that implements ObjectManager.
  *
- * The InventoryItem vector contains D-Bus inventory items associated with the
- * sensors.  Inventory item data is needed for some Redfish sensor properties.
+ * The InventoryItem vector contains D-Bus inventory items associated with
+ * the sensors.  Inventory item data is needed for some Redfish sensor
+ * properties.
  *
  * @param SensorsAsyncResp Pointer to object holding response data.
  * @param sensorNames All requested sensors within the current chassis.
  * @param connections Connections that provide sensor values.
- * @param objectMgrPaths Mappings from connection name to DBus object path that
- * implements ObjectManager.
+ * @param objectMgrPaths Mappings from connection name to DBus object path
+ * that implements ObjectManager.
  * @param inventoryItems Inventory items associated with the sensors.
  */
 inline void getSensorData(
@@ -2564,8 +2583,8 @@ inline void getSensorData(
                                      << objPath;
                     continue;
                 }
-                // These indexes aren't intuitive, as boost::split puts an empty
-                // string at the beginning
+                // These indexes aren't intuitive, as boost::split puts an
+                // empty string at the beginning
                 const std::string& sensorType = split[4];
                 const std::string& sensorName = split[5];
                 BMCWEB_LOG_DEBUG << "sensorName " << sensorName
@@ -2690,8 +2709,8 @@ inline void getSensorData(
             BMCWEB_LOG_DEBUG << "getManagedObjectsCb exit";
         };
 
-        // Find DBus object path that implements ObjectManager for the current
-        // connection.  If no mapping found, default to "/".
+        // Find DBus object path that implements ObjectManager for the
+        // current connection.  If no mapping found, default to "/".
         auto iter = objectMgrPaths->find(connection);
         const std::string& objectMgrPath =
             (iter != objectMgrPaths->end()) ? iter->second : "/";
@@ -2776,13 +2795,13 @@ inline void
 }
 
 /**
- * @brief Find the requested sensorName in the list of all sensors supplied by
- * the chassis node
+ * @brief Find the requested sensorName in the list of all sensors supplied
+ * by the chassis node
  *
  * @param sensorName   The sensor name supplied in the PATCH request
  * @param sensorsList  The list of sensors managed by the chassis node
- * @param sensorsModified  The list of sensors that were found as a result of
- *                         repeated calls to this function
+ * @param sensorsModified  The list of sensors that were found as a result
+ * of repeated calls to this function
  */
 inline bool findSensorNameUsingSensorPath(
     std::string_view sensorName,
@@ -2810,7 +2829,8 @@ inline bool findSensorNameUsingSensorPath(
  * @brief Entry point for overriding sensor values of given sensor
  *
  * @param sensorAsyncResp   response object
- * @param allCollections   Collections extract from sensors' request patch info
+ * @param allCollections   Collections extract from sensors' request patch
+ * info
  * @param chassisSubNode   Chassis Node for which the query has to happen
  */
 inline void setSensorsOverride(
@@ -2852,104 +2872,109 @@ inline void setSensorsOverride(
         }
     }
 
-    auto getChassisSensorListCb = [sensorAsyncResp, overrideMap](
-                                      const std::shared_ptr<
-                                          boost::container::flat_set<
-                                              std::string>>& sensorsList) {
-        // Match sensor names in the PATCH request to those managed by the
-        // chassis node
-        const std::shared_ptr<boost::container::flat_set<std::string>>
-            sensorNames =
-                std::make_shared<boost::container::flat_set<std::string>>();
-        for (const auto& item : overrideMap)
-        {
-            const auto& sensor = item.first;
-            if (!findSensorNameUsingSensorPath(sensor, *sensorsList,
-                                               *sensorNames))
+    auto getChassisSensorListCb =
+        [sensorAsyncResp, overrideMap](
+            const std::shared_ptr<boost::container::flat_set<std::string>>&
+                sensorsList) {
+            // Match sensor names in the PATCH request to those managed by the
+            // chassis node
+            const std::shared_ptr<boost::container::flat_set<std::string>>
+                sensorNames =
+                    std::make_shared<boost::container::flat_set<std::string>>();
+            for (const auto& item : overrideMap)
             {
-                BMCWEB_LOG_INFO << "Unable to find memberId " << item.first;
-                messages::resourceNotFound(sensorAsyncResp->asyncResp->res,
-                                           item.second.second, item.first);
-                return;
-            }
-        }
-        // Get the connection to which the memberId belongs
-        auto getObjectsWithConnectionCb =
-            [sensorAsyncResp, overrideMap](
-                const boost::container::flat_set<std::string>& /*connections*/,
-                const std::set<std::pair<std::string, std::string>>&
-                    objectsWithConnection) {
-                if (objectsWithConnection.size() != overrideMap.size())
+                const auto& sensor = item.first;
+                if (!findSensorNameUsingSensorPath(sensor, *sensorsList,
+                                                   *sensorNames))
                 {
-                    BMCWEB_LOG_INFO
-                        << "Unable to find all objects with proper connection "
-                        << objectsWithConnection.size() << " requested "
-                        << overrideMap.size() << "\n";
-                    messages::resourceNotFound(
-                        sensorAsyncResp->asyncResp->res,
-                        sensorAsyncResp->chassisSubNode ==
-                                sensors::node::thermal
-                            ? "Temperatures"
-                            : "Voltages",
-                        "Count");
+                    BMCWEB_LOG_INFO << "Unable to find memberId " << item.first;
+                    messages::resourceNotFound(sensorAsyncResp->asyncResp->res,
+                                               item.second.second, item.first);
                     return;
                 }
-                for (const auto& item : objectsWithConnection)
-                {
-                    sdbusplus::message::object_path path(item.first);
-                    std::string sensorName = path.filename();
-                    if (sensorName.empty())
+            }
+            // Get the connection to which the memberId belongs
+            auto getObjectsWithConnectionCb =
+                [sensorAsyncResp, overrideMap](
+                    const boost::container::flat_set<
+                        std::string>& /*connections*/,
+                    const std::set<std::pair<std::string, std::string>>&
+                        objectsWithConnection) {
+                    if (objectsWithConnection.size() != overrideMap.size())
                     {
-                        messages::internalError(
-                            sensorAsyncResp->asyncResp->res);
+                        BMCWEB_LOG_INFO << "Unable to find all objects with "
+                                           "proper connection "
+                                        << objectsWithConnection.size()
+                                        << " requested " << overrideMap.size()
+                                        << "\n";
+                        messages::resourceNotFound(
+                            sensorAsyncResp->asyncResp->res,
+                            sensorAsyncResp->chassisSubNode ==
+                                    sensors::node::thermal
+                                ? "Temperatures"
+                                : "Voltages",
+                            "Count");
                         return;
                     }
+                    for (const auto& item : objectsWithConnection)
+                    {
+                        sdbusplus::message::object_path path(item.first);
+                        std::string sensorName = path.filename();
+                        if (sensorName.empty())
+                        {
+                            messages::internalError(
+                                sensorAsyncResp->asyncResp->res);
+                            return;
+                        }
 
-                    const auto& iterator = overrideMap.find(sensorName);
-                    if (iterator == overrideMap.end())
-                    {
-                        BMCWEB_LOG_INFO << "Unable to find sensor object"
-                                        << item.first << "\n";
-                        messages::internalError(
-                            sensorAsyncResp->asyncResp->res);
-                        return;
+                        const auto& iterator = overrideMap.find(sensorName);
+                        if (iterator == overrideMap.end())
+                        {
+                            BMCWEB_LOG_INFO << "Unable to find sensor object"
+                                            << item.first << "\n";
+                            messages::internalError(
+                                sensorAsyncResp->asyncResp->res);
+                            return;
+                        }
+                        crow::connections::systemBus->async_method_call(
+                            [sensorAsyncResp](
+                                const boost::system::error_code ec) {
+                                if (ec)
+                                {
+                                    BMCWEB_LOG_DEBUG
+                                        << "setOverrideValueStatus DBUS error: "
+                                        << ec;
+                                    messages::internalError(
+                                        sensorAsyncResp->asyncResp->res);
+                                    return;
+                                }
+                            },
+                            item.second, item.first,
+                            "org.freedesktop.DBus.Properties", "Set",
+                            "xyz.openbmc_project.Sensor.Value", "Value",
+                            std::variant<double>(iterator->second.first));
                     }
-                    crow::connections::systemBus->async_method_call(
-                        [sensorAsyncResp](const boost::system::error_code ec) {
-                            if (ec)
-                            {
-                                BMCWEB_LOG_DEBUG
-                                    << "setOverrideValueStatus DBUS error: "
-                                    << ec;
-                                messages::internalError(
-                                    sensorAsyncResp->asyncResp->res);
-                                return;
-                            }
-                        },
-                        item.second, item.first,
-                        "org.freedesktop.DBus.Properties", "Set",
-                        "xyz.openbmc_project.Sensor.Value", "Value",
-                        std::variant<double>(iterator->second.first));
-                }
-            };
-        // Get object with connection for the given sensor name
-        getObjectsWithConnection(sensorAsyncResp, sensorNames,
-                                 std::move(getObjectsWithConnectionCb));
-    };
-    // get full sensor list for the given chassisId and cross verify the sensor.
+                };
+            // Get object with connection for the given sensor name
+            getObjectsWithConnection(sensorAsyncResp, sensorNames,
+                                     std::move(getObjectsWithConnectionCb));
+        };
+    // get full sensor list for the given chassisId and cross verify the
+    // sensor.
     getChassis(sensorAsyncResp, std::move(getChassisSensorListCb));
 }
 
 /**
- * @brief Retrieves mapping of Redfish URIs to sensor value property to D-Bus
- * path of the sensor.
+ * @brief Retrieves mapping of Redfish URIs to sensor value property to
+ * D-Bus path of the sensor.
  *
- * Function builds valid Redfish response for sensor query of given chassis and
- * node. It then builds metadata about Redfish<->D-Bus correlations and provides
- * it to caller in a callback.
+ * Function builds valid Redfish response for sensor query of given chassis
+ * and node. It then builds metadata about Redfish<->D-Bus correlations and
+ * provides it to caller in a callback.
  *
  * @param chassis   Chassis for which retrieval should be performed
- * @param node  Node (group) of sensors. See sensors::node for supported values
+ * @param node  Node (group) of sensors. See sensors::node for supported
+ * values
  * @param mapComplete   Callback to be called with retrieval result
  */
 inline void retrieveUriToDbusMap(const std::string& chassis,
@@ -3052,8 +3077,9 @@ inline void requestRoutesSensor(App& app)
             const std::array<const char*, 1> interfaces = {
                 "xyz.openbmc_project.Sensor.Value"};
 
-            // Get a list of all of the sensors that implement Sensor.Value
-            // and get the path and service name associated with the sensor
+            // Get a list of all of the sensors that implement
+            // Sensor.Value and get the path and service name associated
+            // with the sensor
             crow::connections::systemBus->async_method_call(
                 [asyncResp, sensorName](const boost::system::error_code ec,
                                         const GetSubTreeType& subtree) {
