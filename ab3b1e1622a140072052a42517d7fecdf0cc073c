@@ -125,6 +125,48 @@
     },
     {
       "key": {
+        "uuid": "fc0afaa1_b4442fc9",
+        "filename": "redfish-core/lib/redfish_util.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1001099
+      },
+      "writtenOn": "2021-06-28T20:21:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b388e13b_93903b2f",
+      "revId": "ab3b1e1622a140072052a42517d7fecdf0cc073c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2078f841_8b1a5edf",
+        "filename": "redfish-core/lib/redfish_util.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1001099
+      },
+      "writtenOn": "2021-06-28T20:21:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5d0ad9f1_48aadc06",
+      "range": {
+        "startLine": 93,
+        "startChar": 39,
+        "endLine": 93,
+        "endChar": 48
+      },
+      "revId": "ab3b1e1622a140072052a42517d7fecdf0cc073c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "40581507_b49c7e1d",
         "filename": "redfish-core/lib/redfish_util.hpp",
         "patchSetId": 5
@@ -145,6 +187,30 @@
       "revId": "ab3b1e1622a140072052a42517d7fecdf0cc073c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "812844ef_a0a3c1bb",
+        "filename": "redfish-core/lib/redfish_util.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1001099
+      },
+      "writtenOn": "2021-06-28T20:21:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "40581507_b49c7e1d",
+      "range": {
+        "startLine": 103,
+        "startChar": 0,
+        "endLine": 103,
+        "endChar": 68
+      },
+      "revId": "ab3b1e1622a140072052a42517d7fecdf0cc073c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -192,6 +258,30 @@
       "revId": "ab3b1e1622a140072052a42517d7fecdf0cc073c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c36848da_44d9d987",
+        "filename": "redfish-core/lib/redfish_util.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 1001099
+      },
+      "writtenOn": "2021-06-28T20:21:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "80b6337a_8cd261bb",
+      "range": {
+        "startLine": 109,
+        "startChar": 0,
+        "endLine": 109,
+        "endChar": 32
+      },
+      "revId": "ab3b1e1622a140072052a42517d7fecdf0cc073c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -314,6 +404,30 @@
     },
     {
       "key": {
+        "uuid": "476212e7_0a990d1f",
+        "filename": "redfish-core/lib/redfish_util.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 1001099
+      },
+      "writtenOn": "2021-06-28T20:21:34Z",
+      "side": 1,
+      "message": "const sdbusplus::message::object_path\u0026 socketPath \u003d\n                    std::get\u003cNET_PROTO_UNIT_OBJ_PATH\u003e(unit);\nsocketPath.filename() \nthis return :- \n1) dropbear_2esocket\n2) bmcweb_2esocket\n3) phosphor_2dipmi_2dnet_40eth0_2esocket\nwhere in array we have this\n{{\"SSH\", \"dropbear\"}, {\"HTTPS\", \"bmcweb\"}, {\"IPMI\", \"phosphor-ipmi-net\"}}};\n\nboost::starts_with(socketPath.filename(), serviceName)\n\nthis will not work for \"phosphor-ipmi-net\" because \u0027-\u0027 get converted into \"_2\".\n\ndo we like to replace that \"_2\" back to \"-\" and then like to compare. (there are some other problem too) because all symbol get convert into \"_2\" so hard to reverse engineering",
+      "parentUuid": "7fcca0e0_fd0b837e",
+      "range": {
+        "startLine": 125,
+        "startChar": 32,
+        "endLine": 125,
+        "endChar": 43
+      },
+      "revId": "ab3b1e1622a140072052a42517d7fecdf0cc073c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c392cdb3_10a39e84",
         "filename": "redfish-core/lib/redfish_util.hpp",
         "patchSetId": 5
@@ -358,6 +472,30 @@
       "revId": "ab3b1e1622a140072052a42517d7fecdf0cc073c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "40e4029f_8daaf5f0",
+        "filename": "redfish-core/lib/redfish_util.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 1001099
+      },
+      "writtenOn": "2021-06-28T20:21:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "416cc231_ca1ab6cc",
+      "range": {
+        "startLine": 176,
+        "startChar": 28,
+        "endLine": 178,
+        "endChar": 0
+      },
+      "revId": "ab3b1e1622a140072052a42517d7fecdf0cc073c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
