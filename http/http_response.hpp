@@ -39,6 +39,12 @@ struct Response
     Response() : stringResponse(response_type{})
     {}
 
+    // used for testing
+    Response(std::function<void()> newHandler)
+    {
+        completeRequestHandler = newHandler;
+    }
+
     Response& operator=(const Response& r) = delete;
 
     Response& operator=(Response&& r) noexcept
@@ -134,6 +140,12 @@ struct Response
     bool isAlive()
     {
         return isAliveHelper && isAliveHelper();
+    }
+
+    // used for testing
+    void setCompleteRequestHandler(std::function<void()> newCompleteRH)
+    {
+        completeRequestHandler = newCompleteRH;
     }
 
   private:
