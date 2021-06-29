@@ -1,0 +1,220 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ba8986b3_3287dea9",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 1716,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-06-29T19:17:26Z",
+      "side": 1,
+      "message": "const auto\u0026 patchManagerAccount \u003d privilegeSetConfigureUsers; \nI think this is going to break something. \nNeed ConfigureSelf in here.",
+      "revId": "551cde2ede83df0f563d5510c6ab0f13a1f2d45e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "627b5639_ede7442f",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-06-29T19:17:26Z",
+      "side": 1,
+      "message": "postBios",
+      "range": {
+        "startLine": 45,
+        "startChar": 43,
+        "endLine": 45,
+        "endChar": 50
+      },
+      "revId": "551cde2ede83df0f563d5510c6ab0f13a1f2d45e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "44979429_71ce0d45",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 543,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-06-29T19:17:26Z",
+      "side": 1,
+      "message": "isn\u0027t this configure manager or configure self?\nDo you know why Redfish included configure Self?\n\n            \"Entity\": \"EventDestination\",\n            \"OperationMap\": {\n                \"GET\": [\n                    {\n                        \"Privilege\": [\n                            \"Login\"\n                        ]\n                    }\n                ],\n                \"HEAD\": [\n                    {\n                        \"Privilege\": [\n                            \"Login\"\n                        ]\n                    }\n                ],\n                \"PATCH\": [\n                    {\n                        \"Privilege\": [\n                            \"ConfigureManager\"\n                        ]\n                    },\n                    {\n                        \"Privilege\": [\n                            \"ConfigureSelf\"\n                        ]\n                    }\n                ],",
+      "range": {
+        "startLine": 543,
+        "startChar": 11,
+        "endLine": 543,
+        "endChar": 30
+      },
+      "revId": "551cde2ede83df0f563d5510c6ab0f13a1f2d45e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7ebf1665_efe1f9f4",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 1010,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-06-29T19:17:26Z",
+      "side": 1,
+      "message": "This is changing.. \nconst auto\u0026 postLogService \u003d privilegeSetConfigureManager;",
+      "revId": "551cde2ede83df0f563d5510c6ab0f13a1f2d45e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "980529df_3816a655",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 2215,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-06-29T19:17:26Z",
+      "side": 1,
+      "message": "getLogEntryCollection",
+      "revId": "551cde2ede83df0f563d5510c6ab0f13a1f2d45e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e1a2478d_a0cb653a",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 2289,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-06-29T19:17:26Z",
+      "side": 1,
+      "message": "This is changing.",
+      "revId": "551cde2ede83df0f563d5510c6ab0f13a1f2d45e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "916c3e4e_91684544",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 2323,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-06-29T19:17:26Z",
+      "side": 1,
+      "message": "This is changing",
+      "revId": "551cde2ede83df0f563d5510c6ab0f13a1f2d45e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f919f0f7_b7d13752",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 2407,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-06-29T19:17:26Z",
+      "side": 1,
+      "message": "This is changing",
+      "revId": "551cde2ede83df0f563d5510c6ab0f13a1f2d45e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "723bdc0c_54cc1b1b",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 2481,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-06-29T19:17:26Z",
+      "side": 1,
+      "message": "This is changing",
+      "revId": "551cde2ede83df0f563d5510c6ab0f13a1f2d45e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c577e961_ca22b9ec",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 2498,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-06-29T19:17:26Z",
+      "side": 1,
+      "message": "This is changing\nThis is not defined by Redfish so just use the parent ? I think that makes sense",
+      "revId": "551cde2ede83df0f563d5510c6ab0f13a1f2d45e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c9fb400a_9b2b143c",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 450,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-06-29T19:17:26Z",
+      "side": 1,
+      "message": "deleteMetricReportDefinitionCollection",
+      "revId": "551cde2ede83df0f563d5510c6ab0f13a1f2d45e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d741e05a_1d337336",
+        "filename": "redfish-core/lib/task.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 319,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-06-29T19:17:26Z",
+      "side": 1,
+      "message": "So this task monitor is defined by us? \nThere is no Redfish schema so you just used the permissions from the task ?\nI think that makes sense",
+      "revId": "551cde2ede83df0f563d5510c6ab0f13a1f2d45e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
