@@ -131,6 +131,84 @@ inline void getPhysicalSecurityData(std::shared_ptr<bmcweb::AsyncResp> aResp)
         std::array<const char*, 1>{"xyz.openbmc_project.Chassis.Intrusion"});
 }
 
+inline void
+    getChassisConnectivity(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                           const std::string& chassisId,
+                           const std::string& chassisPath)
+{
+
+    BMCWEB_LOG_DEBUG << "Get chassis connectivity";
+
+    sdbusplus::asio::getProperty<std::vector<std::string>>(
+        *crow::connections::systemBus, "xyz.openbmc_project.ObjectMapper",
+        chassisPath + "/containedby", "xyz.openbmc_project.Association",
+        "endpoints",
+        [asyncResp,
+         chassisId](const boost::system::error_code ec,
+                    const std::vector<std::string>& upstreamChassisPaths) {
+        if (ec)
+        {
+            return;
+        }
+        if (upstreamChassisPaths.empty())
+        {
+            return;
+        }
+        if (upstreamChassisPaths.size() > 1)
+        {
+            BMCWEB_LOG_DEBUG << chassisId
+                             << " is contained by mutliple chassis";
+            messages::internalError(asyncResp->res);
+            return;
+        }
+
+        sdbusplus::message::object_path upstreamChassisPath(
+            upstreamChassisPaths[0]);
+        std::string upstreamChassis = upstreamChassisPath.filename();
+        if (upstreamChassis.empty())
+        {
+            BMCWEB_LOG_ERROR << "filename() is empty in "
+                             << upstreamChassisPath.str;
+        }
+
+        asyncResp->res.jsonValue["Links"]["ContainedBy"] = {
+            {"@odata.id", "/redfish/v1/Chassis/" + upstreamChassis}};
+        });
+
+    sdbusplus::asio::getProperty<std::vector<std::string>>(
+        *crow::connections::systemBus, "xyz.openbmc_project.ObjectMapper",
+        chassisPath + "/contains", "xyz.openbmc_project.Association",
+        "endpoints",
+        [asyncResp,
+         chassisId](const boost::system::error_code ec,
+                    const std::vector<std::string>& downstreamChassisPaths) {
+        if (ec)
+        {
+            return;
+        }
+        if (downstreamChassisPaths.empty())
+        {
+            return;
+        }
+        nlohmann::json& jValue = asyncResp->res.jsonValue["Links"]["Contains"];
+        jValue = nlohmann::json::array();
+        for (const auto& p : downstreamChassisPaths)
+        {
+            sdbusplus::message::object_path downstreamChassisPath(p);
+            std::string downstreamChassis = downstreamChassisPath.filename();
+            if (downstreamChassis.empty())
+            {
+                BMCWEB_LOG_ERROR << "filename() is empty in " << p;
+                continue;
+            }
+            jValue.push_back(
+                {{"@odata.id", "/redfish/v1/Chassis/" + downstreamChassis}});
+        }
+        asyncResp->res.jsonValue["Links"]["Contains@odata.count"] =
+            downstreamChassisPaths.size();
+        });
+}
+
 /**
  * ChassisCollection derived class for delivering Chassis Collection Schema
  *  Functions triggers appropriate requests on DBus
@@ -244,6 +322,8 @@ inline void requestRoutesChassis(App& app)
                 {
                     continue;
                 }
+
+                getChassisConnectivity(asyncResp, chassisId, path);
 
                 auto health = std::make_shared<HealthPopulate>(asyncResp);
 
