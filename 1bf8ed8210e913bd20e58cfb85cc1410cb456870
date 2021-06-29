@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "a07c8b94_cde49ded",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 392,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2021-06-29T16:59:34Z",
+      "side": 1,
+      "message": "Are you referring to the format?\n\nOr because it forced each chassis to have a Storage? I will update that to use \n\nhttps://gerrit.openbmc-project.xyz/c/openbmc/phosphor-dbus-interfaces/+/44540",
+      "parentUuid": "6c6aa80c_864e24f6",
+      "revId": "1bf8ed8210e913bd20e58cfb85cc1410cb456870",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "060ac8e4_4baf4622",
         "filename": "redfish-core/lib/storage.hpp",
         "patchSetId": 17
@@ -30,6 +48,24 @@
       "writtenOn": "2021-06-28T19:00:09Z",
       "side": 1,
       "message": "Can we do .parent_path() and do exact matching? So we are looking at the D-Bus path to determine containment ? \n\nProposal I over at https://gerrit.openbmc-project.xyz/c/openbmc/docs/+/41468/4/architecture/dbus-inventory.md#1 ?\nWe might to settle on a direction there first on that architecture doc.",
+      "revId": "1bf8ed8210e913bd20e58cfb85cc1410cb456870",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a84ac081_7d5956e4",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2021-06-29T16:59:34Z",
+      "side": 1,
+      "message": "Using .parent_path() will force it to be the direct parent. Do we want to force it so that the Drive is always the direct child of the Storage?\n\nThe current implementation just ensures it is a subpath (just realized that I need to add \"/\" at the end)\n\nWe can do multi-level of parent_path() to get the same result.\n\n-----\n\nFor Proposal I, I am not sure how relevant that is to resources outside of Chassis.",
+      "parentUuid": "060ac8e4_4baf4622",
       "revId": "1bf8ed8210e913bd20e58cfb85cc1410cb456870",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
