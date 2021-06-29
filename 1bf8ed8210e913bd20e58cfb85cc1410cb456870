@@ -183,6 +183,24 @@
     },
     {
       "key": {
+        "uuid": "c6f30cb6_58ba8dfd",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 282,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2021-06-29T17:28:27Z",
+      "side": 1,
+      "message": "Done. Thanks.",
+      "parentUuid": "f3eaa730_0a627c79",
+      "revId": "1bf8ed8210e913bd20e58cfb85cc1410cb456870",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bd2d52be_4e209f0e",
         "filename": "redfish-core/lib/storage.hpp",
         "patchSetId": 17
@@ -194,6 +212,30 @@
       "writtenOn": "2021-06-28T19:00:09Z",
       "side": 1,
       "message": "again here, don\u0027t see 404 addressed.\nhttps://github.com/openbmc/bmcweb/blob/master/COMMON_ERRORS.md#11-not-responding-to-404",
+      "range": {
+        "startLine": 305,
+        "startChar": 23,
+        "endLine": 305,
+        "endChar": 63
+      },
+      "revId": "1bf8ed8210e913bd20e58cfb85cc1410cb456870",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "60dba8c9_ca8e89ca",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 305,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2021-06-29T17:28:27Z",
+      "side": 1,
+      "message": "I think that is being supported in line 331.\n\n```\nif (object2 \u003d\u003d subtree.end())\n{\n    messages::resourceNotFound(asyncResp-\u003eres, \"Drive\",\n                               driveId);\n    return;\n}\n```",
+      "parentUuid": "bd2d52be_4e209f0e",
       "range": {
         "startLine": 305,
         "startChar": 23,
