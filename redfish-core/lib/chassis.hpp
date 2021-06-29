@@ -443,6 +443,12 @@ inline void requestRoutesChassis(App& app)
                                 getChassisResources(asyncResp, path, "Storage",
                                                     {"xyz.openbmc_project."
                                                      "Inventory.Item.Storage"});
+
+                                getChassisResources(
+                                    asyncResp, path, "Processor",
+                                    {"xyz.openbmc_project.Inventory.Item.Cpu",
+                                     "xyz.openbmc_project.Inventory.Item."
+                                     "Accelerator"});
                             },
                             connectionName, path,
                             "org.freedesktop.DBus.Properties", "GetAll",
