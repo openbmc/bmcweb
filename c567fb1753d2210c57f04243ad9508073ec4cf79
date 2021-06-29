@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "cddcb947_2587c47c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1001003
+      },
+      "writtenOn": "2021-06-29T01:24:56Z",
+      "side": 1,
+      "message": "The subject already changed",
+      "parentUuid": "bcdcf138_687c6464",
+      "revId": "c567fb1753d2210c57f04243ad9508073ec4cf79",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9add6d7f_0e5691ef",
         "filename": "/COMMIT_MSG",
         "patchSetId": 6
@@ -53,6 +71,24 @@
     },
     {
       "key": {
+        "uuid": "12ebcd33_b26abfc1",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1001003
+      },
+      "writtenOn": "2021-06-29T01:24:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "62cd0df6_7bdb7904",
+      "revId": "c567fb1753d2210c57f04243ad9508073ec4cf79",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "76721c9d_e0c3fa94",
         "filename": "include/eventservicestore.hpp",
         "patchSetId": 6
@@ -67,6 +103,24 @@
       "revId": "c567fb1753d2210c57f04243ad9508073ec4cf79",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f4acd98b_75f523bd",
+        "filename": "include/eventservicestore.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001003
+      },
+      "writtenOn": "2021-06-29T01:24:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "76721c9d_e0c3fa94",
+      "revId": "c567fb1753d2210c57f04243ad9508073ec4cf79",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -93,6 +147,30 @@
     },
     {
       "key": {
+        "uuid": "529df4b0_8c7c20ba",
+        "filename": "include/eventservicestore.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1001003
+      },
+      "writtenOn": "2021-06-29T01:24:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1da0240b_fbe6e671",
+      "range": {
+        "startLine": 10,
+        "startChar": 24,
+        "endLine": 10,
+        "endChar": 72
+      },
+      "revId": "c567fb1753d2210c57f04243ad9508073ec4cf79",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c18a4324_ef85adb1",
         "filename": "include/eventservicestore.hpp",
         "patchSetId": 6
@@ -113,6 +191,30 @@
       "revId": "c567fb1753d2210c57f04243ad9508073ec4cf79",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4a248711_cbbf6297",
+        "filename": "include/eventservicestore.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1001003
+      },
+      "writtenOn": "2021-06-29T01:24:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c18a4324_ef85adb1",
+      "range": {
+        "startLine": 35,
+        "startChar": 32,
+        "endLine": 35,
+        "endChar": 40
+      },
+      "revId": "c567fb1753d2210c57f04243ad9508073ec4cf79",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -139,6 +241,30 @@
     },
     {
       "key": {
+        "uuid": "54ee79e6_afd173f7",
+        "filename": "include/eventservicestore.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1001003
+      },
+      "writtenOn": "2021-06-29T01:24:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f1bcdf21_521dda9a",
+      "range": {
+        "startLine": 66,
+        "startChar": 20,
+        "endLine": 66,
+        "endChar": 71
+      },
+      "revId": "c567fb1753d2210c57f04243ad9508073ec4cf79",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "088cb3e5_a0242f20",
         "filename": "include/eventservicestore.hpp",
         "patchSetId": 6
@@ -159,6 +285,30 @@
       "revId": "c567fb1753d2210c57f04243ad9508073ec4cf79",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "212e0cbb_d3fc7fb6",
+        "filename": "include/eventservicestore.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 1001003
+      },
+      "writtenOn": "2021-06-29T01:24:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "088cb3e5_a0242f20",
+      "range": {
+        "startLine": 117,
+        "startChar": 63,
+        "endLine": 117,
+        "endChar": 71
+      },
+      "revId": "c567fb1753d2210c57f04243ad9508073ec4cf79",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -208,6 +358,30 @@
     },
     {
       "key": {
+        "uuid": "fc9195b2_bc468d11",
+        "filename": "include/eventservicestore.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 1001003
+      },
+      "writtenOn": "2021-06-29T01:24:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "67e176a1_e03cea61",
+      "range": {
+        "startLine": 153,
+        "startChar": 32,
+        "endLine": 153,
+        "endChar": 62
+      },
+      "revId": "c567fb1753d2210c57f04243ad9508073ec4cf79",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b4e7d52e_ef0c0dd8",
         "filename": "include/eventservicestore.hpp",
         "patchSetId": 6
@@ -242,6 +416,30 @@
       "writtenOn": "2021-06-18T18:39:59Z",
       "side": 1,
       "message": "I suspect this can just be:\npersistent_data::UserSubscription\u0026 newSub \u003d\n                *it.second;",
+      "range": {
+        "startLine": 634,
+        "startChar": 12,
+        "endLine": 635,
+        "endChar": 26
+      },
+      "revId": "c567fb1753d2210c57f04243ad9508073ec4cf79",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3049a06d_4f852e77",
+        "filename": "redfish-core/include/event_service_manager.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 635,
+      "author": {
+        "id": 1001003
+      },
+      "writtenOn": "2021-06-29T01:24:56Z",
+      "side": 1,
+      "message": "I think it used like Line 743: std::shared_ptr\u003cSubscription\u003e entry \u003d it.second;",
+      "parentUuid": "b168f7f8_5fbc12c4",
       "range": {
         "startLine": 634,
         "startChar": 12,
