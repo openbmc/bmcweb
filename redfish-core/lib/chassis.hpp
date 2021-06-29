@@ -332,6 +332,78 @@ inline void requestRoutesChassis(App& app)
 
                         crow::connections::systemBus->async_method_call(
                             [asyncResp, chassisId(std::string(chassisId))](
+                                const boost::system::error_code ec,
+                                std::variant<std::vector<std::string>>&
+                                    chassisList) {
+                                if (ec)
+                                {
+                                    return;
+                                }
+                                std::vector<std::string>* data =
+                                    std::get_if<std::vector<std::string>>(
+                                        &chassisList);
+                                if (data == nullptr || data->size() != 1)
+                                {
+                                    return;
+                                }
+
+                                auto pos = data->at(0).find_last_of('/');
+                                if (pos == std::string::npos)
+                                {
+                                    return;
+                                }
+                                auto upstreamChassis =
+                                    data->at(0).substr(pos + 1);
+                                asyncResp->res
+                                    .jsonValue["Links"]["ContainedBy"] = {
+                                    {"@odata.id",
+                                     "/redfish/v1/Chassis/" + upstreamChassis}};
+                            },
+                            "xyz.openbmc_project.ObjectMapper",
+                            path + "/containedby",
+                            "org.freedesktop.DBus.Properties", "Get",
+                            "xyz.openbmc_project.Association", "endpoints");
+
+                        crow::connections::systemBus->async_method_call(
+                            [asyncResp, chassisId(std::string(chassisId))](
+                                const boost::system::error_code ec,
+                                std::variant<std::vector<std::string>>&
+                                    chassisList) {
+                                if (ec)
+                                {
+                                    return;
+                                }
+                                std::vector<std::string>* data =
+                                    std::get_if<std::vector<std::string>>(
+                                        &chassisList);
+                                if (data == nullptr)
+                                {
+                                    return;
+                                }
+
+                                auto null = nlohmann::json::array();
+                                for (const auto& p : *data)
+                                {
+                                    auto pos = p.find_last_of('/');
+                                    if (pos == std::string::npos)
+                                    {
+                                        continue;
+                                    }
+                                    auto downstreamChassis = p.substr(pos + 1);
+                                    null.push_back(
+                                        {{"@odata.id", "/redfish/v1/Chasssis/" +
+                                                           downstreamChassis}});
+                                }
+                                asyncResp->res.jsonValue["Links"]["Contains"] =
+                                    std::move(null);
+                            },
+                            "xyz.openbmc_project.ObjectMapper",
+                            path + "/contains",
+                            "org.freedesktop.DBus.Properties", "Get",
+                            "xyz.openbmc_project.Association", "endpoints");
+
+                        crow::connections::systemBus->async_method_call(
+                            [asyncResp, chassisId(std::string(chassisId))](
                                 const boost::system::error_code /*ec2*/,
                                 const std::vector<
                                     std::pair<std::string, VariantType>>&
