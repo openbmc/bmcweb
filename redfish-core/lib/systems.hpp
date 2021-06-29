@@ -1476,6 +1476,94 @@ inline void getTrustedModuleRequiredToBoot(
 }
 
 /**
+ * @brief Set TrustedModuleRequiredToBoot property. Determines whether or not
+ * TPM is required for booting the host.
+ *
+ * @param[in] aResp         Shared pointer for generating response message.
+ * @param[in] tpmRequired   Value to set TPM Required To Boot property to.
+ *
+ * @return None.
+ */
+inline void setTrustedModuleRequiredToBoot(
+    const std::shared_ptr<bmcweb::AsyncResp>& aResp, const bool tpmRequired)
+{
+    BMCWEB_LOG_DEBUG << "Set TrustedModuleRequiredToBoot.";
+
+    crow::connections::systemBus->async_method_call(
+        [aResp, tpmRequired](
+            const boost::system::error_code ec,
+            std::vector<std::pair<
+                std::string,
+                std::vector<std::pair<std::string, std::vector<std::string>>>>>&
+                subtree) {
+            if (ec)
+            {
+                BMCWEB_LOG_DEBUG
+                    << "DBUS response error on TPM.Policy GetSubTree" << ec;
+                messages::internalError(aResp->res);
+                return;
+            }
+            if (subtree.size() == 0)
+            {
+                messages::resourceNotFound(aResp->res, "ComputerSystem",
+                                           "TrustedModuleRequiredToBoot");
+                return;
+            }
+
+            /* When there is more than one TPMEnable object... */
+            if (subtree.size() > 1)
+            {
+                BMCWEB_LOG_DEBUG
+                    << "DBUS response has more than 1 TPM Enable object:"
+                    << subtree.size();
+                // Throw an internal Error and return
+                messages::internalError(aResp->res);
+                return;
+            }
+
+            // Make sure the Dbus response map has a service and objectPath
+            // field
+            if (subtree[0].first.empty() || subtree[0].second.size() != 1)
+            {
+                BMCWEB_LOG_DEBUG << "TPM.Policy mapper error!";
+                messages::internalError(aResp->res);
+                return;
+            }
+
+            const std::string& path = subtree[0].first;
+            const std::string& serv = subtree[0].second.begin()->first;
+
+            if (serv.empty())
+            {
+                BMCWEB_LOG_DEBUG << "TPM.Policy service mapper error!";
+                messages::internalError(aResp->res);
+                return;
+            }
+
+            // Valid TPM Enable object found, now setting the value
+            crow::connections::systemBus->async_method_call(
+                [aResp](const boost::system::error_code ec) {
+                    if (ec)
+                    {
+                        BMCWEB_LOG_DEBUG << "DBUS response error: Set "
+                                            "TrustedModuleRequiredToBoot"
+                                         << ec;
+                        messages::internalError(aResp->res);
+                        return;
+                    }
+                    BMCWEB_LOG_DEBUG << "Set TrustedModuleRequiredToBoot done.";
+                },
+                serv, path, "org.freedesktop.DBus.Properties", "Set",
+                "xyz.openbmc_project.Control.TPM.Policy", "TPMEnable",
+                std::variant<bool>(tpmRequired));
+        },
+        "xyz.openbmc_project.ObjectMapper",
+        "/xyz/openbmc_project/object_mapper",
+        "xyz.openbmc_project.ObjectMapper", "GetSubTree", "/", int32_t(0),
+        std::array<const char*, 1>{"xyz.openbmc_project.Control.TPM.Policy"});
+}
+
+/**
  * @brief Sets boot properties into DBUS object(s).
  *
  * @param[in] aResp           Shared pointer for generating response message.
@@ -2758,13 +2846,15 @@ inline void requestRoutesSystems(App& app)
                 std::optional<std::string> assetTag;
                 std::optional<std::string> powerRestorePolicy;
                 std::optional<std::string> powerMode;
-
+                std::optional<bool> trustedModuleRequiredToBoot;
                 if (!json_util::readJson(
                         req, asyncResp->res, "IndicatorLED", indicatorLed,
                         "LocationIndicatorActive", locationIndicatorActive,
                         "Boot", bootProps, "WatchdogTimer", wdtTimerProps,
                         "PowerRestorePolicy", powerRestorePolicy, "AssetTag",
-                        assetTag, "PowerMode", powerMode))
+                        assetTag, "PowerMode", powerMode,
+                        "TrustedModuleRequiredToBoot",
+                        trustedModuleRequiredToBoot))
                 {
                     return;
                 }
@@ -2843,6 +2933,12 @@ inline void requestRoutesSystems(App& app)
                 if (powerMode)
                 {
                     setPowerMode(asyncResp, *powerMode);
+                }
+
+                if (trustedModuleRequiredToBoot)
+                {
+                    setTrustedModuleRequiredToBoot(
+                        asyncResp, *trustedModuleRequiredToBoot);
                 }
             });
 }
