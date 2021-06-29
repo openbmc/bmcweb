@@ -1,0 +1,84 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b2155cdd_369ce5c4",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-06-29T19:26:33Z",
+      "side": 1,
+      "message": "include link to the phosphor-dbus-interface",
+      "range": {
+        "startLine": 16,
+        "startChar": 67,
+        "endLine": 16,
+        "endChar": 70
+      },
+      "revId": "92d3eff5fb8c912f8a5aa36288a1f6e4783b0007",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9d593f17_562ef71e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-06-29T19:26:33Z",
+      "side": 1,
+      "message": "This is just us not incrementing the Id, but I don\u0027t think checking the ProcessorId should mean a processor doesn\u0027t get incremented",
+      "revId": "92d3eff5fb8c912f8a5aa36288a1f6e4783b0007",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1ee52c3b_be47630c",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 402,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-06-29T19:26:33Z",
+      "side": 1,
+      "message": "Remove?",
+      "range": {
+        "startLine": 401,
+        "startChar": 0,
+        "endLine": 402,
+        "endChar": 101
+      },
+      "revId": "92d3eff5fb8c912f8a5aa36288a1f6e4783b0007",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7d0402a2_a923c2cd",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 422,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-06-29T19:26:33Z",
+      "side": 1,
+      "message": "Suppressed 206922 warnings (206897 in non-user code, 24 NOLINT, 1 with check filters).\nUse -header-filter\u003d.* to display errors from all non-system headers. Use -system-headers to display errors from system headers as well.\nclang-tidy-11 -p\u003dbuild-clang /data0/jenkins/workspace/ci-repository/openbmc/bmcweb/src/webserver_main.cpp\n/data0/jenkins/workspace/ci-repository/openbmc/bmcweb/build-clang/../redfish-core/include/../lib/systems.hpp:421:49: error: do not use \u0027else\u0027 after \u0027return\u0027 [readability-else-after-return,-warnings-as-errors]\n                                                else if ((*modelStr !\u003d \"\"))\n                                                ^~~~~~~~~~~~~~~~~~~~~~~~~~~\n224247 warnings generated.\n\nJust use if here",
+      "revId": "92d3eff5fb8c912f8a5aa36288a1f6e4783b0007",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
