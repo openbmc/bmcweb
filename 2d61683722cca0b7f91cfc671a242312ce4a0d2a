@@ -106,6 +106,24 @@
       "revId": "2d61683722cca0b7f91cfc671a242312ce4a0d2a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e1222d1c_b308f54f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1000056
+      },
+      "writtenOn": "2021-06-29T12:46:03Z",
+      "side": 1,
+      "message": "Ed - thanks for your input. I had a discussion about this I believe the option of making these commits work with existing backends is the currently feasible option for us. I\u0027ve pushed a commit to EM that is relevant in terms of testing these commits - https://gerrit.openbmc-project.xyz/c/openbmc/entity-manager/+/44546. I couldn\u0027t test on actual hardware, might need some help there, you will find details in the commit message. Please let me know if this EM commit enables getting this bmcweb commits to a mergeable state.",
+      "parentUuid": "b80b35e3_f953cc0b",
+      "revId": "2d61683722cca0b7f91cfc671a242312ce4a0d2a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
