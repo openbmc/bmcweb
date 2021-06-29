@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "99839cd2_785b92b4",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 1716,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-06-29T19:32:20Z",
+      "side": 1,
+      "message": "Yeah, this must\u0027ve been an override.  I\u0027ll chase this down, but I\u0027ll probably leave it as it was for the moment",
+      "parentUuid": "ba8986b3_3287dea9",
+      "revId": "551cde2ede83df0f563d5510c6ab0f13a1f2d45e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "627b5639_ede7442f",
         "filename": "redfish-core/lib/bios.hpp",
         "patchSetId": 19
@@ -39,6 +57,30 @@
       "revId": "551cde2ede83df0f563d5510c6ab0f13a1f2d45e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7135285c_91e31a9c",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-06-29T19:32:20Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "627b5639_ede7442f",
+      "range": {
+        "startLine": 45,
+        "startChar": 43,
+        "endLine": 45,
+        "endChar": 50
+      },
+      "revId": "551cde2ede83df0f563d5510c6ab0f13a1f2d45e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -65,6 +107,30 @@
     },
     {
       "key": {
+        "uuid": "7b3e531a_1187c3f6",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 543,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-06-29T19:32:20Z",
+      "side": 1,
+      "message": "Yeah;  I misread that.  Will update the comment.\n\n\nI suspect the intent here is that users should be allowed to see and modify their own subscriptions, but I\u0027d need to read through the exact wording on ConfigureSelf.  This might be a spec bug.",
+      "parentUuid": "44979429_71ce0d45",
+      "range": {
+        "startLine": 543,
+        "startChar": 11,
+        "endLine": 543,
+        "endChar": 30
+      },
+      "revId": "551cde2ede83df0f563d5510c6ab0f13a1f2d45e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "7ebf1665_efe1f9f4",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 19
@@ -76,6 +142,24 @@
       "writtenOn": "2021-06-29T19:17:26Z",
       "side": 1,
       "message": "This is changing.. \nconst auto\u0026 postLogService \u003d privilegeSetConfigureManager;",
+      "revId": "551cde2ede83df0f563d5510c6ab0f13a1f2d45e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8fe657b1_f30d9f61",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 1010,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-06-29T19:32:20Z",
+      "side": 1,
+      "message": "Crap.... you\u0027re right.  Will put back to the old one until we have the overrides figured out.",
+      "parentUuid": "7ebf1665_efe1f9f4",
       "revId": "551cde2ede83df0f563d5510c6ab0f13a1f2d45e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
@@ -116,6 +200,24 @@
     },
     {
       "key": {
+        "uuid": "e097cb3a_caa1c06e",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 2289,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-06-29T19:32:20Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "e1a2478d_a0cb653a",
+      "revId": "551cde2ede83df0f563d5510c6ab0f13a1f2d45e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "916c3e4e_91684544",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 19
@@ -130,6 +232,24 @@
       "revId": "551cde2ede83df0f563d5510c6ab0f13a1f2d45e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "55f0d307_6c100200",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 2323,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-06-29T19:32:20Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "916c3e4e_91684544",
+      "revId": "551cde2ede83df0f563d5510c6ab0f13a1f2d45e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -150,6 +270,24 @@
     },
     {
       "key": {
+        "uuid": "d8d655ac_7a418196",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 2407,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-06-29T19:32:20Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "f919f0f7_b7d13752",
+      "revId": "551cde2ede83df0f563d5510c6ab0f13a1f2d45e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "723bdc0c_54cc1b1b",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 19
@@ -167,6 +305,24 @@
     },
     {
       "key": {
+        "uuid": "78963663_59d917ed",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 2481,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-06-29T19:32:20Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "723bdc0c_54cc1b1b",
+      "revId": "551cde2ede83df0f563d5510c6ab0f13a1f2d45e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c577e961_ca22b9ec",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 19
@@ -178,6 +334,24 @@
       "writtenOn": "2021-06-29T19:17:26Z",
       "side": 1,
       "message": "This is changing\nThis is not defined by Redfish so just use the parent ? I think that makes sense",
+      "revId": "551cde2ede83df0f563d5510c6ab0f13a1f2d45e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cadbe20a_8cbf7520",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 2498,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-06-29T19:32:20Z",
+      "side": 1,
+      "message": "Yeah, for the moment I have it using the parents permissions.  I think that makes sense for the moment, because it means that if you have the rights to see the link to the resource, you should have access to the resource.",
+      "parentUuid": "c577e961_ca22b9ec",
       "revId": "551cde2ede83df0f563d5510c6ab0f13a1f2d45e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
@@ -201,6 +375,24 @@
     },
     {
       "key": {
+        "uuid": "e9b78a31_ac6626bb",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 450,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-06-29T19:32:20Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "c9fb400a_9b2b143c",
+      "revId": "551cde2ede83df0f563d5510c6ab0f13a1f2d45e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d741e05a_1d337336",
         "filename": "redfish-core/lib/task.hpp",
         "patchSetId": 19
@@ -212,6 +404,24 @@
       "writtenOn": "2021-06-29T19:17:26Z",
       "side": 1,
       "message": "So this task monitor is defined by us? \nThere is no Redfish schema so you just used the permissions from the task ?\nI think that makes sense",
+      "revId": "551cde2ede83df0f563d5510c6ab0f13a1f2d45e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "53bc13fd_6ea5666d",
+        "filename": "redfish-core/lib/task.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 319,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-06-29T19:32:20Z",
+      "side": 1,
+      "message": "I think this is actually a bug because there\u0027s no entry for TaskMonitor in the privilege registry.  I\u0027m not familiar enough with TaskService to understand why this uri is here.  For the moment I think using the Task privileges is the right approach, as it\u0027s the \"owning\" resource.",
+      "parentUuid": "d741e05a_1d337336",
       "revId": "551cde2ede83df0f563d5510c6ab0f13a1f2d45e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
