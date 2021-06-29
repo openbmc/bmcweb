@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "f14179b1_008a89f5",
+        "filename": "http/http_request.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2021-06-29T18:05:49Z",
+      "side": 1,
+      "message": "sorry I meant to delete this. I was testing out different constructors before I knew what I was doing. \nI Will delete.",
+      "parentUuid": "a980862c_72505f01",
+      "range": {
+        "startLine": 43,
+        "startChar": 0,
+        "endLine": 52,
+        "endChar": 38
+      },
+      "revId": "394d528a3242018f58d34446ccae04e3aa1d7ed6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7eb610c5_56a8e508",
         "filename": "http/http_response.hpp",
         "patchSetId": 2
@@ -45,6 +69,30 @@
       "revId": "394d528a3242018f58d34446ccae04e3aa1d7ed6",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "71bb887e_d72d15d3",
+        "filename": "http/http_response.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2021-06-29T18:05:49Z",
+      "side": 1,
+      "message": "Yes, \nDone",
+      "parentUuid": "7eb610c5_56a8e508",
+      "range": {
+        "startLine": 43,
+        "startChar": 35,
+        "endLine": 43,
+        "endChar": 48
+      },
+      "revId": "394d528a3242018f58d34446ccae04e3aa1d7ed6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "e13966d7_f8e95330",
+        "filename": "http/http_response.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2021-06-29T18:05:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9c2843a1_9836ac5f",
+      "range": {
+        "startLine": 145,
+        "startChar": 4,
+        "endLine": 145,
+        "endChar": 23
+      },
+      "revId": "394d528a3242018f58d34446ccae04e3aa1d7ed6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "64531eb4_c53345f5",
         "filename": "http/http_response.hpp",
         "patchSetId": 2
@@ -94,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "fb82e961_e76133cc",
+        "filename": "http/http_response.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 146,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2021-06-29T18:05:49Z",
+      "side": 1,
+      "message": "Sounds good, but I don\u0027t use templates very often. \nDo you have any source material that you recommended for getting familiar with templates",
+      "parentUuid": "64531eb4_c53345f5",
+      "range": {
+        "startLine": 146,
+        "startChar": 35,
+        "endLine": 146,
+        "endChar": 56
+      },
+      "revId": "394d528a3242018f58d34446ccae04e3aa1d7ed6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "fc8ef4e4_de2888df",
         "filename": "meson.build",
         "patchSetId": 2
@@ -105,6 +201,30 @@
       "writtenOn": "2021-06-29T16:35:41Z",
       "side": 1,
       "message": "tabs",
+      "range": {
+        "startLine": 356,
+        "startChar": 0,
+        "endLine": 356,
+        "endChar": 1
+      },
+      "revId": "394d528a3242018f58d34446ccae04e3aa1d7ed6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8918021d_dbde4076",
+        "filename": "meson.build",
+        "patchSetId": 2
+      },
+      "lineNbr": 356,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2021-06-29T18:05:49Z",
+      "side": 1,
+      "message": "done?",
+      "parentUuid": "fc8ef4e4_de2888df",
       "range": {
         "startLine": 356,
         "startChar": 0,
@@ -174,6 +294,30 @@
       "writtenOn": "2021-06-29T16:35:41Z",
       "side": 1,
       "message": "hmmmmmm.... this constructor type is messy;  I swear i had a patchset where I made the http::request object owned wholly by crow::Request.... I\u0027ll do some digging for you and see if I can find that patch.  I suspect we\u0027re going to want that.",
+      "range": {
+        "startLine": 26,
+        "startChar": 0,
+        "endLine": 27,
+        "endChar": 26
+      },
+      "revId": "394d528a3242018f58d34446ccae04e3aa1d7ed6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "30555d87_4ada2371",
+        "filename": "redfish-core/lib/ut/service_root_test.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2021-06-29T18:05:49Z",
+      "side": 1,
+      "message": "That would be great. I agree it gets busy setting up these objects.",
+      "parentUuid": "01c2588c_9e234f5a",
       "range": {
         "startLine": 26,
         "startChar": 0,
