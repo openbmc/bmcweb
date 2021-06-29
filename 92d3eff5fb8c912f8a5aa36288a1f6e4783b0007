@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "e0d59428_6ae722d8",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1001083
+      },
+      "writtenOn": "2021-06-29T20:19:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b2155cdd_369ce5c4",
+      "range": {
+        "startLine": 16,
+        "startChar": 67,
+        "endLine": 16,
+        "endChar": 70
+      },
+      "revId": "92d3eff5fb8c912f8a5aa36288a1f6e4783b0007",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9d593f17_562ef71e",
         "filename": "/COMMIT_MSG",
         "patchSetId": 1
@@ -36,6 +60,24 @@
       "writtenOn": "2021-06-29T19:26:33Z",
       "side": 1,
       "message": "This is just us not incrementing the Id, but I don\u0027t think checking the ProcessorId should mean a processor doesn\u0027t get incremented",
+      "revId": "92d3eff5fb8c912f8a5aa36288a1f6e4783b0007",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e304501a_d2a2a4e2",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1001083
+      },
+      "writtenOn": "2021-06-29T20:19:00Z",
+      "side": 1,
+      "message": "How about this phrasing:\n\"Code inside of If statement never increments Count variable due to a dependency on ProcessorId. (ProcessorId is not supported currently). The dependency is unnecessary for counting Processors. \"",
+      "parentUuid": "9d593f17_562ef71e",
       "revId": "92d3eff5fb8c912f8a5aa36288a1f6e4783b0007",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
@@ -65,6 +107,30 @@
     },
     {
       "key": {
+        "uuid": "63e5bcc6_9947d047",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 380,
+      "author": {
+        "id": 1001083
+      },
+      "writtenOn": "2021-06-29T20:19:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1c10aff8_bc9a2547",
+      "range": {
+        "startLine": 380,
+        "startChar": 65,
+        "endLine": 380,
+        "endChar": 66
+      },
+      "revId": "92d3eff5fb8c912f8a5aa36288a1f6e4783b0007",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1ee52c3b_be47630c",
         "filename": "redfish-core/lib/systems.hpp",
         "patchSetId": 1
@@ -85,6 +151,30 @@
       "revId": "92d3eff5fb8c912f8a5aa36288a1f6e4783b0007",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5dba3b8d_83928aa9",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 402,
+      "author": {
+        "id": 1001083
+      },
+      "writtenOn": "2021-06-29T20:19:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1ee52c3b_be47630c",
+      "range": {
+        "startLine": 401,
+        "startChar": 0,
+        "endLine": 402,
+        "endChar": 101
+      },
+      "revId": "92d3eff5fb8c912f8a5aa36288a1f6e4783b0007",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -134,6 +224,54 @@
     },
     {
       "key": {
+        "uuid": "81a8ebdc_1265ff86",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 415,
+      "author": {
+        "id": 1001083
+      },
+      "writtenOn": "2021-06-29T20:19:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e56382b1_68885a61",
+      "range": {
+        "startLine": 415,
+        "startChar": 51,
+        "endLine": 415,
+        "endChar": 58
+      },
+      "revId": "92d3eff5fb8c912f8a5aa36288a1f6e4783b0007",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b32c9680_ca103c34",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 415,
+      "author": {
+        "id": 1001083
+      },
+      "writtenOn": "2021-06-29T20:19:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a34fb97_745402c3",
+      "range": {
+        "startLine": 415,
+        "startChar": 72,
+        "endLine": 415,
+        "endChar": 78
+      },
+      "revId": "92d3eff5fb8c912f8a5aa36288a1f6e4783b0007",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2f535b8e_3d4a0d18",
         "filename": "redfish-core/lib/systems.hpp",
         "patchSetId": 1
@@ -151,6 +289,24 @@
     },
     {
       "key": {
+        "uuid": "a683586e_9e478f03",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 420,
+      "author": {
+        "id": 1001083
+      },
+      "writtenOn": "2021-06-29T20:19:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2f535b8e_3d4a0d18",
+      "revId": "92d3eff5fb8c912f8a5aa36288a1f6e4783b0007",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7d0402a2_a923c2cd",
         "filename": "redfish-core/lib/systems.hpp",
         "patchSetId": 1
@@ -165,6 +321,24 @@
       "revId": "92d3eff5fb8c912f8a5aa36288a1f6e4783b0007",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7a198a31_171d8e6a",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 422,
+      "author": {
+        "id": 1001083
+      },
+      "writtenOn": "2021-06-29T20:19:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7d0402a2_a923c2cd",
+      "revId": "92d3eff5fb8c912f8a5aa36288a1f6e4783b0007",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
