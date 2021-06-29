@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "9a7c4a66_688ba967",
+        "filename": "redfish-core/lib/service_root.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2021-06-29T18:35:44Z",
+      "side": 1,
+      "message": "I will add this to the.\nThanks for catching it.",
+      "parentUuid": "ce9fc7b0_c5f31fed",
+      "revId": "ad69349ede5a70f211c94be4e12be4b2e1a241e9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "472c4ad5_44f50ea6",
         "filename": "redfish-core/lib/service_root.hpp",
         "patchSetId": 1
@@ -30,6 +48,24 @@
       "writtenOn": "2021-06-29T18:01:03Z",
       "side": 1,
       "message": "IMO this is going to decrease readability a little, maybe not here but in files where we have a lot of BMCWEB_ROUTEs",
+      "revId": "ad69349ede5a70f211c94be4e12be4b2e1a241e9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d413bbac_01ab6e69",
+        "filename": "redfish-core/lib/service_root.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2021-06-29T18:35:44Z",
+      "side": 1,
+      "message": "It is easier nice that is separates the call back logic from the function logic. But I see you point, if there are many call backs one is more likely to make a mistake when tracing.\n\nHowever, it does allow us to test the free function. If good unit test are written, I would think the slight decrease in readability would be worth the ability to unit test. \nLet me know what you think.",
+      "parentUuid": "472c4ad5_44f50ea6",
       "revId": "ad69349ede5a70f211c94be4e12be4b2e1a241e9",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
