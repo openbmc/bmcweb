@@ -524,6 +524,13 @@ inline void requestRoutesChassis(App& app)
                                     "/redfish/v1/Systems/system/Storage/",
                                     {"xyz.openbmc_project."
                                      "Inventory.Item.Storage"});
+                                getChassisResources(
+                                    asyncResp, path, "Processors",
+                                    "/redfish/v1/Systems/system/Processors/",
+                                    {"xyz.openbmc_project.Inventory.Item."
+                                     "Cpu",
+                                     "xyz.openbmc_project.Inventory.Item."
+                                     "Accelerator"});
                             },
                             connectionName, path,
                             "org.freedesktop.DBus.Properties", "GetAll",
