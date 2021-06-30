@@ -236,6 +236,30 @@
       "revId": "1cf9a92a4bbbabc14b2a1c729be8a8d4fee83f1c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2005240a_c4f4fb0b",
+        "filename": "redfish-core/lib/redfish_sessions.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-06-30T15:47:58Z",
+      "side": 1,
+      "message": "Ok, I\u0027ll close it.  If you find a use case for this, I\u0027m happy to entertain adding it, but as-is it doesn\u0027t seem useful.",
+      "parentUuid": "94eddeb2_dcca031a",
+      "range": {
+        "startLine": 67,
+        "startChar": 0,
+        "endLine": 69,
+        "endChar": 18
+      },
+      "revId": "1cf9a92a4bbbabc14b2a1c729be8a8d4fee83f1c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
