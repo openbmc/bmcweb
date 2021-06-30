@@ -815,6 +815,95 @@ inline void getDimmPartitionData(std::shared_ptr<bmcweb::AsyncResp> aResp,
         "xyz.openbmc_project.Inventory.Item.PersistentMemory.Partition");
 }
 
+/**
+ * @brief Fill out links association to parent processor by
+ * requesting data from the given D-Bus association object.
+ *
+ * @param[in,out]   aResp       Async HTTP response.
+ * @param[in]       objPath     D-Bus object to query.
+ */
+inline void getMemoryProcessorLink(std::shared_ptr<bmcweb::AsyncResp> aResp,
+                                   const std::string& objPath)
+{
+    BMCWEB_LOG_DEBUG << "Get parent processor link";
+    crow::connections::systemBus->async_method_call(
+        [aResp{std::move(aResp)}](
+            const boost::system::error_code ec2,
+            std::variant<std::vector<std::string>>& resp) {
+            if (ec2)
+            {
+                return; // no processors = no failures
+            }
+            std::vector<std::string>* data =
+                std::get_if<std::vector<std::string>>(&resp);
+            if (data == nullptr)
+            {
+                return;
+            }
+            nlohmann::json& linksArray =
+                aResp->res.jsonValue["Links"]["Processors"];
+            linksArray = nlohmann::json::array();
+            for (const std::string& processorPath : *data)
+            {
+                sdbusplus::message::object_path objectPath(processorPath);
+                std::string processorName = objectPath.filename();
+                if (processorName.empty())
+                {
+                    messages::internalError(aResp->res);
+                    return;
+                }
+                linksArray.push_back(
+                    {{"@odata.id", "/redfish/v1/Systems/system/Processors/" +
+                                       processorName}});
+            }
+        },
+        "xyz.openbmc_project.ObjectMapper", objPath + "/parent_processor",
+        "org.freedesktop.DBus.Properties", "Get",
+        "xyz.openbmc_project.Association", "endpoints");
+}
+
+/**
+ * @brief Fill out links association to parent chassis by
+ * requesting data from the given D-Bus association object.
+ *
+ * @param[in,out]   aResp       Async HTTP response.
+ * @param[in]       objPath     D-Bus object to query.
+ */
+inline void getMemoryChassisLink(std::shared_ptr<bmcweb::AsyncResp> aResp,
+                                 const std::string& objPath)
+{
+    BMCWEB_LOG_DEBUG << "Get parent chassis link";
+    crow::connections::systemBus->async_method_call(
+        [aResp{std::move(aResp)}](
+            const boost::system::error_code ec2,
+            std::variant<std::vector<std::string>>& resp) {
+            if (ec2)
+            {
+                return; // no chassis = no failures
+            }
+            std::vector<std::string>* data =
+                std::get_if<std::vector<std::string>>(&resp);
+            if (data == nullptr && data->size() > 1)
+            {
+                // Memory must have single parent chassis
+                return;
+            }
+            const std::string& chassisPath = data->front();
+            sdbusplus::message::object_path objectPath(chassisPath);
+            std::string chassisName = objectPath.filename();
+            if (chassisName.empty())
+            {
+                messages::internalError(aResp->res);
+                return;
+            }
+            aResp->res.jsonValue["Links"]["Chassis"] = {
+                {"@odata.id", "/redfish/v1/Chassis/" + chassisName}};
+        },
+        "xyz.openbmc_project.ObjectMapper", objPath + "/parent_chassis",
+        "org.freedesktop.DBus.Properties", "Get",
+        "xyz.openbmc_project.Association", "endpoints");
+}
+
 inline void getDimmData(std::shared_ptr<bmcweb::AsyncResp> aResp,
                         const std::string& dimmId)
 {
@@ -848,6 +937,10 @@ inline void getDimmData(std::shared_ptr<bmcweb::AsyncResp> aResp,
                         {
                             getDimmDataByService(aResp, dimmId, service, path);
                             found = true;
+                            // Link association to parent processor
+                            getMemoryProcessorLink(aResp, path);
+                            // Link association to parent chassis
+                            getMemoryChassisLink(aResp, path);
                         }
 
                         // partitions are separate as there can be multiple per
