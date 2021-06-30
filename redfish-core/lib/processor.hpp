@@ -46,6 +46,312 @@ constexpr std::array<const char*, 2> processorInterfaces = {
     "xyz.openbmc_project.Inventory.Item.Accelerator"};
 
 /**
+ * @brief Fill out memory links association by
+ * requesting data from the given D-Bus association object.
+ *
+ * @param[in,out]   aResp       Async HTTP response.
+ * @param[in]       objPath     D-Bus object to query.
+ */
+inline void getProcessorMemoryLinks(std::shared_ptr<bmcweb::AsyncResp> aResp,
+                                    const std::string& objPath)
+{
+    BMCWEB_LOG_DEBUG << "Get underneath memory links";
+    crow::connections::systemBus->async_method_call(
+        [aResp{std::move(aResp)}](
+            const boost::system::error_code ec2,
+            std::variant<std::vector<std::string>>& resp) {
+            if (ec2)
+            {
+                return; // no memory = no failures
+            }
+            std::vector<std::string>* data =
+                std::get_if<std::vector<std::string>>(&resp);
+            if (data == nullptr)
+            {
+                return;
+            }
+            nlohmann::json& linksArray =
+                aResp->res.jsonValue["Links"]["Memory"];
+            linksArray = nlohmann::json::array();
+            for (const std::string& memoryPath : *data)
+            {
+                sdbusplus::message::object_path objectPath(memoryPath);
+                std::string memoryName = objectPath.filename();
+                if (memoryName.empty())
+                {
+                    messages::internalError(aResp->res);
+                    return;
+                }
+                linksArray.push_back(
+                    {{"@odata.id",
+                      "/redfish/v1/Systems/system/Memory/" + memoryName}});
+            }
+        },
+        "xyz.openbmc_project.ObjectMapper", objPath + "/all_memory",
+        "org.freedesktop.DBus.Properties", "Get",
+        "xyz.openbmc_project.Association", "endpoints");
+}
+
+/**
+ * @brief Fill out pcie functions links association by
+ * requesting data from the given D-Bus association object.
+ *
+ * @param[in,out] aResp           Async HTTP response.
+ * @param[in]     objPath         D-Bus object to query.
+ * @param[in]     service         D-Bus service to query.
+ * @param[in]     pcieDeviceLink  D-Bus service to query.
+ */
+inline void getProcessorPCIeFunctionsLinks(
+    std::shared_ptr<bmcweb::AsyncResp> aResp, const std::string& service,
+    const std::string& objPath, const std::string& pcieDeviceLink)
+{
+    BMCWEB_LOG_DEBUG << "Get processor pcie functions links";
+    crow::connections::systemBus->async_method_call(
+        [aResp{std::move(aResp)}, pcieDeviceLink](
+            const boost::system::error_code ec,
+            boost::container::flat_map<std::string,
+                                       std::variant<std::string, size_t>>&
+                pcieDevProperties) {
+            if (ec)
+            {
+                messages::internalError(aResp->res);
+                return;
+            }
+            aResp->res.jsonValue["SystemInterface"]["InterfaceType"] = "PCIe";
+            // PCIe interface properties
+            for (const std::pair<std::string,
+                                 std::variant<std::string, size_t>>& property :
+                 pcieDevProperties)
+            {
+                const std::string& propertyName = property.first;
+                if ((propertyName == "LanesInUse") ||
+                    (propertyName == "MaxLanes"))
+                {
+                    const size_t* value = std::get_if<size_t>(&property.second);
+                    if (value != nullptr)
+                    {
+                        aResp->res.jsonValue["SystemInterface"]["PCIe"]
+                                            [propertyName] = *value;
+                    }
+                }
+                else if ((propertyName == "PCIeType") ||
+                         (propertyName == "MaxPCIeType"))
+                {
+                    const std::string* value =
+                        std::get_if<std::string>(&property.second);
+                    if (value != nullptr)
+                    {
+                        aResp->res.jsonValue["SystemInterface"]["PCIe"]
+                                            [propertyName] =
+                            getPCIeType(*value);
+                    }
+                }
+            }
+            // PCIe functions properties
+            nlohmann::json& pcieFunctionList =
+                aResp->res.jsonValue["Links"]["PCIeFunctions"];
+            pcieFunctionList = nlohmann::json::array();
+            static constexpr const int maxPciFunctionNum = 8;
+            for (int functionNum = 0; functionNum < maxPciFunctionNum;
+                 functionNum++)
+            {
+                // Check if this function exists by looking for a device
+                // ID
+                std::string devIDProperty =
+                    "Function" + std::to_string(functionNum) + "DeviceId";
+                std::string* property =
+                    std::get_if<std::string>(&pcieDevProperties[devIDProperty]);
+                if (property && !property->empty())
+                {
+                    pcieFunctionList.push_back(
+                        {{"@odata.id", pcieDeviceLink + "/PCIeFunctions/" +
+                                           std::to_string(functionNum)}});
+                }
+            }
+        },
+        service, objPath, "org.freedesktop.DBus.Properties", "GetAll",
+        "xyz.openbmc_project.Inventory.Item.PCIeDevice");
+}
+
+/**
+ * @brief Fill out links for parent chassis PCIeDevice by
+ * requesting data from the given D-Bus association object.
+ *
+ * @param[in,out]   aResp       Async HTTP response.
+ * @param[in]       objPath     D-Bus object to query.
+ * @param[in]       chassisName D-Bus object chassisName.
+ */
+inline void
+    getParentChassisPCIeDeviceLink(std::shared_ptr<bmcweb::AsyncResp> aResp,
+                                   const std::string& objPath,
+                                   const std::string& chassisName)
+{
+    crow::connections::systemBus->async_method_call(
+        [aResp{std::move(aResp)},
+         chassisName](const boost::system::error_code ec,
+                      std::variant<std::vector<std::string>> resp) {
+            if (ec)
+            {
+                return; // no chassis = no failures
+            }
+            std::vector<std::string>* data =
+                std::get_if<std::vector<std::string>>(&resp);
+            if (data == nullptr && data->size() > 1)
+            {
+                // Chassis must have single parent chassis
+                return;
+            }
+            const std::string& parentChassisPath = data->front();
+            sdbusplus::message::object_path objectPath(parentChassisPath);
+            std::string parentChassisName = objectPath.filename();
+            if (parentChassisName.empty())
+            {
+                messages::internalError(aResp->res);
+                return;
+            }
+            crow::connections::systemBus->async_method_call(
+                [aResp, chassisName,
+                 parentChassisName](const boost::system::error_code ec,
+                                    const MapperGetSubTreeResponse& subtree) {
+                    if (ec)
+                    {
+                        messages::internalError(aResp->res);
+                        return;
+                    }
+                    for (const auto& [objectPath, serviceMap] : subtree)
+                    {
+                        // Process same device
+                        if (!boost::ends_with(objectPath, chassisName))
+                        {
+                            continue;
+                        }
+                        std::string pcieDeviceLink = "/redfish/v1/Chassis/";
+                        pcieDeviceLink += parentChassisName;
+                        pcieDeviceLink += "/PCIeDevices/";
+                        pcieDeviceLink += chassisName;
+                        aResp->res.jsonValue["Links"]["PCIeDevice"] = {
+                            {"@odata.id", pcieDeviceLink}};
+                        if (serviceMap.size() < 1)
+                        {
+                            BMCWEB_LOG_ERROR << "Got 0 service "
+                                                "names";
+                            messages::internalError(aResp->res);
+                            return;
+                        }
+                        const std::string& serviceName = serviceMap[0].first;
+                        // Get PCIeFunctions Link
+                        getProcessorPCIeFunctionsLinks(
+                            aResp, serviceName, objectPath, pcieDeviceLink);
+                    }
+                },
+                "xyz.openbmc_project.ObjectMapper",
+                "/xyz/openbmc_project/object_mapper",
+                "xyz.openbmc_project.ObjectMapper", "GetSubTree",
+                parentChassisPath, 0,
+                std::array<const char*, 1>{"xyz.openbmc_project.Inventory.Item."
+                                           "PCIeDevice"});
+        },
+        "xyz.openbmc_project.ObjectMapper", objPath + "/parent_chassis",
+        "org.freedesktop.DBus.Properties", "Get",
+        "xyz.openbmc_project.Association", "endpoints");
+}
+
+/**
+ * @brief Fill out links association to parent chassis by
+ * requesting data from the given D-Bus association object.
+ *
+ * @param[in,out]   aResp       Async HTTP response.
+ * @param[in]       objPath     D-Bus object to query.
+ */
+inline void getProcessorChassisLink(std::shared_ptr<bmcweb::AsyncResp> aResp,
+                                    const std::string& objPath)
+{
+    BMCWEB_LOG_DEBUG << "Get parent chassis link";
+    crow::connections::systemBus->async_method_call(
+        [aResp{std::move(aResp)},
+         objPath](const boost::system::error_code ec,
+                  std::variant<std::vector<std::string>>& resp) {
+            if (ec)
+            {
+                return; // no chassis = no failures
+            }
+            std::vector<std::string>* data =
+                std::get_if<std::vector<std::string>>(&resp);
+            if (data == nullptr && data->size() > 1)
+            {
+                // Processor must have single parent chassis
+                return;
+            }
+            const std::string& chassisPath = data->front();
+            sdbusplus::message::object_path objectPath(chassisPath);
+            std::string chassisName = objectPath.filename();
+            if (chassisName.empty())
+            {
+                messages::internalError(aResp->res);
+                return;
+            }
+            aResp->res.jsonValue["Links"]["Chassis"] = {
+                {"@odata.id", "/redfish/v1/Chassis/" + chassisName}};
+
+            // Check if PCIeDevice on this chassis
+            crow::connections::systemBus->async_method_call(
+                [aResp, chassisName,
+                 chassisPath](const boost::system::error_code ec,
+                              const MapperGetSubTreeResponse& subtree) {
+                    if (ec)
+                    {
+                        messages::internalError(aResp->res);
+                        return;
+                    }
+                    // If PCIeDevice doesn't exists on this chassis
+                    // Check PCIeDevice on its parent chassis
+                    if (subtree.empty())
+                    {
+                        getParentChassisPCIeDeviceLink(aResp, chassisPath,
+                                                       chassisName);
+                    }
+                    else
+                    {
+                        for (const auto& [objectPath, serviceMap] : subtree)
+                        {
+                            // Process same device
+                            if (!boost::ends_with(objectPath, chassisName))
+                            {
+                                continue;
+                            }
+                            std::string pcieDeviceLink = "/redfish/v1/Chassis/";
+                            pcieDeviceLink += chassisName;
+                            pcieDeviceLink += "/PCIeDevices/";
+                            pcieDeviceLink += chassisName;
+                            aResp->res.jsonValue["Links"]["PCIeDevice"] = {
+                                {"@odata.id", pcieDeviceLink}};
+                            if (serviceMap.size() < 1)
+                            {
+                                BMCWEB_LOG_ERROR << "Got 0 service names";
+                                messages::internalError(aResp->res);
+                                return;
+                            }
+                            const std::string& serviceName =
+                                serviceMap[0].first;
+                            // Get PCIeFunctions Link
+                            getProcessorPCIeFunctionsLinks(
+                                aResp, serviceName, objectPath, pcieDeviceLink);
+                        }
+                    }
+                },
+                "xyz.openbmc_project.ObjectMapper",
+                "/xyz/openbmc_project/object_mapper",
+                "xyz.openbmc_project.ObjectMapper", "GetSubTree", chassisPath,
+                0,
+                std::array<const char*, 1>{
+                    "xyz.openbmc_project.Inventory.Item.PCIeDevice"});
+        },
+        "xyz.openbmc_project.ObjectMapper", objPath + "/parent_chassis",
+        "org.freedesktop.DBus.Properties", "Get",
+        "xyz.openbmc_project.Association", "endpoints");
+}
+
+/**
  * @brief Fill out uuid info of a processor by
  * requesting data from the given D-Bus object.
  *
@@ -815,6 +1121,10 @@ inline void getProcessorData(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
             }
         }
     }
+    // Links association to underneath memory
+    getProcessorMemoryLinks(aResp, objectPath);
+    // Link association to parent chassis
+    getProcessorChassisLink(aResp, objectPath);
 }
 
 /**
