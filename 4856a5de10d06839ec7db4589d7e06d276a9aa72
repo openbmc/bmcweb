@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "bd4aead4_b179852f",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 1782,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-06-30T19:44:35Z",
+      "side": 1,
+      "message": "No, I don\u0027t think it makes sense to allow it be set to OEM",
+      "parentUuid": "e545309f_0ad5d38e",
+      "range": {
+        "startLine": 1782,
+        "startChar": 70,
+        "endLine": 1782,
+        "endChar": 71
+      },
+      "revId": "4856a5de10d06839ec7db4589d7e06d276a9aa72",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "24523f7e_623c8873",
         "filename": "redfish-core/lib/systems.hpp",
         "patchSetId": 12
@@ -36,6 +60,24 @@
       "writtenOn": "2021-06-30T18:31:43Z",
       "side": 1,
       "message": "Again to have \"OEM\" or to not have \"OEM\" that is my question.",
+      "revId": "4856a5de10d06839ec7db4589d7e06d276a9aa72",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ae941b00_d96ff2db",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 1827,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-06-30T19:44:35Z",
+      "side": 1,
+      "message": "No Oem for the PATCH.\n \nI like how Chris has it. \n\nSet the Redfish property to Oem if the D-Bus interface is set to the value Oem (it shouldn\u0027t be normally) so Oem support on GetPowerMode but don\u0027t allow Oem to be set in the PATCH.",
+      "parentUuid": "24523f7e_623c8873",
       "revId": "4856a5de10d06839ec7db4589d7e06d276a9aa72",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
