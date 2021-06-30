@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "f08553a8_6bcd2a8b",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 1716,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-06-30T17:05:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "99839cd2_785b92b4",
+      "revId": "551cde2ede83df0f563d5510c6ab0f13a1f2d45e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "627b5639_ede7442f",
         "filename": "redfish-core/lib/bios.hpp",
         "patchSetId": 19
@@ -84,6 +102,30 @@
     },
     {
       "key": {
+        "uuid": "812d5eba_c58b46b4",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-06-30T17:05:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7135285c_91e31a9c",
+      "range": {
+        "startLine": 45,
+        "startChar": 43,
+        "endLine": 45,
+        "endChar": 50
+      },
+      "revId": "551cde2ede83df0f563d5510c6ab0f13a1f2d45e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "44979429_71ce0d45",
         "filename": "redfish-core/lib/event_service.hpp",
         "patchSetId": 19
@@ -119,6 +161,30 @@
       "side": 1,
       "message": "Yeah;  I misread that.  Will update the comment.\n\n\nI suspect the intent here is that users should be allowed to see and modify their own subscriptions, but I\u0027d need to read through the exact wording on ConfigureSelf.  This might be a spec bug.",
       "parentUuid": "44979429_71ce0d45",
+      "range": {
+        "startLine": 543,
+        "startChar": 11,
+        "endLine": 543,
+        "endChar": 30
+      },
+      "revId": "551cde2ede83df0f563d5510c6ab0f13a1f2d45e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e2a27d5b_7abbad96",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 543,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-06-30T17:05:29Z",
+      "side": 1,
+      "message": "Done.  Updated the comment",
+      "parentUuid": "7b3e531a_1187c3f6",
       "range": {
         "startLine": 543,
         "startChar": 11,
@@ -183,6 +249,24 @@
     },
     {
       "key": {
+        "uuid": "b259a1be_813ebe1c",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 2215,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-06-30T17:05:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "980529df_3816a655",
+      "revId": "551cde2ede83df0f563d5510c6ab0f13a1f2d45e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e1a2478d_a0cb653a",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 19
@@ -218,6 +302,24 @@
     },
     {
       "key": {
+        "uuid": "686671dc_847c5fca",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 2289,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-06-30T17:05:29Z",
+      "side": 1,
+      "message": "Done.  moved back to old way with comment.",
+      "parentUuid": "e097cb3a_caa1c06e",
+      "revId": "551cde2ede83df0f563d5510c6ab0f13a1f2d45e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "916c3e4e_91684544",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 19
@@ -247,6 +349,24 @@
       "side": 1,
       "message": "Ack",
       "parentUuid": "916c3e4e_91684544",
+      "revId": "551cde2ede83df0f563d5510c6ab0f13a1f2d45e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ffb43580_f1566ab0",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 2323,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-06-30T17:05:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "55f0d307_6c100200",
       "revId": "551cde2ede83df0f563d5510c6ab0f13a1f2d45e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": false
@@ -323,6 +443,24 @@
     },
     {
       "key": {
+        "uuid": "b9ecaa36_607852e9",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 2481,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-06-30T17:05:29Z",
+      "side": 1,
+      "message": "done",
+      "parentUuid": "78963663_59d917ed",
+      "revId": "551cde2ede83df0f563d5510c6ab0f13a1f2d45e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c577e961_ca22b9ec",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 19
@@ -387,6 +525,24 @@
       "side": 1,
       "message": "Ack",
       "parentUuid": "c9fb400a_9b2b143c",
+      "revId": "551cde2ede83df0f563d5510c6ab0f13a1f2d45e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4aae2179_4e5e2845",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 450,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-06-30T17:05:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e9b78a31_ac6626bb",
       "revId": "551cde2ede83df0f563d5510c6ab0f13a1f2d45e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": false
