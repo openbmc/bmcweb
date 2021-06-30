@@ -28,6 +28,141 @@ namespace redfish
 {
 
 /**
+ * @brief Fill out links association to underneath chassis by
+ * requesting data from the given D-Bus association object.
+ *
+ * @param[in,out]   aResp       Async HTTP response.
+ * @param[in]       objPath     D-Bus object to query.
+ */
+inline void getChassisLinksContains(std::shared_ptr<bmcweb::AsyncResp> aResp,
+                                    const std::string& objPath)
+{
+    BMCWEB_LOG_DEBUG << "Get underneath chassis links";
+    crow::connections::systemBus->async_method_call(
+        [aResp{std::move(aResp)}](
+            const boost::system::error_code ec2,
+            std::variant<std::vector<std::string>>& resp) {
+            if (ec2)
+            {
+                return; // no chassis = no failures
+            }
+            std::vector<std::string>* data =
+                std::get_if<std::vector<std::string>>(&resp);
+            if (data == nullptr)
+            {
+                return;
+            }
+            nlohmann::json& linksArray =
+                aResp->res.jsonValue["Links"]["Contains"];
+            linksArray = nlohmann::json::array();
+            for (const std::string& chassisPath : *data)
+            {
+                sdbusplus::message::object_path objectPath(chassisPath);
+                std::string chassisName = objectPath.filename();
+                if (chassisName.empty())
+                {
+                    messages::internalError(aResp->res);
+                    return;
+                }
+                linksArray.push_back(
+                    {{"@odata.id", "/redfish/v1/Chassis/" + chassisName}});
+            }
+        },
+        "xyz.openbmc_project.ObjectMapper", objPath + "/all_chassis",
+        "org.freedesktop.DBus.Properties", "Get",
+        "xyz.openbmc_project.Association", "endpoints");
+}
+
+/**
+ * @brief Fill out processor links association by
+ * requesting data from the given D-Bus association object.
+ *
+ * @param[in,out]   aResp       Async HTTP response.
+ * @param[in]       objPath     D-Bus object to query.
+ */
+inline void getChassisProcessorLinks(std::shared_ptr<bmcweb::AsyncResp> aResp,
+                                     const std::string& objPath)
+{
+    BMCWEB_LOG_DEBUG << "Get underneath processor links";
+    crow::connections::systemBus->async_method_call(
+        [aResp{std::move(aResp)}](
+            const boost::system::error_code ec2,
+            std::variant<std::vector<std::string>>& resp) {
+            if (ec2)
+            {
+                return; // no processors = no failures
+            }
+            std::vector<std::string>* data =
+                std::get_if<std::vector<std::string>>(&resp);
+            if (data == nullptr)
+            {
+                return;
+            }
+            nlohmann::json& linksArray =
+                aResp->res.jsonValue["Links"]["Processors"];
+            linksArray = nlohmann::json::array();
+            for (const std::string& processorPath : *data)
+            {
+                sdbusplus::message::object_path objectPath(processorPath);
+                std::string processorName = objectPath.filename();
+                if (processorName.empty())
+                {
+                    messages::internalError(aResp->res);
+                    return;
+                }
+                linksArray.push_back(
+                    {{"@odata.id", "/redfish/v1/Systems/system/Processors/" +
+                                       processorName}});
+            }
+        },
+        "xyz.openbmc_project.ObjectMapper", objPath + "/all_processors",
+        "org.freedesktop.DBus.Properties", "Get",
+        "xyz.openbmc_project.Association", "endpoints");
+}
+
+/**
+ * @brief Fill out links association to parent chassis by
+ * requesting data from the given D-Bus association object.
+ *
+ * @param[in,out]   aResp       Async HTTP response.
+ * @param[in]       objPath     D-Bus object to query.
+ */
+inline void getChassisLinksContainedBy(std::shared_ptr<bmcweb::AsyncResp> aResp,
+                                       const std::string& objPath)
+{
+    BMCWEB_LOG_DEBUG << "Get parent chassis link";
+    crow::connections::systemBus->async_method_call(
+        [aResp{std::move(aResp)}](
+            const boost::system::error_code ec2,
+            std::variant<std::vector<std::string>>& resp) {
+            if (ec2)
+            {
+                return; // no chassis = no failures
+            }
+            std::vector<std::string>* data =
+                std::get_if<std::vector<std::string>>(&resp);
+            if (data == nullptr || data->size() > 1)
+            {
+                // There must be single parent chassis
+                return;
+            }
+            const std::string& chassisPath = data->front();
+            sdbusplus::message::object_path objectPath(chassisPath);
+            std::string chassisName = objectPath.filename();
+            if (chassisName.empty())
+            {
+                messages::internalError(aResp->res);
+                return;
+            }
+            aResp->res.jsonValue["Links"]["ContainedBy"] = {
+                {"@odata.id", "/redfish/v1/Chassis/" + chassisName}};
+        },
+        "xyz.openbmc_project.ObjectMapper", objPath + "/parent_chassis",
+        "org.freedesktop.DBus.Properties", "Get",
+        "xyz.openbmc_project.Association", "endpoints");
+}
+
+/**
  * @brief Retrieves chassis state properties over dbus
  *
  * @param[in] aResp - Shared pointer for completing asynchronous calls.
@@ -426,6 +561,13 @@ inline void requestRoutesChassis(App& app)
                                 "org.freedesktop.DBus.Properties", "Get",
                                 uuidInterface, "UUID");
                         }
+
+                        // Links association to underneath chassis
+                        getChassisLinksContains(asyncResp, path);
+                        // Links association to underneath processors
+                        getChassisProcessorLinks(asyncResp, path);
+                        // Link association to parent chassis
+                        getChassisLinksContainedBy(asyncResp, path);
 
                         return;
                     }
