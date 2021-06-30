@@ -3099,7 +3099,7 @@ inline void requestRoutesPostCodesEntryAdditionalData(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/Systems/system/LogServices/PostCodes/"
                       "Entries/<str>/attachment/")
-        .privileges({"Login"})
+        .privileges({{"Login"}})
         .methods(boost::beast::http::verb::get)(
             [](const crow::Request& req,
                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
