@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "802bd02b_3195b320",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-06-30T18:08:46Z",
+      "side": 1,
+      "message": "Can you add that to the commit msg? \nTypically when a reviewer asks for clarification, they are asking for it to be added to the commit msg.",
+      "parentUuid": "0c28ef52_b15992c9",
+      "range": {
+        "startLine": 14,
+        "startChar": 22,
+        "endLine": 15,
+        "endChar": 31
+      },
+      "revId": "0d3cbd399b45fead61f954273473f7c69c22e3fe",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "44886f4e_cd33b553",
         "filename": "/COMMIT_MSG",
         "patchSetId": 3
