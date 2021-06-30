@@ -744,6 +744,161 @@ inline void requestRoutesSwitchCollection(App& app)
 }
 
 /**
+ * @brief Fill out links for parent chassis PCIeDevice by
+ * requesting data from the given D-Bus association object.
+ *
+ * @param[in,out]   aResp       Async HTTP response.
+ * @param[in]       objPath     D-Bus object to query.
+ * @param[in]       chassisName D-Bus object chassisName.
+ */
+inline void getSwitchParentChassisPCIeDeviceLink(
+    std::shared_ptr<bmcweb::AsyncResp> aResp, const std::string& objPath,
+    const std::string& chassisName)
+{
+    crow::connections::systemBus->async_method_call(
+        [aResp{std::move(aResp)},
+         chassisName](const boost::system::error_code ec,
+                      std::variant<std::vector<std::string>>& resp) {
+            if (ec)
+            {
+                return; // no chassis = no failures
+            }
+            std::vector<std::string>* data =
+                std::get_if<std::vector<std::string>>(&resp);
+            if (data == nullptr && data->size() > 1)
+            {
+                // Chassis must have single parent chassis
+                return;
+            }
+            const std::string& parentChassisPath = data->front();
+            sdbusplus::message::object_path objectPath(parentChassisPath);
+            std::string parentChassisName = objectPath.filename();
+            if (parentChassisName.empty())
+            {
+                messages::internalError(aResp->res);
+                return;
+            }
+            crow::connections::systemBus->async_method_call(
+                [aResp, chassisName, parentChassisName](
+                    const boost::system::error_code ec,
+                    const crow::openbmc_mapper::GetSubTreeType& subtree) {
+                    if (ec)
+                    {
+                        messages::internalError(aResp->res);
+                        return;
+                    }
+                    for (const auto& [objectPath, serviceMap] : subtree)
+                    {
+                        // Process same device
+                        if (!boost::ends_with(objectPath, chassisName))
+                        {
+                            continue;
+                        }
+                        std::string pcieDeviceLink = "/redfish/v1/Chassis/";
+                        pcieDeviceLink += parentChassisName;
+                        pcieDeviceLink += "/PCIeDevices/";
+                        pcieDeviceLink += chassisName;
+                        aResp->res.jsonValue["Links"]["PCIeDevice"] = {
+                            {"@odata.id", pcieDeviceLink}};
+                    }
+                },
+                "xyz.openbmc_project.ObjectMapper",
+                "/xyz/openbmc_project/object_mapper",
+                "xyz.openbmc_project.ObjectMapper", "GetSubTree",
+                parentChassisPath, 0,
+                std::array<const char*, 1>{"xyz.openbmc_project.Inventory.Item."
+                                           "PCIeDevice"});
+        },
+        "xyz.openbmc_project.ObjectMapper", objPath + "/parent_chassis",
+        "org.freedesktop.DBus.Properties", "Get",
+        "xyz.openbmc_project.Association", "endpoints");
+}
+
+/**
+ * @brief Fill out links association to parent chassis by
+ * requesting data from the given D-Bus association object.
+ *
+ * @param[in,out]   aResp       Async HTTP response.
+ * @param[in]       objPath     D-Bus object to query.
+ */
+inline void getSwitchChassisLink(std::shared_ptr<bmcweb::AsyncResp> aResp,
+                                 const std::string& objPath)
+{
+    BMCWEB_LOG_DEBUG << "Get parent chassis link";
+    crow::connections::systemBus->async_method_call(
+        [aResp{std::move(aResp)},
+         objPath](const boost::system::error_code ec,
+                  std::variant<std::vector<std::string>>& resp) {
+            if (ec)
+            {
+                return; // no chassis = no failures
+            }
+            std::vector<std::string>* data =
+                std::get_if<std::vector<std::string>>(&resp);
+            if (data == nullptr && data->size() > 1)
+            {
+                // Switch must have single parent chassis
+                return;
+            }
+            const std::string& chassisPath = data->front();
+            sdbusplus::message::object_path objectPath(chassisPath);
+            std::string chassisName = objectPath.filename();
+            if (chassisName.empty())
+            {
+                messages::internalError(aResp->res);
+                return;
+            }
+            aResp->res.jsonValue["Links"]["Chassis"] = {
+                {"@odata.id", "/redfish/v1/Chassis/" + chassisName}};
+
+            // Check if PCIeDevice on this chassis
+            crow::connections::systemBus->async_method_call(
+                [aResp, chassisName, chassisPath](
+                    const boost::system::error_code ec,
+                    const crow::openbmc_mapper::GetSubTreeType& subtree) {
+                    if (ec)
+                    {
+                        messages::internalError(aResp->res);
+                        return;
+                    }
+                    // If PCIeDevice doesn't exists on this chassis
+                    // Check PCIeDevice on its parent chassis
+                    if (subtree.empty())
+                    {
+                        getSwitchParentChassisPCIeDeviceLink(aResp, chassisPath,
+                                                             chassisName);
+                    }
+                    else
+                    {
+                        for (const auto& [objectPath, serviceMap] : subtree)
+                        {
+                            // Process same device
+                            if (!boost::ends_with(objectPath, chassisName))
+                            {
+                                continue;
+                            }
+                            std::string pcieDeviceLink = "/redfish/v1/Chassis/";
+                            pcieDeviceLink += chassisName;
+                            pcieDeviceLink += "/PCIeDevices/";
+                            pcieDeviceLink += chassisName;
+                            aResp->res.jsonValue["Links"]["PCIeDevice"] = {
+                                {"@odata.id", pcieDeviceLink}};
+                        }
+                    }
+                },
+                "xyz.openbmc_project.ObjectMapper",
+                "/xyz/openbmc_project/object_mapper",
+                "xyz.openbmc_project.ObjectMapper", "GetSubTree", chassisPath,
+                0,
+                std::array<const char*, 1>{
+                    "xyz.openbmc_project.Inventory.Item.PCIeDevice"});
+        },
+        "xyz.openbmc_project.ObjectMapper", objPath + "/parent_chassis",
+        "org.freedesktop.DBus.Properties", "Get",
+        "xyz.openbmc_project.Association", "endpoints");
+}
+
+/**
  * Switch override class for delivering Switch Schema
  */
 inline void requestRoutesSwitch(App& app)
@@ -828,6 +983,8 @@ inline void requestRoutesSwitch(App& app)
                                         connectionNames[0].first;
                                     updateSwitchData(asyncResp, connectionName,
                                                      path);
+                                    // Link association to parent chassis
+                                    getSwitchChassisLink(asyncResp, path);
                                 }
                             },
                             "xyz.openbmc_project.ObjectMapper",
