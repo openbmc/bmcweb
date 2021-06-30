@@ -99,6 +99,23 @@
     },
     {
       "key": {
+        "uuid": "b3f767d8_a525fc55",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 399,
+      "author": {
+        "id": 1001099
+      },
+      "writtenOn": "2021-06-30T15:02:00Z",
+      "side": 1,
+      "message": "based on std::variant\u003cstd::string\u003e\u0026 model declaration we know it only have string then why we use get_if rather then get\u003cstd::string\u003e ?",
+      "revId": "e4cc860178836511337d424e48ca82b89669754b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "da681932_d9ad87fb",
         "filename": "redfish-core/lib/systems.hpp",
         "patchSetId": 3
@@ -116,6 +133,23 @@
         "endLine": 408,
         "endChar": 74
       },
+      "revId": "e4cc860178836511337d424e48ca82b89669754b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9b0cdf57_27bdd8a9",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 417,
+      "author": {
+        "id": 1001099
+      },
+      "writtenOn": "2021-06-30T15:02:00Z",
+      "side": 1,
+      "message": "if ((*modelStr !\u003d \"\")) -\u003e if (*modelStr !\u003d \"\"), why need two bracket?",
       "revId": "e4cc860178836511337d424e48ca82b89669754b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
