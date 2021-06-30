@@ -69,6 +69,24 @@
       "revId": "ad69349ede5a70f211c94be4e12be4b2e1a241e9",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "660a7a71_707d706f",
+        "filename": "redfish-core/lib/service_root.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-06-30T16:21:29Z",
+      "side": 1,
+      "message": "Gunnar, I\u0027m not following, can you elaborate a little?  IMO, this is easier to read because you can see all your BMCWEB_ROUTE entries in one block.  Maybe it\u0027s just a preference thing?",
+      "parentUuid": "d413bbac_01ab6e69",
+      "revId": "ad69349ede5a70f211c94be4e12be4b2e1a241e9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
