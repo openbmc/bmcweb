@@ -186,6 +186,51 @@ inline std::string getFabricType(const std::string& fabricType)
  * @brief Get all switch info by requesting data
  * from the given D-Bus object.
  *
+ * @param[in,out]   aResp   Async HTTP response.
+ * @param[in]       objPath     D-Bus object to query.
+ * @param[in]       fabricId    fabric id for redfish URI.
+ */
+inline void updatePortLinks(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
+                            const std::string& objPath,
+                            const std::string& fabricId)
+{
+    BMCWEB_LOG_DEBUG << "Get Port Links";
+    crow::connections::systemBus->async_method_call(
+        [aResp, fabricId](const boost::system::error_code ec,
+                          std::variant<std::vector<std::string>>& resp) {
+            if (ec)
+            {
+                return; // no endpoint = no failures
+            }
+            std::vector<std::string>* data =
+                std::get_if<std::vector<std::string>>(&resp);
+            if (data == nullptr)
+            {
+                return;
+            }
+            nlohmann::json& linksArray =
+                aResp->res.jsonValue["Links"]["AssociatedEndpoints"];
+            linksArray = nlohmann::json::array();
+            for (const std::string& portPath : *data)
+            {
+                sdbusplus::message::object_path objPath(portPath);
+                const std::string& endpointId = objPath.filename();
+                std::string endpointURI = "/redfish/v1/Fabrics/";
+                endpointURI += fabricId;
+                endpointURI += "/Endpoints/";
+                endpointURI += endpointId;
+                linksArray.push_back({{"@odata.id", endpointURI}});
+            }
+        },
+        "xyz.openbmc_project.ObjectMapper", objPath + "/associated_endpoint",
+        "org.freedesktop.DBus.Properties", "Get",
+        "xyz.openbmc_project.Association", "endpoints");
+}
+
+/**
+ * @brief Get all switch info by requesting data
+ * from the given D-Bus object.
+ *
  * @param[in,out]   asyncResp   Async HTTP response.
  * @param[in]       service     D-Bus service to query.
  * @param[in]       objPath     D-Bus object to query.
@@ -386,6 +431,7 @@ inline void getPortObject(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                     {"Id", portId}};
                 const std::string& connectionName = connectionNames[0].first;
                 updatePortData(asyncResp, connectionName, path);
+                updatePortLinks(asyncResp, path, fabricId);
             }
         },
         "xyz.openbmc_project.ObjectMapper",
