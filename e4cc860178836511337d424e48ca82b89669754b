@@ -1,0 +1,124 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "668214f1_bffe6f44",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-06-30T01:30:42Z",
+      "side": 1,
+      "message": "Can you explain the model logic a bit in 1 sentence? \nSince looking at multiple processor objects, just get the model from the first one ?",
+      "revId": "e4cc860178836511337d424e48ca82b89669754b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6634ac0d_5fdb4f5f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-06-30T01:30:42Z",
+      "side": 1,
+      "message": "How about something more around\n\n\"Remove code skipping adding a processor to the count due to ProcessorId being 0. Now only skip a processor if it is absent, determined by the present interface? \" or something around that?",
+      "range": {
+        "startLine": 17,
+        "startChar": 3,
+        "endLine": 18,
+        "endChar": 63
+      },
+      "revId": "e4cc860178836511337d424e48ca82b89669754b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6d2bc730_c4e94fd9",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 308,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-06-30T01:30:42Z",
+      "side": 1,
+      "message": "This code is getting hard to read, anyway some of this / all of this code be a function ?",
+      "revId": "e4cc860178836511337d424e48ca82b89669754b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e6e322bb_bff77d7d",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 381,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-06-30T01:30:42Z",
+      "side": 1,
+      "message": "delete?",
+      "range": {
+        "startLine": 380,
+        "startChar": 0,
+        "endLine": 381,
+        "endChar": 49
+      },
+      "revId": "e4cc860178836511337d424e48ca82b89669754b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "12129807_36a6fd02",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 382,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-06-30T01:30:42Z",
+      "side": 1,
+      "message": "Why not just check if model is empty and if it is, do this, if it is not, just skip ?",
+      "revId": "e4cc860178836511337d424e48ca82b89669754b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "da681932_d9ad87fb",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 408,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-06-30T01:30:42Z",
+      "side": 1,
+      "message": "but where are you checking the previous model?",
+      "range": {
+        "startLine": 408,
+        "startChar": 54,
+        "endLine": 408,
+        "endChar": 74
+      },
+      "revId": "e4cc860178836511337d424e48ca82b89669754b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
