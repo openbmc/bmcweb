@@ -212,6 +212,30 @@
       "revId": "1cf9a92a4bbbabc14b2a1c729be8a8d4fee83f1c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "94eddeb2_dcca031a",
+        "filename": "redfish-core/lib/redfish_sessions.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1001094
+      },
+      "writtenOn": "2021-06-30T04:51:53Z",
+      "side": 1,
+      "message": "Hi Ed/Gunnar\n\nYes, I understand, Status is an optional attribute for Session service,\nIf it is not serving any purpose please suggest if we can close this.\n\nThank you.",
+      "parentUuid": "0b186590_3c901b62",
+      "range": {
+        "startLine": 67,
+        "startChar": 0,
+        "endLine": 69,
+        "endChar": 18
+      },
+      "revId": "1cf9a92a4bbbabc14b2a1c729be8a8d4fee83f1c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
