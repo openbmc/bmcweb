@@ -46,6 +46,29 @@
       "revId": "057f8366bc7b7bd0561eae8f766b5b4a5d5248fa",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b3f7c128_90ddbb9c",
+        "filename": "redfish-core/include/utils/name_utils.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1000632
+      },
+      "writtenOn": "2021-07-01T04:27:32Z",
+      "side": 1,
+      "message": "[I am not familiar with bmcweb] interfaces should contain xyz.openbmc_project.Inventory.Item. first find the service that implement object path with the interface and then query the property under that interface.",
+      "range": {
+        "startLine": 90,
+        "startChar": 56,
+        "endLine": 90,
+        "endChar": 74
+      },
+      "revId": "057f8366bc7b7bd0561eae8f766b5b4a5d5248fa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
