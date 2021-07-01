@@ -22,6 +22,30 @@
       "revId": "057f8366bc7b7bd0561eae8f766b5b4a5d5248fa",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4a813d7f_bf6ae9fc",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2021-07-01T03:07:08Z",
+      "side": 1,
+      "message": "PrettyName is just the Name of the resource.\n\nThe Id is still the last part of the object path.",
+      "parentUuid": "cc9576e5_ef3ceda9",
+      "range": {
+        "startLine": 24,
+        "startChar": 29,
+        "endLine": 24,
+        "endChar": 38
+      },
+      "revId": "057f8366bc7b7bd0561eae8f766b5b4a5d5248fa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
