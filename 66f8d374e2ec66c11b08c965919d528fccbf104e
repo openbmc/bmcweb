@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "937492c4_93ea5af8",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-07-01T21:27:58Z",
+      "side": 1,
+      "message": "Should you include this everywhere?",
+      "revId": "66f8d374e2ec66c11b08c965919d528fccbf104e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ba6ad920_213c0240",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 1726,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-07-01T21:27:58Z",
+      "side": 1,
+      "message": "Todo here?",
+      "revId": "66f8d374e2ec66c11b08c965919d528fccbf104e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "350453da_0a4ccdf6",
+        "filename": "redfish-core/lib/certificate_service.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 239,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-07-01T21:27:58Z",
+      "side": 1,
+      "message": "What a mess these privileges are. \nActions on the same Schema (GenerateCSR and ReplaceCertificate) are different",
+      "revId": "66f8d374e2ec66c11b08c965919d528fccbf104e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cc689990_351cf62d",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 2530,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-07-01T21:27:58Z",
+      "side": 1,
+      "message": "This is changing \nconst auto\u0026 getLogEntry \u003d privilegeSetLogin;",
+      "revId": "66f8d374e2ec66c11b08c965919d528fccbf104e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
