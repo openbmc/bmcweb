@@ -69,6 +69,30 @@
       "revId": "057f8366bc7b7bd0561eae8f766b5b4a5d5248fa",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bf87f1c0_5f37bb07",
+        "filename": "redfish-core/include/utils/name_utils.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2021-07-01T04:33:42Z",
+      "side": 1,
+      "message": "The `interfaces` in here is just the device/resource that you are looking for. It doesn\u0027t have to be `xyz.openbmc_project.Inventory.Item`. It is like\n`xyz.openbmc_project.Inventory.Item.Drive` or like `xyz.openbmc_project.Inventory.Item.Processor`. It does not have to contain Inventory.Item.\n\nThen the next query will try to look for `xyz.openbmc_project.Inventory.Item` which will have `PrettyName` (This may fail). If you include Item in `interfaces` then it will alway pass if you get to that point.",
+      "parentUuid": "b3f7c128_90ddbb9c",
+      "range": {
+        "startLine": 90,
+        "startChar": 56,
+        "endLine": 90,
+        "endChar": 74
+      },
+      "revId": "057f8366bc7b7bd0561eae8f766b5b4a5d5248fa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
