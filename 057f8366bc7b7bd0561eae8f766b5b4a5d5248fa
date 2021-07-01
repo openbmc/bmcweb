@@ -49,6 +49,29 @@
     },
     {
       "key": {
+        "uuid": "c5045ba6_f453e2d9",
+        "filename": "redfish-core/include/utils/name_utils.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1000632
+      },
+      "writtenOn": "2021-07-01T04:57:48Z",
+      "side": 1,
+      "message": "is this is the return of GetObject? The standard type is a map?https://github.com/openbmc/docs/blob/master/architecture/object-mapper.md#getobject\nIf so, I am wondering why it works when passing in a vector container.",
+      "range": {
+        "startLine": 36,
+        "startChar": 12,
+        "endLine": 36,
+        "endChar": 79
+      },
+      "revId": "057f8366bc7b7bd0561eae8f766b5b4a5d5248fa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "b3f7c128_90ddbb9c",
         "filename": "redfish-core/include/utils/name_utils.hpp",
         "patchSetId": 7
@@ -93,6 +116,30 @@
       "revId": "057f8366bc7b7bd0561eae8f766b5b4a5d5248fa",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f57241fc_fec2af12",
+        "filename": "redfish-core/include/utils/name_utils.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1000632
+      },
+      "writtenOn": "2021-07-01T04:57:48Z",
+      "side": 1,
+      "message": "GetObject may return a service without`xyz.openbmc_project.Inventory.Item`. Then it will send useless calls to DBUS to get the property. \n\nBut this will not block anything, as the code handles errors",
+      "parentUuid": "bf87f1c0_5f37bb07",
+      "range": {
+        "startLine": 90,
+        "startChar": 56,
+        "endLine": 90,
+        "endChar": 74
+      },
+      "revId": "057f8366bc7b7bd0561eae8f766b5b4a5d5248fa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
