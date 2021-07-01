@@ -46,6 +46,30 @@
       "revId": "a68cfcc0c8ada65b94feaff1e66bf7b53a1a02f6",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fc6470fa_cf8bb64e",
+        "filename": "redfish-core/lib/network_protocol.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 1001099
+      },
+      "writtenOn": "2021-07-01T17:36:32Z",
+      "side": 1,
+      "message": "it also display if it false too. where port \u003d null",
+      "parentUuid": "5f734029_2cc538be",
+      "range": {
+        "startLine": 185,
+        "startChar": 0,
+        "endLine": 185,
+        "endChar": 3
+      },
+      "revId": "a68cfcc0c8ada65b94feaff1e66bf7b53a1a02f6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
