@@ -29,7 +29,7 @@ const Header header = {
     "0.2.0",
     "OpenBMC",
 };
-constexpr std::array<MessageEntry, 187> registry = {
+constexpr std::array<MessageEntry, 189> registry = {
     MessageEntry{
         "ADDDCCorrectable",
         {
@@ -374,6 +374,30 @@ constexpr std::array<MessageEntry, 187> registry = {
                      "Critical",
                      1,
                      {"number"},
+                     "None.",
+                 }},
+    MessageEntry{"CPUHighTemp",
+                 {
+                     "Indicates that the CPU High-Temp "
+                     "has been asserted/de-asserted",
+                     "CPU High-Temp %1",
+                     "Warning",
+                     "Warning",
+                     1,
+                     {
+                         "string",
+                     },
+                     "None.",
+                 }},
+    MessageEntry{"CPUOverTemp",
+                 {
+                     "Indicates that the CPU Over-Temp "
+                     "has been detected.",
+                     "CPU Over-Temp detected.",
+                     "Critical",
+                     "Critical",
+                     0,
+                     {},
                      "None.",
                  }},
     MessageEntry{"DCPowerOff",
