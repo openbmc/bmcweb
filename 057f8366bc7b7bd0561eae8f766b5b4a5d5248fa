@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cc9576e5_ef3ceda9",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1000632
+      },
+      "writtenOn": "2021-07-01T02:03:12Z",
+      "side": 1,
+      "message": "Do you use the PrettyName as a part of a redfish resource ID? Will the property be unique through all entities? Image that you have multiple drives with the same `PrettyName`.",
+      "range": {
+        "startLine": 24,
+        "startChar": 29,
+        "endLine": 24,
+        "endChar": 38
+      },
+      "revId": "057f8366bc7b7bd0561eae8f766b5b4a5d5248fa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
