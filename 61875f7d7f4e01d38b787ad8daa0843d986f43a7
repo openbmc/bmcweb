@@ -2,6 +2,46 @@
   "comments": [
     {
       "key": {
+        "uuid": "2a465d73_46bb3507",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-07-01T16:47:31Z",
+      "side": 1,
+      "message": "I\u0027m not following what use case this helps;  This seems like it would only be an impediment to users using this feature.  I can imagine a case where redundant subscriptions are set up, THEN the service is enabled to ensure that redundant servers get identical data.\n\nIn your commit message you don\u0027t really specify why this behavior is desired or needed.  Can you walk through that a little more.",
+      "revId": "61875f7d7f4e01d38b787ad8daa0843d986f43a7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "60654f74_2b6b7a29",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-07-01T16:47:31Z",
+      "side": 1,
+      "message": "500 is almost certainly the wrong error here.  500 is reserved for when the service fails.  In this case, the service hasn\u0027t failed, it\u0027s simply not in a state that allows this operation.",
+      "range": {
+        "startLine": 19,
+        "startChar": 30,
+        "endLine": 19,
+        "endChar": 33
+      },
+      "revId": "61875f7d7f4e01d38b787ad8daa0843d986f43a7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "9f274873_1d83903c",
         "filename": "redfish-core/lib/event_service.hpp",
         "patchSetId": 2
