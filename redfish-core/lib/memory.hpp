@@ -662,7 +662,8 @@ inline void getDimmDataByService(std::shared_ptr<bmcweb::AsyncResp> aResp,
                             aResp->res.jsonValue["MemoryDeviceType"] =
                                 memoryDeviceType;
                         }
-                        if (value->find("DDR") != std::string::npos)
+                        if ((value->find("DDR") != std::string::npos) ||
+                            (boost::ends_with(*value, "HBM2")))
                         {
                             aResp->res.jsonValue["MemoryType"] = "DRAM";
                         }
