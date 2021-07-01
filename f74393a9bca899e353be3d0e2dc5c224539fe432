@@ -1,0 +1,159 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "483d0b83_7a4ca9ac",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-07-01T16:57:40Z",
+      "side": 1,
+      "message": "This change seems unrelated to the patch?  I\u0027m not against it (it seems better) but needs a separate commit message as to why it\u0027s being done.",
+      "range": {
+        "startLine": 67,
+        "startChar": 4,
+        "endLine": 67,
+        "endChar": 56
+      },
+      "revId": "f74393a9bca899e353be3d0e2dc5c224539fe432",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0243c9fc_26e34c59",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-07-01T16:57:40Z",
+      "side": 1,
+      "message": "This is the same thing as above.  I don\u0027t have a problem with using circular_buffer here over std::queue, but it deserves its own commit.",
+      "range": {
+        "startLine": 72,
+        "startChar": 4,
+        "endLine": 72,
+        "endChar": 55
+      },
+      "revId": "f74393a9bca899e353be3d0e2dc5c224539fe432",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d08db940_4072f363",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-07-01T16:57:40Z",
+      "side": 1,
+      "message": "When the handleConnState() method is cleaned up, this member variable will no longer be needed, and can be passed directly to doConnect.",
+      "range": {
+        "startLine": 73,
+        "startChar": 0,
+        "endLine": 73,
+        "endChar": 58
+      },
+      "revId": "f74393a9bca899e353be3d0e2dc5c224539fe432",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8382e2de_18a90086",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-07-01T16:57:40Z",
+      "side": 1,
+      "message": "Doesn\u0027t the request object need to be cleared somewhere?  It could contain headers from the last request.",
+      "range": {
+        "startLine": 142,
+        "startChar": 0,
+        "endLine": 142,
+        "endChar": 26
+      },
+      "revId": "f74393a9bca899e353be3d0e2dc5c224539fe432",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ae095520_4271eec5",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-07-01T16:57:40Z",
+      "side": 1,
+      "message": "Like was discussed on previous patches, this is incorrect, and needs fixed.",
+      "range": {
+        "startLine": 173,
+        "startChar": 0,
+        "endLine": 174,
+        "endChar": 27
+      },
+      "revId": "f74393a9bca899e353be3d0e2dc5c224539fe432",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a32f34ff_558581a5",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 193,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-07-01T16:57:40Z",
+      "side": 1,
+      "message": "As was discussed previously, we need to check on the status of the response object that was returned.",
+      "revId": "f74393a9bca899e353be3d0e2dc5c224539fe432",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b438d088_d8a208a2",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 214,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-07-01T16:57:40Z",
+      "side": 1,
+      "message": "As was discussed previously, we need to check on the status of the response object that was returned.",
+      "range": {
+        "startLine": 212,
+        "startChar": 0,
+        "endLine": 214,
+        "endChar": 40
+      },
+      "revId": "f74393a9bca899e353be3d0e2dc5c224539fe432",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}

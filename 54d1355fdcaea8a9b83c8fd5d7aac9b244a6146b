@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a25bef4b_ecb1124f",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-07-01T16:57:40Z",
+      "side": 0,
+      "message": "The connection timer got deleted?  This wasn\u0027t mentioned in the commit message.",
+      "range": {
+        "startLine": 162,
+        "startChar": 8,
+        "endLine": 162,
+        "endChar": 53
+      },
+      "revId": "54d1355fdcaea8a9b83c8fd5d7aac9b244a6146b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
