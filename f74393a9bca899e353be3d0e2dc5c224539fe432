@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "8dd4a6e5_4437eb72",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1000907
+      },
+      "writtenOn": "2021-07-02T22:00:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "483d0b83_7a4ca9ac",
+      "range": {
+        "startLine": 67,
+        "startChar": 4,
+        "endLine": 67,
+        "endChar": 56
+      },
+      "revId": "f74393a9bca899e353be3d0e2dc5c224539fe432",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "0243c9fc_26e34c59",
         "filename": "http/http_client.hpp",
         "patchSetId": 21
@@ -36,6 +60,30 @@
       "writtenOn": "2021-07-01T16:57:40Z",
       "side": 1,
       "message": "This is the same thing as above.  I don\u0027t have a problem with using circular_buffer here over std::queue, but it deserves its own commit.",
+      "range": {
+        "startLine": 72,
+        "startChar": 4,
+        "endLine": 72,
+        "endChar": 55
+      },
+      "revId": "f74393a9bca899e353be3d0e2dc5c224539fe432",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "85dd7677_64d5ed3c",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1000907
+      },
+      "writtenOn": "2021-07-02T22:00:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0243c9fc_26e34c59",
       "range": {
         "startLine": 72,
         "startChar": 4,
@@ -94,6 +142,30 @@
     },
     {
       "key": {
+        "uuid": "7b144446_a5ccddeb",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 1000907
+      },
+      "writtenOn": "2021-07-02T22:00:44Z",
+      "side": 1,
+      "message": "I guess it wouldn\u0027t be required, as each time sendMessage is called, the body would be replaced by new data, and req.prepare_payload() would make necessary correctios to header if required.\nThe remaining part of the header remains common for every event sent, which can be configured by calling addHeaders().",
+      "parentUuid": "8382e2de_18a90086",
+      "range": {
+        "startLine": 142,
+        "startChar": 0,
+        "endLine": 142,
+        "endChar": 26
+      },
+      "revId": "f74393a9bca899e353be3d0e2dc5c224539fe432",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "ae095520_4271eec5",
         "filename": "http/http_client.hpp",
         "patchSetId": 21
@@ -128,6 +200,24 @@
       "writtenOn": "2021-07-01T16:57:40Z",
       "side": 1,
       "message": "As was discussed previously, we need to check on the status of the response object that was returned.",
+      "revId": "f74393a9bca899e353be3d0e2dc5c224539fe432",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a9db13c4_26b2005f",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 193,
+      "author": {
+        "id": 1000907
+      },
+      "writtenOn": "2021-07-02T22:00:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a32f34ff_558581a5",
       "revId": "f74393a9bca899e353be3d0e2dc5c224539fe432",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
