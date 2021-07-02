@@ -374,6 +374,7 @@ executable(
 
 srcfiles_unittest = [
   'http/ut/utility_test.cpp',
+  'redfish-core/lib/ut/bios_test.cpp',
   'include/ut/dbus_utility_test.cpp',
   'include/ut/multipart_test.cpp',
   'include/ut/http_utility_test.cpp',

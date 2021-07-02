@@ -4,6 +4,7 @@
 #include <sdbusplus/asio/property.hpp>
 
 #include <algorithm>
+#include <iostream>
 #include <string>
 #include <vector>
 
@@ -38,6 +39,7 @@ inline void
                                 const std::string& activeVersionPropName,
                                 const bool populateLinkToImages)
 {
+    std::cerr << "in populateFirmwareInformation " << std::endl;
     // Used later to determine running (known on Redfish as active) FW images
     sdbusplus::asio::getProperty<std::vector<std::string>>(
         *crow::connections::systemBus, "xyz.openbmc_project.ObjectMapper",

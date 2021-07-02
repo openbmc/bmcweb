@@ -3,6 +3,8 @@
 #include <app.hpp>
 #include <registries/privilege_registry.hpp>
 #include <utils/fw_utils.hpp>
+
+#include <iostream> //cerr
 namespace redfish
 {
 /**
@@ -12,6 +14,7 @@ inline void
     handleBiosServiceGet(const crow::Request&,
                          const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
+    std::cerr << "in handleBiosServiceGer" << std::endl;
     asyncResp->res.jsonValue["@odata.id"] = "/redfish/v1/Systems/system/Bios";
     asyncResp->res.jsonValue["@odata.type"] = "#Bios.v1_1_0.Bios";
     asyncResp->res.jsonValue["Name"] = "BIOS Configuration";
@@ -20,9 +23,12 @@ inline void
     asyncResp->res.jsonValue["Actions"]["#Bios.ResetBios"] = {
         {"target", "/redfish/v1/Systems/system/Bios/Actions/Bios.ResetBios"}};
 
+    std::cerr << "in about to populate firmwareINfo" << std::endl;
     // Get the ActiveSoftwareImage and SoftwareImages
-    fw_util::populateFirmwareInformation(asyncResp, fw_util::biosPurpose, "",
-                                         true);
+    // fw_util::populateFirmwareInformation(asyncResp, fw_util::biosPurpose, "",
+    //                                     true);
+
+    std::cerr << "handleBioServiceGet return" << std::endl;
 }
 inline void requestRoutesBiosService(App& app)
 {
