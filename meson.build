@@ -364,7 +364,11 @@ srcfiles_unittest = ['include/ut/dbus_utility_test.cpp',
                      'redfish-core/ut/lock_test.cpp',
                      'redfish-core/ut/configfile_test.cpp',
                      'redfish-core/ut/time_utils_test.cpp',
-                     'http/ut/utility_test.cpp']
+                     'http/ut/utility_test.cpp',
+                     'redfish-core/include/utils/fw_utils.hpp',
+		     'redfish-core/src/error_messages.cpp',
+                     'redfish-core/lib/ut/bios_test.cpp']
+
 
 # Gather the Configuration data
 
