@@ -7,29 +7,28 @@ namespace redfish
 /**
  * BiosService class supports handle get method for bios.
  */
+void biosServiceGet(const crow::Request&,
+                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
+{
+    asyncResp->res.jsonValue["@odata.id"] = "/redfish/v1/Systems/system/Bios";
+    asyncResp->res.jsonValue["@odata.type"] = "#Bios.v1_1_0.Bios";
+    asyncResp->res.jsonValue["Name"] = "BIOS Configuration";
+    asyncResp->res.jsonValue["Description"] = "BIOS Configuration Service";
+    asyncResp->res.jsonValue["Id"] = "BIOS";
+    asyncResp->res.jsonValue["Actions"]["#Bios.ResetBios"] = {
+        {"target", "/redfish/v1/Systems/system/Bios/Actions/Bios.ResetBios"}};
+
+    // Get the ActiveSoftwareImage and SoftwareImages
+    fw_util::populateFirmwareInformation(asyncResp, fw_util::biosPurpose, "",
+                                         true);
+}
 inline void requestRoutesBiosService(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/Systems/system/Bios/")
         .privileges({{"Login"}})
-        .methods(boost::beast::http::verb::get)(
-            [](const crow::Request&,
-               const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
-                asyncResp->res.jsonValue["@odata.id"] =
-                    "/redfish/v1/Systems/system/Bios";
-                asyncResp->res.jsonValue["@odata.type"] = "#Bios.v1_1_0.Bios";
-                asyncResp->res.jsonValue["Name"] = "BIOS Configuration";
-                asyncResp->res.jsonValue["Description"] =
-                    "BIOS Configuration Service";
-                asyncResp->res.jsonValue["Id"] = "BIOS";
-                asyncResp->res.jsonValue["Actions"]["#Bios.ResetBios"] = {
-                    {"target",
-                     "/redfish/v1/Systems/system/Bios/Actions/Bios.ResetBios"}};
-
-                // Get the ActiveSoftwareImage and SoftwareImages
-                fw_util::populateFirmwareInformation(
-                    asyncResp, fw_util::biosPurpose, "", true);
-            });
+        .methods(boost::beast::http::verb::get)(biosServiceGet);
 }
+
 /**
  * BiosReset class supports handle POST method for Reset bios.
  * The class retrieves and sends data directly to D-Bus.
