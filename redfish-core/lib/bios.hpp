@@ -1,8 +1,10 @@
 #pragma once
 
 #include <app.hpp>
+#include <error_messages.hpp>
 #include <registries/privilege_registry.hpp>
 #include <utils/fw_utils.hpp>
+
 namespace redfish
 {
 /**
@@ -48,6 +50,7 @@ inline void
             {
                 BMCWEB_LOG_ERROR << "Failed to reset bios: " << ec;
                 messages::internalError(asyncResp->res);
+                // redfish::messages::internalError(asyncResp->res);
                 return;
             }
         },
