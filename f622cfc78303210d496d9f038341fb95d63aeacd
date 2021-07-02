@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "72c7ef4c_c1079e6f",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 448,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2021-07-02T02:05:00Z",
+      "side": 1,
+      "message": "Shouldn\u0027t cause an error if the property is not available.",
+      "range": {
+        "startLine": 448,
+        "startChar": 33,
+        "endLine": 448,
+        "endChar": 72
+      },
+      "revId": "f622cfc78303210d496d9f038341fb95d63aeacd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
