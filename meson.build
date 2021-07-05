@@ -359,6 +359,7 @@ srcfiles_bmcweb = ['src/webserver_main.cpp','redfish-core/src/error_messages.cpp
                    'redfish-core/src/utils/json_utils.cpp']
 
 srcfiles_unittest = ['include/ut/dbus_utility_test.cpp',
+                     'include/ut/http_utility_test.cpp',
                      'redfish-core/ut/privileges_test.cpp',
                      'redfish-core/ut/lock_test.cpp',
                      'redfish-core/ut/configfile_test.cpp',
