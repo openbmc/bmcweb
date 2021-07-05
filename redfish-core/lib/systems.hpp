@@ -1257,6 +1257,42 @@ inline void
 }
 
 /**
+ * @brief Stop Boot On Fault over DBUS.
+ *
+ * @param[in] aResp     Shared pointer for generating response message.
+ *
+ * @return None.
+ */
+inline void getStopBootOnFault(const std::shared_ptr<bmcweb::AsyncResp>& aResp)
+{
+    BMCWEB_LOG_DEBUG << "Get Stop Boot On Fault";
+
+    sdbusplus::asio::getProperty<bool>(
+        *crow::connections::systemBus, "xyz.openbmc_project.Settings",
+        "/xyz/openbmc_project/logging/settings",
+        "xyz.openbmc_project.Logging.Settings", "QuiesceOnHwError",
+        [aResp](const boost::system::error_code& ec, bool value) {
+        if (ec)
+        {
+            if (ec.value() != EBADR)
+            {
+                messages::internalError(aResp->res);
+            }
+            return;
+        }
+
+        if (value)
+        {
+            aResp->res.jsonValue["Boot"]["StopBootOnFault"] = "AnyFault";
+        }
+        else
+        {
+            aResp->res.jsonValue["Boot"]["StopBootOnFault"] = "Never";
+        }
+        });
+}
+
+/**
  * @brief Get TrustedModuleRequiredToBoot property. Determines whether or not
  * TPM is required for booting the host.
  *
@@ -1737,6 +1773,67 @@ inline void setAssetTag(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
             "xyz.openbmc_project.Inventory.Decorator.AssetTag", "AssetTag",
             dbus::utility::DbusVariantType(assetTag));
         });
+}
+
+/**
+ * @brief Validate the specified stopBootOnFault is valid and return the
+ * stopBootOnFault name associated with that string
+ *
+ * @param[in] aResp   Shared pointer for generating response message.
+ * @param[in] stopBootOnFaultString  String representing the desired
+ * stopBootOnFault
+ *
+ * @return stopBootOnFault value or empty  if incoming value is not valid
+ */
+inline std::optional<bool>
+    validstopBootOnFault(const std::string& stopBootOnFaultString)
+{
+    std::optional<bool> validstopBootEnabled;
+    if (stopBootOnFaultString == "AnyFault")
+    {
+        return true;
+    }
+    if (stopBootOnFaultString == "Never")
+    {
+        return false;
+    }
+    return std::nullopt;
+}
+
+/**
+ * @brief Sets stopBootOnFault
+ *
+ * @param[in] aResp   Shared pointer for generating response message.
+ * @param[in] stopBootOnFault  "StopBootOnFault" from request.
+ *
+ * @return None.
+ */
+inline void setStopBootOnFault(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
+                               const std::string& stopBootOnFault)
+{
+    BMCWEB_LOG_DEBUG << "Set Stop Boot On Fault.";
+
+    std::optional<bool> stopBootEnabled = validstopBootOnFault(stopBootOnFault);
+    if (!stopBootEnabled)
+    {
+        return;
+    }
+
+    sdbusplus::asio::setProperty(*crow::connections::systemBus,
+                                 "xyz.openbmc_project.Settings",
+                                 "/xyz/openbmc_project/logging/settings",
+                                 "xyz.openbmc_project.Logging.Settings",
+                                 "QuiesceOnHwError", *stopBootEnabled,
+                                 [aResp](const boost::system::error_code& ec) {
+        if (ec)
+        {
+            if (ec.value() != EBADR)
+            {
+                messages::internalError(aResp->res);
+            }
+            return;
+        }
+    });
 }
 
 /**
@@ -3015,6 +3112,7 @@ inline void requestRoutesSystems(App& app)
         getPCIeDeviceList(asyncResp, "PCIeDevices");
         getHostWatchdogTimer(asyncResp);
         getPowerRestorePolicy(asyncResp);
+        getStopBootOnFault(asyncResp);
         getAutomaticRetry(asyncResp);
         getLastResetTime(asyncResp);
 #ifdef BMCWEB_ENABLE_REDFISH_PROVISIONING_FEATURE
@@ -3058,6 +3156,7 @@ inline void requestRoutesSystems(App& app)
         std::optional<std::string> bootEnable;
         std::optional<std::string> bootAutomaticRetry;
         std::optional<bool> bootTrustedModuleRequired;
+        std::optional<std::string> stopBootOnFault;
         std::optional<bool> ipsEnable;
         std::optional<uint8_t> ipsEnterUtil;
         std::optional<uint64_t> ipsEnterTime;
@@ -3079,6 +3178,7 @@ inline void requestRoutesSystems(App& app)
                         "Boot/BootSourceOverrideEnabled", bootEnable,
                         "Boot/AutomaticRetryConfig", bootAutomaticRetry,
                         "Boot/TrustedModuleRequiredToBoot", bootTrustedModuleRequired,
+                        "Boot/StopBootOnFault", stopBootOnFault,
                         "IdlePowerSaver/Enabled", ipsEnable,
                         "IdlePowerSaver/EnterUtilizationPercent", ipsEnterUtil,
                         "IdlePowerSaver/EnterDwellTimeSeconds", ipsEnterTime,
@@ -3114,6 +3214,11 @@ inline void requestRoutesSystems(App& app)
         {
             setTrustedModuleRequiredToBoot(asyncResp,
                                            *bootTrustedModuleRequired);
+        }
+
+        if (stopBootOnFault)
+        {
+            setStopBootOnFault(asyncResp, *stopBootOnFault);
         }
 
         if (locationIndicatorActive)
