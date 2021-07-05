@@ -1307,6 +1307,102 @@ inline void
 }
 
 /**
+ * @brief Stop Boot On Fault over DBUS.
+ *
+ * @param[in] aResp     Shared pointer for generating response message.
+ *
+ * @return None.
+ */
+inline void getStopBootOnFault(const std::shared_ptr<bmcweb::AsyncResp>& aResp)
+{
+    BMCWEB_LOG_DEBUG << "Get Stop Boot On Fault";
+
+    // Get Stop Boot On Fault object path:
+    crow::connections::systemBus->async_method_call(
+        [aResp](
+            const boost::system::error_code ec,
+            const std::vector<std::pair<
+                std::string,
+                std::vector<std::pair<std::string, std::vector<std::string>>>>>&
+                subtree) {
+            if (ec)
+            {
+                messages::internalError(aResp->res);
+                return;
+            }
+            if (subtree.size() == 0)
+            {
+                return;
+            }
+            if (subtree.size() > 1)
+            {
+                // More then one StopBootOnFault object is not supported and is
+                // an error
+                BMCWEB_LOG_DEBUG << "Found more than 1 system D-Bus "
+                                    "StopBootOnFault objects: "
+                                 << subtree.size();
+                messages::internalError(aResp->res);
+                return;
+            }
+            if (subtree[0].first.empty() || subtree[0].second.size() != 1)
+            {
+                BMCWEB_LOG_DEBUG << "StopBootOnFault mapper error!";
+                messages::internalError(aResp->res);
+                return;
+            }
+            const std::string& path = subtree[0].first;
+            const std::string& service = subtree[0].second.begin()->first;
+            if (service.empty())
+            {
+                BMCWEB_LOG_DEBUG << "StopBootOnFault service mapper error!";
+                messages::internalError(aResp->res);
+                return;
+            }
+            // Valid Stop Boot On Fault object found, now read the current value
+            crow::connections::systemBus->async_method_call(
+                [aResp](const boost::system::error_code ec,
+                        std::variant<bool>& quiesceOnHwError) {
+                    if (ec)
+                    {
+                        BMCWEB_LOG_DEBUG
+                            << "DBUS response error on StopBootOnFault Get : "
+                            << ec;
+                        messages::internalError(aResp->res);
+                        return;
+                    }
+
+                    const bool* quiesceOnHwErrorPtr =
+                        std::get_if<bool>(&quiesceOnHwError);
+
+                    if (!quiesceOnHwErrorPtr)
+                    {
+                        messages::internalError(aResp->res);
+                        return;
+                    }
+
+                    BMCWEB_LOG_DEBUG << "Stop Boot On Fault: "
+                                     << *quiesceOnHwErrorPtr;
+                    if (*quiesceOnHwErrorPtr == true)
+                    {
+                        aResp->res.jsonValue["Boot"]["StopBootOnFault"] =
+                            "AnyFault";
+                    }
+                    else
+                    {
+                        aResp->res.jsonValue["Boot"]["StopBootOnFault"] =
+                            "Never";
+                    }
+                },
+                service, path, "org.freedesktop.DBus.Properties", "Get",
+                "xyz.openbmc_project.Logging.Settings", "QuiesceOnHwError");
+        },
+        "xyz.openbmc_project.ObjectMapper",
+        "/xyz/openbmc_project/object_mapper",
+        "xyz.openbmc_project.ObjectMapper", "GetSubTree", "/", 0,
+        std::array<const char*, 1>{"xyz.openbmc_project.Logging.Settings"});
+}
+
+/**
  * @brief Get TrustedModuleRequiredToBoot property. Determines whether or not
  * TPM is required for booting the host.
  *
@@ -1815,6 +1911,118 @@ inline void setAssetTag(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
         "/xyz/openbmc_project/inventory", int32_t(0),
         std::array<const char*, 1>{
             "xyz.openbmc_project.Inventory.Item.System"});
+}
+
+/**
+ * @brief Validate the specified stopBootOnFault is valid and return the
+ * stopBootOnFault name associated with that string
+ *
+ * @param[in] aResp   Shared pointer for generating response message.
+ * @param[in] stopBootOnFaultString  String representing the desired
+ * stopBootOnFault
+ *
+ * @return stopBootOnFault value or empty  if incoming value is not valid
+ */
+inline std::optional<bool>
+    validstopBootOnFault(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
+                         const std::string& stopBootOnFaultString)
+{
+    std::optional<bool> validstopBootEnabled;
+    if (stopBootOnFaultString == "AnyFault")
+    {
+        return true;
+    }
+    else if (stopBootOnFaultString == "Never")
+    {
+        return false;
+    }
+    return std::nullopt;
+}
+
+/**
+ * @brief Sets stopBootOnFault
+ *
+ * @param[in] aResp   Shared pointer for generating response message.
+ * @param[in] stopBootOnFault  "StopBootOnFault" from request.
+ *
+ * @return None.
+ */
+inline void setStopBootOnFault(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
+                               const std::string& stopBootOnFault)
+{
+    BMCWEB_LOG_DEBUG << "Set Stop Boot On Fault.";
+
+    std::optional<bool> stopBootEnabled =
+        validstopBootOnFault(aResp, stopBootOnFault);
+
+    if (!stopBootEnabled)
+    {
+        return;
+    }
+    bool autoStopBootEnabled = *stopBootEnabled;
+
+    crow::connections::systemBus->async_method_call(
+        [aResp, autoStopBootEnabled](
+            const boost::system::error_code ec,
+            const std::vector<std::pair<
+                std::string,
+                std::vector<std::pair<std::string, std::vector<std::string>>>>>&
+                subtree) {
+            if (ec)
+            {
+                BMCWEB_LOG_DEBUG
+                    << "DBUS response error on StopBootOnFault GetSubTree "
+                    << ec;
+                messages::internalError(aResp->res);
+                return;
+            }
+            if (subtree.size() == 0)
+            {
+                messages::propertyValueNotInList(aResp->res, "ComputerSystem",
+                                                 "StopBootOnFault");
+                return;
+            }
+            if (subtree.size() > 1)
+            {
+                // More then one StopBootOnFault object is not supported and is
+                // an error
+                BMCWEB_LOG_DEBUG << "Found more than 1 system D-Bus "
+                                    "StopBootOnFault objects: "
+                                 << subtree.size();
+                messages::internalError(aResp->res);
+                return;
+            }
+            if (subtree[0].first.empty() || subtree[0].second.size() != 1)
+            {
+                BMCWEB_LOG_DEBUG << "StopBootOnFault mapper error!";
+                messages::internalError(aResp->res);
+                return;
+            }
+            const std::string& path = subtree[0].first;
+            const std::string& service = subtree[0].second.begin()->first;
+            if (service.empty())
+            {
+                BMCWEB_LOG_DEBUG << "StopBootOnFault service mapper error!";
+                messages::internalError(aResp->res);
+                return;
+            }
+
+            crow::connections::systemBus->async_method_call(
+                [aResp](const boost::system::error_code ec) {
+                    if (ec)
+                    {
+                        messages::internalError(aResp->res);
+                        return;
+                    }
+                },
+                service, path, "org.freedesktop.DBus.Properties", "Set",
+                "xyz.openbmc_project.Logging.Settings", "QuiesceOnHwError",
+                std::variant<bool>(autoStopBootEnabled));
+        },
+        "xyz.openbmc_project.ObjectMapper",
+        "/xyz/openbmc_project/object_mapper",
+        "xyz.openbmc_project.ObjectMapper", "GetSubTree", "/", 0,
+        std::array<const char*, 1>{"xyz.openbmc_project.Logging.Settings"});
 }
 
 /**
@@ -2758,6 +2966,7 @@ inline void requestRoutesSystems(App& app)
             getPCIeDeviceList(asyncResp, "PCIeDevices");
             getHostWatchdogTimer(asyncResp);
             getPowerRestorePolicy(asyncResp);
+            getStopBootOnFault(asyncResp);
             getAutomaticRetry(asyncResp);
             getLastResetTime(asyncResp);
 #ifdef BMCWEB_ENABLE_REDFISH_PROVISIONING_FEATURE
@@ -2771,108 +2980,108 @@ inline void requestRoutesSystems(App& app)
         .methods(boost::beast::http::verb::patch)(
             [](const crow::Request& req,
                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
-                std::optional<bool> locationIndicatorActive;
-                std::optional<std::string> indicatorLed;
-                std::optional<nlohmann::json> bootProps;
-                std::optional<nlohmann::json> wdtTimerProps;
-                std::optional<std::string> assetTag;
-                std::optional<std::string> powerRestorePolicy;
-                std::optional<std::string> powerMode;
-                if (!json_util::readJson(
-                        req, asyncResp->res, "IndicatorLED", indicatorLed,
-                        "LocationIndicatorActive", locationIndicatorActive,
-                        "Boot", bootProps, "WatchdogTimer", wdtTimerProps,
-                        "PowerRestorePolicy", powerRestorePolicy, "AssetTag",
-                        assetTag, "PowerMode", powerMode))
+        std::optional<bool> locationIndicatorActive;
+        std::optional<std::string> indicatorLed;
+        std::optional<nlohmann::json> bootProps;
+        std::optional<nlohmann::json> wdtTimerProps;
+        std::optional<std::string> assetTag;
+        std::optional<std::string> powerRestorePolicy;
+        std::optional<std::string> powerMode;
+        if (!json_util::readJson(req, asyncResp->res, "IndicatorLED",
+                                 indicatorLed, "LocationIndicatorActive",
+                                 locationIndicatorActive, "Boot", bootProps,
+                                 "WatchdogTimer", wdtTimerProps,
+                                 "PowerRestorePolicy", powerRestorePolicy,
+                                 "AssetTag", assetTag, "PowerMode", powerMode))
+        {
+            return;
+        }
+
+        asyncResp->res.result(boost::beast::http::status::no_content);
+
+        if (assetTag)
+        {
+            setAssetTag(asyncResp, *assetTag);
+        }
+
+        if (wdtTimerProps)
+        {
+            std::optional<bool> wdtEnable;
+            std::optional<std::string> wdtTimeOutAction;
+
+            if (!json_util::readJson(*wdtTimerProps, asyncResp->res,
+                                     "FunctionEnabled", wdtEnable,
+                                     "TimeoutAction", wdtTimeOutAction))
+            {
+                return;
+            }
+            setWDTProperties(asyncResp, wdtEnable, wdtTimeOutAction);
+        }
+
+        if (bootProps)
+        {
+            std::optional<std::string> bootSource;
+            std::optional<std::string> bootType;
+            std::optional<std::string> bootEnable;
+            std::optional<std::string> automaticRetryConfig;
+            std::optional<bool> trustedModuleRequiredToBoot;
+            std::optional<std::string> stopBootOnFault;
+
+            if (!json_util::readJson(
+                    *bootProps, asyncResp->res, "BootSourceOverrideTarget",
+                    bootSource, "BootSourceOverrideMode", bootType,
+                    "BootSourceOverrideEnabled", bootEnable,
+                    "AutomaticRetryConfig", automaticRetryConfig,
+                    "TrustedModuleRequiredToBoot", trustedModuleRequiredToBoot,
+                    "StopBootOnFault", stopBootOnFault))
+            {
+                return;
+            }
+
+            if (bootSource || bootType || bootEnable)
+            {
+                setBootProperties(asyncResp, bootSource, bootType, bootEnable);
+            }
+            if (automaticRetryConfig)
+            {
+                setAutomaticRetry(asyncResp, *automaticRetryConfig);
+            }
+            if (trustedModuleRequiredToBoot)
+            {
+                setTrustedModuleRequiredToBoot(asyncResp,
+                                               *trustedModuleRequiredToBoot);
+                if (stopBootOnFault)
                 {
-                    return;
+                    setStopBootOnFault(asyncResp, *stopBootOnFault);
                 }
+            }
 
-                asyncResp->res.result(boost::beast::http::status::no_content);
+            if (locationIndicatorActive)
+            {
+                setLocationIndicatorActive(asyncResp, *locationIndicatorActive);
+            }
 
-                if (assetTag)
-                {
-                    setAssetTag(asyncResp, *assetTag);
-                }
+            // TODO (Gunnar): Remove IndicatorLED after enough time has
+            // passed
+            if (indicatorLed)
+            {
+                setIndicatorLedState(asyncResp, *indicatorLed);
+                asyncResp->res.addHeader(
+                    boost::beast::http::field::warning,
+                    "299 - \"IndicatorLED is deprecated. Use "
+                    "LocationIndicatorActive instead.\"");
+            }
 
-                if (wdtTimerProps)
-                {
-                    std::optional<bool> wdtEnable;
-                    std::optional<std::string> wdtTimeOutAction;
+            if (powerRestorePolicy)
+            {
+                setPowerRestorePolicy(asyncResp, *powerRestorePolicy);
+            }
 
-                    if (!json_util::readJson(*wdtTimerProps, asyncResp->res,
-                                             "FunctionEnabled", wdtEnable,
-                                             "TimeoutAction", wdtTimeOutAction))
-                    {
-                        return;
-                    }
-                    setWDTProperties(asyncResp, wdtEnable, wdtTimeOutAction);
-                }
-
-                if (bootProps)
-                {
-                    std::optional<std::string> bootSource;
-                    std::optional<std::string> bootType;
-                    std::optional<std::string> bootEnable;
-                    std::optional<std::string> automaticRetryConfig;
-                    std::optional<bool> trustedModuleRequiredToBoot;
-
-                    if (!json_util::readJson(
-                            *bootProps, asyncResp->res,
-                            "BootSourceOverrideTarget", bootSource,
-                            "BootSourceOverrideMode", bootType,
-                            "BootSourceOverrideEnabled", bootEnable,
-                            "AutomaticRetryConfig", automaticRetryConfig,
-                            "TrustedModuleRequiredToBoot",
-                            trustedModuleRequiredToBoot))
-                    {
-                        return;
-                    }
-
-                    if (bootSource || bootType || bootEnable)
-                    {
-                        setBootProperties(asyncResp, bootSource, bootType,
-                                          bootEnable);
-                    }
-                    if (automaticRetryConfig)
-                    {
-                        setAutomaticRetry(asyncResp, *automaticRetryConfig);
-                    }
-
-                    if (trustedModuleRequiredToBoot)
-                    {
-                        setTrustedModuleRequiredToBoot(
-                            asyncResp, *trustedModuleRequiredToBoot);
-                    }
-                }
-
-                if (locationIndicatorActive)
-                {
-                    setLocationIndicatorActive(asyncResp,
-                                               *locationIndicatorActive);
-                }
-
-                // TODO (Gunnar): Remove IndicatorLED after enough time has
-                // passed
-                if (indicatorLed)
-                {
-                    setIndicatorLedState(asyncResp, *indicatorLed);
-                    asyncResp->res.addHeader(
-                        boost::beast::http::field::warning,
-                        "299 - \"IndicatorLED is deprecated. Use "
-                        "LocationIndicatorActive instead.\"");
-                }
-
-                if (powerRestorePolicy)
-                {
-                    setPowerRestorePolicy(asyncResp, *powerRestorePolicy);
-                }
-
-                if (powerMode)
-                {
-                    setPowerMode(asyncResp, *powerMode);
-                }
-            });
+            if (powerMode)
+            {
+                setPowerMode(asyncResp, *powerMode);
+            }
+        });
 }
 
 /**
@@ -2881,28 +3090,28 @@ inline void requestRoutesSystems(App& app)
  */
 inline void requestRoutesSystemResetActionInfo(App& app)
 {
-
-    /**
-     * Functions triggers appropriate requests on DBus
-     */
-    BMCWEB_ROUTE(app, "/redfish/v1/Systems/system/ResetActionInfo/")
-        .privileges(redfish::privileges::getActionInfo)
-        .methods(boost::beast::http::verb::get)(
-            [](const crow::Request&,
-               const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
-                asyncResp->res.jsonValue = {
-                    {"@odata.type", "#ActionInfo.v1_1_2.ActionInfo"},
-                    {"@odata.id", "/redfish/v1/Systems/system/ResetActionInfo"},
-                    {"Name", "Reset Action Info"},
-                    {"Id", "ResetActionInfo"},
-                    {"Parameters",
-                     {{{"Name", "ResetType"},
-                       {"Required", true},
-                       {"DataType", "String"},
-                       {"AllowableValues",
-                        {"On", "ForceOff", "ForceOn", "ForceRestart",
-                         "GracefulRestart", "GracefulShutdown", "PowerCycle",
-                         "Nmi"}}}}}};
-            });
+        /**
+         * Functions triggers appropriate requests on DBus
+         */
+        BMCWEB_ROUTE(app, "/redfish/v1/Systems/system/ResetActionInfo/")
+            .privileges(redfish::privileges::getActionInfo)
+            .methods(boost::beast::http::verb::get)(
+                [](const crow::Request&,
+                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
+                    asyncResp->res.jsonValue = {
+                        {"@odata.type", "#ActionInfo.v1_1_2.ActionInfo"},
+                        {"@odata.id",
+                         "/redfish/v1/Systems/system/ResetActionInfo"},
+                        {"Name", "Reset Action Info"},
+                        {"Id", "ResetActionInfo"},
+                        {"Parameters",
+                         {{{"Name", "ResetType"},
+                           {"Required", true},
+                           {"DataType", "String"},
+                           {"AllowableValues",
+                            {"On", "ForceOff", "ForceOn", "ForceRestart",
+                             "GracefulRestart", "GracefulShutdown",
+                             "PowerCycle", "Nmi"}}}}}};
+                });
 }
 } // namespace redfish
