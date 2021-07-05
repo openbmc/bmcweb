@@ -1257,6 +1257,134 @@ inline void
 }
 
 /**
+ * @brief Stop Boot On Fault over DBUS.
+ *
+ * @param[in] aResp     Shared pointer for generating response message.
+ *
+ * @return None.
+ */
+inline void getStopBootOnFault(const std::shared_ptr<bmcweb::AsyncResp>& aResp)
+{
+    BMCWEB_LOG_DEBUG << "Get Stop Boot On Fault";
+
+    // Get Stop Boot On Fault object path:
+    crow::connections::systemBus->async_method_call(
+        [aResp](
+            const boost::system::error_code ec,
+            const std::vector<std::pair<
+                std::string,
+                std::vector<std::pair<std::string, std::vector<std::string>>>>>&
+                subtree) {
+        if (ec)
+        {
+            messages::internalError(aResp->res);
+            return;
+        }
+        if (subtree.size() == 0)
+        {
+            return;
+        }
+        if (subtree.size() > 1)
+        {
+            // More then one StopBootOnFault object is not supported and is
+            // an error
+            BMCWEB_LOG_DEBUG << "Found more than 1 system D-Bus "
+                                "StopBootOnFault objects: "
+                             << subtree.size();
+            messages::internalError(aResp->res);
+            return;
+        }
+        if (subtree[0].first.empty() || subtree[0].second.size() != 1)
+        {
+            BMCWEB_LOG_DEBUG << "StopBootOnFault mapper error!";
+            messages::internalError(aResp->res);
+            return;
+        }
+        const std::string& path = subtree[0].first;
+        const std::string& service = subtree[0].second.begin()->first;
+        if (service.empty())
+        {
+            BMCWEB_LOG_DEBUG << "StopBootOnFault service mapper error!";
+            messages::internalError(aResp->res);
+            return;
+        }
+        // Valid Stop Boot On Fault object found, now read the current value
+        crow::connections::systemBus->async_method_call(
+            [aResp](const boost::system::error_code ec,
+                    std::variant<bool>& quiesceOnHwError) {
+            if (ec)
+            {
+                BMCWEB_LOG_DEBUG
+                    << "DBUS response error on StopBootOnFault Get : " << ec;
+                messages::internalError(aResp->res);
+                return;
+            }
+
+            const bool* quiesceOnHwErrorPtr =
+                std::get_if<bool>(&quiesceOnHwError);
+
+            if (!quiesceOnHwErrorPtr)
+            {
+                messages::internalError(aResp->res);
+                return;
+            }
+
+            BMCWEB_LOG_DEBUG << "Stop Boot On Fault: " << *quiesceOnHwErrorPtr;
+            if (*quiesceOnHwErrorPtr == true)
+            {
+                aResp->res.jsonValue["Boot"]["StopBootOnFault"] = "AnyFault";
+            }
+            else
+            {
+                aResp->res.jsonValue["Boot"]["StopBootOnFault"] = "Never";
+            }
+            },
+            service, path, "org.freedesktop.DBus.Properties", "Get",
+            "xyz.openbmc_project.Logging.Settings", "QuiesceOnHwError");
+        },
+        "xyz.openbmc_project.ObjectMapper",
+        "/xyz/openbmc_project/object_mapper",
+        "xyz.openbmc_project.ObjectMapper", "GetSubTree", "/", 0,
+        std::array<const char*, 1>{"xyz.openbmc_project.Logging.Settings"});
+}
+
+/**
+ * @brief Stop Boot On Fault over DBUS.
+ *
+ * @param[in] aResp     Shared pointer for generating response message.
+ *
+ * @return None.
+ */
+inline void getStopBootOnFault(const std::shared_ptr<bmcweb::AsyncResp>& aResp)
+{
+    BMCWEB_LOG_DEBUG << "Get Stop Boot On Fault";
+
+    sdbusplus::asio::getProperty<bool>(
+        *crow::connections::systemBus, "xyz.openbmc_project.Settings",
+        "/xyz/openbmc_project/logging/settings",
+        "xyz.openbmc_project.Logging.Settings", "QuiesceOnHwError",
+        [aResp](const boost::system::error_code& ec, bool value) {
+        if (ec)
+        {
+            if (ec.value() != EBADR)
+            {
+                messages::internalError(aResp->res);
+            }
+            return;
+        }
+
+        if (value)
+        {
+            aResp->res.jsonValue["Boot"]["StopBootOnFault"] = "AnyFault";
+        }
+        else
+        {
+            aResp->res.jsonValue["Boot"]["StopBootOnFault"] = "Never";
+        }
+        });
+}
+
+/**
  * @brief Get TrustedModuleRequiredToBoot property. Determines whether or not
  * TPM is required for booting the host.
  *
@@ -1737,6 +1865,178 @@ inline void setAssetTag(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
             "xyz.openbmc_project.Inventory.Decorator.AssetTag", "AssetTag",
             dbus::utility::DbusVariantType(assetTag));
         });
+}
+
+/**
+ * @brief Validate the specified stopBootOnFault is valid and return the
+ * stopBootOnFault name associated with that string
+ *
+ * @param[in] aResp   Shared pointer for generating response message.
+ * @param[in] stopBootOnFaultString  String representing the desired
+ * stopBootOnFault
+ *
+ * @return stopBootOnFault value or empty  if incoming value is not valid
+ */
+inline std::optional<bool>
+    validstopBootOnFault(const std::string& stopBootOnFaultString)
+{
+    std::optional<bool> validstopBootEnabled;
+    if (stopBootOnFaultString == "AnyFault")
+    {
+        return true;
+    }
+    if (stopBootOnFaultString == "Never")
+    {
+        return false;
+    }
+    return std::nullopt;
+}
+
+/**
+ * @brief Sets stopBootOnFault
+ *
+ * @param[in] aResp   Shared pointer for generating response message.
+ * @param[in] stopBootOnFault  "StopBootOnFault" from request.
+ *
+ * @return None.
+ */
+inline void setStopBootOnFault(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
+                               const std::string& stopBootOnFault)
+{
+    BMCWEB_LOG_DEBUG << "Set Stop Boot On Fault.";
+
+    std::optional<bool> stopBootEnabled = validstopBootOnFault(stopBootOnFault);
+
+    if (!stopBootEnabled)
+    {
+        messages::propertyValueNotInList(aResp->res, stopBootOnFault,
+                                         "StopBootOnFault");
+        return;
+    }
+    bool autoStopBootEnabled = *stopBootEnabled;
+
+    crow::connections::systemBus->async_method_call(
+        [aResp, autoStopBootEnabled](
+            const boost::system::error_code ec,
+            const std::vector<std::pair<
+                std::string,
+                std::vector<std::pair<std::string, std::vector<std::string>>>>>&
+                subtree) {
+        if (ec)
+        {
+            BMCWEB_LOG_DEBUG
+                << "DBUS response error on StopBootOnFault GetSubTree " << ec;
+            messages::internalError(aResp->res);
+            return;
+        }
+        if (subtree.size() == 0)
+        {
+            messages::propertyValueNotInList(aResp->res, "ComputerSystem",
+                                             "StopBootOnFault");
+            return;
+        }
+        if (subtree.size() > 1)
+        {
+            // More then one StopBootOnFault object is not supported and is
+            // an error
+            BMCWEB_LOG_DEBUG << "Found more than 1 system D-Bus "
+                                "StopBootOnFault objects: "
+                             << subtree.size();
+            messages::internalError(aResp->res);
+            return;
+        }
+        if (subtree[0].first.empty() || subtree[0].second.size() != 1)
+        {
+            BMCWEB_LOG_DEBUG << "StopBootOnFault mapper error!";
+            messages::internalError(aResp->res);
+            return;
+        }
+        const std::string& path = subtree[0].first;
+        const std::string& service = subtree[0].second.begin()->first;
+        if (service.empty())
+        {
+            BMCWEB_LOG_DEBUG << "StopBootOnFault service mapper error!";
+            messages::internalError(aResp->res);
+            return;
+        }
+
+        crow::connections::systemBus->async_method_call(
+            [aResp](const boost::system::error_code ec) {
+            if (ec)
+            {
+                messages::internalError(aResp->res);
+                return;
+            }
+            },
+            service, path, "org.freedesktop.DBus.Properties", "Set",
+            "xyz.openbmc_project.Logging.Settings", "QuiesceOnHwError",
+            std::variant<bool>(autoStopBootEnabled));
+        },
+        "xyz.openbmc_project.ObjectMapper",
+        "/xyz/openbmc_project/object_mapper",
+        "xyz.openbmc_project.ObjectMapper", "GetSubTree", "/", 0,
+        std::array<const char*, 1>{"xyz.openbmc_project.Logging.Settings"});
+}
+
+/**
+ * @brief Validate the specified stopBootOnFault is valid and return the
+ * stopBootOnFault name associated with that string
+ *
+ * @param[in] aResp   Shared pointer for generating response message.
+ * @param[in] stopBootOnFaultString  String representing the desired
+ * stopBootOnFault
+ *
+ * @return stopBootOnFault value or empty  if incoming value is not valid
+ */
+inline std::optional<bool>
+    validstopBootOnFault(const std::string& stopBootOnFaultString)
+{
+    std::optional<bool> validstopBootEnabled;
+    if (stopBootOnFaultString == "AnyFault")
+    {
+        return true;
+    }
+    if (stopBootOnFaultString == "Never")
+    {
+        return false;
+    }
+    return std::nullopt;
+}
+
+/**
+ * @brief Sets stopBootOnFault
+ *
+ * @param[in] aResp   Shared pointer for generating response message.
+ * @param[in] stopBootOnFault  "StopBootOnFault" from request.
+ *
+ * @return None.
+ */
+inline void setStopBootOnFault(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
+                               const std::string& stopBootOnFault)
+{
+    BMCWEB_LOG_DEBUG << "Set Stop Boot On Fault.";
+
+    std::optional<bool> stopBootEnabled = validstopBootOnFault(stopBootOnFault);
+    if (!stopBootEnabled)
+    {
+        return;
+    }
+
+    sdbusplus::asio::setProperty(*crow::connections::systemBus,
+                                 "xyz.openbmc_project.Settings",
+                                 "/xyz/openbmc_project/logging/settings",
+                                 "xyz.openbmc_project.Logging.Settings",
+                                 "QuiesceOnHwError", *stopBootEnabled,
+                                 [aResp](const boost::system::error_code& ec) {
+        if (ec)
+        {
+            if (ec.value() != EBADR)
+            {
+                messages::internalError(aResp->res);
+            }
+            return;
+        }
+    });
 }
 
 /**
@@ -3015,6 +3315,7 @@ inline void requestRoutesSystems(App& app)
         getPCIeDeviceList(asyncResp, "PCIeDevices");
         getHostWatchdogTimer(asyncResp);
         getPowerRestorePolicy(asyncResp);
+        getStopBootOnFault(asyncResp);
         getAutomaticRetry(asyncResp);
         getLastResetTime(asyncResp);
 #ifdef BMCWEB_ENABLE_REDFISH_PROVISIONING_FEATURE
@@ -3058,6 +3359,7 @@ inline void requestRoutesSystems(App& app)
         std::optional<std::string> bootEnable;
         std::optional<std::string> bootAutomaticRetry;
         std::optional<bool> bootTrustedModuleRequired;
+        std::optional<std::string> stopBootOnFault;
         std::optional<bool> ipsEnable;
         std::optional<uint8_t> ipsEnterUtil;
         std::optional<uint64_t> ipsEnterTime;
@@ -3079,6 +3381,7 @@ inline void requestRoutesSystems(App& app)
                         "Boot/BootSourceOverrideEnabled", bootEnable,
                         "Boot/AutomaticRetryConfig", bootAutomaticRetry,
                         "Boot/TrustedModuleRequiredToBoot", bootTrustedModuleRequired,
+                        "Boot/StopBootOnFault", stopBootOnFault,
                         "IdlePowerSaver/Enabled", ipsEnable,
                         "IdlePowerSaver/EnterUtilizationPercent", ipsEnterUtil,
                         "IdlePowerSaver/EnterDwellTimeSeconds", ipsEnterTime,
@@ -3114,6 +3417,11 @@ inline void requestRoutesSystems(App& app)
         {
             setTrustedModuleRequiredToBoot(asyncResp,
                                            *bootTrustedModuleRequired);
+        }
+
+        if (stopBootOnFault)
+        {
+            setStopBootOnFault(asyncResp, *stopBootOnFault);
         }
 
         if (locationIndicatorActive)
