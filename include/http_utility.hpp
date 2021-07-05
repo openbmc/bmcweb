@@ -5,15 +5,21 @@
 
 namespace http_helpers
 {
-inline bool requestPrefersHtml(const crow::Request& req)
+inline std::vector<std::string> parseAccept(const crow::Request& req)
 {
-    std::string_view header = req.getHeaderValue("accept");
+    std::string_view acceptHeader = req.getHeaderValue("Accept");
     std::vector<std::string> encodings;
     // chrome currently sends 6 accepts headers, firefox sends 4.
     encodings.reserve(6);
-    boost::split(encodings, header, boost::is_any_of(", "),
+    boost::split(encodings, acceptHeader, boost::is_any_of(", "),
                  boost::token_compress_on);
-    for (const std::string& encoding : encodings)
+
+    return encodings;
+}
+
+inline bool requestPrefersHtml(const crow::Request& req)
+{
+    for (const std::string& encoding : parseAccept(req))
     {
         if (encoding == "text/html")
         {
@@ -22,6 +28,18 @@ inline bool requestPrefersHtml(const crow::Request& req)
         if (encoding == "application/json")
         {
             return false;
+        }
+    }
+    return false;
+}
+
+inline bool isOctetAccepted(const crow::Request& req)
+{
+    for (const std::string& encoding : parseAccept(req))
+    {
+        if (encoding == "*/*" || encoding == "application/octet-stream")
+        {
+            return true;
         }
     }
     return false;
