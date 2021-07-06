@@ -161,7 +161,12 @@ inline void requestRoutesSubmitTestEvent(App& app)
         .methods(boost::beast::http::verb::post)(
             [](const crow::Request&,
                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
-                EventServiceManager::getInstance().sendTestEventLog();
+                if (!EventServiceManager::getInstance().sendTestEventLog())
+                {
+                    messages::serviceDisabled(asyncResp->res,
+                                              "/redfish/v1/EventService/");
+                    return;
+                }
                 asyncResp->res.result(boost::beast::http::status::no_content);
             });
 }
