@@ -159,6 +159,20 @@ inline void requestRoutesSubmitTestEvent(App& app)
         .methods(boost::beast::http::verb::post)(
             [](const crow::Request&,
                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
+                std::optional<bool> serviceEnabled;
+                persistent_data::EventServiceConfig eventServiceConfig =
+                    persistent_data::EventServiceStore::getInstance()
+                        .getEventServiceConfig();
+
+                if (!eventServiceConfig.enabled)
+                {
+
+                    BMCWEB_LOG_DEBUG
+                        << "EventService disabled. Cannot SubmitTestEvent";
+                    messages::internalError(asyncResp->res);
+                    return;
+                }
+
                 EventServiceManager::getInstance().sendTestEventLog();
                 asyncResp->res.result(boost::beast::http::status::no_content);
             });
