@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "1e671afa_1ab1dfaa",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2021-07-06T08:40:15Z",
+      "side": 1,
+      "message": "I believe the \"ServiceEnabled\" property is to control whether the BMC is supporting the event services or not. This will be useful when there are redundant BMC systems. \n\nProbably the spec is confusing. I found a thread https://redfishforum.com/thread/485/eventservice-disabled-behaviour-sse-subscriptions and have asked further clarification on the same. I will update the commit accordingly.\n\nBut, there is a change needed to stop sending out the events when the \"ServiceEnabled\" property is false. I will push a new commit for the same",
+      "parentUuid": "2a465d73_46bb3507",
+      "revId": "61875f7d7f4e01d38b787ad8daa0843d986f43a7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "60654f74_2b6b7a29",
         "filename": "/COMMIT_MSG",
         "patchSetId": 2
@@ -30,6 +48,30 @@
       "writtenOn": "2021-07-01T16:47:31Z",
       "side": 1,
       "message": "500 is almost certainly the wrong error here.  500 is reserved for when the service fails.  In this case, the service hasn\u0027t failed, it\u0027s simply not in a state that allows this operation.",
+      "range": {
+        "startLine": 19,
+        "startChar": 30,
+        "endLine": 19,
+        "endChar": 33
+      },
+      "revId": "61875f7d7f4e01d38b787ad8daa0843d986f43a7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "26d899f5_339cf629",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2021-07-06T08:40:15Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "60654f74_2b6b7a29",
       "range": {
         "startLine": 19,
         "startChar": 30,
