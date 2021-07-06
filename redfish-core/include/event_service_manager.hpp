@@ -391,8 +391,16 @@ class Subscription : public persistent_data::UserSubscription
 
     ~Subscription() = default;
 
-    void sendEvent(const std::string& msg)
+    bool sendEvent(const std::string& msg)
     {
+        persistent_data::EventServiceConfig eventServiceConfig =
+            persistent_data::EventServiceStore::getInstance()
+                .getEventServiceConfig();
+        if (!eventServiceConfig.enabled)
+        {
+            return false;
+        }
+
         if (conn == nullptr)
         {
             // create the HttpClient connection
@@ -408,9 +416,10 @@ class Subscription : public persistent_data::UserSubscription
         {
             sseConn->sendData(eventSeqNum, msg);
         }
+        return true;
     }
 
-    void sendTestEventLog()
+    bool sendTestEventLog()
     {
         nlohmann::json logEntryArray;
         logEntryArray.push_back({});
@@ -431,8 +440,12 @@ class Subscription : public persistent_data::UserSubscription
                               {"Name", "Event Log"},
                               {"Events", logEntryArray}};
 
-        this->sendEvent(
-            msg.dump(2, ' ', true, nlohmann::json::error_handler_t::replace));
+        if (!this->sendEvent(msg.dump(
+                2, ' ', true, nlohmann::json::error_handler_t::replace)))
+        {
+            return false;
+        }
+        return true;
     }
 
 #ifndef BMCWEB_ENABLE_REDFISH_DBUS_LOG_ENTRIES
@@ -972,18 +985,27 @@ class EventServiceManager
         return false;
     }
 
-    void sendTestEventLog()
+    bool sendTestEventLog()
     {
         for (const auto& it : this->subscriptionsMap)
         {
             std::shared_ptr<Subscription> entry = it.second;
-            entry->sendTestEventLog();
+            if (!entry->sendTestEventLog())
+            {
+                return false;
+            }
         }
+        return true;
     }
 
     void sendEvent(const nlohmann::json& eventMessageIn,
                    const std::string& origin, const std::string& resType)
     {
+        if (!serviceEnabled || !noOfEventLogSubscribers)
+        {
+            BMCWEB_LOG_DEBUG << "EventService disabled or no Subscriptions.";
+            return;
+        }
         nlohmann::json eventRecord = nlohmann::json::array();
         nlohmann::json eventMessage = eventMessageIn;
         // MemberId is 0 : since we are sending one event record.
