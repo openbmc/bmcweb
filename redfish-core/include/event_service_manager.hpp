@@ -1011,6 +1011,11 @@ class EventServiceManager
     void sendEvent(const nlohmann::json& eventMessageIn,
                    const std::string& origin, const std::string& resType)
     {
+        if (!serviceEnabled || !noOfEventLogSubscribers)
+        {
+            BMCWEB_LOG_DEBUG << "EventService disabled or no Subscriptions.";
+            return;
+        }
         nlohmann::json eventRecord = nlohmann::json::array();
         nlohmann::json eventMessage = eventMessageIn;
         // MemberId is 0 : since we are sending one event record.

@@ -159,6 +159,28 @@ inline void requestRoutesSubmitTestEvent(App& app)
         .methods(boost::beast::http::verb::post)(
             [](const crow::Request&,
                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
+                persistent_data::EventServiceConfig eventServiceConfig =
+                    persistent_data::EventServiceStore::getInstance()
+                        .getEventServiceConfig();
+
+                if (EventServiceManager::getInstance()
+                        .getNumberOfSubscriptions() == 0)
+                {
+                    BMCWEB_LOG_DEBUG
+                        << "No Subscribers. Cannot SubmitTestEvent";
+                    messages::internalError(asyncResp->res);
+                    return;
+                }
+
+                if (!eventServiceConfig.enabled)
+                {
+
+                    BMCWEB_LOG_DEBUG
+                        << "EventService disabled. Cannot SubmitTestEvent";
+                    messages::internalError(asyncResp->res);
+                    return;
+                }
+
                 EventServiceManager::getInstance().sendTestEventLog();
                 asyncResp->res.result(boost::beast::http::status::no_content);
             });
