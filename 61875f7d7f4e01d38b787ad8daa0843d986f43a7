@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "a57ca334_add710af",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1000907
+      },
+      "writtenOn": "2021-07-06T08:53:30Z",
+      "side": 1,
+      "message": "Isn\u0027t stopping events already handled ?\nWhen ServiceEnabled is false, i don\u0027t think we are sending any events.\nAm i missing something ?",
+      "parentUuid": "1e671afa_1ab1dfaa",
+      "revId": "61875f7d7f4e01d38b787ad8daa0843d986f43a7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "60654f74_2b6b7a29",
         "filename": "/COMMIT_MSG",
         "patchSetId": 2
