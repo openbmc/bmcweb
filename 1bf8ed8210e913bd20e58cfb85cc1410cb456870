@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "66137ba9_9c363b78",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 392,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-07-06T19:38:54Z",
+      "side": 1,
+      "message": "I am referring to you had a chassisId determining the storageId but this has changed so considering Done.",
+      "parentUuid": "a07c8b94_cde49ded",
+      "revId": "1bf8ed8210e913bd20e58cfb85cc1410cb456870",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "060ac8e4_4baf4622",
         "filename": "redfish-core/lib/storage.hpp",
         "patchSetId": 17
@@ -66,6 +84,24 @@
       "side": 1,
       "message": "Using .parent_path() will force it to be the direct parent. Do we want to force it so that the Drive is always the direct child of the Storage?\n\nThe current implementation just ensures it is a subpath (just realized that I need to add \"/\" at the end)\n\nWe can do multi-level of parent_path() to get the same result.\n\n-----\n\nFor Proposal I, I am not sure how relevant that is to resources outside of Chassis.",
       "parentUuid": "060ac8e4_4baf4622",
+      "revId": "1bf8ed8210e913bd20e58cfb85cc1410cb456870",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7754d014_1665f48c",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-07-06T19:38:54Z",
+      "side": 1,
+      "message": "I think \"We can do multi-level of parent_path() to get the same result\" would be the most correct.",
+      "parentUuid": "a84ac081_7d5956e4",
       "revId": "1bf8ed8210e913bd20e58cfb85cc1410cb456870",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true

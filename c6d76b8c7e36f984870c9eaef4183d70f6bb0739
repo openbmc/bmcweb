@@ -73,6 +73,24 @@
     },
     {
       "key": {
+        "uuid": "0ab81af5_8f9f62f4",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 11
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-07-06T19:38:54Z",
+      "side": 1,
+      "message": "\u003e As for the association between the storage storage inventory item and chassis, I think we can just link to the Storages that is under the Chassis\u0027s object path\n\n\u003e Same thing with Drive. Can\u0027t we just use the sub paths to determine the relationships? \n\nI just want whatever we do here to be consistent e.g. whatever we choose here https://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/38570 should match. (there is several other inventory to inventory relationships in review now)\n\nWe might need that doc in first setting the direction: https://gerrit.openbmc-project.xyz/c/openbmc/docs/+/41468",
+      "parentUuid": "a4089840_fc9b29a9",
+      "revId": "c6d76b8c7e36f984870c9eaef4183d70f6bb0739",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "7f61c448_088c3900",
         "filename": "redfish-core/lib/chassis.hpp",
         "patchSetId": 11
