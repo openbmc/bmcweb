@@ -158,12 +158,28 @@ inline void requestRoutesSubmitTestEvent(App& app)
     BMCWEB_ROUTE(
         app, "/redfish/v1/EventService/Actions/EventService.SubmitTestEvent/")
         .privileges(redfish::privileges::postEventService)
-        .methods(boost::beast::http::verb::post)(
-            [](const crow::Request&,
-               const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
-                EventServiceManager::getInstance().sendTestEventLog();
-                asyncResp->res.result(boost::beast::http::status::no_content);
-            });
+        .methods(
+            boost::beast::http::verb::
+                post)([](const crow::Request&,
+                         const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
+            persistent_data::EventServiceConfig eventServiceConfig =
+                persistent_data::EventServiceStore::getInstance()
+                    .getEventServiceConfig();
+
+            if ((!eventServiceConfig.enabled) ||
+                (EventServiceManager::getInstance()
+                     .getNumberOfSubscriptions() == 0))
+            {
+                BMCWEB_LOG_DEBUG
+                    << "EventService disabled or no subscribers. Cannot SubmitTestEvent";
+                messages::serviceDisabled(asyncResp->res,
+                                          "/redfish/v1/EventService/");
+                return;
+            }
+
+            EventServiceManager::getInstance().sendTestEventLog();
+            asyncResp->res.result(boost::beast::http::status::no_content);
+        });
 }
 
 inline void requestRoutesEventDestinationCollection(App& app)
