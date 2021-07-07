@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "92289b2c_3afb2642",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-07-07T17:41:17Z",
+      "side": 1,
+      "message": "Probably.\n\nACK.",
+      "parentUuid": "937492c4_93ea5af8",
+      "revId": "66f8d374e2ec66c11b08c965919d528fccbf104e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "ba6ad920_213c0240",
         "filename": "redfish-core/lib/account_service.hpp",
         "patchSetId": 21
@@ -33,6 +51,24 @@
       "revId": "66f8d374e2ec66c11b08c965919d528fccbf104e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f7c6f367_eb56eb96",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 1726,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-07-07T17:41:17Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "ba6ad920_213c0240",
+      "revId": "66f8d374e2ec66c11b08c965919d528fccbf104e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "9aafa51c_46fd55a8",
+        "filename": "redfish-core/lib/certificate_service.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 239,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-07-07T17:41:17Z",
+      "side": 1,
+      "message": "Yep...... kinda the point of this patch.  it\u0027s clear that nobody actually reads the spec when they implement this stuff 😊",
+      "parentUuid": "350453da_0a4ccdf6",
+      "revId": "66f8d374e2ec66c11b08c965919d528fccbf104e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "cc689990_351cf62d",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 21
@@ -64,6 +118,24 @@
       "writtenOn": "2021-07-01T21:27:58Z",
       "side": 1,
       "message": "This is changing \nconst auto\u0026 getLogEntry \u003d privilegeSetLogin;",
+      "revId": "66f8d374e2ec66c11b08c965919d528fccbf104e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d58b80b7_df311c27",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 2530,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-07-07T17:41:17Z",
+      "side": 1,
+      "message": "I think this one is ok.  All user classes have login, so the only thing happening here is it\u0027s allowing more people to access it, which I think is ok.",
+      "parentUuid": "cc689990_351cf62d",
       "revId": "66f8d374e2ec66c11b08c965919d528fccbf104e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
