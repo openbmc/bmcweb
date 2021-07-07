@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "202ffdff_75bdc3f6",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 9
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-07-07T15:51:08Z",
+      "side": 1,
+      "message": "Sorry, I think I got this wrong.  There would be no expected change here, right?  The change comes in the later patch?",
+      "parentUuid": "1bdd3e99_7c1c053b",
+      "range": {
+        "startLine": 14,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 46
+      },
+      "revId": "a68cfcc0c8ada65b94feaff1e66bf7b53a1a02f6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "801c96de_6d3ddaf2",
         "filename": "redfish-core/lib/network_protocol.hpp",
         "patchSetId": 9
@@ -431,6 +455,30 @@
       "writtenOn": "2021-07-06T22:17:16Z",
       "side": 1,
       "message": "Why are we nulling out ec here?",
+      "range": {
+        "startLine": 183,
+        "startChar": 16,
+        "endLine": 183,
+        "endChar": 33
+      },
+      "revId": "a68cfcc0c8ada65b94feaff1e66bf7b53a1a02f6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b14b68be_a96f6251",
+        "filename": "redfish-core/lib/redfish_util.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 183,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-07-07T15:51:08Z",
+      "side": 1,
+      "message": "Sorry, misread this.  This is fine, but I\u0027d prefer we move the from_chars call onto its own line for better readability.",
+      "parentUuid": "29bebdf2_2c21f4a3",
       "range": {
         "startLine": 183,
         "startChar": 16,
