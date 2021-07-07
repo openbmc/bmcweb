@@ -139,6 +139,24 @@
       "revId": "66f8d374e2ec66c11b08c965919d528fccbf104e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f2db3a01_58c298c8",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 2530,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-07-07T17:56:52Z",
+      "side": 1,
+      "message": "That works for me.",
+      "parentUuid": "d58b80b7_df311c27",
+      "revId": "66f8d374e2ec66c11b08c965919d528fccbf104e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
