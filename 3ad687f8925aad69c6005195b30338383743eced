@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1d995177_2eba60f8",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 1707,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-07-07T18:13:53Z",
+      "side": 1,
+      "message": "Please init your variables.",
+      "range": {
+        "startLine": 1707,
+        "startChar": 0,
+        "endLine": 1707,
+        "endChar": 29
+      },
+      "revId": "3ad687f8925aad69c6005195b30338383743eced",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a36f67dd_d1a8e903",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 1724,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-07-07T18:13:53Z",
+      "side": 1,
+      "message": "Please abstract this to a method.",
+      "range": {
+        "startLine": 1708,
+        "startChar": 0,
+        "endLine": 1724,
+        "endChar": 5
+      },
+      "revId": "3ad687f8925aad69c6005195b30338383743eced",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
