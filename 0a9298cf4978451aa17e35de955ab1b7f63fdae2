@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d5e99f83_9be32b35",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 28
+      },
+      "lineNbr": 900,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2021-07-07T21:53:35Z",
+      "side": 1,
+      "message": "How doe this differentiate the Core and Sub processor?\n\nIt looks like you are looking under `/xyz/openbmc_project/inventory` for CPU/Accelerator and checking the filename with procesorId. \n\nI guess it is the GetManagedObject? it looks like that logic is also a bit wrong.",
+      "range": {
+        "startLine": 899,
+        "startChar": 0,
+        "endLine": 900,
+        "endChar": 66
+      },
+      "revId": "0a9298cf4978451aa17e35de955ab1b7f63fdae2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "aee2773d_0b4d6e70",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 28
+      },
+      "lineNbr": 984,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2021-07-07T21:53:35Z",
+      "side": 1,
+      "message": "Won\u0027t this always be \n```\n\"/redfish/v1/Systems/system/Processors/\" +\n                                processorId + \"/SubProcessors/\" + processorId;\n```\n?\n\nSince processorId \u003d\u003d leaf at this point.",
+      "range": {
+        "startLine": 983,
+        "startChar": 32,
+        "endLine": 984,
+        "endChar": 79
+      },
+      "revId": "0a9298cf4978451aa17e35de955ab1b7f63fdae2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5517beae_e9d00743",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 28
+      },
+      "lineNbr": 989,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2021-07-07T21:53:35Z",
+      "side": 1,
+      "message": "Should this be service.second? or whatever the processor object path is?.\n\nRight now it might pick up itself if it is a managed object.",
+      "range": {
+        "startLine": 989,
+        "startChar": 39,
+        "endLine": 989,
+        "endChar": 71
+      },
+      "revId": "0a9298cf4978451aa17e35de955ab1b7f63fdae2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
