@@ -93,6 +93,30 @@
       "revId": "aa84d6975214b278771d4c5c8fbcc7ef5dfe8f94",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "14b0464b_d4581cc7",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-07-07T15:33:33Z",
+      "side": 1,
+      "message": "If that\u0027s your testing tool of choice, can you open up patches against the event listener that make it work with this change?",
+      "parentUuid": "f798fe61_4b099ebd",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 26,
+        "endChar": 0
+      },
+      "revId": "aa84d6975214b278771d4c5c8fbcc7ef5dfe8f94",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
