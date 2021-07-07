@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d2d1657c_bcafdada",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 666,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-07-07T20:43:13Z",
+      "side": 1,
+      "message": "Common error #12.  Please read and understand the common errors that occur frequently in bmcweb.\n\nAdmittedly, this code is already wrong, but lets not perpetuate the wrongness.  Lets abstract this into a method with an if/else ladder like we don in other places.",
+      "range": {
+        "startLine": 666,
+        "startChar": 36,
+        "endLine": 666,
+        "endChar": 45
+      },
+      "revId": "95c991bf9d81816a4f4325f032fefa5d3cc114b6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
