@@ -91,6 +91,24 @@
     },
     {
       "key": {
+        "uuid": "21fbe4af_f180e425",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 11
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2021-07-07T21:57:37Z",
+      "side": 1,
+      "message": "yeah, I agree that we should be consistent on how we want to approach this.\n\nIt seems like the relationship in https://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/38570 it not finished yet....\n\nYeah, sounds like we need to have https://gerrit.openbmc-project.xyz/c/openbmc/docs/+/41468 before any of the inventory relationship changes go in.",
+      "parentUuid": "0ab81af5_8f9f62f4",
+      "revId": "c6d76b8c7e36f984870c9eaef4183d70f6bb0739",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "7f61c448_088c3900",
         "filename": "redfish-core/lib/chassis.hpp",
         "patchSetId": 11

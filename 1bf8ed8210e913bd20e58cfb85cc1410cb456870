@@ -108,6 +108,24 @@
     },
     {
       "key": {
+        "uuid": "3916024a_8109b711",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2021-07-07T21:57:37Z",
+      "side": 1,
+      "message": "I added https://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/43744/29/redfish-core/lib/redfish_util.hpp#b16 to loop through all the parent_path()\u0027s.",
+      "parentUuid": "7754d014_1665f48c",
+      "revId": "1bf8ed8210e913bd20e58cfb85cc1410cb456870",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c51b7ddb_a9d30525",
         "filename": "redfish-core/lib/storage.hpp",
         "patchSetId": 17
