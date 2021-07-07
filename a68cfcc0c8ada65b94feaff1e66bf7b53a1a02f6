@@ -304,6 +304,30 @@
     },
     {
       "key": {
+        "uuid": "d64f9c27_f4403c67",
+        "filename": "redfish-core/lib/redfish_util.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 1001099
+      },
+      "writtenOn": "2021-07-07T01:26:28Z",
+      "side": 1,
+      "message": "sorry I fixed it, but during rebase time that get removed my change. I have to be careful",
+      "parentUuid": "6b9dcded_691859cb",
+      "range": {
+        "startLine": 133,
+        "startChar": 28,
+        "endLine": 133,
+        "endChar": 39
+      },
+      "revId": "a68cfcc0c8ada65b94feaff1e66bf7b53a1a02f6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "f89f1b14_163a5d85",
         "filename": "redfish-core/lib/redfish_util.hpp",
         "patchSetId": 9
