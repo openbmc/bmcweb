@@ -56,6 +56,24 @@
       "revId": "5f4b5373d3a0ee9eeac23f8f955dd1b710d2faf0",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3e9b7dc0_e7eafea4",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1001155
+      },
+      "writtenOn": "2021-07-08T19:43:31Z",
+      "side": 1,
+      "message": "There is a timeout option to websocket stream , which is created by boost library. By default, timeouts on websocket streams are disabled.\n\tThe way to turn them on is to set the suggested timeout settings on the stream.\n\t\t\n\tIdle Timeout is configured as 300sec to server role by default.\n\t`opt.idle_timeout \u003d std::chrono::seconds(300);`\n\n\tWe can adjust the timeout value which we want exactly by changing the idle_timeout. \n\tSuggested value of the server role is 300 seconds in boost library.\n\t\n\t\n\tDepends on keep_alive_pings , the suggested value of the idle timeout will be consider.\n\tKeep_alive_pings of server role is set to `true` by default in boost library. So idle_timeout of server role is consider as 300/2 sec by default.",
+      "parentUuid": "3092a456_ba96088b",
+      "revId": "5f4b5373d3a0ee9eeac23f8f955dd1b710d2faf0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
