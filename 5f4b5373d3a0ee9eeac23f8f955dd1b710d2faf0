@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bb027991_6d1d562f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-07-08T15:02:01Z",
+      "side": 1,
+      "message": "Please format your commit message 50/72.",
+      "revId": "5f4b5373d3a0ee9eeac23f8f955dd1b710d2faf0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8ba9b2e7_d5ceded8",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-07-08T15:02:01Z",
+      "side": 1,
+      "message": "typo",
+      "range": {
+        "startLine": 10,
+        "startChar": 34,
+        "endLine": 10,
+        "endChar": 43
+      },
+      "revId": "5f4b5373d3a0ee9eeac23f8f955dd1b710d2faf0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3092a456_ba96088b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-07-08T15:02:01Z",
+      "side": 1,
+      "message": "Can you please talk a little more about the client impacts.  Namely:\n\nThis changes the effective timeout.\nHow does this relate to the websocket ping mechanisms?\nWhy was 150 seconds chosen?  Why not 10?  Why not 500?",
+      "revId": "5f4b5373d3a0ee9eeac23f8f955dd1b710d2faf0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
