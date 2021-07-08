@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "96fb77a6_dd8a1ffd",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 22
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-07-08T14:36:59Z",
+      "side": 1,
+      "message": "This too has nothing to do with retries, in another commit please.",
+      "range": {
+        "startLine": 37,
+        "startChar": 0,
+        "endLine": 37,
+        "endChar": 55
+      },
+      "revId": "a64b4f9ea4318f6d9e6089a8c1a4fd49e3d89d5c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "412563f0_f2ee693b",
         "filename": "http/http_client.hpp",
         "patchSetId": 22
@@ -13,6 +36,30 @@
       "writtenOn": "2021-07-08T13:43:53Z",
       "side": 1,
       "message": "nit: invert the condition.\nif (!self-\u003eparser-\u003eis_done() || !self-\u003eparser-\u003eis_header_done())\n{\n    self-\u003estate \u003d ConnState::recvFailed;\n    self-\u003ehandleConnState();\n    return;\n}",
+      "range": {
+        "startLine": 198,
+        "startChar": 16,
+        "endLine": 198,
+        "endChar": 78
+      },
+      "revId": "a64b4f9ea4318f6d9e6089a8c1a4fd49e3d89d5c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7f9f55d7_63526748",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 22
+      },
+      "lineNbr": 198,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-07-08T14:36:59Z",
+      "side": 1,
+      "message": "Isn\u0027t this check redundant?  If the request is done, the headers are definitely done.  I suspect we can remove the is_header_done part.\n\n\nActually, reading this more, I\u0027m not sure this check is required at all.  if the request never completed, then the async_read would return an error in ec, and we would end on line 190.  I suspect this whole branch can be removed.",
+      "parentUuid": "412563f0_f2ee693b",
       "range": {
         "startLine": 198,
         "startChar": 16,
@@ -41,6 +88,214 @@
         "startChar": 36,
         "endLine": 203,
         "endChar": 39
+      },
+      "revId": "a64b4f9ea4318f6d9e6089a8c1a4fd49e3d89d5c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f2513553_000f56d0",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 22
+      },
+      "lineNbr": 203,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-07-08T14:36:59Z",
+      "side": 1,
+      "message": "+1\n\nTechnically per HTTP we should also handle redirects, but I\u0027m not sure how important that is for a bmc, and definitely should be part of another patchset.",
+      "parentUuid": "479a9ffc_353b2b27",
+      "range": {
+        "startLine": 203,
+        "startChar": 36,
+        "endLine": 203,
+        "endChar": 39
+      },
+      "revId": "a64b4f9ea4318f6d9e6089a8c1a4fd49e3d89d5c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b1738948_ef72d1f0",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 22
+      },
+      "lineNbr": 243,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-07-08T14:36:59Z",
+      "side": 1,
+      "message": "Do we need to do this?  The parser needs reconstructed on each request anyway, releasing it should do nothing (i think)",
+      "range": {
+        "startLine": 241,
+        "startChar": 0,
+        "endLine": 243,
+        "endChar": 40
+      },
+      "revId": "a64b4f9ea4318f6d9e6089a8c1a4fd49e3d89d5c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fec4e3ce_4bb75545",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 22
+      },
+      "lineNbr": 315,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-07-08T14:36:59Z",
+      "side": 1,
+      "message": "Please capture operation_aborted and make sure it prints at debug level.  Not all timer errors are functional errors.",
+      "range": {
+        "startLine": 315,
+        "startChar": 0,
+        "endLine": 315,
+        "endChar": 78
+      },
+      "revId": "a64b4f9ea4318f6d9e6089a8c1a4fd49e3d89d5c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6eae8cbd_9a5d180d",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 22
+      },
+      "lineNbr": 317,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-07-08T14:36:59Z",
+      "side": 1,
+      "message": "This seems wrong.  If the timer fails, we should destroy the whole connection and start over.  I suspect you did this to handle the operation aborted case, but once that\u0027s handled, timer failures should only happen on bmcweb shutdown, or other extreme cases.",
+      "range": {
+        "startLine": 316,
+        "startChar": 0,
+        "endLine": 317,
+        "endChar": 64
+      },
+      "revId": "a64b4f9ea4318f6d9e6089a8c1a4fd49e3d89d5c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8e9c9087_4238daa0",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 22
+      },
+      "lineNbr": 346,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-07-08T14:36:59Z",
+      "side": 1,
+      "message": "?  Doesn\u0027t the connection need closed if the queue is empty?",
+      "range": {
+        "startLine": 346,
+        "startChar": 0,
+        "endLine": 346,
+        "endChar": 27
+      },
+      "revId": "a64b4f9ea4318f6d9e6089a8c1a4fd49e3d89d5c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "97954ae7_888b33c3",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 22
+      },
+      "lineNbr": 411,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-07-08T14:36:59Z",
+      "side": 1,
+      "message": "These two headers have nothing to do with retries.  They look fine to me, but please put them in another patchset.",
+      "range": {
+        "startLine": 410,
+        "startChar": 0,
+        "endLine": 411,
+        "endChar": 77
+      },
+      "revId": "a64b4f9ea4318f6d9e6089a8c1a4fd49e3d89d5c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4624ff44_8b8bda09",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 22
+      },
+      "lineNbr": 414,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-07-08T14:36:59Z",
+      "side": 1,
+      "message": "This also seems like it needs to be done in another patchset.  Also, doesn\u0027t this throw when going over the limits?   That error doesn\u0027t look handled.",
+      "range": {
+        "startLine": 414,
+        "startChar": 0,
+        "endLine": 414,
+        "endChar": 59
+      },
+      "revId": "a64b4f9ea4318f6d9e6089a8c1a4fd49e3d89d5c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f195139f_367c810d",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 22
+      },
+      "lineNbr": 423,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-07-08T14:36:59Z",
+      "side": 1,
+      "message": "emplace_back with a std::move will avoid the string copy of a potentially large string.",
+      "range": {
+        "startLine": 423,
+        "startChar": 25,
+        "endLine": 423,
+        "endChar": 34
+      },
+      "revId": "a64b4f9ea4318f6d9e6089a8c1a4fd49e3d89d5c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "25f6316d_aedf4f7a",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 22
+      },
+      "lineNbr": 435,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-07-08T14:36:59Z",
+      "side": 1,
+      "message": "Isn\u0027t this now going to duplicate headers every time, because the req object isn\u0027t reset?",
+      "range": {
+        "startLine": 431,
+        "startChar": 0,
+        "endLine": 435,
+        "endChar": 9
       },
       "revId": "a64b4f9ea4318f6d9e6089a8c1a4fd49e3d89d5c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
