@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "412563f0_f2ee693b",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 22
+      },
+      "lineNbr": 198,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2021-07-08T13:43:53Z",
+      "side": 1,
+      "message": "nit: invert the condition.\nif (!self-\u003eparser-\u003eis_done() || !self-\u003eparser-\u003eis_header_done())\n{\n    self-\u003estate \u003d ConnState::recvFailed;\n    self-\u003ehandleConnState();\n    return;\n}",
+      "range": {
+        "startLine": 198,
+        "startChar": 16,
+        "endLine": 198,
+        "endChar": 78
+      },
+      "revId": "a64b4f9ea4318f6d9e6089a8c1a4fd49e3d89d5c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "479a9ffc_353b2b27",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 22
+      },
+      "lineNbr": 203,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2021-07-08T13:43:53Z",
+      "side": 1,
+      "message": "Event listener can also send response without content like 204 - Empty data. Also in way we can consider 201(Created), 202(Accepted) also success cases.  So you can add check for those as well( IMO, We can treat any 2xx code should be successful).",
+      "range": {
+        "startLine": 203,
+        "startChar": 36,
+        "endLine": 203,
+        "endChar": 39
+      },
+      "revId": "a64b4f9ea4318f6d9e6089a8c1a4fd49e3d89d5c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
