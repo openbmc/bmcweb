@@ -97,6 +97,30 @@
     },
     {
       "key": {
+        "uuid": "40c4a6f0_768ec52e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 9
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1000857
+      },
+      "writtenOn": "2021-07-08T23:55:14Z",
+      "side": 1,
+      "message": "\u003e \u003e The reason of the refactor is that, priority belongs to rule and routing algorithm(find) belongs to trie. In order to implement priority search/find, rule needs to be visible to Tire.\n\u003e \n\u003e \n\u003e This doesn\u0027t \"require\" that we flatten the tree;  Similarly, the http verb (GET/POST/PATCH) belongs to the rule, but can still operate just fine.\n\nThe reason GET/POST/PATCH works fine without the refactor is that only Router needs to operation on these members of Rule (to handle requests). \n\nHowever, for priority, things are different. Trie needs this variable from Rule to perform the trie search. \n\n\u003e \n\u003e What I suspect needs to happen here is the trie needs to be updated with a structure that supports priority.\n\u003e \n\nI think it is more reasonable that priority is an attribution of rule rather something belongs to the Trie, given we are setting the priority in the following way: \n\n```\n   rule1.name(\"rule1\").priority(1) \n```\n\n\n\u003e \u003e BTW, what do you mean by cache loading? optimizeNode() within validate()? \n\u003e \n\u003e No, I mean, when a URL is looked up, your patchset will pull more cache lines into the processor, for data that isn\u0027t required to fulfill the request.  Not all requests will require looking at the priority of every handler, so keeping them in separate structures ensures that we only pull in those cache lines when they\u0027re needed.\n\nI don\u0027t think my patchset will increase the search time complexity of an URL. Each URL will go through the height of (PARAMed) trie with or without priority. \n\nAs for data complexity/throughput, a ptr of rule is actually passed into for each visiting Node. Since the rule is pre-allocated in the rule vector, then it is just loading 2 integers from memory into register and do compare. I cannot see much of extra cash line?",
+      "parentUuid": "5f15a121_b0e3fb4d",
+      "range": {
+        "startLine": 12,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 62
+      },
+      "revId": "7548fb413b5a90206b3f4bab99012c5340ff7333",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a4e83f4b_a850450a",
         "filename": "/COMMIT_MSG",
         "patchSetId": 9
@@ -309,6 +333,30 @@
     },
     {
       "key": {
+        "uuid": "48fd8c9d_82137be0",
+        "filename": "http/routing.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 1000857
+      },
+      "writtenOn": "2021-07-08T23:55:14Z",
+      "side": 1,
+      "message": "\u003e Shouldn\u0027t the default be 0?  That way, any handler can choose to be higher or lower priority than the default?\n\nThe default value of priority is 0. But the priority of a default rule is the minimum. \n\n\u003e In this case, wouldn\u0027t the generalized way to do that be to simply have a \n\u003e using priorityType \u003d int;\n\nYes, we can do it this way. \n\nI was thinking having a min/max method is more straightforward for the users comparing to figuring out the priority type is a numeric integer followed by applying the min/max limit of the integer. But anyway, it is acceptable to me.",
+      "parentUuid": "4c8617f7_6eb87cb0",
+      "range": {
+        "startLine": 108,
+        "startChar": 0,
+        "endLine": 115,
+        "endChar": 5
+      },
+      "revId": "7548fb413b5a90206b3f4bab99012c5340ff7333",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "fd4576ef_9fb0a33e",
         "filename": "http/routing.hpp",
         "patchSetId": 9
@@ -486,6 +534,30 @@
       "side": 1,
       "message": "\u003e Both mechanism should be equally safe: \n\u003e \n\u003e 1. In the old one, we push/pop Trie node and rule vector at the same time. That means the life time of a rule is the same no matter outside the trie node(using vector index) or inside. \n\nThere\u0027s nothing about the ownership model that guarantees that though.\n\n\u003e \n\u003e 2. the allrules vector is still there. (https://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/43502/9/http/routing.hpp#b1460). The original rule vector is just the bare ptr copy of the allrules element, which doesn\u0027t preserve life time at all. \n\n\nThis would kind of imply that you want to use a shared_ptr, possibly with this handler accepting by weak_ptr\n\n\u003e \n\u003e 3. there is no rule deletion at all, so the lifetime of a rule is basically from the rule creation until the end of game.\n\nExcept on shutdown, which can (and has in the past) had lifetime issues with calls being made while the system is shutting down.\n\n\u003e Actually, the originally implementation made it impossible to delete, since a deletion in the middle of rule list will cause every index of following the rules minus one.\n\nIt\u0027s impossible to delete, but very easy to reallocate the vector memory and invalidate the pointers right?",
       "parentUuid": "ee509c60_ec565112",
+      "range": {
+        "startLine": 1323,
+        "startChar": 30,
+        "endLine": 1323,
+        "endChar": 34
+      },
+      "revId": "7548fb413b5a90206b3f4bab99012c5340ff7333",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8119e778_ae45966e",
+        "filename": "http/routing.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 1323,
+      "author": {
+        "id": 1000857
+      },
+      "writtenOn": "2021-07-08T23:55:14Z",
+      "side": 1,
+      "message": "\u003e \u003e Both mechanism should be equally safe: \n\u003e \u003e \n\u003e \u003e 1. In the old one, we push/pop Trie node and rule vector at the same time. That means the life time of a rule is the same no matter outside the trie node(using vector index) or inside. \n\u003e \n\u003e There\u0027s nothing about the ownership model that guarantees that though.\n\u003e \n\nCurrently, I remove the per-method rule vector so we won\u0027t need such guarantee any more. \n\n\u003e \u003e 2. the allrules vector is still there. (https://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/43502/9/http/routing.hpp#b1460). The original rule vector is just the bare ptr copy of the allrules element, which doesn\u0027t preserve life time at all. \n\u003e \n\u003e \n\u003e This would kind of imply that you want to use a shared_ptr, possibly with this handler accepting by weak_ptr\n\u003e \n\nI was just saying that the original code used the bare ptr, so my change won\u0027t make things worse. \n\n\u003e \u003e \n\u003e \u003e 3. there is no rule deletion at all, so the lifetime of a rule is basically from the rule creation until the end of game.\n\u003e \n\u003e Except on shutdown, which can (and has in the past) had lifetime issues with calls being made while the system is shutting down.\n\u003e \n\nYes, shutdown may be a problem. Do you think I should make a individual patch after this one since the same problem exists before this patch? \n\n\u003e \u003e Actually, the originally implementation made it impossible to delete, since a deletion in the middle of rule list will cause every index of following the rules minus one.\n\u003e \n\u003e It\u0027s impossible to delete, but very easy to reallocate the vector memory and invalidate the pointers right?\n\nTheoretically, yes, we can re-fill the vector with other rule instance. Practically, no, the higher function wrapper (router/app) never offers such api or does such thing. Adding a rule is like an one-off sale.",
+      "parentUuid": "442d3b24_7fb03871",
       "range": {
         "startLine": 1323,
         "startChar": 30,
