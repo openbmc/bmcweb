@@ -78,6 +78,9 @@ class ConnectionImpl : public Connection
         closeHandler(std::move(closeHandler)),
         errorHandler(std::move(errorHandler)), session(reqIn.session)
     {
+        /* Turn on the timeouts on websocket stream to server role */
+        ws.set_option(boost::beast::websocket::stream_base::timeout::suggested(
+            boost::beast::role_type::server));
         BMCWEB_LOG_DEBUG << "Creating new connection " << this;
     }
 
