@@ -52,6 +52,24 @@
       "revId": "6f12a95139a9aaeac5e0857263de0584f0bd85e4",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f08bd439_446de8a8",
+        "filename": "scripts/parse_registries.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-07-09T20:14:05Z",
+      "side": 1,
+      "message": "Probably best (not necessary) to mention in commit msg",
+      "parentUuid": "904d0d3b_9df61ace",
+      "revId": "6f12a95139a9aaeac5e0857263de0584f0bd85e4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
