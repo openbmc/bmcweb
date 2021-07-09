@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "3e8eadd4_568847db",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 1001083
+      },
+      "writtenOn": "2021-07-09T21:29:59Z",
+      "side": 1,
+      "message": "modelStr is a dbus object. I don\u0027t know if it uses json null values. I think sdbusplus probably casts it to std::string.",
+      "parentUuid": "94ff043a_68950237",
+      "revId": "4477ed7d17a81804e74a13dfd35a5badc866b42f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c66bb655_865c207d",
         "filename": "redfish-core/lib/systems.hpp",
         "patchSetId": 7
@@ -63,6 +81,30 @@
       "revId": "4477ed7d17a81804e74a13dfd35a5badc866b42f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "97a5f8fe_df8bb0fc",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 1001083
+      },
+      "writtenOn": "2021-07-09T21:29:59Z",
+      "side": 1,
+      "message": "I have taken care of this. Done.\n\nThis logic was a holdover from when I previously tried to check \naResp-\u003eres.jsonValue[\"ProcessorSummary\"][\"Model\"]\u0027s value before attempting to set it.\n\nThe reason this logic was necessary was because when checking the json objects value, the json object instantiated to null. Thus, in the case where dbus returned a model string that was empty (\"\"), Redfish would print out \"Model\":null. Hence why I added an explicit set to \"\". \n\nIn this next patch, (without checking for json objects value), if dbus Model is empty, [\"ProcessorSummary\"][\"Model\"] is does NOT print on Redfish.\ni.e. Model is not shown\n\"ProcessorSummary\": {\n    \"Count\": 2,\n    \"Status\": {...",
+      "parentUuid": "03de3032_979c51df",
+      "range": {
+        "startLine": 162,
+        "startChar": 0,
+        "endLine": 169,
+        "endChar": 5
+      },
+      "revId": "4477ed7d17a81804e74a13dfd35a5badc866b42f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
