@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c66bb655_865c207d",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-07-09T18:28:25Z",
+      "side": 1,
+      "message": "Why do you need this if else?\nJust\n\n        aResp-\u003eres.jsonValue[\"ProcessorSummary\"][\"Model\"] \u003d *modelStr; ?",
+      "range": {
+        "startLine": 162,
+        "startChar": 0,
+        "endLine": 169,
+        "endChar": 5
+      },
+      "revId": "4477ed7d17a81804e74a13dfd35a5badc866b42f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
