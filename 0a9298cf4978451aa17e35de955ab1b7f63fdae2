@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "ace27923_a41186d5",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 28
+      },
+      "lineNbr": 900,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-07-09T07:45:39Z",
+      "side": 1,
+      "message": "\u003e I guess it is the GetManagedObject? \n\nYes.\n\n\u003e it looks like that logic is also a bit wrong.\n\nSorry, I am not following, Why?",
+      "parentUuid": "d5e99f83_9be32b35",
+      "range": {
+        "startLine": 899,
+        "startChar": 0,
+        "endLine": 900,
+        "endChar": 66
+      },
+      "revId": "0a9298cf4978451aa17e35de955ab1b7f63fdae2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "aee2773d_0b4d6e70",
         "filename": "redfish-core/lib/processor.hpp",
         "patchSetId": 28
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "bf34ffd9_f6b7b63e",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 28
+      },
+      "lineNbr": 984,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-07-09T07:45:39Z",
+      "side": 1,
+      "message": "No. It should be:\n```\n\"/redfish/v1/Systems/system/Processors/\" +\n                                processorId + \"/SubProcessors/\" + coreID;\n```",
+      "parentUuid": "aee2773d_0b4d6e70",
+      "range": {
+        "startLine": 983,
+        "startChar": 32,
+        "endLine": 984,
+        "endChar": 79
+      },
+      "revId": "0a9298cf4978451aa17e35de955ab1b7f63fdae2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "5517beae_e9d00743",
         "filename": "redfish-core/lib/processor.hpp",
         "patchSetId": 28
@@ -59,6 +107,30 @@
       "writtenOn": "2021-07-07T21:53:35Z",
       "side": 1,
       "message": "Should this be service.second? or whatever the processor object path is?.\n\nRight now it might pick up itself if it is a managed object.",
+      "range": {
+        "startLine": 989,
+        "startChar": 39,
+        "endLine": 989,
+        "endChar": 71
+      },
+      "revId": "0a9298cf4978451aa17e35de955ab1b7f63fdae2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "87604a2f_3fa8fe94",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 28
+      },
+      "lineNbr": 989,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-07-09T07:45:39Z",
+      "side": 1,
+      "message": "No, service.sencod is a string array\n```\nMESSAGE \"a{sa{sas}}\" {\n        ARRAY \"{sa{sas}}\" {\n                DICT_ENTRY \"sa{sas}\" {\n                        STRING \"/xyz/openbmc_project/inventory/system/chassis/motherboard/cpu0\";\n                        ARRAY \"{sas}\" {\n                                DICT_ENTRY \"sas\" {\n                                        STRING \"xyz.openbmc_project.Inventory.Manager\";\n                                        ARRAY \"s\" {\n                                                STRING \"org.freedesktop.DBus.Introspectable\";\n                                                STRING \"org.freedesktop.DBus.Peer\";\n                                                STRING \"org.freedesktop.DBus.Properties\";\n                                                STRING \"xyz.openbmc_project.Association.Definitions\";\n                                                STRING \"xyz.openbmc_project.Inventory.Decorator.Asset\";\n                                                STRING \"xyz.openbmc_project.Inventory.Decorator.Cacheable\";\n                                                STRING \"xyz.openbmc_project.Inventory.Decorator.Replaceable\";\n                                                STRING \"xyz.openbmc_project.Inventory.Decorator.Revision\";\n                                                STRING \"xyz.openbmc_project.Inventory.Item\";\n                                                STRING \"xyz.openbmc_project.Inventory.Item.Cpu\";\n                                                STRING \"xyz.openbmc_project.State.Decorator.OperationalStatus\";\n                                        };\n                                };\n                        };\n                };\n\n```",
+      "parentUuid": "5517beae_e9d00743",
       "range": {
         "startLine": 989,
         "startChar": 39,
