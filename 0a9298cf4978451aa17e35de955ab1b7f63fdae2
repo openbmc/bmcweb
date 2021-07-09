@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "5a9a36c6_b0a7d5e1",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 28
+      },
+      "lineNbr": 900,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2021-07-09T16:05:51Z",
+      "side": 1,
+      "message": "You are picking all all the managed objects under `/xyz/openbmc_project/inventory` for the target service. So I am wondering if that means all the managed objects under the service is the core/subprocessor? \n\nI don\u0027t think that will be the case for most services.",
+      "parentUuid": "ace27923_a41186d5",
+      "range": {
+        "startLine": 899,
+        "startChar": 0,
+        "endLine": 900,
+        "endChar": 66
+      },
+      "revId": "0a9298cf4978451aa17e35de955ab1b7f63fdae2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "aee2773d_0b4d6e70",
         "filename": "redfish-core/lib/processor.hpp",
         "patchSetId": 28
@@ -96,6 +120,30 @@
     },
     {
       "key": {
+        "uuid": "27e91017_d3f66ca1",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 28
+      },
+      "lineNbr": 984,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2021-07-09T16:05:51Z",
+      "side": 1,
+      "message": "Oh right. There are two leaf variable in different scope.",
+      "parentUuid": "bf34ffd9_f6b7b63e",
+      "range": {
+        "startLine": 983,
+        "startChar": 32,
+        "endLine": 984,
+        "endChar": 79
+      },
+      "revId": "0a9298cf4978451aa17e35de955ab1b7f63fdae2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5517beae_e9d00743",
         "filename": "redfish-core/lib/processor.hpp",
         "patchSetId": 28
@@ -131,6 +179,30 @@
       "side": 1,
       "message": "No, service.sencod is a string array\n```\nMESSAGE \"a{sa{sas}}\" {\n        ARRAY \"{sa{sas}}\" {\n                DICT_ENTRY \"sa{sas}\" {\n                        STRING \"/xyz/openbmc_project/inventory/system/chassis/motherboard/cpu0\";\n                        ARRAY \"{sas}\" {\n                                DICT_ENTRY \"sas\" {\n                                        STRING \"xyz.openbmc_project.Inventory.Manager\";\n                                        ARRAY \"s\" {\n                                                STRING \"org.freedesktop.DBus.Introspectable\";\n                                                STRING \"org.freedesktop.DBus.Peer\";\n                                                STRING \"org.freedesktop.DBus.Properties\";\n                                                STRING \"xyz.openbmc_project.Association.Definitions\";\n                                                STRING \"xyz.openbmc_project.Inventory.Decorator.Asset\";\n                                                STRING \"xyz.openbmc_project.Inventory.Decorator.Cacheable\";\n                                                STRING \"xyz.openbmc_project.Inventory.Decorator.Replaceable\";\n                                                STRING \"xyz.openbmc_project.Inventory.Decorator.Revision\";\n                                                STRING \"xyz.openbmc_project.Inventory.Item\";\n                                                STRING \"xyz.openbmc_project.Inventory.Item.Cpu\";\n                                                STRING \"xyz.openbmc_project.State.Decorator.OperationalStatus\";\n                                        };\n                                };\n                        };\n                };\n\n```",
       "parentUuid": "5517beae_e9d00743",
+      "range": {
+        "startLine": 989,
+        "startChar": 39,
+        "endLine": 989,
+        "endChar": 71
+      },
+      "revId": "0a9298cf4978451aa17e35de955ab1b7f63fdae2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "da0d69cb_10bf4377",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 28
+      },
+      "lineNbr": 989,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2021-07-09T16:05:51Z",
+      "side": 1,
+      "message": "I looked at the code wrong before.\n\nI meant `object.first` for the path for the processor.",
+      "parentUuid": "87604a2f_3fa8fe94",
       "range": {
         "startLine": 989,
         "startChar": 39,
