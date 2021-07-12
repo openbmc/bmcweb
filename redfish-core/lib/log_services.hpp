@@ -86,8 +86,8 @@ static const Message*
 static const Message* getMessage(const std::string_view& messageID)
 {
     // Redfish MessageIds are in the form
-    // RegistryName.MajorVersion.MinorVersion.MessageKey, so parse it to find
-    // the right Message
+    // RegistryName.MajorVersion.MinorVersion.MessageKey, so parse it to
+    // find the right Message
     std::vector<std::string> fields;
     fields.reserve(4);
     boost::split(fields, messageID, boost::is_any_of("."));
@@ -325,8 +325,8 @@ static bool
             redfishLogFiles.emplace_back(redfishLogDir / filename);
         }
     }
-    // As the log files rotate, they are appended with a ".#" that is higher for
-    // the older logs. Since we don't expect more than 10 log files, we
+    // As the log files rotate, they are appended with a ".#" that is higher
+    // for the older logs. Since we don't expect more than 10 log files, we
     // can just sort the list to get them in order from newest to oldest
     std::sort(redfishLogFiles.begin(), redfishLogFiles.end());
 
@@ -1147,9 +1147,9 @@ static LogParseError
         }
     }
 
-    // Get the Created time from the timestamp. The log timestamp is in RFC3339
-    // format which matches the Redfish format except for the fractional seconds
-    // between the '.' and the '+', so just remove them.
+    // Get the Created time from the timestamp. The log timestamp is in
+    // RFC3339 format which matches the Redfish format except for the
+    // fractional seconds between the '.' and the '+', so just remove them.
     std::size_t dot = timestamp.find_first_of('.');
     std::size_t plus = timestamp.find_first_of('+');
     if (dot != std::string::npos && plus != std::string::npos)
@@ -1248,8 +1248,8 @@ inline void requestRoutesJournalEventLogEntryCollection(App& app)
                 }
 
                 entryCount++;
-                // Handle paging using skip (number of entries to skip from the
-                // start) and top (number of entries to display)
+                // Handle paging using skip (number of entries to skip from
+                // the start) and top (number of entries to display)
                 if (entryCount <= skip || entryCount > skip + top)
                 {
                     continue;
@@ -1778,8 +1778,8 @@ inline bool
             hostLoggerFiles.emplace_back(it.path());
         }
     }
-    // As the log files rotate, they are appended with a ".#" that is higher for
-    // the older logs. Since we start from oldest logs, sort the name in
+    // As the log files rotate, they are appended with a ".#" that is higher
+    // for the older logs. Since we start from oldest logs, sort the name in
     // descending order.
     std::sort(hostLoggerFiles.rbegin(), hostLoggerFiles.rend(),
               AlphanumLess<std::string>());
@@ -2851,8 +2851,8 @@ inline void requestRoutesCrashdumpFile(App& app)
             [](const crow::Request& req,
                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                const std::string& logID, const std::string& fileName) {
-        // Do not call getRedfishRoute here since the crashdump file is not a
-        // Redfish resource.
+        // Do not call getRedfishRoute here since the crashdump file is not
+        // a Redfish resource.
         auto getStoredLogCallback =
             [asyncResp, logID, fileName, url(boost::urls::url(req.urlView))](
                 const boost::system::error_code ec,
@@ -3047,14 +3047,16 @@ inline void requestRoutesCrashdumpCollect(App& app)
 }
 
 /**
- * DBusLogServiceActionsClear class supports POST method for ClearLog action.
+ * DBusLogServiceActionsClear class supports POST method for ClearLog
+ * action.
  */
 inline void requestRoutesDBusLogServiceActionsClear(App& app)
 {
     /**
      * Function handles POST method request.
-     * The Clear Log actions does not require any parameter.The action deletes
-     * all entries found in the Entries collection for this Log Service.
+     * The Clear Log actions does not require any parameter.The action
+     * deletes all entries found in the Entries collection for this Log
+     * Service.
      */
 
     BMCWEB_ROUTE(
@@ -3137,7 +3139,8 @@ inline void requestRoutesPostCodesClear(App& app)
     BMCWEB_ROUTE(
         app,
         "/redfish/v1/Systems/system/LogServices/PostCodes/Actions/LogService.ClearLog/")
-        // The following privilege is incorrect;  It should be ConfigureManager
+        // The following privilege is incorrect;  It should be
+        // ConfigureManager
         //.privileges(redfish::privileges::postLogService)
         .privileges({{"ConfigureComponents"}})
         .methods(boost::beast::http::verb::post)(
@@ -3204,8 +3207,8 @@ static void fillPostCodeEntry(
             usTimeOffset = code.first - firstCodeTimeUs;
         }
 
-        // skip if no specific codeIndex is specified and currentCodeIndex does
-        // not fall between top and skip
+        // skip if no specific codeIndex is specified and currentCodeIndex
+        // does not fall between top and skip
         if ((codeIndex == 0) &&
             (currentCodeIndex <= skip || currentCodeIndex > top))
         {
@@ -3222,8 +3225,8 @@ static void fillPostCodeEntry(
             continue;
         }
 
-        // currentCodeIndex is within top and skip or equal to specified code
-        // index
+        // currentCodeIndex is within top and skip or equal to specified
+        // code index
 
         // Get the Created time from the timestamp
         std::string entryTimeStr;
@@ -3604,12 +3607,13 @@ inline void requestRoutesPostCodesEntry(App& app)
 /**
  * @brief Get the chassis is related to the resource.
  *
- * The chassis related to the resource is determined by the compare function.
- * Once it find the chassis, it will call the callback function.
+ * The chassis related to the resource is determined by the compare
+ * function. Once it find the chassis, it will call the callback function.
  *
  * @param[in,out]   asyncResp    Async HTTP response
  * @param[in]       path         Object path of the current resource
- * @param[in]       callback     Function to call once related chassis is found
+ * @param[in]       callback     Function to call once related chassis is
+ * found
  */
 void checkValidChassisId(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
@@ -3740,6 +3744,113 @@ inline void requestRoutesChassisLogService(App& app)
         });
 }
 
+inline static void
+    getLogOriginDrive(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                      const sdbusplus::message::object_path& objPath)
+{
+    // Drive is expected to be under a Chassis
+    sdbusplus::asio::getProperty<std::vector<std::string>>(
+        *crow::connections::systemBus, "xyz.openbmc_project.ObjectMapper",
+        objPath.str + "/storage", "xyz.openbmc_project.Association",
+        "endpoints",
+        [asyncResp, objPath](const boost::system::error_code ec,
+                             const std::vector<std::string>& storageList) {
+        if (ec)
+        {
+            BMCWEB_LOG_DEBUG << "Failed to call getProperty for Drive -> "
+                                "Storage Association: "
+                             << ec;
+            return;
+        }
+
+        if (storageList.size() != 1)
+        {
+            BMCWEB_LOG_ERROR << "Resource can only be included in one storage";
+            messages::internalError(asyncResp->res);
+            return;
+        }
+        asyncResp->res.jsonValue["Links"]["OriginOfCondition"]["@odata.id"] =
+            crow::utility::urlFromPieces(
+                "redfish", "v1", "Systems", "system", "Storage",
+                sdbusplus::message::object_path(storageList[0]).filename(),
+                "Drives", objPath.filename());
+        });
+}
+
+inline static void getLogOriginStorageController(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const sdbusplus::message::object_path& objPath)
+{
+    sdbusplus::asio::getProperty<std::vector<std::string>>(
+        *crow::connections::systemBus, "xyz.openbmc_project.ObjectMapper",
+        objPath.str + "/storage", "xyz.openbmc_project.Association",
+        "endpoints",
+        [asyncResp, objPath](const boost::system::error_code ec,
+                             const std::vector<std::string>& storageList) {
+        if (ec)
+        {
+            BMCWEB_LOG_DEBUG << "Failed to call getProperty for "
+                                "StorageController -> Storage Association: "
+                             << ec;
+            return;
+        }
+        if (storageList.size() != 1)
+        {
+            BMCWEB_LOG_ERROR << "Resource can only be included in one storage";
+            messages::internalError(asyncResp->res);
+            return;
+        }
+
+        sdbusplus::message::object_path storage(storageList[0]);
+
+        sdbusplus::asio::getProperty<std::vector<std::string>>(
+            *crow::connections::systemBus, "xyz.openbmc_project.ObjectMapper",
+            storage.str + "/storage_controller",
+            "xyz.openbmc_project.Association", "endpoints",
+            [asyncResp, storage,
+             objPath](const boost::system::error_code ec2,
+                      const std::vector<std::string>& storageControllerList) {
+            if (ec2)
+            {
+                BMCWEB_LOG_DEBUG << "Failed to call getProperty for Storage -> "
+                                    "StorageController Association: "
+                                 << ec2;
+                return;
+            }
+
+            for (size_t i = 0; i < storageControllerList.size(); ++i)
+            {
+                const std::string& storageController = storageControllerList[i];
+                const std::string& id =
+                    sdbusplus::message::object_path(storageController)
+                        .filename();
+                if (id.empty())
+                {
+                    BMCWEB_LOG_ERROR << "filename() is empty in "
+                                     << storageController;
+                    continue;
+                }
+
+                if (storageController != objPath.str)
+                {
+                    continue;
+                }
+
+                asyncResp->res
+                    .jsonValue["Links"]["OriginOfCondition"]["@odata.id"] =
+                    crow::utility::urlFromPieces("redfish", "v1", "Systems",
+                                                 "system", "Storage",
+                                                 storage.filename())
+                        .set_fragment(
+                            crow::utility::urlFromPieces("StorageControllers",
+                                                         std::to_string(i))
+                                .string());
+                break;
+            }
+            });
+        });
+}
+
 inline void chassisLogEntry(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                             const std::string& path,
                             const std::string& chassisId,
@@ -3834,6 +3945,81 @@ inline void chassisLogEntry(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
             // Use only the first service it finds.
             logEntries[0].first, path, "org.freedesktop.DBus.Properties",
             "GetAll", "xyz.openbmc_project.Logging.Entry");
+
+        sdbusplus::asio::getProperty<std::vector<std::string>>(
+            *crow::connections::systemBus, "xyz.openbmc_project.ObjectMapper",
+            path + "/log_origin", "xyz.openbmc_project.Association",
+            "endpoints",
+            [asyncResp, chassisId](const boost::system::error_code ec2,
+                                   const std::vector<std::string>& originList) {
+            if (ec2)
+            {
+                BMCWEB_LOG_DEBUG << "Failed to call LogOrigin Association: "
+                                 << ec2;
+                return;
+            }
+
+            if (originList.size() != 1)
+            {
+                BMCWEB_LOG_ERROR << "Resource can only have one Log Origin";
+                return;
+            }
+
+            const std::string& origin = originList[0];
+            crow::connections::systemBus->async_method_call(
+                [asyncResp,
+                 origin](const boost::system::error_code ec3,
+                         const std::vector<std::pair<
+                             std::string, std::vector<std::string>>>& objects) {
+                if (ec3)
+                {
+                    BMCWEB_LOG_ERROR << "error_code = " << ec3
+                                     << ", error msg = " << ec3.message();
+                    return;
+                }
+
+                sdbusplus::message::object_path originPath(origin);
+                for (const auto& object : objects)
+                {
+                    for (const auto& interface : object.second)
+                    {
+                        if (interface == "xyz.openbmc_project."
+                                         "Inventory.Item.Cpu" ||
+                            interface == "xyz.openbmc_project.Inventory."
+                                         "Item.Accelerator")
+                        {
+                            asyncResp->res
+                                .jsonValue["Links"]["OriginOfCondition"]
+                                          ["@odata.id"] =
+                                crow::utility::urlFromPieces(
+                                    "redfish", "v1", "Systems", "system",
+                                    "Processors", originPath.filename());
+                            return;
+                        }
+                        if (interface == "xyz.openbmc_project."
+                                         "Inventory.Item.Drive")
+                        {
+                            getLogOriginDrive(asyncResp, originPath);
+                            return;
+                        }
+                        if (interface == "xyz.openbmc_project.Inventory."
+                                         "Item.StorageController")
+                        {
+                            getLogOriginStorageController(asyncResp, originPath);
+                            return;
+                        }
+                    }
+                }
+                },
+                "xyz.openbmc_project.ObjectMapper",
+                "/xyz/openbmc_project/object_mapper",
+                "xyz.openbmc_project.ObjectMapper", "GetObject", origin,
+                std::array<const char*, 4>{
+                    "xyz.openbmc_project.Inventory.Item.Cpu",
+                    "xyz.openbmc_project.Inventory.Item.Accelerator",
+                    "xyz.openbmc_project.Inventory.Item.Drive",
+                    "xyz.openbmc_project.Inventory.Item.StorageController"});
+            });
         },
         "xyz.openbmc_project.ObjectMapper",
         "/xyz/openbmc_project/object_mapper",
