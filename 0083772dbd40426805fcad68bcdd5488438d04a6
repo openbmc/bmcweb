@@ -70,6 +70,30 @@
       "revId": "0083772dbd40426805fcad68bcdd5488438d04a6",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7be13d9d_ce78cc00",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 2955,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-07-12T07:28:53Z",
+      "side": 1,
+      "message": "Yes, I will abandon it",
+      "parentUuid": "e9f77465_d7704de1",
+      "range": {
+        "startLine": 2953,
+        "startChar": 1,
+        "endLine": 2955,
+        "endChar": 48
+      },
+      "revId": "0083772dbd40426805fcad68bcdd5488438d04a6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
