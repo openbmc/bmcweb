@@ -583,8 +583,16 @@ inline std::string getDateTime(const std::time_t& time)
     std::array<char, 128> dateTime;
     std::string redfishDateTime("0000-00-00T00:00:00Z00:00");
 
-    if (std::strftime(dateTime.begin(), dateTime.size(), "%FT%T%z",
-                      std::localtime(&time)))
+    auto localTime = std::localtime(&time);
+    if (!localTime)
+    {
+        // This Condition would ideally not occur
+        // Incase localTime is NULL, return default
+        // Zero time stamp.
+        return redfishDateTime;
+    }
+
+    if (std::strftime(dateTime.begin(), dateTime.size(), "%FT%T%z", localTime))
     {
         // insert the colon required by the ISO 8601 standard
         redfishDateTime = std::string(dateTime.data());
