@@ -13,27 +13,13 @@ inline int pamFunctionConversation(int numMsg, const struct pam_message** msg,
 {
     if (appdataPtr == nullptr)
     {
-        return PAM_AUTH_ERR;
+        return PAM_CONV_ERR;
     }
-    char* appPass = reinterpret_cast<char*>(appdataPtr);
-    size_t appPassSize = std::strlen(appPass);
-    char* pass = reinterpret_cast<char*>(malloc(appPassSize + 1));
-    if (pass == nullptr)
+
+    if (numMsg <= 0 || numMsg >= PAM_MAX_NUM_MSG)
     {
-        return PAM_AUTH_ERR;
+        return PAM_CONV_ERR;
     }
-
-    std::strncpy(pass, appPass, appPassSize + 1);
-
-    void* ptr =
-        calloc(static_cast<size_t>(numMsg), sizeof(struct pam_response));
-    if (ptr == nullptr)
-    {
-        free(pass);
-        return PAM_AUTH_ERR;
-    }
-
-    *resp = reinterpret_cast<pam_response*>(ptr);
 
     for (int i = 0; i < numMsg; ++i)
     {
@@ -44,10 +30,39 @@ inline int pamFunctionConversation(int numMsg, const struct pam_message** msg,
         }
 
         /* Assume PAM is only prompting for the password as hidden input */
+        /* Allocate memory only when PAM_PROMPT_ECHO_OFF is encounterred */
+
+        char* appPass = reinterpret_cast<char*>(appdataPtr);
+        size_t appPassSize = std::strlen(appPass);
+
+        if ((appPassSize + 1) > PAM_MAX_RESP_SIZE)
+        {
+            return PAM_CONV_ERR;
+        }
+
+        char* pass = reinterpret_cast<char*>(malloc(appPassSize + 1));
+        if (pass == nullptr)
+        {
+            return PAM_BUF_ERR;
+        }
+
+        std::strncpy(pass, appPass, appPassSize + 1);
+
+        void* ptr =
+            calloc(static_cast<size_t>(numMsg), sizeof(struct pam_response));
+        if (ptr == nullptr)
+        {
+            free(pass);
+            return PAM_BUF_ERR;
+        }
+
+        *resp = reinterpret_cast<pam_response*>(ptr);
         resp[i]->resp = pass;
+
+        return PAM_SUCCESS;
     }
 
-    return PAM_SUCCESS;
+    return PAM_CONV_ERR;
 }
 
 /**
