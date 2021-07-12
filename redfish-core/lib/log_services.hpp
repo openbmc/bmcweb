@@ -3690,6 +3690,46 @@ inline void requestRoutesDeviceLogEntryCollection(App& app)
             });
 }
 
+inline static void
+    getLogOriginDrive(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                      const sdbusplus::message::object_path& objPath)
+{
+    // Drive is expected to be under a Chassis
+    crow::connections::systemBus->async_method_call(
+        [asyncResp, objPath](const boost::system::error_code ec,
+                             const std::vector<std::string>& objects) {
+            if (ec)
+            {
+                BMCWEB_LOG_DEBUG << "DBUS response error";
+                return;
+            }
+
+            for (const auto& object : objects)
+            {
+                if (!validSubpath(objPath.str, object))
+                {
+                    continue;
+                }
+
+                sdbusplus::message::object_path path(object);
+
+                asyncResp->res.jsonValue["Links"]["OriginOfCondition"] = {
+                    {"@odata.id", "/redfish/v1/"
+                                  "Systems/system/"
+                                  "Storage/" +
+                                      path.filename() + "/Drives/" +
+                                      objPath.filename()}};
+                break;
+            }
+        },
+        "xyz.openbmc_project.ObjectMapper",
+        "/xyz/openbmc_project/object_mapper",
+        "xyz.openbmc_project.ObjectMapper", "GetSubTreePaths",
+        "/xyz/openbmc_project/inventory", 0,
+        std::array<std::string, 1>{
+            "xyz.openbmc_project.Inventory.Item.Storage"});
+}
+
 inline void deviceLogEntry(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                            const std::string& path,
                            const std::string& chassisId,
@@ -3793,6 +3833,93 @@ inline void deviceLogEntry(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                 // Use only the first service it finds.
                 logEntries[0].first, path, "org.freedesktop.DBus.Properties",
                 "GetAll", "xyz.openbmc_project.Logging.Entry");
+
+            crow::connections::systemBus->async_method_call(
+                [asyncResp, chassisId](
+                    const boost::system::error_code ec,
+                    const std::variant<
+                        std::vector<sdbusplus::message::object_path>>& resp) {
+                    if (ec)
+                    {
+                        BMCWEB_LOG_ERROR << "error_code = " << ec
+                                         << ", error msg = " << ec.message();
+                        return;
+                    }
+
+                    const std::vector<sdbusplus::message::object_path>*
+                        associations = std::get_if<
+                            std::vector<sdbusplus::message::object_path>>(
+                            &resp);
+                    if ((associations == nullptr) || (associations->empty()))
+                    {
+                        BMCWEB_LOG_ERROR << "No associations for the log";
+                        return;
+                    }
+
+                    for (const auto& association : *associations)
+                    {
+
+                        sdbusplus::message::object_path path(association);
+                        if (path.filename().empty())
+                        {
+                            continue;
+                        }
+
+                        crow::connections::systemBus->async_method_call(
+                            [asyncResp,
+                             path](const boost::system::error_code ec,
+                                   const std::vector<std::pair<
+                                       std::string, std::vector<std::string>>>&
+                                       objects) {
+                                if (ec)
+                                {
+                                    BMCWEB_LOG_ERROR
+                                        << "error_code = " << ec
+                                        << ", error msg = " << ec.message();
+                                    return;
+                                }
+
+                                for (const auto& object : objects)
+                                {
+                                    for (const auto& interface : object.second)
+                                    {
+                                        if (interface == "xyz.openbmc_project."
+                                                         "Inventory.Item.Cpu" ||
+                                            interface ==
+                                                "xyz.openbmc_project.Inventory."
+                                                "Item.Accelerator")
+                                        {
+                                            asyncResp->res.jsonValue
+                                                ["Links"]["OriginOfCondition"] =
+                                                {{"@odata.id",
+                                                  "/redfish/v1/Systems/"
+                                                  "system/Processors/" +
+                                                      path.filename()}};
+                                            return;
+                                        }
+
+                                        if (interface == "xyz.openbmc_project."
+                                                         "Inventory.Item.Drive")
+                                        {
+                                            getLogOriginDrive(asyncResp, path);
+                                            return;
+                                        }
+                                    }
+                                }
+                            },
+                            "xyz.openbmc_project.ObjectMapper",
+                            "/xyz/openbmc_project/object_mapper",
+                            "xyz.openbmc_project.ObjectMapper", "GetObject",
+                            path.str,
+                            std::array<const char*, 3>{
+                                "xyz.openbmc_project.Inventory.Item.Cpu",
+                                "xyz.openbmc_project.Inventory.Item."
+                                "Accelerator",
+                                "xyz.openbmc_project.Inventory.Item.Drive"});
+                    }
+                },
+                logEntries[0].first, path, "org.freedesktop.DBus.Properties",
+                "Get", "xyz.openbmc_project.Association", "Endpoints");
         },
         "xyz.openbmc_project.ObjectMapper",
         "/xyz/openbmc_project/object_mapper",
