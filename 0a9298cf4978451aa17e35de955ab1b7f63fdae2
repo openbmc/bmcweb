@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "38828262_4a2adba9",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 28
+      },
+      "lineNbr": 900,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-07-12T09:01:42Z",
+      "side": 1,
+      "message": "Yeah\n\nI replace GetManagedObject with `GetSubTreePaths`",
+      "parentUuid": "5a9a36c6_b0a7d5e1",
+      "range": {
+        "startLine": 899,
+        "startChar": 0,
+        "endLine": 900,
+        "endChar": 66
+      },
+      "revId": "0a9298cf4978451aa17e35de955ab1b7f63fdae2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "aee2773d_0b4d6e70",
         "filename": "redfish-core/lib/processor.hpp",
         "patchSetId": 28
@@ -144,6 +168,30 @@
     },
     {
       "key": {
+        "uuid": "9c9cb387_8869020d",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 28
+      },
+      "lineNbr": 984,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-07-12T09:01:42Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "27e91017_d3f66ca1",
+      "range": {
+        "startLine": 983,
+        "startChar": 32,
+        "endLine": 984,
+        "endChar": 79
+      },
+      "revId": "0a9298cf4978451aa17e35de955ab1b7f63fdae2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5517beae_e9d00743",
         "filename": "redfish-core/lib/processor.hpp",
         "patchSetId": 28
@@ -203,6 +251,30 @@
       "side": 1,
       "message": "I looked at the code wrong before.\n\nI meant `object.first` for the path for the processor.",
       "parentUuid": "87604a2f_3fa8fe94",
+      "range": {
+        "startLine": 989,
+        "startChar": 39,
+        "endLine": 989,
+        "endChar": 71
+      },
+      "revId": "0a9298cf4978451aa17e35de955ab1b7f63fdae2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ef02e65d_c3599de6",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 28
+      },
+      "lineNbr": 989,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-07-12T09:01:42Z",
+      "side": 1,
+      "message": "I used `GetSubTreePaths`:\n\n```\n~# busctl call xyz.openbmc_project.ObjectMapper /xyz/openbmc_project/object_mapper xyz.openbmc_project.ObjectMapper GetSubTreePaths sias /xyz/openbmc_project/inventory 0 2 xyz.openbmc_project.Inventory.Item.Cpu xyz.openbmc_project.Inventory.Item.Accelerator --verbose\nMESSAGE \"as\" {\n        ARRAY \"s\" {\n                STRING \"/xyz/openbmc_project/inventory/system/chassis/motherboard/cpu0\";\n                STRING \"/xyz/openbmc_project/inventory/system/chassis/motherboard/cpu1\";\n        };\n};\n\n~# busctl call xyz.openbmc_project.ObjectMapper /xyz/openbmc_project/object_mapper xyz.openbmc_project.ObjectMapper GetSubTreePaths sias /xyz/openbmc_project/inventory/system/chassis/motherboard/cpu0 0 0 --verbose\nMESSAGE \"as\" {\n        ARRAY \"s\" {\n                STRING \"/xyz/openbmc_project/inventory/system/chassis/motherboard/cpu0/core0\";\n                STRING \"/xyz/openbmc_project/inventory/system/chassis/motherboard/cpu0/core1\";\n                STRING \"/xyz/openbmc_project/inventory/system/chassis/motherboard/cpu0/core10\";\n                STRING \"/xyz/openbmc_project/inventory/system/chassis/motherboard/cpu0/core11\";\n                STRING \"/xyz/openbmc_project/inventory/system/chassis/motherboard/cpu0/core12\";\n                STRING \"/xyz/openbmc_project/inventory/system/chassis/motherboard/cpu0/core13\";\n                STRING \"/xyz/openbmc_project/inventory/system/chassis/motherboard/cpu0/core14\";\n                STRING \"/xyz/openbmc_project/inventory/system/chassis/motherboard/cpu0/core15\";\n                STRING \"/xyz/openbmc_project/inventory/system/chassis/motherboard/cpu0/core16\";\n                STRING \"/xyz/openbmc_project/inventory/system/chassis/motherboard/cpu0/core17\";\n                STRING \"/xyz/openbmc_project/inventory/system/chassis/motherboard/cpu0/core18\";\n                STRING \"/xyz/openbmc_project/inventory/system/chassis/motherboard/cpu0/core19\";\n                STRING \"/xyz/openbmc_project/inventory/system/chassis/motherboard/cpu0/core2\";\n                STRING \"/xyz/openbmc_project/inventory/system/chassis/motherboard/cpu0/core20\";\n                STRING \"/xyz/openbmc_project/inventory/system/chassis/motherboard/cpu0/core21\";\n                STRING \"/xyz/openbmc_project/inventory/system/chassis/motherboard/cpu0/core22\";\n                STRING \"/xyz/openbmc_project/inventory/system/chassis/motherboard/cpu0/core23\";\n                STRING \"/xyz/openbmc_project/inventory/system/chassis/motherboard/cpu0/core3\";\n                STRING \"/xyz/openbmc_project/inventory/system/chassis/motherboard/cpu0/core4\";\n                STRING \"/xyz/openbmc_project/inventory/system/chassis/motherboard/cpu0/core5\";\n                STRING \"/xyz/openbmc_project/inventory/system/chassis/motherboard/cpu0/core6\";\n                STRING \"/xyz/openbmc_project/inventory/system/chassis/motherboard/cpu0/core7\";\n                STRING \"/xyz/openbmc_project/inventory/system/chassis/motherboard/cpu0/core8\";\n                STRING \"/xyz/openbmc_project/inventory/system/chassis/motherboard/cpu0/core9\";\n                STRING \"/xyz/openbmc_project/inventory/system/chassis/motherboard/cpu0/fault_led_group\";\n        };\n};\n\n```",
+      "parentUuid": "da0d69cb_10bf4377",
       "range": {
         "startLine": 989,
         "startChar": 39,
