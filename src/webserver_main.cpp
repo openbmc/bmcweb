@@ -139,4 +139,5 @@ int main(int /*argc*/, char** /*argv*/)
     io->run();
 
     crow::connections::systemBus.reset();
+    return 0;
 }
