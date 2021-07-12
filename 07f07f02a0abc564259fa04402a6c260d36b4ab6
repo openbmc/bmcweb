@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "bc4bac29_56a1f104",
+        "filename": "include/pam_authenticate.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1000907
+      },
+      "writtenOn": "2021-07-12T21:07:54Z",
+      "side": 1,
+      "message": "Yes, these two lines could be placed outside as well without any impact, but just placed them here so that any local variables/memory allocations may only happen when needed. We wouldn\u0027t need appPass and appPassSize if we were not allocating any memory.",
+      "parentUuid": "4b3ce589_f7183d19",
+      "range": {
+        "startLine": 30,
+        "startChar": 8,
+        "endLine": 31,
+        "endChar": 50
+      },
+      "revId": "07f07f02a0abc564259fa04402a6c260d36b4ab6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "0fc3e0a0_0147506e",
         "filename": "include/pam_authenticate.hpp",
         "patchSetId": 1
@@ -36,6 +60,30 @@
       "writtenOn": "2021-07-12T20:33:08Z",
       "side": 1,
       "message": "This may be called multiple (numMsg) times now. Is that the intend?",
+      "range": {
+        "startLine": 40,
+        "startChar": 8,
+        "endLine": 41,
+        "endChar": 77
+      },
+      "revId": "07f07f02a0abc564259fa04402a6c260d36b4ab6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "899f7d99_c8872afd",
+        "filename": "include/pam_authenticate.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1000907
+      },
+      "writtenOn": "2021-07-12T21:07:54Z",
+      "side": 1,
+      "message": "Actually, this would be called only when msg_style is equal to PAM_PROMPT_ECHO_OFF. For other msg_style\u0027s the loop would continue.",
+      "parentUuid": "0fc3e0a0_0147506e",
       "range": {
         "startLine": 40,
         "startChar": 8,
