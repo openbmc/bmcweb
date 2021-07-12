@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "4943e207_38fdf0e6",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 450,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2021-07-12T22:26:49Z",
+      "side": 1,
+      "message": "oh yeah, I should also add a count since this is an array.",
+      "parentUuid": "79a67d87_410af3a0",
+      "range": {
+        "startLine": 450,
+        "startChar": 54,
+        "endLine": 450,
+        "endChar": 64
+      },
+      "revId": "11ddd8b86e4a53375bb7dd5354fb1f272943f71f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "6170d241_98111695",
         "filename": "redfish-core/lib/chassis.hpp",
         "patchSetId": 6
@@ -36,6 +60,30 @@
       "writtenOn": "2021-07-12T18:51:46Z",
       "side": 1,
       "message": "Long term this doesn\u0027t work but we have so many places to change to get to multiple Redfish systems.",
+      "range": {
+        "startLine": 451,
+        "startChar": 38,
+        "endLine": 451,
+        "endChar": 63
+      },
+      "revId": "11ddd8b86e4a53375bb7dd5354fb1f272943f71f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5faa0221_31dfc337",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 451,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2021-07-12T22:26:49Z",
+      "side": 1,
+      "message": "yeah, Right now we don\u0027t have multi-system and are hardcoded to System/system.\n\nDo we just need the base System to use https://github.com/openbmc/phosphor-dbus-interfaces/blob/master/yaml/xyz/openbmc_project/Inventory/Item/System.interface.yaml and just based off that from there.\n\nI am not exactly sure if that\u0027s already there or not.",
+      "parentUuid": "6170d241_98111695",
       "range": {
         "startLine": 451,
         "startChar": 38,
