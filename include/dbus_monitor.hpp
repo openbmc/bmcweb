@@ -142,20 +142,23 @@ inline void requestRoutes(App& app)
             }
 
             nlohmann::json::iterator paths = j.find("paths");
-            if (paths != j.end())
+            if (paths == j.end())
             {
-                size_t interfaceCount = thisSession.interfaces.size();
-                if (interfaceCount == 0)
-                {
-                    interfaceCount = 1;
-                }
-                // Reserve our matches upfront.  For each path there is 1 for
-                // interfacesAdded, and InterfaceCount number for
-                // PropertiesChanged
-                thisSession.matches.reserve(thisSession.matches.size() +
-                                            paths->size() *
-                                                (1U + interfaceCount));
+                BMCWEB_LOG_ERROR << "Unable to find paths in json data";
+                conn.close("Unable to find paths in json data");
+                return;
             }
+
+            size_t interfaceCount = thisSession.interfaces.size();
+            if (interfaceCount == 0)
+            {
+                interfaceCount = 1;
+            }
+            // Reserve our matches upfront.  For each path there is 1 for
+            // interfacesAdded, and InterfaceCount number for
+            // PropertiesChanged
+            thisSession.matches.reserve(thisSession.matches.size() +
+                                        paths->size() * (1U + interfaceCount));
             std::string objectManagerMatchString;
             std::string propertiesMatchString;
             std::string objectManagerInterfacesMatchString;
