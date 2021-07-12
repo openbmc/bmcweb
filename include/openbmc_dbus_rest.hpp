@@ -2081,7 +2081,7 @@ inline void requestRoutes(App& app)
         .methods(boost::beast::http::verb::get)(
             [](const crow::Request&,
                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
-                auto myCallback = [&asyncResp](
+                auto myCallback = [asyncResp](
                                       const boost::system::error_code ec,
                                       std::vector<std::string>& names) {
                     if (ec)
