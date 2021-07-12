@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "560ecb5e_64886ae0",
+        "filename": "http/utility.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 592,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-07-12T18:45:56Z",
+      "side": 1,
+      "message": "I would prefer we return an error. Like an internal error.",
+      "revId": "597863e90f7ef5b9dc3404e8e11084d5e487dbd7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
