@@ -285,6 +285,30 @@
     },
     {
       "key": {
+        "uuid": "e0d87816_bd460124",
+        "filename": "include/login_routes.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-07-13T03:11:07Z",
+      "side": 1,
+      "message": "Right, that\u0027s kind of my point, it\u0027s an opaque dictionary API.  If it were a structure with a known struct (and required fields) it generally would be a regular struct, not a dict.  I\u0027m not sure why dict was chosen here, but I\u0027m not sure I want to rely on it in bmcweb, considering that at a type level, the fields can change without warning.\n\nWith that said, I need to do more research and make sure I actually understand the problem here.",
+      "parentUuid": "64d03dd7_e1d69c41",
+      "range": {
+        "startLine": 157,
+        "startChar": 0,
+        "endLine": 157,
+        "endChar": 79
+      },
+      "revId": "511be1755161ffe8c3ac6b2fa3b6f39207a7c4ce",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "435fe643_88f40dda",
         "filename": "include/login_routes.hpp",
         "patchSetId": 8
