@@ -34,6 +34,236 @@
       "revId": "5bc21a215209d4219342a767e9cedf5bc888e379",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4b6ada61_5e7535c3",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 334,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-07-13T20:26:18Z",
+      "side": 1,
+      "message": "Can we break these out into methods.  This function is already inordinately long.",
+      "range": {
+        "startLine": 334,
+        "startChar": 0,
+        "endLine": 334,
+        "endChar": 75
+      },
+      "revId": "5bc21a215209d4219342a767e9cedf5bc888e379",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f3e76e63_ca4aa52c",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 345,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-07-13T20:26:18Z",
+      "side": 1,
+      "message": "This check can\u0027t be hit",
+      "range": {
+        "startLine": 345,
+        "startChar": 55,
+        "endLine": 345,
+        "endChar": 72
+      },
+      "revId": "5bc21a215209d4219342a767e9cedf5bc888e379",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fc1c7813_17e067bb",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 345,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-07-13T20:26:18Z",
+      "side": 1,
+      "message": "This should set internalError",
+      "range": {
+        "startLine": 345,
+        "startChar": 36,
+        "endLine": 345,
+        "endChar": 52
+      },
+      "revId": "5bc21a215209d4219342a767e9cedf5bc888e379",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2900b33a_e106290d",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 350,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-07-13T20:26:18Z",
+      "side": 1,
+      "message": "This method is explicitly disallowed by name.  Please read COMMON_ERRORS.md",
+      "range": {
+        "startLine": 350,
+        "startChar": 49,
+        "endLine": 350,
+        "endChar": 51
+      },
+      "revId": "5bc21a215209d4219342a767e9cedf5bc888e379",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "997a5aba_010899d9",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 350,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-07-13T20:26:18Z",
+      "side": 1,
+      "message": "Because this is an object path, we should be loading this into an sdbusplus::message::object_path, and using the filename() method to get this information.",
+      "range": {
+        "startLine": 350,
+        "startChar": 54,
+        "endLine": 350,
+        "endChar": 73
+      },
+      "revId": "5bc21a215209d4219342a767e9cedf5bc888e379",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4ae53f4f_115a0950",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 355,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-07-13T20:26:18Z",
+      "side": 1,
+      "message": "Please don\u0027t use auto in bmcweb.  use explicit types.  This isn\u0027t the only place that needs fixed.",
+      "range": {
+        "startLine": 355,
+        "startChar": 32,
+        "endLine": 355,
+        "endChar": 36
+      },
+      "revId": "5bc21a215209d4219342a767e9cedf5bc888e379",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b0fce69a_d0c435f6",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 356,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-07-13T20:26:18Z",
+      "side": 1,
+      "message": "banned function in bmcweb handlers.",
+      "range": {
+        "startLine": 356,
+        "startChar": 42,
+        "endLine": 356,
+        "endChar": 47
+      },
+      "revId": "5bc21a215209d4219342a767e9cedf5bc888e379",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cae641bd_5bda0409",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 370,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-07-13T20:26:18Z",
+      "side": 1,
+      "message": "nit, should be const?",
+      "range": {
+        "startLine": 370,
+        "startChar": 32,
+        "endLine": 370,
+        "endChar": 44
+      },
+      "revId": "5bc21a215209d4219342a767e9cedf5bc888e379",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "001616bd_058ff565",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 384,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-07-13T20:26:18Z",
+      "side": 1,
+      "message": "This seems like a bad name for this.  Also, please follow the patterns used elsewhere, where this is set to a nlohmann::json\u0026 and explicitly set to an array.",
+      "range": {
+        "startLine": 384,
+        "startChar": 37,
+        "endLine": 384,
+        "endChar": 41
+      },
+      "revId": "5bc21a215209d4219342a767e9cedf5bc888e379",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "914af565_60f14925",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 387,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-07-13T20:26:18Z",
+      "side": 1,
+      "message": "Again, please use filename()",
+      "range": {
+        "startLine": 387,
+        "startChar": 0,
+        "endLine": 387,
+        "endChar": 67
+      },
+      "revId": "5bc21a215209d4219342a767e9cedf5bc888e379",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
