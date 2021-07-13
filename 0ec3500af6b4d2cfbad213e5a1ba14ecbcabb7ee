@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ce60ad2a_bbdad839",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 9
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-07-13T15:31:40Z",
+      "side": 1,
+      "message": "What was wrong with them before?   More details on what you expect the before/after change to look like from a user perspective would be good here.",
+      "range": {
+        "startLine": 11,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 5
+      },
+      "revId": "0ec3500af6b4d2cfbad213e5a1ba14ecbcabb7ee",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "517646f3_5b3d329b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 9
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-07-13T15:31:40Z",
+      "side": 1,
+      "message": "This seems like it would have a race condition if the models are different.  Also, the redfish schema for this states:\n\n\"The processor model for the primary or majority of processors in this system.\"\nand\n\"This property shall contain the processor model for the central processors in the system, per the description in the Processor Information - Processor Family section of the SMBIOS Specification DSP0134 2.8 or later\"\n\nAre we sure this model number matches up to the SMBIOS specification?",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 18,
+        "endChar": 33
+      },
+      "revId": "0ec3500af6b4d2cfbad213e5a1ba14ecbcabb7ee",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0d5934bf_f9a71de7",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 9
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-07-13T15:31:40Z",
+      "side": 1,
+      "message": "Not sure that\u0027s true in all cases, although it might be.  The only time I could see that being different is when/if a system split up its CPU information across multiple connections, which could be possible, we should probably test on a couple representative systems to understand how it\u0027s set up.",
+      "range": {
+        "startLine": 22,
+        "startChar": 4,
+        "endLine": 22,
+        "endChar": 35
+      },
+      "revId": "0ec3500af6b4d2cfbad213e5a1ba14ecbcabb7ee",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
