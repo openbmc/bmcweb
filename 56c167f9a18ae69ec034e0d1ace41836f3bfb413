@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "2e563487_f72ef2d0",
+        "filename": "redfish-core/lib/network_protocol.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 179,
+      "author": {
+        "id": 1001099
+      },
+      "writtenOn": "2021-07-13T15:46:04Z",
+      "side": 1,
+      "message": "yes that is good variable name",
+      "parentUuid": "b7a48553_cd077d19",
+      "revId": "56c167f9a18ae69ec034e0d1ace41836f3bfb413",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "8a447368_fc301790",
         "filename": "redfish-core/lib/network_protocol.hpp",
         "patchSetId": 12
@@ -30,6 +48,24 @@
       "writtenOn": "2021-07-13T15:14:16Z",
       "side": 1,
       "message": "Nitpick: Can we create a local variable here for protocol.second as well, maybe something like:\n\"const std::string\u0026 serviceName \u003d protocol.second;\" on the line below 179?\n\nI think the cost of an extra local initialization isn\u0027t too inefficient here. What do you think?",
+      "revId": "56c167f9a18ae69ec034e0d1ace41836f3bfb413",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e5cc5fe4_b1d28be9",
+        "filename": "redfish-core/lib/network_protocol.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 181,
+      "author": {
+        "id": 1001099
+      },
+      "writtenOn": "2021-07-13T15:46:04Z",
+      "side": 1,
+      "message": "that make code easy to read.",
+      "parentUuid": "8a447368_fc301790",
       "revId": "56c167f9a18ae69ec034e0d1ace41836f3bfb413",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "c7f06fbd_545a1ef2",
+        "filename": "redfish-core/lib/network_protocol.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 182,
+      "author": {
+        "id": 1001099
+      },
+      "writtenOn": "2021-07-13T15:46:04Z",
+      "side": 1,
+      "message": "first I thought about adding lambda function inside redfish_util, but passing lambda make it possible append particular JSON data into responded.\n\nhere we are attaching  asyncResp-\u003eres.jsonValue[keyValue][\"ProtocolEnabled\"] \u003d isProtocolEnabled;\n\nwhere in my next following commit we are attaching.\nhttps://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/44438/8/redfish-core/lib/systems.hpp#2521\ndataJson[\"SSH\"][\"ServiceEnabled\"] \u003d isProtocolEnabled;\n\nlambda give ease of doing it\n\nabout nesting, async function nesting before and it has to nest now, with that lambda too.",
+      "parentUuid": "d7902302_4f0b4f15",
+      "revId": "56c167f9a18ae69ec034e0d1ace41836f3bfb413",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "df3e80c2_0a6654d5",
         "filename": "redfish-core/lib/redfish_util.hpp",
         "patchSetId": 12
@@ -64,6 +118,24 @@
       "writtenOn": "2021-07-13T15:14:16Z",
       "side": 1,
       "message": "is declaring variables inside of \u0027if scope\u0027 valid / encouraged in bmcweb code?",
+      "revId": "56c167f9a18ae69ec034e0d1ace41836f3bfb413",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d04575a2_6a3b998a",
+        "filename": "redfish-core/lib/redfish_util.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 1001099
+      },
+      "writtenOn": "2021-07-13T15:46:04Z",
+      "side": 1,
+      "message": "it mainly for strict scope that atCharPos not needed outside that scope.",
+      "parentUuid": "df3e80c2_0a6654d5",
       "revId": "56c167f9a18ae69ec034e0d1ace41836f3bfb413",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
