@@ -69,7 +69,6 @@ class Connection :
         parser.emplace(std::piecewise_construct, std::make_tuple());
         parser->body_limit(httpReqBodyLimit);
         parser->header_limit(httpHeaderLimit);
-        req.emplace(parser->get());
 
 #ifdef BMCWEB_ENABLE_MUTUAL_TLS_AUTHENTICATION
         std::error_code error;
@@ -240,12 +239,12 @@ class Connection :
             }
             sslUser.resize(lastChar);
             std::string unsupportedClientId = "";
-            session = persistent_data::SessionStore::getInstance()
-                          .generateUserSession(
-                              sslUser, req->ipAddress.to_string(),
-                              unsupportedClientId,
-                              persistent_data::PersistenceType::TIMEOUT);
-            if (auto sp = session.lock())
+            userSession = persistent_data::SessionStore::getInstance()
+                              .generateUserSession(
+                                  sslUser, req->ipAddress.to_string(),
+                                  unsupportedClientId,
+                                  persistent_data::PersistenceType::TIMEOUT);
+            if (auto sp = userSession.lock())
             {
                 BMCWEB_LOG_DEBUG << this
                                  << " Generating TLS session: " << sp->uniqueId;
@@ -307,7 +306,7 @@ class Connection :
     void handle()
     {
         cancelDeadlineTimer();
-
+        req.emplace(parser->release());
         // Fetch the client IP address
         readClientIp();
 
@@ -327,6 +326,17 @@ class Connection :
                         << " " << this << " HTTP/" << req->version() / 10 << "."
                         << req->version() % 10 << ' ' << req->methodString()
                         << " " << req->target() << " " << req->ipAddress;
+
+        try
+        {
+            // causes life time issue
+            req->urlView = boost::urls::url_view(req->target());
+            req->url = req->urlView.encoded_path();
+        }
+        catch (std::exception& p)
+        {
+            BMCWEB_LOG_ERROR << p.what();
+        }
 
         needToCallAfterHandlers = false;
 
@@ -372,7 +382,6 @@ class Connection :
 
     bool isAlive()
     {
-
         if constexpr (std::is_same_v<Adaptor,
                                      boost::beast::ssl_stream<
                                          boost::asio::ip::tcp::socket>>)
@@ -392,7 +401,7 @@ class Connection :
         {
             adaptor.next_layer().close();
 #ifdef BMCWEB_ENABLE_MUTUAL_TLS_AUTHENTICATION
-            if (auto sp = session.lock())
+            if (auto sp = userSession.lock())
             {
                 BMCWEB_LOG_DEBUG << this
                                  << " Removing TLS session: " << sp->uniqueId;
@@ -514,7 +523,8 @@ class Connection :
                 {
                     // if the adaptor isn't open anymore, and wasn't handed to a
                     // websocket, treat as an error
-                    if (!isAlive() && !req->isUpgrade())
+                    if (!isAlive() &&
+                        !boost::beast::websocket::is_upgrade(parser->get()))
                     {
                         errorWhileReading = true;
                     }
@@ -529,24 +539,12 @@ class Connection :
                     return;
                 }
 
-                if (!req)
-                {
-                    close();
-                    return;
-                }
-
-                // Note, despite the bmcweb coding policy on use of exceptions
-                // for error handling, this one particular use of exceptions is
-                // deemed acceptible, as it solved a significant error handling
-                // problem that resulted in seg faults, the exact thing that the
-                // exceptions rule is trying to avoid. If at some point,
-                // boost::urls makes the parser object public (or we port it
-                // into bmcweb locally) this will be replaced with
-                // parser::parse, which returns a status code
-
+                boost::beast::http::verb method = parser->get().method();
+                readClientIp();
                 try
                 {
-                    req->urlView = boost::urls::url_view(req->target());
+                    req->urlView =
+                        boost::urls::url_view(parser->get().target());
                     req->url = req->urlView.encoded_path();
                 }
                 catch (std::exception& p)
@@ -554,8 +552,15 @@ class Connection :
                     BMCWEB_LOG_ERROR << p.what();
                 }
 
-                crow::authorization::authenticate(*req, res, session);
+                std::unordered_map<std::string, std::string_view> headerValues =
+                    {{"Authorization", parser->get()["Authorization"]},
+                     {"X-Auth-Token", parser->get()["X-Auth-Token"]},
+                     {"X-XSRF-TOKEN", parser->get()["X-XSRF-TOKEN"]},
+                     {"User-Agent", parser->get()["User-Agent"]},
+                     {"Cookie", parser->get()["Cookie"]}};
 
+                req->session = crow::authorization::authenticate(
+                    *req, res, method, headerValues, userSession);
                 bool loggedIn = req && req->session;
                 if (loggedIn)
                 {
@@ -639,6 +644,7 @@ class Connection :
                     BMCWEB_LOG_DEBUG << this << " from read(1)";
                     return;
                 }
+
                 handle();
             });
     }
@@ -687,7 +693,7 @@ class Connection :
                                                       // newly created parser
                 buffer.consume(buffer.size());
 
-                req.emplace(parser->get());
+                req.emplace(parser->release());
                 doReadHeaders();
             });
     }
@@ -773,7 +779,7 @@ class Connection :
     std::optional<crow::Request> req;
     crow::Response res;
 
-    std::weak_ptr<persistent_data::UserSession> session;
+    std::weak_ptr<persistent_data::UserSession> userSession;
 
     std::optional<size_t> timerCancelKey;
 
