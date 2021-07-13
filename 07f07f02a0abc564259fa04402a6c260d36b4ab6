@@ -96,6 +96,30 @@
     },
     {
       "key": {
+        "uuid": "0f1f04f0_3db73e3c",
+        "filename": "include/pam_authenticate.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1000559
+      },
+      "writtenOn": "2021-07-13T17:36:54Z",
+      "side": 1,
+      "message": "I did not understand that this is only expected to be run once because of check for PAM_PROMPT_ECHO_OFF.\nMy original comment was based on observation that these lines can be called multiple times.\nIMO, if this section (including the malloc and calloc) is only expected to be run once, \"break\" can be added at end of the loop to make it clearer. \nBut I will defer that decision to people more familiar with PAM",
+      "parentUuid": "143fb67f_a2df3c9a",
+      "range": {
+        "startLine": 30,
+        "startChar": 8,
+        "endLine": 31,
+        "endChar": 50
+      },
+      "revId": "07f07f02a0abc564259fa04402a6c260d36b4ab6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "0fc3e0a0_0147506e",
         "filename": "include/pam_authenticate.hpp",
         "patchSetId": 1
