@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7d213303_e0fe2888",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 9
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-07-13T15:49:59Z",
+      "side": 1,
+      "message": "Does this have any impact to current systems?  I suspect a number of systems will see the Name field change, which, while it seems appropriate, we should call out explicitly.",
+      "range": {
+        "startLine": 23,
+        "startChar": 0,
+        "endLine": 26,
+        "endChar": 51
+      },
+      "revId": "57e06c2b81a199aec1dcbb46c7e158777ccbc79c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c990145f_ce9e31a2",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 9
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-07-13T15:49:59Z",
+      "side": 1,
+      "message": "More testing needed than that.  Ensuring that the names are correct and fall back in the appropriate places is also required.\n\nAlso, we need to measure the performance impact of doing 2 extra dbus calls per API.",
+      "range": {
+        "startLine": 29,
+        "startChar": 0,
+        "endLine": 29,
+        "endChar": 24
+      },
+      "revId": "57e06c2b81a199aec1dcbb46c7e158777ccbc79c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5e8988c3_a0922662",
+        "filename": "redfish-core/include/utils/name_utils.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-07-13T15:49:59Z",
+      "side": 1,
+      "message": "As written, this is going to do an extra dbus call.  Considering most of these APIs already call getSubTree of some form, I suspect we need to reduce the scope of this helper code down.",
+      "range": {
+        "startLine": 26,
+        "startChar": 0,
+        "endLine": 26,
+        "endChar": 78
+      },
+      "revId": "57e06c2b81a199aec1dcbb46c7e158777ccbc79c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5f472259_b06c0c7b",
+        "filename": "redfish-core/include/utils/name_utils.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-07-13T15:49:59Z",
+      "side": 1,
+      "message": "Lifetime issue.  name is a pointer, which might be freed by the time this lambda runs.  Generally it\u0027s recommended to parse out what you need into the base elements (strings/int ect), then pass those by value, as you\u0027ve done with path (references automatically turn to values when passed through a lambda).\n\nI suspect this function shouldn\u0027t be accepting a json object at all.  Looking at your usage, a json pointer object MIGHT be called for, but I haven\u0027t looked down that path in depth.\n\n\nAs written, if line 46 (or any of the other errors get hit) the response object is left with something like\n\n\"Name\": null\n\nBecause the value was never filled in.  While this is an error path, it\u0027s not a pattern we want to continue.  Moving to json pointer (which is essentially a fancy json path spec) would fix that by ensuring that the value is only filled in once the method has succeeded.",
+      "range": {
+        "startLine": 34,
+        "startChar": 26,
+        "endLine": 34,
+        "endChar": 30
+      },
+      "revId": "57e06c2b81a199aec1dcbb46c7e158777ccbc79c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7999c99e_224e0745",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 450,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-07-13T15:49:59Z",
+      "side": 1,
+      "message": "As mentioned previously, I would\u0027ve expected to be using this call to the mapper to be \"doing the work\" that\u0027s being done in your helper function.  I suspect it already has the information you need, given it\u0027s finding the Item interfaces.",
+      "range": {
+        "startLine": 450,
+        "startChar": 53,
+        "endLine": 450,
+        "endChar": 63
+      },
+      "revId": "57e06c2b81a199aec1dcbb46c7e158777ccbc79c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
