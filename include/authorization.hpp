@@ -93,44 +93,48 @@ static std::shared_ptr<persistent_data::UserSession>
     BMCWEB_LOG_DEBUG << "[AuthMiddleware] Token authentication";
 
     std::string_view token = authHeader.substr(strlen("Token "));
-    auto session =
+    auto sessionOut =
         persistent_data::SessionStore::getInstance().loginSessionByToken(token);
-    return session;
+    return sessionOut;
 }
 #endif
 
 #ifdef BMCWEB_ENABLE_XTOKEN_AUTHENTICATION
 static std::shared_ptr<persistent_data::UserSession>
-    performXtokenAuth(const crow::Request& req)
+    performXtokenAuth(std::unordered_map<std::string, std::string_view>&  headerValues)
 {
     BMCWEB_LOG_DEBUG << "[AuthMiddleware] X-Auth-Token authentication";
 
-    std::string_view token = req.getHeaderValue("X-Auth-Token");
+    std::string_view token = headerValues["X-Auth-Token"];
     if (token.empty())
     {
         return nullptr;
     }
-    auto session =
+    auto sessionOut =
         persistent_data::SessionStore::getInstance().loginSessionByToken(token);
-    return session;
+    return sessionOut;
 }
 #endif
 
 #ifdef BMCWEB_ENABLE_COOKIE_AUTHENTICATION
 static std::shared_ptr<persistent_data::UserSession>
-    performCookieAuth(const crow::Request& req)
+    performCookieAuth(
+    boost::beast::http::verb method,
+    std::unordered_map<std::string, std::string_view>&  headerValues)
 {
     BMCWEB_LOG_DEBUG << "[AuthMiddleware] Cookie authentication";
 
-    std::string_view cookieValue = req.getHeaderValue("Cookie");
+    std::string_view cookieValue = headerValues["Cookie"];
     if (cookieValue.empty())
     {
+        BMCWEB_LOG_DEBUG << "JEBR cookie value mt";
         return nullptr;
     }
 
     auto startIndex = cookieValue.find("SESSION=");
     if (startIndex == std::string::npos)
     {
+        BMCWEB_LOG_DEBUG << "JEB SESSION found found in cookie";
         return nullptr;
     }
     startIndex += sizeof("SESSION=") - 1;
@@ -142,20 +146,21 @@ static std::shared_ptr<persistent_data::UserSession>
     std::string_view authKey =
         cookieValue.substr(startIndex, endIndex - startIndex);
 
-    std::shared_ptr<persistent_data::UserSession> session =
+    std::shared_ptr<persistent_data::UserSession> sessionOut =
         persistent_data::SessionStore::getInstance().loginSessionByToken(
             authKey);
-    if (session == nullptr)
+    if (sessionOut == nullptr)
     {
+        BMCWEB_LOG_DEBUG << "JEBR cookie key not found";
         return nullptr;
     }
 #ifndef BMCWEB_INSECURE_DISABLE_CSRF_PREVENTION
     // RFC7231 defines methods that need csrf protection
-    if (req.method() != boost::beast::http::verb::get)
+    if (method != boost::beast::http::verb::get)
     {
-        std::string_view csrf = req.getHeaderValue("X-XSRF-TOKEN");
+        std::string_view csrf = headerValues["X-XSRF-TOKEN"];
         // Make sure both tokens are filled
-        if (csrf.empty() || session->csrfToken.empty())
+        if (csrf.empty() || sessionOut->csrfToken.empty())
         {
             return nullptr;
         }
@@ -165,19 +170,19 @@ static std::shared_ptr<persistent_data::UserSession>
             return nullptr;
         }
         // Reject if csrf token not available
-        if (!crow::utility::constantTimeStringCompare(csrf, session->csrfToken))
+        if (!crow::utility::constantTimeStringCompare(csrf, sessionOut->csrfToken))
         {
             return nullptr;
         }
     }
 #endif
-    return session;
+    return sessionOut;
 }
 #endif
 
 #ifdef BMCWEB_ENABLE_MUTUAL_TLS_AUTHENTICATION
 static std::shared_ptr<persistent_data::UserSession>
-    performTLSAuth(const crow::Request& req, Response& res,
+    performTLSAuth(const crow::Request& req, Response& res, std::unordered_map<std::string, std::string_view>&  headerValues,
                    const std::weak_ptr<persistent_data::UserSession>& session)
 {
     if (auto sp = session.lock())
@@ -189,7 +194,7 @@ static std::shared_ptr<persistent_data::UserSession>
                              << " will be used for this request.";
             return sp;
         }
-        std::string_view cookieValue = req.getHeaderValue("Cookie");
+        std::string_view cookieValue = headerValues["Cookie"];
         if (cookieValue.empty() ||
             cookieValue.find("SESSION=") == std::string::npos)
         {
@@ -211,15 +216,19 @@ static std::shared_ptr<persistent_data::UserSession>
 #endif
 
 // checks if request can be forwarded without authentication
-static bool isOnWhitelist(const crow::Request& req)
+static bool isOnWhitelist(const crow::Request& req,
+    boost::beast::http::verb method)
 {
-    // it's allowed to GET root node without authentication
-    if (boost::beast::http::verb::get == req.method())
+    BMCWEB_LOG_DEBUG << "isOnWhitelist";
+    if (boost::beast::http::verb::get == method)
     {
+        BMCWEB_LOG_DEBUG << "about to redref req:";
+        BMCWEB_LOG_DEBUG << "req.url=" << req.url;
         if (req.url == "/redfish/v1" || req.url == "/redfish/v1/" ||
             req.url == "/redfish" || req.url == "/redfish/" ||
             req.url == "/redfish/v1/odata" || req.url == "/redfish/v1/odata/")
         {
+            BMCWEB_LOG_DEBUG << "isOnWhitelist, leaving";
             return true;
         }
         if (crow::webroutes::routes.find(std::string(req.url)) !=
@@ -229,9 +238,10 @@ static bool isOnWhitelist(const crow::Request& req)
         }
     }
 
+    BMCWEB_LOG_DEBUG << "white list middle?";
     // it's allowed to POST on session collection & login without
     // authentication
-    if (boost::beast::http::verb::post == req.method())
+    if (boost::beast::http::verb::post == method)
     {
         if ((req.url == "/redfish/v1/SessionService/Sessions") ||
             (req.url == "/redfish/v1/SessionService/Sessions/") ||
@@ -244,66 +254,75 @@ static bool isOnWhitelist(const crow::Request& req)
     return false;
 }
 
-static void authenticate(
+static std::shared_ptr<persistent_data::UserSession> authenticate(
     crow::Request& req, Response& res,
+    boost::beast::http::verb method,
+    std::unordered_map<std::string, std::string_view>& headerValues,
     [[maybe_unused]] const std::weak_ptr<persistent_data::UserSession>& session)
 {
-    if (isOnWhitelist(req))
+    BMCWEB_LOG_DEBUG << "JEBR starting auth";
+    if (isOnWhitelist(req, method))
     {
-        return;
+        BMCWEB_LOG_DEBUG << "JEBR in on white on list";
+        return nullptr;
     }
-
+    BMCWEB_LOG_DEBUG << "not on white list";
     const persistent_data::AuthConfigMethods& authMethodsConfig =
         persistent_data::SessionStore::getInstance().getAuthMethodsConfig();
 
 #ifdef BMCWEB_ENABLE_MUTUAL_TLS_AUTHENTICATION
-    if (req.session == nullptr && authMethodsConfig.tls)
+    if (authMethodsConfig.tls)
     {
-        req.session = performTLSAuth(req, res, session);
+        std::shared_ptr<persistent_data::UserSession> sessionOut
+            = performTLSAuth(req, res, headerValues, session);
+        if (sessionOut) return sessionOut;
     }
 #endif
 #ifdef BMCWEB_ENABLE_XTOKEN_AUTHENTICATION
-    if (req.session == nullptr && authMethodsConfig.xtoken)
+    if (authMethodsConfig.xtoken)
     {
-        req.session = performXtokenAuth(req);
+        std::shared_ptr<persistent_data::UserSession> sessionOut
+         = performXtokenAuth(headerValues);
+        if (sessionOut) return sessionOut;
     }
 #endif
 #ifdef BMCWEB_ENABLE_COOKIE_AUTHENTICATION
-    if (req.session == nullptr && authMethodsConfig.cookie)
+    if (authMethodsConfig.cookie)
     {
-        req.session = performCookieAuth(req);
+        std::shared_ptr<persistent_data::UserSession> sessionOut
+          = performCookieAuth(method, headerValues);
+        if (sessionOut) return sessionOut;
     }
 #endif
-    if (req.session == nullptr)
-    {
-        std::string_view authHeader = req.getHeaderValue("Authorization");
-        if (!authHeader.empty())
-        {
-            // Reject any kind of auth other than basic or token
-            if (boost::starts_with(authHeader, "Token ") &&
-                authMethodsConfig.sessionToken)
-            {
-#ifdef BMCWEB_ENABLE_SESSION_AUTHENTICATION
-                req.session = performTokenAuth(authHeader);
-#endif
-            }
-            else if (boost::starts_with(authHeader, "Basic ") &&
-                     authMethodsConfig.basic)
-            {
-#ifdef BMCWEB_ENABLE_BASIC_AUTHENTICATION
-                req.session = performBasicAuth(req.ipAddress, authHeader);
-#endif
-            }
-        }
-    }
+    BMCWEB_LOG_WARNING << "JEBR AUTH: BEFORE getHeaderValue";
+    std::string_view authHeader = headerValues["Authorization"];
+    BMCWEB_LOG_WARNING << "JEBR AUTH: after get headerValue"; 
 
-    if (req.session == nullptr)
+    if (!authHeader.empty())
     {
-        BMCWEB_LOG_WARNING << "[AuthMiddleware] authorization failed";
-        forward_unauthorized::sendUnauthorized(req, res);
-        res.end();
-        return;
-    }
+        std::shared_ptr<persistent_data::UserSession> sessionOut
+         = performXtokenAuth(headerValues);
+        // Reject any kind of auth other than basic or token
+        if (boost::starts_with(authHeader, "Token ") &&
+            authMethodsConfig.sessionToken)
+        {
+#ifdef BMCWEB_ENABLE_SESSION_AUTHENTICATION
+            sessionOut = performTokenAuth(authHeader);
+#endif
+        }
+        else if (boost::starts_with(authHeader, "Basic ") &&
+                 authMethodsConfig.basic)
+        {
+#ifdef BMCWEB_ENABLE_BASIC_AUTHENTICATION
+            sessionOut = performBasicAuth(req.ipAddress, authHeader);
+#endif
+        }
+        if (sessionOut) return sessionOut;
+     }
+     BMCWEB_LOG_WARNING << "[AuthMiddleware] authorization failed";
+     forward_unauthorized::sendUnauthorized(req, res);
+     res.end();
+     return nullptr;
 }
 
 } // namespace authorization
