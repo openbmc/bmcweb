@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b7a48553_cd077d19",
+        "filename": "redfish-core/lib/network_protocol.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 179,
+      "author": {
+        "id": 1001083
+      },
+      "writtenOn": "2021-07-13T15:14:16Z",
+      "side": 1,
+      "message": "Nitpick: instead of \u0027keyValue\u0027, how about \u0027protocolName\u0027?",
+      "revId": "56c167f9a18ae69ec034e0d1ace41836f3bfb413",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8a447368_fc301790",
+        "filename": "redfish-core/lib/network_protocol.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 181,
+      "author": {
+        "id": 1001083
+      },
+      "writtenOn": "2021-07-13T15:14:16Z",
+      "side": 1,
+      "message": "Nitpick: Can we create a local variable here for protocol.second as well, maybe something like:\n\"const std::string\u0026 serviceName \u003d protocol.second;\" on the line below 179?\n\nI think the cost of an extra local initialization isn\u0027t too inefficient here. What do you think?",
+      "revId": "56c167f9a18ae69ec034e0d1ace41836f3bfb413",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d7902302_4f0b4f15",
+        "filename": "redfish-core/lib/network_protocol.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 182,
+      "author": {
+        "id": 1001083
+      },
+      "writtenOn": "2021-07-13T15:14:16Z",
+      "side": 1,
+      "message": "Would it be a good idea to push this lambda function into redfish_util code, either into getPortStatusAndPath or create a new helper function in redfish_util?\n\nThe lambda nesting (at line 194) also is getting a little difficult to read",
+      "revId": "56c167f9a18ae69ec034e0d1ace41836f3bfb413",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "df3e80c2_0a6654d5",
+        "filename": "redfish-core/lib/redfish_util.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 1001083
+      },
+      "writtenOn": "2021-07-13T15:14:16Z",
+      "side": 1,
+      "message": "is declaring variables inside of \u0027if scope\u0027 valid / encouraged in bmcweb code?",
+      "revId": "56c167f9a18ae69ec034e0d1ace41836f3bfb413",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
