@@ -69,7 +69,7 @@ class Connection :
         parser.emplace(std::piecewise_construct, std::make_tuple());
         parser->body_limit(httpReqBodyLimit);
         parser->header_limit(httpHeaderLimit);
-        req.emplace(parser->get());
+        req.emplace(parser->release());
 
 #ifdef BMCWEB_ENABLE_MUTUAL_TLS_AUTHENTICATION
         prepareMutualTls();
@@ -692,7 +692,7 @@ class Connection :
                                                       // newly created parser
                 buffer.consume(buffer.size());
 
-                req.emplace(parser->get());
+                req.emplace(parser->release());
                 doReadHeaders();
             });
     }

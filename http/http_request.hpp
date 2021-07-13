@@ -18,7 +18,7 @@ namespace crow
 
 struct Request
 {
-    boost::beast::http::request<boost::beast::http::string_body>& req;
+    boost::beast::http::request<boost::beast::http::string_body> req;
     boost::beast::http::fields& fields;
     std::string_view url{};
     boost::urls::url_view urlView{};
@@ -34,9 +34,9 @@ struct Request
 
     std::string userRole{};
     Request(
-        boost::beast::http::request<boost::beast::http::string_body>& reqIn) :
-        req(reqIn),
-        fields(reqIn.base()), body(reqIn.body())
+        boost::beast::http::request<boost::beast::http::string_body> reqIn) :
+        req(std::move(reqIn)),
+        fields(req.base()), body(req.body())
     {}
 
     boost::beast::http::verb method() const
