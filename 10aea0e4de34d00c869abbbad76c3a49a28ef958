@@ -42,6 +42,41 @@
     },
     {
       "key": {
+        "uuid": "066a5fb4_db05d0d6",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-07-13T19:24:24Z",
+      "side": 1,
+      "message": "+1  50/72 please.",
+      "parentUuid": "11e1190b_c2316e4a",
+      "revId": "10aea0e4de34d00c869abbbad76c3a49a28ef958",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6dae7ec1_2d341e48",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-07-13T19:24:24Z",
+      "side": 1,
+      "message": "Can you please add some more details here?  Is this a regression?  Has this ever worked?  Are there any backward incompatible impacts to clients?",
+      "revId": "10aea0e4de34d00c869abbbad76c3a49a28ef958",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "3e9d6849_e582f86b",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 1
