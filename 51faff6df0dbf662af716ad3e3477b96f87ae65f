@@ -22,6 +22,30 @@
       "revId": "51faff6df0dbf662af716ad3e3477b96f87ae65f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a1d7f712_c95a167f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2021-07-13T19:52:13Z",
+      "side": 1,
+      "message": "yep, I wanted all these changes to have a similar style of commit messages. However I did not not realize that the length of subject line would be an issue.",
+      "parentUuid": "71490060_22f0fd05",
+      "range": {
+        "startLine": 7,
+        "startChar": 36,
+        "endLine": 7,
+        "endChar": 50
+      },
+      "revId": "51faff6df0dbf662af716ad3e3477b96f87ae65f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
