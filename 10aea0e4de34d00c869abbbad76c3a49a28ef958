@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3e9d6849_e582f86b",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 2247,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-07-13T17:17:04Z",
+      "side": 1,
+      "message": "https://github.com/openbmc/bmcweb/commit/ed3982131dcef2b499da36e674d2d21b2289ef29 ( Automate PrivilegeRegistry to code ) changed this",
+      "revId": "10aea0e4de34d00c869abbbad76c3a49a28ef958",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
