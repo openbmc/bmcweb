@@ -66,10 +66,10 @@ class Connection :
         handler(handlerIn), getCachedDateStr(getCachedDateStrF),
         timerQueue(timerQueueIn)
     {
+        BMCWEB_LOG_ERROR <<" JEBR in connection constructor";
         parser.emplace(std::piecewise_construct, std::make_tuple());
         parser->body_limit(httpReqBodyLimit);
         parser->header_limit(httpHeaderLimit);
-        req.emplace(parser->get());
 
 #ifdef BMCWEB_ENABLE_MUTUAL_TLS_AUTHENTICATION
         std::error_code error;
@@ -240,15 +240,14 @@ class Connection :
             }
             sslUser.resize(lastChar);
             std::string unsupportedClientId = "";
-            session = persistent_data::SessionStore::getInstance()
+            userSession = persistent_data::SessionStore::getInstance()
                           .generateUserSession(
                               sslUser, req->ipAddress.to_string(),
                               unsupportedClientId,
                               persistent_data::PersistenceType::TIMEOUT);
-            if (auto sp = session.lock())
             {
                 BMCWEB_LOG_DEBUG << this
-                                 << " Generating TLS session: " << sp->uniqueId;
+                                << " Generating TLS session: " << userSession->uniqueId;
             }
             return true;
         });
@@ -280,6 +279,7 @@ class Connection :
     void start()
     {
 
+        BMCWEB_LOG_ERROR <<" JEBR in connection start ";
         startDeadline(0);
 
         // TODO(ed) Abstract this to a more clever class with the idea of an
@@ -306,6 +306,7 @@ class Connection :
 
     void handle()
     {
+        BMCWEB_LOG_ERROR <<" JEBR in connection handle";
         cancelDeadlineTimer();
 
         // Fetch the client IP address
@@ -314,9 +315,9 @@ class Connection :
         bool isInvalidRequest = false;
 
         // Check for HTTP version 1.1.
-        if (req->version() == 11)
+        if (parser->get().version() == 11)
         {
-            if (req->getHeaderValue(boost::beast::http::field::host).empty())
+            if (parser->get()[boost::beast::http::field::host].empty())
             {
                 isInvalidRequest = true;
                 res.result(boost::beast::http::status::bad_request);
@@ -324,9 +325,21 @@ class Connection :
         }
 
         BMCWEB_LOG_INFO << "Request: "
-                        << " " << this << " HTTP/" << req->version() / 10 << "."
-                        << req->version() % 10 << ' ' << req->methodString()
-                        << " " << req->target() << " " << req->ipAddress;
+                        << " " << this << " HTTP/" << parser->get().version() / 10 << "."
+                        << parser->get().version() % 10 << ' ' << parser->get().method_string()
+                        /*<< " " << parser->get().target()*/ << " " << req->ipAddress;
+        req.emplace(parser->release());
+
+                try
+                {
+                    // causes life time issue
+                    req->urlView = boost::urls::url_view(req->target());
+                    req->url = req->urlView.encoded_path();
+                }
+                catch (std::exception& p)
+                {
+                    BMCWEB_LOG_ERROR << p.what();
+                }
 
         needToCallAfterHandlers = false;
 
@@ -372,7 +385,7 @@ class Connection :
 
     bool isAlive()
     {
-
+        BMCWEB_LOG_ERROR <<" JEBR in connection isAlive";
         if constexpr (std::is_same_v<Adaptor,
                                      boost::beast::ssl_stream<
                                          boost::asio::ip::tcp::socket>>)
@@ -386,17 +399,17 @@ class Connection :
     }
     void close()
     {
+        BMCWEB_LOG_ERROR <<" JEBR in connection close";
         if constexpr (std::is_same_v<Adaptor,
                                      boost::beast::ssl_stream<
                                          boost::asio::ip::tcp::socket>>)
         {
             adaptor.next_layer().close();
 #ifdef BMCWEB_ENABLE_MUTUAL_TLS_AUTHENTICATION
-            if (auto sp = session.lock())
             {
                 BMCWEB_LOG_DEBUG << this
-                                 << " Removing TLS session: " << sp->uniqueId;
-                persistent_data::SessionStore::getInstance().removeSession(sp);
+                                << " Removing TLS session: " << userSession->uniqueId;
+                persistent_data::SessionStore::getInstance().removeSession(userSession);
             }
 #endif // BMCWEB_ENABLE_MUTUAL_TLS_AUTHENTICATION
         }
@@ -408,6 +421,7 @@ class Connection :
 
     void completeRequest()
     {
+        BMCWEB_LOG_ERROR <<" JEBR in connection completeRequest";
         BMCWEB_LOG_INFO << "Response: " << this << ' ' << req->url << ' '
                         << res.resultInt() << " keepalive=" << req->keepAlive();
 
@@ -485,7 +499,7 @@ class Connection :
                              << ec;
         }
         else
-        {
+      {
             req->ipAddress = endpoint.address();
         }
     }
@@ -514,7 +528,7 @@ class Connection :
                 {
                     // if the adaptor isn't open anymore, and wasn't handed to a
                     // websocket, treat as an error
-                    if (!isAlive() && !req->isUpgrade())
+                    if (!isAlive() && !boost::beast::websocket::is_upgrade(parser->get())) //parser->get()[boost::beast::http::field::host])
                     {
                         errorWhileReading = true;
                     }
@@ -529,24 +543,12 @@ class Connection :
                     return;
                 }
 
-                if (!req)
+                boost::beast::http::verb method = parser->get().method(); // for auth
+                readClientIp(); // for auth
+                try // for auth
                 {
-                    close();
-                    return;
-                }
-
-                // Note, despite the bmcweb coding policy on use of exceptions
-                // for error handling, this one particular use of exceptions is
-                // deemed acceptible, as it solved a significant error handling
-                // problem that resulted in seg faults, the exact thing that the
-                // exceptions rule is trying to avoid. If at some point,
-                // boost::urls makes the parser object public (or we port it
-                // into bmcweb locally) this will be replaced with
-                // parser::parse, which returns a status code
-
-                try
-                {
-                    req->urlView = boost::urls::url_view(req->target());
+                    //  auth uses url, but this is not working
+                    req->urlView = boost::urls::url_view(parser->get().target());
                     req->url = req->urlView.encoded_path();
                 }
                 catch (std::exception& p)
@@ -554,9 +556,10 @@ class Connection :
                     BMCWEB_LOG_ERROR << p.what();
                 }
 
-                crow::authorization::authenticate(*req, res, session);
-
-                bool loggedIn = req && req->session;
+                BMCWEB_LOG_DEBUG  << "JEBR doReadHeaders calling auth";
+                this->userSession = crow::authorization::authenticate(*req, res, method, /* clientIp, */ userSession);
+                BMCWEB_LOG_DEBUG  << "JEBR doReadHeaders ret from auth";
+                bool loggedIn = req && userSession;
                 if (loggedIn)
                 {
                     startDeadline(loggedInAttempts);
@@ -617,8 +620,8 @@ class Connection :
                     if (isAlive())
                     {
                         cancelDeadlineTimer();
-                        bool loggedIn = req && req->session;
-                        if (loggedIn)
+                        BMCWEB_LOG_DEBUG << "JEBR do read: no EC and Alive";
+                        if (req)
                         {
                             startDeadline(loggedInAttempts);
                         }
@@ -639,13 +642,15 @@ class Connection :
                     BMCWEB_LOG_DEBUG << this << " from read(1)";
                     return;
                 }
+
+                BMCWEB_LOG_DEBUG << "do read: calling handle";
                 handle();
             });
     }
 
     void doWrite()
     {
-        bool loggedIn = req && req->session;
+        bool loggedIn = req && userSession;
         if (loggedIn)
         {
             startDeadline(loggedInAttempts);
@@ -687,7 +692,7 @@ class Connection :
                                                       // newly created parser
                 buffer.consume(buffer.size());
 
-                req.emplace(parser->get());
+                req.emplace(parser->release());
                 doReadHeaders();
             });
     }
@@ -723,7 +728,7 @@ class Connection :
                     return;
                 }
 
-                bool loggedIn = self->req && self->req->session;
+                bool loggedIn = self->req && self->userSession;
                 // allow slow uploads for logged in users
                 if (loggedIn && self->parser->get().body().size() > readCount)
                 {
@@ -773,7 +778,8 @@ class Connection :
     std::optional<crow::Request> req;
     crow::Response res;
 
-    std::weak_ptr<persistent_data::UserSession> session;
+    // big chagne connection now stonly owns a session (and so does crow::req)
+    std::shared_ptr<persistent_data::UserSession> userSession;
 
     std::optional<size_t> timerCancelKey;
 
