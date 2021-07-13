@@ -1,0 +1,251 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ab8bf5c8_650e8174",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-07-13T22:14:31Z",
+      "side": 1,
+      "message": "I need to think more on this, but it doesn\u0027t seem very generic, and it\u0027s only used in one spot.",
+      "range": {
+        "startLine": 88,
+        "startChar": 12,
+        "endLine": 88,
+        "endChar": 31
+      },
+      "revId": "b98bc8fe8dd69281617198c6fd547b94d0f6ec8b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ba6a54a8_74bbb266",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-07-13T22:14:31Z",
+      "side": 1,
+      "message": "Please follow the pattern used elsewhere\n\nnlohmann::json\u0026 resources \u003d aResp-\u003eres.jsonValue[\"Links\"][resource];\nresources \u003d nlohmann::json::array();\n\nThat ensures that when the collection is empty, we get an empty array properly.",
+      "range": {
+        "startLine": 104,
+        "startChar": 0,
+        "endLine": 104,
+        "endChar": 63
+      },
+      "revId": "b98bc8fe8dd69281617198c6fd547b94d0f6ec8b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9a8691dd_da085a79",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-07-13T22:14:31Z",
+      "side": 1,
+      "message": "Remove this check, we should be posting an empty collection of links for simplity.",
+      "range": {
+        "startLine": 117,
+        "startChar": 0,
+        "endLine": 117,
+        "endChar": 35
+      },
+      "revId": "b98bc8fe8dd69281617198c6fd547b94d0f6ec8b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c6db4062_562788fb",
+        "filename": "redfish-core/lib/redfish_util.hpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-07-13T22:14:31Z",
+      "side": 1,
+      "message": "This is an extra level of abstraction that I don\u0027t think is warranted in this case (maybe it\u0027s used to greater effect later?)\n\nWe probably shouldn\u0027t be capturing filtering callbacks in this way, but I\u0027m still wrapping my head around what you\u0027re doing.\n\n\nFWIW, generally we use templates for this kind of thing to be able to capture lifetimes and get better optimization, but I\u0027m not sure that\u0027s the right thing in this case.",
+      "range": {
+        "startLine": 79,
+        "startChar": 0,
+        "endLine": 79,
+        "endChar": 59
+      },
+      "revId": "b98bc8fe8dd69281617198c6fd547b94d0f6ec8b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "77c63d04_5371afec",
+        "filename": "redfish-core/lib/redfish_util.hpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-07-13T22:14:31Z",
+      "side": 1,
+      "message": "Generally you wouldn\u0027t pass objects like this through your callbacks.  If you need them, capture them in your lambda at the call site.",
+      "range": {
+        "startLine": 81,
+        "startChar": 51,
+        "endLine": 81,
+        "endChar": 68
+      },
+      "revId": "b98bc8fe8dd69281617198c6fd547b94d0f6ec8b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e2018073_9291b7e6",
+        "filename": "redfish-core/lib/redfish_util.hpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-07-13T22:14:31Z",
+      "side": 1,
+      "message": "Argument never used?  Generally we follow the pattern used in asio, where all async calls result in a single callback being called, either with an error, or with correct data.  I suspect this callback can use the same and be greatly simplified as a result.",
+      "range": {
+        "startLine": 83,
+        "startChar": 0,
+        "endLine": 83,
+        "endChar": 50
+      },
+      "revId": "b98bc8fe8dd69281617198c6fd547b94d0f6ec8b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e7d1713f_49e63de3",
+        "filename": "redfish-core/lib/redfish_util.hpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-07-13T22:14:31Z",
+      "side": 1,
+      "message": "These are all copies.",
+      "range": {
+        "startLine": 87,
+        "startChar": 9,
+        "endLine": 87,
+        "endChar": 36
+      },
+      "revId": "b98bc8fe8dd69281617198c6fd547b94d0f6ec8b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "492606e0_af0f55e9",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-07-13T22:14:31Z",
+      "side": 1,
+      "message": "Please don\u0027t change the pattern here.  The old one was more efficient, as it avoids the move on line 88.\n\nChange this to the same as what was on line 67 and 68 before, and the rest of the code should be good.",
+      "range": {
+        "startLine": 60,
+        "startChar": 0,
+        "endLine": 60,
+        "endChar": 66
+      },
+      "revId": "b98bc8fe8dd69281617198c6fd547b94d0f6ec8b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b9068252_9c5fd8a4",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-07-13T22:14:31Z",
+      "side": 1,
+      "message": "This is relying on one of two mechanisms for determine contained by. \n Technically this is not the abstraction to use, because a StorageController doesn\u0027t necessarily \"contain\" a given drive.  I suspect an association is needed here to associate a given controller to a drive.",
+      "range": {
+        "startLine": 118,
+        "startChar": 0,
+        "endLine": 122,
+        "endChar": 17
+      },
+      "revId": "b98bc8fe8dd69281617198c6fd547b94d0f6ec8b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8c684704_6d144300",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 270,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-07-13T22:14:31Z",
+      "side": 1,
+      "message": "Please read and understand COMMON_ERRORS.  This doesn\u0027t handle 404 properly if you\u0027re filling in properties before checking for existence.",
+      "range": {
+        "startLine": 263,
+        "startChar": 0,
+        "endLine": 270,
+        "endChar": 0
+      },
+      "revId": "b98bc8fe8dd69281617198c6fd547b94d0f6ec8b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fb8358c0_d995e6e3",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 296,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-07-13T22:14:31Z",
+      "side": 1,
+      "message": "This is a nitpick, but I think will make the code better:\n\nRemove the foundStorage variable, and put a return; here, then you can both delete the variable, and delete the branch on line 299 below.",
+      "revId": "b98bc8fe8dd69281617198c6fd547b94d0f6ec8b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
