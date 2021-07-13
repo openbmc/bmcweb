@@ -109,6 +109,24 @@
       "revId": "10aea0e4de34d00c869abbbad76c3a49a28ef958",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "12529e96_3e47c513",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 2247,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-07-13T20:50:56Z",
+      "side": 1,
+      "message": "Crap..... I wonder how that happened.  Yeah, mention that in the commit message and we\u0027ll get this merged post-haste.",
+      "parentUuid": "3e9d6849_e582f86b",
+      "revId": "10aea0e4de34d00c869abbbad76c3a49a28ef958",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
