@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "b3f99348_f9e445a9",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-07-14T14:50:36Z",
+      "side": 1,
+      "message": "The first issue makes sense. \nThe 2nd one, I am struggling with but it arguably is no worse... I am struggling to see how another company would share this code but I think that is a broader discussion / beyond this commit.",
+      "range": {
+        "startLine": 9,
+        "startChar": 21,
+        "endLine": 9,
+        "endChar": 23
+      },
+      "revId": "3274f33d4cfddd228c9bc080403c893e3b17c48c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "41866a8a_edb48a05",
         "filename": "/COMMIT_MSG",
         "patchSetId": 5
