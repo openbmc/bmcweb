@@ -51,6 +51,7 @@ include_list = [
     'ManagerNetworkProtocol',
     'Memory',
     'MemoryCollection',
+    'MemoryMetrics',
     'Message',
     'MessageRegistry',
     'MessageRegistryCollection',
