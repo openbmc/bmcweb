@@ -455,9 +455,9 @@ using BaseSpeedPrioritySettingsProperty =
 // uint32_t and size_t may or may not be the same type, requiring a dedup'd
 // variant
 using OperatingConfigProperties = std::vector<std::pair<
-    std::string,
-    sdbusplus::utility::dedup_variant_t<uint32_t, size_t, TurboProfileProperty,
-                                        BaseSpeedPrioritySettingsProperty>>>;
+    std::string, sdbusplus::utility::dedup_variant<
+                     double, uint64_t, uint32_t, size_t, TurboProfileProperty,
+                     BaseSpeedPrioritySettingsProperty>>>;
 
 /**
  * Fill out the HighSpeedCoreIDs in a Processor resource from the given
@@ -765,58 +765,6 @@ inline void getProcessorObject(const std::shared_ptr<bmcweb::AsyncResp>& resp,
             "xyz.openbmc_project.Inventory.Decorator.UniqueIdentifier"});
 }
 
-inline void getProcessorData(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
-                             const std::string& processorId,
-                             const std::string& objectPath,
-                             const MapperServiceMap& serviceMap)
-{
-    for (const auto& [serviceName, interfaceList] : serviceMap)
-    {
-        for (const auto& interface : interfaceList)
-        {
-            if (interface == "xyz.openbmc_project.Inventory.Decorator.Asset")
-            {
-                getCpuAssetData(aResp, serviceName, objectPath);
-            }
-            else if (interface == "xyz.openbmc_project.Inventory."
-                                  "Decorator.Revision")
-            {
-                getCpuRevisionData(aResp, serviceName, objectPath);
-            }
-            else if (interface == "xyz.openbmc_project.Inventory.Item.Cpu")
-            {
-                getCpuDataByService(aResp, processorId, serviceName,
-                                    objectPath);
-            }
-            else if (interface == "xyz.openbmc_project.Inventory."
-                                  "Item.Accelerator")
-            {
-                getAcceleratorDataByService(aResp, processorId, serviceName,
-                                            objectPath);
-            }
-            else if (interface == "xyz.openbmc_project.Control.Processor."
-                                  "CurrentOperatingConfig")
-            {
-                getCpuConfigData(aResp, processorId, serviceName, objectPath);
-            }
-            else if (interface == "xyz.openbmc_project.Inventory."
-                                  "Decorator.LocationCode")
-            {
-                getCpuLocationCode(aResp, serviceName, objectPath);
-            }
-            else if (interface == "xyz.openbmc_project.Common.UUID")
-            {
-                getProcessorUUID(aResp, serviceName, objectPath);
-            }
-            else if (interface == "xyz.openbmc_project.Inventory."
-                                  "Decorator.UniqueIdentifier")
-            {
-                getCpuUniqueId(aResp, serviceName, objectPath);
-            }
-        }
-    }
-}
-
 /**
  * Request all the properties for the given D-Bus object and fill out the
  * related entries in the Redfish OperatingConfig response.
@@ -876,6 +824,22 @@ inline void
                         json["MaxSpeedMHz"] = *speed;
                     }
                 }
+                else if (key == "MinSpeed")
+                {
+                    const uint32_t* speed = std::get_if<uint32_t>(&variant);
+                    if (speed != nullptr)
+                    {
+                        json["MinSpeedMHz"] = *speed;
+                    }
+                }
+                else if (key == "OperatingSpeed")
+                {
+                    const uint32_t* speed = std::get_if<uint32_t>(&variant);
+                    if (speed != nullptr)
+                    {
+                        json["OperatingSpeedMHz"] = *speed;
+                    }
+                }
                 else if (key == "PowerLimit")
                 {
                     const uint32_t* tdp = std::get_if<uint32_t>(&variant);
@@ -926,6 +890,124 @@ inline void
         },
         service, objPath, "org.freedesktop.DBus.Properties", "GetAll",
         "xyz.openbmc_project.Inventory.Item.Cpu.OperatingConfig");
+}
+
+/**
+ * Request all the properties for the given D-Bus object and fill out the
+ * related entries in the Redfish processor response.
+ *
+ * @param[in,out]   aResp       Async HTTP response.
+ * @param[in]       cpuId       CPU D-Bus name.
+ * @param[in]       service     D-Bus service name to query.
+ * @param[in]       objPath     D-Bus object to query.
+ */
+inline void
+    getProcessorMemoryData(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
+                           const std::string& cpuId, const std::string& service,
+                           const std::string& objPath)
+{
+    crow::connections::systemBus->async_method_call(
+        [aResp, cpuId](boost::system::error_code ec,
+                       const OperatingConfigProperties& properties) {
+            if (ec)
+            {
+                BMCWEB_LOG_WARNING << "D-Bus error: " << ec << ", "
+                                   << ec.message();
+                messages::internalError(aResp->res);
+                return;
+            }
+            nlohmann::json& json = aResp->res.jsonValue;
+            std::string metricsURI = "/redfish/v1/Systems/system/Processors/";
+            metricsURI += cpuId;
+            metricsURI += "/MemorySummary/MemoryMetrics";
+            json["MemorySummary"]["Metrics"]["@odata.id"] = metricsURI;
+            for (const auto& [key, variant] : properties)
+            {
+                if (key == "CacheSizeInKiB")
+                {
+                    const uint64_t* value = std::get_if<uint64_t>(&variant);
+                    if (value != nullptr)
+                    {
+                        json["MemorySummary"]["TotalCacheSizeMiB"] =
+                            (*value) >> 10;
+                    }
+                }
+                else if (key == "VolatileSizeInKiB")
+                {
+                    const uint64_t* value = std::get_if<uint64_t>(&variant);
+                    if (value != nullptr)
+                    {
+                        json["MemorySummary"]["TotalMemorySizeMiB"] =
+                            (*value) >> 10;
+                    }
+                }
+            }
+        },
+        service, objPath, "org.freedesktop.DBus.Properties", "GetAll",
+        "xyz.openbmc_project.Inventory.Item.PersistentMemory");
+}
+
+inline void getProcessorData(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
+                             const std::string& processorId,
+                             const std::string& objectPath,
+                             const MapperServiceMap& serviceMap)
+{
+    for (const auto& [serviceName, interfaceList] : serviceMap)
+    {
+        for (const auto& interface : interfaceList)
+        {
+            if (interface == "xyz.openbmc_project.Inventory.Decorator.Asset")
+            {
+                getCpuAssetData(aResp, serviceName, objectPath);
+            }
+            else if (interface == "xyz.openbmc_project.Inventory."
+                                  "Decorator.Revision")
+            {
+                getCpuRevisionData(aResp, serviceName, objectPath);
+            }
+            else if (interface == "xyz.openbmc_project.Inventory.Item.Cpu")
+            {
+                getCpuDataByService(aResp, processorId, serviceName,
+                                    objectPath);
+            }
+            else if (interface == "xyz.openbmc_project.Inventory."
+                                  "Item.Accelerator")
+            {
+                getAcceleratorDataByService(aResp, processorId, serviceName,
+                                            objectPath);
+            }
+            else if (interface == "xyz.openbmc_project.Control.Processor."
+                                  "CurrentOperatingConfig")
+            {
+                getCpuConfigData(aResp, processorId, serviceName, objectPath);
+            }
+            else if (interface == "xyz.openbmc_project.Inventory."
+                                  "Decorator.LocationCode")
+            {
+                getCpuLocationCode(aResp, serviceName, objectPath);
+            }
+            else if (interface == "xyz.openbmc_project.Common.UUID")
+            {
+                getProcessorUUID(aResp, serviceName, objectPath);
+            }
+            else if (interface == "xyz.openbmc_project.Inventory."
+                                  "Decorator.UniqueIdentifier")
+            {
+                getCpuUniqueId(aResp, serviceName, objectPath);
+            }
+            else if (interface ==
+                     "xyz.openbmc_project.Inventory.Item.Cpu.OperatingConfig")
+            {
+                getOperatingConfigData(aResp, serviceName, objectPath);
+            }
+            else if (interface ==
+                     "xyz.openbmc_project.Inventory.Item.PersistentMemory")
+            {
+                getProcessorMemoryData(aResp, processorId, serviceName,
+                                       objectPath);
+            }
+        }
+    }
 }
 
 /**
