@@ -22,6 +22,30 @@
       "revId": "2b9026886f8eebab81ba312b2c1308c816de0320",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f3f4659e_975c8cf7",
+        "filename": "redfish-core/lib/ut/service_root_test.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-07-14T22:20:16Z",
+      "side": 1,
+      "message": "remember how I said to use make_shared?  😊\n\n\nstd::shared_ptr\u003cbmcweb::AsyncResp\u003e myshared \u003d std::make_shared\u003cbmcweb::AsyncResp\u003e(response);\n\nIn this case, you\u0027re trying to make an asyncresp of an asyncresp, which isn\u0027t quite what you want.",
+      "parentUuid": "4a661848_4034430f",
+      "range": {
+        "startLine": 95,
+        "startChar": 0,
+        "endLine": 96,
+        "endChar": 59
+      },
+      "revId": "2b9026886f8eebab81ba312b2c1308c816de0320",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
