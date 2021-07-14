@@ -456,8 +456,8 @@ using BaseSpeedPrioritySettingsProperty =
 // variant
 using OperatingConfigProperties = std::vector<std::pair<
     std::string, sdbusplus::utility::dedup_variant<
-                     double, uint64_t, uint32_t, size_t, TurboProfileProperty,
-                     BaseSpeedPrioritySettingsProperty>>>;
+                     double, int64_t, uint64_t, uint32_t, size_t,
+                     TurboProfileProperty, BaseSpeedPrioritySettingsProperty>>>;
 
 /**
  * Fill out the HighSpeedCoreIDs in a Processor resource from the given
@@ -1309,6 +1309,12 @@ inline void requestRoutesProcessor(App& app)
                     "#Processor.v1_11_0.Processor";
                 asyncResp->res.jsonValue["@odata.id"] =
                     "/redfish/v1/Systems/system/Processors/" + processorId;
+                std::string processorMetricsURI =
+                    "/redfish/v1/Systems/system/Processors/";
+                processorMetricsURI += processorId;
+                processorMetricsURI += "/ProcessorMetrics";
+                asyncResp->res.jsonValue["Metrics"]["@odata.id"] =
+                    processorMetricsURI;
 
                 getProcessorObject(asyncResp, processorId, getProcessorData);
             });
@@ -1349,6 +1355,178 @@ inline void requestRoutesProcessor(App& app)
                                                         objectPath, serviceMap);
                         });
                 }
+            });
+}
+
+inline void getProcessorDataByService(std::shared_ptr<bmcweb::AsyncResp> aResp,
+                                      const std::string& service,
+                                      const std::string& objPath)
+{
+    BMCWEB_LOG_DEBUG << "Get processor metrics data.";
+    crow::connections::systemBus->async_method_call(
+        [aResp{std::move(aResp)}](const boost::system::error_code ec,
+                                  const OperatingConfigProperties& properties) {
+            if (ec)
+            {
+                BMCWEB_LOG_DEBUG << "DBUS response error";
+                messages::internalError(aResp->res);
+                return;
+            }
+
+            for (const auto& property : properties)
+            {
+                if (property.first == "OperatingSpeed")
+                {
+                    const uint32_t* value =
+                        std::get_if<uint32_t>(&property.second);
+                    if (value == nullptr)
+                    {
+                        messages::internalError(aResp->res);
+                        return;
+                    }
+                    aResp->res.jsonValue["OperatingSpeedMHz"] = *value;
+                }
+                else if (property.first == "Utilization")
+                {
+                    const double* value = std::get_if<double>(&property.second);
+                    if (value == nullptr)
+                    {
+                        messages::internalError(aResp->res);
+                        return;
+                    }
+                    aResp->res.jsonValue["BandwidthPercent"] = *value;
+                }
+            }
+        },
+        service, objPath, "org.freedesktop.DBus.Properties", "GetAll",
+        "xyz.openbmc_project.Inventory.Item.Cpu.OperatingConfig");
+}
+
+inline void getProcessorMemoryECCData(std::shared_ptr<bmcweb::AsyncResp> aResp,
+                                      const std::string& service,
+                                      const std::string& objPath)
+{
+    BMCWEB_LOG_DEBUG << "Get processor memory ecc data.";
+    crow::connections::systemBus->async_method_call(
+        [aResp{std::move(aResp)}](const boost::system::error_code ec,
+                                  const OperatingConfigProperties& properties) {
+            if (ec)
+            {
+                BMCWEB_LOG_DEBUG << "DBUS response error";
+                messages::internalError(aResp->res);
+                return;
+            }
+
+            for (const auto& property : properties)
+            {
+                if (property.first == "ceCount")
+                {
+                    const int64_t* value =
+                        std::get_if<int64_t>(&property.second);
+                    if (value == nullptr)
+                    {
+                        messages::internalError(aResp->res);
+                        return;
+                    }
+                    aResp->res.jsonValue["CacheMetricsTotal"]["LifeTime"]
+                                        ["CorrectableECCErrorCount"] = *value;
+                }
+                else if (property.first == "ueCount")
+                {
+                    const int64_t* value =
+                        std::get_if<int64_t>(&property.second);
+                    if (value == nullptr)
+                    {
+                        messages::internalError(aResp->res);
+                        return;
+                    }
+                    aResp->res.jsonValue["CacheMetricsTotal"]["LifeTime"]
+                                        ["UncorrectableECCErrorCount"] = *value;
+                }
+            }
+        },
+        service, objPath, "org.freedesktop.DBus.Properties", "GetAll",
+        "xyz.openbmc_project.Memory.MemoryECC");
+}
+
+inline void getProcessorMetricsData(std::shared_ptr<bmcweb::AsyncResp> aResp,
+                                    const std::string& processorId)
+{
+    BMCWEB_LOG_DEBUG << "Get available system processor resource";
+    crow::connections::systemBus->async_method_call(
+        [processorId, aResp{std::move(aResp)}](
+            const boost::system::error_code ec,
+            const boost::container::flat_map<
+                std::string, boost::container::flat_map<
+                                 std::string, std::vector<std::string>>>&
+                subtree) {
+            if (ec)
+            {
+                BMCWEB_LOG_DEBUG << "DBUS response error";
+                messages::internalError(aResp->res);
+
+                return;
+            }
+            for (const auto& [objPath, object] : subtree)
+            {
+                if (!boost::ends_with(objPath, processorId))
+                {
+                    continue;
+                }
+                for (const auto& [service, interfaces] : object)
+                {
+                    if (std::find(interfaces.begin(), interfaces.end(),
+                                  "xyz.openbmc_project.Inventory.Item.Cpu."
+                                  "OperatingConfig") != interfaces.end())
+                    {
+                        getProcessorDataByService(aResp, service, objPath);
+                    }
+                    if (std::find(interfaces.begin(), interfaces.end(),
+                                  "xyz.openbmc_project.Memory.MemoryECC") !=
+                        interfaces.end())
+                    {
+                        getProcessorMemoryECCData(aResp, service, objPath);
+                    }
+                }
+                return;
+            }
+            // Object not found
+            messages::resourceNotFound(
+                aResp->res, "#ProcessorMetrics.v1_2_0.ProcessorMetrics",
+                processorId);
+        },
+        "xyz.openbmc_project.ObjectMapper",
+        "/xyz/openbmc_project/object_mapper",
+        "xyz.openbmc_project.ObjectMapper", "GetSubTree",
+        "/xyz/openbmc_project/inventory", 0,
+        std::array<const char*, 1>{
+            "xyz.openbmc_project.Inventory.Item.Accelerator"});
+}
+
+inline void requestRoutesProcessorMetrics(App& app)
+{
+    /**
+     * Functions triggers appropriate requests on DBus
+     */
+    BMCWEB_ROUTE(app,
+                 "/redfish/v1/Systems/system/Processors/<str>/ProcessorMetrics")
+        .privileges({{"Login"}})
+        .methods(boost::beast::http::verb::get)(
+            [](const crow::Request&,
+               const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+               const std::string& processorId) {
+                std::string processorMetricsURI =
+                    "/redfish/v1/Systems/system/Processors/";
+                processorMetricsURI += processorId;
+                processorMetricsURI += "/ProcessorMetrics";
+                asyncResp->res.jsonValue["@odata.type"] =
+                    "#ProcessorMetrics.v1_2_0.ProcessorMetrics";
+                asyncResp->res.jsonValue["@odata.id"] = processorMetricsURI;
+                asyncResp->res.jsonValue["Id"] = "ProcessorMetrics";
+                asyncResp->res.jsonValue["Name"] =
+                    processorId + " Processor Metrics";
+
+                getProcessorMetricsData(asyncResp, processorId);
             });
 }
 

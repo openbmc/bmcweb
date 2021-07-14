@@ -1635,6 +1635,20 @@
     <edmx:Reference Uri="/redfish/v1/schema/ProcessorCollection_v1.xml">
         <edmx:Include Namespace="ProcessorCollection"/>
     </edmx:Reference>
+    <edmx:Reference Uri="/redfish/v1/schema/ProcessorMetrics_v1.xml">
+        <edmx:Include Namespace="ProcessorMetrics"/>
+        <edmx:Include Namespace="ProcessorMetrics.v1_0_0"/>
+        <edmx:Include Namespace="ProcessorMetrics.v1_0_1"/>
+        <edmx:Include Namespace="ProcessorMetrics.v1_0_2"/>
+        <edmx:Include Namespace="ProcessorMetrics.v1_0_3"/>
+        <edmx:Include Namespace="ProcessorMetrics.v1_0_4"/>
+        <edmx:Include Namespace="ProcessorMetrics.v1_1_0"/>
+        <edmx:Include Namespace="ProcessorMetrics.v1_1_1"/>
+        <edmx:Include Namespace="ProcessorMetrics.v1_1_2"/>
+        <edmx:Include Namespace="ProcessorMetrics.v1_1_3"/>
+        <edmx:Include Namespace="ProcessorMetrics.v1_2_0"/>
+        <edmx:Include Namespace="ProcessorMetrics.v1_2_1"/>
+    </edmx:Reference>
     <edmx:Reference Uri="/redfish/v1/schema/RedfishError_v1.xml">
         <edmx:Include Namespace="RedfishError.v1_0_0"/>
         <edmx:Include Namespace="RedfishError.v1_0_1"/>
