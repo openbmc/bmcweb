@@ -72,6 +72,29 @@ class Connection :
         req.emplace(parser->get());
 
 #ifdef BMCWEB_ENABLE_MUTUAL_TLS_AUTHENTICATION
+        prepareMutualTls();
+#endif // BMCWEB_ENABLE_MUTUAL_TLS_AUTHENTICATION
+
+#ifdef BMCWEB_ENABLE_DEBUG
+        connectionCount++;
+        BMCWEB_LOG_DEBUG << this << " Connection open, total "
+                         << connectionCount;
+#endif
+    }
+
+    ~Connection()
+    {
+        res.completeRequestHandler = nullptr;
+        cancelDeadlineTimer();
+#ifdef BMCWEB_ENABLE_DEBUG
+        connectionCount--;
+        BMCWEB_LOG_DEBUG << this << " Connection closed, total "
+                         << connectionCount;
+#endif
+    }
+
+    void prepareMutualTls()
+    {
         std::error_code error;
         std::filesystem::path caPath(ensuressl::trustStorePath);
         auto caAvailable = !std::filesystem::is_empty(caPath, error);
@@ -252,24 +275,6 @@ class Connection :
             }
             return true;
         });
-#endif // BMCWEB_ENABLE_MUTUAL_TLS_AUTHENTICATION
-
-#ifdef BMCWEB_ENABLE_DEBUG
-        connectionCount++;
-        BMCWEB_LOG_DEBUG << this << " Connection open, total "
-                         << connectionCount;
-#endif
-    }
-
-    ~Connection()
-    {
-        res.completeRequestHandler = nullptr;
-        cancelDeadlineTimer();
-#ifdef BMCWEB_ENABLE_DEBUG
-        connectionCount--;
-        BMCWEB_LOG_DEBUG << this << " Connection closed, total "
-                         << connectionCount;
-#endif
     }
 
     Adaptor& socket()
