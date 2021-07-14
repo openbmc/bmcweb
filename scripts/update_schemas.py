@@ -95,6 +95,7 @@ include_list = [
     'TaskCollection',
     'TaskService',
     'TelemetryService',
+    'TriggersCollection',
     'Thermal',
     'UpdateService',
     'VLanNetworkInterfaceCollection',
