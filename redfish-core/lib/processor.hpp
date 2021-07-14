@@ -456,7 +456,7 @@ using BaseSpeedPrioritySettingsProperty =
 // variant
 using OperatingConfigProperties = std::vector<std::pair<
     std::string, sdbusplus::utility::dedup_variant<
-                     double, int64_t, uint64_t, uint32_t, size_t,
+                     double, int64_t, uint64_t, uint32_t, size_t, uint16_t,
                      TurboProfileProperty, BaseSpeedPrioritySettingsProperty>>>;
 
 /**
@@ -1527,6 +1527,282 @@ inline void requestRoutesProcessorMetrics(App& app)
                     processorId + " Processor Metrics";
 
                 getProcessorMetricsData(asyncResp, processorId);
+            });
+}
+
+inline void getProcessorMemoryDataByService(
+    const std::shared_ptr<bmcweb::AsyncResp>& aResp, const std::string& objPath,
+    const std::string& memoryPath, const int64_t& processorCECount,
+    const int64_t& processorUECount)
+{
+    BMCWEB_LOG_DEBUG << "Get processor memory data";
+    crow::connections::systemBus->async_method_call(
+        [aResp, memoryPath, processorCECount, processorUECount](
+            const boost::system::error_code ec,
+            const crow::openbmc_mapper::GetSubTreeType& subtree) {
+            if (ec)
+            {
+                messages::internalError(aResp->res);
+                return;
+            }
+            // Iterate over all retrieved ObjectPaths.
+            for (const std::pair<std::string,
+                                 std::vector<std::pair<
+                                     std::string, std::vector<std::string>>>>&
+                     object : subtree)
+            {
+                // Get the processor memory
+                if (object.first != memoryPath)
+                {
+                    continue;
+                }
+                const std::vector<
+                    std::pair<std::string, std::vector<std::string>>>&
+                    connectionNames = object.second;
+                if (connectionNames.size() < 1)
+                {
+                    BMCWEB_LOG_ERROR << "Got 0 Connection names";
+                    continue;
+                }
+                const std::string& connectionName = connectionNames[0].first;
+                crow::connections::systemBus->async_method_call(
+                    [aResp, processorCECount, processorUECount](
+                        const boost::system::error_code ec,
+                        const OperatingConfigProperties& properties) {
+                        if (ec)
+                        {
+                            BMCWEB_LOG_DEBUG << "DBUS response error";
+                            messages::internalError(aResp->res);
+
+                            return;
+                        }
+                        for (const auto& property : properties)
+                        {
+                            if (property.first == "MemoryConfiguredSpeedInMhz")
+                            {
+                                const uint16_t* value =
+                                    std::get_if<uint16_t>(&property.second);
+                                if (value == nullptr)
+                                {
+                                    messages::internalError(aResp->res);
+                                    return;
+                                }
+                                aResp->res.jsonValue["OperatingSpeedMHz"] =
+                                    *value;
+                            }
+                            else if (property.first == "Utilization")
+                            {
+                                const double* value =
+                                    std::get_if<double>(&property.second);
+                                if (value == nullptr)
+                                {
+                                    messages::internalError(aResp->res);
+                                    return;
+                                }
+                                aResp->res.jsonValue["BandwidthPercent"] =
+                                    *value;
+                            }
+                            else if (property.first == "ceCount")
+                            {
+                                const int64_t* value =
+                                    std::get_if<int64_t>(&property.second);
+                                if (value == nullptr)
+                                {
+                                    messages::internalError(aResp->res);
+                                    return;
+                                }
+                                aResp->res
+                                    .jsonValue["LifeTime"]
+                                              ["CorrectableECCErrorCount"] =
+                                    *value + processorCECount;
+                            }
+                            else if (property.first == "ueCount")
+                            {
+                                const int64_t* value =
+                                    std::get_if<int64_t>(&property.second);
+                                if (value == nullptr)
+                                {
+                                    messages::internalError(aResp->res);
+                                    return;
+                                }
+                                aResp->res
+                                    .jsonValue["LifeTime"]
+                                              ["UncorrectableECCErrorCount"] =
+                                    *value + processorUECount;
+                            }
+                        }
+                    },
+                    connectionName, memoryPath,
+                    "org.freedesktop.DBus.Properties", "GetAll", "");
+            }
+        },
+        "xyz.openbmc_project.ObjectMapper",
+        "/xyz/openbmc_project/object_mapper",
+        "xyz.openbmc_project.ObjectMapper", "GetSubTree", objPath, 0,
+        std::array<const char*, 1>{"xyz.openbmc_project.Inventory.Item.Dimm"});
+}
+
+inline void getProcessorMemorySummary(
+    const std::shared_ptr<bmcweb::AsyncResp>& aResp, const std::string& objPath,
+    const int64_t& processorCECount, const int64_t& processorUECount)
+{
+    BMCWEB_LOG_DEBUG << "Get available system processor resource";
+    // Get processor memory
+    crow::connections::systemBus->async_method_call(
+        [aResp, processorCECount,
+         processorUECount](const boost::system::error_code ec,
+                           std::variant<std::vector<std::string>>& resp) {
+            if (ec)
+            {
+                return; // no memory = no failures
+            }
+            std::vector<std::string>* data =
+                std::get_if<std::vector<std::string>>(&resp);
+            if (data == nullptr)
+            {
+                return;
+            }
+            for (const std::string& memoryPath : *data)
+            {
+                // Get subtree for memory parent path
+                size_t separator = memoryPath.rfind('/');
+                if (separator == std::string::npos)
+                {
+                    BMCWEB_LOG_ERROR << "Invalid memory path";
+                    continue;
+                }
+                std::string parentPath = memoryPath.substr(0, separator);
+                // Get entity subtree
+                getProcessorMemoryDataByService(aResp, parentPath, memoryPath,
+                                                processorCECount,
+                                                processorUECount);
+            }
+        },
+        "xyz.openbmc_project.ObjectMapper", objPath + "/all_memory",
+        "org.freedesktop.DBus.Properties", "Get",
+        "xyz.openbmc_project.Association", "endpoints");
+}
+
+inline void
+    getProcessorMemoryMetricsData(std::shared_ptr<bmcweb::AsyncResp> aResp,
+                                  const std::string& processorId)
+{
+    BMCWEB_LOG_DEBUG << "Get available system processor resource";
+    crow::connections::systemBus->async_method_call(
+        [processorId, aResp{std::move(aResp)}](
+            const boost::system::error_code ec,
+            const boost::container::flat_map<
+                std::string, boost::container::flat_map<
+                                 std::string, std::vector<std::string>>>&
+                subtree) {
+            if (ec)
+            {
+                BMCWEB_LOG_DEBUG << "DBUS response error";
+                messages::internalError(aResp->res);
+
+                return;
+            }
+            for (const auto& [objPath, object] : subtree)
+            {
+                if (!boost::ends_with(objPath, processorId))
+                {
+                    continue;
+                }
+                // Get processor cache memory ECC counts
+                for (const auto& [service, interfaces] : object)
+                {
+                    const std::string memoryECCInterface =
+                        "xyz.openbmc_project.Memory.MemoryECC";
+                    if (std::find(interfaces.begin(), interfaces.end(),
+                                  memoryECCInterface) != interfaces.end())
+                    {
+                        crow::connections::systemBus->async_method_call(
+                            [objPath = objPath, aResp](
+                                const boost::system::error_code ec,
+                                const OperatingConfigProperties& properties) {
+                                if (ec)
+                                {
+                                    BMCWEB_LOG_DEBUG << "DBUS response error";
+                                    messages::internalError(aResp->res);
+                                    return;
+                                }
+                                // Get processor memory error counts to combine
+                                // to memory summary error counts
+                                int64_t processorCECount;
+                                int64_t processorUECount;
+                                for (const auto& property : properties)
+                                {
+                                    if (property.first == "ceCount")
+                                    {
+                                        const int64_t* value =
+                                            std::get_if<int64_t>(
+                                                &property.second);
+                                        if (value == nullptr)
+                                        {
+                                            messages::internalError(aResp->res);
+                                            return;
+                                        }
+                                        processorCECount = *value;
+                                    }
+                                    else if (property.first == "ueCount")
+                                    {
+                                        const int64_t* value =
+                                            std::get_if<int64_t>(
+                                                &property.second);
+                                        if (value == nullptr)
+                                        {
+                                            messages::internalError(aResp->res);
+                                            return;
+                                        }
+                                        processorUECount = *value;
+                                    }
+                                }
+                                // Get processor memory summary data
+                                getProcessorMemorySummary(aResp, objPath,
+                                                          processorCECount,
+                                                          processorUECount);
+                            },
+                            service, objPath, "org.freedesktop.DBus.Properties",
+                            "GetAll", memoryECCInterface);
+                    }
+                }
+                return;
+            }
+            // Object not found
+            messages::resourceNotFound(
+                aResp->res, "#MemoryMetrics.v1_4_1.MemoryMetrics", processorId);
+        },
+        "xyz.openbmc_project.ObjectMapper",
+        "/xyz/openbmc_project/object_mapper",
+        "xyz.openbmc_project.ObjectMapper", "GetSubTree",
+        "/xyz/openbmc_project/inventory", 0,
+        std::array<const char*, 1>{
+            "xyz.openbmc_project.Inventory.Item.Accelerator"});
+}
+
+inline void requestRoutesProcessorMemoryMetrics(App& app)
+{
+    /**
+     * Functions triggers appropriate requests on DBus
+     */
+    BMCWEB_ROUTE(app, "/redfish/v1/Systems/system/Processors/<str>/"
+                      "MemorySummary/MemoryMetrics")
+        .privileges({{"Login"}})
+        .methods(boost::beast::http::verb::get)(
+            [](const crow::Request&,
+               const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+               const std::string& processorId) {
+                std::string memoryMetricsURI =
+                    "/redfish/v1/Systems/system/Processors/";
+                memoryMetricsURI += processorId;
+                memoryMetricsURI += "/MemorySummary/MemoryMetrics";
+                asyncResp->res.jsonValue["@odata.type"] =
+                    "#MemoryMetrics.v1_4_1.MemoryMetrics";
+                asyncResp->res.jsonValue["@odata.id"] = memoryMetricsURI;
+                asyncResp->res.jsonValue["Id"] = "MemoryMetrics";
+                asyncResp->res.jsonValue["Name"] =
+                    processorId + " Memory Summary Metrics";
+                getProcessorMemoryMetricsData(asyncResp, processorId);
             });
 }
 
