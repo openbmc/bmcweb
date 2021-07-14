@@ -48,6 +48,30 @@
     },
     {
       "key": {
+        "uuid": "78688c4c_690df9be",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 9
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-07-14T15:25:26Z",
+      "side": 1,
+      "message": "\u003e Are we sure this model number matches up to the SMBIOS specification?\n\nIs it really up to bmcweb to enforce this? \nI thought if your data is wrong on D-Bus (e.g. an empty PartNumber) we just put it out on Redfish.\n\n\u003e like it would have a race condition if the models are different\n\nYes but is it worth writing the code for something that addresses different models when that should not normally happen? If they are different should we just throw an internal error?\n\n\u003e The processor model for the primary or majority of processors in this system.\n\nSo you are suggesting Ali writes some code to find the must common processor model? What about ties ? I think I would be more in favor of an internal error if they are different.",
+      "parentUuid": "517646f3_5b3d329b",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 18,
+        "endChar": 33
+      },
+      "revId": "0ec3500af6b4d2cfbad213e5a1ba14ecbcabb7ee",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "0d5934bf_f9a71de7",
         "filename": "/COMMIT_MSG",
         "patchSetId": 9
@@ -59,6 +83,30 @@
       "writtenOn": "2021-07-13T15:31:40Z",
       "side": 1,
       "message": "Not sure that\u0027s true in all cases, although it might be.  The only time I could see that being different is when/if a system split up its CPU information across multiple connections, which could be possible, we should probably test on a couple representative systems to understand how it\u0027s set up.",
+      "range": {
+        "startLine": 22,
+        "startChar": 4,
+        "endLine": 22,
+        "endChar": 35
+      },
+      "revId": "0ec3500af6b4d2cfbad213e5a1ba14ecbcabb7ee",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ee2b22c3_94ea18c9",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 9
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-07-14T15:25:26Z",
+      "side": 1,
+      "message": "We can test on our systems (witherspoon, witherspoon-tacoma, and rainier) (which this works for). \nIs there a Qemu system you recommend testing on?\n\nAlpana, Dawid Lewanczyk (was not able to add), and James all touched this. I tried to add them to the review. I also several reviewers from other companies.",
+      "parentUuid": "0d5934bf_f9a71de7",
       "range": {
         "startLine": 22,
         "startChar": 4,
