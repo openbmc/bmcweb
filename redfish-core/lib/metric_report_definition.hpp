@@ -150,15 +150,8 @@ inline bool getUserParameters(crow::Response& res, const crow::Request& req,
         return false;
     }
 
-    constexpr const char* allowedCharactersInName =
-        "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_";
-    if (args.name.empty() || args.name.find_first_not_of(
-                                 allowedCharactersInName) != std::string::npos)
+    if (!isIdValid(res, args.name))
     {
-        BMCWEB_LOG_ERROR << "Failed to match " << args.name
-                         << " with allowed character "
-                         << allowedCharactersInName;
-        messages::propertyValueIncorrect(res, "Id", args.name);
         return false;
     }
 
@@ -217,7 +210,7 @@ inline bool getUserParameters(crow::Response& res, const crow::Request& req,
     return true;
 }
 
-inline bool getChassisSensorNode(
+inline bool getChassisSensorNodeFromMetrics(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::vector<std::pair<std::string, std::vector<std::string>>>&
         metrics,
@@ -225,31 +218,9 @@ inline bool getChassisSensorNode(
 {
     for (const auto& [id, uris] : metrics)
     {
-        for (size_t i = 0; i < uris.size(); i++)
+        if (!getChassisSensorNode(asyncResp, uris, matched))
         {
-            const std::string& uri = uris[i];
-            std::string chassis;
-            std::string node;
-
-            if (!boost::starts_with(uri, "/redfish/v1/Chassis/") ||
-                !dbus::utility::getNthStringFromPath(uri, 3, chassis) ||
-                !dbus::utility::getNthStringFromPath(uri, 4, node))
-            {
-                BMCWEB_LOG_ERROR << "Failed to get chassis and sensor Node "
-                                    "from "
-                                 << uri;
-                messages::propertyValueIncorrect(asyncResp->res, uri,
-                                                 "MetricProperties/" +
-                                                     std::to_string(i));
-                return false;
-            }
-
-            if (boost::ends_with(node, "#"))
-            {
-                node.pop_back();
-            }
-
-            matched.emplace(std::move(chassis), std::move(node));
+            return false;
         }
     }
     return true;
@@ -380,8 +351,8 @@ inline void requestRoutesMetricReportDefinitionCollection(App& app)
 
                 boost::container::flat_set<std::pair<std::string, std::string>>
                     chassisSensors;
-                if (!telemetry::getChassisSensorNode(asyncResp, args.metrics,
-                                                     chassisSensors))
+                if (!telemetry::getChassisSensorNodeFromMetrics(
+                        asyncResp, args.metrics, chassisSensors))
                 {
                     return;
                 }
