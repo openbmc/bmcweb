@@ -2,6 +2,9 @@
 
 #include "dbus_utility.hpp"
 
+#include <boost/assign.hpp>
+#include <boost/bimap.hpp>
+
 namespace redfish
 {
 
@@ -68,6 +71,95 @@ inline std::string getDbusReportPath(const std::string& id)
         "/xyz/openbmc_project/Telemetry/Reports/TelemetryService/" + id;
     dbus::utility::escapePathForDbus(path);
     return path;
+}
+
+inline bool isIdValid(crow::Response& res, const std::string& id)
+{
+    constexpr const char* allowedCharactersInName =
+        "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_";
+    if (id.empty() ||
+        id.find_first_not_of(allowedCharactersInName) != std::string::npos)
+    {
+        BMCWEB_LOG_ERROR << "Failed to match " << id
+                         << " with allowed character "
+                         << allowedCharactersInName;
+        messages::propertyValueIncorrect(res, "Id", id);
+        return false;
+    }
+    return true;
+}
+
+inline std::optional<std::string>
+    getReportNameFromReportDefinitionUri(const std::string& uri)
+{
+    std::optional<std::string> res;
+    std::string metricReportDefinitonsUri =
+        "/redfish/v1/TelemetryService/MetricReportDefinitions/";
+    if (uri.length() > metricReportDefinitonsUri.length())
+    {
+        if (uri.find(metricReportDefinitonsUri) != std::string::npos)
+        {
+            res = uri.substr(metricReportDefinitonsUri.length());
+        }
+    }
+    return res;
+}
+
+inline bool getChassisSensorNode(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::vector<std::string>& uris,
+    boost::container::flat_set<std::pair<std::string, std::string>>& matched)
+{
+    for (size_t i = 0; i < uris.size(); i++)
+    {
+        const std::string& uri = uris[i];
+        std::string chassis;
+        std::string node;
+
+        if (!boost::starts_with(uri, "/redfish/v1/Chassis/") ||
+            !dbus::utility::getNthStringFromPath(uri, 3, chassis) ||
+            !dbus::utility::getNthStringFromPath(uri, 4, node))
+        {
+            BMCWEB_LOG_ERROR << "Failed to get chassis and sensor Node "
+                                "from "
+                             << uri;
+            messages::propertyValueIncorrect(
+                asyncResp->res, uri, "MetricProperties/" + std::to_string(i));
+            return false;
+        }
+
+        if (boost::ends_with(node, "#"))
+        {
+            node.pop_back();
+        }
+
+        matched.emplace(std::move(chassis), std::move(node));
+    }
+    return true;
+}
+
+using bimapStrStr = boost::bimap<std::string, std::string>;
+bimapStrStr triggerActionsMap = boost::assign::list_of<bimapStrStr::relation>(
+    "RedfishMetricReport", "UpdateReport");
+
+inline std::string redfishActionToDbusAction(const std::string& redfishAction)
+{
+    if (auto it = triggerActionsMap.left.find(redfishAction);
+        it != triggerActionsMap.left.end())
+    {
+        return it->second;
+    }
+    return redfishAction;
+}
+
+inline std::string dbusActionToRedfishAction(const std::string& dbusAction)
+{
+    if (auto it = triggerActionsMap.right.find(dbusAction);
+        it != triggerActionsMap.right.end())
+    {
+        return it->first;
+    }
+    return dbusAction;
 }
 
 } // namespace telemetry
