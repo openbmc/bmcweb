@@ -72,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "b17a3cf8_3b712969",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 9
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1000900
+      },
+      "writtenOn": "2021-07-14T18:55:19Z",
+      "side": 1,
+      "message": "\u003e \u003e Are we sure this model number matches up to the SMBIOS specification?\n\u003e \n\u003e Is it really up to bmcweb to enforce this? \n\u003e I thought if your data is wrong on D-Bus (e.g. an empty PartNumber) we just put it out on Redfish.\n\nI think the point is this commit changes Model to pull from Inventory.Decorator.Asset.Model instead of Inventory.Item.Cpu.Family as it was doing before. On Intel systems using smbios-mdr to provide this data on D-Bus, ony the latter is a model string which matches up to the options in the SMBIOS spec. As Ed quoted, I think Redfish spec implies the current behavior is more correct.",
+      "parentUuid": "78688c4c_690df9be",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 18,
+        "endChar": 33
+      },
+      "revId": "0ec3500af6b4d2cfbad213e5a1ba14ecbcabb7ee",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "0d5934bf_f9a71de7",
         "filename": "/COMMIT_MSG",
         "patchSetId": 9
@@ -112,6 +136,29 @@
         "startChar": 4,
         "endLine": 22,
         "endChar": 35
+      },
+      "revId": "0ec3500af6b4d2cfbad213e5a1ba14ecbcabb7ee",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "46a2dd4b_c1b2159b",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 242,
+      "author": {
+        "id": 1000900
+      },
+      "writtenOn": "2021-07-14T18:55:19Z",
+      "side": 1,
+      "message": "Why bother with this GetAll call if the results are not used?",
+      "range": {
+        "startLine": 241,
+        "startChar": 8,
+        "endLine": 242,
+        "endChar": 50
       },
       "revId": "0ec3500af6b4d2cfbad213e5a1ba14ecbcabb7ee",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
