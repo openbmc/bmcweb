@@ -46,6 +46,30 @@
       "revId": "2b9026886f8eebab81ba312b2c1308c816de0320",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e95c1657_98b1a19b",
+        "filename": "redfish-core/lib/ut/service_root_test.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2021-07-14T22:28:08Z",
+      "side": 1,
+      "message": "I tried that on line 91. it is commented out because it tries to use a deleted method \n\nhttps://github.com/openbmc/bmcweb/blob/master/include/async_resp.hpp#L25\n    AsyncResp(const AsyncResp\u0026) \u003d delete;\n\nI can get the exact error message, one second.",
+      "parentUuid": "f3f4659e_975c8cf7",
+      "range": {
+        "startLine": 95,
+        "startChar": 0,
+        "endLine": 96,
+        "endChar": 59
+      },
+      "revId": "2b9026886f8eebab81ba312b2c1308c816de0320",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
