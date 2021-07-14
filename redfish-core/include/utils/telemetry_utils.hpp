@@ -70,5 +70,54 @@ inline std::string getDbusReportPath(const std::string& id)
     return path;
 }
 
+inline std::optional<std::string>
+    getReportNameFromReportDefinitionUri(const std::string& uri)
+{
+    std::optional<std::string> res;
+    std::string metricReportDefinitonsUri =
+        "/redfish/v1/TelemetryService/MetricReportDefinitions/";
+    if (uri.length() > metricReportDefinitonsUri.length())
+    {
+        if (uri.find(metricReportDefinitonsUri) != std::string::npos)
+        {
+            res = uri.substr(metricReportDefinitonsUri.length());
+        }
+    }
+    return res;
+}
+
+inline bool getChassisSensorNode(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::vector<std::string>& uris,
+    boost::container::flat_set<std::pair<std::string, std::string>>& matched)
+{
+    for (size_t i = 0; i < uris.size(); i++)
+    {
+        const std::string& uri = uris[i];
+        std::string chassis;
+        std::string node;
+
+        if (!boost::starts_with(uri, "/redfish/v1/Chassis/") ||
+            !dbus::utility::getNthStringFromPath(uri, 3, chassis) ||
+            !dbus::utility::getNthStringFromPath(uri, 4, node))
+        {
+            BMCWEB_LOG_ERROR << "Failed to get chassis and sensor Node "
+                                "from "
+                             << uri;
+            messages::propertyValueIncorrect(
+                asyncResp->res, uri, "MetricProperties/" + std::to_string(i));
+            return false;
+        }
+
+        if (boost::ends_with(node, "#"))
+        {
+            node.pop_back();
+        }
+
+        matched.emplace(std::move(chassis), std::move(node));
+    }
+    return true;
+}
+
 } // namespace telemetry
 } // namespace redfish
