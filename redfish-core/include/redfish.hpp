@@ -207,6 +207,7 @@ class RedfishService
         requestRoutesSwitch(app);
         requestRoutesPortCollection(app);
         requestRoutesPort(app);
+        requestRoutesPortMetrics(app);
         requestRoutesEndpointCollection(app);
         requestRoutesEndpoint(app);
     }

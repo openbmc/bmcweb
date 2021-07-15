@@ -1573,6 +1573,12 @@
     <edmx:Reference Uri="/redfish/v1/schema/PortCollection_v1.xml">
         <edmx:Include Namespace="PortCollection"/>
     </edmx:Reference>
+    <edmx:Reference Uri="/redfish/v1/schema/PortMetrics_v1.xml">
+        <edmx:Include Namespace="PortMetrics"/>
+        <edmx:Include Namespace="PortMetrics.v1_0_0"/>
+        <edmx:Include Namespace="PortMetrics.v1_0_1"/>
+        <edmx:Include Namespace="PortMetrics.v1_1_0"/>
+    </edmx:Reference>
     <edmx:Reference Uri="/redfish/v1/schema/Power_v1.xml">
         <edmx:Include Namespace="Power"/>
         <edmx:Include Namespace="Power.v1_0_0"/>

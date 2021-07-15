@@ -16,6 +16,7 @@
 #pragma once
 
 #include <app.hpp>
+#include <boost/format.hpp>
 #include <utils/collection.hpp>
 
 #include <variant>
@@ -429,6 +430,10 @@ inline void getPortObject(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                     {"@odata.id", portURI},
                     {"Name", portId + " Resource"},
                     {"Id", portId}};
+                std::string portMetricsURI = portURI + "/PortMetrics";
+                asyncResp->res.jsonValue["Metrics"]["@odata.id"] =
+                    portMetricsURI;
+
                 const std::string& connectionName = connectionNames[0].first;
                 updatePortData(asyncResp, connectionName, path);
                 updatePortLinks(asyncResp, path, fabricId);
@@ -1828,6 +1833,182 @@ inline void requestRoutesEndpoint(App& app)
                     std::array<const char*, 1>{
                         "xyz.openbmc_project.Inventory.Item.Fabric"});
             });
+}
+
+/**
+ * @brief Get all port info by requesting data
+ * from the given D-Bus object.
+ *
+ * @param[in,out]   asyncResp   Async HTTP response.
+ * @param[in]       fabricId    Fabric Id.
+ * @param[in]       switchId    Switch Id.
+ * @param[in]       portId      Port Id.
+ * @param[in]       objPath     D-Bus object to query.
+ */
+inline void
+    getPortMetricsData(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                       const std::string& fabricId, const std::string& switchId,
+                       const std::string& portId, const std::string& objPath)
+{
+    BMCWEB_LOG_DEBUG << "Access port metrics data";
+    crow::connections::systemBus->async_method_call(
+        [asyncResp, fabricId, switchId,
+         portId](const boost::system::error_code ec,
+                 const crow::openbmc_mapper::GetSubTreeType& subtree) {
+            if (ec)
+            {
+                messages::internalError(asyncResp->res);
+                return;
+            }
+            // Iterate over all retrieved objectPaths
+            for (const std::pair<std::string,
+                                 std::vector<std::pair<
+                                     std::string, std::vector<std::string>>>>&
+                     object : subtree)
+            {
+                // Get the portId object
+                const std::string& path = object.first;
+                const std::vector<
+                    std::pair<std::string, std::vector<std::string>>>&
+                    connectionNames = object.second;
+                sdbusplus::message::object_path objPath(path);
+                if (objPath.filename() != portId)
+                {
+                    continue;
+                }
+                if (connectionNames.size() < 1)
+                {
+                    BMCWEB_LOG_ERROR << "Got 0 Connection names";
+                    continue;
+                }
+                std::string portMetricsURI =
+                    (boost::format("/redfish/v1/Fabrics/%s/Switches/%s/Ports/"
+                                   "%s/PortMetrics") %
+                     fabricId % switchId % portId)
+                        .str();
+                asyncResp->res.jsonValue = {
+                    {"@odata.type", "#PortMetrics.v1_1_0.PortMetrics"},
+                    {"@odata.id", portMetricsURI},
+                    {"Name", portId + " Port Metrics"},
+                    {"Id", "PortMetrics"}};
+
+                const std::string& connectionName = connectionNames[0].first;
+                crow::connections::systemBus->async_method_call(
+                    [asyncResp](
+                        const boost::system::error_code ec,
+                        const boost::container::flat_map<
+                            std::string, std::variant<size_t>>& properties) {
+                        if (ec)
+                        {
+                            BMCWEB_LOG_DEBUG << "DBUS response error";
+                            messages::internalError(asyncResp->res);
+                            return;
+                        }
+                        for (const auto& property : properties)
+                        {
+                            if ((property.first == "TXBytes") ||
+                                (property.first == "RXBytes"))
+                            {
+                                const size_t* value =
+                                    std::get_if<size_t>(&property.second);
+                                if (value == nullptr)
+                                {
+                                    BMCWEB_LOG_DEBUG << "Null value returned "
+                                                        "for TX/RX bytes";
+                                    messages::internalError(asyncResp->res);
+                                    return;
+                                }
+                                asyncResp->res.jsonValue[property.first] =
+                                    *value;
+                            }
+                        }
+                    },
+                    connectionName, objPath, "org.freedesktop.DBus.Properties",
+                    "GetAll", "xyz.openbmc_project.Inventory.Item.Port");
+            }
+        },
+        "xyz.openbmc_project.ObjectMapper",
+        "/xyz/openbmc_project/object_mapper",
+        "xyz.openbmc_project.ObjectMapper", "GetSubTree", objPath, 0,
+        std::array<const char*, 1>{"xyz.openbmc_project.Inventory.Item."
+                                   "Port"});
+} // namespace redfish
+
+/**
+ * Port Metrics override class for delivering Port Metrics Schema
+ */
+inline void requestRoutesPortMetrics(App& app)
+{
+    BMCWEB_ROUTE(
+        app, "/redfish/v1/Fabrics/<str>/Switches/<str>/Ports/<str>/PortMetrics")
+        .privileges({{"Login"}})
+        .methods(
+            boost::beast::http::verb::get)([](const crow::Request&,
+                                              const std::shared_ptr<
+                                                  bmcweb::AsyncResp>& asyncResp,
+                                              const std::string& fabricId,
+                                              const std::string& switchId,
+                                              const std::string& portId) {
+            crow::connections::systemBus->async_method_call(
+                [asyncResp, fabricId, switchId,
+                 portId](const boost::system::error_code ec,
+                         const std::vector<std::string>& objects) {
+                    if (ec)
+                    {
+                        messages::internalError(asyncResp->res);
+                        return;
+                    }
+
+                    for (const std::string& object : objects)
+                    {
+                        // Get the fabricId object
+                        if (!boost::ends_with(object, fabricId))
+                        {
+                            continue;
+                        }
+                        crow::connections::systemBus->async_method_call(
+                            [asyncResp, fabricId, switchId,
+                             portId](const boost::system::error_code ec,
+                                     const std::vector<std::string>& objects) {
+                                if (ec)
+                                {
+                                    messages::internalError(asyncResp->res);
+                                    return;
+                                }
+
+                                for (const std::string& object : objects)
+                                {
+                                    // Get the switchId object
+                                    if (!boost::ends_with(object, switchId))
+                                    {
+                                        continue;
+                                    }
+                                    getPortMetricsData(asyncResp, fabricId,
+                                                       switchId, portId,
+                                                       object);
+                                    return;
+                                }
+                                // Couldn't find an object with that name.
+                                // Return an error
+                                messages::resourceNotFound(asyncResp->res,
+                                                           "#Port.v1_4_0.Port",
+                                                           portId);
+                            },
+                            "xyz.openbmc_project.ObjectMapper",
+                            "/xyz/openbmc_project/object_mapper",
+                            "xyz.openbmc_project.ObjectMapper",
+                            "GetSubTreePaths", object, 0,
+                            std::array<const char*, 1>{
+                                "xyz.openbmc_project.Inventory.Item.Switch"});
+                    }
+                },
+                "xyz.openbmc_project.ObjectMapper",
+                "/xyz/openbmc_project/object_mapper",
+                "xyz.openbmc_project.ObjectMapper", "GetSubTreePaths",
+                "/xyz/openbmc_project/inventory", 0,
+                std::array<const char*, 1>{
+                    "xyz.openbmc_project.Inventory.Item.Fabric"});
+        });
 }
 
 } // namespace redfish
