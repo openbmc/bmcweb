@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "043d72a5_9ea52e1c",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 26
+      },
+      "lineNbr": 1313,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2021-07-15T07:01:25Z",
+      "side": 1,
+      "message": "If you extract it to a function you could replace break with\n```\nreturn true\n```\nand use it in if condition below\n```if (!findSw(...))```\n\nThat would also make comment\n```\n// Ensure we find our input swId, otherwise return an\n                        // error\n```\nnot needed, because it would be obvious that when we fail to findSw we return error",
+      "range": {
+        "startLine": 1272,
+        "startChar": 24,
+        "endLine": 1313,
+        "endChar": 25
+      },
+      "revId": "e05f8a49690a0166571af6473ac49182f9a410f6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
