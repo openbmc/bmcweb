@@ -163,6 +163,29 @@
     },
     {
       "key": {
+        "uuid": "befbd244_40b72c57",
+        "filename": "redfish-core/lib/redfish_util.hpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2021-07-15T08:44:56Z",
+      "side": 1,
+      "message": "Looks like you need RAII here, when code changes it will be harder to ensure that it is called in every place you need. Following Ed\u0027s suggestion to have one callback called with either error or value this will be moved there so cleanup helper should disappear.",
+      "range": {
+        "startLine": 102,
+        "startChar": 16,
+        "endLine": 102,
+        "endChar": 32
+      },
+      "revId": "b98bc8fe8dd69281617198c6fd547b94d0f6ec8b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "492606e0_af0f55e9",
         "filename": "redfish-core/lib/storage.hpp",
         "patchSetId": 32
@@ -174,6 +197,30 @@
       "writtenOn": "2021-07-13T22:14:31Z",
       "side": 1,
       "message": "Please don\u0027t change the pattern here.  The old one was more efficient, as it avoids the move on line 88.\n\nChange this to the same as what was on line 67 and 68 before, and the rest of the code should be good.",
+      "range": {
+        "startLine": 60,
+        "startChar": 0,
+        "endLine": 60,
+        "endChar": 66
+      },
+      "revId": "b98bc8fe8dd69281617198c6fd547b94d0f6ec8b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5f93c730_02145131",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2021-07-15T08:44:56Z",
+      "side": 1,
+      "message": "How should be error handling performed here. In 75 line there is error log. Should we respond with error and no content or with list that may or may not contain all elements. Is this error log in line 75 really an error or simple filtering?",
+      "parentUuid": "492606e0_af0f55e9",
       "range": {
         "startLine": 60,
         "startChar": 0,
