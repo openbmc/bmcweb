@@ -34,6 +34,24 @@
       "revId": "6359e533284eba9691f44f0bfecc97a8646d4616",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "560664fb_ed4099e2",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 617,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2021-07-15T15:26:48Z",
+      "side": 1,
+      "message": "Done. Thanks.\n\nI\u0027ll go through all my other changes to cover theses cases.\n\n---\n\nIt should be fixed in the latest patch. I forgot to reply.",
+      "parentUuid": "ca076fb3_346c567d",
+      "revId": "6359e533284eba9691f44f0bfecc97a8646d4616",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
