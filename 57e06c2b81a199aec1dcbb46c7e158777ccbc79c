@@ -71,6 +71,30 @@
     },
     {
       "key": {
+        "uuid": "196a26e5_f9c1591d",
+        "filename": "redfish-core/include/utils/name_utils.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2021-07-15T02:59:26Z",
+      "side": 1,
+      "message": "I have it setup that way before. Moved it all in the helper function to make sure all dependences are met.\n\nI\u0027ll add a new getSubTree call for the ones that does not have it already and clean up this one.",
+      "parentUuid": "5e8988c3_a0922662",
+      "range": {
+        "startLine": 26,
+        "startChar": 0,
+        "endLine": 26,
+        "endChar": 78
+      },
+      "revId": "57e06c2b81a199aec1dcbb46c7e158777ccbc79c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "5f472259_b06c0c7b",
         "filename": "redfish-core/include/utils/name_utils.hpp",
         "patchSetId": 9
@@ -82,6 +106,30 @@
       "writtenOn": "2021-07-13T15:49:59Z",
       "side": 1,
       "message": "Lifetime issue.  name is a pointer, which might be freed by the time this lambda runs.  Generally it\u0027s recommended to parse out what you need into the base elements (strings/int ect), then pass those by value, as you\u0027ve done with path (references automatically turn to values when passed through a lambda).\n\nI suspect this function shouldn\u0027t be accepting a json object at all.  Looking at your usage, a json pointer object MIGHT be called for, but I haven\u0027t looked down that path in depth.\n\n\nAs written, if line 46 (or any of the other errors get hit) the response object is left with something like\n\n\"Name\": null\n\nBecause the value was never filled in.  While this is an error path, it\u0027s not a pattern we want to continue.  Moving to json pointer (which is essentially a fancy json path spec) would fix that by ensuring that the value is only filled in once the method has succeeded.",
+      "range": {
+        "startLine": 34,
+        "startChar": 26,
+        "endLine": 34,
+        "endChar": 30
+      },
+      "revId": "57e06c2b81a199aec1dcbb46c7e158777ccbc79c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "722d3983_d35fdffc",
+        "filename": "redfish-core/include/utils/name_utils.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2021-07-15T02:59:26Z",
+      "side": 1,
+      "message": "oh yes. I didn\u0027t run into that issue when I pass in a reference of a string before.\n\nI did json pointer because different resources have different field to populate. I\u0027ll try to do it in a different way.\n\n---\n\nFor the json pointer, it is something like...\n\n```\nnlohmann::json test;\n\ntest[\"s\"] \u003d \"t\";\nstd::cout \u003c\u003c test[\"s\"] \u003c\u003c std::endl;\nstd::cout \u003c\u003c test[\"/s\"_json_pointer] \u003c\u003c std::endl;\n```\n\nright?\n\nIs is not actually a pointer? so it does not expires? Eitherway, I\u0027ll still update it.",
+      "parentUuid": "5f472259_b06c0c7b",
       "range": {
         "startLine": 34,
         "startChar": 26,
