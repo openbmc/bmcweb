@@ -143,6 +143,30 @@
     },
     {
       "key": {
+        "uuid": "26cf3931_fec885d7",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 9
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2021-07-15T06:55:18Z",
+      "side": 1,
+      "message": "I don\u0027t see in this review anything that is related to properties size. Is this part of the change or just documentation of systems.hpp?\n\nAre redfish validator and curl command below enough to test it?",
+      "parentUuid": "ee2b22c3_94ea18c9",
+      "range": {
+        "startLine": 22,
+        "startChar": 4,
+        "endLine": 22,
+        "endChar": 35
+      },
+      "revId": "0ec3500af6b4d2cfbad213e5a1ba14ecbcabb7ee",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "8be172af_f8f29336",
         "filename": "redfish-core/lib/systems.hpp",
         "patchSetId": 9
@@ -186,6 +210,30 @@
       "revId": "0ec3500af6b4d2cfbad213e5a1ba14ecbcabb7ee",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ed017649_17503e02",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2021-07-15T06:55:18Z",
+      "side": 1,
+      "message": "I was too fast with this comment. It looks like check if CPU is present is done below:\n\n```\nBMCWEB_LOG_DEBUG \u003c\u003c \"Found Cpu.\";\n                            getProcessorSummary(aResp, connection.first, path);\n```\n\nLooks like this GetAll is not needed anymore.",
+      "parentUuid": "2465dd7e_c5c5fd29",
+      "range": {
+        "startLine": 185,
+        "startChar": 37,
+        "endLine": 185,
+        "endChar": 56
+      },
+      "revId": "0ec3500af6b4d2cfbad213e5a1ba14ecbcabb7ee",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
