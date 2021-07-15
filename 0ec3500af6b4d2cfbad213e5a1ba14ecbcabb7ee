@@ -143,6 +143,52 @@
     },
     {
       "key": {
+        "uuid": "8be172af_f8f29336",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 182,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2021-07-15T06:42:47Z",
+      "side": 1,
+      "message": "as far as I know ec is never captured by lambdas in bmcweb, so it is safe to shadow this name. You can change all ec\\d to just ec\n\nStill having them numbered might be a good idea, but you need to fix numbering because there is no ec1 or ec0. You should number them from 0.",
+      "range": {
+        "startLine": 182,
+        "startChar": 47,
+        "endLine": 182,
+        "endChar": 50
+      },
+      "revId": "0ec3500af6b4d2cfbad213e5a1ba14ecbcabb7ee",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2465dd7e_c5c5fd29",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2021-07-15T06:42:47Z",
+      "side": 1,
+      "message": "It would be helpful if in this error log we will see answer to Jonathan Doman question. I guess this is check for CPU presence. For example:\n\nBMCWEB_LOG_ERROR \u003c\u003c \"CPU might be not present, dbus response error \" \u003c\u003c ec2;",
+      "range": {
+        "startLine": 185,
+        "startChar": 37,
+        "endLine": 185,
+        "endChar": 56
+      },
+      "revId": "0ec3500af6b4d2cfbad213e5a1ba14ecbcabb7ee",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "46a2dd4b_c1b2159b",
         "filename": "redfish-core/lib/systems.hpp",
         "patchSetId": 9
@@ -154,6 +200,30 @@
       "writtenOn": "2021-07-14T18:55:19Z",
       "side": 1,
       "message": "Why bother with this GetAll call if the results are not used?",
+      "range": {
+        "startLine": 241,
+        "startChar": 8,
+        "endLine": 242,
+        "endChar": 50
+      },
+      "revId": "0ec3500af6b4d2cfbad213e5a1ba14ecbcabb7ee",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8071bd44_0edc2448",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 242,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2021-07-15T06:42:47Z",
+      "side": 1,
+      "message": "+1",
+      "parentUuid": "46a2dd4b_c1b2159b",
       "range": {
         "startLine": 241,
         "startChar": 8,
