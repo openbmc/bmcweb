@@ -438,6 +438,55 @@ inline void requestRoutesDrive(App& app)
                         },
                         connectionName, path, "org.freedesktop.DBus.Properties",
                         "Get", "xyz.openbmc_project.State.Drive", "Rebuilding");
+
+                    crow::connections::systemBus->async_method_call(
+                        [asyncResp,
+                         path](const boost::system::error_code ec2,
+                               const std::variant<std::string> type) {
+                            if (ec2)
+                            {
+                                return;
+                            }
+
+                            const std::string* driveType =
+                                std::get_if<std::string>(&type);
+                            if (driveType == nullptr)
+                            {
+                                BMCWEB_LOG_DEBUG
+                                    << "Missing property Drive Type";
+                                return;
+                            }
+
+                            const boost::container::flat_map<std::string,
+                                                             std::string>
+                                supportedDriveTypes = {
+                                    {"xyz.openbmc_project.Inventory.Item.Drive."
+                                     "DriveType.HDD",
+                                     "HDD"},
+                                    {"xyz.openbmc_project.Inventory.Item.Drive."
+                                     "DriveType.SMR",
+                                     "SMR"},
+                                    {"xyz.openbmc_project.Inventory.Item.Drive."
+                                     "DriveType.SSD",
+                                     "SSD"},
+                                };
+                            auto findType =
+                                supportedDriveTypes.find(*driveType);
+
+                            if (findType == supportedDriveTypes.end())
+                            {
+                                BMCWEB_LOG_DEBUG
+                                    << *driveType
+                                    << " is not a supported Drive Type";
+                                return;
+                            }
+
+                            asyncResp->res.jsonValue["MediaType"] =
+                                findType->second;
+                        },
+                        connectionName, path, "org.freedesktop.DBus.Properties",
+                        "Get", "xyz.openbmc_project.Inventory.Item.Drive",
+                        "Type");
                 },
                 "xyz.openbmc_project.ObjectMapper",
                 "/xyz/openbmc_project/object_mapper",
