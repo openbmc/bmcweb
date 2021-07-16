@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e0708abc_77de177b",
+        "filename": "redfish-core/lib/trigger.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 196,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2021-07-16T05:35:21Z",
+      "side": 1,
+      "message": "Do we have to ask user for isDiscrete? We can implement this feature basing on keys send in json \u0027NumericThresholds\u0027 means numeric \u0027DiscreteTriggers\u0027 means discrete if both are present we report error.\n\nWe can even remove isDiscrete from dbus api.",
+      "range": {
+        "startLine": 196,
+        "startChar": 4,
+        "endLine": 196,
+        "endChar": 24
+      },
+      "revId": "c249c1be8d5ec887139fbabb368f0c63fa8161c0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "431a6279_e1a71b03",
+        "filename": "redfish-core/lib/trigger.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 385,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2021-07-16T05:35:21Z",
+      "side": 1,
+      "message": "Class which performs actions in destructor probably won\u0027t be accepted in bmcweb.\n\nSad thing is that unless there will be major rework in sensors.hpp this seem to be only way that will work.",
+      "range": {
+        "startLine": 385,
+        "startChar": 4,
+        "endLine": 385,
+        "endChar": 17
+      },
+      "revId": "c249c1be8d5ec887139fbabb368f0c63fa8161c0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1dfabd19_e9f6ce6c",
+        "filename": "redfish-core/lib/trigger.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 400,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2021-07-16T05:35:21Z",
+      "side": 1,
+      "message": "asyncResp \u003d asyncResp\n\nThis way you can avoid one copy",
+      "range": {
+        "startLine": 400,
+        "startChar": 13,
+        "endLine": 400,
+        "endChar": 18
+      },
+      "revId": "c249c1be8d5ec887139fbabb368f0c63fa8161c0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
