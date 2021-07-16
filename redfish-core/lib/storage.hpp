@@ -23,6 +23,23 @@
 
 namespace redfish
 {
+
+inline std::optional<std::string> getDriveType(const std::string& driveType)
+{
+    if (driveType == "xyz.openbmc_project.Inventory."
+                     "Item.Drive.DriveType.HDD")
+    {
+        return "HDD";
+    }
+    if (driveType == "xyz.openbmc_project.Inventory."
+                     "Item.Drive.DriveType.SSD")
+    {
+        return "SSD";
+    }
+
+    return std::nullopt;
+}
+
 inline void requestRoutesStorageCollection(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/Systems/system/Storage/")
@@ -438,6 +455,46 @@ inline void requestRoutesDrive(App& app)
                         },
                         connectionName, path, "org.freedesktop.DBus.Properties",
                         "Get", "xyz.openbmc_project.State.Drive", "Rebuilding");
+
+                    crow::connections::systemBus->async_method_call(
+                        [asyncResp,
+                         path](const boost::system::error_code ec2,
+                               const std::variant<std::string> type) {
+                            if (ec2)
+                            {
+                                BMCWEB_LOG_ERROR
+                                    << "Missing property Drive Type";
+                                messages::internalError(asyncResp->res);
+                                return;
+                            }
+
+                            const std::string* foundType =
+                                std::get_if<std::string>(&type);
+                            if (foundType == nullptr)
+                            {
+                                BMCWEB_LOG_ERROR
+                                    << "Missing property Drive Type";
+                                messages::internalError(asyncResp->res);
+                                return;
+                            }
+
+                            std::optional<std::string> driveType =
+                                getDriveType(*foundType);
+                            if (!driveType.has_value())
+                            {
+                                BMCWEB_LOG_DEBUG
+                                    << *foundType
+                                    << " is not a supported Drive Type";
+                                messages::internalError(asyncResp->res);
+                                return;
+                            }
+
+                            asyncResp->res.jsonValue["MediaType"] =
+                                driveType.value();
+                        },
+                        connectionName, path, "org.freedesktop.DBus.Properties",
+                        "Get", "xyz.openbmc_project.Inventory.Item.Drive",
+                        "Type");
                 },
                 "xyz.openbmc_project.ObjectMapper",
                 "/xyz/openbmc_project/object_mapper",
