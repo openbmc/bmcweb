@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "ec3b12c0_f2a994a3",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 9
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2021-07-18T07:14:22Z",
+      "side": 1,
+      "message": "Yeah, this will affect all systems if the PrettyName property is exists already. I will add some comment on this.\n\nMaybe I should add an option to enable this instead of forcing people to update the Name.\n\nI am not exactly sure how this can/will affect other systems, given that the default names are kind of just there with not much detail.",
+      "parentUuid": "7d213303_e0fe2888",
+      "range": {
+        "startLine": 23,
+        "startChar": 0,
+        "endLine": 26,
+        "endChar": 51
+      },
+      "revId": "57e06c2b81a199aec1dcbb46c7e158777ccbc79c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c990145f_ce9e31a2",
         "filename": "/COMMIT_MSG",
         "patchSetId": 9
@@ -36,6 +60,30 @@
       "writtenOn": "2021-07-13T15:49:59Z",
       "side": 1,
       "message": "More testing needed than that.  Ensuring that the names are correct and fall back in the appropriate places is also required.\n\nAlso, we need to measure the performance impact of doing 2 extra dbus calls per API.",
+      "range": {
+        "startLine": 29,
+        "startChar": 0,
+        "endLine": 29,
+        "endChar": 24
+      },
+      "revId": "57e06c2b81a199aec1dcbb46c7e158777ccbc79c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b5ffe826_07c5cd4e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 9
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2021-07-18T07:14:22Z",
+      "side": 1,
+      "message": "I have added some example for the redfish calls for the new change (with and without the PrettyName property).\n\nI also added some timing information on before the after making the bmcweb change. Not sure how useful it is tho.",
+      "parentUuid": "c990145f_ce9e31a2",
       "range": {
         "startLine": 29,
         "startChar": 0,
@@ -95,6 +143,30 @@
     },
     {
       "key": {
+        "uuid": "cd826e74_d0a32b80",
+        "filename": "redfish-core/include/utils/name_utils.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2021-07-18T07:14:22Z",
+      "side": 1,
+      "message": "I have cleaned it up a bit more now to remove the extra dbus call.",
+      "parentUuid": "196a26e5_f9c1591d",
+      "range": {
+        "startLine": 26,
+        "startChar": 0,
+        "endLine": 26,
+        "endChar": 78
+      },
+      "revId": "57e06c2b81a199aec1dcbb46c7e158777ccbc79c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "5f472259_b06c0c7b",
         "filename": "redfish-core/include/utils/name_utils.hpp",
         "patchSetId": 9
@@ -142,6 +214,30 @@
     },
     {
       "key": {
+        "uuid": "baca7752_68162bf9",
+        "filename": "redfish-core/include/utils/name_utils.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2021-07-18T07:14:22Z",
+      "side": 1,
+      "message": "I have refactored the code to use `nlohmann::json_pointer\u003cnlohmann::json\u003e` instead now.",
+      "parentUuid": "722d3983_d35fdffc",
+      "range": {
+        "startLine": 34,
+        "startChar": 26,
+        "endLine": 34,
+        "endChar": 30
+      },
+      "revId": "57e06c2b81a199aec1dcbb46c7e158777ccbc79c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "7999c99e_224e0745",
         "filename": "redfish-core/lib/chassis.hpp",
         "patchSetId": 9
@@ -162,6 +258,30 @@
       "revId": "57e06c2b81a199aec1dcbb46c7e158777ccbc79c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "56cad7f3_5a079252",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 450,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2021-07-18T07:14:22Z",
+      "side": 1,
+      "message": "Done. I have cleaned it up now to remove the extra dbus call.",
+      "parentUuid": "7999c99e_224e0745",
+      "range": {
+        "startLine": 450,
+        "startChar": 53,
+        "endLine": 450,
+        "endChar": 63
+      },
+      "revId": "57e06c2b81a199aec1dcbb46c7e158777ccbc79c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
