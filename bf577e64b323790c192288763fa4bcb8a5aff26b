@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "55b2e37e_f442160c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-07-19T21:34:38Z",
+      "side": 1,
+      "message": "Always best to run the Redfish Validator. \nIn this case, I don\u0027t see how the Redfish Validator could break so +1ed but normally we require the Redfish Validator be run for redfish changes.",
+      "revId": "bf577e64b323790c192288763fa4bcb8a5aff26b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "416c8698_0b144124",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 923,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-07-19T21:34:38Z",
+      "side": 1,
+      "message": "This was added in 1_11 which is what we use so should be good.",
+      "revId": "bf577e64b323790c192288763fa4bcb8a5aff26b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
