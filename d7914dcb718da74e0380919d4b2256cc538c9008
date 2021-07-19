@@ -22,6 +22,30 @@
       "revId": "d7914dcb718da74e0380919d4b2256cc538c9008",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "55fceae3_47365006",
+        "filename": "LICENSE",
+        "patchSetId": 2
+      },
+      "lineNbr": 190,
+      "author": {
+        "id": 1001114
+      },
+      "writtenOn": "2021-07-19T16:58:20Z",
+      "side": 1,
+      "message": "This is appendix to license. We should leave apache license as is (check how it is applied for example in apache httpd or apache kafka). Whenever we add this header to file then file is licensed even when it is separated from LICENSE file. Previous version licensed only \"LICENCE\" file.",
+      "parentUuid": "74dbff21_646d031d",
+      "range": {
+        "startLine": 190,
+        "startChar": 13,
+        "endLine": 190,
+        "endChar": 45
+      },
+      "revId": "d7914dcb718da74e0380919d4b2256cc538c9008",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
