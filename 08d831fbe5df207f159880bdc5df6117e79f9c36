@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "b78655d3_9c3026ff",
+        "filename": "redfish-core/include/utils/location_utils.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2021-07-19T20:16:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "813f8ff0_79302170",
+      "range": {
+        "startLine": 19,
+        "startChar": 36,
+        "endLine": 19,
+        "endChar": 40
+      },
+      "revId": "08d831fbe5df207f159880bdc5df6117e79f9c36",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c986cc6b_51620ea4",
         "filename": "redfish-core/lib/storage.hpp",
         "patchSetId": 14
@@ -36,6 +60,30 @@
       "writtenOn": "2021-07-19T16:55:19Z",
       "side": 1,
       "message": "It seems PhysicalLocation is used for Drive while Location is used for the other resources (StorageController, Processor, Chassis, Storage), it appears this is because Location is deprecated for Drive, do we need to populate both Location and PhysicalLocation for now?",
+      "range": {
+        "startLine": 523,
+        "startChar": 44,
+        "endLine": 523,
+        "endChar": 60
+      },
+      "revId": "08d831fbe5df207f159880bdc5df6117e79f9c36",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "35b7584d_a4a33cee",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 523,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2021-07-19T20:16:21Z",
+      "side": 1,
+      "message": "I think just using the Physical Location is fine for Drive.\n\nSince Location was not used in Dive before I think it is fine not to include it and use the new one.\n\nI still have to clean up this change a bit, but the main functionality should still be the same.",
+      "parentUuid": "c986cc6b_51620ea4",
       "range": {
         "startLine": 523,
         "startChar": 44,
