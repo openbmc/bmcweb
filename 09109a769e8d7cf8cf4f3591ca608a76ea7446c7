@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "57e7906a_8e01ebc5",
+        "filename": "include/event_service_store.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 187,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-07-19T20:34:49Z",
+      "side": 1,
+      "message": "Would think this would be a BMCWEB_LOG_ERROR. Specially if the one on line 173 is.",
+      "range": {
+        "startLine": 187,
+        "startChar": 12,
+        "endLine": 187,
+        "endChar": 29
+      },
+      "revId": "09109a769e8d7cf8cf4f3591ca608a76ea7446c7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "225b4001_5a822ffb",
+        "filename": "include/persistent_data.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 203,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-07-19T20:34:49Z",
+      "side": 1,
+      "message": "would prefer a more descriptive var name here.. \ne.g. eventServiceConfig, eventService",
+      "range": {
+        "startLine": 203,
+        "startChar": 20,
+        "endLine": 203,
+        "endChar": 21
+      },
+      "revId": "09109a769e8d7cf8cf4f3591ca608a76ea7446c7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
