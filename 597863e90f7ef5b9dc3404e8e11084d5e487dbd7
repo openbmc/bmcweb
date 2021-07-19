@@ -34,6 +34,24 @@
       "revId": "597863e90f7ef5b9dc3404e8e11084d5e487dbd7",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9583120b_acc2c192",
+        "filename": "http/utility.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 592,
+      "author": {
+        "id": 1000907
+      },
+      "writtenOn": "2021-07-19T21:32:26Z",
+      "side": 1,
+      "message": "Yes. Empty string sounds like a good idea. \nHad similar thoughts while pushing this change. \nSince it was a minor klocwork fix, dint want to induce lot of changes. This change would keep the existing functionality going and wanted to push a change on top of this.\nI though it be good to have a separate commit implementing that change...",
+      "parentUuid": "ec0ca547_3420f867",
+      "revId": "597863e90f7ef5b9dc3404e8e11084d5e487dbd7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
