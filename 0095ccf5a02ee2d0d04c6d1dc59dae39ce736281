@@ -1,0 +1,372 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "edd4ad23_ee156f1c",
+        "filename": "http/http_response.hpp",
+        "patchSetId": 50
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-07-19T14:48:40Z",
+      "side": 1,
+      "message": "This is more of a \"set\" not an \"add\"",
+      "range": {
+        "startLine": 144,
+        "startChar": 9,
+        "endLine": 144,
+        "endChar": 12
+      },
+      "revId": "0095ccf5a02ee2d0d04c6d1dc59dae39ce736281",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bb78a362_42f2e3a5",
+        "filename": "http/http_response.hpp",
+        "patchSetId": 50
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-07-19T14:48:40Z",
+      "side": 1,
+      "message": "Please don\u0027t use auto, especially on interface boundaries like this.",
+      "range": {
+        "startLine": 149,
+        "startChar": 4,
+        "endLine": 149,
+        "endChar": 8
+      },
+      "revId": "0095ccf5a02ee2d0d04c6d1dc59dae39ce736281",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "32919840_67a5c4fb",
+        "filename": "http/http_response.hpp",
+        "patchSetId": 50
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-07-19T14:48:40Z",
+      "side": 1,
+      "message": "This is a copy, which could cause problems with some of the RAII objects we use.  This should be some kind of a \"releaseHandler\" method.",
+      "range": {
+        "startLine": 151,
+        "startChar": 15,
+        "endLine": 151,
+        "endChar": 37
+      },
+      "revId": "0095ccf5a02ee2d0d04c6d1dc59dae39ce736281",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "03020203_51fc4969",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 50
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-07-19T14:48:40Z",
+      "side": 1,
+      "message": "Why is this bool necessary?  If this is called more than once, that seems like a code flow issue that should be resolved.",
+      "range": {
+        "startLine": 32,
+        "startChar": 0,
+        "endLine": 32,
+        "endChar": 22
+      },
+      "revId": "0095ccf5a02ee2d0d04c6d1dc59dae39ce736281",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6e17dba3_263b5b7b",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 50
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-07-19T14:48:40Z",
+      "side": 1,
+      "message": "Please just pass this as an in-out param on checkParmeters.  There\u0027s no need for it to be a member variable.",
+      "range": {
+        "startLine": 40,
+        "startChar": 12,
+        "endLine": 40,
+        "endChar": 18
+      },
+      "revId": "0095ccf5a02ee2d0d04c6d1dc59dae39ce736281",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "66f4cece_5b4f663b",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 50
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-07-19T14:48:40Z",
+      "side": 1,
+      "message": "Shouldnt\u0027 this be calling competeHandler too?",
+      "range": {
+        "startLine": 44,
+        "startChar": 0,
+        "endLine": 45,
+        "endChar": 23
+      },
+      "revId": "0095ccf5a02ee2d0d04c6d1dc59dae39ce736281",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "98e409f6_09776890",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 50
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-07-19T14:48:40Z",
+      "side": 1,
+      "message": "This code effectively does nothing, as there\u0027s a complete handler and an implicit return on line 50.",
+      "range": {
+        "startLine": 47,
+        "startChar": 0,
+        "endLine": 48,
+        "endChar": 19
+      },
+      "revId": "0095ccf5a02ee2d0d04c6d1dc59dae39ce736281",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "52be0bc1_627efa0b",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 50
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-07-19T14:48:40Z",
+      "side": 1,
+      "message": "Avoid auto please.",
+      "range": {
+        "startLine": 63,
+        "startChar": 8,
+        "endLine": 63,
+        "endChar": 12
+      },
+      "revId": "0095ccf5a02ee2d0d04c6d1dc59dae39ce736281",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "904ea625_344ab676",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 50
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-07-19T14:48:40Z",
+      "side": 1,
+      "message": "Please change this check to a loop.  There are likely other params that we will support in the future.",
+      "range": {
+        "startLine": 66,
+        "startChar": 0,
+        "endLine": 66,
+        "endChar": 42
+      },
+      "revId": "0095ccf5a02ee2d0d04c6d1dc59dae39ce736281",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2e36b5fb_19731534",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 50
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-07-19T14:48:40Z",
+      "side": 1,
+      "message": "As written this doesn\u0027t do anything.  There\u0027s a return true on line 80",
+      "range": {
+        "startLine": 78,
+        "startChar": 0,
+        "endLine": 78,
+        "endChar": 24
+      },
+      "revId": "0095ccf5a02ee2d0d04c6d1dc59dae39ce736281",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9ad9687f_6dc897d6",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 50
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-07-19T14:48:40Z",
+      "side": 1,
+      "message": "Please make this an AsyncResp object, and remove it from the member class.\n\nAs written, this is an instance of common error #7",
+      "range": {
+        "startLine": 106,
+        "startChar": 8,
+        "endLine": 106,
+        "endChar": 14
+      },
+      "revId": "0095ccf5a02ee2d0d04c6d1dc59dae39ce736281",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b5a162b8_57f30662",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 50
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-07-19T14:48:40Z",
+      "side": 1,
+      "message": "This might cause problems with some of the headers set in the connection class.",
+      "range": {
+        "startLine": 109,
+        "startChar": 0,
+        "endLine": 109,
+        "endChar": 30
+      },
+      "revId": "0095ccf5a02ee2d0d04c6d1dc59dae39ce736281",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "68587702_2a4afc7a",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 50
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-07-19T14:48:40Z",
+      "side": 1,
+      "message": "Why std::optional here?",
+      "range": {
+        "startLine": 119,
+        "startChar": 4,
+        "endLine": 119,
+        "endChar": 17
+      },
+      "revId": "0095ccf5a02ee2d0d04c6d1dc59dae39ce736281",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5d1b61c9_6242a061",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 50
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-07-19T14:48:40Z",
+      "side": 1,
+      "message": "This needs put outside of the query_param namespace, and probably in a different file.",
+      "range": {
+        "startLine": 125,
+        "startChar": 4,
+        "endLine": 125,
+        "endChar": 21
+      },
+      "revId": "0095ccf5a02ee2d0d04c6d1dc59dae39ce736281",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a285442b_5d9db9fa",
+        "filename": "redfish-core/lib/service_root.hpp",
+        "patchSetId": 50
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-07-19T14:48:40Z",
+      "side": 1,
+      "message": "We should fill out all members of this struct.",
+      "range": {
+        "startLine": 68,
+        "startChar": 20,
+        "endLine": 68,
+        "endChar": 45
+      },
+      "revId": "0095ccf5a02ee2d0d04c6d1dc59dae39ce736281",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "30ce26d9_7c67ad1b",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 50
+      },
+      "lineNbr": 2227,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-07-19T14:48:40Z",
+      "side": 1,
+      "message": "Don\u0027t capture app by reference, there is a callback overload that allows passing app into the handler.",
+      "range": {
+        "startLine": 2227,
+        "startChar": 13,
+        "endLine": 2227,
+        "endChar": 17
+      },
+      "revId": "0095ccf5a02ee2d0d04c6d1dc59dae39ce736281",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
