@@ -263,7 +263,7 @@ class Connection :
 
     ~Connection()
     {
-        res.completeRequestHandler = nullptr;
+        res.setCompleteRequestHandler(nullptr);
         cancelDeadlineTimer();
 #ifdef BMCWEB_ENABLE_DEBUG
         connectionCount--;
@@ -332,7 +332,7 @@ class Connection :
 
         if (!isInvalidRequest)
         {
-            res.completeRequestHandler = [] {};
+            res.setCompleteRequestHandler(nullptr);
             res.isAliveHelper = [this]() -> bool { return isAlive(); };
 
             req->ioService = static_cast<decltype(req->ioService)>(
@@ -341,10 +341,10 @@ class Connection :
             if (!res.completed)
             {
                 needToCallAfterHandlers = true;
-                res.completeRequestHandler = [self(shared_from_this())] {
+                res.setCompleteRequestHandler([self(shared_from_this())] {
                     boost::asio::post(self->adaptor.get_executor(),
                                       [self] { self->completeRequest(); });
-                };
+                });
                 if (req->isUpgrade() &&
                     boost::iequals(
                         req->getHeaderValue(boost::beast::http::field::upgrade),
@@ -353,7 +353,7 @@ class Connection :
                     handler->handleUpgrade(*req, res, std::move(adaptor));
                     // delete lambda with self shared_ptr
                     // to enable connection destruction
-                    res.completeRequestHandler = nullptr;
+                    res.setCompleteRequestHandler(nullptr);
                     return;
                 }
                 auto asyncResp = std::make_shared<bmcweb::AsyncResp>(res);
@@ -427,7 +427,7 @@ class Connection :
 
             // delete lambda with self shared_ptr
             // to enable connection destruction
-            res.completeRequestHandler = nullptr;
+            res.setCompleteRequestHandler(nullptr);
             return;
         }
         if (res.body().empty() && !res.jsonValue.empty())
@@ -467,7 +467,7 @@ class Connection :
 
         // delete lambda with self shared_ptr
         // to enable connection destruction
-        res.completeRequestHandler = nullptr;
+        res.setCompleteRequestHandler(nullptr);
     }
 
     void readClientIp()
