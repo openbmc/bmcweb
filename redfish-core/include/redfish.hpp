@@ -35,6 +35,7 @@
 #include "../lib/redfish_sessions.hpp"
 #include "../lib/roles.hpp"
 #include "../lib/sensors.hpp"
+#include "../lib/serial_interface.hpp"
 #include "../lib/service_root.hpp"
 #include "../lib/storage.hpp"
 #include "../lib/systems.hpp"
@@ -85,6 +86,8 @@ class RedfishService
         requestRoutesStorageCollection(app);
         requestRoutesStorage(app);
         requestRoutesDrive(app);
+        requestRoutesSerialInterfaceCollection(app);
+        requestRoutesSerialInterfaceInstance(app);
 #ifdef BMCWEB_INSECURE_ENABLE_REDFISH_FW_TFTP_UPDATE
         requestRoutesUpdateServiceActionsSimpleUpdate(app);
 #endif

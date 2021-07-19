@@ -1951,6 +1951,9 @@ inline void requestRoutesManager(App& app)
             asyncResp->res.jsonValue["NetworkProtocol"] = {
                 {"@odata.id", "/redfish/v1/Managers/bmc/NetworkProtocol"}};
 
+            asyncResp->res.jsonValue["SerialInterfaces"] = {
+                {"@odata.id", "/redfish/v1/Managers/bmc/SerialInterface"}};
+
             asyncResp->res.jsonValue["EthernetInterfaces"] = {
                 {"@odata.id", "/redfish/v1/Managers/bmc/EthernetInterfaces"}};
 
