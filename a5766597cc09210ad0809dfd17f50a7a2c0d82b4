@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e6b2ac4f_31aab584",
+        "filename": "redfish-core/lib/ut/service_root_test.cpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-07-19T20:39:40Z",
+      "side": 1,
+      "message": "This is going to cause end() to get called twice I think.  was it needed?  The AsyncResp stuff should\u0027ve called this when the reference count goes to 0.",
+      "range": {
+        "startLine": 74,
+        "startChar": 8,
+        "endLine": 74,
+        "endChar": 42
+      },
+      "revId": "a5766597cc09210ad0809dfd17f50a7a2c0d82b4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
