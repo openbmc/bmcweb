@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "b97135d8_9da96480",
+        "filename": "redfish-core/include/utils/telemetry_utils.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1001026
+      },
+      "writtenOn": "2021-07-19T14:41:03Z",
+      "side": 1,
+      "message": "As this way of serialization is not supported in bmcweb, I decided to remove those types and functions.",
+      "parentUuid": "5557502d_80e89efb",
+      "range": {
+        "startLine": 20,
+        "startChar": 0,
+        "endLine": 41,
+        "endChar": 0
+      },
+      "revId": "5851341deae2c89aa60879ac8ad2eae5e44dcf9d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ccd0e342_96a6cbc9",
         "filename": "redfish-core/lib/metric_report.hpp",
         "patchSetId": 5
@@ -45,6 +69,30 @@
       "revId": "5851341deae2c89aa60879ac8ad2eae5e44dcf9d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "13aec37c_0381707d",
+        "filename": "redfish-core/lib/metric_report.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1001026
+      },
+      "writtenOn": "2021-07-19T14:41:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ccd0e342_96a6cbc9",
+      "range": {
+        "startLine": 83,
+        "startChar": 50,
+        "endLine": 83,
+        "endChar": 57
+      },
+      "revId": "5851341deae2c89aa60879ac8ad2eae5e44dcf9d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
