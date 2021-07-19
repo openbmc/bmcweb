@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "cb6036dc_34f63b9f",
+        "filename": "redfish-core/include/utils/telemetry_utils.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-07-19T23:56:25Z",
+      "side": 1,
+      "message": "It\u0027s not that it\u0027s not supported, it\u0027s that it requires throwing exceptions, which are generally not caught in bmcweb, as 99% of errors in bmcweb are \"recoverable\" by simply returning an error code or closing the connection.",
+      "parentUuid": "b97135d8_9da96480",
+      "range": {
+        "startLine": 20,
+        "startChar": 0,
+        "endLine": 41,
+        "endChar": 0
+      },
+      "revId": "5851341deae2c89aa60879ac8ad2eae5e44dcf9d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "ccd0e342_96a6cbc9",
         "filename": "redfish-core/lib/metric_report.hpp",
         "patchSetId": 5
