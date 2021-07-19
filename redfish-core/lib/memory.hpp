@@ -56,6 +56,10 @@ inline std::string translateMemoryTypeToRedfish(const std::string& memoryType)
     {
         return "DDR4E_SDRAM";
     }
+    if (memoryType == "xyz.openbmc_project.Inventory.Item.Dimm.DeviceType.DDR5")
+    {
+        return "DDR5";
+    }
     if (memoryType ==
         "xyz.openbmc_project.Inventory.Item.Dimm.DeviceType.LPDDR4_SDRAM")
     {
@@ -134,6 +138,7 @@ inline std::string translateMemoryTypeToRedfish(const std::string& memoryType)
     // FBD2
     // LPDDR_SDRAM
     // LPDDR2_SDRAM
+    // LPDDR5_SDRAM
     return "";
 }
 
