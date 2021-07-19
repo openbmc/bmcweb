@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0c6719ce_ddaacaf3",
+        "filename": "redfish-core/lib/redfish_util.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-07-19T15:09:50Z",
+      "side": 1,
+      "message": "use explicit types in this context please.",
+      "range": {
+        "startLine": 115,
+        "startChar": 23,
+        "endLine": 115,
+        "endChar": 27
+      },
+      "revId": "1170f1adb66f09e4f3a711ca6f1f618c1adc1a7c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dfdc8b6c_7ae7f1ff",
+        "filename": "redfish-core/lib/redfish_util.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-07-19T15:09:50Z",
+      "side": 1,
+      "message": "\u003d\u003d please",
+      "range": {
+        "startLine": 148,
+        "startChar": 32,
+        "endLine": 148,
+        "endChar": 39
+      },
+      "revId": "1170f1adb66f09e4f3a711ca6f1f618c1adc1a7c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e31482a7_3e4fe68c",
+        "filename": "redfish-core/lib/redfish_util.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-07-19T15:09:50Z",
+      "side": 1,
+      "message": "If the unit isn\u0027t found this needs to call callback with an error",
+      "revId": "1170f1adb66f09e4f3a711ca6f1f618c1adc1a7c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
