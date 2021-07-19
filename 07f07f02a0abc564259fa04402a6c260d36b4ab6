@@ -287,6 +287,30 @@
     },
     {
       "key": {
+        "uuid": "68293758_043f1f2f",
+        "filename": "include/pam_authenticate.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1000907
+      },
+      "writtenOn": "2021-07-19T21:20:59Z",
+      "side": 1,
+      "message": "Thank you Ren and Ed for pointing this out. Fixed it in the new patchset. Returning as soon as the response is filled. This would avoid further iterations.",
+      "parentUuid": "8db13076_f9018ce8",
+      "range": {
+        "startLine": 40,
+        "startChar": 8,
+        "endLine": 41,
+        "endChar": 77
+      },
+      "revId": "07f07f02a0abc564259fa04402a6c260d36b4ab6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "f5f9d40e_91464881",
         "filename": "include/pam_authenticate.hpp",
         "patchSetId": 1
@@ -301,6 +325,24 @@
       "revId": "07f07f02a0abc564259fa04402a6c260d36b4ab6",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2ca1aaab_4c4ecde2",
+        "filename": "include/pam_authenticate.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1000907
+      },
+      "writtenOn": "2021-07-19T21:20:59Z",
+      "side": 1,
+      "message": "Done. Thank you.",
+      "parentUuid": "f5f9d40e_91464881",
+      "revId": "07f07f02a0abc564259fa04402a6c260d36b4ab6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
