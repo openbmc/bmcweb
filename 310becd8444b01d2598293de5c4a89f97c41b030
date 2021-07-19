@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1aadedea_671c181c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2021-07-19T10:27:20Z",
+      "side": 1,
+      "message": "what is the result of this test case?\nit should not send events right?",
+      "revId": "310becd8444b01d2598293de5c4a89f97c41b030",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2b217929_28913187",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2021-07-19T10:27:20Z",
+      "side": 1,
+      "message": "does this enable values persists across boot?\nno subscriptions accepted when service disabled?",
+      "revId": "310becd8444b01d2598293de5c4a89f97c41b030",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
