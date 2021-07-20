@@ -143,6 +143,30 @@
     },
     {
       "key": {
+        "uuid": "b968f4e1_bac83f24",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1000632
+      },
+      "writtenOn": "2021-07-20T03:38:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0b3aebc7_f7281266",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 14
+      },
+      "revId": "5bc21a215209d4219342a767e9cedf5bc888e379",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4b6ada61_5e7535c3",
         "filename": "redfish-core/lib/chassis.hpp",
         "patchSetId": 5
