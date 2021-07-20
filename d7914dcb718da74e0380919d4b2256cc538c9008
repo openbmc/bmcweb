@@ -118,6 +118,30 @@
       "revId": "d7914dcb718da74e0380919d4b2256cc538c9008",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5e52bb01_5b3062b8",
+        "filename": "LICENSE",
+        "patchSetId": 2
+      },
+      "lineNbr": 190,
+      "author": {
+        "id": 1001114
+      },
+      "writtenOn": "2021-07-20T08:46:05Z",
+      "side": 1,
+      "message": "We shouldn\u0027t fill this template in LICENSE file but when we apply this header in another file. Here license is introducing template (but we aren\u0027t applying this template in LICENSE file). We use this boilerplate to license separated files (and we should fill template when apply).\nMore details about applying apache 2.0 license are here: https://www.apache.org/licenses/LICENSE-2.0 and here: https://infra.apache.org/apply-license.html .",
+      "parentUuid": "50a19ae4_ffdf1f9e",
+      "range": {
+        "startLine": 190,
+        "startChar": 13,
+        "endLine": 190,
+        "endChar": 45
+      },
+      "revId": "d7914dcb718da74e0380919d4b2256cc538c9008",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
