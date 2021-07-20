@@ -1,0 +1,159 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5948ba47_ff3f9c72",
+        "filename": "redfish-core/lib/ut/service_root_test.cpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-07-20T14:58:46Z",
+      "side": 1,
+      "message": "Don\u0027t ever use using namespace.... it has really bad consequences if two modules use a common name, like say, config, in their namespace.",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 13,
+        "endChar": 15
+      },
+      "revId": "20c89749a026626bab4d9a74311573cad4848020",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1d09e428_eca4afb0",
+        "filename": "redfish-core/lib/ut/service_root_test.cpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-07-20T14:58:46Z",
+      "side": 1,
+      "message": "I\u0027m surprised clang tidy didn\u0027t flag these, but for the moment we don\u0027t add the m_ for member variables in the coding standard (although I think we should).",
+      "range": {
+        "startLine": 18,
+        "startChar": 19,
+        "endLine": 18,
+        "endChar": 21
+      },
+      "revId": "20c89749a026626bab4d9a74311573cad4848020",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bbdd66d5_857d43d0",
+        "filename": "redfish-core/lib/ut/service_root_test.cpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-07-20T14:58:46Z",
+      "side": 1,
+      "message": "FYI, this is making a copy, also, please use explicit types, and this can be a reference.",
+      "range": {
+        "startLine": 23,
+        "startChar": 8,
+        "endLine": 23,
+        "endChar": 12
+      },
+      "revId": "20c89749a026626bab4d9a74311573cad4848020",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fa6e82c4_47bc92e7",
+        "filename": "redfish-core/lib/ut/service_root_test.cpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-07-20T14:58:46Z",
+      "side": 1,
+      "message": "Like we talked about, need to add some size() asserts for the keys.",
+      "revId": "20c89749a026626bab4d9a74311573cad4848020",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3c0696ab_9be27644",
+        "filename": "redfish-core/lib/ut/service_root_test.cpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-07-20T14:58:46Z",
+      "side": 1,
+      "message": "This can be left to a later commit, as it will involve some form of dependency injection, which I don\u0027t think we have solved.",
+      "range": {
+        "startLine": 50,
+        "startChar": 8,
+        "endLine": 50,
+        "endChar": 41
+      },
+      "revId": "20c89749a026626bab4d9a74311573cad4848020",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "126fd0e2_9135079f",
+        "filename": "redfish-core/lib/ut/service_root_test.cpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-07-20T14:58:46Z",
+      "side": 1,
+      "message": "no need to return if it\u0027s the last statement.",
+      "range": {
+        "startLine": 54,
+        "startChar": 0,
+        "endLine": 54,
+        "endChar": 15
+      },
+      "revId": "20c89749a026626bab4d9a74311573cad4848020",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7f85a957_ce53f99e",
+        "filename": "redfish-core/lib/ut/service_root_test.cpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-07-20T14:58:46Z",
+      "side": 1,
+      "message": "Lets try this, move this to line 70, then instead of capturing this, capture sharedAsyncResp.  That will keep the request alive until it\u0027s completed.  Then pass that asyncResp by value to assertServiceRootGet().  If I\u0027m right, I think that removes the need to have a raw pointer m_req in the main class, which simplifies this code quite a bit.",
+      "range": {
+        "startLine": 65,
+        "startChar": 0,
+        "endLine": 65,
+        "endChar": 79
+      },
+      "revId": "20c89749a026626bab4d9a74311573cad4848020",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
