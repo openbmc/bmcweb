@@ -2689,7 +2689,12 @@ inline void requestRoutesSystemsCollection(App& app)
                             ifaceArray.push_back(std::move(hypervisor));
                             count = ifaceArray.size();
                         }
-                    });
+                    },
+                    "xyz.openbmc_project.Network.Hypervisor",
+                    "/xyz/openbmc_project/network/hypervisor/config",
+                    "org.freedesktop.DBus.Properties", "Get",
+                    "xyz.openbmc_project.Network.SystemConfiguration",
+                    "HostName");
             });
 }
 
