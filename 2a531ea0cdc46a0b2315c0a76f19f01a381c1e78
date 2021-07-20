@@ -45,6 +45,29 @@
       "revId": "2a531ea0cdc46a0b2315c0a76f19f01a381c1e78",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bd62a678_38ab7693",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 39
+      },
+      "lineNbr": 713,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-07-20T19:37:00Z",
+      "side": 1,
+      "message": "Can this be combined into a simple loop?\n\nfor (const std::pair\u003cstd::string, std::variant\u003cstd::string\u003e\u003e\u0026 statusProp: values){\n   if (statusProp.first \u003d\u003d \"Status\"){\n      const std::string\u0026 value \u003d std::get\u003cstd::string\u003e(stateFound-\u003esecond);\n      return value !\u003d\n         \"xyz.openbmc_project.Common.Progress.OperationStatus.\"\n         \"Completed\";\n   }\n}\nreturn true;\n\n\n\nWhat I wrote is functionally the same, yet about half the code",
+      "range": {
+        "startLine": 691,
+        "startChar": 0,
+        "endLine": 713,
+        "endChar": 1
+      },
+      "revId": "2a531ea0cdc46a0b2315c0a76f19f01a381c1e78",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
