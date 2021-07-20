@@ -2633,8 +2633,9 @@ inline void requestRoutesSystemsCollection(App& app)
         asyncResp->res.jsonValue["Name"] = "Computer System Collection";
 
         sdbusplus::asio::getProperty<std::string>(
-            *crow::connections::systemBus, "xyz.openbmc_project.Settings",
-            "/xyz/openbmc_project/network/hypervisor",
+            *crow::connections::systemBus,
+            "xyz.openbmc_project.Network.Hypervisor",
+            "/xyz/openbmc_project/network/hypervisor/config",
             "xyz.openbmc_project.Network.SystemConfiguration", "HostName",
             [asyncResp](const boost::system::error_code ec,
                         const std::string& /*hostName*/) {
