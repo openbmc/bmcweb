@@ -2846,8 +2846,8 @@ inline void requestRoutesSystemsCollection(App& app)
                             count = ifaceArray.size();
                         }
                     },
-                    "xyz.openbmc_project.Settings",
-                    "/xyz/openbmc_project/network/hypervisor",
+                    "xyz.openbmc_project.Network.Hypervisor",
+                    "/xyz/openbmc_project/network/hypervisor/config",
                     "org.freedesktop.DBus.Properties", "Get",
                     "xyz.openbmc_project.Network.SystemConfiguration",
                     "HostName");
