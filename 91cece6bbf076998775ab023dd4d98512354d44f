@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "ee305509_fd5e86d2",
+        "filename": "redfish-core/lib/serial_interface.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-07-20T00:10:06Z",
+      "side": 1,
+      "message": "Sorry, but this kind of code directly calling popen is never going to be accepted.  bmcweb by design should not be execing anything;  Even if it did, it should not use blocking calls (which is called out in COMMON_ERRORS.md)",
+      "range": {
+        "startLine": 34,
+        "startChar": 0,
+        "endLine": 34,
+        "endChar": 33
+      },
+      "revId": "91cece6bbf076998775ab023dd4d98512354d44f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "3240be07_4c316da7",
         "filename": "redfish-core/lib/serial_interface.hpp",
         "patchSetId": 1
@@ -13,6 +36,30 @@
       "writtenOn": "2021-07-19T18:09:57Z",
       "side": 1,
       "message": "There are many security considerations when using popen.",
+      "range": {
+        "startLine": 39,
+        "startChar": 16,
+        "endLine": 39,
+        "endChar": 21
+      },
+      "revId": "91cece6bbf076998775ab023dd4d98512354d44f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a1f83239_b30cd067",
+        "filename": "redfish-core/lib/serial_interface.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-07-20T00:10:06Z",
+      "side": 1,
+      "message": "+1.  This code doesn\u0027t seem to handle any of the concerns.",
+      "parentUuid": "3240be07_4c316da7",
       "range": {
         "startLine": 39,
         "startChar": 16,
@@ -48,6 +95,98 @@
     },
     {
       "key": {
+        "uuid": "bcbfd9ec_ad672453",
+        "filename": "redfish-core/lib/serial_interface.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-07-20T00:10:06Z",
+      "side": 1,
+      "message": "Please read and understand COMMON_ERRORS.md. This is one of them.",
+      "range": {
+        "startLine": 45,
+        "startChar": 11,
+        "endLine": 45,
+        "endChar": 16
+      },
+      "revId": "91cece6bbf076998775ab023dd4d98512354d44f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1c0721a3_11801b88",
+        "filename": "redfish-core/lib/serial_interface.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-07-20T00:10:06Z",
+      "side": 1,
+      "message": "Please use the authorization enums that exist already.  This is almost certainly wrong.",
+      "range": {
+        "startLine": 58,
+        "startChar": 20,
+        "endLine": 58,
+        "endChar": 32
+      },
+      "revId": "91cece6bbf076998775ab023dd4d98512354d44f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3298d1f0_53650751",
+        "filename": "redfish-core/lib/serial_interface.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-07-20T00:10:06Z",
+      "side": 1,
+      "message": "We should not be calling system() to create a file with some information in it.  If we\u0027re going to be getting this directly from the filesystem, we should be using the normalized std::filesystem APIs, although I suspect the design needs to be better thought out.",
+      "range": {
+        "startLine": 76,
+        "startChar": 20,
+        "endLine": 76,
+        "endChar": 26
+      },
+      "revId": "91cece6bbf076998775ab023dd4d98512354d44f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2ccb8c6a_fe1635f9",
+        "filename": "redfish-core/lib/serial_interface.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-07-20T00:10:06Z",
+      "side": 1,
+      "message": "Blocking call, please read and understand common_errors.md",
+      "range": {
+        "startLine": 86,
+        "startChar": 27,
+        "endLine": 86,
+        "endChar": 34
+      },
+      "revId": "91cece6bbf076998775ab023dd4d98512354d44f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "0d76528a_6267c9a3",
         "filename": "redfish-core/lib/serial_interface.hpp",
         "patchSetId": 1
@@ -59,6 +198,29 @@
       "writtenOn": "2021-07-19T18:09:57Z",
       "side": 1,
       "message": "why can\u0027t you stat\n\"/sys/class/tty/ttyS0/device/driver\"\nand append it to the results?",
+      "range": {
+        "startLine": 88,
+        "startChar": 0,
+        "endLine": 88,
+        "endChar": 44
+      },
+      "revId": "91cece6bbf076998775ab023dd4d98512354d44f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1e9c47e1_4b789247",
+        "filename": "redfish-core/lib/serial_interface.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-07-20T00:10:06Z",
+      "side": 1,
+      "message": "Hardcoding specific names like this doesn\u0027t really fly.  Why should this be skipped.",
       "range": {
         "startLine": 88,
         "startChar": 0,
@@ -117,6 +279,29 @@
     },
     {
       "key": {
+        "uuid": "9ba3dc4e_b5aaa752",
+        "filename": "redfish-core/lib/serial_interface.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 181,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-07-20T00:10:06Z",
+      "side": 1,
+      "message": "This kind of coding is not allowed in bmcweb.  Please look at other examples of how this kind of thing is done and follow those.  We do not call system calls for this kind of information.  If that is truly required, please move it into a SerialManager type daemon.",
+      "range": {
+        "startLine": 151,
+        "startChar": 0,
+        "endLine": 181,
+        "endChar": 0
+      },
+      "revId": "91cece6bbf076998775ab023dd4d98512354d44f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "f2afc3d6_9376ee45",
         "filename": "static/redfish/v1/$metadata/index.xml",
         "patchSetId": 1
@@ -128,6 +313,30 @@
       "writtenOn": "2021-07-19T18:09:57Z",
       "side": 1,
       "message": "Please switch to spaces for indentation.",
+      "range": {
+        "startLine": 2319,
+        "startChar": 0,
+        "endLine": 2319,
+        "endChar": 2
+      },
+      "revId": "91cece6bbf076998775ab023dd4d98512354d44f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9e24d266_fe8ba1a5",
+        "filename": "static/redfish/v1/$metadata/index.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 2319,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-07-20T00:10:06Z",
+      "side": 1,
+      "message": "No, please run the scripts that generates these files instead of building them by hand.",
+      "parentUuid": "f2afc3d6_9376ee45",
       "range": {
         "startLine": 2319,
         "startChar": 0,
