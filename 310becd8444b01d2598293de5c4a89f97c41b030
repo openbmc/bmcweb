@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "81668f01_d3d85d39",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2021-07-20T04:27:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "37edaed9_a783f11d",
+      "range": {
+        "startLine": 20,
+        "startChar": 46,
+        "endLine": 21,
+        "endChar": 9
+      },
+      "revId": "310becd8444b01d2598293de5c4a89f97c41b030",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1aadedea_671c181c",
         "filename": "/COMMIT_MSG",
         "patchSetId": 3
@@ -42,6 +66,24 @@
     },
     {
       "key": {
+        "uuid": "57cfba53_5f558ea3",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2021-07-20T04:27:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1aadedea_671c181c",
+      "revId": "310becd8444b01d2598293de5c4a89f97c41b030",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2b217929_28913187",
         "filename": "/COMMIT_MSG",
         "patchSetId": 3
@@ -56,6 +98,24 @@
       "revId": "310becd8444b01d2598293de5c4a89f97c41b030",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "70645d5e_60ec6128",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2021-07-20T04:27:33Z",
+      "side": 1,
+      "message": "\u003e does this enable values persists across boot?\nYes. https://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/40211\n\u003e no subscriptions accepted when service disabled?\nThis is under discussion at https://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/44644",
+      "parentUuid": "2b217929_28913187",
+      "revId": "310becd8444b01d2598293de5c4a89f97c41b030",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
