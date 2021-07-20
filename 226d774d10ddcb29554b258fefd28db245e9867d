@@ -16,6 +16,24 @@
       "revId": "226d774d10ddcb29554b258fefd28db245e9867d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3b55d98e_60f1df29",
+        "filename": "redfish-core/lib/led.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-07-20T13:19:49Z",
+      "side": 1,
+      "message": "+1",
+      "parentUuid": "fef1d46f_9caa1c94",
+      "revId": "226d774d10ddcb29554b258fefd28db245e9867d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
