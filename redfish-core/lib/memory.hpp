@@ -681,7 +681,9 @@ inline void getDimmDataByService(std::shared_ptr<bmcweb::AsyncResp> aResp,
                 // memory location interface
                 else if (property.first == "Channel" ||
                          property.first == "MemoryController" ||
-                         property.first == "Slot" || property.first == "Socket")
+                         property.first == "Slot" ||
+                         property.first == "Socket" ||
+                         property.first == "MemoryDeviceLocator")
                 {
                     const std::string* value =
                         std::get_if<std::string>(&property.second);
