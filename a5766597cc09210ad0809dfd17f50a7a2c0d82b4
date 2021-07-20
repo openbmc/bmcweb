@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "a1f97fcd_66f193d7",
+        "filename": "http/http_response.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-07-20T00:35:34Z",
+      "side": 1,
+      "message": "Because the connection class is a \"friend\" of Response (see line 21 above).",
+      "parentUuid": "1586becc_da08b89d",
+      "range": {
+        "startLine": 140,
+        "startChar": 9,
+        "endLine": 140,
+        "endChar": 34
+      },
+      "revId": "a5766597cc09210ad0809dfd17f50a7a2c0d82b4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e6b2ac4f_31aab584",
         "filename": "redfish-core/lib/ut/service_root_test.cpp",
         "patchSetId": 14
