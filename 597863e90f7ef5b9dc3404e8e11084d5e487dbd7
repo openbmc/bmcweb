@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "46f2f35e_06d600e4",
+        "filename": "http/utility.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 586,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-07-20T00:28:22Z",
+      "side": 1,
+      "message": "Please don\u0027t use auto in this context.  Explicit types help in readability.",
+      "range": {
+        "startLine": 586,
+        "startChar": 4,
+        "endLine": 586,
+        "endChar": 8
+      },
+      "revId": "597863e90f7ef5b9dc3404e8e11084d5e487dbd7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "560ecb5e_64886ae0",
         "filename": "http/utility.hpp",
         "patchSetId": 1
@@ -49,6 +72,24 @@
       "side": 1,
       "message": "Yes. Empty string sounds like a good idea. \nHad similar thoughts while pushing this change. \nSince it was a minor klocwork fix, dint want to induce lot of changes. This change would keep the existing functionality going and wanted to push a change on top of this.\nI though it be good to have a separate commit implementing that change...",
       "parentUuid": "ec0ca547_3420f867",
+      "revId": "597863e90f7ef5b9dc3404e8e11084d5e487dbd7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "25f37209_623ea736",
+        "filename": "http/utility.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 592,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-07-20T00:28:22Z",
+      "side": 1,
+      "message": "\u003e Yes. Empty string sounds like a good idea. \n\u003e Had similar thoughts while pushing this change. \n\u003e Since it was a minor klocwork fix, dint want to induce lot of changes. This change would keep the existing functionality going and wanted to push a change on top of this.\n\u003e I though it be good to have a separate commit implementing that change...\n\nLets just fix it in this commit to reduce the code review thrash.",
+      "parentUuid": "9583120b_acc2c192",
       "revId": "597863e90f7ef5b9dc3404e8e11084d5e487dbd7",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
