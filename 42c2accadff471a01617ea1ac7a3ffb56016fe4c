@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "7526e5be_f4bf6c59",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 472,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2021-07-20T21:54:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "db2fb683_aaeeff40",
+      "range": {
+        "startLine": 460,
+        "startChar": 0,
+        "endLine": 472,
+        "endChar": 0
+      },
+      "revId": "42c2accadff471a01617ea1ac7a3ffb56016fe4c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b85eeb2b_9ee285f7",
         "filename": "redfish-core/lib/storage.hpp",
         "patchSetId": 2
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "31b612de_861cc8d3",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 481,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2021-07-20T21:54:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b85eeb2b_9ee285f7",
+      "range": {
+        "startLine": 481,
+        "startChar": 32,
+        "endLine": 481,
+        "endChar": 38
+      },
+      "revId": "42c2accadff471a01617ea1ac7a3ffb56016fe4c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fb3d4fcb_877ea710",
         "filename": "redfish-core/lib/storage.hpp",
         "patchSetId": 2
@@ -59,6 +107,30 @@
       "writtenOn": "2021-07-20T21:05:00Z",
       "side": 1,
       "message": "This should be combined with the call on line 439 to use the GetAll method, which decreases the number of calls, and the code.",
+      "range": {
+        "startLine": 487,
+        "startChar": 0,
+        "endLine": 489,
+        "endChar": 32
+      },
+      "revId": "42c2accadff471a01617ea1ac7a3ffb56016fe4c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d879bcff_3e594ab4",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 489,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2021-07-20T21:54:34Z",
+      "side": 1,
+      "message": "They are under the different interface\n\n`xyz.openbmc_project.Inventory.Item.Drive`\n\nvs.\n\n`xyz.openbmc_project.State.Drive`\n\n---\n\nThe one in Item.Drive is still WIP... so maybe we can move it? but it make more sense being in Item.Drive.",
+      "parentUuid": "fb3d4fcb_877ea710",
       "range": {
         "startLine": 487,
         "startChar": 0,
