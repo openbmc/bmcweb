@@ -87,6 +87,24 @@
       "revId": "ad69349ede5a70f211c94be4e12be4b2e1a241e9",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "54c307fa_2c66fc5d",
+        "filename": "redfish-core/lib/service_root.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-07-20T03:18:52Z",
+      "side": 1,
+      "message": "Apologies on the slow response here. This is why I was thinking it might decrease readability just a little:\nBefore the route, the privileges, the schema and schema version (odata.type) were all together. \n\nNow (e.g. systems.hpp):\n\nhandleComputerSystemGet\n{\n...\n    asyncResp-\u003eres.jsonValue[\"@odata.type\"] \u003d \"#ComputerSystem.v1_15_0.ComputerSystem\";\n...\n}\n\n\nhandleComputerSystemCollectionGet\n{\n...\n    asyncResp-\u003eres.jsonValue[\"@odata.type\"] \u003d \"#ComputerSystemCollection.ComputerSystemCollection\";\n    asyncResp-\u003eres.jsonValue[\"@odata.id\"] \u003d \"/redfish/v1/Systems\";\n...\n}\n\nhandleResetActionInfoGet\n{\n...\n    {\"@odata.type\",\"#ActionInfo.v1_1_2.ActionInfo\"},\n...\n}\n\n   BMCWEB_ROUTE(app, \"/redfish/v1/Systems/system/\")\n        .privileges(redfish::privileges::getComputerSystem)(handleComputerSystemGet);\n\n    BMCWEB_ROUTE(app, \"/redfish/v1/Systems/\")\n        .privileges(redfish::privileges::getComputerSystemCollection)\n        .methods(boost::beast::http::verb::get)(handleComputerSystemCollectionGet);\n\n\n    BMCWEB_ROUTE(app, \"/redfish/v1/Systems/system/ResetActionInfo/\")\n        .privileges(redfish::privileges::getActionInfo)\n        .methods(boost::beast::http::verb::get)(handleResetActionInfoGet);\n\n\u003e  Maybe it\u0027s just a preference thing?\n\nFair. Maybe it is just a preference thing. Consistent naming (e.g. maybe something like \"handle\u003cSchema\u003e\u003cHTTP Verb\u003e\") and such should help.",
+      "parentUuid": "660a7a71_707d706f",
+      "revId": "ad69349ede5a70f211c94be4e12be4b2e1a241e9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
