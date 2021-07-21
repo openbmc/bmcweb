@@ -96,6 +96,30 @@
     },
     {
       "key": {
+        "uuid": "b4da495d_3ffcc0bb",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-07-21T19:16:46Z",
+      "side": 1,
+      "message": "I don\u0027t see a new patchset",
+      "parentUuid": "47979f3a_c0f8163c",
+      "range": {
+        "startLine": 10,
+        "startChar": 44,
+        "endLine": 10,
+        "endChar": 66
+      },
+      "revId": "41ab9a5a2fab589d9e0a5f948f871b81e73637a3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f9d884ff_791a090f",
         "filename": "/COMMIT_MSG",
         "patchSetId": 1
