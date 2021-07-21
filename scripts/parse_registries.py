@@ -170,6 +170,28 @@ def make_privilege_registry():
                 registry.write("const static auto& {}{} = privilegeSet{};\n".format(
                    operation, entity , privilege_dict[privilege_string][1]))
             registry.write("\n")
+            if mapping.get('SubordinateOverrides'):
+                countSubOver = 0
+                registry.write("// If SubordinateOverrides Target get modify\n")
+                registry.write("// Then update that endpoint Privilege.\n\n")
+                for subordinateOverrides in mapping["SubordinateOverrides"]:
+                    registry.write("// ")
+                    for target in subordinateOverrides["Targets"]:
+                        registry.write(target + " -> ")
+                    registry.write(entity)
+                    registry.write("\n")
+                    for operation, privilege_list in subordinateOverrides["OperationMap"].items():
+                        privilege_string = get_privilege_string_from_list(
+                            privilege_list)
+                        operation = operation.lower()
+                        if countSubOver is not 0:
+                            registry.write("const static auto& {}{}SubOver{} = privilegeSet{};\n".format(
+                            operation, entity, countSubOver, privilege_dict[privilege_string][1]))
+                        else:
+                            registry.write("const static auto& {}{}SubOver = privilegeSet{};\n".format(
+                            operation, entity, privilege_dict[privilege_string][1]))
+                    countSubOver += 1
+                registry.write("\n")
         registry.write("} // namespace redfish::privileges\n")
     clang_format(path)
 

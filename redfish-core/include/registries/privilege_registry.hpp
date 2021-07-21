@@ -181,6 +181,17 @@ const static auto& putCertificate = privilegeSetConfigureManager;
 const static auto& deleteCertificate = privilegeSetConfigureManager;
 const static auto& postCertificate = privilegeSetConfigureManager;
 
+// If SubordinateOverrides Target get modify
+// Then update that endpoint Privilege.
+
+// ComputerSystem -> Certificate
+const static auto& getCertificateSubOver = privilegeSetConfigureComponents;
+const static auto& headCertificateSubOver = privilegeSetConfigureComponents;
+const static auto& patchCertificateSubOver = privilegeSetConfigureComponents;
+const static auto& putCertificateSubOver = privilegeSetConfigureComponents;
+const static auto& deleteCertificateSubOver = privilegeSetConfigureComponents;
+const static auto& postCertificateSubOver = privilegeSetConfigureComponents;
+
 // CertificateCollection
 const static auto& getCertificateCollection = privilegeSetConfigureManager;
 const static auto& headCertificateCollection = privilegeSetConfigureManager;
@@ -188,6 +199,23 @@ const static auto& patchCertificateCollection = privilegeSetConfigureManager;
 const static auto& putCertificateCollection = privilegeSetConfigureManager;
 const static auto& deleteCertificateCollection = privilegeSetConfigureManager;
 const static auto& postCertificateCollection = privilegeSetConfigureManager;
+
+// If SubordinateOverrides Target get modify
+// Then update that endpoint Privilege.
+
+// ComputerSystem -> CertificateCollection
+const static auto& getCertificateCollectionSubOver =
+    privilegeSetConfigureComponents;
+const static auto& headCertificateCollectionSubOver =
+    privilegeSetConfigureComponents;
+const static auto& patchCertificateCollectionSubOver =
+    privilegeSetConfigureComponents;
+const static auto& putCertificateCollectionSubOver =
+    privilegeSetConfigureComponents;
+const static auto& deleteCertificateCollectionSubOver =
+    privilegeSetConfigureComponents;
+const static auto& postCertificateCollectionSubOver =
+    privilegeSetConfigureComponents;
 
 // CertificateLocations
 const static auto& getCertificateLocations = privilegeSetConfigureManager;
@@ -358,6 +386,16 @@ const static auto& patchEthernetInterface = privilegeSetConfigureComponents;
 const static auto& postEthernetInterface = privilegeSetConfigureComponents;
 const static auto& putEthernetInterface = privilegeSetConfigureComponents;
 const static auto& deleteEthernetInterface = privilegeSetConfigureComponents;
+
+// If SubordinateOverrides Target get modify
+// Then update that endpoint Privilege.
+
+// Manager -> EthernetInterfaceCollection -> EthernetInterface
+const static auto& patchEthernetInterfaceSubOver = privilegeSetConfigureManager;
+const static auto& postEthernetInterfaceSubOver = privilegeSetConfigureManager;
+const static auto& putEthernetInterfaceSubOver = privilegeSetConfigureManager;
+const static auto& deleteEthernetInterfaceSubOver =
+    privilegeSetConfigureManager;
 
 // EthernetInterfaceCollection
 const static auto& getEthernetInterfaceCollection = privilegeSetLogin;
@@ -539,6 +577,24 @@ const static auto& putLogEntry = privilegeSetConfigureManager;
 const static auto& deleteLogEntry = privilegeSetConfigureManager;
 const static auto& postLogEntry = privilegeSetConfigureManager;
 
+// If SubordinateOverrides Target get modify
+// Then update that endpoint Privilege.
+
+// ComputerSystem -> LogServiceCollection -> LogService -> LogEntryCollection ->
+// LogEntry
+const static auto& patchLogEntrySubOver = privilegeSetConfigureComponents;
+const static auto& putLogEntrySubOver = privilegeSetConfigureComponents;
+const static auto& deleteLogEntrySubOver = privilegeSetConfigureComponents;
+const static auto& postLogEntrySubOver = privilegeSetConfigureComponents;
+// Chassis -> LogServiceCollection -> LogService -> LogEntryCollection ->
+// LogEntry
+const static auto& getLogEntrySubOver1 = privilegeSetLogin;
+const static auto& headLogEntrySubOver1 = privilegeSetLogin;
+const static auto& patchLogEntrySubOver1 = privilegeSetConfigureComponents;
+const static auto& putLogEntrySubOver1 = privilegeSetConfigureComponents;
+const static auto& deleteLogEntrySubOver1 = privilegeSetConfigureComponents;
+const static auto& postLogEntrySubOver1 = privilegeSetConfigureComponents;
+
 // LogEntryCollection
 const static auto& getLogEntryCollection = privilegeSetLogin;
 const static auto& headLogEntryCollection = privilegeSetLogin;
@@ -546,6 +602,30 @@ const static auto& patchLogEntryCollection = privilegeSetConfigureManager;
 const static auto& putLogEntryCollection = privilegeSetConfigureManager;
 const static auto& deleteLogEntryCollection = privilegeSetConfigureManager;
 const static auto& postLogEntryCollection = privilegeSetConfigureManager;
+
+// If SubordinateOverrides Target get modify
+// Then update that endpoint Privilege.
+
+// ComputerSystem -> LogServiceCollection -> LogService -> LogEntryCollection
+const static auto& patchLogEntryCollectionSubOver =
+    privilegeSetConfigureComponents;
+const static auto& putLogEntryCollectionSubOver =
+    privilegeSetConfigureComponents;
+const static auto& deleteLogEntryCollectionSubOver =
+    privilegeSetConfigureComponents;
+const static auto& postLogEntryCollectionSubOver =
+    privilegeSetConfigureComponents;
+// Chassis -> LogServiceCollection -> LogService -> LogEntryCollection
+const static auto& getLogEntryCollectionSubOver1 = privilegeSetLogin;
+const static auto& headLogEntryCollectionSubOver1 = privilegeSetLogin;
+const static auto& patchLogEntryCollectionSubOver1 =
+    privilegeSetConfigureComponents;
+const static auto& putLogEntryCollectionSubOver1 =
+    privilegeSetConfigureComponents;
+const static auto& deleteLogEntryCollectionSubOver1 =
+    privilegeSetConfigureComponents;
+const static auto& postLogEntryCollectionSubOver1 =
+    privilegeSetConfigureComponents;
 
 // LogService
 const static auto& getLogService = privilegeSetLogin;
@@ -555,6 +635,22 @@ const static auto& putLogService = privilegeSetConfigureManager;
 const static auto& deleteLogService = privilegeSetConfigureManager;
 const static auto& postLogService = privilegeSetConfigureManager;
 
+// If SubordinateOverrides Target get modify
+// Then update that endpoint Privilege.
+
+// ComputerSystem -> LogServiceCollection -> LogService
+const static auto& patchLogServiceSubOver = privilegeSetConfigureComponents;
+const static auto& postLogServiceSubOver = privilegeSetConfigureComponents;
+const static auto& putLogServiceSubOver = privilegeSetConfigureComponents;
+const static auto& deleteLogServiceSubOver = privilegeSetConfigureComponents;
+// Chassis -> LogServiceCollection -> LogService
+const static auto& getLogServiceSubOver1 = privilegeSetLogin;
+const static auto& headLogServiceSubOver1 = privilegeSetLogin;
+const static auto& patchLogServiceSubOver1 = privilegeSetConfigureComponents;
+const static auto& putLogServiceSubOver1 = privilegeSetConfigureComponents;
+const static auto& deleteLogServiceSubOver1 = privilegeSetConfigureComponents;
+const static auto& postLogServiceSubOver1 = privilegeSetConfigureComponents;
+
 // LogServiceCollection
 const static auto& getLogServiceCollection = privilegeSetLogin;
 const static auto& headLogServiceCollection = privilegeSetLogin;
@@ -562,6 +658,30 @@ const static auto& patchLogServiceCollection = privilegeSetConfigureManager;
 const static auto& putLogServiceCollection = privilegeSetConfigureManager;
 const static auto& deleteLogServiceCollection = privilegeSetConfigureManager;
 const static auto& postLogServiceCollection = privilegeSetConfigureManager;
+
+// If SubordinateOverrides Target get modify
+// Then update that endpoint Privilege.
+
+// ComputerSystem -> LogServiceCollection
+const static auto& patchLogServiceCollectionSubOver =
+    privilegeSetConfigureComponents;
+const static auto& putLogServiceCollectionSubOver =
+    privilegeSetConfigureComponents;
+const static auto& deleteLogServiceCollectionSubOver =
+    privilegeSetConfigureComponents;
+const static auto& postLogServiceCollectionSubOver =
+    privilegeSetConfigureComponents;
+// Chassis -> LogServiceCollection
+const static auto& getLogServiceCollectionSubOver1 = privilegeSetLogin;
+const static auto& headLogServiceCollectionSubOver1 = privilegeSetLogin;
+const static auto& patchLogServiceCollectionSubOver1 =
+    privilegeSetConfigureComponents;
+const static auto& putLogServiceCollectionSubOver1 =
+    privilegeSetConfigureComponents;
+const static auto& deleteLogServiceCollectionSubOver1 =
+    privilegeSetConfigureComponents;
+const static auto& postLogServiceCollectionSubOver1 =
+    privilegeSetConfigureComponents;
 
 // Manager
 const static auto& getManager = privilegeSetLogin;
