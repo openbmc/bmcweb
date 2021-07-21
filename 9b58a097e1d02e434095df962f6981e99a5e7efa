@@ -16,6 +16,24 @@
       "revId": "9b58a097e1d02e434095df962f6981e99a5e7efa",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "842af352_684dbbe3",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1000632
+      },
+      "writtenOn": "2021-07-21T17:53:15Z",
+      "side": 1,
+      "message": "thanks for pointing out. Looks like this is not bmcweb issue. The smbios-mdr service should provide such DBUS iterfaces for BMCWEB. I will create changes for smbios-mdr and drop this one.",
+      "parentUuid": "d3c95f86_b812e883",
+      "revId": "9b58a097e1d02e434095df962f6981e99a5e7efa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
