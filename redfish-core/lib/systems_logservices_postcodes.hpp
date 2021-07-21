@@ -623,9 +623,8 @@ inline void requestRoutesSystemsLogServicesPostCode(App& app)
     BMCWEB_ROUTE(
         app,
         "/redfish/v1/Systems/<str>/LogServices/PostCodes/Actions/LogService.ClearLog/")
-        // The following privilege is correct; we need "SubordinateOverrides"
-        // before we can automate it.
-        .privileges({{"ConfigureComponents"}})
+        .privileges(redfish::privileges::
+                        postLogServiceSubOverComputerSystemLogServiceCollection)
         .methods(boost::beast::http::verb::post)(std::bind_front(
             handleSystemsLogServicesPostCodesPost, std::ref(app)));
 
