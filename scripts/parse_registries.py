@@ -641,6 +641,32 @@ def make_privilege_registry() -> None:
                     )
                 )
             registry.write("\n")
+            if "SubordinateOverrides" in mapping:
+                for subordinateOverrides in mapping["SubordinateOverrides"]:
+                    target_list_list = subordinateOverrides["Targets"]
+                    registry.write("// Subordinate override for ")
+                    concateVarName = ""
+                    for target in target_list_list:
+                        registry.write(target + " -> ")
+                        concateVarName += target
+                    registry.write(entity)
+                    registry.write("\n")
+                    for operation, privilege_list in subordinateOverrides[
+                        "OperationMap"
+                    ].items():
+                        privilege_string = get_privilege_string_from_list(
+                            privilege_list
+                        )
+                        operation = operation.lower()
+                        registry.write(
+                            "const static auto& {}{}SubOver{} = privilegeSet{};\n".format(
+                                operation,
+                                entity,
+                                concateVarName,
+                                privilege_dict[privilege_string][1],
+                            )
+                        )
+                    registry.write("\n")
         registry.write(
             "} // namespace redfish::privileges\n// clang-format on\n"
         )
