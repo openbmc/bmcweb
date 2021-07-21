@@ -52,6 +52,24 @@
       "revId": "226d774d10ddcb29554b258fefd28db245e9867d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c61de281_d14f7a82",
+        "filename": "redfish-core/lib/led.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1000004
+      },
+      "writtenOn": "2021-07-21T11:56:29Z",
+      "side": 1,
+      "message": "I don\u0027t think it\u0027s this simple. With your fix, we\u0027ll now just never call your callback handler. The second path that works is embedded in the callback which will not be called now. Can you be sure to post some tested results in the commit message ensuring you\u0027ve tested this path (enclosure_identify_blink not present but enclosure_identify is)?",
+      "parentUuid": "8e6dd46e_29216a1b",
+      "revId": "226d774d10ddcb29554b258fefd28db245e9867d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
