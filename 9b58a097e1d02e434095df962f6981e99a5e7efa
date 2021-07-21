@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d3c95f86_b812e883",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-07-21T13:52:17Z",
+      "side": 1,
+      "message": "Redfish Validator?\nI am looking at https://redfish.dmtf.org/schemas/v1/Memory.v1_12_0.json and don\u0027t see \"MemoryLocation\"\"MemoryDeviceLocator\"\n\n\n \"MemoryLocation\": {\n            \"additionalProperties\": false,\n            \"description\": \"Memory connection information to sockets and memory controllers.\",\n            \"longDescription\": \"This type shall contain properties that describe the memory connection information to sockets and memory controllers.\",\n            \"patternProperties\": {\n                \"^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\\\.[a-zA-Z_][a-zA-Z0-9_]*$\": {\n                    \"description\": \"This property shall specify a valid odata or Redfish property.\",\n                    \"type\": [\n                        \"array\",\n                        \"boolean\",\n                        \"integer\",\n                        \"number\",\n                        \"null\",\n                        \"object\",\n                        \"string\"\n                    ]\n                }\n            },\n            \"properties\": {\n                \"Channel\": {\n                    \"description\": \"The channel number to which the memory device is connected.\",\n                    \"longDescription\": \"This property shall contain the channel number to which the memory device is connected.\",\n                    \"readonly\": true,\n                    \"type\": [\n                        \"integer\",\n                        \"null\"\n                    ]\n                },\n                \"MemoryController\": {\n                    \"description\": \"The memory controller number to which the memory device is connected.\",\n                    \"longDescription\": \"This property shall contain the memory controller number to which the memory device is connected.\",\n                    \"readonly\": true,\n                    \"type\": [\n                        \"integer\",\n                        \"null\"\n                    ]\n                },\n                \"Slot\": {\n                    \"description\": \"The slot number to which the memory device is connected.\",\n                    \"longDescription\": \"This property shall contain the slot number to which the memory device is connected.\",\n                    \"readonly\": true,\n                    \"type\": [\n                        \"integer\",\n                        \"null\"\n                    ]\n                },\n                \"Socket\": {\n                    \"description\": \"The socket number to which the memory device is connected.\",\n                    \"longDescription\": \"This property shall contain the socket number to which the memory device is connected.\",\n                    \"readonly\": true,\n                    \"type\": [\n                        \"integer\",\n                        \"null\"\n                    ]\n                }\n            },\n            \"type\": \"object\"\n        },",
+      "revId": "9b58a097e1d02e434095df962f6981e99a5e7efa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
