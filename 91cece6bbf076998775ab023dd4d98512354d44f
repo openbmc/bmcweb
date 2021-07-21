@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "ef08da99_2c207547",
+        "filename": "redfish-core/lib/serial_interface.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-07-21T13:55:45Z",
+      "side": 1,
+      "message": "Do you need this? \nI removed IBMs here:\nhttps://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/41139\n\nThey typically don\u0027t get updated.",
+      "revId": "91cece6bbf076998775ab023dd4d98512354d44f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "ee305509_fd5e86d2",
         "filename": "redfish-core/lib/serial_interface.hpp",
         "patchSetId": 1
@@ -337,6 +354,30 @@
       "side": 1,
       "message": "No, please run the scripts that generates these files instead of building them by hand.",
       "parentUuid": "f2afc3d6_9376ee45",
+      "range": {
+        "startLine": 2319,
+        "startChar": 0,
+        "endLine": 2319,
+        "endChar": 2
+      },
+      "revId": "91cece6bbf076998775ab023dd4d98512354d44f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c8636956_320627c7",
+        "filename": "static/redfish/v1/$metadata/index.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 2319,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-07-21T13:55:45Z",
+      "side": 1,
+      "message": "+1",
+      "parentUuid": "9e24d266_fe8ba1a5",
       "range": {
         "startLine": 2319,
         "startChar": 0,
