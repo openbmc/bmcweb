@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1f13508f_dd7eb22a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-07-21T19:45:41Z",
+      "side": 1,
+      "message": "Was https://github.com/openbmc/bmcweb/commit/6c51eab135bb573c292d111170bc138b3a4b4eb0#diff-a6441dc86bbef5cbe2192c66717e8b938f9ee3a02670ff54c702338095a0d660 the commit?",
+      "revId": "da65540b48d38d1acb35d0d7b834b37b1217fae8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
