@@ -454,10 +454,11 @@ using BaseSpeedPrioritySettingsProperty =
     std::vector<std::tuple<uint32_t, std::vector<uint32_t>>>;
 // uint32_t and size_t may or may not be the same type, requiring a dedup'd
 // variant
-using OperatingConfigProperties = std::vector<std::pair<
-    std::string, sdbusplus::utility::dedup_variant<
-                     double, int64_t, uint64_t, uint32_t, size_t, uint16_t,
-                     TurboProfileProperty, BaseSpeedPrioritySettingsProperty>>>;
+using OperatingConfigProperties = std::vector<
+    std::pair<std::string,
+              sdbusplus::utility::dedup_variant<
+                  double, int64_t, uint64_t, uint32_t, size_t, uint16_t, bool,
+                  TurboProfileProperty, BaseSpeedPrioritySettingsProperty>>>;
 
 /**
  * Fill out the HighSpeedCoreIDs in a Processor resource from the given
@@ -848,6 +849,22 @@ inline void
                         json["TDPWatts"] = *tdp;
                     }
                 }
+                else if (key == "SpeedLimit")
+                {
+                    const uint32_t* speed = std::get_if<uint32_t>(&variant);
+                    if (speed != nullptr)
+                    {
+                        json["SpeedLimitMHz"] = *speed;
+                    }
+                }
+                else if (key == "SpeedLocked")
+                {
+                    const bool* speedLock = std::get_if<bool>(&variant);
+                    if (speedLock != nullptr)
+                    {
+                        json["SpeedLocked"] = *speedLock;
+                    }
+                }
                 else if (key == "TurboProfile")
                 {
                     const auto* turboList =
@@ -1008,6 +1025,152 @@ inline void getProcessorData(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
             }
         }
     }
+}
+
+/**
+ * Handle the PATCH operation of the speed locked property. Do basic
+ * validation of the input data, and then set the D-Bus property.
+ *
+ * @param[in,out]   resp            Async HTTP response.
+ * @param[in]       processorId     Processor's Id.
+ * @param[in]       speedLocked     New property value to apply.
+ * @param[in]       cpuObjectPath   Path of CPU object to modify.
+ * @param[in]       serviceMap      Service map for CPU object.
+ */
+inline void patchSpeedLocked(const std::shared_ptr<bmcweb::AsyncResp>& resp,
+                             const std::string& processorId,
+                             const bool speedLocked,
+                             const std::string& cpuObjectPath,
+                             const MapperServiceMap& serviceMap)
+{
+    // Check that the property even exists by checking for the interface
+    const std::string* inventoryService = nullptr;
+    for (const auto& [serviceName, interfaceList] : serviceMap)
+    {
+        if (std::find(
+                interfaceList.begin(), interfaceList.end(),
+                "xyz.openbmc_project.Inventory.Item.Cpu.OperatingConfig") !=
+            interfaceList.end())
+        {
+            inventoryService = &serviceName;
+            break;
+        }
+    }
+    if (inventoryService == nullptr)
+    {
+        messages::internalError(resp->res);
+        return;
+    }
+    // Set the property, with handler to check error responses
+    crow::connections::systemBus->async_method_call(
+        [resp, processorId, speedLocked](boost::system::error_code ec,
+                                         sdbusplus::message::message& msg) {
+            if (!ec)
+            {
+                BMCWEB_LOG_DEBUG << "Set speed locked property succeeded";
+                return;
+            }
+
+            BMCWEB_LOG_DEBUG << "CPU:" << processorId
+                             << " set speed locked property failed: " << ec;
+            // Read and convert dbus error message to redfish error
+            const sd_bus_error* dbusError = msg.get_error();
+            if (dbusError == nullptr)
+            {
+                messages::internalError(resp->res);
+                return;
+            }
+            if (strcmp(dbusError->name, "xyz.openbmc_project.Common."
+                                        "Device.Error.WriteFailure") == 0)
+            {
+                // Service failed to change the config
+                messages::operationFailed(resp->res);
+            }
+            else
+            {
+                messages::internalError(resp->res);
+            }
+        },
+        *inventoryService, cpuObjectPath, "org.freedesktop.DBus.Properties",
+        "Set", "xyz.openbmc_project.Inventory.Item.Cpu.OperatingConfig",
+        "SpeedLocked", std::variant<bool>(speedLocked));
+}
+
+/**
+ * Handle the PATCH operation of the speed limit property. Do basic
+ * validation of the input data, and then set the D-Bus property.
+ *
+ * @param[in,out]   resp            Async HTTP response.
+ * @param[in]       processorId     Processor's Id.
+ * @param[in]       speedLimit      New property value to apply.
+ * @param[in]       cpuObjectPath   Path of CPU object to modify.
+ * @param[in]       serviceMap      Service map for CPU object.
+ */
+inline void patchSpeedLimit(const std::shared_ptr<bmcweb::AsyncResp>& resp,
+                            const std::string& processorId,
+                            const int speedLimit,
+                            const std::string& cpuObjectPath,
+                            const MapperServiceMap& serviceMap)
+{
+    // Check that the property even exists by checking for the interface
+    const std::string* inventoryService = nullptr;
+    for (const auto& [serviceName, interfaceList] : serviceMap)
+    {
+        if (std::find(
+                interfaceList.begin(), interfaceList.end(),
+                "xyz.openbmc_project.Inventory.Item.Cpu.OperatingConfig") !=
+            interfaceList.end())
+        {
+            inventoryService = &serviceName;
+            break;
+        }
+    }
+    if (inventoryService == nullptr)
+    {
+        messages::internalError(resp->res);
+        return;
+    }
+    // Set the property, with handler to check error responses
+    crow::connections::systemBus->async_method_call(
+        [resp, processorId, speedLimit](boost::system::error_code ec,
+                                        sdbusplus::message::message& msg) {
+            if (!ec)
+            {
+                BMCWEB_LOG_DEBUG << "Set speed limit property succeeded";
+                return;
+            }
+
+            BMCWEB_LOG_DEBUG << "CPU:" << processorId
+                             << " set speed limit property failed: " << ec;
+            // Read and convert dbus error message to redfish error
+            const sd_bus_error* dbusError = msg.get_error();
+            if (dbusError == nullptr)
+            {
+                messages::internalError(resp->res);
+                return;
+            }
+            if (strcmp(dbusError->name,
+                       "xyz.openbmc_project.Common.Error.InvalidArgument") == 0)
+            {
+                // Invalid value
+                messages::propertyValueIncorrect(resp->res, "SpeedLimit",
+                                                 std::to_string(speedLimit));
+            }
+            else if (strcmp(dbusError->name, "xyz.openbmc_project.Common."
+                                             "Device.Error.WriteFailure") == 0)
+            {
+                // Service failed to change the config
+                messages::operationFailed(resp->res);
+            }
+            else
+            {
+                messages::internalError(resp->res);
+            }
+        },
+        *inventoryService, cpuObjectPath, "org.freedesktop.DBus.Properties",
+        "Set", "xyz.openbmc_project.Inventory.Item.Cpu.OperatingConfig",
+        "SpeedLimit",
+        std::variant<uint32_t>(static_cast<uint32_t>(speedLimit)));
 }
 
 /**
@@ -1325,12 +1488,45 @@ inline void requestRoutesProcessor(App& app)
             [](const crow::Request& req,
                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                const std::string& processorId) {
+                std::optional<int> speedLimit;
+                std::optional<bool> speedLocked;
                 std::optional<nlohmann::json> appliedConfigJson;
-                if (!json_util::readJson(req, asyncResp->res,
+                // Read json request
+                if (!json_util::readJson(req, asyncResp->res, "SpeedLimitMHz",
+                                         speedLimit, "SpeedLocked", speedLocked,
                                          "AppliedOperatingConfig",
                                          appliedConfigJson))
                 {
                     return;
+                }
+                // Update speed limit
+                if (speedLimit)
+                {
+                    getProcessorObject(
+                        asyncResp, processorId,
+                        [speedLimit](
+                            const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                            const std::string& processorId,
+                            const std::string& objectPath,
+                            const MapperServiceMap& serviceMap) {
+                            patchSpeedLimit(asyncResp, processorId, *speedLimit,
+                                            objectPath, serviceMap);
+                        });
+                }
+                // Update speed locked
+                if (speedLocked)
+                {
+                    getProcessorObject(
+                        asyncResp, processorId,
+                        [speedLocked](
+                            const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                            const std::string& processorId,
+                            const std::string& objectPath,
+                            const MapperServiceMap& serviceMap) {
+                            patchSpeedLocked(asyncResp, processorId,
+                                             *speedLocked, objectPath,
+                                             serviceMap);
+                        });
                 }
 
                 std::string appliedConfigUri;
