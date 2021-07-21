@@ -1344,7 +1344,8 @@ inline void requestRoutesJournalEventLogClear(App& app)
     BMCWEB_ROUTE(
         app,
         "/redfish/v1/Systems/<str>/LogServices/EventLog/Actions/LogService.ClearLog/")
-        .privileges({{"ConfigureComponents"}})
+        .privileges(redfish::privileges::
+                        postLogServiceSubOverComputerSystemLogServiceCollection)
         .methods(boost::beast::http::verb::post)(std::bind_front(
             handleSystemsLogServicesEventLogActionsClearPost, std::ref(app)));
 }
@@ -1927,8 +1928,9 @@ inline void requestRoutesDBusEventLogEntry(App& app)
 
     BMCWEB_ROUTE(
         app, "/redfish/v1/Systems/<str>/LogServices/EventLog/Entries/<str>/")
-        .privileges(redfish::privileges::deleteLogEntry)
-
+        .privileges(
+            redfish::privileges::
+                deleteLogEntrySubOverComputerSystemLogServiceCollectionLogServiceLogEntryCollection)
         .methods(boost::beast::http::verb::delete_)(
             [&app](const crow::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
@@ -2554,7 +2556,8 @@ inline void requestRoutesSystemDumpCreate(App& app)
     BMCWEB_ROUTE(
         app,
         "/redfish/v1/Systems/<str>/LogServices/Dump/Actions/LogService.CollectDiagnosticData/")
-        .privileges(redfish::privileges::postLogService)
+        .privileges(redfish::privileges::
+                        postLogServiceSubOverComputerSystemLogServiceCollection)
         .methods(boost::beast::http::verb::post)(std::bind_front(
             handleLogServicesDumpCollectDiagnosticDataComputerSystemPost,
             std::ref(app)));
@@ -2565,7 +2568,8 @@ inline void requestRoutesSystemDumpClear(App& app)
     BMCWEB_ROUTE(
         app,
         "/redfish/v1/Systems/<str>/LogServices/Dump/Actions/LogService.ClearLog/")
-        .privileges(redfish::privileges::postLogService)
+        .privileges(redfish::privileges::
+                        postLogServiceSubOverComputerSystemLogServiceCollection)
         .methods(boost::beast::http::verb::post)(std::bind_front(
             handleLogServicesDumpClearLogComputerSystemPost, std::ref(app)));
 }
@@ -3167,7 +3171,8 @@ inline void requestRoutesDBusLogServiceActionsClear(App& app)
     BMCWEB_ROUTE(
         app,
         "/redfish/v1/Systems/<str>/LogServices/EventLog/Actions/LogService.ClearLog/")
-        .privileges(redfish::privileges::postLogService)
+        .privileges(redfish::privileges::
+                        postLogServiceSubOverComputerSystemLogServiceCollection)
         .methods(boost::beast::http::verb::post)(
             [&app](const crow::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
