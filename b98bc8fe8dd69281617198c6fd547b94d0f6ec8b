@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "555d5ca3_4e68e07e",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2021-07-21T06:50:18Z",
+      "side": 1,
+      "message": "Right now it is only used for Storage, but it can be used to link to all sort of resources for the Chassis.\n\nFor example, https://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/44571",
+      "parentUuid": "ab8bf5c8_650e8174",
+      "range": {
+        "startLine": 88,
+        "startChar": 12,
+        "endLine": 88,
+        "endChar": 31
+      },
+      "revId": "b98bc8fe8dd69281617198c6fd547b94d0f6ec8b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "ba6a54a8_74bbb266",
         "filename": "redfish-core/lib/chassis.hpp",
         "patchSetId": 32
@@ -45,6 +69,30 @@
       "revId": "b98bc8fe8dd69281617198c6fd547b94d0f6ec8b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9963a352_322cf0b9",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2021-07-21T06:50:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ba6a54a8_74bbb266",
+      "range": {
+        "startLine": 104,
+        "startChar": 0,
+        "endLine": 104,
+        "endChar": 63
+      },
+      "revId": "b98bc8fe8dd69281617198c6fd547b94d0f6ec8b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "fc6d881c_cbd10f9d",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2021-07-21T06:50:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a8691dd_da085a79",
+      "range": {
+        "startLine": 117,
+        "startChar": 0,
+        "endLine": 117,
+        "endChar": 35
+      },
+      "revId": "b98bc8fe8dd69281617198c6fd547b94d0f6ec8b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c6db4062_562788fb",
         "filename": "redfish-core/lib/redfish_util.hpp",
         "patchSetId": 32
@@ -82,6 +154,30 @@
       "writtenOn": "2021-07-13T22:14:31Z",
       "side": 1,
       "message": "This is an extra level of abstraction that I don\u0027t think is warranted in this case (maybe it\u0027s used to greater effect later?)\n\nWe probably shouldn\u0027t be capturing filtering callbacks in this way, but I\u0027m still wrapping my head around what you\u0027re doing.\n\n\nFWIW, generally we use templates for this kind of thing to be able to capture lifetimes and get better optimization, but I\u0027m not sure that\u0027s the right thing in this case.",
+      "range": {
+        "startLine": 79,
+        "startChar": 0,
+        "endLine": 79,
+        "endChar": 59
+      },
+      "revId": "b98bc8fe8dd69281617198c6fd547b94d0f6ec8b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "702c0d0f_08a756c7",
+        "filename": "redfish-core/lib/redfish_util.hpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2021-07-21T06:50:18Z",
+      "side": 1,
+      "message": "yeah, this one is a bit confusing when I was working on it.\n\nBasically, I want to have a way to find/search the chassis that this resource is related to by having more custom check...\n\nThe compare check might be different depending on different resources. This also depends on how we consider a resource to be linked to a specific Chassis... \n\nThis probably need more discussion in general.\n\nbut I will try to remove this level of abstraction and set it up so that the resource object path just have to be a valid subpath for the chassis object path to be consider it.",
+      "parentUuid": "c6db4062_562788fb",
       "range": {
         "startLine": 79,
         "startChar": 0,
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "a7921882_238819fd",
+        "filename": "redfish-core/lib/redfish_util.hpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2021-07-21T06:50:18Z",
+      "side": 1,
+      "message": "What if the callback needs the values we find in here.\n\nIn this case, we are trying to use the chassisId we find and do whatever we need to do with it.",
+      "parentUuid": "77c63d04_5371afec",
+      "range": {
+        "startLine": 81,
+        "startChar": 51,
+        "endLine": 81,
+        "endChar": 68
+      },
+      "revId": "b98bc8fe8dd69281617198c6fd547b94d0f6ec8b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e2018073_9291b7e6",
         "filename": "redfish-core/lib/redfish_util.hpp",
         "patchSetId": 32
@@ -128,6 +248,30 @@
       "writtenOn": "2021-07-13T22:14:31Z",
       "side": 1,
       "message": "Argument never used?  Generally we follow the pattern used in asio, where all async calls result in a single callback being called, either with an error, or with correct data.  I suspect this callback can use the same and be greatly simplified as a result.",
+      "range": {
+        "startLine": 83,
+        "startChar": 0,
+        "endLine": 83,
+        "endChar": 50
+      },
+      "revId": "b98bc8fe8dd69281617198c6fd547b94d0f6ec8b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7019fbfd_efb8dea5",
+        "filename": "redfish-core/lib/redfish_util.hpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2021-07-21T06:50:18Z",
+      "side": 1,
+      "message": "How would I approach it if I need both correct and error.\n\nFor example, in https://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/43928/22/redfish-core/lib/log_services.hpp#3177\n\nI have the callback and the cleanup...\n\ncleanup to add the error message.",
+      "parentUuid": "e2018073_9291b7e6",
       "range": {
         "startLine": 83,
         "startChar": 0,
@@ -233,6 +377,30 @@
     },
     {
       "key": {
+        "uuid": "e76f52c7_bd126921",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2021-07-21T06:50:18Z",
+      "side": 1,
+      "message": "I have moved it back.\n\nI have left it after the error checks to remove the empty list if it does not get to that point.",
+      "parentUuid": "5f93c730_02145131",
+      "range": {
+        "startLine": 60,
+        "startChar": 0,
+        "endLine": 60,
+        "endChar": 66
+      },
+      "revId": "b98bc8fe8dd69281617198c6fd547b94d0f6ec8b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "b9068252_9c5fd8a4",
         "filename": "redfish-core/lib/storage.hpp",
         "patchSetId": 32
@@ -244,6 +412,30 @@
       "writtenOn": "2021-07-13T22:14:31Z",
       "side": 1,
       "message": "This is relying on one of two mechanisms for determine contained by. \n Technically this is not the abstraction to use, because a StorageController doesn\u0027t necessarily \"contain\" a given drive.  I suspect an association is needed here to associate a given controller to a drive.",
+      "range": {
+        "startLine": 118,
+        "startChar": 0,
+        "endLine": 122,
+        "endChar": 17
+      },
+      "revId": "b98bc8fe8dd69281617198c6fd547b94d0f6ec8b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e07221d7_028345cd",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2021-07-21T06:50:18Z",
+      "side": 1,
+      "message": "This is more for checking that the StorageController is under the Storage\u0027s object path.\n\nThe parent path is the Storage object path. As you mentioned, there is no direct relationship between a drive and StorageController here.",
+      "parentUuid": "b9068252_9c5fd8a4",
       "range": {
         "startLine": 118,
         "startChar": 0,
@@ -279,6 +471,30 @@
     },
     {
       "key": {
+        "uuid": "5829e6ab_b918297c",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 270,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2021-07-21T06:50:18Z",
+      "side": 1,
+      "message": "ah yes, thanks. I added the Item.Storage dbus call afterward and missed the error check.\n\nI have moved this inside the dbus call and added resourceNotFound error",
+      "parentUuid": "8c684704_6d144300",
+      "range": {
+        "startLine": 263,
+        "startChar": 0,
+        "endLine": 270,
+        "endChar": 0
+      },
+      "revId": "b98bc8fe8dd69281617198c6fd547b94d0f6ec8b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fb8358c0_d995e6e3",
         "filename": "redfish-core/lib/storage.hpp",
         "patchSetId": 32
@@ -293,6 +509,24 @@
       "revId": "b98bc8fe8dd69281617198c6fd547b94d0f6ec8b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9c72f6d7_5c50459d",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 296,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2021-07-21T06:50:18Z",
+      "side": 1,
+      "message": "yes",
+      "parentUuid": "fb8358c0_d995e6e3",
+      "revId": "b98bc8fe8dd69281617198c6fd547b94d0f6ec8b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
