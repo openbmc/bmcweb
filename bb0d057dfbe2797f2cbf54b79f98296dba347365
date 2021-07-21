@@ -16,6 +16,24 @@
       "revId": "bb0d057dfbe2797f2cbf54b79f98296dba347365",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "192f63bf_df62fac0",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000632
+      },
+      "writtenOn": "2021-07-21T05:09:57Z",
+      "side": 1,
+      "message": "yes. updated the commit message. \nsmbios-mdr code https://github.com/openbmc/smbios-mdr/blob/a427dd1de9e765861a52ce0f73021a282cc6ce4c/src/dimm.cpp#L118\n\nbut it is not https://github.com/openbmc/phosphor-dbus-interfaces/blob/master/yaml/xyz/openbmc_project/Inventory/Item/Dimm/MemoryLocation.interface.yaml\n\nWithout this change the MemoryLocation info will published by smbios-mdr but not shown in BMCWEB.\n\nProbably smbios-mdr should inherit the phosphor-dbus-interfaces for MemoryLocation",
+      "parentUuid": "5e6627e2_55260989",
+      "revId": "bb0d057dfbe2797f2cbf54b79f98296dba347365",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
