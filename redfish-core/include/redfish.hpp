@@ -22,6 +22,7 @@
 #include "../lib/ethernet.hpp"
 #include "../lib/event_service.hpp"
 #include "../lib/hypervisor_system.hpp"
+#include "../lib/intel_voltage_regulators.hpp"
 #include "../lib/log_services.hpp"
 #include "../lib/managers.hpp"
 #include "../lib/memory.hpp"
@@ -61,6 +62,7 @@ class RedfishService
      */
     RedfishService(App& app)
     {
+        requestRoutesIntelVoltageRegulators(app);
         requestAccountServiceRoutes(app);
         requestRoutesRoles(app);
         requestRoutesRoleCollection(app);

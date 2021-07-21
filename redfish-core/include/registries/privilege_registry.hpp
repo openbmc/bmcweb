@@ -1407,6 +1407,10 @@ const static auto& putVirtualMediaCollection = privilegeSetConfigureManager;
 const static auto& deleteVirtualMediaCollection = privilegeSetConfigureManager;
 const static auto& postVirtualMediaCollection = privilegeSetConfigureManager;
 
+// Voltage Regulators
+const static auto& getVoltageRegulators = privilegeSetLogin;
+const static auto& putVoltageRegulators = privilegeSetConfigureManager;
+
 // Volume
 const static auto& getVolume = privilegeSetLogin;
 const static auto& headVolume = privilegeSetLogin;

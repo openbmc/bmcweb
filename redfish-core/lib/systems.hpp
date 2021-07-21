@@ -2660,6 +2660,10 @@ inline void requestRoutesSystems(App& app)
             asyncResp->res.jsonValue["LogServices"] = {
                 {"@odata.id", "/redfish/v1/Systems/system/LogServices"}};
 
+            asyncResp->res.jsonValue["Oem"]["VoltageRegulators"] = {
+                {"@odata.id",
+                 "/redfish/v1/Systems/system/Oem/VoltageRegulators"}};
+
             asyncResp->res.jsonValue["Bios"] = {
                 {"@odata.id", "/redfish/v1/Systems/system/Bios"}};
 
