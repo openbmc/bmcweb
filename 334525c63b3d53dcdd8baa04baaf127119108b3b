@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a9bff37e_0fd559e5",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-07-21T19:53:29Z",
+      "side": 1,
+      "message": "we follow \nhttps://chris.beams.io/posts/git-commit/\n\n    Separate subject from body with a blank line\n    Limit the subject line to 50 characters\n    Capitalize the subject line\n    Do not end the subject line with a period\n    Use the imperative mood in the subject line\n    Wrap the body at 72 characters\n    Use the body to explain what and why vs. how",
+      "revId": "334525c63b3d53dcdd8baa04baaf127119108b3b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bfc15145_0d0e9174",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-07-21T19:53:29Z",
+      "side": 1,
+      "message": "Could add a link to https://www.boost.org/doc/libs/master/libs/beast/doc/html/beast/using_websocket/timeouts.html",
+      "revId": "334525c63b3d53dcdd8baa04baaf127119108b3b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d504f46a_533846bc",
+        "filename": "http/websocket.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-07-21T19:53:29Z",
+      "side": 1,
+      "message": "A comment here might help.",
+      "revId": "334525c63b3d53dcdd8baa04baaf127119108b3b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
