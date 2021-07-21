@@ -1,0 +1,124 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "495a0397_71966534",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-07-21T17:31:57Z",
+      "side": 1,
+      "message": "standard? registry ?",
+      "range": {
+        "startLine": 10,
+        "startChar": 32,
+        "endLine": 10,
+        "endChar": 40
+      },
+      "revId": "41ab9a5a2fab589d9e0a5f948f871b81e73637a3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b97aceb2_77a5eceb",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-07-21T17:31:57Z",
+      "side": 1,
+      "message": "What does backward compatibility have to do with this? \nJust end the sentence after standard?",
+      "range": {
+        "startLine": 10,
+        "startChar": 44,
+        "endLine": 10,
+        "endChar": 66
+      },
+      "revId": "41ab9a5a2fab589d9e0a5f948f871b81e73637a3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f9d884ff_791a090f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-07-21T17:31:57Z",
+      "side": 1,
+      "message": "Can you further explain the client impact? \nE.g. \"Operator and Readonly will now be able to view CrashDumps, an operator will no longer be able to clear Post Codes, CrashDumps, or trigger a crash dump\". Don\u0027t take this word for word, just an example of what I am looking for.",
+      "revId": "41ab9a5a2fab589d9e0a5f948f871b81e73637a3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d11514c2_5c3079d7",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-07-21T17:31:57Z",
+      "side": 1,
+      "message": "Isn\u0027t this the same as above?",
+      "revId": "41ab9a5a2fab589d9e0a5f948f871b81e73637a3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1f1e1b99_4c732964",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-07-21T17:31:57Z",
+      "side": 1,
+      "message": "Is this correct?",
+      "range": {
+        "startLine": 31,
+        "startChar": 31,
+        "endLine": 31,
+        "endChar": 47
+      },
+      "revId": "41ab9a5a2fab589d9e0a5f948f871b81e73637a3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2d8de8f1_0952ffc0",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-07-21T17:31:57Z",
+      "side": 1,
+      "message": "Tested?",
+      "revId": "41ab9a5a2fab589d9e0a5f948f871b81e73637a3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
