@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e9e3830d_260ff21a",
+        "filename": "redfish-core/lib/service_root.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-07-22T19:46:23Z",
+      "side": 1,
+      "message": "Still looks wrong.  I\u0027m guessing you had a merge conflict on the privileges stuff.",
+      "range": {
+        "startLine": 69,
+        "startChar": 20,
+        "endLine": 69,
+        "endChar": 22
+      },
+      "revId": "d3ae198058d4211e24d87ac2556c7d617e905e26",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
