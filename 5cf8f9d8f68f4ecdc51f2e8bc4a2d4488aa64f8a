@@ -48,6 +48,30 @@
     },
     {
       "key": {
+        "uuid": "5cff1651_9a991e27",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-07-22T15:55:48Z",
+      "side": 1,
+      "message": "A little more digging shows that dbus-sensors is the one that\u0027s technically wrong here.  We should fix this to use airflow as the path, not cfm;\n\nhttps://github.com/openbmc/dbus-sensors/blob/9f59489e62d6d8a6fd299e118bcc0c3b95fc1353/src/ExitAirTempSensor.cpp#L173\n\nThis happened because phosphor-dbus-interfaces were merged after the cfm sensor was built, then this code was build against phosphor-dbus-interfaces.",
+      "parentUuid": "fc4d7120_0cb7a6d1",
+      "range": {
+        "startLine": 66,
+        "startChar": 16,
+        "endLine": 66,
+        "endChar": 48
+      },
+      "revId": "5cf8f9d8f68f4ecdc51f2e8bc4a2d4488aa64f8a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "edab6993_a47ae318",
         "filename": "redfish-core/lib/sensors.hpp",
         "patchSetId": 2
