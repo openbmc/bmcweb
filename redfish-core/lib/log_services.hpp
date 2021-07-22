@@ -6405,8 +6405,7 @@ inline void getSystemHardwareIsolationLogService(
     asyncResp->res.jsonValue["@odata.type"] = "#LogService.v1_2_0.LogService";
     asyncResp->res.jsonValue["Name"] = "Hardware Isolation LogService";
     asyncResp->res.jsonValue["Description"] =
-        "Hardware Isolation LogService for system owned "
-        "devices";
+        "Hardware Isolation LogService for system owned devices";
     asyncResp->res.jsonValue["Id"] = "HardwareIsolation";
 
     asyncResp->res.jsonValue["Entries"] = {
@@ -6522,13 +6521,13 @@ inline void getRedfishUriByDbusObjPath(
             if (entryJsonIdx > 0)
             {
                 asyncResp->res.jsonValue["Members"][entryJsonIdx - 1]["Links"]
-                                        ["OriginOfCondition"] = {
-                    {"@odata.id", redfishUri}};
+                                        ["OriginOfCondition"]["@odata.id"] =
+                    redfishUri;
             }
             else
             {
-                asyncResp->res.jsonValue["Links"]["OriginOfCondition"] = {
-                    {"@odata.id", redfishUri}};
+                asyncResp->res.jsonValue["Links"]["OriginOfCondition"]
+                                        ["@odata.id"] = redfishUri;
             }
             return;
         }
@@ -6538,12 +6537,9 @@ inline void getRedfishUriByDbusObjPath(
         // "/redfish/v1/Systems/system/Processors/<str>/SubProcessors/core0"
         crow::connections::systemBus->async_method_call(
             [asyncResp, dbusObjPath, entryJsonIdx, redfishUri, uriIdPos,
-             uriIdPattern](
-                const boost::system::error_code ec1,
-                const boost::container::flat_map<
-                    std::string, boost::container::flat_map<
-                                     std::string, std::vector<std::string>>>&
-                    subtree) mutable {
+             uriIdPattern](const boost::system::error_code& ec1,
+                           const dbus::utility::MapperGetSubTreeResponse&
+                               subtree) mutable {
             if (ec1)
             {
                 BMCWEB_LOG_ERROR(
@@ -6627,13 +6623,13 @@ inline void getRedfishUriByDbusObjPath(
             if (entryJsonIdx > 0)
             {
                 asyncResp->res.jsonValue["Members"][entryJsonIdx - 1]["Links"]
-                                        ["OriginOfCondition"] = {
-                    {"@odata.id", redfishUri}};
+                                        ["OriginOfCondition"]["@odata.id"] =
+                    redfishUri;
             }
             else
             {
-                asyncResp->res.jsonValue["Links"]["OriginOfCondition"] = {
-                    {"@odata.id", redfishUri}};
+                asyncResp->res.jsonValue["Links"]["OriginOfCondition"]
+                                        ["@odata.id"] = redfishUri;
             }
         },
             "xyz.openbmc_project.ObjectMapper",
@@ -6667,7 +6663,7 @@ inline void getPrettyNameByDbusObjPath(
 {
     crow::connections::systemBus->async_method_call(
         [asyncResp, dbusObjPath,
-         entryJsonIdx](const boost::system::error_code ec,
+         entryJsonIdx](const boost::system::error_code& ec,
                        const dbus::utility::MapperGetObject& objType) mutable {
         if (ec || objType.empty())
         {
@@ -6786,8 +6782,7 @@ inline void fillSystemHardwareIsolationLogEntry(
 
     for (const auto& interface : dbusObjIt->second)
     {
-        if (interface.first == "xyz.openbmc_project."
-                               "HardwareIsolation.Entry")
+        if (interface.first == "xyz.openbmc_project.HardwareIsolation.Entry")
         {
             for (const auto& property : interface.second)
             {
@@ -6804,18 +6799,16 @@ inline void fillSystemHardwareIsolationLogEntry(
                         break;
                     }
 
-                    if (*severity == "xyz.openbmc_project."
-                                     "HardwareIsolation.Entry.Type."
-                                     "Critical")
+                    if (*severity ==
+                        "xyz.openbmc_project.HardwareIsolation.Entry.Type.Critical")
                     {
                         entryJson["Severity"] = "Critical";
                     }
-                    else if ((*severity == "xyz.openbmc_project."
-                                           "HardwareIsolation."
-                                           "Entry.Type.Warning") ||
-                             (*severity == "xyz.openbmc_project."
-                                           "HardwareIsolation."
-                                           "Entry.Type.Manual"))
+                    else if (
+                        (*severity ==
+                         "xyz.openbmc_project.HardwareIsolation.Entry.Type.Warning") ||
+                        (*severity ==
+                         "xyz.openbmc_project.HardwareIsolation.Entry.Type.Manual"))
                     {
                         entryJson["Severity"] = "Warning";
                     }
@@ -6843,8 +6836,7 @@ inline void fillSystemHardwareIsolationLogEntry(
                 }
             }
         }
-        else if (interface.first == "xyz.openbmc_project."
-                                    "Time.EpochTime")
+        else if (interface.first == "xyz.openbmc_project.Time.EpochTime")
         {
             for (const auto& property : interface.second)
             {
@@ -6865,8 +6857,8 @@ inline void fillSystemHardwareIsolationLogEntry(
                 }
             }
         }
-        else if (interface.first == "xyz.openbmc_project.Association."
-                                    "Definitions")
+        else if (interface.first ==
+                 "xyz.openbmc_project.Association.Definitions")
         {
             for (const auto& property : interface.second)
             {
@@ -6896,10 +6888,9 @@ inline void fillSystemHardwareIsolationLogEntry(
                         {
                             sdbusplus::message::object_path errPath =
                                 std::get<2>(assoc);
-                            entryJson["AdditionalDataURI"] =
-                                "/redfish/v1/Systems/system/"
-                                "LogServices/EventLog/Entries/" +
-                                errPath.filename() + "/attachment";
+                            entryJson["AdditionalDataURI"] = boost::urls::format(
+                                "/redfish/v1/Systems/system/LogServices/EventLog/Entries/{}/attachment",
+                                errPath.filename());
                         }
                     }
                 }
@@ -6908,10 +6899,9 @@ inline void fillSystemHardwareIsolationLogEntry(
     }
 
     entryJson["@odata.type"] = "#LogEntry.v1_9_0.LogEntry";
-    entryJson["@odata.id"] =
-        "/redfish/v1/Systems/system/LogServices/HardwareIsolation/"
-        "Entries/" +
-        dbusObjIt->first.filename();
+    entryJson["@odata.id"] = boost::urls::format(
+        "/redfish/v1/Systems/system/LogServices/HardwareIsolation/Entries/{}",
+        dbusObjIt->first.filename());
     entryJson["Id"] = dbusObjIt->first.filename();
     entryJson["Name"] = "Hardware Isolation Entry";
     entryJson["EntryType"] = "Event";
@@ -6933,7 +6923,7 @@ inline void getSystemHardwareIsolationLogEntryCollection(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
     auto getManagedObjectsHandler =
-        [asyncResp](const boost::system::error_code ec,
+        [asyncResp](const boost::system::error_code& ec,
                     const GetManagedObjectsType& mgtObjs) {
         if (ec)
         {
@@ -6961,8 +6951,7 @@ inline void getSystemHardwareIsolationLogEntryCollection(
         asyncResp->res.jsonValue["@odata.type"] =
             "#LogEntryCollection.LogEntryCollection";
         asyncResp->res.jsonValue["@odata.id"] =
-            "/redfish/v1/Systems/system/LogServices/HardwareIsolation/"
-            "Entries";
+            "/redfish/v1/Systems/system/LogServices/HardwareIsolation/Entries";
         asyncResp->res.jsonValue["Name"] = "Hardware Isolation Entries";
         asyncResp->res.jsonValue["Description"] =
             "Collection of System Hardware Isolation Entries";
@@ -6971,7 +6960,7 @@ inline void getSystemHardwareIsolationLogEntryCollection(
     // Get the DBus name of HardwareIsolation service
     crow::connections::systemBus->async_method_call(
         [asyncResp, getManagedObjectsHandler](
-            const boost::system::error_code ec,
+            const boost::system::error_code& ec,
             const dbus::utility::MapperGetObject& objType) {
         if (ec || objType.empty())
         {
@@ -7031,9 +7020,8 @@ inline void getSystemHardwareIsolationLogEntryById(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& entryId)
 {
-    sdbusplus::message::object_path entryObjPath(
-        std::string("/xyz/openbmc_project/hardware_isolation/entry") + "/" +
-        entryId);
+    sdbusplus::message::object_path entryObjPath(std::format(
+        "/xyz/openbmc_project/hardware_isolation/entry/{}", entryId));
 
     auto getManagedObjectsRespHandler =
         [asyncResp, entryObjPath](const boost::system::error_code& ec,
@@ -7069,7 +7057,7 @@ inline void getSystemHardwareIsolationLogEntryById(
 
     auto getObjectRespHandler =
         [asyncResp, entryId, entryObjPath, getManagedObjectsRespHandler](
-            const boost::system::error_code ec,
+            const boost::system::error_code& ec,
             const dbus::utility::MapperGetObject& objType) {
         if (ec || objType.empty())
         {
@@ -7142,7 +7130,7 @@ inline void deleteSystemHardwareIsolationLogEntryById(
     // entries and get the DBus name of that entry
     crow::connections::systemBus->async_method_call(
         [asyncResp, entryId,
-         entryObjPath](const boost::system::error_code ec,
+         entryObjPath](const boost::system::error_code& ec,
                        const dbus::utility::MapperGetObject& objType) {
         if (ec || objType.empty())
         {
@@ -7178,7 +7166,7 @@ inline void deleteSystemHardwareIsolationLogEntryById(
 
         // Delete the respective dbus entry object
         crow::connections::systemBus->async_method_call(
-            [asyncResp, entryObjPath](const boost::system::error_code ec1) {
+            [asyncResp, entryObjPath](const boost::system::error_code& ec1) {
             if (ec1)
             {
                 BMCWEB_LOG_ERROR(
@@ -7196,6 +7184,70 @@ inline void deleteSystemHardwareIsolationLogEntryById(
         "/xyz/openbmc_project/object_mapper",
         "xyz.openbmc_project.ObjectMapper", "GetObject", entryObjPath.str,
         hwIsolationEntryIfaces);
+}
+
+/**
+ * @brief API Used to deisolate the all HardwareIsolation entries.
+ *
+ * @param[in] req - The HardwareIsolation redfish request (unused now).
+ * @param[in] asyncResp - The redfish response to return.
+ *
+ * @return The redfish response in the given buffer.
+ */
+inline void postSystemHardwareIsolationLogServiceClearLog(
+    const crow::Request& /* req */,
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
+{
+    // Get the DBus name of HardwareIsolation service
+    crow::connections::systemBus->async_method_call(
+        [asyncResp](const boost::system::error_code& ec,
+                    const dbus::utility::MapperGetObject& objType) {
+        if (ec || objType.empty())
+        {
+            BMCWEB_LOG_ERROR(
+                "DBUS response error [{} : {}] when tried to get the HardwareIsolation dbus name",
+                ec.value(), ec.message());
+            messages::internalError(asyncResp->res);
+            return;
+        }
+
+        if (objType.size() > 1)
+        {
+            BMCWEB_LOG_ERROR(
+                "More than one dbus service implemented the HardwareIsolation service");
+            messages::internalError(asyncResp->res);
+            return;
+        }
+
+        if (objType[0].first.empty())
+        {
+            BMCWEB_LOG_ERROR(
+                "The retrieved HardwareIsolation dbus name is empty");
+            messages::internalError(asyncResp->res);
+            return;
+        }
+
+        // Delete all HardwareIsolation entries
+        crow::connections::systemBus->async_method_call(
+            [asyncResp](const boost::system::error_code& ec1) {
+            if (ec1)
+            {
+                BMCWEB_LOG_ERROR(
+                    "DBUS response error [{} : {}] when tried to delete all HardwareIsolation entries",
+                    ec1.value(), ec1.message());
+                messages::internalError(asyncResp->res);
+                return;
+            }
+            messages::success(asyncResp->res);
+        },
+            objType[0].first, "/xyz/openbmc_project/hardware_isolation",
+            "xyz.openbmc_project.Collection.DeleteAll", "DeleteAll");
+    },
+        "xyz.openbmc_project.ObjectMapper",
+        "/xyz/openbmc_project/object_mapper",
+        "xyz.openbmc_project.ObjectMapper", "GetObject",
+        "/xyz/openbmc_project/hardware_isolation",
+        std::array<const char*, 1>{"xyz.openbmc_project.Collection.DeleteAll"});
 }
 
 /**
@@ -7231,6 +7283,13 @@ inline void requestRoutesSystemHardwareIsolationLogService(App& app)
         .privileges(redfish::privileges::deleteLogEntry)
         .methods(boost::beast::http::verb::delete_)(
             deleteSystemHardwareIsolationLogEntryById);
+
+    BMCWEB_ROUTE(app,
+                 "/redfish/v1/Systems/system/LogServices/HardwareIsolation/"
+                 "Actions/LogService.ClearLog/")
+        .privileges(redfish::privileges::postLogService)
+        .methods(boost::beast::http::verb::post)(
+            postSystemHardwareIsolationLogServiceClearLog);
 }
 #endif // BMCWEB_ENABLE_HW_ISOLATION
 
