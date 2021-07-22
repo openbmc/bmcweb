@@ -119,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "da432451_63ef2876",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 1000559
+      },
+      "writtenOn": "2021-07-22T16:39:12Z",
+      "side": 1,
+      "message": "Ignore this - fix in sensors is better since it conforms to interface documentation",
+      "parentUuid": "edab6993_a47ae318",
+      "range": {
+        "startLine": 104,
+        "startChar": 4,
+        "endLine": 104,
+        "endChar": 28
+      },
+      "revId": "5cf8f9d8f68f4ecdc51f2e8bc4a2d4488aa64f8a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "cef1bf20_9dcb4ce2",
         "filename": "redfish-core/lib/sensors.hpp",
         "patchSetId": 2
