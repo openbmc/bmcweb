@@ -19,6 +19,52 @@
     },
     {
       "key": {
+        "uuid": "8d9dd6e1_ab9cef99",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1827,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2021-07-22T17:23:17Z",
+      "side": 1,
+      "message": "nit: move the declaration near to what it is used.\n\n```\nstd::string filename \u003d it.path().filename();\n```",
+      "range": {
+        "startLine": 1827,
+        "startChar": 8,
+        "endLine": 1827,
+        "endChar": 16
+      },
+      "revId": "8000de88e5cec0173c5057a1daef4810ac6d1aac",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "da2633e6_ef84da02",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1839,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2021-07-22T17:23:17Z",
+      "side": 1,
+      "message": "Prefer return value over output parameter if possible.",
+      "range": {
+        "startLine": 1839,
+        "startChar": 57,
+        "endLine": 1839,
+        "endChar": 63
+      },
+      "revId": "8000de88e5cec0173c5057a1daef4810ac6d1aac",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "4447de0f_8d09c0b8",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 2
@@ -30,6 +76,41 @@
       "writtenOn": "2021-07-22T17:01:48Z",
       "side": 1,
       "message": "what about \u0027\\n\u0027?",
+      "revId": "8000de88e5cec0173c5057a1daef4810ac6d1aac",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "279d47a5_d6364cb7",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1842,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2021-07-22T17:23:17Z",
+      "side": 1,
+      "message": "Consider using find_first_of to search \u0027\\r\u0027 or \u0027\\n\u0027 at the same time?",
+      "parentUuid": "4447de0f_8d09c0b8",
+      "revId": "8000de88e5cec0173c5057a1daef4810ac6d1aac",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7c4672c3_07803b4c",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1855,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2021-07-22T17:23:17Z",
+      "side": 1,
+      "message": "ditto: prefer returning a nlohmann::json object directly if possible.",
       "revId": "8000de88e5cec0173c5057a1daef4810ac6d1aac",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
@@ -53,6 +134,24 @@
     },
     {
       "key": {
+        "uuid": "2d568b76_7e3a8f46",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1860,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2021-07-22T17:23:17Z",
+      "side": 1,
+      "message": "If no, can we remove all the parts related to MessageRegistry? It doesn\u0027t give us more information than the message itself.",
+      "parentUuid": "400a26b8_f606f8e3",
+      "revId": "8000de88e5cec0173c5057a1daef4810ac6d1aac",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "0b16f296_a72420d2",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 2
@@ -70,6 +169,23 @@
     },
     {
       "key": {
+        "uuid": "bbedcb3c_39eeb5f2",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1966,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2021-07-22T17:23:17Z",
+      "side": 1,
+      "message": "Is the latest log file compressed as well? Or GzFile is smart enough so when a file is not compressed, it reads it directly without decompression?",
+      "revId": "8000de88e5cec0173c5057a1daef4810ac6d1aac",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "b35c0a98_ba165ea3",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 2
@@ -81,6 +197,57 @@
       "writtenOn": "2021-07-22T17:01:48Z",
       "side": 1,
       "message": "We should keep characters other than EOL as is.",
+      "revId": "8000de88e5cec0173c5057a1daef4810ac6d1aac",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0a76c90d_af69ec6b",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1985,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2021-07-22T17:23:17Z",
+      "side": 1,
+      "message": "should we break directly if \"entryCount \u003e skip + top\"?",
+      "revId": "8000de88e5cec0173c5057a1daef4810ac6d1aac",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0769fbf5_c4894ba7",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1990,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2021-07-22T17:23:17Z",
+      "side": 1,
+      "message": "How does the ordering work here? Consider the following case,\n\n```\n# console plaintext\nmessage4\nmessage5\n\n# console_0 compressed\nmessage2\nmessage3\n\n\n# console_1 compressed\nmessage0\nmessage1\n```\n\nWe shall get either [msg4, msg3, ..., msg0] or [msg0, msg1, ..., msg4], however, the codes here get us \"[msg4, msg5, msg2, msg3, msg0, msg1]\", am I correct? It isn\u0027t OK. We don\u0027t have timestamps here, the relative order matters.",
+      "revId": "8000de88e5cec0173c5057a1daef4810ac6d1aac",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0645e003_345bf1cd",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 2038,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2021-07-22T17:23:17Z",
+      "side": 1,
+      "message": "Please leave msgs as is.",
       "revId": "8000de88e5cec0173c5057a1daef4810ac6d1aac",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
