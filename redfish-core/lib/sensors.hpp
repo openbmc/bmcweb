@@ -63,6 +63,7 @@ static const boost::container::flat_map<std::string_view,
              {node::sensors,
               {"/xyz/openbmc_project/sensors/power",
                "/xyz/openbmc_project/sensors/current",
+               "/xyz/openbmc_project/sensors/cfm",
                "/xyz/openbmc_project/sensors/utilization"}},
              {node::thermal,
               {"/xyz/openbmc_project/sensors/fan_tach",
@@ -100,7 +101,7 @@ inline const char* toReadingType(const std::string& sensorType)
     {
         return "Altitude";
     }
-    if (sensorType == "airflow")
+    if (sensorType == "cfm")
     {
         return "AirFlow";
     }
@@ -608,10 +609,10 @@ void getChassis(const std::shared_ptr<SensorsAsyncResp>& sensorsAsyncResp,
                         sensorsAsyncResp->chassisSubNode ==
                                 sensors::node::thermal
                             ? "Temperatures"
-                        : sensorsAsyncResp->chassisSubNode ==
-                                sensors::node::power
-                            ? "Voltages"
-                            : "Sensors");
+                            : sensorsAsyncResp->chassisSubNode ==
+                                      sensors::node::power
+                                  ? "Voltages"
+                                  : "Sensors");
                     return;
                 }
                 const std::shared_ptr<boost::container::flat_set<std::string>>
