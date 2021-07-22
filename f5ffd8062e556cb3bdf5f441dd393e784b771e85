@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6b75b14c_b144c7a6",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-07-22T15:48:27Z",
+      "side": 0,
+      "message": "see above, I suspect this code was correct as-is.",
+      "revId": "f5ffd8062e556cb3bdf5f441dd393e784b771e85",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
