@@ -327,6 +327,30 @@
     },
     {
       "key": {
+        "uuid": "894333b2_3a4fcaa6",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-07-22T14:45:15Z",
+      "side": 1,
+      "message": "We should not move to a more incorrect privilege so I would suggest either fix here or just remove the code changing this and that can be done in a separate commit.",
+      "parentUuid": "baa55511_faa665c7",
+      "range": {
+        "startLine": 31,
+        "startChar": 31,
+        "endLine": 31,
+        "endChar": 47
+      },
+      "revId": "41ab9a5a2fab589d9e0a5f948f871b81e73637a3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "2d8de8f1_0952ffc0",
         "filename": "/COMMIT_MSG",
         "patchSetId": 1
@@ -356,6 +380,24 @@
       "side": 1,
       "message": "Not, I thought I not need to let me do that",
       "parentUuid": "2d8de8f1_0952ffc0",
+      "revId": "41ab9a5a2fab589d9e0a5f948f871b81e73637a3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a45405cf_19a8cf22",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-07-22T14:45:15Z",
+      "side": 1,
+      "message": "Yep, you need to. At-least some basic testing.",
+      "parentUuid": "3cfcb2bc_a4dbb5b0",
       "revId": "41ab9a5a2fab589d9e0a5f948f871b81e73637a3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": false
