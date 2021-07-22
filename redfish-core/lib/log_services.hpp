@@ -7121,6 +7121,84 @@ inline void getSystemHardwareIsolationLogEntryById(
 }
 
 /**
+ * @brief API Used to deisolate the given HardwareIsolation entry.
+ *
+ * @param[in] req - The HardwareIsolation redfish request (unused now).
+ * @param[in] asyncResp - The redfish response to return.
+ * @param[in] entryId - The entry id of HardwareIsolation entries to deisolate.
+ *
+ * @return The redfish response in the given buffer.
+ */
+inline void deleteSystemHardwareIsolationLogEntryById(
+    const crow::Request& /* req */,
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& entryId)
+{
+    sdbusplus::message::object_path entryObjPath(
+        std::string("/xyz/openbmc_project/hardware_isolation/entry") + "/" +
+        entryId);
+
+    // Make sure the given entry id is present in hardware isolation
+    // entries and get the DBus name of that entry
+    crow::connections::systemBus->async_method_call(
+        [asyncResp, entryId,
+         entryObjPath](const boost::system::error_code ec,
+                       const dbus::utility::MapperGetObject& objType) {
+        if (ec || objType.empty())
+        {
+            BMCWEB_LOG_ERROR(
+                "DBUS response error [{} : {}] when tried to get the HardwareIsolation dbus name the given object path: ",
+                ec.value(), ec.message(), entryObjPath.str);
+            if (ec.value() == EBADR)
+            {
+                messages::resourceNotFound(asyncResp->res, "Entry", entryId);
+            }
+            else
+            {
+                messages::internalError(asyncResp->res);
+            }
+            return;
+        }
+
+        if (objType.size() > 1)
+        {
+            BMCWEB_LOG_ERROR(
+                "More than one dbus service implemented the HardwareIsolation service");
+            messages::internalError(asyncResp->res);
+            return;
+        }
+
+        if (objType[0].first.empty())
+        {
+            BMCWEB_LOG_ERROR(
+                "The retrieved HardwareIsolation dbus name is empty");
+            messages::internalError(asyncResp->res);
+            return;
+        }
+
+        // Delete the respective dbus entry object
+        crow::connections::systemBus->async_method_call(
+            [asyncResp, entryObjPath](const boost::system::error_code ec1) {
+            if (ec1)
+            {
+                BMCWEB_LOG_ERROR(
+                    "DBUS response error [{} : {}] when tried to delete the given object path: ",
+                    ec1.value(), ec1.message(), entryObjPath.str);
+                messages::internalError(asyncResp->res);
+                return;
+            }
+            messages::success(asyncResp->res);
+        },
+            objType[0].first, entryObjPath.str,
+            "xyz.openbmc_project.Object.Delete", "Delete");
+    },
+        "xyz.openbmc_project.ObjectMapper",
+        "/xyz/openbmc_project/object_mapper",
+        "xyz.openbmc_project.ObjectMapper", "GetObject", entryObjPath.str,
+        hwIsolationEntryIfaces);
+}
+
+/**
  * @brief API used to route the handler for HardwareIsolation Redfish
  *        LogServices URI
  *
@@ -7147,6 +7225,12 @@ inline void requestRoutesSystemHardwareIsolationLogService(App& app)
         .privileges(redfish::privileges::getLogEntry)
         .methods(boost::beast::http::verb::get)(
             getSystemHardwareIsolationLogEntryById);
+
+    BMCWEB_ROUTE(app, "/redfish/v1/Systems/system/LogServices/"
+                      "HardwareIsolation/Entries/<str>/")
+        .privileges(redfish::privileges::deleteLogEntry)
+        .methods(boost::beast::http::verb::delete_)(
+            deleteSystemHardwareIsolationLogEntryById);
 }
 #endif // BMCWEB_ENABLE_HW_ISOLATION
 
