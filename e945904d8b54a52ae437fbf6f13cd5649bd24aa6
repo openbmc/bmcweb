@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "afa04e83_a3834e48",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-07-22T01:07:41Z",
+      "side": 1,
+      "message": "please remove the tabs",
+      "revId": "e945904d8b54a52ae437fbf6f13cd5649bd24aa6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b522ad64_a763b367",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-07-22T01:07:41Z",
+      "side": 1,
+      "message": "How does this change? How does this impact the users? This also isn\u0027t correct, the an admin user can collect crashdump Diagnostic Data",
+      "range": {
+        "startLine": 23,
+        "startChar": 16,
+        "endLine": 23,
+        "endChar": 68
+      },
+      "revId": "e945904d8b54a52ae437fbf6f13cd5649bd24aa6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
