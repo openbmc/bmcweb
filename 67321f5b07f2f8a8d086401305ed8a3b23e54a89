@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "f993d674_c4eb65f3",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 448,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2021-07-22T18:44:13Z",
+      "side": 1,
+      "message": "I have added it.\n\nJust curious,\n\nDo we generally don\u0027t want to be compatible with platforms using older version of phosphor-dbus-interface? like we can assume that all system have the latest interfaces supported.",
+      "parentUuid": "ba86d674_e7fcead1",
+      "revId": "67321f5b07f2f8a8d086401305ed8a3b23e54a89",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6605c1f9_e9e11caa",
         "filename": "redfish-core/lib/storage.hpp",
         "patchSetId": 3
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "61abddf4_41a29066",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 455,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2021-07-22T18:44:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6605c1f9_e9e11caa",
+      "revId": "67321f5b07f2f8a8d086401305ed8a3b23e54a89",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "530e1d8a_df2bf85a",
         "filename": "redfish-core/lib/storage.hpp",
         "patchSetId": 3
@@ -47,6 +83,30 @@
       "writtenOn": "2021-07-22T18:01:06Z",
       "side": 1,
       "message": "Typically this is a separate method",
+      "range": {
+        "startLine": 461,
+        "startChar": 0,
+        "endLine": 474,
+        "endChar": 30
+      },
+      "revId": "67321f5b07f2f8a8d086401305ed8a3b23e54a89",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "39bdf9c9_80b37aac",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 474,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2021-07-22T18:44:13Z",
+      "side": 1,
+      "message": "I have moved it to a different method and use optional to help check if it is valid. Maybe just checking for empty sting good enough.?",
+      "parentUuid": "530e1d8a_df2bf85a",
       "range": {
         "startLine": 461,
         "startChar": 0,
