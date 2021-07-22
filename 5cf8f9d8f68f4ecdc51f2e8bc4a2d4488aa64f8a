@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "0884ada4_c4e8e07b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000559
+      },
+      "writtenOn": "2021-07-22T15:53:20Z",
+      "side": 1,
+      "message": "xxx",
+      "range": {
+        "startLine": 13,
+        "startChar": 35,
+        "endLine": 13,
+        "endChar": 45
+      },
+      "revId": "5cf8f9d8f68f4ecdc51f2e8bc4a2d4488aa64f8a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "fc4d7120_0cb7a6d1",
         "filename": "redfish-core/lib/sensors.hpp",
         "patchSetId": 2
@@ -18,6 +41,52 @@
         "startChar": 16,
         "endLine": 66,
         "endChar": 48
+      },
+      "revId": "5cf8f9d8f68f4ecdc51f2e8bc4a2d4488aa64f8a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "edab6993_a47ae318",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 1000559
+      },
+      "writtenOn": "2021-07-22T15:53:20Z",
+      "side": 1,
+      "message": "Should both be accepted as airflow? Not sure whether \"airflow\" is being used or not.",
+      "range": {
+        "startLine": 104,
+        "startChar": 4,
+        "endLine": 104,
+        "endChar": 28
+      },
+      "revId": "5cf8f9d8f68f4ecdc51f2e8bc4a2d4488aa64f8a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cef1bf20_9dcb4ce2",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 1000559
+      },
+      "writtenOn": "2021-07-22T15:53:20Z",
+      "side": 1,
+      "message": "should cfm be added here too?",
+      "range": {
+        "startLine": 145,
+        "startChar": 8,
+        "endLine": 145,
+        "endChar": 31
       },
       "revId": "5cf8f9d8f68f4ecdc51f2e8bc4a2d4488aa64f8a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
