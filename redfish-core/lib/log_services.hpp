@@ -74,6 +74,11 @@ constexpr const char* crashdumpTelemetryInterface =
     "com.intel.crashdump.Telemetry";
 
 #ifdef BMCWEB_ENABLE_HW_ISOLATION
+constexpr std::array<const char*, 3> hwIsolationEntryIfaces = {
+    "xyz.openbmc_project.HardwareIsolation.Entry",
+    "xyz.openbmc_project.Association.Definitions",
+    "xyz.openbmc_project.Time.EpochTime"};
+
 using RedfishResourceDBusInterfaces = std::string;
 using RedfishResourceCollectionUri = std::string;
 using RedfishUriListType = std::unordered_map<RedfishResourceDBusInterfaces,
@@ -7009,6 +7014,113 @@ inline void getSystemHardwareIsolationLogEntryCollection(
 }
 
 /**
+ * @brief API Used to fill LogEntry schema by using the HardwareIsolation dbus
+ *        entry object which will get by using the given entry id in redfish
+ *        uri.
+ *
+ * @param[in] req - The HardwareIsolation redfish request (unused now).
+ * @param[in] asyncResp - The redfish response to return.
+ * @param[in] entryId - The entry id of HardwareIsolation entries to retrieve
+ *                      the corresponding isolated hardware details.
+ *
+ * @return The redfish response in the given buffer with LogEntry schema
+ *         members if success else will error.
+ */
+inline void getSystemHardwareIsolationLogEntryById(
+    const crow::Request& /* req */,
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& entryId)
+{
+    sdbusplus::message::object_path entryObjPath(
+        std::string("/xyz/openbmc_project/hardware_isolation/entry") + "/" +
+        entryId);
+
+    auto getManagedObjectsRespHandler =
+        [asyncResp, entryObjPath](const boost::system::error_code& ec,
+                                  const GetManagedObjectsType& mgtObjs) {
+        if (ec)
+        {
+            BMCWEB_LOG_ERROR(
+                "DBUS response error [{}:{}] when tried to get the HardwareIsolation managed objects",
+                ec.value(), ec.message());
+            messages::internalError(asyncResp->res);
+            return;
+        }
+
+        bool entryIsPresent = false;
+        for (auto dbusObjIt = mgtObjs.begin(); dbusObjIt != mgtObjs.end();
+             dbusObjIt++)
+        {
+            if (dbusObjIt->first == entryObjPath)
+            {
+                entryIsPresent = true;
+                fillSystemHardwareIsolationLogEntry(asyncResp, 0, dbusObjIt);
+                break;
+            }
+        }
+
+        if (!entryIsPresent)
+        {
+            messages::resourceNotFound(asyncResp->res, "Entry",
+                                       entryObjPath.filename());
+            return;
+        }
+    };
+
+    auto getObjectRespHandler =
+        [asyncResp, entryId, entryObjPath, getManagedObjectsRespHandler](
+            const boost::system::error_code ec,
+            const dbus::utility::MapperGetObject& objType) {
+        if (ec || objType.empty())
+        {
+            BMCWEB_LOG_ERROR(
+                "DBUS response error [{} : {}] when tried to get the HardwareIsolation dbus name the given object path: {}",
+                ec.value(), ec.message(), entryObjPath.str);
+
+            if (ec.value() == EBADR)
+            {
+                messages::resourceNotFound(asyncResp->res, "Entry", entryId);
+            }
+            else
+            {
+                messages::internalError(asyncResp->res);
+            }
+            return;
+        }
+
+        if (objType.size() > 1)
+        {
+            BMCWEB_LOG_ERROR(
+                "More than one dbus service implemented the HardwareIsolation service");
+            messages::internalError(asyncResp->res);
+            return;
+        }
+
+        if (objType[0].first.empty())
+        {
+            BMCWEB_LOG_ERROR(
+                "The retrieved HardwareIsolation dbus name is empty");
+            messages::internalError(asyncResp->res);
+            return;
+        }
+
+        // Fill the Redfish LogEntry schema for the identified entry dbus object
+        crow::connections::systemBus->async_method_call(
+            getManagedObjectsRespHandler, objType[0].first,
+            "/xyz/openbmc_project/hardware_isolation",
+            "org.freedesktop.DBus.ObjectManager", "GetManagedObjects");
+    };
+
+    // Make sure the given entry id is present in hardware isolation
+    // dbus entries and get the DBus name of that entry to fill LogEntry
+    crow::connections::systemBus->async_method_call(
+        getObjectRespHandler, "xyz.openbmc_project.ObjectMapper",
+        "/xyz/openbmc_project/object_mapper",
+        "xyz.openbmc_project.ObjectMapper", "GetObject", entryObjPath.str,
+        hwIsolationEntryIfaces);
+}
+
+/**
  * @brief API used to route the handler for HardwareIsolation Redfish
  *        LogServices URI
  *
@@ -7029,6 +7141,12 @@ inline void requestRoutesSystemHardwareIsolationLogService(App& app)
         .privileges(redfish::privileges::getLogEntryCollection)
         .methods(boost::beast::http::verb::get)(
             getSystemHardwareIsolationLogEntryCollection);
+
+    BMCWEB_ROUTE(app, "/redfish/v1/Systems/system/LogServices/"
+                      "HardwareIsolation/Entries/<str>/")
+        .privileges(redfish::privileges::getLogEntry)
+        .methods(boost::beast::http::verb::get)(
+            getSystemHardwareIsolationLogEntryById);
 }
 #endif // BMCWEB_ENABLE_HW_ISOLATION
 
