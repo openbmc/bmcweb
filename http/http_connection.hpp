@@ -69,7 +69,6 @@ class Connection :
         parser.emplace(std::piecewise_construct, std::make_tuple());
         parser->body_limit(httpReqBodyLimit);
         parser->header_limit(httpHeaderLimit);
-        req.emplace(parser->release());
 
 #ifdef BMCWEB_ENABLE_MUTUAL_TLS_AUTHENTICATION
         std::error_code error;
@@ -314,9 +313,9 @@ class Connection :
         bool isInvalidRequest = false;
 
         // Check for HTTP version 1.1.
-        if (req->version() == 11)
+        if (parser->get().version() == 11)
         {
-            if (req->getHeaderValue(boost::beast::http::field::host).empty())
+            if (parser->get()[boost::beast::http::field::host].empty())
             {
                 isInvalidRequest = true;
                 res.result(boost::beast::http::status::bad_request);
@@ -324,9 +323,32 @@ class Connection :
         }
 
         BMCWEB_LOG_INFO << "Request: "
-                        << " " << this << " HTTP/" << req->version() / 10 << "."
-                        << req->version() % 10 << ' ' << req->methodString()
-                        << " " << req->target() << " " << req->ipAddress;
+                        << " " << this << " HTTP/" << parser->get().version() / 10 << "."
+                        << parser->get().version() % 10 << ' ' << parser->get().method_string()
+                        /*<< " " << parser->get().target()*/ << " " << req->ipAddress;
+        //JEBR moved recently
+        req.emplace(parser->release());
+
+                // Note, despite the bmcweb coding policy on use of exceptions
+                // for error handling, this one particular use of exceptions is
+                // deemed acceptible, as it solved a significant error handling
+                // problem that resulted in seg faults, the exact thing that the
+                // exceptions rule is trying to avoid. If at some point,
+                // boost::urls makes the parser object public (or we port it
+                // into bmcweb locally) this will be replaced with
+                // parser::parse, which returns a status code
+
+                try
+                {
+                    // life time issue must be
+                    req->urlView = boost::urls::url_view(req->target());
+                    req->url = req->urlView.encoded_path();
+                }
+                catch (std::exception& p)
+                {
+                    BMCWEB_LOG_ERROR << p.what();
+                }
+
 
         needToCallAfterHandlers = false;
 
@@ -514,7 +536,7 @@ class Connection :
                 {
                     // if the adaptor isn't open anymore, and wasn't handed to a
                     // websocket, treat as an error
-                    if (!isAlive() && !req->isUpgrade())
+                    if (!isAlive() && boost::beast::websocket::is_upgrade(parser->get())) //parser->get()[boost::beast::http::field::host])
                     {
                         errorWhileReading = true;
                     }
@@ -534,26 +556,6 @@ class Connection :
                     close();
                     return;
                 }
-
-                // Note, despite the bmcweb coding policy on use of exceptions
-                // for error handling, this one particular use of exceptions is
-                // deemed acceptible, as it solved a significant error handling
-                // problem that resulted in seg faults, the exact thing that the
-                // exceptions rule is trying to avoid. If at some point,
-                // boost::urls makes the parser object public (or we port it
-                // into bmcweb locally) this will be replaced with
-                // parser::parse, which returns a status code
-
-                try
-                {
-                    req->urlView = boost::urls::url_view(req->target());
-                    req->url = req->urlView.encoded_path();
-                }
-                catch (std::exception& p)
-                {
-                    BMCWEB_LOG_ERROR << p.what();
-                }
-
                 crow::authorization::authenticate(*req, res, session);
 
                 bool loggedIn = req && req->session;
