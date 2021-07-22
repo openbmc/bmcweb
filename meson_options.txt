@@ -406,9 +406,16 @@ option('ibm-led-extensions',
 )
 
 option(
-      'hypervisor-serial-socket',
-      type: 'feature',
-      value: 'enabled',
-      description: '''Enable hypervisor serial console WebSocket. Path is
-                      \'/console1\'.'''
+    'hypervisor-serial-socket',
+    type: 'feature',
+    value: 'enabled',
+    description: '''Enable hypervisor serial console WebSocket. Path is
+                    \'/console1\'.'''
+)
+
+option(
+    'hw-isolation',
+    type : 'feature',
+    value : 'enabled',
+    description : 'Enable the Hardware Isolation feature'
 )

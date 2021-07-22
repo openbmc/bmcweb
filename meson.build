@@ -102,6 +102,7 @@ feature_map = {
   'audit-events'                                : '-DBMCWEB_ENABLE_LINUX_AUDIT_EVENTS',
   #'vm-nbdproxy'                                : '-DBMCWEB_ENABLE_VM_NBDPROXY',
   'ibm-led-extensions'                          : '-DBMCWEB_ENABLE_IBM_LED_EXTENSIONS',
+  'hw-isolation'                                : '-DBMCWEB_ENABLE_HW_ISOLATION',
 }
 
 # Get the options status and build a project summary to show which flags are
