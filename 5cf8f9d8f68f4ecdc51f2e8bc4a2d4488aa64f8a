@@ -96,6 +96,30 @@
     },
     {
       "key": {
+        "uuid": "fbec0c06_c6685056",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1001051
+      },
+      "writtenOn": "2021-07-22T20:15:09Z",
+      "side": 1,
+      "message": "Thanks Ed, Changed all reference to cfm to Airflow as per your suggestion, Checked using busctl all are working will push ExitAirTempSensor.c in dbus-sensors repo, Also changed sensor.hpp change as \"/xyz/openbmc_project/sensors/airflow\" to get the values using redfish URI/. Will push the change in next patch",
+      "parentUuid": "5cff1651_9a991e27",
+      "range": {
+        "startLine": 66,
+        "startChar": 16,
+        "endLine": 66,
+        "endChar": 48
+      },
+      "revId": "5cf8f9d8f68f4ecdc51f2e8bc4a2d4488aa64f8a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "edab6993_a47ae318",
         "filename": "redfish-core/lib/sensors.hpp",
         "patchSetId": 2
@@ -167,6 +191,29 @@
     },
     {
       "key": {
+        "uuid": "39f12b6a_c1f37af4",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 1001051
+      },
+      "writtenOn": "2021-07-22T20:15:09Z",
+      "side": 1,
+      "message": "Yes Agree, Once we change the cfm to airflow , we do not require this change",
+      "range": {
+        "startLine": 104,
+        "startChar": 0,
+        "endLine": 104,
+        "endChar": 28
+      },
+      "revId": "5cf8f9d8f68f4ecdc51f2e8bc4a2d4488aa64f8a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "cef1bf20_9dcb4ce2",
         "filename": "redfish-core/lib/sensors.hpp",
         "patchSetId": 2
@@ -187,6 +234,30 @@
       "revId": "5cf8f9d8f68f4ecdc51f2e8bc4a2d4488aa64f8a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dd8dc551_49d12b22",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 1001051
+      },
+      "writtenOn": "2021-07-22T20:15:09Z",
+      "side": 1,
+      "message": "Yes this is not required, code has changed for readingType",
+      "parentUuid": "cef1bf20_9dcb4ce2",
+      "range": {
+        "startLine": 145,
+        "startChar": 8,
+        "endLine": 145,
+        "endChar": 31
+      },
+      "revId": "5cf8f9d8f68f4ecdc51f2e8bc4a2d4488aa64f8a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
