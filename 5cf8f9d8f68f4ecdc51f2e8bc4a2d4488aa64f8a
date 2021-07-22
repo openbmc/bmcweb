@@ -143,6 +143,30 @@
     },
     {
       "key": {
+        "uuid": "e12d2cd3_797589e3",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-07-22T19:43:11Z",
+      "side": 1,
+      "message": "I think we do still need the fix on line 66, it just needs its path corrected.",
+      "parentUuid": "da432451_63ef2876",
+      "range": {
+        "startLine": 104,
+        "startChar": 4,
+        "endLine": 104,
+        "endChar": 28
+      },
+      "revId": "5cf8f9d8f68f4ecdc51f2e8bc4a2d4488aa64f8a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "cef1bf20_9dcb4ce2",
         "filename": "redfish-core/lib/sensors.hpp",
         "patchSetId": 2
