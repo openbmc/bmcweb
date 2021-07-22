@@ -16,6 +16,74 @@
       "revId": "8000de88e5cec0173c5057a1daef4810ac6d1aac",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4447de0f_8d09c0b8",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1842,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2021-07-22T17:01:48Z",
+      "side": 1,
+      "message": "what about \u0027\\n\u0027?",
+      "revId": "8000de88e5cec0173c5057a1daef4810ac6d1aac",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "400a26b8_f606f8e3",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1860,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2021-07-22T17:01:48Z",
+      "side": 1,
+      "message": "We don\u0027t need the MessageRegistry IIUC, right? Does it violate the validator?",
+      "revId": "8000de88e5cec0173c5057a1daef4810ac6d1aac",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0b16f296_a72420d2",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1957,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2021-07-22T17:01:48Z",
+      "side": 1,
+      "message": "Can we add more error message here?",
+      "revId": "8000de88e5cec0173c5057a1daef4810ac6d1aac",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b35c0a98_ba165ea3",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1977,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2021-07-22T17:01:48Z",
+      "side": 1,
+      "message": "We should keep characters other than EOL as is.",
+      "revId": "8000de88e5cec0173c5057a1daef4810ac6d1aac",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
