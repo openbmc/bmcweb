@@ -125,12 +125,14 @@ static std::shared_ptr<persistent_data::UserSession>
     std::string_view cookieValue = req.getHeaderValue("Cookie");
     if (cookieValue.empty())
     {
+        BMCWEB_LOG_DEBUG << "JEBR cookie value mt";
         return nullptr;
     }
 
     auto startIndex = cookieValue.find("SESSION=");
     if (startIndex == std::string::npos)
     {
+        BMCWEB_LOG_DEBUG << "JEB SESSION found found in cookie";
         return nullptr;
     }
     startIndex += sizeof("SESSION=") - 1;
@@ -147,6 +149,7 @@ static std::shared_ptr<persistent_data::UserSession>
             authKey);
     if (session == nullptr)
     {
+        BMCWEB_LOG_DEBUG << "JEBR cookie key not found";
         return nullptr;
     }
 #ifndef BMCWEB_INSECURE_DISABLE_CSRF_PREVENTION
@@ -244,66 +247,68 @@ static bool isOnWhitelist(const crow::Request& req)
     return false;
 }
 
-static void authenticate(
+static std::shared_ptr<persistent_data::UserSession> authenticate(
     crow::Request& req, Response& res,
     [[maybe_unused]] const std::weak_ptr<persistent_data::UserSession>& session)
 {
     if (isOnWhitelist(req))
     {
-        return;
+        return nullptr;
     }
 
     const persistent_data::AuthConfigMethods& authMethodsConfig =
         persistent_data::SessionStore::getInstance().getAuthMethodsConfig();
 
 #ifdef BMCWEB_ENABLE_MUTUAL_TLS_AUTHENTICATION
-    if (req.session == nullptr && authMethodsConfig.tls)
+    if (authMethodsConfig.tls)
     {
-        req.session = performTLSAuth(req, res, session);
+        std::shared_ptr<persistent_data::UserSession> session
+            = performTLSAuth(req, res, session);
+        if (session) return session;
     }
 #endif
 #ifdef BMCWEB_ENABLE_XTOKEN_AUTHENTICATION
-    if (req.session == nullptr && authMethodsConfig.xtoken)
+    if (authMethodsConfig.xtoken)
     {
-        req.session = performXtokenAuth(req);
+        std::shared_ptr<persistent_data::UserSession> session
+         = performXtokenAuth(req);
+        if (session) return session;
     }
 #endif
 #ifdef BMCWEB_ENABLE_COOKIE_AUTHENTICATION
-    if (req.session == nullptr && authMethodsConfig.cookie)
+    if (authMethodsConfig.cookie)
     {
-        req.session = performCookieAuth(req);
+        std::shared_ptr<persistent_data::UserSession> session
+          = performCookieAuth(req);
+        if (session) return session;
     }
 #endif
-    if (req.session == nullptr)
+    std::string_view authHeader = req.getHeaderValue("Authorization");
+    if (!authHeader.empty())
     {
-        std::string_view authHeader = req.getHeaderValue("Authorization");
-        if (!authHeader.empty())
+        std::shared_ptr<persistent_data::UserSession> session
+         = performXtokenAuth(req);
+        // Reject any kind of auth other than basic or token
+        if (boost::starts_with(authHeader, "Token ") &&
+            authMethodsConfig.sessionToken)
         {
-            // Reject any kind of auth other than basic or token
-            if (boost::starts_with(authHeader, "Token ") &&
-                authMethodsConfig.sessionToken)
-            {
 #ifdef BMCWEB_ENABLE_SESSION_AUTHENTICATION
-                req.session = performTokenAuth(authHeader);
+            session = performTokenAuth(authHeader);
 #endif
-            }
-            else if (boost::starts_with(authHeader, "Basic ") &&
-                     authMethodsConfig.basic)
-            {
-#ifdef BMCWEB_ENABLE_BASIC_AUTHENTICATION
-                req.session = performBasicAuth(req.ipAddress, authHeader);
-#endif
-            }
         }
-    }
-
-    if (req.session == nullptr)
-    {
-        BMCWEB_LOG_WARNING << "[AuthMiddleware] authorization failed";
-        forward_unauthorized::sendUnauthorized(req, res);
-        res.end();
-        return;
-    }
+        else if (boost::starts_with(authHeader, "Basic ") &&
+                 authMethodsConfig.basic)
+        {
+#ifdef BMCWEB_ENABLE_BASIC_AUTHENTICATION
+            session = performBasicAuth(req.ipAddress, authHeader);
+#endif
+        }
+        if (session) return session;
+     }
+     BMCWEB_LOG_WARNING << "[AuthMiddleware] authorization failed";
+     forward_unauthorized::sendUnauthorized(req, res);
+     res.end();
+     return nullptr;
 }
 
 } // namespace authorization
