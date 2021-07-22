@@ -214,6 +214,30 @@
     },
     {
       "key": {
+        "uuid": "82d2998f_b61e358c",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 1001051
+      },
+      "writtenOn": "2021-07-22T20:20:44Z",
+      "side": 1,
+      "message": "yes changing to line 66 \"/xyz/openbmc_project/sensors/airflow\", and will make dependency on dbus-sensors fix",
+      "parentUuid": "e12d2cd3_797589e3",
+      "range": {
+        "startLine": 104,
+        "startChar": 4,
+        "endLine": 104,
+        "endChar": 28
+      },
+      "revId": "5cf8f9d8f68f4ecdc51f2e8bc4a2d4488aa64f8a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "cef1bf20_9dcb4ce2",
         "filename": "redfish-core/lib/sensors.hpp",
         "patchSetId": 2
