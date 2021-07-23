@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "09dfa22d_ae0a9fbd",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 51
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-07-23T18:46:06Z",
+      "side": 1,
+      "message": "This has the potential for lifetime issues, because you\u0027re pointing at a request that might be destroyed during the lifetime while running this expand operation.  I suspect what needs to happen is something like what John is working on here: \nhttps://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/44928\n\nWhich makes the request object a fully owning class, in that it owns the full lifetime of the data, and there\u0027s no shared ownership with the connection class.  This means that (similar to the original crow design) requests can be spun up without any connection class that originated the object.",
+      "range": {
+        "startLine": 95,
+        "startChar": 8,
+        "endLine": 95,
+        "endChar": 32
+      },
+      "revId": "e0a5a4a9cc87c6b3d312bb0e339f9f41e6531c66",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
