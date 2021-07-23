@@ -77,6 +77,8 @@ class RedfishService
         requestRoutesManagerResetAction(app);
         requestRoutesManagerResetActionInfo(app);
         requestRoutesManagerResetToDefaultsAction(app);
+        requestRoutesManagerOemFanZoneModeChangeAction(app);
+        requestRoutesManagerOemFanZoneModeChangeActionInfo(app);
         requestRoutesChassisCollection(app);
         requestRoutesChassis(app);
         requestRoutesChassisResetAction(app);
