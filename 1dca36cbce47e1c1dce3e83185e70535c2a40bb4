@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "175d308a_15313ab6",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2021-07-23T10:32:08Z",
+      "side": 1,
+      "message": "Here the persistent subscription data should be parsed and the subscribers should be listed when user performs a GET on /redfish/v1/EventService/Subscriptions after a BMC reset",
+      "range": {
+        "startLine": 167,
+        "startChar": 3,
+        "endLine": 169,
+        "endChar": 48
+      },
+      "revId": "1dca36cbce47e1c1dce3e83185e70535c2a40bb4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
