@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e8798867_47b8d742",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 34
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2021-07-23T12:29:54Z",
+      "side": 1,
+      "message": "If this happen you may end up with few Drives elements and count equal to 0",
+      "range": {
+        "startLine": 75,
+        "startChar": 0,
+        "endLine": 81,
+        "endChar": 17
+      },
+      "revId": "cd820f462f41477fd804f0b2eb5c4b8168d9a7a9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
