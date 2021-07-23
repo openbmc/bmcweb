@@ -48,6 +48,29 @@
     },
     {
       "key": {
+        "uuid": "def40c90_a0a42d69",
+        "filename": "redfish-core/include/utils/location_utils.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1000632
+      },
+      "writtenOn": "2021-07-23T21:48:12Z",
+      "side": 1,
+      "message": "https://github.com/openbmc/bmcweb/blob/02bdd9672c7619cc1e11fe3daed8e3ec092b207b/redfish-core/lib/processor.hpp#L621\n\nThis is repeated?",
+      "range": {
+        "startLine": 55,
+        "startChar": 16,
+        "endLine": 56,
+        "endChar": 30
+      },
+      "revId": "bf58875e22acf85d8e480c4e7fc5d467137c9a2d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "11eee953_c5629f56",
         "filename": "redfish-core/include/utils/location_utils.hpp",
         "patchSetId": 15
