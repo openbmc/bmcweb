@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "a2c3de5d_591079ad",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 39
+      },
+      "lineNbr": 694,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2021-07-23T12:23:29Z",
+      "side": 1,
+      "message": "Removed this part of code and simplified it as per one of your comments below",
+      "parentUuid": "71392b73_dc947125",
+      "range": {
+        "startLine": 694,
+        "startChar": 9,
+        "endLine": 694,
+        "endChar": 14
+      },
+      "revId": "2a531ea0cdc46a0b2315c0a76f19f01a381c1e78",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1097c56b_042acaf4",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 39
@@ -45,6 +69,30 @@
       "revId": "2a531ea0cdc46a0b2315c0a76f19f01a381c1e78",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0158f9bd_0f4f357d",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 39
+      },
+      "lineNbr": 705,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2021-07-23T12:23:29Z",
+      "side": 1,
+      "message": "same as above",
+      "parentUuid": "1097c56b_042acaf4",
+      "range": {
+        "startLine": 705,
+        "startChar": 8,
+        "endLine": 705,
+        "endChar": 43
+      },
+      "revId": "2a531ea0cdc46a0b2315c0a76f19f01a381c1e78",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -83,6 +131,30 @@
       "side": 1,
       "message": "Ack",
       "parentUuid": "bd62a678_38ab7693",
+      "range": {
+        "startLine": 691,
+        "startChar": 0,
+        "endLine": 713,
+        "endChar": 1
+      },
+      "revId": "2a531ea0cdc46a0b2315c0a76f19f01a381c1e78",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7162cf26_b9f6bbfb",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 39
+      },
+      "lineNbr": 713,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2021-07-23T12:23:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7dee3470_e2e6b86e",
       "range": {
         "startLine": 691,
         "startChar": 0,
