@@ -456,8 +456,8 @@ using BaseSpeedPrioritySettingsProperty =
 // variant
 using OperatingConfigProperties = std::vector<std::pair<
     std::string,
-    sdbusplus::utility::dedup_variant_t<uint32_t, size_t, TurboProfileProperty,
-                                        BaseSpeedPrioritySettingsProperty>>>;
+    sdbusplus::utility::dedup_variant<uint32_t, size_t, TurboProfileProperty,
+                                      BaseSpeedPrioritySettingsProperty>>>;
 
 /**
  * Fill out the HighSpeedCoreIDs in a Processor resource from the given
