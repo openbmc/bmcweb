@@ -128,6 +128,29 @@
     },
     {
       "key": {
+        "uuid": "6781fb37_6e222e67",
+        "filename": "redfish-core/lib/hypervisor_system.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 957,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-07-23T20:24:13Z",
+      "side": 1,
+      "message": "If this check fails, we shouldn\u0027t be causing a propertyValueConflict error, this should be something about the propertyy not being allowed.",
+      "range": {
+        "startLine": 957,
+        "startChar": 29,
+        "endLine": 957,
+        "endChar": 55
+      },
+      "revId": "ddb8a7a9e0627a9a2dcc30e49d8c5e0989ef6a97",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "7f9d999c_d9dc215a",
         "filename": "redfish-core/lib/hypervisor_system.hpp",
         "patchSetId": 7
