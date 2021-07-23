@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "bf80d6ec_37757464",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1001051
+      },
+      "writtenOn": "2021-07-23T20:28:41Z",
+      "side": 1,
+      "message": "Yes agreed, will add \u003cchassis Id\u003e",
+      "parentUuid": "0884ada4_c4e8e07b",
+      "range": {
+        "startLine": 13,
+        "startChar": 35,
+        "endLine": 13,
+        "endChar": 45
+      },
+      "revId": "5cf8f9d8f68f4ecdc51f2e8bc4a2d4488aa64f8a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fc4d7120_0cb7a6d1",
         "filename": "redfish-core/lib/sensors.hpp",
         "patchSetId": 2
