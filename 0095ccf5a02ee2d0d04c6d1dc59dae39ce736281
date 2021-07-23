@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "94a08cc1_a00ee0d4",
+        "filename": "http/http_response.hpp",
+        "patchSetId": 50
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 1001027
+      },
+      "writtenOn": "2021-07-23T02:28:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "edd4ad23_ee156f1c",
+      "range": {
+        "startLine": 144,
+        "startChar": 9,
+        "endLine": 144,
+        "endChar": 12
+      },
+      "revId": "0095ccf5a02ee2d0d04c6d1dc59dae39ce736281",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bb78a362_42f2e3a5",
         "filename": "http/http_response.hpp",
         "patchSetId": 50
@@ -45,6 +69,30 @@
       "revId": "0095ccf5a02ee2d0d04c6d1dc59dae39ce736281",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "efa6ce28_d7cf8144",
+        "filename": "http/http_response.hpp",
+        "patchSetId": 50
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 1001027
+      },
+      "writtenOn": "2021-07-23T02:28:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bb78a362_42f2e3a5",
+      "range": {
+        "startLine": 149,
+        "startChar": 4,
+        "endLine": 149,
+        "endChar": 8
+      },
+      "revId": "0095ccf5a02ee2d0d04c6d1dc59dae39ce736281",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "cdae48a6_0bbac1bb",
+        "filename": "http/http_response.hpp",
+        "patchSetId": 50
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 1001027
+      },
+      "writtenOn": "2021-07-23T02:28:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "32919840_67a5c4fb",
+      "range": {
+        "startLine": 151,
+        "startChar": 15,
+        "endLine": 151,
+        "endChar": 37
+      },
+      "revId": "0095ccf5a02ee2d0d04c6d1dc59dae39ce736281",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "03020203_51fc4969",
         "filename": "redfish-core/include/utils/query_param.hpp",
         "patchSetId": 50
@@ -94,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "41315878_0c66eac1",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 50
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1001027
+      },
+      "writtenOn": "2021-07-23T02:28:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "03020203_51fc4969",
+      "range": {
+        "startLine": 32,
+        "startChar": 0,
+        "endLine": 32,
+        "endChar": 22
+      },
+      "revId": "0095ccf5a02ee2d0d04c6d1dc59dae39ce736281",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6e17dba3_263b5b7b",
         "filename": "redfish-core/include/utils/query_param.hpp",
         "patchSetId": 50
@@ -105,6 +201,30 @@
       "writtenOn": "2021-07-19T14:48:40Z",
       "side": 1,
       "message": "Please just pass this as an in-out param on checkParmeters.  There\u0027s no need for it to be a member variable.",
+      "range": {
+        "startLine": 40,
+        "startChar": 12,
+        "endLine": 40,
+        "endChar": 18
+      },
+      "revId": "0095ccf5a02ee2d0d04c6d1dc59dae39ce736281",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f65a9543_fdf75407",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 50
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1001027
+      },
+      "writtenOn": "2021-07-23T02:28:47Z",
+      "side": 1,
+      "message": "But we will have other params in the future, and each param will have to add an in-out param on checkParmeters？",
+      "parentUuid": "6e17dba3_263b5b7b",
       "range": {
         "startLine": 40,
         "startChar": 12,
@@ -140,6 +260,30 @@
     },
     {
       "key": {
+        "uuid": "62257259_f545d16e",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 50
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1001027
+      },
+      "writtenOn": "2021-07-23T02:28:47Z",
+      "side": 1,
+      "message": "No, in this case, competeHandler will be called in the next url of \u0027Only\u0027.",
+      "parentUuid": "66f4cece_5b4f663b",
+      "range": {
+        "startLine": 44,
+        "startChar": 0,
+        "endLine": 45,
+        "endChar": 23
+      },
+      "revId": "0095ccf5a02ee2d0d04c6d1dc59dae39ce736281",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "98e409f6_09776890",
         "filename": "redfish-core/include/utils/query_param.hpp",
         "patchSetId": 50
@@ -160,6 +304,30 @@
       "revId": "0095ccf5a02ee2d0d04c6d1dc59dae39ce736281",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "96c5c554_85a2978f",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 50
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1001027
+      },
+      "writtenOn": "2021-07-23T02:28:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "98e409f6_09776890",
+      "range": {
+        "startLine": 47,
+        "startChar": 0,
+        "endLine": 48,
+        "endChar": 19
+      },
+      "revId": "0095ccf5a02ee2d0d04c6d1dc59dae39ce736281",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -186,6 +354,30 @@
     },
     {
       "key": {
+        "uuid": "0a852c86_c6a704a9",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 50
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1001027
+      },
+      "writtenOn": "2021-07-23T02:28:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "52be0bc1_627efa0b",
+      "range": {
+        "startLine": 63,
+        "startChar": 8,
+        "endLine": 63,
+        "endChar": 12
+      },
+      "revId": "0095ccf5a02ee2d0d04c6d1dc59dae39ce736281",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "904ea625_344ab676",
         "filename": "redfish-core/include/utils/query_param.hpp",
         "patchSetId": 50
@@ -197,6 +389,30 @@
       "writtenOn": "2021-07-19T14:48:40Z",
       "side": 1,
       "message": "Please change this check to a loop.  There are likely other params that we will support in the future.",
+      "range": {
+        "startLine": 66,
+        "startChar": 0,
+        "endLine": 66,
+        "endChar": 42
+      },
+      "revId": "0095ccf5a02ee2d0d04c6d1dc59dae39ce736281",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4bf13294_3ab8031f",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 50
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1001027
+      },
+      "writtenOn": "2021-07-23T02:28:47Z",
+      "side": 1,
+      "message": "Only cannot exist with other params at the same time, I will use a loop to process other params.",
+      "parentUuid": "904ea625_344ab676",
       "range": {
         "startLine": 66,
         "startChar": 0,
@@ -232,6 +448,30 @@
     },
     {
       "key": {
+        "uuid": "bc0ea371_077e9374",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 50
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1001027
+      },
+      "writtenOn": "2021-07-23T02:28:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2e36b5fb_19731534",
+      "range": {
+        "startLine": 78,
+        "startChar": 0,
+        "endLine": 78,
+        "endChar": 24
+      },
+      "revId": "0095ccf5a02ee2d0d04c6d1dc59dae39ce736281",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9ad9687f_6dc897d6",
         "filename": "redfish-core/include/utils/query_param.hpp",
         "patchSetId": 50
@@ -243,6 +483,30 @@
       "writtenOn": "2021-07-19T14:48:40Z",
       "side": 1,
       "message": "Please make this an AsyncResp object, and remove it from the member class.\n\nAs written, this is an instance of common error #7",
+      "range": {
+        "startLine": 106,
+        "startChar": 8,
+        "endLine": 106,
+        "endChar": 14
+      },
+      "revId": "0095ccf5a02ee2d0d04c6d1dc59dae39ce736281",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fe347d85_3a844e19",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 50
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 1001027
+      },
+      "writtenOn": "2021-07-23T02:28:47Z",
+      "side": 1,
+      "message": "This is req.\n\nI remember that emplace() will construct the contained value in-place.If it already contains a value before the call, the contained value is destroyed by calling its destructor.",
+      "parentUuid": "9ad9687f_6dc897d6",
       "range": {
         "startLine": 106,
         "startChar": 8,
@@ -278,6 +542,30 @@
     },
     {
       "key": {
+        "uuid": "99573cc5_febf5926",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 50
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 1001027
+      },
+      "writtenOn": "2021-07-23T02:28:47Z",
+      "side": 1,
+      "message": "I don\u0027t understand this problem, can you explain it in detail?\nWhen processing only, is there anything in jsonValue that cannot be deleted?",
+      "parentUuid": "b5a162b8_57f30662",
+      "range": {
+        "startLine": 109,
+        "startChar": 0,
+        "endLine": 109,
+        "endChar": 30
+      },
+      "revId": "0095ccf5a02ee2d0d04c6d1dc59dae39ce736281",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "68587702_2a4afc7a",
         "filename": "redfish-core/include/utils/query_param.hpp",
         "patchSetId": 50
@@ -289,6 +577,30 @@
       "writtenOn": "2021-07-19T14:48:40Z",
       "side": 1,
       "message": "Why std::optional here?",
+      "range": {
+        "startLine": 119,
+        "startChar": 4,
+        "endLine": 119,
+        "endChar": 17
+      },
+      "revId": "0095ccf5a02ee2d0d04c6d1dc59dae39ce736281",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fe85f761_3c00cec6",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 50
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 1001027
+      },
+      "writtenOn": "2021-07-23T02:28:47Z",
+      "side": 1,
+      "message": "This is the same as the usage in http_connection.hpp. There are reference variables in crow::Request, so \"crow::Request newReq;\" cannot be used directly.",
+      "parentUuid": "68587702_2a4afc7a",
       "range": {
         "startLine": 119,
         "startChar": 4,
@@ -324,6 +636,30 @@
     },
     {
       "key": {
+        "uuid": "f306008d_56733558",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 50
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 1001027
+      },
+      "writtenOn": "2021-07-23T02:28:47Z",
+      "side": 1,
+      "message": "Which file do you think is appropriate?",
+      "parentUuid": "5d1b61c9_6242a061",
+      "range": {
+        "startLine": 125,
+        "startChar": 4,
+        "endLine": 125,
+        "endChar": 21
+      },
+      "revId": "0095ccf5a02ee2d0d04c6d1dc59dae39ce736281",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a285442b_5d9db9fa",
         "filename": "redfish-core/lib/service_root.hpp",
         "patchSetId": 50
@@ -347,6 +683,30 @@
     },
     {
       "key": {
+        "uuid": "bc569eb9_a40c6619",
+        "filename": "redfish-core/lib/service_root.hpp",
+        "patchSetId": 50
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1001027
+      },
+      "writtenOn": "2021-07-23T02:28:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a285442b_5d9db9fa",
+      "range": {
+        "startLine": 68,
+        "startChar": 20,
+        "endLine": 68,
+        "endChar": 45
+      },
+      "revId": "0095ccf5a02ee2d0d04c6d1dc59dae39ce736281",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "30ce26d9_7c67ad1b",
         "filename": "redfish-core/lib/systems.hpp",
         "patchSetId": 50
@@ -358,6 +718,30 @@
       "writtenOn": "2021-07-19T14:48:40Z",
       "side": 1,
       "message": "Don\u0027t capture app by reference, there is a callback overload that allows passing app into the handler.",
+      "range": {
+        "startLine": 2227,
+        "startChar": 13,
+        "endLine": 2227,
+        "endChar": 17
+      },
+      "revId": "0095ccf5a02ee2d0d04c6d1dc59dae39ce736281",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "64332ca3_4d353c54",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 50
+      },
+      "lineNbr": 2227,
+      "author": {
+        "id": 1001027
+      },
+      "writtenOn": "2021-07-23T02:28:47Z",
+      "side": 1,
+      "message": "Where is the callback overload?",
+      "parentUuid": "30ce26d9_7c67ad1b",
       "range": {
         "startLine": 2227,
         "startChar": 13,
