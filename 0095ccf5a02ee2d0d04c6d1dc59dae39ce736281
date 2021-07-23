@@ -847,6 +847,30 @@
       "revId": "0095ccf5a02ee2d0d04c6d1dc59dae39ce736281",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0ea4402f_cec369a2",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 50
+      },
+      "lineNbr": 2227,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-07-23T18:51:32Z",
+      "side": 1,
+      "message": "It used to be in router.hpp.  Maybe it got removed at some point?  We need to figure out how to avoid capturing app like this, because it won\u0027t scale when this moves to a callback function.",
+      "parentUuid": "64332ca3_4d353c54",
+      "range": {
+        "startLine": 2227,
+        "startChar": 13,
+        "endLine": 2227,
+        "endChar": 17
+      },
+      "revId": "0095ccf5a02ee2d0d04c6d1dc59dae39ce736281",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
