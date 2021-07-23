@@ -42,6 +42,30 @@
     },
     {
       "key": {
+        "uuid": "6ebaac4e_1bc0cb87",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1827,
+      "author": {
+        "id": 1000404
+      },
+      "writtenOn": "2021-07-23T08:14:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8d9dd6e1_ab9cef99",
+      "range": {
+        "startLine": 1827,
+        "startChar": 8,
+        "endLine": 1827,
+        "endChar": 16
+      },
+      "revId": "8000de88e5cec0173c5057a1daef4810ac6d1aac",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da2633e6_ef84da02",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 2
@@ -62,6 +86,30 @@
       "revId": "8000de88e5cec0173c5057a1daef4810ac6d1aac",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f7489037_b698b138",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1839,
+      "author": {
+        "id": 1000404
+      },
+      "writtenOn": "2021-07-23T08:14:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "da2633e6_ef84da02",
+      "range": {
+        "startLine": 1839,
+        "startChar": 57,
+        "endLine": 1839,
+        "endChar": 63
+      },
+      "revId": "8000de88e5cec0173c5057a1daef4810ac6d1aac",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -100,6 +148,24 @@
     },
     {
       "key": {
+        "uuid": "e0049ff4_773cf17d",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1842,
+      "author": {
+        "id": 1000404
+      },
+      "writtenOn": "2021-07-23T08:14:47Z",
+      "side": 1,
+      "message": "\u0027\\n\u0027 is handle by gzgets function which shall attempt to read data until a newline character(\\n) has been uncompressed into buf. https://refspecs.linuxbase.org/LSB_3.0.0/LSB-Core-generic/LSB-Core-generic/zlib-gzgets-1.html",
+      "parentUuid": "279d47a5_d6364cb7",
+      "revId": "8000de88e5cec0173c5057a1daef4810ac6d1aac",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7c4672c3_07803b4c",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 2
@@ -111,6 +177,24 @@
       "writtenOn": "2021-07-22T17:23:17Z",
       "side": 1,
       "message": "ditto: prefer returning a nlohmann::json object directly if possible.",
+      "revId": "8000de88e5cec0173c5057a1daef4810ac6d1aac",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "888d73de_6e2e3d6b",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1855,
+      "author": {
+        "id": 1000404
+      },
+      "writtenOn": "2021-07-23T08:14:47Z",
+      "side": 1,
+      "message": "Other similar function like \"fillEventLogEntryJson\" or \"fillBMCJournalLogEntryJson\" use the same method here. So keep the style here may be better?",
+      "parentUuid": "7c4672c3_07803b4c",
       "revId": "8000de88e5cec0173c5057a1daef4810ac6d1aac",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
@@ -152,6 +236,24 @@
     },
     {
       "key": {
+        "uuid": "a79a114a_f24be3d1",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1860,
+      "author": {
+        "id": 1000404
+      },
+      "writtenOn": "2021-07-23T08:14:47Z",
+      "side": 1,
+      "message": "This question has been discussed in previous PR, please refer to the link: https://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/39093/4/redfish-core/lib/log_services.hpp#1754",
+      "parentUuid": "2d568b76_7e3a8f46",
+      "revId": "8000de88e5cec0173c5057a1daef4810ac6d1aac",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0b16f296_a72420d2",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 2
@@ -163,6 +265,24 @@
       "writtenOn": "2021-07-22T17:01:48Z",
       "side": 1,
       "message": "Can we add more error message here?",
+      "revId": "8000de88e5cec0173c5057a1daef4810ac6d1aac",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c21d58a5_dccd6c1f",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1957,
+      "author": {
+        "id": 1000404
+      },
+      "writtenOn": "2021-07-23T08:14:47Z",
+      "side": 1,
+      "message": "Sure, is it enough after modifying?",
+      "parentUuid": "0b16f296_a72420d2",
       "revId": "8000de88e5cec0173c5057a1daef4810ac6d1aac",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
@@ -186,6 +306,24 @@
     },
     {
       "key": {
+        "uuid": "9a343c1f_cc761304",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1966,
+      "author": {
+        "id": 1000404
+      },
+      "writtenOn": "2021-07-23T08:14:47Z",
+      "side": 1,
+      "message": "Yes, gzopen handle this problem. If path refers to an uncompressed file, and mode refers to a read mode, gzopen() shall attempt to open the file and return a gzFile object suitable for reading directly from the file without any decompression. https://refspecs.linuxbase.org/LSB_3.0.0/LSB-Core-generic/LSB-Core-generic/zlib-gzopen-1.html",
+      "parentUuid": "bbedcb3c_39eeb5f2",
+      "revId": "8000de88e5cec0173c5057a1daef4810ac6d1aac",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b35c0a98_ba165ea3",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 2
@@ -200,6 +338,24 @@
       "revId": "8000de88e5cec0173c5057a1daef4810ac6d1aac",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6af897c0_3aa7775d",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1977,
+      "author": {
+        "id": 1000404
+      },
+      "writtenOn": "2021-07-23T08:14:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b35c0a98_ba165ea3",
+      "revId": "8000de88e5cec0173c5057a1daef4810ac6d1aac",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -220,6 +376,24 @@
     },
     {
       "key": {
+        "uuid": "a908df7b_938796a2",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1985,
+      "author": {
+        "id": 1000404
+      },
+      "writtenOn": "2021-07-23T08:14:47Z",
+      "side": 1,
+      "message": "No, it still need to count the total number of log entry to present \"Members@odata.count\".",
+      "parentUuid": "0a76c90d_af69ec6b",
+      "revId": "8000de88e5cec0173c5057a1daef4810ac6d1aac",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0769fbf5_c4894ba7",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 2
@@ -237,6 +411,24 @@
     },
     {
       "key": {
+        "uuid": "102729c8_f42f02bb",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1990,
+      "author": {
+        "id": 1000404
+      },
+      "writtenOn": "2021-07-23T08:14:47Z",
+      "side": 1,
+      "message": "I think the default directory_entry::path order result confuse me, because the log entry present result is correct. But add a sorting function is better. I already add sorting function in \"getHostLoggerFiles\" by decreasing. Thank you point out this question.",
+      "parentUuid": "0769fbf5_c4894ba7",
+      "revId": "8000de88e5cec0173c5057a1daef4810ac6d1aac",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0645e003_345bf1cd",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 2
@@ -251,6 +443,24 @@
       "revId": "8000de88e5cec0173c5057a1daef4810ac6d1aac",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bcfac2de_df363da2",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 2038,
+      "author": {
+        "id": 1000404
+      },
+      "writtenOn": "2021-07-23T08:14:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0645e003_345bf1cd",
+      "revId": "8000de88e5cec0173c5057a1daef4810ac6d1aac",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
