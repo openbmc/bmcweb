@@ -94,6 +94,30 @@
       "revId": "8c2dfc3be08f09860ff7fd6bd20972be9d9b818d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f724fdd8_0907474b",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 2497,
+      "author": {
+        "id": 1001099
+      },
+      "writtenOn": "2021-07-23T21:05:08Z",
+      "side": 1,
+      "message": "\u003e that what happening in last merge we did https://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/44307.\n\u003e \n\u003e if we like to refactor this code then we can.\n\u003e \n\u003e let me do that\n\nDone",
+      "parentUuid": "107f705e_f71d4d2c",
+      "range": {
+        "startLine": 2497,
+        "startChar": 12,
+        "endLine": 2497,
+        "endChar": 32
+      },
+      "revId": "8c2dfc3be08f09860ff7fd6bd20972be9d9b818d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
