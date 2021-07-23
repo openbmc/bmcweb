@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "df416118_b1fb9326",
+        "filename": "redfish-core/include/registries/openbmc_message_registry.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 2275,
+      "author": {
+        "id": 1000404
+      },
+      "writtenOn": "2021-07-23T08:15:18Z",
+      "side": 1,
+      "message": "This question has been discussed in previous PR, please refer to the link: https://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/39093/4/redfish-core/lib/log_services.hpp#1754",
+      "parentUuid": "18f1c2df_95621a8a",
+      "revId": "8000de88e5cec0173c5057a1daef4810ac6d1aac",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8d9dd6e1_ab9cef99",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 2
