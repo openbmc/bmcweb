@@ -519,6 +519,30 @@
     },
     {
       "key": {
+        "uuid": "f0ce402a_ebae8c24",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 50
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-07-23T18:49:50Z",
+      "side": 1,
+      "message": "I commented on a later patchset the core problem (which is that the crow::request object is not self contained).  That likely needs fixed first.",
+      "parentUuid": "fe347d85_3a844e19",
+      "range": {
+        "startLine": 106,
+        "startChar": 8,
+        "endLine": 106,
+        "endChar": 14
+      },
+      "revId": "0095ccf5a02ee2d0d04c6d1dc59dae39ce736281",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "b5a162b8_57f30662",
         "filename": "redfish-core/include/utils/query_param.hpp",
         "patchSetId": 50
@@ -554,6 +578,30 @@
       "side": 1,
       "message": "I don\u0027t understand this problem, can you explain it in detail?\nWhen processing only, is there anything in jsonValue that cannot be deleted?",
       "parentUuid": "b5a162b8_57f30662",
+      "range": {
+        "startLine": 109,
+        "startChar": 0,
+        "endLine": 109,
+        "endChar": 30
+      },
+      "revId": "0095ccf5a02ee2d0d04c6d1dc59dae39ce736281",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8fb9ca81_69a4ba9a",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 50
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-07-23T18:49:50Z",
+      "side": 1,
+      "message": "The connection class can set HTTP headers in certain cases (for example keepalive).  Clearing the object here will clear those headers back to default states, which isn\u0027t really what we want.",
+      "parentUuid": "99573cc5_febf5926",
       "range": {
         "startLine": 109,
         "startChar": 0,
@@ -613,6 +661,30 @@
     },
     {
       "key": {
+        "uuid": "c20d4746_8594636b",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 50
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-07-23T18:49:50Z",
+      "side": 1,
+      "message": "sure, but in http_connection this is used because we have to construct the request later.  In this case, I think we can construct it in the constructor.",
+      "parentUuid": "fe85f761_3c00cec6",
+      "range": {
+        "startLine": 119,
+        "startChar": 4,
+        "endLine": 119,
+        "endChar": 17
+      },
+      "revId": "0095ccf5a02ee2d0d04c6d1dc59dae39ce736281",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "5d1b61c9_6242a061",
         "filename": "redfish-core/include/utils/query_param.hpp",
         "patchSetId": 50
@@ -648,6 +720,30 @@
       "side": 1,
       "message": "Which file do you think is appropriate?",
       "parentUuid": "5d1b61c9_6242a061",
+      "range": {
+        "startLine": 125,
+        "startChar": 4,
+        "endLine": 125,
+        "endChar": 21
+      },
+      "revId": "0095ccf5a02ee2d0d04c6d1dc59dae39ce736281",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cd041a2a_eb4c83b0",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 50
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-07-23T18:49:50Z",
+      "side": 1,
+      "message": "I haven\u0027t looked in depth, but it might warrant its own file.",
+      "parentUuid": "f306008d_56733558",
       "range": {
         "startLine": 125,
         "startChar": 4,
