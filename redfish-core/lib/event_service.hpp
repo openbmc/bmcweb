@@ -488,7 +488,7 @@ inline void requestRoutesEventDestinationCollection(App& app)
 
 inline void requestRoutesEventDestination(App& app)
 {
-    BMCWEB_ROUTE(app, "redfish/v1/EventService/Subscriptions/<str>/")
+    BMCWEB_ROUTE(app, "/redfish/v1/EventService/Subscriptions/<str>/")
         .privileges(redfish::privileges::getEventDestination)
         .methods(boost::beast::http::verb::get)(
             [](const crow::Request&,
@@ -540,7 +540,7 @@ inline void requestRoutesEventDestination(App& app)
             });
     /////redfish/v1/EventService/Subscriptions/
     // ConfigureManager
-    BMCWEB_ROUTE(app, "redfish/v1/EventService/Subscriptions/<str>/")
+    BMCWEB_ROUTE(app, "/redfish/v1/EventService/Subscriptions/<str>/")
         // The below privilege is wrong, it should be ConfigureManager OR
         // ConfigureSelf
         // TODO(ed) follow up with DMTF spec and understand ConfigureSelf
@@ -597,7 +597,7 @@ inline void requestRoutesEventDestination(App& app)
 
                 EventServiceManager::getInstance().updateSubscriptionData();
             });
-    BMCWEB_ROUTE(app, "redfish/v1/EventService/Subscriptions/<str>/")
+    BMCWEB_ROUTE(app, "/redfish/v1/EventService/Subscriptions/<str>/")
         // The below privilege is wrong, it should be ConfigureManager OR
         // ConfigureSelf
         //.privileges(redfish::privileges::deleteEventDestination)
