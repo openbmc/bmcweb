@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "1cd4302f_8936b8e9",
+        "filename": "redfish-core/lib/trigger.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 196,
+      "author": {
+        "id": 1001026
+      },
+      "writtenOn": "2021-07-23T14:12:21Z",
+      "side": 1,
+      "message": "You are right. As this and most other properties are not required per spec, I decided to relax some parsing and validation rules. If we can deduce the value from other fields - it is OK. But if user provides optional value and it will be incompatible with other value then I will treat it as error. Examples: \n- \u0027MetricType\u0027 is set to \u0027Discrete\u0027 but \u0027NumericThresholds\u0027 was passed. \n- \u0027MetricType\u0027 is set to \u0027Numeric\u0027 but \"DiscreteTriggers\u0027 or \u0027DiscreteTriggerCondition\u0027 were passed\n- \u0027DiscreteTriggerCondition\u0027 is set to \u0027Specified\u0027 but \u0027DiscreteTriggers\u0027 is an empty array or was not passed.\n- \u0027DiscreteTriggerCondition\u0027 is set to \u0027Changed\u0027 but \u0027DiscreteTriggers\u0027 is passed and is not an empty array",
+      "parentUuid": "e0708abc_77de177b",
+      "range": {
+        "startLine": 196,
+        "startChar": 4,
+        "endLine": 196,
+        "endChar": 24
+      },
+      "revId": "c249c1be8d5ec887139fbabb368f0c63fa8161c0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "431a6279_e1a71b03",
         "filename": "redfish-core/lib/trigger.hpp",
         "patchSetId": 2
@@ -36,6 +60,30 @@
       "writtenOn": "2021-07-16T05:35:21Z",
       "side": 1,
       "message": "Class which performs actions in destructor probably won\u0027t be accepted in bmcweb.\n\nSad thing is that unless there will be major rework in sensors.hpp this seem to be only way that will work.",
+      "range": {
+        "startLine": 385,
+        "startChar": 4,
+        "endLine": 385,
+        "endChar": 17
+      },
+      "revId": "c249c1be8d5ec887139fbabb368f0c63fa8161c0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "34136c44_1744b602",
+        "filename": "redfish-core/lib/trigger.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 385,
+      "author": {
+        "id": 1001026
+      },
+      "writtenOn": "2021-07-23T14:12:21Z",
+      "side": 1,
+      "message": "I was using MetricReportDefinition POST method as an example here, so it won\u0027t be such first use case.",
+      "parentUuid": "431a6279_e1a71b03",
       "range": {
         "startLine": 385,
         "startChar": 4,
