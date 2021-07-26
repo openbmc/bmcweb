@@ -46,6 +46,30 @@
       "revId": "1dca36cbce47e1c1dce3e83185e70535c2a40bb4",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "14eca451_23f374b7",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2021-07-26T05:07:18Z",
+      "side": 1,
+      "message": "My bad. Due to the other bug(fixed via https://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/45186) we were not listing the subscribers. This is good to go.",
+      "parentUuid": "1b4d3231_64a3352b",
+      "range": {
+        "startLine": 167,
+        "startChar": 3,
+        "endLine": 169,
+        "endChar": 48
+      },
+      "revId": "1dca36cbce47e1c1dce3e83185e70535c2a40bb4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
