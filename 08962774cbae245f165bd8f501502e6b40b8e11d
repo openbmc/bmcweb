@@ -34,6 +34,24 @@
       "revId": "08962774cbae245f165bd8f501502e6b40b8e11d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4693b2ec_261bc63d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-07-26T15:20:33Z",
+      "side": 1,
+      "message": "No we are using clang-format-11\nhttps://github.com/openbmc/openbmc-build-scripts/commit/d83ca9a38ff0cfbae552e1fefc3e7ec4c8f74531",
+      "parentUuid": "c723d0cb_adcc797c",
+      "revId": "08962774cbae245f165bd8f501502e6b40b8e11d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
