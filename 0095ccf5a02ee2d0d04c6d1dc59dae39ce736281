@@ -614,6 +614,30 @@
     },
     {
       "key": {
+        "uuid": "b6ac22d3_2a3c46cf",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 50
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 1001027
+      },
+      "writtenOn": "2021-07-26T02:10:56Z",
+      "side": 1,
+      "message": "Did you make a mistake?\nHTTP headers are written in \"std::optional\u003cresponse_type\u003e stringResponse\" and have nothing to do with jsonValue.",
+      "parentUuid": "8fb9ca81_69a4ba9a",
+      "range": {
+        "startLine": 109,
+        "startChar": 0,
+        "endLine": 109,
+        "endChar": 30
+      },
+      "revId": "0095ccf5a02ee2d0d04c6d1dc59dae39ce736281",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "68587702_2a4afc7a",
         "filename": "redfish-core/include/utils/query_param.hpp",
         "patchSetId": 50
