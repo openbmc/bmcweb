@@ -16,6 +16,24 @@
       "revId": "285a8f1a0dcf48611bb4328dab3e7b54094a7ad8",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "89f44537_d5f7f781",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-07-26T18:12:02Z",
+      "side": 1,
+      "message": "Some similar documentation: \nhttps://gerrit.openbmc-project.xyz/c/openbmc/docs/+/41468 \n\nAnd a similar commit adding chassis links: \nhttps://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/44570",
+      "parentUuid": "4e5a9b69_913a444f",
+      "revId": "285a8f1a0dcf48611bb4328dab3e7b54094a7ad8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
