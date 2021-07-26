@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ecc078cc_339801da",
+        "filename": "redfish-core/lib/led.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1000004
+      },
+      "writtenOn": "2021-07-26T13:28:32Z",
+      "side": 1,
+      "message": "You\u0027re going to get 2 responses now:\n\na{sas} 2 \n\"xyz.openbmc_project.LED.GroupManager\"\n 4 \"org.freedesktop.DBus.Introspectable\" \"org.freedesktop.DBus.ObjectManager\" \"org.freedesktop.DBus.Peer\" \"org.freedesktop.DBus.Properties\" \n\n\"xyz.openbmc_project.ObjectMapper\" \n3 \"org.freedesktop.DBus.Introspectable\" \"org.freedesktop.DBus.Peer\" \"org.freedesktop.DBus.Properties\n\nI wonder if it\u0027s fair to assume the first one will always be the \"correct\" service? What happens if xyz.openbmc_project.ObjectMapper happens to be first?\n\nWhat happens if the two LED objects are hosted in different services?",
+      "revId": "bd1ab28215a64e4f8005232f33ae631efadaf282",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
