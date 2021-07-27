@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f86d88e1_cb874a21",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 227,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-07-27T13:41:03Z",
+      "side": 1,
+      "message": "Can you add a comment here on why we are using Family?",
+      "revId": "4dc213d5cb471534f229c3978672a353c4842492",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
