@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "c7fee267_014cb0c6",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 9
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1001083
+      },
+      "writtenOn": "2021-07-27T02:40:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ce60ad2a_bbdad839",
+      "range": {
+        "startLine": 11,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 5
+      },
+      "revId": "0ec3500af6b4d2cfbad213e5a1ba14ecbcabb7ee",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "517646f3_5b3d329b",
         "filename": "/COMMIT_MSG",
         "patchSetId": 9
@@ -93,6 +117,30 @@
       "revId": "0ec3500af6b4d2cfbad213e5a1ba14ecbcabb7ee",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ee9d5971_1785a4e8",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 9
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1001083
+      },
+      "writtenOn": "2021-07-27T02:40:56Z",
+      "side": 1,
+      "message": "I switched it back to Inventory.Item.Cpu Family property. I think it more closely follows the SMBIOS spec.",
+      "parentUuid": "b17a3cf8_3b712969",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 18,
+        "endChar": 33
+      },
+      "revId": "0ec3500af6b4d2cfbad213e5a1ba14ecbcabb7ee",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -238,6 +286,30 @@
     },
     {
       "key": {
+        "uuid": "9a6c8ec8_639f9afb",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 182,
+      "author": {
+        "id": 1001083
+      },
+      "writtenOn": "2021-07-27T02:40:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8be172af_f8f29336",
+      "range": {
+        "startLine": 182,
+        "startChar": 47,
+        "endLine": 182,
+        "endChar": 50
+      },
+      "revId": "0ec3500af6b4d2cfbad213e5a1ba14ecbcabb7ee",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2465dd7e_c5c5fd29",
         "filename": "redfish-core/lib/systems.hpp",
         "patchSetId": 9
@@ -329,6 +401,30 @@
       "revId": "0ec3500af6b4d2cfbad213e5a1ba14ecbcabb7ee",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dfa1b89a_6a2c8f32",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 242,
+      "author": {
+        "id": 1001083
+      },
+      "writtenOn": "2021-07-27T02:40:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8071bd44_0edc2448",
+      "range": {
+        "startLine": 241,
+        "startChar": 8,
+        "endLine": 242,
+        "endChar": 50
+      },
+      "revId": "0ec3500af6b4d2cfbad213e5a1ba14ecbcabb7ee",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
