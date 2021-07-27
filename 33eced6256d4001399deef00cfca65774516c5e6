@@ -34,6 +34,24 @@
       "revId": "33eced6256d4001399deef00cfca65774516c5e6",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "815097bc_b4be6b96",
+        "filename": "redfish-core/include/event_service_manager.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1056,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-07-27T21:03:03Z",
+      "side": 1,
+      "message": "That\u0027s a really good point.  If we\u0027re rejecting a message, we should have a return code on this method.  The normal flow will ignore it, but we should probably give back at the very least the right error code for the test event case.",
+      "parentUuid": "e68034cf_f209dbb2",
+      "revId": "33eced6256d4001399deef00cfca65774516c5e6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
