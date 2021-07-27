@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8100870e_b5a3c104",
+        "filename": "http/http_connection.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 328,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2021-07-27T23:32:50Z",
+      "side": 1,
+      "message": "I tried to use \"get()\" to the inside the optinal then \"target()\" on the target on the http::request. but something was wrong.\nhttps://www.boost.org/doc/libs/develop/libs/beast/doc/html/beast/ref/boost__beast__http__request.html",
+      "range": {
+        "startLine": 328,
+        "startChar": 35,
+        "endLine": 328,
+        "endChar": 58
+      },
+      "revId": "6d1dff1ce9e8971896f9eda6d0f80d31d754d017",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
