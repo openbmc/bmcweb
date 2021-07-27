@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "80e82b80_297d0832",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 20
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2021-07-27T21:06:20Z",
+      "side": 1,
+      "message": "nit: Fabric",
+      "range": {
+        "startLine": 13,
+        "startChar": 25,
+        "endLine": 13,
+        "endChar": 30
+      },
+      "revId": "591fca885d4a741b23c51b4573873690517e2f6a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b416f8a9_d8c91317",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 20
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2021-07-27T21:06:20Z",
+      "side": 1,
+      "message": "nit: As a",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 3
+      },
+      "revId": "591fca885d4a741b23c51b4573873690517e2f6a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bc85f1cb_1145f5fe",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 20
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2021-07-27T21:06:20Z",
+      "side": 1,
+      "message": "nit: missing a space",
+      "range": {
+        "startLine": 15,
+        "startChar": 20,
+        "endLine": 15,
+        "endChar": 21
+      },
+      "revId": "591fca885d4a741b23c51b4573873690517e2f6a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "828a3d18_abbd38eb",
+        "filename": "redfish-core/include/redfish.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2021-07-27T21:06:20Z",
+      "side": 1,
+      "message": "The list below is alphabetized and last I checked, f comes after a, not before it :-)\nThis project clearly uses snake_case for filenames in the lib directory yet you\u0027ve used CamelCase for this file name.  Why is that?",
+      "revId": "591fca885d4a741b23c51b4573873690517e2f6a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
