@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "04b8a9e9_3a7bfd35",
+        "filename": "redfish-core/include/registries/privilege_registry.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 581,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-07-27T21:07:21Z",
+      "side": 1,
+      "message": "actually, that\u0027s a really good point.  Technically every endpoint should be using some kind of standard \"subordinate override\" variable name, otherwise we won\u0027t be able to support custom privilege registries in the future, which could have subordinate overrides at any level.",
+      "parentUuid": "e0791e90_eef645bc",
+      "range": {
+        "startLine": 580,
+        "startChar": 0,
+        "endLine": 581,
+        "endChar": 39
+      },
+      "revId": "5bdce35ac5baf1b64eff1ca44264f2a1a3eac3ca",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "3fbe68b7_19a1d62c",
         "filename": "redfish-core/include/registries/privilege_registry.hpp",
         "patchSetId": 10
@@ -84,6 +108,30 @@
       "side": 1,
       "message": "Yes, I was thinking of doing that. But there, I face some challenges, what name is suitable for this variable and how to add that name. So first, I thought, lest grab the first two char and add that as a variable name.\n\nexample: patchLogEntry_CoLoLoLo but that not look good.\n\nWhy two char? Because if the entity has two separate targets, we need to define two different const refs for them.\n\nany other good idea appreciated.",
       "parentUuid": "3fbe68b7_19a1d62c",
+      "range": {
+        "startLine": 585,
+        "startChar": 32,
+        "endLine": 585,
+        "endChar": 40
+      },
+      "revId": "5bdce35ac5baf1b64eff1ca44264f2a1a3eac3ca",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a7133731_62bec65d",
+        "filename": "redfish-core/include/registries/privilege_registry.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 585,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-07-27T21:07:21Z",
+      "side": 1,
+      "message": "We could concatenate everything as-is and just have very long variable names?",
+      "parentUuid": "1c03fe53_7de3f031",
       "range": {
         "startLine": 585,
         "startChar": 32,
