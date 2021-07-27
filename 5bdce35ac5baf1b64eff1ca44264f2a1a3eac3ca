@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bd8c97e4_4d62c0e4",
+        "filename": "redfish-core/include/registries/privilege_registry.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 581,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-07-27T15:58:34Z",
+      "side": 1,
+      "message": "I\u0027m not following what this is trying to convey.  Should we just have something like \"Subordinate override for ComputerSystem -\u003e LogServiceCollection -\u003e LogService -\u003e LogEntryCollection -\u003e LogEntry\"",
+      "range": {
+        "startLine": 580,
+        "startChar": 0,
+        "endLine": 581,
+        "endChar": 39
+      },
+      "revId": "5bdce35ac5baf1b64eff1ca44264f2a1a3eac3ca",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3fbe68b7_19a1d62c",
+        "filename": "redfish-core/include/registries/privilege_registry.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 585,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-07-27T15:58:34Z",
+      "side": 1,
+      "message": "is it possible to put some naming information here about what this override is for.  The whole point of generating this stuff was to make code easier to review.  As-written, you have to go to the comments to see which override applies to which entry.",
+      "range": {
+        "startLine": 585,
+        "startChar": 32,
+        "endLine": 585,
+        "endChar": 40
+      },
+      "revId": "5bdce35ac5baf1b64eff1ca44264f2a1a3eac3ca",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1f13eae6_09e1b63e",
+        "filename": "scripts/parse_registries.py",
+        "patchSetId": 10
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-07-27T15:58:34Z",
+      "side": 1,
+      "message": "Please load this into a variable so you\u0027re not doing a map lookup twice (here and on line 177)",
+      "range": {
+        "startLine": 173,
+        "startChar": 15,
+        "endLine": 173,
+        "endChar": 51
+      },
+      "revId": "5bdce35ac5baf1b64eff1ca44264f2a1a3eac3ca",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "894e85dc_ea832ac0",
+        "filename": "scripts/parse_registries.py",
+        "patchSetId": 10
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-07-27T15:58:34Z",
+      "side": 1,
+      "message": "Please deduplicate the code on these two branches.",
+      "range": {
+        "startLine": 187,
+        "startChar": 0,
+        "endLine": 192,
+        "endChar": 84
+      },
+      "revId": "5bdce35ac5baf1b64eff1ca44264f2a1a3eac3ca",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
