@@ -85,6 +85,93 @@
       "revId": "591fca885d4a741b23c51b4573873690517e2f6a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d9c9dbf0_76b46219",
+        "filename": "redfish-core/include/redfish.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-07-27T21:15:51Z",
+      "side": 1,
+      "message": "+1.  I\u0027m a little surprised clang-format succeeded here;  It should\u0027ve alphabetized things automatically.  Oh well, maybe the .. confused it.",
+      "parentUuid": "828a3d18_abbd38eb",
+      "revId": "591fca885d4a741b23c51b4573873690517e2f6a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "70105843_240836f0",
+        "filename": "redfish-core/lib/FabricAdapters.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-07-27T21:15:51Z",
+      "side": 1,
+      "message": "This return is redundant and can be removed.",
+      "range": {
+        "startLine": 79,
+        "startChar": 0,
+        "endLine": 79,
+        "endChar": 19
+      },
+      "revId": "591fca885d4a741b23c51b4573873690517e2f6a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7265b81b_51c80f37",
+        "filename": "redfish-core/lib/FabricAdapters.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-07-27T21:15:51Z",
+      "side": 1,
+      "message": "Same as below.",
+      "range": {
+        "startLine": 95,
+        "startChar": 20,
+        "endLine": 95,
+        "endChar": 31
+      },
+      "revId": "591fca885d4a741b23c51b4573873690517e2f6a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3ca473c3_55a074de",
+        "filename": "redfish-core/lib/FabricAdapters.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-07-27T21:15:51Z",
+      "side": 1,
+      "message": "This needs to use the fabric adapter privilege struct.",
+      "range": {
+        "startLine": 121,
+        "startChar": 20,
+        "endLine": 121,
+        "endChar": 31
+      },
+      "revId": "591fca885d4a741b23c51b4573873690517e2f6a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
