@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "e0791e90_eef645bc",
+        "filename": "redfish-core/include/registries/privilege_registry.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 581,
+      "author": {
+        "id": 1001099
+      },
+      "writtenOn": "2021-07-27T16:20:42Z",
+      "side": 1,
+      "message": "if we use example: patchLogEntry_CoLoLoLo  some thing like this then I not need to add this comment.\n\nthis because if SubordinateOverrides target get change\nex: \nComputerSystem -\u003e LogServiceCollection -\u003e LogService -\u003e LogEntryCollection \nTO\nChassis -\u003e LogServiceCollection -\u003e LogService -\u003e LogEntryCollection\n\nthis logic still gone generate coast ref variable as \nconst static auto\u0026 patchLogEntrySubOver \u003d  xxxxxxx\n\nso then we need to manually change this reference in privileges method to not use that variable any more.",
+      "parentUuid": "bd8c97e4_4d62c0e4",
+      "range": {
+        "startLine": 580,
+        "startChar": 0,
+        "endLine": 581,
+        "endChar": 39
+      },
+      "revId": "5bdce35ac5baf1b64eff1ca44264f2a1a3eac3ca",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "3fbe68b7_19a1d62c",
         "filename": "redfish-core/include/registries/privilege_registry.hpp",
         "patchSetId": 10
@@ -36,6 +60,30 @@
       "writtenOn": "2021-07-27T15:58:34Z",
       "side": 1,
       "message": "is it possible to put some naming information here about what this override is for.  The whole point of generating this stuff was to make code easier to review.  As-written, you have to go to the comments to see which override applies to which entry.",
+      "range": {
+        "startLine": 585,
+        "startChar": 32,
+        "endLine": 585,
+        "endChar": 40
+      },
+      "revId": "5bdce35ac5baf1b64eff1ca44264f2a1a3eac3ca",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1c03fe53_7de3f031",
+        "filename": "redfish-core/include/registries/privilege_registry.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 585,
+      "author": {
+        "id": 1001099
+      },
+      "writtenOn": "2021-07-27T16:20:42Z",
+      "side": 1,
+      "message": "Yes, I was thinking of doing that. But there, I face some challenges, what name is suitable for this variable and how to add that name. So first, I thought, lest grab the first two char and add that as a variable name.\n\nexample: patchLogEntry_CoLoLoLo but that not look good.\n\nWhy two char? Because if the entity has two separate targets, we need to define two different const refs for them.\n\nany other good idea appreciated.",
+      "parentUuid": "3fbe68b7_19a1d62c",
       "range": {
         "startLine": 585,
         "startChar": 32,
