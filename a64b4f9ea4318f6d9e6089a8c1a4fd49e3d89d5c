@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "d80cf3f0_739b9817",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 22
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-07-28T20:52:18Z",
+      "side": 1,
+      "message": "Right.... the buffer change on line 67 also needs to be in its own commit.",
+      "parentUuid": "106eb596_93355acb",
+      "range": {
+        "startLine": 37,
+        "startChar": 0,
+        "endLine": 37,
+        "endChar": 55
+      },
+      "revId": "a64b4f9ea4318f6d9e6089a8c1a4fd49e3d89d5c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "412563f0_f2ee693b",
         "filename": "http/http_client.hpp",
         "patchSetId": 22
@@ -379,6 +403,30 @@
     },
     {
       "key": {
+        "uuid": "b4ed0b5b_b82eb034",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 22
+      },
+      "lineNbr": 346,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-07-28T20:52:18Z",
+      "side": 1,
+      "message": "That\u0027s a fair point.  ok as is.",
+      "parentUuid": "11f5c708_e8e66715",
+      "range": {
+        "startLine": 346,
+        "startChar": 0,
+        "endLine": 346,
+        "endChar": 27
+      },
+      "revId": "a64b4f9ea4318f6d9e6089a8c1a4fd49e3d89d5c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "97954ae7_888b33c3",
         "filename": "http/http_client.hpp",
         "patchSetId": 22
@@ -472,6 +520,30 @@
     },
     {
       "key": {
+        "uuid": "44521c9b_b1c86f02",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 22
+      },
+      "lineNbr": 423,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-07-28T20:52:18Z",
+      "side": 1,
+      "message": "understood about emplace_back not being available, but this still should use the rvalue overload of push_back, not the lvalue overload.",
+      "parentUuid": "856c0055_b9a12ad7",
+      "range": {
+        "startLine": 423,
+        "startChar": 25,
+        "endLine": 423,
+        "endChar": 34
+      },
+      "revId": "a64b4f9ea4318f6d9e6089a8c1a4fd49e3d89d5c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "25f6316d_aedf4f7a",
         "filename": "http/http_client.hpp",
         "patchSetId": 22
@@ -507,6 +579,30 @@
       "side": 1,
       "message": "Nope. Request.set is going to replace the value if the key already exists. So shouldn\u0027t be an issue.",
       "parentUuid": "25f6316d_aedf4f7a",
+      "range": {
+        "startLine": 431,
+        "startChar": 0,
+        "endLine": 435,
+        "endChar": 9
+      },
+      "revId": "a64b4f9ea4318f6d9e6089a8c1a4fd49e3d89d5c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d7d2398d_091b25b5",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 22
+      },
+      "lineNbr": 435,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-07-28T20:52:18Z",
+      "side": 1,
+      "message": "Unless one request has different headers than the other one, in which case the second request will get the first requests headers.",
+      "parentUuid": "9e03873f_7694e5c5",
       "range": {
         "startLine": 431,
         "startChar": 0,
