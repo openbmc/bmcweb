@@ -190,10 +190,7 @@ inline void requestRoutesEventDestinationCollection(App& app)
                 }
             });
     BMCWEB_ROUTE(app, "/redfish/v1/EventService/Subscriptions/")
-        // The below privilege is wrong, it should be ConfigureManager OR
-        // ConfigureComponents
-        //.privileges(redfish::privileges::postEventDestinationCollection)
-        .privileges({{"ConfigureManager"}})
+        .privileges(redfish::privileges::postEventDestinationCollection)
         .methods(boost::beast::http::verb::post)(
             [](const crow::Request& req,
                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
@@ -538,14 +535,9 @@ inline void requestRoutesEventDestination(App& app)
                 asyncResp->res.jsonValue["MetricReportDefinitions"] =
                     mrdJsonArray;
             });
-    /////redfish/v1/EventService/Subscriptions/
-    // ConfigureManager
     BMCWEB_ROUTE(app, "/redfish/v1/EventService/Subscriptions/<str>/")
-        // The below privilege is wrong, it should be ConfigureManager OR
-        // ConfigureSelf
         // TODO(ed) follow up with DMTF spec and understand ConfigureSelf
-        //.privileges(redfish::privileges::patchEventDestination)
-        .privileges({{"ConfigureManager"}})
+        .privileges(redfish::privileges::patchEventDestination)
         .methods(boost::beast::http::verb::patch)(
             [](const crow::Request& req,
                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
@@ -598,10 +590,7 @@ inline void requestRoutesEventDestination(App& app)
                 EventServiceManager::getInstance().updateSubscriptionData();
             });
     BMCWEB_ROUTE(app, "/redfish/v1/EventService/Subscriptions/<str>/")
-        // The below privilege is wrong, it should be ConfigureManager OR
-        // ConfigureSelf
-        //.privileges(redfish::privileges::deleteEventDestination)
-        .privileges({{"ConfigureManager"}})
+        .privileges(redfish::privileges::deleteEventDestination)
         .methods(boost::beast::http::verb::delete_)(
             [](const crow::Request&,
                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
