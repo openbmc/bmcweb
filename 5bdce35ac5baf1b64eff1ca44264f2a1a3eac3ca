@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "85064d3a_18ef6394",
+        "filename": "redfish-core/include/registries/privilege_registry.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 581,
+      "author": {
+        "id": 1001099
+      },
+      "writtenOn": "2021-07-28T14:15:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "04b8a9e9_3a7bfd35",
+      "range": {
+        "startLine": 580,
+        "startChar": 0,
+        "endLine": 581,
+        "endChar": 39
+      },
+      "revId": "5bdce35ac5baf1b64eff1ca44264f2a1a3eac3ca",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3fbe68b7_19a1d62c",
         "filename": "redfish-core/include/registries/privilege_registry.hpp",
         "patchSetId": 10
@@ -144,6 +168,30 @@
     },
     {
       "key": {
+        "uuid": "0b83827c_b2c6084a",
+        "filename": "redfish-core/include/registries/privilege_registry.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 585,
+      "author": {
+        "id": 1001099
+      },
+      "writtenOn": "2021-07-28T14:15:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a7133731_62bec65d",
+      "range": {
+        "startLine": 585,
+        "startChar": 32,
+        "endLine": 585,
+        "endChar": 40
+      },
+      "revId": "5bdce35ac5baf1b64eff1ca44264f2a1a3eac3ca",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1f13eae6_09e1b63e",
         "filename": "scripts/parse_registries.py",
         "patchSetId": 10
@@ -167,6 +215,30 @@
     },
     {
       "key": {
+        "uuid": "23e2378e_4a64059a",
+        "filename": "scripts/parse_registries.py",
+        "patchSetId": 10
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 1001099
+      },
+      "writtenOn": "2021-07-28T14:15:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1f13eae6_09e1b63e",
+      "range": {
+        "startLine": 173,
+        "startChar": 15,
+        "endLine": 173,
+        "endChar": 51
+      },
+      "revId": "5bdce35ac5baf1b64eff1ca44264f2a1a3eac3ca",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "894e85dc_ea832ac0",
         "filename": "scripts/parse_registries.py",
         "patchSetId": 10
@@ -187,6 +259,30 @@
       "revId": "5bdce35ac5baf1b64eff1ca44264f2a1a3eac3ca",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "770372fb_8eeeffb5",
+        "filename": "scripts/parse_registries.py",
+        "patchSetId": 10
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 1001099
+      },
+      "writtenOn": "2021-07-28T14:15:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "894e85dc_ea832ac0",
+      "range": {
+        "startLine": 187,
+        "startChar": 0,
+        "endLine": 192,
+        "endChar": 84
+      },
+      "revId": "5bdce35ac5baf1b64eff1ca44264f2a1a3eac3ca",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
