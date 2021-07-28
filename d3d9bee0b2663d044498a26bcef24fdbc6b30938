@@ -157,6 +157,30 @@
     },
     {
       "key": {
+        "uuid": "04ad823d_a230aede",
+        "filename": "redfish-core/include/registries/openbmc_message_registry.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 2284,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2021-07-28T23:17:02Z",
+      "side": 1,
+      "message": "My understanding is we don\u0027t actually need MessageId for serial logs, since we aren\u0027t adding extra context here.",
+      "parentUuid": "b8d1322b_8c2cfac9",
+      "range": {
+        "startLine": 2275,
+        "startChar": 0,
+        "endLine": 2284,
+        "endChar": 20
+      },
+      "revId": "d3d9bee0b2663d044498a26bcef24fdbc6b30938",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d18e5ddf_d4e4f646",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 3
@@ -410,6 +434,30 @@
       "writtenOn": "2021-07-28T22:49:07Z",
       "side": 1,
       "message": "Please read the redfish specification on how skip and top are supposed to work.  I suspect this was copied from the other log service, which technically does it incorrectly.  We\u0027ll need to implement to the spec here, to avoid having to fix it later.",
+      "range": {
+        "startLine": 1991,
+        "startChar": 24,
+        "endLine": 1991,
+        "endChar": 74
+      },
+      "revId": "d3d9bee0b2663d044498a26bcef24fdbc6b30938",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cdd57b35_110dff4f",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1991,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2021-07-28T23:17:02Z",
+      "side": 1,
+      "message": "Reading from http://redfish.dmtf.org/schemas/DSP0266_1.12.0.html#query-parameters (it is not the latest but I found hmtl format more convenient to share), we should firstly skip ${skip} entries, then collect ${top} entires, and finally return them in the response.\n\nThe implementation seems correct in this regards. But I see some problems in the IDs. IDs of entries should stay the same no matter what the query parameters are. Is that the problem you are talking about?",
+      "parentUuid": "c517210e_ae607e4e",
       "range": {
         "startLine": 1991,
         "startChar": 24,
