@@ -194,10 +194,7 @@ inline void requestRoutesEventDestinationCollection(App& app)
                 }
             });
     BMCWEB_ROUTE(app, "/redfish/v1/EventService/Subscriptions/")
-        // The below privilege is wrong, it should be ConfigureManager OR
-        // ConfigureComponents
-        //.privileges(redfish::privileges::postEventDestinationCollection)
-        .privileges({{"ConfigureManager"}})
+        .privileges(redfish::privileges::postEventDestinationCollection)
         .methods(boost::beast::http::verb::post)(
             [](const crow::Request& req,
                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
@@ -542,12 +539,10 @@ inline void requestRoutesEventDestination(App& app)
                 asyncResp->res.jsonValue["MetricReportDefinitions"] =
                     mrdJsonArray;
             });
-    /////redfish/v1/EventService/Subscriptions/
-    // ConfigureManager
     BMCWEB_ROUTE(app, "/redfish/v1/EventService/Subscriptions/<str>/")
         // The below privilege is wrong, it should be ConfigureManager OR
         // ConfigureSelf
-        // TODO(ed) follow up with DMTF spec and understand ConfigureSelf
+        // TODO(ed): https://github.com/openbmc/bmcweb/issues/220
         //.privileges(redfish::privileges::patchEventDestination)
         .privileges({{"ConfigureManager"}})
         .methods(boost::beast::http::verb::patch)(
@@ -604,6 +599,7 @@ inline void requestRoutesEventDestination(App& app)
     BMCWEB_ROUTE(app, "/redfish/v1/EventService/Subscriptions/<str>/")
         // The below privilege is wrong, it should be ConfigureManager OR
         // ConfigureSelf
+        // TODO(ed): https://github.com/openbmc/bmcweb/issues/220
         //.privileges(redfish::privileges::deleteEventDestination)
         .privileges({{"ConfigureManager"}})
         .methods(boost::beast::http::verb::delete_)(
