@@ -121,6 +121,30 @@
     },
     {
       "key": {
+        "uuid": "ca329f54_887c49d2",
+        "filename": "redfish-core/include/registries/privilege_registry.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 581,
+      "author": {
+        "id": 1001099
+      },
+      "writtenOn": "2021-07-28T18:53:58Z",
+      "side": 1,
+      "message": "I agree this will not fix stuff the way we want.\n\nBut to make it perfect, we need much robust solution.\n\nA solution:\nwe need a list of all route path\nEx: \n\"/redfish/v1/Systems/system/LogServices/EventLog/Actions/LogService.ClearLog/\"\nall rought has max 6 method GET, HEAD, PATCH, PUT, DELETE, POST. \n\nSo we need to create six variables for them (the variable name is a little bit of a challenge because they have to be unique and easy to read)\n\nSecond, we need a keypair value with a single route with it @odata.type end value.\n{{v1, ServiceRoot}, {Systems, ComputerSystemCollection}, {system, ComputerSystem}, {LogServices, LogServiceCollection}, {EventLog, LogService}}\n\nin normal case just assign route path privilege.\n\nThen for all SubordinateOverrides we map that path and assign proper privilege.\n\nIf we introduce a new route path or if the @odata.type end value gets updated, we still face the problem. (I mean, in that case, it is not robust)\n\nis this too much work?",
+      "parentUuid": "7bb0d9da_3cfce3ac",
+      "range": {
+        "startLine": 580,
+        "startChar": 0,
+        "endLine": 581,
+        "endChar": 39
+      },
+      "revId": "5bdce35ac5baf1b64eff1ca44264f2a1a3eac3ca",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3fbe68b7_19a1d62c",
         "filename": "redfish-core/include/registries/privilege_registry.hpp",
         "patchSetId": 10
