@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "637faba2_c8b0a814",
+        "filename": "redfish-core/include/registries/openbmc_message_registry.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 2275,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2021-07-28T16:51:59Z",
+      "side": 1,
+      "message": "OK, so a MessageId is required for the Event type of logs? Are we accepting this name here?",
+      "parentUuid": "df416118_b1fb9326",
+      "revId": "8000de88e5cec0173c5057a1daef4810ac6d1aac",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8d9dd6e1_ab9cef99",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 2
@@ -184,6 +202,24 @@
     },
     {
       "key": {
+        "uuid": "a447dc9d_4d8a48a0",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1842,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2021-07-28T16:51:59Z",
+      "side": 1,
+      "message": "I see. So logEntry will never contain \u0027\\n\u0027.",
+      "parentUuid": "e0049ff4_773cf17d",
+      "revId": "8000de88e5cec0173c5057a1daef4810ac6d1aac",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7c4672c3_07803b4c",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 2
@@ -216,6 +252,24 @@
       "revId": "8000de88e5cec0173c5057a1daef4810ac6d1aac",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c7803f76_29db3a33",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1855,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2021-07-28T16:51:59Z",
+      "side": 1,
+      "message": "If that\u0027s the case I am OK with keeping it consistent.",
+      "parentUuid": "888d73de_6e2e3d6b",
+      "revId": "8000de88e5cec0173c5057a1daef4810ac6d1aac",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -272,6 +326,24 @@
     },
     {
       "key": {
+        "uuid": "d59b1f9d_3497cfa7",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1860,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2021-07-28T16:51:59Z",
+      "side": 1,
+      "message": "LGTM.",
+      "parentUuid": "a79a114a_f24be3d1",
+      "revId": "8000de88e5cec0173c5057a1daef4810ac6d1aac",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0b16f296_a72420d2",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 2
@@ -301,6 +373,24 @@
       "side": 1,
       "message": "Sure, is it enough after modifying?",
       "parentUuid": "0b16f296_a72420d2",
+      "revId": "8000de88e5cec0173c5057a1daef4810ac6d1aac",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4d396b8c_c65c2fe9",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1957,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2021-07-28T16:51:59Z",
+      "side": 1,
+      "message": "I meant can we add the error message into the response? \n\nAlso we should keep \"messages::internalError(asyncResp-\u003eres);\" though we added BMCWEB_LOG_ERROR IIUC, right?",
+      "parentUuid": "c21d58a5_dccd6c1f",
       "revId": "8000de88e5cec0173c5057a1daef4810ac6d1aac",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
@@ -441,6 +531,24 @@
       "side": 1,
       "message": "I think the default directory_entry::path order result confuse me, because the log entry present result is correct. But add a sorting function is better. I already add sorting function in \"getHostLoggerFiles\" by decreasing. Thank you point out this question.",
       "parentUuid": "0769fbf5_c4894ba7",
+      "revId": "8000de88e5cec0173c5057a1daef4810ac6d1aac",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "96cc67ab_ec8fdf95",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1990,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2021-07-28T16:51:59Z",
+      "side": 1,
+      "message": "Just to confirm, now LogEntries are ordered from oldest to newest, right?",
+      "parentUuid": "102729c8_f42f02bb",
       "revId": "8000de88e5cec0173c5057a1daef4810ac6d1aac",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": false

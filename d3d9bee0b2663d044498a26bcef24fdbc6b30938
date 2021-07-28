@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "543854cc_08b499c6",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1847,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2021-07-28T16:51:59Z",
+      "side": 1,
+      "message": "no need to clear.",
+      "revId": "d3d9bee0b2663d044498a26bcef24fdbc6b30938",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cc3bcb2a_e62de0d9",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 2031,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2021-07-28T16:51:59Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 2031,
+        "startChar": 20,
+        "endLine": 2031,
+        "endChar": 36
+      },
+      "revId": "d3d9bee0b2663d044498a26bcef24fdbc6b30938",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
