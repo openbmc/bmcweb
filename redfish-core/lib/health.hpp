@@ -56,8 +56,10 @@ struct HealthPopulate : std::enable_shared_from_this<HealthPopulate>
         for (const auto& [path, interfaces] : statuses)
         {
             bool isChild = false;
-            bool isSelf =
-                selfPath ? boost::starts_with(path.str, *selfPath) : false;
+            bool isSelf = selfPath
+                              ? (boost::equals(path.str, *selfPath) ||
+                                 boost::starts_with(path.str, *selfPath + "/"))
+                              : false;
 
             // managers inventory is all the inventory, don't skip any
             if (!isManagersHealth && !isSelf)
