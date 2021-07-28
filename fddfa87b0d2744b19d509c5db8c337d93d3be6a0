@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "278e6afa_04ba4c6f",
+        "filename": "redfish-core/lib/health.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-07-28T17:37:42Z",
+      "side": 1,
+      "message": "This changes the behavior to allow exact matches, which I don\u0027t see mentioned in the commit message.  Also, this is getting complex, it would be good to unwind this into something that doesn\u0027t rely on a multi-tiered terenary.   As written, this is difficult to read, although that\u0027s not hte fault of the author (the old one was hard to read too) we should clean the code up while we\u0027re here.",
+      "range": {
+        "startLine": 60,
+        "startChar": 33,
+        "endLine": 60,
+        "endChar": 67
+      },
+      "revId": "fddfa87b0d2744b19d509c5db8c337d93d3be6a0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
