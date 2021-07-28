@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "405a9e74_96a04d89",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-07-28T17:29:20Z",
+      "side": 1,
+      "message": "please wrap your commit message 50/72",
+      "revId": "0eab9653eb7cccc27539b74b89c85e3b67578cca",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7f427220_91a14a93",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-07-28T17:29:20Z",
+      "side": 1,
+      "message": "This would imply that phosphor-user-manager needs fixed, not bmcweb.  bmcweb should not be implementing business logic like this, unless it is specific to the web interface, which this isn\u0027t.",
+      "range": {
+        "startLine": 12,
+        "startChar": 43,
+        "endLine": 13,
+        "endChar": 61
+      },
+      "revId": "0eab9653eb7cccc27539b74b89c85e3b67578cca",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
