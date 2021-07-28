@@ -2,6 +2,230 @@
   "comments": [
     {
       "key": {
+        "uuid": "9527b7f5_beb22891",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-07-28T22:49:07Z",
+      "side": 1,
+      "message": "50/72 line wrap please.",
+      "range": {
+        "startLine": 12,
+        "startChar": 0,
+        "endLine": 12,
+        "endChar": 73
+      },
+      "revId": "d3d9bee0b2663d044498a26bcef24fdbc6b30938",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "44209dcd_0787e321",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-07-28T22:49:07Z",
+      "side": 1,
+      "message": "Things that I see missing here:\n\n1. Why is this feature useful?\n2. What changes does this make to the Redfish tree?\n3. How is this expected to be used?\n4. What options are being added?  Why would someone enable or disable this option?\n\nPlease answer these questions in your commit message.",
+      "revId": "d3d9bee0b2663d044498a26bcef24fdbc6b30938",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "27c2c2b1_8bf3176d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-07-28T22:49:07Z",
+      "side": 1,
+      "message": "whitespace issue.",
+      "range": {
+        "startLine": 15,
+        "startChar": 49,
+        "endLine": 15,
+        "endChar": 50
+      },
+      "revId": "d3d9bee0b2663d044498a26bcef24fdbc6b30938",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5b4f1e6d_0d3880b4",
+        "filename": "redfish-core/include/gzfile.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-07-28T22:49:07Z",
+      "side": 1,
+      "message": "This branch isn\u0027t needed.  just call clear().  If the buf is already empty, it will be no-op.",
+      "range": {
+        "startLine": 35,
+        "startChar": 0,
+        "endLine": 36,
+        "endChar": 9
+      },
+      "revId": "d3d9bee0b2663d044498a26bcef24fdbc6b30938",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "42cf041b_60095c42",
+        "filename": "redfish-core/include/gzfile.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-07-28T22:49:07Z",
+      "side": 1,
+      "message": "According to the docs, gzgets returns a pointer to the buf object.  We need to resize the string based on this pointer, otherwise this method could return UB.",
+      "range": {
+        "startLine": 42,
+        "startChar": 12,
+        "endLine": 42,
+        "endChar": 71
+      },
+      "revId": "d3d9bee0b2663d044498a26bcef24fdbc6b30938",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f260b1b2_83667bea",
+        "filename": "redfish-core/include/gzfile.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-07-28T22:49:07Z",
+      "side": 1,
+      "message": "Does this need checked?  I\u0027m not following why this is here.",
+      "range": {
+        "startLine": 45,
+        "startChar": 0,
+        "endLine": 45,
+        "endChar": 34
+      },
+      "revId": "d3d9bee0b2663d044498a26bcef24fdbc6b30938",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b8d1322b_8c2cfac9",
+        "filename": "redfish-core/include/registries/openbmc_message_registry.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 2284,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-07-28T22:49:07Z",
+      "side": 1,
+      "message": "I wonder if this needs its own registry, or we shouldn\u0027t be filling in MessageId at all?  I need to think more on that.",
+      "range": {
+        "startLine": 2275,
+        "startChar": 0,
+        "endLine": 2284,
+        "endChar": 20
+      },
+      "revId": "d3d9bee0b2663d044498a26bcef24fdbc6b30938",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d18e5ddf_d4e4f646",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1817,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-07-28T22:49:07Z",
+      "side": 1,
+      "message": "undefined behavior.  This is taking a reference to an rvalue object.\n\nnit: given that this is such a long name, can you initialize this without using an \u003d to make the code nicer to read.",
+      "range": {
+        "startLine": 1817,
+        "startChar": 45,
+        "endLine": 1817,
+        "endChar": 46
+      },
+      "revId": "d3d9bee0b2663d044498a26bcef24fdbc6b30938",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5981c472_aa78cf80",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1819,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-07-28T22:49:07Z",
+      "side": 1,
+      "message": "nit: just if (ec) please",
+      "range": {
+        "startLine": 1819,
+        "startChar": 8,
+        "endLine": 1819,
+        "endChar": 23
+      },
+      "revId": "d3d9bee0b2663d044498a26bcef24fdbc6b30938",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "39257ff7_8f9ee4e6",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1830,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-07-28T22:49:07Z",
+      "side": 1,
+      "message": "The files will be in /var/log/consoleN?  Shouldn\u0027t they be in a folder, like /var/log/console/logN?  That seems like it would be more similar to other linux services.",
+      "range": {
+        "startLine": 1829,
+        "startChar": 0,
+        "endLine": 1830,
+        "endChar": 9
+      },
+      "revId": "d3d9bee0b2663d044498a26bcef24fdbc6b30938",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "543854cc_08b499c6",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 3
@@ -13,6 +237,185 @@
       "writtenOn": "2021-07-28T16:51:59Z",
       "side": 1,
       "message": "no need to clear.",
+      "revId": "d3d9bee0b2663d044498a26bcef24fdbc6b30938",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "90b8ff25_e415c8f7",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1847,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-07-28T22:49:07Z",
+      "side": 1,
+      "message": "+1",
+      "parentUuid": "543854cc_08b499c6",
+      "revId": "d3d9bee0b2663d044498a26bcef24fdbc6b30938",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8f40710d_4fc15fbf",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1849,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-07-28T22:49:07Z",
+      "side": 1,
+      "message": "nit: typo.",
+      "range": {
+        "startLine": 1849,
+        "startChar": 22,
+        "endLine": 1849,
+        "endChar": 27
+      },
+      "revId": "d3d9bee0b2663d044498a26bcef24fdbc6b30938",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c484d404_caa94f49",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1863,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-07-28T22:49:07Z",
+      "side": 1,
+      "message": "This looks like most of it is copied from the other fillEventLogEntryJson method.  Is there a reason that other one couldn\u0027t be used?  I\u0027d prefer to avoid duplicating the code.\n\n\nI wrote the below comments before I realized that this was just copied and pasted, then modified, which explains a lot of the strange patterns.  Once this comment is implemented, a bunch of other comments might be irrelevant.",
+      "range": {
+        "startLine": 1863,
+        "startChar": 12,
+        "endLine": 1863,
+        "endChar": 35
+      },
+      "revId": "d3d9bee0b2663d044498a26bcef24fdbc6b30938",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a98c8f46_f35d9499",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1871,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-07-28T22:49:07Z",
+      "side": 1,
+      "message": "This line confuses me.  This line constructs an array of size 1, then on line 1880 we loop over this array of 1.  Can you either simplify the code, or comment why we\u0027re doing this?",
+      "range": {
+        "startLine": 1871,
+        "startChar": 0,
+        "endLine": 1871,
+        "endChar": 49
+      },
+      "revId": "d3d9bee0b2663d044498a26bcef24fdbc6b30938",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9a5cae52_a9ae641e",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1875,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-07-28T22:49:07Z",
+      "side": 1,
+      "message": "Please invert this check, and move it up to line 1870.  Also, shouldn\u0027t this be returning?  If message pointer didn\u0027t get filled in, then registryMsg will be empty, and we\u0027ll do the wrong thing.",
+      "range": {
+        "startLine": 1874,
+        "startChar": 0,
+        "endLine": 1875,
+        "endChar": 5
+      },
+      "revId": "d3d9bee0b2663d044498a26bcef24fdbc6b30938",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e80175d2_efaaa22f",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1882,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-07-28T22:49:07Z",
+      "side": 1,
+      "message": "nit.  Please put the increment on its own line.  Doing the preincrement in line is harder to read and reason about, even though this is correct as written.",
+      "range": {
+        "startLine": 1882,
+        "startChar": 54,
+        "endLine": 1882,
+        "endChar": 57
+      },
+      "revId": "d3d9bee0b2663d044498a26bcef24fdbc6b30938",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a3a22163_369ce20d",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1893,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-07-28T22:49:07Z",
+      "side": 1,
+      "message": "This needs to fail early.  message should never be nullptr here.  Also, as written this is making a copy of the string, which can be avoided if you fail early and return an error.",
+      "range": {
+        "startLine": 1893,
+        "startChar": 0,
+        "endLine": 1893,
+        "endChar": 27
+      },
+      "revId": "d3d9bee0b2663d044498a26bcef24fdbc6b30938",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c517210e_ae607e4e",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1991,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-07-28T22:49:07Z",
+      "side": 1,
+      "message": "Please read the redfish specification on how skip and top are supposed to work.  I suspect this was copied from the other log service, which technically does it incorrectly.  We\u0027ll need to implement to the spec here, to avoid having to fix it later.",
+      "range": {
+        "startLine": 1991,
+        "startChar": 24,
+        "endLine": 1991,
+        "endChar": 74
+      },
       "revId": "d3d9bee0b2663d044498a26bcef24fdbc6b30938",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
