@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "22153c6f_e7e8c573",
+        "filename": "redfish-core/lib/pcie_slots.hpp",
+        "patchSetId": 99
+      },
+      "lineNbr": 172,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-07-28T18:02:48Z",
+      "side": 1,
+      "message": "unintentional copy?",
+      "range": {
+        "startLine": 172,
+        "startChar": 24,
+        "endLine": 172,
+        "endChar": 60
+      },
+      "revId": "9984ac3312062852e25293b471c977ef5e3b77ca",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a6beb9c7_2f4320e4",
+        "filename": "redfish-core/lib/pcie_slots.hpp",
+        "patchSetId": 99
+      },
+      "lineNbr": 177,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-07-28T18:02:48Z",
+      "side": 1,
+      "message": "This doesn\u0027t handle errors properly.  What if all entries return?  This will lead to no error message getting set.",
+      "range": {
+        "startLine": 177,
+        "startChar": 0,
+        "endLine": 177,
+        "endChar": 75
+      },
+      "revId": "9984ac3312062852e25293b471c977ef5e3b77ca",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "66908a8d_e88806b7",
+        "filename": "redfish-core/lib/pcie_slots.hpp",
+        "patchSetId": 99
+      },
+      "lineNbr": 263,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-07-28T18:02:48Z",
+      "side": 1,
+      "message": "We\u0027re 8ish scopes deep here.  This code needs abstracted and separated.",
+      "revId": "9984ac3312062852e25293b471c977ef5e3b77ca",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6626877e_a9369b7d",
+        "filename": "redfish-core/lib/pcie_slots.hpp",
+        "patchSetId": 99
+      },
+      "lineNbr": 274,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-07-28T18:02:48Z",
+      "side": 1,
+      "message": "Is this association documented?",
+      "range": {
+        "startLine": 274,
+        "startChar": 37,
+        "endLine": 274,
+        "endChar": 44
+      },
+      "revId": "9984ac3312062852e25293b471c977ef5e3b77ca",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
