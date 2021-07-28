@@ -1382,107 +1382,117 @@ inline void requestAccountServiceRoutes(App& app)
 
     BMCWEB_ROUTE(app, "/redfish/v1/AccountService/")
         .privileges(redfish::privileges::getAccountService)
-        .methods(boost::beast::http::verb::patch)(
-            [](const crow::Request& req,
-               const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) -> void {
-                std::optional<uint32_t> unlockTimeout;
-                std::optional<uint16_t> lockoutThreshold;
-                std::optional<uint16_t> minPasswordLength;
-                std::optional<uint16_t> maxPasswordLength;
-                std::optional<nlohmann::json> ldapObject;
-                std::optional<nlohmann::json> activeDirectoryObject;
-                std::optional<nlohmann::json> oemObject;
+        .methods(boost::beast::http::verb::patch)([](const crow::Request& req,
+                                                     const std::shared_ptr<
+                                                         bmcweb::AsyncResp>&
+                                                         asyncResp) -> void {
+            std::optional<uint32_t> unlockTimeout;
+            std::optional<uint16_t> lockoutThreshold;
+            std::optional<uint16_t> minPasswordLength;
+            std::optional<uint16_t> maxPasswordLength;
+            std::optional<nlohmann::json> ldapObject;
+            std::optional<nlohmann::json> activeDirectoryObject;
+            std::optional<nlohmann::json> oemObject;
 
-                if (!json_util::readJson(
-                        req, asyncResp->res, "AccountLockoutDuration",
-                        unlockTimeout, "AccountLockoutThreshold",
-                        lockoutThreshold, "MaxPasswordLength",
-                        maxPasswordLength, "MinPasswordLength",
-                        minPasswordLength, "LDAP", ldapObject,
-                        "ActiveDirectory", activeDirectoryObject, "Oem",
-                        oemObject))
+            if (!json_util::readJson(
+                    req, asyncResp->res, "AccountLockoutDuration",
+                    unlockTimeout, "AccountLockoutThreshold", lockoutThreshold,
+                    "MaxPasswordLength", maxPasswordLength, "MinPasswordLength",
+                    minPasswordLength, "LDAP", ldapObject, "ActiveDirectory",
+                    activeDirectoryObject, "Oem", oemObject))
+            {
+                return;
+            }
+
+            if (minPasswordLength)
+            {
+                messages::propertyNotWritable(asyncResp->res,
+                                              "MinPasswordLength");
+            }
+
+            if (maxPasswordLength)
+            {
+                messages::propertyNotWritable(asyncResp->res,
+                                              "MaxPasswordLength");
+            }
+
+            if (ldapObject)
+            {
+                handleLDAPPatch(*ldapObject, asyncResp, "LDAP");
+            }
+
+            if (std::optional<nlohmann::json> oemOpenBMCObject;
+                oemObject && json_util::readJson(*oemObject, asyncResp->res,
+                                                 "OpenBMC", oemOpenBMCObject))
+            {
+                if (std::optional<nlohmann::json> authMethodsObject;
+                    oemOpenBMCObject &&
+                    json_util::readJson(*oemOpenBMCObject, asyncResp->res,
+                                        "AuthMethods", authMethodsObject))
                 {
+                    if (authMethodsObject)
+                    {
+                        handleAuthMethodsPatch(*authMethodsObject, asyncResp);
+                    }
+                }
+            }
+
+            if (activeDirectoryObject)
+            {
+                handleLDAPPatch(*activeDirectoryObject, asyncResp,
+                                "ActiveDirectory");
+            }
+
+            if (unlockTimeout)
+            {
+                // Account will be locked permanently after the N number
+                // of failed login attempts if we set unlockTimeout value to be
+                // 0.
+                if (unlockTimeout.value() == 0)
+                {
+                    BMCWEB_LOG_INFO
+                        << "Unlock timeout value must be greater than zero ";
+                    messages::propertyValueNotInList(asyncResp->res,
+                                                     "unlockTimeout",
+                                                     "AccountLockoutDuration");
                     return;
                 }
 
-                if (minPasswordLength)
-                {
-                    messages::propertyNotWritable(asyncResp->res,
-                                                  "MinPasswordLength");
-                }
-
-                if (maxPasswordLength)
-                {
-                    messages::propertyNotWritable(asyncResp->res,
-                                                  "MaxPasswordLength");
-                }
-
-                if (ldapObject)
-                {
-                    handleLDAPPatch(*ldapObject, asyncResp, "LDAP");
-                }
-
-                if (std::optional<nlohmann::json> oemOpenBMCObject;
-                    oemObject &&
-                    json_util::readJson(*oemObject, asyncResp->res, "OpenBMC",
-                                        oemOpenBMCObject))
-                {
-                    if (std::optional<nlohmann::json> authMethodsObject;
-                        oemOpenBMCObject &&
-                        json_util::readJson(*oemOpenBMCObject, asyncResp->res,
-                                            "AuthMethods", authMethodsObject))
-                    {
-                        if (authMethodsObject)
+                crow::connections::systemBus->async_method_call(
+                    [asyncResp](const boost::system::error_code ec) {
+                        if (ec)
                         {
-                            handleAuthMethodsPatch(*authMethodsObject,
-                                                   asyncResp);
+                            messages::internalError(asyncResp->res);
+                            return;
                         }
-                    }
-                }
-
-                if (activeDirectoryObject)
-                {
-                    handleLDAPPatch(*activeDirectoryObject, asyncResp,
-                                    "ActiveDirectory");
-                }
-
-                if (unlockTimeout)
-                {
-                    crow::connections::systemBus->async_method_call(
-                        [asyncResp](const boost::system::error_code ec) {
-                            if (ec)
-                            {
-                                messages::internalError(asyncResp->res);
-                                return;
-                            }
-                            messages::success(asyncResp->res);
-                        },
-                        "xyz.openbmc_project.User.Manager",
-                        "/xyz/openbmc_project/user",
-                        "org.freedesktop.DBus.Properties", "Set",
-                        "xyz.openbmc_project.User.AccountPolicy",
-                        "AccountUnlockTimeout",
-                        std::variant<uint32_t>(*unlockTimeout));
-                }
-                if (lockoutThreshold)
-                {
-                    crow::connections::systemBus->async_method_call(
-                        [asyncResp](const boost::system::error_code ec) {
-                            if (ec)
-                            {
-                                messages::internalError(asyncResp->res);
-                                return;
-                            }
-                            messages::success(asyncResp->res);
-                        },
-                        "xyz.openbmc_project.User.Manager",
-                        "/xyz/openbmc_project/user",
-                        "org.freedesktop.DBus.Properties", "Set",
-                        "xyz.openbmc_project.User.AccountPolicy",
-                        "MaxLoginAttemptBeforeLockout",
-                        std::variant<uint16_t>(*lockoutThreshold));
-                }
-            });
+                        messages::success(asyncResp->res);
+                    },
+                    "xyz.openbmc_project.User.Manager",
+                    "/xyz/openbmc_project/user",
+                    "org.freedesktop.DBus.Properties", "Set",
+                    "xyz.openbmc_project.User.AccountPolicy",
+                    "AccountUnlockTimeout",
+                    std::variant<uint32_t>(*unlockTimeout));
+            }
+            if (lockoutThreshold)
+            {
+                crow::connections::systemBus->async_method_call(
+                    [asyncResp](const boost::system::error_code ec) {
+                        if (ec)
+                        {
+                            messages::internalError(asyncResp->res);
+                            return;
+                        }
+                        messages::success(asyncResp->res);
+                    },
+                    "xyz.openbmc_project.User.Manager",
+                    "/xyz/openbmc_project/user",
+                    "org.freedesktop.DBus.Properties", "Set",
+                    "xyz.openbmc_project.User.AccountPolicy",
+                    "MaxLoginAttemptBeforeLockout",
+                    std::variant<uint16_t>(*lockoutThreshold));
+            }
+        });
 
     BMCWEB_ROUTE(app, "/redfish/v1/AccountService/Accounts/")
         .privileges(redfish::privileges::getManagerAccountCollection)
