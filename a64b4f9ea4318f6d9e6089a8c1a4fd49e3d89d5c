@@ -309,6 +309,30 @@
     },
     {
       "key": {
+        "uuid": "0dda2ce4_7a663a6c",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 22
+      },
+      "lineNbr": 315,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-07-28T20:55:06Z",
+      "side": 1,
+      "message": "\u003e I think LOG_ERROR is chosen as it is actually trying to log timer error.\n\nNot all errors are should be printed at error level.   The way you\u0027re using the timer, operation aborted is not an error.\n\n\u003e All timer errors may not be functional errors, but irrespective of the error we would be closing the connection either ways,\n\nThis is not correct.  operation aborted means that we canceled the timer because the operation succeeded.  We should not be closing the connection if the operation succeeded.\n\n\u003e and also ec.message()  would give us the needed info on what happened to the timer.\n\nI\u0027m less worried about the actual prints, more that you\u0027ve ignored the golden path here.",
+      "parentUuid": "c5037ec3_aa070923",
+      "range": {
+        "startLine": 315,
+        "startChar": 0,
+        "endLine": 315,
+        "endChar": 78
+      },
+      "revId": "a64b4f9ea4318f6d9e6089a8c1a4fd49e3d89d5c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "6eae8cbd_9a5d180d",
         "filename": "http/http_client.hpp",
         "patchSetId": 22
@@ -344,6 +368,30 @@
       "side": 1,
       "message": "Yes. Line 322 initiates close and starts over again from resolving state.\nI think the comment means to say, irrespective of the error, lets close the connection and start over again.",
       "parentUuid": "6eae8cbd_9a5d180d",
+      "range": {
+        "startLine": 316,
+        "startChar": 0,
+        "endLine": 317,
+        "endChar": 64
+      },
+      "revId": "a64b4f9ea4318f6d9e6089a8c1a4fd49e3d89d5c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2cb486ac_578fe78c",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 22
+      },
+      "lineNbr": 317,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-07-28T20:55:06Z",
+      "side": 1,
+      "message": "Right, which is incorrect.  We should not be retrying the operation if the error is operation_aborted.",
+      "parentUuid": "3e23c6b1_655c8f62",
       "range": {
         "startLine": 316,
         "startChar": 0,
