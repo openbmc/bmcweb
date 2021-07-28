@@ -357,6 +357,30 @@
     },
     {
       "key": {
+        "uuid": "f9b0de9a_1eee4cf3",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 22
+      },
+      "lineNbr": 315,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-07-28T21:19:47Z",
+      "side": 1,
+      "message": "\u003e I think, in this context we wouldn\u0027t be cancelling the timer right?\n\noperation aborted will trigger on shutdowns or any time this class is destructed.\n\n\u003e This timer is just to add a timeout between timeouts. so there would be no success case to cancel this timer. \n\nIf bmcweb is shut down while this is working, this will fire.\n\n\u003e Either the timer times out or some other issue occurred, and hence the retry.",
+      "parentUuid": "cdb9c26f_16364994",
+      "range": {
+        "startLine": 315,
+        "startChar": 0,
+        "endLine": 315,
+        "endChar": 78
+      },
+      "revId": "a64b4f9ea4318f6d9e6089a8c1a4fd49e3d89d5c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "6eae8cbd_9a5d180d",
         "filename": "http/http_client.hpp",
         "patchSetId": 22
@@ -440,6 +464,30 @@
       "side": 1,
       "message": "This timer is not being cancelled anywhere. So i guess this condition shouldn\u0027t arise.",
       "parentUuid": "2cb486ac_578fe78c",
+      "range": {
+        "startLine": 316,
+        "startChar": 0,
+        "endLine": 317,
+        "endChar": 64
+      },
+      "revId": "a64b4f9ea4318f6d9e6089a8c1a4fd49e3d89d5c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0a557b45_2f02bcfa",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 22
+      },
+      "lineNbr": 317,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-07-28T21:19:47Z",
+      "side": 1,
+      "message": "Gotit, I did misunderstand that, but we still need to explicitly handle shutdown.",
+      "parentUuid": "2e8ac7b3_d161af1d",
       "range": {
         "startLine": 316,
         "startChar": 0,
