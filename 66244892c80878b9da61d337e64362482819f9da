@@ -1,0 +1,188 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8e3f783d_1a770b1c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 24
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-07-28T17:58:09Z",
+      "side": 1,
+      "message": "Please wrap your commit messages 50/72.",
+      "range": {
+        "startLine": 8,
+        "startChar": 0,
+        "endLine": 12,
+        "endChar": 62
+      },
+      "revId": "66244892c80878b9da61d337e64362482819f9da",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4aa27e0a_b402eb2f",
+        "filename": "redfish-core/lib/port.hpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 180,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-07-28T17:58:09Z",
+      "side": 1,
+      "message": "This is confusing me a little.  This is taking the second to last entry in the dbus path as the ID?  That seems wrong, or at the very least non-obvious.",
+      "range": {
+        "startLine": 174,
+        "startChar": 0,
+        "endLine": 180,
+        "endChar": 21
+      },
+      "revId": "66244892c80878b9da61d337e64362482819f9da",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c32d83a4_25f9f1bb",
+        "filename": "redfish-core/lib/port.hpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-07-28T17:58:09Z",
+      "side": 1,
+      "message": "This looks wrong.  Not all connectors are fabric connectors.  I suspect we need a more precise inventory.item interface here.",
+      "range": {
+        "startLine": 200,
+        "startChar": 0,
+        "endLine": 201,
+        "endChar": 61
+      },
+      "revId": "66244892c80878b9da61d337e64362482819f9da",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a26a436b_84f5eae6",
+        "filename": "redfish-core/lib/port.hpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 221,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-07-28T17:58:09Z",
+      "side": 1,
+      "message": "Common error #12.  This will fill in these fields on non-existing items.",
+      "range": {
+        "startLine": 219,
+        "startChar": 0,
+        "endLine": 221,
+        "endChar": 69
+      },
+      "revId": "66244892c80878b9da61d337e64362482819f9da",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dee085f5_927722f9",
+        "filename": "redfish-core/lib/port.hpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 225,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-07-28T17:58:09Z",
+      "side": 1,
+      "message": "Please use sdbusplus::message::object_path to construct this string.  You will still need to use object_path.str to call the dbus call, but the +\u003d operator on object_path has special handling for escaping.",
+      "range": {
+        "startLine": 223,
+        "startChar": 0,
+        "endLine": 225,
+        "endChar": 29
+      },
+      "revId": "66244892c80878b9da61d337e64362482819f9da",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "11ceb2c2_5a4a425b",
+        "filename": "redfish-core/lib/port.hpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 226,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-07-28T17:58:09Z",
+      "side": 1,
+      "message": "same here.",
+      "range": {
+        "startLine": 226,
+        "startChar": 0,
+        "endLine": 226,
+        "endChar": 63
+      },
+      "revId": "66244892c80878b9da61d337e64362482819f9da",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "daced4e0_809e0c79",
+        "filename": "redfish-core/lib/port.hpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 271,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-07-28T17:58:09Z",
+      "side": 1,
+      "message": "this return is redundant and can be removed.",
+      "range": {
+        "startLine": 271,
+        "startChar": 0,
+        "endLine": 271,
+        "endChar": 31
+      },
+      "revId": "66244892c80878b9da61d337e64362482819f9da",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bd6e365b_88ff1692",
+        "filename": "redfish-core/lib/port.hpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 292,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-07-28T17:58:09Z",
+      "side": 1,
+      "message": "This is incorrect.  Please look at the privileges registry and find the correct privilege node.",
+      "range": {
+        "startLine": 292,
+        "startChar": 20,
+        "endLine": 292,
+        "endChar": 32
+      },
+      "revId": "66244892c80878b9da61d337e64362482819f9da",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
