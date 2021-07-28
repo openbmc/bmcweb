@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "106eb596_93355acb",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 22
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1000907
+      },
+      "writtenOn": "2021-07-28T20:40:02Z",
+      "side": 1,
+      "message": "This is being used to define the buffer (Line 67 which is called out in the commit message). And the buffer is used in async_read.",
+      "parentUuid": "96fb77a6_dd8a1ffd",
+      "range": {
+        "startLine": 37,
+        "startChar": 0,
+        "endLine": 37,
+        "endChar": 55
+      },
+      "revId": "a64b4f9ea4318f6d9e6089a8c1a4fd49e3d89d5c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "412563f0_f2ee693b",
         "filename": "http/http_client.hpp",
         "patchSetId": 22
@@ -60,6 +84,30 @@
       "side": 1,
       "message": "Isn\u0027t this check redundant?  If the request is done, the headers are definitely done.  I suspect we can remove the is_header_done part.\n\n\nActually, reading this more, I\u0027m not sure this check is required at all.  if the request never completed, then the async_read would return an error in ec, and we would end on line 190.  I suspect this whole branch can be removed.",
       "parentUuid": "412563f0_f2ee693b",
+      "range": {
+        "startLine": 198,
+        "startChar": 16,
+        "endLine": 198,
+        "endChar": 78
+      },
+      "revId": "a64b4f9ea4318f6d9e6089a8c1a4fd49e3d89d5c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "57ab9794_ac248a3b",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 22
+      },
+      "lineNbr": 198,
+      "author": {
+        "id": 1000907
+      },
+      "writtenOn": "2021-07-28T20:40:02Z",
+      "side": 1,
+      "message": "Inversion of condition is done, and also removed the redundant is_header_done() check.",
+      "parentUuid": "7f9f55d7_63526748",
       "range": {
         "startLine": 198,
         "startChar": 16,
@@ -143,6 +191,30 @@
     },
     {
       "key": {
+        "uuid": "3b06966e_89425458",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 22
+      },
+      "lineNbr": 203,
+      "author": {
+        "id": 1000907
+      },
+      "writtenOn": "2021-07-28T20:40:02Z",
+      "side": 1,
+      "message": "Done. Added condition to treat success for all 2XX response codes.",
+      "parentUuid": "e6c4c55c_40e8471b",
+      "range": {
+        "startLine": 203,
+        "startChar": 36,
+        "endLine": 203,
+        "endChar": 39
+      },
+      "revId": "a64b4f9ea4318f6d9e6089a8c1a4fd49e3d89d5c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "b1738948_ef72d1f0",
         "filename": "http/http_client.hpp",
         "patchSetId": 22
@@ -189,6 +261,30 @@
     },
     {
       "key": {
+        "uuid": "c5037ec3_aa070923",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 22
+      },
+      "lineNbr": 315,
+      "author": {
+        "id": 1000907
+      },
+      "writtenOn": "2021-07-28T20:40:02Z",
+      "side": 1,
+      "message": "I think LOG_ERROR is chosen as it is actually trying to log timer error.\nAll timer errors may not be functional errors, but irrespective of the error we would be closing the connection either ways, and also ec.message()  would give us the needed info on what happened to the timer.",
+      "parentUuid": "fec4e3ce_4bb75545",
+      "range": {
+        "startLine": 315,
+        "startChar": 0,
+        "endLine": 315,
+        "endChar": 78
+      },
+      "revId": "a64b4f9ea4318f6d9e6089a8c1a4fd49e3d89d5c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "6eae8cbd_9a5d180d",
         "filename": "http/http_client.hpp",
         "patchSetId": 22
@@ -212,6 +308,30 @@
     },
     {
       "key": {
+        "uuid": "3e23c6b1_655c8f62",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 22
+      },
+      "lineNbr": 317,
+      "author": {
+        "id": 1000907
+      },
+      "writtenOn": "2021-07-28T20:40:02Z",
+      "side": 1,
+      "message": "Yes. Line 322 initiates close and starts over again from resolving state.\nI think the comment means to say, irrespective of the error, lets close the connection and start over again.",
+      "parentUuid": "6eae8cbd_9a5d180d",
+      "range": {
+        "startLine": 316,
+        "startChar": 0,
+        "endLine": 317,
+        "endChar": 64
+      },
+      "revId": "a64b4f9ea4318f6d9e6089a8c1a4fd49e3d89d5c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "8e9c9087_4238daa0",
         "filename": "http/http_client.hpp",
         "patchSetId": 22
@@ -223,6 +343,30 @@
       "writtenOn": "2021-07-08T14:36:59Z",
       "side": 1,
       "message": "?  Doesn\u0027t the connection need closed if the queue is empty?",
+      "range": {
+        "startLine": 346,
+        "startChar": 0,
+        "endLine": 346,
+        "endChar": 27
+      },
+      "revId": "a64b4f9ea4318f6d9e6089a8c1a4fd49e3d89d5c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "11f5c708_e8e66715",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 22
+      },
+      "lineNbr": 346,
+      "author": {
+        "id": 1000907
+      },
+      "writtenOn": "2021-07-28T20:40:02Z",
+      "side": 1,
+      "message": "I think at this stage the connection is either not created at all, or it is already closed. So return should suffice I suppose.",
+      "parentUuid": "8e9c9087_4238daa0",
       "range": {
         "startLine": 346,
         "startChar": 0,
@@ -304,6 +448,30 @@
     },
     {
       "key": {
+        "uuid": "856c0055_b9a12ad7",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 22
+      },
+      "lineNbr": 423,
+      "author": {
+        "id": 1000907
+      },
+      "writtenOn": "2021-07-28T20:40:02Z",
+      "side": 1,
+      "message": "boost::circular_buffer_space_optimized doesnt have emplace_back member function.\nIt only has either push_back or push_front",
+      "parentUuid": "f195139f_367c810d",
+      "range": {
+        "startLine": 423,
+        "startChar": 25,
+        "endLine": 423,
+        "endChar": 34
+      },
+      "revId": "a64b4f9ea4318f6d9e6089a8c1a4fd49e3d89d5c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "25f6316d_aedf4f7a",
         "filename": "http/http_client.hpp",
         "patchSetId": 22
@@ -315,6 +483,30 @@
       "writtenOn": "2021-07-08T14:36:59Z",
       "side": 1,
       "message": "Isn\u0027t this now going to duplicate headers every time, because the req object isn\u0027t reset?",
+      "range": {
+        "startLine": 431,
+        "startChar": 0,
+        "endLine": 435,
+        "endChar": 9
+      },
+      "revId": "a64b4f9ea4318f6d9e6089a8c1a4fd49e3d89d5c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9e03873f_7694e5c5",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 22
+      },
+      "lineNbr": 435,
+      "author": {
+        "id": 1000907
+      },
+      "writtenOn": "2021-07-28T20:40:02Z",
+      "side": 1,
+      "message": "Nope. Request.set is going to replace the value if the key already exists. So shouldn\u0027t be an issue.",
+      "parentUuid": "25f6316d_aedf4f7a",
       "range": {
         "startLine": 431,
         "startChar": 0,
