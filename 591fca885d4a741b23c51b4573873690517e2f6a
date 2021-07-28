@@ -243,6 +243,24 @@
     },
     {
       "key": {
+        "uuid": "3c78bee6_9973ccc9",
+        "filename": "redfish-core/include/redfish.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-07-28T17:39:40Z",
+      "side": 1,
+      "message": "ah, that makes more sense.",
+      "parentUuid": "ec7f7785_5f647102",
+      "revId": "591fca885d4a741b23c51b4573873690517e2f6a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "70105843_240836f0",
         "filename": "redfish-core/lib/FabricAdapters.hpp",
         "patchSetId": 20
