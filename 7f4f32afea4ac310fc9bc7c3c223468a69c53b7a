@@ -2,6 +2,75 @@
   "comments": [
     {
       "key": {
+        "uuid": "45514def_bdf0080d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-07-29T15:29:35Z",
+      "side": 1,
+      "message": "This needs more discussion.  What I suspect is intended here is that when the user only has ConfigureSelf, they should be able to see and modify their own subscriptions, but shouldn\u0027t be allowed to modify others.  At least, that\u0027s the only thing that makes sense to me from the way the spec is written.  We might want to search redfish forum and see if there\u0027s any clarifying information on this topic.",
+      "range": {
+        "startLine": 20,
+        "startChar": 0,
+        "endLine": 22,
+        "endChar": 64
+      },
+      "revId": "7f4f32afea4ac310fc9bc7c3c223468a69c53b7a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9f63d88b_3c77984d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-07-29T15:29:35Z",
+      "side": 1,
+      "message": "Just reading this.... this sounds wrong..... a user class called \"read-only\" shouldn\u0027t be allowed to change anything in the redfish tree.",
+      "range": {
+        "startLine": 24,
+        "startChar": 53,
+        "endLine": 24,
+        "endChar": 62
+      },
+      "revId": "7f4f32afea4ac310fc9bc7c3c223468a69c53b7a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4903f8c0_13fda9f5",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-07-29T15:29:35Z",
+      "side": 1,
+      "message": "nit: please don\u0027t tab these in.",
+      "range": {
+        "startLine": 8,
+        "startChar": 0,
+        "endLine": 27,
+        "endChar": 63
+      },
+      "revId": "7f4f32afea4ac310fc9bc7c3c223468a69c53b7a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "5e53906d_fcf82af2",
         "filename": "redfish-core/lib/event_service.hpp",
         "patchSetId": 2
