@@ -179,6 +179,121 @@ inline void requestRoutesChassisCollection(App& app)
             });
 }
 
+inline void getChassisType(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                           const std::string& connectionName,
+                           const std::string& path,
+                           const std::string& chassisId)
+{
+
+    crow::connections::systemBus->async_method_call(
+        [asyncResp, chassisId](const boost::system::error_code ec,
+                               const std::variant<std::string>& property) {
+            if (ec)
+            {
+                BMCWEB_LOG_DEBUG << "DBUS response error for Chassis";
+                messages::internalError(asyncResp->res);
+                return;
+            }
+
+            const std::string* value = std::get_if<std::string>(&property);
+            if (value == nullptr || value->empty())
+            {
+                BMCWEB_LOG_DEBUG
+                    << "Null or Empty value returned for ChassisType";
+                messages::internalError(asyncResp->res);
+                return;
+            }
+
+            if (*value == "xyz.openbmc_project.Inventory.Item.Chassis."
+                          "Type.Unknown")
+            {
+                BMCWEB_LOG_DEBUG << "ChassisType is Unknown";
+                return;
+            }
+
+            if (*value == "xyz.openbmc_project.Inventory.Item.Chassis."
+                          "Type.RackMount")
+            {
+                asyncResp->res.jsonValue["Actions"]["#Chassis.Reset"] = {
+                    {"target", "/redfish/v1/Chassis/" + chassisId +
+                                   "/Actions/Chassis.Reset"},
+                    {"@Redfish.ActionInfo",
+                     "/redfish/v1/Chassis/" + chassisId + "/ResetActionInfo"}};
+            }
+
+            auto index = value->find_last_of(".");
+            if (index == std::string::npos || index == value->size() - 1)
+            {
+                return;
+            }
+
+            asyncResp->res.jsonValue["ChassisType"] = value->substr(index + 1);
+        },
+        connectionName, path, "org.freedesktop.DBus.Properties", "Get",
+        "xyz.openbmc_project.Inventory.Item.Chassis", "Type");
+}
+
+inline void
+    getChassisLocationCode(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                           const std::string& connectionName,
+                           const std::string& path,
+                           const std::string& chassisId)
+{
+    crow::connections::systemBus->async_method_call(
+        [asyncResp, chassisId(std::string(chassisId))](
+            const boost::system::error_code ec,
+            const std::variant<std::string>& property) {
+            if (ec)
+            {
+                BMCWEB_LOG_DEBUG << "DBUS response error for "
+                                    "Location";
+                messages::internalError(asyncResp->res);
+                return;
+            }
+
+            const std::string* value = std::get_if<std::string>(&property);
+            if (value == nullptr)
+            {
+                BMCWEB_LOG_DEBUG << "Null value returned "
+                                    "for locaton code";
+                messages::internalError(asyncResp->res);
+                return;
+            }
+            asyncResp->res
+                .jsonValue["Location"]["PartLocation"]["ServiceLabel"] = *value;
+        },
+        connectionName, path, "org.freedesktop.DBus.Properties", "Get",
+        "xyz.openbmc_project.Inventory.Decorator.LocationCode", "LocationCode");
+}
+
+inline void getChassisUUID(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                           const std::string& connectionName,
+                           const std::string& path)
+{
+    crow::connections::systemBus->async_method_call(
+        [asyncResp](const boost::system::error_code ec,
+                    const std::variant<std::string>& chassisUUID) {
+            if (ec)
+            {
+                BMCWEB_LOG_DEBUG << "DBUS response error for "
+                                    "UUID";
+                messages::internalError(asyncResp->res);
+                return;
+            }
+            const std::string* value = std::get_if<std::string>(&chassisUUID);
+            if (value == nullptr)
+            {
+                BMCWEB_LOG_DEBUG << "Null value returned "
+                                    "for UUID";
+                messages::internalError(asyncResp->res);
+                return;
+            }
+            asyncResp->res.jsonValue["UUID"] = *value;
+        },
+        connectionName, path, "org.freedesktop.DBus.Properties", "Get",
+        "xyz.openbmc_project.Common.UUID", "UUID");
+}
+
 /**
  * Chassis override class for delivering Chassis Schema
  * Functions triggers appropriate requests on DBus
@@ -205,6 +320,7 @@ inline void requestRoutesChassis(App& app)
                         messages::internalError(asyncResp->res);
                         return;
                     }
+
                     // Iterate over all retrieved ObjectPaths.
                     for (const std::pair<
                              std::string,
@@ -261,12 +377,6 @@ inline void requestRoutesChassis(App& app)
                             "/redfish/v1/Chassis/" + chassisId;
                         asyncResp->res.jsonValue["Name"] = "Chassis Collection";
                         asyncResp->res.jsonValue["ChassisType"] = "RackMount";
-                        asyncResp->res.jsonValue["Actions"]["#Chassis.Reset"] =
-                            {{"target", "/redfish/v1/Chassis/" + chassisId +
-                                            "/Actions/Chassis.Reset"},
-                             {"@Redfish.ActionInfo", "/redfish/v1/Chassis/" +
-                                                         chassisId +
-                                                         "/ResetActionInfo"}};
                         asyncResp->res.jsonValue["PCIeDevices"] = {
                             {"@odata.id",
                              "/redfish/v1/Systems/system/PCIeDevices"}};
@@ -291,44 +401,6 @@ inline void requestRoutesChassis(App& app)
                                 getLocationIndicatorActive(asyncResp);
                                 break;
                             }
-                        }
-
-                        const std::string locationInterface =
-                            "xyz.openbmc_project.Inventory.Decorator."
-                            "LocationCode";
-                        if (std::find(interfaces2.begin(), interfaces2.end(),
-                                      locationInterface) != interfaces2.end())
-                        {
-                            crow::connections::systemBus->async_method_call(
-                                [asyncResp, chassisId(std::string(chassisId))](
-                                    const boost::system::error_code ec,
-                                    const std::variant<std::string>& property) {
-                                    if (ec)
-                                    {
-                                        BMCWEB_LOG_DEBUG
-                                            << "DBUS response error for "
-                                               "Location";
-                                        messages::internalError(asyncResp->res);
-                                        return;
-                                    }
-
-                                    const std::string* value =
-                                        std::get_if<std::string>(&property);
-                                    if (value == nullptr)
-                                    {
-                                        BMCWEB_LOG_DEBUG
-                                            << "Null value returned "
-                                               "for locaton code";
-                                        messages::internalError(asyncResp->res);
-                                        return;
-                                    }
-                                    asyncResp->res
-                                        .jsonValue["Location"]["PartLocation"]
-                                                  ["ServiceLabel"] = *value;
-                                },
-                                connectionName, path,
-                                "org.freedesktop.DBus.Properties", "Get",
-                                locationInterface, "LocationCode");
                         }
 
                         crow::connections::systemBus->async_method_call(
@@ -393,39 +465,29 @@ inline void requestRoutesChassis(App& app)
                             "org.freedesktop.DBus.Properties", "GetAll",
                             "xyz.openbmc_project.Inventory.Decorator.Asset");
 
-                        // Chassis UUID
-                        const std::string uuidInterface =
-                            "xyz.openbmc_project.Common.UUID";
-                        if (std::find(interfaces2.begin(), interfaces2.end(),
-                                      uuidInterface) != interfaces2.end())
+                        for (const auto& interface : interfaces2)
                         {
-                            crow::connections::systemBus->async_method_call(
-                                [asyncResp](const boost::system::error_code ec,
-                                            const std::variant<std::string>&
-                                                chassisUUID) {
-                                    if (ec)
-                                    {
-                                        BMCWEB_LOG_DEBUG
-                                            << "DBUS response error for "
-                                               "UUID";
-                                        messages::internalError(asyncResp->res);
-                                        return;
-                                    }
-                                    const std::string* value =
-                                        std::get_if<std::string>(&chassisUUID);
-                                    if (value == nullptr)
-                                    {
-                                        BMCWEB_LOG_DEBUG
-                                            << "Null value returned "
-                                               "for UUID";
-                                        messages::internalError(asyncResp->res);
-                                        return;
-                                    }
-                                    asyncResp->res.jsonValue["UUID"] = *value;
-                                },
-                                connectionName, path,
-                                "org.freedesktop.DBus.Properties", "Get",
-                                uuidInterface, "UUID");
+                            // Chassis UUID
+                            if (interface == "xyz.openbmc_project.Common.UUID")
+                            {
+                                getChassisUUID(asyncResp, connectionName, path);
+                            }
+
+                            // LocationCode
+                            if (interface == "xyz.openbmc_project.Inventory."
+                                             "Decorator.LocationCode")
+                            {
+                                getChassisLocationCode(
+                                    asyncResp, connectionName, path, chassisId);
+                            }
+
+                            // LocationCode
+                            if (interface ==
+                                "xyz.openbmc_project.Inventory.Item.Chassis")
+                            {
+                                getChassisType(asyncResp, connectionName, path,
+                                               chassisId);
+                            }
                         }
 
                         return;
@@ -574,7 +636,8 @@ inline void requestRoutesChassis(App& app)
 }
 
 inline void
-    doChassisPowerCycle(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
+    doChassisPowerCycle(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                        const std::string& chassisId)
 {
     const char* busName = "xyz.openbmc_project.ObjectMapper";
     const char* path = "/xyz/openbmc_project/object_mapper";
@@ -586,8 +649,8 @@ inline void
 
     // Use mapper to get subtree paths.
     crow::connections::systemBus->async_method_call(
-        [asyncResp](const boost::system::error_code ec,
-                    const std::vector<std::string>& chassisList) {
+        [asyncResp, chassisId](const boost::system::error_code ec,
+                               const std::vector<std::string>& chassisList) {
             if (ec)
             {
                 BMCWEB_LOG_DEBUG << "[mapper] Bad D-Bus request error: " << ec;
@@ -611,6 +674,14 @@ inline void
                  * exist on some platforms, fall back to a host-only power reset
                  */
                 objectPath = "/xyz/openbmc_project/state/chassis0";
+            }
+
+            if (sdbusplus::message::object_path(objectPath).filename() !=
+                chassisId)
+            {
+                messages::resourceNotFound(
+                    asyncResp->res, "#Chassis.v1_14_0.Chassis", chassisId);
+                return;
             }
 
             crow::connections::systemBus->async_method_call(
@@ -647,27 +718,42 @@ inline void requestRoutesChassisResetAction(App& app)
         .methods(boost::beast::http::verb::post)(
             [](const crow::Request& req,
                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-               const std::string&) {
+               const std::string& chassisId) {
                 BMCWEB_LOG_DEBUG << "Post Chassis Reset.";
 
-                std::string resetType;
+                getMainChassisId(
+                    asyncResp,
+                    [req, chassisId](
+                        const std::string& id,
+                        const std::shared_ptr<bmcweb::AsyncResp>& aRsp) {
+                        if (id != chassisId)
+                        {
+                            messages::resourceNotFound(
+                                aRsp->res, "#Chassis.v1_14_0.Chassis",
+                                chassisId);
+                            return;
+                        }
 
-                if (!json_util::readJson(req, asyncResp->res, "ResetType",
-                                         resetType))
-                {
-                    return;
-                }
+                        std::string resetType;
 
-                if (resetType != "PowerCycle")
-                {
-                    BMCWEB_LOG_DEBUG << "Invalid property value for ResetType: "
-                                     << resetType;
-                    messages::actionParameterNotSupported(
-                        asyncResp->res, resetType, "ResetType");
+                        if (!json_util::readJson(req, aRsp->res, "ResetType",
+                                                 resetType))
+                        {
+                            return;
+                        }
 
-                    return;
-                }
-                doChassisPowerCycle(asyncResp);
+                        if (resetType != "PowerCycle")
+                        {
+                            BMCWEB_LOG_DEBUG
+                                << "Invalid property value for ResetType: "
+                                << resetType;
+                            messages::actionParameterNotSupported(
+                                aRsp->res, resetType, "ResetType");
+
+                            return;
+                        }
+                        doChassisPowerCycle(aRsp, chassisId);
+                    });
             });
 }
 
