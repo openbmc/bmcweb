@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9eb8bb91_e5b0ade3",
+        "filename": "redfish-core/include/registries/privilege_registry.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 599,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-07-29T03:41:57Z",
+      "side": 1,
+      "message": "Where?  \nI am looking at \nhttps://redfish.dmtf.org/registries/Redfish_1.1.0_PrivilegeRegistry.json\nI don\u0027t see Chassis in any of the \n                    \"Targets\": [\n ?",
+      "range": {
+        "startLine": 599,
+        "startChar": 28,
+        "endLine": 599,
+        "endChar": 36
+      },
+      "revId": "b960de78b929048f07f40afcaec635991b99df54",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "df107c76_0559edf6",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 2364,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-07-29T03:41:57Z",
+      "side": 1,
+      "message": "isn\u0027t this the post to the LogService? i.e. can you remove the collection part here?\nThe LogServiceCollection is /redfish/v1/Systems/system/LogServices/ \nThe LogService is /redfish/v1/Systems/system/LogServices/Crashdump",
+      "range": {
+        "startLine": 2364,
+        "startChar": 69,
+        "endLine": 2364,
+        "endChar": 79
+      },
+      "revId": "b960de78b929048f07f40afcaec635991b99df54",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a5c7347a_c4a19b1b",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 2627,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-07-29T03:41:57Z",
+      "side": 1,
+      "message": "Same for these. Can you remove the Colleciton?",
+      "range": {
+        "startLine": 2627,
+        "startChar": 69,
+        "endLine": 2627,
+        "endChar": 79
+      },
+      "revId": "b960de78b929048f07f40afcaec635991b99df54",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
