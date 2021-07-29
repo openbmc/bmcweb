@@ -25,6 +25,8 @@
 #include <sdbusplus/asio/property.hpp>
 #include <utils/collection.hpp>
 
+#include <functional>
+
 namespace redfish
 {
 
@@ -160,6 +162,101 @@ inline void requestRoutesChassisCollection(App& app)
             });
 }
 
+inline std::optional<std::string>
+    getChassisTypeProperty(const std::variant<std::string>& property)
+{
+    const std::string* value = std::get_if<std::string>(&property);
+    if (value == nullptr)
+    {
+        return std::nullopt;
+    }
+
+    if (*value ==
+        "xyz.openbmc_project.Inventory.Item.Chassis.ChassisType.Component")
+    {
+        return "Component";
+    }
+    if (*value ==
+        "xyz.openbmc_project.Inventory.Item.Chassis.ChassisType.Enclosure")
+    {
+        return "Enclosure";
+    }
+    if (*value ==
+        "xyz.openbmc_project.Inventory.Item.Chassis.ChassisType.Module")
+    {
+        return "Module";
+    }
+    if (*value ==
+        "xyz.openbmc_project.Inventory.Item.Chassis.ChassisType.RackMount")
+    {
+        return "RackMount";
+    }
+    if (*value == "xyz.openbmc_project.Inventory.Item.Chassis.ChassisType."
+                  "StandAlone")
+    {
+        return "StandAlone";
+    }
+    if (*value == "xyz.openbmc_project.Inventory.Item.Chassis.ChassisType."
+                  "StorageEnclosure")
+    {
+        return "StorageEnclosure";
+    }
+    if (*value == "xyz.openbmc_project.Inventory.Item.Chassis.ChassisType.Zone")
+    {
+        return "Zone";
+    }
+
+    return std::nullopt;
+}
+
+inline void addChassisReset(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                            const std::string& chassisId,
+                            const std::optional<std::string>& chassisType)
+{
+    // Only Default, RackMount, or StandAlone will have Reset Action.
+    if (chassisType && *chassisType != "RackMount" &&
+        *chassisType != "StandAlone")
+    {
+        BMCWEB_LOG_INFO
+            << "Chassis Type is not supported. Only support Chassis Reset on RackMount or StandAlone.";
+        return;
+    }
+
+    asyncResp->res.jsonValue["Actions"]["#Chassis.Reset"] = {
+        {"target",
+         "/redfish/v1/Chassis/" + chassisId + "/Actions/Chassis.Reset"},
+        {"@Redfish.ActionInfo",
+         "/redfish/v1/Chassis/" + chassisId + "/ResetActionInfo"}};
+
+    // If chassisType is nullopt, then use the deault type of RackMount.
+    if (chassisType)
+    {
+        asyncResp->res.jsonValue["ChassisType"] = *chassisType;
+    }
+}
+
+inline void getChassisType(
+    const std::string& connectionName, const std::string& path,
+    const std::function<void(const boost::system::error_code ec,
+                             const std::variant<std::string>&)>& callback)
+{
+    crow::connections::systemBus->async_method_call(
+        [callback](const boost::system::error_code ec,
+                   const std::variant<std::string>& val) {
+            if (ec)
+            {
+                BMCWEB_LOG_DEBUG
+                    << "Failed to get Chassis Type. Set ec to 0 in callback.";
+                callback(boost::system::error_code(),
+                         std::variant<std::string>{""});
+                return;
+            }
+            callback(ec, val);
+        },
+        connectionName, path, "org.freedesktop.DBus.Properties", "Get",
+        "xyz.openbmc_project.Inventory.Item.Chassis", "Type");
+}
+
 inline void
     getChassisLocationCode(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                            const std::string& connectionName,
@@ -281,12 +378,6 @@ inline void requestRoutesChassis(App& app)
                             "/redfish/v1/Chassis/" + chassisId;
                         asyncResp->res.jsonValue["Name"] = "Chassis Collection";
                         asyncResp->res.jsonValue["ChassisType"] = "RackMount";
-                        asyncResp->res.jsonValue["Actions"]["#Chassis.Reset"] =
-                            {{"target", "/redfish/v1/Chassis/" + chassisId +
-                                            "/Actions/Chassis.Reset"},
-                             {"@Redfish.ActionInfo", "/redfish/v1/Chassis/" +
-                                                         chassisId +
-                                                         "/ResetActionInfo"}};
                         asyncResp->res.jsonValue["PCIeDevices"] = {
                             {"@odata.id",
                              "/redfish/v1/Systems/system/PCIeDevices"}};
@@ -413,6 +504,7 @@ inline void requestRoutesChassis(App& app)
                             "org.freedesktop.DBus.Properties", "GetAll",
                             "xyz.openbmc_project.Inventory.Decorator.Asset");
 
+                        bool addedChassisResetAction = false;
                         for (const auto& interface : interfaces2)
                         {
                             if (interface == "xyz.openbmc_project.Common.UUID")
@@ -426,6 +518,34 @@ inline void requestRoutesChassis(App& app)
                                 getChassisLocationCode(asyncResp,
                                                        connectionName, path);
                             }
+                            else if (interface == "xyz.openbmc_project."
+                                                  "Inventory.Item.Chassis")
+                            {
+                                getChassisType(
+                                    connectionName, path,
+                                    [asyncResp, chassisId](
+                                        const boost::system::error_code ec,
+                                        const std::variant<std::string>&
+                                            property) {
+                                        if (ec)
+                                        {
+                                            messages::internalError(
+                                                asyncResp->res);
+                                            return;
+                                        }
+                                        addChassisReset(
+                                            asyncResp, chassisId,
+                                            getChassisTypeProperty(property));
+                                    });
+                                addedChassisResetAction = true;
+                            }
+                        }
+
+                        // Item.Chassis interface is not available
+                        // Enable Reset Action by default.
+                        if (!addedChassisResetAction)
+                        {
+                            addChassisReset(asyncResp, chassisId, std::nullopt);
                         }
 
                         return;
@@ -639,12 +759,107 @@ inline void
 }
 
 /**
+ * validateChassisResetAction checks the Chassis type to ensure the Chassis
+ * supports Chassis Reset.
+ *
+ * Checks the Chassis type for `RackMount` or `StandAlone` for Chassis Reset.
+ * Otherwise, reset is not supported.
+ */
+inline void validateChassisResetAction(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& chassisId,
+    const std::function<void(const boost::system::error_code ec,
+                             const std::variant<std::string>&)>& callback)
+{
+    crow::connections::systemBus->async_method_call(
+        [asyncResp, chassisId,
+         callback](const boost::system::error_code ec,
+                   const dbus::utility::MapperGetSubTreeResponse& subtree) {
+            if (ec)
+            {
+                callback(ec, std::variant<std::string>{""});
+                return;
+            }
+
+            for (const std::pair<std::string,
+                                 std::vector<std::pair<
+                                     std::string, std::vector<std::string>>>>&
+                     object : subtree)
+            {
+                sdbusplus::message::object_path path(object.first);
+                if (path.filename() != chassisId)
+                {
+                    continue;
+                }
+
+                const std::vector<
+                    std::pair<std::string, std::vector<std::string>>>&
+                    connectionNames = object.second;
+
+                if (connectionNames.empty())
+                {
+                    BMCWEB_LOG_ERROR << "Got 0 Connection names";
+                    continue;
+                }
+
+                getChassisType(connectionNames[0].first, path.str, callback);
+                return;
+            }
+
+            messages::resourceNotFound(asyncResp->res,
+                                       "#Chassis.v1_14_0.Chassis", chassisId);
+        },
+        "xyz.openbmc_project.ObjectMapper",
+        "/xyz/openbmc_project/object_mapper",
+        "xyz.openbmc_project.ObjectMapper", "GetSubTree",
+        "/xyz/openbmc_project/inventory", 0,
+        std::array<const char*, 2>{
+            "xyz.openbmc_project.Inventory.Item.Board",
+            "xyz.openbmc_project.Inventory.Item.Chassis"});
+}
+
+inline void validateChassisResetActionHandler(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    std::optional<std::string> resetType, const boost::system::error_code ec,
+    const std::variant<std::string>& property)
+{
+    if (ec)
+    {
+        messages::internalError(asyncResp->res);
+        return;
+    }
+
+    std::optional<std::string> chassisType = getChassisTypeProperty(property);
+
+    if (chassisType && *chassisType != "RackMount" &&
+        *chassisType != "StandAlone")
+    {
+        messages::actionNotSupported(
+            asyncResp->res, "Only RackMount or StandAlone support Chassis "
+                            "Reset. Got Chassis type of " +
+                                *chassisType);
+        return;
+    }
+
+    if (resetType && *resetType != "PowerCycle")
+    {
+        BMCWEB_LOG_DEBUG << "Invalid property value for "
+                            "ResetType: "
+                         << *resetType;
+        messages::actionParameterNotSupported(asyncResp->res, *resetType,
+                                              "ResetType");
+
+        return;
+    }
+    doChassisPowerCycle(asyncResp);
+}
+
+/**
  * ChassisResetAction class supports the POST method for the Reset
  * action.
  * Function handles POST method request.
  * Analyzes POST body before sending Reset request data to D-Bus.
  */
-
 inline void requestRoutesChassisResetAction(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/Chassis/<str>/Actions/Chassis.Reset/")
@@ -652,32 +867,61 @@ inline void requestRoutesChassisResetAction(App& app)
         .methods(boost::beast::http::verb::post)(
             [&app](const crow::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                   const std::string&) {
+                   const std::string& chassisId) {
                 if (!redfish::setUpRedfishRoute(app, req, asyncResp->res))
                 {
                     return;
                 }
                 BMCWEB_LOG_DEBUG << "Post Chassis Reset.";
 
-                std::string resetType;
+                std::optional<std::string> resetType;
+                json_util::readJsonAction(req, asyncResp->res, "ResetType",
+                                          resetType);
+                BMCWEB_LOG_DEBUG << "Reset Type " << resetType.value_or("test");
 
-                if (!json_util::readJsonAction(req, asyncResp->res, "ResetType",
-                                               resetType))
-                {
-                    return;
-                }
-
-                if (resetType != "PowerCycle")
-                {
-                    BMCWEB_LOG_DEBUG << "Invalid property value for ResetType: "
-                                     << resetType;
-                    messages::actionParameterNotSupported(
-                        asyncResp->res, resetType, "ResetType");
-
-                    return;
-                }
-                doChassisPowerCycle(asyncResp);
+                validateChassisResetAction(
+                    asyncResp, chassisId,
+                    std::bind_front(validateChassisResetActionHandler,
+                                    asyncResp, resetType));
             });
+}
+
+inline void validateChassisResetActionInfoHandler(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& chassisId, const boost::system::error_code ec,
+    const std::variant<std::string>& property)
+{
+    asyncResp->res.jsonValue = {
+        {"@odata.type", "#ActionInfo.v1_1_2.ActionInfo"},
+        {"@odata.id", "/redfish/v1/Chassis/" + chassisId + "/ResetActionInfo"},
+        {"Name", "Reset Action Info"},
+        {"Id", "ResetActionInfo"},
+        {"Parameters",
+         {{{"Name", "ResetType"},
+           {"Required", true},
+           {"DataType", "String"},
+           {"AllowableValues", {"PowerCycle"}}}}}};
+
+    // xyz.openbmc_project.Inventory.Item.Chassis not found on the Chassis
+    // Default to PowerCycle
+    if (ec)
+    {
+        return;
+    }
+
+    std::optional<std::string> chassisType = getChassisTypeProperty(property);
+    if (chassisType && *chassisType != "RackMount" &&
+        *chassisType != "StandAlone")
+    {
+        BMCWEB_LOG_DEBUG << "Only RackMount support Chassis Reset. Got "
+                            "Chassis type of "
+                         << *chassisType;
+
+        asyncResp->res.jsonValue["Parameters"] = {{{"Name", "ResetType"},
+                                                   {"Required", true},
+                                                   {"DataType", "String"},
+                                                   {"AllowableValues", {}}}};
+    }
 }
 
 /**
@@ -696,18 +940,10 @@ inline void requestRoutesChassisResetActionInfo(App& app)
                 {
                     return;
                 }
-                asyncResp->res.jsonValue = {
-                    {"@odata.type", "#ActionInfo.v1_1_2.ActionInfo"},
-                    {"@odata.id",
-                     "/redfish/v1/Chassis/" + chassisId + "/ResetActionInfo"},
-                    {"Name", "Reset Action Info"},
-                    {"Id", "ResetActionInfo"},
-                    {"Parameters",
-                     {{{"Name", "ResetType"},
-                       {"Required", true},
-                       {"DataType", "String"},
-                       {"AllowableValues", {"PowerCycle"}}}}}};
+                validateChassisResetAction(
+                    asyncResp, chassisId,
+                    std::bind_front(validateChassisResetActionInfoHandler,
+                                    asyncResp, chassisId));
             });
 }
-
 } // namespace redfish
