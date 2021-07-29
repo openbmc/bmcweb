@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "4667f00c_3471f800",
+        "filename": "redfish-core/include/registries/privilege_registry.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 393,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-07-29T13:18:44Z",
+      "side": 1,
+      "message": "Shouldn\u0027t you have both EthernetInterfaceCollection and EthernetInterface here?",
+      "range": {
+        "startLine": 393,
+        "startChar": 57,
+        "endLine": 393,
+        "endChar": 67
+      },
+      "revId": "b960de78b929048f07f40afcaec635991b99df54",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "9eb8bb91_e5b0ade3",
         "filename": "redfish-core/include/registries/privilege_registry.hpp",
         "patchSetId": 13
