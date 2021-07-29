@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5e53906d_fcf82af2",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 539,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-07-29T03:48:20Z",
+      "side": 1,
+      "message": "Can we delete this now?",
+      "revId": "7f4f32afea4ac310fc9bc7c3c223468a69c53b7a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
