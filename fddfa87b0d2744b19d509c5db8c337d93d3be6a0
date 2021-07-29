@@ -46,6 +46,30 @@
       "revId": "fddfa87b0d2744b19d509c5db8c337d93d3be6a0",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "31e6c794_4b8d97c4",
+        "filename": "redfish-core/lib/health.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-07-29T16:23:33Z",
+      "side": 1,
+      "message": "\u003e The behavior with exact matches did not change, boost::starts_with would return true for the case of two strings being a literal duplicate. Addition of boost::equals only preserves this mechanic, as new boost::starts:with requires finishing string with a slash sign.\n\nah, this is a good point.  I didn\u0027t see that my first time through.\n\n\u003e \n\u003e This is in fact mentioned in commit message. Ending of the third paragraph states: \"A slash \u0027/\u0027 is not required to match to an object if their path is exactly identical (due to paths not being finished by slash) - that is ensured by use of second, alternative match condition checked with boost::equals.\"\n\u003e \n\u003e According to difficult readability, I just pushed another patchset which gets rid of mentioned multi-tiered ternary. The code looks more clear now.\n\nGreat.",
+      "parentUuid": "7126aad9_ad504f60",
+      "range": {
+        "startLine": 60,
+        "startChar": 33,
+        "endLine": 60,
+        "endChar": 67
+      },
+      "revId": "fddfa87b0d2744b19d509c5db8c337d93d3be6a0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
