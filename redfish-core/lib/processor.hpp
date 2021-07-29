@@ -456,7 +456,7 @@ using BaseSpeedPrioritySettingsProperty =
 // variant
 using OperatingConfigProperties = std::vector<std::pair<
     std::string,
-    sdbusplus::utility::dedup_variant_t<uint32_t, size_t, TurboProfileProperty,
+    sdbusplus::utility::dedup_variant<uint32_t, size_t, TurboProfileProperty,
                                         BaseSpeedPrioritySettingsProperty>>>;
 
 /**
