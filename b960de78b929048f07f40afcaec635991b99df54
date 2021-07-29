@@ -72,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "10f151fb_3345f8de",
+        "filename": "redfish-core/include/registries/privilege_registry.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 599,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-07-29T14:03:06Z",
+      "side": 1,
+      "message": "aw I see it. That \"SubordinateOverrides\": [ is an array. Missed that. Thanks.",
+      "parentUuid": "dceb722f_4c405f29",
+      "range": {
+        "startLine": 599,
+        "startChar": 28,
+        "endLine": 599,
+        "endChar": 36
+      },
+      "revId": "b960de78b929048f07f40afcaec635991b99df54",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "df107c76_0559edf6",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 13
