@@ -52,6 +52,9 @@ static constexpr std::string_view sensors = "Sensors";
 static constexpr std::string_view thermal = "Thermal";
 } // namespace node
 
+static boost::container::flat_map<std::string, std::string> objectMgrPathsCache;
+static GetSubTreeType subTreeCache;
+
 namespace dbus
 {
 
@@ -330,6 +333,7 @@ void getObjectsWithConnection(
             return;
         }
 
+        sensors::subTreeCache = subtree;
         BMCWEB_LOG_DEBUG << "Found " << subtree.size() << " subtrees";
 
         // Make unique list of connections only for requested sensor types and
@@ -367,11 +371,19 @@ void getObjectsWithConnection(
         callback(std::move(connections), std::move(objectsWithConnection));
         BMCWEB_LOG_DEBUG << "getObjectsWithConnection resp_handler exit";
     };
-    // Make call to ObjectMapper to find all sensors objects
-    crow::connections::systemBus->async_method_call(
-        std::move(respHandler), "xyz.openbmc_project.ObjectMapper",
-        "/xyz/openbmc_project/object_mapper",
-        "xyz.openbmc_project.ObjectMapper", "GetSubTree", path, 2, interfaces);
+    if (sensors::subTreeCache.empty())
+    {
+        // Make call to ObjectMapper to find all sensors objects
+        crow::connections::systemBus->async_method_call(
+            std::move(respHandler), "xyz.openbmc_project.ObjectMapper",
+            "/xyz/openbmc_project/object_mapper",
+            "xyz.openbmc_project.ObjectMapper", "GetSubTree", path, 2,
+            interfaces);
+    }
+    else
+    {
+        respHandler(boost::system::error_code{}, sensors::subTreeCache);
+    }
     BMCWEB_LOG_DEBUG << "getObjectsWithConnection exit";
 }
 
@@ -695,15 +707,26 @@ void getObjectManagerPaths(
                                  << objectPath;
             }
         }
+        sensors::objectMgrPathsCache = *objectMgrPaths;
         callback(objectMgrPaths);
         BMCWEB_LOG_DEBUG << "getObjectManagerPaths respHandler exit";
     };
 
-    // Query mapper for all DBus object paths that implement ObjectManager
-    crow::connections::systemBus->async_method_call(
-        std::move(respHandler), "xyz.openbmc_project.ObjectMapper",
-        "/xyz/openbmc_project/object_mapper",
-        "xyz.openbmc_project.ObjectMapper", "GetSubTree", "/", 0, interfaces);
+    if (sensors::objectMgrPathsCache.empty())
+    {
+        // Query mapper for all DBus object paths that implement ObjectManager
+        crow::connections::systemBus->async_method_call(
+            std::move(respHandler), "xyz.openbmc_project.ObjectMapper",
+            "/xyz/openbmc_project/object_mapper",
+            "xyz.openbmc_project.ObjectMapper", "GetSubTree", "/", 0,
+            interfaces);
+    }
+    else
+    {
+        callback(std::make_shared<
+                 boost::container::flat_map<std::string, std::string>>(
+            sensors::objectMgrPathsCache));
+    }
     BMCWEB_LOG_DEBUG << "getObjectManagerPaths exit";
 }
 
@@ -2731,9 +2754,11 @@ inline void processSensorList(
                         };
 
                     // Get inventory items associated with sensors
-                    getInventoryItems(sensorsAsyncResp, sensorNames,
-                                      objectMgrPaths,
-                                      std::move(getInventoryItemsCb));
+                    // getInventoryItems(SensorsAsyncResp, sensorNames,
+                    //                  objectMgrPaths,
+                    //                  std::move(getInventoryItemsCb));
+                    getInventoryItemsCb(
+                        std::make_shared<std::vector<InventoryItem>>());
 
                     BMCWEB_LOG_DEBUG << "getObjectManagerPathsCb exit";
                 };
@@ -3053,7 +3078,7 @@ inline void requestRoutesSensor(App& app)
 
             // Get a list of all of the sensors that implement Sensor.Value
             // and get the path and service name associated with the sensor
-            crow::connections::systemBus->async_method_call(
+            auto respHandler =
                 [asyncResp, sensorName](const boost::system::error_code ec,
                                         const GetSubTreeType& subtree) {
                     BMCWEB_LOG_DEBUG << "respHandler1 enter";
@@ -3106,11 +3131,21 @@ inline void requestRoutesSensor(App& app)
                     sensorList->emplace(sensorPath);
                     processSensorList(asyncResp, sensorList);
                     BMCWEB_LOG_DEBUG << "respHandler1 exit";
-                },
-                "xyz.openbmc_project.ObjectMapper",
-                "/xyz/openbmc_project/object_mapper",
-                "xyz.openbmc_project.ObjectMapper", "GetSubTree",
-                "/xyz/openbmc_project/sensors", 2, interfaces);
+                };
+            if (sensors::subTreeCache.empty())
+            {
+                // Get a list of all of the sensors that implement Sensor.Value
+                // and get the path and service name associated with the sensor
+                crow::connections::systemBus->async_method_call(
+                    std::move(respHandler), "xyz.openbmc_project.ObjectMapper",
+                    "/xyz/openbmc_project/object_mapper",
+                    "xyz.openbmc_project.ObjectMapper", "GetSubTree",
+                    "/xyz/openbmc_project/sensors", 2, interfaces);
+            }
+            else
+            {
+                respHandler(boost::system::error_code{}, sensors::subTreeCache);
+            }
         });
 }
 
