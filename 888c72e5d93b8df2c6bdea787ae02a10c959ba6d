@@ -42,6 +42,30 @@
     },
     {
       "key": {
+        "uuid": "58943435_504df024",
+        "filename": "http/http_connection.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 331,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2021-07-30T18:48:43Z",
+      "side": 1,
+      "message": "Sounds reasonable.",
+      "parentUuid": "1cc4bfbc_1566d724",
+      "range": {
+        "startLine": 331,
+        "startChar": 0,
+        "endLine": 331,
+        "endChar": 39
+      },
+      "revId": "888c72e5d93b8df2c6bdea787ae02a10c959ba6d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ad32004e_ce92e533",
         "filename": "http/http_connection.hpp",
         "patchSetId": 12
@@ -62,6 +86,30 @@
       "revId": "888c72e5d93b8df2c6bdea787ae02a10c959ba6d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9f7d228a_819cd1e8",
+        "filename": "http/http_connection.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 532,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2021-07-30T18:48:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ad32004e_ce92e533",
+      "range": {
+        "startLine": 532,
+        "startChar": 42,
+        "endLine": 532,
+        "endChar": 91
+      },
+      "revId": "888c72e5d93b8df2c6bdea787ae02a10c959ba6d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -88,6 +136,30 @@
     },
     {
       "key": {
+        "uuid": "eff79853_c682612d",
+        "filename": "http/http_connection.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 549,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2021-07-30T18:48:43Z",
+      "side": 1,
+      "message": "Done. Everything from 547 to 568 are used for auth",
+      "parentUuid": "179a9f20_da90e30a",
+      "range": {
+        "startLine": 547,
+        "startChar": 47,
+        "endLine": 549,
+        "endChar": 0
+      },
+      "revId": "888c72e5d93b8df2c6bdea787ae02a10c959ba6d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "866bce3f_8ac19b5f",
         "filename": "http/http_connection.hpp",
         "patchSetId": 12
@@ -99,6 +171,30 @@
       "writtenOn": "2021-07-30T16:40:34Z",
       "side": 1,
       "message": "OOOF........   we need a better structure here.  We can\u0027t be constructing a map every single request.  Maybe a \"auth header\" struct?  I need to think more about that.",
+      "range": {
+        "startLine": 561,
+        "startChar": 0,
+        "endLine": 568,
+        "endChar": 0
+      },
+      "revId": "888c72e5d93b8df2c6bdea787ae02a10c959ba6d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d573ad79_d2bd6f7d",
+        "filename": "http/http_connection.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 568,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2021-07-30T18:48:43Z",
+      "side": 1,
+      "message": "I can pass the parser object directly into authorization::authenticate. \nBut that felt messy. \nI can create a struct and add it to req object?",
+      "parentUuid": "866bce3f_8ac19b5f",
       "range": {
         "startLine": 561,
         "startChar": 0,
@@ -134,6 +230,30 @@
     },
     {
       "key": {
+        "uuid": "13cb023c_26654535",
+        "filename": "http/http_connection.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 570,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2021-07-30T18:48:43Z",
+      "side": 1,
+      "message": "It is holding url, session, and ipAddress, all used by authenticate.\nI can maybe add a headerValues Struct to req?",
+      "parentUuid": "2b037649_e4aa89de",
+      "range": {
+        "startLine": 570,
+        "startChar": 20,
+        "endLine": 570,
+        "endChar": 24
+      },
+      "revId": "888c72e5d93b8df2c6bdea787ae02a10c959ba6d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "7ca318c0_f722fa29",
         "filename": "include/authorization.hpp",
         "patchSetId": 12
@@ -154,6 +274,30 @@
       "revId": "888c72e5d93b8df2c6bdea787ae02a10c959ba6d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8280ffcc_8ff4b244",
+        "filename": "include/authorization.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 217,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2021-07-30T18:48:43Z",
+      "side": 1,
+      "message": "yeah, we can do that",
+      "parentUuid": "7ca318c0_f722fa29",
+      "range": {
+        "startLine": 217,
+        "startChar": 27,
+        "endLine": 217,
+        "endChar": 51
+      },
+      "revId": "888c72e5d93b8df2c6bdea787ae02a10c959ba6d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
