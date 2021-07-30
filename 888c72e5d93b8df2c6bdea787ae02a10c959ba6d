@@ -207,6 +207,30 @@
     },
     {
       "key": {
+        "uuid": "ba6f9010_2a975a7d",
+        "filename": "http/http_connection.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 568,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-07-30T19:57:25Z",
+      "side": 1,
+      "message": "I\u0027m still not in love with us making a copy of all this stuff.  I wonder if we could get away with passing a const boost::beast::http::fields\u0026, via parser-\u003eget().base()\n\nThat would pass in the full set of headers without explicitly needing to construct a new map.",
+      "parentUuid": "d573ad79_d2bd6f7d",
+      "range": {
+        "startLine": 561,
+        "startChar": 0,
+        "endLine": 568,
+        "endChar": 0
+      },
+      "revId": "888c72e5d93b8df2c6bdea787ae02a10c959ba6d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "2b037649_e4aa89de",
         "filename": "http/http_connection.hpp",
         "patchSetId": 12
@@ -242,6 +266,30 @@
       "side": 1,
       "message": "It is holding url, session, and ipAddress, all used by authenticate.\nI can maybe add a headerValues Struct to req?",
       "parentUuid": "2b037649_e4aa89de",
+      "range": {
+        "startLine": 570,
+        "startChar": 20,
+        "endLine": 570,
+        "endChar": 24
+      },
+      "revId": "888c72e5d93b8df2c6bdea787ae02a10c959ba6d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3b5f5116_4683d08f",
+        "filename": "http/http_connection.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 570,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-07-30T19:57:25Z",
+      "side": 1,
+      "message": "session isn\u0027t used anymore...... and I\u0027m a little surprised authenticate uses ipAddress????\n\n(reading code..... one sec).",
+      "parentUuid": "13cb023c_26654535",
       "range": {
         "startLine": 570,
         "startChar": 20,
