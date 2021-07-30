@@ -48,6 +48,30 @@
     },
     {
       "key": {
+        "uuid": "ed4ed342_48dd0117",
+        "filename": "redfish-core/lib/port.hpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 180,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-07-30T07:52:30Z",
+      "side": 1,
+      "message": "As not all connectors are fabric connectors, path is being looked up for fabric adapterID to confirm if it belongs to the category of fabric connectors.",
+      "parentUuid": "4aa27e0a_b402eb2f",
+      "range": {
+        "startLine": 174,
+        "startChar": 0,
+        "endLine": 180,
+        "endChar": 21
+      },
+      "revId": "66244892c80878b9da61d337e64362482819f9da",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c32d83a4_25f9f1bb",
         "filename": "redfish-core/lib/port.hpp",
         "patchSetId": 24
@@ -59,6 +83,30 @@
       "writtenOn": "2021-07-28T17:58:09Z",
       "side": 1,
       "message": "This looks wrong.  Not all connectors are fabric connectors.  I suspect we need a more precise inventory.item interface here.",
+      "range": {
+        "startLine": 200,
+        "startChar": 0,
+        "endLine": 201,
+        "endChar": 61
+      },
+      "revId": "66244892c80878b9da61d337e64362482819f9da",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "39470a79_e842f10d",
+        "filename": "redfish-core/lib/port.hpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-07-30T07:52:30Z",
+      "side": 1,
+      "message": "\u003e Not all connectors are fabric connectors.\nAgree, that is why all the paths fetched from this call is looked up for the fabric adapterId. Line 174 to 180.",
+      "parentUuid": "c32d83a4_25f9f1bb",
       "range": {
         "startLine": 200,
         "startChar": 0,
