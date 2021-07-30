@@ -42,6 +42,24 @@
     },
     {
       "key": {
+        "uuid": "1bab47e4_d8496b61",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000404
+      },
+      "writtenOn": "2021-07-30T09:04:17Z",
+      "side": 1,
+      "message": "Thanks for the suggestion, i will update it in next patch.",
+      "parentUuid": "44209dcd_0787e321",
+      "revId": "d3d9bee0b2663d044498a26bcef24fdbc6b30938",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "27c2c2b1_8bf3176d",
         "filename": "/COMMIT_MSG",
         "patchSetId": 3
