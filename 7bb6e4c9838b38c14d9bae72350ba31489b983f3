@@ -1,0 +1,188 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6dc21cfc_b6b656fc",
+        "filename": "redfish-core/include/redfish.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 203,
+      "author": {
+        "id": 1001148
+      },
+      "writtenOn": "2021-07-30T17:50:53Z",
+      "side": 1,
+      "message": "nit: Shouldn\u0027t that be Triggers in the call name, i.e.: \u0027requestRoutesTriggers\u0027?",
+      "range": {
+        "startLine": 203,
+        "startChar": 8,
+        "endLine": 203,
+        "endChar": 28
+      },
+      "revId": "7bb6e4c9838b38c14d9bae72350ba31489b983f3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "994acd4d_0c96f761",
+        "filename": "redfish-core/include/utils/telemetry_utils.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 1001148
+      },
+      "writtenOn": "2021-07-30T17:50:53Z",
+      "side": 1,
+      "message": "Very complicated as for mapping of single relation, cannot it be simplified?",
+      "range": {
+        "startLine": 147,
+        "startChar": 0,
+        "endLine": 151,
+        "endChar": 5
+      },
+      "revId": "7bb6e4c9838b38c14d9bae72350ba31489b983f3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0b4e90e8_63b0790c",
+        "filename": "redfish-core/include/utils/telemetry_utils.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 1001148
+      },
+      "writtenOn": "2021-07-30T17:50:53Z",
+      "side": 1,
+      "message": "Function seems not to be used.",
+      "range": {
+        "startLine": 155,
+        "startChar": 0,
+        "endLine": 163,
+        "endChar": 1
+      },
+      "revId": "7bb6e4c9838b38c14d9bae72350ba31489b983f3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "239393b6_7384803e",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 219,
+      "author": {
+        "id": 1001148
+      },
+      "writtenOn": "2021-07-30T17:50:53Z",
+      "side": 1,
+      "message": "Variable not used, can its name be hidden from access?",
+      "range": {
+        "startLine": 219,
+        "startChar": 22,
+        "endLine": 219,
+        "endChar": 24
+      },
+      "revId": "7bb6e4c9838b38c14d9bae72350ba31489b983f3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "942acb89_b5d9516d",
+        "filename": "redfish-core/lib/trigger.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 316,
+      "author": {
+        "id": 1001148
+      },
+      "writtenOn": "2021-07-30T17:50:53Z",
+      "side": 1,
+      "message": "Maybe you could also reserve capacity for this vector?",
+      "range": {
+        "startLine": 316,
+        "startChar": 12,
+        "endLine": 316,
+        "endChar": 60
+      },
+      "revId": "7bb6e4c9838b38c14d9bae72350ba31489b983f3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "aa5ec4fa_bf543cf1",
+        "filename": "redfish-core/lib/trigger.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 383,
+      "author": {
+        "id": 1001148
+      },
+      "writtenOn": "2021-07-30T17:50:53Z",
+      "side": 1,
+      "message": "It that needed? In the lambda there is one return of function giving back std:string. Compiler should deduce this one.",
+      "range": {
+        "startLine": 383,
+        "startChar": 43,
+        "endLine": 383,
+        "endChar": 57
+      },
+      "revId": "7bb6e4c9838b38c14d9bae72350ba31489b983f3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8cad3d04_5b9e7e2c",
+        "filename": "redfish-core/lib/trigger.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 443,
+      "author": {
+        "id": 1001148
+      },
+      "writtenOn": "2021-07-30T17:50:53Z",
+      "side": 1,
+      "message": "It is inside of telemetry namespace, can the namespace scope prefixing be neglected here?",
+      "range": {
+        "startLine": 443,
+        "startChar": 12,
+        "endLine": 443,
+        "endChar": 23
+      },
+      "revId": "7bb6e4c9838b38c14d9bae72350ba31489b983f3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cf21602f_64014fa8",
+        "filename": "redfish-core/lib/trigger.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 468,
+      "author": {
+        "id": 1001148
+      },
+      "writtenOn": "2021-07-30T17:50:53Z",
+      "side": 1,
+      "message": "The function containing this macro call is named \u0027requestRoutesTrigger\u0027. Maybe renaming it into \u0027requestRoutesTriggersCollection\u0027 would be more accurate?",
+      "range": {
+        "startLine": 468,
+        "startChar": 41,
+        "endLine": 468,
+        "endChar": 63
+      },
+      "revId": "7bb6e4c9838b38c14d9bae72350ba31489b983f3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
