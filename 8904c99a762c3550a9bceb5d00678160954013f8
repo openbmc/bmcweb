@@ -105,6 +105,23 @@
     },
     {
       "key": {
+        "uuid": "ab242d5f_c76000f5",
+        "filename": "redfish-core/lib/pcie.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 646,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-07-30T19:24:14Z",
+      "side": 1,
+      "message": "Please use https://github.com/openbmc/bmcweb/commit/ed3982131dcef2b499da36e674d2d21b2289ef29#diff-36d772115a7d28a9c1bbe1c848e05d4570875f056b876cec47513927088437f5",
+      "revId": "8904c99a762c3550a9bceb5d00678160954013f8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c1db1b69_f928b80d",
         "filename": "redfish-core/lib/pcie.hpp",
         "patchSetId": 4
