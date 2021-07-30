@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "666bcc52_42d14651",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-07-30T17:48:20Z",
+      "side": 1,
+      "message": "This is still incorrect.",
+      "range": {
+        "startLine": 56,
+        "startChar": 0,
+        "endLine": 56,
+        "endChar": 45
+      },
+      "revId": "89b40094ef954dd327e2523d65ee22b601fd7ea2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "87cf934a_fad5fe28",
         "filename": "redfish-core/lib/event_service.hpp",
         "patchSetId": 24
