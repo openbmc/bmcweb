@@ -302,6 +302,30 @@
     },
     {
       "key": {
+        "uuid": "5dcb439d_dd8486ea",
+        "filename": "http/http_connection.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 570,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-07-30T19:59:25Z",
+      "side": 1,
+      "message": "Ug.... yeah, it uses it for a really mediocre reason.  Lets just add ip address to authenticate() as well.",
+      "parentUuid": "3b5f5116_4683d08f",
+      "range": {
+        "startLine": 570,
+        "startChar": 20,
+        "endLine": 570,
+        "endChar": 24
+      },
+      "revId": "888c72e5d93b8df2c6bdea787ae02a10c959ba6d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "7ca318c0_f722fa29",
         "filename": "include/authorization.hpp",
         "patchSetId": 12
