@@ -67,6 +67,9 @@ constexpr auto powerPaths = std::to_array<std::string_view>({
 constexpr auto sensorPaths = std::to_array<std::string_view>({
     "/xyz/openbmc_project/sensors/power",
     "/xyz/openbmc_project/sensors/current",
+#ifdef BMCWEB_ENABLE_REDFISH_SUPPORT_COUNT_SENSORS
+    "/xyz/openbmc_project/sensors/count",
+#endif
     "/xyz/openbmc_project/sensors/airflow",
     "/xyz/openbmc_project/sensors/humidity",
 #ifdef BMCWEB_NEW_POWERSUBSYSTEM_THERMALSUBSYSTEM
