@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "8eab1065_b67dd97a",
+        "filename": "redfish-core/include/utils/location_utils.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2021-07-30T23:15:28Z",
+      "side": 1,
+      "message": "Done. I have used json_pointer now that I know about it.\n\nThanks.",
+      "parentUuid": "46bcef01_4adb0163",
+      "range": {
+        "startLine": 33,
+        "startChar": 24,
+        "endLine": 33,
+        "endChar": 39
+      },
+      "revId": "bf58875e22acf85d8e480c4e7fc5d467137c9a2d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "685143c7_ab27e6e0",
         "filename": "redfish-core/include/utils/location_utils.hpp",
         "patchSetId": 15
@@ -45,6 +69,30 @@
       "revId": "bf58875e22acf85d8e480c4e7fc5d467137c9a2d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5ffcb2b1_73e08330",
+        "filename": "redfish-core/include/utils/location_utils.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2021-07-30T23:15:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "685143c7_ab27e6e0",
+      "range": {
+        "startLine": 49,
+        "startChar": 16,
+        "endLine": 49,
+        "endChar": 38
+      },
+      "revId": "bf58875e22acf85d8e480c4e7fc5d467137c9a2d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "a5e0329a_ca4a5c8a",
+        "filename": "redfish-core/include/utils/location_utils.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2021-07-30T23:15:28Z",
+      "side": 1,
+      "message": "oh yeah, thanks. I have removed the duplicated code to use the new one instead.\n\nThere is another one in Manager.. so I also removed that one.",
+      "parentUuid": "def40c90_a0a42d69",
+      "range": {
+        "startLine": 55,
+        "startChar": 16,
+        "endLine": 56,
+        "endChar": 30
+      },
+      "revId": "bf58875e22acf85d8e480c4e7fc5d467137c9a2d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "11eee953_c5629f56",
         "filename": "redfish-core/include/utils/location_utils.hpp",
         "patchSetId": 15
@@ -88,6 +160,24 @@
     },
     {
       "key": {
+        "uuid": "7e568d57_12734e84",
+        "filename": "redfish-core/include/utils/location_utils.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2021-07-30T23:15:28Z",
+      "side": 1,
+      "message": "I just added a internal error if no path is found. Calling this function should always be able to find the path.",
+      "parentUuid": "11eee953_c5629f56",
+      "revId": "bf58875e22acf85d8e480c4e7fc5d467137c9a2d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ea86204b_95f9b8f8",
         "filename": "redfish-core/include/utils/location_utils.hpp",
         "patchSetId": 15
@@ -99,6 +189,30 @@
       "writtenOn": "2021-07-20T00:20:15Z",
       "side": 1,
       "message": "Please combine this mapper call such that all interfaces don\u0027t need to do 2 calls to the mapper to effect this utility function.",
+      "range": {
+        "startLine": 125,
+        "startChar": 0,
+        "endLine": 128,
+        "endChar": 57
+      },
+      "revId": "bf58875e22acf85d8e480c4e7fc5d467137c9a2d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e4ce435d_7afe1529",
+        "filename": "redfish-core/include/utils/location_utils.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2021-07-30T23:15:28Z",
+      "side": 1,
+      "message": "not exactly sure what you mean here?\n\nDo you mean to remove this call and use the Mapper call in the resource that call this, instead of calling it here?\n\nI\u0027ll try to clean it up that way.",
+      "parentUuid": "ea86204b_95f9b8f8",
       "range": {
         "startLine": 125,
         "startChar": 0,
