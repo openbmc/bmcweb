@@ -1,0 +1,130 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da9f0df2_042c2bbc",
+        "filename": "redfish-core/lib/pcie.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-07-30T19:17:46Z",
+      "side": 1,
+      "message": "Typically I see this reversed\n\nif (value \u003d\u003d nullptr)\ninternalError;",
+      "revId": "8904c99a762c3550a9bceb5d00678160954013f8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b2086146_3766ad6b",
+        "filename": "redfish-core/lib/pcie.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 182,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-07-30T19:17:46Z",
+      "side": 1,
+      "message": "Can we use more of a variable name than s?",
+      "range": {
+        "startLine": 182,
+        "startChar": 31,
+        "endLine": 182,
+        "endChar": 32
+      },
+      "revId": "8904c99a762c3550a9bceb5d00678160954013f8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a71ea861_71ae5457",
+        "filename": "redfish-core/lib/pcie.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-07-30T19:17:46Z",
+      "side": 1,
+      "message": "Can we call this state? or something more than s?",
+      "range": {
+        "startLine": 210,
+        "startChar": 31,
+        "endLine": 210,
+        "endChar": 32
+      },
+      "revId": "8904c99a762c3550a9bceb5d00678160954013f8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "56a0dc07_e451dd4d",
+        "filename": "redfish-core/lib/pcie.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 211,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-07-30T19:17:46Z",
+      "side": 1,
+      "message": "Typically the check is \n\nif (value \u003d\u003d nullptr)\ninternalError;",
+      "revId": "8904c99a762c3550a9bceb5d00678160954013f8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d2843847_bcab4534",
+        "filename": "redfish-core/lib/pcie.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 618,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-07-30T19:17:46Z",
+      "side": 1,
+      "message": "What about /redfish/v1/Chassis/badChassisid/PCIeDevices",
+      "range": {
+        "startLine": 618,
+        "startChar": 23,
+        "endLine": 618,
+        "endChar": 61
+      },
+      "revId": "8904c99a762c3550a9bceb5d00678160954013f8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "45e8749b_6ed797f4",
+        "filename": "redfish-core/lib/pcie.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 818,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-07-30T19:17:46Z",
+      "side": 1,
+      "message": "Do you account for all the resourceNotFound? \nE.g. \n/redfish/v1/Chassis/badChassisId/PCIeDevices/GPU0/PCIeFunctions/0\n/redfish/v1/Chassis/Baseboard/PCIeDevices/badPCIeDeviveId/PCIeFunctions/0\n/redfish/v1/Chassis/Baseboard/PCIeDevices/GPU0/PCIeFunctions/badPCIeFuntionDevice",
+      "range": {
+        "startLine": 818,
+        "startChar": 14,
+        "endLine": 818,
+        "endChar": 78
+      },
+      "revId": "8904c99a762c3550a9bceb5d00678160954013f8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
