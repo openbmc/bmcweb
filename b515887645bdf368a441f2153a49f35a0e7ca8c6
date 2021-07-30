@@ -52,6 +52,24 @@
       "revId": "b515887645bdf368a441f2153a49f35a0e7ca8c6",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e746196c_bc5bada6",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 209,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-07-30T19:48:47Z",
+      "side": 1,
+      "message": "Ug... yeah.  I think that code was right at one point in time (when i think we were only searching for Item.Chassis), but looking at it, it looks wrong.  I wonder how many systems that\u0027s broken on.  Right now it only drives the chassis links which aren\u0027t used that often, so it\u0027s not that surprising nobody noticed.",
+      "parentUuid": "112c5ad6_cac07d9c",
+      "revId": "b515887645bdf368a441f2153a49f35a0e7ca8c6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
