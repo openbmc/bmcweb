@@ -94,6 +94,30 @@
     },
     {
       "key": {
+        "uuid": "3bc43317_c40f5e05",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 1020,
+      "author": {
+        "id": 1001099
+      },
+      "writtenOn": "2021-07-30T16:10:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1b9b8a32_33541495",
+      "range": {
+        "startLine": 1020,
+        "startChar": 59,
+        "endLine": 1020,
+        "endChar": 79
+      },
+      "revId": "59a2add49d3add419916517868d90f7062b212f6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da24e4db_b24dabbf",
         "filename": "scripts/parse_registries.py",
         "patchSetId": 16
@@ -114,6 +138,30 @@
       "revId": "59a2add49d3add419916517868d90f7062b212f6",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "244ef08d_bdf1aed4",
+        "filename": "scripts/parse_registries.py",
+        "patchSetId": 16
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1001099
+      },
+      "writtenOn": "2021-07-30T16:10:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "da24e4db_b24dabbf",
+      "range": {
+        "startLine": 53,
+        "startChar": 42,
+        "endLine": 53,
+        "endChar": 43
+      },
+      "revId": "59a2add49d3add419916517868d90f7062b212f6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
