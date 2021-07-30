@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "5136f93a_b3105b55",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-07-30T19:25:52Z",
+      "side": 1,
+      "message": "Can you add these to https://github.com/openbmc/bmcweb/blob/master/Redfish.md",
+      "revId": "8904c99a762c3550a9bceb5d00678160954013f8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "da9f0df2_042c2bbc",
         "filename": "redfish-core/lib/pcie.hpp",
         "patchSetId": 4
