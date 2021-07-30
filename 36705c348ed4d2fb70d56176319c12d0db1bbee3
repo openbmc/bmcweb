@@ -2,6 +2,52 @@
   "comments": [
     {
       "key": {
+        "uuid": "56b530aa_13e9abf7",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 194,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2021-07-30T14:23:12Z",
+      "side": 1,
+      "message": "Maybe update the error message?\n\nI think filename() can fail for many reasons. Maybe just say\n```\n\"filename() is empty in \" \u003c\u003c upstreamChassisPath\n```",
+      "range": {
+        "startLine": 193,
+        "startChar": 16,
+        "endLine": 194,
+        "endChar": 63
+      },
+      "revId": "36705c348ed4d2fb70d56176319c12d0db1bbee3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c5e6a070_cddf86ff",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 194,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2021-07-30T14:23:12Z",
+      "side": 1,
+      "message": "Maybe update the error message?\n\nI think filename() can fail for many reasons. Maybe just say\n```\n\"filename() is empty in \" \u003c\u003c upstreamChassisPath\n```\n\nSame witht he other one with downstreamChassis",
+      "range": {
+        "startLine": 193,
+        "startChar": 16,
+        "endLine": 194,
+        "endChar": 63
+      },
+      "revId": "36705c348ed4d2fb70d56176319c12d0db1bbee3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "3c011f89_96a235d0",
         "filename": "redfish-core/lib/chassis.hpp",
         "patchSetId": 8
