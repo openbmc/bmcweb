@@ -34,6 +34,24 @@
       "revId": "b515887645bdf368a441f2153a49f35a0e7ca8c6",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "112c5ad6_cac07d9c",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 209,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2021-07-30T19:40:30Z",
+      "side": 1,
+      "message": "oh also, I guess the implementation in https://github.com/openbmc/bmcweb/blob/master/redfish-core/lib/redfish_util.hpp#L51 is wrong then?\n\nIt uses the first one to act as the main chassis.",
+      "parentUuid": "5e95cc22_ce464dfb",
+      "revId": "b515887645bdf368a441f2153a49f35a0e7ca8c6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
