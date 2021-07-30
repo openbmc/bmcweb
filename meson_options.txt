@@ -248,6 +248,14 @@ option(
     description: 'Allows this BMC to aggregate resources from satellite BMCs'
 )
 
+option(
+    'redfish-support-count-sensors',
+    type: 'feature',
+    value: 'disabled',
+    description: '''Enables support for sensors which expose data in raw couner
+                    format.'''
+)
+
 # Insecure options. Every option that starts with a `insecure` flag should
 # not be enabled by default for any platform, unless the author fully comprehends
 # the implications of doing so.In general, enabling these options will cause security
