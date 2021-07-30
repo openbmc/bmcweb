@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "1f92baa5_a196d4a5",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000907
+      },
+      "writtenOn": "2021-07-30T15:20:20Z",
+      "side": 1,
+      "message": "Done.",
+      "parentUuid": "d792dfc9_20537305",
+      "range": {
+        "startLine": 15,
+        "startChar": 8,
+        "endLine": 15,
+        "endChar": 30
+      },
+      "revId": "71f32f536ae201b20a1ec8a0b03cdf800ced88a4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d370d78c_b9e3537c",
         "filename": "include/dbus_monitor.hpp",
         "patchSetId": 1
@@ -45,6 +69,30 @@
       "revId": "71f32f536ae201b20a1ec8a0b03cdf800ced88a4",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "275d7ab5_e939dad7",
+        "filename": "include/dbus_monitor.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 1000907
+      },
+      "writtenOn": "2021-07-30T15:20:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d370d78c_b9e3537c",
+      "range": {
+        "startLine": 148,
+        "startChar": 0,
+        "endLine": 148,
+        "endChar": 29
+      },
+      "revId": "71f32f536ae201b20a1ec8a0b03cdf800ced88a4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
