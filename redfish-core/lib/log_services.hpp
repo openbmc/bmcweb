@@ -1803,7 +1803,7 @@ inline void requestRoutesDBusEventLogEntryDownload(App& app)
 inline void requestRoutesBMCLogServiceCollection(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/Managers/bmc/LogServices/")
-        .privileges(redfish::privileges::getLogService)
+        .privileges(redfish::privileges::getLogServiceCollection)
         .methods(boost::beast::http::verb::get)(
             [](const crow::Request&,
                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
