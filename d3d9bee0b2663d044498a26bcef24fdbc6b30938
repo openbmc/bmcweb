@@ -88,6 +88,30 @@
     },
     {
       "key": {
+        "uuid": "2abe271a_ea5639a1",
+        "filename": "redfish-core/include/gzfile.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1000404
+      },
+      "writtenOn": "2021-07-30T09:02:49Z",
+      "side": 1,
+      "message": "Thank you for the suggestion.",
+      "parentUuid": "5b4f1e6d_0d3880b4",
+      "range": {
+        "startLine": 35,
+        "startChar": 0,
+        "endLine": 36,
+        "endChar": 9
+      },
+      "revId": "d3d9bee0b2663d044498a26bcef24fdbc6b30938",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "42cf041b_60095c42",
         "filename": "redfish-core/include/gzfile.hpp",
         "patchSetId": 3
@@ -111,6 +135,30 @@
     },
     {
       "key": {
+        "uuid": "3d945234_08a8c8c8",
+        "filename": "redfish-core/include/gzfile.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1000404
+      },
+      "writtenOn": "2021-07-30T09:02:49Z",
+      "side": 1,
+      "message": "Understand, here i use data length to resize the string at line 53.",
+      "parentUuid": "42cf041b_60095c42",
+      "range": {
+        "startLine": 42,
+        "startChar": 12,
+        "endLine": 42,
+        "endChar": 71
+      },
+      "revId": "d3d9bee0b2663d044498a26bcef24fdbc6b30938",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f260b1b2_83667bea",
         "filename": "redfish-core/include/gzfile.hpp",
         "patchSetId": 3
@@ -131,6 +179,30 @@
       "revId": "d3d9bee0b2663d044498a26bcef24fdbc6b30938",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d01d44d6_133fad91",
+        "filename": "redfish-core/include/gzfile.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1000404
+      },
+      "writtenOn": "2021-07-30T09:02:49Z",
+      "side": 1,
+      "message": "Because when \"gzgets\" function read end of file, it will also return Z_NULL. In this case, it is not an error, so i add if statement here.",
+      "parentUuid": "f260b1b2_83667bea",
+      "range": {
+        "startLine": 45,
+        "startChar": 0,
+        "endLine": 45,
+        "endChar": 34
+      },
+      "revId": "d3d9bee0b2663d044498a26bcef24fdbc6b30938",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -181,6 +253,30 @@
     },
     {
       "key": {
+        "uuid": "cd28c6a9_15ccb156",
+        "filename": "redfish-core/include/registries/openbmc_message_registry.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 2284,
+      "author": {
+        "id": 1000404
+      },
+      "writtenOn": "2021-07-30T09:02:49Z",
+      "side": 1,
+      "message": "I think i have the same idea with Nan here.",
+      "parentUuid": "04ad823d_a230aede",
+      "range": {
+        "startLine": 2275,
+        "startChar": 0,
+        "endLine": 2284,
+        "endChar": 20
+      },
+      "revId": "d3d9bee0b2663d044498a26bcef24fdbc6b30938",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d18e5ddf_d4e4f646",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 3
@@ -192,6 +288,30 @@
       "writtenOn": "2021-07-28T22:49:07Z",
       "side": 1,
       "message": "undefined behavior.  This is taking a reference to an rvalue object.\n\nnit: given that this is such a long name, can you initialize this without using an \u003d to make the code nicer to read.",
+      "range": {
+        "startLine": 1817,
+        "startChar": 45,
+        "endLine": 1817,
+        "endChar": 46
+      },
+      "revId": "d3d9bee0b2663d044498a26bcef24fdbc6b30938",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a9974908_5db683e5",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1817,
+      "author": {
+        "id": 1000404
+      },
+      "writtenOn": "2021-07-30T09:02:49Z",
+      "side": 1,
+      "message": "Sorry, I’m not sure I understand. According to SPEC, the member types also use reference.  https://en.cppreference.com/w/cpp/filesystem/directory_iterator\nIs i using wrong method here?",
+      "parentUuid": "d18e5ddf_d4e4f646",
       "range": {
         "startLine": 1817,
         "startChar": 45,
@@ -227,6 +347,30 @@
     },
     {
       "key": {
+        "uuid": "9a65856d_eb55fdeb",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1819,
+      "author": {
+        "id": 1000404
+      },
+      "writtenOn": "2021-07-30T09:02:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5981c472_aa78cf80",
+      "range": {
+        "startLine": 1819,
+        "startChar": 8,
+        "endLine": 1819,
+        "endChar": 23
+      },
+      "revId": "d3d9bee0b2663d044498a26bcef24fdbc6b30938",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "39257ff7_8f9ee4e6",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 3
@@ -247,6 +391,30 @@
       "revId": "d3d9bee0b2663d044498a26bcef24fdbc6b30938",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ae4f4d8f_efd713dd",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1830,
+      "author": {
+        "id": 1000404
+      },
+      "writtenOn": "2021-07-30T09:02:49Z",
+      "side": 1,
+      "message": "Thanks for your suggestion. I modify the file folder path to /var/log/console and the file name will be log, log.1.gz, log.2.gz... and so on.",
+      "parentUuid": "39257ff7_8f9ee4e6",
+      "range": {
+        "startLine": 1829,
+        "startChar": 0,
+        "endLine": 1830,
+        "endChar": 9
+      },
+      "revId": "d3d9bee0b2663d044498a26bcef24fdbc6b30938",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -285,6 +453,24 @@
     },
     {
       "key": {
+        "uuid": "9bbd0c07_330a77bb",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1847,
+      "author": {
+        "id": 1000404
+      },
+      "writtenOn": "2021-07-30T09:02:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "90b8ff25_e415c8f7",
+      "revId": "d3d9bee0b2663d044498a26bcef24fdbc6b30938",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8f40710d_4fc15fbf",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 3
@@ -305,6 +491,30 @@
       "revId": "d3d9bee0b2663d044498a26bcef24fdbc6b30938",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "79436053_91e02d56",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1849,
+      "author": {
+        "id": 1000404
+      },
+      "writtenOn": "2021-07-30T09:02:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8f40710d_4fc15fbf",
+      "range": {
+        "startLine": 1849,
+        "startChar": 22,
+        "endLine": 1849,
+        "endChar": 27
+      },
+      "revId": "d3d9bee0b2663d044498a26bcef24fdbc6b30938",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -331,6 +541,30 @@
     },
     {
       "key": {
+        "uuid": "50d2fdf6_b50437b9",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1863,
+      "author": {
+        "id": 1000404
+      },
+      "writtenOn": "2021-07-30T09:02:49Z",
+      "side": 1,
+      "message": "In the early development this function handle lots of things, but for now it just handle registry message. If we finally decide to remove the registry message which discuss in other comment, i think this function will do the different thing with fillEventLogEntryJson. So i simplify the code here.",
+      "parentUuid": "c484d404_caa94f49",
+      "range": {
+        "startLine": 1863,
+        "startChar": 12,
+        "endLine": 1863,
+        "endChar": 35
+      },
+      "revId": "d3d9bee0b2663d044498a26bcef24fdbc6b30938",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a98c8f46_f35d9499",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 3
@@ -351,6 +585,30 @@
       "revId": "d3d9bee0b2663d044498a26bcef24fdbc6b30938",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2275182c_6d597cd4",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1871,
+      "author": {
+        "id": 1000404
+      },
+      "writtenOn": "2021-07-30T09:02:49Z",
+      "side": 1,
+      "message": "I directly use msg to replace argStr here.",
+      "parentUuid": "a98c8f46_f35d9499",
+      "range": {
+        "startLine": 1871,
+        "startChar": 0,
+        "endLine": 1871,
+        "endChar": 49
+      },
+      "revId": "d3d9bee0b2663d044498a26bcef24fdbc6b30938",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -377,6 +635,30 @@
     },
     {
       "key": {
+        "uuid": "fe2ee4ee_861def1c",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1875,
+      "author": {
+        "id": 1000404
+      },
+      "writtenOn": "2021-07-30T09:02:49Z",
+      "side": 1,
+      "message": "Understand, i add a return here to check if we get an error during getting message from registry.",
+      "parentUuid": "9a5cae52_a9ae641e",
+      "range": {
+        "startLine": 1874,
+        "startChar": 0,
+        "endLine": 1875,
+        "endChar": 5
+      },
+      "revId": "d3d9bee0b2663d044498a26bcef24fdbc6b30938",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e80175d2_efaaa22f",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 3
@@ -400,6 +682,30 @@
     },
     {
       "key": {
+        "uuid": "64dbfce0_1fef5315",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1882,
+      "author": {
+        "id": 1000404
+      },
+      "writtenOn": "2021-07-30T09:02:49Z",
+      "side": 1,
+      "message": "I see, i remove the increment and rewrite the function.",
+      "parentUuid": "e80175d2_efaaa22f",
+      "range": {
+        "startLine": 1882,
+        "startChar": 54,
+        "endLine": 1882,
+        "endChar": 57
+      },
+      "revId": "d3d9bee0b2663d044498a26bcef24fdbc6b30938",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a3a22163_369ce20d",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 3
@@ -420,6 +726,30 @@
       "revId": "d3d9bee0b2663d044498a26bcef24fdbc6b30938",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4a5ad2cb_e0c0583d",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1893,
+      "author": {
+        "id": 1000404
+      },
+      "writtenOn": "2021-07-30T09:02:49Z",
+      "side": 1,
+      "message": "I see, i move it up to line 1874.",
+      "parentUuid": "a3a22163_369ce20d",
+      "range": {
+        "startLine": 1893,
+        "startChar": 0,
+        "endLine": 1893,
+        "endChar": 27
+      },
+      "revId": "d3d9bee0b2663d044498a26bcef24fdbc6b30938",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -458,6 +788,30 @@
       "side": 1,
       "message": "Reading from http://redfish.dmtf.org/schemas/DSP0266_1.12.0.html#query-parameters (it is not the latest but I found hmtl format more convenient to share), we should firstly skip ${skip} entries, then collect ${top} entires, and finally return them in the response.\n\nThe implementation seems correct in this regards. But I see some problems in the IDs. IDs of entries should stay the same no matter what the query parameters are. Is that the problem you are talking about?",
       "parentUuid": "c517210e_ae607e4e",
+      "range": {
+        "startLine": 1991,
+        "startChar": 24,
+        "endLine": 1991,
+        "endChar": 74
+      },
+      "revId": "d3d9bee0b2663d044498a26bcef24fdbc6b30938",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dec4e493_ea994569",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1991,
+      "author": {
+        "id": 1000404
+      },
+      "writtenOn": "2021-07-30T09:02:49Z",
+      "side": 1,
+      "message": "I modify the ID count method, and now it will not influence by top and skip value. Does it solved the problem",
+      "parentUuid": "cdd57b35_110dff4f",
       "range": {
         "startLine": 1991,
         "startChar": 24,
