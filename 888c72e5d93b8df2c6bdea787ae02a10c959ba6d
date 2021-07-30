@@ -326,6 +326,30 @@
     },
     {
       "key": {
+        "uuid": "958059da_9c76ceff",
+        "filename": "http/http_connection.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 570,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2021-07-30T21:37:12Z",
+      "side": 1,
+      "message": "everything was easy until I got the end 😞\n\nforward_unauthorized::sendUnauthorized(req, res);\nhttps://github.com/openbmc/bmcweb/blob/master/include/authorization.hpp#L303",
+      "parentUuid": "5dcb439d_dd8486ea",
+      "range": {
+        "startLine": 570,
+        "startChar": 20,
+        "endLine": 570,
+        "endChar": 24
+      },
+      "revId": "888c72e5d93b8df2c6bdea787ae02a10c959ba6d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "7ca318c0_f722fa29",
         "filename": "include/authorization.hpp",
         "patchSetId": 12
