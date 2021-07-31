@@ -368,6 +368,30 @@
     },
     {
       "key": {
+        "uuid": "3b76de56_8df2ef22",
+        "filename": "http/http_connection.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 570,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-07-31T17:03:21Z",
+      "side": 1,
+      "message": "Yay.... spagetification..........  I\u0027ll look at this next week and give a better idea;  There must be a cleaner way to do this, but I\u0027m not seeing it.",
+      "parentUuid": "958059da_9c76ceff",
+      "range": {
+        "startLine": 570,
+        "startChar": 20,
+        "endLine": 570,
+        "endChar": 24
+      },
+      "revId": "888c72e5d93b8df2c6bdea787ae02a10c959ba6d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "7ca318c0_f722fa29",
         "filename": "include/authorization.hpp",
         "patchSetId": 12
