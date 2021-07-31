@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "21ab5de9_d409381e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-07-31T23:50:52Z",
+      "side": 1,
+      "message": "Please write down what changed here, and what the impact is to clients.  Please do this for all of your changes.",
+      "range": {
+        "startLine": 10,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 69
+      },
+      "revId": "377bd3a7a56afb04ab64aeda368f5a146fff844e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5122c968_aceaa022",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-07-31T23:50:52Z",
+      "side": 1,
+      "message": "You marked the old one as done, but it\u0027s almost certainly not done.  Please discuss how you implemented ConfigureSelf, given that it\u0027s not simply a resource change.",
+      "range": {
+        "startLine": 18,
+        "startChar": 49,
+        "endLine": 18,
+        "endChar": 62
+      },
+      "revId": "377bd3a7a56afb04ab64aeda368f5a146fff844e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "127fbea7_ab20caea",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-07-31T23:50:52Z",
+      "side": 1,
+      "message": "I\u0027m not following what this has to do with your patch.  According to the above, you\u0027ve only changed post, patch, and delete methods, which has nothing to do with reading (ie, the get method).",
+      "range": {
+        "startLine": 26,
+        "startChar": 22,
+        "endLine": 26,
+        "endChar": 71
+      },
+      "revId": "377bd3a7a56afb04ab64aeda368f5a146fff844e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ee5c8ac3_0042af6a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-07-31T23:50:52Z",
+      "side": 1,
+      "message": "???  this is nonsensical.... NoAccess users should have.... no access.  Although I\u0027m not sure what it has to do with this patch.",
+      "range": {
+        "startLine": 28,
+        "startChar": 0,
+        "endLine": 28,
+        "endChar": 61
+      },
+      "revId": "377bd3a7a56afb04ab64aeda368f5a146fff844e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
