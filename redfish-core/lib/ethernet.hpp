@@ -2123,9 +2123,7 @@ inline void requestEthernetInterfacesRoutes(App& app)
 
     BMCWEB_ROUTE(
         app, "/redfish/v1/Managers/bmc/EthernetInterfaces/<str>/VLANs/<str>/")
-        // This privilege is incorrect, it should be ConfigureManager
-        //.privileges(redfish::privileges::patchVLanNetworkInterface)
-        .privileges({{"ConfigureComponents"}})
+        .privileges(redfish::privileges::patchVLanNetworkInterface)
         .methods(boost::beast::http::verb::patch)(
             [&app](const crow::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
@@ -2210,9 +2208,7 @@ inline void requestEthernetInterfacesRoutes(App& app)
 
     BMCWEB_ROUTE(
         app, "/redfish/v1/Managers/bmc/EthernetInterfaces/<str>/VLANs/<str>/")
-        // This privilege is incorrect, it should be ConfigureManager
-        //.privileges(redfish::privileges::deleteVLanNetworkInterface)
-        .privileges({{"ConfigureComponents"}})
+        .privileges(redfish::privileges::deleteVLanNetworkInterface)
         .methods(boost::beast::http::verb::delete_)(
             [&app](const crow::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
@@ -2332,9 +2328,7 @@ inline void requestEthernetInterfacesRoutes(App& app)
 
     BMCWEB_ROUTE(app,
                  "/redfish/v1/Managers/bmc/EthernetInterfaces/<str>/VLANs/")
-        // This privilege is wrong, it should be ConfigureManager
-        //.privileges(redfish::privileges::postVLanNetworkInterfaceCollection)
-        .privileges({{"ConfigureComponents"}})
+        .privileges(redfish::privileges::postVLanNetworkInterfaceCollection)
         .methods(boost::beast::http::verb::post)(
             [&app](const crow::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
