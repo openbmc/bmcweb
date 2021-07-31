@@ -248,9 +248,7 @@ inline void requestRoutesCertificateActionGenerateCSR(App& app)
     BMCWEB_ROUTE(
         app,
         "/redfish/v1/CertificateService/Actions/CertificateService.GenerateCSR/")
-        // Incorrect Privilege;  Should be ConfigureManager
-        //.privileges(redfish::privileges::postCertificateService)
-        .privileges({{"ConfigureComponents"}})
+        .privileges(redfish::privileges::postCertificateService)
         .methods(
             boost::beast::http::verb::
                 post)([&app](
