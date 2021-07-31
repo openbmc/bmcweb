@@ -46,6 +46,30 @@
       "revId": "7a5552a0fcf5f2d6ad41df7938c03f84dfd68921",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8939960f_20361131",
+        "filename": "scripts/parse_registries.py",
+        "patchSetId": 17
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-07-31T17:10:44Z",
+      "side": 1,
+      "message": "I\u0027m surprised format-code didn\u0027t catch this.  I thought we had pep8 running on python code?  Does it have to be enabled explicitly?",
+      "parentUuid": "9d2422b5_3a0ca011",
+      "range": {
+        "startLine": 140,
+        "startChar": 47,
+        "endLine": 140,
+        "endChar": 48
+      },
+      "revId": "7a5552a0fcf5f2d6ad41df7938c03f84dfd68921",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
