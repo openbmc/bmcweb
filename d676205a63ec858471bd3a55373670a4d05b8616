@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "224d5447_9fd30dc8",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 36
+      },
+      "lineNbr": 815,
+      "author": {
+        "id": 1001112
+      },
+      "writtenOn": "2021-08-01T12:44:33Z",
+      "side": 1,
+      "message": "is the definition of this method part of same Commit  ?",
+      "revId": "d676205a63ec858471bd3a55373670a4d05b8616",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
