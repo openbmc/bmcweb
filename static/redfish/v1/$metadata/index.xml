@@ -2344,6 +2344,9 @@
         <edmx:Include Namespace="Thermal.v1_7_0"/>
         <edmx:Include Namespace="Thermal.v1_7_1"/>
     </edmx:Reference>
+    <edmx:Reference Uri="/redfish/v1/schema/TriggersCollection_v1.xml">
+        <edmx:Include Namespace="TriggersCollection"/>
+    </edmx:Reference>
     <edmx:Reference Uri="/redfish/v1/schema/UpdateService_v1.xml">
         <edmx:Include Namespace="UpdateService"/>
         <edmx:Include Namespace="UpdateService.v1_0_0"/>

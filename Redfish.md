@@ -689,6 +689,7 @@ the other.
 - MetricReports
 - MinCollectionInterval
 - Status
+- Triggers
 
 #### /redfish/v1/TelemetryService/MetricReportDefinitions/
 ##### MetricReportDefinitionCollection
@@ -697,6 +698,11 @@ the other.
 
 #### /redfish/v1/TelemetryService/MetricReports/
 ##### MetricReportCollection
+- Members
+- Members@odata.count
+
+#### /redfish/v1/TelemetryService/Triggers/
+##### TriggersCollection
 - Members
 - Members@odata.count
 
