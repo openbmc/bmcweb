@@ -1,0 +1,78 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a15cfbdb_ceba7ac8",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 9
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-08-02T18:18:19Z",
+      "side": 1,
+      "message": "Please talk a little more about what the expected user change will be.  Presumably the Chassis.Reset actions are going to disappear on anything except for the main chassis.  This has some client impact that we should discuss in the commit message.\n\nWith that said, considering that this could\u0027ve never given the appropriate response (ie resetting a single component) I can\u0027t imagine anyone was relying on that behavior, although lets sort through that.",
+      "revId": "18c9fb1af7b6d2c79ecc28f02aeee0bd653a5a0c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ca268cf4_f218d8d1",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 9
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-08-02T18:18:19Z",
+      "side": 1,
+      "message": "This patchset also changes the behavior such that Chassis are no longer hardcoded to RackMount.  This is probably fine, but definitely needs accounted for in your commit message.",
+      "revId": "18c9fb1af7b6d2c79ecc28f02aeee0bd653a5a0c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2d5e7b56_ee9354af",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 494,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-08-02T18:18:19Z",
+      "side": 1,
+      "message": "Please avoid this pattern of filling in the json, then erasing it later.  It\u0027s difficult to track as a reader.  Generally we would defer filling in the property until we knew that it was ok to do so.",
+      "range": {
+        "startLine": 493,
+        "startChar": 0,
+        "endLine": 494,
+        "endChar": 59
+      },
+      "revId": "18c9fb1af7b6d2c79ecc28f02aeee0bd653a5a0c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "76c09b01_34a2eaf3",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 777,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-08-02T18:18:19Z",
+      "side": 1,
+      "message": "Can\u0027t this whole method be replaced with \"getChassisType\" and moving line 753 into the handler?",
+      "revId": "18c9fb1af7b6d2c79ecc28f02aeee0bd653a5a0c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
