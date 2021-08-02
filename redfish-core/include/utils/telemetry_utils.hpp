@@ -14,6 +14,9 @@ constexpr const char* metricReportDefinitionUri =
     "/redfish/v1/TelemetryService/MetricReportDefinitions/";
 constexpr const char* metricReportUri =
     "/redfish/v1/TelemetryService/MetricReports/";
+constexpr const char* triggerInterface =
+    "xyz.openbmc_project.Telemetry.Trigger";
+constexpr const char* triggerUri = "/redfish/v1/TelemetryService/Triggers/";
 
 inline void
     getReportCollection(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
@@ -66,6 +69,14 @@ inline std::string getDbusReportPath(const std::string& id)
 {
     std::string path =
         "/xyz/openbmc_project/Telemetry/Reports/TelemetryService/" + id;
+    dbus::utility::escapePathForDbus(path);
+    return path;
+}
+
+inline std::string getDbusTriggerPath(const std::string& id)
+{
+    std::string path =
+        "/xyz/openbmc_project/Telemetry/Triggers/TelemetryService/" + id;
     dbus::utility::escapePathForDbus(path);
     return path;
 }

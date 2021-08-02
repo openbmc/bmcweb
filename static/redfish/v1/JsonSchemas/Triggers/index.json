@@ -1,0 +1,21 @@
+{
+    "@odata.context": "/redfish/v1/$metadata#JsonSchemaFile.JsonSchemaFile",
+    "@odata.id": "/redfish/v1/JsonSchemas/Triggers",
+    "@odata.type": "#JsonSchemaFile.v1_0_2.JsonSchemaFile",
+    "Name": "Triggers Schema File",
+    "Schema": "#Triggers.Triggers",
+    "Description": "Triggers Schema File Location",
+    "Id": "Triggers",
+    "Languages": [
+        "en"
+    ],
+    "Languages@odata.count": 1,
+    "Location": [
+        {
+            "Language": "en",
+            "PublicationUri": "http://redfish.dmtf.org/schemas/v1/Triggers.json",
+            "Uri": "/redfish/v1/JsonSchemas/Triggers/Triggers.json"
+        }
+    ],
+    "Location@odata.count": 1
+}
