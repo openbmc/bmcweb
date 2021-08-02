@@ -208,5 +208,25 @@ inline std::string toDurationString(std::chrono::milliseconds ms)
     return fmt;
 }
 
+inline std::optional<std::string>
+    toDurationStringFromUint(const uint64_t timeMs)
+{
+    static const uint64_t maxTimeMs =
+        static_cast<uint64_t>(std::chrono::milliseconds::max().count());
+
+    if (maxTimeMs < timeMs)
+    {
+        return std::nullopt;
+    }
+
+    std::string duration = toDurationString(std::chrono::milliseconds(timeMs));
+    if (duration.empty())
+    {
+        return std::nullopt;
+    }
+
+    return std::make_optional(duration);
+}
+
 } // namespace time_utils
 } // namespace redfish
