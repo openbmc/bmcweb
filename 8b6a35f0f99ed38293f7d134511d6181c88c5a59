@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "602c98e6_7d5f685e",
+        "filename": "include/vm_websocket.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-08-02T19:26:46Z",
+      "side": 0,
+      "message": "technically this is a blocking call that got ignored, and would not be allowed in code review, but considering that your code is technically better, I don\u0027t see an issue with it so long as we can get it to build.",
+      "range": {
+        "startLine": 42,
+        "startChar": 0,
+        "endLine": 42,
+        "endChar": 21
+      },
+      "revId": "8b6a35f0f99ed38293f7d134511d6181c88c5a59",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
