@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c41cc353_c0b5b458",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 38
+      },
+      "lineNbr": 1026,
+      "author": {
+        "id": 1001112
+      },
+      "writtenOn": "2021-08-02T14:34:10Z",
+      "side": 1,
+      "message": "I think this wont work, \nobj.second[0].first is the service name of the path. updaters wont implement xyz.openbmc_project.Association interface\n\nThis should be changed to \n\n\"xyz.openbmc_project.ObjectMapper\", path.str + \"/\"+\"inventory\",\n\"org.freedesktop.DBus.Properties\", \"get-property\",\n\"xyz.openbmc_project.Association\", \"Endpoints\"\n\n\n---------------------------------------------\nroot@test:# busctl introspect  xyz.openbmc_project.ObjectMapper /xyz/openbmc_project/software/7dfcf218/inventory\nNAME                                TYPE      SIGNATURE RESULT/VALUE                             FLAGS\norg.freedesktop.DBus.Introspectable interface -         -                                        -\n.Introspect                         method    -         s                                        -\norg.freedesktop.DBus.Peer           interface -         -                                        -\n.GetMachineId                       method    -         s                                        -\n.Ping                               method    -         -                                        -\norg.freedesktop.DBus.Properties     interface -         -                                        -\n.Get                                method    ss        v                                        -\n.GetAll                             method    s         a{sv}                                    -\n.Set                                method    ssv       -                                        -\n.PropertiesChanged                  signal    sa{sv}as  -                                        -\nxyz.openbmc_project.Association     interface -         -                                        -\n.endpoints                          property  as        4 \"/xyz/openbmc_project/inventory/sy... emits-change",
+      "revId": "98641834f8e1295d59499e6776789f21b3a9f69f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
