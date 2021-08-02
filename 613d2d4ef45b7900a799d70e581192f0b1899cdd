@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "99563819_522caa92",
+        "filename": "redfish-core/lib/hypervisor_system.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2021-08-02T13:15:05Z",
+      "side": 1,
+      "message": "This shouldnt be the case right? It should either be returning null and validation should be done in the caller method or it must be throwing an error?",
+      "revId": "613d2d4ef45b7900a799d70e581192f0b1899cdd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
