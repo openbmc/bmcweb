@@ -37,7 +37,9 @@ async def hello():
     authbytes = "{}:{}".format(args.username, args.password).encode('ascii')
     auth = "Basic {}".format(base64.b64encode(authbytes).decode('ascii'))
     headers = {"Authorization": auth}
-    async with websockets.connect(uri, ssl=ssl_context, extra_headers=headers) as websocket:
+    async with \
+        websockets.connect(uri, ssl=ssl_context, extra_headers=headers) \
+            as websocket:
         request = json.dumps({
             "paths": ["/xyz/openbmc_project/sensors"],
             "interfaces": ["xyz.openbmc_project.Sensor.Value"]

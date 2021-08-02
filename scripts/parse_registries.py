@@ -55,11 +55,14 @@ def clang_format(filename):
 
 files = []
 files.append(make_getter('Base.1.10.0.json',
-                         'base_message_registry.hpp', 'base'))
+                         'base_message_registry.hpp',
+                         'base'))
 files.append(make_getter('TaskEvent.1.0.3.json',
-                         'task_event_message_registry.hpp', 'task_event'))
+                         'task_event_message_registry.hpp',
+                         'task_event'))
 files.append(make_getter('ResourceEvent.1.0.3.json',
-                         'resource_event_message_registry.hpp', 'resource_event'))
+                         'resource_event_message_registry.hpp',
+                         'resource_event'))
 
 # Remove the old files
 for file, json_dict, namespace, url in files:
@@ -85,8 +88,9 @@ for file, json_dict, namespace, url in files:
 
         registry.write('constexpr const char * url = "{}";\n\n'.format(url))
         # Parse each Message entry
-        registry.write("constexpr std::array<MessageEntry, {}> registry = {{".format(
-            len(json_dict["Messages"])))
+        registry.write(
+            "constexpr std::array<MessageEntry, {}> registry = {{".format(
+                len(json_dict["Messages"])))
         for messageId, message in sorted(json_dict["Messages"].items()):
             registry.write("MessageEntry{")
             registry.write("\"{}\",".format(messageId))
@@ -127,6 +131,7 @@ def get_privilege_string_from_list(privilege_list):
     privilege_string += "\n}}"
     return privilege_string
 
+
 def get_variable_name_for_privilege_set(privilege_list):
     names = []
     for privilege_json in privilege_list:
@@ -134,12 +139,16 @@ def get_variable_name_for_privilege_set(privilege_list):
         names.append("And".join(privileges))
     return "Or".join(names)
 
+
 def make_privilege_registry():
-    path, json_file, type_name, url = make_getter('Redfish_1.1.0_PrivilegeRegistry.json',
-                                                  'privilege_registry.hpp', 'privilege')
+    path, json_file, type_name, url = \
+        make_getter('Redfish_1.1.0_PrivilegeRegistry.json',
+                    'privilege_registry.hpp', 'privilege')
     with open(path, 'w') as registry:
         registry.write("#pragma once\n")
-        registry.write("//{} is generated.  Do not edit directly\n".format(os.path.basename(path)))
+        registry.write(
+            "//{} is generated.  Do not edit directly\n".format(
+                os.path.basename(path)))
 
         registry.write("#include <privileges.hpp>\n\n")
         registry.write("namespace redfish::privileges{\n")
@@ -154,8 +163,11 @@ def make_privilege_registry():
         for index, key in enumerate(privilege_dict):
             (privilege_list, ) = privilege_dict[key]
             name = get_variable_name_for_privilege_set(privilege_list)
-            registry.write("const std::array<Privileges, {}> privilegeSet{} = {};\n".format(
-                len(privilege_list), name, key))
+            registry.write(
+                "const std::array<Privileges, {}> ".format(
+                    len(privilege_list)))
+            registry.write(
+                "privilegeSet{} = {};\n".format(name, key))
             privilege_dict[key] = (privilege_list, name)
         registry.write("// clang-format on\n\n")
 
@@ -167,8 +179,11 @@ def make_privilege_registry():
                     privilege_list)
                 operation = operation.lower()
 
-                registry.write("const static auto& {}{} = privilegeSet{};\n".format(
-                   operation, entity , privilege_dict[privilege_string][1]))
+                registry.write(
+                    "const static auto& {}{} = privilegeSet{};\n".format(
+                        operation,
+                        entity,
+                        privilege_dict[privilege_string][1]))
             registry.write("\n")
         registry.write("} // namespace redfish::privileges\n")
     clang_format(path)

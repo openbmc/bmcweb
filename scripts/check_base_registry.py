@@ -32,12 +32,12 @@ with open(args.file) as error_file:
             error_info = error_data[index:index + 15]
             error_str = " ".join(error_info)
             error_str = re.sub(
-                'std::to_string\(arg(\d+)\)',
+                'std::to_string\\(arg(\\d+)\\)',
                 'arg\\1',
                 error_str)
-            error_str = re.sub('"\n\s*"', '', error_str, re.MULTILINE)
+            error_str = re.sub('"\n\\s*"', '', error_str, re.MULTILINE)
             error_str = re.sub(
-                '"\s*\+\s*arg(\d+)\s*\+\n?\s*"',
+                '"\\s*\\+\\s*arg(\\d+)\\s*\\+\n?\\s*"',
                 '%\\1',
                 error_str,
                 re.MULTILINE)
