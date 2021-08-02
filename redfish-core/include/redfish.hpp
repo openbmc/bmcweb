@@ -208,6 +208,7 @@ class RedfishService
         requestRoutesMetricReportCollection(app);
         requestRoutesMetricReport(app);
         requestRoutesTriggerCollection(app);
+        requestRoutesTrigger(app);
     }
 };
 
