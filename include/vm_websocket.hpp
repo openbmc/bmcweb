@@ -17,7 +17,7 @@ static crow::websocket::Connection* session = nullptr;
 // The max network block device buffer size is 128kb plus 16bytes
 // for the message header:
 // https://github.com/NetworkBlockDevice/nbd/blob/master/doc/proto.md#simple-reply-message
-static constexpr auto nbdBufferSize = 131088;
+static constexpr auto nbdBufferSize = (128 * 1024 +16) * 4;
 
 class Handler : public std::enable_shared_from_this<Handler>
 {
@@ -39,7 +39,16 @@ class Handler : public std::enable_shared_from_this<Handler>
         {
             return;
         }
-        proxy.wait();
+
+        std::error_code ec;
+        do
+        {
+            proxy.wait(ec);
+            if (ec)
+            {
+                BMCWEB_LOG_ERROR << "Error on proxy.wait():" << ec;
+            }
+        } while (ec == std::errc::interrupted);
     }
 
     void connect()
@@ -197,7 +206,16 @@ inline void requestRoutes(App& app)
         })
         .onmessage([](crow::websocket::Connection& conn,
                       const std::string& data, bool) {
-            if (data.length() > handler->inputBuffer->capacity())
+            if (handler->inputBuffer->size() > 0)
+            {
+                BMCWEB_LOG_DEBUG
+                    << "Data length " << data.length() << " iBuffer.cap() "
+                    << handler->inputBuffer->capacity() << " iBuffer.size() "
+                    << handler->inputBuffer->size();
+            }
+
+            if (data.length() >
+                handler->inputBuffer->capacity() - handler->inputBuffer->size())
             {
                 BMCWEB_LOG_ERROR << "Buffer overrun when writing "
                                  << data.length() << " bytes";
