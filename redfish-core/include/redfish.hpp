@@ -41,6 +41,7 @@
 #include "../lib/task.hpp"
 #include "../lib/telemetry_service.hpp"
 #include "../lib/thermal.hpp"
+#include "../lib/trigger.hpp"
 #include "../lib/update_service.hpp"
 #include "../lib/virtual_media.hpp"
 
@@ -199,6 +200,7 @@ class RedfishService
         requestRoutesMetricReportDefinition(app);
         requestRoutesMetricReportCollection(app);
         requestRoutesMetricReport(app);
+        requestRoutesTriggerCollection(app);
     }
 };
 
