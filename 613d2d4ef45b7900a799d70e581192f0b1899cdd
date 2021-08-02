@@ -2,6 +2,57 @@
   "comments": [
     {
       "key": {
+        "uuid": "35555137_f9ac78db",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-08-02T21:31:37Z",
+      "side": 1,
+      "message": "Please follow https://chris.beams.io/posts/git-commit/\n\n    Separate subject from body with a blank line\n    Limit the subject line to 50 characters\n    Capitalize the subject line\n    Do not end the subject line with a period\n    Use the imperative mood in the subject line\n    Wrap the body at 72 characters\n    Use the body to explain what and why vs. how",
+      "revId": "613d2d4ef45b7900a799d70e581192f0b1899cdd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a357afc6_86173501",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-08-02T21:31:37Z",
+      "side": 1,
+      "message": "Redfish Validator ?",
+      "revId": "613d2d4ef45b7900a799d70e581192f0b1899cdd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c09e8e2f_22cfc2c0",
+        "filename": "redfish-core/lib/hypervisor_system.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-08-02T21:31:37Z",
+      "side": 1,
+      "message": "huh? Why..?",
+      "revId": "613d2d4ef45b7900a799d70e581192f0b1899cdd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "99563819_522caa92",
         "filename": "redfish-core/lib/hypervisor_system.hpp",
         "patchSetId": 7
@@ -13,6 +64,46 @@
       "writtenOn": "2021-08-02T13:15:05Z",
       "side": 1,
       "message": "This shouldnt be the case right? It should either be returning null and validation should be done in the caller method or it must be throwing an error?",
+      "revId": "613d2d4ef45b7900a799d70e581192f0b1899cdd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ca7a0a83_a36e3f3b",
+        "filename": "redfish-core/lib/hypervisor_system.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 250,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-08-02T21:31:37Z",
+      "side": 1,
+      "message": "Typically this is the reverse \nif (enabled \u003d\u003d nullptr)\ninternalError ;\n\nSame below and above",
+      "revId": "613d2d4ef45b7900a799d70e581192f0b1899cdd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0a15ac9a_c6c236a8",
+        "filename": "redfish-core/lib/hypervisor_system.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 607,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-08-02T21:31:37Z",
+      "side": 1,
+      "message": "?",
+      "range": {
+        "startLine": 607,
+        "startChar": 4,
+        "endLine": 607,
+        "endChar": 17
+      },
       "revId": "613d2d4ef45b7900a799d70e581192f0b1899cdd",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
