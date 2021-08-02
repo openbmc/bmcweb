@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "2bc1e4ef_41085bfc",
+        "filename": "redfish-core/include/utils/telemetry_utils.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1001026
+      },
+      "writtenOn": "2021-08-02T16:41:48Z",
+      "side": 1,
+      "message": "Currently only string literals are passed to this function, so the second overload is not needed.",
+      "parentUuid": "36355fb4_f56bac47",
+      "range": {
+        "startLine": 35,
+        "startChar": 63,
+        "endLine": 35,
+        "endChar": 78
+      },
+      "revId": "3de1dc328f9c8dee3a12e55b1d22d675662f453d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8c265309_bfa1f6a7",
         "filename": "redfish-core/include/utils/telemetry_utils.hpp",
         "patchSetId": 6
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "e82e742b_17be9fba",
+        "filename": "redfish-core/include/utils/telemetry_utils.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1001026
+      },
+      "writtenOn": "2021-08-02T16:41:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8c265309_bfa1f6a7",
+      "range": {
+        "startLine": 40,
+        "startChar": 12,
+        "endLine": 40,
+        "endChar": 57
+      },
+      "revId": "3de1dc328f9c8dee3a12e55b1d22d675662f453d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e359bd05_7694573a",
         "filename": "redfish-core/lib/metric_report.hpp",
         "patchSetId": 6
@@ -68,6 +116,30 @@
       "revId": "3de1dc328f9c8dee3a12e55b1d22d675662f453d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2eaf1c67_0e6b6c89",
+        "filename": "redfish-core/lib/metric_report.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1001026
+      },
+      "writtenOn": "2021-08-02T16:41:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e359bd05_7694573a",
+      "range": {
+        "startLine": 68,
+        "startChar": 0,
+        "endLine": 73,
+        "endChar": 50
+      },
+      "revId": "3de1dc328f9c8dee3a12e55b1d22d675662f453d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
