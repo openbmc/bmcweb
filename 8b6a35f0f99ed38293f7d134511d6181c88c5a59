@@ -22,6 +22,30 @@
       "revId": "8b6a35f0f99ed38293f7d134511d6181c88c5a59",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d383320c_3a6971e1",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 263,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2021-08-02T21:16:09Z",
+      "side": 0,
+      "message": "yeah, I did it on purpose to have the default behavior list this and erase it. But I will do it the other way to follow how it is done generally.",
+      "parentUuid": "e9ccebc9_8c8f03bf",
+      "range": {
+        "startLine": 263,
+        "startChar": 0,
+        "endLine": 263,
+        "endChar": 78
+      },
+      "revId": "8b6a35f0f99ed38293f7d134511d6181c88c5a59",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }

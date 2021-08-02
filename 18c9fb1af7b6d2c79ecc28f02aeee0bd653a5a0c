@@ -53,6 +53,24 @@
     },
     {
       "key": {
+        "uuid": "1e65de71_c6b0ac23",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2021-08-02T21:16:09Z",
+      "side": 1,
+      "message": "Done.\n\n\nThanks.",
+      "parentUuid": "bc350ff9_bb5d0f73",
+      "revId": "18c9fb1af7b6d2c79ecc28f02aeee0bd653a5a0c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2d5e7b56_ee9354af",
         "filename": "redfish-core/lib/chassis.hpp",
         "patchSetId": 9
@@ -76,6 +94,30 @@
     },
     {
       "key": {
+        "uuid": "a542c88b_c68913be",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 494,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2021-08-02T21:16:09Z",
+      "side": 1,
+      "message": "done. I have flipped the logic to add the ActionInfo if it is RackMount or no property found. The default Type is RackMount",
+      "parentUuid": "2d5e7b56_ee9354af",
+      "range": {
+        "startLine": 493,
+        "startChar": 0,
+        "endLine": 494,
+        "endChar": 59
+      },
+      "revId": "18c9fb1af7b6d2c79ecc28f02aeee0bd653a5a0c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "76c09b01_34a2eaf3",
         "filename": "redfish-core/lib/chassis.hpp",
         "patchSetId": 9
@@ -87,6 +129,24 @@
       "writtenOn": "2021-08-02T18:18:19Z",
       "side": 1,
       "message": "Can\u0027t this whole method be replaced with \"getChassisType\" and moving line 753 into the handler?",
+      "revId": "18c9fb1af7b6d2c79ecc28f02aeee0bd653a5a0c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dcf6d8dc_a5cdcfd9",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 777,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2021-08-02T21:16:09Z",
+      "side": 1,
+      "message": "getChassisType has the assumption that we already found the chassis object path.\n\nThis function just help find the Chassis and just call getChassisType once it find the Chassis in question.",
+      "parentUuid": "76c09b01_34a2eaf3",
       "revId": "18c9fb1af7b6d2c79ecc28f02aeee0bd653a5a0c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
