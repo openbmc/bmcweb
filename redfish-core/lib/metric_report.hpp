@@ -74,8 +74,10 @@ inline void requestRoutesMetricReportCollection(App& app)
                     "/redfish/v1/TelemetryService/MetricReports";
                 asyncResp->res.jsonValue["Name"] = "Metric Report Collection";
 
-                telemetry::getReportCollection(asyncResp,
-                                               telemetry::metricReportUri);
+                telemetry::getCollection(
+                    asyncResp, telemetry::metricReportUri,
+                    telemetry::CollectionParams(telemetry::reportSubtree, 1,
+                                                {telemetry::reportInterface}));
             });
 }
 
