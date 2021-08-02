@@ -50,3 +50,27 @@ TEST(ToDurationTest, NegativeTests)
     using std::chrono::milliseconds;
     EXPECT_EQ(toDurationString(milliseconds(-250)), "");
 }
+
+TEST(ToDurationStringFromUintTest, PositiveTests)
+{
+    using redfish::time_utils::toDurationStringFromUint;
+    uint64_t maxAcceptedTimeMs =
+        static_cast<uint64_t>(std::chrono::milliseconds::max().count());
+
+    EXPECT_THAT(toDurationStringFromUint(maxAcceptedTimeMs),
+                ::testing::Ne(std::nullopt));
+    EXPECT_EQ(toDurationStringFromUint(0), "PT");
+    EXPECT_EQ(toDurationStringFromUint(250), "PT0.250S");
+    EXPECT_EQ(toDurationStringFromUint(5000), "PT5.000S");
+}
+
+TEST(ToDurationStringFromUintTest, NegativeTests)
+{
+    using redfish::time_utils::toDurationStringFromUint;
+    uint64_t minNotAcceptedTimeMs =
+        static_cast<uint64_t>(std::chrono::milliseconds::max().count()) + 1;
+
+    EXPECT_EQ(toDurationStringFromUint(minNotAcceptedTimeMs), std::nullopt);
+    EXPECT_EQ(toDurationStringFromUint(static_cast<uint64_t>(-1)),
+              std::nullopt);
+}
