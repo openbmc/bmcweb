@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "e7dabecd_b4522766",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 17
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-08-02T21:16:21Z",
+      "side": 1,
+      "message": "For which role? Did you enable https://github.com/openbmc/bmcweb/blob/54d1355fdcaea8a9b83c8fd5d7aac9b244a6146b/meson_options.txt#L19 ?",
+      "range": {
+        "startLine": 66,
+        "startChar": 20,
+        "endLine": 66,
+        "endChar": 37
+      },
+      "revId": "7a5552a0fcf5f2d6ad41df7938c03f84dfd68921",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e533db6e_ca8603eb",
         "filename": "scripts/parse_registries.py",
         "patchSetId": 17
@@ -61,6 +84,30 @@
       "side": 1,
       "message": "I\u0027m surprised format-code didn\u0027t catch this.  I thought we had pep8 running on python code?  Does it have to be enabled explicitly?",
       "parentUuid": "9d2422b5_3a0ca011",
+      "range": {
+        "startLine": 140,
+        "startChar": 47,
+        "endLine": 140,
+        "endChar": 48
+      },
+      "revId": "7a5552a0fcf5f2d6ad41df7938c03f84dfd68921",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "46195e30_d8542835",
+        "filename": "scripts/parse_registries.py",
+        "patchSetId": 17
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-08-02T21:16:21Z",
+      "side": 1,
+      "message": "Can you make sure this runs pycodestyle\nhttps://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/45505",
+      "parentUuid": "8939960f_20361131",
       "range": {
         "startLine": 140,
         "startChar": 47,
