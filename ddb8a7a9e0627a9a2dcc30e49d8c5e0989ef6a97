@@ -89,6 +89,30 @@
     },
     {
       "key": {
+        "uuid": "afabbe50_6f37a652",
+        "filename": "redfish-core/lib/hypervisor_system.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 566,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-08-02T21:32:17Z",
+      "side": 1,
+      "message": "I don\u0027t see this done.",
+      "parentUuid": "947a85be_f023265b",
+      "range": {
+        "startLine": 566,
+        "startChar": 62,
+        "endLine": 566,
+        "endChar": 67
+      },
+      "revId": "ddb8a7a9e0627a9a2dcc30e49d8c5e0989ef6a97",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "36adc5e2_e874227c",
         "filename": "redfish-core/lib/hypervisor_system.hpp",
         "patchSetId": 7
