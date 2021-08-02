@@ -363,8 +363,10 @@ inline void requestRoutesMetricReportDefinitionCollection(App& app)
                 asyncResp->res.jsonValue["Name"] =
                     "Metric Definition Collection";
 
-                telemetry::getReportCollection(
-                    asyncResp, telemetry::metricReportDefinitionUri);
+                telemetry::getCollection(
+                    asyncResp, telemetry::metricReportDefinitionUri,
+                    telemetry::CollectionParams(telemetry::reportSubtree, 1,
+                                                {telemetry::reportInterface}));
             });
 
     BMCWEB_ROUTE(app, "/redfish/v1/TelemetryService/MetricReportDefinitions/")
