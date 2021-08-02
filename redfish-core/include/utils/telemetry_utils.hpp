@@ -7,7 +7,6 @@ namespace redfish
 
 namespace telemetry
 {
-
 constexpr const char* service = "xyz.openbmc_project.Telemetry";
 constexpr const char* reportInterface = "xyz.openbmc_project.Telemetry.Report";
 constexpr const char* metricReportDefinitionUri =
