@@ -48,6 +48,30 @@
     },
     {
       "key": {
+        "uuid": "075e0494_39531b93",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1001099
+      },
+      "writtenOn": "2021-08-02T13:20:24Z",
+      "side": 1,
+      "message": "I added that for general information, but look like not needed.",
+      "parentUuid": "67aea367_06feab82",
+      "range": {
+        "startLine": 27,
+        "startChar": 0,
+        "endLine": 27,
+        "endChar": 62
+      },
+      "revId": "817f2afbe6d8dc124878b65b51a169ea9c2c40f9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "5573db91_c48c35e0",
         "filename": "/COMMIT_MSG",
         "patchSetId": 1
@@ -71,6 +95,30 @@
     },
     {
       "key": {
+        "uuid": "abac3454_30e4b942",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1001099
+      },
+      "writtenOn": "2021-08-02T13:20:24Z",
+      "side": 1,
+      "message": "unable to test post, delete and patch. So I test Get. I know that not gone affect via this change. but still unable to find how to test post, delete and patch.\n\nstill look like I need to remove this test message.",
+      "parentUuid": "5573db91_c48c35e0",
+      "range": {
+        "startLine": 29,
+        "startChar": 8,
+        "endLine": 29,
+        "endChar": 46
+      },
+      "revId": "817f2afbe6d8dc124878b65b51a169ea9c2c40f9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a6cf47e6_3c1146e0",
         "filename": "/COMMIT_MSG",
         "patchSetId": 1
@@ -82,6 +130,30 @@
       "writtenOn": "2021-07-31T23:53:56Z",
       "side": 1,
       "message": "You ran redfish validator at what privilege level?  If you ran at admin level, of course there will be no new errors, because you didn\u0027t change anything for admins.",
+      "range": {
+        "startLine": 30,
+        "startChar": 16,
+        "endLine": 30,
+        "endChar": 54
+      },
+      "revId": "817f2afbe6d8dc124878b65b51a169ea9c2c40f9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "51e7c9e2_ded5e758",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1001099
+      },
+      "writtenOn": "2021-08-02T13:20:24Z",
+      "side": 1,
+      "message": "yes let me run as operator and readonly too.",
+      "parentUuid": "a6cf47e6_3c1146e0",
       "range": {
         "startLine": 30,
         "startChar": 16,
