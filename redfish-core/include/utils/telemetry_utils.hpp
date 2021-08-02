@@ -14,6 +14,9 @@ constexpr const char* metricReportDefinitionUri =
     "/redfish/v1/TelemetryService/MetricReportDefinitions";
 constexpr const char* metricReportUri =
     "/redfish/v1/TelemetryService/MetricReports";
+constexpr const char* triggerInterface =
+    "xyz.openbmc_project.Telemetry.Trigger";
+constexpr const char* triggerUri = "/redfish/v1/TelemetryService/Triggers";
 
 inline std::string getDbusReportPath(const std::string& id)
 {
