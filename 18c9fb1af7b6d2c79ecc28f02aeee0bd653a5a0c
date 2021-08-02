@@ -71,6 +71,24 @@
     },
     {
       "key": {
+        "uuid": "8b1f0ad3_898f48ba",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2021-08-02T21:34:13Z",
+      "side": 1,
+      "message": "```\nstd::move of the const variable \u0027callback\u0027 has no effect; remove std::move() or make the variable non-const [performance-move-const-arg,-warnings-as-errors]\n```\n\nI guess we don\u0027t need it.",
+      "parentUuid": "1e65de71_c6b0ac23",
+      "revId": "18c9fb1af7b6d2c79ecc28f02aeee0bd653a5a0c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2d5e7b56_ee9354af",
         "filename": "redfish-core/lib/chassis.hpp",
         "patchSetId": 9
