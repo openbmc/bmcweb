@@ -183,6 +183,30 @@
     },
     {
       "key": {
+        "uuid": "b6dba285_cb16f7b6",
+        "filename": "redfish-core/lib/hypervisor_system.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 685,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-08-02T16:15:59Z",
+      "side": 1,
+      "message": "\u003e basically we wanted to display only ip config that\u0027s consumed by hypervisor.\n\nThat\u0027s not how a REST api works.  If the PATCH is accepted, the tree should immediately change.\n\n\u003e if hypervisor consume IP config, then host interface gets a ack and host interface updates\n\u003e this Enabled property to true.\n\n\u003e If hypervisor can\u0027t consume, this property set to false and then we don\u0027t show any IP on GET\n\n\nIf the hypervisor can\u0027t consume the config, it should reject the attempt to set the parameter.  We should not be explicitly disabling the interface at a dbus level.",
+      "parentUuid": "3991d657_5fb91781",
+      "range": {
+        "startLine": 685,
+        "startChar": 41,
+        "endLine": 685,
+        "endChar": 46
+      },
+      "revId": "ddb8a7a9e0627a9a2dcc30e49d8c5e0989ef6a97",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "88938e64_6d8d1dc3",
         "filename": "redfish-core/lib/hypervisor_system.hpp",
         "patchSetId": 7
