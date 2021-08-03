@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "1a165192_3516af94",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 9
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2021-08-03T20:10:08Z",
+      "side": 1,
+      "message": "I have added more detail on how this change will affect existing systems and what are the expectation of this change.",
+      "parentUuid": "a15cfbdb_ceba7ac8",
+      "revId": "18c9fb1af7b6d2c79ecc28f02aeee0bd653a5a0c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "ca268cf4_f218d8d1",
         "filename": "/COMMIT_MSG",
         "patchSetId": 9
@@ -30,6 +48,24 @@
       "writtenOn": "2021-08-02T18:18:19Z",
       "side": 1,
       "message": "This patchset also changes the behavior such that Chassis are no longer hardcoded to RackMount.  This is probably fine, but definitely needs accounted for in your commit message.",
+      "revId": "18c9fb1af7b6d2c79ecc28f02aeee0bd653a5a0c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4dc70019_2b779c54",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 9
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2021-08-03T20:10:08Z",
+      "side": 1,
+      "message": "The type will still be defaulted to RackMount on resources that did not specifically update the Type.\n\n`Unknown` is the default for the interface and will also default to `RackMount` in the output.",
+      "parentUuid": "ca268cf4_f218d8d1",
       "revId": "18c9fb1af7b6d2c79ecc28f02aeee0bd653a5a0c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
