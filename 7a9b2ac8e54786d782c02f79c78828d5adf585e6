@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b01d998e_fb7cdcb8",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 207,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2021-08-03T20:39:17Z",
+      "side": 1,
+      "message": "`size_t`?",
+      "range": {
+        "startLine": 207,
+        "startChar": 16,
+        "endLine": 207,
+        "endChar": 20
+      },
+      "revId": "7a9b2ac8e54786d782c02f79c78828d5adf585e6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f02ef8e2_485eb8b4",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 208,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2021-08-03T20:39:17Z",
+      "side": 1,
+      "message": "consider `index + 1 !\u003d size()`? size_t is unsigned integer so it might underflow (though the previous condition seems to have avoided it)",
+      "range": {
+        "startLine": 208,
+        "startChar": 59,
+        "endLine": 208,
+        "endChar": 64
+      },
+      "revId": "7a9b2ac8e54786d782c02f79c78828d5adf585e6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "69052d2c_4954c7ab",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 227,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2021-08-03T20:39:17Z",
+      "side": 1,
+      "message": "seems redundant?",
+      "range": {
+        "startLine": 227,
+        "startChar": 30,
+        "endLine": 227,
+        "endChar": 41
+      },
+      "revId": "7a9b2ac8e54786d782c02f79c78828d5adf585e6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
