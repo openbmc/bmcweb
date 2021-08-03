@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "65637a8f_9fe3a34d",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 1376,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-08-03T18:48:28Z",
+      "side": 1,
+      "message": "I used to think the same thing, but I think if GetSubTree doesn\u0027t find the object it just returns an empty array. I\u0027m going to let Ali test and tell us for sure. ;) \n\ndbus-send --system --print-reply --dest\u003dxyz.openbmc_project.ObjectMapper /xyz/openbmc_project/object_mapper xyz.openbmc_project.ObjectMapper.GetSubTree string:\"/\" int32:0 array:string:\"garbage.item.inventory\"\nmethod return time\u003d1628015868.551455 sender\u003d:1.72 -\u003e destination\u003d:1.147 serial\u003d2180 reply_serial\u003d2\n   array [\n   ]",
+      "parentUuid": "5b8f7b3a_35f55b9e",
+      "range": {
+        "startLine": 1376,
+        "startChar": 0,
+        "endLine": 1376,
+        "endChar": 52
+      },
+      "revId": "8b8f653f16f123b634a26fa5ce72e07053e49d0a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "56fa82ba_f9b3eb19",
         "filename": "redfish-core/lib/systems.hpp",
         "patchSetId": 9
@@ -119,6 +143,30 @@
     },
     {
       "key": {
+        "uuid": "ff8d292f_aaff4307",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 1384,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-08-03T18:48:28Z",
+      "side": 1,
+      "message": "I don\u0027t see a better error message. \nRedfish has a \"ActionNotSupported\": { but no \"PropertyNotSupport\". \n\nresourceNotFound is what we do other places, e.g. https://github.com/openbmc/bmcweb/blob/master/redfish-core/lib/systems.hpp#L2177 \n\nI can open an issue with Redfish for \"PropertyNotSupport\" if you agree that makes sense here.",
+      "parentUuid": "29ed3098_a59d9149",
+      "range": {
+        "startLine": 1384,
+        "startChar": 44,
+        "endLine": 1384,
+        "endChar": 54
+      },
+      "revId": "8b8f653f16f123b634a26fa5ce72e07053e49d0a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "8a66ef42_e50af7c2",
         "filename": "redfish-core/lib/systems.hpp",
         "patchSetId": 9
@@ -130,6 +178,30 @@
       "writtenOn": "2021-08-03T17:45:17Z",
       "side": 1,
       "message": "This needs combined with the existing GetSubTree method calls instead of duplicating the code here.",
+      "range": {
+        "startLine": 1435,
+        "startChar": 0,
+        "endLine": 1438,
+        "endChar": 78
+      },
+      "revId": "8b8f653f16f123b634a26fa5ce72e07053e49d0a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0f26fd13_ce84a7a7",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 1438,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-08-03T18:48:28Z",
+      "side": 1,
+      "message": "This code is based on PowerModes which has a GetSubTree for both GET and PATCH.\nhttps://github.com/openbmc/bmcweb/blob/master/redfish-core/lib/systems.hpp#L2224\nCan you explain more what you are thinking here?",
+      "parentUuid": "8a66ef42_e50af7c2",
       "range": {
         "startLine": 1435,
         "startChar": 0,
