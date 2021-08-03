@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "56fa82ba_f9b3eb19",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 1382,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-08-03T17:41:08Z",
+      "side": 1,
+      "message": "Not sure this comment makes complete since..\n// If interface is not found, set error and return",
+      "range": {
+        "startLine": 1381,
+        "startChar": 0,
+        "endLine": 1382,
+        "endChar": 48
+      },
+      "revId": "8b8f653f16f123b634a26fa5ce72e07053e49d0a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2b345711_7ce2126e",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 1384,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-08-03T17:41:08Z",
+      "side": 1,
+      "message": "This should really be \"TrustedModuleRequiredToBoot\"",
+      "range": {
+        "startLine": 1384,
+        "startChar": 44,
+        "endLine": 1384,
+        "endChar": 54
+      },
+      "revId": "8b8f653f16f123b634a26fa5ce72e07053e49d0a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
