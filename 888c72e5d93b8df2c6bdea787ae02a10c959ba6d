@@ -249,6 +249,30 @@
     },
     {
       "key": {
+        "uuid": "15ab329c_29e0a89d",
+        "filename": "http/http_connection.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 568,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2021-08-04T03:47:42Z",
+      "side": 1,
+      "message": "Map is gone, and we are passing parser-\u003eget().base(), let me know what you think.",
+      "parentUuid": "ba6f9010_2a975a7d",
+      "range": {
+        "startLine": 561,
+        "startChar": 0,
+        "endLine": 568,
+        "endChar": 0
+      },
+      "revId": "888c72e5d93b8df2c6bdea787ae02a10c959ba6d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "2b037649_e4aa89de",
         "filename": "http/http_connection.hpp",
         "patchSetId": 12
@@ -380,6 +404,30 @@
       "side": 1,
       "message": "Yay.... spagetification..........  I\u0027ll look at this next week and give a better idea;  There must be a cleaner way to do this, but I\u0027m not seeing it.",
       "parentUuid": "958059da_9c76ceff",
+      "range": {
+        "startLine": 570,
+        "startChar": 20,
+        "endLine": 570,
+        "endChar": 24
+      },
+      "revId": "888c72e5d93b8df2c6bdea787ae02a10c959ba6d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1b55d29f_f369f4bb",
+        "filename": "http/http_connection.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 570,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2021-08-04T03:47:42Z",
+      "side": 1,
+      "message": "req has been removed, and sendUnauthorized take some string_views (url, user-agent, accept)\n\nhttps://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/45175/12..17/include/forward_unauthorized.hpp",
+      "parentUuid": "3b76de56_8df2ef22",
       "range": {
         "startLine": 570,
         "startChar": 20,
