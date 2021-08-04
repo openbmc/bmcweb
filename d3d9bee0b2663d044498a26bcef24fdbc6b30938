@@ -361,6 +361,30 @@
     },
     {
       "key": {
+        "uuid": "bde7f695_884fe25d",
+        "filename": "redfish-core/include/registries/openbmc_message_registry.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 2284,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2021-08-04T19:29:42Z",
+      "side": 1,
+      "message": "Let\u0027s delete it to save some bandwidth.",
+      "parentUuid": "cd28c6a9_15ccb156",
+      "range": {
+        "startLine": 2275,
+        "startChar": 0,
+        "endLine": 2284,
+        "endChar": 20
+      },
+      "revId": "d3d9bee0b2663d044498a26bcef24fdbc6b30938",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d18e5ddf_d4e4f646",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 3
@@ -396,6 +420,30 @@
       "side": 1,
       "message": "Sorry, I’m not sure I understand. According to SPEC, the member types also use reference.  https://en.cppreference.com/w/cpp/filesystem/directory_iterator\nIs i using wrong method here?",
       "parentUuid": "d18e5ddf_d4e4f646",
+      "range": {
+        "startLine": 1817,
+        "startChar": 45,
+        "endLine": 1817,
+        "endChar": 46
+      },
+      "revId": "d3d9bee0b2663d044498a26bcef24fdbc6b30938",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9ee72c5b_81d95e27",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1817,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2021-08-04T19:29:42Z",
+      "side": 1,
+      "message": "I missed it in the first round of review. The object created on you right side `std::filesystem::directory_iterator` will be destroyed and you will get a pointer which points to a destroyed object.\n\nEd suggest you use `std::filesystem::directory_iterator logPath(hostLoggerFilePath, ec)`;",
+      "parentUuid": "a9974908_5db683e5",
       "range": {
         "startLine": 1817,
         "startChar": 45,
