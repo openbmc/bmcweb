@@ -2,6 +2,75 @@
   "comments": [
     {
       "key": {
+        "uuid": "d646b15a_72e35e3e",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 197,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-08-04T15:55:50Z",
+      "side": 1,
+      "message": "As a general rule, objects that call callbacks should ALWAYS call the callback, forwarding a return code when needed.",
+      "range": {
+        "startLine": 197,
+        "startChar": 0,
+        "endLine": 197,
+        "endChar": 56
+      },
+      "revId": "7a9b2ac8e54786d782c02f79c78828d5adf585e6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "946ed96d_29a406b3",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 203,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-08-04T15:55:50Z",
+      "side": 1,
+      "message": "This isn\u0027t something we generally check.  value !\u003d \"xyz...\" effectively is already checking for not empty.",
+      "range": {
+        "startLine": 203,
+        "startChar": 36,
+        "endLine": 203,
+        "endChar": 51
+      },
+      "revId": "7a9b2ac8e54786d782c02f79c78828d5adf585e6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4f5e75d9_2b85f56c",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 205,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-08-04T15:55:50Z",
+      "side": 1,
+      "message": "if unknown is a legal value, we shouldn\u0027t be filtering it here, we should be filtering it when we do the conversion to Redfish Enum.",
+      "range": {
+        "startLine": 204,
+        "startChar": 26,
+        "endLine": 205,
+        "endChar": 40
+      },
+      "revId": "7a9b2ac8e54786d782c02f79c78828d5adf585e6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "b01d998e_fb7cdcb8",
         "filename": "redfish-core/lib/chassis.hpp",
         "patchSetId": 14
@@ -46,6 +115,30 @@
       "revId": "7a9b2ac8e54786d782c02f79c78828d5adf585e6",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d7fac6a1_a0912244",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 207,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-08-04T15:55:50Z",
+      "side": 1,
+      "message": "Auto is great..... for code writers.  We optimize for readers in this codebase.",
+      "parentUuid": "e605a499_e8906c72",
+      "range": {
+        "startLine": 207,
+        "startChar": 16,
+        "endLine": 207,
+        "endChar": 20
+      },
+      "revId": "7a9b2ac8e54786d782c02f79c78828d5adf585e6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     },
     {
       "key": {
@@ -96,6 +189,29 @@
     },
     {
       "key": {
+        "uuid": "e2ef6556_3154b4b7",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-08-04T15:55:50Z",
+      "side": 1,
+      "message": "first off, you should just call the callback and return here, no need to process further if you\u0027ve found the entry.  Also, this should be returning the openbmc value.",
+      "range": {
+        "startLine": 210,
+        "startChar": 20,
+        "endLine": 210,
+        "endChar": 59
+      },
+      "revId": "7a9b2ac8e54786d782c02f79c78828d5adf585e6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "69052d2c_4954c7ab",
         "filename": "redfish-core/lib/chassis.hpp",
         "patchSetId": 14
@@ -131,6 +247,30 @@
       "side": 1,
       "message": "this was there before. I didn\u0027t want to change anything on those codes. Just factoring it there.",
       "parentUuid": "69052d2c_4954c7ab",
+      "range": {
+        "startLine": 227,
+        "startChar": 30,
+        "endLine": 227,
+        "endChar": 41
+      },
+      "revId": "7a9b2ac8e54786d782c02f79c78828d5adf585e6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ed73ef0a_848134db",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 227,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-08-04T15:55:50Z",
+      "side": 1,
+      "message": "Yeah, this is an old pattern we used to have because we didn\u0027t understand the reference to value promotion rules on lambdas.  Because we\u0027re changing this code around, lets just fix it while we\u0027re here.",
+      "parentUuid": "8c2ea0b2_89e08f7b",
       "range": {
         "startLine": 227,
         "startChar": 30,
