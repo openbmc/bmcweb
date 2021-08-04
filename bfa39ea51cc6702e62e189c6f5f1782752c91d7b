@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "352ee77c_71eac0df",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 20
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1001099
+      },
+      "writtenOn": "2021-08-04T22:18:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b12e64d7_1833fba8",
+      "revId": "bfa39ea51cc6702e62e189c6f5f1782752c91d7b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "80ca7172_944077ff",
         "filename": "scripts/parse_registries.py",
         "patchSetId": 20
@@ -30,6 +48,30 @@
       "writtenOn": "2021-08-04T20:29:31Z",
       "side": 1,
       "message": "?",
+      "range": {
+        "startLine": 149,
+        "startChar": 17,
+        "endLine": 149,
+        "endChar": 22
+      },
+      "revId": "bfa39ea51cc6702e62e189c6f5f1782752c91d7b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7d738572_403e9616",
+        "filename": "scripts/parse_registries.py",
+        "patchSetId": 20
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 1001099
+      },
+      "writtenOn": "2021-08-04T22:18:43Z",
+      "side": 1,
+      "message": "every time looping we covered that first element so that\u0027s why we are removing that form list.",
+      "parentUuid": "80ca7172_944077ff",
       "range": {
         "startLine": 149,
         "startChar": 17,
