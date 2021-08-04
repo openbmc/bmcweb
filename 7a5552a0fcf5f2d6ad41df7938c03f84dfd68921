@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "a1ffdc60_fa1ef07f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 17
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1001099
+      },
+      "writtenOn": "2021-08-04T19:34:41Z",
+      "side": 1,
+      "message": "yes \u0027redfish-cpu-log\u0027 enabled. and I run test with all Privilege level users",
+      "parentUuid": "e7dabecd_b4522766",
+      "range": {
+        "startLine": 66,
+        "startChar": 20,
+        "endLine": 66,
+        "endChar": 37
+      },
+      "revId": "7a5552a0fcf5f2d6ad41df7938c03f84dfd68921",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e533db6e_ca8603eb",
         "filename": "scripts/parse_registries.py",
         "patchSetId": 17
@@ -117,6 +141,30 @@
       "revId": "7a5552a0fcf5f2d6ad41df7938c03f84dfd68921",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f31045a9_1750f067",
+        "filename": "scripts/parse_registries.py",
+        "patchSetId": 17
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 1001099
+      },
+      "writtenOn": "2021-08-04T19:34:41Z",
+      "side": 1,
+      "message": "it working",
+      "parentUuid": "46195e30_d8542835",
+      "range": {
+        "startLine": 140,
+        "startChar": 47,
+        "endLine": 140,
+        "endChar": 48
+      },
+      "revId": "7a5552a0fcf5f2d6ad41df7938c03f84dfd68921",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
