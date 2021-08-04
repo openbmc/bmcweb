@@ -22,6 +22,30 @@
       "revId": "34f69b61ccfdbdb99ab980cb8ca423ff5a8258d7",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "118d1902_19ce23e6",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 470,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2021-08-04T23:58:05Z",
+      "side": 1,
+      "message": "sure. I will change connectionNames to interfaceMaps.\n\nIt was just in other functions and I just didn\u0027t change it.",
+      "parentUuid": "49de33a7_bd2a3f04",
+      "range": {
+        "startLine": 470,
+        "startChar": 28,
+        "endLine": 470,
+        "endChar": 43
+      },
+      "revId": "34f69b61ccfdbdb99ab980cb8ca423ff5a8258d7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
