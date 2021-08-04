@@ -311,7 +311,7 @@ template <typename Callback>
 void getObjectsWithConnection(
     const std::shared_ptr<SensorsAsyncResp>& sensorsAsyncResp,
     const std::shared_ptr<boost::container::flat_set<std::string>>& sensorNames,
-    Callback&& callback)
+    const GetSubTreeType&& subtree, Callback&& callback)
 {
     BMCWEB_LOG_DEBUG << "getObjectsWithConnection enter";
     const std::string path = "/xyz/openbmc_project/sensors";
@@ -368,11 +368,20 @@ void getObjectsWithConnection(
         callback(std::move(connections), std::move(objectsWithConnection));
         BMCWEB_LOG_DEBUG << "getObjectsWithConnection resp_handler exit";
     };
-    // Make call to ObjectMapper to find all sensors objects
-    crow::connections::systemBus->async_method_call(
-        std::move(respHandler), "xyz.openbmc_project.ObjectMapper",
-        "/xyz/openbmc_project/object_mapper",
-        "xyz.openbmc_project.ObjectMapper", "GetSubTree", path, 2, interfaces);
+
+    if (subtree.empty())
+    {
+        // Make call to ObjectMapper to find all sensors objects
+        crow::connections::systemBus->async_method_call(
+            std::move(respHandler), "xyz.openbmc_project.ObjectMapper",
+            "/xyz/openbmc_project/object_mapper",
+            "xyz.openbmc_project.ObjectMapper", "GetSubTree", path, 2,
+            interfaces);
+    }
+    else
+    {
+        respHandler(boost::system::error_code{}, std::move(subtree));
+    }
     BMCWEB_LOG_DEBUG << "getObjectsWithConnection exit";
 }
 
@@ -386,13 +395,13 @@ template <typename Callback>
 void getConnections(
     std::shared_ptr<SensorsAsyncResp> sensorsAsyncResp,
     const std::shared_ptr<boost::container::flat_set<std::string>> sensorNames,
-    Callback&& callback)
+    const GetSubTreeType&& subtree, Callback&& callback)
 {
     auto objectsWithConnectionCb =
         [callback](const boost::container::flat_set<std::string>& connections,
                    const std::set<std::pair<std::string, std::string>>&
                    /*objectsWithConnection*/) { callback(connections); };
-    getObjectsWithConnection(sensorsAsyncResp, sensorNames,
+    getObjectsWithConnection(sensorsAsyncResp, sensorNames, std::move(subtree),
                              std::move(objectsWithConnectionCb));
 }
 
@@ -2707,7 +2716,8 @@ inline void getSensorData(
 
 inline void processSensorList(
     const std::shared_ptr<SensorsAsyncResp>& sensorsAsyncResp,
-    const std::shared_ptr<boost::container::flat_set<std::string>>& sensorNames)
+    const std::shared_ptr<boost::container::flat_set<std::string>>& sensorNames,
+    const GetSubTreeType&& subtree)
 {
     auto getConnectionCb =
         [sensorsAsyncResp, sensorNames](
@@ -2747,7 +2757,8 @@ inline void processSensorList(
         };
 
     // Get set of connections that provide sensor values
-    getConnections(sensorsAsyncResp, sensorNames, std::move(getConnectionCb));
+    getConnections(sensorsAsyncResp, sensorNames, std::move(subtree),
+                   std::move(getConnectionCb));
 }
 
 /**
@@ -2764,7 +2775,8 @@ inline void
             const std::shared_ptr<boost::container::flat_set<std::string>>&
                 sensorNames) {
             BMCWEB_LOG_DEBUG << "getChassisCb enter";
-            processSensorList(sensorsAsyncResp, sensorNames);
+            processSensorList(sensorsAsyncResp, sensorNames,
+                              std::move(GetSubTreeType{}));
             BMCWEB_LOG_DEBUG << "getChassisCb exit";
         };
     sensorsAsyncResp->asyncResp->res.jsonValue["Redundancy"] =
@@ -2934,6 +2946,7 @@ inline void setSensorsOverride(
             };
         // Get object with connection for the given sensor name
         getObjectsWithConnection(sensorAsyncResp, sensorNames,
+                                 std::move(GetSubTreeType{}),
                                  std::move(getObjectsWithConnectionCb));
     };
     // get full sensor list for the given chassisId and cross verify the sensor.
@@ -3105,7 +3118,8 @@ inline void requestRoutesSensor(App& app)
                             boost::container::flat_set<std::string>>();
 
                     sensorList->emplace(sensorPath);
-                    processSensorList(asyncResp, sensorList);
+                    processSensorList(asyncResp, sensorList,
+                                      std::move(subtree));
                     BMCWEB_LOG_DEBUG << "respHandler1 exit";
                 },
                 "xyz.openbmc_project.ObjectMapper",
