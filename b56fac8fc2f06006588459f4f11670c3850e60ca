@@ -22,6 +22,30 @@
       "revId": "b56fac8fc2f06006588459f4f11670c3850e60ca",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3162ba89_ae03068f",
+        "filename": "redfish-core/lib/service_root.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2021-08-04T23:22:38Z",
+      "side": 1,
+      "message": "it was a merge mistake. I fixed it in patch 7.\nThanks for finding it",
+      "parentUuid": "d3f9b072_1a6fc8be",
+      "range": {
+        "startLine": 69,
+        "startChar": 20,
+        "endLine": 69,
+        "endChar": 22
+      },
+      "revId": "b56fac8fc2f06006588459f4f11670c3850e60ca",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
