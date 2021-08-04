@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "844a5c85_36fb7562",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 197,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2021-08-04T18:44:56Z",
+      "side": 1,
+      "message": "something like this?\n\n```\nstd::get_if\u003cstd::string\u003e(\u0026property);\n```\n\nshould fail and call the default callback(\"\") instead of passing a valid argument into it.",
+      "parentUuid": "d646b15a_72e35e3e",
+      "range": {
+        "startLine": 197,
+        "startChar": 0,
+        "endLine": 197,
+        "endChar": 56
+      },
+      "revId": "7a9b2ac8e54786d782c02f79c78828d5adf585e6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "946ed96d_29a406b3",
         "filename": "redfish-core/lib/chassis.hpp",
         "patchSetId": 14
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "88ae7718_ea89eadf",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 203,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2021-08-04T18:44:56Z",
+      "side": 1,
+      "message": "Checking value !\u003d \"xyz...\" does not guarantee that it is not empty.\n\nIn this case, I wanted to make sure that use the default value if it is empty or it is equal to Unknown.\n\nBut since it should never be empty. I guess its fine not to check it.",
+      "parentUuid": "946ed96d_29a406b3",
+      "range": {
+        "startLine": 203,
+        "startChar": 36,
+        "endLine": 203,
+        "endChar": 51
+      },
+      "revId": "7a9b2ac8e54786d782c02f79c78828d5adf585e6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4f5e75d9_2b85f56c",
         "filename": "redfish-core/lib/chassis.hpp",
         "patchSetId": 14
@@ -68,6 +116,30 @@
       "revId": "7a9b2ac8e54786d782c02f79c78828d5adf585e6",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a6e9456b_1bf6fb0d",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 205,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2021-08-04T18:44:56Z",
+      "side": 1,
+      "message": "Done. I have handled it in the callback",
+      "parentUuid": "4f5e75d9_2b85f56c",
+      "range": {
+        "startLine": 204,
+        "startChar": 26,
+        "endLine": 205,
+        "endChar": 40
+      },
+      "revId": "7a9b2ac8e54786d782c02f79c78828d5adf585e6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -142,6 +214,30 @@
     },
     {
       "key": {
+        "uuid": "973d8cb9_c5935fb5",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 207,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2021-08-04T18:44:56Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "d7fac6a1_a0912244",
+      "range": {
+        "startLine": 207,
+        "startChar": 16,
+        "endLine": 207,
+        "endChar": 20
+      },
+      "revId": "7a9b2ac8e54786d782c02f79c78828d5adf585e6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f02ef8e2_485eb8b4",
         "filename": "redfish-core/lib/chassis.hpp",
         "patchSetId": 14
@@ -200,6 +296,30 @@
       "writtenOn": "2021-08-04T15:55:50Z",
       "side": 1,
       "message": "first off, you should just call the callback and return here, no need to process further if you\u0027ve found the entry.  Also, this should be returning the openbmc value.",
+      "range": {
+        "startLine": 210,
+        "startChar": 20,
+        "endLine": 210,
+        "endChar": 59
+      },
+      "revId": "7a9b2ac8e54786d782c02f79c78828d5adf585e6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "da09e2ab_4a98c215",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2021-08-04T18:44:56Z",
+      "side": 1,
+      "message": "I have cleaned it up a bit.\n\n-----\n\nnot sure what you meant by the openbmc value?",
+      "parentUuid": "e2ef6556_3154b4b7",
       "range": {
         "startLine": 210,
         "startChar": 20,
@@ -280,6 +400,30 @@
       "revId": "7a9b2ac8e54786d782c02f79c78828d5adf585e6",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "31ddc9ad_fa72484d",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 227,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2021-08-04T18:44:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ed73ef0a_848134db",
+      "range": {
+        "startLine": 227,
+        "startChar": 30,
+        "endLine": 227,
+        "endChar": 41
+      },
+      "revId": "7a9b2ac8e54786d782c02f79c78828d5adf585e6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
