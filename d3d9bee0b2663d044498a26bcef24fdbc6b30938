@@ -956,6 +956,30 @@
     },
     {
       "key": {
+        "uuid": "1e210f3d_5432daf6",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1991,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2021-08-04T19:38:19Z",
+      "side": 1,
+      "message": "I guess only when entryCount \u003c\u003d skip we need the `idCount \u003d idCount + msgBuf.size();`. But yes, I believe it fixed the problem.",
+      "parentUuid": "dec4e493_ea994569",
+      "range": {
+        "startLine": 1991,
+        "startChar": 24,
+        "endLine": 1991,
+        "endChar": 74
+      },
+      "revId": "d3d9bee0b2663d044498a26bcef24fdbc6b30938",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "cc3bcb2a_e62de0d9",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 3
