@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6b5f2b16_84479a14",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-08-05T18:05:20Z",
+      "side": 1,
+      "message": "50/72 line breaks please.",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 67
+      },
+      "revId": "34c89b3505bfe0e97f429bbeabd3400eeb6b0d24",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4d1ef72b_a19a45ba",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-08-05T18:05:20Z",
+      "side": 1,
+      "message": "Is this to mean that you haven\u0027t tested this code yet?  That\u0027s fine, but please mark it as WIP until you have.",
+      "range": {
+        "startLine": 16,
+        "startChar": 5,
+        "endLine": 16,
+        "endChar": 10
+      },
+      "revId": "34c89b3505bfe0e97f429bbeabd3400eeb6b0d24",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "af45aaeb_43a8ccbd",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 314,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-08-05T18:05:20Z",
+      "side": 1,
+      "message": "I\u0027m not a big fan of splitting this method into two pieces by adding this argument, then having one big branch on line 372.  This would imply that we need to shift the \"getObjectsWithConnection\" call higher up in the call stack, then share the response from that scope, so the single source of data can be shared from the callbacks stack, not by passing it into this method.\n\n\nI suspect some of the respHandler will need to be abstracted to a method for this to work right, but the result will be a lot cleaner in the long run.",
+      "range": {
+        "startLine": 314,
+        "startChar": 4,
+        "endLine": 314,
+        "endChar": 35
+      },
+      "revId": "34c89b3505bfe0e97f429bbeabd3400eeb6b0d24",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
