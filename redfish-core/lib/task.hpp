@@ -80,15 +80,107 @@ struct Payload
     nlohmann::json jsonBody;
 };
 
+static nlohmann::json getMessage(const std::string_view state, size_t index)
+{
+    if (state == "Started")
+    {
+        return messages::taskStarted(std::to_string(index));
+    }
+    if (state == "Aborted")
+    {
+        return messages::taskAborted(std::to_string(index));
+    }
+    BMCWEB_LOG_INFO << "get msg status not found";
+    return nlohmann::json{
+        {"@odata.type", "Unknown"}, {"MessageId", "Unknown"},
+        {"Message", "Unknown"},     {"MessageArgs", {}},
+        {"Severity", "Unknown"},    {"Resolution", "Unknown"}};
+}
+static void taskSendEvent(const std::string_view state, size_t index)
+{
+    std::string origin =
+        "/redfish/v1/TaskService/Tasks/" + std::to_string(index);
+    std::string resType = "Task";
+    // TaskState enums which should send out an event are:
+    // "Starting" = taskResumed
+    // "Running" = taskStarted
+    // "Suspended" = taskPaused
+    // "Interrupted" = taskPaused
+    // "Pending" = taskPaused
+    // "Stopping" = taskAborted
+    // "Completed" = taskCompletedOK
+    // "Killed" = taskRemoved
+    // "Exception" = taskCompletedWarning
+    // "Cancelled" = taskCancelled
+    if (state == "Starting")
+    {
+        redfish::EventServiceManager::getInstance().sendEvent(
+            redfish::messages::taskResumed(std::to_string(index)), origin,
+            resType);
+    }
+    else if (state == "Running")
+    {
+        redfish::EventServiceManager::getInstance().sendEvent(
+            redfish::messages::taskStarted(std::to_string(index)), origin,
+            resType);
+    }
+    else if ((state == "Suspended") || (state == "Interrupted") ||
+             (state == "Pending"))
+    {
+        redfish::EventServiceManager::getInstance().sendEvent(
+            redfish::messages::taskPaused(std::to_string(index)), origin,
+            resType);
+    }
+    else if (state == "Stopping")
+    {
+        redfish::EventServiceManager::getInstance().sendEvent(
+            redfish::messages::taskAborted(std::to_string(index)), origin,
+            resType);
+    }
+    else if (state == "Completed")
+    {
+        redfish::EventServiceManager::getInstance().sendEvent(
+            redfish::messages::taskCompletedOK(std::to_string(index)), origin,
+            resType);
+    }
+    else if (state == "Killed")
+    {
+        redfish::EventServiceManager::getInstance().sendEvent(
+            redfish::messages::taskRemoved(std::to_string(index)), origin,
+            resType);
+    }
+    else if (state == "Exception")
+    {
+        redfish::EventServiceManager::getInstance().sendEvent(
+            redfish::messages::taskCompletedWarning(std::to_string(index)),
+            origin, resType);
+    }
+    else if (state == "Cancelled")
+    {
+        redfish::EventServiceManager::getInstance().sendEvent(
+            redfish::messages::taskCancelled(std::to_string(index)), origin,
+            resType);
+    }
+    else
+    {
+        BMCWEB_LOG_INFO << "taskSendEvent - sendTaskEvent: No events to send";
+    }
+}
+
 struct TaskData : std::enable_shared_from_this<TaskData>
 {
   private:
     TaskData(std::function<bool(boost::system::error_code,
                                 sdbusplus::message::message&,
                                 const std::shared_ptr<TaskData>&)>&& handler,
-             const std::string& matchIn, size_t idx) :
-        callback(std::move(handler)),
-        matchStr(matchIn), index(idx),
+             const std::string& matchIn, size_t idx,
+             const std::function<void(const std::string_view, size_t)>&&
+                 sendEventHandler,
+             const std::function<nlohmann::json(const std::string_view,
+                                                size_t)>&& getMsgHandler) :
+        getMsgCallback(std::move(getMsgHandler)),
+        sendEventCallback(std::move(sendEventHandler)),
+        callback(std::move(handler)), matchStr(matchIn), index(idx),
         startTime(std::chrono::system_clock::to_time_t(
             std::chrono::system_clock::now())),
         status("OK"), state("Running"), messages(nlohmann::json::array()),
@@ -98,12 +190,15 @@ struct TaskData : std::enable_shared_from_this<TaskData>
 
   public:
     TaskData() = delete;
-
     static std::shared_ptr<TaskData>& createTask(
         std::function<bool(boost::system::error_code,
                            sdbusplus::message::message&,
                            const std::shared_ptr<TaskData>&)>&& handler,
-        const std::string& match)
+        const std::string& match,
+        std::function<void(const std::string_view, size_t)> sendEventHandler =
+            taskSendEvent,
+        std::function<nlohmann::json(const std::string_view, size_t)>
+            getMsgHandler = getMessage)
     {
         static size_t lastTask = 0;
         struct MakeSharedHelper : public TaskData
@@ -112,8 +207,13 @@ struct TaskData : std::enable_shared_from_this<TaskData>
                 std::function<bool(boost::system::error_code,
                                    sdbusplus::message::message&,
                                    const std::shared_ptr<TaskData>&)>&& handler,
-                const std::string& match2, size_t idx) :
-                TaskData(std::move(handler), match2, idx)
+                const std::string& match2, size_t idx,
+                std::function<void(const std::string_view, size_t)>
+                    sendEventHandler,
+                std::function<nlohmann::json(const std::string_view, size_t)>
+                    getMsgHandler) :
+                TaskData(std::move(handler), match2, idx,
+                         std::move(sendEventHandler), std::move(getMsgHandler))
             {}
         };
 
@@ -128,7 +228,8 @@ struct TaskData : std::enable_shared_from_this<TaskData>
         }
 
         return tasks.emplace_back(std::make_shared<MakeSharedHelper>(
-            std::move(handler), match, lastTask++));
+            std::move(handler), match, lastTask++, sendEventHandler,
+            getMsgHandler));
     }
 
     void populateResp(crow::Response& res, size_t retryAfterSeconds = 30)
@@ -181,82 +282,11 @@ struct TaskData : std::enable_shared_from_this<TaskData>
                 self->state = "Cancelled";
                 self->status = "Warning";
                 self->messages.emplace_back(
-                    messages::taskAborted(std::to_string(self->index)));
+                    self->getMsgCallback("Aborted", self->index));
                 // Send event :TaskAborted
-                self->sendTaskEvent(self->state, self->index);
+                self->sendEventCallback(self->state, self->index);
                 self->callback(ec, msg, self);
             });
-    }
-
-    void sendTaskEvent(const std::string_view state, size_t index)
-    {
-        std::string origin =
-            "/redfish/v1/TaskService/Tasks/" + std::to_string(index);
-        std::string resType = "Task";
-        // TaskState enums which should send out an event are:
-        // "Starting" = taskResumed
-        // "Running" = taskStarted
-        // "Suspended" = taskPaused
-        // "Interrupted" = taskPaused
-        // "Pending" = taskPaused
-        // "Stopping" = taskAborted
-        // "Completed" = taskCompletedOK
-        // "Killed" = taskRemoved
-        // "Exception" = taskCompletedWarning
-        // "Cancelled" = taskCancelled
-        if (state == "Starting")
-        {
-            redfish::EventServiceManager::getInstance().sendEvent(
-                redfish::messages::taskResumed(std::to_string(index)), origin,
-                resType);
-        }
-        else if (state == "Running")
-        {
-            redfish::EventServiceManager::getInstance().sendEvent(
-                redfish::messages::taskStarted(std::to_string(index)), origin,
-                resType);
-        }
-        else if ((state == "Suspended") || (state == "Interrupted") ||
-                 (state == "Pending"))
-        {
-            redfish::EventServiceManager::getInstance().sendEvent(
-                redfish::messages::taskPaused(std::to_string(index)), origin,
-                resType);
-        }
-        else if (state == "Stopping")
-        {
-            redfish::EventServiceManager::getInstance().sendEvent(
-                redfish::messages::taskAborted(std::to_string(index)), origin,
-                resType);
-        }
-        else if (state == "Completed")
-        {
-            redfish::EventServiceManager::getInstance().sendEvent(
-                redfish::messages::taskCompletedOK(std::to_string(index)),
-                origin, resType);
-        }
-        else if (state == "Killed")
-        {
-            redfish::EventServiceManager::getInstance().sendEvent(
-                redfish::messages::taskRemoved(std::to_string(index)), origin,
-                resType);
-        }
-        else if (state == "Exception")
-        {
-            redfish::EventServiceManager::getInstance().sendEvent(
-                redfish::messages::taskCompletedWarning(std::to_string(index)),
-                origin, resType);
-        }
-        else if (state == "Cancelled")
-        {
-            redfish::EventServiceManager::getInstance().sendEvent(
-                redfish::messages::taskCancelled(std::to_string(index)), origin,
-                resType);
-        }
-        else
-        {
-            BMCWEB_LOG_INFO << "sendTaskEvent: No events to send";
-        }
     }
 
     void startTimer(const std::chrono::seconds& timeout)
@@ -279,7 +309,7 @@ struct TaskData : std::enable_shared_from_this<TaskData>
                     self->finishTask();
 
                     // Send event
-                    self->sendTaskEvent(self->state, self->index);
+                    self->sendEventCallback(self->state, self->index);
 
                     // reset the match after the callback was successful
                     boost::asio::post(
@@ -290,14 +320,20 @@ struct TaskData : std::enable_shared_from_this<TaskData>
             });
 
         extendTimer(timeout);
-        messages.emplace_back(messages::taskStarted(std::to_string(index)));
+        messages.emplace_back(getMsgCallback("Started", index));
         // Send event : TaskStarted
-        sendTaskEvent(state, index);
+        sendEventCallback(state, index);
     }
+
+    std::function<nlohmann::json(const std::string_view, size_t)>
+        getMsgCallback;
+
+    std::function<void(const std::string_view, size_t)> sendEventCallback;
 
     std::function<bool(boost::system::error_code, sdbusplus::message::message&,
                        const std::shared_ptr<TaskData>&)>
         callback;
+
     std::string matchStr;
     size_t index;
     time_t startTime;

@@ -1,0 +1,41 @@
+/****************************************************************
+ * This is an auto-generated header which contains definitions
+ * for Redfish DMTF defined json messages for event.
+ ***************************************************************/
+namespace redfish
+{
+namespace messages
+{
+{%- macro camel_case(text) -%}
+    {{ text[0]|lower}}{{text[1:] }}
+{%- endmacro -%}
+{% for key, value in main.items() %}
+    {% if 'Messages'  == key %}
+        {% for msgKey, msgValue in value.items() %}
+            {%- set number = 0 -%}
+            {%- set argString = [] -%}
+inline nlohmann::json {{ camel_case(msgKey) }} (
+            {% if msgValue.NumberOfArgs %}
+                {%- set number = msgValue["NumberOfArgs"] | int -%}
+                {%- for n in range(1,number) -%}
+                    {%- do argString.append('arg' + n|string) -%}
+        const std::string& arg{{ n }},
+                {%- endfor -%}
+        const std::string& arg{{ number }}
+                {%- do argString.append('arg' + number|string) -%}
+            {%- endif -%}
+)
+{
+     return nlohmann::json{
+        {"@odata.type", "{{ main["@odata.type"] }}"},
+        {"MessageId", "{{ main["Id"] }}.{{ msgKey }}"},
+        {"Message", "{{ msgValue["Message"] | replace("%1", "\"+arg1+\"")| replace("%2", "\"+arg2+\"")| replace("%3", "\"+arg3+\"")| replace("%4", "\"+arg4+\"") }}"},
+        {"MessageArgs", { {{ argString|join(",") }} }},
+        {"Severity", "{{ msgValue["Severity"] }}"},
+        {"Resolution", "{{ msgValue["Resolution"] }}"}};
+}
+        {%- endfor %}
+}
+    {%- endif -%}
+{%- endfor -%}
+}
