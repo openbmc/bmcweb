@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1bd66361_b3308fc1",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-08-05T22:56:13Z",
+      "side": 1,
+      "message": "The security working group isn\u0027t a good reason \"why?\".  I would either omit it, and add some small portions of the reasoning behind either owasp or NIST.\n\nIf I read through the owasp doc, I read:\n\nCommon idle timeouts ranges are 2-5 minutes for high-value applications and 15-30 minutes for low risk applications. Absolute timeouts depend on how long a user usually uses the application. If the application is intended to be used by an office worker for a full day, an appropriate absolute timeout range could be between 4 and 8 hours.\n\n\nConsidering that KVM is a part of our session management, and could be used for a full day, couldn\u0027t we say that it should be the 4-8 hour range?\n\n\nThe only thing I see mentioned in owasp about 30 minutes is \"Common idle timeouts ranges are 2-5 minutes for high-value applications and 15-30 minutes for low risk applications.\"  I\u0027m assuming we count as low risk?\n\n\n\nWith that said, the NIST one is much clearer:\n\"Periodic reauthentication of subscriber sessions SHALL be performed as described in Section 7.2. At AAL2, authentication of the subscriber SHALL be repeated at least once per 12 hours during an extended usage session, regardless of user activity. Reauthentication of the subscriber SHALL be repeated following any period of inactivity lasting 30 minutes or longer. The session SHALL be terminated (i.e., logged out) when either of these time limits is reached.\"\n\n\nWe should probably quote the middle sentence of that one.",
+      "range": {
+        "startLine": 9,
+        "startChar": 35,
+        "endLine": 10,
+        "endChar": 60
+      },
+      "revId": "f0488cc5299c22c594270d4e6e20d72ce69769dd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
