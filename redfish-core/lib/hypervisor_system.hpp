@@ -880,6 +880,7 @@ inline void requestRoutesHypervisorSystems(App& app)
             if (ipv4Addresses)
             {
                 messages::propertyNotWritable(asyncResp->res, "IPv4Addresses");
+                return;
             }
 
             if (dhcpv4)
