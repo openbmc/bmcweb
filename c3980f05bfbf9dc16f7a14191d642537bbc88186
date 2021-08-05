@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e770dc36_cba9a111",
+        "filename": "redfish-core/lib/hypervisor_system.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 690,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-08-05T21:39:01Z",
+      "side": 1,
+      "message": "This is still incorrect.  We should not be implicitly disabling an enthernet interface when the user hasn\u0027t explicitly requested it.  If this is needed on a network config change, then the daemon implementing the hypervisor network interface needs to be in charge of disabling/enabling the interface as needed.",
+      "range": {
+        "startLine": 686,
+        "startChar": 0,
+        "endLine": 690,
+        "endChar": 59
+      },
+      "revId": "c3980f05bfbf9dc16f7a14191d642537bbc88186",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
