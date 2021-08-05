@@ -20,6 +20,7 @@
 #include <app.hpp>
 #include <boost/container/flat_map.hpp>
 #include <registries/privilege_registry.hpp>
+#include <update_messages.hpp>
 #include <utils/fw_utils.hpp>
 
 #include <variant>
@@ -58,6 +59,45 @@ inline static void activateImage(const std::string& objPath,
         std::variant<std::string>(
             "xyz.openbmc_project.Software.Activation.RequestedActivations."
             "Active"));
+}
+static std::string getComponentName(const std::string& service,
+                                    const std::string& swPath)
+{
+    crow::connections::systemBus->async_method_call(
+        [](const boost::system::error_code errorCode,
+            const std::variant<std::string>& purpose) {
+            if (errorCode)
+            {
+                return "UnKnown";
+            }
+            const std::string* swInvPurpose = std::get_if<std::string>(&purpose);
+            if (swInvPurpose == nullptr)
+            {
+                BMCWEB_LOG_DEBUG << "wrong types for "
+                                    "property\"Purpose\"!";
+                return "UnKnown";
+            }
+
+            BMCWEB_LOG_DEBUG << "swInvPurpose = " << *swInvPurpose;
+
+            if (*swInvPurpose == fw_util::bmcPurpose)
+            {
+                return "BMC";
+            }
+            else if (*swInvPurpose == fw_util::biosPurpose)
+            {
+                return "BIOS";
+            }
+            else
+            {
+                BMCWEB_LOG_ERROR << "Unknown software purpose "
+                                 << *swInvPurpose;
+                return "UnKnown";
+            }
+        },
+        service, swPath, "org.freedesktop.DBus.Properties", "Get",
+        "xyz.openbmc_project.Software.Version", "Purpose");
+    return "UnKnown";
 }
 
 // Note that asyncResp can be either a valid pointer or nullptr. If nullptr
@@ -117,16 +157,133 @@ static void
                     // xyz.openbmc_project.Software.Activation interface
                     // is added
                     fwAvailableTimer = nullptr;
-
+                    sdbusplus::message::object_path objectPath(objPath.str);
+                    std::string swID = objectPath.filename();
+                    if (swID.empty())
+                    {
+                        messages::internalError(asyncResp->res);
+                        return;
+                    }
                     activateImage(objPath.str, objInfo[0].first);
+
+                    std::string componentName =
+                        getComponentName(objInfo[0].first, objPath.str);
                     if (asyncResp)
                     {
+                        auto sendEventcallback = [swID, componentName](const std::string_view
+                                                            state,
+                                                        size_t index) {
+                            std::string origin =
+                                "/redfish/v1/TaskService/Tasks/" +
+                                std::to_string(index);
+                            std::string resType = "Task";
+                            // TaskState enums which should send out an event
+                            // are: "Starting" = taskResumed "Running" =
+                            // taskStarted "Suspended" = taskPaused
+                            // "Interrupted" = taskPaused
+                            // "Pending" = taskPaused
+                            // "Stopping" = taskAborted
+                            // "Completed" = taskCompletedOK
+                            // "Killed" = taskRemoved
+                            // "Exception" = taskCompletedWarning
+                            // "Cancelled" = taskCancelled
+                            if (state == "Starting")
+                            {
+                                redfish::EventServiceManager::getInstance()
+                                    .sendEvent(redfish::messages::
+                                                   allTargetsDetermined(),
+                                               origin, resType);
+                            }
+                            else if (state == "Running")
+                            {
+                                redfish::EventServiceManager::getInstance()
+                                    .sendEvent(
+                                        redfish::messages::targetDetermined(
+                                            componentName, swID),
+                                        origin, resType);
+                            }
+                            else if ((state == "Suspended") ||
+                                     (state == "Interrupted") ||
+                                     (state == "Pending"))
+                            {
+                                redfish::EventServiceManager::getInstance()
+                                    .sendEvent(redfish::messages::awaitToUpdate(
+                                                   componentName, swID),
+                                               origin, resType);
+                            }
+                            else if (state == "Stopping")
+                            {
+                                redfish::EventServiceManager::getInstance()
+                                    .sendEvent(redfish::messages::applyFailed(
+                                                   swID, componentName),
+                                               origin, resType);
+                            }
+                            else if (state == "Completed")
+                            {
+                                redfish::EventServiceManager::getInstance()
+                                    .sendEvent(
+                                        redfish::messages::updateSuccessful(
+                                            componentName, swID),
+                                        origin, resType);
+                            }
+                            else if (state == "Killed")
+                            {
+                                redfish::EventServiceManager::getInstance()
+                                    .sendEvent(redfish::messages::applyFailed(
+                                                   swID, componentName),
+                                               origin, resType);
+                            }
+                            else if (state == "Exception")
+                            {
+                                redfish::EventServiceManager::getInstance()
+                                    .sendEvent(redfish::messages::applyFailed(
+                                                   swID, componentName),
+                                               origin, resType);
+                            }
+                            else if (state == "Cancelled")
+                            {
+                                redfish::EventServiceManager::getInstance()
+                                    .sendEvent(redfish::messages::applyFailed(
+                                                   swID, componentName),
+                                               origin, resType);
+                            }
+                            else
+                            {
+                                BMCWEB_LOG_INFO
+                                    << "taskSendEvent - sendTaskEvent: No "
+                                       "events to send";
+                            }
+                        };
+
+                        auto messageCallback = [swID, componentName](
+                                                   const std::string_view state,
+                                                   [[maybe_unused]] size_t index) {
+                            if (state == "Started")
+                            {
+                                return messages::targetDetermined(componentName, swID);
+                            }
+                            else if (state == "Aborted")
+                            {
+                                return messages::applyFailed(swID, componentName);
+                            }
+                            else
+                            {
+                                BMCWEB_LOG_INFO << "State not gound";
+                            }
+                            return nlohmann::json{{"@odata.type", "Unknown"},
+                                                  {"MessageId", "Unknown"},
+                                                  {"Message", "Unknown"},
+                                                  {"MessageArgs", {}},
+                                                  {"Severity", "Unknown"},
+                                                  {"Resolution", "Unknown"}};
+                        };
                         std::shared_ptr<task::TaskData> task =
                             task::TaskData::createTask(
-                                [](boost::system::error_code ec,
-                                   sdbusplus::message::message& msg,
-                                   const std::shared_ptr<task::TaskData>&
-                                       taskData) {
+                                [swID, componentName](
+                                    boost::system::error_code ec,
+                                    sdbusplus::message::message& msg,
+                                    const std::shared_ptr<task::TaskData>&
+                                        taskData) {
                                     if (ec)
                                     {
                                         return task::completed;
@@ -157,8 +314,11 @@ static void
 
                                         if (state == nullptr)
                                         {
+                                            // taskData->messages.emplace_back(
+                                            //     messages::internalError());
                                             taskData->messages.emplace_back(
-                                                messages::internalError());
+                                                messages::activateFailed(
+                                                    swID, componentName));
                                             return task::completed;
                                         }
 
@@ -168,16 +328,19 @@ static void
                                         {
                                             taskData->state = "Exception";
                                             taskData->status = "Warning";
+                                            // taskData->messages.emplace_back(
+                                            //     messages::taskAborted(index));
                                             taskData->messages.emplace_back(
-                                                messages::taskAborted(index));
+                                                messages::activateFailed(
+                                                    swID, componentName));
                                             return task::completed;
                                         }
 
                                         if (boost::ends_with(*state, "Staged"))
                                         {
                                             taskData->state = "Stopping";
-                                            taskData->messages.emplace_back(
-                                                messages::taskPaused(index));
+                                            // taskData->messages.emplace_back(
+                                            //     messages::taskPaused(index));
 
                                             // its staged, set a long timer to
                                             // allow them time to complete the
@@ -191,9 +354,12 @@ static void
 
                                         if (boost::ends_with(*state, "Active"))
                                         {
+                                            // taskData->messages.emplace_back(
+                                            //     messages::taskCompletedOK(
+                                            //         index));
                                             taskData->messages.emplace_back(
-                                                messages::taskCompletedOK(
-                                                    index));
+                                                messages::updateSuccessful(
+                                                    componentName, swID));
                                             taskData->state = "Completed";
                                             return task::completed;
                                         }
@@ -214,16 +380,22 @@ static void
 
                                         if (progress == nullptr)
                                         {
+                                            // taskData->messages.emplace_back(
+                                            //     messages::internalError());
                                             taskData->messages.emplace_back(
-                                                messages::internalError());
+                                                messages::activateFailed(
+                                                    swID, componentName));
                                             return task::completed;
                                         }
                                         taskData->percentComplete =
                                             static_cast<int>(*progress);
                                         taskData->messages.emplace_back(
-                                            messages::taskProgressChanged(
-                                                index, static_cast<size_t>(
-                                                           *progress)));
+                                            messages::updateInProgress());
+
+                                        // taskData->messages.emplace_back(
+                                        //     messages::taskProgressChanged(
+                                        //         index, static_cast<size_t>(
+                                        //                    *progress)));
 
                                         // if we're getting status updates it's
                                         // still alive, update timer
@@ -240,7 +412,8 @@ static void
                                 "type='signal',interface='org.freedesktop.DBus."
                                 "Properties',"
                                 "member='PropertiesChanged',path='" +
-                                    objPath.str + "'");
+                                    objPath.str + "'",
+                                sendEventcallback, messageCallback);
                         task->startTimer(std::chrono::minutes(5));
                         task->populateResp(asyncResp->res);
                         task->payload.emplace(req);
