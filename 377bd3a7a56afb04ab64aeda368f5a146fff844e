@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "0dcdd15e_8665a81c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1001099
+      },
+      "writtenOn": "2021-08-05T17:22:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "21ab5de9_d409381e",
+      "range": {
+        "startLine": 10,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 69
+      },
+      "revId": "377bd3a7a56afb04ab64aeda368f5a146fff844e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5122c968_aceaa022",
         "filename": "/COMMIT_MSG",
         "patchSetId": 3
@@ -36,6 +60,30 @@
       "writtenOn": "2021-07-31T23:50:52Z",
       "side": 1,
       "message": "You marked the old one as done, but it\u0027s almost certainly not done.  Please discuss how you implemented ConfigureSelf, given that it\u0027s not simply a resource change.",
+      "range": {
+        "startLine": 18,
+        "startChar": 49,
+        "endLine": 18,
+        "endChar": 62
+      },
+      "revId": "377bd3a7a56afb04ab64aeda368f5a146fff844e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "25e590ba_3d1f57d5",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1001099
+      },
+      "writtenOn": "2021-08-05T17:22:13Z",
+      "side": 1,
+      "message": "ACK\n\n\"event_service has no code that restricts \"ConfigureSelf\" to only config its subscription. So we need to add that functionality into it. \nhttps://github.com/openbmc/bmcweb/issues/220\nHere created an issue that explains how it works and what we need to fix this. fell free to add and update solution detail.\n\ncurrently, reverting privileges change what it was\"\n\nLeave this thread open for discussion. In case I miss something.",
+      "parentUuid": "5122c968_aceaa022",
       "range": {
         "startLine": 18,
         "startChar": 49,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "8d284555_922cb4b8",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1001099
+      },
+      "writtenOn": "2021-08-05T17:22:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "127fbea7_ab20caea",
+      "range": {
+        "startLine": 26,
+        "startChar": 22,
+        "endLine": 26,
+        "endChar": 71
+      },
+      "revId": "377bd3a7a56afb04ab64aeda368f5a146fff844e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ee5c8ac3_0042af6a",
         "filename": "/COMMIT_MSG",
         "patchSetId": 3
@@ -91,6 +163,30 @@
       "revId": "377bd3a7a56afb04ab64aeda368f5a146fff844e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6a6b0e13_ef402405",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1001099
+      },
+      "writtenOn": "2021-08-05T17:22:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ee5c8ac3_0042af6a",
+      "range": {
+        "startLine": 28,
+        "startChar": 0,
+        "endLine": 28,
+        "endChar": 61
+      },
+      "revId": "377bd3a7a56afb04ab64aeda368f5a146fff844e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }

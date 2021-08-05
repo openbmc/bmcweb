@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "7253f3e3_69a0afd8",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1001099
+      },
+      "writtenOn": "2021-08-05T17:22:13Z",
+      "side": 1,
+      "message": "event_service has no code that restricts \"ConfigureSelf\" to only config its subscription. So we need to add that functionality into it. \nhttps://github.com/openbmc/bmcweb/issues/220\nHere created an issue that explains how it works and what we need to fix this. fell free to add and update solution detail.\n\ncurrently, reverting privileges change what it was",
+      "parentUuid": "56254b87_e4e54dea",
+      "range": {
+        "startLine": 20,
+        "startChar": 0,
+        "endLine": 22,
+        "endChar": 64
+      },
+      "revId": "7f4f32afea4ac310fc9bc7c3c223468a69c53b7a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9f63d88b_3c77984d",
         "filename": "/COMMIT_MSG",
         "patchSetId": 2
@@ -141,6 +165,30 @@
       "revId": "7f4f32afea4ac310fc9bc7c3c223468a69c53b7a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b5c4f3ed_9fadcc24",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1001099
+      },
+      "writtenOn": "2021-08-05T17:22:13Z",
+      "side": 1,
+      "message": "Now I understand after reading privilege spec. Let me update the comment.",
+      "parentUuid": "db9635b3_7bda5245",
+      "range": {
+        "startLine": 24,
+        "startChar": 53,
+        "endLine": 24,
+        "endChar": 62
+      },
+      "revId": "7f4f32afea4ac310fc9bc7c3c223468a69c53b7a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
