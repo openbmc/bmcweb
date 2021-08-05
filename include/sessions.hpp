@@ -412,7 +412,7 @@ class SessionStore
     AuthConfigMethods authMethodsConfig;
 
   private:
-    SessionStore() : timeoutInSeconds(3600)
+    SessionStore() : timeoutInSeconds(1800)
     {}
 };
 
