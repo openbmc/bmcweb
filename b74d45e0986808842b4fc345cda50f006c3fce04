@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c94cc19e_95977f64",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 12
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-08-05T03:34:56Z",
+      "side": 1,
+      "message": "I still struggle with this. \nFrom https://redfish.dmtf.org/redfish/schema_index\n\nSession - The Session Resource describes a single connection (session) between a client and a Redfish Service instance.\n\nWhere does Redfish say this?\n\nThe only reference to IPMI I see in sessions is: \n\n                \"SessionType\": {\n                    \"anyOf\": [\n                        {\n                            \"$ref\": \"#/definitions/SessionTypes\"\n                        },\n                        {\n                            \"type\": \"null\"\n                        }\n                    ],\n                    \"description\": \"The active session type.\",\n                    \"longDescription\": \"This property shall represent the type of session that is currently active.\",\n                    \"readonly\": true,\n                    \"versionAdded\": \"v1_2_0\"\n                },\n\n        \"SessionTypes\": {\n            \"enum\": [\n                \"HostConsole\",\n                \"ManagerConsole\",\n                \"IPMI\",\n                \"KVMIP\",\n                \"OEM\",\n                \"Redfish\",\n                \"VirtualMedia\",\n                \"WebUI\"\n            ],\n            \"enumDescriptions\": {\n                \"HostConsole\": \"The host\u0027s console, which could be connected through Telnet, SSH, or other protocol.\",\n                \"IPMI\": \"Intelligent Platform Management Interface.\",\n                \"KVMIP\": \"Keyboard-Video-Mouse over IP Session.\",\n                \"ManagerConsole\": \"The manager\u0027s console, which could be connected through Telnet, SSH, SM CLP, or other protocol.\",\n                \"OEM\": \"OEM Type.  For OEM session types, see the OemSessionType property.\",\n                \"Redfish\": \"A Redfish session.\",\n                \"VirtualMedia\": \"Virtual media.\",\n                \"WebUI\": \"A non-Redfish web user interface session, such as a graphical interface or another web-based protocol.\"\n            },",
+      "range": {
+        "startLine": 10,
+        "startChar": 26,
+        "endLine": 11,
+        "endChar": 37
+      },
+      "revId": "b74d45e0986808842b4fc345cda50f006c3fce04",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
