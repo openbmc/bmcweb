@@ -16,6 +16,52 @@
       "revId": "5020cdd1ffbf25f152a8ae4fcad83baec28cf34a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eaf4ea84_a71b11bc",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 545,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-08-05T17:52:34Z",
+      "side": 1,
+      "message": "If you\u0027re going to link a github issue please take the TODO(ed) off of it.",
+      "range": {
+        "startLine": 545,
+        "startChar": 0,
+        "endLine": 545,
+        "endChar": 65
+      },
+      "revId": "5020cdd1ffbf25f152a8ae4fcad83baec28cf34a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "41bfadce_7a098237",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 602,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-08-05T17:52:34Z",
+      "side": 1,
+      "message": "Same as above, remove the TODO(ed).",
+      "range": {
+        "startLine": 602,
+        "startChar": 11,
+        "endLine": 602,
+        "endChar": 19
+      },
+      "revId": "5020cdd1ffbf25f152a8ae4fcad83baec28cf34a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }

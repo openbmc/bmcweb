@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9e2b788f_588df07f",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-08-05T17:52:34Z",
+      "side": 0,
+      "message": "I wonder why I didn\u0027t do this one initially?  I tried to change things that wouldn\u0027t have any impact.  oh well.",
+      "revId": "7f58ff56a03ea26763c5828222e3d0ab705462fa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
