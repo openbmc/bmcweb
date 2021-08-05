@@ -53,6 +53,24 @@
     },
     {
       "key": {
+        "uuid": "93d4c511_685a1e46",
+        "filename": "redfish-core/lib/hypervisor_system.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2021-08-05T05:36:53Z",
+      "side": 1,
+      "message": "forgot to remove this method.\nthis is not needed at all here",
+      "parentUuid": "c09e8e2f_22cfc2c0",
+      "revId": "613d2d4ef45b7900a799d70e581192f0b1899cdd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "99563819_522caa92",
         "filename": "redfish-core/lib/hypervisor_system.hpp",
         "patchSetId": 7
@@ -70,6 +88,24 @@
     },
     {
       "key": {
+        "uuid": "5e32dba9_587e7543",
+        "filename": "redfish-core/lib/hypervisor_system.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2021-08-05T05:36:53Z",
+      "side": 1,
+      "message": "this method is not used, removing",
+      "parentUuid": "99563819_522caa92",
+      "revId": "613d2d4ef45b7900a799d70e581192f0b1899cdd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "ca7a0a83_a36e3f3b",
         "filename": "redfish-core/lib/hypervisor_system.hpp",
         "patchSetId": 7
@@ -81,6 +117,24 @@
       "writtenOn": "2021-08-02T21:31:37Z",
       "side": 1,
       "message": "Typically this is the reverse \nif (enabled \u003d\u003d nullptr)\ninternalError ;\n\nSame below and above",
+      "revId": "613d2d4ef45b7900a799d70e581192f0b1899cdd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5a027eed_f4a52859",
+        "filename": "redfish-core/lib/hypervisor_system.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 250,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2021-08-05T05:36:53Z",
+      "side": 1,
+      "message": "we have followed same in multiple places.\ncan you please explain me wrong doing this way.",
+      "parentUuid": "ca7a0a83_a36e3f3b",
       "revId": "613d2d4ef45b7900a799d70e581192f0b1899cdd",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
@@ -107,6 +161,30 @@
       "revId": "613d2d4ef45b7900a799d70e581192f0b1899cdd",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9ef4116d_8ea4a889",
+        "filename": "redfish-core/lib/hypervisor_system.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 607,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2021-08-05T05:36:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0a15ac9a_c6c236a8",
+      "range": {
+        "startLine": 607,
+        "startChar": 4,
+        "endLine": 607,
+        "endChar": 17
+      },
+      "revId": "613d2d4ef45b7900a799d70e581192f0b1899cdd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
