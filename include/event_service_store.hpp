@@ -180,11 +180,9 @@ struct UserSubscription
 
         if ((subvalue->id.empty() && !loadFromOldConfig) ||
             subvalue->destinationUrl.empty() || subvalue->protocol.empty() ||
-            subvalue->retryPolicy.empty() || subvalue->customText.empty() ||
+            subvalue->retryPolicy.empty() ||
             subvalue->eventFormatType.empty() ||
-            subvalue->subscriptionType.empty() ||
-            (subvalue->registryPrefixes.empty() &&
-             subvalue->registryMsgIds.empty()))
+            subvalue->subscriptionType.empty())
         {
             BMCWEB_LOG_ERROR << "Subscription missing required field "
                                 "information, refusing to restore";
