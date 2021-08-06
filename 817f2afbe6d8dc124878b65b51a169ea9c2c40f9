@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "19c1cdf0_0895fa99",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1001099
+      },
+      "writtenOn": "2021-08-06T19:01:04Z",
+      "side": 1,
+      "message": "So after this change, we gone send emails to all (openbmc@lists.ozlabs.org). If we found this change restricted to any current user, we will revert this change or allow both admins and operator users to make this change.",
+      "parentUuid": "b67f6941_a53e09d4",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 42
+      },
+      "revId": "817f2afbe6d8dc124878b65b51a169ea9c2c40f9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "67aea367_06feab82",
         "filename": "/COMMIT_MSG",
         "patchSetId": 1
@@ -69,6 +93,30 @@
       "revId": "817f2afbe6d8dc124878b65b51a169ea9c2c40f9",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "daa0f4c4_2846bd80",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1001099
+      },
+      "writtenOn": "2021-08-06T19:01:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "075e0494_39531b93",
+      "range": {
+        "startLine": 27,
+        "startChar": 0,
+        "endLine": 27,
+        "endChar": 62
+      },
+      "revId": "817f2afbe6d8dc124878b65b51a169ea9c2c40f9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -119,6 +167,30 @@
     },
     {
       "key": {
+        "uuid": "28f7ea83_1e915f1f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1001099
+      },
+      "writtenOn": "2021-08-06T19:01:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "abac3454_30e4b942",
+      "range": {
+        "startLine": 29,
+        "startChar": 8,
+        "endLine": 29,
+        "endChar": 46
+      },
+      "revId": "817f2afbe6d8dc124878b65b51a169ea9c2c40f9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a6cf47e6_3c1146e0",
         "filename": "/COMMIT_MSG",
         "patchSetId": 1
@@ -163,6 +235,30 @@
       "revId": "817f2afbe6d8dc124878b65b51a169ea9c2c40f9",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b5bbdde4_44d82e65",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1001099
+      },
+      "writtenOn": "2021-08-06T19:01:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "51e7c9e2_ded5e758",
+      "range": {
+        "startLine": 30,
+        "startChar": 16,
+        "endLine": 30,
+        "endChar": 54
+      },
+      "revId": "817f2afbe6d8dc124878b65b51a169ea9c2c40f9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
