@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e49a8599_798074bd",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 1160,
+      "author": {
+        "id": 1001051
+      },
+      "writtenOn": "2021-08-06T06:09:39Z",
+      "side": 1,
+      "message": "Interface is wrong here, Correct Interface is \n/xyz/openbmc_project/control/host0/boot/one_time",
+      "revId": "c21865c469cfc9dffdc15d87710293115cf6d9e4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "24dce2d6_e30e0f59",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 1599,
+      "author": {
+        "id": 1001051
+      },
+      "writtenOn": "2021-08-06T06:09:39Z",
+      "side": 1,
+      "message": "Interface is wrong here, Correct Interface is \n/xyz/openbmc_project/control/host0/boot/one_time",
+      "revId": "c21865c469cfc9dffdc15d87710293115cf6d9e4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
