@@ -70,5 +70,37 @@ inline std::string getDbusReportPath(const std::string& id)
     return path;
 }
 
+inline auto getMetricReportDeleteHandler(const std::string& type)
+{
+    return [type](const crow::Request&,
+                  const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                  const std::string& id) {
+        const std::string reportPath = getDbusReportPath(id);
+
+        crow::connections::systemBus->async_method_call(
+            [asyncResp, type, id](const boost::system::error_code ec) {
+                /*
+                 * boost::system::errc and std::errc are missing value
+                 * for EBADR error that is defined in Linux.
+                 */
+                if (ec.value() == EBADR)
+                {
+                    messages::resourceNotFound(asyncResp->res, type, id);
+                    return;
+                }
+
+                if (ec)
+                {
+                    BMCWEB_LOG_ERROR << "respHandler DBus error " << ec;
+                    messages::internalError(asyncResp->res);
+                    return;
+                }
+
+                asyncResp->res.result(boost::beast::http::status::no_content);
+            },
+            service, reportPath, "xyz.openbmc_project.Object.Delete", "Delete");
+    };
+}
+
 } // namespace telemetry
 } // namespace redfish

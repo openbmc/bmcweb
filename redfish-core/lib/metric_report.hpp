@@ -127,5 +127,9 @@ inline void requestRoutesMetricReport(App& app)
                     telemetry::service, reportPath, telemetry::reportInterface,
                     "Update");
             });
+    BMCWEB_ROUTE(app, "/redfish/v1/TelemetryService/MetricReports/<str>/")
+        .privileges(redfish::privileges::deleteMetricReport)
+        .methods(boost::beast::http::verb::delete_)(
+            telemetry::getMetricReportDeleteHandler("MetricReports"));
 }
 } // namespace redfish
