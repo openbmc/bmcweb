@@ -16,6 +16,24 @@
       "revId": "76ec23985561759df480a64b2a37d28b91f95aa1",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7108b791_18a8858b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1001051
+      },
+      "writtenOn": "2021-08-06T21:25:28Z",
+      "side": 1,
+      "message": "Thanks Ed for comments can you point me to dbus adjustment as I have checked the code there are four references xyz.openbmc_project.Object.Enable for this property, two of them are different then Checked dbus interface please see the below output. \n\n# busctl introspect xyz.openbmc_project.Settings /xyz/openbmc_project/control/host0/boot/one_time\nNAME                                    TYPE      SIGNATURE RESULT/VALUE                             FLAGS\norg.freedesktop.DBus.Introspectable     interface -         -                                        -\n.Introspect                             method    -         s                                        -\norg.freedesktop.DBus.Peer               interface -         -                                        -\n.GetMachineId                           method    -         s                                        -\n.Ping                                   method    -         -                                        -\norg.freedesktop.DBus.Properties         interface -         -                                        -\n.Get                                    method    ss        v                                        -\n.GetAll                                 method    s         a{sv}                                    -\n.Set                                    method    ssv       -                                        -\n.PropertiesChanged                      signal    sa{sv}as  -                                        -\nxyz.openbmc_project.Control.Boot.Mode   interface -         -                                        -\n.BootMode                               property  s         \"xyz.openbmc_project.Control.Boot.Mod... emits-change writable\nxyz.openbmc_project.Control.Boot.Source interface -         -                                        -\n.BootSource                             property  s         \"xyz.openbmc_project.Control.Boot.Sou... emits-change writable\nxyz.openbmc_project.Object.Enable       interface -         -                                        -\n.Enabled                                property  b         true                                     emits-change writable",
+      "parentUuid": "21344e0a_7c1f8a52",
+      "revId": "76ec23985561759df480a64b2a37d28b91f95aa1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
