@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "d722f591_0dc9576f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-08-06T21:12:17Z",
+      "side": 1,
+      "message": "once your email is sent please link it here, but breaking compatibility, then warning people about it afterward is not going to work.  We should probably have a greater discussion about whether anyone uses operator privileges in Redfish.  They\u0027ve been quite broken for some time, so I\u0027m not sure if they were being used initially.",
+      "parentUuid": "19c1cdf0_0895fa99",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 42
+      },
+      "revId": "817f2afbe6d8dc124878b65b51a169ea9c2c40f9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "67aea367_06feab82",
         "filename": "/COMMIT_MSG",
         "patchSetId": 1
@@ -188,6 +212,30 @@
       "revId": "817f2afbe6d8dc124878b65b51a169ea9c2c40f9",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "882abb1c_adf9ff50",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-08-06T21:12:17Z",
+      "side": 1,
+      "message": "I\u0027m reading this as \"it wasn\u0027t tested\"  Testing GET, when your change is modifying PATCH and DELETE doesn\u0027t really help.",
+      "parentUuid": "abac3454_30e4b942",
+      "range": {
+        "startLine": 29,
+        "startChar": 8,
+        "endLine": 29,
+        "endChar": 46
+      },
+      "revId": "817f2afbe6d8dc124878b65b51a169ea9c2c40f9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     },
     {
       "key": {
