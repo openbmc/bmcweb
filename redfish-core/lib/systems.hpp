@@ -1157,7 +1157,7 @@ inline void
             processBootOverrideEnable(aResp, *bootOverrideEnablePtr);
         },
         "xyz.openbmc_project.Settings",
-        "/xyz/openbmc_project/control/host0/boot",
+        "/xyz/openbmc_project/control/host0/boot/one_time",
         "org.freedesktop.DBus.Properties", "Get",
         "xyz.openbmc_project.Object.Enable", "Enabled");
 }
@@ -1596,7 +1596,7 @@ inline void setBootEnable(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
             BMCWEB_LOG_DEBUG << "Boot override enable update done.";
         },
         "xyz.openbmc_project.Settings",
-        "/xyz/openbmc_project/control/host0/boot",
+        "/xyz/openbmc_project/control/host0/boot/one_time",
         "org.freedesktop.DBus.Properties", "Set",
         "xyz.openbmc_project.Object.Enable", "Enabled",
         std::variant<bool>(bootOverrideEnable));
