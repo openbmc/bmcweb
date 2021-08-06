@@ -415,6 +415,24 @@
     },
     {
       "key": {
+        "uuid": "bdeed396_44672848",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1957,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2021-08-06T18:34:17Z",
+      "side": 1,
+      "message": "Ack. I am OK with adding it in the future.",
+      "parentUuid": "00f32dd9_cf58d871",
+      "revId": "8000de88e5cec0173c5057a1daef4810ac6d1aac",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bbedcb3c_39eeb5f2",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 2
