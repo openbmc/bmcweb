@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "a9293157_270ddf2f",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 23
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2021-08-08T14:31:16Z",
+      "side": 1,
+      "message": "To remove this member, we need to bring back the base file change(at line #100) to pass the endpointList to the doConnect method",
+      "parentUuid": "4c4c105d_a711cf98",
+      "range": {
+        "startLine": 73,
+        "startChar": 0,
+        "endLine": 73,
+        "endChar": 58
+      },
+      "revId": "862f1bbc5ca2fc35dced97847516d96767b60814",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "25031ec0_26435ec4",
         "filename": "http/http_client.hpp",
         "patchSetId": 23
@@ -36,6 +60,30 @@
       "writtenOn": "2021-08-02T19:31:40Z",
       "side": 1,
       "message": "Given that you\u0027re now handling retries, isn\u0027t this statement incorrect?  an attempt to send data on a suspended or terminated connection should result in a reconnect, right?",
+      "range": {
+        "startLine": 419,
+        "startChar": 0,
+        "endLine": 422,
+        "endChar": 9
+      },
+      "revId": "862f1bbc5ca2fc35dced97847516d96767b60814",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9b15c27b_19b12342",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 23
+      },
+      "lineNbr": 422,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2021-08-08T14:31:16Z",
+      "side": 1,
+      "message": "If the connection is suspended/terminated, we should not retry. There should not be an attempt to sendData since its a \"known good state\" where its decided not to send the events out",
+      "parentUuid": "25031ec0_26435ec4",
       "range": {
         "startLine": 419,
         "startChar": 0,
