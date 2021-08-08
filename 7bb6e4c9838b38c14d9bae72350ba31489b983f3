@@ -48,6 +48,30 @@
     },
     {
       "key": {
+        "uuid": "44423435_58908d60",
+        "filename": "redfish-core/include/utils/telemetry_utils.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-08-08T14:29:31Z",
+      "side": 1,
+      "message": "Please don\u0027t.  What\u0027s there runs faster and uses less memory.",
+      "parentUuid": "d54e783e_baba42dd",
+      "range": {
+        "startLine": 78,
+        "startChar": 0,
+        "endLine": 82,
+        "endChar": 5
+      },
+      "revId": "7bb6e4c9838b38c14d9bae72350ba31489b983f3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "994acd4d_0c96f761",
         "filename": "redfish-core/include/utils/telemetry_utils.hpp",
         "patchSetId": 4
