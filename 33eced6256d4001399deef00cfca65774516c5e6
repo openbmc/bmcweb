@@ -52,6 +52,24 @@
       "revId": "33eced6256d4001399deef00cfca65774516c5e6",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c136119d_a06d52a2",
+        "filename": "redfish-core/include/event_service_manager.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1056,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2021-08-08T04:55:09Z",
+      "side": 1,
+      "message": "Agree. @Gunnar - can you please help getting this Base Message Registry type for this scenario via DMTF?\nI can implement that registry once we have that in the schema as a separate commit.\n\nShould we wait for the DMTF to add it to the schema and then take this commit in ?",
+      "parentUuid": "815097bc_b4be6b96",
+      "revId": "33eced6256d4001399deef00cfca65774516c5e6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
