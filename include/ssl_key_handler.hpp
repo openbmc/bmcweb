@@ -1,5 +1,4 @@
 #pragma once
-#ifdef BMCWEB_ENABLE_SSL
 
 #include <openssl/bio.h>
 #include <openssl/dh.h>
@@ -409,5 +408,3 @@ inline std::shared_ptr<boost::asio::ssl::context>
     return mSslContext;
 }
 } // namespace ensuressl
-
-#endif
