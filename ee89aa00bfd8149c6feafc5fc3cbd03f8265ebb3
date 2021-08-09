@@ -70,6 +70,30 @@
       "revId": "ee89aa00bfd8149c6feafc5fc3cbd03f8265ebb3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "42a9780b_3eb58841",
+        "filename": "redfish-core/include/gzfile.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2021-08-09T22:29:54Z",
+      "side": 1,
+      "message": "Talked to Ed offline. gzgets is not the proper API here since it requires the uncompressed buffer null-terminated. Ed found there\u0027s gzread which returns the length of read buffer explicitly. Please use it instead.\n\nhttps://refspecs.linuxbase.org/LSB_3.0.0/LSB-Core-generic/LSB-Core-generic/zlib-gzread-1.html",
+      "parentUuid": "a12ec1f5_cb0d9669",
+      "range": {
+        "startLine": 53,
+        "startChar": 8,
+        "endLine": 53,
+        "endChar": 11
+      },
+      "revId": "ee89aa00bfd8149c6feafc5fc3cbd03f8265ebb3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
