@@ -409,6 +409,30 @@
     },
     {
       "key": {
+        "uuid": "c45ed211_327a98cf",
+        "filename": "redfish-core/include/registries/openbmc_message_registry.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 2284,
+      "author": {
+        "id": 1000404
+      },
+      "writtenOn": "2021-08-09T11:05:59Z",
+      "side": 1,
+      "message": "I remove the code which relate to message registry.",
+      "parentUuid": "d8f6a16f_872cb412",
+      "range": {
+        "startLine": 2275,
+        "startChar": 0,
+        "endLine": 2284,
+        "endChar": 20
+      },
+      "revId": "d3d9bee0b2663d044498a26bcef24fdbc6b30938",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d18e5ddf_d4e4f646",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 3
@@ -501,6 +525,30 @@
       "revId": "d3d9bee0b2663d044498a26bcef24fdbc6b30938",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3285980b_c01b8811",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1817,
+      "author": {
+        "id": 1000404
+      },
+      "writtenOn": "2021-08-09T11:05:59Z",
+      "side": 1,
+      "message": "Thank for the detail information! I confuse with other problem. Follow the suggestion and modify the code here.",
+      "parentUuid": "06fd03fa_a7d6fab9",
+      "range": {
+        "startLine": 1817,
+        "startChar": 45,
+        "endLine": 1817,
+        "endChar": 46
+      },
+      "revId": "d3d9bee0b2663d044498a26bcef24fdbc6b30938",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {

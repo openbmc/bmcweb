@@ -46,6 +46,30 @@
       "revId": "ee89aa00bfd8149c6feafc5fc3cbd03f8265ebb3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a12ec1f5_cb0d9669",
+        "filename": "redfish-core/include/gzfile.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1000404
+      },
+      "writtenOn": "2021-08-09T11:05:59Z",
+      "side": 1,
+      "message": "Here i use std::string::data() to catch so it will not contain \"\\0\". For the string length problem, because it will fill null character if there is no data, strlen() can help to filter the null character. If we use begin and end then to get std::distance, the return size will be still 8192 here(fill with null character). https://en.cppreference.com/w/cpp/string/byte/strlen",
+      "parentUuid": "798a8010_491d3062",
+      "range": {
+        "startLine": 53,
+        "startChar": 8,
+        "endLine": 53,
+        "endChar": 11
+      },
+      "revId": "ee89aa00bfd8149c6feafc5fc3cbd03f8265ebb3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
