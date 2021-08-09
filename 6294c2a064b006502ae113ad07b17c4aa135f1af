@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a8717e1e_7dee0246",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 45
+      },
+      "lineNbr": 699,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-08-09T15:10:07Z",
+      "side": 1,
+      "message": "Please read and understand common_errors.md.  This function is called out explicitly by name.",
+      "range": {
+        "startLine": 699,
+        "startChar": 39,
+        "endLine": 699,
+        "endChar": 47
+      },
+      "revId": "6294c2a064b006502ae113ad07b17c4aa135f1af",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "53bfd9fa_2c4d23ed",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 45
+      },
+      "lineNbr": 737,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-08-09T15:10:07Z",
+      "side": 1,
+      "message": "Can we put this in a method please?",
+      "range": {
+        "startLine": 723,
+        "startChar": 0,
+        "endLine": 737,
+        "endChar": 5
+      },
+      "revId": "6294c2a064b006502ae113ad07b17c4aa135f1af",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "51ae3a19_9534be2c",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 45
+      },
+      "lineNbr": 764,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-08-09T15:10:07Z",
+      "side": 1,
+      "message": "This can be done on one line to avoid the copy.",
+      "range": {
+        "startLine": 763,
+        "startChar": 0,
+        "endLine": 764,
+        "endChar": 56
+      },
+      "revId": "6294c2a064b006502ae113ad07b17c4aa135f1af",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fb364587_4f730855",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 45
+      },
+      "lineNbr": 844,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-08-09T15:10:07Z",
+      "side": 1,
+      "message": "As a general rule, capturing req by value shouldn\u0027t be done, and causes lifetime issues but this was here before so it\u0027s ok.",
+      "range": {
+        "startLine": 844,
+        "startChar": 20,
+        "endLine": 844,
+        "endChar": 23
+      },
+      "revId": "6294c2a064b006502ae113ad07b17c4aa135f1af",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
