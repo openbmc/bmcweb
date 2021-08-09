@@ -670,7 +670,7 @@ inline void getHostState(const std::shared_ptr<bmcweb::AsyncResp>& aResp)
                 }
             }
         },
-        "xyz.openbmc_project.State.Host", "/xyz/openbmc_project/state/host0",
+        "xyz.openbmc_project.State.Host0", "/xyz/openbmc_project/state/host0",
         "org.freedesktop.DBus.Properties", "Get",
         "xyz.openbmc_project.State.Host", "CurrentHostState");
 }
@@ -1200,7 +1200,7 @@ inline void getLastResetTime(const std::shared_ptr<bmcweb::AsyncResp>& aResp)
             aResp->res.jsonValue["LastResetTime"] =
                 crow::utility::getDateTime(lastResetTimeStamp);
         },
-        "xyz.openbmc_project.State.Chassis",
+        "xyz.openbmc_project.State.Chassis0",
         "/xyz/openbmc_project/state/chassis0",
         "org.freedesktop.DBus.Properties", "Get",
         "xyz.openbmc_project.State.Chassis", "LastStateChangeTime");
@@ -1268,7 +1268,7 @@ inline void getAutomaticRetry(const std::shared_ptr<bmcweb::AsyncResp>& aResp)
                                       ["RemainingAutomaticRetryAttempts"] =
                             *autoRebootAttemptsLeftPtr;
                     },
-                    "xyz.openbmc_project.State.Host",
+                    "xyz.openbmc_project.State.Host0",
                     "/xyz/openbmc_project/state/host0",
                     "org.freedesktop.DBus.Properties", "Get",
                     "xyz.openbmc_project.Control.Boot.RebootAttempts",
@@ -2576,7 +2576,7 @@ inline void requestRoutesSystemActionsReset(App& app)
                         }
                         messages::success(asyncResp->res);
                     },
-                    "xyz.openbmc_project.State.Host",
+                    "xyz.openbmc_project.State.Host0",
                     "/xyz/openbmc_project/state/host0",
                     "org.freedesktop.DBus.Properties", "Set",
                     "xyz.openbmc_project.State.Host", "RequestedHostTransition",
@@ -2603,7 +2603,7 @@ inline void requestRoutesSystemActionsReset(App& app)
                         }
                         messages::success(asyncResp->res);
                     },
-                    "xyz.openbmc_project.State.Chassis",
+                    "xyz.openbmc_project.State.Chassis0",
                     "/xyz/openbmc_project/state/chassis0",
                     "org.freedesktop.DBus.Properties", "Set",
                     "xyz.openbmc_project.State.Chassis",
