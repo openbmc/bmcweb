@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "28cece31_ef203c34",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 196,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-08-09T23:28:10Z",
+      "side": 1,
+      "message": "Call callback with error?",
+      "range": {
+        "startLine": 196,
+        "startChar": 0,
+        "endLine": 196,
+        "endChar": 70
+      },
+      "revId": "aa82f3aa0c539fbd36284b588676247e74071826",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8b92cdcf_ce679c9c",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 206,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-08-09T23:28:10Z",
+      "side": 1,
+      "message": "like I mentioned in the other comment, don\u0027t do it this way, write a method with exact string matches.  Otherwise if a daemon sends us\n\nFoo.Bar.Baz, we end up sending out Baz, which is a redfish spec violation.",
+      "range": {
+        "startLine": 206,
+        "startChar": 34,
+        "endLine": 206,
+        "endChar": 46
+      },
+      "revId": "aa82f3aa0c539fbd36284b588676247e74071826",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7d5f21ea_53f6ac2f",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 468,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-08-09T23:28:10Z",
+      "side": 1,
+      "message": "chassisType.empty() is being overloaded two mean:\n\n1. the dbus call failed.\nAND \n2. we couldn\u0027t find the chassis type.\n\nYou likely need to pass through an error code in here.",
+      "range": {
+        "startLine": 468,
+        "startChar": 44,
+        "endLine": 468,
+        "endChar": 66
+      },
+      "revId": "aa82f3aa0c539fbd36284b588676247e74071826",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fa09c196_c81d14c4",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 490,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-08-09T23:28:10Z",
+      "side": 1,
+      "message": "Lets break this out to a method.  We\u0027re too many scopes deep here.",
+      "range": {
+        "startLine": 468,
+        "startChar": 0,
+        "endLine": 490,
+        "endChar": 41
+      },
+      "revId": "aa82f3aa0c539fbd36284b588676247e74071826",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
