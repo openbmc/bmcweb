@@ -117,6 +117,30 @@
       "revId": "862f1bbc5ca2fc35dced97847516d96767b60814",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1c602817_ffef2722",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 23
+      },
+      "lineNbr": 422,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-08-09T23:32:39Z",
+      "side": 1,
+      "message": "ok, I see that those two terms were not what I thought.  Fine as is.",
+      "parentUuid": "9b15c27b_19b12342",
+      "range": {
+        "startLine": 419,
+        "startChar": 0,
+        "endLine": 422,
+        "endChar": 9
+      },
+      "revId": "862f1bbc5ca2fc35dced97847516d96767b60814",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
