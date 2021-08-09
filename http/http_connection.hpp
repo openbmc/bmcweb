@@ -93,6 +93,7 @@ class Connection :
 #endif
     }
 
+#ifdef BMCWEB_ENABLE_MUTUAL_TLS_AUTHENTICATION
     void prepareMutualTls()
     {
         std::error_code error;
@@ -276,6 +277,7 @@ class Connection :
             return true;
         });
     }
+#endif // BMCWEB_ENABLE_MUTUAL_TLS_AUTHENTICATION
 
     Adaptor& socket()
     {
