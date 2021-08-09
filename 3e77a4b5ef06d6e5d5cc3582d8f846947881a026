@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a76f5d64_63988292",
+        "filename": "include/google/root_of_trust.hpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-08-09T17:54:03Z",
+      "side": 1,
+      "message": "This file seems poorly named?  This doesn\u0027t have anything to do with ROT.  maybe google_serive_root.hpp?",
+      "revId": "3e77a4b5ef06d6e5d5cc3582d8f846947881a026",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8e90409c_ed8e1a83",
+        "filename": "include/google/root_of_trust.hpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-08-09T17:54:03Z",
+      "side": 1,
+      "message": "Include what you use.  This seems like 2X too many #includes.",
+      "range": {
+        "startLine": 3,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 18
+      },
+      "revId": "3e77a4b5ef06d6e5d5cc3582d8f846947881a026",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
