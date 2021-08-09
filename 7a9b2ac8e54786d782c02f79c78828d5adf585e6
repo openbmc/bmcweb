@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "c80bf298_9d9964a1",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 197,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-08-09T23:24:27Z",
+      "side": 1,
+      "message": "yep.  although generally callback would accept an error code type, so you\u0027d forward on the ec in case there was more specific handling needed\n\nsomething like callback(ec, \"\")",
+      "parentUuid": "844a5c85_36fb7562",
+      "range": {
+        "startLine": 197,
+        "startChar": 0,
+        "endLine": 197,
+        "endChar": 56
+      },
+      "revId": "7a9b2ac8e54786d782c02f79c78828d5adf585e6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "946ed96d_29a406b3",
         "filename": "redfish-core/lib/chassis.hpp",
         "patchSetId": 14
@@ -84,6 +108,30 @@
       "side": 1,
       "message": "Checking value !\u003d \"xyz...\" does not guarantee that it is not empty.\n\nIn this case, I wanted to make sure that use the default value if it is empty or it is equal to Unknown.\n\nBut since it should never be empty. I guess its fine not to check it.",
       "parentUuid": "946ed96d_29a406b3",
+      "range": {
+        "startLine": 203,
+        "startChar": 36,
+        "endLine": 203,
+        "endChar": 51
+      },
+      "revId": "7a9b2ac8e54786d782c02f79c78828d5adf585e6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2f3c8b16_d750f210",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 203,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-08-09T23:24:27Z",
+      "side": 1,
+      "message": "generally if it\u0027s empty, that case gets covered when you convert to a Redfish enum, because empty string won\u0027t match any redfish type.",
+      "parentUuid": "88ae7718_ea89eadf",
       "range": {
         "startLine": 203,
         "startChar": 36,
@@ -320,6 +368,30 @@
       "side": 1,
       "message": "I have cleaned it up a bit.\n\n-----\n\nnot sure what you meant by the openbmc value?",
       "parentUuid": "e2ef6556_3154b4b7",
+      "range": {
+        "startLine": 210,
+        "startChar": 20,
+        "endLine": 210,
+        "endChar": 59
+      },
+      "revId": "7a9b2ac8e54786d782c02f79c78828d5adf585e6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "93cb1fc3_3610b704",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-08-09T23:24:27Z",
+      "side": 1,
+      "message": "doing rfind(\".\") then substr just gives you everything past the .\n\ntechnically dbus could reply with xyz.openbmc_project.Item.Foobar, and you would then forward Foobar to Redfish, which is illegal.  One could argue that the dbus contract got broken there, but in practice, people break the dbus apis a lot, and new enums get added.  Not doing substr lets us gracefully handle new enums.",
+      "parentUuid": "da09e2ab_4a98c215",
       "range": {
         "startLine": 210,
         "startChar": 20,
