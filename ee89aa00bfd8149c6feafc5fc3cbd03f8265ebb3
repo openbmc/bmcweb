@@ -94,6 +94,30 @@
       "revId": "ee89aa00bfd8149c6feafc5fc3cbd03f8265ebb3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "99ba0e08_e157e84d",
+        "filename": "redfish-core/include/gzfile.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1000404
+      },
+      "writtenOn": "2021-08-10T00:26:34Z",
+      "side": 1,
+      "message": "Yes, \"gzread\" gets the buffer length, but the return value means whole gz file size (eof has been reached). \"gzgets\" function here is trying to get a line from file (until a newline character has been uncompressed into buf), so strlen(buf.data() means length of a line, not whole gz file\u0027s length.",
+      "parentUuid": "42a9780b_3eb58841",
+      "range": {
+        "startLine": 53,
+        "startChar": 8,
+        "endLine": 53,
+        "endChar": 11
+      },
+      "revId": "ee89aa00bfd8149c6feafc5fc3cbd03f8265ebb3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
