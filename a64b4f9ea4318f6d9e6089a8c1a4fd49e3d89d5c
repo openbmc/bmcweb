@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "052c55a2_aad0fa2d",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 22
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2021-08-10T07:55:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d80cf3f0_739b9817",
+      "range": {
+        "startLine": 37,
+        "startChar": 0,
+        "endLine": 37,
+        "endChar": 55
+      },
+      "revId": "a64b4f9ea4318f6d9e6089a8c1a4fd49e3d89d5c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "412563f0_f2ee693b",
         "filename": "http/http_client.hpp",
         "patchSetId": 22
@@ -690,6 +714,30 @@
     },
     {
       "key": {
+        "uuid": "c84262ec_1dd8015a",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 22
+      },
+      "lineNbr": 411,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2021-08-10T07:55:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "97954ae7_888b33c3",
+      "range": {
+        "startLine": 410,
+        "startChar": 0,
+        "endLine": 411,
+        "endChar": 77
+      },
+      "revId": "a64b4f9ea4318f6d9e6089a8c1a4fd49e3d89d5c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4624ff44_8b8bda09",
         "filename": "http/http_client.hpp",
         "patchSetId": 22
@@ -710,6 +758,30 @@
       "revId": "a64b4f9ea4318f6d9e6089a8c1a4fd49e3d89d5c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0f1a9e45_c16678ce",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 22
+      },
+      "lineNbr": 414,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2021-08-10T07:55:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4624ff44_8b8bda09",
+      "range": {
+        "startLine": 414,
+        "startChar": 0,
+        "endLine": 414,
+        "endChar": 59
+      },
+      "revId": "a64b4f9ea4318f6d9e6089a8c1a4fd49e3d89d5c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -876,6 +948,30 @@
       "revId": "a64b4f9ea4318f6d9e6089a8c1a4fd49e3d89d5c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f407c790_ec83b627",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 22
+      },
+      "lineNbr": 435,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2021-08-10T07:55:49Z",
+      "side": 1,
+      "message": "req is a private member of HttpClient, which is a object per subscriber. So there is no scope of changing the custom http headers, until the subscription is alive. So all the messages which are being sent to a single subscriber will have same set of headers.",
+      "parentUuid": "5295b9eb_8e43a052",
+      "range": {
+        "startLine": 431,
+        "startChar": 0,
+        "endLine": 435,
+        "endChar": 9
+      },
+      "revId": "a64b4f9ea4318f6d9e6089a8c1a4fd49e3d89d5c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
