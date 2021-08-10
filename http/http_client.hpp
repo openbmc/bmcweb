@@ -34,6 +34,7 @@ namespace crow
 {
 
 static constexpr uint8_t maxRequestQueueSize = 50;
+static constexpr unsigned int httpReadBodyLimit = 8192;
 
 enum class ConnState
 {
@@ -58,11 +59,11 @@ class HttpClient : public std::enable_shared_from_this<HttpClient>
     crow::async_resolve::Resolver resolver;
     boost::beast::tcp_stream conn;
     boost::asio::steady_timer timer;
-    boost::beast::flat_buffer buffer;
+    boost::beast::flat_static_buffer<httpReadBodyLimit> buffer;
     boost::beast::http::request<boost::beast::http::string_body> req;
     boost::beast::http::response<boost::beast::http::string_body> res;
     std::vector<std::pair<std::string, std::string>> headers;
-    std::queue<std::string> requestDataQueue;
+    boost::circular_buffer_space_optimized<std::string> requestDataQueue{};
     ConnState state;
     std::string subId;
     std::string host;
@@ -143,18 +144,6 @@ class HttpClient : public std::enable_shared_from_this<HttpClient>
 
         BMCWEB_LOG_DEBUG << __FUNCTION__ << "(): " << host << ":" << port;
 
-        req.version(static_cast<int>(11)); // HTTP 1.1
-        req.target(uri);
-        req.method(boost::beast::http::verb::post);
-
-        // Set headers
-        for (const auto& [key, value] : headers)
-        {
-            req.set(key, value);
-        }
-        req.set(boost::beast::http::field::host, host);
-        req.keep_alive(true);
-
         req.body() = data;
         req.prepare_payload();
 
@@ -206,7 +195,10 @@ class HttpClient : public std::enable_shared_from_this<HttpClient>
 
                 // Send is successful, Lets remove data from queue
                 // check for next request data in queue.
-                self->requestDataQueue.pop();
+                if (!self->requestDataQueue.empty())
+                {
+                    self->requestDataQueue.pop_front();
+                }
                 self->state = ConnState::idle;
                 self->checkQueue();
             });
@@ -246,7 +238,7 @@ class HttpClient : public std::enable_shared_from_this<HttpClient>
             // Clear queue.
             while (!requestDataQueue.empty())
             {
-                requestDataQueue.pop();
+                requestDataQueue.pop_front();
             }
 
             BMCWEB_LOG_DEBUG << "Retry policy is set to " << retryPolicyAction;
@@ -339,11 +331,16 @@ class HttpClient : public std::enable_shared_from_this<HttpClient>
                         const std::string& destIP, const std::string& destPort,
                         const std::string& destUri) :
         conn(ioc),
-        timer(ioc), subId(id), host(destIP), port(destPort), uri(destUri),
-        retryCount(0), maxRetryAttempts(5), retryIntervalSecs(0),
+        timer(ioc), req(boost::beast::http::verb::post, destUri, 11),
+        state(ConnState::initialized), subId(id), host(destIP), port(destPort),
+        uri(destUri), retryCount(0), maxRetryAttempts(5), retryIntervalSecs(0),
         retryPolicyAction("TerminateAfterRetries"), runningTimer(false)
     {
-        state = ConnState::initialized;
+        // Set the request header
+        req.set(boost::beast::http::field::host, host);
+        req.set(boost::beast::http::field::content_type, "application/json");
+        req.keep_alive(true);
+        requestDataQueue.set_capacity(maxRequestQueueSize);
     }
 
     void sendData(const std::string& data)
@@ -355,7 +352,7 @@ class HttpClient : public std::enable_shared_from_this<HttpClient>
 
         if (requestDataQueue.size() <= maxRequestQueueSize)
         {
-            requestDataQueue.push(data);
+            requestDataQueue.push_back(std::move(data));
             checkQueue(true);
         }
         else
@@ -366,10 +363,14 @@ class HttpClient : public std::enable_shared_from_this<HttpClient>
         return;
     }
 
-    void setHeaders(
+    void addHeaders(
         const std::vector<std::pair<std::string, std::string>>& httpHeaders)
     {
-        headers = httpHeaders;
+        // Set custom headers
+        for (const auto& [key, value] : httpHeaders)
+        {
+            req.set(key, value);
+        }
     }
 
     void setRetryConfig(const uint32_t retryAttempts,
