@@ -42,9 +42,7 @@ inline void requestRoutesBiosService(App& app)
 inline void requestRoutesBiosReset(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/Systems/system/Bios/Actions/Bios.ResetBios/")
-        // Incorrect Privilege;  Should be ConfigureComponents
-        //.privileges(redfish::privileges::postBios)
-        .privileges({{"ConfigureManager"}})
+        .privileges(redfish::privileges::postBios)
         .methods(boost::beast::http::verb::post)(
             [](const crow::Request&,
                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
