@@ -143,18 +143,6 @@ class HttpClient : public std::enable_shared_from_this<HttpClient>
 
         BMCWEB_LOG_DEBUG << __FUNCTION__ << "(): " << host << ":" << port;
 
-        req.version(static_cast<int>(11)); // HTTP 1.1
-        req.target(uri);
-        req.method(boost::beast::http::verb::post);
-
-        // Set headers
-        for (const auto& [key, value] : headers)
-        {
-            req.set(key, value);
-        }
-        req.set(boost::beast::http::field::host, host);
-        req.keep_alive(true);
-
         req.body() = data;
         req.prepare_payload();
 
@@ -339,11 +327,15 @@ class HttpClient : public std::enable_shared_from_this<HttpClient>
                         const std::string& destIP, const std::string& destPort,
                         const std::string& destUri) :
         conn(ioc),
-        timer(ioc), subId(id), host(destIP), port(destPort), uri(destUri),
-        retryCount(0), maxRetryAttempts(5), retryIntervalSecs(0),
+        timer(ioc), req(boost::beast::http::verb::post, destUri, 11),
+        state(ConnState::initialized), subId(id), host(destIP), port(destPort),
+        uri(destUri), retryCount(0), maxRetryAttempts(5), retryIntervalSecs(0),
         retryPolicyAction("TerminateAfterRetries"), runningTimer(false)
     {
-        state = ConnState::initialized;
+        // Set the request header
+        req.set(boost::beast::http::field::host, host);
+        req.set(boost::beast::http::field::content_type, "application/json");
+        req.keep_alive(true);
     }
 
     void sendData(const std::string& data)
@@ -366,10 +358,14 @@ class HttpClient : public std::enable_shared_from_this<HttpClient>
         return;
     }
 
-    void setHeaders(
+    void addHeaders(
         const std::vector<std::pair<std::string, std::string>>& httpHeaders)
     {
-        headers = httpHeaders;
+        // Set custom headers
+        for (const auto& [key, value] : httpHeaders)
+        {
+            req.set(key, value);
+        }
     }
 
     void setRetryConfig(const uint32_t retryAttempts,
