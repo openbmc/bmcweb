@@ -118,6 +118,30 @@
       "revId": "ee89aa00bfd8149c6feafc5fc3cbd03f8265ebb3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0555829c_62624c8a",
+        "filename": "redfish-core/include/gzfile.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2021-08-10T17:06:01Z",
+      "side": 1,
+      "message": "Does gzgets handle \u0027\\0\u0027 in the uncompressed buffer? I believe gzgets assumes there\u0027s no \u0027\\0\u0027. \n\n\"gzread\" should return the size of data it reads, right? not necessarily the whole gz file size if the passed len is shorter than the entire size. We should use gzread since it returns the actual length of read data so we can resize our string. From there, we can then split the string by EOL.\n\nThe major issue here is the uncompressed buffer might have \u0027\\0\u0027. You strlen() won\u0027t give the the correct size. E.g. \"123\\0123\\0\" as a std::string is of length 8; strlen() will give you 3 I believe.",
+      "parentUuid": "99ba0e08_e157e84d",
+      "range": {
+        "startLine": 53,
+        "startChar": 8,
+        "endLine": 53,
+        "endChar": 11
+      },
+      "revId": "ee89aa00bfd8149c6feafc5fc3cbd03f8265ebb3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
