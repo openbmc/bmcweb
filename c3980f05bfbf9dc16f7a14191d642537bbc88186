@@ -22,6 +22,30 @@
       "revId": "c3980f05bfbf9dc16f7a14191d642537bbc88186",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0ed2dd0c_fcbc08e3",
+        "filename": "redfish-core/lib/hypervisor_system.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 690,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2021-08-10T04:11:44Z",
+      "side": 1,
+      "message": "Ed\nI agree with you, but this is as per current design.\nas you suggested we are coming up with new hypervisor network dbus app\nwe will address this comment as part new D-bus app\nbelow commit has new D-bus app implementation\nhttps://gerrit.openbmc-project.xyz/c/openbmc/phosphor-networkd/+/43173\nonce that\u0027s done I will remove this call.\nThanks",
+      "parentUuid": "e770dc36_cba9a111",
+      "range": {
+        "startLine": 686,
+        "startChar": 0,
+        "endLine": 690,
+        "endChar": 59
+      },
+      "revId": "c3980f05bfbf9dc16f7a14191d642537bbc88186",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
