@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "c87c60d1_a3fd19c9",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 1376,
+      "author": {
+        "id": 1001083
+      },
+      "writtenOn": "2021-08-10T03:59:34Z",
+      "side": 1,
+      "message": "In my testing, GetSubTree does return an empty array if there is input interfaces are incorrect. My output is the same as Gunnar\u0027s above.\n\nAdditionally, I receive a resourceNotFound error from getSubTree if the input root is incorrect.\n\ndbus-send --system --print-reply --dest\u003dxyz.openbmc_project.ObjectMapper /xyz/openbmc_project/object_mapper xyz.openbmc_project.ObjectMapper.GetSubTree string:\"/abc/\" int32:0 array:string:\"xyz.bopenbmc_project.Control.TPM.Policy\"\n\nError xyz.openbmc_project.Common.Error.ResourceNotFound: path or object not found",
+      "parentUuid": "65637a8f_9fe3a34d",
+      "range": {
+        "startLine": 1376,
+        "startChar": 0,
+        "endLine": 1376,
+        "endChar": 52
+      },
+      "revId": "8b8f653f16f123b634a26fa5ce72e07053e49d0a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "56fa82ba_f9b3eb19",
         "filename": "redfish-core/lib/systems.hpp",
         "patchSetId": 9
@@ -84,6 +108,30 @@
       "side": 1,
       "message": "Just remove the comment, it\u0027s clear what\u0027s happening from the code.",
       "parentUuid": "56fa82ba_f9b3eb19",
+      "range": {
+        "startLine": 1381,
+        "startChar": 0,
+        "endLine": 1382,
+        "endChar": 48
+      },
+      "revId": "8b8f653f16f123b634a26fa5ce72e07053e49d0a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c104324e_423ba275",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 1382,
+      "author": {
+        "id": 1001083
+      },
+      "writtenOn": "2021-08-10T03:59:34Z",
+      "side": 1,
+      "message": "This check handles Common Error #11 that was alluded at line 1376. If GetSubTree fails to find the anything for the \"xyz.openbmc_project.Control.TPM.Policy\", it returns an array of size 0 and the resourceNotFound error is caught here.",
+      "parentUuid": "9200d2f8_4bc8fbcd",
       "range": {
         "startLine": 1381,
         "startChar": 0,
@@ -167,6 +215,30 @@
     },
     {
       "key": {
+        "uuid": "0184a534_43842599",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 1384,
+      "author": {
+        "id": 1001083
+      },
+      "writtenOn": "2021-08-10T03:59:34Z",
+      "side": 1,
+      "message": "\"the resource might be there, but doesn\u0027t support this parameter.\"\nCan I ask what does this mean? \n\nIs maybe the proper place to catch a \u0027PropertyNotSupported\u0027 would be at the inner async_method_call at 1419 that attempts to access the dbus \u0027xyz.openbmc_project.Control.TPM.Policy\u0027 \u0027TPMEnable\u0027 property? \n\nIf it fails to support the parameter, is it possible to just leave TPMEnable in the \u0027Disabled\u0027 state?\n\n(This assumes \u0027PropertyNotSupported\u0027 is added to error_messages and is the correct error for this case.)",
+      "parentUuid": "ff8d292f_aaff4307",
+      "range": {
+        "startLine": 1384,
+        "startChar": 44,
+        "endLine": 1384,
+        "endChar": 54
+      },
+      "revId": "8b8f653f16f123b634a26fa5ce72e07053e49d0a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "8a66ef42_e50af7c2",
         "filename": "redfish-core/lib/systems.hpp",
         "patchSetId": 9
@@ -202,6 +274,30 @@
       "side": 1,
       "message": "This code is based on PowerModes which has a GetSubTree for both GET and PATCH.\nhttps://github.com/openbmc/bmcweb/blob/master/redfish-core/lib/systems.hpp#L2224\nCan you explain more what you are thinking here?",
       "parentUuid": "8a66ef42_e50af7c2",
+      "range": {
+        "startLine": 1435,
+        "startChar": 0,
+        "endLine": 1438,
+        "endChar": 78
+      },
+      "revId": "8b8f653f16f123b634a26fa5ce72e07053e49d0a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "77150cf5_82b94b6f",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 1438,
+      "author": {
+        "id": 1001083
+      },
+      "writtenOn": "2021-08-10T03:59:34Z",
+      "side": 1,
+      "message": "I\u0027m sorry. I thought the proper method to access dbus service and objectPath objects was to use ObjectMapper?\n\nAre we trying to move GetSubTree calls to the BMCWEB_ROUTES and pass variables down to set and get functions? Something like this https://github.com/openbmc/bmcweb/blob/885bbf1c82ea9f9cbfbe0065ee46adc8e398c868/redfish-core/lib/processor.hpp#L1130?",
+      "parentUuid": "0f26fd13_ce84a7a7",
       "range": {
         "startLine": 1435,
         "startChar": 0,
