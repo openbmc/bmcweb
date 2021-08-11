@@ -402,6 +402,54 @@ static bool
     return !redfishLogFiles.empty();
 }
 
+void setDumpServiceEnabledProp(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& dumpType, bool& isEnabled)
+{
+    crow::connections::systemBus->async_method_call(
+        [asyncResp](const boost::system::error_code ec) {
+            if (ec)
+            {
+                BMCWEB_LOG_DEBUG << "DBUS response error " << ec;
+                messages::internalError(asyncResp->res);
+                return;
+            }
+        },
+        "xyz.openbmc_project.Dump.Manager",
+        "/xyz/openbmc_project/dump/" + dumpType,
+        "org.freedesktop.DBus.Properties", "Set",
+        "xyz.openbmc_project.Dump.Enabled", "Enabled",
+        std::variant<bool>(isEnabled));
+}
+
+bool getDumpServiceEnabled(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                           const std::string& dumpType)
+{
+    bool isEnabled;
+    crow::connections::systemBus->async_method_call(
+        [asyncResp, &isEnabled](const boost::system::error_code ec,
+                                const std::variant<bool>& enabled) {
+            if (ec)
+            {
+                BMCWEB_LOG_DEBUG << "DBUS response error " << ec;
+                messages::internalError(asyncResp->res);
+                return;
+            }
+            isEnabled = std::get_if<bool>(&enabled);
+            if (!isEnabled)
+            {
+                BMCWEB_LOG_DEBUG << "Invalid value preset in the dbus property";
+                messages::internalError(asyncResp->res);
+                return;
+            }
+        },
+        "xyz.openbmc_project.Dump.Manager",
+        "/xyz/openbmc_project/dump/" + dumpType,
+        "org.freedesktop.DBus.Properties", "Get",
+        "xyz.openbmc_project.Dump.Enabled", "Enabled");
+    return isEnabled;
+}
+
 inline void
     getDumpEntryCollection(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                            const std::string& dumpType)
@@ -2110,6 +2158,8 @@ inline void requestRoutesBMCDumpService(App& app)
                     redfishDateTimeOffset.first;
                 asyncResp->res.jsonValue["DateTimeLocalOffset"] =
                     redfishDateTimeOffset.second;
+                asyncResp->res.jsonValue["ServiceEnabled"] =
+                    getDumpServiceEnabled(asyncResp, "bmc");
 
                 asyncResp->res.jsonValue["Entries"] = {
                     {"@odata.id",
@@ -2121,6 +2171,21 @@ inline void requestRoutesBMCDumpService(App& app)
                     {"#LogService.CollectDiagnosticData",
                      {{"target", "/redfish/v1/Managers/bmc/LogServices/Dump/"
                                  "Actions/LogService.CollectDiagnosticData"}}}};
+            });
+
+    BMCWEB_ROUTE(app, "/redfish/v1/Managers/bmc/LogServices/Dump/")
+        .privileges(redfish::privileges::patchLogService)
+        .methods(boost::beast::http::verb::patch)(
+            [](const crow::Request& req,
+               const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
+                std::optional<bool> enabled;
+
+                if (!json_util::readJson(req, asyncResp->res, "Enabled",
+                                         enabled))
+                {
+                    return;
+                }
+                setDumpServiceEnabledProp(asyncResp, "bmc", *enabled);
             });
 }
 
@@ -2135,15 +2200,22 @@ inline void requestRoutesBMCDumpEntryCollection(App& app)
         .methods(boost::beast::http::verb::get)(
             [](const crow::Request&,
                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
-                asyncResp->res.jsonValue["@odata.type"] =
-                    "#LogEntryCollection.LogEntryCollection";
-                asyncResp->res.jsonValue["@odata.id"] =
-                    "/redfish/v1/Managers/bmc/LogServices/Dump/Entries";
-                asyncResp->res.jsonValue["Name"] = "BMC Dump Entries";
-                asyncResp->res.jsonValue["Description"] =
-                    "Collection of BMC Dump Entries";
+                if (getDumpServiceEnabled(asyncResp, "bmc"))
+                {
+                    asyncResp->res.jsonValue["@odata.type"] =
+                        "#LogEntryCollection.LogEntryCollection";
+                    asyncResp->res.jsonValue["@odata.id"] =
+                        "/redfish/v1/Managers/bmc/LogServices/Dump/Entries";
+                    asyncResp->res.jsonValue["Name"] = "BMC Dump Entries";
+                    asyncResp->res.jsonValue["Description"] =
+                        "Collection of BMC Dump Entries";
 
-                getDumpEntryCollection(asyncResp, "BMC");
+                    getDumpEntryCollection(asyncResp, "BMC");
+                }
+                else
+                {
+                    messages::queryNotSupportedOnResource(asyncResp->res);
+                }
             });
 }
 
@@ -2156,7 +2228,14 @@ inline void requestRoutesBMCDumpEntry(App& app)
             [](const crow::Request&,
                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                const std::string& param) {
-                getDumpEntryById(asyncResp, param, "BMC");
+                if (getDumpServiceEnabled(asyncResp, "bmc"))
+                {
+                    getDumpEntryById(asyncResp, param, "BMC");
+                }
+                else
+                {
+                    messages::queryNotSupportedOnResource(asyncResp->res);
+                }
             });
     BMCWEB_ROUTE(app,
                  "/redfish/v1/Managers/bmc/LogServices/Dump/Entries/<str>/")
@@ -2165,7 +2244,14 @@ inline void requestRoutesBMCDumpEntry(App& app)
             [](const crow::Request&,
                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                const std::string& param) {
-                deleteDumpEntry(asyncResp, param, "bmc");
+                if (getDumpServiceEnabled(asyncResp, "bmc"))
+                {
+                    deleteDumpEntry(asyncResp, param, "bmc");
+                }
+                else
+                {
+                    messages::actionNotSupported(asyncResp->res, "Delete");
+                }
             });
 }
 
@@ -2179,7 +2265,15 @@ inline void requestRoutesBMCDumpCreate(App& app)
         .methods(boost::beast::http::verb::post)(
             [](const crow::Request& req,
                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
-                createDump(asyncResp, req, "BMC");
+                if (getDumpServiceEnabled(asyncResp, "bmc"))
+                {
+                    createDump(asyncResp, req, "BMC");
+                }
+                else
+                {
+                    messages::actionNotSupported(asyncResp->res,
+                                                 "CollectDiagnosticData");
+                }
             });
 }
 
@@ -2192,7 +2286,14 @@ inline void requestRoutesBMCDumpClear(App& app)
         .methods(boost::beast::http::verb::post)(
             [](const crow::Request&,
                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
-                clearDump(asyncResp, "BMC");
+                if (getDumpServiceEnabled(asyncResp, "bmc"))
+                {
+                    clearDump(asyncResp, "BMC");
+                }
+                else
+                {
+                    messages::actionNotSupported(asyncResp->res, "ClearLog");
+                }
             });
 }
 
@@ -2221,6 +2322,8 @@ inline void requestRoutesSystemDumpService(App& app)
                     redfishDateTimeOffset.first;
                 asyncResp->res.jsonValue["DateTimeLocalOffset"] =
                     redfishDateTimeOffset.second;
+                asyncResp->res.jsonValue["ServiceEnabled"] =
+                    getDumpServiceEnabled(asyncResp, "system");
 
                 asyncResp->res.jsonValue["Entries"] = {
                     {"@odata.id",
@@ -2235,6 +2338,21 @@ inline void requestRoutesSystemDumpService(App& app)
                        "/redfish/v1/Systems/system/LogServices/Dump/Actions/"
                        "LogService.CollectDiagnosticData"}}}};
             });
+
+    BMCWEB_ROUTE(app, "/redfish/v1/Systems/system/LogServices/Dump/")
+        .privileges(redfish::privileges::patchLogService)
+        .methods(boost::beast::http::verb::patch)(
+            [](const crow::Request& req,
+               const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
+                std::optional<bool> enabled;
+
+                if (!json_util::readJson(req, asyncResp->res, "Enabled",
+                                         enabled))
+                {
+                    return;
+                }
+                setDumpServiceEnabledProp(asyncResp, "system", *enabled);
+            });
 }
 
 inline void requestRoutesSystemDumpEntryCollection(App& app)
@@ -2248,15 +2366,22 @@ inline void requestRoutesSystemDumpEntryCollection(App& app)
         .methods(boost::beast::http::verb::get)(
             [](const crow::Request&,
                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
-                asyncResp->res.jsonValue["@odata.type"] =
-                    "#LogEntryCollection.LogEntryCollection";
-                asyncResp->res.jsonValue["@odata.id"] =
-                    "/redfish/v1/Systems/system/LogServices/Dump/Entries";
-                asyncResp->res.jsonValue["Name"] = "System Dump Entries";
-                asyncResp->res.jsonValue["Description"] =
-                    "Collection of System Dump Entries";
+                if (getDumpServiceEnabled(asyncResp, "system"))
+                {
+                    asyncResp->res.jsonValue["@odata.type"] =
+                        "#LogEntryCollection.LogEntryCollection";
+                    asyncResp->res.jsonValue["@odata.id"] =
+                        "/redfish/v1/Systems/system/LogServices/Dump/Entries";
+                    asyncResp->res.jsonValue["Name"] = "System Dump Entries";
+                    asyncResp->res.jsonValue["Description"] =
+                        "Collection of System Dump Entries";
 
-                getDumpEntryCollection(asyncResp, "System");
+                    getDumpEntryCollection(asyncResp, "System");
+                }
+                else
+                {
+                    messages::queryNotSupportedOnResource(asyncResp->res);
+                }
             });
 }
 
@@ -2270,7 +2395,14 @@ inline void requestRoutesSystemDumpEntry(App& app)
             [](const crow::Request&,
                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                const std::string& param) {
-                getDumpEntryById(asyncResp, param, "System");
+                if (getDumpServiceEnabled(asyncResp, "system"))
+                {
+                    getDumpEntryById(asyncResp, param, "System");
+                }
+                else
+                {
+                    messages::queryNotSupportedOnResource(asyncResp->res);
+                }
             });
 
     BMCWEB_ROUTE(app,
@@ -2280,7 +2412,14 @@ inline void requestRoutesSystemDumpEntry(App& app)
             [](const crow::Request&,
                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                const std::string& param) {
-                deleteDumpEntry(asyncResp, param, "system");
+                if (getDumpServiceEnabled(asyncResp, "system"))
+                {
+                    deleteDumpEntry(asyncResp, param, "system");
+                }
+                else
+                {
+                    messages::actionNotSupported(asyncResp->res, "Delete");
+                }
             });
 }
 
@@ -2294,7 +2433,17 @@ inline void requestRoutesSystemDumpCreate(App& app)
             [](const crow::Request& req,
                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 
-            { createDump(asyncResp, req, "System"); });
+            {
+                if (getDumpServiceEnabled(asyncResp, "system"))
+                {
+                    createDump(asyncResp, req, "System");
+                }
+                else
+                {
+                    messages::actionNotSupported(asyncResp->res,
+                                                 "CollectDiagnosticData");
+                }
+            });
 }
 
 inline void requestRoutesSystemDumpClear(App& app)
@@ -2307,7 +2456,16 @@ inline void requestRoutesSystemDumpClear(App& app)
             [](const crow::Request&,
                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 
-            { clearDump(asyncResp, "System"); });
+            {
+                if (getDumpServiceEnabled(asyncResp, "system"))
+                {
+                    clearDump(asyncResp, "System");
+                }
+                else
+                {
+                    messages::actionNotSupported(asyncResp->res, "ClearLog");
+                }
+            });
 }
 
 inline void requestRoutesCrashdumpService(App& app)
