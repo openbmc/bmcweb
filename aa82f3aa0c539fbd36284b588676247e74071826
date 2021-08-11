@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "b1cba293_ffe92423",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 196,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2021-08-11T18:40:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "28cece31_ef203c34",
+      "range": {
+        "startLine": 196,
+        "startChar": 0,
+        "endLine": 196,
+        "endChar": 70
+      },
+      "revId": "aa82f3aa0c539fbd36284b588676247e74071826",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8b92cdcf_ce679c9c",
         "filename": "redfish-core/lib/chassis.hpp",
         "patchSetId": 17
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "233aa588_80bc2d12",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 206,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2021-08-11T18:40:31Z",
+      "side": 1,
+      "message": "Done.\n\nI have listed the different ChassisType supported.",
+      "parentUuid": "8b92cdcf_ce679c9c",
+      "range": {
+        "startLine": 206,
+        "startChar": 34,
+        "endLine": 206,
+        "endChar": 46
+      },
+      "revId": "aa82f3aa0c539fbd36284b588676247e74071826",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7d5f21ea_53f6ac2f",
         "filename": "redfish-core/lib/chassis.hpp",
         "patchSetId": 17
@@ -59,6 +107,30 @@
       "writtenOn": "2021-08-09T23:28:10Z",
       "side": 1,
       "message": "chassisType.empty() is being overloaded two mean:\n\n1. the dbus call failed.\nAND \n2. we couldn\u0027t find the chassis type.\n\nYou likely need to pass through an error code in here.",
+      "range": {
+        "startLine": 468,
+        "startChar": 44,
+        "endLine": 468,
+        "endChar": 66
+      },
+      "revId": "aa82f3aa0c539fbd36284b588676247e74071826",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c507664e_7c1b68cc",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 468,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2021-08-11T18:40:31Z",
+      "side": 1,
+      "message": "I was thinking that eitherway it will have the same result. Default to `RackMount`.\n\n\nOr do we watnt to log it to make it easier to tell what failed/caused the output?",
+      "parentUuid": "7d5f21ea_53f6ac2f",
       "range": {
         "startLine": 468,
         "startChar": 44,
@@ -91,6 +163,30 @@
       "revId": "aa82f3aa0c539fbd36284b588676247e74071826",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "84fa75fd_56ee89e1",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 490,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2021-08-11T18:40:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fa09c196_c81d14c4",
+      "range": {
+        "startLine": 468,
+        "startChar": 0,
+        "endLine": 490,
+        "endChar": 41
+      },
+      "revId": "aa82f3aa0c539fbd36284b588676247e74071826",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
