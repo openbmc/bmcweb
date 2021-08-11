@@ -2,6 +2,46 @@
   "comments": [
     {
       "key": {
+        "uuid": "62c13c80_a93dd29e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-08-11T15:57:53Z",
+      "side": 1,
+      "message": "Can you wrap properly?\n\nCan you add a sentence about Redfish? \nE.g.\nA lot of the REST D-Bus functionality is available on Redfish with more coming all the time. \n\nAnd a sentence about the GUIs? \nE.g.\nphosphor-webui uses the REST D-Bus so a user of that will have to enable this in their layer. webui-vue, the replacement for phosphor-webui, uses Redfish.",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 13,
+        "endChar": 53
+      },
+      "revId": "7699164eaf7e4a3632bc32c0e943c49d18c0ef75",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "471a4fd5_dae6c9a0",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-08-11T15:57:53Z",
+      "side": 1,
+      "message": "Resolves openbmc/bmcweb/issues/114",
+      "revId": "7699164eaf7e4a3632bc32c0e943c49d18c0ef75",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "ed907192_ff343d4d",
         "filename": "CMakeLists.txt",
         "patchSetId": 4
