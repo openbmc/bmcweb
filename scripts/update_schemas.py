@@ -3,12 +3,9 @@ import requests
 import zipfile
 from io import BytesIO
 import os
-from collections import defaultdict
 from collections import OrderedDict
-from distutils.version import StrictVersion
 import shutil
 import json
-import glob
 
 import xml.etree.ElementTree as ET
 
@@ -134,12 +131,15 @@ zipBytesIO = BytesIO(r.content)
 zip_ref = zipfile.ZipFile(zipBytesIO)
 
 # Remove the old files
+skip_prefixes = ('Oem')
 if os.path.exists(schema_path):
-    files = glob.glob(os.path.join(schema_path, '[!Oem]*'))
+    files = [os.path.join(schema_path, f) for f in os.listdir(schema_path)
+             if not f.startswith(skip_prefixes)]
     for f in files:
         os.remove(f)
 if os.path.exists(json_schema_path):
-    files = glob.glob(os.path.join(json_schema_path, '[!Oem]*'))
+    files = [os.path.join(json_schema_path, f) for f in
+             os.listdir(json_schema_path) if not f.startswith(skip_prefixes)]
     for f in files:
         if (os.path.isfile(f)):
             os.remove(f)
@@ -183,10 +183,11 @@ with open(metadata_index_path, 'w') as metadata_index:
                 content = content.replace(b'\r\n', b'\n')
                 xml_root = ET.fromstring(content)
                 edmx = "{http://docs.oasis-open.org/odata/ns/edmx}"
+                edm = "{http://docs.oasis-open.org/odata/ns/edm}"
                 for edmx_child in xml_root:
                     if edmx_child.tag == edmx + "DataServices":
                         for data_child in edmx_child:
-                            if data_child.tag == edmx + "Schema":
+                            if data_child.tag == edm + "Schema":
                                 namespace = data_child.attrib["Namespace"]
                                 if namespace.startswith("RedfishExtensions"):
                                     metadata_index.write(
