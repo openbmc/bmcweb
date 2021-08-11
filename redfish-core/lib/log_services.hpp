@@ -376,6 +376,25 @@ static bool
     return !redfishLogFiles.empty();
 }
 
+void setDumpServiceEnabledProp(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp, bool& isEnabled)
+{
+    crow::connections::systemBus->async_method_call(
+        [asyncResp](const boost::system::error_code ec) {
+            if (ec)
+            {
+                BMCWEB_LOG_DEBUG << "DBUS response error " << ec;
+                messages::internalError(asyncResp->res);
+                return;
+            }
+        },
+        "xyz.openbmc_project.Settings",
+        "/xyz/openbmc_project/dump/system_dump_policy",
+        "org.freedesktop.DBus.Properties", "Set",
+        "xyz.openbmc_project.Object.Enable", "Enabled",
+        std::variant<bool>(isEnabled));
+}
+
 inline void
     getDumpEntryCollection(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                            const std::string& dumpType)
@@ -2238,35 +2257,77 @@ inline void requestRoutesSystemDumpService(App& app)
                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 
             {
-                asyncResp->res.jsonValue["@odata.id"] =
-                    "/redfish/v1/Systems/system/LogServices/Dump";
-                asyncResp->res.jsonValue["@odata.type"] =
-                    "#LogService.v1_2_0.LogService";
-                asyncResp->res.jsonValue["Name"] = "Dump LogService";
-                asyncResp->res.jsonValue["Description"] =
-                    "System Dump LogService";
-                asyncResp->res.jsonValue["Id"] = "Dump";
-                asyncResp->res.jsonValue["OverWritePolicy"] = "WrapsWhenFull";
+                crow::connections::systemBus->async_method_call(
+                    [asyncResp](const boost::system::error_code ec,
+                                const std::variant<bool>& enabled) {
+                        if (ec)
+                        {
+                            BMCWEB_LOG_DEBUG << "DBUS response error " << ec;
+                            messages::internalError(asyncResp->res);
+                            return;
+                        }
+                        auto* isEnabled = std::get_if<bool>(&enabled);
+                        if (isEnabled == nullptr)
+                        {
+                            BMCWEB_LOG_DEBUG
+                                << "Invalid value preset in the dbus property";
+                            messages::internalError(asyncResp->res);
+                            return;
+                        }
+                        asyncResp->res.jsonValue["@odata.id"] =
+                            "/redfish/v1/Systems/system/LogServices/Dump";
+                        asyncResp->res.jsonValue["@odata.type"] =
+                            "#LogService.v1_2_0.LogService";
+                        asyncResp->res.jsonValue["Name"] = "Dump LogService";
+                        asyncResp->res.jsonValue["Description"] =
+                            "System Dump LogService";
+                        asyncResp->res.jsonValue["Id"] = "Dump";
+                        asyncResp->res.jsonValue["OverWritePolicy"] =
+                            "WrapsWhenFull";
 
-                std::pair<std::string, std::string> redfishDateTimeOffset =
-                    crow::utility::getDateTimeOffsetNow();
-                asyncResp->res.jsonValue["DateTime"] =
-                    redfishDateTimeOffset.first;
-                asyncResp->res.jsonValue["DateTimeLocalOffset"] =
-                    redfishDateTimeOffset.second;
+                        std::pair<std::string, std::string>
+                            redfishDateTimeOffset =
+                                crow::utility::getDateTimeOffsetNow();
+                        asyncResp->res.jsonValue["DateTime"] =
+                            redfishDateTimeOffset.first;
+                        asyncResp->res.jsonValue["DateTimeLocalOffset"] =
+                            redfishDateTimeOffset.second;
+                        asyncResp->res.jsonValue["ServiceEnabled"] = *isEnabled;
 
-                asyncResp->res.jsonValue["Entries"] = {
-                    {"@odata.id",
-                     "/redfish/v1/Systems/system/LogServices/Dump/Entries"}};
-                asyncResp->res.jsonValue["Actions"] = {
-                    {"#LogService.ClearLog",
-                     {{"target",
-                       "/redfish/v1/Systems/system/LogServices/Dump/Actions/"
-                       "LogService.ClearLog"}}},
-                    {"#LogService.CollectDiagnosticData",
-                     {{"target",
-                       "/redfish/v1/Systems/system/LogServices/Dump/Actions/"
-                       "LogService.CollectDiagnosticData"}}}};
+                        asyncResp->res.jsonValue["Entries"] = {
+                            {"@odata.id", "/redfish/v1/Systems/system/"
+                                          "LogServices/Dump/Entries"}};
+                        asyncResp->res.jsonValue["Actions"] = {
+                            {"#LogService.ClearLog",
+                             {{"target", "/redfish/v1/Systems/system/"
+                                         "LogServices/Dump/Actions/"
+                                         "LogService.ClearLog"}}},
+                            {"#LogService.CollectDiagnosticData",
+                             {{"target", "/redfish/v1/Systems/system/"
+                                         "LogServices/Dump/Actions/"
+                                         "LogService.CollectDiagnosticData"}}}};
+                    },
+                    "xyz.openbmc_project.Settings",
+                    "/xyz/openbmc_project/dump/system_dump_policy",
+                    "org.freedesktop.DBus.Properties", "Get",
+                    "xyz.openbmc_project.Object.Enable", "Enabled");
+            });
+
+    BMCWEB_ROUTE(app, "/redfish/v1/Systems/system/LogServices/Dump/")
+        .privileges(redfish::privileges::patchLogService)
+        .methods(boost::beast::http::verb::patch)(
+            [](const crow::Request& req,
+               const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
+                std::optional<bool> enabled;
+
+                if (!json_util::readJson(req, asyncResp->res, "Enabled",
+                                         enabled))
+                {
+                    BMCWEB_LOG_DEBUG << "Missing property 'Enabled'";
+                    messages::propertyMissing(asyncResp->res, "Enabled");
+                    return;
+                }
+                setDumpServiceEnabledProp(asyncResp, *enabled);
             });
 }
 
@@ -2281,15 +2342,50 @@ inline void requestRoutesSystemDumpEntryCollection(App& app)
         .methods(boost::beast::http::verb::get)(
             [](const crow::Request&,
                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
-                asyncResp->res.jsonValue["@odata.type"] =
-                    "#LogEntryCollection.LogEntryCollection";
-                asyncResp->res.jsonValue["@odata.id"] =
-                    "/redfish/v1/Systems/system/LogServices/Dump/Entries";
-                asyncResp->res.jsonValue["Name"] = "System Dump Entries";
-                asyncResp->res.jsonValue["Description"] =
-                    "Collection of System Dump Entries";
+                crow::connections::systemBus->async_method_call(
+                    [asyncResp](const boost::system::error_code ec,
+                                const std::variant<bool>& enabled) {
+                        if (ec)
+                        {
+                            BMCWEB_LOG_DEBUG << "DBUS response error " << ec;
+                            messages::internalError(asyncResp->res);
+                            return;
+                        }
+                        auto* isEnabled = std::get_if<bool>(&enabled);
+                        if (isEnabled == nullptr)
+                        {
+                            BMCWEB_LOG_DEBUG
+                                << "Invalid value preset in the dbus property";
+                            messages::internalError(asyncResp->res);
+                            return;
+                        }
 
-                getDumpEntryCollection(asyncResp, "System");
+                        if (*isEnabled)
+                        {
+                            asyncResp->res.jsonValue["@odata.type"] =
+                                "#LogEntryCollection.LogEntryCollection";
+                            asyncResp->res.jsonValue["@odata.id"] =
+                                "/redfish/v1/Systems/system/LogServices/Dump/"
+                                "Entries";
+                            asyncResp->res.jsonValue["Name"] =
+                                "System Dump Entries";
+                            asyncResp->res.jsonValue["Description"] =
+                                "Collection of System Dump Entries";
+
+                            getDumpEntryCollection(asyncResp, "System");
+                        }
+                        else
+                        {
+                            messages::serviceDisabled(
+                                asyncResp->res,
+                                "/redfish/v1/Systems/system/LogServices/Dump/");
+                            return;
+                        }
+                    },
+                    "xyz.openbmc_project.Settings",
+                    "/xyz/openbmc_project/dump/system_dump_policy",
+                    "org.freedesktop.DBus.Properties", "Get",
+                    "xyz.openbmc_project.Object.Enable", "Enabled");
             });
 }
 
@@ -2303,7 +2399,40 @@ inline void requestRoutesSystemDumpEntry(App& app)
             [](const crow::Request&,
                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                const std::string& param) {
-                getDumpEntryById(asyncResp, param, "System");
+                crow::connections::systemBus->async_method_call(
+                    [asyncResp, param](const boost::system::error_code ec,
+                                       const std::variant<bool>& enabled) {
+                        if (ec)
+                        {
+                            BMCWEB_LOG_DEBUG << "DBUS response error " << ec;
+                            messages::internalError(asyncResp->res);
+                            return;
+                        }
+                        auto* isEnabled = std::get_if<bool>(&enabled);
+                        if (isEnabled == nullptr)
+                        {
+                            BMCWEB_LOG_DEBUG
+                                << "Invalid value preset in the dbus property";
+                            messages::internalError(asyncResp->res);
+                            return;
+                        }
+
+                        if (*isEnabled)
+                        {
+                            getDumpEntryById(asyncResp, param, "System");
+                        }
+                        else
+                        {
+                            messages::serviceDisabled(
+                                asyncResp->res,
+                                "/redfish/v1/Systems/system/LogServices/Dump/");
+                            return;
+                        }
+                    },
+                    "xyz.openbmc_project.Settings",
+                    "/xyz/openbmc_project/dump/system_dump_policy",
+                    "org.freedesktop.DBus.Properties", "Get",
+                    "xyz.openbmc_project.Object.Enable", "Enabled");
             });
 
     BMCWEB_ROUTE(app,
@@ -2313,7 +2442,52 @@ inline void requestRoutesSystemDumpEntry(App& app)
             [](const crow::Request&,
                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                const std::string& param) {
-                deleteDumpEntry(asyncResp, param, "system");
+                crow::connections::systemBus->async_method_call(
+                    [asyncResp, param](const boost::system::error_code ec,
+                                       const std::variant<bool>& enabled) {
+                        if (ec)
+                        {
+                            BMCWEB_LOG_DEBUG << "DBUS response error " << ec;
+                            messages::internalError(asyncResp->res);
+                            return;
+                        }
+                        auto* isEnabled = std::get_if<bool>(&enabled);
+                        if (isEnabled == nullptr)
+                        {
+                            BMCWEB_LOG_DEBUG
+                                << "Invalid value preset in the dbus property";
+                            messages::internalError(asyncResp->res);
+                            return;
+                        }
+
+                        if (*isEnabled)
+                        {
+                            std::size_t pos = param.find_first_of('_');
+                            if (pos == std::string::npos ||
+                                (pos + 1) >= param.length())
+                            {
+                                // Requested ID is invalid
+                                messages::invalidObject(asyncResp->res,
+                                                        "Dump Id");
+                                return;
+                            }
+
+                            const std::string& dumpId = param.substr(pos + 1);
+
+                            deleteDumpEntry(asyncResp, dumpId, "system");
+                        }
+                        else
+                        {
+                            messages::serviceDisabled(
+                                asyncResp->res,
+                                "/redfish/v1/Systems/system/LogServices/Dump/");
+                            return;
+                        }
+                    },
+                    "xyz.openbmc_project.Settings",
+                    "/xyz/openbmc_project/dump/system_dump_policy",
+                    "org.freedesktop.DBus.Properties", "Get",
+                    "xyz.openbmc_project.Object.Enable", "Enabled");
             });
 }
 
@@ -2327,7 +2501,42 @@ inline void requestRoutesSystemDumpCreate(App& app)
             [](const crow::Request& req,
                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 
-            { createDump(asyncResp, req, "System"); });
+            {
+                crow::connections::systemBus->async_method_call(
+                    [asyncResp, req](const boost::system::error_code ec,
+                                     const std::variant<bool>& enabled) {
+                        if (ec)
+                        {
+                            BMCWEB_LOG_DEBUG << "DBUS response error " << ec;
+                            messages::internalError(asyncResp->res);
+                            return;
+                        }
+                        auto* isEnabled = std::get_if<bool>(&enabled);
+                        if (isEnabled == nullptr)
+                        {
+                            BMCWEB_LOG_DEBUG
+                                << "Invalid value preset in the dbus property";
+                            messages::internalError(asyncResp->res);
+                            return;
+                        }
+
+                        if (*isEnabled)
+                        {
+                            createDump(asyncResp, req, "System");
+                        }
+                        else
+                        {
+                            messages::serviceDisabled(
+                                asyncResp->res,
+                                "/redfish/v1/Systems/system/LogServices/Dump/");
+                            return;
+                        }
+                    },
+                    "xyz.openbmc_project.Settings",
+                    "/xyz/openbmc_project/dump/system_dump_policy",
+                    "org.freedesktop.DBus.Properties", "Get",
+                    "xyz.openbmc_project.Object.Enable", "Enabled");
+            });
 }
 
 inline void requestRoutesSystemDumpClear(App& app)
@@ -2340,7 +2549,42 @@ inline void requestRoutesSystemDumpClear(App& app)
             [](const crow::Request&,
                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 
-            { clearDump(asyncResp, "System"); });
+            {
+                crow::connections::systemBus->async_method_call(
+                    [asyncResp](const boost::system::error_code ec,
+                                const std::variant<bool>& enabled) {
+                        if (ec)
+                        {
+                            BMCWEB_LOG_DEBUG << "DBUS response error " << ec;
+                            messages::internalError(asyncResp->res);
+                            return;
+                        }
+                        auto* isEnabled = std::get_if<bool>(&enabled);
+                        if (isEnabled == nullptr)
+                        {
+                            BMCWEB_LOG_DEBUG
+                                << "Invalid value preset in the dbus property";
+                            messages::internalError(asyncResp->res);
+                            return;
+                        }
+
+                        if (*isEnabled)
+                        {
+                            clearDump(asyncResp, "System");
+                        }
+                        else
+                        {
+                            messages::serviceDisabled(
+                                asyncResp->res,
+                                "/redfish/v1/Systems/system/LogServices/Dump/");
+                            return;
+                        }
+                    },
+                    "xyz.openbmc_project.Settings",
+                    "/xyz/openbmc_project/dump/system_dump_policy",
+                    "org.freedesktop.DBus.Properties", "Get",
+                    "xyz.openbmc_project.Object.Enable", "Enabled");
+            });
 }
 
 inline void requestRoutesCrashdumpService(App& app)
