@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9d85c38b_0e73c7fa",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-08-11T18:50:38Z",
+      "side": 1,
+      "message": "Doesn\u0027t this just continue to grow? \nCan you just use a std::string and compare? \nSince you really only need to keep track of one",
+      "revId": "6f547346e8e1412376ff4e9236f2a96a41f6fcf3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
