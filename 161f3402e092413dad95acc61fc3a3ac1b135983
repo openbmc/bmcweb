@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "20e63e1b_b43bb22d",
+        "filename": "scripts/generate_json_messages.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-08-11T18:18:57Z",
+      "side": 1,
+      "message": "Do you need? They tend not to stay updated",
+      "revId": "161f3402e092413dad95acc61fc3a3ac1b135983",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
