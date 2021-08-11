@@ -107,9 +107,11 @@ inline std::string getCertificateFromReqBody(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const crow::Request& req)
 {
+    std::string_view contentType = req.getHeaderValue("content-type");
     nlohmann::json reqJson = nlohmann::json::parse(req.body, nullptr, false);
 
-    if (reqJson.is_discarded())
+    if (reqJson.is_discarded() ||
+        !boost::starts_with(contentType, "application/json"))
     {
         // We did not receive JSON request, proceed as it is RAW data
         return req.body;
