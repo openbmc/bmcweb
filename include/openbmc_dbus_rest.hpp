@@ -26,6 +26,7 @@
 #include <filesystem>
 #include <fstream>
 #include <regex>
+#include <string_view>
 #include <utility>
 
 namespace crow
@@ -1483,10 +1484,12 @@ inline void handleAction(const crow::Request& req,
 {
     BMCWEB_LOG_DEBUG << "handleAction on path: " << objectPath << " and method "
                      << methodName;
+    std::string_view contentType = req.getHeaderValue("content-type");
     nlohmann::json requestDbusData =
         nlohmann::json::parse(req.body, nullptr, false);
 
-    if (requestDbusData.is_discarded())
+    if (requestDbusData.is_discarded() ||
+        !boost::starts_with(contentType, "application/json"))
     {
         setErrorResponse(asyncResp->res,
                          boost::beast::http::status::bad_request, noJsonDesc,
@@ -1796,10 +1799,12 @@ inline void handlePut(const crow::Request& req,
         return;
     }
 
+    std::string_view contentType = req.getHeaderValue("content-type");
     nlohmann::json requestDbusData =
         nlohmann::json::parse(req.body, nullptr, false);
 
-    if (requestDbusData.is_discarded())
+    if (requestDbusData.is_discarded() ||
+        !boost::starts_with(contentType, "application/json"))
     {
         setErrorResponse(asyncResp->res,
                          boost::beast::http::status::bad_request, noJsonDesc,
@@ -2560,10 +2565,13 @@ inline void requestRoutes(App& app)
                         return;
                     }
 
+                    std::string_view contentType =
+                        req.getHeaderValue("content-type");
                     nlohmann::json requestDbusData =
                         nlohmann::json::parse(req.body, nullptr, false);
 
-                    if (requestDbusData.is_discarded())
+                    if (requestDbusData.is_discarded() ||
+                        !boost::starts_with(contentType, "application/json"))
                     {
                         asyncResp->res.result(
                             boost::beast::http::status::bad_request);

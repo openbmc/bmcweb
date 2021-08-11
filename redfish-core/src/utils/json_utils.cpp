@@ -15,6 +15,10 @@
 */
 #include "utils/json_utils.hpp"
 
+#include <boost/algorithm/string/predicate.hpp>
+
+#include <string_view>
+
 namespace redfish
 {
 
@@ -24,9 +28,11 @@ namespace json_util
 bool processJsonFromRequest(crow::Response& res, const crow::Request& req,
                             nlohmann::json& reqJson)
 {
+    std::string_view contentType = req.getHeaderValue("content-type");
     reqJson = nlohmann::json::parse(req.body, nullptr, false);
 
-    if (reqJson.is_discarded())
+    if (reqJson.is_discarded() ||
+        !boost::starts_with(contentType, "application/json"))
     {
         messages::malformedJSON(res);
 
