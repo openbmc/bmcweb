@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3e12f75b_1145bc3f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1001148
+      },
+      "writtenOn": "2021-08-11T14:12:36Z",
+      "side": 1,
+      "message": "Commit message is now updated based on Krzysztofs suggestions.",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 21,
+        "endChar": 68
+      },
+      "revId": "6183f60261b4f9327f8990ad2723a52153f76e77",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    }
+  ]
+}

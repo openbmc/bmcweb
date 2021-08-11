@@ -22,6 +22,30 @@
       "revId": "1ffdee3bf449690a46dac692e5e505dccdae69a6",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b8cfef49_4d93e703",
+        "filename": "redfish-core/include/utils/telemetry_utils.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1001148
+      },
+      "writtenOn": "2021-08-11T14:12:36Z",
+      "side": 1,
+      "message": "This function is called in metric_report.h and metric_report_definition.h as part of BMCWEB_ROUTE. My function name indicates that BMCWEB_ROUTE is obtaining handler, and so changing name to \u0027make\u0027 would suggest that something is being created, not necessarily obtained. IMO such mod would be misleading, so I vote to keep the name as it is now.",
+      "parentUuid": "0f1794b9_24146533",
+      "range": {
+        "startLine": 73,
+        "startChar": 12,
+        "endLine": 73,
+        "endChar": 15
+      },
+      "revId": "1ffdee3bf449690a46dac692e5e505dccdae69a6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
