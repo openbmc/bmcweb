@@ -72,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "041c8589_7b69b10b",
+        "filename": "redfish-core/include/utils/telemetry_utils.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2021-08-11T13:25:37Z",
+      "side": 1,
+      "message": "I agree with Ed Tanous, this one runs much faster and there is crashes when id is huge.",
+      "parentUuid": "44423435_58908d60",
+      "range": {
+        "startLine": 78,
+        "startChar": 0,
+        "endLine": 82,
+        "endChar": 5
+      },
+      "revId": "7bb6e4c9838b38c14d9bae72350ba31489b983f3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "994acd4d_0c96f761",
         "filename": "redfish-core/include/utils/telemetry_utils.hpp",
         "patchSetId": 4
