@@ -239,6 +239,30 @@
     },
     {
       "key": {
+        "uuid": "6d3e7ec6_4c310408",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 1384,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-08-11T18:07:14Z",
+      "side": 1,
+      "message": "I think we should drive PropertyNotSupported with Redfish (if Ed is in agreement, I\u0027ll open an issue with them), I don\u0027t see a better error message now. \nI think Redfish would call this a Property since I don\u0027t see parameter used expert for Action Parameter or Query Parameter in the messages. \nhttps://redfish.dmtf.org/registries/Base.1.10.0.json",
+      "parentUuid": "0184a534_43842599",
+      "range": {
+        "startLine": 1384,
+        "startChar": 44,
+        "endLine": 1384,
+        "endChar": 54
+      },
+      "revId": "8b8f653f16f123b634a26fa5ce72e07053e49d0a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "8a66ef42_e50af7c2",
         "filename": "redfish-core/lib/systems.hpp",
         "patchSetId": 9
