@@ -34,6 +34,24 @@
       "revId": "7699164eaf7e4a3632bc32c0e943c49d18c0ef75",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "52c87520_9bf7c5b7",
+        "filename": "CMakeLists.txt",
+        "patchSetId": 4
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1001083
+      },
+      "writtenOn": "2021-08-11T15:20:24Z",
+      "side": 1,
+      "message": "I believe I have rebased successfully and updated this for our meson build tool.",
+      "parentUuid": "03459660_7dc56c83",
+      "revId": "7699164eaf7e4a3632bc32c0e943c49d18c0ef75",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
