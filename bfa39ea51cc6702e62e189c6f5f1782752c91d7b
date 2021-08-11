@@ -81,6 +81,30 @@
       "revId": "bfa39ea51cc6702e62e189c6f5f1782752c91d7b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cda48a0b_f13d673d",
+        "filename": "scripts/parse_registries.py",
+        "patchSetId": 20
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 1001099
+      },
+      "writtenOn": "2021-08-11T13:26:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7d738572_403e9616",
+      "range": {
+        "startLine": 149,
+        "startChar": 17,
+        "endLine": 149,
+        "endChar": 22
+      },
+      "revId": "bfa39ea51cc6702e62e189c6f5f1782752c91d7b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }

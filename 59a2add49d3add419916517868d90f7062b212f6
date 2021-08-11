@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "6bf6bb18_08ffe0a3",
+        "filename": "redfish-core/include/registries/privilege_registry.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 595,
+      "author": {
+        "id": 1001099
+      },
+      "writtenOn": "2021-08-11T13:26:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "061c5580_5fc56f70",
+      "range": {
+        "startLine": 595,
+        "startChar": 28,
+        "endLine": 595,
+        "endChar": 54
+      },
+      "revId": "59a2add49d3add419916517868d90f7062b212f6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "307e2c62_1864af90",
         "filename": "redfish-core/include/registries/privilege_registry.hpp",
         "patchSetId": 16
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "fc748718_6b6f74cb",
+        "filename": "redfish-core/include/registries/privilege_registry.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 605,
+      "author": {
+        "id": 1001099
+      },
+      "writtenOn": "2021-08-11T13:26:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "307e2c62_1864af90",
+      "range": {
+        "startLine": 605,
+        "startChar": 67,
+        "endLine": 605,
+        "endChar": 78
+      },
+      "revId": "59a2add49d3add419916517868d90f7062b212f6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "999682b7_1c3b1a09",
         "filename": "redfish-core/include/registries/privilege_registry.hpp",
         "patchSetId": 16
@@ -68,6 +116,30 @@
       "revId": "59a2add49d3add419916517868d90f7062b212f6",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c92e5830_afd795c3",
+        "filename": "redfish-core/include/registries/privilege_registry.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 606,
+      "author": {
+        "id": 1001099
+      },
+      "writtenOn": "2021-08-11T13:26:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "999682b7_1c3b1a09",
+      "range": {
+        "startLine": 606,
+        "startChar": 24,
+        "endLine": 606,
+        "endChar": 32
+      },
+      "revId": "59a2add49d3add419916517868d90f7062b212f6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
