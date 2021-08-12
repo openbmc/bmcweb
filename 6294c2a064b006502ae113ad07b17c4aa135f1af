@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "6f2c0c9c_7852e7a1",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 45
+      },
+      "lineNbr": 699,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2021-08-12T06:46:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "55f85ea4_4a40822c",
+      "range": {
+        "startLine": 699,
+        "startChar": 39,
+        "endLine": 699,
+        "endChar": 47
+      },
+      "revId": "6294c2a064b006502ae113ad07b17c4aa135f1af",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "53bfd9fa_2c4d23ed",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 45
@@ -108,6 +132,30 @@
       "side": 1,
       "message": "Ack",
       "parentUuid": "53bfd9fa_2c4d23ed",
+      "range": {
+        "startLine": 723,
+        "startChar": 0,
+        "endLine": 737,
+        "endChar": 5
+      },
+      "revId": "6294c2a064b006502ae113ad07b17c4aa135f1af",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3b7beb23_8734cd6e",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 45
+      },
+      "lineNbr": 737,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2021-08-12T06:46:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1e156b09_f7123b74",
       "range": {
         "startLine": 723,
         "startChar": 0,
@@ -167,6 +215,30 @@
     },
     {
       "key": {
+        "uuid": "d4650ab3_791ef5b9",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 45
+      },
+      "lineNbr": 764,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2021-08-12T06:46:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6da04c40_4b5c6d27",
+      "range": {
+        "startLine": 763,
+        "startChar": 0,
+        "endLine": 764,
+        "endChar": 56
+      },
+      "revId": "6294c2a064b006502ae113ad07b17c4aa135f1af",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fb364587_4f730855",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 45
@@ -202,6 +274,30 @@
       "side": 1,
       "message": "Ack",
       "parentUuid": "fb364587_4f730855",
+      "range": {
+        "startLine": 844,
+        "startChar": 20,
+        "endLine": 844,
+        "endChar": 23
+      },
+      "revId": "6294c2a064b006502ae113ad07b17c4aa135f1af",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "04926957_516e3e46",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 45
+      },
+      "lineNbr": 844,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2021-08-12T06:46:01Z",
+      "side": 1,
+      "message": "\u003e Ack\n\nDone",
+      "parentUuid": "71402f5e_00a350b9",
       "range": {
         "startLine": 844,
         "startChar": 20,
