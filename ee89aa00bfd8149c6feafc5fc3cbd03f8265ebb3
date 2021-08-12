@@ -142,6 +142,30 @@
       "revId": "ee89aa00bfd8149c6feafc5fc3cbd03f8265ebb3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c033161e_19c56894",
+        "filename": "redfish-core/include/gzfile.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1000404
+      },
+      "writtenOn": "2021-08-12T10:17:02Z",
+      "side": 1,
+      "message": "I use gzread to rewrite the code. Use vector to store whole log entries from log files, and use std::vector::at to get the message. Please take a look, thanks!",
+      "parentUuid": "0555829c_62624c8a",
+      "range": {
+        "startLine": 53,
+        "startChar": 8,
+        "endLine": 53,
+        "endChar": 11
+      },
+      "revId": "ee89aa00bfd8149c6feafc5fc3cbd03f8265ebb3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
