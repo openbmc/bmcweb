@@ -51,6 +51,24 @@
       "revId": "d265d8853cfa5f4c686b074d196866d02fee7c0f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "27824daa_f4a8f544",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 603,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-08-12T18:43:02Z",
+      "side": 1,
+      "message": "From discussion on https://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/44044 \n\nJust tested a recent master build on a Witherspoon:\n\n# dbus-send --system --print-reply --dest\u003dxyz.openbmc_project.ObjectMapper /xyz/openbmc_project/object_mapper xyz.openbmc_project.ObjectMapper.GetSubTree string:\"/\" int32:0 array:string:\"garbage.item.inventory\"\nmethod return time\u003d1628793723.954168 sender\u003d:1.12 -\u003e destination\u003d:1.150 serial\u003d3575 reply_serial\u003d2\n   array [\n   ]\n# dbus-send --system --print-reply --dest\u003dxyz.openbmc_project.ObjectMapper /xyz/openbmc_project/object_mapper xyz.openbmc_project.ObjectMapper.GetSubTree string:\"/garbage\" int32:0 array:string:\"garbage.item.inventory\"\nError xyz.openbmc_project.Common.Error.ResourceNotFound: path or object not found\n\n# dbus-send --system --print-reply --dest\u003dxyz.openbmc_project.ObjectMapper /xyz/openbmc_project/object_mapper xyz.openbmc_project.ObjectMapper.GetSubTree string:\"/garbage\" int32:0 array:string:\"xyz.openbmc_project.Inventory.Item.Dimm\"\nError xyz.openbmc_project.Common.Error.ResourceNotFound: path or object not found",
+      "parentUuid": "db2cfefc_b818ba54",
+      "revId": "d265d8853cfa5f4c686b074d196866d02fee7c0f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
