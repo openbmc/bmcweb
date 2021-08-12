@@ -285,6 +285,30 @@
     },
     {
       "key": {
+        "uuid": "1ed94be9_ed13dfd5",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 219,
+      "author": {
+        "id": 1001148
+      },
+      "writtenOn": "2021-08-12T15:08:57Z",
+      "side": 1,
+      "message": "Maybe you could give an underscore \u0027_\u0027 a try, putting it in place where unused variable occurs within the binding? I believe I noticed a similar solution in the bmcweb code.",
+      "parentUuid": "d61e9c62_797f5735",
+      "range": {
+        "startLine": 219,
+        "startChar": 22,
+        "endLine": 219,
+        "endChar": 24
+      },
+      "revId": "7bb6e4c9838b38c14d9bae72350ba31489b983f3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "942acb89_b5d9516d",
         "filename": "redfish-core/lib/trigger.hpp",
         "patchSetId": 4
