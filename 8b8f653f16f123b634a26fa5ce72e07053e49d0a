@@ -97,6 +97,30 @@
     },
     {
       "key": {
+        "uuid": "789f5478_bd3f3844",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 1376,
+      "author": {
+        "id": 1001083
+      },
+      "writtenOn": "2021-08-12T23:04:51Z",
+      "side": 1,
+      "message": "I\u0027m sorry I should have made it more clear.\n\nThe difference between Gunnar and I tests is that I changed the \u0027subtree\u0027 parameter to \u0027GetSubTree\u0027, i.e the first input parameter. I changed it from \"/\" to \"/abc/\", the latter of which is bogus and caused such an error.\n\nIn Gunnar\u0027s code, he changed only the 3rd input parameter of GetSubTree, interfaces. He changed it away from a valid interface (\"xyz.openbmc_project.Control.TPM.Policy\") to something bogus (\"\"garbage.item.inventory\").\n\nFrom https://github.com/openbmc/docs/blob/master/architecture/object-mapper.md:\n\nGetSubTree\n\nUse this method to find the objects, services, and interfaces in the specified subtree that implement a certain interface. If no interfaces are passed in, then all objects/services/interfaces in the subtree are returned. If interfaces are passed in, then only those interfaces are returned in the output.\n\nInputs:\n\nparam: subtree - the root of the tree. Using \"/\" will search the whole tree\nparam: depth - the maximum depth of the tree past the root to search. Use 0 to search all\nparam: interfaces - an optional list of interfaces to constrain the search to",
+      "parentUuid": "6c6e465c_9e250574",
+      "range": {
+        "startLine": 1376,
+        "startChar": 0,
+        "endLine": 1376,
+        "endChar": 52
+      },
+      "revId": "8b8f653f16f123b634a26fa5ce72e07053e49d0a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "56fa82ba_f9b3eb19",
         "filename": "redfish-core/lib/systems.hpp",
         "patchSetId": 9
