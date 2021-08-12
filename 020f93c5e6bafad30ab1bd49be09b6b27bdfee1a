@@ -1,0 +1,153 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4830d5b7_f27e6dc9",
+        "filename": "redfish-core/include/gzfile.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2021-08-12T17:55:00Z",
+      "side": 1,
+      "message": "Why do we have a file size limit? I understand we need to set a limit to the length of the buffer we read at each iteration, but we can read as many characters as the file contains, right (assume memory is not the bottleneck)?",
+      "range": {
+        "startLine": 33,
+        "startChar": 11,
+        "endLine": 33,
+        "endChar": 78
+      },
+      "revId": "020f93c5e6bafad30ab1bd49be09b6b27bdfee1a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f3897413_0cf97dc4",
+        "filename": "redfish-core/include/gzfile.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2021-08-12T17:55:00Z",
+      "side": 1,
+      "message": "See above, I prefer to say bufferLimitSize.",
+      "range": {
+        "startLine": 34,
+        "startChar": 22,
+        "endLine": 34,
+        "endChar": 35
+      },
+      "revId": "020f93c5e6bafad30ab1bd49be09b6b27bdfee1a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cb2e44c6_a37ad4d0",
+        "filename": "redfish-core/include/gzfile.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2021-08-12T17:55:00Z",
+      "side": 1,
+      "message": "I don\u0027t understand the logic here. \n\ngzread should read at most fileLimitSize characters, right? So bytesRead \u003c\u003d fileLimitSize should always hold?",
+      "range": {
+        "startLine": 47,
+        "startChar": 28,
+        "endLine": 47,
+        "endChar": 41
+      },
+      "revId": "020f93c5e6bafad30ab1bd49be09b6b27bdfee1a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "70210ffd_c1cbcaff",
+        "filename": "redfish-core/include/gzfile.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2021-08-12T17:55:00Z",
+      "side": 1,
+      "message": "Why do we declare an array then convert it to string? It doesn\u0027t solve the \u0027\\0\u0027 problem we had before. See https://en.cppreference.com/w/cpp/string/basic_string/basic_string\n\n```\n  {\n    std::cout \u003c\u003c \"6) string::string(charT const* s): \";\n    std::string s(\"C-style\\0string\");\n    std::cout \u003c\u003c quoted(s) \u003c\u003c \u0027\\n\u0027; // \"C-style\"\n  }\n```\n\nI suggest at line 41, declare a string of size fileLimitSize directly and pass its mutable data into gzread.\n\n```\nstd::string buffer(fileLimitSize);\n...\nbuffer.resize(bytesRead);\n```",
+      "range": {
+        "startLine": 58,
+        "startChar": 24,
+        "endLine": 58,
+        "endChar": 33
+      },
+      "revId": "020f93c5e6bafad30ab1bd49be09b6b27bdfee1a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ca052ab0_bbf49594",
+        "filename": "redfish-core/include/gzfile.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2021-08-12T17:55:00Z",
+      "side": 1,
+      "message": "nit: should it be one file?",
+      "range": {
+        "startLine": 60,
+        "startChar": 55,
+        "endLine": 60,
+        "endChar": 59
+      },
+      "revId": "020f93c5e6bafad30ab1bd49be09b6b27bdfee1a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bef0e06b_a97207b8",
+        "filename": "redfish-core/include/gzfile.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2021-08-12T17:55:00Z",
+      "side": 1,
+      "message": "why do check !empty() here? We should just append to the back, right?",
+      "revId": "020f93c5e6bafad30ab1bd49be09b6b27bdfee1a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c7334ee8_73f43ed9",
+        "filename": "redfish-core/include/gzfile.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2021-08-12T17:55:00Z",
+      "side": 1,
+      "message": "With above comments, I believe here the condition should be if (initialPos \u003c buffer.size()).",
+      "revId": "020f93c5e6bafad30ab1bd49be09b6b27bdfee1a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
