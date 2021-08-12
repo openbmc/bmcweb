@@ -121,6 +121,30 @@
     },
     {
       "key": {
+        "uuid": "304d57eb_3c685038",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 1376,
+      "author": {
+        "id": 1001083
+      },
+      "writtenOn": "2021-08-12T23:53:33Z",
+      "side": 1,
+      "message": "To summarize:\n\nOn input testing for GetSubTree:\n\n\n1) Param: subtree. Enter invalid value \u003d\u003d\u003e error (as you expected to see)\n2) Param: depth. Enter invalid value \u003d\u003d\u003e default to 0 which is used to search unlimited depth\n3) Param: interfaces. Enter invalid value \u003d\u003d\u003e empty array (as Gunnar\u0027s command shows)",
+      "parentUuid": "789f5478_bd3f3844",
+      "range": {
+        "startLine": 1376,
+        "startChar": 0,
+        "endLine": 1376,
+        "endChar": 52
+      },
+      "revId": "8b8f653f16f123b634a26fa5ce72e07053e49d0a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "56fa82ba_f9b3eb19",
         "filename": "redfish-core/lib/systems.hpp",
         "patchSetId": 9
@@ -189,6 +213,30 @@
       "revId": "8b8f653f16f123b634a26fa5ce72e07053e49d0a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "199662fe_8b69c7df",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 1382,
+      "author": {
+        "id": 1001083
+      },
+      "writtenOn": "2021-08-12T23:53:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c104324e_423ba275",
+      "range": {
+        "startLine": 1381,
+        "startChar": 0,
+        "endLine": 1382,
+        "endChar": 48
+      },
+      "revId": "8b8f653f16f123b634a26fa5ce72e07053e49d0a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -332,6 +380,30 @@
       "revId": "8b8f653f16f123b634a26fa5ce72e07053e49d0a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "367cd1cb_56125818",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 1384,
+      "author": {
+        "id": 1001083
+      },
+      "writtenOn": "2021-08-12T23:53:33Z",
+      "side": 1,
+      "message": "Changed to PropertyValueNotInList",
+      "parentUuid": "e0676a9b_28616024",
+      "range": {
+        "startLine": 1384,
+        "startChar": 44,
+        "endLine": 1384,
+        "endChar": 54
+      },
+      "revId": "8b8f653f16f123b634a26fa5ce72e07053e49d0a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
