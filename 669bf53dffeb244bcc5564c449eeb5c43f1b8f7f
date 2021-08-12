@@ -34,6 +34,24 @@
       "revId": "669bf53dffeb244bcc5564c449eeb5c43f1b8f7f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "51bdb193_6de75676",
+        "filename": "scripts/update_schemas.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-08-12T20:40:13Z",
+      "side": 1,
+      "message": "I\u0027m super confused then.  The commit message says \"running update_schemas.py no longer generates malformed data\" and the line on 186 looks like an actual functional change in the schemas we\u0027re generating.  If the schemas were malformed and now they\u0027re not, why didn\u0027t they change?  I feel like I\u0027m missing something here, but I\u0027m not sure what.",
+      "parentUuid": "44b734d2_738a28b3",
+      "revId": "669bf53dffeb244bcc5564c449eeb5c43f1b8f7f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
