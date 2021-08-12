@@ -16,10 +16,16 @@ constexpr const char* metricReportUri =
 
 inline std::string getDbusReportPath(const std::string& id)
 {
-    std::string path =
-        "/xyz/openbmc_project/Telemetry/Reports/TelemetryService/" + id;
-    dbus::utility::escapePathForDbus(path);
-    return path;
+    sdbusplus::message::object_path reportsPath(
+        "/xyz/openbmc_project/Telemetry/Reports/TelemetryService");
+    return {reportsPath / id};
+}
+
+inline std::string getDbusTriggerPath(const std::string& id)
+{
+    sdbusplus::message::object_path triggersPath(
+        "/xyz/openbmc_project/Telemetry/Triggers/TelemetryService");
+    return {triggersPath / id};
 }
 
 } // namespace telemetry

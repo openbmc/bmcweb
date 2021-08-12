@@ -270,13 +270,6 @@ inline bool fillTrigger(
     return true;
 }
 
-inline std::string getDbusTriggerPath(const std::string& id)
-{
-    sdbusplus::message::object_path path(
-        "/xyz/openbmc_project/Telemetry/Triggers/TelemetryService");
-    return {path / id};
-}
-
 } // namespace telemetry
 
 inline void requestRoutesTriggerCollection(App& app)
@@ -336,6 +329,38 @@ inline void requestRoutesTrigger(App& app)
                     telemetry::service, telemetry::getDbusTriggerPath(id),
                     "org.freedesktop.DBus.Properties", "GetAll",
                     telemetry::triggerInterface);
+            });
+
+    BMCWEB_ROUTE(app, "/redfish/v1/TelemetryService/Triggers/<str>/")
+        .privileges(redfish::privileges::deleteTriggers)
+        .methods(boost::beast::http::verb::delete_)(
+            [](const crow::Request&,
+               const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+               const std::string& id) {
+                const std::string triggerPath =
+                    telemetry::getDbusTriggerPath(id);
+
+                crow::connections::systemBus->async_method_call(
+                    [asyncResp, id](const boost::system::error_code ec) {
+                        if (ec.value() == EBADR)
+                        {
+                            messages::resourceNotFound(asyncResp->res,
+                                                       "Triggers", id);
+                            return;
+                        }
+
+                        if (ec)
+                        {
+                            BMCWEB_LOG_ERROR << "respHandler DBus error " << ec;
+                            messages::internalError(asyncResp->res);
+                            return;
+                        }
+
+                        asyncResp->res.result(
+                            boost::beast::http::status::no_content);
+                    },
+                    telemetry::service, triggerPath,
+                    "xyz.openbmc_project.Object.Delete", "Delete");
             });
 }
 
