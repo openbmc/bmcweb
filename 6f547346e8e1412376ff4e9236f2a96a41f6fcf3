@@ -70,6 +70,24 @@
       "revId": "6f547346e8e1412376ff4e9236f2a96a41f6fcf3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "df93f7ad_bc853294",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 1001083
+      },
+      "writtenOn": "2021-08-12T21:21:26Z",
+      "side": 1,
+      "message": "Yes, std:set uses a strict weak ordering sort.\n\"Sorting is done using the key comparison function \u0027Compare\u0027. Search, removal, and insertion operations have logarithmic complexity.\" [1] \n\n\"Compare is a set of requirements expected by some of the standard library facilities from the user-provided function object types.\" [2]\n\n[1] https://en.cppreference.com/w/cpp/container/set\n[2] https://en.cppreference.com/w/cpp/named_req/Compare",
+      "parentUuid": "9b9b2059_64ebe33e",
+      "revId": "6f547346e8e1412376ff4e9236f2a96a41f6fcf3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
