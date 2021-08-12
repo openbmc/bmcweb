@@ -33,6 +33,24 @@
       "revId": "d265d8853cfa5f4c686b074d196866d02fee7c0f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "db2cfefc_b818ba54",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 603,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-08-12T18:20:43Z",
+      "side": 1,
+      "message": "It used to return an error if nothing matched.  Maybe that changed?",
+      "parentUuid": "db1ca58c_de6b8b69",
+      "revId": "d265d8853cfa5f4c686b074d196866d02fee7c0f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
