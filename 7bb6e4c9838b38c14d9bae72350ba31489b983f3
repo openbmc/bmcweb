@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "2c22d92d_d4936969",
+        "filename": "redfish-core/include/redfish.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 203,
+      "author": {
+        "id": 1001026
+      },
+      "writtenOn": "2021-08-12T14:39:03Z",
+      "side": 1,
+      "message": "Changed to TriggersCollection, as POST is used on this schema.",
+      "parentUuid": "6dc21cfc_b6b656fc",
+      "range": {
+        "startLine": 203,
+        "startChar": 8,
+        "endLine": 203,
+        "endChar": 28
+      },
+      "revId": "7bb6e4c9838b38c14d9bae72350ba31489b983f3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d54e783e_baba42dd",
         "filename": "redfish-core/include/utils/telemetry_utils.hpp",
         "patchSetId": 4
@@ -96,6 +120,30 @@
     },
     {
       "key": {
+        "uuid": "d0b04771_d3544ec3",
+        "filename": "redfish-core/include/utils/telemetry_utils.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1001026
+      },
+      "writtenOn": "2021-08-12T14:39:03Z",
+      "side": 1,
+      "message": "I think there is nothing to add here, I will mark this discussion as \u0027resolved\u0027.",
+      "parentUuid": "041c8589_7b69b10b",
+      "range": {
+        "startLine": 78,
+        "startChar": 0,
+        "endLine": 82,
+        "endChar": 5
+      },
+      "revId": "7bb6e4c9838b38c14d9bae72350ba31489b983f3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "994acd4d_0c96f761",
         "filename": "redfish-core/include/utils/telemetry_utils.hpp",
         "patchSetId": 4
@@ -107,6 +155,30 @@
       "writtenOn": "2021-07-30T17:50:53Z",
       "side": 1,
       "message": "Very complicated as for mapping of single relation, cannot it be simplified?",
+      "range": {
+        "startLine": 147,
+        "startChar": 0,
+        "endLine": 151,
+        "endChar": 5
+      },
+      "revId": "7bb6e4c9838b38c14d9bae72350ba31489b983f3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b294a33e_bbc70b0f",
+        "filename": "redfish-core/include/utils/telemetry_utils.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 1001026
+      },
+      "writtenOn": "2021-08-12T14:39:03Z",
+      "side": 1,
+      "message": "Yeah, the more I think about it, the more I realize this solution is overcomplicated. There is big chance that in the whole lifetime of redfish and telemetry, this might be the only action to require conversion, so simple \u0027if\u0027 will be enough.",
+      "parentUuid": "994acd4d_0c96f761",
       "range": {
         "startLine": 147,
         "startChar": 0,
@@ -142,6 +214,30 @@
     },
     {
       "key": {
+        "uuid": "3ef1ec6d_a817e4f9",
+        "filename": "redfish-core/include/utils/telemetry_utils.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 1001026
+      },
+      "writtenOn": "2021-08-12T14:39:03Z",
+      "side": 1,
+      "message": "I know that you are currently working on GET functionality in Trigger schema, so this would be definitely useful here. But as I decided to drop bimap solution, I will remove this function and leave this conversion for you to make.",
+      "parentUuid": "0b4e90e8_63b0790c",
+      "range": {
+        "startLine": 155,
+        "startChar": 0,
+        "endLine": 163,
+        "endChar": 1
+      },
+      "revId": "7bb6e4c9838b38c14d9bae72350ba31489b983f3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "239393b6_7384803e",
         "filename": "redfish-core/lib/metric_report_definition.hpp",
         "patchSetId": 4
@@ -153,6 +249,30 @@
       "writtenOn": "2021-07-30T17:50:53Z",
       "side": 1,
       "message": "Variable not used, can its name be hidden from access?",
+      "range": {
+        "startLine": 219,
+        "startChar": 22,
+        "endLine": 219,
+        "endChar": 24
+      },
+      "revId": "7bb6e4c9838b38c14d9bae72350ba31489b983f3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d61e9c62_797f5735",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 219,
+      "author": {
+        "id": 1001026
+      },
+      "writtenOn": "2021-08-12T14:39:03Z",
+      "side": 1,
+      "message": "There is no way to filter out structural binding.",
+      "parentUuid": "239393b6_7384803e",
       "range": {
         "startLine": 219,
         "startChar": 22,
@@ -188,6 +308,30 @@
     },
     {
       "key": {
+        "uuid": "471613ad_fc9ef73a",
+        "filename": "redfish-core/lib/trigger.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 316,
+      "author": {
+        "id": 1001026
+      },
+      "writtenOn": "2021-08-12T14:39:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "942acb89_b5d9516d",
+      "range": {
+        "startLine": 316,
+        "startChar": 12,
+        "endLine": 316,
+        "endChar": 60
+      },
+      "revId": "7bb6e4c9838b38c14d9bae72350ba31489b983f3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "aa5ec4fa_bf543cf1",
         "filename": "redfish-core/lib/trigger.hpp",
         "patchSetId": 4
@@ -208,6 +352,30 @@
       "revId": "7bb6e4c9838b38c14d9bae72350ba31489b983f3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6e5b512e_bb06d2ca",
+        "filename": "redfish-core/lib/trigger.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 383,
+      "author": {
+        "id": 1001026
+      },
+      "writtenOn": "2021-08-12T14:39:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "aa5ec4fa_bf543cf1",
+      "range": {
+        "startLine": 383,
+        "startChar": 43,
+        "endLine": 383,
+        "endChar": 57
+      },
+      "revId": "7bb6e4c9838b38c14d9bae72350ba31489b983f3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -234,6 +402,30 @@
     },
     {
       "key": {
+        "uuid": "9d2ac417_5f3313db",
+        "filename": "redfish-core/lib/trigger.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 443,
+      "author": {
+        "id": 1001026
+      },
+      "writtenOn": "2021-08-12T14:39:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8cad3d04_5b9e7e2c",
+      "range": {
+        "startLine": 443,
+        "startChar": 12,
+        "endLine": 443,
+        "endChar": 23
+      },
+      "revId": "7bb6e4c9838b38c14d9bae72350ba31489b983f3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "cf21602f_64014fa8",
         "filename": "redfish-core/lib/trigger.hpp",
         "patchSetId": 4
@@ -254,6 +446,30 @@
       "revId": "7bb6e4c9838b38c14d9bae72350ba31489b983f3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a58b6dfe_1c5cc9a8",
+        "filename": "redfish-core/lib/trigger.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 468,
+      "author": {
+        "id": 1001026
+      },
+      "writtenOn": "2021-08-12T14:39:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cf21602f_64014fa8",
+      "range": {
+        "startLine": 468,
+        "startChar": 41,
+        "endLine": 468,
+        "endChar": 63
+      },
+      "revId": "7bb6e4c9838b38c14d9bae72350ba31489b983f3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
