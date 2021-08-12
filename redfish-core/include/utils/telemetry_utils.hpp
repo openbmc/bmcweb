@@ -22,5 +22,13 @@ inline std::string getDbusReportPath(const std::string& id)
     return path;
 }
 
+inline std::string getDbusTriggerPath(const std::string& id)
+{
+    std::string path =
+        "/xyz/openbmc_project/Telemetry/Triggers/TelemetryService/" + id;
+    dbus::utility::escapePathForDbus(path);
+    return path;
+}
+
 } // namespace telemetry
 } // namespace redfish
