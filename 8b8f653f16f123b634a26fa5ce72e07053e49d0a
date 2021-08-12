@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "6c6e465c_9e250574",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 1376,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-08-12T22:54:43Z",
+      "side": 1,
+      "message": "\u003e In my testing, GetSubTree does return an empty array if there is input interfaces are incorrect. My output is the same as Gunnar\u0027s above.\n\n\n\u003e \n\u003e Additionally, I receive a resourceNotFound error from getSubTree if the input root is incorrect.\n\n\nYou say that your results are the same as gunnars, then you link results below that show that they\u0027re different.  FWIW, I would\u0027ve expected what you saw, but it\u0027s odd we\u0027re getting different behavior here.\n\n\u003e \n\u003e dbus-send --system --print-reply --dest\u003dxyz.openbmc_project.ObjectMapper /xyz/openbmc_project/object_mapper xyz.openbmc_project.ObjectMapper.GetSubTree string:\"/abc/\" int32:0 array:string:\"xyz.bopenbmc_project.Control.TPM.Policy\"\n\u003e \n\u003e Error xyz.openbmc_project.Common.Error.ResourceNotFound: path or object not found\n\nThis is not an empty array.\n\n\n\n\n\nOk, I\u0027m not understanding here.  When I run Gunnars test, I get an empty array, when I run your test, I get the Not Found error.  what I suspect is when the object path exists, but doesn\u0027t have matching interfaces (as it does in gunnars test) the mapper returns an empty array.\n\nWhen the object path doesn\u0027t exist, it returns an error.  I think because we can\u0027t assume that any give path exists, we have to handle the error here?  It would be really nice if we could just make the mapper consistent again.",
+      "parentUuid": "c87c60d1_a3fd19c9",
+      "range": {
+        "startLine": 1376,
+        "startChar": 0,
+        "endLine": 1376,
+        "endChar": 52
+      },
+      "revId": "8b8f653f16f123b634a26fa5ce72e07053e49d0a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "56fa82ba_f9b3eb19",
         "filename": "redfish-core/lib/systems.hpp",
         "patchSetId": 9
@@ -251,6 +275,30 @@
       "side": 1,
       "message": "I think we should drive PropertyNotSupported with Redfish (if Ed is in agreement, I\u0027ll open an issue with them), I don\u0027t see a better error message now. \nI think Redfish would call this a Property since I don\u0027t see parameter used expert for Action Parameter or Query Parameter in the messages. \nhttps://redfish.dmtf.org/registries/Base.1.10.0.json",
       "parentUuid": "0184a534_43842599",
+      "range": {
+        "startLine": 1384,
+        "startChar": 44,
+        "endLine": 1384,
+        "endChar": 54
+      },
+      "revId": "8b8f653f16f123b634a26fa5ce72e07053e49d0a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e0676a9b_28616024",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 1384,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-08-12T22:54:43Z",
+      "side": 1,
+      "message": "In other places we\u0027ve used PropertyValueNotInList to defer when a given property was not supported on a given resource.\n\nIn this case, it could also be PropertyNotWritable, because we\u0027re talking about an optional interface here?",
+      "parentUuid": "6d3e7ec6_4c310408",
       "range": {
         "startLine": 1384,
         "startChar": 44,
