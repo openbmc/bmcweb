@@ -163,7 +163,8 @@ inline void
             if (ec)
             {
                 BMCWEB_LOG_DEBUG << "DBUS response error";
-                messages::internalError(aResp->res);
+                // This is an optional D-Bus object for host-less systems
+                // so just return if error occurs
                 return;
             }
             // Iterate over all retrieved ObjectPaths.
@@ -625,7 +626,8 @@ inline void getHostState(const std::shared_ptr<bmcweb::AsyncResp>& aResp)
             if (ec)
             {
                 BMCWEB_LOG_DEBUG << "DBUS response error " << ec;
-                messages::internalError(aResp->res);
+                // This is an optional D-Bus object for host-less systems
+                // so just return if error occurs
                 return;
             }
 
