@@ -16,6 +16,24 @@
       "revId": "744b69abd62b90b45d2f2ae19f614a04d7f7d679",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fafb41df_9eb10d93",
+        "filename": ".github/ISSUE_TEMPLATE/bug_report.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-08-13T18:33:29Z",
+      "side": 1,
+      "message": "\u003e Would or should the QEMU information include any such details such as:\n\u003e \n\nConsidering that 99% of bugs filed to bmcweb won\u0027t be related to QEMU, I don\u0027t think that\u0027s really necessary.  In the cases where it is, we can always ask for it.\n\n\u003e git remote -v\n\u003e origin  git@github.com:legoater/qemu.git (fetch)\n\u003e origin  git@github.com:legoater/qemu.git (push)\n\u003e \n\u003e git describe --long --dirty\n\u003e v6.0.0-54-ga5eb1de772\n\u003e \n\u003e qemu-system-arm --version\n\u003e QEMU emulator version 6.0.0 (v6.0.0-54-ga5eb1de772)\n\u003e Copyright (c) 2003-2021 Fabrice Bellard and the QEMU Project developers",
+      "parentUuid": "53e1bc88_4e15a368",
+      "revId": "744b69abd62b90b45d2f2ae19f614a04d7f7d679",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
