@@ -34,6 +34,24 @@
       "revId": "744b69abd62b90b45d2f2ae19f614a04d7f7d679",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "62102928_5ebc0433",
+        "filename": ".github/ISSUE_TEMPLATE/bug_report.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1000524
+      },
+      "writtenOn": "2021-08-13T18:36:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fafb41df_9eb10d93",
+      "revId": "744b69abd62b90b45d2f2ae19f614a04d7f7d679",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
