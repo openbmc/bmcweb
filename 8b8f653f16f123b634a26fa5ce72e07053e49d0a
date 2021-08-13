@@ -431,6 +431,30 @@
     },
     {
       "key": {
+        "uuid": "92b6afa5_636dc8f5",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 1384,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-08-13T16:12:46Z",
+      "side": 1,
+      "message": "I\u0027m not sure PropertyValueNotInList is better than resourceNotFound but idc. I\u0027ll open an issue with Redfish and we can handle later.",
+      "parentUuid": "367cd1cb_56125818",
+      "range": {
+        "startLine": 1384,
+        "startChar": 44,
+        "endLine": 1384,
+        "endChar": 54
+      },
+      "revId": "8b8f653f16f123b634a26fa5ce72e07053e49d0a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8a66ef42_e50af7c2",
         "filename": "redfish-core/lib/systems.hpp",
         "patchSetId": 9
