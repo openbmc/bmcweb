@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "7fca27a2_44f6f7fe",
+        "filename": "redfish-core/include/gzfile.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2021-08-13T01:48:11Z",
+      "side": 1,
+      "message": "We should be able to handle arbitrary file size (we read some size of buffer at each time). \n\nThe buffer limit is not related to 16k limit in the log rotation configuration. We don\u0027t need to read the whole file in one read.\n\nPlease remove the comments related to file size limit in log rotation configuration.",
+      "parentUuid": "92a076aa_157ca028",
+      "range": {
+        "startLine": 33,
+        "startChar": 11,
+        "endLine": 33,
+        "endChar": 78
+      },
+      "revId": "020f93c5e6bafad30ab1bd49be09b6b27bdfee1a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "f3897413_0cf97dc4",
         "filename": "redfish-core/include/gzfile.hpp",
         "patchSetId": 9
@@ -131,6 +155,30 @@
       "side": 1,
       "message": "If fileLimitSize is big enough, bytesRead \u003c\u003d fileLimitSize should always hold. Please refer to the previous comment.",
       "parentUuid": "cb2e44c6_a37ad4d0",
+      "range": {
+        "startLine": 47,
+        "startChar": 28,
+        "endLine": 47,
+        "endChar": 41
+      },
+      "revId": "020f93c5e6bafad30ab1bd49be09b6b27bdfee1a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "761dd249_22147c49",
+        "filename": "redfish-core/include/gzfile.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2021-08-13T01:48:11Z",
+      "side": 1,
+      "message": "OK. So please add a comment like\n\n\"bytesRead is supposed to be equal to bufferLimitSize in normal cases; it can be smaller if we reach the end of the file; otherwise, we must have a failure.\"",
+      "parentUuid": "0be50744_48e4e3e5",
       "range": {
         "startLine": 47,
         "startChar": 28,
@@ -272,6 +320,24 @@
     },
     {
       "key": {
+        "uuid": "438f02db_c3fdd758",
+        "filename": "redfish-core/include/gzfile.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2021-08-13T01:48:11Z",
+      "side": 1,
+      "message": "LGTM.",
+      "parentUuid": "193ffe3c_ef75cb78",
+      "revId": "020f93c5e6bafad30ab1bd49be09b6b27bdfee1a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c7334ee8_73f43ed9",
         "filename": "redfish-core/include/gzfile.hpp",
         "patchSetId": 9
@@ -304,6 +370,24 @@
       "revId": "020f93c5e6bafad30ab1bd49be09b6b27bdfee1a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b72b41b0_1ee3ad01",
+        "filename": "redfish-core/include/gzfile.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2021-08-13T01:48:11Z",
+      "side": 1,
+      "message": "I believe this branch can be simplified to\n```\nif (initialPos \u003c buffer.size()) {\n  lastMessage \u003d logBuffer.substr(initialPos);\n  messageNotComplete \u003d true;\n} \n```",
+      "parentUuid": "0c4a3461_f24b4823",
+      "revId": "020f93c5e6bafad30ab1bd49be09b6b27bdfee1a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
