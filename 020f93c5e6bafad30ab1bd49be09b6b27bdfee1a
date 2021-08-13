@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "92a076aa_157ca028",
+        "filename": "redfish-core/include/gzfile.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1000404
+      },
+      "writtenOn": "2021-08-13T00:38:01Z",
+      "side": 1,
+      "message": "Yes, i think buffer limit size is what i actually want to mention here. Here I just want to tell if file size larger than buffer size, it will occur some error or message not complete issue. It will happen when file rotate is not quick enough. Now the rotate script will detect file size every 15 seconds, if file size increase and larger than 16k(default setting) in the 15 seconds, then the previous issue will happen. I can modify the detect interval shorter to fix the issue, or define buffer limit size more larger to fix the issue. Or other method I doesn\u0027t notice?",
+      "parentUuid": "4830d5b7_f27e6dc9",
+      "range": {
+        "startLine": 33,
+        "startChar": 11,
+        "endLine": 33,
+        "endChar": 78
+      },
+      "revId": "020f93c5e6bafad30ab1bd49be09b6b27bdfee1a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "f3897413_0cf97dc4",
         "filename": "redfish-core/include/gzfile.hpp",
         "patchSetId": 9
@@ -36,6 +60,30 @@
       "writtenOn": "2021-08-12T17:55:00Z",
       "side": 1,
       "message": "See above, I prefer to say bufferLimitSize.",
+      "range": {
+        "startLine": 34,
+        "startChar": 22,
+        "endLine": 34,
+        "endChar": 35
+      },
+      "revId": "020f93c5e6bafad30ab1bd49be09b6b27bdfee1a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b6f3e0d7_76d371d1",
+        "filename": "redfish-core/include/gzfile.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1000404
+      },
+      "writtenOn": "2021-08-13T00:38:01Z",
+      "side": 1,
+      "message": "Yes, i will change the name.",
+      "parentUuid": "f3897413_0cf97dc4",
       "range": {
         "startLine": 34,
         "startChar": 22,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "0be50744_48e4e3e5",
+        "filename": "redfish-core/include/gzfile.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1000404
+      },
+      "writtenOn": "2021-08-13T00:38:01Z",
+      "side": 1,
+      "message": "If fileLimitSize is big enough, bytesRead \u003c\u003d fileLimitSize should always hold. Please refer to the previous comment.",
+      "parentUuid": "cb2e44c6_a37ad4d0",
+      "range": {
+        "startLine": 47,
+        "startChar": 28,
+        "endLine": 47,
+        "endChar": 41
+      },
+      "revId": "020f93c5e6bafad30ab1bd49be09b6b27bdfee1a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "70210ffd_c1cbcaff",
         "filename": "redfish-core/include/gzfile.hpp",
         "patchSetId": 9
@@ -82,6 +154,30 @@
       "writtenOn": "2021-08-12T17:55:00Z",
       "side": 1,
       "message": "Why do we declare an array then convert it to string? It doesn\u0027t solve the \u0027\\0\u0027 problem we had before. See https://en.cppreference.com/w/cpp/string/basic_string/basic_string\n\n```\n  {\n    std::cout \u003c\u003c \"6) string::string(charT const* s): \";\n    std::string s(\"C-style\\0string\");\n    std::cout \u003c\u003c quoted(s) \u003c\u003c \u0027\\n\u0027; // \"C-style\"\n  }\n```\n\nI suggest at line 41, declare a string of size fileLimitSize directly and pass its mutable data into gzread.\n\n```\nstd::string buffer(fileLimitSize);\n...\nbuffer.resize(bytesRead);\n```",
+      "range": {
+        "startLine": 58,
+        "startChar": 24,
+        "endLine": 58,
+        "endChar": 33
+      },
+      "revId": "020f93c5e6bafad30ab1bd49be09b6b27bdfee1a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e18561f5_99a4c765",
+        "filename": "redfish-core/include/gzfile.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1000404
+      },
+      "writtenOn": "2021-08-13T00:38:01Z",
+      "side": 1,
+      "message": "Sorry i miss the problem, will fix in next patch",
+      "parentUuid": "70210ffd_c1cbcaff",
       "range": {
         "startLine": 58,
         "startChar": 24,
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "29a9f28c_c37e17f5",
+        "filename": "redfish-core/include/gzfile.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1000404
+      },
+      "writtenOn": "2021-08-13T00:38:01Z",
+      "side": 1,
+      "message": "I just want to mention if Message1\\rMessage2\\rMessage3\\r\\n in one line, it include 3 log entries.",
+      "parentUuid": "ca052ab0_bbf49594",
+      "range": {
+        "startLine": 60,
+        "startChar": 55,
+        "endLine": 60,
+        "endChar": 59
+      },
+      "revId": "020f93c5e6bafad30ab1bd49be09b6b27bdfee1a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bef0e06b_a97207b8",
         "filename": "redfish-core/include/gzfile.hpp",
         "patchSetId": 9
@@ -134,6 +254,24 @@
     },
     {
       "key": {
+        "uuid": "193ffe3c_ef75cb78",
+        "filename": "redfish-core/include/gzfile.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1000404
+      },
+      "writtenOn": "2021-08-13T00:38:01Z",
+      "side": 1,
+      "message": "Assume the log entry is like \"Message\\r\\n\", than the string will split to \"Message\" and \"\". So need this checker to remove the \"\".",
+      "parentUuid": "bef0e06b_a97207b8",
+      "revId": "020f93c5e6bafad30ab1bd49be09b6b27bdfee1a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c7334ee8_73f43ed9",
         "filename": "redfish-core/include/gzfile.hpp",
         "patchSetId": 9
@@ -148,6 +286,24 @@
       "revId": "020f93c5e6bafad30ab1bd49be09b6b27bdfee1a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0c4a3461_f24b4823",
+        "filename": "redfish-core/include/gzfile.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1000404
+      },
+      "writtenOn": "2021-08-13T00:38:01Z",
+      "side": 1,
+      "message": "The if statement here is try to handle if file size larger than buffer size, than the last message will separate. So store the message and prepend to first message in next reading. If buffer size is enough then the issue should not happen.",
+      "parentUuid": "c7334ee8_73f43ed9",
+      "revId": "020f93c5e6bafad30ab1bd49be09b6b27bdfee1a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
