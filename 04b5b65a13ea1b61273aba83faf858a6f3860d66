@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "01a01477_5f1912ec",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 26
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-08-16T21:16:34Z",
+      "side": 1,
+      "message": "This check isn\u0027t really needed.  deleteSubscription should give a return code that we can ignore if the id doesn\u0027t exist.",
+      "range": {
+        "startLine": 173,
+        "startChar": 0,
+        "endLine": 174,
+        "endChar": 17
+      },
+      "revId": "04b5b65a13ea1b61273aba83faf858a6f3860d66",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
