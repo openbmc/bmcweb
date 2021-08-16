@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "f72a493b_a2cecfc2",
+        "filename": "redfish-core/include/gzfile.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1000404
+      },
+      "writtenOn": "2021-08-16T10:29:38Z",
+      "side": 1,
+      "message": "According to offline talking, I rewrite the code to fix the issue that if message is too long and separate to two files. And about the buffer limit size, since we will go though whole file, I just define limit size to 1024 as a temp.",
+      "parentUuid": "7fca27a2_44f6f7fe",
+      "range": {
+        "startLine": 33,
+        "startChar": 11,
+        "endLine": 33,
+        "endChar": 78
+      },
+      "revId": "020f93c5e6bafad30ab1bd49be09b6b27bdfee1a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f3897413_0cf97dc4",
         "filename": "redfish-core/include/gzfile.hpp",
         "patchSetId": 9
@@ -117,6 +141,30 @@
       "revId": "020f93c5e6bafad30ab1bd49be09b6b27bdfee1a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f705628f_cc827726",
+        "filename": "redfish-core/include/gzfile.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1000404
+      },
+      "writtenOn": "2021-08-16T10:29:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b6f3e0d7_76d371d1",
+      "range": {
+        "startLine": 34,
+        "startChar": 22,
+        "endLine": 34,
+        "endChar": 35
+      },
+      "revId": "020f93c5e6bafad30ab1bd49be09b6b27bdfee1a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -191,6 +239,30 @@
     },
     {
       "key": {
+        "uuid": "8b49b5d6_10cc19b8",
+        "filename": "redfish-core/include/gzfile.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1000404
+      },
+      "writtenOn": "2021-08-16T10:29:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "761dd249_22147c49",
+      "range": {
+        "startLine": 47,
+        "startChar": 28,
+        "endLine": 47,
+        "endChar": 41
+      },
+      "revId": "020f93c5e6bafad30ab1bd49be09b6b27bdfee1a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "70210ffd_c1cbcaff",
         "filename": "redfish-core/include/gzfile.hpp",
         "patchSetId": 9
@@ -235,6 +307,30 @@
       "revId": "020f93c5e6bafad30ab1bd49be09b6b27bdfee1a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0f5199dd_49e8df37",
+        "filename": "redfish-core/include/gzfile.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1000404
+      },
+      "writtenOn": "2021-08-16T10:29:38Z",
+      "side": 1,
+      "message": "Add the buffer resize here to fix the problem.",
+      "parentUuid": "e18561f5_99a4c765",
+      "range": {
+        "startLine": 58,
+        "startChar": 24,
+        "endLine": 58,
+        "endChar": 33
+      },
+      "revId": "020f93c5e6bafad30ab1bd49be09b6b27bdfee1a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -388,6 +484,24 @@
       "revId": "020f93c5e6bafad30ab1bd49be09b6b27bdfee1a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fc0ea3fa_5c5a5164",
+        "filename": "redfish-core/include/gzfile.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1000404
+      },
+      "writtenOn": "2021-08-16T10:29:38Z",
+      "side": 1,
+      "message": "Yes, I think your comment is more directly than originally. Has been modified.",
+      "parentUuid": "b72b41b0_1ee3ad01",
+      "revId": "020f93c5e6bafad30ab1bd49be09b6b27bdfee1a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
