@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "133c94cf_3e24c8af",
+        "filename": "redfish-core/include/gzfile.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2021-08-17T18:59:17Z",
+      "side": 1,
+      "message": "nit: can be just combined into one line.",
+      "range": {
+        "startLine": 39,
+        "startChar": 42,
+        "endLine": 40,
+        "endChar": 50
+      },
+      "revId": "920e08c2097cccc293cdff8cd4eba1b476f99896",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7b117c3b_53efb7be",
+        "filename": "redfish-core/include/gzfile.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2021-08-17T18:59:17Z",
+      "side": 1,
+      "message": "there is an edge case not considered in these codes: parseLogs returns empty vector (the file doesn\u0027t contain any \"\\r\" or \"\\n\").\n\nIn this case, if messageNotComplete is true, we shall append the wholeFile to lastMessage; otherwise wholeFile becomes the new lastMessage;",
+      "range": {
+        "startLine": 41,
+        "startChar": 12,
+        "endLine": 41,
+        "endChar": 30
+      },
+      "revId": "920e08c2097cccc293cdff8cd4eba1b476f99896",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "28e37208_7c236b75",
+        "filename": "redfish-core/include/gzfile.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2021-08-17T18:59:17Z",
+      "side": 1,
+      "message": "this will throw exception in the edge case I described.",
+      "range": {
+        "startLine": 43,
+        "startChar": 22,
+        "endLine": 43,
+        "endChar": 27
+      },
+      "revId": "920e08c2097cccc293cdff8cd4eba1b476f99896",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4ba75c68_64915c94",
+        "filename": "redfish-core/include/gzfile.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2021-08-17T18:59:17Z",
+      "side": 1,
+      "message": "should it be size_t?",
+      "range": {
+        "startLine": 87,
+        "startChar": 41,
+        "endLine": 87,
+        "endChar": 53
+      },
+      "revId": "920e08c2097cccc293cdff8cd4eba1b476f99896",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f582868f_cbdc5447",
+        "filename": "redfish-core/include/gzfile.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2021-08-17T18:59:17Z",
+      "side": 1,
+      "message": "See previous comment, in the edge case, we shall check if messageNotComplete is true. I suggest we don\u0027t modify lastMessage in this function, but return a newLastMessage back.\n\n```\nstd::vector\u003cstd::string\u003e hostLogEntryParser(const std::string\u0026 wholeFile, std::string\u0026 newLastMessage) {\n...\nif (initialPos \u003c wholeFile.size())\n{\nnewLastMessage \u003d wholeFile.substr(initialPos);\n}\n}\n```",
+      "range": {
+        "startLine": 119,
+        "startChar": 12,
+        "endLine": 119,
+        "endChar": 23
+      },
+      "revId": "920e08c2097cccc293cdff8cd4eba1b476f99896",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
