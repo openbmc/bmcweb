@@ -303,9 +303,8 @@ inline void requestRoutesPower(App& app)
                 "/xyz/openbmc_project/object_mapper",
                 "xyz.openbmc_project.ObjectMapper", "GetSubTreePaths",
                 "/xyz/openbmc_project/inventory", 0,
-                std::array<const char*, 2>{
-                    "xyz.openbmc_project.Inventory.Item.Board",
-                    "xyz.openbmc_project.Inventory.Item.Chassis"});
+                std::array<const char*, 1>{
+                        "xyz.openbmc_project.Inventory.Item.Chassis"});
         });
 
     BMCWEB_ROUTE(app, "/redfish/v1/Chassis/<str>/Power/")
