@@ -126,7 +126,48 @@
    starting any openbmc development.
    [Common Errors](https://github.com/openbmc/bmcweb/blob/master/COMMON_ERRORS.md).
 
-14. ### Developing and Testing
+14. ### Commit messages
+   Commit messages should answer the following questions:
+   - Why are the changes useful?  Given that bmcweb is a user-facing daemon,
+      commits adding new functionality should include statements about how the
+      commit in question is useful to the user.
+      Exception: documentation changes, and bug fixes do not need justification.
+
+   - What changes would a user expect to see?  This includes new parameters, new
+     resources, and new or changed properties.  Any route changes should be
+     explicitly called out.
+
+   - Are there compatibility concerns?  Is this change backward compatible for
+     clients?  if not, what commit would be broken, and how old is it?   have
+     clients been warned? (ideally on the mailing list)  link the discussion.
+
+   Commit messages should be line wrapped 50/72.
+
+15. ### compatibility
+   "Don't make your users mad" greg kh
+   [source](https://git.sr.ht/~gregkh/presentation-application_summit/tree/main/keep_users_happy.pdf)
+
+   The kernel has very similar rules around compatibility that we should aspire
+   to follow in the footsteps of.
+
+   To that end, bmcweb will do it's best to insulate clients from breaking api
+   changes.  Being explicit about this ensures that clients can upgrade their
+   OpenBMC version without issue, and resolves a significant bottleneck in
+   getting security patches deployed to users.  Any change that's visible to a
+   user is potentially a breaking change, but requiring _all_ visible changes to
+   be configurable would increase the software complexity, therefore bmcweb
+   makes exceptions for things which a client is reasonably expected to code
+   against:
+   - New items added to a collection
+   - Changes in UID for hypermedia resources (In line with Redfish spec)
+   - New properties added to a resource
+
+   Special note: Code exists in bmcweb that was missing upstream backends to
+   make it function.  Given that compatibility requires the ability to use and
+   test the feature in question, changes to these methods, including outright
+   removal, does not constitute a breaking change.
+
+16. ### Developing and Testing
   There are a variety of ways to develop and test bmcweb software changes.
   Here are the steps for using the SDK and QEMU.
 
