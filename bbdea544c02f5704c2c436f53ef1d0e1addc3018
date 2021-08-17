@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "a9010cf4_e1dec638",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1001148
+      },
+      "writtenOn": "2021-08-17T17:09:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a903ba75_a8954867",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 22
+      },
+      "revId": "bbdea544c02f5704c2c436f53ef1d0e1addc3018",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f64c2184_fc00d0e5",
         "filename": "redfish-core/lib/trigger.hpp",
         "patchSetId": 1
@@ -45,6 +69,30 @@
       "revId": "bbdea544c02f5704c2c436f53ef1d0e1addc3018",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "27a272fd_b951a22a",
+        "filename": "redfish-core/lib/trigger.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1001148
+      },
+      "writtenOn": "2021-08-17T17:09:11Z",
+      "side": 1,
+      "message": "Done by removing all autos in scope of my modification, except those used within structured bindings.",
+      "parentUuid": "f64c2184_fc00d0e5",
+      "range": {
+        "startLine": 90,
+        "startChar": 14,
+        "endLine": 90,
+        "endChar": 19
+      },
+      "revId": "bbdea544c02f5704c2c436f53ef1d0e1addc3018",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
