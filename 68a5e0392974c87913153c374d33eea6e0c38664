@@ -1,0 +1,84 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fac7af84_2023c2f4",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 34
+      },
+      "lineNbr": 1992,
+      "author": {
+        "id": 1000103
+      },
+      "writtenOn": "2021-08-17T15:53:27Z",
+      "side": 1,
+      "message": "Can you fill the documentation please",
+      "revId": "68a5e0392974c87913153c374d33eea6e0c38664",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "620d687f_3e11313f",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 34
+      },
+      "lineNbr": 2012,
+      "author": {
+        "id": 1000103
+      },
+      "writtenOn": "2021-08-17T15:53:27Z",
+      "side": 1,
+      "message": "asset",
+      "range": {
+        "startLine": 2012,
+        "startChar": 16,
+        "endLine": 2012,
+        "endChar": 22
+      },
+      "revId": "68a5e0392974c87913153c374d33eea6e0c38664",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "37cc22e2_7023c96b",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 34
+      },
+      "lineNbr": 2025,
+      "author": {
+        "id": 1000103
+      },
+      "writtenOn": "2021-08-17T15:53:27Z",
+      "side": 1,
+      "message": "assetInterface",
+      "range": {
+        "startLine": 2025,
+        "startChar": 28,
+        "endLine": 2025,
+        "endChar": 43
+      },
+      "revId": "68a5e0392974c87913153c374d33eea6e0c38664",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eac4e3b5_bcbdbb5b",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 34
+      },
+      "lineNbr": 2076,
+      "author": {
+        "id": 1000103
+      },
+      "writtenOn": "2021-08-17T15:53:27Z",
+      "side": 1,
+      "message": "can you fill the documentation please",
+      "revId": "68a5e0392974c87913153c374d33eea6e0c38664",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
