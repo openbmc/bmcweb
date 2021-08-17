@@ -16,6 +16,24 @@
       "revId": "1821a8757f560bf05b0eb0b0c3bdcea826486d98",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "de557d8c_9582ed68",
+        "filename": "redfish-core/lib/thermal_subsystem.hpp",
+        "patchSetId": 64
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000444
+      },
+      "writtenOn": "2021-08-17T11:50:32Z",
+      "side": 1,
+      "message": "In fact, they are the same. The verification is added here for logical completeness.",
+      "parentUuid": "668be37d_f63460f4",
+      "revId": "1821a8757f560bf05b0eb0b0c3bdcea826486d98",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
