@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "61930162_1302daed",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 820,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-08-17T16:08:41Z",
+      "side": 1,
+      "message": "ActionNotSupported ?",
+      "revId": "dbb93d40fa5c4fc10f2475d4400d80fcbbae8047",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "48a9277e_aff7ef31",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 871,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-08-17T16:08:41Z",
+      "side": 1,
+      "message": "should this be a ActionNotSupported or something else ? Resource not found?\nhttps://redfish.dmtf.org/registries/Base.1.10.0.json",
+      "range": {
+        "startLine": 871,
+        "startChar": 38,
+        "endLine": 871,
+        "endChar": 51
+      },
+      "revId": "dbb93d40fa5c4fc10f2475d4400d80fcbbae8047",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
