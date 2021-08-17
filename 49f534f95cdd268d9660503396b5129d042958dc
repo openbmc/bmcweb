@@ -1,0 +1,165 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "eb2cf626_11d95eaf",
+        "filename": "redfish-core/lib/task.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-08-17T19:45:54Z",
+      "side": 1,
+      "message": "None of these are valid redfish properties.  Please update this to return proper error codes, as the DEVELOPING.md doc calls out explicitly.",
+      "range": {
+        "startLine": 94,
+        "startChar": 0,
+        "endLine": 98,
+        "endChar": 1
+      },
+      "revId": "49f534f95cdd268d9660503396b5129d042958dc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "68fafc56_5be29258",
+        "filename": "redfish-core/lib/task.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-08-17T19:45:54Z",
+      "side": 1,
+      "message": "This line is essentially copied 7 times in the following lines.  Please abstract this a bit.  I would recommend moving the if state \u003d\u003d ladder into its own method (like we do for other dbus-\u003eredfish conversions) which would then generate a redfish type, then call sendEvent in one spot.  This would clean this method up a lot.  I realize this was just copied, but lets clean it up while we\u0027re here.",
+      "range": {
+        "startLine": 116,
+        "startChar": 0,
+        "endLine": 119,
+        "endChar": 21
+      },
+      "revId": "49f534f95cdd268d9660503396b5129d042958dc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5c8fbd58_3a3fb09b",
+        "filename": "redfish-core/lib/task.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-08-17T19:45:54Z",
+      "side": 1,
+      "message": "nit: This should be logged as an error, right?  I don\u0027t think there\u0027s a way to recover here, but logging this at error level would probably help in debug.",
+      "range": {
+        "startLine": 166,
+        "startChar": 8,
+        "endLine": 166,
+        "endChar": 23
+      },
+      "revId": "49f534f95cdd268d9660503396b5129d042958dc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2d8dbae8_826391af",
+        "filename": "redfish-core/lib/task.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 179,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-08-17T19:45:54Z",
+      "side": 1,
+      "message": "This kind of pattern is generally not done.  We should avoid pushing custom handlers if we can, but I\u0027m still not really following how these are used, so I\u0027m having trouble proposing an alternative.",
+      "range": {
+        "startLine": 177,
+        "startChar": 13,
+        "endLine": 179,
+        "endChar": 30
+      },
+      "revId": "49f534f95cdd268d9660503396b5129d042958dc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "41b328aa_af4cf28a",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-08-17T19:45:54Z",
+      "side": 1,
+      "message": "What\u0027s the point of this?  As written, this will always return unknown.  I kinda wonder if we should enforce async_methods_call callbacks returning void so this code doesn\u0027t compile.",
+      "range": {
+        "startLine": 63,
+        "startChar": 0,
+        "endLine": 98,
+        "endChar": 1
+      },
+      "revId": "49f534f95cdd268d9660503396b5129d042958dc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "65f2c05a_92494bab",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 261,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-08-17T19:45:54Z",
+      "side": 1,
+      "message": "This is way bigger than should be put in a lambda at 6 scopes deep.  Please make an attempt to abstract this.",
+      "range": {
+        "startLine": 170,
+        "startChar": 0,
+        "endLine": 261,
+        "endChar": 30
+      },
+      "revId": "49f534f95cdd268d9660503396b5129d042958dc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "981b023c_7abda9d6",
+        "filename": "scripts/parse_registries.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-08-17T19:45:54Z",
+      "side": 1,
+      "message": "NumberOfArgs is required in the schema.  Why did this need to change?",
+      "range": {
+        "startLine": 105,
+        "startChar": 40,
+        "endLine": 105,
+        "endChar": 70
+      },
+      "revId": "49f534f95cdd268d9660503396b5129d042958dc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}

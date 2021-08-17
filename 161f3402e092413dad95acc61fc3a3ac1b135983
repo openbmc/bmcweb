@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "61ce4214_4043ab61",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 350,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-08-17T19:45:54Z",
+      "side": 1,
+      "message": "You don\u0027t need to include every response in your commit message, just enough that other people can see what you tested and replicate on their systems.\n\nLooking at the above, I see a lot of testing on the new registry, but no testing on the actual task service/event service things.  If you want, we can split the \"add the registry\" things into a separate commit, as it\u0027s relatively self contained, but it\u0027s up to you.",
+      "revId": "161f3402e092413dad95acc61fc3a3ac1b135983",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "20e63e1b_b43bb22d",
         "filename": "scripts/generate_json_messages.py",
         "patchSetId": 4
@@ -13,6 +30,24 @@
       "writtenOn": "2021-08-11T18:18:57Z",
       "side": 1,
       "message": "Do you need? They tend not to stay updated",
+      "revId": "161f3402e092413dad95acc61fc3a3ac1b135983",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c8352866_edba078b",
+        "filename": "scripts/generate_json_messages.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-08-17T19:45:54Z",
+      "side": 1,
+      "message": "you\u0027ve now omitted this script entirely.  Can you please reply to Gunnar and have a discussion.  Your patchset now includes generated files, but doesn\u0027t include the generator.  We\u0027ll need to have a discussion on whether or not we want to generate the files, or just leave them as-is and edit them by hand.  For the base registry, we edit by hand even though they were generated, but we\u0027ll have to discuss what makes sense here.",
+      "parentUuid": "20e63e1b_b43bb22d",
       "revId": "161f3402e092413dad95acc61fc3a3ac1b135983",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
