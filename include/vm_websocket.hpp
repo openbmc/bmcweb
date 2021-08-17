@@ -37,8 +37,10 @@ class Handler : public std::enable_shared_from_this<Handler>
         int rc = kill(proxy.id(), SIGTERM);
         if (rc)
         {
+            BMCWEB_LOG_ERROR << "Failed to terminate nbd-proxy: " << errno;
             return;
         }
+
         proxy.wait();
     }
 
