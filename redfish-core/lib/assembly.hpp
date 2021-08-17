@@ -599,8 +599,8 @@ inline void getChassis(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
         "/xyz/openbmc_project/object_mapper",
         "xyz.openbmc_project.ObjectMapper", "GetSubTreePaths",
         "/xyz/openbmc_project/inventory", 0,
-        std::array<const char*, 2>{"xyz.openbmc_project.Inventory.Item.Chassis",
-                                   "xyz.openbmc_project.Inventory.Item.Board"});
+        std::array<const char*, 1>{
+            "xyz.openbmc_project.Inventory.Item.Chassis"});
 }
 } // namespace assembly
 
