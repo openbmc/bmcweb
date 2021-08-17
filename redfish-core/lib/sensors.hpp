@@ -451,8 +451,7 @@ void getValidChassisPath(const std::shared_ptr<SensorsAsyncResp>& asyncResp,
                          Callback&& callback)
 {
     BMCWEB_LOG_DEBUG << "checkChassisId enter";
-    const std::array<const char*, 2> interfaces = {
-        "xyz.openbmc_project.Inventory.Item.Board",
+    const std::array<const char*, 1> interfaces = {
         "xyz.openbmc_project.Inventory.Item.Chassis"};
 
     auto respHandler =
@@ -507,8 +506,7 @@ void getChassis(const std::shared_ptr<SensorsAsyncResp>& sensorsAsyncResp,
                 Callback&& callback)
 {
     BMCWEB_LOG_DEBUG << "getChassis enter";
-    const std::array<const char*, 2> interfaces = {
-        "xyz.openbmc_project.Inventory.Item.Board",
+    const std::array<const char*, 1> interfaces = {
         "xyz.openbmc_project.Inventory.Item.Chassis"};
     auto respHandler = [callback{std::move(callback)}, sensorsAsyncResp](
                            const boost::system::error_code ec,
