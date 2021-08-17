@@ -11,6 +11,7 @@
 #include <openssl/ssl.h>
 
 #include <boost/asio/ssl/context.hpp>
+#include <random.hpp>
 
 #include <random>
 
