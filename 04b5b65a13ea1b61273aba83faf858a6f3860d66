@@ -22,6 +22,30 @@
       "revId": "04b5b65a13ea1b61273aba83faf858a6f3860d66",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c0fc2e8d_9415a5ca",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 26
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 1000400
+      },
+      "writtenOn": "2021-08-17T01:23:53Z",
+      "side": 1,
+      "message": "Done. I deleted this check and tested it. It works normally.",
+      "parentUuid": "01a01477_5f1912ec",
+      "range": {
+        "startLine": 173,
+        "startChar": 0,
+        "endLine": 174,
+        "endChar": 17
+      },
+      "revId": "04b5b65a13ea1b61273aba83faf858a6f3860d66",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
