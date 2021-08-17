@@ -22,6 +22,30 @@
       "revId": "885bbf1c82ea9f9cbfbe0065ee46adc8e398c868",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c842b560_4f0f8484",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2021-08-17T14:59:58Z",
+      "side": 0,
+      "message": "This was one of the rework done on the original commit. I moved this here in this commit, since it was not part of retry-handling. I added this to the commit message",
+      "parentUuid": "d01febf1_07e16cb9",
+      "range": {
+        "startLine": 145,
+        "startChar": 0,
+        "endLine": 157,
+        "endChar": 0
+      },
+      "revId": "885bbf1c82ea9f9cbfbe0065ee46adc8e398c868",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
