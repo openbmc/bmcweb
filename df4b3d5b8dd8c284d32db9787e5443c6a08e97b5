@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9d6b0c1c_1a33e77e",
+        "filename": "include/vm_websocket.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1000021
+      },
+      "writtenOn": "2021-08-17T07:10:02Z",
+      "side": 1,
+      "message": "If not echild at least log the error?",
+      "revId": "df4b3d5b8dd8c284d32db9787e5443c6a08e97b5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f0784d25_b20d9bbe",
+        "filename": "include/vm_websocket.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1000021
+      },
+      "writtenOn": "2021-08-17T07:10:02Z",
+      "side": 1,
+      "message": "Looking at the implementation, this is still blocking.  \nOnly running() / posix::is_running() uses WNOHANG\nhttps://github.com/boostorg/process/tree/develop/include/boost/process/detail/posix\n\n\nThen we need to wait before the destruction completes right?\nI suggest a new change for proper review    (can combine with line 40 comment as desired)",
+      "revId": "df4b3d5b8dd8c284d32db9787e5443c6a08e97b5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
