@@ -173,8 +173,7 @@ inline void requestRoutesChassisCollection(App& app)
 
                 collection_util::getCollectionMembers(
                     asyncResp, "/redfish/v1/Chassis",
-                    {"xyz.openbmc_project.Inventory.Item.Board",
-                     "xyz.openbmc_project.Inventory.Item.Chassis"});
+                    {"xyz.openbmc_project.Inventory.Item.Chassis"});
             });
 }
 
@@ -191,8 +190,7 @@ inline void requestRoutesChassis(App& app)
                                               const std::shared_ptr<
                                                   bmcweb::AsyncResp>& asyncResp,
                                               const std::string& chassisId) {
-            const std::array<const char*, 2> interfaces = {
-                "xyz.openbmc_project.Inventory.Item.Board",
+            const std::array<const char*, 1> interfaces = {
                 "xyz.openbmc_project.Inventory.Item.Chassis"};
 
             crow::connections::systemBus->async_method_call(
@@ -485,8 +483,7 @@ inline void requestRoutesChassis(App& app)
                     "LocationIndicatorActive instead.\"");
             }
 
-            const std::array<const char*, 2> interfaces = {
-                "xyz.openbmc_project.Inventory.Item.Board",
+            const std::array<const char*, 1> interfaces = {
                 "xyz.openbmc_project.Inventory.Item.Chassis"};
 
             const std::string& chassisId = param;
