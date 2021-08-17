@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "45615351_f039e074",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 89
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-08-17T20:51:43Z",
+      "side": 1,
+      "message": "Typically when a reviewers asks a question like this, they are looking for it be added to the commit msg. For next time.",
+      "parentUuid": "6606cf22_f7ffc1c9",
+      "revId": "38595276d9eb705a24f157035242c7c556c7190b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "4db64419_4794cb77",
         "filename": "redfish-core/lib/sensors.hpp",
         "patchSetId": 89
