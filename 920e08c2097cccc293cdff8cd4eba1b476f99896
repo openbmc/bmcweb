@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "e1b36f3b_ba1b5d31",
+        "filename": "redfish-core/include/gzfile.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1000404
+      },
+      "writtenOn": "2021-08-18T08:06:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "133c94cf_3e24c8af",
+      "range": {
+        "startLine": 39,
+        "startChar": 42,
+        "endLine": 40,
+        "endChar": 50
+      },
+      "revId": "920e08c2097cccc293cdff8cd4eba1b476f99896",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7b117c3b_53efb7be",
         "filename": "redfish-core/include/gzfile.hpp",
         "patchSetId": 11
@@ -45,6 +69,30 @@
       "revId": "920e08c2097cccc293cdff8cd4eba1b476f99896",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "80eedfef_b9794faf",
+        "filename": "redfish-core/include/gzfile.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1000404
+      },
+      "writtenOn": "2021-08-18T08:06:04Z",
+      "side": 1,
+      "message": "Thanks for the suggestion. I rewrite the function which remove messageNotComplete flag and use newLastMessage to handle the issue.",
+      "parentUuid": "7b117c3b_53efb7be",
+      "range": {
+        "startLine": 41,
+        "startChar": 12,
+        "endLine": 41,
+        "endChar": 30
+      },
+      "revId": "920e08c2097cccc293cdff8cd4eba1b476f99896",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "15ccbfb6_86b894de",
+        "filename": "redfish-core/include/gzfile.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1000404
+      },
+      "writtenOn": "2021-08-18T08:06:04Z",
+      "side": 1,
+      "message": "Thank you, I haven\u0027t notice the issue.",
+      "parentUuid": "28e37208_7c236b75",
+      "range": {
+        "startLine": 43,
+        "startChar": 22,
+        "endLine": 43,
+        "endChar": 27
+      },
+      "revId": "920e08c2097cccc293cdff8cd4eba1b476f99896",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4ba75c68_64915c94",
         "filename": "redfish-core/include/gzfile.hpp",
         "patchSetId": 11
@@ -94,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "ce359085_2e395b67",
+        "filename": "redfish-core/include/gzfile.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1000404
+      },
+      "writtenOn": "2021-08-18T08:06:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4ba75c68_64915c94",
+      "range": {
+        "startLine": 87,
+        "startChar": 41,
+        "endLine": 87,
+        "endChar": 53
+      },
+      "revId": "920e08c2097cccc293cdff8cd4eba1b476f99896",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f582868f_cbdc5447",
         "filename": "redfish-core/include/gzfile.hpp",
         "patchSetId": 11
@@ -114,6 +210,30 @@
       "revId": "920e08c2097cccc293cdff8cd4eba1b476f99896",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e4eeec05_b7987aeb",
+        "filename": "redfish-core/include/gzfile.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 1000404
+      },
+      "writtenOn": "2021-08-18T08:06:04Z",
+      "side": 1,
+      "message": "Thanks for the suggestion. I rewrite the function which remove messageNotComplete flag and use newLastMessage to handle the issue.",
+      "parentUuid": "f582868f_cbdc5447",
+      "range": {
+        "startLine": 119,
+        "startChar": 12,
+        "endLine": 119,
+        "endChar": 23
+      },
+      "revId": "920e08c2097cccc293cdff8cd4eba1b476f99896",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
