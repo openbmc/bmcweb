@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a7cbc4eb_8671bee1",
+        "filename": "DEVELOPING.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-08-18T17:50:03Z",
+      "side": 1,
+      "message": "Should any of this go in openbmc/docs or should we link there? I like to see as much of our contributing documentation go there so it spans the whole project. \n\nE.g. \n\n\"14. ### Commit messages\n   Commit messages should answer the following questions:\n\n   - Why are the changes useful?  Given that bmcweb is a user-facing daemon,\n      commits adding new functionality should include statements about how the\n      commit in question is useful to the user.\n      Exception: documentation changes, and bug fixes do not need justification.\n\n   - What changes would a user expect to see?  This includes new parameters, new\n     resources, and new or changed properties.  Any route changes should be\n     explicitly called out.\n\n   - Are there compatibility concerns?  Is this change backward compatible for\n     clients?  if not, what commit would be broken, and how old is it?   have\n     clients been warned? (ideally on the mailing list)  link the discussion.\n\nAs documented in https://github.com/openbmc/docs/blob/master/CONTRIBUTING.md#formatting-commit-messages we follow https://chris.beams.io/posts/git-commit/. As documented, commit messages should be line wrapped at 50/72.\"\n\nor \n\n14. ### Commit messages\nbmcweb follows https://github.com/openbmc/docs/blob/master/CONTRIBUTING.md#formatting-commit-messages. \n\nSome bmcweb specific things to consider in a commit message: \n   - Why are the changes useful?  Given that bmcweb is a user-facing daemon,\n      commits adding new functionality should include statements about how the\n      commit in question is useful to the user.\n      Exception: documentation changes, and bug fixes do not need justification.\n\n   - What changes would a user expect to see?  This includes new parameters, new\n     resources, and new or changed properties.  Any route changes should be\n     explicitly called out.\n\n   - Are there compatibility concerns?  Is this change backward compatible for\n     clients?  if not, what commit would be broken, and how old is it?   have\n     clients been warned? (ideally on the mailing list)  link the discussion.",
+      "range": {
+        "startLine": 129,
+        "startChar": 0,
+        "endLine": 144,
+        "endChar": 48
+      },
+      "revId": "3c1a58c9b150e39ad9093a0d8e3429e35b290ef0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0e06df0d_33b0243a",
+        "filename": "DEVELOPING.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 146,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-08-18T17:50:03Z",
+      "side": 1,
+      "message": "C",
+      "range": {
+        "startLine": 146,
+        "startChar": 8,
+        "endLine": 146,
+        "endChar": 9
+      },
+      "revId": "3c1a58c9b150e39ad9093a0d8e3429e35b290ef0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ca5ad412_ae3a5df8",
+        "filename": "DEVELOPING.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-08-18T17:50:03Z",
+      "side": 1,
+      "message": "nitpick: just seems like odd styling of a name. Greg Kroah-Hartman ? Greg K-H as from https://twitter.com/gregkh?lang\u003den?",
+      "range": {
+        "startLine": 147,
+        "startChar": 31,
+        "endLine": 147,
+        "endChar": 38
+      },
+      "revId": "3c1a58c9b150e39ad9093a0d8e3429e35b290ef0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a9c7f6cd_74465599",
+        "filename": "DEVELOPING.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-08-18T17:50:03Z",
+      "side": 1,
+      "message": "I would like to see some more concrete rules here. E.g \n\nAny breaking api change even if behind a compile flag will be sent to the mailing list. \nAny breaking api change will have a transition period of 1 openbmc release, roughly 6 months.\n\nA breaking api change might look like the following: \nSend email to the list and place new behavior behind a meson option defaulted to the existing behavior.\nFollowing the release, change the default to be the new behavior and added appropriate deprecation warnings to the old behavior. \nFollowing the 2nd release, remove the meson option and the old behavior.\n\nNote: Are we having openbmc releases anymore?\nThink we need to have some more discussion here.",
+      "range": {
+        "startLine": 153,
+        "startChar": 0,
+        "endLine": 163,
+        "endChar": 39
+      },
+      "revId": "3c1a58c9b150e39ad9093a0d8e3429e35b290ef0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
