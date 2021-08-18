@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8d802225_a08ca61a",
+        "filename": "redfish-core/include/gzfile.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2021-08-18T17:19:47Z",
+      "side": 1,
+      "message": "I am not a big fan of static local variables. Do we have race condition here if there are multiple requests running at the same time?",
+      "revId": "c7aba72a76bce96b78ecfb95bcf941e0d1b2a672",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
