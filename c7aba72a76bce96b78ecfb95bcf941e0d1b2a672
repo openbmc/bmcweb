@@ -16,6 +16,63 @@
       "revId": "c7aba72a76bce96b78ecfb95bcf941e0d1b2a672",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "798e9e41_2267e18a",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 1940,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2021-08-18T17:26:32Z",
+      "side": 1,
+      "message": "Did we miss the last incomplete message? According to previous discussion, we should add it to the end even if it is not complete.",
+      "revId": "c7aba72a76bce96b78ecfb95bcf941e0d1b2a672",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "33c5822d_0cb3f359",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 1944,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2021-08-18T17:26:32Z",
+      "side": 1,
+      "message": "this loop can be simply written as\n\n```\nfor (size_t id \u003d skip; id \u003c\u003d min(skip + top, logEntries.size()); ++id) {\n...\nfillHostLoggerEntryJson(std::to_string(id),\n                                                msg, hostLogEntry);\n}\n```",
+      "revId": "c7aba72a76bce96b78ecfb95bcf941e0d1b2a672",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ae3367ec_d47b7565",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 1957,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2021-08-18T17:26:32Z",
+      "side": 1,
+      "message": "why +1? can we start from 0?",
+      "range": {
+        "startLine": 1957,
+        "startChar": 72,
+        "endLine": 1957,
+        "endChar": 73
+      },
+      "revId": "c7aba72a76bce96b78ecfb95bcf941e0d1b2a672",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
