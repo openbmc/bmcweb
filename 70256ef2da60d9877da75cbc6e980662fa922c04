@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "3ec79c3e_03116835",
+        "filename": "redfish-core/lib/metric_definition.hpp",
+        "patchSetId": 90
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2021-08-19T08:25:44Z",
+      "side": 1,
+      "message": "Gauge looks like physical sensor can have higher value, but we limit it and never show result above gauge max value. In this case Numeric is more precise because Telemetry doesn\u0027t modify value of this sensor, that\u0027s why Gauge would be incorrect.",
+      "parentUuid": "d74d5b68_5a964a8a",
+      "range": {
+        "startLine": 192,
+        "startChar": 58,
+        "endLine": 192,
+        "endChar": 65
+      },
+      "revId": "70256ef2da60d9877da75cbc6e980662fa922c04",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "bf998604_24dcbbb4",
         "filename": "redfish-core/lib/metric_definition.hpp",
         "patchSetId": 90
