@@ -523,6 +523,30 @@
       "revId": "8b8f653f16f123b634a26fa5ce72e07053e49d0a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0d048bc7_91e07760",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 1438,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-08-19T21:02:28Z",
+      "side": 1,
+      "message": "\u003eThis code is based on PowerModes which has a GetSubTree for both GET and PATCH.\n\n\nThat\u0027s my point.  You should have a single GetSubtree call with the interfaces you care about in one spot, not two.  As-is this duplicates the call, and has performance impacts (double the dbus calls) for clients that don\u0027t implement a TPM at this address.\n\n\nHere\u0027s an example of what I would expect here, for processors:\nhttps://github.com/openbmc/bmcweb/blob/885bbf1c82ea9f9cbfbe0065ee46adc8e398c868/redfish-core/lib/processor.hpp#L765\n\nNotice, it adds all the inventory and accelerator interfaces.  In the future if I ever get time to add the GetSubTreeEx call to the mapper, the code gets further simplified in the future, but for the moment, that pattern is still faster, and minimizes dbus traffic, as well as reduces the amount of code.",
+      "parentUuid": "77150cf5_82b94b6f",
+      "range": {
+        "startLine": 1435,
+        "startChar": 0,
+        "endLine": 1438,
+        "endChar": 78
+      },
+      "revId": "8b8f653f16f123b634a26fa5ce72e07053e49d0a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
