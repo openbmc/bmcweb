@@ -22,6 +22,98 @@
       "revId": "b52bcc2ac96479884b1d70eb33dce3331bde8c2a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "111e8789_49005289",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-08-19T17:25:08Z",
+      "side": 1,
+      "message": "Why are we checking for empty here?  If the model string is empty, the daemon in charge shouldn\u0027t be publishing the interface.  We try to avoid business logic like this in the redfish layer.",
+      "range": {
+        "startLine": 165,
+        "startChar": 4,
+        "endLine": 165,
+        "endChar": 24
+      },
+      "revId": "b52bcc2ac96479884b1d70eb33dce3331bde8c2a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b39670cf_f32d0f91",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-08-19T17:25:08Z",
+      "side": 1,
+      "message": "deduplicate this between your branches.",
+      "range": {
+        "startLine": 169,
+        "startChar": 12,
+        "endLine": 169,
+        "endChar": 61
+      },
+      "revId": "b52bcc2ac96479884b1d70eb33dce3331bde8c2a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3f35eee2_2e2ec9a8",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 202,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-08-19T17:25:08Z",
+      "side": 1,
+      "message": "Just put this error handling in modifyCPUPresenceState, and avoid the complex lambda.  Also, doing the lambda inline with each entry would make this more clean.",
+      "range": {
+        "startLine": 197,
+        "startChar": 0,
+        "endLine": 202,
+        "endChar": 13
+      },
+      "revId": "b52bcc2ac96479884b1d70eb33dce3331bde8c2a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "274e2a0e_221da85d",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 242,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-08-19T17:25:08Z",
+      "side": 1,
+      "message": "Remove this comment.  Not all systems use SMBIOS.",
+      "range": {
+        "startLine": 242,
+        "startChar": 56,
+        "endLine": 242,
+        "endChar": 67
+      },
+      "revId": "b52bcc2ac96479884b1d70eb33dce3331bde8c2a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
