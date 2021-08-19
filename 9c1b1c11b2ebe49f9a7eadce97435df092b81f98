@@ -1,0 +1,188 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "41764c2b_af29e847",
+        "filename": "redfish-core/include/gzfile.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2021-08-19T17:18:07Z",
+      "side": 1,
+      "message": "nit: this can be private and we can write a getter for it.",
+      "range": {
+        "startLine": 12,
+        "startChar": 16,
+        "endLine": 12,
+        "endChar": 27
+      },
+      "revId": "9c1b1c11b2ebe49f9a7eadce97435df092b81f98",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a71e3e4e_8a288422",
+        "filename": "redfish-core/include/gzfile.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2021-08-19T17:18:07Z",
+      "side": 1,
+      "message": "this doesn\u0027t close all other descriptors but the last one.",
+      "range": {
+        "startLine": 16,
+        "startChar": 8,
+        "endLine": 16,
+        "endChar": 15
+      },
+      "revId": "9c1b1c11b2ebe49f9a7eadce97435df092b81f98",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eab589cb_449415de",
+        "filename": "redfish-core/include/gzfile.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2021-08-19T17:18:07Z",
+      "side": 1,
+      "message": "why logStream becomes a class variable? Its lifecycle should only be scoped in the gzGetLines function.\n\nEvery gzGetLines call creates a new file descriptor and closes it before return.",
+      "range": {
+        "startLine": 65,
+        "startChar": 11,
+        "endLine": 65,
+        "endChar": 20
+      },
+      "revId": "9c1b1c11b2ebe49f9a7eadce97435df092b81f98",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "09c9421d_bdeb23bd",
+        "filename": "redfish-core/include/gzfile.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2021-08-19T17:18:07Z",
+      "side": 1,
+      "message": "bufferStr.data()",
+      "range": {
+        "startLine": 86,
+        "startChar": 43,
+        "endLine": 86,
+        "endChar": 52
+      },
+      "revId": "9c1b1c11b2ebe49f9a7eadce97435df092b81f98",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8dee4369_2f43e8dc",
+        "filename": "redfish-core/include/gzfile.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2021-08-19T17:18:07Z",
+      "side": 1,
+      "message": "nit: add a comment here\n\n```\nsince there might be consecutive delimiters like \"\\r\\n\", we need to filter empty strings.\n```",
+      "range": {
+        "startLine": 123,
+        "startChar": 17,
+        "endLine": 123,
+        "endChar": 25
+      },
+      "revId": "9c1b1c11b2ebe49f9a7eadce97435df092b81f98",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f9eefd4d_6e9c80c5",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 1950,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2021-08-19T17:18:07Z",
+      "side": 1,
+      "message": "size_t?",
+      "range": {
+        "startLine": 1950,
+        "startChar": 50,
+        "endLine": 1950,
+        "endChar": 67
+      },
+      "revId": "9c1b1c11b2ebe49f9a7eadce97435df092b81f98",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5f1d03ca_c1a7a701",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 2002,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2021-08-19T17:18:07Z",
+      "side": 1,
+      "message": "what if the targetID is extremely large? isNumber doesn\u0027t guarantee this won\u0027t throw std::out_of_range.\n\nwhy not just try catch? there are two exceptions here, out_of_range and invalid_argument \n\nhttps://en.cppreference.com/w/cpp/string/basic_string/stoul",
+      "range": {
+        "startLine": 2002,
+        "startChar": 42,
+        "endLine": 2002,
+        "endChar": 48
+      },
+      "revId": "9c1b1c11b2ebe49f9a7eadce97435df092b81f98",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f2d85431_f98815dd",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 2006,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2021-08-19T17:18:07Z",
+      "side": 1,
+      "message": "size_t?",
+      "range": {
+        "startLine": 2006,
+        "startChar": 45,
+        "endLine": 2006,
+        "endChar": 53
+      },
+      "revId": "9c1b1c11b2ebe49f9a7eadce97435df092b81f98",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
