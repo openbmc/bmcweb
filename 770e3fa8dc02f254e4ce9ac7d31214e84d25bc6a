@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "d3f0c501_c3836340",
+        "filename": "redfish-core/include/registries/privilege_registry.hpp",
+        "patchSetId": 50
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-08-19T21:09:54Z",
+      "side": 1,
+      "message": "This comment seems to have been ignored here.",
+      "range": {
+        "startLine": 2,
+        "startChar": 41,
+        "endLine": 2,
+        "endChar": 61
+      },
+      "revId": "770e3fa8dc02f254e4ce9ac7d31214e84d25bc6a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "13205c7f_b3d27677",
         "filename": "redfish-core/include/registries/privilege_registry.hpp",
         "patchSetId": 50
