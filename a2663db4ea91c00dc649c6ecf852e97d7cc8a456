@@ -22,6 +22,29 @@
       "revId": "a2663db4ea91c00dc649c6ecf852e97d7cc8a456",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "77d42265_729fb6ff",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 213,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-08-19T17:21:28Z",
+      "side": 1,
+      "message": "At some point we should really write up a helper class/method for this pattern rather than declaring this same lambda (or some slight variation) all over the place.  Oh well, work for another day.",
+      "range": {
+        "startLine": 205,
+        "startChar": 0,
+        "endLine": 213,
+        "endChar": 6
+      },
+      "revId": "a2663db4ea91c00dc649c6ecf852e97d7cc8a456",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
