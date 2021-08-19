@@ -16,6 +16,24 @@
       "revId": "9965731b51ca81d62d9d6bb43435cc7d94ab2f5c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ff7f02fb_5f60147d",
+        "filename": "redfish-core/include/registries/privilege_registry.hpp",
+        "patchSetId": 65
+      },
+      "lineNbr": 1334,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-08-19T21:02:29Z",
+      "side": 1,
+      "message": "Can we modify the script that generates this as well? Otherwise next time we run the script, doesn\u0027t this get overwrote?",
+      "parentUuid": "57531018_bc3fe623",
+      "revId": "9965731b51ca81d62d9d6bb43435cc7d94ab2f5c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
