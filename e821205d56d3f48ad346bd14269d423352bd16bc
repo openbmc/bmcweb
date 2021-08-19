@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "dd68e019_445d9716",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-08-19T17:20:10Z",
+      "side": 1,
+      "message": "Default constructing a key is not the wya to determine if it\u0027s been filled in already.  Also, we should have a single source for this property in code.",
+      "range": {
+        "startLine": 131,
+        "startChar": 7,
+        "endLine": 131,
+        "endChar": 64
+      },
+      "revId": "e821205d56d3f48ad346bd14269d423352bd16bc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "aeec2d28_83d87ce3",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-08-19T17:20:10Z",
+      "side": 1,
+      "message": "Don\u0027t use auto in this context.  In this case it obfuscates the fact that this is a pointer and needs checked (which you\u0027ve omitted below).",
+      "range": {
+        "startLine": 137,
+        "startChar": 12,
+        "endLine": 137,
+        "endChar": 16
+      },
+      "revId": "e821205d56d3f48ad346bd14269d423352bd16bc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f1c1ac62_00d69f78",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-08-19T17:20:10Z",
+      "side": 1,
+      "message": "int64_t please.",
+      "range": {
+        "startLine": 138,
+        "startChar": 34,
+        "endLine": 138,
+        "endChar": 66
+      },
+      "revId": "e821205d56d3f48ad346bd14269d423352bd16bc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dd43805a_ee63a292",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-08-19T17:20:10Z",
+      "side": 1,
+      "message": "nullptr dereference.",
+      "range": {
+        "startLine": 139,
+        "startChar": 30,
+        "endLine": 139,
+        "endChar": 41
+      },
+      "revId": "e821205d56d3f48ad346bd14269d423352bd16bc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "22ff5a61_f17634a8",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 288,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-08-19T17:20:10Z",
+      "side": 1,
+      "message": "Please don\u0027t do multiple GETs on the same interface.  Combine this with the call on line 299.",
+      "range": {
+        "startLine": 284,
+        "startChar": 0,
+        "endLine": 288,
+        "endChar": 63
+      },
+      "revId": "e821205d56d3f48ad346bd14269d423352bd16bc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
