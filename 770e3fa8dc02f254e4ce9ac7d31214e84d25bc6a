@@ -57,6 +57,24 @@
       "revId": "770e3fa8dc02f254e4ce9ac7d31214e84d25bc6a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "011342f8_978b322b",
+        "filename": "redfish-core/include/registries/privilege_registry.hpp",
+        "patchSetId": 50
+      },
+      "lineNbr": 477,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-08-19T21:11:08Z",
+      "side": 1,
+      "message": "I wonder how hard it would be to write a travis test in the DMTF upstream for this.  I\u0027m betting a hypothetical cable schema probably needs updated as well.",
+      "parentUuid": "38a1144c_81943fcc",
+      "revId": "770e3fa8dc02f254e4ce9ac7d31214e84d25bc6a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
