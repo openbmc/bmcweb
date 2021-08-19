@@ -349,7 +349,7 @@ class WebSocketRule : public BaseRule
             myConnection = std::make_shared<
                 crow::websocket::ConnectionImpl<boost::asio::ip::tcp::socket>>(
                 req, std::move(adaptor), openHandler, messageHandler,
-                closeHandler, errorHandler);
+                closeHandler, errorHandler, pingHandler, pongHandler);
         myConnection->start();
     }
 #ifdef BMCWEB_ENABLE_SSL
@@ -363,7 +363,7 @@ class WebSocketRule : public BaseRule
             myConnection = std::make_shared<crow::websocket::ConnectionImpl<
                 boost::beast::ssl_stream<boost::asio::ip::tcp::socket>>>(
                 req, std::move(adaptor), openHandler, messageHandler,
-                closeHandler, errorHandler);
+                closeHandler, errorHandler, pingHandler, pongHandler);
         myConnection->start();
     }
 #endif
@@ -396,6 +396,20 @@ class WebSocketRule : public BaseRule
         return *this;
     }
 
+    template <typename Func>
+    self_t& onping(Func f)
+    {
+        pingHandler = f;
+        return *this;
+    }
+
+    template <typename Func>
+    self_t& onpong(Func f)
+    {
+        pongHandler = f;
+        return *this;
+    }
+
   protected:
     std::function<void(crow::websocket::Connection&)> openHandler;
     std::function<void(crow::websocket::Connection&, const std::string&, bool)>
@@ -403,6 +417,10 @@ class WebSocketRule : public BaseRule
     std::function<void(crow::websocket::Connection&, const std::string&)>
         closeHandler;
     std::function<void(crow::websocket::Connection&)> errorHandler;
+    std::function<void(crow::websocket::Connection&, const std::string&)>
+        pingHandler;
+    std::function<void(crow::websocket::Connection&, const std::string&)>
+        pongHandler;
 };
 
 template <typename T>

@@ -74,14 +74,18 @@ class ConnectionImpl : public Connection
         std::function<void(Connection&, const std::string&, bool)>
             messageHandler,
         std::function<void(Connection&, const std::string&)> closeHandler,
-        std::function<void(Connection&)> errorHandler) :
+        std::function<void(Connection&)> errorHandler,
+        std::function<void(Connection&, const std::string&)> pingHandler,
+        std::function<void(Connection&, const std::string&)> pongHandler) :
         Connection(reqIn, reqIn.session == nullptr ? std::string{}
                                                    : reqIn.session->username),
         ws(std::move(adaptorIn)), inBuffer(inString, 131088),
         openHandler(std::move(openHandler)),
         messageHandler(std::move(messageHandler)),
         closeHandler(std::move(closeHandler)),
-        errorHandler(std::move(errorHandler)), session(reqIn.session)
+        errorHandler(std::move(errorHandler)),
+        pingHandler(std::move(pingHandler)),
+        pongHandler(std::move(pongHandler)), session(reqIn.session)
     {
         /* Turn on the timeouts on websocket stream to server role */
         ws.set_option(boost::beast::websocket::stream_base::timeout::suggested(
@@ -146,6 +150,41 @@ class ConnectionImpl : public Connection
                 return;
             }
             acceptDone();
+        });
+
+        ws.control_callback([this, self(shared_from_this())](
+                                boost::beast::websocket::frame_type kind,
+                                std::string_view payload) {
+            switch (kind)
+            {
+                case boost::beast::websocket::frame_type::close:
+                {
+                    BMCWEB_LOG_DEBUG << "Control frame [CLOSE]: " << payload;
+                    if (closeHandler)
+                    {
+                        closeHandler(*this, std::string(payload));
+                    }
+                    break;
+                }
+                case boost::beast::websocket::frame_type::ping:
+                {
+                    BMCWEB_LOG_DEBUG << "Control frame [PING]: " << payload;
+                    if (pingHandler)
+                    {
+                        pingHandler(*this, std::string(payload));
+                    }
+                    break;
+                }
+                case boost::beast::websocket::frame_type::pong:
+                {
+                    BMCWEB_LOG_DEBUG << "Control frame [PONG]: " << payload;
+                    if (pongHandler)
+                    {
+                        pongHandler(*this, std::string(payload));
+                    }
+                    break;
+                }
+            }
         });
     }
 
@@ -286,6 +325,8 @@ class ConnectionImpl : public Connection
     std::function<void(Connection&, const std::string&, bool)> messageHandler;
     std::function<void(Connection&, const std::string&)> closeHandler;
     std::function<void(Connection&)> errorHandler;
+    std::function<void(Connection&, const std::string&)> pingHandler;
+    std::function<void(Connection&, const std::string&)> pongHandler;
     std::shared_ptr<persistent_data::UserSession> session;
 };
 } // namespace websocket
