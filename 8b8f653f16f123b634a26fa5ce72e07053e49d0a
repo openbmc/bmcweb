@@ -547,6 +547,30 @@
       "revId": "8b8f653f16f123b634a26fa5ce72e07053e49d0a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cceaa85c_e8bc68a1",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 1438,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-08-19T21:07:24Z",
+      "side": 1,
+      "message": "This is the PATCH. Now I could agree with you on the GET, we could combine to have 1 mapper call vs 2.\n\nI think a much more common case (90% use case) for PATCH is where the client isn\u0027t PATCHing both TPM and PowerModes but instead just PATCHing one.",
+      "parentUuid": "0d048bc7_91e07760",
+      "range": {
+        "startLine": 1435,
+        "startChar": 0,
+        "endLine": 1438,
+        "endChar": 78
+      },
+      "revId": "8b8f653f16f123b634a26fa5ce72e07053e49d0a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
