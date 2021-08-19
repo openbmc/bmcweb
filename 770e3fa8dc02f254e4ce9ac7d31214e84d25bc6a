@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "13205c7f_b3d27677",
+        "filename": "redfish-core/include/registries/privilege_registry.hpp",
+        "patchSetId": 50
+      },
+      "lineNbr": 477,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-08-19T21:03:12Z",
+      "side": 1,
+      "message": "Redfish doesn\u0027t have privileges out for this yet.\nI opened the following Redfish issue for adding: 4759",
+      "revId": "770e3fa8dc02f254e4ce9ac7d31214e84d25bc6a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
