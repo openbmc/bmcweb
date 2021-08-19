@@ -104,6 +104,44 @@ inline void
 }
 
 /*
+ * @brief Update "ProcessorSummary" "Core Count"
+ *
+ * @param[in] aResp Shared pointer for completing asynchronous calls
+ * @param[in] cpuCoreCount Number of Cores on CPU
+ *
+ * @return None.
+ */
+inline void modifyCpuCoreCount(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
+                               const std::variant<uint16_t>& cpuCoreCount)
+{
+    const uint16_t* isCoreCount = std::get_if<uint16_t>(&cpuCoreCount);
+
+    if (isCoreCount == nullptr)
+    {
+        messages::internalError(aResp->res);
+        return;
+    }
+    BMCWEB_LOG_DEBUG << "Cpu Core Count: " << *isCoreCount;
+
+    if (*isCoreCount > 0)
+    {
+        nlohmann::json& coreCount =
+            aResp->res.jsonValue["ProcessorSummary"]["CoreCount"];
+
+        if ((coreCount.type() == nlohmann::json::value_t::null))
+        {
+            coreCount = *isCoreCount;
+        }
+        else
+        {
+            auto coreCountPtr =
+                coreCount.get_ptr<nlohmann::json::number_integer_t*>();
+            *coreCountPtr += *isCoreCount;
+        }
+    }
+}
+
+/*
  * @brief Update "ProcessorSummary" "Status" "State" based on
  *        CPU Functional State
  *
@@ -177,8 +215,8 @@ inline void modifyCpuModel(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
 }
 
 /*
- * @brief Update "ProcessorSummary" {"Count", "Model", "Status.State"}
- * parameters
+ * @brief Update "ProcessorSummary" {"Count", "Core Count",  "Model",
+ * "Status.State"} parameters
  *
  * @param[in] aResp Shared pointer for completing asynchronous calls
  * @param[in] serv is dbus service for handling processor information
@@ -202,6 +240,17 @@ inline void getProcessorSummary(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
             }
             modifyCpuPresenceState(aResp, cpuPresenceCheck);
         };
+
+    auto getCpuCoreCount = [aResp](const boost::system::error_code ec,
+                                   const std::variant<uint16_t>& cpuCoreCount) {
+        if (ec)
+        {
+            BMCWEB_LOG_ERROR << "CPU Core Count missing. DBUS response error "
+                             << ec;
+            return;
+        }
+        modifyCpuCoreCount(aResp, cpuCoreCount);
+    };
 
     auto getCpuFunctionalState = [aResp](const boost::system::error_code ec,
                                          const std::variant<bool>&
@@ -231,6 +280,12 @@ inline void getProcessorSummary(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
         std::move(getCpuPresenceState), service, path,
         "org.freedesktop.DBus.Properties", "Get",
         "xyz.openbmc_project.Inventory.Item", "Present");
+
+    // Get the CPU Core Count
+    crow::connections::systemBus->async_method_call(
+        std::move(getCpuCoreCount), service, path,
+        "org.freedesktop.DBus.Properties", "Get",
+        "xyz.openbmc_project.Inventory.Item.Cpu", "CoreCount");
 
     // Get the Functional State
     crow::connections::systemBus->async_method_call(
