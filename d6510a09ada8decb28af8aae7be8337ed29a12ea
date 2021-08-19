@@ -34,6 +34,24 @@
       "revId": "d6510a09ada8decb28af8aae7be8337ed29a12ea",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cb47fe44_77c94037",
+        "filename": "include/vm_websocket.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1000272
+      },
+      "writtenOn": "2021-08-19T08:40:25Z",
+      "side": 1,
+      "message": "I just found out https://github.com/openbmc/bmcweb/blob/master/http/websocket.hpp#L75 here has allocate another 128KB+16Byte buffer... 😓",
+      "parentUuid": "dabe62c6_d1f07ae0",
+      "revId": "d6510a09ada8decb28af8aae7be8337ed29a12ea",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
