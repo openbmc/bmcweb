@@ -88,6 +88,29 @@
       "revId": "39f6ac9b75fbe15f353f53d7d4ff00e9067c4cff",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2cefd48f_6b3d33bc",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 92
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-08-20T19:12:00Z",
+      "side": 1,
+      "message": "What is this even testing?  I would\u0027ve expected you to walk the collection and get each individual sensor value.",
+      "range": {
+        "startLine": 49,
+        "startChar": 0,
+        "endLine": 52,
+        "endChar": 0
+      },
+      "revId": "39f6ac9b75fbe15f353f53d7d4ff00e9067c4cff",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
