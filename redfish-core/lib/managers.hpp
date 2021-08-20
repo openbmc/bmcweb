@@ -17,6 +17,7 @@
 
 #include "health.hpp"
 #include "redfish_util.hpp"
+#include "sensors.hpp"
 
 #include <app.hpp>
 #include <boost/algorithm/string/replace.hpp>
@@ -33,6 +34,10 @@
 
 namespace redfish
 {
+
+using GetSubTreeType = std::vector<
+    std::pair<std::string,
+              std::vector<std::pair<std::string, std::vector<std::string>>>>>;
 
 /**
  * Function reboots the BMC.
@@ -1762,6 +1767,124 @@ inline void
         "xyz.openbmc_project.State.BMC", "LastRebootTime");
 }
 
+inline void
+    managerGetCPUUtilization(const std::shared_ptr<bmcweb::AsyncResp>& aResp)
+{
+    BMCWEB_LOG_DEBUG << "Getting CPU Utilization";
+    fprintf(stderr, "managerGetCPUUtilization\n");
+
+    nlohmann::json& cpuUtilization =
+        aResp->res.jsonValue["CPUUtilization"]["#ProcessorMetrics"];
+    cpuUtilization["UserPercent"] = 1.234f;
+    cpuUtilization["KernelPercent"] = 2.345f;
+
+    std::string chassisId = "bmc"; // Must use "bmc" as a "chassis"
+    std::shared_ptr<SensorsAsyncResp> asyncResp =
+        std::make_shared<SensorsAsyncResp>(aResp, chassisId,
+                                           std::vector<const char*>(),
+                                           sensors::node::sensors);
+
+    const std::array<const char*, 1> interfaces = {
+        "xyz.openbmc_project.Sensor.Value"};
+
+    // Get a list of all of the sensors that implement Sensor.Value
+    // and get the path and service name associated with the sensor
+    // and just get the readings from the CPU_Kernel and CPU_User sensors
+    // from the health monitor service
+    // Not sure what would be the best way to do it but this is what I intend to
+    // achieve
+    crow::connections::systemBus->async_method_call(
+        [asyncResp, &cpuUtilization](const boost::system::error_code ec,
+                                     const GetSubTreeType& subtree) {
+            if (ec)
+            {
+                messages::internalError(asyncResp->asyncResp->res);
+                std::cout << "Sensor getSensorPaths resp_handler: "
+                          << "Dbus error " << ec;
+                return;
+            }
+
+            // Input: the a{sa{sas}} returned by GetSubTree
+            auto isDesiredSensor =
+                [](const std::pair<std::string,
+                                   std::vector<std::pair<
+                                       std::string, std::vector<std::string>>>>&
+                       object) {
+                    sdbusplus::message::object_path path(object.first);
+                    std::string name = path.filename();
+                    if (name.empty())
+                    {
+                        std::cout << "Invalid sensor path: " << object.first;
+                        return false;
+                    }
+
+                    return name == "CPU_Kernel" || name == "CPU_User";
+                };
+
+            GetSubTreeType::const_iterator it =
+                std::find_if(subtree.begin(), subtree.end(), isDesiredSensor);
+
+            while (it != subtree.end())
+            {
+                std::string_view sensorPath = (*it).first;
+                std::cout << "Found CPU utilization sensor: " << sensorPath
+                          << std::endl;
+
+                std::string processorMetricName;
+                if (sensorPath.find("CPU_Kernel") != std::string::npos)
+                {
+                    processorMetricName = "KernelPercent";
+                }
+                else
+                {
+                    processorMetricName = "UserPercent";
+                }
+
+                // Use the first DBus service
+                const std::vector<
+                    std::pair<std::string, std::vector<std::string>>>&
+                    servicesAndInterfaces = (*it).second;
+                if (servicesAndInterfaces.size() > 0)
+                {
+                    std::string_view dbusService =
+                        servicesAndInterfaces[0].first;
+
+                    crow::connections::systemBus->async_method_call(
+                        [asyncResp, processorMetricName,
+                         &cpuUtilization](const boost::system::error_code ec,
+                                          const std::variant<double>& value) {
+                            if (ec)
+                            {
+                                BMCWEB_LOG_DEBUG
+                                    << "DBus response error while getting CPU "
+                                       "utilization value";
+                                return;
+                            }
+                            const double* d = std::get_if<double>(&value);
+                            if (d == nullptr)
+                            {
+                                BMCWEB_LOG_DEBUG
+                                    << "Null value returned for value";
+                                return;
+                            }
+                            double d1 = *d; // get rid of const
+                            cpuUtilization[processorMetricName] = d1;
+                        },
+                        dbusService.data(), sensorPath.data(),
+                        "org.freedesktop.DBus.Properties", "Get",
+                        "xyz.openbmc_project.Sensor.Value", "Value");
+                }
+
+                it++;
+                it = std::find_if(it, subtree.end(), isDesiredSensor);
+            }
+        },
+        "xyz.openbmc_project.ObjectMapper",
+        "/xyz/openbmc_project/object_mapper",
+        "xyz.openbmc_project.ObjectMapper", "GetSubTree",
+        "/xyz/openbmc_project/sensors", 2, interfaces);
+}
+
 /**
  * @brief Set the running firmware image
  *
@@ -2027,6 +2150,8 @@ inline void requestRoutesManager(App& app)
                                                  "FirmwareVersion", true);
 
             managerGetLastResetTime(asyncResp);
+
+            managerGetCPUUtilization(asyncResp);
 
             auto pids = std::make_shared<GetPIDValues>(asyncResp);
             pids->run();
