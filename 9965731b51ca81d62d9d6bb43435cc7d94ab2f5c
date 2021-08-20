@@ -34,6 +34,24 @@
       "revId": "9965731b51ca81d62d9d6bb43435cc7d94ab2f5c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a69f7c54_ff9277bf",
+        "filename": "redfish-core/include/registries/privilege_registry.hpp",
+        "patchSetId": 65
+      },
+      "lineNbr": 1334,
+      "author": {
+        "id": 1000444
+      },
+      "writtenOn": "2021-08-20T02:40:06Z",
+      "side": 1,
+      "message": "Since PrivilegeRegistry.json does not support this yet. I reverted it back to the previous practice...\n\nAre there any milestones/targets for the \"Privilege New Approach\" in the near future? If so, what should I do if it is blocked by spec?",
+      "parentUuid": "ff7f02fb_5f60147d",
+      "revId": "9965731b51ca81d62d9d6bb43435cc7d94ab2f5c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
