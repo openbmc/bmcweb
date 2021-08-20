@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "698c2559_6e4a1ded",
+        "filename": "redfish-core/lib/trigger.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1001148
+      },
+      "writtenOn": "2021-08-20T09:38:09Z",
+      "side": 1,
+      "message": "This is used to avoid conflict with implementation of POST method for Triggers. For POST there is TriggerThresholdParams variant defined without monostate as dbus call for AddTrigger doesnt accept monostate alternative in the variant. But still for GET Trigger part, monostate can be used within variant and that\u0027s why separate alias is Ext suffixed here.",
+      "parentUuid": "14b2f6ae_513992c4",
+      "range": {
+        "startLine": 23,
+        "startChar": 28,
+        "endLine": 23,
+        "endChar": 31
+      },
+      "revId": "922b04fe0fd10e377df63ea0c299e6b4b03f8600",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "aa74d1d8_6f6b5918",
         "filename": "redfish-core/lib/trigger.hpp",
         "patchSetId": 2
@@ -36,6 +60,30 @@
       "writtenOn": "2021-08-20T08:14:29Z",
       "side": 1,
       "message": "Use find instead to avoid .at which throws exception.",
+      "range": {
+        "startLine": 42,
+        "startChar": 41,
+        "endLine": 42,
+        "endChar": 55
+      },
+      "revId": "922b04fe0fd10e377df63ea0c299e6b4b03f8600",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b479610e_1c549c8d",
+        "filename": "redfish-core/lib/trigger.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1001148
+      },
+      "writtenOn": "2021-08-20T09:38:09Z",
+      "side": 1,
+      "message": "There is no chance to throw \u0027out of range\u0027 exception, due to key existence is checked by params.count(key), but even though I will try to use find here instead.",
+      "parentUuid": "aa74d1d8_6f6b5918",
       "range": {
         "startLine": 42,
         "startChar": 41,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "d388d75a_ece31c8a",
+        "filename": "redfish-core/lib/trigger.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1001148
+      },
+      "writtenOn": "2021-08-20T09:38:09Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "02b1de71_307087a6",
+      "range": {
+        "startLine": 64,
+        "startChar": 22,
+        "endLine": 64,
+        "endChar": 36
+      },
+      "revId": "922b04fe0fd10e377df63ea0c299e6b4b03f8600",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5cee5025_72d80304",
         "filename": "redfish-core/lib/trigger.hpp",
         "patchSetId": 2
@@ -91,6 +163,30 @@
       "revId": "922b04fe0fd10e377df63ea0c299e6b4b03f8600",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "70f41c5b_ab646bc8",
+        "filename": "redfish-core/lib/trigger.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 1001148
+      },
+      "writtenOn": "2021-08-20T09:38:09Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "5cee5025_72d80304",
+      "range": {
+        "startLine": 186,
+        "startChar": 0,
+        "endLine": 189,
+        "endChar": 42
+      },
+      "revId": "922b04fe0fd10e377df63ea0c299e6b4b03f8600",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
