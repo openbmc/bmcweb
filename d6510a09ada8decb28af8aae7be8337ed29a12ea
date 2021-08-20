@@ -88,6 +88,24 @@
       "revId": "d6510a09ada8decb28af8aae7be8337ed29a12ea",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "51b7eb0b_11810b4e",
+        "filename": "include/vm_websocket.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1000021
+      },
+      "writtenOn": "2021-08-20T20:35:16Z",
+      "side": 1,
+      "message": "\u003e \u003e \n\u003e \u003e I will also note when reaching the end of the flat buffer it waits until its sent then shifts back; it\u0027s not a circular buffer stream.  Increasing the size of the buffer may increase the memmove overhead.\n\u003e \n\u003e I suspect multi_buffer would avoid the memmove overhead if that\u0027s a concern, but it didn\u0027t exist at the time this code was originally written.  Flat_buffer was mostly chosen because the assumption was that we would send one chunk at a time and clear the buffer each loop, but that\u0027s not what the VM implementation chose to do.\n\nThe kernel implementation generates a set of transaction tags and that dermines the number of outstanding commands.  From what I can tell it will negotiate a sector size from 512 to PAGE_SIZE and then transfer any number of sectors per request (upto 65536 sectors or UINT_MAX bytes, whichever is less).\n\nI can review multi_buffer at a later time to see if it looks suitable, otherwise we may need to block reading until the transfer to the writer has completed.  I think ignoring the read is preferable to the extreme memory demand to buffer the speed matching and preferable to blocking all activity until the write completes.",
+      "parentUuid": "699326a0_23faa511",
+      "revId": "d6510a09ada8decb28af8aae7be8337ed29a12ea",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
