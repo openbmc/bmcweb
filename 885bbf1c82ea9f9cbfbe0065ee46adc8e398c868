@@ -46,6 +46,30 @@
       "revId": "885bbf1c82ea9f9cbfbe0065ee46adc8e398c868",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "12846c7b_59ea2b5c",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-08-20T19:40:25Z",
+      "side": 0,
+      "message": "That\u0027s fine, but you need to have justification for why it\u0027s needed;  You commit message mentions nothing of it.  Are you fixing something?  Does this have any impacts?\n\nI suspect part of it is that the buffer changes likely should be in their own commit separate from these header changes, which would force them to have their own commit message.",
+      "parentUuid": "c842b560_4f0f8484",
+      "range": {
+        "startLine": 145,
+        "startChar": 0,
+        "endLine": 157,
+        "endChar": 0
+      },
+      "revId": "885bbf1c82ea9f9cbfbe0065ee46adc8e398c868",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
