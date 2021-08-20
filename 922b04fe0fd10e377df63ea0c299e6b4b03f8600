@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "14b2f6ae_513992c4",
+        "filename": "redfish-core/lib/trigger.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2021-08-20T08:14:29Z",
+      "side": 1,
+      "message": "What does this Ext mean?",
+      "range": {
+        "startLine": 23,
+        "startChar": 28,
+        "endLine": 23,
+        "endChar": 31
+      },
+      "revId": "922b04fe0fd10e377df63ea0c299e6b4b03f8600",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "aa74d1d8_6f6b5918",
+        "filename": "redfish-core/lib/trigger.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2021-08-20T08:14:29Z",
+      "side": 1,
+      "message": "Use find instead to avoid .at which throws exception.",
+      "range": {
+        "startLine": 42,
+        "startChar": 41,
+        "endLine": 42,
+        "endChar": 55
+      },
+      "revId": "922b04fe0fd10e377df63ea0c299e6b4b03f8600",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "02b1de71_307087a6",
+        "filename": "redfish-core/lib/trigger.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2021-08-20T08:14:29Z",
+      "side": 1,
+      "message": "You can\u0027t move const\u0026",
+      "range": {
+        "startLine": 64,
+        "startChar": 22,
+        "endLine": 64,
+        "endChar": 36
+      },
+      "revId": "922b04fe0fd10e377df63ea0c299e6b4b03f8600",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5cee5025_72d80304",
+        "filename": "redfish-core/lib/trigger.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2021-08-20T08:14:29Z",
+      "side": 1,
+      "message": "This should be placed when all possible errors are handled. We don\u0027t want to include this along with internalError message.",
+      "range": {
+        "startLine": 186,
+        "startChar": 0,
+        "endLine": 189,
+        "endChar": 42
+      },
+      "revId": "922b04fe0fd10e377df63ea0c299e6b4b03f8600",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
