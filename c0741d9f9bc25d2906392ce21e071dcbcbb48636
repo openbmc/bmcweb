@@ -19,6 +19,351 @@
     },
     {
       "key": {
+        "uuid": "628c3690_8cbfbbf3",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-08-20T16:59:57Z",
+      "side": 1,
+      "message": "And per the discussion with the DMTF redfish, it will never be.  Per their advice, we need to model the bmc as a computer system of type \"embedded\" or \"appliance\" and get the OS schemas upstreamed.\n\nAs written, this patch is an ok start on how to get the data, but I don\u0027t think it can go in in it\u0027s current form.",
+      "range": {
+        "startLine": 34,
+        "startChar": 0,
+        "endLine": 35,
+        "endChar": 45
+      },
+      "revId": "c0741d9f9bc25d2906392ce21e071dcbcbb48636",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0e515f85_87ff9ea0",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1774,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-08-20T16:59:57Z",
+      "side": 1,
+      "message": "Remove",
+      "range": {
+        "startLine": 1774,
+        "startChar": 0,
+        "endLine": 1774,
+        "endChar": 50
+      },
+      "revId": "c0741d9f9bc25d2906392ce21e071dcbcbb48636",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3c68b525_a581f87f",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1779,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-08-20T16:59:57Z",
+      "side": 1,
+      "message": "why is this here and hardcoded?",
+      "range": {
+        "startLine": 1778,
+        "startChar": 0,
+        "endLine": 1779,
+        "endChar": 45
+      },
+      "revId": "c0741d9f9bc25d2906392ce21e071dcbcbb48636",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a0a52ea0_673d03cf",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1797,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-08-20T16:59:57Z",
+      "side": 1,
+      "message": "This is a lifetime issue.  Once you\u0027ve resolved the issues around where this goes, and the hardcoded entries above, this will likely go away.",
+      "range": {
+        "startLine": 1797,
+        "startChar": 21,
+        "endLine": 1797,
+        "endChar": 35
+      },
+      "revId": "c0741d9f9bc25d2906392ce21e071dcbcbb48636",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5a5693be_886378be",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1821,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-08-20T16:59:57Z",
+      "side": 1,
+      "message": "Are these well known sensor names documented?  In the past we\u0027ve used lower_camel case for well known sensor names.\n\nAlso, in terms of naming at first glance, these don\u0027t seem like they\u0027d work, as there\u0027s no indication that this is the BMC kernel CPU percentage.",
+      "range": {
+        "startLine": 1821,
+        "startChar": 0,
+        "endLine": 1821,
+        "endChar": 70
+      },
+      "revId": "c0741d9f9bc25d2906392ce21e071dcbcbb48636",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "622be291_d4e3915b",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1828,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-08-20T16:59:57Z",
+      "side": 1,
+      "message": "This find_if loop is clever, but it adds a lot of complex code that we prefer to avoid.  If this were rewritten in the \"normal\" way\n\nfor sensor in sensors:\n   if sensor.name !\u003d \"cpu_kernel\" \u0026\u0026 sensor.name !\u003d \"CPU_User\":\n      continue\n\n   ... read in sensor value.\n\n\n\nIt would be a lot less code, and much more readable.",
+      "range": {
+        "startLine": 1824,
+        "startChar": 0,
+        "endLine": 1828,
+        "endChar": 13
+      },
+      "revId": "c0741d9f9bc25d2906392ce21e071dcbcbb48636",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "74afcc23_13d244a8",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1829,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-08-20T16:59:57Z",
+      "side": 1,
+      "message": "nit.  Prefer -\u003e",
+      "range": {
+        "startLine": 1829,
+        "startChar": 50,
+        "endLine": 1829,
+        "endChar": 52
+      },
+      "revId": "c0741d9f9bc25d2906392ce21e071dcbcbb48636",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "224dab76_f39159c0",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1830,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-08-20T16:59:57Z",
+      "side": 1,
+      "message": "Please use the debug logging mechanisms.",
+      "range": {
+        "startLine": 1830,
+        "startChar": 16,
+        "endLine": 1830,
+        "endChar": 26
+      },
+      "revId": "c0741d9f9bc25d2906392ce21e071dcbcbb48636",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0e62f5b4_c65a86ce",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1831,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-08-20T16:59:57Z",
+      "side": 1,
+      "message": "Just a note.  In general, prefer \\n to std::endl.  endl will force a flush, which isn\u0027t what you want in all cases (especially when streaming the output to another pipe).",
+      "range": {
+        "startLine": 1831,
+        "startChar": 29,
+        "endLine": 1831,
+        "endChar": 38
+      },
+      "revId": "c0741d9f9bc25d2906392ce21e071dcbcbb48636",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "57e06274_4ccaecdc",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1834,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-08-20T16:59:57Z",
+      "side": 1,
+      "message": "Don\u0027t use find for this operation.  Please use the other methods.  With that said, this will get cleaned up when you do the other changes suggested.",
+      "range": {
+        "startLine": 1834,
+        "startChar": 31,
+        "endLine": 1834,
+        "endChar": 35
+      },
+      "revId": "c0741d9f9bc25d2906392ce21e071dcbcbb48636",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "14bcf2ff_a2c13485",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1843,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-08-20T16:59:57Z",
+      "side": 1,
+      "message": "You should check there is only 1, and set an internal error otherwise.",
+      "range": {
+        "startLine": 1843,
+        "startChar": 16,
+        "endLine": 1843,
+        "endChar": 45
+      },
+      "revId": "c0741d9f9bc25d2906392ce21e071dcbcbb48636",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f804e6d7_e4ccc51b",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1848,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-08-20T16:59:57Z",
+      "side": 1,
+      "message": "please invert this check and call continue to save a scope.",
+      "range": {
+        "startLine": 1847,
+        "startChar": 0,
+        "endLine": 1848,
+        "endChar": 17
+      },
+      "revId": "c0741d9f9bc25d2906392ce21e071dcbcbb48636",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "15047c52_b4f494ce",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1854,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-08-20T16:59:57Z",
+      "side": 1,
+      "message": "Again, don\u0027t capture this by reference.  Prefer to duplicate the operator[] lookup, as it\u0027s much easier to verify the safety of.",
+      "range": {
+        "startLine": 1854,
+        "startChar": 26,
+        "endLine": 1854,
+        "endChar": 40
+      },
+      "revId": "c0741d9f9bc25d2906392ce21e071dcbcbb48636",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "879b46a5_2325f171",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1870,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-08-20T16:59:57Z",
+      "side": 1,
+      "message": "Why?  You should be able to set a json object to a const double value?",
+      "range": {
+        "startLine": 1870,
+        "startChar": 44,
+        "endLine": 1870,
+        "endChar": 63
+      },
+      "revId": "c0741d9f9bc25d2906392ce21e071dcbcbb48636",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5d1c5ac0_029e2f68",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1873,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-08-20T16:59:57Z",
+      "side": 1,
+      "message": "Please read and understand COMMON_ERRORS.md.  This exact bug is called out by name.",
+      "range": {
+        "startLine": 1873,
+        "startChar": 24,
+        "endLine": 1873,
+        "endChar": 62
+      },
+      "revId": "c0741d9f9bc25d2906392ce21e071dcbcbb48636",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "649b5a65_430591ee",
         "filename": "redfish-core/lib/managers.hpp",
         "patchSetId": 2
