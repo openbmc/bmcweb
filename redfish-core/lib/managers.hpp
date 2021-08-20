@@ -17,6 +17,7 @@
 
 #include "health.hpp"
 #include "redfish_util.hpp"
+#include "sensors.hpp"
 
 #include <app.hpp>
 #include <boost/algorithm/string/replace.hpp>
@@ -33,6 +34,10 @@
 
 namespace redfish
 {
+
+using GetSubTreeType = std::vector<
+    std::pair<std::string,
+              std::vector<std::pair<std::string, std::vector<std::string>>>>>;
 
 /**
  * Function reboots the BMC.
@@ -1762,6 +1767,104 @@ inline void
         "xyz.openbmc_project.State.BMC", "LastRebootTime");
 }
 
+inline void
+    managerGetCPUUtilization(const std::shared_ptr<bmcweb::AsyncResp>& aResp)
+{
+    const std::string chassisId = "bmc"; // Must use "bmc" as a "chassis"
+
+    const std::array<const char*, 1> interfaces = {
+        "xyz.openbmc_project.Sensor.Value"};
+
+    // Get a list of all of the sensors that implement Sensor.Value
+    // and get the path and service name associated with the sensor
+    // and just get the readings from the CPU_Kernel and CPU_User sensors
+    // from the health monitor service
+    // Not sure what would be the best way to do it but this is what I intend to
+    // achieve
+    crow::connections::systemBus->async_method_call(
+        [aResp](const boost::system::error_code ec,
+                const GetSubTreeType& subtree) {
+            if (ec)
+            {
+                messages::internalError(aResp->res);
+                std::cout << "Sensor getSensorPaths resp_handler: "
+                          << "Dbus error " << ec;
+                return;
+            }
+
+            // GetSubTreeType is an a{sa{sas}}
+            // Loop through each sa{sas} in the a{sa{sas}}
+            for (const std::pair<std::string,
+                                 std::vector<std::pair<
+                                     std::string, std::vector<std::string>>>>&
+                     interfaceMaps : subtree)
+            {
+                sdbusplus::message::object_path path(interfaceMaps.first);
+                std::string name = path.filename();
+
+                std::string processorMetricName;
+                if (name == "CPU_Kernel")
+                {
+                    processorMetricName = "KernelPercent";
+                }
+                else if (name == "CPU_User")
+                {
+                    processorMetricName = "UserPercent";
+                }
+                else
+                {
+                    continue;
+                }
+
+                const std::vector<
+                    std::pair<std::string, std::vector<std::string>>>&
+                    servicesAndInterfaces = interfaceMaps.second;
+
+                // interfaceMaps.first is
+                const size_t num_services = servicesAndInterfaces.size();
+
+                // Should be exactly 1 service
+                if (num_services != 1)
+                {
+                    BMCWEB_LOG_DEBUG
+                        << "Expecting exactly 1 service for CPU metrics, got "
+                        << num_services;
+                    continue;
+                }
+
+                const std::string& dbusService = servicesAndInterfaces[0].first;
+                crow::connections::systemBus->async_method_call(
+                    [aResp, processorMetricName, dbusService,
+                     path](const boost::system::error_code ec,
+                           const std::variant<double>& value) {
+                        if (ec)
+                        {
+                            BMCWEB_LOG_DEBUG
+                                << "DBus response error while getting CPU "
+                                   "utilization value";
+                            return;
+                        }
+                        const double* d = std::get_if<double>(&value);
+                        if (d == nullptr)
+                        {
+                            BMCWEB_LOG_DEBUG << "Null value returned for value";
+                            return;
+                        }
+                        aResp->res
+                            .jsonValue["CPUUtilization"]["#ProcessorMetrics"]
+                                      [processorMetricName] = *d;
+                    },
+                    dbusService.c_str(), path.str.c_str(),
+                    "org.freedesktop.DBus.Properties", "Get",
+                    "xyz.openbmc_project.Sensor.Value", "Value");
+            }
+        },
+        "xyz.openbmc_project.ObjectMapper",
+        "/xyz/openbmc_project/object_mapper",
+        "xyz.openbmc_project.ObjectMapper", "GetSubTree",
+        "/xyz/openbmc_project/sensors", 2, interfaces);
+}
+
 /**
  * @brief Set the running firmware image
  *
@@ -1931,7 +2034,7 @@ inline void requestRoutesManager(App& app)
                                                            asyncResp) {
             asyncResp->res.jsonValue["@odata.id"] = "/redfish/v1/Managers/bmc";
             asyncResp->res.jsonValue["@odata.type"] =
-                "#Manager.v1_11_0.Manager";
+                "#Manager.v1_12_0.Manager";
             asyncResp->res.jsonValue["Id"] = "bmc";
             asyncResp->res.jsonValue["Name"] = "OpenBmc Manager";
             asyncResp->res.jsonValue["Description"] =
@@ -2027,6 +2130,8 @@ inline void requestRoutesManager(App& app)
                                                  "FirmwareVersion", true);
 
             managerGetLastResetTime(asyncResp);
+
+            managerGetCPUUtilization(asyncResp);
 
             auto pids = std::make_shared<GetPIDValues>(asyncResp);
             pids->run();
