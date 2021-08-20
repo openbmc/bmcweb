@@ -95,6 +95,30 @@
     },
     {
       "key": {
+        "uuid": "02de9ca5_b9759783",
+        "filename": "redfish-core/lib/metric_definition.hpp",
+        "patchSetId": 92
+      },
+      "lineNbr": 240,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-08-20T17:49:09Z",
+      "side": 1,
+      "message": "\u003e Check in 217 ensures that path is supported, we might end up with list of MetricProperty, We won\u0027t even try to process dbus calls if uri is incorrect.\n\u003e \n\nThat\u0027s fair.\n\n\u003e I will move this into telemetry::mapRedfishUriToDbusPath callback (line 235).",
+      "parentUuid": "7985acf8_0c5f2a96",
+      "range": {
+        "startLine": 240,
+        "startChar": 0,
+        "endLine": 240,
+        "endChar": 62
+      },
+      "revId": "2f4eae63a2cd81d46ce532b1acb308b58f068e27",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "f060ea1c_a191e907",
         "filename": "redfish-core/lib/metric_definition.hpp",
         "patchSetId": 92
@@ -130,6 +154,30 @@
       "side": 1,
       "message": "Gauge would be if Telemetry service would round down value to certain max value. Numeric is there is no additional max value limit in telemetry service.",
       "parentUuid": "f060ea1c_a191e907",
+      "range": {
+        "startLine": 249,
+        "startChar": 58,
+        "endLine": 249,
+        "endChar": 65
+      },
+      "revId": "2f4eae63a2cd81d46ce532b1acb308b58f068e27",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8f0b9464_0dc6e1ac",
+        "filename": "redfish-core/lib/metric_definition.hpp",
+        "patchSetId": 92
+      },
+      "lineNbr": 249,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-08-20T17:49:09Z",
+      "side": 1,
+      "message": "We definitely do clamp up or down to MaxValue and MinValue in the sensor implementations.",
+      "parentUuid": "be5a6e90_081a4a24",
       "range": {
         "startLine": 249,
         "startChar": 58,
