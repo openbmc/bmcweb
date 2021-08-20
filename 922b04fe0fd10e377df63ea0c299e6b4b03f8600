@@ -120,6 +120,30 @@
     },
     {
       "key": {
+        "uuid": "4f9fca46_6bd8814b",
+        "filename": "redfish-core/lib/trigger.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2021-08-20T13:20:09Z",
+      "side": 1,
+      "message": "Also if you look at the assembler you can notice that even if this no way to throw there is still code with call to throw (it\u0027s not executed, but it\u0027s there).",
+      "parentUuid": "71057ebe_2e96d5fc",
+      "range": {
+        "startLine": 42,
+        "startChar": 41,
+        "endLine": 42,
+        "endChar": 55
+      },
+      "revId": "922b04fe0fd10e377df63ea0c299e6b4b03f8600",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "02b1de71_307087a6",
         "filename": "redfish-core/lib/trigger.hpp",
         "patchSetId": 2
