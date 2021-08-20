@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "242de218_cf547834",
+        "filename": "redfish-core/include/gzfile.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000404
+      },
+      "writtenOn": "2021-08-20T06:55:37Z",
+      "side": 1,
+      "message": "Write a getter name getLastMessage() to get the lastMessage.",
+      "parentUuid": "41764c2b_af29e847",
+      "range": {
+        "startLine": 12,
+        "startChar": 16,
+        "endLine": 12,
+        "endChar": 27
+      },
+      "revId": "9c1b1c11b2ebe49f9a7eadce97435df092b81f98",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a71e3e4e_8a288422",
         "filename": "redfish-core/include/gzfile.hpp",
         "patchSetId": 13
@@ -45,6 +69,30 @@
       "revId": "9c1b1c11b2ebe49f9a7eadce97435df092b81f98",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9a603018_7fd935a5",
+        "filename": "redfish-core/include/gzfile.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1000404
+      },
+      "writtenOn": "2021-08-20T06:55:37Z",
+      "side": 1,
+      "message": "Move gzclose to \"gzGetLines\" function then close the descriptor before return.",
+      "parentUuid": "a71e3e4e_8a288422",
+      "range": {
+        "startLine": 16,
+        "startChar": 8,
+        "endLine": 16,
+        "endChar": 15
+      },
+      "revId": "9c1b1c11b2ebe49f9a7eadce97435df092b81f98",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "f6c8a48c_4fd47c15",
+        "filename": "redfish-core/include/gzfile.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1000404
+      },
+      "writtenOn": "2021-08-20T06:55:37Z",
+      "side": 1,
+      "message": "Yes, it makes sense. Follow the suggestion to modify the code already.",
+      "parentUuid": "eab589cb_449415de",
+      "range": {
+        "startLine": 65,
+        "startChar": 11,
+        "endLine": 65,
+        "endChar": 20
+      },
+      "revId": "9c1b1c11b2ebe49f9a7eadce97435df092b81f98",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "09c9421d_bdeb23bd",
         "filename": "redfish-core/include/gzfile.hpp",
         "patchSetId": 13
@@ -91,6 +163,30 @@
       "revId": "9c1b1c11b2ebe49f9a7eadce97435df092b81f98",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d6636e23_f7d2f061",
+        "filename": "redfish-core/include/gzfile.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1000404
+      },
+      "writtenOn": "2021-08-20T06:55:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "09c9421d_bdeb23bd",
+      "range": {
+        "startLine": 86,
+        "startChar": 43,
+        "endLine": 86,
+        "endChar": 52
+      },
+      "revId": "9c1b1c11b2ebe49f9a7eadce97435df092b81f98",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "f910017e_110e3338",
+        "filename": "redfish-core/include/gzfile.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 1000404
+      },
+      "writtenOn": "2021-08-20T06:55:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8dee4369_2f43e8dc",
+      "range": {
+        "startLine": 123,
+        "startChar": 17,
+        "endLine": 123,
+        "endChar": 25
+      },
+      "revId": "9c1b1c11b2ebe49f9a7eadce97435df092b81f98",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f9eefd4d_6e9c80c5",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 13
@@ -137,6 +257,30 @@
       "revId": "9c1b1c11b2ebe49f9a7eadce97435df092b81f98",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cd4d3d87_73f19041",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 1950,
+      "author": {
+        "id": 1000404
+      },
+      "writtenOn": "2021-08-20T06:55:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f9eefd4d_6e9c80c5",
+      "range": {
+        "startLine": 1950,
+        "startChar": 50,
+        "endLine": 1950,
+        "endChar": 67
+      },
+      "revId": "9c1b1c11b2ebe49f9a7eadce97435df092b81f98",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -163,6 +307,30 @@
     },
     {
       "key": {
+        "uuid": "afde0ebe_6d8624fd",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 2002,
+      "author": {
+        "id": 1000404
+      },
+      "writtenOn": "2021-08-20T06:55:37Z",
+      "side": 1,
+      "message": "This is a better idea to use try catch than write a checker ourselves. Thank you for the suggestion.",
+      "parentUuid": "5f1d03ca_c1a7a701",
+      "range": {
+        "startLine": 2002,
+        "startChar": 42,
+        "endLine": 2002,
+        "endChar": 48
+      },
+      "revId": "9c1b1c11b2ebe49f9a7eadce97435df092b81f98",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f2d85431_f98815dd",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 13
@@ -183,6 +351,30 @@
       "revId": "9c1b1c11b2ebe49f9a7eadce97435df092b81f98",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0969f06d_e80dedff",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 2006,
+      "author": {
+        "id": 1000404
+      },
+      "writtenOn": "2021-08-20T06:55:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f2d85431_f98815dd",
+      "range": {
+        "startLine": 2006,
+        "startChar": 45,
+        "endLine": 2006,
+        "endChar": 53
+      },
+      "revId": "9c1b1c11b2ebe49f9a7eadce97435df092b81f98",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
