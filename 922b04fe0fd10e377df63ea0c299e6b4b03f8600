@@ -96,6 +96,30 @@
     },
     {
       "key": {
+        "uuid": "71057ebe_2e96d5fc",
+        "filename": "redfish-core/lib/trigger.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2021-08-20T13:12:36Z",
+      "side": 1,
+      "message": "Version without possible throw should produce smaller binary: https://godbolt.org/z/bxTvKxaja",
+      "parentUuid": "b479610e_1c549c8d",
+      "range": {
+        "startLine": 42,
+        "startChar": 41,
+        "endLine": 42,
+        "endChar": 55
+      },
+      "revId": "922b04fe0fd10e377df63ea0c299e6b4b03f8600",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "02b1de71_307087a6",
         "filename": "redfish-core/lib/trigger.hpp",
         "patchSetId": 2
