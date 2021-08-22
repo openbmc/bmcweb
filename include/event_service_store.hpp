@@ -217,7 +217,7 @@ struct EventServiceConfig
                 const uint64_t* value =
                     element.value().get_ptr<const uint64_t*>();
                 if ((value == nullptr) ||
-                    (*value < std::numeric_limits<uint32_t>::lowest()) ||
+
                     (*value > std::numeric_limits<uint32_t>::max()))
                 {
                     continue;
@@ -229,7 +229,6 @@ struct EventServiceConfig
                 const uint64_t* value =
                     element.value().get_ptr<const uint64_t*>();
                 if ((value == nullptr) ||
-                    (*value < std::numeric_limits<uint32_t>::lowest()) ||
                     (*value > std::numeric_limits<uint32_t>::max()))
                 {
                     continue;
