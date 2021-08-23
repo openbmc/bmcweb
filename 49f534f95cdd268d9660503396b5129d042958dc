@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "90419272_e4f98e9d",
+        "filename": "redfish-core/lib/task.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1001112
+      },
+      "writtenOn": "2021-08-23T12:29:20Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "eb2cf626_11d95eaf",
+      "range": {
+        "startLine": 94,
+        "startChar": 0,
+        "endLine": 98,
+        "endChar": 1
+      },
+      "revId": "49f534f95cdd268d9660503396b5129d042958dc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "68fafc56_5be29258",
         "filename": "redfish-core/lib/task.hpp",
         "patchSetId": 5
@@ -36,6 +60,30 @@
       "writtenOn": "2021-08-17T19:45:54Z",
       "side": 1,
       "message": "This line is essentially copied 7 times in the following lines.  Please abstract this a bit.  I would recommend moving the if state \u003d\u003d ladder into its own method (like we do for other dbus-\u003eredfish conversions) which would then generate a redfish type, then call sendEvent in one spot.  This would clean this method up a lot.  I realize this was just copied, but lets clean it up while we\u0027re here.",
+      "range": {
+        "startLine": 116,
+        "startChar": 0,
+        "endLine": 119,
+        "endChar": 21
+      },
+      "revId": "49f534f95cdd268d9660503396b5129d042958dc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4a4775a8_d6391342",
+        "filename": "redfish-core/lib/task.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 1001112
+      },
+      "writtenOn": "2021-08-23T12:29:20Z",
+      "side": 1,
+      "message": "agreed, this was existing code, just restructure to server the purpose. Shall we take this in separate review ?",
+      "parentUuid": "68fafc56_5be29258",
       "range": {
         "startLine": 116,
         "startChar": 0,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "4742e112_120e794d",
+        "filename": "redfish-core/lib/task.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 1001112
+      },
+      "writtenOn": "2021-08-23T12:29:20Z",
+      "side": 1,
+      "message": "agreed, Same here this was existing code, Shall we take this in separate review ?",
+      "parentUuid": "5c8fbd58_3a3fb09b",
+      "range": {
+        "startLine": 166,
+        "startChar": 8,
+        "endLine": 166,
+        "endChar": 23
+      },
+      "revId": "49f534f95cdd268d9660503396b5129d042958dc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "2d8dbae8_826391af",
         "filename": "redfish-core/lib/task.hpp",
         "patchSetId": 5
@@ -82,6 +154,30 @@
       "writtenOn": "2021-08-17T19:45:54Z",
       "side": 1,
       "message": "This kind of pattern is generally not done.  We should avoid pushing custom handlers if we can, but I\u0027m still not really following how these are used, so I\u0027m having trouble proposing an alternative.",
+      "range": {
+        "startLine": 177,
+        "startChar": 13,
+        "endLine": 179,
+        "endChar": 30
+      },
+      "revId": "49f534f95cdd268d9660503396b5129d042958dc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "573179d2_d2d30e80",
+        "filename": "redfish-core/lib/task.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 179,
+      "author": {
+        "id": 1001112
+      },
+      "writtenOn": "2021-08-23T12:29:20Z",
+      "side": 1,
+      "message": "Currently  Task messages array is confined to Task Message registry. The Above implementation gives flexibility add there own message registry. \n\nIn Update case its allowing Update Message to be added as part of Task message array by defining new handlers for Events and Messages.",
+      "parentUuid": "2d8dbae8_826391af",
       "range": {
         "startLine": 177,
         "startChar": 13,
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "152db56a_ea6fc21d",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1001112
+      },
+      "writtenOn": "2021-08-23T12:29:20Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "41b328aa_af4cf28a",
+      "range": {
+        "startLine": 63,
+        "startChar": 0,
+        "endLine": 98,
+        "endChar": 1
+      },
+      "revId": "49f534f95cdd268d9660503396b5129d042958dc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "65f2c05a_92494bab",
         "filename": "redfish-core/lib/update_service.hpp",
         "patchSetId": 5
@@ -140,6 +260,30 @@
     },
     {
       "key": {
+        "uuid": "c8679341_e80269b1",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 261,
+      "author": {
+        "id": 1001112
+      },
+      "writtenOn": "2021-08-23T12:29:20Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "65f2c05a_92494bab",
+      "range": {
+        "startLine": 170,
+        "startChar": 0,
+        "endLine": 261,
+        "endChar": 30
+      },
+      "revId": "49f534f95cdd268d9660503396b5129d042958dc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "981b023c_7abda9d6",
         "filename": "scripts/parse_registries.py",
         "patchSetId": 5
@@ -160,6 +304,30 @@
       "revId": "49f534f95cdd268d9660503396b5129d042958dc",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cf5790ff_933ffc01",
+        "filename": "scripts/parse_registries.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 1001112
+      },
+      "writtenOn": "2021-08-23T12:29:20Z",
+      "side": 1,
+      "message": "There are some messages without  NumberOfArgs key. The script was crashing.",
+      "parentUuid": "981b023c_7abda9d6",
+      "range": {
+        "startLine": 105,
+        "startChar": 40,
+        "endLine": 105,
+        "endChar": 70
+      },
+      "revId": "49f534f95cdd268d9660503396b5129d042958dc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
