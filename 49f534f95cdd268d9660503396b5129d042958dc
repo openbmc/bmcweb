@@ -96,6 +96,30 @@
     },
     {
       "key": {
+        "uuid": "b867b0af_dfd49a69",
+        "filename": "redfish-core/lib/task.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-08-23T19:13:23Z",
+      "side": 1,
+      "message": "if you\u0027re moving code around, it\u0027s generally a good idea to put the code move in its own commit so it\u0027s easier for maintainers to avoid issues like this.  Lets put the code move in its own commit, and any cleanup you\u0027re willing to do can be added ontop, but wouldn\u0027t be required.",
+      "parentUuid": "4a4775a8_d6391342",
+      "range": {
+        "startLine": 116,
+        "startChar": 0,
+        "endLine": 119,
+        "endChar": 21
+      },
+      "revId": "49f534f95cdd268d9660503396b5129d042958dc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "5c8fbd58_3a3fb09b",
         "filename": "redfish-core/lib/task.hpp",
         "patchSetId": 5
@@ -143,6 +167,30 @@
     },
     {
       "key": {
+        "uuid": "ac31dbdf_ac5b184c",
+        "filename": "redfish-core/lib/task.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-08-23T19:13:23Z",
+      "side": 1,
+      "message": "Sure, feel free to put the parts where you\u0027re moving code around in its own commit.",
+      "parentUuid": "4742e112_120e794d",
+      "range": {
+        "startLine": 166,
+        "startChar": 8,
+        "endLine": 166,
+        "endChar": 23
+      },
+      "revId": "49f534f95cdd268d9660503396b5129d042958dc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "2d8dbae8_826391af",
         "filename": "redfish-core/lib/task.hpp",
         "patchSetId": 5
@@ -178,6 +226,30 @@
       "side": 1,
       "message": "Currently  Task messages array is confined to Task Message registry. The Above implementation gives flexibility add there own message registry. \n\nIn Update case its allowing Update Message to be added as part of Task message array by defining new handlers for Events and Messages.",
       "parentUuid": "2d8dbae8_826391af",
+      "range": {
+        "startLine": 177,
+        "startChar": 13,
+        "endLine": 179,
+        "endChar": 30
+      },
+      "revId": "49f534f95cdd268d9660503396b5129d042958dc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0abedead_ec0c20fe",
+        "filename": "redfish-core/lib/task.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 179,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-08-23T19:13:23Z",
+      "side": 1,
+      "message": "\u003e Currently  Task messages array is confined to Task Message registry. The Above implementation gives flexibility add there own message registry. \n\nRight, considering that there\u0027s only a couple of registries, I\u0027m not sure why this level of flexibility would be needed.  it would seem we could just code it up directly in the existing handlers.\n\n\u003e \n\u003e In Update case its allowing Update Message to be added as part of Task message array by defining new handlers for Events and Messages.\n\nWhy would we not just add it as part of the existing code?  I\u0027m not understanding why we need a custom settable callback here.",
+      "parentUuid": "573179d2_d2d30e80",
       "range": {
         "startLine": 177,
         "startChar": 13,
@@ -328,6 +400,30 @@
       "revId": "49f534f95cdd268d9660503396b5129d042958dc",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a0819349_5f095fa5",
+        "filename": "scripts/parse_registries.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-08-23T19:13:23Z",
+      "side": 1,
+      "message": "Considering it\u0027s required, next steps would be to upstream fixes to DMTF to get those files fixed, rather than cover up the issues here.",
+      "parentUuid": "cf5790ff_933ffc01",
+      "range": {
+        "startLine": 105,
+        "startChar": 40,
+        "endLine": 105,
+        "endChar": 70
+      },
+      "revId": "49f534f95cdd268d9660503396b5129d042958dc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
