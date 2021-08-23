@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ed8121e8_51fd04f6",
+        "filename": "redfish-core/include/redfish.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-08-23T16:47:42Z",
+      "side": 1,
+      "message": "behind BMCWEB_NEW_POWERSUBSYSTEM_THERMALSUBSYSTEM like \n\nhttps://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/40169/ ?",
+      "revId": "6d3395a38017f21d4e011ede99d262d5a2fe0d4a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d9469303_0494c216",
+        "filename": "redfish-core/lib/thermal_metrics.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-08-23T16:47:42Z",
+      "side": 1,
+      "message": "No ThermalMetrics here: https://redfish.dmtf.org/registries/Redfish_1.1.0_PrivilegeRegistry.json\n\nI opened the following Redfish issue for adding: 4759\n\nCan you add a TODO here. \nE.g. \n// TODO (\u003cinsert name of the TODO owner, you can use mine if you want\u003e) switch to the new privilege framework after Redfish adds ThermalMetrics to the PrivilegeRegistry",
+      "revId": "6d3395a38017f21d4e011ede99d262d5a2fe0d4a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
