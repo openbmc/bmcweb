@@ -813,22 +813,28 @@ inline void createDump(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     }
 
     crow::connections::systemBus->async_method_call(
-        [asyncResp, req, dumpPath, dumpType](const boost::system::error_code ec,
-                                             const uint32_t& dumpId) {
+        [asyncResp, req, dumpType](const boost::system::error_code ec,
+                                   sdbusplus::message::object_path dumpPath) {
             if (ec)
             {
                 BMCWEB_LOG_ERROR << "CreateDump resp_handler got error " << ec;
                 messages::internalError(asyncResp->res);
                 return;
             }
+            std::string dumpPathStr = dumpPath.str;
+            uint32_t dumpId = static_cast<uint32_t>(std::atoi(
+                dumpPathStr.substr(dumpPathStr.rfind("/") + 1U).c_str()));
+
             BMCWEB_LOG_DEBUG << "Dump Created. Id: " << dumpId;
 
-            createDumpTaskCallback(req, asyncResp, dumpId, dumpPath, dumpType);
+            createDumpTaskCallback(req, asyncResp, dumpId, dumpPathStr,
+                                   dumpType);
         },
         "xyz.openbmc_project.Dump.Manager",
         "/xyz/openbmc_project/dump/" +
             std::string(boost::algorithm::to_lower_copy(dumpType)),
-        "xyz.openbmc_project.Dump.Create", "CreateDump");
+        "xyz.openbmc_project.Dump.Create", "CreateDump",
+        std::map<std::string, std::variant<std::string, uint64_t>>()); // a{sv}
 }
 
 inline void clearDump(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
