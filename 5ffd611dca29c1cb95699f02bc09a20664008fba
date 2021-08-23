@@ -16,6 +16,23 @@
       "revId": "5ffd611dca29c1cb95699f02bc09a20664008fba",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8b9185fe_a7cfa7fd",
+        "filename": "redfish-core/include/registries/privilege_registry.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 999,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-08-23T16:55:49Z",
+      "side": 1,
+      "message": "No PowerSubsystem, PowerSupply, PowerSupplyCollection here: https://redfish.dmtf.org/registries/Redfish_1.1.0_PrivilegeRegistry.json\n\nI opened the following Redfish issue for adding: 4759\n\nThe problem is, next time someone runs parse_registries.py since this is auto-generated these would not show up.\n\nI think a better choice would just be the privilege inline with a TODO (like patch 20 + a TODO). I\u0027ll leave it up to you. Maybe Ed has a suggestion. \n\nSorry for leading you a bit down the wrong path here, I am really surprised Redfish did not have the Privileges for these defined.",
+      "revId": "5ffd611dca29c1cb95699f02bc09a20664008fba",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
