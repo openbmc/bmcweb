@@ -70,6 +70,24 @@
       "revId": "106d39a0259c69d210d1944bd458a3c5a9a24ad8",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a5a12d9d_83fb6e9b",
+        "filename": "include/event_service_store.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 220,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-08-23T19:24:22Z",
+      "side": 1,
+      "message": "Looks like it worked..... things I can\u0027t explain why clang-format acts this way, but at least it\u0027s \"right\" now.",
+      "parentUuid": "145d2ff2_9fa08782",
+      "revId": "106d39a0259c69d210d1944bd458a3c5a9a24ad8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
