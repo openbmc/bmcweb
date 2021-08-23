@@ -117,6 +117,30 @@
     },
     {
       "key": {
+        "uuid": "2569c4ce_2662ac33",
+        "filename": "redfish-core/include/gzfile.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2021-08-23T21:24:53Z",
+      "side": 1,
+      "message": "Sorry I don\u0027t quite get this comment. Does the declare order affect RVO? I guess this is NRVO, so are you saying moving this declaration first will give the compiler more chance to do NRVO?\n\nBTW, we should move \"logEntry\" inside the loop, closer to where it is used.",
+      "parentUuid": "e9da0dbf_d4e05662",
+      "range": {
+        "startLine": 111,
+        "startChar": 0,
+        "endLine": 111,
+        "endChar": 44
+      },
+      "revId": "83cfe7df311741791a13bd483348a38ac13b1eb3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "50d6ffb9_4b47ab0f",
         "filename": "redfish-core/include/gzfile.hpp",
         "patchSetId": 15
