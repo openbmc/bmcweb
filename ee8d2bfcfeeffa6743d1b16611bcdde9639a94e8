@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "91a67368_b6e7baf2",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 48
+      },
+      "lineNbr": 706,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-08-23T16:10:59Z",
+      "side": 1,
+      "message": "should we do ?\n\nif (value \u003d\u003d nullptr)\n{\ninternalError\n}\n\nreturn ...\n\n\nThat is more typical of what i see.",
+      "range": {
+        "startLine": 701,
+        "startChar": 0,
+        "endLine": 706,
+        "endChar": 13
+      },
+      "revId": "ee8d2bfcfeeffa6743d1b16611bcdde9639a94e8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ea970dba_cb8bae55",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 48
+      },
+      "lineNbr": 772,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-08-23T16:10:59Z",
+      "side": 1,
+      "message": "So getDumpCompletionStatus returns true if it is not complete? false if it is complete?\n\nWhy invert this logic here?\n\nI would expect the other way around, getDumpCompletionStatus to true if it is complete.",
+      "revId": "ee8d2bfcfeeffa6743d1b16611bcdde9639a94e8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
