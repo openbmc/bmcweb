@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "d30589be_0e4a76ce",
+        "filename": "redfish-core/include/redfish.hpp",
+        "patchSetId": 50
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-08-23T17:02:35Z",
+      "side": 1,
+      "message": "Behind the new flag?",
+      "revId": "770e3fa8dc02f254e4ce9ac7d31214e84d25bc6a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d3f0c501_c3836340",
         "filename": "redfish-core/include/registries/privilege_registry.hpp",
         "patchSetId": 50
@@ -114,6 +131,24 @@
       "side": 1,
       "message": "So how should we solve it, first temporarily implement it in the previous way?",
       "parentUuid": "011342f8_978b322b",
+      "revId": "770e3fa8dc02f254e4ce9ac7d31214e84d25bc6a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f572e5c0_0c9ba1cd",
+        "filename": "redfish-core/include/registries/privilege_registry.hpp",
+        "patchSetId": 50
+      },
+      "lineNbr": 477,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-08-23T17:02:35Z",
+      "side": 1,
+      "message": "The problem with the current solution is next time someone runs parse_registries.py since this is auto-generated these would not show up.\n\nI think a better choice would just be the privilege inline with a TODO (like patch 49 + a TODO).\n\nSorry for leading you a bit down the wrong path here, I am really surprised Redfish did not have the Privileges for these defined.\n\nWhatever we do, please be sure all the new PowerSubsystem, ThermalSubsystem commits do it the same way. (I already see this is different than https://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/41012/66/redfish-core/lib/thermal_subsystem.hpp#36 ) \n\nI think hardcoded with a TODO makes the most sense.",
+      "parentUuid": "c0676ad4_940138da",
       "revId": "770e3fa8dc02f254e4ce9ac7d31214e84d25bc6a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
