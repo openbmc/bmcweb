@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fd8bc5a9_037e233a",
+        "filename": "redfish-core/lib/thermal_subsystem.hpp",
+        "patchSetId": 66
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-08-23T16:43:59Z",
+      "side": 1,
+      "message": "// TODO (\u003cinsert name of the TODO owner, you can use mine if you want\u003e) switch to the new privileges when a privileges are added for this",
+      "revId": "ff9c46d20f4c45cfd5b911f922227c191d8ab456",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
