@@ -34,6 +34,7 @@ namespace crow
 {
 
 static constexpr uint8_t maxRequestQueueSize = 50;
+static constexpr unsigned int httpReadBodyLimit = 8192;
 
 enum class ConnState
 {
@@ -58,11 +59,11 @@ class HttpClient : public std::enable_shared_from_this<HttpClient>
     crow::async_resolve::Resolver resolver;
     boost::beast::tcp_stream conn;
     boost::asio::steady_timer timer;
-    boost::beast::flat_buffer buffer;
+    boost::beast::flat_static_buffer<httpReadBodyLimit> buffer;
     boost::beast::http::request<boost::beast::http::string_body> req;
     boost::beast::http::response<boost::beast::http::string_body> res;
     std::vector<std::pair<std::string, std::string>> headers;
-    std::queue<std::string> requestDataQueue;
+    boost::circular_buffer_space_optimized<std::string> requestDataQueue{};
     ConnState state;
     std::string subId;
     std::string host;
@@ -206,7 +207,10 @@ class HttpClient : public std::enable_shared_from_this<HttpClient>
 
                 // Send is successful, Lets remove data from queue
                 // check for next request data in queue.
-                self->requestDataQueue.pop();
+                if (!self->requestDataQueue.empty())
+                {
+                    self->requestDataQueue.pop_front();
+                }
                 self->state = ConnState::idle;
                 self->checkQueue();
             });
@@ -246,7 +250,7 @@ class HttpClient : public std::enable_shared_from_this<HttpClient>
             // Clear queue.
             while (!requestDataQueue.empty())
             {
-                requestDataQueue.pop();
+                requestDataQueue.pop_front();
             }
 
             BMCWEB_LOG_DEBUG << "Retry policy is set to " << retryPolicyAction;
@@ -355,7 +359,7 @@ class HttpClient : public std::enable_shared_from_this<HttpClient>
 
         if (requestDataQueue.size() <= maxRequestQueueSize)
         {
-            requestDataQueue.push(data);
+            requestDataQueue.push_back(data);
             checkQueue(true);
         }
         else
