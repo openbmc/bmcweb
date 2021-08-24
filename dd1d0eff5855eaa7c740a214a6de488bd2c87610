@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0ca2db41_a6b6ed8e",
+        "filename": "redfish-core/lib/thermal_subsystem.hpp",
+        "patchSetId": 67
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-08-24T15:20:01Z",
+      "side": 1,
+      "message": "nitpick: don\u0027t think you need this now.",
+      "revId": "dd1d0eff5855eaa7c740a214a6de488bd2c87610",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "408a326e_55ed9f02",
+        "filename": "redfish-core/lib/thermal_subsystem.hpp",
+        "patchSetId": 67
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-08-24T15:20:01Z",
+      "side": 1,
+      "message": "TODO:\n\nor maybe \n\n// TODO: Use automated PrivilegeRegistry",
+      "range": {
+        "startLine": 37,
+        "startChar": 11,
+        "endLine": 37,
+        "endChar": 17
+      },
+      "revId": "dd1d0eff5855eaa7c740a214a6de488bd2c87610",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b7673907_a2a6fe74",
+        "filename": "redfish-core/lib/thermal_subsystem.hpp",
+        "patchSetId": 67
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-08-24T15:20:01Z",
+      "side": 1,
+      "message": "registry\n\nor even better\n\n        // Need to wait for Redfish to release a new registry",
+      "range": {
+        "startLine": 38,
+        "startChar": 50,
+        "endLine": 38,
+        "endChar": 56
+      },
+      "revId": "dd1d0eff5855eaa7c740a214a6de488bd2c87610",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
