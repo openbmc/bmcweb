@@ -1,0 +1,372 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2d2b4318_a9fca8f3",
+        "filename": "redfish-core/include/redfish.hpp",
+        "patchSetId": 29
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 1000427
+      },
+      "writtenOn": "2021-08-24T15:59:41Z",
+      "side": 1,
+      "message": "Do we need a separate router API for SubProcessors? is there any advantage? \nCannot we use the requestRoutesProcessor()?",
+      "range": {
+        "startLine": 144,
+        "startChar": 8,
+        "endLine": 145,
+        "endChar": 44
+      },
+      "revId": "e339475c7d3cfea425332612125320df4d44b183",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f2e44c78_059b73b8",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 29
+      },
+      "lineNbr": 827,
+      "author": {
+        "id": 1000427
+      },
+      "writtenOn": "2021-08-24T15:59:41Z",
+      "side": 1,
+      "message": "Why capturing the \"service\" into lambda? Looks this is not used inside the lambda",
+      "range": {
+        "startLine": 827,
+        "startChar": 9,
+        "endLine": 827,
+        "endChar": 16
+      },
+      "revId": "e339475c7d3cfea425332612125320df4d44b183",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2be7f548_29928ad2",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 29
+      },
+      "lineNbr": 917,
+      "author": {
+        "id": 1000427
+      },
+      "writtenOn": "2021-08-24T15:59:41Z",
+      "side": 1,
+      "message": "I think you need to find out the dbus service which will host the given core id instead of using the processor dbus service because it may break if the core object is hosted by another service than the processor service.",
+      "range": {
+        "startLine": 917,
+        "startChar": 8,
+        "endLine": 917,
+        "endChar": 15
+      },
+      "revId": "e339475c7d3cfea425332612125320df4d44b183",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "23e2bd54_4fccd115",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 29
+      },
+      "lineNbr": 953,
+      "author": {
+        "id": 1000427
+      },
+      "writtenOn": "2021-08-24T15:59:41Z",
+      "side": 1,
+      "message": "Same as LN 1006 comment.",
+      "range": {
+        "startLine": 951,
+        "startChar": 16,
+        "endLine": 953,
+        "endChar": 32
+      },
+      "revId": "e339475c7d3cfea425332612125320df4d44b183",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "123aa20f_46a523f1",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 29
+      },
+      "lineNbr": 960,
+      "author": {
+        "id": 1000427
+      },
+      "writtenOn": "2021-08-24T15:59:41Z",
+      "side": 1,
+      "message": "- Why looping through all the dbus service which is implemented the processors interface?\n- More then one dbus service will implement the processor interfaces in the BMC stack?",
+      "range": {
+        "startLine": 960,
+        "startChar": 16,
+        "endLine": 960,
+        "endChar": 57
+      },
+      "revId": "e339475c7d3cfea425332612125320df4d44b183",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3f10811a_1f655ae2",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 29
+      },
+      "lineNbr": 977,
+      "author": {
+        "id": 1000427
+      },
+      "writtenOn": "2021-08-24T15:59:41Z",
+      "side": 1,
+      "message": "Can you use `processorInterfaces` (https://github.com/openbmc/bmcweb/blob/master/redfish-core/lib/processor.hpp#L44) instead of hardcoding here?",
+      "range": {
+        "startLine": 975,
+        "startChar": 8,
+        "endLine": 977,
+        "endChar": 61
+      },
+      "revId": "e339475c7d3cfea425332612125320df4d44b183",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "348fdeb0_b3f1f0fd",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 29
+      },
+      "lineNbr": 1006,
+      "author": {
+        "id": 1000427
+      },
+      "writtenOn": "2021-08-24T15:59:41Z",
+      "side": 1,
+      "message": "JS: I think you can avoid path and leaf variables\n- path\n\n\u003e if (sdbusplus::message::object_path(cpuPath).filename() !\u003d processorId)\n\n- leaf\n  - are we really get empty() since you used starting path as `/xyz/openbmc_project/inventory` so worst case we will get `inventory` right, if the given processor interfaces are not found in the inventory?",
+      "range": {
+        "startLine": 1005,
+        "startChar": 16,
+        "endLine": 1006,
+        "endChar": 51
+      },
+      "revId": "e339475c7d3cfea425332612125320df4d44b183",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7ca8c190_d50fbaf9",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 29
+      },
+      "lineNbr": 1043,
+      "author": {
+        "id": 1000427
+      },
+      "writtenOn": "2021-08-24T15:59:41Z",
+      "side": 1,
+      "message": "I think you can achieve this by passing the appropriate interfaces in the inner crow call?",
+      "range": {
+        "startLine": 1042,
+        "startChar": 28,
+        "endLine": 1043,
+        "endChar": 71
+      },
+      "revId": "e339475c7d3cfea425332612125320df4d44b183",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bc044423_58ba51c7",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 29
+      },
+      "lineNbr": 1049,
+      "author": {
+        "id": 1000427
+      },
+      "writtenOn": "2021-08-24T15:59:41Z",
+      "side": 1,
+      "message": "JS: I think you can avoid path variable\n\n\u003e std::string leaf{sdbusplus::message::object_path(corePath).filename()};",
+      "range": {
+        "startLine": 1048,
+        "startChar": 28,
+        "endLine": 1049,
+        "endChar": 63
+      },
+      "revId": "e339475c7d3cfea425332612125320df4d44b183",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cb3e9079_69d289f4",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 29
+      },
+      "lineNbr": 1056,
+      "author": {
+        "id": 1000427
+      },
+      "writtenOn": "2021-08-24T15:59:41Z",
+      "side": 1,
+      "message": "Do we really face this case?",
+      "range": {
+        "startLine": 1050,
+        "startChar": 1,
+        "endLine": 1056,
+        "endChar": 29
+      },
+      "revId": "e339475c7d3cfea425332612125320df4d44b183",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4c305bf4_41a4fc6a",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 29
+      },
+      "lineNbr": 1066,
+      "author": {
+        "id": 1000427
+      },
+      "writtenOn": "2021-08-24T15:59:41Z",
+      "side": 1,
+      "message": "- Looks you are trying to get the Core inventory item so can use the appropriate interface i.e \"xyz.openbmc_project.Inventory.Item.CpuCore\"?\n\n- I think if we have added the association in the given processor object then, I guess that endpoints will be considered as \"SubProcessors\" right? so, I think we need to filter out by using the appropriate interfaces.",
+      "range": {
+        "startLine": 1066,
+        "startChar": 32,
+        "endLine": 1066,
+        "endChar": 60
+      },
+      "revId": "e339475c7d3cfea425332612125320df4d44b183",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "43fc2725_0d56d111",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 29
+      },
+      "lineNbr": 1072,
+      "author": {
+        "id": 1000427
+      },
+      "writtenOn": "2021-08-24T15:59:41Z",
+      "side": 1,
+      "message": "Do you no need to throw the error if the given processor id is not present in the retrieved inventory processors objects?",
+      "range": {
+        "startLine": 1069,
+        "startChar": 12,
+        "endLine": 1072,
+        "endChar": 76
+      },
+      "revId": "e339475c7d3cfea425332612125320df4d44b183",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9918920b_1bd53d9f",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 29
+      },
+      "lineNbr": 1076,
+      "author": {
+        "id": 1000427
+      },
+      "writtenOn": "2021-08-24T15:59:41Z",
+      "side": 1,
+      "message": "Just Suggestion(JS): It will be great if you used some constexpr for this and change it everywhere (I mean, wherever using ObjectMapper in this header file) so that we can have more control if we need to change in the future.",
+      "range": {
+        "startLine": 1074,
+        "startChar": 8,
+        "endLine": 1076,
+        "endChar": 42
+      },
+      "revId": "e339475c7d3cfea425332612125320df4d44b183",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "62cf1437_daecde58",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 29
+      },
+      "lineNbr": 1080,
+      "author": {
+        "id": 1000427
+      },
+      "writtenOn": "2021-08-24T15:59:41Z",
+      "side": 1,
+      "message": "Can you use `processorInterfaces` (https://github.com/openbmc/bmcweb/blob/master/redfish-core/lib/processor.hpp#L44) instead of hardcoding here?",
+      "range": {
+        "startLine": 1078,
+        "startChar": 8,
+        "endLine": 1080,
+        "endChar": 61
+      },
+      "revId": "e339475c7d3cfea425332612125320df4d44b183",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d16646cd_cdfece2b",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 29
+      },
+      "lineNbr": 1560,
+      "author": {
+        "id": 1000427
+      },
+      "writtenOn": "2021-08-24T15:59:41Z",
+      "side": 1,
+      "message": "- I think Redfish saying SubProcessors can be Processor schema so any ProcessorType (Accelerator, Core, CPU, Thread, GPU, FPGA, etc) is possible so, how we can decide Redfish client tried to get the Subprocessors of Core?\n  - is it something we need to handle by looking at the implemented Subprocessors collection in bmcweb? so that it will be easy to extend future if somebody coming with another Subprocessors Type?",
+      "range": {
+        "startLine": 1560,
+        "startChar": 25,
+        "endLine": 1560,
+        "endChar": 42
+      },
+      "revId": "e339475c7d3cfea425332612125320df4d44b183",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eee2c16f_a1bd0dd9",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 29
+      },
+      "lineNbr": 1570,
+      "author": {
+        "id": 1000427
+      },
+      "writtenOn": "2021-08-24T15:59:41Z",
+      "side": 1,
+      "message": "Looks like you are using more than one place, can we use some constexpr? Or is it possible to use the different versions?",
+      "range": {
+        "startLine": 1570,
+        "startChar": 22,
+        "endLine": 1570,
+        "endChar": 49
+      },
+      "revId": "e339475c7d3cfea425332612125320df4d44b183",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
