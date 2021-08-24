@@ -1,0 +1,303 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f219e9d8_c63ca32a",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 41
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-08-24T20:32:54Z",
+      "side": 1,
+      "message": "We\u0027re many scopes deep here.  Please clean this up.",
+      "range": {
+        "startLine": 91,
+        "startChar": 0,
+        "endLine": 91,
+        "endChar": 70
+      },
+      "revId": "a18fb726c7f8c25aadea3958049c540dd6356b5d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "01d9fb75_0d17810b",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 41
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-08-24T20:32:54Z",
+      "side": 1,
+      "message": "The other 4 look reasonable, this one doesn\u0027t look right to me, as a backplane would likely be a form of board, which would \"contain\" drives.  We\u0027ve also modeled backplanes as Chassis for some systems, so this would be changing that interpretation.  Lets remove it for the moment, move it to another patch and discuss.",
+      "range": {
+        "startLine": 201,
+        "startChar": 52,
+        "endLine": 201,
+        "endChar": 65
+      },
+      "revId": "a18fb726c7f8c25aadea3958049c540dd6356b5d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c3d63f66_8bc284e2",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 41
+      },
+      "lineNbr": 248,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-08-24T20:32:54Z",
+      "side": 1,
+      "message": "Generally we would use an association for this, as that\u0027s what we did with Sensors (also a chassis subsidiary.)  Lets not break that here.",
+      "range": {
+        "startLine": 244,
+        "startChar": 0,
+        "endLine": 248,
+        "endChar": 55
+      },
+      "revId": "a18fb726c7f8c25aadea3958049c540dd6356b5d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9c3d9756_16753ab8",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 41
+      },
+      "lineNbr": 258,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-08-24T20:32:54Z",
+      "side": 1,
+      "message": "I suspect this condition isn\u0027t needed.  Just pass through the empty list.",
+      "range": {
+        "startLine": 256,
+        "startChar": 0,
+        "endLine": 258,
+        "endChar": 13
+      },
+      "revId": "a18fb726c7f8c25aadea3958049c540dd6356b5d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "115a487f_d04d886e",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 41
+      },
+      "lineNbr": 261,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-08-24T20:32:54Z",
+      "side": 1,
+      "message": "Sorting doesn\u0027t work here.  This implies that if a device gets removed, the other devices shift, which is incorrect.",
+      "range": {
+        "startLine": 259,
+        "startChar": 0,
+        "endLine": 261,
+        "endChar": 28
+      },
+      "revId": "a18fb726c7f8c25aadea3958049c540dd6356b5d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5581e722_240dbaba",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 41
+      },
+      "lineNbr": 322,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-08-24T20:32:54Z",
+      "side": 1,
+      "message": "This is an unordered list, why are we sorting it?",
+      "range": {
+        "startLine": 322,
+        "startChar": 0,
+        "endLine": 322,
+        "endChar": 76
+      },
+      "revId": "a18fb726c7f8c25aadea3958049c540dd6356b5d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d706b0a1_86901728",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 41
+      },
+      "lineNbr": 325,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-08-24T20:32:54Z",
+      "side": 1,
+      "message": "nit, this is redundant.  Remove.",
+      "range": {
+        "startLine": 325,
+        "startChar": 0,
+        "endLine": 325,
+        "endChar": 19
+      },
+      "revId": "a18fb726c7f8c25aadea3958049c540dd6356b5d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e58ab6f5_e654834e",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 41
+      },
+      "lineNbr": 346,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-08-24T20:32:54Z",
+      "side": 1,
+      "message": "Please obey the naming conventions for types.\n\nAlso, declare your usings in the scope they\u0027re used.",
+      "range": {
+        "startLine": 346,
+        "startChar": 10,
+        "endLine": 346,
+        "endChar": 25
+      },
+      "revId": "a18fb726c7f8c25aadea3958049c540dd6356b5d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ba2bc807_9a8d3c1a",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 41
+      },
+      "lineNbr": 372,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-08-24T20:32:54Z",
+      "side": 1,
+      "message": "I thought there was an easier way to do this...... \n\nAlso, is this association documented somewhere?",
+      "range": {
+        "startLine": 372,
+        "startChar": 0,
+        "endLine": 372,
+        "endChar": 66
+      },
+      "revId": "a18fb726c7f8c25aadea3958049c540dd6356b5d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "430f777f_a2853fd9",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 41
+      },
+      "lineNbr": 379,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-08-24T20:32:54Z",
+      "side": 1,
+      "message": "typo",
+      "range": {
+        "startLine": 379,
+        "startChar": 16,
+        "endLine": 379,
+        "endChar": 37
+      },
+      "revId": "a18fb726c7f8c25aadea3958049c540dd6356b5d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b1825132_5500ed66",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 41
+      },
+      "lineNbr": 461,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-08-24T20:32:54Z",
+      "side": 1,
+      "message": "why is there a copy of getChassis in the assembly namespace?  This looks like something that was a WIP to clean up and and never renamed?",
+      "range": {
+        "startLine": 461,
+        "startChar": 12,
+        "endLine": 461,
+        "endChar": 22
+      },
+      "revId": "a18fb726c7f8c25aadea3958049c540dd6356b5d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d3f55c7a_84a6f426",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 41
+      },
+      "lineNbr": 494,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-08-24T20:32:54Z",
+      "side": 1,
+      "message": "\"Id\" is rarely a fixed string.",
+      "range": {
+        "startLine": 494,
+        "startChar": 0,
+        "endLine": 494,
+        "endChar": 56
+      },
+      "revId": "a18fb726c7f8c25aadea3958049c540dd6356b5d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7e9ee8b5_984c357e",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 41
+      },
+      "lineNbr": 495,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-08-24T20:32:54Z",
+      "side": 1,
+      "message": "Isn\u0027t this creating Assemblies for all Item.Chassis and Item.Boards?  That seems wrong.",
+      "range": {
+        "startLine": 488,
+        "startChar": 0,
+        "endLine": 495,
+        "endChar": 0
+      },
+      "revId": "a18fb726c7f8c25aadea3958049c540dd6356b5d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
