@@ -1,0 +1,165 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9add4b89_1e392dbb",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 19
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2021-08-24T22:52:54Z",
+      "side": 1,
+      "message": "Many were in request now that we built the request later...",
+      "range": {
+        "startLine": 13,
+        "startChar": 11,
+        "endLine": 13,
+        "endChar": 17
+      },
+      "revId": "f8f5f6e09fdd5e38cb92f3ef00ea6da17e3c9a8b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c80b49be_f925f4cc",
+        "filename": "http/http_connection.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 577,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2021-08-24T22:52:54Z",
+      "side": 1,
+      "message": "log if ip address failes",
+      "range": {
+        "startLine": 577,
+        "startChar": 17,
+        "endLine": 577,
+        "endChar": 21
+      },
+      "revId": "f8f5f6e09fdd5e38cb92f3ef00ea6da17e3c9a8b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d3e8fa25_f88c7159",
+        "filename": "http/http_connection.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 578,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2021-08-24T22:52:54Z",
+      "side": 1,
+      "message": "check to make sure filled in",
+      "range": {
+        "startLine": 578,
+        "startChar": 26,
+        "endLine": 578,
+        "endChar": 37
+      },
+      "revId": "f8f5f6e09fdd5e38cb92f3ef00ea6da17e3c9a8b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3d152da4_ddac1bc4",
+        "filename": "http/http_connection.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 581,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2021-08-24T22:52:54Z",
+      "side": 1,
+      "message": "remove \"req \u0026\u0026\" leave only tmpSession",
+      "range": {
+        "startLine": 581,
+        "startChar": 32,
+        "endLine": 581,
+        "endChar": 38
+      },
+      "revId": "f8f5f6e09fdd5e38cb92f3ef00ea6da17e3c9a8b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "117d017b_7a6b6940",
+        "filename": "include/authorization.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 259,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2021-08-24T22:52:54Z",
+      "side": 1,
+      "message": "remove, this will be defaulted, and all like it",
+      "range": {
+        "startLine": 259,
+        "startChar": 13,
+        "endLine": 259,
+        "endChar": 67
+      },
+      "revId": "f8f5f6e09fdd5e38cb92f3ef00ea6da17e3c9a8b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "79dddee5_e9998168",
+        "filename": "include/authorization.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 308,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2021-08-24T22:52:54Z",
+      "side": 1,
+      "message": "something is wrong",
+      "range": {
+        "startLine": 308,
+        "startChar": 8,
+        "endLine": 308,
+        "endChar": 10
+      },
+      "revId": "f8f5f6e09fdd5e38cb92f3ef00ea6da17e3c9a8b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d98eb77e_e41cc4d2",
+        "filename": "include/http_utility.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2021-08-24T22:52:54Z",
+      "side": 1,
+      "message": "only use accept, no need for header",
+      "range": {
+        "startLine": 10,
+        "startChar": 21,
+        "endLine": 10,
+        "endChar": 27
+      },
+      "revId": "f8f5f6e09fdd5e38cb92f3ef00ea6da17e3c9a8b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
