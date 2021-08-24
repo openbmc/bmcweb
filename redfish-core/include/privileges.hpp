@@ -155,7 +155,7 @@ class Privileges
         size_t endIndex = basePrivilegeCount;
         if (type == PrivilegeType::OEM)
         {
-            searchIndex = basePrivilegeCount - 1;
+            searchIndex = basePrivilegeCount;
             endIndex = privilegeNames.size();
         }
 
