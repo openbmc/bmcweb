@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "62199f43_103cb335",
+        "filename": "redfish-core/include/privileges.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-08-24T19:49:02Z",
+      "side": 0,
+      "message": "Pretty sure I wrote this bug years ago;  This is ancient;  I guess that explains how many people have been using OEM privileges.",
+      "range": {
+        "startLine": 158,
+        "startChar": 44,
+        "endLine": 158,
+        "endChar": 48
+      },
+      "revId": "9301e9113f98db6700bf1f87c9834d0cf8b844cd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
