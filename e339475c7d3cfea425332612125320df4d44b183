@@ -239,6 +239,30 @@
     },
     {
       "key": {
+        "uuid": "da2b30b2_f3b25a8c",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 29
+      },
+      "lineNbr": 917,
+      "author": {
+        "id": 1000427
+      },
+      "writtenOn": "2021-08-25T11:35:57Z",
+      "side": 1,
+      "message": "It will be great if we fixed it in the same patch since this patch intended to implement Core objects in Redfish so I would prefer to change in the same patch itself rather than fixing this patch comment in the new patch. \n\nI guess we need to make the below changes.\n- Introduce outer crow call by using the `GetObject` method with the given core object paths and then use that service name in this line. (The current crow call will be inner crow)\n\nSeeing any issue with this? or Different thoughts?",
+      "parentUuid": "e6a9f746_712dae04",
+      "range": {
+        "startLine": 917,
+        "startChar": 8,
+        "endLine": 917,
+        "endChar": 15
+      },
+      "revId": "e339475c7d3cfea425332612125320df4d44b183",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "23e2bd54_4fccd115",
         "filename": "redfish-core/lib/processor.hpp",
         "patchSetId": 29
@@ -378,6 +402,30 @@
       "revId": "e339475c7d3cfea425332612125320df4d44b183",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f5b12a5b_bc4d183e",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 29
+      },
+      "lineNbr": 960,
+      "author": {
+        "id": 1000427
+      },
+      "writtenOn": "2021-08-25T11:35:57Z",
+      "side": 1,
+      "message": "- I guess this is not related to LN 917 comment - That\u0027s for core but, this is for the processor.\n- I think, We need to check and throw an error if more than one service implementing processors(AFAIK, In OpenBMC we are not allowing more than one service to host the same objects - You can check others on this.)",
+      "parentUuid": "902cb68f_e0804f56",
+      "range": {
+        "startLine": 960,
+        "startChar": 16,
+        "endLine": 960,
+        "endChar": 57
+      },
+      "revId": "e339475c7d3cfea425332612125320df4d44b183",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     },
     {
       "key": {
@@ -618,6 +666,30 @@
     },
     {
       "key": {
+        "uuid": "314cf129_510eb34c",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 29
+      },
+      "lineNbr": 1043,
+      "author": {
+        "id": 1000427
+      },
+      "writtenOn": "2021-08-25T11:35:57Z",
+      "side": 1,
+      "message": "I guess I am trying to say, If we fixed LN 1066 comment then this check is not required since we will get only core objects from the respective processor subtree path.",
+      "parentUuid": "4208c3ab_9763bf84",
+      "range": {
+        "startLine": 1042,
+        "startChar": 28,
+        "endLine": 1043,
+        "endChar": 71
+      },
+      "revId": "e339475c7d3cfea425332612125320df4d44b183",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "bc044423_58ba51c7",
         "filename": "redfish-core/lib/processor.hpp",
         "patchSetId": 29
@@ -819,6 +891,30 @@
       "side": 1,
       "message": "Okay, I think we can update it after association.json is updated.\nRight now, can we keep it?",
       "parentUuid": "14c9556c_24586a0d",
+      "range": {
+        "startLine": 1066,
+        "startChar": 32,
+        "endLine": 1066,
+        "endChar": 60
+      },
+      "revId": "e339475c7d3cfea425332612125320df4d44b183",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b452190b_376d72ed",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 29
+      },
+      "lineNbr": 1066,
+      "author": {
+        "id": 1000427
+      },
+      "writtenOn": "2021-08-25T11:35:57Z",
+      "side": 1,
+      "message": "I guess it will be small changes if you agree to do that.\n```\n// Interfaces which imply a D-Bus object represents a Processor Core\nconstexpr std::array\u003cconst char*, 1\u003e procCoreInterfaces \u003d {\n    \"xyz.openbmc_project.Inventory.Item.CpuCore\"};\n \ncpuPath, 0, procCoreInterfaces);\n\n```\n\nBy using this, we will get only core objects.\n\nOR seeing any issue with this?",
+      "parentUuid": "6e7d23ee_9ba118b6",
       "range": {
         "startLine": 1066,
         "startChar": 32,
