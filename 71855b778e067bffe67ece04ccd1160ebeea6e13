@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9484dd08_70b61e85",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 23
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2021-08-25T01:29:49Z",
+      "side": 1,
+      "message": "Why not StandAlone also?",
+      "revId": "71855b778e067bffe67ece04ccd1160ebeea6e13",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
