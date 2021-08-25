@@ -42,6 +42,48 @@
     },
     {
       "key": {
+        "uuid": "3376c002_0013e690",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1000500
+      },
+      "writtenOn": "2021-08-25T23:49:32Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "628c3690_8cbfbbf3",
+      "range": {
+        "startLine": 34,
+        "startChar": 0,
+        "endLine": 35,
+        "endChar": 45
+      },
+      "revId": "c0741d9f9bc25d2906392ce21e071dcbcbb48636",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0ac90b66_ce771112",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1000500
+      },
+      "writtenOn": "2021-08-25T23:49:32Z",
+      "side": 1,
+      "message": "Bumped.",
+      "parentUuid": "b4732c6c_6a4b1aa5",
+      "revId": "c0741d9f9bc25d2906392ce21e071dcbcbb48636",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0e515f85_87ff9ea0",
         "filename": "redfish-core/lib/managers.hpp",
         "patchSetId": 2
@@ -62,6 +104,30 @@
       "revId": "c0741d9f9bc25d2906392ce21e071dcbcbb48636",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "853f76af_2690a8e8",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1774,
+      "author": {
+        "id": 1000500
+      },
+      "writtenOn": "2021-08-25T23:49:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0e515f85_87ff9ea0",
+      "range": {
+        "startLine": 1774,
+        "startChar": 0,
+        "endLine": 1774,
+        "endChar": 50
+      },
+      "revId": "c0741d9f9bc25d2906392ce21e071dcbcbb48636",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -88,6 +154,30 @@
     },
     {
       "key": {
+        "uuid": "8d666c00_a25d908c",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1779,
+      "author": {
+        "id": 1000500
+      },
+      "writtenOn": "2021-08-25T23:49:32Z",
+      "side": 1,
+      "message": "These two lines were only used for debugging purpose, and are removed.",
+      "parentUuid": "3c68b525_a581f87f",
+      "range": {
+        "startLine": 1778,
+        "startChar": 0,
+        "endLine": 1779,
+        "endChar": 45
+      },
+      "revId": "c0741d9f9bc25d2906392ce21e071dcbcbb48636",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a0a52ea0_673d03cf",
         "filename": "redfish-core/lib/managers.hpp",
         "patchSetId": 2
@@ -111,6 +201,30 @@
     },
     {
       "key": {
+        "uuid": "71b129db_2d2e16ec",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1797,
+      "author": {
+        "id": 1000500
+      },
+      "writtenOn": "2021-08-25T23:49:32Z",
+      "side": 1,
+      "message": "Removed the cpuUtilization variable.",
+      "parentUuid": "a0a52ea0_673d03cf",
+      "range": {
+        "startLine": 1797,
+        "startChar": 21,
+        "endLine": 1797,
+        "endChar": 35
+      },
+      "revId": "c0741d9f9bc25d2906392ce21e071dcbcbb48636",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a5693be_886378be",
         "filename": "redfish-core/lib/managers.hpp",
         "patchSetId": 2
@@ -122,6 +236,30 @@
       "writtenOn": "2021-08-20T16:59:57Z",
       "side": 1,
       "message": "Are these well known sensor names documented?  In the past we\u0027ve used lower_camel case for well known sensor names.\n\nAlso, in terms of naming at first glance, these don\u0027t seem like they\u0027d work, as there\u0027s no indication that this is the BMC kernel CPU percentage.",
+      "range": {
+        "startLine": 1821,
+        "startChar": 0,
+        "endLine": 1821,
+        "endChar": 70
+      },
+      "revId": "c0741d9f9bc25d2906392ce21e071dcbcbb48636",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9851a1f2_dc0ecf6a",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1821,
+      "author": {
+        "id": 1000500
+      },
+      "writtenOn": "2021-08-25T23:49:32Z",
+      "side": 1,
+      "message": "No these are not well-known names, it only has to be the same with the name in phosphor-health-monitor. Would \"bmc_cpu_kernel_util\" and \"bmc_cpu_user_util\" be good?",
+      "parentUuid": "5a5693be_886378be",
       "range": {
         "startLine": 1821,
         "startChar": 0,
@@ -157,6 +295,30 @@
     },
     {
       "key": {
+        "uuid": "fda77df5_88936e2a",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1828,
+      "author": {
+        "id": 1000500
+      },
+      "writtenOn": "2021-08-25T23:49:32Z",
+      "side": 1,
+      "message": "Replaced the with a for loop.",
+      "parentUuid": "622be291_d4e3915b",
+      "range": {
+        "startLine": 1824,
+        "startChar": 0,
+        "endLine": 1828,
+        "endChar": 13
+      },
+      "revId": "c0741d9f9bc25d2906392ce21e071dcbcbb48636",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "74afcc23_13d244a8",
         "filename": "redfish-core/lib/managers.hpp",
         "patchSetId": 2
@@ -177,6 +339,30 @@
       "revId": "c0741d9f9bc25d2906392ce21e071dcbcbb48636",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "96419cc9_10c6c921",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1829,
+      "author": {
+        "id": 1000500
+      },
+      "writtenOn": "2021-08-25T23:49:32Z",
+      "side": 1,
+      "message": "Thanks for the comment, the usage of an iterator is now removed.",
+      "parentUuid": "74afcc23_13d244a8",
+      "range": {
+        "startLine": 1829,
+        "startChar": 50,
+        "endLine": 1829,
+        "endChar": 52
+      },
+      "revId": "c0741d9f9bc25d2906392ce21e071dcbcbb48636",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -203,6 +389,30 @@
     },
     {
       "key": {
+        "uuid": "a48539c7_dcd6781d",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1830,
+      "author": {
+        "id": 1000500
+      },
+      "writtenOn": "2021-08-25T23:49:32Z",
+      "side": 1,
+      "message": "This usage of std::cout is removed.",
+      "parentUuid": "224dab76_f39159c0",
+      "range": {
+        "startLine": 1830,
+        "startChar": 16,
+        "endLine": 1830,
+        "endChar": 26
+      },
+      "revId": "c0741d9f9bc25d2906392ce21e071dcbcbb48636",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0e62f5b4_c65a86ce",
         "filename": "redfish-core/lib/managers.hpp",
         "patchSetId": 2
@@ -223,6 +433,30 @@
       "revId": "c0741d9f9bc25d2906392ce21e071dcbcbb48636",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b7fe262f_80e8f6f0",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1831,
+      "author": {
+        "id": 1000500
+      },
+      "writtenOn": "2021-08-25T23:49:32Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "0e62f5b4_c65a86ce",
+      "range": {
+        "startLine": 1831,
+        "startChar": 29,
+        "endLine": 1831,
+        "endChar": 38
+      },
+      "revId": "c0741d9f9bc25d2906392ce21e071dcbcbb48636",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -249,6 +483,30 @@
     },
     {
       "key": {
+        "uuid": "045907a7_3da6b15d",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1834,
+      "author": {
+        "id": 1000500
+      },
+      "writtenOn": "2021-08-25T23:49:32Z",
+      "side": 1,
+      "message": "Changed to an if statement.",
+      "parentUuid": "57e06274_4ccaecdc",
+      "range": {
+        "startLine": 1834,
+        "startChar": 31,
+        "endLine": 1834,
+        "endChar": 35
+      },
+      "revId": "c0741d9f9bc25d2906392ce21e071dcbcbb48636",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "14bcf2ff_a2c13485",
         "filename": "redfish-core/lib/managers.hpp",
         "patchSetId": 2
@@ -269,6 +527,30 @@
       "revId": "c0741d9f9bc25d2906392ce21e071dcbcbb48636",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "76a38c01_7ff67c5a",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1843,
+      "author": {
+        "id": 1000500
+      },
+      "writtenOn": "2021-08-25T23:49:32Z",
+      "side": 1,
+      "message": "Added the check.\nIt seems calling messages::internalError(aResp-\u003eres); will cause bmcweb to stop filling the remaining fields, so only logging the error and not erroring out.",
+      "parentUuid": "14bcf2ff_a2c13485",
+      "range": {
+        "startLine": 1843,
+        "startChar": 16,
+        "endLine": 1843,
+        "endChar": 45
+      },
+      "revId": "c0741d9f9bc25d2906392ce21e071dcbcbb48636",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -295,6 +577,30 @@
     },
     {
       "key": {
+        "uuid": "53d53a8b_b5018036",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1848,
+      "author": {
+        "id": 1000500
+      },
+      "writtenOn": "2021-08-25T23:49:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f804e6d7_e4ccc51b",
+      "range": {
+        "startLine": 1847,
+        "startChar": 0,
+        "endLine": 1848,
+        "endChar": 17
+      },
+      "revId": "c0741d9f9bc25d2906392ce21e071dcbcbb48636",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "15047c52_b4f494ce",
         "filename": "redfish-core/lib/managers.hpp",
         "patchSetId": 2
@@ -315,6 +621,30 @@
       "revId": "c0741d9f9bc25d2906392ce21e071dcbcbb48636",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a91e5371_396d7807",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1854,
+      "author": {
+        "id": 1000500
+      },
+      "writtenOn": "2021-08-25T23:49:32Z",
+      "side": 1,
+      "message": "Removed the capture by reference of cpuUtilization and not capturing any variable by reference now.",
+      "parentUuid": "15047c52_b4f494ce",
+      "range": {
+        "startLine": 1854,
+        "startChar": 26,
+        "endLine": 1854,
+        "endChar": 40
+      },
+      "revId": "c0741d9f9bc25d2906392ce21e071dcbcbb48636",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -341,6 +671,30 @@
     },
     {
       "key": {
+        "uuid": "f9170d42_85d32a7b",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1870,
+      "author": {
+        "id": 1000500
+      },
+      "writtenOn": "2021-08-25T23:49:32Z",
+      "side": 1,
+      "message": "This was due to some other unrelated issue, and is now removed.",
+      "parentUuid": "879b46a5_2325f171",
+      "range": {
+        "startLine": 1870,
+        "startChar": 44,
+        "endLine": 1870,
+        "endChar": 63
+      },
+      "revId": "c0741d9f9bc25d2906392ce21e071dcbcbb48636",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5d1c5ac0_029e2f68",
         "filename": "redfish-core/lib/managers.hpp",
         "patchSetId": 2
@@ -364,6 +718,30 @@
     },
     {
       "key": {
+        "uuid": "a8053a7e_aa376532",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1873,
+      "author": {
+        "id": 1000500
+      },
+      "writtenOn": "2021-08-25T23:49:32Z",
+      "side": 1,
+      "message": "Replaced data() with c_str().",
+      "parentUuid": "5d1c5ac0_029e2f68",
+      "range": {
+        "startLine": 1873,
+        "startChar": 24,
+        "endLine": 1873,
+        "endChar": 62
+      },
+      "revId": "c0741d9f9bc25d2906392ce21e071dcbcbb48636",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "649b5a65_430591ee",
         "filename": "redfish-core/lib/managers.hpp",
         "patchSetId": 2
@@ -378,6 +756,24 @@
       "revId": "c0741d9f9bc25d2906392ce21e071dcbcbb48636",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7e70de25_df674a47",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 2057,
+      "author": {
+        "id": 1000500
+      },
+      "writtenOn": "2021-08-25T23:49:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "649b5a65_430591ee",
+      "revId": "c0741d9f9bc25d2906392ce21e071dcbcbb48636",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
