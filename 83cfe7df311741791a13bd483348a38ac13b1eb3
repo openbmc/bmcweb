@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "4b2e0dda_4fc38e0e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 15
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1000404
+      },
+      "writtenOn": "2021-08-25T10:53:33Z",
+      "side": 1,
+      "message": "I see, thank you.",
+      "parentUuid": "10302b2d_384d1d71",
+      "range": {
+        "startLine": 32,
+        "startChar": 49,
+        "endLine": 32,
+        "endChar": 50
+      },
+      "revId": "83cfe7df311741791a13bd483348a38ac13b1eb3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "91663c05_a691b9d7",
         "filename": "redfish-core/include/gzfile.hpp",
         "patchSetId": 15
@@ -45,6 +69,30 @@
       "revId": "83cfe7df311741791a13bd483348a38ac13b1eb3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "42957c20_9b42a64e",
+        "filename": "redfish-core/include/gzfile.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1000404
+      },
+      "writtenOn": "2021-08-25T10:53:33Z",
+      "side": 1,
+      "message": "Thank you for the suggestion.",
+      "parentUuid": "91663c05_a691b9d7",
+      "range": {
+        "startLine": 84,
+        "startChar": 11,
+        "endLine": 84,
+        "endChar": 30
+      },
+      "revId": "83cfe7df311741791a13bd483348a38ac13b1eb3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "bba84ea4_e8218b36",
+        "filename": "redfish-core/include/gzfile.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1000404
+      },
+      "writtenOn": "2021-08-25T10:53:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0819776a_58a008c5",
+      "range": {
+        "startLine": 85,
+        "startChar": 60,
+        "endLine": 85,
+        "endChar": 75
+      },
+      "revId": "83cfe7df311741791a13bd483348a38ac13b1eb3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bd4c285d_33bbe747",
         "filename": "redfish-core/include/gzfile.hpp",
         "patchSetId": 15
@@ -91,6 +163,30 @@
       "revId": "83cfe7df311741791a13bd483348a38ac13b1eb3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bc28c8e8_cba58869",
+        "filename": "redfish-core/include/gzfile.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1000404
+      },
+      "writtenOn": "2021-08-25T10:53:33Z",
+      "side": 1,
+      "message": "I didn\u0027t occur this issue in common use. We already handle the errors that gzread() return a value less than 0. I think it is fine to remove this branch.",
+      "parentUuid": "bd4c285d_33bbe747",
+      "range": {
+        "startLine": 94,
+        "startChar": 14,
+        "endLine": 94,
+        "endChar": 49
+      },
+      "revId": "83cfe7df311741791a13bd483348a38ac13b1eb3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -164,6 +260,30 @@
     },
     {
       "key": {
+        "uuid": "b9db61e1_02e0770f",
+        "filename": "redfish-core/include/gzfile.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 1000404
+      },
+      "writtenOn": "2021-08-25T10:53:33Z",
+      "side": 1,
+      "message": "I think this case has been handled. If the string is like \"Message1\\nMessage2\\n\\n\", then it will be split as \"Message1\", \"Message2\", and \"\", and the last one \"\" will be filtered.",
+      "parentUuid": "50d6ffb9_4b47ab0f",
+      "range": {
+        "startLine": 122,
+        "startChar": 0,
+        "endLine": 123,
+        "endChar": 39
+      },
+      "revId": "83cfe7df311741791a13bd483348a38ac13b1eb3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "23f966a6_69f318e2",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 15
@@ -184,6 +304,30 @@
       "revId": "83cfe7df311741791a13bd483348a38ac13b1eb3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3a7dfbdf_f94a3284",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 1836,
+      "author": {
+        "id": 1000404
+      },
+      "writtenOn": "2021-08-25T10:53:33Z",
+      "side": 1,
+      "message": "We use logrotate to handle the log files. they are appended with a \".#\" that is higher for the older logs. In our settings we don\u0027t expect more than 10 log files, so I just sort the list to get them in order.",
+      "parentUuid": "23f966a6_69f318e2",
+      "range": {
+        "startLine": 1832,
+        "startChar": 0,
+        "endLine": 1836,
+        "endChar": 17
+      },
+      "revId": "83cfe7df311741791a13bd483348a38ac13b1eb3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -233,6 +377,54 @@
     },
     {
       "key": {
+        "uuid": "095795fc_721f5938",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 1853,
+      "author": {
+        "id": 1000404
+      },
+      "writtenOn": "2021-08-25T10:53:33Z",
+      "side": 1,
+      "message": "I agree about that. Modify the name of log entry.",
+      "parentUuid": "8474dac0_f13663e5",
+      "range": {
+        "startLine": 1853,
+        "startChar": 29,
+        "endLine": 1853,
+        "endChar": 36
+      },
+      "revId": "83cfe7df311741791a13bd483348a38ac13b1eb3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8d2e1bd5_5d30b7a2",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 1853,
+      "author": {
+        "id": 1000404
+      },
+      "writtenOn": "2021-08-25T10:53:33Z",
+      "side": 1,
+      "message": "Modify the name here.",
+      "parentUuid": "9c8c76c1_b5a0104a",
+      "range": {
+        "startLine": 1853,
+        "startChar": 18,
+        "endLine": 1853,
+        "endChar": 28
+      },
+      "revId": "83cfe7df311741791a13bd483348a38ac13b1eb3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8fb3d174_df8fadee",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 15
@@ -253,6 +445,30 @@
       "revId": "83cfe7df311741791a13bd483348a38ac13b1eb3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "708ac1f1_fce0e5b3",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 1856,
+      "author": {
+        "id": 1000404
+      },
+      "writtenOn": "2021-08-25T10:53:33Z",
+      "side": 1,
+      "message": "After I do more search about entry type, I think host logs are more like OEM-defined format. Modify the level to \"Oem\".",
+      "parentUuid": "8fb3d174_df8fadee",
+      "range": {
+        "startLine": 1856,
+        "startChar": 23,
+        "endLine": 1856,
+        "endChar": 28
+      },
+      "revId": "83cfe7df311741791a13bd483348a38ac13b1eb3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -279,6 +495,30 @@
     },
     {
       "key": {
+        "uuid": "6b08a68c_d37ce2d7",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 1927,
+      "author": {
+        "id": 1000404
+      },
+      "writtenOn": "2021-08-25T10:53:33Z",
+      "side": 1,
+      "message": "I defined the limit as 256k which calculate from double of 8 files * 16kb, and the value is based on our logrotate settings.",
+      "parentUuid": "cd9883bd_d83d55fa",
+      "range": {
+        "startLine": 1917,
+        "startChar": 0,
+        "endLine": 1927,
+        "endChar": 17
+      },
+      "revId": "83cfe7df311741791a13bd483348a38ac13b1eb3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1e66dbb0_e69d1192",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 15
@@ -299,6 +539,30 @@
       "revId": "83cfe7df311741791a13bd483348a38ac13b1eb3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dc030b69_f62a86b1",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 1932,
+      "author": {
+        "id": 1000404
+      },
+      "writtenOn": "2021-08-25T10:53:33Z",
+      "side": 1,
+      "message": "Sorry I’m not sure I understand. I added a comment on the code here to describe that we use a getter to get last message.",
+      "parentUuid": "1e66dbb0_e69d1192",
+      "range": {
+        "startLine": 1929,
+        "startChar": 0,
+        "endLine": 1932,
+        "endChar": 17
+      },
+      "revId": "83cfe7df311741791a13bd483348a38ac13b1eb3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
