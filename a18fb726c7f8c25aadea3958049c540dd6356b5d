@@ -48,6 +48,30 @@
     },
     {
       "key": {
+        "uuid": "765aa6e9_4f6a62fc",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 41
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-08-25T02:11:22Z",
+      "side": 1,
+      "message": "Should we even care what the inventory item is if we have an association?",
+      "parentUuid": "01d9fb75_0d17810b",
+      "range": {
+        "startLine": 201,
+        "startChar": 52,
+        "endLine": 201,
+        "endChar": 65
+      },
+      "revId": "a18fb726c7f8c25aadea3958049c540dd6356b5d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c3d63f66_8bc284e2",
         "filename": "redfish-core/lib/assembly.hpp",
         "patchSetId": 41
@@ -209,6 +233,30 @@
     },
     {
       "key": {
+        "uuid": "138e27cc_a9cf8c26",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 41
+      },
+      "lineNbr": 372,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-08-25T02:11:22Z",
+      "side": 1,
+      "message": "\u003e this association documented somewhere?\n\n+1",
+      "parentUuid": "ba2bc807_9a8d3c1a",
+      "range": {
+        "startLine": 372,
+        "startChar": 0,
+        "endLine": 372,
+        "endChar": 66
+      },
+      "revId": "a18fb726c7f8c25aadea3958049c540dd6356b5d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "430f777f_a2853fd9",
         "filename": "redfish-core/lib/assembly.hpp",
         "patchSetId": 41
@@ -278,6 +326,30 @@
     },
     {
       "key": {
+        "uuid": "590752bd_45ab7f22",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 41
+      },
+      "lineNbr": 494,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-08-25T02:11:22Z",
+      "side": 1,
+      "message": "It is when the last segment of the URI is hardcoded, e.g. /redfish/v1/Chassis/\u003cstr\u003e/ThermalSubsystem/",
+      "parentUuid": "d3f55c7a_84a6f426",
+      "range": {
+        "startLine": 494,
+        "startChar": 0,
+        "endLine": 494,
+        "endChar": 56
+      },
+      "revId": "a18fb726c7f8c25aadea3958049c540dd6356b5d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "7e9ee8b5_984c357e",
         "filename": "redfish-core/lib/assembly.hpp",
         "patchSetId": 41
@@ -289,6 +361,30 @@
       "writtenOn": "2021-08-24T20:32:54Z",
       "side": 1,
       "message": "Isn\u0027t this creating Assemblies for all Item.Chassis and Item.Boards?  That seems wrong.",
+      "range": {
+        "startLine": 488,
+        "startChar": 0,
+        "endLine": 495,
+        "endChar": 0
+      },
+      "revId": "a18fb726c7f8c25aadea3958049c540dd6356b5d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "48a5c457_037cc807",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 41
+      },
+      "lineNbr": 495,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-08-25T02:11:22Z",
+      "side": 1,
+      "message": "This is how we do Power / Thermal / Sensors. And how PCIeSlots (up for review at https://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/39970) does it. The links are there if no sensors / PCIeSlots / Assemblies are there it is just an empty array.",
+      "parentUuid": "7e9ee8b5_984c357e",
       "range": {
         "startLine": 488,
         "startChar": 0,
