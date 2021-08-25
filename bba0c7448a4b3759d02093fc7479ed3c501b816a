@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ca689600_b9908d7e",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 53
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2021-08-25T17:48:58Z",
+      "side": 1,
+      "message": "Can we update this commit to add the following inventory information:\n\nFrom https://github.com/openbmc/phosphor-dbus-interfaces/blob/master/yaml/xyz/openbmc_project/Inventory/Decorator/Asset.interface.yaml\n* SparePartNumber\n* Model\n\nFrom https://github.com/openbmc/phosphor-dbus-interfaces/blob/master/yaml/xyz/openbmc_project/Inventory/Decorator/LocationCode.interface.yaml\n* Location",
+      "revId": "bba0c7448a4b3759d02093fc7479ed3c501b816a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
