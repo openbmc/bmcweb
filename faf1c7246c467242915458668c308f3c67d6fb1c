@@ -16,6 +16,24 @@
       "revId": "faf1c7246c467242915458668c308f3c67d6fb1c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "82d69c09_bb9b7c22",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2021-08-25T09:34:24Z",
+      "side": 1,
+      "message": "I have not changed the value of the req header parameters in this patch. Those remain the same as in the master. \nThe event listener(server) has no keep-alive tag at my test environment. With that this code works fine.\n\nCan you please elaborate more on what kind of header conflicts can occur?",
+      "parentUuid": "ec1dc01e_f4be225d",
+      "revId": "faf1c7246c467242915458668c308f3c67d6fb1c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
