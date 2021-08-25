@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "c2736c1a_61a7e182",
+        "filename": "redfish-core/include/redfish.hpp",
+        "patchSetId": 29
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-08-25T02:50:35Z",
+      "side": 1,
+      "message": "NO\nBecause their URLs are not the same",
+      "parentUuid": "2d2b4318_a9fca8f3",
+      "range": {
+        "startLine": 144,
+        "startChar": 8,
+        "endLine": 145,
+        "endChar": 44
+      },
+      "revId": "e339475c7d3cfea425332612125320df4d44b183",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "f2e44c78_059b73b8",
         "filename": "redfish-core/lib/processor.hpp",
         "patchSetId": 29
@@ -36,6 +60,30 @@
       "writtenOn": "2021-08-24T15:59:41Z",
       "side": 1,
       "message": "Why capturing the \"service\" into lambda? Looks this is not used inside the lambda",
+      "range": {
+        "startLine": 827,
+        "startChar": 9,
+        "endLine": 827,
+        "endChar": 16
+      },
+      "revId": "e339475c7d3cfea425332612125320df4d44b183",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "96fc8ad2_cb54525b",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 29
+      },
+      "lineNbr": 827,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-08-25T02:50:35Z",
+      "side": 1,
+      "message": "Yeah, removed",
+      "parentUuid": "f2e44c78_059b73b8",
       "range": {
         "startLine": 827,
         "startChar": 9,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "53d65b28_3cc3bbc0",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 29
+      },
+      "lineNbr": 917,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-08-25T02:50:35Z",
+      "side": 1,
+      "message": "In fact, service is equivalent to `xyz.openbmc_project.Inventory.Manager`",
+      "parentUuid": "2be7f548_29928ad2",
+      "range": {
+        "startLine": 917,
+        "startChar": 8,
+        "endLine": 917,
+        "endChar": 15
+      },
+      "revId": "e339475c7d3cfea425332612125320df4d44b183",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "23e2bd54_4fccd115",
         "filename": "redfish-core/lib/processor.hpp",
         "patchSetId": 29
@@ -94,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "6daaa30a_1df6a157",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 29
+      },
+      "lineNbr": 953,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-08-25T02:50:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "23e2bd54_4fccd115",
+      "range": {
+        "startLine": 951,
+        "startChar": 16,
+        "endLine": 953,
+        "endChar": 32
+      },
+      "revId": "e339475c7d3cfea425332612125320df4d44b183",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "123aa20f_46a523f1",
         "filename": "redfish-core/lib/processor.hpp",
         "patchSetId": 29
@@ -105,6 +201,30 @@
       "writtenOn": "2021-08-24T15:59:41Z",
       "side": 1,
       "message": "- Why looping through all the dbus service which is implemented the processors interface?\n- More then one dbus service will implement the processor interfaces in the BMC stack?",
+      "range": {
+        "startLine": 960,
+        "startChar": 16,
+        "endLine": 960,
+        "endChar": 57
+      },
+      "revId": "e339475c7d3cfea425332612125320df4d44b183",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c9e1ac42_1c26d3e7",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 29
+      },
+      "lineNbr": 960,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-08-25T02:50:35Z",
+      "side": 1,
+      "message": "No, we only run the for loop once.\nIn fact, We just cater to this structure(`std::vector`).\n\nI can add `break` in the for loop.",
+      "parentUuid": "123aa20f_46a523f1",
       "range": {
         "startLine": 960,
         "startChar": 16,
@@ -140,6 +260,30 @@
     },
     {
       "key": {
+        "uuid": "411e0b6e_8f7b6313",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 29
+      },
+      "lineNbr": 977,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-08-25T02:50:35Z",
+      "side": 1,
+      "message": "Yeah.\nTHB, this patch is a long time, When I write this function, the `processorInterfaces` interface has not been implemented yet 😊\n\nDone.",
+      "parentUuid": "3f10811a_1f655ae2",
+      "range": {
+        "startLine": 975,
+        "startChar": 8,
+        "endLine": 977,
+        "endChar": 61
+      },
+      "revId": "e339475c7d3cfea425332612125320df4d44b183",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "348fdeb0_b3f1f0fd",
         "filename": "redfish-core/lib/processor.hpp",
         "patchSetId": 29
@@ -151,6 +295,30 @@
       "writtenOn": "2021-08-24T15:59:41Z",
       "side": 1,
       "message": "JS: I think you can avoid path and leaf variables\n- path\n\n\u003e if (sdbusplus::message::object_path(cpuPath).filename() !\u003d processorId)\n\n- leaf\n  - are we really get empty() since you used starting path as `/xyz/openbmc_project/inventory` so worst case we will get `inventory` right, if the given processor interfaces are not found in the inventory?",
+      "range": {
+        "startLine": 1005,
+        "startChar": 16,
+        "endLine": 1006,
+        "endChar": 51
+      },
+      "revId": "e339475c7d3cfea425332612125320df4d44b183",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "607bae27_9f3db8ee",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 29
+      },
+      "lineNbr": 1006,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-08-25T02:50:35Z",
+      "side": 1,
+      "message": "okay, agree with you.\nDone",
+      "parentUuid": "348fdeb0_b3f1f0fd",
       "range": {
         "startLine": 1005,
         "startChar": 16,
@@ -186,6 +354,30 @@
     },
     {
       "key": {
+        "uuid": "e147ab6b_6bfaedd9",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 29
+      },
+      "lineNbr": 1043,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-08-25T02:50:35Z",
+      "side": 1,
+      "message": "See: L 1066",
+      "parentUuid": "7ca8c190_d50fbaf9",
+      "range": {
+        "startLine": 1042,
+        "startChar": 28,
+        "endLine": 1043,
+        "endChar": 71
+      },
+      "revId": "e339475c7d3cfea425332612125320df4d44b183",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "bc044423_58ba51c7",
         "filename": "redfish-core/lib/processor.hpp",
         "patchSetId": 29
@@ -209,6 +401,30 @@
     },
     {
       "key": {
+        "uuid": "ca9b8ef1_e0b45946",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 29
+      },
+      "lineNbr": 1049,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-08-25T02:50:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bc044423_58ba51c7",
+      "range": {
+        "startLine": 1048,
+        "startChar": 28,
+        "endLine": 1049,
+        "endChar": 63
+      },
+      "revId": "e339475c7d3cfea425332612125320df4d44b183",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "cb3e9079_69d289f4",
         "filename": "redfish-core/lib/processor.hpp",
         "patchSetId": 29
@@ -220,6 +436,30 @@
       "writtenOn": "2021-08-24T15:59:41Z",
       "side": 1,
       "message": "Do we really face this case?",
+      "range": {
+        "startLine": 1050,
+        "startChar": 1,
+        "endLine": 1056,
+        "endChar": 29
+      },
+      "revId": "e339475c7d3cfea425332612125320df4d44b183",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "653f006a_b569e71b",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 29
+      },
+      "lineNbr": 1056,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-08-25T02:50:35Z",
+      "side": 1,
+      "message": "Removed",
+      "parentUuid": "cb3e9079_69d289f4",
       "range": {
         "startLine": 1050,
         "startChar": 1,
@@ -255,6 +495,30 @@
     },
     {
       "key": {
+        "uuid": "c852ca8a_4482b996",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 29
+      },
+      "lineNbr": 1066,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-08-25T02:50:35Z",
+      "side": 1,
+      "message": "\u003e Looks you are trying to get the Core inventory item so can use the appropriate interface i.e \"xyz.openbmc_project.Inventory.Item.CpuCore\"?\n\nCurrently, we are unable to obtain this interface.\n\n\u003e I think if we have added the association in the given processor object then, I guess that endpoints will be considered as \"SubProcessors\" right? so, I think we need to filter out by using the appropriate interfaces\n\nNo, for example:\nIf we association 10 cores in cpu0, when Power On, if only 8 cores are valid, but at this time, we get 10 cores instead of 8 cores, right?",
+      "parentUuid": "4c305bf4_41a4fc6a",
+      "range": {
+        "startLine": 1066,
+        "startChar": 32,
+        "endLine": 1066,
+        "endChar": 60
+      },
+      "revId": "e339475c7d3cfea425332612125320df4d44b183",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "43fc2725_0d56d111",
         "filename": "redfish-core/lib/processor.hpp",
         "patchSetId": 29
@@ -266,6 +530,30 @@
       "writtenOn": "2021-08-24T15:59:41Z",
       "side": 1,
       "message": "Do you no need to throw the error if the given processor id is not present in the retrieved inventory processors objects?",
+      "range": {
+        "startLine": 1069,
+        "startChar": 12,
+        "endLine": 1072,
+        "endChar": 76
+      },
+      "revId": "e339475c7d3cfea425332612125320df4d44b183",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f893f646_e2956c71",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 29
+      },
+      "lineNbr": 1072,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-08-25T02:50:35Z",
+      "side": 1,
+      "message": "It is my mistake, removed comment",
+      "parentUuid": "43fc2725_0d56d111",
       "range": {
         "startLine": 1069,
         "startChar": 12,
@@ -301,6 +589,30 @@
     },
     {
       "key": {
+        "uuid": "6dfe74e9_34b7e7b8",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 29
+      },
+      "lineNbr": 1076,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-08-25T02:50:35Z",
+      "side": 1,
+      "message": "Yeah, this is a legacy problem and has nothing to do with the functionality of this patch, so I think I can update it in a new patch.",
+      "parentUuid": "9918920b_1bd53d9f",
+      "range": {
+        "startLine": 1074,
+        "startChar": 8,
+        "endLine": 1076,
+        "endChar": 42
+      },
+      "revId": "e339475c7d3cfea425332612125320df4d44b183",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "62cf1437_daecde58",
         "filename": "redfish-core/lib/processor.hpp",
         "patchSetId": 29
@@ -321,6 +633,30 @@
       "revId": "e339475c7d3cfea425332612125320df4d44b183",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "67baf4f4_3b196e29",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 29
+      },
+      "lineNbr": 1080,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-08-25T02:50:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "62cf1437_daecde58",
+      "range": {
+        "startLine": 1078,
+        "startChar": 8,
+        "endLine": 1080,
+        "endChar": 61
+      },
+      "revId": "e339475c7d3cfea425332612125320df4d44b183",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -347,6 +683,30 @@
     },
     {
       "key": {
+        "uuid": "159e9a5c_8182324c",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 29
+      },
+      "lineNbr": 1560,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-08-25T02:50:35Z",
+      "side": 1,
+      "message": "Currently we only need to implement the CPU type for processorType.\nMaybe I am not sure, @Gunnar, what do you think?",
+      "parentUuid": "d16646cd_cdfece2b",
+      "range": {
+        "startLine": 1560,
+        "startChar": 25,
+        "endLine": 1560,
+        "endChar": 42
+      },
+      "revId": "e339475c7d3cfea425332612125320df4d44b183",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "eee2c16f_a1bd0dd9",
         "filename": "redfish-core/lib/processor.hpp",
         "patchSetId": 29
@@ -358,6 +718,30 @@
       "writtenOn": "2021-08-24T15:59:41Z",
       "side": 1,
       "message": "Looks like you are using more than one place, can we use some constexpr? Or is it possible to use the different versions?",
+      "range": {
+        "startLine": 1570,
+        "startChar": 22,
+        "endLine": 1570,
+        "endChar": 49
+      },
+      "revId": "e339475c7d3cfea425332612125320df4d44b183",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cdd5f34e_326022c9",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 29
+      },
+      "lineNbr": 1570,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-08-25T02:50:35Z",
+      "side": 1,
+      "message": "This is a legacy problem, I think I can update it in the new patch.",
+      "parentUuid": "eee2c16f_a1bd0dd9",
       "range": {
         "startLine": 1570,
         "startChar": 22,
