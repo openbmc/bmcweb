@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9523506a_4479f823",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 204,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-08-25T02:09:04Z",
+      "side": 1,
+      "message": "Don\u0027t you need Board here?",
+      "revId": "1c284dc86ad5959133d756f3632807cf8727ba62",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
