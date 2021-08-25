@@ -333,8 +333,6 @@ class Connection :
                         << req->version() % 10 << ' ' << req->methodString()
                         << " " << req->target() << " " << req->ipAddress;
 
-        needToCallAfterHandlers = false;
-
         if (!isInvalidRequest)
         {
             res.setCompleteRequestHandler(nullptr);
@@ -345,7 +343,6 @@ class Connection :
 
             if (!res.completed)
             {
-                needToCallAfterHandlers = true;
                 res.setCompleteRequestHandler([self(shared_from_this())] {
                     boost::asio::post(self->adaptor.get_executor(),
                                       [self] { self->completeRequest(); });
@@ -418,10 +415,7 @@ class Connection :
 
         addSecurityHeaders(*req, res);
 
-        if (needToCallAfterHandlers)
-        {
-            crow::authorization::cleanupTempSession(*req);
-        }
+        crow::authorization::cleanupTempSession(*req);
 
         if (!isAlive())
         {
@@ -781,9 +775,6 @@ class Connection :
     std::weak_ptr<persistent_data::UserSession> session;
 
     std::optional<size_t> timerCancelKey;
-
-    bool needToCallAfterHandlers{};
-    bool needToStartReadAfterComplete{};
 
     std::function<std::string()>& getCachedDateStr;
     detail::TimerQueue& timerQueue;
