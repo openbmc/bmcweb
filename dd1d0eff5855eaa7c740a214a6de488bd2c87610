@@ -42,6 +42,30 @@
     },
     {
       "key": {
+        "uuid": "4880df4c_557f7a41",
+        "filename": "redfish-core/lib/thermal_subsystem.hpp",
+        "patchSetId": 67
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1000444
+      },
+      "writtenOn": "2021-08-25T01:13:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "408a326e_55ed9f02",
+      "range": {
+        "startLine": 37,
+        "startChar": 11,
+        "endLine": 37,
+        "endChar": 17
+      },
+      "revId": "dd1d0eff5855eaa7c740a214a6de488bd2c87610",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b7673907_a2a6fe74",
         "filename": "redfish-core/lib/thermal_subsystem.hpp",
         "patchSetId": 67
@@ -62,6 +86,30 @@
       "revId": "dd1d0eff5855eaa7c740a214a6de488bd2c87610",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d7904e51_505a4314",
+        "filename": "redfish-core/lib/thermal_subsystem.hpp",
+        "patchSetId": 67
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1000444
+      },
+      "writtenOn": "2021-08-25T01:13:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b7673907_a2a6fe74",
+      "range": {
+        "startLine": 38,
+        "startChar": 50,
+        "endLine": 38,
+        "endChar": 56
+      },
+      "revId": "dd1d0eff5855eaa7c740a214a6de488bd2c87610",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
