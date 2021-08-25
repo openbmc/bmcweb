@@ -316,15 +316,14 @@ class Connection :
         // Fetch the client IP address
         readClientIp();
 
-        bool isInvalidRequest = false;
-
         // Check for HTTP version 1.1.
         if (req->version() == 11)
         {
             if (req->getHeaderValue(boost::beast::http::field::host).empty())
             {
-                isInvalidRequest = true;
                 res.result(boost::beast::http::status::bad_request);
+                completeRequest();
+                return;
             }
         }
 
@@ -333,48 +332,39 @@ class Connection :
                         << req->version() % 10 << ' ' << req->methodString()
                         << " " << req->target() << " " << req->ipAddress;
 
-        if (!isInvalidRequest)
-        {
-            res.setCompleteRequestHandler(nullptr);
-            res.isAliveHelper = [this]() -> bool { return isAlive(); };
+        res.setCompleteRequestHandler(nullptr);
+        res.isAliveHelper = [this]() -> bool { return isAlive(); };
 
-            req->ioService = static_cast<decltype(req->ioService)>(
-                &adaptor.get_executor().context());
+        req->ioService = static_cast<decltype(req->ioService)>(
+            &adaptor.get_executor().context());
 
-            if (!res.completed)
-            {
-                res.setCompleteRequestHandler([self(shared_from_this())] {
-                    boost::asio::post(self->adaptor.get_executor(),
-                                      [self] { self->completeRequest(); });
-                });
-                if (req->isUpgrade() &&
-                    boost::iequals(
-                        req->getHeaderValue(boost::beast::http::field::upgrade),
-                        "websocket"))
-                {
-                    handler->handleUpgrade(*req, res, std::move(adaptor));
-                    // delete lambda with self shared_ptr
-                    // to enable connection destruction
-                    res.setCompleteRequestHandler(nullptr);
-                    return;
-                }
-                auto asyncResp = std::make_shared<bmcweb::AsyncResp>(res);
-                handler->handle(*req, asyncResp);
-            }
-            else
-            {
-                completeRequest();
-            }
-        }
-        else
+        if (res.completed)
         {
             completeRequest();
+            return;
         }
+        res.setCompleteRequestHandler([self(shared_from_this())] {
+            boost::asio::post(self->adaptor.get_executor(),
+                              [self] { self->completeRequest(); });
+        });
+
+        if (req->isUpgrade() &&
+            boost::iequals(
+                req->getHeaderValue(boost::beast::http::field::upgrade),
+                "websocket"))
+        {
+            handler->handleUpgrade(*req, res, std::move(adaptor));
+            // delete lambda with self shared_ptr
+            // to enable connection destruction
+            res.setCompleteRequestHandler(nullptr);
+            return;
+        }
+        auto asyncResp = std::make_shared<bmcweb::AsyncResp>(res);
+        handler->handle(*req, asyncResp);
     }
 
     bool isAlive()
     {
-
         if constexpr (std::is_same_v<Adaptor,
                                      boost::beast::ssl_stream<
                                          boost::asio::ip::tcp::socket>>)
