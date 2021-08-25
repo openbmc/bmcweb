@@ -120,6 +120,30 @@
     },
     {
       "key": {
+        "uuid": "4ecc7442_687f5083",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 29
+      },
+      "lineNbr": 827,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-08-25T09:03:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "96fc8ad2_cb54525b",
+      "range": {
+        "startLine": 827,
+        "startChar": 9,
+        "endLine": 827,
+        "endChar": 16
+      },
+      "revId": "e339475c7d3cfea425332612125320df4d44b183",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2be7f548_29928ad2",
         "filename": "redfish-core/lib/processor.hpp",
         "patchSetId": 29
@@ -188,6 +212,30 @@
       "revId": "e339475c7d3cfea425332612125320df4d44b183",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e6a9f746_712dae04",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 29
+      },
+      "lineNbr": 917,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-08-25T09:03:49Z",
+      "side": 1,
+      "message": "Okay, I see\nBut this problem is everywhere, I want to push a new patch to fix it.",
+      "parentUuid": "093baffc_c01eecdf",
+      "range": {
+        "startLine": 917,
+        "startChar": 8,
+        "endLine": 917,
+        "endChar": 15
+      },
+      "revId": "e339475c7d3cfea425332612125320df4d44b183",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -309,6 +357,30 @@
     },
     {
       "key": {
+        "uuid": "902cb68f_e0804f56",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 29
+      },
+      "lineNbr": 960,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-08-25T09:03:49Z",
+      "side": 1,
+      "message": "Yeah, Please see L: 917\n\nWill push a new patch to fix it.",
+      "parentUuid": "d8b3fdbc_cfacca4e",
+      "range": {
+        "startLine": 960,
+        "startChar": 16,
+        "endLine": 960,
+        "endChar": 57
+      },
+      "revId": "e339475c7d3cfea425332612125320df4d44b183",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3f10811a_1f655ae2",
         "filename": "redfish-core/lib/processor.hpp",
         "patchSetId": 29
@@ -356,6 +428,30 @@
     },
     {
       "key": {
+        "uuid": "8d902578_dd9a6896",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 29
+      },
+      "lineNbr": 977,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-08-25T09:03:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "411e0b6e_8f7b6313",
+      "range": {
+        "startLine": 975,
+        "startChar": 8,
+        "endLine": 977,
+        "endChar": 61
+      },
+      "revId": "e339475c7d3cfea425332612125320df4d44b183",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "348fdeb0_b3f1f0fd",
         "filename": "redfish-core/lib/processor.hpp",
         "patchSetId": 29
@@ -400,6 +496,30 @@
       "revId": "e339475c7d3cfea425332612125320df4d44b183",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cbe14cf2_371fc4d3",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 29
+      },
+      "lineNbr": 1006,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-08-25T09:03:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "607bae27_9f3db8ee",
+      "range": {
+        "startLine": 1005,
+        "startChar": 16,
+        "endLine": 1006,
+        "endChar": 51
+      },
+      "revId": "e339475c7d3cfea425332612125320df4d44b183",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -462,6 +582,30 @@
       "side": 1,
       "message": "Added the comment in the same at last on this i.e if association endpoints start with `core` then that subtree path may be considered as SubProcessors. - I think we should get the subtree path based on the required interfaces rather than doing string manipulation when we don\u0027t have a guarantee on that.",
       "parentUuid": "e147ab6b_6bfaedd9",
+      "range": {
+        "startLine": 1042,
+        "startChar": 28,
+        "endLine": 1043,
+        "endChar": 71
+      },
+      "revId": "e339475c7d3cfea425332612125320df4d44b183",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4208c3ab_9763bf84",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 29
+      },
+      "lineNbr": 1043,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-08-25T09:03:49Z",
+      "side": 1,
+      "message": "The same as L: 1066",
+      "parentUuid": "1c0f4a39_59533fb1",
       "range": {
         "startLine": 1042,
         "startChar": 28,
@@ -568,6 +712,30 @@
     },
     {
       "key": {
+        "uuid": "0a96fd0a_52391acd",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 29
+      },
+      "lineNbr": 1056,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-08-25T09:03:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "653f006a_b569e71b",
+      "range": {
+        "startLine": 1050,
+        "startChar": 1,
+        "endLine": 1056,
+        "endChar": 29
+      },
+      "revId": "e339475c7d3cfea425332612125320df4d44b183",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4c305bf4_41a4fc6a",
         "filename": "redfish-core/lib/processor.hpp",
         "patchSetId": 29
@@ -639,6 +807,30 @@
     },
     {
       "key": {
+        "uuid": "6e7d23ee_9ba118b6",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 29
+      },
+      "lineNbr": 1066,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-08-25T09:03:49Z",
+      "side": 1,
+      "message": "Okay, I think we can update it after association.json is updated.\nRight now, can we keep it?",
+      "parentUuid": "14c9556c_24586a0d",
+      "range": {
+        "startLine": 1066,
+        "startChar": 32,
+        "endLine": 1066,
+        "endChar": 60
+      },
+      "revId": "e339475c7d3cfea425332612125320df4d44b183",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "43fc2725_0d56d111",
         "filename": "redfish-core/lib/processor.hpp",
         "patchSetId": 29
@@ -686,6 +878,30 @@
     },
     {
       "key": {
+        "uuid": "b5360be5_87fb3d4d",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 29
+      },
+      "lineNbr": 1072,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-08-25T09:03:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f893f646_e2956c71",
+      "range": {
+        "startLine": 1069,
+        "startChar": 12,
+        "endLine": 1072,
+        "endChar": 76
+      },
+      "revId": "e339475c7d3cfea425332612125320df4d44b183",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9918920b_1bd53d9f",
         "filename": "redfish-core/lib/processor.hpp",
         "patchSetId": 29
@@ -730,6 +946,30 @@
       "revId": "e339475c7d3cfea425332612125320df4d44b183",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "58c46c6a_4844d05b",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 29
+      },
+      "lineNbr": 1076,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-08-25T09:03:49Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "6dfe74e9_34b7e7b8",
+      "range": {
+        "startLine": 1074,
+        "startChar": 8,
+        "endLine": 1076,
+        "endChar": 42
+      },
+      "revId": "e339475c7d3cfea425332612125320df4d44b183",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -871,6 +1111,30 @@
       "revId": "e339475c7d3cfea425332612125320df4d44b183",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d2d8401d_bf49b311",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 29
+      },
+      "lineNbr": 1570,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-08-25T09:03:49Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "cdd5f34e_326022c9",
+      "range": {
+        "startLine": 1570,
+        "startChar": 22,
+        "endLine": 1570,
+        "endChar": 49
+      },
+      "revId": "e339475c7d3cfea425332612125320df4d44b183",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
