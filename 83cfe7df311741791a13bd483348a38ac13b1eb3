@@ -284,6 +284,30 @@
     },
     {
       "key": {
+        "uuid": "69ef4b7f_34ae2db8",
+        "filename": "redfish-core/include/gzfile.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2021-08-25T19:17:46Z",
+      "side": 1,
+      "message": "I guess Ed\u0027s point is about whether we should keep consecutive newlines. There\u0027s no guarantee that console or kernel logs don\u0027t output consecutive newlines.\n\n```\nwhatever logs go here, followed by 3 newlines\\n\n\\n\nwhatever logs go here\n```\n\nIn this code, the above logs become\n\n```\nwhatever logs go here, followed by 3 newlines\\n\nwhatever logs go here\n```\n\nI suggest we not delete these newlines. \n\nTo do that, IIUC, we can store the previous delimiter, when logEntry is empty \u0026\u0026 the previous delimiter is not \u0027\\r\u0027 \u0026\u0026 the current delimiter is not \u0027\\n\u0027, we just push back a \"\\n\".\n\nSo we have\n1. \"\\r\\n\": act as a single delimiter\n2. \"\\n\\n\": a \"\\n\" is collected as a log\n3. \"\\n\\r\": a \"\\n\" is collected as a log\n4. \"\\r\\r\": a \"\\n\" is collected as a log",
+      "parentUuid": "b9db61e1_02e0770f",
+      "range": {
+        "startLine": 122,
+        "startChar": 0,
+        "endLine": 123,
+        "endChar": 39
+      },
+      "revId": "83cfe7df311741791a13bd483348a38ac13b1eb3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "23f966a6_69f318e2",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 15
