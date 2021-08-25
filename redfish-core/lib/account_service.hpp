@@ -1525,7 +1525,10 @@ inline void requestAccountServiceRoutes(App& app)
 
                         for (auto& userpath : users)
                         {
-                            std::string user = userpath.first.filename();
+                            std::string userObj(userpath.first);
+                            std::filesystem::path userObjPath(userObj);
+                            std::string user = userObjPath.filename();
+
                             if (user.empty())
                             {
                                 messages::internalError(asyncResp->res);
