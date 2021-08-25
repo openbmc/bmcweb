@@ -33,6 +33,23 @@
       "revId": "5ffd611dca29c1cb95699f02bc09a20664008fba",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4e1c651b_6b153e86",
+        "filename": "redfish-core/lib/power_supply.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2021-08-25T17:50:33Z",
+      "side": 1,
+      "message": "Can we also add the LocationCode to the Location complex? The location can be obtaned from the following D-Bus interface:\n\nhttps://github.com/openbmc/phosphor-dbus-interfaces/blob/master/yaml/xyz/openbmc_project/Inventory/Decorator/LocationCode.interface.yaml",
+      "revId": "5ffd611dca29c1cb95699f02bc09a20664008fba",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
