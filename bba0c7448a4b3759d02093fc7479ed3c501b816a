@@ -16,6 +16,24 @@
       "revId": "bba0c7448a4b3759d02093fc7479ed3c501b816a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9d6d77ba_824de858",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 53
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 1000547
+      },
+      "writtenOn": "2021-08-26T01:26:33Z",
+      "side": 1,
+      "message": "root@fp5280g2:~# busctl call xyz.openbmc_project.ObjectMapper /xyz/openbmc_project/object_mapper xyz.openbmc_project.ObjectMapper GetObject sas /xyz/openbmc_project/inventory/system/chassis/motherboard/fan2 1 xyz.openbmc_project.Inventory.Item.Fan --verbose\nMESSAGE \"a{sas}\" {\n\n ARRAY \"{sas}\" {\n  DICT_ENTRY \"sas\" {\n   STRING \"xyz.openbmc_project.Inventory.Manager\";\n    ARRAY \"s\" {\n             STRING \"org.freedesktop.DBus.Introspectable\";\n             STRING \"org.freedesktop.DBus.Peer\";\n             STRING \"org.freedesktop.DBus.Properties\";\n             STRING\"xyz.openbmc_project.Association.Definitions\";                                \n             STRING \"xyz.openbmc_project.Inventory.Item\";\n             STRING \"xyz.openbmc_project.Inventory.Item.Fan\";\n             STRING \"xyz.openbmc_project.State.Decorator.OperationalStatus\";\n                        };\n                };\n        };\n};\n\nThere is no Asset interface and LocationCode interface related to the fan in our machine and can\u0027t test.\n\nSo I did not add related attributes.",
+      "parentUuid": "ca689600_b9908d7e",
+      "revId": "bba0c7448a4b3759d02093fc7479ed3c501b816a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
