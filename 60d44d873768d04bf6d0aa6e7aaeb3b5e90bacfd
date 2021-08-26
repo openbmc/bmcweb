@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "ec9e145d_47d2faef",
+        "filename": "include/nbd_proxy.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 329,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-08-26T18:50:11Z",
+      "side": 1,
+      "message": "I think in this context they\u0027re the same size, right?  As-is, there\u0027s no backend for this code, so it\u0027s kind of hard to optimize.",
+      "parentUuid": "943f475a_fb00a920",
+      "range": {
+        "startLine": 329,
+        "startChar": 16,
+        "endLine": 329,
+        "endChar": 19
+      },
+      "revId": "60d44d873768d04bf6d0aa6e7aaeb3b5e90bacfd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c0306a58_34f91ace",
         "filename": "include/sessions.hpp",
         "patchSetId": 9
