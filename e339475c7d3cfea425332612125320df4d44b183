@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "73b40d3b_42644400",
+        "filename": "redfish-core/include/redfish.hpp",
+        "patchSetId": 29
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-08-26T15:22:39Z",
+      "side": 1,
+      "message": "We prefer the way it is. \nJust like Systems, SystemsCollection, and requestRoutesSystemActionsReset.\n\nAlthough \"requestRoutesSubProcessorsCollection\" and \"requestRoutesSubProcessors\" are more in line with the other names in this file. Could you change to those names?",
+      "parentUuid": "2172cfa7_9095feba",
+      "range": {
+        "startLine": 144,
+        "startChar": 8,
+        "endLine": 145,
+        "endChar": 44
+      },
+      "revId": "e339475c7d3cfea425332612125320df4d44b183",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "f2e44c78_059b73b8",
         "filename": "redfish-core/lib/processor.hpp",
         "patchSetId": 29
@@ -251,6 +275,30 @@
       "side": 1,
       "message": "It will be great if we fixed it in the same patch since this patch intended to implement Core objects in Redfish so I would prefer to change in the same patch itself rather than fixing this patch comment in the new patch. \n\nI guess we need to make the below changes.\n- Introduce outer crow call by using the `GetObject` method with the given core object paths and then use that service name in this line. (The current crow call will be inner crow)\n\nSeeing any issue with this? or Different thoughts?",
       "parentUuid": "e6a9f746_712dae04",
+      "range": {
+        "startLine": 917,
+        "startChar": 8,
+        "endLine": 917,
+        "endChar": 15
+      },
+      "revId": "e339475c7d3cfea425332612125320df4d44b183",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fb4fb20a_f202f71c",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 29
+      },
+      "lineNbr": 917,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-08-26T15:22:39Z",
+      "side": 1,
+      "message": "The use case:\n\"BMC xyz.openbmc_project.Inventory.Manager or xyz.openbmc_project.EntityManager can host processor objects before booting the host to get some information about the host processors.\n\nThe core objects can be hosted by other Managers for example PLDM based on Host PDR (like IBM systems) which will send when doing the power on so the service will be xyz.openbmc_project.PLDM for core and xyz.openbmc_project.Inventory.Manager for Processors - FYR https://gerrit.openbmc-project.xyz/c/openbmc/pldm/+/42619\"\n\nseems valid to me.",
+      "parentUuid": "da2b30b2_f3b25a8c",
       "range": {
         "startLine": 917,
         "startChar": 8,
@@ -808,6 +856,30 @@
     },
     {
       "key": {
+        "uuid": "23b6d850_a4f21dfd",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 29
+      },
+      "lineNbr": 1056,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-08-26T15:22:39Z",
+      "side": 1,
+      "message": "I think we want to do this check.",
+      "parentUuid": "0a96fd0a_52391acd",
+      "range": {
+        "startLine": 1050,
+        "startChar": 1,
+        "endLine": 1056,
+        "endChar": 29
+      },
+      "revId": "e339475c7d3cfea425332612125320df4d44b183",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4c305bf4_41a4fc6a",
         "filename": "redfish-core/lib/processor.hpp",
         "patchSetId": 29
@@ -1163,6 +1235,30 @@
     },
     {
       "key": {
+        "uuid": "d9dc61f1_6e69b18b",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 29
+      },
+      "lineNbr": 1560,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-08-26T15:22:39Z",
+      "side": 1,
+      "message": "Redfish does not support Subprocessors of Core today. \nA core is a subprocessor. \nThere is no subprocessor of a subprocessor. \n\n\u003cString\u003e\n/redfish/v1/Systems/{ComputerSystemId}/Processors/{ProcessorId}\n\u003c/String\u003e\n\u003cString\u003e\n\u003c/String\u003e\n\u003cString\u003e\n/redfish/v1/CompositionService/ResourceBlocks/{ResourceBlockId}/Processors/{ProcessorId}\n\u003c/String\u003e",
+      "parentUuid": "159e9a5c_8182324c",
+      "range": {
+        "startLine": 1560,
+        "startChar": 25,
+        "endLine": 1560,
+        "endChar": 42
+      },
+      "revId": "e339475c7d3cfea425332612125320df4d44b183",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "eee2c16f_a1bd0dd9",
         "filename": "redfish-core/lib/processor.hpp",
         "patchSetId": 29
@@ -1222,6 +1318,30 @@
       "side": 1,
       "message": "Ack",
       "parentUuid": "cdd5f34e_326022c9",
+      "range": {
+        "startLine": 1570,
+        "startChar": 22,
+        "endLine": 1570,
+        "endChar": 49
+      },
+      "revId": "e339475c7d3cfea425332612125320df4d44b183",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8873d04d_d0ccccc6",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 29
+      },
+      "lineNbr": 1570,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-08-26T15:22:39Z",
+      "side": 1,
+      "message": "We prefer it the way it currently is",
+      "parentUuid": "d2d8401d_bf49b311",
       "range": {
         "startLine": 1570,
         "startChar": 22,
