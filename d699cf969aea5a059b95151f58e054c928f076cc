@@ -52,6 +52,24 @@
       "revId": "d699cf969aea5a059b95151f58e054c928f076cc",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "aa6957bb_b0f7d82f",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 312,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-08-26T16:52:02Z",
+      "side": 0,
+      "message": "Now this is REALLY hard to review..... you\u0027ve straight up deleted functional code, then added it back in another commit.\n\nOnce again with emphasis:\n\"MOVE your code in one commit, then make your functional change in another.\"\n\nAt no point did I say to delete the code in one commit then add it back in another.\n\nI\u0027d recommend looking at your commit as if you\u0027re a reviewer, and ask yourself: \"How easy is it to verify the correctness of this patchset?\"",
+      "parentUuid": "24254353_82abef5c",
+      "revId": "d699cf969aea5a059b95151f58e054c928f076cc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
