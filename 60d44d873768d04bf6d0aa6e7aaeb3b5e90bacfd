@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "0e9caf1a_44aa592a",
+        "filename": "include/nbd_proxy.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 329,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2021-08-26T21:36:09Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "ec9e145d_47d2faef",
+      "range": {
+        "startLine": 329,
+        "startChar": 16,
+        "endLine": 329,
+        "endChar": 19
+      },
+      "revId": "60d44d873768d04bf6d0aa6e7aaeb3b5e90bacfd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c0306a58_34f91ace",
         "filename": "include/sessions.hpp",
         "patchSetId": 9
@@ -96,6 +120,30 @@
     },
     {
       "key": {
+        "uuid": "29c923e3_4018744a",
+        "filename": "include/sessions.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2021-08-26T21:36:09Z",
+      "side": 1,
+      "message": "Sounds good. I just wanted to know.",
+      "parentUuid": "6ae80169_f510e9f0",
+      "range": {
+        "startLine": 44,
+        "startChar": 0,
+        "endLine": 44,
+        "endChar": 6
+      },
+      "revId": "60d44d873768d04bf6d0aa6e7aaeb3b5e90bacfd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9d5432df_375bb156",
         "filename": "include/sessions.hpp",
         "patchSetId": 9
@@ -140,6 +188,30 @@
       "revId": "60d44d873768d04bf6d0aa6e7aaeb3b5e90bacfd",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "23b849e5_17590162",
+        "filename": "include/sessions.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 258,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2021-08-26T21:36:09Z",
+      "side": 1,
+      "message": "Sounds pretty clever. Thanks for the explanation",
+      "parentUuid": "db202158_6b8ad4db",
+      "range": {
+        "startLine": 258,
+        "startChar": 57,
+        "endLine": 258,
+        "endChar": 67
+      },
+      "revId": "60d44d873768d04bf6d0aa6e7aaeb3b5e90bacfd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
