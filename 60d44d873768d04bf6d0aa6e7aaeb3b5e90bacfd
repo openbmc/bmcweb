@@ -72,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "6ae80169_f510e9f0",
+        "filename": "include/sessions.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-08-26T18:55:15Z",
+      "side": 1,
+      "message": "Probably not any good reason;  The only difference between struct and class is the default visibility;  This could probably be a class with an explicit public below it and be roughly the same.\n\nIn concept, yeah, this could probably be a class.",
+      "parentUuid": "c0306a58_34f91ace",
+      "range": {
+        "startLine": 44,
+        "startChar": 0,
+        "endLine": 44,
+        "endChar": 6
+      },
+      "revId": "60d44d873768d04bf6d0aa6e7aaeb3b5e90bacfd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "9d5432df_375bb156",
         "filename": "include/sessions.hpp",
         "patchSetId": 9
@@ -83,6 +107,30 @@
       "writtenOn": "2021-08-26T18:43:57Z",
       "side": 1,
       "message": "why are the object being sorted? \nIt is not obvious (to me) that sorting this way adds anything.",
+      "range": {
+        "startLine": 258,
+        "startChar": 57,
+        "endLine": 258,
+        "endChar": 67
+      },
+      "revId": "60d44d873768d04bf6d0aa6e7aaeb3b5e90bacfd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "db202158_6b8ad4db",
+        "filename": "include/sessions.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 258,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-08-26T18:55:15Z",
+      "side": 1,
+      "message": "flat_map is a sorted vector implementation of a map.  Sorting it allows to do binary lookups on the map (like at line 67), instead of linear time lookups (ie, logN vs N), while still keeping the values relatively packed in ram.  Normally, we\u0027d just leave this as the default comparison operator, but explicitly declaring std::less here allows us to directly compare std::string_view to a list of strings without making a std::string copy like we do on line 67.\n\nGood question.",
+      "parentUuid": "9d5432df_375bb156",
       "range": {
         "startLine": 258,
         "startChar": 57,
