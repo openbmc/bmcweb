@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "50ca8a0d_05a51602",
+        "filename": "redfish-core/lib/thermal_subsystem.hpp",
+        "patchSetId": 67
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-08-26T00:16:58Z",
+      "side": 1,
+      "message": "Done. Please reply to all comments.",
+      "parentUuid": "0ca2db41_a6b6ed8e",
+      "revId": "dd1d0eff5855eaa7c740a214a6de488bd2c87610",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "408a326e_55ed9f02",
         "filename": "redfish-core/lib/thermal_subsystem.hpp",
         "patchSetId": 67
