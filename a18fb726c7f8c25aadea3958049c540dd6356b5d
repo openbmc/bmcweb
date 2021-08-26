@@ -164,6 +164,30 @@
     },
     {
       "key": {
+        "uuid": "bb5bc6be_74398632",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 41
+      },
+      "lineNbr": 322,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-08-26T06:35:50Z",
+      "side": 1,
+      "message": "It was discussed in Discord that as member id is a zero based array index, we had a query that \"What field in the PATCH request would we use to map back to a D-Bus object on the BMC?\"\nWe came up with the solution of sorting the paths.\nPlease let me know if I am missing something here.\n\n\nedtanous — 03/04/2021\nNo, please don\u0027t maintain state in bmcweb.  We can just sort based on dbus name before making the collection, and that members sort index becomes the memberId.  On patch, we\u0027ll need to rebuild the sort to determine which properties need patched to which paths.",
+      "parentUuid": "5581e722_240dbaba",
+      "range": {
+        "startLine": 322,
+        "startChar": 0,
+        "endLine": 322,
+        "endChar": 76
+      },
+      "revId": "a18fb726c7f8c25aadea3958049c540dd6356b5d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d706b0a1_86901728",
         "filename": "redfish-core/lib/assembly.hpp",
         "patchSetId": 41
