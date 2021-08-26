@@ -67,76 +67,127 @@ inline void
 }
 
 /*
- * @brief Update "ProcessorSummary" "Count" based on Cpu PresenceState
+ * @brief Update "ProcessorSummary" {"Count", "Model", "Status.State"}
+ * sub-parameters
  *
  * @param[in] aResp Shared pointer for completing asynchronous calls
- * @param[in] cpuPresenceState CPU present or not
+ * @param[in] serv is dbus service for handling processor information
+ * @param[in] path is dbus object path for an individual processor
  *
  * @return None.
  */
-inline void
-    modifyCpuPresenceState(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
-                           const std::variant<bool>& cpuPresenceState)
+inline void getProcessorSummary(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
+                                const std::string& service,
+                                const std::string& path)
 {
-    const bool* isCpuPresent = std::get_if<bool>(&cpuPresenceState);
 
-    if (isCpuPresent == nullptr)
-    {
-        messages::internalError(aResp->res);
-        return;
-    }
-    BMCWEB_LOG_DEBUG << "Cpu Present: " << *isCpuPresent;
+    // Get the Presence of CPU
+    crow::connections::systemBus->async_method_call(
+        [aResp](const boost::system::error_code ec,
+                const std::variant<bool>& cpuPresenceCheck) {
+            if (ec)
+            {
+                BMCWEB_LOG_ERROR << "DBUS response error " << ec;
+                return;
+            }
 
-    if (*isCpuPresent == true)
-    {
-        nlohmann::json& procCount =
-            aResp->res.jsonValue["ProcessorSummary"]["Count"];
-        auto procCountPtr =
-            procCount.get_ptr<nlohmann::json::number_integer_t*>();
-        if (procCountPtr != nullptr)
-        {
-            // shouldn't be possible to be nullptr
-            *procCountPtr += 1;
-        }
-    }
-}
+            const bool* isCpuPresent = std::get_if<bool>(&cpuPresenceCheck);
 
-/*
- * @brief Update "ProcessorSummary" "Status" "State" based on
- *        CPU Functional State
- *
- * @param[in] aResp Shared pointer for completing asynchronous calls
- * @param[in] cpuFunctionalState is CPU functional true/false
- *
- * @return None.
- */
-inline void
-    modifyCpuFunctionalState(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
-                             const std::variant<bool>& cpuFunctionalState)
-{
-    const bool* isCpuFunctional = std::get_if<bool>(&cpuFunctionalState);
+            if (isCpuPresent == nullptr)
+            {
+                messages::internalError(aResp->res);
+                return;
+            }
 
-    if (isCpuFunctional == nullptr)
-    {
-        messages::internalError(aResp->res);
-        return;
-    }
-    BMCWEB_LOG_DEBUG << "Cpu Functional: " << *isCpuFunctional;
+            BMCWEB_LOG_DEBUG << "Cpu Present: " << *isCpuPresent;
 
-    nlohmann::json& prevProcState =
-        aResp->res.jsonValue["ProcessorSummary"]["Status"]["State"];
+            if (*isCpuPresent == true)
+            {
+                nlohmann::json& procCount =
+                    aResp->res.jsonValue["ProcessorSummary"]["Count"];
+                auto procCountPtr =
+                    procCount.get_ptr<nlohmann::json::number_integer_t*>();
+                if (procCountPtr != nullptr)
+                {
+                    // shouldn't be possible to be nullptr
+                    *procCountPtr += 1;
+                }
+            }
+        },
+        service, path, "org.freedesktop.DBus.Properties", "Get",
+        "xyz.openbmc_project.Inventory.Item", "Present");
 
-    // Set it as Enabled if at least one CPU is functional
-    // Update STATE only if previous State was Non_Functional and current CPU is
-    // Functional.
-    if (prevProcState == "Disabled")
-    {
-        if (*isCpuFunctional == true)
-        {
-            aResp->res.jsonValue["ProcessorSummary"]["Status"]["State"] =
-                "Enabled";
-        }
-    }
+    // Get the Functional State
+    crow::connections::systemBus->async_method_call(
+        [aResp](const boost::system::error_code ec,
+                const std::variant<bool>& cpuFunctionalCheck) {
+            if (ec)
+            {
+                BMCWEB_LOG_ERROR << "CPU operational status in question. DBUS "
+                                    "response error "
+                                 << ec;
+                return;
+            }
+
+            const bool* isCpuFunctional =
+                std::get_if<bool>(&cpuFunctionalCheck);
+
+            if (isCpuFunctional == nullptr)
+            {
+                messages::internalError(aResp->res);
+                return;
+            }
+
+            BMCWEB_LOG_DEBUG << "Cpu Functional: " << *isCpuFunctional;
+
+            nlohmann::json& prevProcState =
+                aResp->res.jsonValue["ProcessorSummary"]["Status"]["State"];
+
+            // Set it as Enabled if at least one CPU is functional
+            // Update STATE only if previous State was Non_Functional and
+            // current CPU is Functional.
+            if (prevProcState == "Disabled")
+            {
+                if (*isCpuFunctional == true)
+                {
+                    aResp->res
+                        .jsonValue["ProcessorSummary"]["Status"]["State"] =
+                        "Enabled";
+                }
+            }
+        },
+        service, path, "org.freedesktop.DBus.Properties", "Get",
+        "xyz.openbmc_project.State.Decorator.OperationalStatus", "Functional");
+
+    // Get the CPU Model
+    crow::connections::systemBus->async_method_call(
+        [aResp](const boost::system::error_code ec,
+                const std::variant<std::string>& modelCheck) {
+            if (ec)
+            {
+                BMCWEB_LOG_ERROR << "DBUS response error " << ec;
+                return;
+            }
+
+            const std::string* modelStr = std::get_if<std::string>(&modelCheck);
+
+            if (!modelStr)
+            {
+                messages::internalError(aResp->res);
+                return;
+            }
+
+            nlohmann::json& prevModel =
+                aResp->res.jsonValue["ProcessorSummary"]["Model"];
+            std::string* prevModelPtr = prevModel.get_ptr<std::string*>();
+
+            if ((prevModelPtr == nullptr) || (*modelStr < *prevModelPtr))
+            {
+                prevModel = *modelStr;
+            }
+        },
+        service, path, "org.freedesktop.DBus.Properties", "Get",
+        "xyz.openbmc_project.Inventory.Item.Cpu", "Family");
 }
 
 /*
@@ -307,6 +358,7 @@ inline void
                                  "xyz.openbmc_project.Inventory.Item.Cpu")
                         {
                             BMCWEB_LOG_DEBUG << "Found Cpu.";
+                            getProcessorSummary(aResp, connection.first, path);
                             cpuHealth->inventory.emplace_back(path);
                         }
                         else if (interfaceName ==
