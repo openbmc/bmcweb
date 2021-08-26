@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4930c0f5_169b3cd3",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-08-26T00:15:33Z",
+      "side": 1,
+      "message": "nitpick: space",
+      "range": {
+        "startLine": 13,
+        "startChar": 48,
+        "endLine": 13,
+        "endChar": 50
+      },
+      "revId": "8a659b731d8beacdde2718c212fc2402bc309df5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "881fb253_46fba011",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-08-26T00:15:33Z",
+      "side": 1,
+      "message": "Example?",
+      "revId": "8a659b731d8beacdde2718c212fc2402bc309df5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0fb531f7_de811725",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-08-26T00:15:33Z",
+      "side": 1,
+      "message": "Is this output from a different system? \nIsn\u0027t below from as2? Just remove this?",
+      "revId": "8a659b731d8beacdde2718c212fc2402bc309df5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
