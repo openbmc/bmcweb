@@ -272,6 +272,30 @@
     },
     {
       "key": {
+        "uuid": "fa35084a_39b3a8e4",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1821,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-08-26T15:52:19Z",
+      "side": 1,
+      "message": "\u003e No these are not well-known names, it only has to be the same with the name in phosphor-health-monitor. Would \"bmc_cpu_kernel_util\" and \"bmc_cpu_user_util\" be good?\n\nThat would probably be ok to me, but this patchset isn\u0027t the place to have that discussion.",
+      "parentUuid": "9851a1f2_dc0ecf6a",
+      "range": {
+        "startLine": 1821,
+        "startChar": 0,
+        "endLine": 1821,
+        "endChar": 70
+      },
+      "revId": "c0741d9f9bc25d2906392ce21e071dcbcbb48636",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "622be291_d4e3915b",
         "filename": "redfish-core/lib/managers.hpp",
         "patchSetId": 2
