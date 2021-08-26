@@ -16,6 +16,24 @@
       "revId": "1522173342868c5fc00d704b22a71e75fc256763",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "75a2ee8e_2c887712",
+        "filename": "redfish-core/lib/pcie_slots.hpp",
+        "patchSetId": 105
+      },
+      "lineNbr": 202,
+      "author": {
+        "id": 1000444
+      },
+      "writtenOn": "2021-08-26T02:19:10Z",
+      "side": 1,
+      "message": "This part will be resolved by submitting other patchset in the future. Now that this commit is close to being merged, no more attributes will be added.",
+      "parentUuid": "2cc15456_0424a249",
+      "revId": "1522173342868c5fc00d704b22a71e75fc256763",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
