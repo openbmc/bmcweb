@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f5cbd7cd_719a8604",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 23
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-08-26T16:58:10Z",
+      "side": 1,
+      "message": "Can we do a little more testing? \nMake sure the GUI works, websockets work? \nMaybe Mutual TLS ?",
+      "revId": "b37fdeb36035fd8cb824f74f5ed29e78243ced67",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6130fb04_3c939d44",
+        "filename": "http/http_connection.hpp",
+        "patchSetId": 23
+      },
+      "lineNbr": 551,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-08-26T16:58:10Z",
+      "side": 1,
+      "message": "can we remove?",
+      "range": {
+        "startLine": 551,
+        "startChar": 42,
+        "endLine": 551,
+        "endChar": 92
+      },
+      "revId": "b37fdeb36035fd8cb824f74f5ed29e78243ced67",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
