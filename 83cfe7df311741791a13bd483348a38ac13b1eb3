@@ -237,6 +237,30 @@
     },
     {
       "key": {
+        "uuid": "621d699c_99e23234",
+        "filename": "redfish-core/include/gzfile.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2021-08-26T04:50:13Z",
+      "side": 1,
+      "message": "Please move \"logEntry\" inside the loop.",
+      "parentUuid": "2569c4ce_2662ac33",
+      "range": {
+        "startLine": 111,
+        "startChar": 0,
+        "endLine": 111,
+        "endChar": 44
+      },
+      "revId": "83cfe7df311741791a13bd483348a38ac13b1eb3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "50d6ffb9_4b47ab0f",
         "filename": "redfish-core/include/gzfile.hpp",
         "patchSetId": 15
@@ -352,6 +376,30 @@
       "revId": "83cfe7df311741791a13bd483348a38ac13b1eb3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "36291bed_dc003fba",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 1836,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2021-08-26T04:50:13Z",
+      "side": 1,
+      "message": "This should be fixed. The codes running here shouldn\u0027t make assumption on the number of log files. Reading from https://github.com/logrotate/logrotate/issues/224, seems like logrotate doesn\u0027t pad zip files. If that\u0027s the case, we should implement codes to compare numeric strings without padding, which should be straightforward: \n\n```\n// No leading zeros\n[](const std::string\u0026 suffix1, const std::string\u0026 suffix2) -\u003e bool {\n  return std::forward_as_tuple(suffix1.size(), suffix1) \u003e std::forward_as_tuple(suffix2.size(), suffix2);\n}; \n```",
+      "parentUuid": "3a7dfbdf_f94a3284",
+      "range": {
+        "startLine": 1832,
+        "startChar": 0,
+        "endLine": 1836,
+        "endChar": 17
+      },
+      "revId": "83cfe7df311741791a13bd483348a38ac13b1eb3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     },
     {
       "key": {
