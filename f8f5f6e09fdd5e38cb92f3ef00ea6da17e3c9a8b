@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "1c6244c9_90c5d8f8",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 19
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2021-08-26T01:59:03Z",
+      "side": 1,
+      "message": "updated the commit message",
+      "parentUuid": "9add4b89_1e392dbb",
+      "range": {
+        "startLine": 13,
+        "startChar": 11,
+        "endLine": 13,
+        "endChar": 17
+      },
+      "revId": "f8f5f6e09fdd5e38cb92f3ef00ea6da17e3c9a8b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c80b49be_f925f4cc",
         "filename": "http/http_connection.hpp",
         "patchSetId": 19
@@ -45,6 +69,30 @@
       "revId": "f8f5f6e09fdd5e38cb92f3ef00ea6da17e3c9a8b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "40d9bcf8_825133bd",
+        "filename": "http/http_connection.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 577,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2021-08-26T01:59:03Z",
+      "side": 1,
+      "message": "done",
+      "parentUuid": "c80b49be_f925f4cc",
+      "range": {
+        "startLine": 577,
+        "startChar": 17,
+        "endLine": 577,
+        "endChar": 21
+      },
+      "revId": "f8f5f6e09fdd5e38cb92f3ef00ea6da17e3c9a8b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "c43be157_396ff897",
+        "filename": "http/http_connection.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 578,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2021-08-26T01:59:03Z",
+      "side": 1,
+      "message": "userSession is a shared_ptr so does not need to locked",
+      "parentUuid": "d3e8fa25_f88c7159",
+      "range": {
+        "startLine": 578,
+        "startChar": 26,
+        "endLine": 578,
+        "endChar": 37
+      },
+      "revId": "f8f5f6e09fdd5e38cb92f3ef00ea6da17e3c9a8b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3d152da4_ddac1bc4",
         "filename": "http/http_connection.hpp",
         "patchSetId": 19
@@ -91,6 +163,30 @@
       "revId": "f8f5f6e09fdd5e38cb92f3ef00ea6da17e3c9a8b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b078129a_cac9c581",
+        "filename": "http/http_connection.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 581,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2021-08-26T01:59:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3d152da4_ddac1bc4",
+      "range": {
+        "startLine": 581,
+        "startChar": 32,
+        "endLine": 581,
+        "endChar": 38
+      },
+      "revId": "f8f5f6e09fdd5e38cb92f3ef00ea6da17e3c9a8b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "949246a5_2da1d204",
+        "filename": "include/authorization.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 259,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2021-08-26T01:59:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "117d017b_7a6b6940",
+      "range": {
+        "startLine": 259,
+        "startChar": 13,
+        "endLine": 259,
+        "endChar": 67
+      },
+      "revId": "f8f5f6e09fdd5e38cb92f3ef00ea6da17e3c9a8b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "79dddee5_e9998168",
         "filename": "include/authorization.hpp",
         "patchSetId": 19
@@ -140,6 +260,30 @@
     },
     {
       "key": {
+        "uuid": "5333ca5a_da96616a",
+        "filename": "include/authorization.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 308,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2021-08-26T01:59:03Z",
+      "side": 1,
+      "message": "changed back to old pattern, and remove the bad call to XtokentAuth",
+      "parentUuid": "79dddee5_e9998168",
+      "range": {
+        "startLine": 308,
+        "startChar": 8,
+        "endLine": 308,
+        "endChar": 10
+      },
+      "revId": "f8f5f6e09fdd5e38cb92f3ef00ea6da17e3c9a8b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d98eb77e_e41cc4d2",
         "filename": "include/http_utility.hpp",
         "patchSetId": 19
@@ -160,6 +304,30 @@
       "revId": "f8f5f6e09fdd5e38cb92f3ef00ea6da17e3c9a8b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "52671ad3_65b7842d",
+        "filename": "include/http_utility.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2021-08-26T01:59:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d98eb77e_e41cc4d2",
+      "range": {
+        "startLine": 10,
+        "startChar": 21,
+        "endLine": 10,
+        "endChar": 27
+      },
+      "revId": "f8f5f6e09fdd5e38cb92f3ef00ea6da17e3c9a8b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
