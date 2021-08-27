@@ -309,6 +309,30 @@
     },
     {
       "key": {
+        "uuid": "fd16fa4a_c5ea707b",
+        "filename": "redfish-core/include/gzfile.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 1000404
+      },
+      "writtenOn": "2021-08-27T07:16:48Z",
+      "side": 1,
+      "message": "Already move \"logEntry\" inside the loop and keep \"logEntries\" as the first declaration.",
+      "parentUuid": "7494b4c5_448ebb0f",
+      "range": {
+        "startLine": 111,
+        "startChar": 0,
+        "endLine": 111,
+        "endChar": 44
+      },
+      "revId": "83cfe7df311741791a13bd483348a38ac13b1eb3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "50d6ffb9_4b47ab0f",
         "filename": "redfish-core/include/gzfile.hpp",
         "patchSetId": 15
@@ -380,6 +404,30 @@
     },
     {
       "key": {
+        "uuid": "dfa61371_6a261bae",
+        "filename": "redfish-core/include/gzfile.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 1000404
+      },
+      "writtenOn": "2021-08-27T07:16:48Z",
+      "side": 1,
+      "message": "Add a checker to handle consecutive delimiters.",
+      "parentUuid": "69ef4b7f_34ae2db8",
+      "range": {
+        "startLine": 122,
+        "startChar": 0,
+        "endLine": 123,
+        "endChar": 39
+      },
+      "revId": "83cfe7df311741791a13bd483348a38ac13b1eb3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "23f966a6_69f318e2",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 15
@@ -448,6 +496,30 @@
       "revId": "83cfe7df311741791a13bd483348a38ac13b1eb3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "134044f2_dda994ec",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 1836,
+      "author": {
+        "id": 1000404
+      },
+      "writtenOn": "2021-08-27T07:16:48Z",
+      "side": 1,
+      "message": "Follow the comment to modify the sort algorithm.",
+      "parentUuid": "36291bed_dc003fba",
+      "range": {
+        "startLine": 1832,
+        "startChar": 0,
+        "endLine": 1836,
+        "endChar": 17
+      },
+      "revId": "83cfe7df311741791a13bd483348a38ac13b1eb3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
