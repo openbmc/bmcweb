@@ -94,6 +94,30 @@
       "revId": "c3980f05bfbf9dc16f7a14191d642537bbc88186",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "18bb0997_bc8ec3d0",
+        "filename": "redfish-core/lib/hypervisor_system.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 690,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-08-27T18:28:42Z",
+      "side": 1,
+      "message": "\u003e This feels wrong to me \"implicitly disabling an enthernet interface when the user hasn\u0027t explicitly requested it\". Can we just move forward with the changes lines 950 - 958 ? Can we address this when we do get the backend changes in?\n\nIf those changes are in a separate patchset, sure, that would be fine with me.",
+      "parentUuid": "41bfc638_9b461603",
+      "range": {
+        "startLine": 686,
+        "startChar": 0,
+        "endLine": 690,
+        "endChar": 59
+      },
+      "revId": "c3980f05bfbf9dc16f7a14191d642537bbc88186",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
