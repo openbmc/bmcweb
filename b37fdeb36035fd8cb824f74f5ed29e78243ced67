@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "e13667e1_a3a2088d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 23
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2021-08-27T00:44:55Z",
+      "side": 1,
+      "message": "I will do more testing, but I don\u0027t know how to test the websockets. Where should I look for documentation on how I would do that? \n\nAlso, if they are useful test, I might try to automate them later.",
+      "parentUuid": "f5cbd7cd_719a8604",
+      "revId": "b37fdeb36035fd8cb824f74f5ed29e78243ced67",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "6130fb04_3c939d44",
         "filename": "http/http_connection.hpp",
         "patchSetId": 23
@@ -39,6 +57,30 @@
       "revId": "b37fdeb36035fd8cb824f74f5ed29e78243ced67",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fdb99da2_83a8db45",
+        "filename": "http/http_connection.hpp",
+        "patchSetId": 23
+      },
+      "lineNbr": 551,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2021-08-27T00:44:55Z",
+      "side": 1,
+      "message": "removed. good catch.",
+      "parentUuid": "6130fb04_3c939d44",
+      "range": {
+        "startLine": 551,
+        "startChar": 42,
+        "endLine": 551,
+        "endChar": 92
+      },
+      "revId": "b37fdeb36035fd8cb824f74f5ed29e78243ced67",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
