@@ -55,6 +55,24 @@
     },
     {
       "key": {
+        "uuid": "6421753d_09127d8d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 23
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-08-27T16:13:15Z",
+      "side": 1,
+      "message": "Easiest way to test websockets is probably the GUI. \nThe GUI uses them in the following places: https://github.com/openbmc/webui-vue/search?q\u003dwebsocket \nE.g. Serial Over Lan. \n\nOtherwise you can test something like Serial Over Lan using \nwss://$bmc/console0\n\nYou need this meson option enabled (it is enabled by default)\n\nhttps://github.com/openbmc/bmcweb/blob/e8204933be90353ef672e62dc628448173279e1c/meson_options.txt#L16",
+      "parentUuid": "e13667e1_a3a2088d",
+      "revId": "b37fdeb36035fd8cb824f74f5ed29e78243ced67",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "6130fb04_3c939d44",
         "filename": "http/http_connection.hpp",
         "patchSetId": 23
