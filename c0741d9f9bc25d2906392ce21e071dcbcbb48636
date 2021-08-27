@@ -296,6 +296,30 @@
     },
     {
       "key": {
+        "uuid": "15f89334_91bc5b7f",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1821,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2021-08-27T02:26:53Z",
+      "side": 1,
+      "message": "Where is the place to have that discussion?",
+      "parentUuid": "fa35084a_39b3a8e4",
+      "range": {
+        "startLine": 1821,
+        "startChar": 0,
+        "endLine": 1821,
+        "endChar": 70
+      },
+      "revId": "c0741d9f9bc25d2906392ce21e071dcbcbb48636",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "622be291_d4e3915b",
         "filename": "redfish-core/lib/managers.hpp",
         "patchSetId": 2
