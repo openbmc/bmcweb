@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c0d85d50_c9c8be4d",
+        "filename": "redfish-core/include/gzfile.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2021-08-27T06:13:11Z",
+      "side": 1,
+      "message": "delimiters !\u003d \"\\r\\n\"",
+      "range": {
+        "startLine": 130,
+        "startChar": 22,
+        "endLine": 130,
+        "endChar": 32
+      },
+      "revId": "a1c2ffc06658480b6237e7b5b01cc51c619e9b34",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2a617501_9950a339",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 1834,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2021-08-27T06:13:11Z",
+      "side": 1,
+      "message": "By suffix, I actually mean the \"suffix\" of the file name appended by logrotate. If you pass the whole file name, given the prefix is fixed, I guess it will also work. But consider renaming the \"suffix\" to something else? \n\nAlso is it necessarily to use std::string instead of std::filesystem::path?",
+      "range": {
+        "startLine": 1834,
+        "startChar": 30,
+        "endLine": 1834,
+        "endChar": 37
+      },
+      "revId": "a1c2ffc06658480b6237e7b5b01cc51c619e9b34",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
