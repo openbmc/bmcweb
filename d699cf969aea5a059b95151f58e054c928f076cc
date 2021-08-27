@@ -70,6 +70,24 @@
       "revId": "d699cf969aea5a059b95151f58e054c928f076cc",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "51ccfe8f_19de0425",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 312,
+      "author": {
+        "id": 1001083
+      },
+      "writtenOn": "2021-08-27T20:40:03Z",
+      "side": 0,
+      "message": "Oops, sorry. I think I misinterpreted your statement. \n\"MOVE your code in one commit, then make your functional change in another.\"\n\nIs the correct way to split this commit for easier reviewing to:\nPart 1) In first commit, add new code while keeping this now-deleted functional code. In the commit message, emphasize newly created redundant functionality (i.e. the code to be deleted).\n\nPart 2) In a following commit, remove the code with redundant functionality.\"",
+      "parentUuid": "aa6957bb_b0f7d82f",
+      "revId": "d699cf969aea5a059b95151f58e054c928f076cc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
