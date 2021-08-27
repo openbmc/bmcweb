@@ -1904,6 +1904,17 @@
     <edmx:Reference Uri="/redfish/v1/schema/RoleCollection_v1.xml">
         <edmx:Include Namespace="RoleCollection"/>
     </edmx:Reference>
+    <edmx:Reference Uri="/redfish/v1/schema/Schedule_v1.xml">
+        <edmx:Include Namespace="Schedule"/>
+        <edmx:Include Namespace="Schedule.v1_0_0"/>
+        <edmx:Include Namespace="Schedule.v1_0_1"/>
+        <edmx:Include Namespace="Schedule.v1_1_0"/>
+        <edmx:Include Namespace="Schedule.v1_1_1"/>
+        <edmx:Include Namespace="Schedule.v1_1_2"/>
+        <edmx:Include Namespace="Schedule.v1_2_0"/>
+        <edmx:Include Namespace="Schedule.v1_2_1"/>
+        <edmx:Include Namespace="Schedule.v1_2_2"/>
+    </edmx:Reference>
     <edmx:Reference Uri="/redfish/v1/schema/Sensor_v1.xml">
         <edmx:Include Namespace="Sensor"/>
         <edmx:Include Namespace="Sensor.v1_0_0"/>
