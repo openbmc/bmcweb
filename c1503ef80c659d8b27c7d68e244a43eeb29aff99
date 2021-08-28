@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "5c8b9792_abba10e8",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2021-08-28T05:19:07Z",
+      "side": 1,
+      "message": "This variable is at line#96 of this file. That\u0027s when this attribute gets PATCH request",
+      "parentUuid": "2b63dbbf_ce0d486d",
+      "range": {
+        "startLine": 162,
+        "startChar": 0,
+        "endLine": 162,
+        "endChar": 51
+      },
+      "revId": "c1503ef80c659d8b27c7d68e244a43eeb29aff99",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "64bd3359_80837d92",
         "filename": "redfish-core/lib/event_service.hpp",
         "patchSetId": 5
@@ -36,6 +60,30 @@
       "writtenOn": "2021-08-27T18:16:47Z",
       "side": 1,
       "message": "This code duplicates a check already present in EventService.  Just have sendEvent return an error code if the service is disabled.",
+      "range": {
+        "startLine": 163,
+        "startChar": 0,
+        "endLine": 174,
+        "endChar": 17
+      },
+      "revId": "c1503ef80c659d8b27c7d68e244a43eeb29aff99",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ea50d984_5ccdedc4",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2021-08-28T05:19:07Z",
+      "side": 1,
+      "message": "To get the value of service enabled/not, I should do a fresh fetch for it via getEventServiceConfig",
+      "parentUuid": "64bd3359_80837d92",
       "range": {
         "startLine": 163,
         "startChar": 0,
