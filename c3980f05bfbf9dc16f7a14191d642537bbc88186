@@ -142,6 +142,30 @@
       "revId": "c3980f05bfbf9dc16f7a14191d642537bbc88186",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2581367b_2080602e",
+        "filename": "redfish-core/lib/hypervisor_system.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 690,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2021-08-28T05:36:29Z",
+      "side": 1,
+      "message": "Ack\n\nhttps://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/45063 is the commit for the backend design change\n\nThe backend changes are couple of commits on phosphor-networkd starting from https://gerrit.openbmc-project.xyz/c/openbmc/phosphor-networkd/+/43173\n\nPlease review them as provide your feedbacks, so that we can get a move on those commits soon.",
+      "parentUuid": "3cffebf3_883fb9b3",
+      "range": {
+        "startLine": 686,
+        "startChar": 0,
+        "endLine": 690,
+        "endChar": 59
+      },
+      "revId": "c3980f05bfbf9dc16f7a14191d642537bbc88186",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
