@@ -311,6 +311,30 @@
     },
     {
       "key": {
+        "uuid": "c07b6bc0_71f5b739",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 29
+      },
+      "lineNbr": 917,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-08-30T01:24:43Z",
+      "side": 1,
+      "message": "@Ramesh @Gunnar\n\nI think `xyz.openbmc_project.Inventory.Manager`, `xyz.openbmc_project.EntityManager` and `xyz.openbmc_project.PLDM` all contain the `/xyz/openbmc_project/inventory` object path, so when we call the `GetSubTree` method, We can get all the services, and then run the forloop to call the `getCpuCoreDataByService` method, so the service here may be equal to `xyz.openbmc_project.Inventory.Manager` or `xyz.openbmc_project.EntityManager` or `xyz.openbmc_project.PLDM`, right?",
+      "parentUuid": "fb4fb20a_f202f71c",
+      "range": {
+        "startLine": 917,
+        "startChar": 8,
+        "endLine": 917,
+        "endChar": 15
+      },
+      "revId": "e339475c7d3cfea425332612125320df4d44b183",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "23e2bd54_4fccd115",
         "filename": "redfish-core/lib/processor.hpp",
         "patchSetId": 29
@@ -465,6 +489,30 @@
       "side": 1,
       "message": "- I guess this is not related to LN 917 comment - That\u0027s for core but, this is for the processor.\n- I think, We need to check and throw an error if more than one service implementing processors(AFAIK, In OpenBMC we are not allowing more than one service to host the same objects - You can check others on this.)",
       "parentUuid": "902cb68f_e0804f56",
+      "range": {
+        "startLine": 960,
+        "startChar": 16,
+        "endLine": 960,
+        "endChar": 57
+      },
+      "revId": "e339475c7d3cfea425332612125320df4d44b183",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cc41dc48_78f79ce9",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 29
+      },
+      "lineNbr": 960,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-08-30T01:24:43Z",
+      "side": 1,
+      "message": "as above",
+      "parentUuid": "f5b12a5b_bc4d183e",
       "range": {
         "startLine": 960,
         "startChar": 16,
@@ -999,6 +1047,30 @@
     },
     {
       "key": {
+        "uuid": "2da877de_48e90657",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 29
+      },
+      "lineNbr": 1066,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-08-30T01:24:43Z",
+      "side": 1,
+      "message": "Yes, I know\nI want to say that after we update association.json, we are optimizing here. \nSo far, this is not a mistake.",
+      "parentUuid": "b452190b_376d72ed",
+      "range": {
+        "startLine": 1066,
+        "startChar": 32,
+        "endLine": 1066,
+        "endChar": 60
+      },
+      "revId": "e339475c7d3cfea425332612125320df4d44b183",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "43fc2725_0d56d111",
         "filename": "redfish-core/lib/processor.hpp",
         "patchSetId": 29
@@ -1256,6 +1328,30 @@
       "revId": "e339475c7d3cfea425332612125320df4d44b183",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a2796e72_fcedacec",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 29
+      },
+      "lineNbr": 1560,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-08-30T01:24:43Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "d9dc61f1_6e69b18b",
+      "range": {
+        "startLine": 1560,
+        "startChar": 25,
+        "endLine": 1560,
+        "endChar": 42
+      },
+      "revId": "e339475c7d3cfea425332612125320df4d44b183",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
