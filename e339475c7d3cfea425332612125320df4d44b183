@@ -335,6 +335,30 @@
     },
     {
       "key": {
+        "uuid": "180bd2be_148a24a9",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 29
+      },
+      "lineNbr": 917,
+      "author": {
+        "id": 1000427
+      },
+      "writtenOn": "2021-08-30T03:38:39Z",
+      "side": 1,
+      "message": "No, You are passing the processor service name (in GetManagedObjects call) to get the given core object right, I think that won\u0027t work if core objects are implemented by another service that is not implemented the processor object.\n\n(I think, you are just getting processor objects (by using the processor interfaces) in your GetSubtree method call, LN 971)",
+      "parentUuid": "c07b6bc0_71f5b739",
+      "range": {
+        "startLine": 917,
+        "startChar": 8,
+        "endLine": 917,
+        "endChar": 15
+      },
+      "revId": "e339475c7d3cfea425332612125320df4d44b183",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "23e2bd54_4fccd115",
         "filename": "redfish-core/lib/processor.hpp",
         "patchSetId": 29
@@ -513,6 +537,30 @@
       "side": 1,
       "message": "as above",
       "parentUuid": "f5b12a5b_bc4d183e",
+      "range": {
+        "startLine": 960,
+        "startChar": 16,
+        "endLine": 960,
+        "endChar": 57
+      },
+      "revId": "e339475c7d3cfea425332612125320df4d44b183",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d56afab9_f9a6b37d",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 29
+      },
+      "lineNbr": 960,
+      "author": {
+        "id": 1000427
+      },
+      "writtenOn": "2021-08-30T03:38:39Z",
+      "side": 1,
+      "message": "Sorry, not getting your point here,",
+      "parentUuid": "cc41dc48_78f79ce9",
       "range": {
         "startLine": 960,
         "startChar": 16,
@@ -1059,6 +1107,30 @@
       "side": 1,
       "message": "Yes, I know\nI want to say that after we update association.json, we are optimizing here. \nSo far, this is not a mistake.",
       "parentUuid": "b452190b_376d72ed",
+      "range": {
+        "startLine": 1066,
+        "startChar": 32,
+        "endLine": 1066,
+        "endChar": 60
+      },
+      "revId": "e339475c7d3cfea425332612125320df4d44b183",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3d3c5c6a_293aa81c",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 29
+      },
+      "lineNbr": 1066,
+      "author": {
+        "id": 1000427
+      },
+      "writtenOn": "2021-08-30T03:38:39Z",
+      "side": 1,
+      "message": "What do you mean by \"after we update association.json, we are optimizing here\"?\n\nSorry, I am not familiar with the JSON file which you are mentioning here, is it a static or dynamic one? I meant, the association endpoint is assigned at static (build time) or dynamic (runtime)?\n\nI am not sure why we cannot get the core object alone by using the Core interface? Maybe, I can ask why we are getting all objects which are present under the cpu object path instead of getting the core object alone? is there any reason to get all processor child\u0027s objects (include association endpoints)?",
+      "parentUuid": "2da877de_48e90657",
       "range": {
         "startLine": 1066,
         "startChar": 32,
