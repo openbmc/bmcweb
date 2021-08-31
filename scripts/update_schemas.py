@@ -143,6 +143,7 @@ include_list = [
 # OEM schemas
 oem_schema_names = [
     "OemManager",
+    "OemManagerAccount",
     "OemComputerSystem",
     "OemVirtualMedia",
     "OpenBMCAccountService",

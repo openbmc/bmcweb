@@ -127,6 +127,7 @@ namespace redfish
         "VirtualMedia",
         "VirtualMediaCollection",
         "OemManager",
+        "OemManagerAccount",
         "OemComputerSystem",
         "OemVirtualMedia",
         "OpenBMCAccountService",
