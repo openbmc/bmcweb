@@ -34,6 +34,24 @@
       "revId": "faf1c7246c467242915458668c308f3c67d6fb1c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a6f0ff2b_4c5b7187",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-08-31T18:28:09Z",
+      "side": 1,
+      "message": "\u003e I have not changed the value of the req header parameters in this patch. Those remain the same as in the master. \n\u003e The event listener(server) has no keep-alive tag at my test environment. With that this code works fine.\n\u003e \n\u003e Can you please elaborate more on what kind of header conflicts can occur?\n\nAs I\u0027m looking at this, you\u0027ve changed the concept of setting headers (which is a complete replacement) to the concept of adding headers, which would leave other headers in place.  If one subscriptions had headers set that the other one didn\u0027t, subscription 2 would get the headers from the first.",
+      "parentUuid": "82d69c09_bb9b7c22",
+      "revId": "faf1c7246c467242915458668c308f3c67d6fb1c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
