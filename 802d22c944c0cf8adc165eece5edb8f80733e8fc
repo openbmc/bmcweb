@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ff1d0fe0_a5b2d829",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 312,
+      "author": {
+        "id": 1001083
+      },
+      "writtenOn": "2021-08-31T20:31:28Z",
+      "side": 1,
+      "message": "The async \u0027GetAll\u0027 to Inventory.Item.Cpu is NOT removed in this commit because a subsequent commit will use it.",
+      "revId": "802d22c944c0cf8adc165eece5edb8f80733e8fc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
