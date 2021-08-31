@@ -16,6 +16,40 @@
       "revId": "802d22c944c0cf8adc165eece5edb8f80733e8fc",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4ebdfca8_bd7f2072",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 362,
+      "author": {
+        "id": 1001083
+      },
+      "writtenOn": "2021-08-31T20:39:12Z",
+      "side": 1,
+      "message": "I believe this is a better way of checking if a CPU is present before adding it to ProcessorSummary count. Rather then checking if 2 specific properties in Inventory.Item.Cpu are not null...",
+      "revId": "802d22c944c0cf8adc165eece5edb8f80733e8fc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "491c9cee_63647dd5",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 374,
+      "author": {
+        "id": 1001083
+      },
+      "writtenOn": "2021-08-31T20:39:12Z",
+      "side": 1,
+      "message": "Similar logic to the comment on line 362.",
+      "revId": "802d22c944c0cf8adc165eece5edb8f80733e8fc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
