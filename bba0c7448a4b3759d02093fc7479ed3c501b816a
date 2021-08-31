@@ -52,6 +52,24 @@
       "revId": "bba0c7448a4b3759d02093fc7479ed3c501b816a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "502c885f_a87d0f27",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 53
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 1000547
+      },
+      "writtenOn": "2021-08-31T02:12:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "96ffee0a_2437f1af",
+      "revId": "bba0c7448a4b3759d02093fc7479ed3c501b816a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
