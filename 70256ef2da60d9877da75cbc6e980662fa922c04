@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "a181614b_414d21a2",
+        "filename": "redfish-core/lib/metric_definition.hpp",
+        "patchSetId": 90
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2021-08-31T14:13:31Z",
+      "side": 1,
+      "message": "I had talk with John Leung one of the contributors (https://www.dmtf.org/sites/default/files/standards/documents/DSP2051_1.0.0.pdf)\n\nYou are right we should use Gauge for sensors that expose Min/Max on dbus and physical sensors for those who doesn\u0027t (report nan).",
+      "parentUuid": "40504ec1_c8907c1e",
+      "range": {
+        "startLine": 192,
+        "startChar": 58,
+        "endLine": 192,
+        "endChar": 65
+      },
+      "revId": "70256ef2da60d9877da75cbc6e980662fa922c04",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "bf998604_24dcbbb4",
         "filename": "redfish-core/lib/metric_definition.hpp",
         "patchSetId": 90
