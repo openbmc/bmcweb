@@ -19,6 +19,29 @@
     },
     {
       "key": {
+        "uuid": "372385b7_f0d3e3fc",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 321,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-08-31T20:40:44Z",
+      "side": 1,
+      "message": "I don\u0027t see a good reason to change these.",
+      "range": {
+        "startLine": 321,
+        "startChar": 73,
+        "endLine": 321,
+        "endChar": 75
+      },
+      "revId": "802d22c944c0cf8adc165eece5edb8f80733e8fc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "4ebdfca8_bd7f2072",
         "filename": "redfish-core/lib/systems.hpp",
         "patchSetId": 18
