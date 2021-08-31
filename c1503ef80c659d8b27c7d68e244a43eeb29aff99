@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "873897f7_dd848207",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-08-31T19:58:22Z",
+      "side": 1,
+      "message": "Line 96 as a variable that\u0027s similar in name and type, but exists in a totally different scope.  In this scope, this variable doesn\u0027t look used.",
+      "parentUuid": "5c8b9792_abba10e8",
+      "range": {
+        "startLine": 162,
+        "startChar": 0,
+        "endLine": 162,
+        "endChar": 51
+      },
+      "revId": "c1503ef80c659d8b27c7d68e244a43eeb29aff99",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "64bd3359_80837d92",
         "filename": "redfish-core/lib/event_service.hpp",
         "patchSetId": 5
@@ -84,6 +108,30 @@
       "side": 1,
       "message": "To get the value of service enabled/not, I should do a fresh fetch for it via getEventServiceConfig",
       "parentUuid": "64bd3359_80837d92",
+      "range": {
+        "startLine": 163,
+        "startChar": 0,
+        "endLine": 174,
+        "endChar": 17
+      },
+      "revId": "c1503ef80c659d8b27c7d68e244a43eeb29aff99",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c6e137df_74d02cc3",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-08-31T19:58:22Z",
+      "side": 1,
+      "message": "Ideally, we shoul dhave return codes on the sendTestEventLog() that indicate that there were no subscribers, or the service was disabled, so we can return the right message.",
+      "parentUuid": "ea50d984_5ccdedc4",
       "range": {
         "startLine": 163,
         "startChar": 0,
