@@ -105,6 +105,29 @@
       "revId": "d699cf969aea5a059b95151f58e054c928f076cc",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "97760e24_662c4ac2",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 390,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-08-31T19:55:45Z",
+      "side": 0,
+      "message": "Gunnar, Is this the else you\u0027re talking about?  I\u0027d probably agree, but the else condition on this was removed as well.",
+      "range": {
+        "startLine": 390,
+        "startChar": 0,
+        "endLine": 390,
+        "endChar": 40
+      },
+      "revId": "d699cf969aea5a059b95151f58e054c928f076cc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
