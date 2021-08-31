@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "fca3d7e6_43dc083c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 18
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-08-31T20:48:45Z",
+      "side": 1,
+      "message": "Not really removing dead code.. \nMaybe something more like:\n\n\"Have ProcessorSummary correctly set Status\n\nRemove unnecessary condition and correctly get Status from Present and Functional properties. \n\nIn Redfish ComputerSystem schema, the ProcessorSummary parameter\ndetails information about the Processors currently on the system.\n....\"",
+      "revId": "802d22c944c0cf8adc165eece5edb8f80733e8fc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "aade9187_52b6a5d0",
         "filename": "/COMMIT_MSG",
         "patchSetId": 18
