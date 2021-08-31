@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "1a535639_8012afd1",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 31
+      },
+      "lineNbr": 963,
+      "author": {
+        "id": 1001049
+      },
+      "writtenOn": "2021-08-31T16:55:40Z",
+      "side": 1,
+      "message": "Why is this written like this? the for loop will always break in first iteration. \nCan we write something like below\n\nconst auto\u0026 service \u003d object.second.first;\ngetCpuCoreDataByService(aResp, service.first, corePath);",
+      "range": {
+        "startLine": 959,
+        "startChar": 16,
+        "endLine": 963,
+        "endChar": 17
+      },
+      "revId": "d77e7c7ce2ccf1fc699e27a7dd4ea8a4e02ba906",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "3298ada0_0fa99565",
         "filename": "redfish-core/lib/processor.hpp",
         "patchSetId": 31
