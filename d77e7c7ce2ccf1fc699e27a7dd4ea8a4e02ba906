@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3298ada0_0fa99565",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 31
+      },
+      "lineNbr": 1541,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-08-31T14:09:23Z",
+      "side": 1,
+      "message": "Common error 11.",
+      "range": {
+        "startLine": 1536,
+        "startChar": 0,
+        "endLine": 1541,
+        "endChar": 77
+      },
+      "revId": "d77e7c7ce2ccf1fc699e27a7dd4ea8a4e02ba906",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3acf3b4b_08b67279",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 31
+      },
+      "lineNbr": 1562,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-08-31T14:09:23Z",
+      "side": 1,
+      "message": "Common error 11. \n\n/redfish/v1/Systems/system/Processors/badprocessorid/SubProcessors/core0\n\n/redfish/v1/Systems/system/Processors/cpu0/SubProcessors/badsubprossorid\n\nshould not return odata.type or any other fields",
+      "range": {
+        "startLine": 1556,
+        "startChar": 0,
+        "endLine": 1562,
+        "endChar": 56
+      },
+      "revId": "d77e7c7ce2ccf1fc699e27a7dd4ea8a4e02ba906",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
