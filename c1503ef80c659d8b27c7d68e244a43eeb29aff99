@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "80876767_df4ccb0e",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2021-09-01T11:46:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "873897f7_dd848207",
+      "range": {
+        "startLine": 162,
+        "startChar": 0,
+        "endLine": 162,
+        "endChar": 51
+      },
+      "revId": "c1503ef80c659d8b27c7d68e244a43eeb29aff99",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "64bd3359_80837d92",
         "filename": "redfish-core/lib/event_service.hpp",
         "patchSetId": 5
@@ -141,6 +165,30 @@
       "revId": "c1503ef80c659d8b27c7d68e244a43eeb29aff99",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6533e9c9_9e6f931b",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2021-09-01T11:46:18Z",
+      "side": 1,
+      "message": "Those specific message registries are not available. Gunnar has an issue created at DMTF, once that is available, this change can be done.\n\nAdded code to check for the number of subscription",
+      "parentUuid": "c6e137df_74d02cc3",
+      "range": {
+        "startLine": 163,
+        "startChar": 0,
+        "endLine": 174,
+        "endChar": 17
+      },
+      "revId": "c1503ef80c659d8b27c7d68e244a43eeb29aff99",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
