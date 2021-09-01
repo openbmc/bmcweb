@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "1561668e_443a31b7",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 20
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1001083
+      },
+      "writtenOn": "2021-09-01T17:04:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cb62f660_ab90bff8",
+      "revId": "4ecb3cd8d740bcff4fc3f8180c3493b939c42355",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "08a7ccca_8ec3dff5",
         "filename": "/COMMIT_MSG",
         "patchSetId": 20
@@ -39,6 +57,30 @@
       "revId": "4ecb3cd8d740bcff4fc3f8180c3493b939c42355",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "df9b5eef_1532839b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 20
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1001083
+      },
+      "writtenOn": "2021-09-01T17:04:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "08a7ccca_8ec3dff5",
+      "range": {
+        "startLine": 24,
+        "startChar": 13,
+        "endLine": 24,
+        "endChar": 20
+      },
+      "revId": "4ecb3cd8d740bcff4fc3f8180c3493b939c42355",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -65,6 +107,30 @@
     },
     {
       "key": {
+        "uuid": "cf2f5e44_616532d2",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 331,
+      "author": {
+        "id": 1001083
+      },
+      "writtenOn": "2021-09-01T17:04:21Z",
+      "side": 1,
+      "message": "Based on https://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/44564/9/redfish-core/lib/systems.hpp#182, I thought it was better to be consistent or have purposeful number. I thought \u0027ec\u0027 would be better than randomly an \u0027ec3\u0027 without \u0027ec2\u0027 and \u0027ec1\u0027 existing.",
+      "parentUuid": "a89d05e3_12f59deb",
+      "range": {
+        "startLine": 331,
+        "startChar": 76,
+        "endLine": 331,
+        "endChar": 78
+      },
+      "revId": "4ecb3cd8d740bcff4fc3f8180c3493b939c42355",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0261acb0_dbf84037",
         "filename": "redfish-core/lib/systems.hpp",
         "patchSetId": 20
@@ -85,6 +151,30 @@
       "revId": "4ecb3cd8d740bcff4fc3f8180c3493b939c42355",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bfba3e2f_e8934cc5",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 354,
+      "author": {
+        "id": 1001083
+      },
+      "writtenOn": "2021-09-01T17:04:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0261acb0_dbf84037",
+      "range": {
+        "startLine": 354,
+        "startChar": 55,
+        "endLine": 354,
+        "endChar": 57
+      },
+      "revId": "4ecb3cd8d740bcff4fc3f8180c3493b939c42355",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
