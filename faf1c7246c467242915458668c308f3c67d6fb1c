@@ -52,6 +52,24 @@
       "revId": "faf1c7246c467242915458668c308f3c67d6fb1c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d7b4f7ec_45927dd5",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2021-09-01T11:49:05Z",
+      "side": 1,
+      "message": "Each subscription will have its own copy of req. There will be different HttpClient objects for each subscriptions. So there is no possibility for the 2nd subscription to take values from the 1st subscriber",
+      "parentUuid": "a6f0ff2b_4c5b7187",
+      "revId": "faf1c7246c467242915458668c308f3c67d6fb1c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
