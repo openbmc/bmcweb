@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "d3058e80_867eaaa7",
+        "filename": "redfish-core/lib/thermal.hpp",
+        "patchSetId": 68
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2021-09-01T11:45:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5705219f_b8ac56dc",
+      "revId": "969ab0edc04d57fb773d9fd852c211791c91d202",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a5e85d32_9dfb1faa",
         "filename": "redfish-core/lib/thermal.hpp",
         "patchSetId": 68
@@ -69,6 +87,24 @@
       "revId": "969ab0edc04d57fb773d9fd852c211791c91d202",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4190ca9a_31974056",
+        "filename": "redfish-core/lib/thermal.hpp",
+        "patchSetId": 68
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2021-09-01T11:45:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3d62db7b_81e19215",
+      "revId": "969ab0edc04d57fb773d9fd852c211791c91d202",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
