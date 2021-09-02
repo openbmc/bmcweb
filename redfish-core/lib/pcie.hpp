@@ -150,6 +150,18 @@ inline void requestRoutesSystemPCIeDevice(App& app)
                         asyncResp->res.jsonValue["DeviceType"] = *property;
                     }
 
+                    if (std::string* property = std::get_if<std::string>(
+                            &pcieDevProperties["PcieType"]);
+                        property)
+                    {
+                        if (property != nullptr)
+                        {
+                            asyncResp->res
+                                .jsonValue["PCIeInterface"]["PcieType"] =
+                                *property;
+                        }
+                    }
+
                     asyncResp->res.jsonValue["PCIeFunctions"] = {
                         {"@odata.id",
                          "/redfish/v1/Systems/system/PCIeDevices/" + device +
