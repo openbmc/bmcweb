@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "22ee750f_18d65389",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 31
+      },
+      "lineNbr": 963,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-09-02T07:03:54Z",
+      "side": 1,
+      "message": "Thanks.\nIf the `object.second` size is equal to 0, it will throw an excpetion right?\nI\u0027d like to keep it this way",
+      "parentUuid": "1a535639_8012afd1",
+      "range": {
+        "startLine": 959,
+        "startChar": 16,
+        "endLine": 963,
+        "endChar": 17
+      },
+      "revId": "d77e7c7ce2ccf1fc699e27a7dd4ea8a4e02ba906",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "3298ada0_0fa99565",
         "filename": "redfish-core/lib/processor.hpp",
         "patchSetId": 31
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "62c6f3e2_9af93a34",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 31
+      },
+      "lineNbr": 1541,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-09-02T07:03:54Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "3298ada0_0fa99565",
+      "range": {
+        "startLine": 1536,
+        "startChar": 0,
+        "endLine": 1541,
+        "endChar": 77
+      },
+      "revId": "d77e7c7ce2ccf1fc699e27a7dd4ea8a4e02ba906",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3acf3b4b_08b67279",
         "filename": "redfish-core/lib/processor.hpp",
         "patchSetId": 31
@@ -68,6 +116,30 @@
       "revId": "d77e7c7ce2ccf1fc699e27a7dd4ea8a4e02ba906",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d20eca33_e08dd9e5",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 31
+      },
+      "lineNbr": 1562,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-09-02T07:03:54Z",
+      "side": 1,
+      "message": "Done\n\n```\ncurl -k -H \"X-Auth-Token: $token\" https://${bmc}/redfish/v1/Systems/system/Processors/cpu0/SubProcessors/badsubprossorid\n{\n  \"error\": {\n    \"@Message.ExtendedInfo\": [\n      {\n        \"@odata.type\": \"#Message.v1_1_1.Message\",\n        \"Message\": \"The requested resource of type #Processor.v1_11_0.Processor named cpu0 was not found.\",\n        \"MessageArgs\": [\n          \"#Processor.v1_11_0.Processor\",\n          \"cpu0\"\n        ],\n        \"MessageId\": \"Base.1.8.1.ResourceNotFound\",\n        \"MessageSeverity\": \"Critical\",\n        \"Resolution\": \"Provide a valid resource identifier and resubmit the request.\"\n      }\n    ],\n    \"code\": \"Base.1.8.1.ResourceNotFound\",\n    \"message\": \"The requested resource of type #Processor.v1_11_0.Processor named cpu0 was not found.\"\n  }\n}\n```\n\n```\ncurl -k -H \"X-Auth-Token: $token\" https://${bmc}/redfish/v1/Systems/system/Processors/badprocessorid/SubProcessors/core0\n{\n  \"error\": {\n    \"@Message.ExtendedInfo\": [\n      {\n        \"@odata.type\": \"#Message.v1_1_1.Message\",\n        \"Message\": \"The requested resource of type #Processor.v1_11_0.Processor named badprocessorid was not found.\",\n        \"MessageArgs\": [\n          \"#Processor.v1_11_0.Processor\",\n          \"badprocessorid\"\n        ],\n        \"MessageId\": \"Base.1.8.1.ResourceNotFound\",\n        \"MessageSeverity\": \"Critical\",\n        \"Resolution\": \"Provide a valid resource identifier and resubmit the request.\"\n      }\n    ],\n    \"code\": \"Base.1.8.1.ResourceNotFound\",\n    \"message\": \"The requested resource of type #Processor.v1_11_0.Processor named badprocessorid was not found.\"\n  }\n}\n```",
+      "parentUuid": "3acf3b4b_08b67279",
+      "range": {
+        "startLine": 1556,
+        "startChar": 0,
+        "endLine": 1562,
+        "endChar": 56
+      },
+      "revId": "d77e7c7ce2ccf1fc699e27a7dd4ea8a4e02ba906",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
