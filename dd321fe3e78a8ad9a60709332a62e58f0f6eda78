@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2b68ee1a_7c686897",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-09-02T18:41:25Z",
+      "side": 1,
+      "message": "Why remove it? Just no use case for it? The client will what, reacquire a lock after a bmc reboot?",
+      "revId": "dd321fe3e78a8ad9a60709332a62e58f0f6eda78",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
