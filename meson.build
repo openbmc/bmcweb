@@ -286,7 +286,7 @@ atomic =  cxx.find_library('atomic', required: true)
 openssl = dependency('openssl', required : true)
 bmcweb_dependencies += [pam, atomic, openssl]
 
-sdbusplus = dependency('sdbusplus',required : false)
+sdbusplus = dependency('sdbusplus', required : false, include_type: 'system')
 if not sdbusplus.found()
   sdbusplus_proj = subproject('sdbusplus', required: true)
   sdbusplus = sdbusplus_proj.get_variable('sdbusplus_dep')
@@ -322,7 +322,7 @@ else
 endif
 bmcweb_dependencies += nlohmann_json
 
-boost = dependency('boost',version : '>=1.75.0', required : false)
+boost = dependency('boost',version : '>=1.75.0', required : false, include_type: 'system')
 if not boost.found()
   subproject('boost', required: false)
   boost_inc = include_directories('subprojects/boost_1_75_0/', is_system:true)
