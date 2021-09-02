@@ -905,7 +905,7 @@ class EventServiceManager
         if (retry <= 0)
         {
             BMCWEB_LOG_ERROR << "Failed to generate random number";
-            return std::string("");
+            return "";
         }
 
         std::shared_ptr<persistent_data::UserSubscription> newSub =
