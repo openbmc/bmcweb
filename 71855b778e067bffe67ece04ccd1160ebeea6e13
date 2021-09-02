@@ -16,6 +16,47 @@
       "revId": "71855b778e067bffe67ece04ccd1160ebeea6e13",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bb4a4749_f6095384",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 23
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2021-09-02T14:41:50Z",
+      "side": 1,
+      "message": "no particular reason.\n\nI\u0027ll also add it.",
+      "parentUuid": "9484dd08_70b61e85",
+      "revId": "71855b778e067bffe67ece04ccd1160ebeea6e13",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "afc10745_9b483ef5",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 23
+      },
+      "lineNbr": 784,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2021-09-02T14:41:50Z",
+      "side": 1,
+      "message": "There are some error here that we found in our testing system.\n\nAdding this to block this while fixing it.\n\nBasically, this fail all Chassis Resources that does not have `Item.Chassis` interface.",
+      "range": {
+        "startLine": 772,
+        "startChar": 0,
+        "endLine": 784,
+        "endChar": 1
+      },
+      "revId": "71855b778e067bffe67ece04ccd1160ebeea6e13",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
