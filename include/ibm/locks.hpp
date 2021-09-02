@@ -36,28 +36,13 @@ using RcAcquireLock = std::pair<bool, std::variant<Rc, std::pair<bool, int>>>;
 using RcReleaseLockApi = std::pair<bool, std::variant<bool, RcRelaseLock>>;
 using SessionFlags = std::pair<SType, SType>;
 using ListOfSessionIds = std::vector<std::string>;
-static constexpr const char* fileName =
-    "/var/lib/bmcweb/ibm-management-console/locks/"
-    "ibm_mc_persistent_lock_data.json";
 
 class Lock
 {
     uint32_t transactionId;
     boost::container::flat_map<uint32_t, LockRequests> lockTable;
 
-    /*
-     * This API implements the logic to load the locks that are present in the
-     * json file into the lock table.
-     */
-    void loadLocks();
-
   protected:
-    /*
-     * This API implements the logic to persist the locks that are contained in
-     * the lock table into a json file.
-     */
-    void saveLocks();
-
     /*
      * This function implements the logic for validating an incoming
      * lock request/requests.
@@ -124,7 +109,6 @@ class Lock
 
     Lock()
     {
-        loadLocks();
         transactionId = lockTable.empty() ? 0 : prev(lockTable.end())->first;
     }
 
@@ -188,53 +172,6 @@ class Lock
 
     virtual ~Lock() = default;
 };
-
-inline void Lock::loadLocks()
-{
-    std::ifstream persistentFile(fileName);
-    if (persistentFile.is_open())
-    {
-        auto data = nlohmann::json::parse(persistentFile, nullptr, false);
-        if (data.is_discarded())
-        {
-            BMCWEB_LOG_ERROR << "Error parsing persistent data in json file.";
-            return;
-        }
-        BMCWEB_LOG_DEBUG << "The persistent lock data is available";
-        for (const auto& item : data.items())
-        {
-            BMCWEB_LOG_DEBUG << item.key();
-            BMCWEB_LOG_DEBUG << item.value();
-            LockRequests locks = item.value();
-            lockTable.emplace(std::pair<uint32_t, LockRequests>(
-                std::stoul(item.key()), locks));
-            BMCWEB_LOG_DEBUG << "The persistent lock data loaded";
-        }
-    }
-}
-
-inline void Lock::saveLocks()
-{
-    std::error_code ec;
-    std::string_view path = "/var/lib/bmcweb/ibm-management-console/locks";
-    if (!crow::ibm_utils::createDirectory(path))
-    {
-        BMCWEB_LOG_DEBUG << "Failed to create lock persistent path";
-        return;
-    }
-    std::ofstream persistentFile(fileName);
-    // set the permission of the file to 600
-    std::filesystem::perms permission = std::filesystem::perms::owner_read |
-                                        std::filesystem::perms::owner_write;
-    std::filesystem::permissions(fileName, permission);
-    nlohmann::json data;
-    for (const auto& it : lockTable)
-    {
-        data[std::to_string(it.first)] = it.second;
-    }
-    BMCWEB_LOG_DEBUG << "data is " << data;
-    persistentFile << data;
-}
 
 inline RcGetLockList Lock::getLockList(const ListOfSessionIds& listSessionId)
 {
@@ -315,7 +252,7 @@ inline RcAcquireLock Lock::acquireLock(const LockRequests& lockRequestStructure)
 
     if (status)
     {
-        BMCWEB_LOG_DEBUG << "There is a conflict within itself";
+        BMCWEB_LOG_ERROR << "There is a conflict within itself";
         return std::make_pair(true, std::make_pair(status, 1));
     }
     BMCWEB_LOG_DEBUG << "The request is not conflicting within itself";
@@ -323,9 +260,6 @@ inline RcAcquireLock Lock::acquireLock(const LockRequests& lockRequestStructure)
     // Need to check for conflict with the locktable entries.
 
     auto conflict = isConflictWithTable(multiRequest);
-
-    // save the lock in the persistent file
-    saveLocks();
 
     BMCWEB_LOG_DEBUG << "Done with checking conflict with the locktable";
     return std::make_pair(false, conflict);
@@ -343,18 +277,15 @@ inline void Lock::releaseLock(const ListOfTransactionIds& refRids)
 
         else
         {
-            BMCWEB_LOG_DEBUG << "Removing the locks from the lock table "
+            BMCWEB_LOG_ERROR << "Removing the locks from the lock table "
                                 "failed, transaction ID: "
                              << id;
         }
     }
-
-    saveLocks();
 }
 
 inline void Lock::releaseLock(const std::string& sessionId)
 {
-    bool isErased = false;
     if (!lockTable.empty())
     {
         auto it = lockTable.begin();
@@ -371,18 +302,12 @@ inline void Lock::releaseLock(const std::string& sessionId)
                                      << sessionId;
                     BMCWEB_LOG_DEBUG << "TransactionID =" << it->first;
                     it = lockTable.erase(it);
-                    isErased = true;
                 }
                 else
                 {
                     it++;
                 }
             }
-        }
-        if (isErased)
-        {
-            // save the lock in the persistent file
-            saveLocks();
         }
     }
 }
