@@ -196,6 +196,8 @@ fabric.properties
 # subproject directories
 /subprojects/*
 !/subprojects/*.wrap
+!/subprojects/.clang-tidy
+!/subprojects/.clang-format
 
 # Meson Directories
 meson-logs
