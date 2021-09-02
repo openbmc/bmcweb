@@ -94,6 +94,38 @@ inline void requestRoutesSystemPCIeDeviceCollection(App& app)
             });
 }
 
+inline std::string analysisGeneration(const std::string& pcieType)
+{
+    if (pcieType ==
+        "xyz.openbmc_project.Inventory.Item.PCIeSlot.Generations.Gen1")
+    {
+        return "Gen1";
+    }
+    if (pcieType ==
+        "xyz.openbmc_project.Inventory.Item.PCIeSlot.Generations.Gen2")
+    {
+        return "Gen2";
+    }
+    if (pcieType ==
+        "xyz.openbmc_project.Inventory.Item.PCIeSlot.Generations.Gen3")
+    {
+        return "Gen3";
+    }
+    if (pcieType ==
+        "xyz.openbmc_project.Inventory.Item.PCIeSlot.Generations.Gen4")
+    {
+        return "Gen4";
+    }
+    if (pcieType ==
+        "xyz.openbmc_project.Inventory.Item.PCIeSlot.Generations.Gen5")
+    {
+        return "Gen5";
+    }
+
+    // Unknown or others
+    return "";
+}
+
 inline void requestRoutesSystemPCIeDevice(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/Systems/system/PCIeDevices/<str>/")
@@ -148,6 +180,19 @@ inline void requestRoutesSystemPCIeDevice(App& app)
                         property)
                     {
                         asyncResp->res.jsonValue["DeviceType"] = *property;
+                    }
+
+                    if (std::string* property = std::get_if<std::string>(
+                            &pcieDevProperties["PcieType"]);
+                        property)
+                    {
+                        std::string pcieType = analysisGeneration(*property);
+                        if (!pcieType.empty())
+                        {
+                            asyncResp->res
+                                .jsonValue["PCIeInterface"]["PcieType"] =
+                                pcieType;
+                        }
                     }
 
                     asyncResp->res.jsonValue["PCIeFunctions"] = {
