@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "83dae0ea_a59ad67a",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 31
+      },
+      "lineNbr": 963,
+      "author": {
+        "id": 1001049
+      },
+      "writtenOn": "2021-09-02T07:36:40Z",
+      "side": 1,
+      "message": "You can add a if condition to check the same. for loop is not the way to check the same rt?\n\nif(!object.second)\n{\n    return;\n}\n\nconst auto\u0026 service \u003d object.second.first;\ngetCpuCoreDataByService(aResp, service.first, corePath);\n\nalso looking at your current implementation, even if object.second is null you are returning success rt? Is that correct implementation? as getCpuCoreDataByService will not get called. \n\nAnd again I would recommend to not use for loop for if check.",
+      "parentUuid": "22ee750f_18d65389",
+      "range": {
+        "startLine": 959,
+        "startChar": 16,
+        "endLine": 963,
+        "endChar": 17
+      },
+      "revId": "d77e7c7ce2ccf1fc699e27a7dd4ea8a4e02ba906",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "3298ada0_0fa99565",
         "filename": "redfish-core/lib/processor.hpp",
         "patchSetId": 31
