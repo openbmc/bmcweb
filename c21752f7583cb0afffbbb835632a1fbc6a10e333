@@ -1,0 +1,165 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8c879ad7_2ed9deda",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1001049
+      },
+      "writtenOn": "2021-09-03T21:18:03Z",
+      "side": 1,
+      "message": "nit:\nAre there no negative test cases?",
+      "range": {
+        "startLine": 22,
+        "startChar": 0,
+        "endLine": 22,
+        "endChar": 38
+      },
+      "revId": "c21752f7583cb0afffbbb835632a1fbc6a10e333",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3b5bcf98_4817ff59",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1800,
+      "author": {
+        "id": 1001049
+      },
+      "writtenOn": "2021-09-03T21:18:03Z",
+      "side": 1,
+      "message": "nit:\nYou can use\nfor (const auto\u0026 [path, servicesAndInterfaces] : pendingAttributes)",
+      "range": {
+        "startLine": 1797,
+        "startChar": 12,
+        "endLine": 1800,
+        "endChar": 45
+      },
+      "revId": "c21752f7583cb0afffbbb835632a1fbc6a10e333",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "33d4eadb_d899c77e",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1816,
+      "author": {
+        "id": 1001049
+      },
+      "writtenOn": "2021-09-03T21:18:03Z",
+      "side": 1,
+      "message": "What happens if no file name is CPU_Kernel or CPU_User?\nCurrent code will return success rt? \nIs that the expected behavior?",
+      "range": {
+        "startLine": 1816,
+        "startChar": 20,
+        "endLine": 1816,
+        "endChar": 29
+      },
+      "revId": "c21752f7583cb0afffbbb835632a1fbc6a10e333",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f32ef540_78112009",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1823,
+      "author": {
+        "id": 1001049
+      },
+      "writtenOn": "2021-09-03T21:18:03Z",
+      "side": 1,
+      "message": "is?",
+      "range": {
+        "startLine": 1823,
+        "startChar": 19,
+        "endLine": 1823,
+        "endChar": 41
+      },
+      "revId": "c21752f7583cb0afffbbb835632a1fbc6a10e333",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "97acf24b_962a52f5",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1827,
+      "author": {
+        "id": 1001049
+      },
+      "writtenOn": "2021-09-03T21:18:03Z",
+      "side": 1,
+      "message": "What if only one interface is CPU_Kernel or CPU_User and rest is goes through continue in line 1816?\nWill this if condition still check the correct requirement?",
+      "range": {
+        "startLine": 1827,
+        "startChar": 20,
+        "endLine": 1827,
+        "endChar": 36
+      },
+      "revId": "c21752f7583cb0afffbbb835632a1fbc6a10e333",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "540a1369_58e82da1",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1845,
+      "author": {
+        "id": 1001049
+      },
+      "writtenOn": "2021-09-03T21:18:03Z",
+      "side": 1,
+      "message": "Don\u0027t we need to fill aResp with error?",
+      "range": {
+        "startLine": 1845,
+        "startChar": 28,
+        "endLine": 1845,
+        "endChar": 35
+      },
+      "revId": "c21752f7583cb0afffbbb835632a1fbc6a10e333",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1cc9095b_3e3f836e",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1851,
+      "author": {
+        "id": 1001049
+      },
+      "writtenOn": "2021-09-03T21:18:03Z",
+      "side": 1,
+      "message": "Don\u0027t we need to fill aResp with error?",
+      "range": {
+        "startLine": 1851,
+        "startChar": 28,
+        "endLine": 1851,
+        "endChar": 35
+      },
+      "revId": "c21752f7583cb0afffbbb835632a1fbc6a10e333",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
