@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "86864ac5_c84fc403",
+        "filename": "subprojects/.clang-format",
+        "patchSetId": 1
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-09-03T21:00:16Z",
+      "side": 1,
+      "message": "This was dumb.  This should\u0027ve been false.  I read somewhere that there are contexts where this setting matters on top of DisableFormat, but maybe not.",
+      "range": {
+        "startLine": 3,
+        "startChar": 14,
+        "endLine": 3,
+        "endChar": 18
+      },
+      "revId": "c7c98ad5a20c5728533f94a4159fe3a1db0c9994",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
