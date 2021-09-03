@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "615bb8b6_cee90950",
+        "filename": "redfish-core/include/event_service_manager.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 1011,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-09-03T20:02:46Z",
+      "side": 1,
+      "message": "To be more concrete.  This should be returning a return code.",
+      "range": {
+        "startLine": 1011,
+        "startChar": 4,
+        "endLine": 1011,
+        "endChar": 8
+      },
+      "revId": "158bab70d71a87693714fb7641e7817b621b6f22",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a7d59314_b2b800cc",
+        "filename": "redfish-core/include/event_service_manager.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 1017,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-09-03T20:02:46Z",
+      "side": 1,
+      "message": "This should return Service disabled or something of that nature.",
+      "range": {
+        "startLine": 1017,
+        "startChar": 12,
+        "endLine": 1017,
+        "endChar": 18
+      },
+      "revId": "158bab70d71a87693714fb7641e7817b621b6f22",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0cdfef6e_be50a8cd",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 182,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-09-03T20:02:46Z",
+      "side": 1,
+      "message": "To repeat.... this duplicates the logic on line 1014.  Simply return the correct state with a return code.",
+      "range": {
+        "startLine": 166,
+        "startChar": 0,
+        "endLine": 182,
+        "endChar": 17
+      },
+      "revId": "158bab70d71a87693714fb7641e7817b621b6f22",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
