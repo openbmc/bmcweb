@@ -126,45 +126,13 @@ inline void
     }
 }
 
-inline void
-    getProcessorProperties(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
-                           const std::string& service, const std::string& path,
-                           const dbus::utility::DBusPropertiesMap& properties)
+inline void getProcessorProperties(
+    const std::shared_ptr<bmcweb::AsyncResp>& aResp,
+    const std::vector<std::pair<std::string, dbus::utility::DbusVariantType>>&
+        properties)
 {
 
     BMCWEB_LOG_DEBUG << "Got " << properties.size() << " Cpu properties.";
-
-    auto getCpuPresenceState = [aResp](const boost::system::error_code ec3,
-                                       const bool cpuPresenceCheck) {
-        if (ec3)
-        {
-            BMCWEB_LOG_ERROR << "DBUS response error " << ec3;
-            return;
-        }
-        modifyCpuPresenceState(aResp, cpuPresenceCheck);
-    };
-
-    auto getCpuFunctionalState = [aResp](const boost::system::error_code ec3,
-                                         const bool cpuFunctionalCheck) {
-        if (ec3)
-        {
-            BMCWEB_LOG_ERROR << "DBUS response error " << ec3;
-            return;
-        }
-        modifyCpuFunctionalState(aResp, cpuFunctionalCheck);
-    };
-
-    // Get the Presence of CPU
-    sdbusplus::asio::getProperty<bool>(
-        *crow::connections::systemBus, service, path,
-        "xyz.openbmc_project.Inventory.Item", "Present",
-        std::move(getCpuPresenceState));
-
-    // Get the Functional State
-    sdbusplus::asio::getProperty<bool>(
-        *crow::connections::systemBus, service, path,
-        "xyz.openbmc_project.State.Decorator.OperationalStatus", "Functional",
-        std::move(getCpuFunctionalState));
 
     // TODO: Get Model
 
@@ -210,6 +178,38 @@ inline void getProcessorSummary(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
                                 const std::string& path)
 {
 
+    auto getCpuPresenceState = [aResp](const boost::system::error_code ec3,
+                                       const bool cpuPresenceCheck) {
+        if (ec3)
+        {
+            BMCWEB_LOG_ERROR << "DBUS response error " << ec3;
+            return;
+        }
+        modifyCpuPresenceState(aResp, cpuPresenceCheck);
+    };
+
+    auto getCpuFunctionalState = [aResp](const boost::system::error_code ec3,
+                                         const bool cpuFunctionalCheck) {
+        if (ec3)
+        {
+            BMCWEB_LOG_ERROR << "DBUS response error " << ec3;
+            return;
+        }
+        modifyCpuFunctionalState(aResp, cpuFunctionalCheck);
+    };
+
+    // Get the Presence of CPU
+    sdbusplus::asio::getProperty<bool>(
+        *crow::connections::systemBus, service, path,
+        "xyz.openbmc_project.Inventory.Item", "Present",
+        std::move(getCpuPresenceState));
+
+    // Get the Functional State
+    sdbusplus::asio::getProperty<bool>(
+        *crow::connections::systemBus, service, path,
+        "xyz.openbmc_project.State.Decorator.OperationalStatus", "Functional",
+        std::move(getCpuFunctionalState));
+
     sdbusplus::asio::getAllProperties(
         *crow::connections::systemBus, service, path,
         "xyz.openbmc_project.Inventory.Item.Cpu",
@@ -222,7 +222,7 @@ inline void getProcessorSummary(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
             messages::internalError(aResp->res);
             return;
         }
-        getProcessorProperties(aResp, service, path, properties);
+        getProcessorProperties(aResp, properties);
         });
 }
 
