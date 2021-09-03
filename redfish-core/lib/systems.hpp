@@ -309,11 +309,64 @@ inline void
                             BMCWEB_LOG_DEBUG
                                 << "Found Cpu, now get its properties.";
 
+                            auto getCpuPresenceState =
+                                [aResp](const boost::system::error_code ec,
+                                        const std::variant<bool>&
+                                            cpuPresenceCheck) {
+                                    if (ec)
+                                    {
+                                        BMCWEB_LOG_ERROR
+                                            << "DBUS response error " << ec;
+                                        return;
+                                    }
+                                    modifyCpuPresenceState(aResp,
+                                                           cpuPresenceCheck);
+                                };
+
+                            auto getCpuFunctionalState =
+                                [aResp](const boost::system::error_code ec,
+                                        const std::variant<bool>&
+                                            cpuFunctionalCheck) {
+                                    if (ec)
+                                    {
+                                        BMCWEB_LOG_ERROR
+                                            << "DBUS response error " << ec;
+                                        return;
+                                    }
+                                    modifyCpuFunctionalState(
+                                        aResp, cpuFunctionalCheck);
+                                };
+
+                            // Get the Presence of CPU
+                            crow::connections::systemBus->async_method_call(
+                                std::move(getCpuPresenceState),
+                                connection.first, path,
+                                "org.freedesktop.DBus."
+                                "Properties",
+                                "Get",
+                                "xyz.openbmc_project.Inventory."
+                                "Item",
+                                "Present");
+
+                            // Get the Functional State
+                            crow::connections::systemBus->async_method_call(
+                                std::move(getCpuFunctionalState),
+                                connection.first, path,
+                                "org.freedesktop.DBus."
+                                "Properties",
+                                "Get",
+                                "xyz.openbmc_project.State."
+                                "Decorator."
+                                "OperationalStatus",
+                                "Functional");
+
                             crow::connections::systemBus->async_method_call(
                                 [aResp, service{connection.first},
                                  path](const boost::system::error_code ec2,
-                                       const std::vector<
-                                           std::pair<std::string, VariantType>>&
+                                       const std::vector<std::pair<
+                                           std::string,
+                                           std::variant<std::string, uint64_t,
+                                                        uint32_t, uint16_t>>>&
                                            properties) {
                                     if (ec2)
                                     {
@@ -326,67 +379,86 @@ inline void
                                                      << properties.size()
                                                      << " Cpu properties.";
 
-                                    auto getCpuPresenceState =
-                                        [aResp](
-                                            const boost::system::error_code ec3,
-                                            const std::variant<bool>&
-                                                cpuPresenceCheck) {
-                                            if (ec3)
+                                    for (const auto& property : properties)
+                                    {
+
+                                        if (property.first == "Family")
+                                        {
+                                            // Get the CPU Model
+                                            const std::string* modelStr =
+                                                std::get_if<std::string>(
+                                                    &property.second);
+                                            if (!modelStr)
                                             {
-                                                BMCWEB_LOG_ERROR
-                                                    << "DBUS response error "
-                                                    << ec3;
+                                                messages::internalError(
+                                                    aResp->res);
                                                 return;
                                             }
-                                            modifyCpuPresenceState(
-                                                aResp, cpuPresenceCheck);
-                                        };
+                                            nlohmann::json& prevModel =
+                                                aResp->res.jsonValue
+                                                    ["ProcessorSummary"]
+                                                    ["Model"];
+                                            std::string* prevModelPtr =
+                                                prevModel
+                                                    .get_ptr<std::string*>();
 
-                                    auto getCpuFunctionalState =
-                                        [aResp](
-                                            const boost::system::error_code ec3,
-                                            const std::variant<bool>&
-                                                cpuFunctionalCheck) {
-                                            if (ec3)
+                                            // If CPU Models are different, use
+                                            // the first entry in alphabetical
+                                            // order
+
+                                            // If Model has never been set
+                                            // before, set it to *modelStr
+                                            if (prevModelPtr == nullptr)
                                             {
-                                                BMCWEB_LOG_ERROR
-                                                    << "DBUS response error "
-                                                    << ec3;
+                                                prevModel = *modelStr;
+                                            }
+                                            // If Model has been set before,
+                                            // only change if new Model is
+                                            // higher in alphabetical order
+                                            else
+                                            {
+                                                if (*modelStr < *prevModelPtr)
+                                                {
+                                                    prevModel = *modelStr;
+                                                }
+                                            }
+                                        }
+
+                                        if (property.first == "CoreCount")
+                                        {
+
+                                            // Get CPU CoreCount and add it
+                                            // total
+                                            const uint16_t* coreCountVal =
+                                                std::get_if<uint16_t>(
+                                                    &property.second);
+
+                                            if (!coreCountVal)
+                                            {
+                                                messages::internalError(
+                                                    aResp->res);
                                                 return;
                                             }
-                                            modifyCpuFunctionalState(
-                                                aResp, cpuFunctionalCheck);
-                                        };
 
-                                    // Get the Presence of CPU
-                                    crow::connections::systemBus
-                                        ->async_method_call(
-                                            std::move(getCpuPresenceState),
-                                            service, path,
-                                            "org.freedesktop.DBus."
-                                            "Properties",
-                                            "Get",
-                                            "xyz.openbmc_project.Inventory."
-                                            "Item",
-                                            "Present");
+                                            nlohmann::json& prevCoreTotal =
+                                                aResp->res.jsonValue
+                                                    ["ProcessorSummary"]
+                                                    ["CoreCount"];
+                                            uint64_t* prevCoreTotalPtr =
+                                                prevCoreTotal
+                                                    .get_ptr<uint64_t*>();
 
-                                    // Get the Functional State
-                                    crow::connections::systemBus
-                                        ->async_method_call(
-                                            std::move(getCpuFunctionalState),
-                                            service, path,
-                                            "org.freedesktop.DBus."
-                                            "Properties",
-                                            "Get",
-                                            "xyz.openbmc_project.State."
-                                            "Decorator."
-                                            "OperationalStatus",
-                                            "Functional");
-
-                                    // Get the MODEL from
-                                    // xyz.openbmc_project.Inventory.Decorator.Asset
-                                    // support it later as Model  is Empty
-                                    // currently.
+                                            if (prevCoreTotalPtr == nullptr)
+                                            {
+                                                prevCoreTotal = *coreCountVal;
+                                            }
+                                            else
+                                            {
+                                                *prevCoreTotalPtr +=
+                                                    *coreCountVal;
+                                            }
+                                        }
+                                    }
                                 },
                                 connection.first, path,
                                 "org.freedesktop.DBus.Properties", "GetAll",
