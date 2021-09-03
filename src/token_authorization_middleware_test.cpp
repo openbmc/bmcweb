@@ -89,7 +89,7 @@ TEST(TokenAuthentication, TestRejectedResource)
             c.connect(asio::ip::tcp::endpoint(
                 asio::ip::address::from_string("127.0.0.1"), 45451));
         }
-        catch (std::exception e)
+        catch (const std::exception& e)
         {
             // do nothing
         }
@@ -123,7 +123,7 @@ TEST(TokenAuthentication, TestGetLoginUrl)
             c.connect(asio::ip::tcp::endpoint(
                 asio::ip::address::from_string("127.0.0.1"), 45451));
         }
-        catch (std::exception e)
+        catch (const std::exception& e)
         {
             // do nothing
         }
@@ -169,7 +169,7 @@ TEST(TokenAuthentication, TestPostBadLoginUrl)
                 c.close();
                 break;
             }
-            catch (std::exception e)
+            catch (const std::exception& e)
             {
                 // do nothing.  We expect this to fail while the server is
                 // starting up
@@ -259,7 +259,7 @@ TEST(TokenAuthentication, TestSuccessfulLogin)
                 c.close();
                 break;
             }
-            catch (std::exception e)
+            catch (const std::exception& e)
             {
                 // do nothing.  We expect this to fail while the server is
                 // starting up
