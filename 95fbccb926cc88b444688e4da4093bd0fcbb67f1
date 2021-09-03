@@ -2,6 +2,52 @@
   "comments": [
     {
       "key": {
+        "uuid": "38d32073_6c2078aa",
+        "filename": "redfish-core/lib/redfish_util.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-09-03T19:49:27Z",
+      "side": 1,
+      "message": "Please don\u0027t template this on size.  Use something like std::span or boost span so we don\u0027t duplicate the code.",
+      "range": {
+        "startLine": 91,
+        "startChar": 10,
+        "endLine": 91,
+        "endChar": 17
+      },
+      "revId": "95fbccb926cc88b444688e4da4093bd0fcbb67f1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "77553f70_bb421abf",
+        "filename": "redfish-core/lib/redfish_util.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-09-03T19:49:27Z",
+      "side": 1,
+      "message": "Please don\u0027t capture by reference like this, it can be a problem for lifetimes.",
+      "range": {
+        "startLine": 97,
+        "startChar": 10,
+        "endLine": 97,
+        "endChar": 24
+      },
+      "revId": "95fbccb926cc88b444688e4da4093bd0fcbb67f1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "b7d3e368_aaf65837",
         "filename": "redfish-core/lib/systems.hpp",
         "patchSetId": 12
@@ -42,6 +88,53 @@
         "startChar": 11,
         "endLine": 36,
         "endChar": 14
+      },
+      "revId": "95fbccb926cc88b444688e4da4093bd0fcbb67f1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "78e4ca25_65dd6d79",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-09-03T19:49:27Z",
+      "side": 1,
+      "message": "This structure is only used in one place.  Please declare it where it\u0027s used.\n\nRE: Gunnar\n\nI don\u0027t think we can call this SerialConsoleSSH, because it has to exactly match the key within Redfish?  At least that\u0027s what it looks like.",
+      "parentUuid": "3e85e401_e7c5d456",
+      "range": {
+        "startLine": 36,
+        "startChar": 11,
+        "endLine": 36,
+        "endChar": 14
+      },
+      "revId": "95fbccb926cc88b444688e4da4093bd0fcbb67f1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "274f12b1_4a10f8d4",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 2502,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-09-03T19:49:27Z",
+      "side": 1,
+      "message": "use \u003d\u003d here, not compare, also, we should invert this check to check for \u003d\u003d \"SSH\", because we hardcode SSH specifics down below.",
+      "range": {
+        "startLine": 2502,
+        "startChar": 36,
+        "endLine": 2502,
+        "endChar": 57
       },
       "revId": "95fbccb926cc88b444688e4da4093bd0fcbb67f1",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "56798306_b1519f6b",
+        "filename": "redfish-core/lib/redfish_util.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-09-03T19:49:27Z",
+      "side": 0,
+      "message": "This is now going to call the callback multiple times, which in practice is an anti-pattern to be avoided.  If we need to return multiple results, adjust your callback return types to structures that support multiple results.",
+      "range": {
+        "startLine": 153,
+        "startChar": 0,
+        "endLine": 154,
+        "endChar": 23
+      },
+      "revId": "b4bec66b24755cf87e924d56219c60e9506f196b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
