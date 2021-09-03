@@ -40,7 +40,7 @@ TEST(Kvm, BasicRfb)
                 c.close();
                 break;
             }
-            catch (std::exception e)
+            catch (const std::exception& e)
             {
                 // do nothing.  We expect this to fail while the server is
                 // starting up
