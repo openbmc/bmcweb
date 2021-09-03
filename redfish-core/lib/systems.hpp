@@ -312,8 +312,10 @@ inline void
                             crow::connections::systemBus->async_method_call(
                                 [aResp, service{connection.first},
                                  path](const boost::system::error_code ec2,
-                                       const std::vector<
-                                           std::pair<std::string, VariantType>>&
+                                       const std::vector<std::pair<
+                                           std::string,
+                                           std::variant<std::string, uint64_t,
+                                                        uint32_t, uint16_t>>>&
                                            properties) {
                                     if (ec2)
                                     {
@@ -383,10 +385,86 @@ inline void
                                             "OperationalStatus",
                                             "Functional");
 
-                                    // Get the MODEL from
-                                    // xyz.openbmc_project.Inventory.Decorator.Asset
-                                    // support it later as Model  is Empty
-                                    // currently.
+                                    for (const auto& property : properties)
+                                    {
+
+                                        if (property.first == "Family")
+                                        {
+                                            // Get the CPU Model
+                                            const std::string* modelStr =
+                                                std::get_if<std::string>(
+                                                    &property.second);
+                                            if (!modelStr)
+                                            {
+                                                messages::internalError(
+                                                    aResp->res);
+                                                return;
+                                            }
+                                            nlohmann::json& prevModel =
+                                                aResp->res.jsonValue
+                                                    ["ProcessorSummary"]
+                                                    ["Model"];
+                                            std::string* prevModelPtr =
+                                                prevModel
+                                                    .get_ptr<std::string*>();
+
+                                            // If CPU Models are different, use
+                                            // the first entry in alphabetical
+                                            // order
+
+                                            // If Model has never been set
+                                            // before, set it to *modelStr
+                                            if (prevModelPtr == nullptr)
+                                            {
+                                                prevModel = *modelStr;
+                                            }
+                                            // If Model has been set before,
+                                            // only change if new Model is
+                                            // higher in alphabetical order
+                                            else
+                                            {
+                                                if (*modelStr < *prevModelPtr)
+                                                {
+                                                    prevModel = *modelStr;
+                                                }
+                                            }
+                                        }
+
+                                        if (property.first == "CoreCount")
+                                        {
+
+                                            // Get CPU CoreCount and add it
+                                            // total
+                                            const uint16_t* coreCountVal =
+                                                std::get_if<uint16_t>(
+                                                    &property.second);
+
+                                            if (!coreCountVal)
+                                            {
+                                                messages::internalError(
+                                                    aResp->res);
+                                                return;
+                                            }
+
+                                            nlohmann::json& prevCoreTotal =
+                                                aResp->res.jsonValue
+                                                    ["ProcessorSummary"]
+                                                    ["CoreCount"];
+                                            uint64_t* prevCoreTotalPtr =
+                                                prevCoreTotal
+                                                    .get_ptr<uint64_t*>();
+
+                                            if (prevCoreTotalPtr == nullptr)
+                                            {
+                                                prevCoreTotal = *coreCountVal;
+                                            }
+                                            else
+                                            {
+                                                *prevCoreTotalPtr +=
+                                                    *coreCountVal;
+                                            }
+                                        }
+                                    }
                                 },
                                 connection.first, path,
                                 "org.freedesktop.DBus.Properties", "GetAll",
