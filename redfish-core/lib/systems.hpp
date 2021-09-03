@@ -309,6 +309,57 @@ inline void
                             BMCWEB_LOG_DEBUG
                                 << "Found Cpu, now get its properties.";
 
+                            auto getCpuPresenceState =
+                                [aResp](const boost::system::error_code ec2,
+                                        const std::variant<bool>&
+                                            cpuPresenceCheck) {
+                                    if (ec2)
+                                    {
+                                        BMCWEB_LOG_ERROR
+                                            << "DBUS response error " << ec2;
+                                        return;
+                                    }
+                                    modifyCpuPresenceState(aResp,
+                                                           cpuPresenceCheck);
+                                };
+
+                            auto getCpuFunctionalState =
+                                [aResp](const boost::system::error_code ec2,
+                                        const std::variant<bool>&
+                                            cpuFunctionalCheck) {
+                                    if (ec2)
+                                    {
+                                        BMCWEB_LOG_ERROR
+                                            << "DBUS response error " << ec2;
+                                        return;
+                                    }
+                                    modifyCpuFunctionalState(
+                                        aResp, cpuFunctionalCheck);
+                                };
+
+                            // Get the Presence of CPU
+                            crow::connections::systemBus->async_method_call(
+                                std::move(getCpuPresenceState),
+                                connection.first, path,
+                                "org.freedesktop.DBus."
+                                "Properties",
+                                "Get",
+                                "xyz.openbmc_project.Inventory."
+                                "Item",
+                                "Present");
+
+                            // Get the Functional State
+                            crow::connections::systemBus->async_method_call(
+                                std::move(getCpuFunctionalState),
+                                connection.first, path,
+                                "org.freedesktop.DBus."
+                                "Properties",
+                                "Get",
+                                "xyz.openbmc_project.State."
+                                "Decorator."
+                                "OperationalStatus",
+                                "Functional");
+
                             crow::connections::systemBus->async_method_call(
                                 [aResp, service{connection.first},
                                  path](const boost::system::error_code ec2,
@@ -327,63 +378,6 @@ inline void
                                     BMCWEB_LOG_DEBUG << "Got "
                                                      << properties.size()
                                                      << " Cpu properties.";
-
-                                    auto getCpuPresenceState =
-                                        [aResp](
-                                            const boost::system::error_code ec3,
-                                            const std::variant<bool>&
-                                                cpuPresenceCheck) {
-                                            if (ec3)
-                                            {
-                                                BMCWEB_LOG_ERROR
-                                                    << "DBUS response error "
-                                                    << ec3;
-                                                return;
-                                            }
-                                            modifyCpuPresenceState(
-                                                aResp, cpuPresenceCheck);
-                                        };
-
-                                    auto getCpuFunctionalState =
-                                        [aResp](
-                                            const boost::system::error_code ec3,
-                                            const std::variant<bool>&
-                                                cpuFunctionalCheck) {
-                                            if (ec3)
-                                            {
-                                                BMCWEB_LOG_ERROR
-                                                    << "DBUS response error "
-                                                    << ec3;
-                                                return;
-                                            }
-                                            modifyCpuFunctionalState(
-                                                aResp, cpuFunctionalCheck);
-                                        };
-
-                                    // Get the Presence of CPU
-                                    crow::connections::systemBus
-                                        ->async_method_call(
-                                            std::move(getCpuPresenceState),
-                                            service, path,
-                                            "org.freedesktop.DBus."
-                                            "Properties",
-                                            "Get",
-                                            "xyz.openbmc_project.Inventory."
-                                            "Item",
-                                            "Present");
-
-                                    // Get the Functional State
-                                    crow::connections::systemBus
-                                        ->async_method_call(
-                                            std::move(getCpuFunctionalState),
-                                            service, path,
-                                            "org.freedesktop.DBus."
-                                            "Properties",
-                                            "Get",
-                                            "xyz.openbmc_project.State."
-                                            "Decorator."
-                                            "OperationalStatus",
-                                            "Functional");
 
                                     for (const auto& property : properties)
                                     {
