@@ -131,6 +131,8 @@ inline void getPCIeSlots(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                 }
 
                 const std::string& connectionName = serviceName[0].first;
+                const std::vector<std::string>& interfaceList =
+                    serviceName[0].second;
                 const std::string pcieSlotPath = objectPath;
 
                 // The association of this PCIeSlot is used to determine whether
@@ -270,6 +272,41 @@ inline void getPCIeSlots(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                             connectionName, pcieSlotPath,
                             "org.freedesktop.DBus.Properties", "GetAll",
                             "xyz.openbmc_project.Inventory.Item.PCIeSlot");
+
+                        if (std::find(
+                                interfaceList.begin(), interfaceList.end(),
+                                "xyz.openbmc_project.Inventory.Decorator."
+                                "LocationCode") == interfaceList.second.end())
+                        {
+                            return;
+                        }
+
+                        crow::connections::systemBus->async_method_call(
+                            [aResp](const boost::system::error_code ec,
+                                    const std::variant<std::string>& property) {
+                                if (ec)
+                                {
+                                    BMCWEB_LOG_DEBUG << "DBUS response error";
+                                    messages::internalError(aResp->res);
+                                    return;
+                                }
+
+                                const std::string* value =
+                                    std::get_if<std::string>(&property);
+
+                                if (value == nullptr)
+                                {
+                                    messages::internalError(aResp->res);
+                                    return;
+                                }
+                                perpertyData["Location"]["PartLocation"]
+                                            ["ServiceLabel"] = *value;
+                            },
+                            connectionName, pcieSlotPath,
+                            "org.freedesktop.DBus.Properties", "Get",
+                            "xyz.openbmc_project.Inventory.Decorator."
+                            "LocationCode",
+                            "LocationCode");
                     },
                     "xyz.openbmc_project.ObjectMapper",
                     pcieSlotPath + "/chassis",
