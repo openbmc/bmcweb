@@ -89,6 +89,34 @@ inline std::string analysisSlotType(const std::string& slotType)
     return "";
 }
 
+inline void
+    addLocationCallback(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                        size_t index, const std::string& connectionName,
+                        const std::string& pcieSlotPath,
+                        const std::string& locationInterface)
+{
+    crow::connections::systemBus->async_method_call(
+        [asyncResp, index](const boost::system::error_code ec,
+                           const std::variant<std::string>& property) {
+            if (ec)
+            {
+                BMCWEB_LOG_DEBUG << "DBUS response error";
+                messages::internalError(asyncResp->res);
+                return;
+            }
+            const std::string* value = std::get_if<std::string>(&property);
+            if (value == nullptr)
+            {
+                messages::internalError(asyncResp->res);
+                return;
+            }
+            asyncResp->res.jsonValue["Slots"][index]["Location"]["PartLocation"]
+                                    ["ServiceLabel"] = *value;
+        },
+        connectionName, pcieSlotPath, "org.freedesktop.DBus.Properties", "Get",
+        locationInterface, "LocationCode");
+}
+
 inline void getPCIeSlots(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                          const std::string& chassisID)
 {
@@ -115,7 +143,7 @@ inline void getPCIeSlots(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                 messages::internalError(asyncResp->res);
                 return;
             }
-            if (subtree.size() == 0)
+            if (subtree.empty())
             {
                 BMCWEB_LOG_ERROR << "Can't find PCIeSlot D-Bus object!";
                 return;
@@ -131,12 +159,15 @@ inline void getPCIeSlots(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                 }
 
                 const std::string& connectionName = serviceName[0].first;
+                const std::vector<std::string>& interfaceList =
+                    serviceName[0].second;
                 const std::string pcieSlotPath = objectPath;
 
                 // The association of this PCIeSlot is used to determine whether
                 // it belongs to this ChassisID
                 crow::connections::systemBus->async_method_call(
-                    [asyncResp, chassisID, pcieSlotPath, connectionName](
+                    [asyncResp, chassisID, pcieSlotPath, connectionName,
+                     interfaceList](
                         const boost::system::error_code ec,
                         const std::variant<std::vector<std::string>>&
                             endpoints) {
@@ -180,7 +211,8 @@ inline void getPCIeSlots(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                         }
 
                         crow::connections::systemBus->async_method_call(
-                            [asyncResp](
+                            [asyncResp, pcieSlotPath, connectionName,
+                             interfaceList](
                                 const boost::system::error_code ec,
                                 const std::vector<std::pair<
                                     std::string,
@@ -196,6 +228,7 @@ inline void getPCIeSlots(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
 
                                 nlohmann::json& tempArray =
                                     asyncResp->res.jsonValue["Slots"];
+                                size_t index = tempArray.size();
                                 tempArray.push_back({});
                                 nlohmann::json& propertyData = tempArray.back();
 
@@ -266,6 +299,20 @@ inline void getPCIeSlots(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                                         propertyData["HotPluggable"] = *value;
                                     }
                                 }
+
+                                const std::string locationInterface =
+                                    "xyz.openbmc_project.Inventory.Decorator."
+                                    "LocationCode";
+                                if (std::find(interfaceList.begin(),
+                                              interfaceList.end(),
+                                              locationInterface) !=
+                                    interfaceList.end())
+                                {
+                                    std::bind_front(
+                                        addLocationCallback, asyncResp, index,
+                                        connectionName, pcieSlotPath,
+                                        locationInterface);
+                                }
                             },
                             connectionName, pcieSlotPath,
                             "org.freedesktop.DBus.Properties", "GetAll",
@@ -280,7 +327,7 @@ inline void getPCIeSlots(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
         "xyz.openbmc_project.ObjectMapper",
         "/xyz/openbmc_project/object_mapper",
         "xyz.openbmc_project.ObjectMapper", "GetSubTree",
-        "/xyz/openbmc_project/inventory", int32_t(0),
+        "/xyz/openbmc_project", int32_t(0),
         std::array<const char*, 1>{
             "xyz.openbmc_project.Inventory.Item.PCIeSlot"});
 }
