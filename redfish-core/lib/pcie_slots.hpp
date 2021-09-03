@@ -131,12 +131,15 @@ inline void getPCIeSlots(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                 }
 
                 const std::string& connectionName = serviceName[0].first;
+                const std::vector<std::string>& interfaceList =
+                    serviceName[0].second;
                 const std::string pcieSlotPath = objectPath;
 
                 // The association of this PCIeSlot is used to determine whether
                 // it belongs to this ChassisID
                 crow::connections::systemBus->async_method_call(
-                    [asyncResp, chassisID, pcieSlotPath, connectionName](
+                    [asyncResp, chassisID, pcieSlotPath, connectionName,
+                     interfaceList](
                         const boost::system::error_code ec,
                         const std::variant<std::vector<std::string>>&
                             endpoints) {
@@ -180,7 +183,7 @@ inline void getPCIeSlots(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                         }
 
                         crow::connections::systemBus->async_method_call(
-                            [asyncResp](
+                            [asyncResp, pcieSlotPath, connectionName](
                                 const boost::system::error_code ec,
                                 const std::vector<std::pair<
                                     std::string,
@@ -196,6 +199,7 @@ inline void getPCIeSlots(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
 
                                 nlohmann::json& tempArray =
                                     asyncResp->res.jsonValue["Slots"];
+                                size_t index = tempArray.size();
                                 tempArray.push_back({});
                                 nlohmann::json& propertyData = tempArray.back();
 
@@ -266,6 +270,40 @@ inline void getPCIeSlots(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                                         propertyData["HotPluggable"] = *value;
                                     }
                                 }
+
+                                crow::connections::systemBus->async_method_call(
+                                    [asyncResp,
+                                     index](const boost::system::error_code ec,
+                                            const std::variant<std::string>&
+                                                property) {
+                                        if (ec)
+                                        {
+                                            BMCWEB_LOG_DEBUG
+                                                << "DBUS response error";
+                                            messages::internalError(
+                                                asyncResp->res);
+                                            return;
+                                        }
+
+                                        const std::string* value =
+                                            std::get_if<std::string>(&property);
+
+                                        if (value == nullptr)
+                                        {
+                                            messages::internalError(
+                                                asyncResp->res);
+                                            return;
+                                        }
+                                        asyncResp->res.jsonValue
+                                            ["Slots"][index]["Location"]
+                                            ["PartLocation"]["ServiceLabel"] =
+                                            *value;
+                                    },
+                                    connectionName, pcieSlotPath,
+                                    "org.freedesktop.DBus.Properties", "Get",
+                                    "xyz.openbmc_project.Inventory.Decorator."
+                                    "LocationCode",
+                                    "LocationCode");
                             },
                             connectionName, pcieSlotPath,
                             "org.freedesktop.DBus.Properties", "GetAll",
