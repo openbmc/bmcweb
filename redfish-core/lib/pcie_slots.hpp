@@ -20,6 +20,38 @@
 namespace redfish
 {
 
+inline void addLocation(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                        const std::string& connectionName,
+                        const std::string& pcieSlotPath, bool findLocation,
+                        size_t index)
+{
+    if (!findLocation)
+    {
+        return;
+    }
+
+    crow::connections::systemBus->async_method_call(
+        [asyncResp, index](const boost::system::error_code ec,
+                           const std::variant<std::string>& property) {
+        if (ec)
+        {
+            BMCWEB_LOG_DEBUG << "DBUS response error";
+            messages::internalError(asyncResp->res);
+            return;
+        }
+        const std::string* value = std::get_if<std::string>(&property);
+        if (value == nullptr)
+        {
+            messages::internalError(asyncResp->res);
+            return;
+        }
+        asyncResp->res.jsonValue["Slots"][index]["Location"]["PartLocation"]
+                                ["ServiceLabel"] = *value;
+        },
+        connectionName, pcieSlotPath, "org.freedesktop.DBus.Properties", "Get",
+        "xyz.openbmc_project.Inventory.Decorator.LocationCode", "LocationCode");
+}
+
 inline pcie_slots::SlotTypes dbusSlotTypeToRf(const std::string& slotType)
 {
     if (slotType ==
@@ -72,7 +104,8 @@ inline pcie_slots::SlotTypes dbusSlotTypeToRf(const std::string& slotType)
 inline void
     onPcieSlotGetAllDone(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                          const boost::system::error_code& ec,
-                         const dbus::utility::DBusPropertiesMap& propertiesList)
+                         const dbus::utility::DBusPropertiesMap& propertiesList,
+                         const std::function<void(size_t)>& callback)
 {
     if (ec)
     {
@@ -144,6 +177,8 @@ inline void
         slot["HotPluggable"] = *hotPluggable;
     }
 
+    // Pass the slot index to the callback.
+    callback(slots.size());
     slots.emplace_back(std::move(slot));
 }
 
@@ -151,7 +186,7 @@ inline void onMapperAssociationDone(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& chassisID, const std::string& pcieSlotPath,
     const std::string& connectionName, const boost::system::error_code& ec,
-    const dbus::utility::MapperEndPoints& pcieSlotChassis)
+    const dbus::utility::MapperEndPoints& pcieSlotChassis, bool findLocation)
 {
     if (ec)
     {
@@ -183,9 +218,13 @@ inline void onMapperAssociationDone(
     sdbusplus::asio::getAllProperties(
         *crow::connections::systemBus, connectionName, pcieSlotPath,
         "xyz.openbmc_project.Inventory.Item.PCIeSlot",
-        [asyncResp](const boost::system::error_code& ec2,
-                    const dbus::utility::DBusPropertiesMap& propertiesList) {
-        onPcieSlotGetAllDone(asyncResp, ec2, propertiesList);
+        [asyncResp, connectionName, pcieSlotPath,
+         findLocation](const boost::system::error_code& ec2,
+                       const dbus::utility::DBusPropertiesMap& propertiesList) {
+        onPcieSlotGetAllDone(asyncResp, ec2, propertiesList,
+                             std::bind_front(addLocation, asyncResp,
+                                             connectionName, pcieSlotPath,
+                                             findLocation));
         });
 }
 
@@ -217,12 +256,17 @@ inline void
     asyncResp->res.jsonValue["Id"] = "1";
     asyncResp->res.jsonValue["Slots"] = nlohmann::json::array();
 
+    const std::string locationInterface =
+        "xyz.openbmc_project.Inventory.Decorator."
+        "LocationCode";
     for (const auto& pathServicePair : subtree)
     {
         const std::string& pcieSlotPath = pathServicePair.first;
         for (const auto& connectionInterfacePair : pathServicePair.second)
         {
             const std::string& connectionName = connectionInterfacePair.first;
+            const std::vector<std::string>& interfaceList =
+                connectionInterfacePair.second;
             sdbusplus::message::object_path pcieSlotAssociationPath(
                 pcieSlotPath);
             pcieSlotAssociationPath /= "chassis";
@@ -231,11 +275,16 @@ inline void
             // it belongs to this ChassisID
             dbus::utility::getAssociationEndPoints(
                 std::string{pcieSlotAssociationPath},
-                [asyncResp, chassisID, pcieSlotPath, connectionName](
+                [asyncResp, chassisID, pcieSlotPath, connectionName,
+                 interfaceList, locationInterface](
                     const boost::system::error_code& ec2,
                     const dbus::utility::MapperEndPoints& endpoints) {
+                bool findLocation =
+                    std::find(interfaceList.begin(), interfaceList.end(),
+                              locationInterface) != interfaceList.end();
                 onMapperAssociationDone(asyncResp, chassisID, pcieSlotPath,
-                                        connectionName, ec2, endpoints);
+                                        connectionName, ec2, endpoints,
+                                        findLocation);
                 });
         }
     }
