@@ -384,29 +384,203 @@ inline void requestRoutesDrive(App& app)
                     health->populate();
 
                     crow::connections::systemBus->async_method_call(
-                        [asyncResp, path](const boost::system::error_code ec2,
-                                          const std::variant<bool> present) {
+                        [asyncResp, path](
+                            const boost::system::error_code ec2,
+                            const std::vector<std::pair<
+                                std::string, std::variant<bool, std::string>>>&
+                                propertiesList) {
                             // this interface isn't necessary, only check it if
                             // we get a good return
                             if (ec2)
                             {
                                 return;
                             }
-                            const bool* enabled = std::get_if<bool>(&present);
-                            if (enabled == nullptr)
+                            for (const auto& property : propertiesList)
                             {
-                                BMCWEB_LOG_DEBUG << "Illegal property present";
-                                messages::internalError(asyncResp->res);
-                                return;
-                            }
-                            if (!(*enabled))
-                            {
-                                asyncResp->res.jsonValue["Status"]["State"] =
-                                    "Disabled";
+                                const std::string& propertyName =
+                                    property.first;
+                                if (propertyName == "Present")
+                                {
+                                    const bool* enabled =
+                                        std::get_if<bool>(&property.second);
+                                    if (enabled == nullptr)
+                                    {
+                                        BMCWEB_LOG_ERROR
+                                            << "Illegal property present";
+                                        messages::internalError(asyncResp->res);
+                                        return;
+                                    }
+                                    if (!(*enabled))
+                                    {
+                                        asyncResp->res
+                                            .jsonValue["Status"]["State"] =
+                                            "Disabled";
+                                    }
+                                }
+                                else if (propertyName == "PrettyName")
+                                {
+                                    const std::string* value =
+                                        std::get_if<std::string>(
+                                            &property.second);
+                                    if (value == nullptr)
+                                    {
+                                        BMCWEB_LOG_ERROR
+                                            << "Illegal property PrettyName";
+                                        messages::internalError(asyncResp->res);
+                                        return;
+                                    }
+                                    if (!value->empty())
+                                    {
+                                        // Override name if PrettyName set
+                                        asyncResp->res.jsonValue["Name"] =
+                                            *value;
+                                    }
+                                }
                             }
                         },
                         connectionName, path, "org.freedesktop.DBus.Properties",
-                        "Get", "xyz.openbmc_project.Inventory.Item", "Present");
+                        "GetAll", "xyz.openbmc_project.Inventory.Item");
+
+                    crow::connections::systemBus->async_method_call(
+                        [asyncResp,
+                         path](const boost::system::error_code ec2,
+                               const std::vector<std::pair<
+                                   std::string,
+                                   std::variant<std::string, uint64_t,
+                                                std::vector<std::string>>>>&
+                                   propertiesList) {
+                            // this interface isn't necessary, only check it if
+                            // we get a good return
+                            if (ec2)
+                            {
+                                return;
+                            }
+                            for (const auto& property : propertiesList)
+                            {
+                                const std::string& propertyName =
+                                    property.first;
+                                if (propertyName == "Capacity")
+                                {
+                                    const uint64_t* capacity =
+                                        std::get_if<uint64_t>(&property.second);
+                                    if (capacity == nullptr)
+                                    {
+                                        BMCWEB_LOG_ERROR
+                                            << "Illegal property Capacity";
+                                        messages::internalError(asyncResp->res);
+                                        return;
+                                    }
+                                    if (*capacity)
+                                    {
+                                        asyncResp->res
+                                            .jsonValue["CapacityBytes"] =
+                                            *capacity;
+                                    }
+                                    else
+                                    {
+                                        asyncResp->res
+                                            .jsonValue["CapacityBytes"] =
+                                            nullptr;
+                                    }
+                                }
+                                else if (propertyName == "Interfaces")
+                                {
+                                    const std::vector<std::string>* value =
+                                        std::get_if<std::vector<std::string>>(
+                                            &property.second);
+                                    if (value == nullptr)
+                                    {
+                                        BMCWEB_LOG_ERROR
+                                            << "Illegal property Interfaces";
+                                        messages::internalError(asyncResp->res);
+                                        return;
+                                    }
+                                    if (value->empty())
+                                    {
+                                        asyncResp->res.jsonValue["Protocol"] =
+                                            nullptr;
+                                        continue;
+                                    }
+                                    // Redfish supports only one interface so
+                                    // take first from the list
+                                    auto& proto = value->front();
+                                    if (proto ==
+                                        "xyz.openbmc_project.Inventory."
+                                        "Item.Drive.DriveInterface.SAS")
+                                    {
+                                        asyncResp->res.jsonValue["Protocol"] =
+                                            "SAS";
+                                    }
+                                    else if (proto ==
+                                             "xyz.openbmc_project.Inventory."
+                                             "Item.Drive.DriveInterface.SATA")
+                                    {
+                                        asyncResp->res.jsonValue["Protocol"] =
+                                            "SATA";
+                                    }
+                                    else if (proto ==
+                                             "xyz.openbmc_project.Inventory."
+                                             "Item.Drive.DriveInterface.NVMe")
+                                    {
+                                        asyncResp->res.jsonValue["Protocol"] =
+                                            "NVMe";
+                                    }
+                                    else if (proto ==
+                                             "xyz.openbmc_project.Inventory."
+                                             "Item.Drive.DriveInterface.FC")
+                                    {
+                                        asyncResp->res.jsonValue["Protocol"] =
+                                            "FC";
+                                    }
+                                    else if (proto ==
+                                             "xyz.openbmc_project.Inventory."
+                                             "Item.Drive.DriveInterface.USB")
+                                    {
+                                        asyncResp->res.jsonValue["Protocol"] =
+                                            "USB";
+                                    }
+                                    else
+                                    {
+                                        asyncResp->res.jsonValue["Protocol"] =
+                                            nullptr;
+                                    }
+                                }
+                                else if (propertyName == "Type")
+                                {
+                                    const std::string* value =
+                                        std::get_if<std::string>(
+                                            &property.second);
+                                    if (value == nullptr)
+                                    {
+                                        BMCWEB_LOG_ERROR
+                                            << "Illegal property Type";
+                                        messages::internalError(asyncResp->res);
+                                        return;
+                                    }
+                                    if (*value ==
+                                        "xyz.openbmc_project.Inventory."
+                                        "Item.Drive.DriveType.HDD")
+                                    {
+                                        asyncResp->res.jsonValue["MediaType"] =
+                                            "HDD";
+                                    }
+                                    else if (*value == "xyz.openbmc_project."
+                                                       "Inventory.Item."
+                                                       "Drive.DriveType.SSD")
+                                    {
+                                        asyncResp->res.jsonValue["MediaType"] =
+                                            "SSD";
+                                    }
+                                    else
+                                    {
+                                        asyncResp->res.jsonValue["MediaType"] =
+                                            nullptr;
+                                    }
+                                }
+                            }
+                        },
+                        connectionName, path, "org.freedesktop.DBus.Properties",
+                        "GetAll", "xyz.openbmc_project.Inventory.Item.Drive");
 
                     crow::connections::systemBus->async_method_call(
                         [asyncResp](const boost::system::error_code ec2,
