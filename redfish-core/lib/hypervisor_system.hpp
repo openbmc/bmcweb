@@ -745,9 +745,10 @@ inline void requestRoutesHypervisorSystems(App& app)
                             "#ComputerSystem.v1_6_0.ComputerSystem";
                         asyncResp->res.jsonValue["@odata.id"] =
                             "/redfish/v1/Systems/hypervisor";
-                        asyncResp->res.jsonValue["Description"] = "Hypervisor";
+                        asyncResp->res.jsonValue["Description"] = "OS";
                         asyncResp->res.jsonValue["Name"] = "Hypervisor";
                         asyncResp->res.jsonValue["Id"] = "hypervisor";
+                        asyncResp->res.jsonValue["SystemType"] = "OS";
                         asyncResp->res.jsonValue["Links"]["ManagedBy"] = {
                             {{"@odata.id", "/redfish/v1/Managers/bmc"}}};
                         asyncResp->res.jsonValue["EthernetInterfaces"] = {
