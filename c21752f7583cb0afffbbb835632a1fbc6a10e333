@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "6f20a205_96677966",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1000500
+      },
+      "writtenOn": "2021-09-07T23:05:38Z",
+      "side": 1,
+      "message": "Added test cases with only one CPU utilization sensor present, and with both sensors absent.",
+      "parentUuid": "8c879ad7_2ed9deda",
+      "range": {
+        "startLine": 22,
+        "startChar": 0,
+        "endLine": 22,
+        "endChar": 38
+      },
+      "revId": "c21752f7583cb0afffbbb835632a1fbc6a10e333",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3b5bcf98_4817ff59",
         "filename": "redfish-core/lib/managers.hpp",
         "patchSetId": 4
@@ -45,6 +69,30 @@
       "revId": "c21752f7583cb0afffbbb835632a1fbc6a10e333",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7d41f184_3c492a64",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1800,
+      "author": {
+        "id": 1000500
+      },
+      "writtenOn": "2021-09-07T23:05:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3b5bcf98_4817ff59",
+      "range": {
+        "startLine": 1797,
+        "startChar": 12,
+        "endLine": 1800,
+        "endChar": 45
+      },
+      "revId": "c21752f7583cb0afffbbb835632a1fbc6a10e333",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "3222d58f_bdbf0504",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1816,
+      "author": {
+        "id": 1000500
+      },
+      "writtenOn": "2021-09-07T23:05:38Z",
+      "side": 1,
+      "message": "If no name is CPU_Kernel or CPU_User, this might have two possibilities:\n1) If there are no xyz.oepnbmc_project.Sensor.Value objects in /xyz/openbmc_project/sensors, the DBus method call \n\n  busctl call xyz.openbmc_project.ObjectMapper /xyz/openbmc_project/object_mapper xyz.openbmc_project.ObjectMapper GetSubTree sias \"/xyz/openbmc_project/sensors\" 2 1 \"xyz.openbmc_project.Sensor.Value\"\n\nlaunched on line 1893-1896 will error out, an error will be added to the respnose and BMC\u0027s CPU Utilization will not be populated.\n\n2) If there are sensor objects but no sensors named \"CPU_User\" or \"CPU_Kernel\", the aforementioned DBus method call will not error out, but the same error will still be appended to the response.",
+      "parentUuid": "33d4eadb_d899c77e",
+      "range": {
+        "startLine": 1816,
+        "startChar": 20,
+        "endLine": 1816,
+        "endChar": 29
+      },
+      "revId": "c21752f7583cb0afffbbb835632a1fbc6a10e333",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f32ef540_78112009",
         "filename": "redfish-core/lib/managers.hpp",
         "patchSetId": 4
@@ -91,6 +163,30 @@
       "revId": "c21752f7583cb0afffbbb835632a1fbc6a10e333",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eb9cb673_0c2e4376",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1823,
+      "author": {
+        "id": 1000500
+      },
+      "writtenOn": "2021-09-07T23:05:38Z",
+      "side": 1,
+      "message": "interfaceMaps.first (s) is the object path.\nAdded in the comments.",
+      "parentUuid": "f32ef540_78112009",
+      "range": {
+        "startLine": 1823,
+        "startChar": 19,
+        "endLine": 1823,
+        "endChar": 41
+      },
+      "revId": "c21752f7583cb0afffbbb835632a1fbc6a10e333",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "093181a2_97e92055",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1827,
+      "author": {
+        "id": 1000500
+      },
+      "writtenOn": "2021-09-07T23:05:38Z",
+      "side": 1,
+      "message": "If only one is found, the CPU utilization is not populated, and an error is set.",
+      "parentUuid": "97acf24b_962a52f5",
+      "range": {
+        "startLine": 1827,
+        "startChar": 20,
+        "endLine": 1827,
+        "endChar": 36
+      },
+      "revId": "c21752f7583cb0afffbbb835632a1fbc6a10e333",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "540a1369_58e82da1",
         "filename": "redfish-core/lib/managers.hpp",
         "patchSetId": 4
@@ -140,6 +260,30 @@
     },
     {
       "key": {
+        "uuid": "9bb78841_a72fbbba",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1845,
+      "author": {
+        "id": 1000500
+      },
+      "writtenOn": "2021-09-07T23:05:38Z",
+      "side": 1,
+      "message": "Added a messages::internalError(aResp-\u003eres). It doesn\u0027t look I can add a error message though.",
+      "parentUuid": "540a1369_58e82da1",
+      "range": {
+        "startLine": 1845,
+        "startChar": 28,
+        "endLine": 1845,
+        "endChar": 35
+      },
+      "revId": "c21752f7583cb0afffbbb835632a1fbc6a10e333",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1cc9095b_3e3f836e",
         "filename": "redfish-core/lib/managers.hpp",
         "patchSetId": 4
@@ -160,6 +304,30 @@
       "revId": "c21752f7583cb0afffbbb835632a1fbc6a10e333",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "826fd9b1_7c7db121",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1851,
+      "author": {
+        "id": 1000500
+      },
+      "writtenOn": "2021-09-07T23:05:38Z",
+      "side": 1,
+      "message": "Same as above, added a messages::internalError(aResp-\u003eres).",
+      "parentUuid": "1cc9095b_3e3f836e",
+      "range": {
+        "startLine": 1851,
+        "startChar": 28,
+        "endLine": 1851,
+        "endChar": 35
+      },
+      "revId": "c21752f7583cb0afffbbb835632a1fbc6a10e333",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
