@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "61eba259_1f9a1299",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-09-07T16:49:29Z",
+      "side": 1,
+      "message": "Maybe something more like \"Avoid displaying incomplete dump entries\"? \nWhat does size 0 have to do with this?\n\nOr\n\"Only show completed dump entries?\"",
+      "revId": "efc3a426c61ebe6bc3787db16b8a106b071dc9bc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e72d6c07_bb2f1374",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-09-07T16:49:29Z",
+      "side": 1,
+      "message": "There is no Status on https://redfish.dmtf.org/schemas/v1/LogEntry.v1_9_0.json \n\nOtherwise I would suggest showing the inprogress dumps with some status letting the user know these are in progress",
+      "revId": "efc3a426c61ebe6bc3787db16b8a106b071dc9bc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d14286a6_3b65c3e9",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-09-07T16:49:29Z",
+      "side": 1,
+      "message": "Always best to run the Validator",
+      "revId": "efc3a426c61ebe6bc3787db16b8a106b071dc9bc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
