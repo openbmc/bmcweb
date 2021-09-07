@@ -447,6 +447,7 @@ inline void
                 }
                 std::time_t timestamp;
                 uint64_t size = 0;
+                std::string dumpStatus;
                 entriesArray.push_back({});
                 nlohmann::json& thisEntry = entriesArray.back();
 
@@ -458,7 +459,26 @@ inline void
 
                 for (auto& interfaceMap : object.second)
                 {
-                    if (interfaceMap.first == "xyz.openbmc_project.Dump.Entry")
+                    if (interfaceMap.first ==
+                        "xyz.openbmc_project.Common.Progress")
+                    {
+                        for (auto& propertyMap : interfaceMap.second)
+                        {
+                            if (propertyMap.first == "Status")
+                            {
+                                auto status = std::get_if<std::string>(
+                                    &propertyMap.second);
+                                if (status == nullptr)
+                                {
+                                    messages::internalError(asyncResp->res);
+                                    break;
+                                }
+                                dumpStatus = *status;
+                            }
+                        }
+                    }
+                    else if (interfaceMap.first ==
+                             "xyz.openbmc_project.Dump.Entry")
                     {
 
                         for (auto& propertyMap : interfaceMap.second)
@@ -498,6 +518,13 @@ inline void
                             }
                         }
                     }
+                }
+
+                if (dumpStatus != "xyz.openbmc_project.Common.Progress."
+                                  "OperationStatus.Completed")
+                {
+                    // Dump status is not Complete
+                    continue;
                 }
 
                 thisEntry["@odata.type"] = "#LogEntry.v1_7_0.LogEntry";
@@ -578,10 +605,30 @@ inline void
                 foundDumpEntry = true;
                 std::time_t timestamp;
                 uint64_t size = 0;
+                std::string dumpStatus;
 
                 for (auto& interfaceMap : objectPath.second)
                 {
-                    if (interfaceMap.first == "xyz.openbmc_project.Dump.Entry")
+                    if (interfaceMap.first ==
+                        "xyz.openbmc_project.Common.Progress")
+                    {
+                        for (auto& propertyMap : interfaceMap.second)
+                        {
+                            if (propertyMap.first == "Status")
+                            {
+                                auto status = std::get_if<std::string>(
+                                    &propertyMap.second);
+                                if (status == nullptr)
+                                {
+                                    messages::internalError(asyncResp->res);
+                                    break;
+                                }
+                                dumpStatus = *status;
+                            }
+                        }
+                    }
+                    else if (interfaceMap.first ==
+                             "xyz.openbmc_project.Dump.Entry")
                     {
                         for (auto& propertyMap : interfaceMap.second)
                         {
@@ -619,6 +666,16 @@ inline void
                             }
                         }
                     }
+                }
+
+                if (dumpStatus != "xyz.openbmc_project.Common.Progress."
+                                  "OperationStatus.Completed")
+                {
+                    // Dump status is not Complete
+                    // return not found until status is changed to Completed
+                    messages::resourceNotFound(asyncResp->res,
+                                               dumpType + " dump", entryID);
+                    return;
                 }
 
                 asyncResp->res.jsonValue["@odata.type"] =
