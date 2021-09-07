@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "689acc6a_5687a8cf",
+        "filename": "redfish-core/include/registries/privilege_registry.hpp",
+        "patchSetId": 35
+      },
+      "lineNbr": 1008,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-09-07T19:51:34Z",
+      "side": 1,
+      "message": "Yeah, don\u0027t do this. A core is a Processor. Use \nconst static auto\u0026 getProcessor \u003d privilegeSetLogin;",
+      "parentUuid": "50650d2a_492224f3",
+      "revId": "a35d84ee59fbe478adac2f05cc15341cde515c2e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "8b09d242_9800f5e1",
         "filename": "redfish-core/lib/processor.hpp",
         "patchSetId": 35
