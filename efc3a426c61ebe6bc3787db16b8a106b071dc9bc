@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "3f3bf086_1e4037ba",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2021-09-07T17:23:32Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "61eba259_1f9a1299",
+      "revId": "efc3a426c61ebe6bc3787db16b8a106b071dc9bc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e72d6c07_bb2f1374",
         "filename": "/COMMIT_MSG",
         "patchSetId": 1
@@ -30,6 +48,24 @@
       "writtenOn": "2021-09-07T16:49:29Z",
       "side": 1,
       "message": "There is no Status on https://redfish.dmtf.org/schemas/v1/LogEntry.v1_9_0.json \n\nOtherwise I would suggest showing the inprogress dumps with some status letting the user know these are in progress",
+      "revId": "efc3a426c61ebe6bc3787db16b8a106b071dc9bc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7455f5dd_da721e95",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2021-09-07T17:23:32Z",
+      "side": 1,
+      "message": "To do so, there must be some equivalent property in the schema to show the status.\nI see that there is currently none related to status prop in the redfish schema. Provided this, I think to just display the entries that are \"Completed\".\n\nYour thoughts?",
+      "parentUuid": "e72d6c07_bb2f1374",
       "revId": "efc3a426c61ebe6bc3787db16b8a106b071dc9bc",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
@@ -50,6 +86,24 @@
       "revId": "efc3a426c61ebe6bc3787db16b8a106b071dc9bc",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7692e08d_7b1e257c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2021-09-07T17:23:32Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "d14286a6_3b65c3e9",
+      "revId": "efc3a426c61ebe6bc3787db16b8a106b071dc9bc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
