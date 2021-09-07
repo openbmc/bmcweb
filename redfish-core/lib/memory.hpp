@@ -818,6 +818,48 @@ inline void getDimmPartitionData(std::shared_ptr<bmcweb::AsyncResp> aResp,
         "xyz.openbmc_project.Inventory.Item.PersistentMemory.Partition");
 }
 
+inline void
+    getDimmChassisAssociation(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
+                              const std::string& dimmId,
+                              const std::string& path)
+{
+    BMCWEB_LOG_DEBUG << "Get DIMM -- Chassis association";
+    crow::connections::systemBus->async_method_call(
+        [aResp,
+         dimmId](const boost::system::error_code ec,
+                 const std::variant<std::vector<std::string>>& chassisList) {
+            if (ec)
+            {
+                return;
+            }
+            const std::vector<std::string>* chassis =
+                std::get_if<std::vector<std::string>>(&chassisList);
+            if (chassis == nullptr)
+            {
+                return;
+            }
+            if (chassis->size() > 1)
+            {
+                BMCWEB_LOG_DEBUG << dimmId
+                                 << " is associated with mutliple chassis";
+                return;
+            }
+
+            sdbusplus::message::object_path chassisPath((*chassis)[0]);
+            std::string chassisName = chassisPath.filename();
+            if (chassisName.empty())
+            {
+                BMCWEB_LOG_ERROR << "filename() is empty in "
+                                 << chassisPath.str;
+            }
+            aResp->res.jsonValue["Links"]["Chassis"] = {
+                {"@odata.id", "/redfish/v1/Chassis/" + chassisName}};
+        },
+        "xyz.openbmc_project.ObjectMapper", path + "/chassis",
+        "org.freedesktop.DBus.Properties", "Get",
+        "xyz.openbmc_project.Association", "endpoints");
+}
+
 inline void getDimmData(std::shared_ptr<bmcweb::AsyncResp> aResp,
                         const std::string& dimmId)
 {
@@ -864,7 +906,23 @@ inline void getDimmData(std::shared_ptr<bmcweb::AsyncResp> aResp,
                         {
                             getDimmPartitionData(aResp, service, path);
                         }
+
+                        if (std::find(interfaces.begin(), interfaces.end(),
+                                      "xyz.openbmc_project.Inventory.Connector."
+                                      "Slot") != interfaces.end())
+                        {
+                            aResp->res.jsonValue["Location"]["PartLocation"]
+                                                ["LocationType"] = "Slot";
+                        }
+                        if (std::find(interfaces.begin(), interfaces.end(),
+                                      "xyz.openbmc_project.Inventory.Connector."
+                                      "Embedded") != interfaces.end())
+                        {
+                            aResp->res.jsonValue["Location"]["PartLocation"]
+                                                ["LocationType"] = "Embeded";
+                        }
                     }
+                    getDimmChassisAssociation(aResp, dimmId, path);
                 }
             }
             // Object not found
