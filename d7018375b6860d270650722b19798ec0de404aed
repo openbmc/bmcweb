@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9dba6a3a_22a86f7b",
+        "filename": "redfish-core/lib/hypervisor_system.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 751,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-09-07T01:57:54Z",
+      "side": 1,
+      "message": "Does OS actually make more sense here? \nRead the long description down below.\n\n\n        \"SystemType\": {\n            \"enum\": [\n                \"Physical\",\n                \"Virtual\",\n                \"OS\",\n                \"PhysicallyPartitioned\",\n                \"VirtuallyPartitioned\",\n                \"Composed\"\n            ],\n            \"enumDescriptions\": {\n                \"Composed\": \"A computer system constructed by binding resource blocks together.\",\n                \"OS\": \"An operating system instance.\",\n                \"Physical\": \"A computer system.\",\n                \"PhysicallyPartitioned\": \"A hardware-based partition of a computer system.\",\n                \"Virtual\": \"A virtual machine instance running on this system.\",\n                \"VirtuallyPartitioned\": \"A virtual or software-based partition of a computer system.\"\n            },\n            \"enumLongDescriptions\": {\n                \"Composed\": \"A SystemType of Composed typically represents a single system constructed from disaggregated resources through the Redfish composition service.\",\n                \"OS\": \"A SystemType of OS typically represents an OS or hypervisor view of the system.\",\n                \"Physical\": \"A SystemType of Physical typically represents the hardware aspects of a system, such as a management controller.\",\n                \"PhysicallyPartitioned\": \"A SystemType of PhysicallyPartitioned typically represents a single system constructed from one or more physical systems through a firmware or hardware-based service.\",\n                \"Virtual\": \"A SystemType of Virtual typically represents a system that is actually a virtual machine instance.\",\n                \"VirtuallyPartitioned\": \"A SystemType of VirtuallyPartitioned typically represents a single system constructed from one or more virtual systems through a software-based service.\"\n            },",
+      "revId": "d7018375b6860d270650722b19798ec0de404aed",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
