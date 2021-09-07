@@ -19,6 +19,47 @@
     },
     {
       "key": {
+        "uuid": "cae135e8_0983624d",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 1270,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-09-07T02:56:53Z",
+      "side": 1,
+      "message": "+1",
+      "parentUuid": "529324b7_867fcc02",
+      "revId": "b24a81b9cfbb561ad18159b35f118846f8c04a16",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "86b880b2_388e14ed",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 1274,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-09-07T02:56:53Z",
+      "side": 1,
+      "message": "+1. If the interface isn\u0027t there the code will hit (subtree.size() \u003d\u003d 0). Can you remove this comment?",
+      "range": {
+        "startLine": 1273,
+        "startChar": 0,
+        "endLine": 1274,
+        "endChar": 25
+      },
+      "revId": "b24a81b9cfbb561ad18159b35f118846f8c04a16",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "81a15f4d_48150de2",
         "filename": "redfish-core/lib/systems.hpp",
         "patchSetId": 6
