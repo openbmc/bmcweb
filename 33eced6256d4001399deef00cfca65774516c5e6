@@ -142,6 +142,24 @@
       "revId": "33eced6256d4001399deef00cfca65774516c5e6",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a53720a_485150e6",
+        "filename": "redfish-core/include/event_service_manager.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1056,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-09-07T19:49:22Z",
+      "side": 1,
+      "message": "Redfish said use \"ServiceDisabled\" in this case. More discussion on issue 4774. \n\n\"ServiceDisabled\" is in the registry now and has been for a while.",
+      "parentUuid": "5859805e_500a5281",
+      "revId": "33eced6256d4001399deef00cfca65774516c5e6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
