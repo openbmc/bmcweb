@@ -16,6 +16,24 @@
       "revId": "d7018375b6860d270650722b19798ec0de404aed",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1c482756_00372099",
+        "filename": "redfish-core/lib/hypervisor_system.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 751,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-09-07T02:28:41Z",
+      "side": 1,
+      "message": "Opened Redfish issue 4782 on this incase Redfish wanted something more specific",
+      "parentUuid": "9dba6a3a_22a86f7b",
+      "revId": "d7018375b6860d270650722b19798ec0de404aed",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
