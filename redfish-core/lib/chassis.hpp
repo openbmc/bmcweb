@@ -239,6 +239,84 @@ inline void
         "xyz.openbmc_project.Association", "endpoints");
 }
 
+inline void getChassisProcessorAssociation(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& chassisPath)
+{
+
+    BMCWEB_LOG_DEBUG << "Get chassis -- processor association";
+
+    crow::connections::systemBus->async_method_call(
+        [asyncResp](
+            const boost::system::error_code ec,
+            const std::variant<std::vector<std::string>>& processorList) {
+            if (ec)
+            {
+                return;
+            }
+            const std::vector<std::string>* processors =
+                std::get_if<std::vector<std::string>>(&processorList);
+            if (processors == nullptr)
+            {
+                return;
+            }
+            nlohmann::json& jValue =
+                asyncResp->res.jsonValue["Links"]["Processors"];
+            jValue = nlohmann::json::array();
+            for (const auto& p : *processors)
+            {
+                sdbusplus::message::object_path processorPath(p);
+                std::string processorName = processorPath.filename();
+                if (processorName.empty())
+                {
+                    BMCWEB_LOG_ERROR << "filename() is empty in " << p;
+                    continue;
+                }
+                jValue.push_back(
+                    {{"@odata.id", "/redfish/v1/Systems/system/Processors/" +
+                                       processorName}});
+            }
+            asyncResp->res.jsonValue["Links"]["Processors@odata.count"] =
+                processors->size();
+        },
+        "xyz.openbmc_project.ObjectMapper", chassisPath + "/processors",
+        "org.freedesktop.DBus.Properties", "Get",
+        "xyz.openbmc_project.Association", "endpoints");
+}
+
+inline void getChassisMemoryAssociation(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& chassisPath)
+{
+
+    BMCWEB_LOG_DEBUG << "Get chassis -- memory association";
+
+    crow::connections::systemBus->async_method_call(
+        [asyncResp](const boost::system::error_code ec,
+                    const std::variant<std::vector<std::string>>& memoryList) {
+            if (ec)
+            {
+                return;
+            }
+            const std::vector<std::string>* memories =
+                std::get_if<std::vector<std::string>>(&memoryList);
+            if (memories == nullptr)
+            {
+                return;
+            }
+
+            /* Redfish Chassis schema uses memory collection here. Only
+             * motherboard would have such association. Hardcode the system
+             * memory collection odata.id
+             */
+            asyncResp->res.jsonValue["Memory"] = {
+                {"@odata.id", "/redfish/v1/Systems/system/Memory"}};
+        },
+        "xyz.openbmc_project.ObjectMapper", chassisPath + "/memories",
+        "org.freedesktop.DBus.Properties", "Get",
+        "xyz.openbmc_project.Association", "endpoints");
+}
+
 /**
  * ChassisCollection derived class for delivering Chassis Collection Schema
  *  Functions triggers appropriate requests on DBus
@@ -452,6 +530,8 @@ inline void requestRoutesChassis(App& app)
                         }
 
                         getChassisConnectivity(asyncResp, chassisId, path);
+                        getChassisProcessorAssociation(asyncResp, path);
+                        getChassisMemoryAssociation(asyncResp, path);
 
                         crow::connections::systemBus->async_method_call(
                             [asyncResp, chassisId(std::string(chassisId))](
