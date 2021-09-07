@@ -669,6 +669,45 @@ inline void getCpuUniqueId(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
         });
 }
 
+inline void getCpuChassisAssociation(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& processorId, const std::string& objectPath)
+{
+    BMCWEB_LOG_DEBUG << "Get CPU -- Chassis association";
+
+    sdbusplus::asio::getProperty<std::vector<std::string>>(
+        *crow::connections::systemBus, "xyz.openbmc_project.ObjectMapper",
+        objectPath + "/chassis", "xyz.openbmc_project.Association", "endpoints",
+        [asyncResp, processorId](const boost::system::error_code ec,
+                                 const std::vector<std::string>& chassisList) {
+            if (ec)
+            {
+                return;
+            }
+            if (chassisList.empty())
+            {
+                return;
+            }
+            if (chassisList.size() > 1)
+            {
+                BMCWEB_LOG_DEBUG << processorId
+                                 << " is associated with mutliple chassis";
+                return;
+            }
+
+            sdbusplus::message::object_path chassisPath(chassisList[0]);
+            std::string chassisName = chassisPath.filename();
+            if (chassisName.empty())
+            {
+                BMCWEB_LOG_ERROR << "filename() is empty in "
+                                 << chassisPath.str;
+                return;
+            }
+            asyncResp->res.jsonValue["Links"]["Chassis"] = {
+                {"@odata.id", "/redfish/v1/Chassis/" + chassisName}};
+        });
+}
+
 /**
  * Find the D-Bus object representing the requested Processor, and call the
  * handler with the results. If matching object is not found, add 404 error to
@@ -802,6 +841,7 @@ inline void getProcessorData(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
             }
         }
     }
+    getCpuChassisAssociation(aResp, processorId, objectPath);
 }
 
 /**
