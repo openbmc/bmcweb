@@ -683,6 +683,48 @@ inline void getCpuUniqueId(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
         "UniqueIdentifier");
 }
 
+inline void
+    getCpuChassisAssociation(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
+                             const std::string& processorId,
+                             const std::string& objectPath)
+{
+    BMCWEB_LOG_DEBUG << "Get CPU -- Chassis association";
+    crow::connections::systemBus->async_method_call(
+        [aResp, processorId](
+            const boost::system::error_code ec,
+            const std::variant<std::vector<std::string>>& chassisList) {
+            if (ec)
+            {
+                return;
+            }
+            const std::vector<std::string>* chassis =
+                std::get_if<std::vector<std::string>>(&chassisList);
+            if (chassis == nullptr)
+            {
+                return;
+            }
+            if (chassis->size() > 1)
+            {
+                BMCWEB_LOG_DEBUG << processorId
+                                 << " is associated with mutliple chassis";
+                return;
+            }
+
+            sdbusplus::message::object_path chassisPath((*chassis)[0]);
+            std::string chassisName = chassisPath.filename();
+            if (chassisName.empty())
+            {
+                BMCWEB_LOG_ERROR << "filename() is empty in "
+                                 << chassisPath.str;
+            }
+            aResp->res.jsonValue["Links"]["Chassis"] = {
+                {"@odata.id", "/redfish/v1/Chassis/" + chassisName}};
+        },
+        "xyz.openbmc_project.ObjectMapper", objectPath + "/chassis",
+        "org.freedesktop.DBus.Properties", "Get",
+        "xyz.openbmc_project.Association", "endpoints");
+}
+
 /**
  * Find the D-Bus object representing the requested Processor, and call the
  * handler with the results. If matching object is not found, add 404 error to
@@ -815,6 +857,7 @@ inline void getProcessorData(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
             }
         }
     }
+    getCpuChassisAssociation(aResp, processorId, objectPath);
 }
 
 /**
