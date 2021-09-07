@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "dccffa15_12f3217f",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 449,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-09-07T02:49:18Z",
+      "side": 1,
+      "message": "Nitpick: I would prefer \"coreCourt\" here since it becomes the current total below. Don\u0027t worry about it.\n\nIt would be like saying \nprevSum +\u003d value; ( or prevSum \u003d prevSum + value;) instead of sum +\u003d value (or sum \u003d sum + value; ); (how I typically see code e.g. https://stackoverflow.com/questions/34465848/operator-in-c)\n\nKind of the same above for line 403 and prevModel. Anyway don\u0027t worry about. Fine as is.",
+      "range": {
+        "startLine": 449,
+        "startChar": 60,
+        "endLine": 449,
+        "endChar": 74
+      },
+      "revId": "54e956cc0b4efab240c47f29ca071c30065f11e1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
