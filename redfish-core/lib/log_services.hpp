@@ -447,8 +447,8 @@ inline void
                 }
                 std::time_t timestamp;
                 uint64_t size = 0;
-                entriesArray.push_back({});
-                nlohmann::json& thisEntry = entriesArray.back();
+                std::string dumpStatus;
+                nlohmann::json thisEntry;
 
                 std::string entryID = object.first.filename();
                 if (entryID.empty())
@@ -458,7 +458,26 @@ inline void
 
                 for (auto& interfaceMap : object.second)
                 {
-                    if (interfaceMap.first == "xyz.openbmc_project.Dump.Entry")
+                    if (interfaceMap.first ==
+                        "xyz.openbmc_project.Common.Progress")
+                    {
+                        for (auto& propertyMap : interfaceMap.second)
+                        {
+                            if (propertyMap.first == "Status")
+                            {
+                                auto status = std::get_if<std::string>(
+                                    &propertyMap.second);
+                                if (status == nullptr)
+                                {
+                                    messages::internalError(asyncResp->res);
+                                    break;
+                                }
+                                dumpStatus = *status;
+                            }
+                        }
+                    }
+                    else if (interfaceMap.first ==
+                             "xyz.openbmc_project.Dump.Entry")
                     {
 
                         for (auto& propertyMap : interfaceMap.second)
@@ -500,6 +519,14 @@ inline void
                     }
                 }
 
+                if (dumpStatus != "xyz.openbmc_project.Common.Progress."
+                                  "OperationStatus.Completed" &&
+                    !dumpStatus.empty())
+                {
+                    // Dump status is not Complete, no need to enumerate
+                    continue;
+                }
+
                 thisEntry["@odata.type"] = "#LogEntry.v1_7_0.LogEntry";
                 thisEntry["@odata.id"] = dumpPath + entryID;
                 thisEntry["Id"] = entryID;
@@ -524,6 +551,7 @@ inline void
                         "/redfish/v1/Systems/system/LogServices/Dump/Entries/" +
                         entryID + "/attachment";
                 }
+                entriesArray.push_back(std::move(thisEntry));
             }
             asyncResp->res.jsonValue["Members@odata.count"] =
                 entriesArray.size();
@@ -578,10 +606,30 @@ inline void
                 foundDumpEntry = true;
                 std::time_t timestamp;
                 uint64_t size = 0;
+                std::string dumpStatus;
 
                 for (auto& interfaceMap : objectPath.second)
                 {
-                    if (interfaceMap.first == "xyz.openbmc_project.Dump.Entry")
+                    if (interfaceMap.first ==
+                        "xyz.openbmc_project.Common.Progress")
+                    {
+                        for (auto& propertyMap : interfaceMap.second)
+                        {
+                            if (propertyMap.first == "Status")
+                            {
+                                auto status = std::get_if<std::string>(
+                                    &propertyMap.second);
+                                if (status == nullptr)
+                                {
+                                    messages::internalError(asyncResp->res);
+                                    break;
+                                }
+                                dumpStatus = *status;
+                            }
+                        }
+                    }
+                    else if (interfaceMap.first ==
+                             "xyz.openbmc_project.Dump.Entry")
                     {
                         for (auto& propertyMap : interfaceMap.second)
                         {
@@ -619,6 +667,17 @@ inline void
                             }
                         }
                     }
+                }
+
+                if (dumpStatus != "xyz.openbmc_project.Common.Progress."
+                                  "OperationStatus.Completed" &&
+                    !dumpStatus.empty())
+                {
+                    // Dump status is not Complete
+                    // return not found until status is changed to Completed
+                    messages::resourceNotFound(asyncResp->res,
+                                               dumpType + " dump", entryID);
+                    return;
                 }
 
                 asyncResp->res.jsonValue["@odata.type"] =
