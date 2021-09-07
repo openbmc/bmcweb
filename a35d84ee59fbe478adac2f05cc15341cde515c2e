@@ -77,6 +77,29 @@
     },
     {
       "key": {
+        "uuid": "54d1aed4_a9fc65a6",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 35
+      },
+      "lineNbr": 1502,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-09-07T20:57:33Z",
+      "side": 1,
+      "message": "This is a ProcessorCollection schema. \nThis is already in the privilege registry",
+      "range": {
+        "startLine": 1502,
+        "startChar": 41,
+        "endLine": 1502,
+        "endChar": 56
+      },
+      "revId": "a35d84ee59fbe478adac2f05cc15341cde515c2e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "7f513f89_a45da9c7",
         "filename": "redfish-core/lib/processor.hpp",
         "patchSetId": 35
