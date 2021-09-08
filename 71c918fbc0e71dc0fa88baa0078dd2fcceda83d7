@@ -143,6 +143,30 @@
     },
     {
       "key": {
+        "uuid": "a71746c8_b8cd9b4d",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 3144,
+      "author": {
+        "id": 1000206
+      },
+      "writtenOn": "2021-09-08T02:38:36Z",
+      "side": 1,
+      "message": "\u003e Yes, This value starts from 1 by default\n\nEd, as per the exiting code in master, the post code id looks like this B\u003cbootnumber\u003e-\u003cpostcodenumber\u003e, and the bootnumber(index) is always \u003e 0.",
+      "parentUuid": "eeb5052f_9d0d4296",
+      "range": {
+        "startLine": 3144,
+        "startChar": 54,
+        "endLine": 3144,
+        "endChar": 66
+      },
+      "revId": "71c918fbc0e71dc0fa88baa0078dd2fcceda83d7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "2cf82ba8_58eaa6c8",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 8
