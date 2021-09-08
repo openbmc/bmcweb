@@ -253,20 +253,30 @@ class ConfigFile
                     << "The subscription type is SSE, so skipping.";
                 continue;
             }
+            nlohmann::json::object_t headers;
+            for (auto& header : subValue->httpHeaders)
+            {
+                // Note, these are technically copies because nlohmann doesn't
+                // support key lookup by std::string_view.  At least the
+                // following code can use move
+                // https://github.com/nlohmann/json/issues/1529
+                std::string name(header.name_string());
+                headers[std::move(name)] = header.value();
+            }
+
             subscriptions.push_back({
                 {"Id", subValue->id},
                 {"Context", subValue->customText},
                 {"DeliveryRetryPolicy", subValue->retryPolicy},
                 {"Destination", subValue->destinationUrl},
                 {"EventFormatType", subValue->eventFormatType},
-                {"HttpHeaders", subValue->httpHeaders},
+                {"HttpHeaders", std::move(headers)},
                 {"MessageIds", subValue->registryMsgIds},
                 {"Protocol", subValue->protocol},
                 {"RegistryPrefixes", subValue->registryPrefixes},
                 {"ResourceTypes", subValue->resourceTypes},
                 {"SubscriptionType", subValue->subscriptionType},
                 {"MetricReportDefinitions", subValue->metricReportDefinitions},
-
             });
         }
         persistentFile << data;
