@@ -17,6 +17,7 @@
 #include "event_service_manager.hpp"
 
 #include <app.hpp>
+#include <boost/beast/http/fields.hpp>
 #include <registries/privilege_registry.hpp>
 
 namespace redfish
@@ -343,7 +344,22 @@ inline void requestRoutesEventDestinationCollection(App& app)
 
                 if (headers)
                 {
-                    subValue->httpHeaders = *headers;
+                    for (const nlohmann::json& headerChunk : *headers)
+                    {
+                        for (const auto& item : headerChunk.items())
+                        {
+                            const std::string* value =
+                                item.value().get_ptr<const std::string*>();
+                            if (value == nullptr)
+                            {
+                                messages::propertyValueFormatError(
+                                    asyncResp->res, item.value().dump(2, true),
+                                    "HttpHeaders/" + item.key());
+                                return;
+                            }
+                            subValue->httpHeaders.set(item.key(), *value);
+                        }
+                    }
                 }
 
                 if (regPrefixes)
@@ -577,7 +593,25 @@ inline void requestRoutesEventDestination(App& app)
 
                 if (headers)
                 {
-                    subValue->httpHeaders = *headers;
+                    boost::beast::http::fields fields;
+                    for (const nlohmann::json& headerChunk : *headers)
+                    {
+                        for (auto& it : headerChunk.items())
+                        {
+                            const std::string* value =
+                                it.value().get_ptr<const std::string*>();
+                            if (value == nullptr)
+                            {
+                                messages::propertyValueFormatError(
+                                    asyncResp->res,
+                                    it.value().dump(2, ' ', true),
+                                    "HttpHeaders/" + it.key());
+                                return;
+                            }
+                            fields.set(it.key(), *value);
+                        }
+                    }
+                    subValue->httpHeaders = fields;
                 }
 
                 if (retryPolicy)

@@ -1,6 +1,7 @@
 #pragma once
 #include "logging.hpp"
 
+#include <boost/beast/http/fields.hpp>
 #include <boost/container/flat_map.hpp>
 #include <nlohmann/json.hpp>
 
@@ -19,7 +20,7 @@ struct UserSubscription
     std::vector<std::string> registryMsgIds;
     std::vector<std::string> registryPrefixes;
     std::vector<std::string> resourceTypes;
-    std::vector<nlohmann::json> httpHeaders; // key-value pair
+    boost::beast::http::fields httpHeaders;
     std::vector<std::string> metricReportDefinitions;
 
     static std::shared_ptr<UserSubscription>
@@ -146,13 +147,15 @@ struct UserSubscription
                 const auto& obj = element.value();
                 for (const auto& val : obj.items())
                 {
-                    const auto value =
-                        val.value().get_ptr<const nlohmann::json::object_t*>();
+                    const std::string* value =
+                        val.value().get_ptr<const std::string*>();
                     if (value == nullptr)
                     {
+                        BMCWEB_LOG_ERROR << "Failed to parse value for key"
+                                         << val.key();
                         continue;
                     }
-                    subvalue->httpHeaders.emplace_back(*value);
+                    subvalue->httpHeaders.set(val.key(), *value);
                 }
             }
             else if (element.key() == "MetricReportDefinitions")
