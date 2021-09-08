@@ -61,7 +61,6 @@ class HttpClient : public std::enable_shared_from_this<HttpClient>
     boost::beast::flat_buffer buffer;
     boost::beast::http::request<boost::beast::http::string_body> req;
     boost::beast::http::response<boost::beast::http::string_body> res;
-    std::vector<std::pair<std::string, std::string>> headers;
     std::queue<std::string> requestDataQueue;
     ConnState state;
     std::string subId;
@@ -147,11 +146,6 @@ class HttpClient : public std::enable_shared_from_this<HttpClient>
         req.target(uri);
         req.method(boost::beast::http::verb::post);
 
-        // Set headers
-        for (const auto& [key, value] : headers)
-        {
-            req.set(key, value);
-        }
         req.set(boost::beast::http::field::host, host);
         req.keep_alive(true);
 
@@ -366,10 +360,9 @@ class HttpClient : public std::enable_shared_from_this<HttpClient>
         return;
     }
 
-    void setHeaders(
-        const std::vector<std::pair<std::string, std::string>>& httpHeaders)
+    void setHeaders(const boost::beast::http::fields& httpHeaders)
     {
-        headers = httpHeaders;
+        req.base() = boost::beast::http::header<true>(httpHeaders);
     }
 
     void setRetryConfig(const uint32_t retryAttempts,
