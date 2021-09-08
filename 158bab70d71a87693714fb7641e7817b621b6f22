@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "8e0e5308_6521b53e",
+        "filename": "redfish-core/include/event_service_manager.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 1011,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2021-09-08T10:34:51Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "615bb8b6_cee90950",
+      "range": {
+        "startLine": 1011,
+        "startChar": 4,
+        "endLine": 1011,
+        "endChar": 8
+      },
+      "revId": "158bab70d71a87693714fb7641e7817b621b6f22",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a7d59314_b2b800cc",
         "filename": "redfish-core/include/event_service_manager.hpp",
         "patchSetId": 6
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "69bf8600_57e96c73",
+        "filename": "redfish-core/include/event_service_manager.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 1017,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2021-09-08T10:34:51Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "a7d59314_b2b800cc",
+      "range": {
+        "startLine": 1017,
+        "startChar": 12,
+        "endLine": 1017,
+        "endChar": 18
+      },
+      "revId": "158bab70d71a87693714fb7641e7817b621b6f22",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0cdfef6e_be50a8cd",
         "filename": "redfish-core/lib/event_service.hpp",
         "patchSetId": 6
@@ -68,6 +116,30 @@
       "revId": "158bab70d71a87693714fb7641e7817b621b6f22",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "782f5c53_970e8841",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 182,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2021-09-08T10:34:51Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "0cdfef6e_be50a8cd",
+      "range": {
+        "startLine": 166,
+        "startChar": 0,
+        "endLine": 182,
+        "endChar": 17
+      },
+      "revId": "158bab70d71a87693714fb7641e7817b621b6f22",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
