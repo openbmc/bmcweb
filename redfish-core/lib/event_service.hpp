@@ -343,7 +343,22 @@ inline void requestRoutesEventDestinationCollection(App& app)
 
                 if (headers)
                 {
-                    subValue->httpHeaders = *headers;
+                    for (const nlohmann::json& headerChunk : *headers)
+                    {
+                        for (const auto& item : headerChunk.items())
+                        {
+                            const std::string* value =
+                                item.value().get_ptr<const std::string*>();
+                            if (value == nullptr)
+                            {
+                                messages::propertyValueFormatError(
+                                    asyncResp->res, item.value().dump(2, true),
+                                    "HttpHeaders/" + item.key());
+                                return;
+                            }
+                            subValue->httpHeaders.set(item.key(), *value);
+                        }
+                    }
                 }
 
                 if (regPrefixes)
@@ -518,7 +533,6 @@ inline void requestRoutesEventDestination(App& app)
                 asyncResp->res.jsonValue["Context"] = subValue->customText;
                 asyncResp->res.jsonValue["SubscriptionType"] =
                     subValue->subscriptionType;
-                asyncResp->res.jsonValue["HttpHeaders"] = subValue->httpHeaders;
                 asyncResp->res.jsonValue["EventFormatType"] =
                     subValue->eventFormatType;
                 asyncResp->res.jsonValue["RegistryPrefixes"] =
@@ -530,6 +544,15 @@ inline void requestRoutesEventDestination(App& app)
                     subValue->registryMsgIds;
                 asyncResp->res.jsonValue["DeliveryRetryPolicy"] =
                     subValue->retryPolicy;
+                nlohmann::json& headers =
+                    asyncResp->res.jsonValue["HttpHeaders"];
+                headers = nlohmann::json::object_t();
+                for (const boost::beast::http::fields::value_type& it :
+                     subValue->httpHeaders)
+                {
+                    std::string key(it.name_string());
+                    headers[key] = it.value();
+                }
 
                 std::vector<nlohmann::json> mrdJsonArray;
                 for (const auto& mdrUri : subValue->metricReportDefinitions)
@@ -576,7 +599,25 @@ inline void requestRoutesEventDestination(App& app)
 
                 if (headers)
                 {
-                    subValue->httpHeaders = *headers;
+                    boost::beast::http::fields fields;
+                    for (const nlohmann::json& headerChunk : *headers)
+                    {
+                        for (auto& it : headerChunk.items())
+                        {
+                            const std::string* value =
+                                it.value().get_ptr<const std::string*>();
+                            if (value == nullptr)
+                            {
+                                messages::propertyValueFormatError(
+                                    asyncResp->res,
+                                    it.value().dump(2, ' ', true),
+                                    "HttpHeaders/" + it.key());
+                                return;
+                            }
+                            fields.set(it.key(), *value);
+                        }
+                    }
+                    subValue->httpHeaders = fields;
                 }
 
                 if (retryPolicy)
