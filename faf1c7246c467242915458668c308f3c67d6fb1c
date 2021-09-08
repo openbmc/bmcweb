@@ -70,6 +70,24 @@
       "revId": "faf1c7246c467242915458668c308f3c67d6fb1c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8155989a_e3b159b2",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-09-08T20:32:08Z",
+      "side": 1,
+      "message": "\u003e Each subscription will have its own copy of req.\n\nThat seems like something temporary simply because we don\u0027t have connection pooling yet.\n\n\u003e There will be different HttpClient objects for each subscriptions. So there is no possibility for the 2nd subscription to take values from the 1st subscriber\n\nIf that\u0027s true then why is addHeaders being called every time sendEvent is called?  Shouldn\u0027t we just set it in the constructor once and be done with it?\n\nAlso, looking at the code in sendEvent, it seems really inefficient, and makes a copy of every header 3-4 times before actually moving into the struct.  For what it\u0027s worth, we should make that cleaner as well, but not necessarily something you need to do.",
+      "parentUuid": "d7b4f7ec_45927dd5",
+      "revId": "faf1c7246c467242915458668c308f3c67d6fb1c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
