@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "04a860e4_98ce0722",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 20
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-09-08T21:10:22Z",
+      "side": 1,
+      "message": "Tested?",
+      "revId": "5986024217ae4dae6d56b0512be2fa0aa250eb5d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "efb35d0b_71785b6a",
+        "filename": "redfish-core/lib/ut/service_root_test.cpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-09-08T21:10:22Z",
+      "side": 1,
+      "message": "This looks like a Work in Progress. \nI added the wip tag. Please remove if I was incorrect or when this is ready. Overall this looks like a good direction.",
+      "revId": "5986024217ae4dae6d56b0512be2fa0aa250eb5d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
