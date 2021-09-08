@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "ab709560_6a96292d",
+        "filename": "redfish-core/include/registries/privilege_registry.hpp",
+        "patchSetId": 35
+      },
+      "lineNbr": 1008,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-09-08T03:05:49Z",
+      "side": 1,
+      "message": "Thanks @Ali @Gunnar\n\nRemoved.",
+      "parentUuid": "689acc6a_5687a8cf",
+      "revId": "a35d84ee59fbe478adac2f05cc15341cde515c2e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8b09d242_9800f5e1",
         "filename": "redfish-core/lib/processor.hpp",
         "patchSetId": 35
@@ -51,6 +69,24 @@
       "revId": "a35d84ee59fbe478adac2f05cc15341cde515c2e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "235fb46b_af1c9728",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 35
+      },
+      "lineNbr": 858,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-09-08T03:05:49Z",
+      "side": 1,
+      "message": "Sorry, I forgot these.\n\nDone",
+      "parentUuid": "8b09d242_9800f5e1",
+      "revId": "a35d84ee59fbe478adac2f05cc15341cde515c2e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -77,6 +113,30 @@
     },
     {
       "key": {
+        "uuid": "9ffe8d08_b4d53ca6",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 35
+      },
+      "lineNbr": 886,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-09-08T03:05:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a35aa936_b7e5b405",
+      "range": {
+        "startLine": 883,
+        "startChar": 0,
+        "endLine": 886,
+        "endChar": 33
+      },
+      "revId": "a35d84ee59fbe478adac2f05cc15341cde515c2e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "54d1aed4_a9fc65a6",
         "filename": "redfish-core/lib/processor.hpp",
         "patchSetId": 35
@@ -100,6 +160,30 @@
     },
     {
       "key": {
+        "uuid": "c977a44f_2681ad57",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 35
+      },
+      "lineNbr": 1502,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-09-08T03:05:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "54d1aed4_a9fc65a6",
+      "range": {
+        "startLine": 1502,
+        "startChar": 41,
+        "endLine": 1502,
+        "endChar": 56
+      },
+      "revId": "a35d84ee59fbe478adac2f05cc15341cde515c2e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7f513f89_a45da9c7",
         "filename": "redfish-core/lib/processor.hpp",
         "patchSetId": 35
@@ -120,6 +204,30 @@
       "revId": "a35d84ee59fbe478adac2f05cc15341cde515c2e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "874bc72f_1b21932c",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 35
+      },
+      "lineNbr": 1522,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-09-08T03:05:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7f513f89_a45da9c7",
+      "range": {
+        "startLine": 1522,
+        "startChar": 41,
+        "endLine": 1522,
+        "endChar": 60
+      },
+      "revId": "a35d84ee59fbe478adac2f05cc15341cde515c2e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
