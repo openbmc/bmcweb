@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "15cca69b_336440fe",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 37
+      },
+      "lineNbr": 1553,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-09-08T21:13:52Z",
+      "side": 1,
+      "message": "getProcessorCollection like line 1469 \n        .privileges(redfish::privileges::getProcessorCollection)",
+      "range": {
+        "startLine": 1553,
+        "startChar": 41,
+        "endLine": 1553,
+        "endChar": 53
+      },
+      "revId": "275f04826df36cdca73016881afab9e998e956ad",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
