@@ -55,6 +55,24 @@
     },
     {
       "key": {
+        "uuid": "113a08e2_9f7830d6",
+        "filename": "redfish-core/lib/metric_definition.hpp",
+        "patchSetId": 90
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-09-09T23:28:58Z",
+      "side": 1,
+      "message": "\u003e What we would like to cache is whole metric_definition which we are able to calculate in telemetry service so we can only do simple field assignment in bmcweb.\n\nI would much prefer we cache at a higher level if need be.  Caching for each individual endpoint is counter-productive, and while it might make this specific resource easier.\n\n\u003e \n\u003e Current implementation contains simple grouping by reading type, but after your comments and my conversation with John Leung we will need to group them like it is done in telemetry mockup. That would require much more code to be executed each time in bmcweb.\n\nIf it\u0027s required and clean code, I don\u0027t see a problem with that, but I\u0027d like to understand why we need that much more.\n\n\u003e Since it can be performed once and content will depend on features currently supported in telemetry service, there will be only minimal about of changes in bmcweb.\n\nI don\u0027t quite understand the \"minimal changes\" part.  Doing what you suggested would require a whole new dbus-interface patchset?  that seems like more work.\n\n\u003e \n\u003e As you said we currently don\u0027t have implementation to support virtual sensors, so we think that in this review will filter out virtual sensors and add support for them in the future.\n\n\nIs this saying you\u0027re going to remove the \"Implementation\" key from this patchset, and handle it later.  That would be fine.  If you\u0027re saying that we\u0027ll hardcode it to Physical sensor right now, and make it dynamic later, that\u0027s not ok.  I will not check in code that\u0027s known to produce the wrong value.\n\n\u003e That would require more complex implementation. When we add support for virtual sensor this will also require changes, if we place this code in telemetry service bmcweb code will only change if API is changed or we add support for new optional properties in schema.\n\nWhere we put the code only changes who has to maintain it.  Considering that this has no use outside of redfish, nor will it ever, I\u0027d prefer we keep the implementation here, and update the dbus interfaces where needed to support it.\n\n\u003e \n\u003e The only thing not feature related we could cache in ObjectMapper is mapping redfish uri to dbus sensor path, which is only a small part what we need to do to make it work like in telemetry mockup.\n\nTechnically we could cache all of dbus, or we could cache the HTTP outputs when dbus changes.  I\u0027m not really following why this is an issue?",
+      "parentUuid": "e62ebcaf_c65d4370",
+      "revId": "70256ef2da60d9877da75cbc6e980662fa922c04",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d74d5b68_5a964a8a",
         "filename": "redfish-core/lib/metric_definition.hpp",
         "patchSetId": 90
