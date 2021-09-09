@@ -70,16 +70,16 @@ class HttpClient : public std::enable_shared_from_this<HttpClient>
         parser;
     boost::circular_buffer_space_optimized<std::string> requestDataQueue{};
 
-    ConnState state;
+    ConnState state = ConnState::initiatlized;
+
     std::string subId;
     std::string host;
     std::string port;
-    std::string uri;
-    uint32_t retryCount;
-    uint32_t maxRetryAttempts;
-    uint32_t retryIntervalSecs;
-    std::string retryPolicyAction;
-    bool runningTimer;
+    uint32_t retryCount = 0;
+    uint32_t maxRetryAttempts = 5;
+    uint32_t retryIntervalSecs = 0;
+    std::string retryPolicyAction = "TerminateAfterRetries";
+    bool runningTimer = false;
 
     void doResolve()
     {
@@ -386,9 +386,7 @@ class HttpClient : public std::enable_shared_from_this<HttpClient>
         conn(ioc),
         timer(ioc),
         req(boost::beast::http::verb::post, destUri, 11, "", httpHeader),
-        state(ConnState::initialized), subId(id), host(destIP), port(destPort),
-        uri(destUri), retryCount(0), maxRetryAttempts(5), retryIntervalSecs(0),
-        retryPolicyAction("TerminateAfterRetries"), runningTimer(false)
+        subId(id), host(destIP), port(destPort)
     {
         req.set(boost::beast::http::field::host, host);
         req.keep_alive(true);
