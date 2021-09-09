@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f973dcc2_26ab126a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-09-09T14:09:43Z",
+      "side": 1,
+      "message": "Also fixed the VolatileRegionSizeMaxMiB property",
+      "revId": "4595bcf4ff02a84245ac97cb39d5bec360aa5b74",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8956e9a6_5dbb3b94",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-09-09T14:09:43Z",
+      "side": 1,
+      "message": "Can you run the Redfish validator ?",
+      "revId": "4595bcf4ff02a84245ac97cb39d5bec360aa5b74",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2493ea2f_fe5484f0",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 257,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-09-09T14:09:43Z",
+      "side": 1,
+      "message": "These should be separate changes. Makes reviewing harder.",
+      "revId": "4595bcf4ff02a84245ac97cb39d5bec360aa5b74",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "21ce7266_423c5bae",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 547,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-09-09T14:09:43Z",
+      "side": 1,
+      "message": "I don\u0027t see these in https://github.com/openbmc/phosphor-dbus-interfaces/search?q\u003dFirmwareApiVersion ? \nAre they in review? \nIn so, please link that review in the commit msg",
+      "revId": "4595bcf4ff02a84245ac97cb39d5bec360aa5b74",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
