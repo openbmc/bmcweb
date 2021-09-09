@@ -385,7 +385,7 @@ class Subscription : public persistent_data::UserSubscription
     {
         conn = std::make_shared<crow::HttpClient>(
             crow::connections::systemBus->get_io_context(), id, host, port,
-            path);
+            path, httpHeaders);
     }
 
     Subscription(const std::shared_ptr<boost::beast::tcp_stream>& adaptor) :
@@ -400,7 +400,6 @@ class Subscription : public persistent_data::UserSubscription
     {
         if (conn != nullptr)
         {
-            conn->setHeaders(httpHeaders);
             conn->sendData(msg);
             this->eventSeqNum++;
         }
