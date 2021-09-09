@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "3056ffeb_5fce97c2",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 38
+      },
+      "lineNbr": 832,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-09-09T17:15:03Z",
+      "side": 1,
+      "message": "So this will hit if you don\u0027t have \"/xyz/openbmc_project/inventory\" ?",
+      "parentUuid": "46b4bfae_bc2ab7f9",
+      "revId": "870e406012bb03c3a5893fba948951766094a428",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "6a82a2cc_1c7792c5",
         "filename": "redfish-core/lib/processor.hpp",
         "patchSetId": 38
@@ -177,6 +195,24 @@
     },
     {
       "key": {
+        "uuid": "309351c3_8ea1382d",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 38
+      },
+      "lineNbr": 1047,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-09-09T17:15:03Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "62364d13_812d85c1",
+      "revId": "870e406012bb03c3a5893fba948951766094a428",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ed4c6071_eadcf670",
         "filename": "redfish-core/lib/processor.hpp",
         "patchSetId": 38
@@ -241,6 +277,24 @@
       "side": 1,
       "message": "Sure.\nBut I am curious why `res.clear()` is not recommended?",
       "parentUuid": "f38b391d_b26a931b",
+      "revId": "870e406012bb03c3a5893fba948951766094a428",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ad093053_f28ae5a5",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 38
+      },
+      "lineNbr": 1077,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-09-09T17:15:03Z",
+      "side": 1,
+      "message": "It is not something we have not done elsewhere; not using it makes the code more clear IMO and less error prone (everywhere you return, you need to use the res.clear())",
+      "parentUuid": "391ed88f_7cbed44c",
       "revId": "870e406012bb03c3a5893fba948951766094a428",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true

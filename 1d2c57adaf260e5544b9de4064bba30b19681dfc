@@ -1,0 +1,101 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b4a053d0_85d9f1d6",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 40
+      },
+      "lineNbr": 881,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-09-09T17:15:03Z",
+      "side": 1,
+      "message": "Why Absent here and not enabled?",
+      "revId": "1d2c57adaf260e5544b9de4064bba30b19681dfc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "24c83f82_374a14c9",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 40
+      },
+      "lineNbr": 956,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-09-09T17:15:03Z",
+      "side": 1,
+      "message": "Could remove the OK since it is the default",
+      "range": {
+        "startLine": 956,
+        "startChar": 64,
+        "endLine": 956,
+        "endChar": 66
+      },
+      "revId": "1d2c57adaf260e5544b9de4064bba30b19681dfc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b6a18834_37b79dd1",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 40
+      },
+      "lineNbr": 960,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-09-09T17:15:03Z",
+      "side": 1,
+      "message": "This should probably be the default so could remove it as well if you change line 881",
+      "revId": "1d2c57adaf260e5544b9de4064bba30b19681dfc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8c97faf1_2883cdf2",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 40
+      },
+      "lineNbr": 964,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-09-09T17:15:03Z",
+      "side": 1,
+      "message": "Could remove this since the default",
+      "range": {
+        "startLine": 961,
+        "startChar": 1,
+        "endLine": 964,
+        "endChar": 21
+      },
+      "revId": "1d2c57adaf260e5544b9de4064bba30b19681dfc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7b56e7ff_9bbe05da",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 40
+      },
+      "lineNbr": 1006,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-09-09T17:15:03Z",
+      "side": 1,
+      "message": "if (subTreePaths.size() \u003d\u003d 0)\n{\n\n     messages::resourceNotFound(aResp-\u003eres, \"#Processor.v1_11_0.Processor\", processorId);\n     return;\n} \n\n?",
+      "revId": "1d2c57adaf260e5544b9de4064bba30b19681dfc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
