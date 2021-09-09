@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "09c45c9b_b3623f95",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 401,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-09-09T23:01:17Z",
+      "side": 1,
+      "message": "This is way too many scopes deep.  Please try to break this up on logical boundaries.",
+      "range": {
+        "startLine": 401,
+        "startChar": 48,
+        "endLine": 401,
+        "endChar": 54
+      },
+      "revId": "bf78feca4b00868dd3a155e7cbc2e792387f7ccc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
