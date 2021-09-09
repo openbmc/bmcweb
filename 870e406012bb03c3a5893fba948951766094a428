@@ -1,0 +1,123 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6c064fe8_ff93c453",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 38
+      },
+      "lineNbr": 832,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-09-09T01:52:20Z",
+      "side": 1,
+      "message": "When does this hit?",
+      "revId": "870e406012bb03c3a5893fba948951766094a428",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6a82a2cc_1c7792c5",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 38
+      },
+      "lineNbr": 947,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-09-09T01:52:20Z",
+      "side": 1,
+      "message": "Can we set the defaults like we do for processor? \nhttps://github.com/openbmc/bmcweb/blob/4f9637fafd37b19c795367f79e4ea668de146553/redfish-core/lib/processor.hpp#L91\n\nThat way if you don\u0027t have a interface for these, it defaults to \n\n    aResp-\u003eres.jsonValue[\"Status\"][\"State\"] \u003d \"Enabled\";\n    aResp-\u003eres.jsonValue[\"Status\"][\"Health\"] \u003d \"OK\";\n\nI think that would be line 874 here\n\nThen your functional could look like: \n\n\n            else if (property.first \u003d\u003d \"Functional\")\n            {\n                const bool* cpuFunctional \u003d std::get_if\u003cbool\u003e(\u0026property.second);\n                if (cpuFunctional \u003d\u003d nullptr)\n                {\n                    messages::internalError(aResp-\u003eres);\n                    return;\n                }\n                if (*cpuFunctional \u003d\u003d false)\n                {\n                    aResp-\u003eres.jsonValue[\"Status\"][\"Health\"] \u003d \"Critical\";\n                }\n            }\n\nOr could use a pattern like https://github.com/openbmc/bmcweb/blob/4f9637fafd37b19c795367f79e4ea668de146553/redfish-core/lib/processor.hpp#L428 \nBut still has the defaults.",
+      "revId": "870e406012bb03c3a5893fba948951766094a428",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1b390c87_c3fca893",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 38
+      },
+      "lineNbr": 993,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-09-09T01:52:20Z",
+      "side": 1,
+      "message": "Mapper returns this? I thought it was just an empty subtree if                 \"xyz.openbmc_project.Inventory.Item.CpuCore\" doesn\u0027t exist ?",
+      "revId": "870e406012bb03c3a5893fba948951766094a428",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b705ea07_7255c440",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 38
+      },
+      "lineNbr": 1021,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-09-09T01:52:20Z",
+      "side": 1,
+      "message": "Can we show how not use res.clear() ?\n\nCan we check before? \n\nif (subTreePaths.size() \u003d\u003d 0)\n{\n     messages::resourceNotFound(aResp-\u003eres, \"#Processor.v1_11_0.Processor\", processorId);\n     return;\n}",
+      "revId": "870e406012bb03c3a5893fba948951766094a428",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f6300561_113d123d",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 38
+      },
+      "lineNbr": 1047,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-09-09T01:52:20Z",
+      "side": 1,
+      "message": "Mapper returns this? I thought it was just an empty subTreePaths if                 \"xyz.openbmc_project.Inventory.Item.CpuCore\"} doesn\u0027t exist ?",
+      "revId": "870e406012bb03c3a5893fba948951766094a428",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ed4c6071_eadcf670",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 38
+      },
+      "lineNbr": 1075,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-09-09T01:52:20Z",
+      "side": 1,
+      "message": "Can you move this up? Check for \n\nif (subTreePaths.size() \u003d\u003d 0)\n{\n     messages::resourceNotFound(aResp-\u003eres, \"#Processor.v1_11_0.Processor\", processorId);\n     return;\n}\n\n?",
+      "revId": "870e406012bb03c3a5893fba948951766094a428",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f38b391d_b26a931b",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 38
+      },
+      "lineNbr": 1077,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-09-09T01:52:20Z",
+      "side": 1,
+      "message": "We typically don\u0027t use res.clear()\n\nCan instead you do \n\n                asyncResp-\u003eres.jsonValue[\"@odata.type\"] \u003d\n                    \"#ProcessorCollection.ProcessorCollection\";\n                asyncResp-\u003eres.jsonValue[\"@odata.id\"] \u003d\n                    \"/redfish/v1/Systems/system/Processors/\" + processorId +\n                    \"/SubProcessors\";\n                asyncResp-\u003eres.jsonValue[\"Name\"] \u003d \"SubProcessor Collection\";\nafter this?",
+      "revId": "870e406012bb03c3a5893fba948951766094a428",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
