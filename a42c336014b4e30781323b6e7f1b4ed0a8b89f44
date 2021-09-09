@@ -94,6 +94,30 @@
       "revId": "a42c336014b4e30781323b6e7f1b4ed0a8b89f44",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fa969ea2_c012f23e",
+        "filename": "http/http_connection.hpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 502,
+      "author": {
+        "id": 1001027
+      },
+      "writtenOn": "2021-09-09T00:33:45Z",
+      "side": 1,
+      "message": "Ed \u0026 Gunnar:\nYes, this is unrelated to this patch.\nI\u0027m not sure if this is a problem, so I\u0027m here to consult you. \nThanks.\n\njebr:\nLine 336 will output the ip address. You can check in the log.\nBut this is unrelated to this patch, you don\u0027t need to test this.",
+      "parentUuid": "5208abd3_f148c304",
+      "range": {
+        "startLine": 502,
+        "startChar": 13,
+        "endLine": 502,
+        "endChar": 22
+      },
+      "revId": "a42c336014b4e30781323b6e7f1b4ed0a8b89f44",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
