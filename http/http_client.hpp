@@ -134,15 +134,6 @@ class HttpClient : public std::enable_shared_from_this<HttpClient>
     {
         state = ConnState::sendInProgress;
 
-        BMCWEB_LOG_DEBUG << __FUNCTION__ << "(): " << host << ":" << port;
-
-        req.version(static_cast<int>(11)); // HTTP 1.1
-        req.target(uri);
-        req.method(boost::beast::http::verb::post);
-
-        req.set(boost::beast::http::field::host, host);
-        req.keep_alive(true);
-
         req.body() = data;
         req.prepare_payload();
 
@@ -390,13 +381,17 @@ class HttpClient : public std::enable_shared_from_this<HttpClient>
   public:
     explicit HttpClient(boost::asio::io_context& ioc, const std::string& id,
                         const std::string& destIP, const std::string& destPort,
-                        const std::string& destUri) :
+                        const std::string& destUri,
+                        const boost::beast::http::fields& httpHeader) :
         conn(ioc),
-        timer(ioc), subId(id), host(destIP), port(destPort), uri(destUri),
-        retryCount(0), maxRetryAttempts(5), retryIntervalSecs(0),
+        timer(ioc),
+        req(boost::beast::http::verb::post, destUri, 11, "", httpHeader),
+        state(ConnState::initialized), subId(id), host(destIP), port(destPort),
+        uri(destUri), retryCount(0), maxRetryAttempts(5), retryIntervalSecs(0),
         retryPolicyAction("TerminateAfterRetries"), runningTimer(false)
     {
-        state = ConnState::initialized;
+        req.set(boost::beast::http::field::host, host);
+        req.keep_alive(true);
     }
 
     void sendData(const std::string& data)
@@ -417,11 +412,6 @@ class HttpClient : public std::enable_shared_from_this<HttpClient>
         }
 
         return;
-    }
-
-    void setHeaders(const boost::beast::http::fields& httpHeaders)
-    {
-        req.base() = boost::beast::http::header<true>(httpHeaders);
     }
 
     void setRetryConfig(const uint32_t retryAttempts,
