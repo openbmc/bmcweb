@@ -55,6 +55,24 @@
     },
     {
       "key": {
+        "uuid": "89addee8_542efb68",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 38
+      },
+      "lineNbr": 832,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-09-10T01:52:15Z",
+      "side": 1,
+      "message": "\u003e So this will hit if you don\u0027t have \"/xyz/openbmc_project/inventory\" ?\n\nyes, When this object path is `No` or `Error`, ec is equal to `io_error`",
+      "parentUuid": "3056ffeb_5fce97c2",
+      "revId": "870e406012bb03c3a5893fba948951766094a428",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "6a82a2cc_1c7792c5",
         "filename": "redfish-core/lib/processor.hpp",
         "patchSetId": 38
@@ -298,6 +316,24 @@
       "revId": "870e406012bb03c3a5893fba948951766094a428",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fd83ce62_c73083f0",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 38
+      },
+      "lineNbr": 1077,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-09-10T01:52:15Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "ad093053_f28ae5a5",
+      "revId": "870e406012bb03c3a5893fba948951766094a428",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
