@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "4bcb5ece_4b0b2618",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-09-10T19:15:30Z",
+      "side": 1,
+      "message": "I\u0027m not sure why that\u0027s a problem in the context of this commit message.  Jie called out his use case, which involves entity-manager.  Sure, there are other systems that don\u0027t use entity-manager, but that\u0027s not the problem he\u0027s trying to solve here, and unless this directly conflicts (which I don\u0027t think it does) with non-entity-manager systems, I don\u0027t really see the issue.  I don\u0027t think this patchset is specific to entity-manager, but considering we expect him to test it, I don\u0027t think calling out entity-manager as his use case is a problem.",
+      "parentUuid": "d1db10d4_ee1d153d",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 11
+      },
+      "revId": "696a9ebbae0bb41336bc6822bd2f6ce9d21014a5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "3c1cdee6_70c0f3da",
         "filename": "/COMMIT_MSG",
         "patchSetId": 3
@@ -36,6 +60,24 @@
       "writtenOn": "2021-09-09T18:55:05Z",
       "side": 1,
       "message": "Where are these associations documented?",
+      "revId": "696a9ebbae0bb41336bc6822bd2f6ce9d21014a5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5b98797b_0aa514fd",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-09-10T19:15:30Z",
+      "side": 1,
+      "message": "+1.  Please link the review.",
+      "parentUuid": "3c1cdee6_70c0f3da",
       "revId": "696a9ebbae0bb41336bc6822bd2f6ce9d21014a5",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
@@ -58,6 +100,29 @@
         "startChar": 12,
         "endLine": 19,
         "endChar": 19
+      },
+      "revId": "696a9ebbae0bb41336bc6822bd2f6ce9d21014a5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1b62e50b_4fae1677",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-09-10T19:15:30Z",
+      "side": 1,
+      "message": "spelling/capitalization",
+      "range": {
+        "startLine": 108,
+        "startChar": 36,
+        "endLine": 108,
+        "endChar": 37
       },
       "revId": "696a9ebbae0bb41336bc6822bd2f6ce9d21014a5",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
