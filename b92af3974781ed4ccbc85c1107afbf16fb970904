@@ -91,6 +91,29 @@
       "revId": "b92af3974781ed4ccbc85c1107afbf16fb970904",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7fbc4009_d281f93b",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 1934,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-09-10T20:06:30Z",
+      "side": 1,
+      "message": "If the user requests more than maxEntriesPerPage, we\u0027ll need to clamp it to avoid a possible OOM condition.",
+      "range": {
+        "startLine": 1931,
+        "startChar": 0,
+        "endLine": 1934,
+        "endChar": 17
+      },
+      "revId": "b92af3974781ed4ccbc85c1107afbf16fb970904",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
