@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a3988604_de66baa3",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 12
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-09-10T19:41:30Z",
+      "side": 1,
+      "message": "We should really get this codified better because what I seem to be hearing (subject to interpretation) in the working groups is that assembly is ok for \"dumb\" devices, but anything that needs modeled more significantly, or might have sub-nodes will need a Chassis.  Using the newest SmartNic proposal as an example, which in theory has the latest best practices accounted for, this would require a smartnic (which in OpenBMC would have a type \"Board\") to be a Chassis per the mockups (see \"Card1\" and \"Card2\"), so I suspect we can\u0027t just indiscriminately say \"all boards are assemblies\".  MAYBE (this needs more thought) we could say that boards without sensors or thermal nodes should be assemblies?  But that starts to get into a weird distinction that we should document very clearly and have a good long term plan for.",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 29
+      },
+      "revId": "edde47a7778f76dd35d6147d4a6540ba4254b911",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
