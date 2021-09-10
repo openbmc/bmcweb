@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "44a70a05_b353790b",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 41
+      },
+      "lineNbr": 955,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-09-10T03:38:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "81eb374b_e6a097da",
+      "revId": "62d88e8f817b0eaae7d703b4f3b75b16d361c3fc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "15b16264_a2196c75",
         "filename": "redfish-core/lib/processor.hpp",
         "patchSetId": 41
@@ -30,6 +48,30 @@
       "writtenOn": "2021-09-10T03:19:14Z",
       "side": 1,
       "message": "getProcessor",
+      "range": {
+        "startLine": 1571,
+        "startChar": 41,
+        "endLine": 1571,
+        "endChar": 63
+      },
+      "revId": "62d88e8f817b0eaae7d703b4f3b75b16d361c3fc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f7621720_0b0736d9",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 41
+      },
+      "lineNbr": 1571,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-09-10T03:38:53Z",
+      "side": 1,
+      "message": "https://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/38570/37/redfish-core/lib/processor.hpp#1553\n\nSorry, i am a little confused :(",
+      "parentUuid": "15b16264_a2196c75",
       "range": {
         "startLine": 1571,
         "startChar": 41,
