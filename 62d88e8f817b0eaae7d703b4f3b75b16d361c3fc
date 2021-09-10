@@ -37,6 +37,23 @@
     },
     {
       "key": {
+        "uuid": "e82ae65c_9fc763bb",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 41
+      },
+      "lineNbr": 1558,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-09-10T13:56:11Z",
+      "side": 1,
+      "message": "To try to answer the question below:\nThis is a ProcessorCollection, we know this by the path (look at the URIs for ProcessorCollection, https://redfish.dmtf.org/schemas/v1/ProcessorCollection.json) and because line 1075 says it is. \n                aResp-\u003eres.jsonValue[\"@odata.type\"] \u003d\n                    \"#ProcessorCollection.ProcessorCollection\";\n\nWe should then use the correct permission \"getProcessorCollection\"",
+      "revId": "62d88e8f817b0eaae7d703b4f3b75b16d361c3fc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "15b16264_a2196c75",
         "filename": "redfish-core/lib/processor.hpp",
         "patchSetId": 41
@@ -72,6 +89,30 @@
       "side": 1,
       "message": "https://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/38570/37/redfish-core/lib/processor.hpp#1553\n\nSorry, i am a little confused :(",
       "parentUuid": "15b16264_a2196c75",
+      "range": {
+        "startLine": 1571,
+        "startChar": 41,
+        "endLine": 1571,
+        "endChar": 63
+      },
+      "revId": "62d88e8f817b0eaae7d703b4f3b75b16d361c3fc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "96910df4_3011e536",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 41
+      },
+      "lineNbr": 1571,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-09-10T13:56:11Z",
+      "side": 1,
+      "message": "This is a Processor schema (aResp-\u003eres.jsonValue[\"@odata.type\"] \u003d \"#Processor.v1_11_0.Processor\";)\n\nWe also know that because of https://redfish.dmtf.org/schemas/v1/Processor_v1.xml \n\nWe should then use the correct permission \"getProcessor\"",
+      "parentUuid": "f7621720_0b0736d9",
       "range": {
         "startLine": 1571,
         "startChar": 41,
