@@ -34,6 +34,24 @@
       "revId": "9df6288596c082f651f5b37acfeb6a6c66d7a624",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2d2463a3_3ecf2596",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 42
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-09-10T16:18:26Z",
+      "side": 1,
+      "message": "That would be a validator error.\nI.e. you have a link that returns 400 when requested. \nSo we either need to hide the /redfish/v1/Systems/system/Processors/cpu0/SubProcessors or don\u0027t return 400 when there isn\u0027t any cores. \n\nApologies if I led you astray with the if (subTreePaths.size() \u003d\u003d 0)\n\nPlease test this.",
+      "parentUuid": "bfcef360_e9654a84",
+      "revId": "9df6288596c082f651f5b37acfeb6a6c66d7a624",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
