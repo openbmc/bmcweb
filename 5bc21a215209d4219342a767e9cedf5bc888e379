@@ -127,6 +127,24 @@
     },
     {
       "key": {
+        "uuid": "2980b90c_48ef68ed",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000632
+      },
+      "writtenOn": "2021-09-10T22:06:50Z",
+      "side": 1,
+      "message": "https://gerrit.openbmc-project.xyz/c/openbmc/phosphor-dbus-interfaces/+/46806\n\nDocument the association forward and reverse name there.",
+      "parentUuid": "b3909e8c_8ed06e0f",
+      "revId": "5bc21a215209d4219342a767e9cedf5bc888e379",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7343cd07_575ea02f",
         "filename": "/COMMIT_MSG",
         "patchSetId": 5
