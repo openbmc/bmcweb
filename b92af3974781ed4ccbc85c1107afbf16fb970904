@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bfdc778e_226925dc",
+        "filename": "redfish-core/include/gzfile.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-09-10T18:45:49Z",
+      "side": 1,
+      "message": "Declare your variables where they\u0027re used (ie, on line 19)",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 25
+      },
+      "revId": "b92af3974781ed4ccbc85c1107afbf16fb970904",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d46b4df4_e3b83079",
+        "filename": "redfish-core/include/gzfile.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-09-10T18:45:49Z",
+      "side": 1,
+      "message": "Don\u0027t these files have the potential to be very large and not fit in bmc ram?\n\nAs written this is going to take up the whole file worth in ram X2 plus the overhead of loading it into the vector below.  That doesn\u0027t seem wise on an embedded system.",
+      "range": {
+        "startLine": 26,
+        "startChar": 0,
+        "endLine": 26,
+        "endChar": 44
+      },
+      "revId": "b92af3974781ed4ccbc85c1107afbf16fb970904",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3a833582_98480235",
+        "filename": "redfish-core/include/gzfile.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-09-10T18:45:49Z",
+      "side": 1,
+      "message": "This is making a third copy of the data.  Would an output parameter on hostLogEntryParser be better here?",
+      "range": {
+        "startLine": 51,
+        "startChar": 0,
+        "endLine": 52,
+        "endChar": 47
+      },
+      "revId": "b92af3974781ed4ccbc85c1107afbf16fb970904",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0c60ce46_7ac0bc19",
+        "filename": "redfish-core/include/gzfile.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-09-10T18:45:49Z",
+      "side": 1,
+      "message": "Doesn\u0027t this underflow if pos is 0?  What happens if the /r/n is split between files?",
+      "range": {
+        "startLine": 128,
+        "startChar": 50,
+        "endLine": 128,
+        "endChar": 57
+      },
+      "revId": "b92af3974781ed4ccbc85c1107afbf16fb970904",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}

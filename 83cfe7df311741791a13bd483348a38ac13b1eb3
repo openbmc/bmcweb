@@ -333,6 +333,30 @@
     },
     {
       "key": {
+        "uuid": "436b76c3_8feda81f",
+        "filename": "redfish-core/include/gzfile.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-09-10T18:45:49Z",
+      "side": 1,
+      "message": "Nan,\nyou\u0027re reading from the MSVC compiler documentation.  We use gcc, which takes different paths to optimization, although my understanding could be wrong, I thought RVO required the return value to be the first value because otherwise the stack order would be wrong, which would require a move, thus defeating the optimization.",
+      "parentUuid": "fd16fa4a_c5ea707b",
+      "range": {
+        "startLine": 111,
+        "startChar": 0,
+        "endLine": 111,
+        "endChar": 44
+      },
+      "revId": "83cfe7df311741791a13bd483348a38ac13b1eb3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "50d6ffb9_4b47ab0f",
         "filename": "redfish-core/include/gzfile.hpp",
         "patchSetId": 15
