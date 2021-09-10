@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "9ca90d5f_c9cd3dd0",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 3132,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-09-10T16:30:37Z",
+      "side": 1,
+      "message": "Then why aren\u0027t we checking for the \"B\"?  As written, doesn\u0027t this mean that I can put \n\nF1-1 and have it pass this parser?",
+      "parentUuid": "8dc067b0_de412f90",
+      "range": {
+        "startLine": 3132,
+        "startChar": 39,
+        "endLine": 3132,
+        "endChar": 43
+      },
+      "revId": "71c918fbc0e71dc0fa88baa0078dd2fcceda83d7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "9b2eca3d_49e951b9",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 8
@@ -155,6 +179,30 @@
       "side": 1,
       "message": "\u003e Yes, This value starts from 1 by default\n\nEd, as per the exiting code in master, the post code id looks like this B\u003cbootnumber\u003e-\u003cpostcodenumber\u003e, and the bootnumber(index) is always \u003e 0.",
       "parentUuid": "eeb5052f_9d0d4296",
+      "range": {
+        "startLine": 3144,
+        "startChar": 54,
+        "endLine": 3144,
+        "endChar": 66
+      },
+      "revId": "71c918fbc0e71dc0fa88baa0078dd2fcceda83d7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "469d7944_1e465efd",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 3144,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-09-10T16:30:37Z",
+      "side": 1,
+      "message": "For your systems maybe?  If the entry doesn\u0027t exist, the later checks will catch that it doesn\u0027t exist.  I don\u0027t think this check adds anything.",
+      "parentUuid": "a71746c8_b8cd9b4d",
       "range": {
         "startLine": 3144,
         "startChar": 54,
