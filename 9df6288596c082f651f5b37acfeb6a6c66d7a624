@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "225eb79f_01fc3c22",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 42
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-09-10T14:04:56Z",
+      "side": 1,
+      "message": "How does this handle if there isn\u0027t any cores?\nI am just slightly worried \"/redfish/v1/Systems/system/Processors/cpu0/SubProcessors\" is still going to be there on the Processor resource but a call to /redfish/v1/Systems/system/Processors/cpu0/SubProcessors will return an error.",
+      "revId": "9df6288596c082f651f5b37acfeb6a6c66d7a624",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
