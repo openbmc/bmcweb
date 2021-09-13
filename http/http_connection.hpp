@@ -335,16 +335,10 @@ class Connection :
                         << parser->get().target() << " " << req->ipAddress;
         req.emplace(parser->release());
         req->session = userSession;
-        try
-        {
-            // causes life time issue
-            req->urlView = boost::urls::url_view(req->target());
-            req->url = req->urlView.encoded_path();
-        }
-        catch (std::exception& p)
-        {
-            BMCWEB_LOG_ERROR << p.what();
-        }
+
+        // causes life time issue
+        req->urlView = boost::urls::url_view(req->target());
+        req->url = req->urlView.encoded_path();
 
         res.setCompleteRequestHandler(nullptr);
         res.isAliveHelper = [this]() -> bool { return isAlive(); };
@@ -547,16 +541,9 @@ class Connection :
 
                 boost::beast::http::verb method = parser->get().method();
                 readClientIp();
-                try
-                {
-                    req->urlView =
-                        boost::urls::url_view(parser->get().target());
-                    req->url = req->urlView.encoded_path();
-                }
-                catch (std::exception& p)
-                {
-                    BMCWEB_LOG_ERROR << p.what();
-                }
+
+                req->urlView = boost::urls::url_view(parser->get().target());
+                req->url = req->urlView.encoded_path();
 
                 boost::asio::ip::address ip;
                 if (getClientIp(ip))
