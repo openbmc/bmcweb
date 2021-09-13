@@ -33,8 +33,6 @@ namespace redfish
  */
 inline std::string getTransferProtocolTypeFromUri(const std::string& imageUri)
 {
-    try
-    {
         std::string_view scheme = boost::urls::url_view(imageUri).scheme();
         if (scheme == "smb")
         {
@@ -44,11 +42,7 @@ inline std::string getTransferProtocolTypeFromUri(const std::string& imageUri)
         {
             return "HTTPS";
         }
-    }
-    catch (std::exception& p)
-    {
-        BMCWEB_LOG_ERROR << p.what();
-    }
+
     return "None";
 }
 
@@ -325,8 +319,6 @@ enum class TransferProtocol
 inline std::optional<TransferProtocol>
     getTransferProtocolFromUri(const std::string& imageUri)
 {
-    try
-    {
         std::string_view scheme = boost::urls::url_view(imageUri).scheme();
         if (scheme == "smb")
         {
@@ -340,11 +332,7 @@ inline std::optional<TransferProtocol>
         {
             return TransferProtocol::invalid;
         }
-    }
-    catch (std::exception& p)
-    {
-        BMCWEB_LOG_ERROR << p.what();
-    }
+
 
     return {};
 }
