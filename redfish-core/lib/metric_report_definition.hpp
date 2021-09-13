@@ -783,18 +783,7 @@ class UpdateMetrics
 
     ~UpdateMetrics()
     {
-        try
-        {
-            setReadingParams();
-        }
-        catch (const std::exception& e)
-        {
-            BMCWEB_LOG_ERROR("{}", e.what());
-        }
-        catch (...)
-        {
-            BMCWEB_LOG_ERROR("Unknown error");
-        }
+        setReadingParams();
     }
 
     UpdateMetrics(const UpdateMetrics&) = delete;

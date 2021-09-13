@@ -55,7 +55,7 @@
 #include "thermal_subsystem.hpp"
 #include "trigger.hpp"
 #include "update_service.hpp"
-#include "virtual_media.hpp"
+// #include "virtual_media.hpp"
 
 namespace redfish
 {
@@ -188,7 +188,7 @@ class RedfishService
         requestRoutesBiosReset(app);
 
 #ifdef BMCWEB_ENABLE_VM_NBDPROXY
-        requestNBDVirtualMediaRoutes(app);
+        // requestNBDVirtualMediaRoutes(app);
 #endif // BMCWEB_ENABLE_VM_NBDPROXY
 
 #ifdef BMCWEB_ENABLE_REDFISH_DBUS_LOG_ENTRIES

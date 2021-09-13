@@ -21,7 +21,10 @@ class SseSocketRule : public BaseRule
   public:
     explicit SseSocketRule(const std::string& ruleIn) : BaseRule(ruleIn) {}
 
-    void validate() override {}
+    bool validate() override
+    {
+        return true;
+    }
 
     void handle(const Request& /*req*/,
                 const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
