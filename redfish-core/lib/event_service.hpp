@@ -518,7 +518,8 @@ inline void requestRoutesEventDestination(App& app)
                 asyncResp->res.jsonValue["Context"] = subValue->customText;
                 asyncResp->res.jsonValue["SubscriptionType"] =
                     subValue->subscriptionType;
-                asyncResp->res.jsonValue["HttpHeaders"] = subValue->httpHeaders;
+                asyncResp->res.jsonValue["HttpHeaders"] =
+                    nlohmann::json::array();
                 asyncResp->res.jsonValue["EventFormatType"] =
                     subValue->eventFormatType;
                 asyncResp->res.jsonValue["RegistryPrefixes"] =
