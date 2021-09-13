@@ -129,6 +129,7 @@ endif
 # -Wpedantic, -Wextra comes by default with warning level
 add_project_arguments(
   cxx.get_supported_arguments([
+  '-fno-exceptions',
   '-Wcast-align',
   '-Wconversion',
   '-Wformat=2',
@@ -247,6 +248,7 @@ cxx.get_supported_arguments([
   '-DBOOST_URL_NO_SOURCE_LOCATION',
   '-DJSON_NOEXCEPTION',
   '-DOPENSSL_NO_FILENAMES',
+  '-DSDBUSPLUS_DISABLE_BOOST_COROUTINES',
 ]),
 language : 'cpp')
 
@@ -259,12 +261,12 @@ atomic =  cxx.find_library('atomic', required: true)
 openssl = dependency('openssl', required : true)
 bmcweb_dependencies += [pam, atomic, openssl]
 
-sdbusplus = dependency('sdbusplus', required : false, include_type: 'system')
-if not sdbusplus.found()
+#sdbusplus = dependency('sdbusplus', required : false, include_type: 'system')
+#if not sdbusplus.found()
   sdbusplus_proj = subproject('sdbusplus', required: true)
   sdbusplus = sdbusplus_proj.get_variable('sdbusplus_dep')
   sdbusplus = sdbusplus.as_system('system')
-endif
+#endif
 bmcweb_dependencies += sdbusplus
 
 tinyxml = dependency('tinyxml2',

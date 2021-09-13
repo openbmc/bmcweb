@@ -98,14 +98,18 @@ class App
         return *this;
     }
 
-    void validate()
+    bool validate()
     {
-        router.validate();
+        BMCWEB_LOG_CRITICAL << "Router failed to validate";
+        return router.validate();
     }
 
     void run()
     {
-        validate();
+        if (!validate())
+        {
+            return;
+        }
 #ifdef BMCWEB_ENABLE_SSL
         if (-1 == socketFd)
         {
@@ -131,7 +135,6 @@ class App
             server = std::make_unique<server_t>(this, socketFd, nullptr, io);
         }
         server->run();
-
 #endif
     }
 
