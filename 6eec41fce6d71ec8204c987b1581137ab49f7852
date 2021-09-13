@@ -39,6 +39,30 @@
       "revId": "6eec41fce6d71ec8204c987b1581137ab49f7852",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "df411016_c7f63082",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1001114
+      },
+      "writtenOn": "2021-09-13T11:13:16Z",
+      "side": 1,
+      "message": "By \"Content-Type\" I mean Content-Type header:\nhttps://cheatsheetseries.owasp.org/cheatsheets/REST_Security_Cheat_Sheet.html#validate-content-types\nSo it should be validated if body content type and Content-Type header is the same.\n\nCross-site Forged requests cannot be send with application/json content-type because of no-cors mode. Currently it is possible to make CSRF attacks when using mTLS authenticasion. Please check cover letter for more details, I also provide addition proposition about changing mTLS auth flow, because with current one there is no possibility to implement XSRF token.",
+      "parentUuid": "f3c535ef_77876772",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 32
+      },
+      "revId": "6eec41fce6d71ec8204c987b1581137ab49f7852",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
