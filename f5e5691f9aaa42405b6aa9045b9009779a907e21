@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "9e7672c6_9f175393",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-09-13T20:28:17Z",
+      "side": 1,
+      "message": "Yep, you got it.  I opened this up to start a conversation with John about what his patch broke.  I will for sure test it before merge.",
+      "parentUuid": "1c01d20c_eaa02eb8",
+      "revId": "f5e5691f9aaa42405b6aa9045b9009779a907e21",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c60352e2_97b6293d",
         "filename": "http/http_connection.hpp",
         "patchSetId": 2
@@ -30,6 +48,30 @@
       "writtenOn": "2021-09-13T20:15:35Z",
       "side": 1,
       "message": "I see this most places as req. \nI would prefer \"req\" or \"request\"",
+      "range": {
+        "startLine": 317,
+        "startChar": 23,
+        "endLine": 317,
+        "endChar": 24
+      },
+      "revId": "f5e5691f9aaa42405b6aa9045b9009779a907e21",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5877833e_1f80e44a",
+        "filename": "http/http_connection.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 317,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-09-13T20:28:17Z",
+      "side": 1,
+      "message": "req is already used by the class itself for the optional representation of this.\n\nwith that said, I agree with you;  I\u0027m thinking thisReq as a variable name, unless you can think of a better idea.",
+      "parentUuid": "c60352e2_97b6293d",
       "range": {
         "startLine": 317,
         "startChar": 23,
