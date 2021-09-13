@@ -147,6 +147,7 @@ add_project_arguments(
     '-Wswitch-enum',
     '-Wnull-dereference',
     '-Wdouble-promotion',
+    '-fno-exceptions',
     '-Wformat=2',
   ]),
   language:'cpp')
@@ -273,7 +274,10 @@ cxx.get_supported_arguments([
 '-DBOOST_COROUTINES_NO_DEPRECATION_WARNING',
 '-DBOOST_URL_STANDALONE',
 '-DBOOST_URL_HEADER_ONLY',
-'-DBOOST_ALLOW_DEPRECATED_HEADERS'
+'-DBOOST_DISABLE_EXCEPTIONS',
+'-DBOOST_ALLOW_DEPRECATED_HEADERS',
+'-DSDBUSPLUS_DISABLE_COROUTINES',
+'-DJSON_NOEXCEPTION',
 ]),
 language : 'cpp')
 
