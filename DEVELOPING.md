@@ -74,12 +74,7 @@ to be taken to ensure startup times are low. In general this means:
   compile time options to prevent misuse. The specific flags and what
   optimization levels they are enabled at are documented in the CMakeLists.txt
   file.
-- Exceptions are currently enabled for webserver builds, but their use is
-  discouraged. Long term, the intent is to disable exceptions, so any use of
-  them for explicit control flow will likely be rejected in code review. Any use
-  of exceptions should be cases where the program can be reasonably expected to
-  crash if the exception occurs, as this will be the future behavior once
-  exceptions are disabled.
+- Exceptions are disabled
 - Run time type information is disabled
 - Link time optimization is enabled
 

@@ -274,15 +274,7 @@ struct InProgressEnumerateData
 
     ~InProgressEnumerateData()
     {
-        try
-        {
-            findRemainingObjectsForEnumerate(objectPath, subtree, asyncResp);
-        }
-        catch (...)
-        {
-            BMCWEB_LOG_CRITICAL(
-                "findRemainingObjectsForEnumerate threw exception");
-        }
+        findRemainingObjectsForEnumerate(objectPath, subtree, asyncResp);
     }
 
     InProgressEnumerateData(const InProgressEnumerateData&) = delete;

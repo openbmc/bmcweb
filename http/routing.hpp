@@ -246,7 +246,7 @@ class Trie
         return {found, matchParams};
     }
 
-    void add(const std::string& url, unsigned ruleIndex)
+    bool add(const std::string& url, unsigned ruleIndex)
     {
         size_t idx = 0;
 
@@ -295,9 +295,10 @@ class Trie
         }
         if (nodes[idx].ruleIndex != 0U)
         {
-            throw std::runtime_error("handler already exists for " + url);
+            return false;
         }
         nodes[idx].ruleIndex = ruleIndex;
+        return true;
     }
 
   private:
@@ -434,11 +435,11 @@ class Router
         static_assert(numArgs < 5, "Max number of args supported is 5");
     }
 
-    void internalAddRuleObject(const std::string& rule, BaseRule* ruleObject)
+    bool internalAddRuleObject(const std::string& rule, BaseRule* ruleObject)
     {
         if (ruleObject == nullptr)
         {
-            return;
+            return false;
         }
         for (size_t method = 0, methodBit = 1; method <= methodNotAllowedIndex;
              method++, methodBit <<= 1)
@@ -453,16 +454,20 @@ class Router
                 //   request to `/about' url matches `/about/' rule
                 if (rule.size() > 2 && rule.back() == '/')
                 {
-                    perMethods[method].trie.add(
-                        rule.substr(0, rule.size() - 1),
-                        static_cast<unsigned>(perMethods[method].rules.size() -
-                                              1));
+                    if (!perMethods[method].trie.add(
+                            rule.substr(0, rule.size() - 1),
+                            static_cast<unsigned>(
+                                perMethods[method].rules.size() - 1)))
+                    {
+                        return false;
+                    }
                 }
             }
         }
+        return true;
     }
 
-    void validate()
+    bool validate()
     {
         for (std::unique_ptr<BaseRule>& rule : allRules)
         {
@@ -474,13 +479,17 @@ class Router
                     rule = std::move(upgraded);
                 }
                 rule->validate();
-                internalAddRuleObject(rule->rule, rule.get());
+                if (!internalAddRuleObject(rule->rule, rule.get()))
+                {
+                    return false;
+                }
             }
         }
         for (PerMethod& perMethod : perMethods)
         {
             perMethod.trie.validate();
         }
+        return true;
     }
 
     struct FindRoute
@@ -508,7 +517,7 @@ class Router
             perMethod.trie.find(url);
         if (found.first >= perMethod.rules.size())
         {
-            throw std::runtime_error("Trie internal structure corrupted!");
+            return {};
         }
         // Found a 404 route, switch that in
         if (found.first != 0U)
@@ -583,7 +592,8 @@ class Router
 
         if (ruleIndex >= rules.size())
         {
-            throw std::runtime_error("Trie internal structure corrupted!");
+            BMCWEB_LOG_CRITICAL("Rule index doesn't exist");
+            return;
         }
 
         BaseRule& rule = *rules[ruleIndex];

@@ -64,12 +64,9 @@ class DynamicRule : public BaseRule, public RuleParameterTraits<DynamicRule>
   public:
     explicit DynamicRule(const std::string& ruleIn) : BaseRule(ruleIn) {}
 
-    void validate() override
+    bool validate() override
     {
-        if (!erasedHandler)
-        {
-            throw std::runtime_error("no handler for url " + rule);
-        }
+        return !erasedHandler;
     }
 
     void handle(const Request& req,

@@ -18,7 +18,7 @@
 #include "security_headers.hpp"
 #include "ssl_key_handler.hpp"
 #include "user_monitor.hpp"
-#include "vm_websocket.hpp"
+// #include "vm_websocket.hpp"
 #include "webassets.hpp"
 
 #include <systemd/sd-daemon.h>
@@ -104,7 +104,7 @@ static int run()
 #endif
 
 #ifdef BMCWEB_ENABLE_VM_WEBSOCKET
-    crow::obmc_vm::requestRoutes(app);
+    // crow::obmc_vm::requestRoutes(app);
 #endif
 
 #ifdef BMCWEB_ENABLE_IBM_MANAGEMENT_CONSOLE
@@ -145,7 +145,11 @@ static int run()
 
     bmcweb::registerUserRemovedSignal();
 
-    app.run();
+    if (!app.run())
+    {
+        BMCWEB_LOG_CRITICAL("App failed to run");
+        return -1;
+    }
     io->run();
 
     crow::connections::systemBus = nullptr;
@@ -155,18 +159,5 @@ static int run()
 
 int main(int /*argc*/, char** /*argv*/)
 {
-    try
-    {
-        return run();
-    }
-    catch (const std::exception& e)
-    {
-        BMCWEB_LOG_CRITICAL("Threw exception to main: {}", e.what());
-        return -1;
-    }
-    catch (...)
-    {
-        BMCWEB_LOG_CRITICAL("Threw exception to main");
-        return -1;
-    }
+    return run();
 }

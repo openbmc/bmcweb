@@ -1657,14 +1657,7 @@ struct SetPIDValues : std::enable_shared_from_this<SetPIDValues>
 
     ~SetPIDValues()
     {
-        try
-        {
-            pidSetDone();
-        }
-        catch (...)
-        {
-            BMCWEB_LOG_CRITICAL("pidSetDone threw exception");
-        }
+        pidSetDone();
     }
 
     std::shared_ptr<bmcweb::AsyncResp> asyncResp;
