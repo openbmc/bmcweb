@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "8199e80d_d710c185",
+        "filename": "redfish-core/include/gzfile.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000404
+      },
+      "writtenOn": "2021-09-13T10:47:45Z",
+      "side": 1,
+      "message": "Move the variables to the correct position.",
+      "parentUuid": "bfdc778e_226925dc",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 25
+      },
+      "revId": "b92af3974781ed4ccbc85c1107afbf16fb970904",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d46b4df4_e3b83079",
         "filename": "redfish-core/include/gzfile.hpp",
         "patchSetId": 21
@@ -60,6 +84,30 @@
       "side": 1,
       "message": "What\u0027s your suggestion Ed? Does an early break (once we reach a predefined maximum bytes used in memory) sound good to you?",
       "parentUuid": "d46b4df4_e3b83079",
+      "range": {
+        "startLine": 26,
+        "startChar": 0,
+        "endLine": 26,
+        "endChar": 44
+      },
+      "revId": "b92af3974781ed4ccbc85c1107afbf16fb970904",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "98272572_6ef56250",
+        "filename": "redfish-core/include/gzfile.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1000404
+      },
+      "writtenOn": "2021-09-13T10:47:45Z",
+      "side": 1,
+      "message": "We also set the maximum total file size at log_services.hpp. Does it solve the problem what you mention?\nhttps://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/45145/25/redfish-core/lib/log_services.hpp#1851",
+      "parentUuid": "be4cdb6e_11cfc4ed",
       "range": {
         "startLine": 26,
         "startChar": 0,
@@ -119,6 +167,30 @@
     },
     {
       "key": {
+        "uuid": "dd201a9d_aea221b9",
+        "filename": "redfish-core/include/gzfile.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1000404
+      },
+      "writtenOn": "2021-09-13T10:47:45Z",
+      "side": 1,
+      "message": "Replace to use std::make_move_iterator here.",
+      "parentUuid": "a432264e_26b2a2ee",
+      "range": {
+        "startLine": 51,
+        "startChar": 0,
+        "endLine": 52,
+        "endChar": 47
+      },
+      "revId": "b92af3974781ed4ccbc85c1107afbf16fb970904",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0c60ce46_7ac0bc19",
         "filename": "redfish-core/include/gzfile.hpp",
         "patchSetId": 21
@@ -166,6 +238,30 @@
     },
     {
       "key": {
+        "uuid": "868f05c9_3b5de9f7",
+        "filename": "redfish-core/include/gzfile.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 1000404
+      },
+      "writtenOn": "2021-09-13T10:47:45Z",
+      "side": 1,
+      "message": "I add the \"lastDelimiter\" to solve the issue you mention here. Please take a look, thanks.",
+      "parentUuid": "51d0d7ca_5019922d",
+      "range": {
+        "startLine": 128,
+        "startChar": 50,
+        "endLine": 128,
+        "endChar": 57
+      },
+      "revId": "b92af3974781ed4ccbc85c1107afbf16fb970904",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7fbc4009_d281f93b",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 21
@@ -186,6 +282,30 @@
       "revId": "b92af3974781ed4ccbc85c1107afbf16fb970904",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "398bd10e_c646142c",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 1934,
+      "author": {
+        "id": 1000404
+      },
+      "writtenOn": "2021-09-13T10:47:45Z",
+      "side": 1,
+      "message": "I think this question has already handled by \"getTopParam\" function, and return messages::queryParameterOutOfRange error:\nhttps://github.com/openbmc/bmcweb/blob/master/redfish-core/lib/log_services.hpp#L224",
+      "parentUuid": "7fbc4009_d281f93b",
+      "range": {
+        "startLine": 1931,
+        "startChar": 0,
+        "endLine": 1934,
+        "endChar": 17
+      },
+      "revId": "b92af3974781ed4ccbc85c1107afbf16fb970904",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
