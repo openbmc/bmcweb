@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "67d520f2_fa9406bc",
+        "filename": "redfish-core/include/utils/log_utils.hpp",
+        "patchSetId": 34
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2021-09-13T21:45:33Z",
+      "side": 1,
+      "message": "This should be \n\nasyncResp-\u003eres.jsonValue[\"Status\"][\"Conditions\"];",
+      "range": {
+        "startLine": 37,
+        "startChar": 16,
+        "endLine": 37,
+        "endChar": 77
+      },
+      "revId": "3cc38269748712c65bf3c8c056be41ce29be5731",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
