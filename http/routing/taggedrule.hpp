@@ -21,12 +21,9 @@ class TaggedRule :
 
     explicit TaggedRule(const std::string& ruleIn) : BaseRule(ruleIn) {}
 
-    void validate() override
+    bool validate() override
     {
-        if (!handler)
-        {
-            throw std::runtime_error("no handler for url " + rule);
-        }
+        return !handler;
     }
 
     template <typename Func>

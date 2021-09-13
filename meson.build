@@ -133,6 +133,7 @@ endif
 # -Wpedantic, -Wextra comes by default with warning level
 add_project_arguments(
   cxx.get_supported_arguments([
+  '-fno-exceptions',
   '-Wcast-align',
   '-Wconversion',
   '-Wformat=2',

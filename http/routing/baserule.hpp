@@ -24,7 +24,7 @@ class BaseRule
     BaseRule& operator=(const BaseRule&) = delete;
     BaseRule& operator=(const BaseRule&&) = delete;
 
-    virtual void validate() = 0;
+    virtual bool validate() = 0;
     std::unique_ptr<BaseRule> upgrade()
     {
         if (ruleToUpgrade)
