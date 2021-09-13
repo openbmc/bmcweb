@@ -314,13 +314,15 @@ class Connection :
     {
         cancelDeadlineTimer();
 
+        req.emplace(parser->release());
+
         // Fetch the client IP address
         readClientIp();
 
         // Check for HTTP version 1.1.
-        if (parser->get().version() == 11)
+        if (req.version() == 11)
         {
-            if (parser->get()[boost::beast::http::field::host].empty())
+            if (req.getHeaderValue(boost::beast::http::field::host).empty())
             {
                 res.result(boost::beast::http::status::bad_request);
                 completeRequest();
@@ -329,12 +331,9 @@ class Connection :
         }
 
         BMCWEB_LOG_INFO << "Request: "
-                        << " " << this << " HTTP/"
-                        << parser->get().version() / 10 << "."
-                        << parser->get().version() % 10 << ' '
-                        << parser->get().method_string() << " "
-                        << parser->get().target() << " " << req->ipAddress;
-        req.emplace(parser->release());
+                        << " " << this << " HTTP/" << req.version() / 10 << "."
+                        << req.version() % 10 << ' ' << req.method_string()
+                        << " " << req.target() << " " << req->ipAddress;
         req->session = userSession;
         try
         {
