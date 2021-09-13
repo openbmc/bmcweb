@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "f2478612_4409026f",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 357,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-09-13T19:58:07Z",
+      "side": 1,
+      "message": "\u003e Does this code take the user passed keys ?\n\nYes\n\n\u003e This should dump the HttpHeaders json input\n\nWe shouldn\u0027t need to call dump on any user provided information, that\u0027s destroying the type information, and would allow the user to inject json into an http header.  With that said, I see two different ways to represent this field when I look through the redfish documentation.  One is as a dict, which I\u0027ve done here, and one as an array of dicts each with a single key.  I need to do more research to figure out which one is correct, but we should never be calling dump when going from Json to http header;  We should treat the data as structured.\n\nTBD, I need to do more research here.\n\n\n\u003e and parse the key:value pair to map the keys and corresponding values.\n\nNot according to the redfish spec.  This code is taking the user provided keys.\n\nIn the docs I\u0027m able to find, this shows HttpHeaders as an array:\n\nhttps://sysmgt.lenovofiles.com/help/index.jsp?topic\u003d%2Fcom.lenovo.systems.management.xcc.restapi.doc%2Fcreate_a_subscription_post.html\n\nThis shows HttpHeaders as a dict:\nhttps://developer.hpe.com/blog/the-redfish-event-service/\n\n\nGoing to the schema files shows HttpHeaders is a collection of HttpHeaderProperty types.\n\n\nHttpHeaderProperty shows it\u0027s a complex type.  The interesting part is whether or not HttpHeaderProperty should allow multiple headers per item.\n\n\n\n\nInterestingly, the docs say \"This object shall be null or an empty array in responses.\"  Which I don\u0027t think we obey today.  That needs fixed, which I can look at.\n\n\nIn short, I think you\u0027re right;  I\u0027ll get this fixed.",
+      "parentUuid": "2cc2fff0_21f91d09",
+      "revId": "ade63bc3b47e7fbe72805686d514b702a03cf610",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "205dce52_120db939",
         "filename": "redfish-core/lib/event_service.hpp",
         "patchSetId": 3
