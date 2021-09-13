@@ -314,13 +314,15 @@ class Connection :
     {
         cancelDeadlineTimer();
 
+        crow::Request& r = req.emplace(parser->release());
+
         // Fetch the client IP address
         readClientIp();
 
         // Check for HTTP version 1.1.
-        if (parser->get().version() == 11)
+        if (r.version() == 11)
         {
-            if (parser->get()[boost::beast::http::field::host].empty())
+            if (r.getHeaderValue(boost::beast::http::field::host).empty())
             {
                 res.result(boost::beast::http::status::bad_request);
                 completeRequest();
@@ -329,18 +331,14 @@ class Connection :
         }
 
         BMCWEB_LOG_INFO << "Request: "
-                        << " " << this << " HTTP/"
-                        << parser->get().version() / 10 << "."
-                        << parser->get().version() % 10 << ' '
-                        << parser->get().method_string() << " "
-                        << parser->get().target() << " " << req->ipAddress;
-        req.emplace(parser->release());
-        req->session = userSession;
+                        << " " << this << " HTTP/" << r.version() / 10 << "."
+                        << r.version() % 10 << ' ' << r.methodString() << " "
+                        << r.target() << " " << r.ipAddress;
+        r.session = userSession;
         try
         {
-            // causes life time issue
-            req->urlView = boost::urls::url_view(req->target());
-            req->url = req->urlView.encoded_path();
+            r.urlView = boost::urls::url_view(r.target());
+            r.url = r.urlView.encoded_path();
         }
         catch (std::exception& p)
         {
@@ -350,7 +348,7 @@ class Connection :
         res.setCompleteRequestHandler(nullptr);
         res.isAliveHelper = [this]() -> bool { return isAlive(); };
 
-        req->ioService = static_cast<decltype(req->ioService)>(
+        r.ioService = static_cast<decltype(r.ioService)>(
             &adaptor.get_executor().context());
 
         if (res.completed)
@@ -363,19 +361,18 @@ class Connection :
                               [self] { self->completeRequest(); });
         });
 
-        if (req->isUpgrade() &&
-            boost::iequals(
-                req->getHeaderValue(boost::beast::http::field::upgrade),
-                "websocket"))
+        if (r.isUpgrade() &&
+            boost::iequals(r.getHeaderValue(boost::beast::http::field::upgrade),
+                           "websocket"))
         {
-            handler->handleUpgrade(*req, res, std::move(adaptor));
+            handler->handleUpgrade(r, res, std::move(adaptor));
             // delete lambda with self shared_ptr
             // to enable connection destruction
             res.setCompleteRequestHandler(nullptr);
             return;
         }
         auto asyncResp = std::make_shared<bmcweb::AsyncResp>(res);
-        handler->handle(*req, asyncResp);
+        handler->handle(r, asyncResp);
     }
 
     bool isAlive()
