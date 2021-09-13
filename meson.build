@@ -148,6 +148,7 @@ add_project_arguments(
     '-Wnull-dereference',
     '-Wdouble-promotion',
     '-Wno-newline-eof',
+    '-fno-exceptions',
     '-Wformat=2',
   ]),
   language:'cpp')
@@ -171,6 +172,7 @@ if (cxx.get_id() == 'gcc' and cxx.version().version_compare('>8.0'))
      '-Wnull-dereference',
      '-Wdouble-promotion',
      '-Wformat=2',
+     '-fno-exceptions',
      ]),
     language:'cpp')
 
@@ -275,7 +277,10 @@ cxx.get_supported_arguments([
 '-DBOOST_URL_STANDALONE',
 '-DBOOST_URL_HEADER_ONLY',
 '-DBOOST_ALLOW_DEPRECATED_HEADERS',
-'-DJSON_NOEXCEPTION'
+'-DJSON_NOEXCEPTION',
+'-DBOOST_DISABLE_EXCEPTIONS',
+'-DBOOST_ALLOW_DEPRECATED_HEADERS',
+'-DSDBUSPLUS_DISABLE_BOOST_COROUTINES',
 ]),
 language : 'cpp')
 
