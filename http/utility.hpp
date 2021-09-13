@@ -187,8 +187,8 @@ constexpr uint64_t getParameterTag(std::string_view s, unsigned p = 0)
     {
         return getParameterTag(s, findClosingTag(s, p)) * 6 + 5;
     }
-
-    throw std::runtime_error("invalid parameter type");
+    return 0;
+    // throw std::runtime_error("invalid parameter type");
 }
 
 template <typename... T>

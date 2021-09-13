@@ -33,6 +33,14 @@
 
 constexpr int defaultPort = 18080;
 
+void boost::throw_exception( std::exception const &){
+    std::terminate();
+}
+
+void boost::throw_exception(std::exception const&, boost::source_location const&){
+    std::terminate();
+}
+
 inline void setupSocket(crow::App& app)
 {
     int listenFd = sd_listen_fds(0);
