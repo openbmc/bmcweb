@@ -39,7 +39,7 @@ class BaseRule
     BaseRule& operator=(const BaseRule&) = delete;
     BaseRule& operator=(const BaseRule&&) = delete;
 
-    virtual void validate() = 0;
+    virtual bool validate() = 0;
     std::unique_ptr<BaseRule> upgrade()
     {
         if (ruleToUpgrade)
@@ -330,8 +330,10 @@ class WebSocketRule : public BaseRule
     WebSocketRule(const std::string& ruleIn) : BaseRule(ruleIn)
     {}
 
-    void validate() override
-    {}
+    bool validate() override
+    {
+        return true;
+    }
 
     void handle(const Request& /*req*/,
                 const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
@@ -471,13 +473,9 @@ class DynamicRule : public BaseRule, public RuleParameterTraits<DynamicRule>
     DynamicRule(const std::string& ruleIn) : BaseRule(ruleIn)
     {}
 
-    void validate() override
+    bool validate() override
     {
-        if (!erasedHandler)
-        {
-            throw std::runtime_error(nameStr + (!nameStr.empty() ? ": " : "") +
-                                     "no handler for url " + rule);
-        }
+        return static_cast<bool>(erasedHandler);
     }
 
     void handle(const Request& req,
@@ -513,9 +511,7 @@ class DynamicRule : public BaseRule, public RuleParameterTraits<DynamicRule>
                 black_magic::computeParameterTagFromArgsList<
                     typename function_t::template arg<Indices>...>::value))
         {
-            throw std::runtime_error("routeDynamic: Handler type is mismatched "
-                                     "with URL parameters: " +
-                                     rule);
+            return {};
         }
         auto ret = detail::routing_handler_call_helper::Wrapped<
             Func, typename function_t::template arg<Indices>...>();
@@ -549,13 +545,9 @@ class TaggedRule :
     TaggedRule(const std::string& ruleIn) : BaseRule(ruleIn)
     {}
 
-    void validate() override
+    bool validate() override
     {
-        if (!handler)
-        {
-            throw std::runtime_error(nameStr + (!nameStr.empty() ? ": " : "") +
-                                     "no handler for url " + rule);
-        }
+        return static_cast<bool>(handler);
     }
 
     template <typename Func>
@@ -941,7 +933,7 @@ class Trie
         return {found, matchParams};
     }
 
-    void add(const std::string& url, unsigned ruleIndex)
+    bool add(const std::string& url, unsigned ruleIndex)
     {
         size_t idx = 0;
 
@@ -992,9 +984,10 @@ class Trie
         }
         if (nodes[idx].ruleIndex != 0U)
         {
-            throw std::runtime_error("handler already exists for " + url);
+            return false;
         }
         nodes[idx].ruleIndex = ruleIndex;
+        return true;
     }
 
   private:
@@ -1094,11 +1087,11 @@ class Router
         return *ptr;
     }
 
-    void internalAddRuleObject(const std::string& rule, BaseRule* ruleObject)
+    bool internalAddRuleObject(const std::string& rule, BaseRule* ruleObject)
     {
         if (ruleObject == nullptr)
         {
-            return;
+            return false;
         }
         for (size_t method = 0, methodBit = 1; method < maxHttpVerbCount;
              method++, methodBit <<= 1)
@@ -1113,16 +1106,20 @@ class Router
                 //   request to `/about' url matches `/about/' rule
                 if (rule.size() > 2 && rule.back() == '/')
                 {
-                    perMethods[method].trie.add(
-                        rule.substr(0, rule.size() - 1),
-                        static_cast<unsigned>(perMethods[method].rules.size() -
-                                              1));
+                    if (!perMethods[method].trie.add(
+                            rule.substr(0, rule.size() - 1),
+                            static_cast<unsigned>(
+                                perMethods[method].rules.size() - 1)))
+                    {
+                        return false;
+                    }
                 }
             }
         }
+        return true;
     }
 
-    void validate()
+    bool validate()
     {
         for (std::unique_ptr<BaseRule>& rule : allRules)
         {
@@ -1134,13 +1131,17 @@ class Router
                     rule = std::move(upgraded);
                 }
                 rule->validate();
-                internalAddRuleObject(rule->rule, rule.get());
+                if (!internalAddRuleObject(rule->rule, rule.get()))
+                {
+                    return false;
+                }
             }
         }
         for (PerMethod& perMethod : perMethods)
         {
             perMethod.trie.validate();
         }
+        return true;
     }
 
     template <typename Adaptor>
@@ -1169,7 +1170,7 @@ class Router
 
         if (ruleIndex >= rules.size())
         {
-            throw std::runtime_error("Trie internal structure corrupted!");
+            // throw std::runtime_error("Trie internal structure corrupted!");
         }
 
         if (ruleIndex == ruleSpecialRedirectSlash)
@@ -1213,27 +1214,7 @@ class Router
                          << rules[ruleIndex]->getMethods();
 
         // any uncaught exceptions become 500s
-        try
-        {
-            rules[ruleIndex]->handleUpgrade(req, res,
-                                            std::forward<Adaptor>(adaptor));
-        }
-        catch (const std::exception& e)
-        {
-            BMCWEB_LOG_ERROR << "An uncaught exception occurred: " << e.what();
-            res.result(boost::beast::http::status::internal_server_error);
-            res.end();
-            return;
-        }
-        catch (...)
-        {
-            BMCWEB_LOG_ERROR
-                << "An uncaught exception occurred. The type was unknown "
-                   "so no information was available.";
-            res.result(boost::beast::http::status::internal_server_error);
-            res.end();
-            return;
-        }
+        rules[ruleIndex]->handleUpgrade(req, res, std::move(adaptor));
     }
 
     void handle(Request& req,
@@ -1273,7 +1254,7 @@ class Router
 
         if (ruleIndex >= rules.size())
         {
-            throw std::runtime_error("Trie internal structure corrupted!");
+            // throw std::runtime_error("Trie internal structure corrupted!");
         }
 
         if (ruleIndex == ruleSpecialRedirectSlash)

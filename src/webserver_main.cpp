@@ -149,13 +149,5 @@ static int run()
 
 int main(int /*argc*/, char** /*argv*/)
 {
-    try
-    {
-        return run();
-    }
-    catch (...)
-    {
-        return -1;
-        BMCWEB_LOG_CRITICAL << "Threw exception to main";
-    }
+    return run();
 }

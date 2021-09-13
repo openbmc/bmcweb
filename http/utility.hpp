@@ -105,7 +105,7 @@ constexpr int getParameterTag()
     {
         return 4;
     }
-    return 0;
+    return -1;
 }
 
 template <typename... Args>
@@ -126,11 +126,15 @@ struct computeParameterTagFromArgsList<Arg, Args...>
         getParameterTag<typename std::decay<Arg>::type>()
             ? subValue * 6 + getParameterTag<typename std::decay<Arg>::type>()
             : subValue;
+    static_assert(value <= -1, "Badly matched parameters");
 };
 
-inline bool isParameterTagCompatible(uint64_t a, uint64_t b)
+inline constexpr bool isParameterTagCompatible(int64_t a, int64_t b)
 {
-
+    if (a < 0 || b < 0)
+    {
+        return false;
+    }
     if (a == 0)
     {
         return b == 0;
@@ -139,8 +143,8 @@ inline bool isParameterTagCompatible(uint64_t a, uint64_t b)
     {
         return a == 0;
     }
-    uint64_t sa = a % 6;
-    uint64_t sb = a % 6;
+    int64_t sa = a % 6;
+    int64_t sb = a % 6;
     if (sa == 5)
     {
         sa = 4;
@@ -156,9 +160,8 @@ inline bool isParameterTagCompatible(uint64_t a, uint64_t b)
     return isParameterTagCompatible(a / 6, b / 6);
 }
 
-constexpr uint64_t getParameterTag(std::string_view s, unsigned p = 0)
+constexpr int64_t getParameterTag(std::string_view s, unsigned p = 0)
 {
-
     if (p == s.size())
     {
         return 0;
@@ -193,8 +196,7 @@ constexpr uint64_t getParameterTag(std::string_view s, unsigned p = 0)
     {
         return getParameterTag(s, findClosingTag(s, p)) * 6 + 5;
     }
-
-    throw std::runtime_error("invalid parameter type");
+    return -1;
 }
 
 template <typename... T>
