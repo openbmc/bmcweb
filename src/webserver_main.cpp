@@ -32,6 +32,18 @@
 #endif
 
 constexpr int defaultPort = 18080;
+namespace boost
+{
+void throw_exception(std::exception const&)
+{
+    std::terminate();
+}
+
+void throw_exception(std::exception const&, boost::source_location const&)
+{
+    std::terminate();
+}
+} // namespace boost
 
 inline void setupSocket(crow::App& app)
 {
