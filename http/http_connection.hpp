@@ -262,6 +262,7 @@ class Connection :
             }
             sslUser.resize(lastChar);
             std::string unsupportedClientId = "";
+            sessionIsFromTransport = true;
             userSession = persistent_data::SessionStore::getInstance()
                               .generateUserSession(
                                   sslUser, req->ipAddress.to_string(),
@@ -563,6 +564,7 @@ class Connection :
                 {
                     BMCWEB_LOG_DEBUG << "Unable to get client IP";
                 }
+                sessionIsFromTransport = false;
                 userSession = crow::authorization::authenticate(
                     req->url, ip, res, method, parser->get().base(),
                     userSession);
@@ -696,6 +698,12 @@ class Connection :
                                                       // newly created parser
                 buffer.consume(buffer.size());
 
+                // If the sesesion
+                if (!sessionIsFromTransport)
+                {
+                    userSession = nullptr;
+                }
+
                 req.emplace(parser->release());
                 doReadHeaders();
             });
@@ -781,6 +789,7 @@ class Connection :
     std::optional<crow::Request> req;
     crow::Response res;
 
+    bool sessionIsFromTransport = false;
     std::shared_ptr<persistent_data::UserSession> userSession;
 
     std::optional<size_t> timerCancelKey;
