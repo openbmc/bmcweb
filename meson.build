@@ -151,6 +151,7 @@ add_project_arguments(
     '-Wswitch-enum',
     '-Wnull-dereference',
     '-Wdouble-promotion',
+    '-Wno-newline-eof',
     '-Wformat=2',
   ]),
   language:'cpp')
@@ -363,7 +364,8 @@ endif
 srcfiles_bmcweb = [
   'src/webserver_main.cpp',
   'redfish-core/src/error_messages.cpp',
-  'redfish-core/src/utils/json_utils.cpp'
+  'redfish-core/src/utils/json_utils.cpp',
+  'src/boost_url.cpp'
 ]
 
 srcfiles_unittest = [
@@ -433,7 +435,9 @@ executable('bmcweb',srcfiles_bmcweb,
 if(get_option('tests').enabled())
   foreach src_test : srcfiles_unittest
     testname = src_test.split('/')[-1].split('.')[0]
-    test(testname,executable(testname,src_test,
+    test(testname,executable(testname, 
+        [src_test,
+        'src/boost_url.cpp'],
                 include_directories : incdir,
                 install_dir: bindir,
                 dependencies: [

@@ -33,22 +33,23 @@ namespace redfish
  */
 inline std::string getTransferProtocolTypeFromUri(const std::string& imageUri)
 {
-    try
+    boost::urls::error_code ec;
+    boost::urls::url_view url =
+        boost::urls::parse_uri(boost::string_view(imageUri), ec);
+    if (ec)
     {
-        std::string_view scheme = boost::urls::url_view(imageUri).scheme();
-        if (scheme == "smb")
-        {
-            return "CIFS";
-        }
-        if (scheme == "https")
-        {
-            return "HTTPS";
-        }
+        return "None";
     }
-    catch (std::exception& p)
+    boost::string_view scheme = url.scheme();
+    if (scheme == "smb")
     {
-        BMCWEB_LOG_ERROR << p.what();
+        return "CIFS";
     }
+    if (scheme == "https")
+    {
+        return "HTTPS";
+    }
+
     return "None";
 }
 
@@ -325,25 +326,26 @@ enum class TransferProtocol
 inline std::optional<TransferProtocol>
     getTransferProtocolFromUri(const std::string& imageUri)
 {
-    try
+    boost::urls::error_code ec;
+    boost::urls::url_view url =
+        boost::urls::parse_uri(boost::string_view(imageUri), ec);
+    if (ec)
     {
-        std::string_view scheme = boost::urls::url_view(imageUri).scheme();
-        if (scheme == "smb")
-        {
-            return TransferProtocol::smb;
-        }
-        if (scheme == "https")
-        {
-            return TransferProtocol::https;
-        }
-        if (!scheme.empty())
-        {
-            return TransferProtocol::invalid;
-        }
+        return {};
     }
-    catch (std::exception& p)
+
+    boost::string_view scheme = url.scheme();
+    if (scheme == "smb")
     {
-        BMCWEB_LOG_ERROR << p.what();
+        return TransferProtocol::smb;
+    }
+    if (scheme == "https")
+    {
+        return TransferProtocol::https;
+    }
+    if (!scheme.empty())
+    {
+        return TransferProtocol::invalid;
     }
 
     return {};
