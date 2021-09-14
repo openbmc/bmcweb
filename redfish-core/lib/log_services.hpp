@@ -186,7 +186,7 @@ inline static bool getEntryTimestamp(sd_journal* journal,
 static bool getSkipParam(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                          const crow::Request& req, uint64_t& skip)
 {
-    boost::urls::url_view::params_type::iterator it =
+    boost::urls::query_params_view::iterator it =
         req.urlParams.find("$skip");
     if (it != req.urlParams.end())
     {
@@ -208,7 +208,7 @@ static constexpr const uint64_t maxEntriesPerPage = 1000;
 static bool getTopParam(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                         const crow::Request& req, uint64_t& top)
 {
-    boost::urls::url_view::params_type::iterator it =
+    boost::urls::query_params_view::iterator it =
         req.urlParams.find("$top");
     if (it != req.urlParams.end())
     {
