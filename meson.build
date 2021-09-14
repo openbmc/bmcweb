@@ -147,6 +147,7 @@ add_project_arguments(
     '-Wswitch-enum',
     '-Wnull-dereference',
     '-Wdouble-promotion',
+    '-Wno-newline-eof',
     '-Wformat=2',
   ]),
   language:'cpp')
@@ -357,7 +358,8 @@ endif
 # Source files
 
 srcfiles_bmcweb = ['src/webserver_main.cpp','redfish-core/src/error_messages.cpp',
-                   'redfish-core/src/utils/json_utils.cpp']
+                   'redfish-core/src/utils/json_utils.cpp',
+                   'src/boost_url.cpp']
 
 srcfiles_unittest = ['include/ut/dbus_utility_test.cpp',
                      'include/ut/http_utility_test.cpp',
