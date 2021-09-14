@@ -16,6 +16,7 @@
 #include <boost/beast/core/flat_static_buffer.hpp>
 #include <boost/beast/ssl/ssl_stream.hpp>
 #include <boost/beast/websocket.hpp>
+#include <boost/url/url_view.hpp>
 #include <json_html_serializer.hpp>
 #include <security_headers.hpp>
 #include <ssl_key_handler.hpp>
@@ -336,15 +337,14 @@ class Connection :
                         << "." << thisReq.version() % 10 << ' '
                         << thisReq.methodString() << " " << thisReq.target()
                         << " " << thisReq.ipAddress;
-        try
+
+        boost::urls::error_code ec;
+        req->urlView = boost::urls::parse_uri(boost::urls::string_view(req->target().data(), req->target().size()), ec);
+        if (ec)
         {
-            thisReq.urlView = boost::urls::url_view(thisReq.target());
-            thisReq.url = thisReq.urlView.encoded_path();
+            return;
         }
-        catch (std::exception& p)
-        {
-            BMCWEB_LOG_ERROR << p.what();
-        }
+        req->url = std::string_view(req->urlView.encoded_path().data(), req->urlView.encoded_path().size());
 
         res.setCompleteRequestHandler(nullptr);
         res.isAliveHelper = [this]() -> bool { return isAlive(); };
@@ -547,16 +547,14 @@ class Connection :
 
                 boost::beast::http::verb method = parser->get().method();
                 readClientIp();
-                try
-                {
-                    req->urlView =
-                        boost::urls::url_view(parser->get().target());
-                    req->url = req->urlView.encoded_path();
+                boost::urls::error_code uriEc;
+                boost::urls::string_view uriStringView(parser->get().target().data(), parser->get().target().size());
+                req->urlView = boost::urls::parse_uri(uriStringView, uriEc);
+                if (uriEc){
+                    BMCWEB_LOG_ERROR << "Failed to parse URI.";
+                    return;
                 }
-                catch (std::exception& p)
-                {
-                    BMCWEB_LOG_ERROR << p.what();
-                }
+                req->url = std::string_view(req->urlView.encoded_path().data(), req->urlView.encoded_path().size());
 
                 boost::asio::ip::address ip;
                 if (getClientIp(ip))
@@ -573,7 +571,7 @@ class Connection :
                     startDeadline(loggedInAttempts);
                     BMCWEB_LOG_DEBUG << "Starting slow deadline";
 
-                    req->urlParams = req->urlView.params();
+                    req->urlParams = req->urlView.query_params();
 
 #ifdef BMCWEB_ENABLE_DEBUG
                     std::string paramList = "";

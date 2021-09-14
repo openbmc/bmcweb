@@ -22,7 +22,7 @@ struct Request
     boost::beast::http::fields& fields;
     std::string_view url{};
     boost::urls::url_view urlView{};
-    boost::urls::url_view::params_type urlParams{};
+    boost::urls::query_params_view urlParams{};
     bool isSecure{false};
 
     const std::string& body;
