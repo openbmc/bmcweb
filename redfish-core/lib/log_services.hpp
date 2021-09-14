@@ -332,44 +332,18 @@ inline static bool
         tsStr.remove_suffix(tsStr.size() - underscorePos);
         std::string_view indexStr(entryID);
         indexStr.remove_prefix(underscorePos + 1);
-        std::size_t pos;
-        try
-        {
-            index = std::stoul(std::string(indexStr), &pos);
-        }
-        catch (std::invalid_argument&)
-        {
-            messages::resourceMissingAtURI(asyncResp->res, entryID);
-            return false;
-        }
-        catch (std::out_of_range&)
-        {
-            messages::resourceMissingAtURI(asyncResp->res, entryID);
-            return false;
-        }
-        if (pos != indexStr.size())
+        auto [ptr, ec] = std::from_chars(
+            indexStr.data(), indexStr.data() + indexStr.size(), index);
+        if (ec != std::errc())
         {
             messages::resourceMissingAtURI(asyncResp->res, entryID);
             return false;
         }
     }
     // Timestamp has no index
-    std::size_t pos;
-    try
-    {
-        timestamp = std::stoull(std::string(tsStr), &pos);
-    }
-    catch (std::invalid_argument&)
-    {
-        messages::resourceMissingAtURI(asyncResp->res, entryID);
-        return false;
-    }
-    catch (std::out_of_range&)
-    {
-        messages::resourceMissingAtURI(asyncResp->res, entryID);
-        return false;
-    }
-    if (pos != tsStr.size())
+    auto [ptr, ec] =
+        std::from_chars(tsStr.data(), tsStr.data() + tsStr.size(), timestamp);
+    if (ec != std::errc())
     {
         messages::resourceMissingAtURI(asyncResp->res, entryID);
         return false;
