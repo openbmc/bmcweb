@@ -134,6 +134,24 @@
       "revId": "b24a81b9cfbb561ad18159b35f118846f8c04a16",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "96a71201_f19aa7ae",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 1744,
+      "author": {
+        "id": 1001083
+      },
+      "writtenOn": "2021-09-14T14:28:22Z",
+      "side": 1,
+      "message": "I don\u0027t think so. You handle the error well at line 1716.",
+      "parentUuid": "7395ef6a_e1f0fbb8",
+      "revId": "b24a81b9cfbb561ad18159b35f118846f8c04a16",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
