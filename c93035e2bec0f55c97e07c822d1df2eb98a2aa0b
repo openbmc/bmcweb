@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "19576838_ea2502c4",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-09-15T20:50:55Z",
+      "side": 1,
+      "message": "Yep, I see very similar code at like https://github.com/openbmc/bmcweb/blob/9a128eb3fc3008f802974360e98de6495ed1a66b/include/async_resolve.hpp#L78",
+      "revId": "c93035e2bec0f55c97e07c822d1df2eb98a2aa0b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "30ef1bd4_0f2ae663",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-09-15T20:50:55Z",
+      "side": 1,
+      "message": "Just testing, otherwise looks good to me.",
+      "revId": "c93035e2bec0f55c97e07c822d1df2eb98a2aa0b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
