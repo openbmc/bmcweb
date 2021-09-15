@@ -34,6 +34,24 @@
       "revId": "f4c397e7925276db4e049f9a4951c3d11a9996d2",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "14241ece_a83b24fb",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000388
+      },
+      "writtenOn": "2021-09-15T17:18:06Z",
+      "side": 1,
+      "message": "I was able to run the test on my test machine with this change and I can confirm that the Processors passed:\n\n```\n*** /redfish/v1/Systems/system/Processors\n         Type (#ProcessorCollection.ProcessorCollection), GET SUCCESS (time: 0.286532)\n\n...\n...\n\n*** /redfish/v1/Systems/system/Processors/cpu0\n         Type (#Processor.v1_11_0.Processor), GET SUCCESS (time: 0.434741)\n         PASS\n\n...\n...\n\n*** /redfish/v1/JsonSchemas/Processor\n         Type (#JsonSchemaFile.v1_0_2.JsonSchemaFile), GET SUCCESS (time: 0.134821)\n         PASS\n\n```\n\nIs this enough from the validator perspective?",
+      "parentUuid": "89121fc7_6394d29f",
+      "revId": "f4c397e7925276db4e049f9a4951c3d11a9996d2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
