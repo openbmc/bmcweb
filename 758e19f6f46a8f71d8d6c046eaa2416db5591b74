@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b598fbda_8bd78420",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-09-15T15:40:16Z",
+      "side": 1,
+      "message": "Nitpick: 3. Capitalize the subject line is a rule here: https://chris.beams.io/posts/git-commit/#limit-50",
+      "revId": "758e19f6f46a8f71d8d6c046eaa2416db5591b74",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e2bf60c2_9f3e5afe",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-09-15T15:40:16Z",
+      "side": 1,
+      "message": "Was added to phosphor-dbus-interfaces here:\n\nhttps://github.com/openbmc/phosphor-dbus-interfaces/blob/39bdb4711855ed9caf18b55427691c80e8e8ac8e/yaml/xyz/openbmc_project/Logging/Entry.interface.yaml#L48",
+      "revId": "758e19f6f46a8f71d8d6c046eaa2416db5591b74",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
