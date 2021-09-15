@@ -16,6 +16,24 @@
       "revId": "f4c397e7925276db4e049f9a4951c3d11a9996d2",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "89121fc7_6394d29f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000388
+      },
+      "writtenOn": "2021-09-15T16:13:26Z",
+      "side": 1,
+      "message": "Apologies, first time contributing to bmcweb, I wasn\u0027t aware that here was a validator that had to be run. I\u0027ll give that a run.\n\nYes, I\u0027ve tested on a test machine that populated the new CPU.interfaces that map to these:\n\nhttps://gerrit.openbmc-project.xyz/c/openbmc/phosphor-dbus-interfaces/+/46416\nhttps://gerrit.openbmc-project.xyz/c/openbmc/phosphor-dbus-interfaces/+/46763\n\n```\n{\n  \"@odata.id\": \"/redfish/v1/Systems/system/Processors/cpu0\",\n  \"@odata.type\": \"#Processor.v1_11_0.Processor\",\n  \"Id\": \"cpu0\",\n  \"MaxSpeedMHz\": 0,\n  \"Name\": \"Processor\",\n  \"ProcessorId\": {\n    \"EffectiveFamily\": \"X\",\n    \"EffectiveModel\": \"XX\",\n    \"MicrocodeInfo\": \"XXX\",\n    \"Step\": \"X\"\n  },\n  \"ProcessorType\": \"CPU\",\n  \"Socket\": \"0\",\n  \"Status\": {\n    \"Health\": \"OK\",\n    \"State\": \"Enabled\"\n  },\n  \"TotalCores\": XX,\n  \"TotalThreads\": XXX\n}\n```\n\nRedacted the information with Xs - I\u0027ll update the commit message with this after I also run the validator.",
+      "parentUuid": "55bacbce_f89f5732",
+      "revId": "f4c397e7925276db4e049f9a4951c3d11a9996d2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
