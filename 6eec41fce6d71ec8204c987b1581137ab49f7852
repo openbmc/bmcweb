@@ -81,6 +81,30 @@
       "revId": "6eec41fce6d71ec8204c987b1581137ab49f7852",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d603a8f1_a91f5313",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-09-15T15:59:10Z",
+      "side": 1,
+      "message": "\u003e By \"Content-Type\" I mean Content-Type header:\n\u003e https://cheatsheetseries.owasp.org/cheatsheets/REST_Security_Cheat_Sheet.html#validate-content-types\n\u003e So it should be validated if body content type and Content-Type header is the same.\n\nThe content-type header is sent by the attacker.\n\n\u003e \n\u003e Cross-site Forged requests cannot be send with application/json content-type because of no-cors mode.\n\nCORS would prevent ALL requests, not just requests sent with a content-type header, correct?\n\n\u003e Currently it is possible to make CSRF attacks when using mTLS authenticasion. Please check cover letter for more details,\n\nYour cover letter had very few details on how to actually execute an attack, and involved injecting javascript into your browser.  Said javascript would also be able to defeat a cors check, as it\u0027s also stored in the browser javascript.  It\u0027s possible I missed something, but as written your cover letter isn\u0027t really enough to reproduce the issue.\n\n\u003e I also provide addition proposition about changing mTLS auth flow, because with current one there is no possibility to implement XSRF token.\n\nI have proposed several changes to the mTLS flow in the past, which nobody has responded to.  This needs discussed with the mTLS authors (of which I believe work for your same group).\n\nIf client-side injection of code is within your threat model, I would highly recommend disabling mtls, as we make a similar recommendation for basic auth for those that don\u0027t like the browser caching properties.",
+      "parentUuid": "df411016_c7f63082",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 32
+      },
+      "revId": "6eec41fce6d71ec8204c987b1581137ab49f7852",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
