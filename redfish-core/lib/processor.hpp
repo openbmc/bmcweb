@@ -170,6 +170,16 @@ inline void
                         *value;
                 }
             }
+            else if (property.first == "Model")
+            {
+                const std::string* value =
+                    std::get_if<std::string>(&property.second);
+                if (value != nullptr)
+                {
+                    aResp->res.jsonValue["ProcessorId"]["EffectiveModel"] =
+                        *value;
+                }
+            }
             else if (property.first == "Id")
             {
                 const uint64_t* value = std::get_if<uint64_t>(&property.second);
@@ -178,6 +188,25 @@ inline void
                     aResp->res
                         .jsonValue["ProcessorId"]["IdentificationRegisters"] =
                         boost::lexical_cast<std::string>(*value);
+                }
+            }
+            else if (property.first == "Microcode")
+            {
+                const std::string* value =
+                    std::get_if<std::string>(&property.second);
+                if (value != nullptr)
+                {
+                    aResp->res.jsonValue["ProcessorId"]["MicrocodeInfo"] =
+                        *value;
+                }
+            }
+            else if (property.first == "Step")
+            {
+                const std::string* value =
+                    std::get_if<std::string>(&property.second);
+                if (value != nullptr)
+                {
+                    aResp->res.jsonValue["ProcessorId"]["Step"] = *value;
                 }
             }
         }
