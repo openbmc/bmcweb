@@ -1387,6 +1387,7 @@ inline void requestRoutesDBusEventLogEntryCollection(App& app)
                         const std::string* message = nullptr;
                         const std::string* filePath = nullptr;
                         bool resolved = false;
+                        bool serviceProviderNotified = false;
                         for (auto& interfaceMap : objectPath.second)
                         {
                             if (interfaceMap.first ==
@@ -1447,6 +1448,22 @@ inline void requestRoutesDBusEventLogEntryCollection(App& app)
                                         }
                                         resolved = *resolveptr;
                                     }
+                                    else if (propertyMap.first ==
+                                             "ServiceProviderNotify")
+                                    {
+                                        const bool* serviceProviderNotifiedptr =
+                                            std::get_if<bool>(
+                                                &propertyMap.second);
+                                        if (serviceProviderNotifiedptr ==
+                                            nullptr)
+                                        {
+                                            messages::internalError(
+                                                asyncResp->res);
+                                            return;
+                                        }
+                                        serviceProviderNotified =
+                                            *serviceProviderNotifiedptr;
+                                    }
                                 }
                                 if (id == nullptr || message == nullptr ||
                                     severity == nullptr)
@@ -1478,7 +1495,7 @@ inline void requestRoutesDBusEventLogEntryCollection(App& app)
                         }
                         entriesArray.push_back({});
                         nlohmann::json& thisEntry = entriesArray.back();
-                        thisEntry["@odata.type"] = "#LogEntry.v1_8_0.LogEntry";
+                        thisEntry["@odata.type"] = "#LogEntry.v1_9_0.LogEntry";
                         thisEntry["@odata.id"] =
                             "/redfish/v1/Systems/system/LogServices/EventLog/Entries/" +
                             std::to_string(*id);
@@ -1486,6 +1503,8 @@ inline void requestRoutesDBusEventLogEntryCollection(App& app)
                         thisEntry["Id"] = std::to_string(*id);
                         thisEntry["Message"] = *message;
                         thisEntry["Resolved"] = resolved;
+                        thisEntry["ServiceProviderNotified"] =
+                            serviceProviderNotified;
                         thisEntry["EntryType"] = "Event";
                         thisEntry["Severity"] =
                             translateSeverityDbusToRedfish(*severity);
@@ -1552,6 +1571,7 @@ inline void requestRoutesDBusEventLogEntry(App& app)
                         const std::string* severity = nullptr;
                         const std::string* message = nullptr;
                         const std::string* filePath = nullptr;
+                        bool serviceProviderNotified = false;
                         bool resolved = false;
 
                         for (auto& propertyMap : resp)
@@ -1607,6 +1627,19 @@ inline void requestRoutesDBusEventLogEntry(App& app)
                                 filePath = std::get_if<std::string>(
                                     &propertyMap.second);
                             }
+                            else if (propertyMap.first ==
+                                     "ServiceProviderNotify")
+                            {
+                                const bool* serviceProviderNotifiedptr =
+                                    std::get_if<bool>(&propertyMap.second);
+                                if (serviceProviderNotifiedptr == nullptr)
+                                {
+                                    messages::internalError(asyncResp->res);
+                                    return;
+                                }
+                                serviceProviderNotified =
+                                    *serviceProviderNotifiedptr;
+                            }
                         }
                         if (id == nullptr || message == nullptr ||
                             severity == nullptr)
@@ -1615,7 +1648,7 @@ inline void requestRoutesDBusEventLogEntry(App& app)
                             return;
                         }
                         asyncResp->res.jsonValue["@odata.type"] =
-                            "#LogEntry.v1_8_0.LogEntry";
+                            "#LogEntry.v1_9_0.LogEntry";
                         asyncResp->res.jsonValue["@odata.id"] =
                             "/redfish/v1/Systems/system/LogServices/EventLog/Entries/" +
                             std::to_string(*id);
@@ -1624,6 +1657,8 @@ inline void requestRoutesDBusEventLogEntry(App& app)
                         asyncResp->res.jsonValue["Id"] = std::to_string(*id);
                         asyncResp->res.jsonValue["Message"] = *message;
                         asyncResp->res.jsonValue["Resolved"] = resolved;
+                        asyncResp->res.jsonValue["ServiceProviderNotified"] =
+                            serviceProviderNotified;
                         asyncResp->res.jsonValue["EntryType"] = "Event";
                         asyncResp->res.jsonValue["Severity"] =
                             translateSeverityDbusToRedfish(*severity);
