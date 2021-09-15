@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fb9f3fff_7b1d0088",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 177,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-09-15T19:41:19Z",
+      "side": 1,
+      "message": "Prefer \n\n                if (value \u003d\u003d nullptr)\n                {\n                    messages::internalError(aResp-\u003eres);\n                    return;\n                }\n\n                    aResp-\u003eres.jsonValue[\"ProcessorId\"][\"EffectiveModel\"] \u003d\n                        *value;",
+      "revId": "245c655dcf72bb1e2d05f50d4da675421de5b1bd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
