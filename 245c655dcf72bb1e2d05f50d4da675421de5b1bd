@@ -34,6 +34,24 @@
       "revId": "245c655dcf72bb1e2d05f50d4da675421de5b1bd",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a15a84cd_286722e1",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 177,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-09-15T20:19:03Z",
+      "side": 1,
+      "message": "\u003e I was just following the code above and thinking about it, wouldn\u0027t the suggested way make the property \"mandatory\" (otherwise it errors out?)\n\nNo, because this code is only going to get in here if it finds a property named Model. else if (property.first \u003d\u003d \"Model\")\n\nIf it does find a property named Model and it is not the type we expect, I would call that an error.",
+      "parentUuid": "f766c819_b02a847f",
+      "revId": "245c655dcf72bb1e2d05f50d4da675421de5b1bd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
