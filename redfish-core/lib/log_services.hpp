@@ -140,6 +140,21 @@ inline std::string translateSeverityDbusToRedfish(const std::string& s)
     return "";
 }
 
+inline std::optional<bool> getProviderNotifyAction(const std::string& notify)
+{
+    std::optional<bool> notifyAction;
+    if (notify == "xyz.openbmc_project.Logging.Entry.Notify.Notify")
+    {
+        notifyAction = true;
+    }
+    else if (notify == "xyz.openbmc_project.Logging.Entry.Notify.Inhibit")
+    {
+        notifyAction = false;
+    }
+
+    return notifyAction;
+}
+
 inline static int getJournalMetadata(sd_journal* journal,
                                      const std::string_view& field,
                                      std::string_view& contents)
@@ -1540,6 +1555,8 @@ inline void requestRoutesDBusEventLogEntryCollection(App& app)
                 const std::string* filePath = nullptr;
                 const std::string* resolution = nullptr;
                 bool resolved = false;
+                const std::string* notify = nullptr;
+
                 for (const auto& interfaceMap : objectPath.second)
                 {
                     if (interfaceMap.first ==
@@ -1587,6 +1604,17 @@ inline void requestRoutesDBusEventLogEntryCollection(App& app)
                                 }
                                 resolved = *resolveptr;
                             }
+                            else if (propertyMap.first ==
+                                     "ServiceProviderNotify")
+                            {
+                                notify = std::get_if<std::string>(
+                                    &propertyMap.second);
+                                if (notify == nullptr)
+                                {
+                                    messages::internalError(asyncResp->res);
+                                    return;
+                                }
+                            }
                         }
                         if (id == nullptr || message == nullptr ||
                             severity == nullptr)
@@ -1630,6 +1658,12 @@ inline void requestRoutesDBusEventLogEntryCollection(App& app)
                 if ((resolution != nullptr) && (!(*resolution).empty()))
                 {
                     thisEntry["Resolution"] = *resolution;
+                }
+                std::optional<bool> notifyAction =
+                    getProviderNotifyAction(*notify);
+                if (notifyAction)
+                {
+                    thisEntry["ServiceProviderNotified"] = *notifyAction;
                 }
                 thisEntry["EntryType"] = "Event";
                 thisEntry["Severity"] =
@@ -1709,12 +1743,14 @@ inline void requestRoutesDBusEventLogEntry(App& app)
             const std::string* filePath = nullptr;
             const std::string* resolution = nullptr;
             bool resolved = false;
+            const std::string* notify = nullptr;
 
             const bool success = sdbusplus::unpackPropertiesNoThrow(
                 dbus_utils::UnpackErrorPrinter(), resp, "Id", id, "Timestamp",
                 timestamp, "UpdateTimestamp", updateTimestamp, "Severity",
                 severity, "Message", message, "Resolved", resolved,
-                "Resolution", resolution, "Path", filePath);
+                "Resolution", resolution, "Path", filePath,
+                "ServiceProviderNotify", notify);
 
             if (!success)
             {
@@ -1723,11 +1759,13 @@ inline void requestRoutesDBusEventLogEntry(App& app)
             }
 
             if (id == nullptr || message == nullptr || severity == nullptr ||
-                timestamp == nullptr || updateTimestamp == nullptr)
+                timestamp == nullptr || updateTimestamp == nullptr ||
+                notify == nullptr)
             {
                 messages::internalError(asyncResp->res);
                 return;
             }
+
             asyncResp->res.jsonValue["@odata.type"] =
                 "#LogEntry.v1_9_0.LogEntry";
             asyncResp->res.jsonValue["@odata.id"] =
@@ -1737,6 +1775,12 @@ inline void requestRoutesDBusEventLogEntry(App& app)
             asyncResp->res.jsonValue["Id"] = std::to_string(*id);
             asyncResp->res.jsonValue["Message"] = *message;
             asyncResp->res.jsonValue["Resolved"] = resolved;
+            std::optional<bool> notifyAction = getProviderNotifyAction(*notify);
+            if (notifyAction)
+            {
+                asyncResp->res.jsonValue["ServiceProviderNotified"] =
+                    *notifyAction;
+            }
             if ((resolution != nullptr) && (!(*resolution).empty()))
             {
                 asyncResp->res.jsonValue["Resolution"] = *resolution;
