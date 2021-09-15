@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "18d99a72_d36d848d",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 1330,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-09-15T15:44:53Z",
+      "side": 1,
+      "message": "Since we start looking at \"/\", this should be fine. \nIf \"xyz.openbmc_project.Logging.Settings\" doesn\u0027t exist the next if is hit.",
+      "revId": "066b1a1c0396716d586b83edf2e5a38a02bc742a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a5663f30_6bc0d9e3",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 1369,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-09-15T15:44:53Z",
+      "side": 1,
+      "message": "Why not an internal error here?",
+      "revId": "066b1a1c0396716d586b83edf2e5a38a02bc742a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eb63e5f3_225c4155",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 1982,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-09-15T15:44:53Z",
+      "side": 1,
+      "message": "Can you remove this comment, it doesn\u0027t make sense.. If this D-Bus interface isn\u0027t on D-bus it will hit             if (subtree.size() \u003d\u003d 0)",
+      "revId": "066b1a1c0396716d586b83edf2e5a38a02bc742a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
