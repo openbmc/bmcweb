@@ -160,15 +160,25 @@ inline void
                     aResp->res.jsonValue["TotalThreads"] = *value;
                 }
             }
-            else if (property.first == "Family")
+            else if (property.first == "EffectiveFamily")
             {
-                const std::string* value =
-                    std::get_if<std::string>(&property.second);
+                const uint16_t* value = std::get_if<uint16_t>(&property.second);
                 if (value != nullptr)
                 {
                     aResp->res.jsonValue["ProcessorId"]["EffectiveFamily"] =
-                        *value;
+                        "0x" + intToHexString(*value);
                 }
+            }
+            else if (property.first == "EffectiveModel")
+            {
+                const uint16_t* value = std::get_if<uint16_t>(&property.second);
+                if (value == nullptr)
+                {
+                    messages::internalError(aResp->res);
+                    return;
+                }
+                aResp->res.jsonValue["ProcessorId"]["EffectiveModel"] =
+                    "0x" + intToHexString(*value);
             }
             else if (property.first == "Id")
             {
@@ -179,6 +189,28 @@ inline void
                         .jsonValue["ProcessorId"]["IdentificationRegisters"] =
                         "0x" + intToHexString(*value);
                 }
+            }
+            else if (property.first == "Microcode")
+            {
+                const uint32_t* value = std::get_if<uint32_t>(&property.second);
+                if (value == nullptr)
+                {
+                    messages::internalError(aResp->res);
+                    return;
+                }
+                aResp->res.jsonValue["ProcessorId"]["MicrocodeInfo"] =
+                    "0x" + intToHexString(*value);
+            }
+            else if (property.first == "Step")
+            {
+                const uint16_t* value = std::get_if<uint16_t>(&property.second);
+                if (value == nullptr)
+                {
+                    messages::internalError(aResp->res);
+                    return;
+                }
+                aResp->res.jsonValue["ProcessorId"]["Step"] =
+                    "0x" + intToHexString(*value);
             }
         }
     }
