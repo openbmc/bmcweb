@@ -241,6 +241,30 @@
     },
     {
       "key": {
+        "uuid": "c701d2f4_7e979ba1",
+        "filename": "redfish-core/include/registries/privilege_registry.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 581,
+      "author": {
+        "id": 1001099
+      },
+      "writtenOn": "2021-09-16T17:22:42Z",
+      "side": 1,
+      "message": "I think it is completed.\n\nIs there anything missing?",
+      "parentUuid": "106f2ae2_8e869315",
+      "range": {
+        "startLine": 580,
+        "startChar": 0,
+        "endLine": 581,
+        "endChar": 39
+      },
+      "revId": "5bdce35ac5baf1b64eff1ca44264f2a1a3eac3ca",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "3fbe68b7_19a1d62c",
         "filename": "redfish-core/include/registries/privilege_registry.hpp",
         "patchSetId": 10
