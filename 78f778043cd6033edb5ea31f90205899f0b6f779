@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "18a8b463_95a302b0",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 2781,
+      "author": {
+        "id": 1001099
+      },
+      "writtenOn": "2021-09-16T13:27:09Z",
+      "side": 1,
+      "message": "suggestion: std::optional\u003cbool\u003e trustedModuleRequiredToBoot; it\u0027s good to declare this variable on line 2819.",
+      "revId": "78f778043cd6033edb5ea31f90205899f0b6f779",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
