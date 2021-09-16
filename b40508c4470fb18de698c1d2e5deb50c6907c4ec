@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "9ebee79a_da8c0a8f",
+        "filename": "redfish-core/lib/pcie_slots.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 1000632
+      },
+      "writtenOn": "2021-09-16T19:39:56Z",
+      "side": 1,
+      "message": "interfaceList is passed in to check if location interface exists or not. Updated in the new patch.",
+      "parentUuid": "80f03d1b_baf46b34",
+      "range": {
+        "startLine": 142,
+        "startChar": 21,
+        "endLine": 142,
+        "endChar": 34
+      },
+      "revId": "b40508c4470fb18de698c1d2e5deb50c6907c4ec",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "44358b58_8a0aa8dc",
         "filename": "redfish-core/lib/pcie_slots.hpp",
         "patchSetId": 8
@@ -45,6 +69,30 @@
       "revId": "b40508c4470fb18de698c1d2e5deb50c6907c4ec",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d4aaee65_6e2ee3da",
+        "filename": "redfish-core/lib/pcie_slots.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 305,
+      "author": {
+        "id": 1000632
+      },
+      "writtenOn": "2021-09-16T19:39:56Z",
+      "side": 1,
+      "message": "you are correct. The result of GetSubTree is captured in the lambda.",
+      "parentUuid": "44358b58_8a0aa8dc",
+      "range": {
+        "startLine": 304,
+        "startChar": 0,
+        "endLine": 305,
+        "endChar": 51
+      },
+      "revId": "b40508c4470fb18de698c1d2e5deb50c6907c4ec",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
