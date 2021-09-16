@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "12d86f3a_c9742cc6",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 45
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-09-16T15:33:43Z",
+      "side": 1,
+      "message": "Does this have any dependencies on telemetryservice patches?",
+      "range": {
+        "startLine": 17,
+        "startChar": 16,
+        "endLine": 17,
+        "endChar": 17
+      },
+      "revId": "9301824966e90d705db933b66e11ca70b12f811f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f914aedb_0d237c16",
+        "filename": "redfish-core/include/event_service_manager.hpp",
+        "patchSetId": 45
+      },
+      "lineNbr": 1362,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-09-16T15:33:43Z",
+      "side": 1,
+      "message": "This isn\u0027t an error.  Not all properties changed events are \"Readings\" properties.",
+      "range": {
+        "startLine": 1361,
+        "startChar": 0,
+        "endLine": 1362,
+        "endChar": 75
+      },
+      "revId": "9301824966e90d705db933b66e11ca70b12f811f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0952ad1d_3a6d8647",
+        "filename": "redfish-core/include/event_service_manager.hpp",
+        "patchSetId": 45
+      },
+      "lineNbr": 1366,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-09-16T15:33:43Z",
+      "side": 1,
+      "message": "should be const.",
+      "range": {
+        "startLine": 1366,
+        "startChar": 16,
+        "endLine": 1366,
+        "endChar": 58
+      },
+      "revId": "9301824966e90d705db933b66e11ca70b12f811f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
