@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "80f03d1b_baf46b34",
+        "filename": "redfish-core/lib/pcie_slots.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2021-09-16T14:53:12Z",
+      "side": 1,
+      "message": "How\u0027s this used within? I think you meant to use the interface name to compare against those of interest, such as \"xyz.openbmc_project.Inventory.Item.PCIeSlot\" and \"xyz.openbmc_project.Inventory.Decorator.LocationCode\".",
+      "range": {
+        "startLine": 142,
+        "startChar": 21,
+        "endLine": 142,
+        "endChar": 34
+      },
+      "revId": "b40508c4470fb18de698c1d2e5deb50c6907c4ec",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "44358b58_8a0aa8dc",
+        "filename": "redfish-core/lib/pcie_slots.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 305,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2021-09-16T14:53:12Z",
+      "side": 1,
+      "message": "What if the slot does not implement this interface? We\u0027d have to use the result from GetSubTree to compare the interface names against.",
+      "range": {
+        "startLine": 304,
+        "startChar": 0,
+        "endLine": 305,
+        "endChar": 51
+      },
+      "revId": "b40508c4470fb18de698c1d2e5deb50c6907c4ec",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
