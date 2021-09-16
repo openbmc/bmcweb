@@ -55,6 +55,24 @@
     },
     {
       "key": {
+        "uuid": "7a537e9c_d45b5f7f",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 357,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2021-09-16T06:47:31Z",
+      "side": 1,
+      "message": "This is good now. Similar change is needed while PATCHing the HttpHeaders property. The for loop at line 601",
+      "parentUuid": "9c7bf433_68eb7402",
+      "revId": "ade63bc3b47e7fbe72805686d514b702a03cf610",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "205dce52_120db939",
         "filename": "redfish-core/lib/event_service.hpp",
         "patchSetId": 3
