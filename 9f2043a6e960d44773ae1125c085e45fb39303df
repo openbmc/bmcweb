@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a267016e_564dfc50",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 235,
+      "author": {
+        "id": 1001099
+      },
+      "writtenOn": "2021-09-16T19:33:04Z",
+      "side": 1,
+      "message": "can we make this else if rather then if in else?",
+      "revId": "9f2043a6e960d44773ae1125c085e45fb39303df",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
