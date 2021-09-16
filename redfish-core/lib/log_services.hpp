@@ -724,7 +724,7 @@ inline void deleteDumpEntry(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
 }
 
 inline void
-    createDumpTaskCallback(const crow::Request& req,
+    createDumpTaskCallback(task::Payload&& payload,
                            const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                            const uint32_t& dumpId, const std::string& dumpPath,
                            const std::string& dumpType)
@@ -773,7 +773,7 @@ inline void
 
     task->startTimer(std::chrono::minutes(3));
     task->populateResp(asyncResp->res);
-    task->payload.emplace(req);
+    task->payload.emplace(std::move(payload));
 }
 
 inline void createDump(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
@@ -848,8 +848,9 @@ inline void createDump(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     }
 
     crow::connections::systemBus->async_method_call(
-        [asyncResp, req, dumpPath, dumpType](const boost::system::error_code ec,
-                                             const uint32_t& dumpId) {
+        [asyncResp, payload(task::Payload(req)), dumpPath,
+         dumpType](const boost::system::error_code ec,
+                   const uint32_t& dumpId) mutable {
             if (ec)
             {
                 BMCWEB_LOG_ERROR << "CreateDump resp_handler got error " << ec;
@@ -858,7 +859,8 @@ inline void createDump(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
             }
             BMCWEB_LOG_DEBUG << "Dump Created. Id: " << dumpId;
 
-            createDumpTaskCallback(req, asyncResp, dumpId, dumpPath, dumpType);
+            createDumpTaskCallback(std::move(payload), asyncResp, dumpId,
+                                   dumpPath, dumpType);
         },
         "xyz.openbmc_project.Dump.Manager",
         "/xyz/openbmc_project/dump/" +
@@ -2908,7 +2910,8 @@ inline void requestRoutesCrashdumpCollect(App& app)
                 return;
             }
 
-            auto collectCrashdumpCallback = [asyncResp, req](
+            auto collectCrashdumpCallback = [asyncResp,
+                                             payload(task::Payload(req))](
                                                 const boost::system::error_code
                                                     ec,
                                                 const std::string&) {
@@ -2949,7 +2952,7 @@ inline void requestRoutesCrashdumpCollect(App& app)
                     "member='PropertiesChanged',arg0namespace='com.intel.crashdump'");
                 task->startTimer(std::chrono::minutes(5));
                 task->populateResp(asyncResp->res);
-                task->payload.emplace(req);
+                task->payload.emplace(std::move(payload));
             };
 
             if (oemDiagnosticDataType == "OnDemand")
