@@ -39,6 +39,9 @@ struct Request
         fields(req.base()), body(req.body())
     {}
 
+    Request (const Request&) = delete;
+    Request& operator= (const Request&) = delete;
+
     boost::beast::http::verb method() const
     {
         return req.method();
