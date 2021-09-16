@@ -22,6 +22,30 @@
       "revId": "edde47a7778f76dd35d6147d4a6540ba4254b911",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "25481db8_7bac4496",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 12
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-09-16T19:09:19Z",
+      "side": 1,
+      "message": "If \"all boards are assemblies\" don\u0027t work for everyone (I thought by some discord discussion long time ago and the email it might, at least for the time being I thought it might work), then I think we need more grainier boards and some should be assemblies and some chassis.\nSo a board of type smartnic is a chassis but some other \"dumb\" board is a assembly.",
+      "parentUuid": "a3988604_de66baa3",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 29
+      },
+      "revId": "edde47a7778f76dd35d6147d4a6540ba4254b911",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
