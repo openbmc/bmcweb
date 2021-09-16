@@ -775,6 +775,17 @@ inline void doVmAction(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     }
 }
 
+struct InsertMediaActionParams
+{
+    std::string imageUrl;
+    std::optional<std::string> userName;
+    std::optional<std::string> password;
+    std::optional<std::string> transferMethod;
+    std::optional<std::string> transferProtocolType;
+    std::optional<bool> writeProtected = true;
+    std::optional<bool> inserted;
+};
+
 inline void requestNBDVirtualMediaRoutes(App& app)
 {
     BMCWEB_ROUTE(
@@ -792,11 +803,37 @@ inline void requestNBDVirtualMediaRoutes(App& app)
 
                     return;
                 }
+                InsertMediaActionParams actionParams;
+
+                // Read obligatory parameters (url of
+                // image)
+                if (!json_util::readJson(
+                        req, asyncResp->res, "Image", actionParams.imageUrl,
+                        "WriteProtected", actionParams.writeProtected,
+                        "UserName", actionParams.userName, "Password",
+                        actionParams.password, "Inserted",
+                        actionParams.inserted, "TransferMethod",
+                        actionParams.transferMethod, "TransferProtocolType",
+                        actionParams.transferProtocolType))
+                {
+                    BMCWEB_LOG_DEBUG << "Image is not provided";
+                    return;
+                }
+
+                bool paramsValid = validateParams(
+                    asyncResp->res, actionParams.imageUrl,
+                    actionParams.inserted, actionParams.transferMethod,
+                    actionParams.transferProtocolType);
+
+                if (paramsValid == false)
+                {
+                    return;
+                }
 
                 crow::connections::systemBus->async_method_call(
-                    [asyncResp, req,
+                    [asyncResp, actionParams,
                      resName](const boost::system::error_code ec,
-                              const GetObjectType& getObjectType) {
+                              const GetObjectType& getObjectType) mutable {
                         if (ec)
                         {
                             BMCWEB_LOG_ERROR
@@ -810,9 +847,9 @@ inline void requestNBDVirtualMediaRoutes(App& app)
                         BMCWEB_LOG_DEBUG << "GetObjectType: " << service;
 
                         crow::connections::systemBus->async_method_call(
-                            [service, resName, req,
+                            [service, resName, actionParams,
                              asyncResp](const boost::system::error_code ec,
-                                        ManagedObjectType& subtree) {
+                                        ManagedObjectType& subtree) mutable {
                                 if (ec)
                                 {
                                     BMCWEB_LOG_DEBUG << "DBUS response error";
@@ -857,53 +894,14 @@ inline void requestNBDVirtualMediaRoutes(App& app)
                                             continue;
                                         }
 
-                                        // Legacy mode
-                                        std::string imageUrl;
-                                        std::optional<std::string> userName;
-                                        std::optional<std::string> password;
-                                        std::optional<std::string>
-                                            transferMethod;
-                                        std::optional<std::string>
-                                            transferProtocolType;
-                                        std::optional<bool> writeProtected =
-                                            true;
-                                        std::optional<bool> inserted;
-
-                                        // Read obligatory parameters (url of
-                                        // image)
-                                        if (!json_util::readJson(
-                                                req, asyncResp->res, "Image",
-                                                imageUrl, "WriteProtected",
-                                                writeProtected, "UserName",
-                                                userName, "Password", password,
-                                                "Inserted", inserted,
-                                                "TransferMethod",
-                                                transferMethod,
-                                                "TransferProtocolType",
-                                                transferProtocolType))
-                                        {
-                                            BMCWEB_LOG_DEBUG
-                                                << "Image is not provided";
-                                            return;
-                                        }
-
-                                        bool paramsValid = validateParams(
-                                            asyncResp->res, imageUrl, inserted,
-                                            transferMethod,
-                                            transferProtocolType);
-
-                                        if (paramsValid == false)
-                                        {
-                                            return;
-                                        }
-
                                         // manager is irrelevant for
                                         // VirtualMedia dbus calls
-                                        doMountVmLegacy(asyncResp, service,
-                                                        resName, imageUrl,
-                                                        !(*writeProtected),
-                                                        std::move(*userName),
-                                                        std::move(*password));
+                                        doMountVmLegacy(
+                                            asyncResp, service, resName,
+                                            actionParams.imageUrl,
+                                            !(*actionParams.writeProtected),
+                                            std::move(*actionParams.userName),
+                                            std::move(*actionParams.password));
 
                                         return;
                                     }
@@ -928,7 +926,7 @@ inline void requestNBDVirtualMediaRoutes(App& app)
         "/redfish/v1/Managers/<str>/VirtualMedia/<str>/Actions/VirtualMedia.EjectMedia")
         .privileges(redfish::privileges::postVirtualMedia)
         .methods(boost::beast::http::verb::post)(
-            [](const crow::Request& req,
+            [](const crow::Request&,
                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                const std::string& name, const std::string& resName) {
                 if (name != "bmc")
@@ -940,9 +938,8 @@ inline void requestNBDVirtualMediaRoutes(App& app)
                 }
 
                 crow::connections::systemBus->async_method_call(
-                    [asyncResp, req,
-                     resName](const boost::system::error_code ec,
-                              const GetObjectType& getObjectType) {
+                    [asyncResp, resName](const boost::system::error_code ec,
+                                         const GetObjectType& getObjectType) {
                         if (ec)
                         {
                             BMCWEB_LOG_ERROR
@@ -956,7 +953,7 @@ inline void requestNBDVirtualMediaRoutes(App& app)
                         BMCWEB_LOG_DEBUG << "GetObjectType: " << service;
 
                         crow::connections::systemBus->async_method_call(
-                            [resName, service, req, asyncResp{asyncResp}](
+                            [resName, service, asyncResp{asyncResp}](
                                 const boost::system::error_code ec,
                                 ManagedObjectType& subtree) {
                                 if (ec)
