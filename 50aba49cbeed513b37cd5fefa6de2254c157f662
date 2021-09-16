@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b93540ee_6fe4f955",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 1862,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2021-09-16T22:39:37Z",
+      "side": 1,
+      "message": "Does this actually check the total memory? I read it only limits the number of LogEntry, what if an entry is very large?",
+      "revId": "50aba49cbeed513b37cd5fefa6de2254c157f662",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
