@@ -4,6 +4,7 @@
 #include <app.hpp>
 #include <async_resp.hpp>
 #include <boost/container/flat_map.hpp>
+#include <registries/privilege_registry.hpp>
 #include <websocket.hpp>
 
 namespace crow
@@ -159,8 +160,9 @@ inline void requestRoutes(App& app)
     sessions.reserve(maxSessions);
 
     BMCWEB_ROUTE(app, "/kvm/0")
-        .privileges({{"ConfigureComponents", "ConfigureManager"}})
         .websocket()
+        .privileges(redfish::privileges::
+                        privilegeSetConfigureManagerOrConfigureComponents)
         .onopen([](crow::websocket::Connection& conn,
                    const std::shared_ptr<bmcweb::AsyncResp>&) {
             BMCWEB_LOG_DEBUG << "Connection " << &conn << " opened";

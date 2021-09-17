@@ -5,6 +5,7 @@
 #include <boost/container/flat_set.hpp>
 #include <dbus_singleton.hpp>
 #include <openbmc_dbus_rest.hpp>
+#include <registries/privilege_registry.hpp>
 #include <sdbusplus/bus/match.hpp>
 #include <sdbusplus/message/types.hpp>
 #include <websocket.hpp>
@@ -105,8 +106,8 @@ inline int onPropertyUpdate(sd_bus_message* m, void* userdata,
 inline void requestRoutes(App& app)
 {
     BMCWEB_ROUTE(app, "/subscribe")
-        .privileges({{"Login"}})
         .websocket()
+        .privileges(redfish::privileges::privilegeSetLogin)
         .onopen([&](crow::websocket::Connection& conn,
                     const std::shared_ptr<bmcweb::AsyncResp>&) {
             BMCWEB_LOG_DEBUG << "Connection " << &conn << " opened";

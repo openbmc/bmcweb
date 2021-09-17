@@ -6,6 +6,7 @@
 #include <boost/asio/local/stream_protocol.hpp>
 #include <boost/container/flat_map.hpp>
 #include <boost/container/flat_set.hpp>
+#include <registries/privilege_registry.hpp>
 #include <websocket.hpp>
 
 namespace crow
@@ -117,8 +118,9 @@ inline void connectHandler(const boost::system::error_code& ec)
 inline void requestRoutes(App& app)
 {
     BMCWEB_ROUTE(app, "/console0")
-        .privileges({{"ConfigureComponents", "ConfigureManager"}})
         .websocket()
+        .privileges(redfish::privileges::
+                        privilegeSetConfigureManagerOrConfigureComponents)
         .onopen([](crow::websocket::Connection& conn,
                    const std::shared_ptr<bmcweb::AsyncResp>&) {
             BMCWEB_LOG_DEBUG << "Connection " << &conn << " opened";

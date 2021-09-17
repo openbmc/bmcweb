@@ -344,7 +344,9 @@ struct PrivilegeParameterTraits
     }
 };
 
-class WebSocketRule : public BaseRule
+class WebSocketRule :
+    public BaseRule,
+    public PrivilegeParameterTraits<WebSocketRule>
 {
     using self_t = WebSocketRule;
 
