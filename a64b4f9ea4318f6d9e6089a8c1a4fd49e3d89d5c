@@ -928,6 +928,30 @@
     },
     {
       "key": {
+        "uuid": "a31b1c34_16c1cf8f",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 22
+      },
+      "lineNbr": 423,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-09-17T18:34:14Z",
+      "side": 1,
+      "message": "This is already incorrect on master, so it\u0027s fine as-is;\n\ntechnically you would change the prototype of this to\n\nvoid sendData(std::string\u0026\u0026 data)\n\nThen this call to\n\nrequestDataQueue.push_back(std::move(data))\n\nwhich would avoid the (potentially large) string copy, but like I said, this is ok as is.",
+      "parentUuid": "3c22babe_d270c7ca",
+      "range": {
+        "startLine": 423,
+        "startChar": 25,
+        "endLine": 423,
+        "endChar": 34
+      },
+      "revId": "a64b4f9ea4318f6d9e6089a8c1a4fd49e3d89d5c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "25f6316d_aedf4f7a",
         "filename": "http/http_client.hpp",
         "patchSetId": 22
