@@ -1,0 +1,113 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5d280ac6_e222b943",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-09-17T20:40:04Z",
+      "side": 1,
+      "message": "It also makes Request\u0026 req non-const for no reason that I can see or understand.  Please mention that here along with the reasoning.",
+      "revId": "0381b192f6840e609e256fa2c2a8b4851de112b3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d4aece11_809bc2d9",
+        "filename": "http/app.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-09-17T20:40:04Z",
+      "side": 1,
+      "message": "This looks wrong, but I don\u0027t understand why you did it.  At this context I would\u0027ve expected request to be const.  The request is complete at this point, and only needs handled.  It shouldn\u0027t be modified after this point.",
+      "range": {
+        "startLine": 48,
+        "startChar": 23,
+        "endLine": 48,
+        "endChar": 36
+      },
+      "revId": "0381b192f6840e609e256fa2c2a8b4851de112b3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a8da5f7d_b2269672",
+        "filename": "http/routing.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1210,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-09-17T20:40:04Z",
+      "side": 1,
+      "message": "This has lifetime issues.",
+      "range": {
+        "startLine": 1210,
+        "startChar": 14,
+        "endLine": 1210,
+        "endChar": 17
+      },
+      "revId": "0381b192f6840e609e256fa2c2a8b4851de112b3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "89eb4211_93de121c",
+        "filename": "http/routing.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1312,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-09-17T20:40:04Z",
+      "side": 1,
+      "message": "This code looks copied and pasted from somewhere.",
+      "range": {
+        "startLine": 1211,
+        "startChar": 0,
+        "endLine": 1312,
+        "endChar": 0
+      },
+      "revId": "0381b192f6840e609e256fa2c2a8b4851de112b3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3e512f65_a67e2f3d",
+        "filename": "http/routing.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1346,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-09-17T20:40:04Z",
+      "side": 1,
+      "message": "This is doing a blocking dbus call for EVERY request.  That\u0027s unacceptable for performance.",
+      "range": {
+        "startLine": 1344,
+        "startChar": 0,
+        "endLine": 1346,
+        "endChar": 35
+      },
+      "revId": "0381b192f6840e609e256fa2c2a8b4851de112b3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
