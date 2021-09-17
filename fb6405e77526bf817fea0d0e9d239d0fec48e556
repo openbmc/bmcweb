@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9d9cc436_0975fb75",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 555,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2021-09-17T10:38:21Z",
+      "side": 1,
+      "message": "Is https://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/46837 going to be rebased on top of this change ?",
+      "range": {
+        "startLine": 547,
+        "startChar": 0,
+        "endLine": 555,
+        "endChar": 17
+      },
+      "revId": "fb6405e77526bf817fea0d0e9d239d0fec48e556",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
