@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5e4d030c_604a0d7b",
+        "filename": "http/http_connection.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 374,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-09-17T20:52:18Z",
+      "side": 1,
+      "message": "Why are we checking explicitly against 200 for errors?  200 is used for HTTP requests, and we shouldn\u0027t be reusing those codes for that.  Arguably a handler could want to return 200 from a websocket route instead of upgrading, so if we\u0027re going to allow the concept of \"the bmc route rejected the upgrade\" we\u0027ll need some other flag.",
+      "range": {
+        "startLine": 374,
+        "startChar": 0,
+        "endLine": 374,
+        "endChar": 49
+      },
+      "revId": "813cb23c020737b825c33a5ba25121b9a0f48130",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ce93ecd7_9444012a",
+        "filename": "http/http_connection.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 382,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-09-17T20:52:18Z",
+      "side": 1,
+      "message": "Why do we need to post this?  can\u0027t we just call completeRequest directly?",
+      "range": {
+        "startLine": 382,
+        "startChar": 20,
+        "endLine": 382,
+        "endChar": 37
+      },
+      "revId": "813cb23c020737b825c33a5ba25121b9a0f48130",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "66a82b35_7d8c8da8",
+        "filename": "http/http_connection.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 385,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-09-17T20:52:18Z",
+      "side": 1,
+      "message": "Prefer to return early instead of calling else.",
+      "range": {
+        "startLine": 385,
+        "startChar": 16,
+        "endLine": 385,
+        "endChar": 20
+      },
+      "revId": "813cb23c020737b825c33a5ba25121b9a0f48130",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
