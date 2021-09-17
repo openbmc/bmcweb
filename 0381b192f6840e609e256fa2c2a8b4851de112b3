@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "6ca65ff6_034a8e5c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000907
+      },
+      "writtenOn": "2021-09-17T21:20:43Z",
+      "side": 1,
+      "message": "Ooh yes.. i missed that. will add it here",
+      "parentUuid": "5d280ac6_e222b943",
+      "revId": "0381b192f6840e609e256fa2c2a8b4851de112b3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d4aece11_809bc2d9",
         "filename": "http/app.hpp",
         "patchSetId": 1
@@ -30,6 +48,30 @@
       "writtenOn": "2021-09-17T20:40:04Z",
       "side": 1,
       "message": "This looks wrong, but I don\u0027t understand why you did it.  At this context I would\u0027ve expected request to be const.  The request is complete at this point, and only needs handled.  It shouldn\u0027t be modified after this point.",
+      "range": {
+        "startLine": 48,
+        "startChar": 23,
+        "endLine": 48,
+        "endChar": 36
+      },
+      "revId": "0381b192f6840e609e256fa2c2a8b4851de112b3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f6cdd446_dd786ace",
+        "filename": "http/app.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1000907
+      },
+      "writtenOn": "2021-09-17T21:20:43Z",
+      "side": 1,
+      "message": "The reason i lifted off const here was because we have to assign \"req.userRole \u003d userRole;\"\n\nIts only for this call that the const is removed. It is being retained in other places where changes are not permitted/required.",
+      "parentUuid": "d4aece11_809bc2d9",
       "range": {
         "startLine": 48,
         "startChar": 23,
@@ -88,6 +130,30 @@
     },
     {
       "key": {
+        "uuid": "883184d0_701c4ed9",
+        "filename": "http/routing.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1312,
+      "author": {
+        "id": 1000907
+      },
+      "writtenOn": "2021-09-17T21:20:43Z",
+      "side": 1,
+      "message": "Yes.. its a direct liftoff from handle() section below. Line 1434 onwards.",
+      "parentUuid": "89eb4211_93de121c",
+      "range": {
+        "startLine": 1211,
+        "startChar": 0,
+        "endLine": 1312,
+        "endChar": 0
+      },
+      "revId": "0381b192f6840e609e256fa2c2a8b4851de112b3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "3e512f65_a67e2f3d",
         "filename": "http/routing.hpp",
         "patchSetId": 1
@@ -99,6 +165,30 @@
       "writtenOn": "2021-09-17T20:40:04Z",
       "side": 1,
       "message": "This is doing a blocking dbus call for EVERY request.  That\u0027s unacceptable for performance.",
+      "range": {
+        "startLine": 1344,
+        "startChar": 0,
+        "endLine": 1346,
+        "endChar": 35
+      },
+      "revId": "0381b192f6840e609e256fa2c2a8b4851de112b3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "66feb4da_bb090852",
+        "filename": "http/routing.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1346,
+      "author": {
+        "id": 1000907
+      },
+      "writtenOn": "2021-09-17T21:20:43Z",
+      "side": 1,
+      "message": "This could be a performance issue in case of handle() section below which gets called for each query to an URI.\nHere is it only called during upgraded connections.. i.e. either for Websockets or SSE sockets.. which is  only once to establish the connection. and once it is done, it wouldn\u0027t be checking this part right.\n\nSo, i feel it shouldn\u0027t be much of a bottle neck here in case of handleUpgrade().",
+      "parentUuid": "3e512f65_a67e2f3d",
       "range": {
         "startLine": 1344,
         "startChar": 0,
