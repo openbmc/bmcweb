@@ -1,0 +1,188 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b7af5d67_3c378849",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2021-09-17T11:10:19Z",
+      "side": 1,
+      "message": "This does not seem related to this commit. No need to mention this here",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 12,
+        "endChar": 63
+      },
+      "revId": "902f30b701f5b6284555b63ced64865af73622e1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1dafa9f0_3f9a5daf",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2021-09-17T11:10:19Z",
+      "side": 1,
+      "message": "Its good if you can mention what happens if this property is set to false. What is the error response the user will get when the service is disabled",
+      "range": {
+        "startLine": 22,
+        "startChar": 0,
+        "endLine": 22,
+        "endChar": 10
+      },
+      "revId": "902f30b701f5b6284555b63ced64865af73622e1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4178b0bf_23eb5ebc",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2021-09-17T11:10:19Z",
+      "side": 1,
+      "message": "I think this tag can be removed",
+      "range": {
+        "startLine": 45,
+        "startChar": 43,
+        "endLine": 45,
+        "endChar": 87
+      },
+      "revId": "902f30b701f5b6284555b63ced64865af73622e1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1715a61a_a53e3ae9",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2021-09-17T11:10:19Z",
+      "side": 1,
+      "message": "I think this tag can be removed",
+      "range": {
+        "startLine": 69,
+        "startChar": 43,
+        "endLine": 69,
+        "endChar": 87
+      },
+      "revId": "902f30b701f5b6284555b63ced64865af73622e1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0f18771e_ce8c66e2",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2021-09-17T11:10:19Z",
+      "side": 1,
+      "message": "Shouldn\u0027t this be patching \"ServiceEnabled\": true ?",
+      "range": {
+        "startLine": 73,
+        "startChar": 0,
+        "endLine": 76,
+        "endChar": 127
+      },
+      "revId": "902f30b701f5b6284555b63ced64865af73622e1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5f5eb4ba_a22db77f",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 2275,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2021-09-17T11:10:19Z",
+      "side": 1,
+      "message": "isEnabled value needs to be checked here and \"ServiceDisabled\" response should be sent if its false",
+      "range": {
+        "startLine": 2244,
+        "startChar": 23,
+        "endLine": 2275,
+        "endChar": 80
+      },
+      "revId": "902f30b701f5b6284555b63ced64865af73622e1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6983e8ef_1e296dd2",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 2346,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2021-09-17T11:10:19Z",
+      "side": 1,
+      "message": "This is not the right response. This message is for the redfish query type commands. This comment applies to all other places where this is added.\n\nBase.1.11.0.json adds a response message - \"ServiceDisabled\". That needs to be used here. But this is not yet available at https://redfish.dmtf.org/registries. @Gunnar - can you please help here by bringing this to DMTF notice ?",
+      "range": {
+        "startLine": 2346,
+        "startChar": 38,
+        "endLine": 2346,
+        "endChar": 65
+      },
+      "revId": "902f30b701f5b6284555b63ced64865af73622e1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e73837f9_61f26e62",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 2493,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2021-09-17T11:10:19Z",
+      "side": 1,
+      "message": "ServiceDisabled is suitable for actions as well",
+      "range": {
+        "startLine": 2493,
+        "startChar": 38,
+        "endLine": 2493,
+        "endChar": 56
+      },
+      "revId": "902f30b701f5b6284555b63ced64865af73622e1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
