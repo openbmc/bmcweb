@@ -265,6 +265,30 @@
     },
     {
       "key": {
+        "uuid": "574a764c_b41b1e57",
+        "filename": "redfish-core/include/registries/privilege_registry.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 581,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-09-17T17:24:06Z",
+      "side": 1,
+      "message": "I don\u0027t see the paths that gunnar laid out implemented on all the endpoints.  As a practical example, grab the DMTF file and add a subordinate override to say, LogEntry, and see if this code still gives the right result.  It won\u0027t, and will keep the unoverridden permissions.",
+      "parentUuid": "c701d2f4_7e979ba1",
+      "range": {
+        "startLine": 580,
+        "startChar": 0,
+        "endLine": 581,
+        "endChar": 39
+      },
+      "revId": "5bdce35ac5baf1b64eff1ca44264f2a1a3eac3ca",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "3fbe68b7_19a1d62c",
         "filename": "redfish-core/include/registries/privilege_registry.hpp",
         "patchSetId": 10
