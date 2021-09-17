@@ -93,6 +93,30 @@
       "revId": "8d0e77f08b98ec3720a567b3d9bfe39a0c8c077d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "42bf73b6_2bbf8f7a",
+        "filename": "http/routing.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 321,
+      "author": {
+        "id": 1000907
+      },
+      "writtenOn": "2021-09-17T20:56:43Z",
+      "side": 1,
+      "message": "Adding it to BaseRule wouldn\u0027t help as it is Templated.\nI mean to say, it needs to return reference to self, so it looked good to keep it separate from BaseRule just like RuleParameterTraits and inherit it as and when required. \nThese are like the Traits that belong to the respective rule.",
+      "parentUuid": "3086c795_05ad7703",
+      "range": {
+        "startLine": 321,
+        "startChar": 7,
+        "endLine": 321,
+        "endChar": 31
+      },
+      "revId": "8d0e77f08b98ec3720a567b3d9bfe39a0c8c077d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
