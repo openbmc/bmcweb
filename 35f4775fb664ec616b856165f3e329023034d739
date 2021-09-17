@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "554cd812_bb1176a2",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 30
+      },
+      "lineNbr": 208,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-09-17T17:48:17Z",
+      "side": 1,
+      "message": "I realize it\u0027s unlikely, but please check for existence of the parser before dereferencing it.  In theory a bad code path could\u0027ve nulled it out.",
+      "range": {
+        "startLine": 208,
+        "startChar": 33,
+        "endLine": 208,
+        "endChar": 35
+      },
+      "revId": "35f4775fb664ec616b856165f3e329023034d739",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a981b8d8_9987b30b",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 30
+      },
+      "lineNbr": 216,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-09-17T17:48:17Z",
+      "side": 1,
+      "message": "Is this branch needed in practice?  This should only be needed when calling async_read_some.  If the ec doesn\u0027t have an error code in it, there\u0027s no need to check the doneness of the parser, as it would\u0027ve errored out.\n\nWith that said, you wrote this code for a reason;  Did this happen in practice, or is it leftover from when we were only reading in headers?",
+      "range": {
+        "startLine": 206,
+        "startChar": 0,
+        "endLine": 216,
+        "endChar": 17
+      },
+      "revId": "35f4775fb664ec616b856165f3e329023034d739",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "db041f1e_ac2f634f",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 30
+      },
+      "lineNbr": 326,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-09-17T17:48:17Z",
+      "side": 1,
+      "message": "Can we reverse these two checks and simplify?\n\nif (ec \u003d\u003d boost::asio::error::operation_aborted)\n...\nelse if (ec)\n...",
+      "range": {
+        "startLine": 320,
+        "startChar": 0,
+        "endLine": 326,
+        "endChar": 69
+      },
+      "revId": "35f4775fb664ec616b856165f3e329023034d739",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "49735276_924d0055",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 30
+      },
+      "lineNbr": 335,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-09-17T17:48:17Z",
+      "side": 1,
+      "message": "If the timer was canceled, doesn\u0027t it meant the the request went through as planned?  I suspect we shouldn\u0027t be closing in that case, and should return from line 238?",
+      "range": {
+        "startLine": 333,
+        "startChar": 0,
+        "endLine": 335,
+        "endChar": 32
+      },
+      "revId": "35f4775fb664ec616b856165f3e329023034d739",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
