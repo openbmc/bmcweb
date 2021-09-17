@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4359a379_0234d85a",
+        "filename": "http/routing.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 349,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-09-17T20:46:23Z",
+      "side": 1,
+      "message": "first of all, lets avoid multi-inheritence here.  It\u0027s a mediocre design pattern, along with the CRTP (Which i realize was already there).  If needed, lets prefer composition over inheritence, but I suspect the answer here is easier.\n\nWebSocketRule already inherits from BaseRule.  Considering that all rules will need privileges, I suspect that the two methods that you\u0027ve put in PrivilegeParameterTraits should be going in BaseRule, which would let them apply to all rules.",
+      "range": {
+        "startLine": 348,
+        "startChar": 0,
+        "endLine": 349,
+        "endChar": 50
+      },
+      "revId": "40e6247773f7e8004f8756ae4f7d6627f8252f07",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b2d1a649_9570e37c",
+        "filename": "include/dbus_monitor.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-09-17T20:46:23Z",
+      "side": 1,
+      "message": "This is not a redfish endpoint, please don\u0027t directly link in redfish privileges, as these are not covered by the privilege registry..  For what it\u0027s worth, those variables you\u0027ve used should probably go in a details namespace to make that more obvious, but please leave it as it was.",
+      "range": {
+        "startLine": 110,
+        "startChar": 20,
+        "endLine": 110,
+        "endChar": 58
+      },
+      "revId": "40e6247773f7e8004f8756ae4f7d6627f8252f07",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "53eac336_dab22a28",
+        "filename": "include/kvm_websocket.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-09-17T20:46:23Z",
+      "side": 1,
+      "message": "Same here.",
+      "range": {
+        "startLine": 164,
+        "startChar": 20,
+        "endLine": 164,
+        "endChar": 27
+      },
+      "revId": "40e6247773f7e8004f8756ae4f7d6627f8252f07",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6fd74497_97410db3",
+        "filename": "include/obmc_console.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-09-17T20:46:23Z",
+      "side": 1,
+      "message": "Same here.",
+      "range": {
+        "startLine": 122,
+        "startChar": 20,
+        "endLine": 122,
+        "endChar": 27
+      },
+      "revId": "40e6247773f7e8004f8756ae4f7d6627f8252f07",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "67b5327b_e0b017a5",
+        "filename": "include/vm_websocket.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-09-17T20:46:23Z",
+      "side": 1,
+      "message": "Same here.",
+      "range": {
+        "startLine": 161,
+        "startChar": 20,
+        "endLine": 161,
+        "endChar": 27
+      },
+      "revId": "40e6247773f7e8004f8756ae4f7d6627f8252f07",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
