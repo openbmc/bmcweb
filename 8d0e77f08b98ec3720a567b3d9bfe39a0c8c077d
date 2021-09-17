@@ -117,6 +117,30 @@
       "revId": "8d0e77f08b98ec3720a567b3d9bfe39a0c8c077d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c1f97948_9bd86075",
+        "filename": "http/routing.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 321,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-09-17T21:01:46Z",
+      "side": 1,
+      "message": "I think I understand the response, but as a general design pattern I would like to avoid multiple inheritance and CRTP.  I realize we inherited CRTP from crow here, so if the new patch has some CRTP in it, I understand, but lets not make it worse than it already is.  I don\u0027t have the time this second to give you exact line by line guidance on what to do here, but I will try to get to it in the next few weeks.  If you have any ideas for how to avoid those two patterns and write simpler code, feel free to push it and I\u0027ll take a look.\n\n\nAs an aside, considering that this patch is now making the privileges() call required for all routes (which is a good thing btw) I wonder if it should be moved into the BMCWEB_ROUTE call, and we should remove the .privileges() method alltogether?  That would seem to match up with the intent of this patch.\n\nJust thinking out loud.",
+      "parentUuid": "42bf73b6_2bbf8f7a",
+      "range": {
+        "startLine": 321,
+        "startChar": 7,
+        "endLine": 321,
+        "endChar": 31
+      },
+      "revId": "8d0e77f08b98ec3720a567b3d9bfe39a0c8c077d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
