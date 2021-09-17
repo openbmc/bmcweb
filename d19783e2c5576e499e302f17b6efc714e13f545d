@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "571bb37c_fcf4b02e",
+        "filename": "redfish-core/lib/pcie.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 182,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-09-17T23:01:03Z",
+      "side": 1,
+      "message": "For what it\u0027s worth, this is incorrect.  DeviceType is an enum, so we should be converting the dbus enum to the Redfish enum here.\n\nNot part of your patch, but something I noticed in this review.",
+      "range": {
+        "startLine": 182,
+        "startChar": 66,
+        "endLine": 182,
+        "endChar": 74
+      },
+      "revId": "d19783e2c5576e499e302f17b6efc714e13f545d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
