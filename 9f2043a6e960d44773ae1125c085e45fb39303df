@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "9e3fa0e8_0fee0cbc",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-09-17T17:39:58Z",
+      "side": 1,
+      "message": "As a general rule, if we\u0027re moving code around like this anyway, this lambda should be calling a \"normal\" method immediately.  This means that any failures/prints/call stacks show up as having occurred from a line in a method, and not getProcessorSummary::lambda1, which makes debugging easier.",
+      "range": {
+        "startLine": 162,
+        "startChar": 0,
+        "endLine": 162,
+        "endChar": 20
+      },
+      "revId": "9f2043a6e960d44773ae1125c085e45fb39303df",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a267016e_564dfc50",
         "filename": "redfish-core/lib/systems.hpp",
         "patchSetId": 10
@@ -13,6 +36,47 @@
       "writtenOn": "2021-09-16T19:33:04Z",
       "side": 1,
       "message": "can we make this else if rather then if in else?",
+      "revId": "9f2043a6e960d44773ae1125c085e45fb39303df",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e0dc886b_5a83742e",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 235,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-09-17T17:39:58Z",
+      "side": 1,
+      "message": "Up to the author if they want to do it;  I think either way it\u0027s clear what this code does, so I\u0027m not going to enforce that level of consistency.",
+      "parentUuid": "a267016e_564dfc50",
+      "revId": "9f2043a6e960d44773ae1125c085e45fb39303df",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4d1ba4e2_f6188144",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 268,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-09-17T17:39:58Z",
+      "side": 1,
+      "message": "nit: Can we change this to be:\n\nif (coreCountPtr \u003d\u003d nullptr)\n{\n    coreCount \u003d 0;\n}\n*coreCountPtr +\u003d *coreCountVal;\n\n\nI think that simplifies the logic a little and makes it more clear what operation is being done, initializing the value if it doesn\u0027t exist, then adding up the cores.",
+      "range": {
+        "startLine": 261,
+        "startChar": 0,
+        "endLine": 268,
+        "endChar": 21
+      },
       "revId": "9f2043a6e960d44773ae1125c085e45fb39303df",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
