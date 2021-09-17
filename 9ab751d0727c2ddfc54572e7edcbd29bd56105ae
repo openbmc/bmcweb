@@ -70,6 +70,30 @@
       "revId": "9ab751d0727c2ddfc54572e7edcbd29bd56105ae",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "518515b0_b85fdeb3",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 524,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-09-17T17:07:35Z",
+      "side": 1,
+      "message": "As the interfaces are written, this is optional, so we should treat it as such.  I\u0027m still not really sure of the use case for exposing a dump to dbus that isn\u0027t yet complete, but in the context of this patch, so long as we don\u0027t make it required, it seems fine to me.",
+      "parentUuid": "c08ba688_58e7780a",
+      "range": {
+        "startLine": 523,
+        "startChar": 0,
+        "endLine": 524,
+        "endChar": 62
+      },
+      "revId": "9ab751d0727c2ddfc54572e7edcbd29bd56105ae",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
