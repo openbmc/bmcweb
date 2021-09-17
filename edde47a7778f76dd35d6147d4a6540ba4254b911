@@ -46,6 +46,30 @@
       "revId": "edde47a7778f76dd35d6147d4a6540ba4254b911",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "92b691f8_fd1c1ab0",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 12
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-09-17T18:58:19Z",
+      "side": 1,
+      "message": "\u003e If \"all boards are assemblies\" don\u0027t work for everyone (I thought by some discord discussion long time ago and the email it might, at least for the time being I thought it might work), then I think we need more grainier boards and some should be assemblies and some chassis.\n\nYep, we had that discussion, and I think at the time it was right.  For some reason I remember years ago DMTF having a discussion about assemblies, and how that was largely the future, but in the last year or so, they\u0027ve kind of taken a 180, and now all the new models are using Chassis again for non-trivial cards and devices.\n\n\u003e So a board of type smartnic is a chassis but some other \"dumb\" board is a assembly.\n\nMaybe we need a new board variation?  I\u0027m having a little trouble coming up with a definition other than \"dumb board\", or guidance on when to use each.  In theory, if the board had ANY sensor, firmware, or controllable system on it, it should be a chassis, otherwise, it\u0027s an assembly.  now the question is how to codify that.......\n\nmaybe some code in chassis that checks for the relevant associations to sensors/drives ect that would make the board \"smart\"?  That sounds sucky to code.",
+      "parentUuid": "25481db8_7bac4496",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 29
+      },
+      "revId": "edde47a7778f76dd35d6147d4a6540ba4254b911",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
