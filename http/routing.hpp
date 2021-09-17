@@ -1242,10 +1242,10 @@ class Router
         return findRoute;
     }
 
-    static void
+    static bool
         isUserPrivileged(const boost::system::error_code& ec, Request& req,
                          const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                         BaseRule& rule, const RoutingParams& params,
+                         BaseRule& rule,
                          const dbus::utility::DBusPropertiesMap& userInfoMap)
     {
         if (ec)
@@ -1253,7 +1253,7 @@ class Router
             BMCWEB_LOG_ERROR << "GetUserInfo failed...";
             asyncResp->res.result(
                 boost::beast::http::status::internal_server_error);
-            return;
+            return false;
         }
 
         std::string userRole{};
@@ -1270,7 +1270,7 @@ class Router
         {
             asyncResp->res.result(
                 boost::beast::http::status::internal_server_error);
-            return;
+            return false;
         }
 
         if (userRolePtr != nullptr)
@@ -1285,7 +1285,7 @@ class Router
             BMCWEB_LOG_ERROR << "RemoteUser property missing or wrong type";
             asyncResp->res.result(
                 boost::beast::http::status::internal_server_error);
-            return;
+            return false;
         }
 
         if (passwordExpired == nullptr)
@@ -1297,9 +1297,8 @@ class Router
                        " local user but is missing or wrong type";
                 asyncResp->res.result(
                     boost::beast::http::status::internal_server_error);
-                return;
+                return false;
             }
-            passwordExpired = false;
         }
 
         // Get the user's privileges from the role
@@ -1330,15 +1329,40 @@ class Router
                                         "redfish", "v1", "AccountService",
                                         "Accounts", req.session->username));
             }
-            return;
+            return false;
         }
 
         req.userRole = userRole;
-        rule.handle(req, asyncResp, params);
+
+        return true;
+    }
+
+    template <typename CallbackFn>
+    void validatePrivilege(Request& req,
+                           const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                           BaseRule& rule, CallbackFn&& callback)
+    {
+        crow::connections::systemBus->async_method_call(
+            [&req, asyncResp, &rule, callback(std::move(callback))](
+                const boost::system::error_code ec,
+                const dbus::utility::DBusPropertiesMap& userInfoMap) mutable {
+            if (!Router::isUserPrivileged(ec, req, asyncResp, rule,
+                                          userInfoMap))
+            {
+                // User is not privileged
+                BMCWEB_LOG_ERROR << "Insufficient Privilege";
+                asyncResp->res.result(boost::beast::http::status::forbidden);
+                return;
+            }
+            callback();
+            },
+            "xyz.openbmc_project.User.Manager", "/xyz/openbmc_project/user",
+            "xyz.openbmc_project.User.Manager", "GetUserInfo",
+            req.session->username);
     }
 
     template <typename Adaptor>
-    void handleUpgrade(const Request& req,
+    void handleUpgrade(Request& req,
                        const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                        Adaptor&& adaptor)
     {
@@ -1366,23 +1390,27 @@ class Router
             throw std::runtime_error("Trie internal structure corrupted!");
         }
 
-        if ((rules[ruleIndex]->getMethods() &
-             (1U << static_cast<size_t>(*verb))) == 0)
+        BaseRule* rule = rules[ruleIndex];
+
+        if ((rule->getMethods() & (1U << static_cast<size_t>(*verb))) == 0)
         {
             BMCWEB_LOG_DEBUG << "Rule found but method mismatch: " << req.url
                              << " with " << req.methodString() << "("
                              << static_cast<uint32_t>(*verb) << ") / "
-                             << rules[ruleIndex]->getMethods();
+                             << rule->getMethods();
             asyncResp->res.result(boost::beast::http::status::not_found);
             return;
         }
 
         BMCWEB_LOG_DEBUG << "Matched rule (upgrade) '" << rules[ruleIndex]->rule
                          << "' " << static_cast<uint32_t>(*verb) << " / "
-                         << rules[ruleIndex]->getMethods();
+                         << rule->getMethods();
 
-        rules[ruleIndex]->handleUpgrade(req, asyncResp,
-                                        std::forward<Adaptor>(adaptor));
+        validatePrivilege(
+            req, asyncResp, *rule,
+            [&req, asyncResp, rule, adaptor(std::move(adaptor))]() mutable {
+            rule->handleUpgrade(req, asyncResp, std::forward<Adaptor>(adaptor));
+            });
     }
 
     void handle(Request& req,
@@ -1451,17 +1479,11 @@ class Router
         }
         std::string username = req.session->username;
 
-        crow::connections::systemBus->async_method_call(
-            [req{std::move(req)}, asyncResp, &rule, params](
+        validatePrivilege(req, asyncResp, rule,
 
-                const boost::system::error_code& ec,
-                const dbus::utility::DBusPropertiesMap& userInfoMap
-
-                ) mutable {
-            isUserPrivileged(ec, req, asyncResp, rule, params, userInfoMap);
-            },
-            "xyz.openbmc_project.User.Manager", "/xyz/openbmc_project/user",
-            "xyz.openbmc_project.User.Manager", "GetUserInfo", username);
+                          std::bind_front(&BaseRule::handle, std::ref(rule),
+                                          std::ref(req), asyncResp,
+                                          std::ref(params)));
     }
 
     void debugPrint()
