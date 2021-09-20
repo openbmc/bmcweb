@@ -46,6 +46,30 @@
       "revId": "75a45e9bb713b102789e73e7d3a3879b3dcc2a8f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ed472243_8edd70db",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 1335,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-09-20T16:57:08Z",
+      "side": 1,
+      "message": "Was thinking you would just remove this highlighted text but this is fine.",
+      "parentUuid": "01de4d22_32cbcfc6",
+      "range": {
+        "startLine": 1335,
+        "startChar": 19,
+        "endLine": 1335,
+        "endChar": 34
+      },
+      "revId": "75a45e9bb713b102789e73e7d3a3879b3dcc2a8f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
