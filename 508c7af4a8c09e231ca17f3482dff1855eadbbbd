@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7a4008a7_ef7f1ae3",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 299,
+      "author": {
+        "id": 1000233
+      },
+      "writtenOn": "2021-09-20T23:52:59Z",
+      "side": 1,
+      "message": "shouldn\u0027t you log this error too?",
+      "revId": "508c7af4a8c09e231ca17f3482dff1855eadbbbd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b98e6c15_7f137039",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 393,
+      "author": {
+        "id": 1000233
+      },
+      "writtenOn": "2021-09-20T23:52:59Z",
+      "side": 1,
+      "message": "why is this one `ec2`?",
+      "range": {
+        "startLine": 393,
+        "startChar": 58,
+        "endLine": 393,
+        "endChar": 61
+      },
+      "revId": "508c7af4a8c09e231ca17f3482dff1855eadbbbd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
