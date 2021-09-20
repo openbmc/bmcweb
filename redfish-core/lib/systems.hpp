@@ -2440,6 +2440,267 @@ inline void setWDTProperties(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
 }
 
 /**
+ * @brief Retrieves host watchdog timer properties over DBUS
+ *
+ * @param[in] aResp     Shared pointer for completing asynchronous calls.
+ *
+ * @return None.
+ */
+inline void getIdlePowerSaver(const std::shared_ptr<bmcweb::AsyncResp>& aResp)
+{
+    BMCWEB_LOG_DEBUG << "Get idle power saver parameters";
+
+    // Get Power Mode object path:
+    crow::connections::systemBus->async_method_call(
+        [aResp](
+            const boost::system::error_code ec,
+            const std::vector<std::pair<
+                std::string,
+                std::vector<std::pair<std::string, std::vector<std::string>>>>>&
+                subtree) {
+            if (ec)
+            {
+                BMCWEB_LOG_DEBUG
+                    << "DBUS response error on Power.Mode GetSubTree " << ec;
+                // This is an optional D-Bus object so just return if
+                // error occurs
+                return;
+            }
+            if (subtree.empty())
+            {
+                // As noted above, this is an optional interface so just return
+                // if there is no instance found
+                BMCWEB_LOG_DEBUG << "No instances found";
+                return;
+            }
+            if (subtree.size() > 1)
+            {
+                // More then one PowerMode object is not supported and is an
+                // error
+                BMCWEB_LOG_DEBUG
+                    << "Found more than 1 system D-Bus Power.Mode objects: "
+                    << subtree.size();
+                messages::internalError(aResp->res);
+                return;
+            }
+            if ((subtree[0].first.empty()) || (subtree[0].second.size() != 1))
+            {
+                BMCWEB_LOG_DEBUG << "Power.Mode mapper error!";
+                messages::internalError(aResp->res);
+                return;
+            }
+            const std::string& path = subtree[0].first;
+            const std::string& service = subtree[0].second.begin()->first;
+            if (service.empty())
+            {
+                BMCWEB_LOG_DEBUG << "Power.Mode service mapper error!";
+                messages::internalError(aResp->res);
+                return;
+            }
+            BMCWEB_LOG_DEBUG << "CJC: object found, read values";
+
+            // Valid Power Mode object found, now read the current value
+            crow::connections::systemBus->async_method_call(
+                [aResp](const boost::system::error_code ec,
+                        const std::variant<bool>& ipsEnabled) {
+                    if (ec)
+                    {
+                        BMCWEB_LOG_DEBUG
+                            << "DBUS response error on IdlePowerSaver Get: "
+                            << ec;
+                        messages::internalError(aResp->res);
+                        return;
+                    }
+
+                    const bool* isEnabled = std::get_if<bool>(&ipsEnabled);
+                    if (isEnabled == nullptr)
+                    {
+                        BMCWEB_LOG_DEBUG
+                            << "Unable to get IdlePowerSaver/Enabled value";
+                        messages::internalError(aResp->res);
+                        return;
+                    }
+
+                    if (*isEnabled == true)
+                    {
+                        aResp->res.jsonValue["IdlePowerSaver"]["Enabled"] =
+                            "Enabled";
+                        BMCWEB_LOG_DEBUG << "Idle Power Saver: Enabled";
+                    }
+                    else
+                    {
+                        aResp->res.jsonValue["IdlePowerSaver"]["Enabled"] =
+                            "Disabled";
+                        BMCWEB_LOG_DEBUG << "Idle Power Saver: Disabled";
+                    }
+                },
+                service, path, "org.freedesktop.DBus.Properties", "Get",
+                "xyz.openbmc_project.Control.Power.Mode.IdlePowerSaver",
+                "Enabled");
+        },
+        "xyz.openbmc_project.ObjectMapper",
+        "/xyz/openbmc_project/object_mapper",
+        "xyz.openbmc_project.ObjectMapper", "GetSubTree", "/", int32_t(0),
+        std::array<const char*, 1>{"xyz.openbmc_project.Control.Power.Mode"});
+
+#if 0
+    crow::connections::systemBus->async_method_call(
+        [aResp](const boost::system::error_code ec,
+                PropertiesType& properties) {
+            if (ec)
+            {
+                // watchdog service is stopped
+                BMCWEB_LOG_DEBUG << "DBUS response error " << ec;
+                return;
+            }
+
+            BMCWEB_LOG_DEBUG << "Got " << properties.size() << " ips prop.";
+
+            nlohmann::json& idlePowerSaver =
+                aResp->res.jsonValue["IdlePowerSaver"];
+
+            for (const auto& property : properties)
+            {
+                BMCWEB_LOG_DEBUG << "prop=" << property.first;
+                if (property.first == "Enabled")
+                {
+                    const bool* state = std::get_if<bool>(&property.second);
+
+                    if (!state)
+                    {
+                        messages::internalError(aResp->res);
+                        return;
+                    }
+
+                    idlePowerSaver["Enabled"] = *state;
+                }
+#if 0
+                else if (property.first == "ExpireAction")
+                {
+                    const std::string* s =
+                        std::get_if<std::string>(&property.second);
+                    if (!s)
+                    {
+                        messages::internalError(aResp->res);
+                        return;
+                    }
+
+                    std::string action = dbusToRfWatchdogAction(*s);
+                    if (action.empty())
+                    {
+                        messages::internalError(aResp->res);
+                        return;
+                    }
+                    idlePowerSaver["TimeoutAction"] = action;
+                }
+#endif
+            }
+        },
+        //"xyz.openbmc_project.Watchdog", "/xyz/openbmc_project/watchdog/host0",
+        //"org.freedesktop.DBus.Properties", "GetAll",
+        //"xyz.openbmc_project.State.Watchdog");
+
+        service, path, "org.freedesktop.DBus.Properties", "GetAll",
+        "xyz.openbmc_project.Control.Power.IdlePowerSaver");
+#endif
+    BMCWEB_LOG_DEBUG << "EXIT: Get idle power saver parameters";
+}
+
+#if 0
+/**
+ * @brief Sets Idle Power Saver properties.
+ *
+ * @param[in] aResp      Shared pointer for generating response message.
+ * @param[in] ipsEnable  The IPS Enable value (true/false) from incoming
+ *                       RF request.
+ * @param[in] ipsEnterUtil The utilization limit to enter idle state.
+ * @param[in] ipsEnterTime The time the utilization must be below ipsEnterUtil
+ * before entering idle state.
+ * @param[in] ipsExitUtil The utilization limit when exiting idle state.
+ * @param[in] ipsExitTime The time the utilization must be above ipsExutUtil
+ * before exiting idle state
+ *
+ * @return None.
+ */
+inline void setIPSProperties(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
+                             const std::optional<bool> ipsEnable,
+                             const std::optional<int> ipsEnterUtil,
+                             const std::optional<int64_t> ipsEnterTime,
+                             const std::optional<int> ipsExitUtil,
+                             const std::optional<int64_t> ipsExitTime)
+{
+    BMCWEB_LOG_DEBUG << "Set idle power saver properties";
+
+#if 0
+    if (wdtTimeOutAction)
+    {
+        std::string wdtTimeOutActStr = rfToDbusWDTTimeOutAct(*wdtTimeOutAction);
+        // check if TimeOut Action is Valid
+        if (wdtTimeOutActStr.empty())
+        {
+            BMCWEB_LOG_DEBUG << "Unsupported value for TimeoutAction: "
+                             << *wdtTimeOutAction;
+            messages::propertyValueNotInList(aResp->res, *wdtTimeOutAction,
+                                             "TimeoutAction");
+            return;
+        }
+
+        crow::connections::systemBus->async_method_call(
+            [aResp](const boost::system::error_code ec) {
+                if (ec)
+                {
+                    BMCWEB_LOG_DEBUG << "DBUS response error " << ec;
+                    messages::internalError(aResp->res);
+                    return;
+                }
+            },
+            "xyz.openbmc_project.Watchdog",
+            "/xyz/openbmc_project/watchdog/host0",
+            "org.freedesktop.DBus.Properties", "Set",
+            "xyz.openbmc_project.State.Watchdog", "ExpireAction",
+            std::variant<std::string>(wdtTimeOutActStr));
+    }
+#endif
+
+#if 0
+    if (ipsEnable)
+    {
+        crow::connections::systemBus->async_method_call(
+            [aResp](const boost::system::error_code ec) {
+                if (ec)
+                {
+                    BMCWEB_LOG_DEBUG << "DBUS response error " << ec;
+                    messages::internalError(aResp->res);
+                    return;
+                }
+            },
+            service, path, "org.freedesktop.DBus.Properties", "Set",
+            "xyz.openbmc_project.Control.Power.IdlePowerSaver", "Enabled",
+            std::variant<bool>(*ipsEnable));
+    }
+#endif
+
+    if (ipsEnable)
+    {
+        BMCWEB_LOG_DEBUG << "IPS: Enabled / Enter Util: " << ipsEnterUtil
+            << ", Time: " << ipsEnterTime
+            << " / Exit Util: " << ipsExitUtil
+            << ", Time: " << ipsExitTime;
+    }
+    else
+    {
+        BMCWEB_LOG_DEBUG << "IPS: Disabled / Enter Util: " << ipsEnterUtil
+            << ", Time: " << ipsEnterTime
+            << " / Exit Util: " << ipsExitUtil
+            << ", Time: " << ipsExitTime;
+    }
+
+    BMCWEB_LOG_DEBUG << "IPS TODO!";
+    messages::internalError(aResp->res);
+}
+#endif
+
+/**
  * SystemsCollection derived class for delivering ComputerSystems Collection
  * Schema
  */
@@ -2652,7 +2913,7 @@ inline void requestRoutesSystems(App& app)
                 get)([](const crow::Request&,
                         const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
             asyncResp->res.jsonValue["@odata.type"] =
-                "#ComputerSystem.v1_15_0.ComputerSystem";
+                "#ComputerSystem.v1_16_0.ComputerSystem";
             asyncResp->res.jsonValue["Name"] = "system";
             asyncResp->res.jsonValue["Id"] = "system";
             asyncResp->res.jsonValue["SystemType"] = "Physical";
@@ -2764,6 +3025,7 @@ inline void requestRoutesSystems(App& app)
             getProvisioningStatus(asyncResp);
 #endif
             getTrustedModuleRequiredToBoot(asyncResp);
+            getIdlePowerSaver(asyncResp);
             getPowerMode(asyncResp);
         });
     BMCWEB_ROUTE(app, "/redfish/v1/Systems/system/")
@@ -2779,13 +3041,15 @@ inline void requestRoutesSystems(App& app)
                 std::optional<std::string> powerRestorePolicy;
                 std::optional<std::string> powerMode;
                 std::optional<bool> trustedModuleRequiredToBoot;
+                std::optional<nlohmann::json> ipsProps;
+
                 if (!json_util::readJson(
                         req, asyncResp->res, "IndicatorLED", indicatorLed,
                         "LocationIndicatorActive", locationIndicatorActive,
                         "Boot", bootProps, "WatchdogTimer", wdtTimerProps,
                         "PowerRestorePolicy", powerRestorePolicy, "AssetTag",
-                        assetTag, "PowerMode", powerMode,
-                        "TrustedModuleRequiredToBoot",
+                        assetTag, "PowerMode", powerMode, "IdlePowerSaver",
+                        ipsProps, "TrustedModuleRequiredToBoot",
                         trustedModuleRequiredToBoot))
                 {
                     return;
@@ -2872,6 +3136,30 @@ inline void requestRoutesSystems(App& app)
                     setTrustedModuleRequiredToBoot(
                         asyncResp, *trustedModuleRequiredToBoot);
                 }
+
+#if 0
+                if (ipsProps)
+                {
+                    std::optional<bool> ipsEnable;
+                    std::optional<int> ipsEnterUtil;
+                    std::optional<int64_t> ipsEnterTime;
+                    std::optional<int> ipsExitUtil;
+                    std::optional<int64_t> ipsExitTime;
+
+                    if (!json_util::readJson(
+                            *ipsProps, asyncResp->res, "Enabled", ipsEnable,
+                            "EnterUtilizationPercent", ipsEnterUtil,
+                            "EnterDwellTimeSeconds", ipsEnterTime,
+                            "ExitUtilizationPercent", ipsExitUtil,
+                            "ExitDwellTimeSeconds", ipsExitTime))
+                        ;
+                    {
+                        return;
+                    }
+                    setIPSProperties(asyncResp, ipsEnable, ipsEnterUtil,
+                                     ipsEnterTime, ipsExitUtil, ipsExitTime);
+                }
+#endif
             });
 }
 

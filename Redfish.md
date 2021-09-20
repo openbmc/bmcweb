@@ -517,6 +517,11 @@ the other.
 - BootProgress
 - Description
 - HostWatchdogTimer
+- IdlePowerSaver/Enable
+- IdlePowerSaver/EnterUtilizationPercent
+- IdlePowerSaver/EnterDwellTimeSeconds
+- IdlePowerSaver/ExitUtilizationPercent
+- IdlePowerSaver/ExitDwellTimeSeconds
 - IndicatorLED
 - LastResetTime
 - Links/Chassis
