@@ -85,6 +85,7 @@ struct IPv6AddressData
 struct EthernetInterfaceData
 {
     uint32_t speed;
+    size_t mtuSize;
     bool auto_neg;
     bool DNSEnabled;
     bool NTPEnabled;
@@ -254,6 +255,15 @@ inline bool
                             if (speed != nullptr)
                             {
                                 ethData.speed = *speed;
+                            }
+                        }
+                        else if (propertyPair.first == "MTU")
+                        {
+                            const uint32_t* mtuSize =
+                                std::get_if<uint32_t>(&propertyPair.second);
+                            if (mtuSize != nullptr)
+                            {
+                                ethData.mtuSize = *mtuSize;
                             }
                         }
                         else if (propertyPair.first == "LinkUp")
@@ -1050,6 +1060,25 @@ inline void
 }
 
 inline void
+    handleMTUSizePatch(const std::string& ifaceId, const size_t mtuSize,
+                       const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
+{
+    sdbusplus::message::object_path objPath =
+        "/xyz/openbmc_project/network/" + ifaceId;
+    crow::connections::systemBus->async_method_call(
+        [asyncResp](const boost::system::error_code ec) {
+            if (ec)
+            {
+                messages::internalError(asyncResp->res);
+            }
+        },
+        "xyz.openbmc_project.Network", objPath,
+        "org.freedesktop.DBus.Properties", "Set",
+        "xyz.openbmc_project.Network.EthernetInterface", "MTU",
+        std::variant<size_t>(mtuSize));
+}
+
+inline void
     handleDomainnamePatch(const std::string& ifaceId,
                           const std::string& domainname,
                           const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
@@ -1712,6 +1741,7 @@ inline void parseInterfaceData(
 
     jsonResponse["LinkStatus"] = ethData.linkUp ? "LinkUp" : "LinkDown";
     jsonResponse["SpeedMbps"] = ethData.speed;
+    jsonResponse["MTUSize"] = ethData.mtuSize;
     jsonResponse["MACAddress"] = ethData.mac_address;
     jsonResponse["DHCPv4"]["DHCPEnabled"] =
         translateDHCPEnabledToBool(ethData.DHCPEnabled, true);
@@ -1934,6 +1964,7 @@ inline void requestEthernetInterfacesRoutes(App& app)
                 std::optional<nlohmann::json> dhcpv4;
                 std::optional<nlohmann::json> dhcpv6;
                 std::optional<bool> interfaceEnabled;
+                std::optional<size_t> mtuSize;
                 DHCPParameters v4dhcpParms;
                 DHCPParameters v6dhcpParms;
 
@@ -1944,7 +1975,8 @@ inline void requestEthernetInterfacesRoutes(App& app)
                         staticNameServers, "IPv6DefaultGateway",
                         ipv6DefaultGateway, "IPv6StaticAddresses",
                         ipv6StaticAddresses, "DHCPv4", dhcpv4, "DHCPv6", dhcpv6,
-                        "InterfaceEnabled", interfaceEnabled))
+                        "MTUSize", mtuSize, "InterfaceEnabled",
+                        interfaceEnabled))
                 {
                     return;
                 }
@@ -1985,7 +2017,7 @@ inline void requestEthernetInterfacesRoutes(App& app)
                      ipv6StaticAddresses = std::move(ipv6StaticAddresses),
                      staticNameServers = std::move(staticNameServers),
                      dhcpv4 = std::move(dhcpv4), dhcpv6 = std::move(dhcpv6),
-                     v4dhcpParms = std::move(v4dhcpParms),
+                     mtuSize = mtuSize, v4dhcpParms = std::move(v4dhcpParms),
                      v6dhcpParms = std::move(v6dhcpParms), interfaceEnabled](
                         const bool& success,
                         const EthernetInterfaceData& ethData,
@@ -2063,6 +2095,11 @@ inline void requestEthernetInterfacesRoutes(App& app)
                             setEthernetInterfaceBoolProperty(
                                 ifaceId, "NICEnabled", *interfaceEnabled,
                                 asyncResp);
+                        }
+
+                        if (mtuSize)
+                        {
+                            handleMTUSizePatch(ifaceId, *mtuSize, asyncResp);
                         }
                     });
             });
