@@ -94,6 +94,30 @@
       "revId": "9ab751d0727c2ddfc54572e7edcbd29bd56105ae",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "70050201_aebe96da",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 524,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2021-09-20T06:51:40Z",
+      "side": 1,
+      "message": "Sure. So i will just add a null check here (if null, then assuming the dump status as completed and the entry will be displayed)",
+      "parentUuid": "518515b0_b85fdeb3",
+      "range": {
+        "startLine": 523,
+        "startChar": 0,
+        "endLine": 524,
+        "endChar": 62
+      },
+      "revId": "9ab751d0727c2ddfc54572e7edcbd29bd56105ae",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
