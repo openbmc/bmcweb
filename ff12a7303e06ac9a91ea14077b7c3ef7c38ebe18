@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "13223941_39d07c7f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 52
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-09-20T17:10:31Z",
+      "side": 1,
+      "message": "Dump entries don\u0027t have a Status property:\n\nhttps://github.com/openbmc/phosphor-dbus-interfaces/blob/master/yaml/xyz/openbmc_project/Dump/Entry.interface.yaml\n\n\nAnd the status interface isn\u0027t required on those objects, so as written, doesn\u0027t this break dumps that don\u0027t have a status interface?",
+      "range": {
+        "startLine": 13,
+        "startChar": 42,
+        "endLine": 14,
+        "endChar": 52
+      },
+      "revId": "ff12a7303e06ac9a91ea14077b7c3ef7c38ebe18",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
