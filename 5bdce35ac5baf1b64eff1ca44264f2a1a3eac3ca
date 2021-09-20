@@ -289,6 +289,30 @@
     },
     {
       "key": {
+        "uuid": "b66a99e2_2920aa24",
+        "filename": "redfish-core/include/registries/privilege_registry.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 581,
+      "author": {
+        "id": 1001099
+      },
+      "writtenOn": "2021-09-20T18:34:55Z",
+      "side": 1,
+      "message": "https://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/45125/10..23/redfish-core/include/registries/privilege_registry.hpp\n\nHello, Ed checks this diff mainly LogEntry. here, you will find subordinate-override for each entry\n-----------------------------\n- ComputerSystem -\u003e LogEntry\n- ComputerSystem -\u003e LogServiceCollection -\u003e LogEntry\n- ComputerSystem -\u003e LogService -\u003e LogEntry\n- ComputerSystem -\u003e LogEntryCollection -\u003e LogEntry\n- ComputerSystem -\u003e LogServiceCollection -\u003e LogService -\u003e LogEntry\n- ComputerSystem -\u003e LogServiceCollection -\u003e LogEntryCollection -\u003e LogEntry\n- etc..",
+      "parentUuid": "574a764c_b41b1e57",
+      "range": {
+        "startLine": 580,
+        "startChar": 0,
+        "endLine": 581,
+        "endChar": 39
+      },
+      "revId": "5bdce35ac5baf1b64eff1ca44264f2a1a3eac3ca",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "3fbe68b7_19a1d62c",
         "filename": "redfish-core/include/registries/privilege_registry.hpp",
         "patchSetId": 10
