@@ -54,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "0a2b7474_c6b72320",
+        "filename": "meson.build",
+        "patchSetId": 5
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-09-21T16:31:53Z",
+      "side": 1,
+      "message": "I\u0027ll mention it in the commit message, but apparently src/boost_url.cpp doesn\u0027t have a newline at the end of it, and clang throws up on it.  Considering it\u0027s clang only, and clang-format already enforces that for our code, it seemed unimportant to have the compiler warning.",
+      "parentUuid": "594e9bbc_ddd52d15",
+      "revId": "c957454a997499a4ca61dfbaa893f73b28422275",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "2e4408fe_f5ec698c",
         "filename": "src/boost_url.cpp",
         "patchSetId": 5
@@ -71,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "ef526029_a7f6f353",
+        "filename": "src/boost_url.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-09-21T16:31:53Z",
+      "side": 1,
+      "message": "Will answer in the commit message.  The short version is that the header-only mode in boost-url is gone in the latest version.",
+      "parentUuid": "2e4408fe_f5ec698c",
+      "revId": "c957454a997499a4ca61dfbaa893f73b28422275",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "730129d2_8bacfe4b",
         "filename": "subprojects/boost-url.wrap",
         "patchSetId": 5
@@ -82,6 +118,24 @@
       "writtenOn": "2021-09-20T20:59:04Z",
       "side": 1,
       "message": "This is just the latest from when you created this commit: \nhttps://github.com/CPPAlliance/url/commits/develop\n\nSeems reasonable",
+      "revId": "c957454a997499a4ca61dfbaa893f73b28422275",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "26c3ff2b_88d69a27",
+        "filename": "subprojects/boost-url.wrap",
+        "patchSetId": 5
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-09-21T16:31:53Z",
+      "side": 1,
+      "message": "This is the version that yocto points to.....  Vinnie develops too fast for us.\n\nIt sounds like this library is getting worked on to just be included in boost, so hopefully this whole mess just goes away shortly.",
+      "parentUuid": "730129d2_8bacfe4b",
       "revId": "c957454a997499a4ca61dfbaa893f73b28422275",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
