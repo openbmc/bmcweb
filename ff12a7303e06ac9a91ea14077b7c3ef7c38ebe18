@@ -72,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "542cf81d_8e27addb",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 52
+      },
+      "lineNbr": 700,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-09-21T17:55:27Z",
+      "side": 1,
+      "message": "Please don\u0027t do that;  We use this get_if pattern all over the place, and it is currently the preference.  If we wanted to do something else consistently, we coudl talk, but this commit isn\u0027t the place to do it.",
+      "parentUuid": "75e6a7c1_89a9d06d",
+      "range": {
+        "startLine": 700,
+        "startChar": 16,
+        "endLine": 700,
+        "endChar": 27
+      },
+      "revId": "ff12a7303e06ac9a91ea14077b7c3ef7c38ebe18",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d0b150db_a0f6c888",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 52
