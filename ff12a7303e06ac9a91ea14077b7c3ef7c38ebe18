@@ -46,6 +46,121 @@
       "revId": "ff12a7303e06ac9a91ea14077b7c3ef7c38ebe18",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "75e6a7c1_89a9d06d",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 52
+      },
+      "lineNbr": 700,
+      "author": {
+        "id": 1001049
+      },
+      "writtenOn": "2021-09-21T15:08:13Z",
+      "side": 1,
+      "message": "nit:\nYou can use std::holds_alternative and avoid the pointer variable.",
+      "range": {
+        "startLine": 700,
+        "startChar": 16,
+        "endLine": 700,
+        "endChar": 27
+      },
+      "revId": "ff12a7303e06ac9a91ea14077b7c3ef7c38ebe18",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d0b150db_a0f6c888",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 52
+      },
+      "lineNbr": 749,
+      "author": {
+        "id": 1001049
+      },
+      "writtenOn": "2021-09-21T15:08:13Z",
+      "side": 1,
+      "message": "Use dumpEntryPath.empry()",
+      "range": {
+        "startLine": 749,
+        "startChar": 4,
+        "endLine": 749,
+        "endChar": 28
+      },
+      "revId": "ff12a7303e06ac9a91ea14077b7c3ef7c38ebe18",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "655756a3_2b2b2717",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 52
+      },
+      "lineNbr": 758,
+      "author": {
+        "id": 1001049
+      },
+      "writtenOn": "2021-09-21T15:08:13Z",
+      "side": 1,
+      "message": "use meaningful variable name.",
+      "range": {
+        "startLine": 758,
+        "startChar": 77,
+        "endLine": 758,
+        "endChar": 78
+      },
+      "revId": "ff12a7303e06ac9a91ea14077b7c3ef7c38ebe18",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "de4922b9_91ff5cb4",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 52
+      },
+      "lineNbr": 766,
+      "author": {
+        "id": 1001049
+      },
+      "writtenOn": "2021-09-21T15:08:13Z",
+      "side": 1,
+      "message": "Should this be \nreturn !task::completed; \n??",
+      "range": {
+        "startLine": 766,
+        "startChar": 16,
+        "endLine": 766,
+        "endChar": 39
+      },
+      "revId": "ff12a7303e06ac9a91ea14077b7c3ef7c38ebe18",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f41bf956_d94e96b5",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 52
+      },
+      "lineNbr": 798,
+      "author": {
+        "id": 1001049
+      },
+      "writtenOn": "2021-09-21T15:08:13Z",
+      "side": 1,
+      "message": "Can you add some comments in code to explain the 3 minute?",
+      "range": {
+        "startLine": 798,
+        "startChar": 4,
+        "endLine": 798,
+        "endChar": 46
+      },
+      "revId": "ff12a7303e06ac9a91ea14077b7c3ef7c38ebe18",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
