@@ -16,6 +16,24 @@
       "revId": "4b88a20da6fbf4bd2be5ef6371648278f8eaf5b1",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f5894b9a_2e329a1b",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-09-21T16:19:38Z",
+      "side": 0,
+      "message": "Yep.  It\u0027s only used in the constructor, because the req object is perfectly capable of holding a URI, there\u0027s no reason to store it twice.",
+      "parentUuid": "b13dc188_20d9e0a4",
+      "revId": "4b88a20da6fbf4bd2be5ef6371648278f8eaf5b1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
