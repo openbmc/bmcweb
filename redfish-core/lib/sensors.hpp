@@ -304,6 +304,7 @@ class InventoryItem
     std::string model;
     std::string partNumber;
     std::string serialNumber;
+    std::string locationCode;
     std::set<std::string> sensors;
     std::string ledObjectPath;
     LedState ledState;
@@ -1589,6 +1590,19 @@ inline void storeInventoryItemData(
         }
     }
 
+    interfaceIt = interfacesDict.find(
+        "xyz.openbmc_project.Inventory.Decorator.LocationCode");
+    if (interfaceIt != interfacesDict.end())
+    {
+        auto propertyIt = interfaceIt->second.find("LocationCode");
+        const std::string* value =
+            std::get_if<std::string>(&propertyIt->second);
+        if (value != nullptr)
+        {
+            inventoryItem.locationCode = *value;
+        }
+    }
+
     // Get properties from State.Decorator.OperationalStatus interface
     interfaceIt = interfacesDict.find(
         "xyz.openbmc_project.State.Decorator.OperationalStatus");
@@ -2485,6 +2499,8 @@ inline nlohmann::json& getPowerSupply(nlohmann::json& powerSupplyArray,
     powerSupply["Model"] = inventoryItem.model;
     powerSupply["PartNumber"] = inventoryItem.partNumber;
     powerSupply["SerialNumber"] = inventoryItem.serialNumber;
+    powerSupply["Location"]["PartLocation"]["ServiceLabel"] =
+        inventoryItem.locationCode;
     setLedState(powerSupply, &inventoryItem);
 
     if (inventoryItem.powerSupplyEfficiencyPercent >= 0)
