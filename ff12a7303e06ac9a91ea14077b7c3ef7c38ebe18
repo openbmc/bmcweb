@@ -22,6 +22,30 @@
       "revId": "ff12a7303e06ac9a91ea14077b7c3ef7c38ebe18",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6eff9f79_5e47ec95",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 52
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2021-09-21T05:11:32Z",
+      "side": 1,
+      "message": "So here, https://github.com/openbmc/phosphor-dbus-interfaces/blob/master/yaml/xyz/openbmc_project/Common/Progress.interface.yaml\nthe Common.Progress interface is implemented by all the dumps so far and hence the status prop here is checked by the task for dump completion status.\n\nhttps://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/38954/52/redfish-core/lib/log_services.hpp#711\n\n^^^ Here, if at all there is no status property, then it is assumed that the dump creation is complete (as it was mentioned in the previous comment by Dhrv) and the task will be completed. This won\u0027t break any functionality as such.",
+      "parentUuid": "13223941_39d07c7f",
+      "range": {
+        "startLine": 13,
+        "startChar": 42,
+        "endLine": 14,
+        "endChar": 52
+      },
+      "revId": "ff12a7303e06ac9a91ea14077b7c3ef7c38ebe18",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
