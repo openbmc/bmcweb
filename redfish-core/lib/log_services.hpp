@@ -402,6 +402,24 @@ static bool
     return !redfishLogFiles.empty();
 }
 
+inline void setSessionIdOnDumpDbusPath(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp, std::string objPath,
+    std::string sessionId)
+{
+    crow::connections::systemBus->async_method_call(
+        [asyncResp](const boost::system::error_code ec) {
+            if (ec)
+            {
+                BMCWEB_LOG_DEBUG << "DBUS response error " << ec;
+                messages::internalError(asyncResp->res);
+                return;
+            }
+        },
+        "xyz.openbmc_project.Dump.Manager", objPath,
+        "org.freedesktop.DBus.Properties", "Set", "com.ibm.Dump.ManagedBy",
+        "SessionId", std::variant<std::string>(sessionId));
+}
+
 inline void
     getDumpEntryCollection(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                            const std::string& dumpType)
@@ -447,6 +465,7 @@ inline void
                 }
                 std::time_t timestamp;
                 uint64_t size = 0;
+                std::string sessionId;
                 entriesArray.push_back({});
                 nlohmann::json& thisEntry = entriesArray.back();
 
@@ -498,6 +517,26 @@ inline void
                             }
                         }
                     }
+                    else if (interfaceMap.first == "com.ibm.Dump.ManagedBy")
+                    {
+
+                        for (auto& propertyMap : interfaceMap.second)
+                        {
+                            if (propertyMap.first == "SessionId")
+                            {
+                                const std::string* session =
+                                    std::get_if<std::string>(
+                                        &propertyMap.second);
+                                if (session == nullptr)
+                                {
+                                    messages::internalError(asyncResp->res);
+                                    break;
+                                }
+                                sessionId = *session;
+                                break;
+                            }
+                        }
+                    }
                 }
 
                 thisEntry["@odata.type"] = "#LogEntry.v1_7_0.LogEntry";
@@ -508,6 +547,12 @@ inline void
                 thisEntry["Name"] = dumpType + " Dump Entry";
 
                 thisEntry["AdditionalDataSizeBytes"] = size;
+
+                if (sessionId != "")
+                {
+                    thisEntry["Links"]["OriginOfCondition"] =
+                        "/redfish/v1/SessionService/Sessions/" + sessionId;
+                }
 
                 if (dumpType == "BMC")
                 {
@@ -563,6 +608,7 @@ inline void
             }
 
             bool foundDumpEntry = false;
+            std::string sessionId;
             std::string dumpEntryPath =
                 "/xyz/openbmc_project/dump/" +
                 std::string(boost::algorithm::to_lower_copy(dumpType)) +
@@ -619,6 +665,26 @@ inline void
                             }
                         }
                     }
+                    else if (interfaceMap.first == "com.ibm.Dump.ManagedBy")
+                    {
+
+                        for (auto& propertyMap : interfaceMap.second)
+                        {
+                            if (propertyMap.first == "SessionId")
+                            {
+                                const std::string* session =
+                                    std::get_if<std::string>(
+                                        &propertyMap.second);
+                                if (session == nullptr)
+                                {
+                                    messages::internalError(asyncResp->res);
+                                    break;
+                                }
+                                sessionId = *session;
+                                break;
+                            }
+                        }
+                    }
                 }
 
                 asyncResp->res.jsonValue["@odata.type"] =
@@ -631,6 +697,12 @@ inline void
                 asyncResp->res.jsonValue["Name"] = dumpType + " Dump Entry";
 
                 asyncResp->res.jsonValue["AdditionalDataSizeBytes"] = size;
+
+                if (sessionId != "")
+                {
+                    asyncResp->res.jsonValue["Links"]["OriginOfCondition"] =
+                        "/redfish/v1/SessionService/Sessions/" + sessionId;
+                }
 
                 if (dumpType == "BMC")
                 {
@@ -823,6 +895,8 @@ inline void createDump(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
             }
             BMCWEB_LOG_DEBUG << "Dump Created. Id: " << dumpId;
 
+            setSessionIdOnDumpDbusPath(asyncResp, objPath.str,
+                                       req.session->uniqueId);
             createDumpTaskCallback(req, asyncResp, dumpId, dumpPath, dumpType);
         },
         "xyz.openbmc_project.Dump.Manager",
