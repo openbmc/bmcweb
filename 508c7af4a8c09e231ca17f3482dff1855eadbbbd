@@ -2,6 +2,52 @@
   "comments": [
     {
       "key": {
+        "uuid": "a910518b_f9c68e3b",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 280,
+      "author": {
+        "id": 1001049
+      },
+      "writtenOn": "2021-09-21T11:07:36Z",
+      "side": 1,
+      "message": "do we need to do anything to asyncResp? don\u0027t we need messages::internalError(asyncResp-\u003eres);?\nwhat will be the response in this case? can you test and paste the result here?",
+      "range": {
+        "startLine": 280,
+        "startChar": 16,
+        "endLine": 280,
+        "endChar": 23
+      },
+      "revId": "508c7af4a8c09e231ca17f3482dff1855eadbbbd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "da6d90c7_a29184b1",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 296,
+      "author": {
+        "id": 1001049
+      },
+      "writtenOn": "2021-09-21T11:07:36Z",
+      "side": 1,
+      "message": "nit:\nYou can use std::holds_alternative and avoid the use of pointer variable.",
+      "range": {
+        "startLine": 296,
+        "startChar": 24,
+        "endLine": 296,
+        "endChar": 35
+      },
+      "revId": "508c7af4a8c09e231ca17f3482dff1855eadbbbd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "7a4008a7_ef7f1ae3",
         "filename": "redfish-core/lib/storage.hpp",
         "patchSetId": 17
@@ -13,6 +59,98 @@
       "writtenOn": "2021-09-20T23:52:59Z",
       "side": 1,
       "message": "shouldn\u0027t you log this error too?",
+      "revId": "508c7af4a8c09e231ca17f3482dff1855eadbbbd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bf345c1c_d93062df",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 322,
+      "author": {
+        "id": 1001049
+      },
+      "writtenOn": "2021-09-21T11:07:36Z",
+      "side": 1,
+      "message": "don\u0027t we need messages::internalError(asyncResp-\u003eres);?",
+      "range": {
+        "startLine": 322,
+        "startChar": 16,
+        "endLine": 322,
+        "endChar": 23
+      },
+      "revId": "508c7af4a8c09e231ca17f3482dff1855eadbbbd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "733add92_fd776023",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 324,
+      "author": {
+        "id": 1001049
+      },
+      "writtenOn": "2021-09-21T11:07:36Z",
+      "side": 1,
+      "message": "nit:\nYou can use std::holds_alternative and avoid the use of pointer variable.",
+      "range": {
+        "startLine": 324,
+        "startChar": 34,
+        "endLine": 324,
+        "endChar": 45
+      },
+      "revId": "508c7af4a8c09e231ca17f3482dff1855eadbbbd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f7c77232_b6361e3b",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 351,
+      "author": {
+        "id": 1001049
+      },
+      "writtenOn": "2021-09-21T11:07:36Z",
+      "side": 1,
+      "message": "don\u0027t we need messages::internalError(asyncResp-\u003eres);?",
+      "range": {
+        "startLine": 351,
+        "startChar": 16,
+        "endLine": 351,
+        "endChar": 23
+      },
+      "revId": "508c7af4a8c09e231ca17f3482dff1855eadbbbd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bd7900d9_17714c08",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 353,
+      "author": {
+        "id": 1001049
+      },
+      "writtenOn": "2021-09-21T11:07:36Z",
+      "side": 1,
+      "message": "nit:\nYou can use std::holds_alternative and avoid the use of pointer variable.",
+      "range": {
+        "startLine": 353,
+        "startChar": 35,
+        "endLine": 353,
+        "endChar": 46
+      },
       "revId": "508c7af4a8c09e231ca17f3482dff1855eadbbbd",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
@@ -35,6 +173,144 @@
         "startChar": 58,
         "endLine": 393,
         "endChar": 61
+      },
+      "revId": "508c7af4a8c09e231ca17f3482dff1855eadbbbd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4be7fb56_409987bb",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 401,
+      "author": {
+        "id": 1001049
+      },
+      "writtenOn": "2021-09-21T11:07:36Z",
+      "side": 1,
+      "message": "nit:\nYou can use std::holds_alternative and avoid the use of pointer variable.",
+      "range": {
+        "startLine": 401,
+        "startChar": 43,
+        "endLine": 401,
+        "endChar": 54
+      },
+      "revId": "508c7af4a8c09e231ca17f3482dff1855eadbbbd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f800d1d6_2bcd8d34",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 433,
+      "author": {
+        "id": 1001049
+      },
+      "writtenOn": "2021-09-21T11:07:36Z",
+      "side": 1,
+      "message": "don\u0027t we need \u0026driveId?",
+      "range": {
+        "startLine": 433,
+        "startChar": 32,
+        "endLine": 433,
+        "endChar": 39
+      },
+      "revId": "508c7af4a8c09e231ca17f3482dff1855eadbbbd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "79b2e103_9fed33db",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 443,
+      "author": {
+        "id": 1001049
+      },
+      "writtenOn": "2021-09-21T11:07:36Z",
+      "side": 1,
+      "message": "give actual type",
+      "range": {
+        "startLine": 443,
+        "startChar": 24,
+        "endLine": 443,
+        "endChar": 28
+      },
+      "revId": "508c7af4a8c09e231ca17f3482dff1855eadbbbd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e3367720_7b06722e",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 443,
+      "author": {
+        "id": 1001049
+      },
+      "writtenOn": "2021-09-21T11:07:36Z",
+      "side": 1,
+      "message": "Use meaningful names.",
+      "range": {
+        "startLine": 443,
+        "startChar": 29,
+        "endLine": 443,
+        "endChar": 36
+      },
+      "revId": "508c7af4a8c09e231ca17f3482dff1855eadbbbd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "25ebea15_f9ef3873",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 474,
+      "author": {
+        "id": 1001049
+      },
+      "writtenOn": "2021-09-21T11:07:36Z",
+      "side": 1,
+      "message": "We not checking greater than 1 in line 470. \nis line 470 correct? if so, correct this message.",
+      "range": {
+        "startLine": 474,
+        "startChar": 45,
+        "endLine": 474,
+        "endChar": 67
+      },
+      "revId": "508c7af4a8c09e231ca17f3482dff1855eadbbbd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cf2a21ea_5841aeec",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 475,
+      "author": {
+        "id": 1001049
+      },
+      "writtenOn": "2021-09-21T11:07:36Z",
+      "side": 1,
+      "message": "nit:\ndo we need a more specific message here?",
+      "range": {
+        "startLine": 475,
+        "startChar": 28,
+        "endLine": 475,
+        "endChar": 51
       },
       "revId": "508c7af4a8c09e231ca17f3482dff1855eadbbbd",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
