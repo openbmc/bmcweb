@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bcc79683_928356c7",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-09-21T00:39:42Z",
+      "side": 1,
+      "message": "Cool stuff.",
+      "revId": "174a8202cfd53212591071e79880bb90ec48bbf4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3e54c0f2_e20b14a4",
+        "filename": "http/routing.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 469,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-09-21T00:39:42Z",
+      "side": 1,
+      "message": "I assume you will clean up?",
+      "revId": "174a8202cfd53212591071e79880bb90ec48bbf4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d37d2ba7_aa57f75b",
+        "filename": "http/utility.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-09-21T00:39:42Z",
+      "side": 1,
+      "message": "I assume you will clean up?",
+      "revId": "174a8202cfd53212591071e79880bb90ec48bbf4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
