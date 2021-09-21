@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b13dc188_20d9e0a4",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-09-21T15:43:12Z",
+      "side": 0,
+      "message": "Unused?",
+      "revId": "4b88a20da6fbf4bd2be5ef6371648278f8eaf5b1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
