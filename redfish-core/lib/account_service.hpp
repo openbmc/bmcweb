@@ -1287,6 +1287,7 @@ inline void requestAccountServiceRoutes(App& app)
                 {"Oem",
                  {{"OpenBMC",
                    {{"@odata.type", "#OemAccountService.v1_0_0.AccountService"},
+                    {"@odata.id", "/redfish/v1/AccountService#/Oem/OpenBMC"},
                     {"AuthMethods",
                      {
                          {"BasicAuth", authMethodsConfig.basic},
