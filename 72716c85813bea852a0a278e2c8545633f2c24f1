@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bf21e72b_2ec0a6c1",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 520,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-09-22T17:40:37Z",
+      "side": 1,
+      "message": "Sorry, this isn\u0027t going to work.  \"ManagedBy\" doesn\u0027t imply origin of condition.  A BMC might generate a dump, but the dump was caused by another component.  Also, hardcoding in an IBM specific interface for everyone in this way is counter productive, as it would lead to:\n\ncom.intel.Dump.ManagedBy\n\ncom.google.Dump.ManagedBy\n\nect.\nWhich gets unmaintainable in a hurry.",
+      "range": {
+        "startLine": 520,
+        "startChar": 20,
+        "endLine": 520,
+        "endChar": 76
+      },
+      "revId": "72716c85813bea852a0a278e2c8545633f2c24f1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a2327ee0_140c7859",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 554,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-09-22T17:40:37Z",
+      "side": 1,
+      "message": "How would a session cause a dump?  OriginOfCondition is intended to point at a System component that caused this \"failure\".  I suspect origin of condition isn\u0027t what you want here.",
+      "range": {
+        "startLine": 554,
+        "startChar": 24,
+        "endLine": 554,
+        "endChar": 75
+      },
+      "revId": "72716c85813bea852a0a278e2c8545633f2c24f1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
