@@ -5,44 +5,46 @@
 
 namespace crow
 {
-namespace obmc_console
+namespace obmc_hypervisor
 {
-static std::shared_ptr<obmc_websocket::Websocket> consWebSocket;
+
+static std::shared_ptr<obmc_websocket::Websocket> hyepWebSocket;
 
 inline void requestRoutes(App& app)
 {
-    BMCWEB_ROUTE(app, "/console0")
+    BMCWEB_ROUTE(app, "/console1")
         .privileges({{"ConfigureComponents", "ConfigureManager"}})
         .websocket()
         .onopen([](crow::websocket::Connection& conn) {
             BMCWEB_LOG_DEBUG << "Connection " << &conn << " opened";
 
-            const std::string consoleName("\0obmc-console", 13);
-            if (consWebSocket)
+            const std::string consoleName("\0obmc-console.hypervisor", 24);
+            if (hyepWebSocket)
             {
-                consWebSocket->addConnection(conn);
+                hyepWebSocket->addConnection(conn);
             }
             else
             {
-                consWebSocket = std::make_shared<obmc_websocket::Websocket>(
+                hyepWebSocket = std::make_shared<obmc_websocket::Websocket>(
                     consoleName, conn);
-                consWebSocket->connect();
+                hyepWebSocket->connect();
             }
         })
         .onclose([](crow::websocket::Connection& conn,
                     [[maybe_unused]] const std::string& reason) {
             BMCWEB_LOG_INFO << "Closing websocket. Reason: " << reason;
 
-            if (consWebSocket && consWebSocket->removeConnection(conn))
+            if (hyepWebSocket && hyepWebSocket->removeConnection(conn))
             {
-                consWebSocket = nullptr;
+                hyepWebSocket = nullptr;
             }
         })
         .onmessage([]([[maybe_unused]] crow::websocket::Connection& conn,
                       const std::string& data, [[maybe_unused]] bool isBinary) {
-            consWebSocket->inputBuffer += data;
-            consWebSocket->doWrite();
+            hyepWebSocket->inputBuffer += data;
+            hyepWebSocket->doWrite();
         });
 }
-} // namespace obmc_console
+
+} // namespace obmc_hypervisor
 } // namespace crow
