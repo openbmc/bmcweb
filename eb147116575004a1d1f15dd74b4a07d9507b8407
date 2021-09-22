@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "54a2fd75_f0e9ffd8",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1062,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-09-22T17:48:34Z",
+      "side": 1,
+      "message": "pass size_t by value.",
+      "range": {
+        "startLine": 1062,
+        "startChar": 57,
+        "endLine": 1062,
+        "endChar": 64
+      },
+      "revId": "eb147116575004a1d1f15dd74b4a07d9507b8407",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "30003d98_39f79765",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1066,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-09-22T17:48:34Z",
+      "side": 1,
+      "message": "This kind of parameter validation should not be done in bmcweb, otherwise it will need to be duplicated in every interface daemon.  This needs to be enforced by the network daemon if this is a requirement, and the appropriate error message returned and handled on line 1076.",
+      "range": {
+        "startLine": 1065,
+        "startChar": 0,
+        "endLine": 1066,
+        "endChar": 43
+      },
+      "revId": "eb147116575004a1d1f15dd74b4a07d9507b8407",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "95b2424f_a6fbb7a8",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1080,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-09-22T17:48:34Z",
+      "side": 1,
+      "message": "Please use sdbusplus::message::operator +\u003d to create this path.",
+      "range": {
+        "startLine": 1080,
+        "startChar": 8,
+        "endLine": 1080,
+        "endChar": 49
+      },
+      "revId": "eb147116575004a1d1f15dd74b4a07d9507b8407",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
