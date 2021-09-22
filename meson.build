@@ -172,68 +172,68 @@ if (cxx.get_id() == 'gcc' and cxx.version().version_compare('>8.0'))
      '-Wformat=2',
      ]),
     language:'cpp')
+endif
 
-  if (get_option('buildtype') != 'plain')
-    if (get_option('b_lto') == true and get_option('optimization')!='0')
-      # Reduce the binary size by removing unnecessary
-      # dynamic symbol table entries
+if (get_option('buildtype') != 'plain')
+  if (get_option('b_lto') == true and get_option('optimization')!='0')
+    # Reduce the binary size by removing unnecessary
+    # dynamic symbol table entries
 
-      add_project_arguments(
-       cxx.get_supported_arguments([
-       '-fno-fat-lto-objects',
-       '-fvisibility=hidden',
-       '-fvisibility-inlines-hidden'
-       ]),
-       language: 'cpp')
+    add_project_arguments(
+     cxx.get_supported_arguments([
+     '-fno-fat-lto-objects',
+     '-fvisibility=hidden',
+     '-fvisibility-inlines-hidden'
+     ]),
+     language: 'cpp')
 
-      if cxx.has_link_argument('-Wl,--exclude-libs,ALL')
-        add_project_link_arguments('-Wl,--exclude-libs,ALL', language: 'cpp')
-      endif
-  endif
-
-    if( get_option('bmcweb-logging').enabled() or \
-        get_option('buildtype').startswith('debug'))
-     add_project_arguments([
-       '-DBMCWEB_ENABLE_LOGGING',
-       '-DBMCWEB_ENABLE_DEBUG'
-       ],
-      language : 'cpp')
-
-      summary({'debug' :'-DBMCWEB_ENABLE_DEBUG',
-               'logging' : '-DBMCWEB_ENABLE_LOGGING',
-              },section : 'Enabled Features')
-    endif
-
-    if( get_option('redfish-allow-deprecated-hostname-patch').enabled())
-     add_project_arguments([
-       '-DBMCWEB_ALLOW_DEPRECATED_HOSTNAME_PATCH'
-       ],
-      language : 'cpp')
-
-      summary({'hostname-patch' :'-DBMCWEB_ALLOW_DEPRECATED_HOSTNAME_PATCH'
-              },section : 'Enabled Features')
-    endif
-
-    if( get_option('redfish-allow-deprecated-power-thermal').enabled())
-     add_project_arguments([
-       '-DBMCWEB_ALLOW_DEPRECATED_POWER_THERMAL'
-       ],
-      language : 'cpp')
-
-      summary({'power-thermal' :'-DBMCWEB_ALLOW_DEPRECATED_POWER_THERMAL'
-              },section : 'Enabled Features')
-    endif
-
-    if( get_option('redfish-new-powersubsystem-thermalsubsystem').enabled())
-     add_project_arguments([
-       '-DBMCWEB_NEW_POWERSUBSYSTEM_THERMALSUBSYSTEM'
-       ],
-      language : 'cpp')
-
-      summary({'new-powersubsystem-thermalsubsystem' :'-DBMCWEB_NEW_POWERSUBSYSTEM_THERMALSUBSYSTEM'
-              },section : 'Enabled Features')
+    if cxx.has_link_argument('-Wl,--exclude-libs,ALL')
+      add_project_link_arguments('-Wl,--exclude-libs,ALL', language: 'cpp')
     endif
   endif
+endif
+
+if( get_option('bmcweb-logging').enabled() or \
+    get_option('buildtype').startswith('debug'))
+ add_project_arguments([
+   '-DBMCWEB_ENABLE_LOGGING',
+   '-DBMCWEB_ENABLE_DEBUG'
+   ],
+  language : 'cpp')
+
+  summary({'debug' :'-DBMCWEB_ENABLE_DEBUG',
+     'logging' : '-DBMCWEB_ENABLE_LOGGING',
+    },section : 'Enabled Features')
+endif
+
+if( get_option('redfish-allow-deprecated-hostname-patch').enabled())
+ add_project_arguments([
+   '-DBMCWEB_ALLOW_DEPRECATED_HOSTNAME_PATCH'
+   ],
+  language : 'cpp')
+
+  summary({'hostname-patch' :'-DBMCWEB_ALLOW_DEPRECATED_HOSTNAME_PATCH'
+    },section : 'Enabled Features')
+endif
+
+if( get_option('redfish-allow-deprecated-power-thermal').enabled())
+ add_project_arguments([
+   '-DBMCWEB_ALLOW_DEPRECATED_POWER_THERMAL'
+   ],
+  language : 'cpp')
+
+  summary({'power-thermal' :'-DBMCWEB_ALLOW_DEPRECATED_POWER_THERMAL'
+    },section : 'Enabled Features')
+endif
+
+if( get_option('redfish-new-powersubsystem-thermalsubsystem').enabled())
+ add_project_arguments([
+   '-DBMCWEB_NEW_POWERSUBSYSTEM_THERMALSUBSYSTEM'
+   ],
+  language : 'cpp')
+
+  summary({'new-powersubsystem-thermalsubsystem' :'-DBMCWEB_NEW_POWERSUBSYSTEM_THERMALSUBSYSTEM'
+    },section : 'Enabled Features')
 endif
 
 # Set Compiler Security flags
