@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "b102905f_06c5731f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-09-22T17:36:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1c9a1a99_4aed21af",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 1
+      },
+      "revId": "77b3f01bc05c6968ad72ba6fdf9c462bbf1ec505",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "23577858_984956c0",
         "filename": "/COMMIT_MSG",
         "patchSetId": 2
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "57b5f7c1_217d6837",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-09-22T17:36:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "23577858_984956c0",
+      "range": {
+        "startLine": 15,
+        "startChar": 26,
+        "endLine": 15,
+        "endChar": 27
+      },
+      "revId": "77b3f01bc05c6968ad72ba6fdf9c462bbf1ec505",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9705eec0_8c891279",
         "filename": "/COMMIT_MSG",
         "patchSetId": 2
@@ -59,6 +107,30 @@
       "writtenOn": "2021-09-22T17:31:16Z",
       "side": 1,
       "message": "because GCC and Clang both support this? And we have no plans to any other compilers? No need to add anything to the commit msg, just want to check my understanding / all boxes",
+      "range": {
+        "startLine": 18,
+        "startChar": 7,
+        "endLine": 18,
+        "endChar": 23
+      },
+      "revId": "77b3f01bc05c6968ad72ba6fdf9c462bbf1ec505",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a1038f09_8a9829ac",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-09-22T17:36:09Z",
+      "side": 1,
+      "message": "\u003e because GCC and Clang both support this?\n\nBecause the current versions of clang and gcc support this, as should msvc.  Frankly, I have no idea why they wrapped that in paren, but in the context of this codebase, we have other calls like this that we don\u0027t wrap in a paren, so clearly it\u0027s not an issue.\n\n\u003e And we have no plans to any other compilers? No need to add anything to the commit msg, just want to check my understanding / all boxes\n\nI suspect any compilers that we need should be able to compile this code.",
+      "parentUuid": "9705eec0_8c891279",
       "range": {
         "startLine": 18,
         "startChar": 7,
