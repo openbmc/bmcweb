@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "44785191_d3937f97",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-09-22T16:43:34Z",
+      "side": 1,
+      "message": "I pulled my validator and updated the dependencies, and this popped  up on my next run.   I\u0027ve known all our OEM schemas have had significant issues for a while, it just seems like the validator has started looking at them, which is bad.  I was hoping to avoid fixing those for a while.  Some theories on differences:\n\n1. I have code from dmtf master, CI is running an old version (same goes for dependencies).\n2. CI has oemcheck disabled.\n3. My system is somehow unique in a way I don\u0027t understand (be it my host system or qemu).",
+      "parentUuid": "a1bd3ce8_03de63d0",
+      "revId": "eb73d8d1f103c2f4573dc74c5e74613e8bda0e15",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "9468c399_7d50fb79",
         "filename": "redfish-core/lib/account_service.hpp",
         "patchSetId": 2
