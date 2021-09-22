@@ -73,6 +73,24 @@
     },
     {
       "key": {
+        "uuid": "02af833b_71d7dab6",
+        "filename": "redfish-core/lib/metric_definition.hpp",
+        "patchSetId": 90
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2021-09-22T07:19:08Z",
+      "side": 1,
+      "message": "You can check POC implementation here:\nOne part is in bmcweb: https://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/46977\nSecond part is in telemetry service: https://gerrit.openbmc-project.xyz/c/openbmc/telemetry/+/46978\n\nWe are already maintainers of telemetry service, if it\u0027s possible we also would like to maintain redfish part of telemetry service.",
+      "parentUuid": "113a08e2_9f7830d6",
+      "revId": "70256ef2da60d9877da75cbc6e980662fa922c04",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d74d5b68_5a964a8a",
         "filename": "redfish-core/lib/metric_definition.hpp",
         "patchSetId": 90
