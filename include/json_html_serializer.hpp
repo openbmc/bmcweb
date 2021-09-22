@@ -397,9 +397,8 @@ inline void dumpfloat(std::string& out, double number,
     static constexpr auto d = std::numeric_limits<double>::max_digits10;
 
     // the actual conversion
-    std::ptrdiff_t len =
-        (std::snprintf)(numberbuffer.data(), numberbuffer.size(), "%.*g", d,
-                        number);
+    std::ptrdiff_t len = std::snprintf(numberbuffer.data(), numberbuffer.size(),
+                                       "%.*g", d, number);
 
     // negative value indicates an error
     if (len <= 0)
