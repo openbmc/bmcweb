@@ -22,6 +22,30 @@
       "revId": "da13d1c71d78b028f5f002236b93053b03b5a8f5",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8a75a221_f3a7bd20",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 827,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-09-22T21:58:58Z",
+      "side": 1,
+      "message": "\u003e why do you pass the lvalue, is better for reasons that I don\u0027t understand.\n\u003e I see the \"\u0026\u0026\" in the definition requiring a lvalue reference, I just am not clear why that is better.\n\nI think you\u0027ve mixed up lvalue and rvalue.  This is creating an rvalue reference from an lvalue, and passing it as an rvalue.\n\nThe \u0026\u0026 basically means \"accept this by move\" or more precisely \"accept this by rvalue reference\", which is what I want to happen here, because payload is still fairly \"heavy\" and so I don\u0027t want to make a deep copy of it.\n\nThe advantage in doing that is that we\u0027ve essentially told the compiler that \"payload\" won\u0027t be used again after this point, so it can reuse whatever datastructures it likes from it without worry for the new object. \n In practice, this tends to mean that instead of making a copy of a memory space, then freeing the old one, the pointer is simply copied to the new object, and the new object now \"owns\" that memory, with no copy, and a pretty cheap pointer.",
+      "parentUuid": "c88b4059_57fce8da",
+      "range": {
+        "startLine": 827,
+        "startChar": 35,
+        "endLine": 827,
+        "endChar": 44
+      },
+      "revId": "da13d1c71d78b028f5f002236b93053b03b5a8f5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
