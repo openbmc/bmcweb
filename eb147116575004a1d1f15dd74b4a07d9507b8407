@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "239c3e76_43d38c5d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-09-22T17:50:30Z",
+      "side": 1,
+      "message": "Please wrap your commits 50/72",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 12,
+        "endChar": 0
+      },
+      "revId": "eb147116575004a1d1f15dd74b4a07d9507b8407",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "54a2fd75_f0e9ffd8",
         "filename": "redfish-core/lib/ethernet.hpp",
         "patchSetId": 2
