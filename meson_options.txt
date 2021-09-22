@@ -68,6 +68,13 @@ option(
 )
 
 option(
+    'hypervisor-serial-socket',
+    type: 'feature',
+    value: 'disabled',
+    description: '''Enable host serial console WebSocket. Path is /console1.'''
+)
+
+option(
     'static-hosting',
     type: 'feature',
     value: 'enabled',

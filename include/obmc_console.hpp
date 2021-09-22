@@ -1,68 +1,67 @@
 #pragma once
-#include <sys/socket.h>
 
 #include <app.hpp>
-#include <async_resp.hpp>
-#include <boost/asio/local/stream_protocol.hpp>
-#include <boost/container/flat_set.hpp>
-#include <websocket.hpp>
+#include <include/obmc_websocket.hpp>
 
 namespace crow
 {
 namespace obmc_console
 {
+static std::shared_ptr<obmc_websocket::Websocket> consWebSocket;
 
-static std::unique_ptr<boost::asio::local::stream_protocol::socket> hostSocket;
-
-static std::array<char, 4096> outputBuffer;
-static std::string inputBuffer;
-
-static boost::container::flat_set<crow::websocket::Connection*> sessions;
-
-static bool doingWrite = false;
-
-inline void doWrite()
+inline void requestRoutes(App& app)
 {
-    if (doingWrite)
-    {
-        BMCWEB_LOG_DEBUG << "Already writing.  Bailing out";
-        return;
-    }
+    BMCWEB_ROUTE(app, "/console0")
+        .privileges({{"ConfigureComponents", "ConfigureManager"}})
+        .websocket()
+        .onopen([](crow::websocket::Connection& conn,
+                   const std::shared_ptr<bmcweb::AsyncResp>&) {
+            BMCWEB_LOG_DEBUG << "Connection " << &conn << " opened";
 
-    if (inputBuffer.empty())
-    {
-        BMCWEB_LOG_DEBUG << "Outbuffer empty.  Bailing out";
-        return;
-    }
-
-    if (!hostSocket)
-    {
-        BMCWEB_LOG_ERROR << "doWrite(): Socket closed.";
-        return;
-    }
-
-    doingWrite = true;
-    hostSocket->async_write_some(
-        boost::asio::buffer(inputBuffer.data(), inputBuffer.size()),
-        [](boost::beast::error_code ec, std::size_t bytesWritten) {
-            doingWrite = false;
-            inputBuffer.erase(0, bytesWritten);
-
-            if (ec == boost::asio::error::eof)
+            const std::string consoleName("\0obmc-console", 13);
+            if (consWebSocket)
             {
-                for (crow::websocket::Connection* session : sessions)
-                {
-                    session->close("Error in reading to host port");
-                }
-                return;
+                consWebSocket->addConnection(conn);
             }
-            if (ec)
+            else
             {
-                BMCWEB_LOG_ERROR << "Error in host serial write " << ec;
-                return;
+                consWebSocket = std::make_shared<obmc_websocket::Websocket>(
+                    consoleName, conn);
+                consWebSocket->connect();
             }
-            doWrite();
+        })
+        .onclose([](crow::websocket::Connection& conn,
+                    [[maybe_unused]] const std::string& reason) {
+            BMCWEB_LOG_INFO << "Closing websocket. Reason: " << reason;
+
+            if (consWebSocket && consWebSocket->removeConnection(conn))
+            {
+                consWebSocket = nullptr;
+            }
+        })
+        .onmessage([]([[maybe_unused]] crow::websocket::Connection& conn,
+                      const std::string& data, [[maybe_unused]] bool isBinary) {
+            consWebSocket->inputBuffer += data;
+            consWebSocket->doWrite();
         });
+}
+} // namespace obmc_console
+} // namespace crow
+if (ec == boost::asio::error::eof)
+{
+    for (crow::websocket::Connection* session : sessions)
+    {
+        session->close("Error in reading to host port");
+    }
+    return;
+}
+if (ec)
+{
+    BMCWEB_LOG_ERROR << "Error in host serial write " << ec;
+    return;
+}
+doWrite();
+});
 }
 
 inline void doRead()
