@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "809566c6_dc21c43f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-09-22T16:24:59Z",
+      "side": 1,
+      "message": "This is a pretty complicated schema (Manager). Should have most of the types.",
+      "revId": "06e9402a352d5272ca75a7e6f1dd87b45e7e2e3e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
