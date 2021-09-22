@@ -184,6 +184,10 @@ inline void getNetworkData(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
             [asyncResp, protocolName](const boost::system::error_code ec,
                                       const std::string& socketPath,
                                       bool isProtocolEnabled) {
+                // If the service is not installed, that is not an error
+                if (ec == boost::system::errc::no_such_process){
+                    return;
+                }
                 if (ec)
                 {
                     messages::internalError(asyncResp->res);
