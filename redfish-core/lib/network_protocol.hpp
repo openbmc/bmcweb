@@ -123,13 +123,6 @@ inline void getNetworkData(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     asyncResp->res.jsonValue["HTTP"]["Port"] = 0;
     asyncResp->res.jsonValue["HTTP"]["ProtocolEnabled"] = false;
 
-    for (auto& protocol : protocolToDBus)
-    {
-        asyncResp->res.jsonValue[protocol.first]["Port"] =
-            nlohmann::detail::value_t::null;
-        asyncResp->res.jsonValue[protocol.first]["ProtocolEnabled"] = false;
-    }
-
     std::string hostName = getHostName();
 
     asyncResp->res.jsonValue["HostName"] = hostName;
@@ -184,6 +177,15 @@ inline void getNetworkData(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
             [asyncResp, protocolName](const boost::system::error_code ec,
                                       const std::string& socketPath,
                                       bool isProtocolEnabled) {
+                // If the service is not installed, that is not an error
+                if (ec == boost::system::errc::no_such_process)
+                {
+                    asyncResp->res.jsonValue[protocolName]["Port"] =
+                        nlohmann::detail::value_t::null;
+                    asyncResp->res.jsonValue[protocolName]["ProtocolEnabled"] =
+                        false;
+                    return;
+                }
                 if (ec)
                 {
                     messages::internalError(asyncResp->res);
