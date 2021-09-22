@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ba6718c3_840fe3bc",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 532,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-09-22T16:53:54Z",
+      "side": 1,
+      "message": "I really should\u0027ve caught this earlier.  We shouldn\u0027t be pushing back, then erasing at the end, which has the possibility to fail if somehow it was erased earlier.  Also..... I\u0027m pretty sure this code is incorrect?  Doesn\u0027t erasing end() seg fault or cause undefined behavior?  end() points to the element AFTER the last element.  I would\u0027ve expected entriesArray.erase(entriesArray.rbegin()) to do what you want here;\n\nLets do this,\n\nRemove line 451, and replace the following line with\nnlohmann::json thisEntry;\n\nThen on line 536, do a \nentriesArray.push_back(std::move(thisEntry));\n\n\nThis has a far lower likelihood that we run into issues, and removes this code and comment entirely.\n\nI\u0027ve made these changes in the latest patch;  If you and Gunnar are ok with them and can test them to meet your needs, I think this patch can land.",
+      "range": {
+        "startLine": 532,
+        "startChar": 0,
+        "endLine": 532,
+        "endChar": 59
+      },
+      "revId": "e6f3c22b5c1427f0e505f479722f4394acad1d56",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
