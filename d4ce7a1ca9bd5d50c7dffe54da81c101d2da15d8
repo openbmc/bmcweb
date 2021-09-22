@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9bd9613d_5f557ce1",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 3123,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-09-22T18:15:48Z",
+      "side": 1,
+      "message": "String copy.  I\u0027m a little surprised tidy didn\u0027t warn on this, but oh well.",
+      "range": {
+        "startLine": 3123,
+        "startChar": 33,
+        "endLine": 3123,
+        "endChar": 44
+      },
+      "revId": "d4ce7a1ca9bd5d50c7dffe54da81c101d2da15d8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "773edd16_f5723468",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 3150,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-09-22T18:15:48Z",
+      "side": 1,
+      "message": "The old code for this did it in a single pass, without the split.  Is it possible to do that here as well?",
+      "revId": "d4ce7a1ca9bd5d50c7dffe54da81c101d2da15d8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1954474d_2fd28fa0",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 3157,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-09-22T18:15:48Z",
+      "side": 1,
+      "message": "This is incorrect.  Please use the appropriate privilege registry entry.",
+      "range": {
+        "startLine": 3157,
+        "startChar": 20,
+        "endLine": 3157,
+        "endChar": 31
+      },
+      "revId": "d4ce7a1ca9bd5d50c7dffe54da81c101d2da15d8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d7737767_0aeed36b",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 3267,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-09-22T18:15:48Z",
+      "side": 1,
+      "message": "Isn\u0027t your code above in your helper kind of duplicating this code?  We should avoid duplicating code where possible, especially for things like this where the two entities are tied directly together.",
+      "range": {
+        "startLine": 3254,
+        "startChar": 0,
+        "endLine": 3267,
+        "endChar": 75
+      },
+      "revId": "d4ce7a1ca9bd5d50c7dffe54da81c101d2da15d8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
