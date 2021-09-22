@@ -49,38 +49,42 @@ endif
 
 # Include Directories
 
-incdir = include_directories('include','redfish-core/include',
-                             'redfish-core/lib','http')
+incdir = include_directories(
+  'include',
+  'redfish-core/include',
+  'redfish-core/lib',
+  'http'
+)
 
 # Get the options and enable the respective features
 ## create a MAP of  "options : feature_flag"
 
 feature_map = {
-'insecure-disable-auth'           : '-DBMCWEB_INSECURE_DISABLE_AUTHENTICATION',
-'insecure-disable-csrf'           : '-DBMCWEB_INSECURE_DISABLE_CSRF_PREVENTION',
-'insecure-disable-ssl'            : '-DBMCWEB_INSECURE_DISABLE_SSL',
-'host-serial-socket'              : '-DBMCWEB_ENABLE_HOST_SERIAL_WEBSOCKET',
-'ibm-management-console'          : '-DBMCWEB_ENABLE_IBM_MANAGEMENT_CONSOLE',
-'google-api'                      : '-DBMCWEB_ENABLE_GOOGLE_API',
-'kvm'                             : '-DBMCWEB_ENABLE_KVM' ,
-'basic-auth'                      : '-DBMCWEB_ENABLE_BASIC_AUTHENTICATION',
-'session-auth'                    : '-DBMCWEB_ENABLE_SESSION_AUTHENTICATION',
-'xtoken-auth'                     : '-DBMCWEB_ENABLE_XTOKEN_AUTHENTICATION',
-'cookie-auth'                     : '-DBMCWEB_ENABLE_COOKIE_AUTHENTICATION',
-'mutual-tls-auth'                 : '-DBMCWEB_ENABLE_MUTUAL_TLS_AUTHENTICATION',
-'pam'                             : '-DWEBSERVER_ENABLE_PAM',
-'insecure-push-style-notification': '-DBMCWEB_INSECURE_ENABLE_HTTP_PUSH_STYLE_EVENTING',
-'redfish'                         : '-DBMCWEB_ENABLE_REDFISH',
-'redfish-bmc-journal'             : '-DBMCWEB_ENABLE_REDFISH_BMC_JOURNAL',
-'redfish-cpu-log'                 : '-DBMCWEB_ENABLE_REDFISH_CPU_LOG',
-'redfish-dbus-log'                : '-DBMCWEB_ENABLE_REDFISH_DBUS_LOG_ENTRIES',
-'redfish-provisioning-feature'    : '-DBMCWEB_ENABLE_REDFISH_PROVISIONING_FEATURE',
-'redfish-dump-log'                : '-DBMCWEB_ENABLE_REDFISH_DUMP_LOG',
-'rest'                            : '-DBMCWEB_ENABLE_DBUS_REST',
-'static-hosting'                  : '-DBMCWEB_ENABLE_STATIC_HOSTING',
-'insecure-tftp-update'            : '-DBMCWEB_INSECURE_ENABLE_REDFISH_FW_TFTP_UPDATE',
-#'vm-nbdproxy'                     : '-DBMCWEB_ENABLE_VM_NBDPROXY',
-'vm-websocket'                    : '-DBMCWEB_ENABLE_VM_WEBSOCKET',
+  'insecure-disable-auth'           : '-DBMCWEB_INSECURE_DISABLE_AUTHENTICATION',
+  'insecure-disable-csrf'           : '-DBMCWEB_INSECURE_DISABLE_CSRF_PREVENTION',
+  'insecure-disable-ssl'            : '-DBMCWEB_INSECURE_DISABLE_SSL',
+  'host-serial-socket'              : '-DBMCWEB_ENABLE_HOST_SERIAL_WEBSOCKET',
+  'ibm-management-console'          : '-DBMCWEB_ENABLE_IBM_MANAGEMENT_CONSOLE',
+  'google-api'                      : '-DBMCWEB_ENABLE_GOOGLE_API',
+  'kvm'                             : '-DBMCWEB_ENABLE_KVM' ,
+  'basic-auth'                      : '-DBMCWEB_ENABLE_BASIC_AUTHENTICATION',
+  'session-auth'                    : '-DBMCWEB_ENABLE_SESSION_AUTHENTICATION',
+  'xtoken-auth'                     : '-DBMCWEB_ENABLE_XTOKEN_AUTHENTICATION',
+  'cookie-auth'                     : '-DBMCWEB_ENABLE_COOKIE_AUTHENTICATION',
+  'mutual-tls-auth'                 : '-DBMCWEB_ENABLE_MUTUAL_TLS_AUTHENTICATION',
+  'pam'                             : '-DWEBSERVER_ENABLE_PAM',
+  'insecure-push-style-notification': '-DBMCWEB_INSECURE_ENABLE_HTTP_PUSH_STYLE_EVENTING',
+  'redfish'                         : '-DBMCWEB_ENABLE_REDFISH',
+  'redfish-bmc-journal'             : '-DBMCWEB_ENABLE_REDFISH_BMC_JOURNAL',
+  'redfish-cpu-log'                 : '-DBMCWEB_ENABLE_REDFISH_CPU_LOG',
+  'redfish-dbus-log'                : '-DBMCWEB_ENABLE_REDFISH_DBUS_LOG_ENTRIES',
+  'redfish-provisioning-feature'    : '-DBMCWEB_ENABLE_REDFISH_PROVISIONING_FEATURE',
+  'redfish-dump-log'                : '-DBMCWEB_ENABLE_REDFISH_DUMP_LOG',
+  'rest'                            : '-DBMCWEB_ENABLE_DBUS_REST',
+  'static-hosting'                  : '-DBMCWEB_ENABLE_STATIC_HOSTING',
+  'insecure-tftp-update'            : '-DBMCWEB_INSECURE_ENABLE_REDFISH_FW_TFTP_UPDATE',
+  #'vm-nbdproxy'                     : '-DBMCWEB_ENABLE_VM_NBDPROXY',
+  'vm-websocket'                    : '-DBMCWEB_ENABLE_VM_WEBSOCKET',
 }
 
 # Get the options status and build a project summary to show which flags are
@@ -239,12 +243,12 @@ endif
 # Set Compiler Security flags
 
 security_flags = [
-'-fstack-protector-strong',
-'-fPIE',
-'-fPIC',
-'-D_FORTIFY_SOURCE=2',
-'-Wformat',
-'-Wformat-security'
+  '-fstack-protector-strong',
+  '-fPIE',
+  '-fPIC',
+  '-D_FORTIFY_SOURCE=2',
+  '-Wformat',
+  '-Wformat-security'
 ]
 
 ## Add security flags for builds of type 'release','debugoptimized' and 'minsize'
@@ -261,20 +265,20 @@ endif
 
 add_project_arguments(
 cxx.get_supported_arguments([
-'-DBOOST_ASIO_USE_TS_EXECUTOR_AS_DEFAULT',
-'-DBOOST_ASIO_DISABLE_THREADS',
-'-DBOOST_BEAST_USE_STD_STRING_VIEW',
-'-DBOOST_ERROR_CODE_HEADER_ONLY',
-'-DBOOST_SYSTEM_NO_DEPRECATED',
-'-DBOOST_ASIO_NO_DEPRECATED',
-'-DBOOST_ALL_NO_LIB',
-'-DBOOST_NO_RTTI',
-'-DBOOST_NO_TYPEID',
-'-DBOOST_COROUTINES_NO_DEPRECATION_WARNING',
-'-DBOOST_URL_STANDALONE',
-'-DBOOST_URL_HEADER_ONLY',
-'-DBOOST_ALLOW_DEPRECATED_HEADERS',
-'-DJSON_NOEXCEPTION'
+  '-DBOOST_ASIO_USE_TS_EXECUTOR_AS_DEFAULT',
+  '-DBOOST_ASIO_DISABLE_THREADS',
+  '-DBOOST_BEAST_USE_STD_STRING_VIEW',
+  '-DBOOST_ERROR_CODE_HEADER_ONLY',
+  '-DBOOST_SYSTEM_NO_DEPRECATED',
+  '-DBOOST_ASIO_NO_DEPRECATED',
+  '-DBOOST_ALL_NO_LIB',
+  '-DBOOST_NO_RTTI',
+  '-DBOOST_NO_TYPEID',
+  '-DBOOST_COROUTINES_NO_DEPRECATION_WARNING',
+  '-DBOOST_URL_STANDALONE',
+  '-DBOOST_URL_HEADER_ONLY',
+  '-DBOOST_ALLOW_DEPRECATED_HEADERS',
+  '-DJSON_NOEXCEPTION'
 ]),
 language : 'cpp')
 
@@ -356,16 +360,21 @@ endif
 
 # Source files
 
-srcfiles_bmcweb = ['src/webserver_main.cpp','redfish-core/src/error_messages.cpp',
-                   'redfish-core/src/utils/json_utils.cpp']
+srcfiles_bmcweb = [
+  'src/webserver_main.cpp',
+  'redfish-core/src/error_messages.cpp',
+  'redfish-core/src/utils/json_utils.cpp'
+]
 
-srcfiles_unittest = ['include/ut/dbus_utility_test.cpp',
-                     'include/ut/http_utility_test.cpp',
-                     'redfish-core/ut/privileges_test.cpp',
-                     'redfish-core/ut/lock_test.cpp',
-                     'redfish-core/ut/configfile_test.cpp',
-                     'redfish-core/ut/time_utils_test.cpp',
-                     'http/ut/utility_test.cpp']
+srcfiles_unittest = [
+  'include/ut/dbus_utility_test.cpp',
+  'include/ut/http_utility_test.cpp',
+  'redfish-core/ut/privileges_test.cpp',
+  'redfish-core/ut/lock_test.cpp',
+  'redfish-core/ut/configfile_test.cpp',
+  'redfish-core/ut/time_utils_test.cpp',
+  'http/ut/utility_test.cpp'
+]
 
 # Gather the Configuration data
 
@@ -428,7 +437,14 @@ if(get_option('tests').enabled())
                 include_directories : incdir,
                 install_dir: bindir,
                 dependencies: [
-                                boost, boost_url, gtest,openssl,gmock,nlohmann_json,sdbusplus,pam
+                                boost,
+                                boost_url,
+                                gtest,
+                                openssl,
+                                gmock,
+                                nlohmann_json,
+                                sdbusplus,
+                                pam
                               ]))
   endforeach
 endif
