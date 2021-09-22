@@ -100,6 +100,10 @@ int main(int /*argc*/, char** /*argv*/)
     crow::obmc_console::requestRoutes(app);
 #endif
 
+#ifdef BMCWEB_ENABLE_HYPERVISOR_SERIAL_WEBSOCKET
+    crow::obmc_console::requestRouteshypervisor(app);
+#endif
+
 #ifdef BMCWEB_ENABLE_VM_WEBSOCKET
     crow::obmc_vm::requestRoutes(app);
 #endif
