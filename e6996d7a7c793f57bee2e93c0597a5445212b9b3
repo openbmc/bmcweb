@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "bded5594_0e9c2254",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 26
+      },
+      "lineNbr": 1852,
+      "author": {
+        "id": 1000404
+      },
+      "writtenOn": "2021-09-23T06:47:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0c4fc982_71138bd0",
+      "range": {
+        "startLine": 1852,
+        "startChar": 8,
+        "endLine": 1852,
+        "endChar": 22
+      },
+      "revId": "e6996d7a7c793f57bee2e93c0597a5445212b9b3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "89ae21f1_854fe3e4",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 26
@@ -45,6 +69,30 @@
       "revId": "e6996d7a7c793f57bee2e93c0597a5445212b9b3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ead1c39d_1bbb08e6",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 26
+      },
+      "lineNbr": 1864,
+      "author": {
+        "id": 1000404
+      },
+      "writtenOn": "2021-09-23T06:47:49Z",
+      "side": 1,
+      "message": "Modify the calculate method which calculate the file size inside the \"gzGetLines\" function.",
+      "parentUuid": "89ae21f1_854fe3e4",
+      "range": {
+        "startLine": 1864,
+        "startChar": 25,
+        "endLine": 1864,
+        "endChar": 35
+      },
+      "revId": "e6996d7a7c793f57bee2e93c0597a5445212b9b3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
