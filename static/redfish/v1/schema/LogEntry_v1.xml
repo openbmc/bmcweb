@@ -65,6 +65,7 @@
             <String>/redfish/v1/Chassis/{ChassisId}/LogServices/{LogServiceId}/Entries/{LogEntryId}</String>
             <String>/redfish/v1/JobService/Log/Entries/{LogEntryId}</String>
             <String>/redfish/v1/TelemetryService/LogService/Entries/{LogEntryId}</String>
+            <String>/redfish/v1/Systems/{ComputerSystemId}/Memory/{MemoryId}/DeviceLog/Entries/{LogEntryId}</String>
           </Collection>
         </Annotation>
       </EntityType>

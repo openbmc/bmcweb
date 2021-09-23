@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  EventDestination v1.10.1                                            -->
+<!--# Redfish Schema:  EventDestination v1.11.0                                            -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -866,7 +866,7 @@
           <Annotation Term="OData.LongDescription" String="This property shall indicate whether whether the service will verify the certificate of the server referenced by the Destination property prior to sending the event."/>
         </Property>
         <Property Name="SyslogFilters" Type="Collection(EventDestination.v1_9_0.SyslogFilter)">
-          <Annotation Term="OData.Description" String="A list of syslog message filters to send to a remote syslog server."/>
+          <Annotation Term="OData.Description" String="A list of filters applied to syslog messages before sending to a remote syslog server.  An empty list indicates all syslog messages are sent."/>
           <Annotation Term="OData.LongDescription" String="This property shall describe all desired syslog messages to send to a remote syslog server.  If this property contains an empty array or is absent, all messages shall be sent."/>
         </Property>
         <Property Name="OEMProtocol" Type="Edm.String" Nullable="false">
@@ -1019,6 +1019,12 @@
       <EntityType Name="EventDestination" BaseType="EventDestination.v1_9_1.EventDestination"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EventDestination.v1_9_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to improve the description of SyslogFilters."/>
+      <EntityType Name="EventDestination" BaseType="EventDestination.v1_9_2.EventDestination"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EventDestination.v1_10_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to add additional SNMP authentication protocols and to provide better description for the authentication and encryption keys.  It also added `RetryForeverWithBackoff` to DeliveryRetryPolicy and long description details to the DeliveryRetryPolicy values."/>
@@ -1044,6 +1050,38 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct various description to use proper normative terminology."/>
       <EntityType Name="EventDestination" BaseType="EventDestination.v1_10_0.EventDestination"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EventDestination.v1_10_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to improve the description of SyslogFilters."/>
+      <EntityType Name="EventDestination" BaseType="EventDestination.v1_10_1.EventDestination"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EventDestination.v1_11_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2021.2"/>
+
+      <EntityType Name="EventDestination" BaseType="EventDestination.v1_10_2.EventDestination">
+        <Property Name="SendHeartbeat" Type="Edm.Boolean">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="Send a heartbeat event periodically to the destination."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate that the service shall periodically send the `RedfishServiceFunctional` message defined in the Heartbeat Event Message Registry to the subscriber.  If this property is not present, no periodic event shall be sent.  This property shall not apply to event destinations if the SubscriptionType property contains the value `SSE`."/>
+        </Property>
+        <Property Name="HeartbeatIntervalMinutes" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="Interval for sending heartbeat events to the destination in minutes."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate the interval for sending periodic heartbeat events to the subscriber.  The value shall be the interval, in minutes, between each periodic event.  This property shall not be present if the SendHeartbeat property is not present."/>
+          <Annotation Term="Validation.Minimum" Int="1"/>
+          <Annotation Term="Validation.Maximum" Int="65535"/>
+        </Property>
+        <NavigationProperty Name="ClientCertificates" Type="CertificateCollection.CertificateCollection" ContainsTarget="true" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The link to a collection of client identity certificates provided to the server referenced by the Destination property."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type CertificateCollection that represents the client identity certificates that are provided to the server referenced by the Destination property as part of TLS handshaking."/>
+          <Annotation Term="OData.AutoExpandReferences"/>
+        </NavigationProperty>
+      </EntityType>
     </Schema>
 
   </edmx:DataServices>

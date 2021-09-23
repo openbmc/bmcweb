@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  AccountService v1.9.0                                               -->
+<!--# Redfish Schema:  AccountService v1.10.0                                              -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -56,8 +56,8 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
 
       <EntityType Name="AccountService" BaseType="Resource.v1_0_0.Resource" Abstract="true">
-        <Annotation Term="OData.Description" String="The AccountService schema defines an account service.  The properties are common to, and enable management of, all user accounts.  The properties include the password requirements and control features, such as account lockout.  The schema also contains links to the manager accounts and roles."/>
-        <Annotation Term="OData.LongDescription" String="This resource shall represent an account service for a Redfish implementation.  The properties are common to, and enable management of, all user accounts.  The properties include the password requirements and control features, such as account lockout."/>
+        <Annotation Term="OData.Description" String="The AccountService schema defines an account service.  The properties are common to, and enable management of, all user accounts.  The properties include the password requirements and control features, such as account lockout.  Properties and actions in this service specify general behavior that should be followed for typical accounts, however implementations may override these behaviors for special accounts or situations to avoid denial of service or other deadlock situations."/>
+        <Annotation Term="OData.LongDescription" String="This resource shall represent an account service for a Redfish implementation.  The properties are common to, and enable management of, all user accounts.  The properties include the password requirements and control features, such as account lockout.  Properties and actions in this service specify general behavior that should be followed for typical accounts, however implementations may override these behaviors for special accounts or situations to avoid denial of service or other deadlock situations."/>
         <Annotation Term="Capabilities.InsertRestrictions">
           <Record>
             <PropertyValue Property="Insertable" Bool="false"/>
@@ -216,6 +216,12 @@
       <EntityType Name="AccountService" BaseType="AccountService.v1_0_11.AccountService"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="AccountService.v1_0_13">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify that services are allowed to protect accounts to avoid deadlock conditions."/>
+      <EntityType Name="AccountService" BaseType="AccountService.v1_0_12.AccountService"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="AccountService.v1_1_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2016.3"/>
@@ -282,6 +288,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct various description to use proper normative terminology."/>
       <EntityType Name="AccountService" BaseType="AccountService.v1_1_8.AccountService"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="AccountService.v1_1_10">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify that services are allowed to protect accounts to avoid deadlock conditions."/>
+      <EntityType Name="AccountService" BaseType="AccountService.v1_1_9.AccountService"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="AccountService.v1_2_0">
@@ -364,6 +376,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct various description to use proper normative terminology."/>
       <EntityType Name="AccountService" BaseType="AccountService.v1_2_8.AccountService"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="AccountService.v1_2_10">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify that services are allowed to protect accounts to avoid deadlock conditions."/>
+      <EntityType Name="AccountService" BaseType="AccountService.v1_2_9.AccountService"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="AccountService.v1_3_0">
@@ -483,6 +501,18 @@
               <Record>
                 <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
                 <PropertyValue Property="Version" String="v1_8_0"/>
+              </Record>
+            </Collection>
+          </Annotation>
+        </Member>
+        <Member Name="OAuth2">
+          <Annotation Term="OData.Description" String="An external OAuth 2.0 service."/>
+          <Annotation Term="OData.LongDescription" String="The external account provider shall be an RFC6749-conformant service.  The ServiceAddresses format shall contain a set of URIs that correspond to the RFC8414-defined metadata for the OAuth 2.0 service."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="v1_10_0"/>
               </Record>
             </Collection>
           </Annotation>
@@ -649,6 +679,12 @@
       <EntityType Name="AccountService" BaseType="AccountService.v1_3_7.AccountService"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="AccountService.v1_3_9">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify that services are allowed to protect accounts to avoid deadlock conditions."/>
+      <EntityType Name="AccountService" BaseType="AccountService.v1_3_8.AccountService"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="AccountService.v1_4_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2018.3"/>
@@ -701,6 +737,12 @@
       <EntityType Name="AccountService" BaseType="AccountService.v1_4_5.AccountService"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="AccountService.v1_4_7">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify that services are allowed to protect accounts to avoid deadlock conditions."/>
+      <EntityType Name="AccountService" BaseType="AccountService.v1_4_6.AccountService"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="AccountService.v1_5_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2019.1"/>
@@ -745,6 +787,12 @@
       <EntityType Name="AccountService" BaseType="AccountService.v1_5_4.AccountService"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="AccountService.v1_5_6">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify that services are allowed to protect accounts to avoid deadlock conditions."/>
+      <EntityType Name="AccountService" BaseType="AccountService.v1_5_5.AccountService"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="AccountService.v1_6_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2019.2"/>
@@ -775,6 +823,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct various description to use proper normative terminology."/>
       <EntityType Name="AccountService" BaseType="AccountService.v1_6_3.AccountService"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="AccountService.v1_6_5">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify that services are allowed to protect accounts to avoid deadlock conditions."/>
+      <EntityType Name="AccountService" BaseType="AccountService.v1_6_4.AccountService"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="AccountService.v1_7_0">
@@ -814,6 +868,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct various description to use proper normative terminology."/>
       <EntityType Name="AccountService" BaseType="AccountService.v1_7_3.AccountService"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="AccountService.v1_7_5">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify that services are allowed to protect accounts to avoid deadlock conditions."/>
+      <EntityType Name="AccountService" BaseType="AccountService.v1_7_4.AccountService"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="AccountService.v1_8_0">
@@ -921,6 +981,12 @@
       <EntityType Name="AccountService" BaseType="AccountService.v1_8_0.AccountService"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="AccountService.v1_8_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify that services are allowed to protect accounts to avoid deadlock conditions."/>
+      <EntityType Name="AccountService" BaseType="AccountService.v1_8_1.AccountService"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="AccountService.v1_9_0">
       <Annotation Term="Redfish.Release" String="2021.1"/>
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
@@ -933,6 +999,68 @@
           <Annotation Term="OData.LongDescription" String="This property shall contain the number of days before account passwords in this account service will expire.  The value shall be applied during account creation and password modification unless the PasswordExpiration property is provided.  The value `null` shall indicate that account passwords never expire.  This property does not apply to accounts from external account providers."/>
         </Property>
       </EntityType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="AccountService.v1_9_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify that services are allowed to protect accounts to avoid deadlock conditions."/>
+      <EntityType Name="AccountService" BaseType="AccountService.v1_9_0.AccountService"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="AccountService.v1_10_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2021.2"/>
+
+      <EntityType Name="AccountService" BaseType="AccountService.v1_9_1.AccountService">
+        <Property Name="OAuth2" Type="AccountService.v1_10_0.ExternalAccountProvider">
+          <Annotation Term="OData.Description" String="The first OAuth 2.0 external account provider that this account service supports."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the first OAuth 2.0 external account provider that this account service supports.  If the account service supports one or more OAuth 2.0 services as an external account provider, this entity shall be populated by default.  This entity shall not be present in the additional external account providers resource collection."/>
+        </Property>
+      </EntityType>
+
+      <ComplexType Name="ExternalAccountProvider" BaseType="AccountService.v1_8_0.ExternalAccountProvider">
+        <Property Name="OAuth2Service" Type="AccountService.v1_10_0.OAuth2Service">
+          <Annotation Term="OData.Description" String="The additional information needed to parse an OAuth 2.0 service."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain additional information needed to parse an OAuth 2.0 service.  This property should only be present inside an OAuth2 property."/>
+        </Property>
+      </ComplexType>
+
+      <ComplexType Name="OAuth2Service">
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="OData.Description" String="Various settings to parse an OAuth 2.0 service."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain settings for parsing an OAuth 2.0 service."/>
+        <Property Name="Mode" Type="AccountService.v1_10_0.OAuth2Mode" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The mode of operation for token validation."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the mode of operation for token validation."/>
+        </Property>
+        <Property Name="Issuer" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The issuer string of the OAuth 2.0 service."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the RFC8414-defined issuer string of the OAuth 2.0 service.  If the Mode property contains the value `Discovery`, this property shall contain the value of the `issuer` string from the OAuth 2.0 service's metadata and this property shall be read-only."/>
+        </Property>
+        <Property Name="Audience" Type="Collection(Edm.String)" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The allowable audience strings of the Redfish service."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of allowable RFC7519-defined audience strings of the Redfish service.  The values shall uniquely identify the Redfish service.  For example, a MAC address or UUID for the manager can uniquely identify the service."/>
+        </Property>
+        <Property Name="OAuthServiceSigningKeys" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The Base64-encoded signing keys of the issuer of the OAuth 2.0 service."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a Base64-encoded string of the RFC7517-defined signing keys of the issuer of the OAuth 2.0 service.  If the Mode property contains the value `Discovery`, this property shall contain the keys found at the URI specified by the `jwks_uri` string from the OAuth 2.0 service's metadata and this property shall be read-only."/>
+        </Property>
+      </ComplexType>
+
+      <EnumType Name="OAuth2Mode">
+        <Member Name="Discovery">
+          <Annotation Term="OData.Description" String="OAuth 2.0 service information for token validation is downloaded by the service."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the service performs token validation from information found at the URIs specified by the ServiceAddresses property.  Services shall implement a caching method of this information so it's not necessary to retrieve metadata and key information for every request containing a token."/>
+        </Member>
+        <Member Name="Offline">
+          <Annotation Term="OData.Description" String="OAuth 2.0 service information for token validation is configured by a client."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the service performs token validation from properties configured by a client."/>
+        </Member>
+      </EnumType>
     </Schema>
 
   </edmx:DataServices>

@@ -1,5 +1,5 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/EventDestination.v1_10_1.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/EventDestination.v1_11_0.json",
     "$ref": "#/definitions/EventDestination",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
     "copyright": "Copyright 2014-2021 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
@@ -103,6 +103,13 @@
                     "readonly": true,
                     "versionAdded": "v1_9_0"
                 },
+                "ClientCertificates": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/CertificateCollection.json#/definitions/CertificateCollection",
+                    "description": "The link to a collection of client identity certificates provided to the server referenced by the Destination property.",
+                    "longDescription": "This property shall contain a link to a resource collection of type CertificateCollection that represents the client identity certificates that are provided to the server referenced by the Destination property as part of TLS handshaking.",
+                    "readonly": true,
+                    "versionAdded": "v1_11_0"
+                },
                 "Context": {
                     "description": "A client-supplied string that is stored with the event destination subscription.",
                     "longDescription": "This property shall contain a client-supplied context that remains with the connection through the connection's lifetime.",
@@ -168,6 +175,18 @@
                     "readonly": true,
                     "type": "array",
                     "versionDeprecated": "v1_5_0"
+                },
+                "HeartbeatIntervalMinutes": {
+                    "description": "Interval for sending heartbeat events to the destination in minutes.",
+                    "longDescription": "This property shall indicate the interval for sending periodic heartbeat events to the subscriber.  The value shall be the interval, in minutes, between each periodic event.  This property shall not be present if the SendHeartbeat property is not present.",
+                    "maximum": 65535,
+                    "minimum": 1,
+                    "readonly": true,
+                    "type": [
+                        "integer",
+                        "null"
+                    ],
+                    "versionAdded": "v1_11_0"
                 },
                 "HttpHeaders": {
                     "description": "An array of settings for HTTP headers, such as authorization information.  This array is null or an empty array in responses.  An empty array is the preferred return value on read operations.",
@@ -291,6 +310,16 @@
                     "longDescription": "This property shall contain the settings for an SNMP event destination.",
                     "versionAdded": "v1_7_0"
                 },
+                "SendHeartbeat": {
+                    "description": "Send a heartbeat event periodically to the destination.",
+                    "longDescription": "This property shall indicate that the service shall periodically send the `RedfishServiceFunctional` message defined in the Heartbeat Event Message Registry to the subscriber.  If this property is not present, no periodic event shall be sent.  This property shall not apply to event destinations if the SubscriptionType property contains the value `SSE`.",
+                    "readonly": true,
+                    "type": [
+                        "boolean",
+                        "null"
+                    ],
+                    "versionAdded": "v1_11_0"
+                },
                 "Status": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Status",
                     "description": "This property shall contain the status of the subscription.",
@@ -322,7 +351,7 @@
                     "versionAdded": "v1_3_0"
                 },
                 "SyslogFilters": {
-                    "description": "A list of syslog message filters to send to a remote syslog server.",
+                    "description": "A list of filters applied to syslog messages before sending to a remote syslog server.  An empty list indicates all syslog messages are sent.",
                     "items": {
                         "anyOf": [
                             {
@@ -812,6 +841,6 @@
         }
     },
     "owningEntity": "DMTF",
-    "release": "2020.4",
-    "title": "#EventDestination.v1_10_1.EventDestination"
+    "release": "2021.2",
+    "title": "#EventDestination.v1_11_0.EventDestination"
 }

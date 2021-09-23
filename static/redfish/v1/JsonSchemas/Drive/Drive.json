@@ -1,5 +1,5 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/Drive.v1_12_1.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/Drive.v1_13_0.json",
     "$ref": "#/definitions/Drive",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
     "copyright": "Copyright 2014-2021 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
@@ -202,9 +202,9 @@
                             "type": "null"
                         }
                     ],
-                    "description": "The type of hot spare that this drive currently serves as.",
+                    "description": "The type of hot spare that this drive serves as.",
                     "longDescription": "This property shall contain the hot spare type for the associated drive.  If the drive currently serves as a hot spare, its Status.State field shall be 'StandbySpare' and 'Enabled' when it is part of a volume.",
-                    "readonly": true
+                    "readonly": false
                 },
                 "Id": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Id",
@@ -516,10 +516,10 @@
                 "Dedicated"
             ],
             "enumDescriptions": {
-                "Chassis": "The drive is currently serving as a hot spare for all other drives in the chassis.",
-                "Dedicated": "The drive is currently serving as a hot spare for a user-defined set of drives.",
-                "Global": "The drive is currently serving as a hot spare for all other drives in the storage system.",
-                "None": "The drive is not currently a hot spare."
+                "Chassis": "The drive is serving as a hot spare for all other drives in this storage domain that are contained in the same chassis.",
+                "Dedicated": "The drive is serving as a hot spare for a user-defined set of drives or volumes.  Clients cannot specify this value when modifying the HotspareType property.  This value is reported as a result of configuring the spare drives within a volume.",
+                "Global": "The drive is serving as a hot spare for all other drives in this storage domain.",
+                "None": "The drive is not a hot spare."
             },
             "type": "string"
         },
@@ -578,6 +578,13 @@
                 },
                 "PCIeFunctions@odata.count": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/count"
+                },
+                "Storage": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Storage.json#/definitions/Storage",
+                    "description": "A link to the storage subsystem to which this drive belongs.",
+                    "longDescription": "This property shall contain a link to a resource of type Storage that represents the storage subsystem to which this drive belongs.",
+                    "readonly": true,
+                    "versionAdded": "v1_13_0"
                 },
                 "StoragePools": {
                     "description": "An array of links to the storage pools to which this drive belongs.",
@@ -785,6 +792,6 @@
         }
     },
     "owningEntity": "DMTF",
-    "release": "2020.4",
-    "title": "#Drive.v1_12_1.Drive"
+    "release": "2021.2",
+    "title": "#Drive.v1_13_0.Drive"
 }

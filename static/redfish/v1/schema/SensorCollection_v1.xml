@@ -58,6 +58,7 @@
             <String>/redfish/v1/PowerEquipment/FloorPDUs/{PowerDistributionId}/Sensors</String>
             <String>/redfish/v1/PowerEquipment/Switchgear/{PowerDistributionId}/Sensors</String>
             <String>/redfish/v1/PowerEquipment/TransferSwitches/{PowerDistributionId}/Sensors</String>
+            <String>/redfish/v1/PowerEquipment/PowerShelves/{PowerDistributionId}/Sensors</String>
           </Collection>
         </Annotation>
         <NavigationProperty Name="Members" Type="Collection(Sensor.Sensor)">

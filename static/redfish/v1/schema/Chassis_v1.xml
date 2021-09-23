@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  Chassis v1.16.0                                                     -->
+<!--# Redfish Schema:  Chassis v1.17.0                                                     -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -97,6 +97,9 @@
   <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/DriveCollection_v1.xml">
     <edmx:Include Namespace="DriveCollection"/>
   </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/ControlCollection_v1.xml">
+    <edmx:Include Namespace="ControlCollection"/>
+  </edmx:Reference>
   <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/EnvironmentMetrics_v1.xml">
     <edmx:Include Namespace="EnvironmentMetrics"/>
   </edmx:Reference>
@@ -105,6 +108,9 @@
   </edmx:Reference>
   <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/SoftwareInventory_v1.xml">
     <edmx:Include Namespace="SoftwareInventory"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/Cable_v1.xml">
+    <edmx:Include Namespace="Cable"/>
   </edmx:Reference>
 
   <edmx:DataServices>
@@ -1559,6 +1565,29 @@
           <Annotation Term="OData.LongDescription" String="This property shall contain the spare part number of the chassis."/>
         </Property>
       </EntityType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Chassis.v1_17_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2021.2"/>
+
+      <EntityType Name="Chassis" BaseType="Chassis.v1_16_0.Chassis">
+        <NavigationProperty Name="Controls" Type="ControlCollection.ControlCollection" ContainsTarget="true" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The link to the collection of controls located in this chassis."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type ControlCollection."/>
+          <Annotation Term="OData.AutoExpandReferences"/>
+        </NavigationProperty>
+      </EntityType>
+
+      <ComplexType Name="Links" BaseType="Chassis.v1_11_0.Links">
+        <NavigationProperty Name="Cables" Type="Collection(Cable.Cable)">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="An array of links to the cables connected to this chassis."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type Cable that represent the cables connected to this chassis."/>
+          <Annotation Term="OData.AutoExpandReferences"/>
+        </NavigationProperty>
+      </ComplexType>
     </Schema>
 
   </edmx:DataServices>

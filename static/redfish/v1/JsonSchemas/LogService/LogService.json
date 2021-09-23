@@ -1,13 +1,13 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/LogService.v1_2_0.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/LogService.v1_3_0.json",
     "$ref": "#/definitions/LogService",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
-    "copyright": "Copyright 2014-2020 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "copyright": "Copyright 2014-2021 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
     "definitions": {
         "Actions": {
             "additionalProperties": false,
-            "description": "The available actions for this Resource.",
-            "longDescription": "This type shall contain the available actions for this Resource.",
+            "description": "The available actions for this resource.",
+            "longDescription": "This type shall contain the available actions for this resource.",
             "patternProperties": {
                 "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
@@ -31,17 +31,24 @@
                 },
                 "Oem": {
                     "$ref": "#/definitions/OemActions",
-                    "description": "The available OEM-specific actions for this Resource.",
-                    "longDescription": "This property shall contain the available OEM-specific actions for this Resource."
+                    "description": "The available OEM-specific actions for this resource.",
+                    "longDescription": "This property shall contain the available OEM-specific actions for this resource."
                 }
             },
             "type": "object"
         },
         "ClearLog": {
             "additionalProperties": false,
-            "description": "The action to clear the log for this Log Service.",
-            "longDescription": "This action shall delete all entries found in the Entries collection for this Log Service.",
-            "parameters": {},
+            "description": "The action to clear the log for this log service.",
+            "longDescription": "This action shall delete all entries found in the LogEntryCollection resource for this log service.",
+            "parameters": {
+                "LogEntriesETag": {
+                    "description": "The ETag of the log entry collection within this log service.  If the provided ETag does not match the current ETag of the log entry collection, the request is rejected.",
+                    "longDescription": "This parameter shall contain the ETag of the LogEntryCollection resource for this log service.  If the client-provided ETag does not match the current ETag of the LogEntryCollection resource for this log service, the service shall return the HTTP 428 (Precondition Required) status code to reject the request.",
+                    "type": "string",
+                    "versionAdded": "v1_3_0"
+                }
+            },
             "patternProperties": {
                 "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
@@ -138,7 +145,7 @@
             ],
             "enumDescriptions": {
                 "Event": "The log contains Redfish-defined messages.",
-                "Multiple": "The log contains multiple log entry types and, therefore, the Log Service cannot guarantee a single entry type.",
+                "Multiple": "The log contains multiple log entry types and, therefore, the log service cannot guarantee a single entry type.",
                 "OEM": "The log contains entries in an OEM-defined format.",
                 "SEL": "The log contains legacy IPMI System Event Log (SEL) entries."
             },
@@ -146,8 +153,8 @@
         },
         "LogService": {
             "additionalProperties": false,
-            "description": "The LogService schema contains properties for monitoring and configuring a Log Service.",
-            "longDescription": "This Resource shall represent a Log Service for a Redfish implementation.",
+            "description": "The LogService schema contains properties for monitoring and configuring a log service.  When the Id property contains `DeviceLog`, the log contains device-resident log entries that follow the physical device when moved from system-to-system, and not a replication or subset of a system event log.",
+            "longDescription": "This resource shall represent a log service for a Redfish implementation.  When the Id property contains `DeviceLog`, the log shall contain log entries that migrate with the device.",
             "patternProperties": {
                 "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
@@ -177,13 +184,20 @@
                 },
                 "Actions": {
                     "$ref": "#/definitions/Actions",
-                    "description": "The available actions for this Resource.",
-                    "longDescription": "This property shall contain the available actions for this Resource."
+                    "description": "The available actions for this resource.",
+                    "longDescription": "This property shall contain the available actions for this resource."
+                },
+                "AutoDSTEnabled": {
+                    "description": "An indication of whether the log service is configured for automatic Daylight Saving Time (DST) adjustment.",
+                    "longDescription": "This property shall indicate whether the log service is configured for automatic Daylight Saving Time (DST) adjustment.  DST adjustment shall not modify the timestamp of existing log entries.",
+                    "readonly": false,
+                    "type": "boolean",
+                    "versionAdded": "v1_3_0"
                 },
                 "DateTime": {
-                    "description": "The current date and time, with UTC offset, that the Log Service uses to set or read time.",
+                    "description": "The current date and time with UTC offset of the log service.",
                     "format": "date-time",
-                    "longDescription": "This property shall represent the current DateTime value, with UTC offset, in Redfish Timestamp format that the Log Service uses to set or read time.",
+                    "longDescription": "This property shall contain the current date and time with UTC offset of the log service.",
                     "readonly": false,
                     "type": [
                         "string",
@@ -191,8 +205,8 @@
                     ]
                 },
                 "DateTimeLocalOffset": {
-                    "description": "The UTC offset that the current DateTime property value contains in the `+HH:MM` format.",
-                    "longDescription": "This property shall represent the UTC offset that the current DateTime property value contains.",
+                    "description": "The time offset from UTC that the DateTime property is in `+HH:MM` format.",
+                    "longDescription": "This property shall contain the offset from UTC time that the DateTime property contains.  If both DateTime and DateTimeLocalOffset are provided in modification requests, services shall apply DateTimeLocalOffset after DateTime is applied.",
                     "pattern": "^([-+][0-1][0-9]:[0-5][0-9])$",
                     "readonly": false,
                     "type": [
@@ -214,7 +228,7 @@
                 "Entries": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/LogEntryCollection.json#/definitions/LogEntryCollection",
                     "description": "The link to the log entry collection.",
-                    "longDescription": "This property shall contain a link to a Resource Collection of type LogEntryCollection.",
+                    "longDescription": "This property shall contain a link to a resource collection of type LogEntryCollection.",
                     "readonly": true
                 },
                 "Id": {
@@ -231,13 +245,13 @@
                         }
                     ],
                     "description": "The format of the log entries.",
-                    "longDescription": "This property shall represent the EntryType of all LogEntry Resources contained in the Entries collection.  If the service cannot determine or guarantee a single EntryType for all LogEntry Resources, this property's value shall be `Multiple`.",
+                    "longDescription": "This property shall contain the value for the EntryType property of all LogEntry resources contained in the LogEntryCollection resource for this log service.  If the service cannot determine or guarantee a single EntryType value for all LogEntry resources, this property shall contain the value `Multiple`.",
                     "readonly": true,
                     "versionAdded": "v1_1_0"
                 },
                 "MaxNumberOfRecords": {
                     "description": "The maximum number of log entries that this service can have.",
-                    "longDescription": "This property shall contain the maximum number of LogEntry Resources in the Entries collection for this service.",
+                    "longDescription": "This property shall contain the maximum number of LogEntry resources in the LogEntryCollection resource for this service.",
                     "minimum": 0,
                     "readonly": true,
                     "type": "integer"
@@ -254,7 +268,7 @@
                 "OverWritePolicy": {
                     "$ref": "#/definitions/OverWritePolicy",
                     "description": "The overwrite policy for this service that takes place when the log is full.",
-                    "longDescription": "This property shall indicate the policy of the Log Service when the MaxNumberOfRecords has been reached.",
+                    "longDescription": "This property shall indicate the policy of the log service when the MaxNumberOfRecords has been reached.",
                     "readonly": true
                 },
                 "ServiceEnabled": {
@@ -268,8 +282,8 @@
                 },
                 "Status": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Status",
-                    "description": "The status and health of the Resource and its subordinate or dependent Resources.",
-                    "longDescription": "This property shall contain any status or health properties of the Resource."
+                    "description": "The status and health of the resource and its subordinate or dependent resources.",
+                    "longDescription": "This property shall contain any status or health properties of the resource."
                 },
                 "SyslogFilters": {
                     "description": "A list of syslog message filters to be logged locally.",
@@ -298,8 +312,8 @@
         },
         "OemActions": {
             "additionalProperties": true,
-            "description": "The available OEM-specific actions for this Resource.",
-            "longDescription": "This type shall contain the available OEM-specific actions for this Resource.",
+            "description": "The available OEM-specific actions for this resource.",
+            "longDescription": "This type shall contain the available OEM-specific actions for this resource.",
             "patternProperties": {
                 "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
@@ -469,6 +483,6 @@
         }
     },
     "owningEntity": "DMTF",
-    "release": "2020.3",
-    "title": "#LogService.v1_2_0.LogService"
+    "release": "2021.2",
+    "title": "#LogService.v1_3_0.LogService"
 }

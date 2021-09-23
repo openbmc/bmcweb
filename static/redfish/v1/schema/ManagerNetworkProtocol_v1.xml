@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  ManagerNetworkProtocol v1.7.0                                       -->
+<!--# Redfish Schema:  ManagerNetworkProtocol v1.8.0                                       -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -667,6 +667,62 @@
       <Annotation Term="OData.Description" String="This version was created to add additional SNMP authentication protocols."/>
 
       <EntityType Name="ManagerNetworkProtocol" BaseType="ManagerNetworkProtocol.v1_6_2.ManagerNetworkProtocol"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ManagerNetworkProtocol.v1_8_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2021.2"/>
+      <Annotation Term="OData.Description" String="This version was created to add proxy support."/>
+
+      <EntityType Name="ManagerNetworkProtocol" BaseType="ManagerNetworkProtocol.v1_7_0.ManagerNetworkProtocol">
+        <Property Name="Proxy" Type="ManagerNetworkProtocol.v1_8_0.ProxyConfiguration">
+          <Annotation Term="OData.Description" String="The HTTP/HTTPS proxy information for this manager."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the HTTP/HTTPS proxy configuration for this manager."/>
+        </Property>
+      </EntityType>
+
+      <ComplexType Name="ProxyConfiguration">
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="OData.Description" String="The HTTP/HTTPS proxy information for a manager."/>
+        <Annotation Term="OData.LongDescription" String="This property shall contain the HTTP/HTTPS proxy configuration for a manager."/>
+        <Property Name="Enabled" Type="Edm.Boolean" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="Indicates if the manager uses the proxy server."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate if the proxy server is used for communications."/>
+        </Property>
+        <Property Name="ProxyServerURI" Type="Edm.String" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The URI of the proxy server, including the scheme and any non-default port value."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the URI of the proxy server.  The value shall contain the scheme for accessing the server, and shall include the port if the value is not the default port for the specified scheme."/>
+          <Annotation Term="OData.IsURL"/>
+        </Property>
+        <Property Name="Username" Type="Edm.String" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The username for the proxy."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the username for this proxy."/>
+        </Property>
+        <Property Name="Password" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The password for the proxy.  The value is `null` in responses."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the password for this proxy.  The value shall be `null` in responses."/>
+        </Property>
+        <Property Name="PasswordSet" Type="Edm.Boolean" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="Indicates if the Password property is set."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain `true` if a valid value was provided for the Password property.  Otherwise, the property shall contain `false`."/>
+        </Property>
+        <Property Name="ExcludeAddresses" Type="Collection(Edm.String)">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="Addresses that do not require the proxy server to access."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a list of hostnames or IP addresses that do not require a connection through the proxy server to access."/>
+        </Property>
+        <Property Name="ProxyAutoConfigURI" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The URI used to access a proxy auto-configuration (PAC) file."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the URI at which to access a proxy auto-configuration (PAC) file containing one or more JavaScript functions for configuring proxy usage for this manager."/>
+          <Annotation Term="OData.IsURL"/>
+        </Property>
+      </ComplexType>
     </Schema>
 
   </edmx:DataServices>

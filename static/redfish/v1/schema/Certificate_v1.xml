@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  Certificate v1.3.0                                                  -->
+<!--# Redfish Schema:  Certificate v1.4.0                                                  -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -18,6 +18,7 @@
     <edmx:Include Namespace="Org.OData.Capabilities.V1" Alias="Capabilities"/>
   </edmx:Reference>
   <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/Resource_v1.xml">
+    <edmx:Include Namespace="Resource"/>
     <edmx:Include Namespace="Resource.v1_0_0"/>
   </edmx:Reference>
   <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/RedfishExtensions_v1.xml">
@@ -40,7 +41,7 @@
         </Annotation>
         <Annotation Term="Capabilities.UpdateRestrictions">
           <Record>
-            <PropertyValue Property="Updatable" Bool="false"/>
+            <PropertyValue Property="Updatable" Bool="true"/>
           </Record>
         </Annotation>
         <Annotation Term="Capabilities.DeleteRestrictions">
@@ -67,6 +68,7 @@
             <String>/redfish/v1/CompositionService/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/SecureBoot/SecureBootDatabases/{DatabaseId}/Certificates/{CertificateId}</String>
             <String>/redfish/v1/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/SecureBoot/SecureBootDatabases/{DatabaseId}/Certificates/{CertificateId}</String>
             <String>/redfish/v1/EventService/Subscriptions/{EventDestinationId}/Certificates/{CertificateId}</String>
+            <String>/redfish/v1/EventService/Subscriptions/{EventDestinationId}/ClientCertificates/{CertificateId}</String>
             <String>/redfish/v1/Systems/{ComputerSystemId}/Certificates/{CertificateId}</String>
             <String>/redfish/v1/CompositionService/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/Certificates/{CertificateId}</String>
             <String>/redfish/v1/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/Certificates/{CertificateId}</String>
@@ -105,21 +107,41 @@
             <String>/redfish/v1/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/Storage/{StorageId}/Drives/{DriveId}/Certificates/{CertificateId}</String>
             <String>/redfish/v1/Chassis/{ChassisId}/NetworkAdapters/{NetworkAdapterId}/Certificates/{CertificateId}</String>
             <String>/redfish/v1/Systems/{ComputerSystemId}/VirtualMedia/{VirtualMediaId}/Certificates/{CertificateId}</String>
+            <String>/redfish/v1/Systems/{ComputerSystemId}/VirtualMedia/{VirtualMediaId}/ClientCertificates/{CertificateId}</String>
             <String>/redfish/v1/CompositionService/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/VirtualMedia/{VirtualMediaId}/Certificates/{CertificateId}</String>
+            <String>/redfish/v1/CompositionService/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/VirtualMedia/{VirtualMediaId}/ClientCertificates/{CertificateId}</String>
             <String>/redfish/v1/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/VirtualMedia/{VirtualMediaId}/Certificates/{CertificateId}</String>
+            <String>/redfish/v1/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/VirtualMedia/{VirtualMediaId}/ClientCertificates/{CertificateId}</String>
             <String>/redfish/v1/UpdateService/RemoteServerCertificates/{CertificateId}</String>
+            <String>/redfish/v1/UpdateService/ClientCertificates/{CertificateId}</String>
+            <String>/redfish/v1/Managers/{ManagerId}/Certificates/{CertificateId}</String>            
+            <String>/redfish/v1/Systems/{ComputerSystemId}/KeyManagement/KMIPCertificates</String>
+            <String>/redfish/v1/CompositionService/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/KeyManagement/KMIPCertificates</String>
+            <String>/redfish/v1/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/KeyManagement/KMIPCertificates</String>
           </Collection>
         </Annotation>
       </EntityType>
 
       <EnumType Name="CertificateType">
         <Member Name="PEM">
-          <Annotation Term="OData.Description" String="A Privacy Enhanced Mail (PEM)-encoded certificate."/>
-          <Annotation Term="OData.LongDescription" String="The format of the certificate shall contain a Privacy Enhanced Mail (PEM)-encoded string, containing RFC5280-defined structures."/>
+          <Annotation Term="OData.Description" String="A Privacy Enhanced Mail (PEM)-encoded single certificate."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the format of the certificate shall contain a Privacy Enhanced Mail (PEM)-encoded string, containing RFC5280-defined structures, representing a single certificate."/>
+        </Member>
+        <Member Name="PEMchain">
+          <Annotation Term="OData.Description" String="A Privacy Enhanced Mail (PEM)-encoded certificate chain."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the format of the certificate shall contain a Privacy Enhanced Mail (PEM)-encoded string, containing RFC5280-defined structures, representing a certificate chain."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="v1_4_0"/>
+              </Record>
+            </Collection>
+          </Annotation>
         </Member>
         <Member Name="PKCS7">
           <Annotation Term="OData.Description" String="A Privacy Enhanced Mail (PEM)-encoded PKCS7 certificate."/>
-          <Annotation Term="OData.LongDescription" String="The format of the certificate shall contain a Privacy Enhanced Mail (PEM)-encoded string, containing RFC5280- and RFC2315-defined structures.  The service can discard additional certificates or other data in the structure."/>
+          <Annotation Term="OData.LongDescription" String="The format of the certificate shall contain a Privacy Enhanced Mail (PEM)-encoded string, containing RFC5280-defined and RFC2315-defined structures.  The service can discard additional certificates or other data in the structure."/>
         </Member>
       </EnumType>
 
@@ -473,6 +495,61 @@
           <Annotation Term="OData.LongDescription" String="The value of this property shall be a string containing the algorithm used for generating the signature of the certificate, as defined by the RFC5280 'signatureAlgorithm' field.  The value shall be a string representing the ASN.1 OID of the signature algorithm as defined in, but not limited to, RFC3279, RFC4055, or RFC4491."/>
         </Property>
       </EntityType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Certificate.v1_4_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2021.2"/>
+
+      <EntityType Name="Certificate" BaseType="Certificate.v1_3_0.Certificate">
+        <Property Name="Links" Type="Certificate.v1_4_0.Links" Nullable="false">
+          <Annotation Term="OData.Description" String="The links to other resources that are related to this resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain links to resources that are related to but are not contained by, or subordinate to, this resource."/>
+        </Property>
+        <Property Name="CertificateUsageTypes" Type="Collection(Certificate.v1_4_0.CertificateUsageType)">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The types or purposes for this certificate."/>
+          <Annotation Term="OData.LongDescription" String="The value of this property shall contain an array describing the types or purposes for this certificate."/>
+        </Property>        
+      </EntityType>
+
+      <ComplexType Name="Links" BaseType="Resource.Links">
+        <Annotation Term="OData.Description" String="The links to other resources that are related to this resource."/>
+        <Annotation Term="OData.LongDescription" String="This Redfish Specification-described type shall contain links to resources that are related to but are not contained by, or subordinate to, this resource."/>
+        <NavigationProperty Name="Issuer" Type="Certificate.Certificate">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="A link to the certificate of the CA that issued this certificate."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resources of type Certificate that represents the certificate of the CA that issued this certificate."/>
+          <Annotation Term="OData.AutoExpandReferences"/>
+        </NavigationProperty>
+        <NavigationProperty Name="Subjects" Type="Collection(Certificate.Certificate)">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="An array of links to certificates that were issued by the CA that is represented by this certificate."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type Certificate that were issued by the CA that is represented by this certificate."/>
+          <Annotation Term="OData.AutoExpandReferences"/>
+        </NavigationProperty>
+      </ComplexType>
+      
+      <EnumType Name="CertificateUsageType">
+        <Member Name="User">
+          <Annotation Term="OData.Description" String="This certificate is a user certificate like those associated with a manager account."/>
+        </Member>
+        <Member Name="Web">
+          <Annotation Term="OData.Description" String="This certificate is a web or HTTPS certificate like those used for event destinations."/>
+        </Member>
+        <Member Name="SSH">
+          <Annotation Term="OData.Description" String="This certificate is used for SSH."/>
+        </Member>
+        <Member Name="Device">
+          <Annotation Term="OData.Description" String="This certificate is a device type certificate like those associated with SPDM and other standards."/>
+        </Member>
+        <Member Name="Platform">
+          <Annotation Term="OData.Description" String="This certificate is a platform type certificate like those associated with SPDM and other standards."/>
+        </Member>
+        <Member Name="BIOS">
+          <Annotation Term="OData.Description" String="This certificate is a BIOS certificate like those associated with UEFI."/>
+        </Member>
+      </EnumType>
     </Schema>
 
   </edmx:DataServices>

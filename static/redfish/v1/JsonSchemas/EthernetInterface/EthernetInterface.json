@@ -1,5 +1,5 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/EthernetInterface.v1_6_4.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/EthernetInterface.v1_7_0.json",
     "$ref": "#/definitions/EthernetInterface",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
     "copyright": "Copyright 2014-2021 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
@@ -597,9 +597,11 @@
                 },
                 "VLANs": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/VLanNetworkInterfaceCollection.json#/definitions/VLanNetworkInterfaceCollection",
+                    "deprecated": "This property has been deprecated in favor of newer methods indicating multiple VLANs.",
                     "description": "The link to a collection of VLANs, which applies only if the interface supports more than one VLAN.  If this property applies, the VLANEnabled and VLANId properties do not apply.",
                     "longDescription": "This property shall contain a link to a resource collection of type VLanNetworkInterfaceCollection, which applies only if the interface supports more than one VLAN.  If this property is present, the VLANEnabled and VLANId properties shall not be present.",
-                    "readonly": true
+                    "readonly": true,
+                    "versionDeprecated": "v1_7_0"
                 }
             },
             "required": [
@@ -731,10 +733,25 @@
                             "type": "null"
                         }
                     ],
+                    "deprecated": "This property has been deprecated in favor of NetworkDeviceFunctions as each EthernetInterface could represent more than one NetworkDeviceFunction.",
                     "description": "The link to the parent network device function and is only used when representing one of the VLANs on that network device function, such as is done in Unix.",
                     "longDescription": "This property shall contain a link to a resource of type NetworkDeviceFunction and only be populated with the EthernetInterfaceType property is `Virtual`.",
                     "readonly": true,
-                    "versionAdded": "v1_6_0"
+                    "versionAdded": "v1_6_0",
+                    "versionDeprecated": "v1_7_0"
+                },
+                "NetworkDeviceFunctions": {
+                    "description": "The link to the network device functions that comprise this Ethernet interface.",
+                    "items": {
+                        "$ref": "http://redfish.dmtf.org/schemas/v1/NetworkDeviceFunction.json#/definitions/NetworkDeviceFunction"
+                    },
+                    "longDescription": "This property shall contain an array of links to resources of type NetworkDeviceFunction.",
+                    "readonly": true,
+                    "type": "array",
+                    "versionAdded": "v1_7_0"
+                },
+                "NetworkDeviceFunctions@odata.count": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/count"
                 },
                 "Oem": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Oem",
@@ -813,6 +830,6 @@
         }
     },
     "owningEntity": "DMTF",
-    "release": "2020.1",
-    "title": "#EthernetInterface.v1_6_4.EthernetInterface"
+    "release": "2021.2",
+    "title": "#EthernetInterface.v1_7_0.EthernetInterface"
 }

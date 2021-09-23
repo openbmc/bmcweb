@@ -1,5 +1,5 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/Memory.v1_12_0.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/Memory.v1_13_0.json",
     "$ref": "#/definitions/Memory",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
     "copyright": "Copyright 2014-2021 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
@@ -465,6 +465,13 @@
                     ],
                     "versionAdded": "v1_10_0"
                 },
+                "Log": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/LogService.json#/definitions/LogService",
+                    "description": "The link to the log service associated with this memory.",
+                    "longDescription": "This property shall contain a link to a resource of type LogService.",
+                    "readonly": true,
+                    "versionAdded": "v1_13_0"
+                },
                 "LogicalSizeMiB": {
                     "description": "Total size of the logical memory in MiB.",
                     "longDescription": "This property shall contain the total size of the logical memory in MiB.",
@@ -642,6 +649,21 @@
                         "null"
                     ],
                     "units": "MHz"
+                },
+                "OperatingSpeedRangeMHz": {
+                    "anyOf": [
+                        {
+                            "$ref": "http://redfish.dmtf.org/schemas/v1/Control.json#/definitions/ControlRangeExcerpt"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "Range of allowed operating speeds (MHz).",
+                    "excerptCopy": "ControlRangeExcerpt",
+                    "longDescription": "This property shall contain the operating speed control excerpt for this resource.",
+                    "readonly": false,
+                    "versionAdded": "v1_13_0"
                 },
                 "PartNumber": {
                     "description": "The product part number of this device.",
@@ -1554,6 +1576,6 @@
         }
     },
     "owningEntity": "DMTF",
-    "release": "2021.1",
-    "title": "#Memory.v1_12_0.Memory"
+    "release": "2021.2",
+    "title": "#Memory.v1_13_0.Memory"
 }

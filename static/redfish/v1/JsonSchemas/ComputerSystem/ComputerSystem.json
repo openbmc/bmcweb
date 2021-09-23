@@ -1,5 +1,5 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/ComputerSystem.v1_15_0.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/ComputerSystem.v1_16_0.json",
     "$ref": "#/definitions/ComputerSystem",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
     "copyright": "Copyright 2014-2021 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
@@ -627,6 +627,19 @@
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Id",
                     "readonly": true
                 },
+                "IdlePowerSaver": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/IdlePowerSaver"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The idle power saver settings of the computer system.",
+                    "longDescription": "This property shall contain the idle power saver settings of the computer system.",
+                    "versionAdded": "v1_16_0"
+                },
                 "IndicatorLED": {
                     "anyOf": [
                         {
@@ -641,6 +654,19 @@
                     "longDescription": "This property shall contain the state of the indicator light, which identifies this system.",
                     "readonly": false,
                     "versionDeprecated": "v1_13_0"
+                },
+                "KeyManagement": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/KeyManagement"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The key management settings of the computer system.",
+                    "longDescription": "This property shall contain the key management settings of the computer system.",
+                    "versionAdded": "v1_16_0"
                 },
                 "LastResetTime": {
                     "description": "The date and time when the system was last reset or rebooted.",
@@ -1153,6 +1179,83 @@
             },
             "type": "string"
         },
+        "IdlePowerSaver": {
+            "additionalProperties": false,
+            "description": "The idle power saver settings of a computer system.",
+            "longDescription": "This object shall contain the idle power saver settings of a computer system.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "Enabled": {
+                    "description": "An indication of whether idle power saver is enabled.",
+                    "longDescription": "The value of this property shall indicate if idle power saver is enabled.",
+                    "readonly": false,
+                    "type": "boolean",
+                    "versionAdded": "v1_16_0"
+                },
+                "EnterDwellTimeSeconds": {
+                    "description": "The duration in seconds the computer system is below the EnterUtilizationPercent value before the idle power save is activated.",
+                    "longDescription": "This property shall contain the duration in seconds the computer system is below the EnterUtilizationPercent value before the idle power save is activated.",
+                    "minimum": 0,
+                    "readonly": false,
+                    "type": [
+                        "integer",
+                        "null"
+                    ],
+                    "units": "s",
+                    "versionAdded": "v1_16_0"
+                },
+                "EnterUtilizationPercent": {
+                    "description": "The percentage of utilization that the computer system shall be lower than to enter idle power save.",
+                    "longDescription": "This property shall contain the percentage of utilization that the computer system shall be lower than to enter idle power save.",
+                    "minimum": 0,
+                    "readonly": false,
+                    "type": [
+                        "number",
+                        "null"
+                    ],
+                    "units": "%",
+                    "versionAdded": "v1_16_0"
+                },
+                "ExitDwellTimeSeconds": {
+                    "description": "The duration in seconds the computer system is above the ExitUtilizationPercent value before the idle power save is stopped.",
+                    "longDescription": "This property shall contain the duration in seconds the computer system is above the ExitUtilizationPercent value before the idle power save is stopped.",
+                    "minimum": 0,
+                    "readonly": false,
+                    "type": [
+                        "integer",
+                        "null"
+                    ],
+                    "units": "s",
+                    "versionAdded": "v1_16_0"
+                },
+                "ExitUtilizationPercent": {
+                    "description": "The percentage of utilization that the computer system shall be higher than to exit idle power save.",
+                    "longDescription": "This property shall contain the percentage of utilization that the computer system shall be higher than to exit idle power save.",
+                    "minimum": 0,
+                    "readonly": false,
+                    "type": [
+                        "number",
+                        "null"
+                    ],
+                    "units": "%",
+                    "versionAdded": "v1_16_0"
+                }
+            },
+            "type": "object"
+        },
         "IndicatorLED": {
             "enum": [
                 "Unknown",
@@ -1208,6 +1311,113 @@
                 "OemMethod": "The TrustedModule supports switching InterfaceType through an OEM proprietary mechanism."
             },
             "type": "string"
+        },
+        "KMIPServer": {
+            "additionalProperties": false,
+            "description": "The KMIP server settings for a computer system.",
+            "longDescription": "This object shall contain the KMIP server settings for a computer system.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "Address": {
+                    "description": "The KMIP server address.",
+                    "longDescription": "This property shall contain the KMIP server address.",
+                    "readonly": false,
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "versionAdded": "v1_16_0"
+                },
+                "Password": {
+                    "description": "The password to access the KMIP server.  The value is `null` in responses.",
+                    "longDescription": "This property shall contain the password to access the KMIP server.  The value shall be `null` in responses.",
+                    "readonly": false,
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "versionAdded": "v1_16_0"
+                },
+                "Port": {
+                    "description": "The KMIP server port.",
+                    "longDescription": "This property shall contain the KMIP server port.",
+                    "readonly": false,
+                    "type": [
+                        "integer",
+                        "null"
+                    ],
+                    "versionAdded": "v1_16_0"
+                },
+                "Username": {
+                    "description": "The username to access the KMIP server.",
+                    "longDescription": "This property shall contain the username to access the KMIP server.",
+                    "readonly": false,
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "versionAdded": "v1_16_0"
+                }
+            },
+            "type": "object"
+        },
+        "KeyManagement": {
+            "additionalProperties": false,
+            "description": "The key management settings of a computer system.",
+            "longDescription": "This object shall contain the key management settings of a computer system.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "KMIPCertificates": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/CertificateCollection.json#/definitions/CertificateCollection",
+                    "description": "The link to a collection of server certificates for the servers referenced by the KMIPServers property.",
+                    "longDescription": "This property shall contain a link to a resource collection of type CertificateCollection that represents the server certificates for the servers referenced by the KMIPServers property.",
+                    "readonly": true,
+                    "versionAdded": "v1_16_0"
+                },
+                "KMIPServers": {
+                    "description": "The KMIP servers to which this computer system is subscribed.",
+                    "items": {
+                        "anyOf": [
+                            {
+                                "$ref": "#/definitions/KMIPServer"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ]
+                    },
+                    "longDescription": "This property shall contain the KMIP servers to which this computer system is subscribed for key management.",
+                    "type": "array",
+                    "versionAdded": "v1_16_0"
+                }
+            },
+            "type": "object"
         },
         "Links": {
             "additionalProperties": false,
@@ -1393,8 +1603,10 @@
                 },
                 "Status": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Status",
+                    "deprecated": "This property has been deprecated in favor of the Conditions property within Status in the root of this resource.",
                     "description": "The status and health of the resource and its subordinate or dependent resources.",
-                    "longDescription": "This property shall contain any status or health properties of the resource."
+                    "longDescription": "This property shall contain any status or health properties of the resource.",
+                    "versionDeprecated": "v1_16_0"
                 },
                 "TotalSystemMemoryGiB": {
                     "description": "The total configured operating system-accessible memory (RAM), measured in GiB.",
@@ -1568,8 +1780,10 @@
                 },
                 "Status": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Status",
+                    "deprecated": "This property has been deprecated in favor of the Conditions property within Status in the root of this resource.",
                     "description": "The status and health of the resource and its subordinate or dependent resources.",
-                    "longDescription": "This property shall contain any status or health properties of the resource."
+                    "longDescription": "This property shall contain any status or health properties of the resource.",
+                    "versionDeprecated": "v1_16_0"
                 },
                 "ThreadingEnabled": {
                     "description": "An indication of whether threading is enabled on all processors in this system.",
@@ -1791,10 +2005,12 @@
                 "OS",
                 "PhysicallyPartitioned",
                 "VirtuallyPartitioned",
-                "Composed"
+                "Composed",
+                "DPU"
             ],
             "enumDescriptions": {
                 "Composed": "A computer system constructed by binding resource blocks together.",
+                "DPU": "A computer system that performs the functions of a data processing unit, such as a SmartNIC.",
                 "OS": "An operating system instance.",
                 "Physical": "A computer system.",
                 "PhysicallyPartitioned": "A hardware-based partition of a computer system.",
@@ -1803,6 +2019,7 @@
             },
             "enumLongDescriptions": {
                 "Composed": "A SystemType of Composed typically represents a single system constructed from disaggregated resources through the Redfish composition service.",
+                "DPU": "A SystemType of DPU typically represents a single system that performs offload computation as a data processing unit, such as a SmartNIC.",
                 "OS": "A SystemType of OS typically represents an OS or hypervisor view of the system.",
                 "Physical": "A SystemType of Physical typically represents the hardware aspects of a system, such as a management controller.",
                 "PhysicallyPartitioned": "A SystemType of PhysicallyPartitioned typically represents a single system constructed from one or more physical systems through a firmware or hardware-based service.",
@@ -1810,7 +2027,8 @@
                 "VirtuallyPartitioned": "A SystemType of VirtuallyPartitioned typically represents a single system constructed from one or more virtual systems through a software-based service."
             },
             "enumVersionAdded": {
-                "Composed": "v1_4_0"
+                "Composed": "v1_4_0",
+                "DPU": "v1_16_0"
             },
             "type": "string"
         },
@@ -2067,6 +2285,6 @@
         }
     },
     "owningEntity": "DMTF",
-    "release": "2021.1",
-    "title": "#ComputerSystem.v1_15_0.ComputerSystem"
+    "release": "2021.2",
+    "title": "#ComputerSystem.v1_16_0.ComputerSystem"
 }

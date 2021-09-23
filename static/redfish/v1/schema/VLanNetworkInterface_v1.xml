@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  VLanNetworkInterface v1.2.0                                         -->
+<!--# Redfish Schema:  VLanNetworkInterface v1.3.0                                         -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -59,6 +59,15 @@
             <String>/redfish/v1/CompositionService/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/EthernetInterfaces/{EthernetInterfaceId}/VLANs/{VLanNetworkInterfaceId}</String>
             <String>/redfish/v1/ResourceBlocks/{ResourceBlockId}/EthernetInterfaces/{EthernetInterfaceId}/VLANs/{VLanNetworkInterfaceId}</String>
             <String>/redfish/v1/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/EthernetInterfaces/{EthernetInterfaceId}/VLANs/{VLanNetworkInterfaceId}</String>
+          </Collection>
+        </Annotation>
+        <Annotation Term="Redfish.Revisions">
+          <Collection>
+            <Record>
+              <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Deprecated"/>
+              <PropertyValue Property="Version" String="v1_3_0"/>
+              <PropertyValue Property="Description" String="This schema has been deprecated in favor of using individual EthernetInterface resources to show VLAN information."/>
+            </Record>
           </Collection>
         </Annotation>
       </EntityType>
@@ -247,6 +256,21 @@
         <Annotation Term="Validation.Minimum" Int="0"/>
         <Annotation Term="Validation.Maximum" Int="7"/>
       </TypeDefinition>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="VLanNetworkInterface.v1_3_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2021.2"/>
+
+      <EntityType Name="VLanNetworkInterface" BaseType="VLanNetworkInterface.v1_2_0.VLanNetworkInterface"/>
+
+      <ComplexType Name="VLAN" BaseType="VLanNetworkInterface.v1_2_0.VLAN">
+        <Property Name="Tagged" Type="Edm.Boolean">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="An indication of whether this VLAN is tagged or untagged for this interface."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether this VLAN is tagged or untagged for this interface."/>
+        </Property>
+      </ComplexType>
     </Schema>
 
   </edmx:DataServices>
