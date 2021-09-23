@@ -11,18 +11,18 @@ namespace redfish::message_registries::base
 const Header header = {
     "Copyright 2014-2021 DMTF. All rights reserved.",
     "#MessageRegistry.v1_4_0.MessageRegistry",
-    "Base.1.10.0",
+    "Base.1.11.0",
     "Base Message Registry",
     "en",
     "This registry defines the base messages for Redfish",
     "Base",
-    "1.10.0",
+    "1.11.0",
     "DMTF",
 };
 constexpr const char* url =
-    "https://redfish.dmtf.org/registries/Base.1.10.0.json";
+    "https://redfish.dmtf.org/registries/Base.1.11.0.json";
 
-constexpr std::array<MessageEntry, 87> registry = {
+constexpr std::array<MessageEntry, 93> registry = {
     MessageEntry{
         "AccessDenied",
         {
@@ -174,6 +174,21 @@ constexpr std::array<MessageEntry, 87> registry = {
             },
             "Correct the invalid parameter and resubmit the request if the "
             "operation failed.",
+        }},
+    MessageEntry{
+        "ActionParameterValueError",
+        {
+            "Indicates that a parameter was given an invalid value.",
+            "The value for the parameter %1 in the action %2 is invalid.",
+            "Warning",
+            "Warning",
+            2,
+            {
+                "string",
+                "string",
+            },
+            "Correct the value for the parameter in the request body and "
+            "resubmit the request if the operation failed.",
         }},
     MessageEntry{
         "ActionParameterValueFormatError",
@@ -490,6 +505,33 @@ constexpr std::array<MessageEntry, 87> registry = {
             "Resolve other reported errors and retry the current operation.",
         }},
     MessageEntry{
+        "NetworkNameResolutionNotConfigured",
+        {
+            "Indicates that network-based name resolution has not been "
+            "configured on the service.",
+            "Network name resolution has not been configured on this service.",
+            "Warning",
+            "Warning",
+            0,
+            {},
+            "Configure the network name resolution protocol support on this "
+            "service, or update any URI values to include an IP address "
+            "instead of a network name and resubmit the request.",
+        }},
+    MessageEntry{"NetworkNameResolutionNotSupported",
+                 {
+                     "Indicates the service does not support network-based "
+                     "name resolution.",
+                     "Resolution of network-based names is not supported by "
+                     "this service.",
+                     "Warning",
+                     "Warning",
+                     0,
+                     {},
+                     "Update any URI values to include an IP address instead "
+                     "of a network name and resubmit the request.",
+                 }},
+    MessageEntry{
         "NoOperation",
         {
             "Indicates that the requested operation will not perform any "
@@ -694,6 +736,19 @@ constexpr std::array<MessageEntry, 87> registry = {
                      },
                      "Refer to the schema guide for more information.",
                  }},
+    MessageEntry{"PropertyValueError",
+                 {
+                     "Indicates that a property was given an invalid value.",
+                     "The value provided for the property %1 is not valid.",
+                     "Warning",
+                     "Warning",
+                     1,
+                     {
+                         "string",
+                     },
+                     "Correct the value for the property in the request body "
+                     "and resubmit the request if the operation failed.",
+                 }},
     MessageEntry{
         "PropertyValueExternalConflict",
         {
@@ -889,6 +944,20 @@ constexpr std::array<MessageEntry, 87> registry = {
             "within range, such as a start or count value that is within "
             "bounds of the number of resources in a collection or a page that "
             "is within the range of valid pages.",
+        }},
+    MessageEntry{
+        "QueryParameterValueError",
+        {
+            "Indicates that a query parameter was given an invalid value.",
+            "The value for the parameter %1 is invalid.",
+            "Warning",
+            "Warning",
+            1,
+            {
+                "string",
+            },
+            "Correct the value for the query parameter in the request and "
+            "resubmit the request if the operation failed.",
         }},
     MessageEntry{
         "QueryParameterValueFormatError",
@@ -1158,6 +1227,22 @@ constexpr std::array<MessageEntry, 87> registry = {
                      "in the Role resource.",
                  }},
     MessageEntry{
+        "ServiceDisabled",
+        {
+            "Indicates that the operation failed because the service, such as "
+            "the account service, is disabled and cannot accept requests.",
+            "The operation failed because the service at %1 is disabled and "
+            "cannot accept requests.",
+            "Warning",
+            "Warning",
+            1,
+            {
+                "string",
+            },
+            "Enable the service and resubmit the request if the operation "
+            "failed.",
+        }},
+    MessageEntry{
         "ServiceInUnknownState",
         {
             "Indicates that the operation failed because the service is in an "
@@ -1307,7 +1392,9 @@ constexpr std::array<MessageEntry, 87> registry = {
             "Critical",
             "Critical",
             1,
-            {},
+            {
+                "string",
+            },
             "None.",
         }},
     MessageEntry{
