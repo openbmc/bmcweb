@@ -1,8 +1,8 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/ManagerNetworkProtocol.v1_7_0.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/ManagerNetworkProtocol.v1_8_0.json",
     "$ref": "#/definitions/ManagerNetworkProtocol",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
-    "copyright": "Copyright 2014-2020 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "copyright": "Copyright 2014-2021 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
     "definitions": {
         "Actions": {
             "additionalProperties": false,
@@ -252,6 +252,19 @@
                     "description": "The OEM extension property.",
                     "longDescription": "This property shall contain the OEM extensions.  All values for properties that this object contains shall conform to the Redfish Specification-described requirements."
                 },
+                "Proxy": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/ProxyConfiguration"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The HTTP/HTTPS proxy information for this manager.",
+                    "longDescription": "This property shall contain the HTTP/HTTPS proxy configuration for this manager.",
+                    "versionAdded": "v1_8_0"
+                },
                 "RDP": {
                     "$ref": "#/definitions/Protocol",
                     "description": "The settings for this manager's Remote Desktop Protocol support.",
@@ -428,6 +441,91 @@
                         "boolean",
                         "null"
                     ]
+                }
+            },
+            "type": "object"
+        },
+        "ProxyConfiguration": {
+            "additionalProperties": false,
+            "description": "The HTTP/HTTPS proxy information for a manager.",
+            "longDescription": "This property shall contain the HTTP/HTTPS proxy configuration for a manager.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "Enabled": {
+                    "description": "Indicates if the manager uses the proxy server.",
+                    "longDescription": "This property shall indicate if the proxy server is used for communications.",
+                    "readonly": false,
+                    "type": "boolean",
+                    "versionAdded": "v1_8_0"
+                },
+                "ExcludeAddresses": {
+                    "description": "Addresses that do not require the proxy server to access.",
+                    "items": {
+                        "type": [
+                            "string",
+                            "null"
+                        ]
+                    },
+                    "longDescription": "This property shall contain a list of hostnames or IP addresses that do not require a connection through the proxy server to access.",
+                    "readonly": false,
+                    "type": "array",
+                    "versionAdded": "v1_8_0"
+                },
+                "Password": {
+                    "description": "The password for the proxy.  The value is `null` in responses.",
+                    "longDescription": "This property shall contain the password for this proxy.  The value shall be `null` in responses.",
+                    "readonly": false,
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "versionAdded": "v1_8_0"
+                },
+                "PasswordSet": {
+                    "description": "Indicates if the Password property is set.",
+                    "longDescription": "This property shall contain `true` if a valid value was provided for the Password property.  Otherwise, the property shall contain `false`.",
+                    "readonly": true,
+                    "type": "boolean",
+                    "versionAdded": "v1_8_0"
+                },
+                "ProxyAutoConfigURI": {
+                    "description": "The URI used to access a proxy auto-configuration (PAC) file.",
+                    "format": "uri-reference",
+                    "longDescription": "This property shall contain the URI at which to access a proxy auto-configuration (PAC) file containing one or more JavaScript functions for configuring proxy usage for this manager.",
+                    "readonly": false,
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "versionAdded": "v1_8_0"
+                },
+                "ProxyServerURI": {
+                    "description": "The URI of the proxy server, including the scheme and any non-default port value.",
+                    "format": "uri-reference",
+                    "longDescription": "This property shall contain the URI of the proxy server.  The value shall contain the scheme for accessing the server, and shall include the port if the value is not the default port for the specified scheme.",
+                    "readonly": false,
+                    "type": "string",
+                    "versionAdded": "v1_8_0"
+                },
+                "Username": {
+                    "description": "The username for the proxy.",
+                    "longDescription": "This property shall contain the username for this proxy.",
+                    "readonly": false,
+                    "type": "string",
+                    "versionAdded": "v1_8_0"
                 }
             },
             "type": "object"
@@ -792,6 +890,6 @@
         }
     },
     "owningEntity": "DMTF",
-    "release": "2020.4",
-    "title": "#ManagerNetworkProtocol.v1_7_0.ManagerNetworkProtocol"
+    "release": "2021.2",
+    "title": "#ManagerNetworkProtocol.v1_8_0.ManagerNetworkProtocol"
 }

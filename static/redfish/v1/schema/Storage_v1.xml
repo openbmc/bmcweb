@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################                   -->
-<!--# Redfish Schema:  Storage v1.10.1                                                                 -->
+<!--# Redfish Schema:  Storage v1.11.0                                                                 -->
 <!--#                                                                                                  -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,                  -->
 <!--# available at http://www.dmtf.org/standards/redfish                                               -->
@@ -91,6 +91,9 @@
   <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/SoftwareInventory_v1.xml">
     <edmx:Include Namespace="SoftwareInventory"/>
   </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/ComputerSystem_v1.xml">
+    <edmx:Include Namespace="ComputerSystem"/>
+  </edmx:Reference>
 
   <edmx:DataServices>
 
@@ -141,6 +144,24 @@
           <Annotation Term="OData.Description" String="The encryption key to set on the storage subsystem."/>
           <Annotation Term="OData.LongDescription" String="This parameter shall contain the encryption key to set on the storage subsystem."/>
         </Parameter>
+      </Action>
+
+      <Action Name="ResetToDefaults" IsBound="true">
+        <Annotation Term="OData.Description" String="The reset action resets the storage device to factory defaults.  This can cause the loss of data."/>
+        <Annotation Term="OData.LongDescription" String="This action shall reset the storage device.  This action can impact other resources."/>
+        <Parameter Name="Storage" Type="Storage.v1_0_0.Actions"/>
+        <Parameter Name="ResetType" Type="Storage.v1_11_0.ResetToDefaultsType" Nullable="false">
+          <Annotation Term="OData.Description" String="The type of reset to defaults."/>
+          <Annotation Term="OData.LongDescription" String="This parameter shall contain the type of reset to defaults."/>
+        </Parameter>
+        <Annotation Term="Redfish.Revisions">
+          <Collection>
+            <Record>
+              <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+              <PropertyValue Property="Version" String="v1_11_0"/>
+            </Record>
+          </Collection>
+        </Annotation>
       </Action>
     </Schema>
 
@@ -1042,6 +1063,32 @@
       <Annotation Term="OData.Description" String="This version was created to correct various description to use proper normative terminology."/>
       <EntityType Name="Storage" BaseType="Storage.v1_10_0.Storage"/>
       <EntityType Name="StorageController" BaseType="Storage.v1_10_0.StorageController"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Storage.v1_11_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2021.2"/>
+      <Annotation Term="OData.Description" String="This version was created to add the ResetToDefaults action."/>
+
+      <EntityType Name="Storage" BaseType="Storage.v1_10_1.Storage"/>
+
+      <EnumType Name="ResetToDefaultsType">
+        <Member Name="ResetAll">
+          <Annotation Term="OData.Description" String="Reset all settings to factory defaults and remove all volumes."/>
+        </Member>
+        <Member Name="PreserveVolumes">
+          <Annotation Term="OData.Description" String="Reset all settings to factory defaults but preserve the configured volumes on the controllers."/>
+        </Member>
+      </EnumType>
+
+      <ComplexType Name="Links" BaseType="Storage.v1_9_0.Links">
+        <NavigationProperty Name="HostingStorageSystems" Type="Collection(ComputerSystem.ComputerSystem)">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The storage systems that host this storage subsystem."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type ComputerSystem that represent the storage systems that host this storage subsystem.  The members of this array shall be in the StorageSystems resource collection off the service root."/>
+          <Annotation Term="OData.AutoExpandReferences"/>
+        </NavigationProperty>
+      </ComplexType>
     </Schema>
 
   </edmx:DataServices>

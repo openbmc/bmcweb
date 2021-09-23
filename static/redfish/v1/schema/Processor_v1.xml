@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  Processor v1.12.0                                                   -->
+<!--# Redfish Schema:  Processor v1.13.0                                                   -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -79,6 +79,15 @@
   <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/GraphicsController_v1.xml">
     <edmx:Include Namespace="GraphicsController"/>
   </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/NetworkDeviceFunction_v1.xml">
+    <edmx:Include Namespace="NetworkDeviceFunction"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/Control_v1.xml">
+    <edmx:Include Namespace="Control"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/PortCollection_v1.xml">
+    <edmx:Include Namespace="PortCollection"/>
+  </edmx:Reference>
 
   <edmx:DataServices>
 
@@ -116,6 +125,8 @@
             <String>/redfish/v1/ResourceBlocks/{ResourceBlockId}/Processors/{ProcessorId}/SubProcessors/{ProcessorId2}</String>
             <String>/redfish/v1/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/Processors/{ProcessorId}</String>
             <String>/redfish/v1/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/Processors/{ProcessorId}/SubProcessors/{ProcessorId2}</String>
+            <String>/redfish/v1/Chassis/{ChassisId}/NetworkAdapters/{NetworkAdapterId}/Processors/{ProcessorId}</String>
+            <String>/redfish/v1/Chassis/{ChassisId}/NetworkAdapters/{NetworkAdapterId}/Processors/{ProcessorId}/SubProcessors/{ProcessorId2}</String>
           </Collection>
         </Annotation>
       </EntityType>
@@ -1441,8 +1452,8 @@
         </Property>
         <Property Name="TotalMemorySizeMiB" Type="Edm.Int64">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="Total size of volatile memory of this processor."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the total size of non-cache, volatile memory of this processor."/>
+          <Annotation Term="OData.Description" String="Total size of volatile memory attached to this processor."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the total size of non-cache, volatile memory attached to this processor.  This value indicates the size of memory directly attached or with strong affinity to this processor, not the total memory accessible by the processor.  This property shall not be present for implementations where all processors have equal memory performance or access characteristics, such as hop count, for all system memory."/>
           <Annotation Term="Measures.Unit" String="MiBy"/>
         </Property>
         <NavigationProperty Name="Metrics" Type="MemoryMetrics.MemoryMetrics" ContainsTarget="true" Nullable="false">
@@ -1462,11 +1473,16 @@
       </ComplexType>
     </Schema>
 
-
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Processor.v1_11_1">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct various description to use proper normative terminology."/>
       <EntityType Name="Processor" BaseType="Processor.v1_11_0.Processor"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Processor.v1_11_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the usage of TotalMemorySizeMiB."/>
+      <EntityType Name="Processor" BaseType="Processor.v1_11_1.Processor"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Processor.v1_12_0">
@@ -1487,6 +1503,49 @@
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="A link to the graphics controller associated with this processor."/>
           <Annotation Term="OData.LongDescription" String="This property shall contain a link to resource of type GraphicsController that is associated with this processor."/>
+          <Annotation Term="OData.AutoExpandReferences"/>
+        </NavigationProperty>
+      </ComplexType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Processor.v1_12_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the usage of TotalMemorySizeMiB."/>
+      <EntityType Name="Processor" BaseType="Processor.v1_12_0.Processor"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Processor.v1_13_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2021.2"/>
+
+      <EntityType Name="Processor" BaseType="Processor.v1_12_1.Processor">
+        <NavigationProperty Name="OperatingSpeedRangeMHz" Type="Control.Control">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="Redfish.ExcerptCopy" String="Range"/>
+          <Annotation Term="OData.Description" String="Range of allowed operating speeds (MHz)."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the operating speed control excerpt for this resource."/>
+        </NavigationProperty>
+        <NavigationProperty Name="Ports" Type="PortCollection.PortCollection" ContainsTarget="true" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The link to the collection of ports for this processor."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type PortCollection.  It shall contain the interconnect ports of this processor.  It shall not contain ports of for GraphicsController resources, USBController resources, or other adapter-related type of resources."/>
+          <Annotation Term="OData.AutoExpandReferences"/>
+        </NavigationProperty>
+      </EntityType>
+
+      <ComplexType Name="MemorySummary" BaseType="Processor.v1_11_0.MemorySummary">
+        <Property Name="ECCModeEnabled" Type="Edm.Boolean">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="An indication of whether memory ECC mode is enabled for this processor."/>
+          <Annotation Term="OData.LongDescription" String="The value of this property shall indicate if memory ECC mode is enabled for this processor.  This value shall not affect system memory ECC mode."/>
+        </Property>
+      </ComplexType>
+
+      <ComplexType Name="Links" BaseType="Processor.v1_12_0.Links">
+        <NavigationProperty Name="NetworkDeviceFunctions" Type="Collection(NetworkDeviceFunction.NetworkDeviceFunction)">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The network device functions to which this processor performs offload computation, such as with a SmartNIC."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type NetworkDeviceFunction that represent the network device functions to which this processor performs offload computation, such as with a SmartNIC."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
       </ComplexType>

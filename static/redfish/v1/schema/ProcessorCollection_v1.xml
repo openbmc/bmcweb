@@ -60,6 +60,8 @@
             <String>/redfish/v1/ResourceBlocks/{ResourceBlockId}/Processors/{ProcessorId}/SubProcessors</String>
             <String>/redfish/v1/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/Processors</String>
             <String>/redfish/v1/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/Processors/{ProcessorId}/SubProcessors</String>
+            <String>/redfish/v1/Chassis/{ChassisId}/NetworkAdapters/{NetworkAdapterId}/Processors</String>
+            <String>/redfish/v1/Chassis/{ChassisId}/NetworkAdapters/{NetworkAdapterId}/Processors/{ProcessorId}/SubProcessors</String>
           </Collection>
         </Annotation>
         <NavigationProperty Name="Members" Type="Collection(Processor.Processor)">

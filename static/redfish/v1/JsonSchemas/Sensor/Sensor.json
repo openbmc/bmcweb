@@ -1,5 +1,5 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/Sensor.v1_3_0.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/Sensor.v1_4_0.json",
     "$ref": "#/definitions/Sensor",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
     "copyright": "Copyright 2014-2021 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
@@ -43,7 +43,7 @@
             "enumDescriptions": {
                 "PhysicalSensor": "The reading is acquired from a physical sensor.",
                 "Reported": "The reading is obtained from software or a device.",
-                "Synthesized": "The reading is obtained by applying a calculation on one or more properties.  The calculation is not provided."
+                "Synthesized": "The reading is obtained by applying a calculation on one or more properties or multiple sensors.  The calculation is not provided."
             },
             "type": "string"
         },
@@ -66,6 +66,19 @@
                 }
             },
             "properties": {
+                "AssociatedControls": {
+                    "description": "An array of links to the controls that can affect this sensor.",
+                    "items": {
+                        "$ref": "http://redfish.dmtf.org/schemas/v1/Control.json#/definitions/Control"
+                    },
+                    "longDescription": "This property shall contain an array of links to resources of type Control that represent the controls that can affect this sensor.",
+                    "readonly": true,
+                    "type": "array",
+                    "versionAdded": "v1_4_0"
+                },
+                "AssociatedControls@odata.count": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/count"
+                },
                 "Oem": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Oem",
                     "description": "The OEM extension property.",
@@ -102,6 +115,8 @@
                 "Power",
                 "EnergykWh",
                 "EnergyJoules",
+                "EnergyWh",
+                "ChargeAh",
                 "Voltage",
                 "Current",
                 "Frequency",
@@ -118,8 +133,10 @@
                 "AirFlow": "Airflow.",
                 "Altitude": "Altitude.",
                 "Barometric": "Barometric pressure.",
+                "ChargeAh": "Charge (Ah).",
                 "Current": "Current.",
                 "EnergyJoules": "Energy (Joules).",
+                "EnergyWh": "Energy (Wh).",
                 "EnergykWh": "Energy (kWh).",
                 "Frequency": "Frequency.",
                 "Humidity": "Relative Humidity.",
@@ -136,9 +153,11 @@
                 "AirFlow": "This value shall indicate a measurement of a volume of gas per unit of time that flows through a particular junction.  The ReadingUnits shall be `cft_i/min`.",
                 "Altitude": "This value shall indicate a measurement of altitude, in meter units, and the ReadingUnits value shall be `m`.",
                 "Barometric": "This value shall indicate a measurement of barometric pressure, in millimeters, of a mercury column, and the ReadingUnits value shall be `mm[Hg]`.",
+                "ChargeAh": "This value shall indicate the amount of charge of the monitored item.  If representing metered power consumption,  integral of real power over time, the value shall reflect the power consumption since the sensor metrics were last reset.  The value of the Reading property shall be in amp-hour units and the ReadingUnits value shall be `A.h`.",
                 "Current": "This value shall indicate a measurement of the root mean square (RMS) of instantaneous current calculated over an integer number of line cycles for a circuit.  Current is expressed in Amperes units and the ReadingUnits value shall be `A`.",
-                "EnergyJoules": "This value shall indicate the energy, integral of real power over time, of the monitored item since the sensor metrics were last reset.  The value of the Reading property shall be in Joule units and the ReadingUnits value shall be `J`.  This value is used for device-level energy consumption measurements, while EnergykWh is used for large-scale consumption measurements.",
-                "EnergykWh": "This value shall indicate the energy, integral of real power over time, of the monitored item since the sensor metrics were last reset.  The value of the Reading property shall be in kilowatt-hour units and the ReadingUnits value shall be `kW.h`.  This value is used for large-scale energy consumption measurements, while EnergyJoules is used for device-level consumption measurements.",
+                "EnergyJoules": "This value shall indicate the energy, integral of real power over time, of the monitored item.  If representing metered power consumption the value shall reflect the power consumption since the sensor metrics were last reset.  The value of the Reading property shall be in Joule units and the ReadingUnits value shall be `J`.  This value is used for device-level energy consumption measurements, while EnergykWh is used for large-scale consumption measurements.",
+                "EnergyWh": "This value shall indicate the energy, integral of real power over time, of the monitored item.  If representing metered power consumption the value shall reflect the power consumption since the sensor metrics were last reset.  The value of the Reading property shall be in watt-hour units and the ReadingUnits value shall be `W.h`.  This value is used for device-level energy consumption measurements, while EnergykWh is used for large-scale consumption measurements.",
+                "EnergykWh": "This value shall indicate the energy, integral of real power over time, of the monitored item.  If representing metered power consumption the value shall reflect the power consumption since the sensor metrics were last reset.  The value of the Reading property shall be in kilowatt-hour units and the ReadingUnits value shall be `kW.h`.  This value is used for large-scale energy consumption measurements, while EnergyJoules and EnergyWh are used for device-level consumption measurements.",
                 "Frequency": "This value shall indicate a frequency measurement, in Hertz units, and the ReadingUnits value shall be `Hz`.",
                 "Humidity": "This value shall indicate a relative humidity measurement, in percent units, and the ReadingUnits value shall be '%'.",
                 "LiquidFlow": "This value shall indicate a measurement of a volume of liquid per unit of time that flows through a particular junction.  The ReadingUnits shall be `L/s`.",
@@ -151,6 +170,8 @@
                 "Voltage": "This value shall indicate a measurement of the root mean square (RMS) of instantaneous voltage calculated over an integer number of line cycles for a circuit.  Voltage is expressed in Volts units and the ReadingUnits value shall be `V`."
             },
             "enumVersionAdded": {
+                "ChargeAh": "v1_4_0",
+                "EnergyWh": "v1_4_0",
                 "Percent": "v1_1_0"
             },
             "type": "string"
@@ -254,13 +275,65 @@
                 "ApparentVA": {
                     "description": "The product of voltage and current for an AC circuit, in Volt-Ampere units.",
                     "excerpt": "SensorPower,SensorPowerArray",
-                    "longDescription": "This property shall contain the product of VoltageRMS multiplied by CurrentRMS for a circuit.  This property can appear in sensors of the Power ReadingType, and shall not appear in sensors of other ReadingType values.",
+                    "longDescription": "This property shall contain the product of voltage (RMS) multiplied by current (RMS) for a circuit.  This property can appear in sensors of the Power ReadingType, and shall not appear in sensors of other ReadingType values.",
                     "readonly": true,
                     "type": [
                         "number",
                         "null"
                     ],
                     "units": "V.A"
+                },
+                "AverageReading": {
+                    "description": "The average sensor value.",
+                    "longDescription": "This property shall contain the average sensor value over the time specified by the value of the AveragingInterval property.  The value shall be reset by the ResetMetrics action.",
+                    "readonly": true,
+                    "type": [
+                        "number",
+                        "null"
+                    ],
+                    "versionAdded": "v1_4_0"
+                },
+                "AveragingInterval": {
+                    "description": "The interval over which the average sensor value is calculated.",
+                    "longDescription": "This property shall contain the interval over which the sensor value is averaged to produce the value of the AverageReading property.  This property shall only be present if the AverageReading property is present.",
+                    "pattern": "-?P(\\d+D)?(T(\\d+H)?(\\d+M)?(\\d+(.\\d+)?S)?)?",
+                    "readonly": false,
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "versionAdded": "v1_4_0"
+                },
+                "AveragingIntervalAchieved": {
+                    "description": "Indicates that enough readings were collected to calculate the average sensor reading over the averaging interval time.",
+                    "longDescription": "This property shall indicate that enough readings were collected to calculate the AverageReading value over the interval specified by the AveragingInterval property.  The value shall be reset by the ResetMetrics action.  This property shall only be present if the AveragingInterval property is present.",
+                    "readonly": true,
+                    "type": [
+                        "boolean",
+                        "null"
+                    ],
+                    "versionAdded": "v1_4_0"
+                },
+                "Calibration": {
+                    "description": "The calibration offset applied to the Reading.",
+                    "longDescription": "This property shall contain the offset applied to the raw sensor value to provide a calibrated value for the sensor as returned by the Reading property.  The value of this property shall follow the units of the Reading property for this sensor instance.  Updating the value of this property shall not affect the value of the CalibrationTime property.",
+                    "readonly": false,
+                    "type": [
+                        "number",
+                        "null"
+                    ],
+                    "versionAdded": "v1_4_0"
+                },
+                "CalibrationTime": {
+                    "description": "The date and time that the sensor was last calibrated.",
+                    "format": "date-time",
+                    "longDescription": "This property shall contain the date and time that the sensor was last calibrated.  This property is intended to reflect the actual time the calibration occurred.",
+                    "readonly": false,
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "versionAdded": "v1_4_0"
                 },
                 "CrestFactor": {
                     "description": "The crest factor for this sensor.",
@@ -349,6 +422,27 @@
                     "description": "The location information for this sensor.",
                     "longDescription": "This property shall indicate the location information for this sensor."
                 },
+                "LowestReading": {
+                    "description": "The lowest sensor value.",
+                    "longDescription": "This property shall contain the lowest sensor value since the last ResetMetrics action was performed or the service last reset the time-based property values.",
+                    "readonly": true,
+                    "type": [
+                        "number",
+                        "null"
+                    ],
+                    "versionAdded": "v1_4_0"
+                },
+                "LowestReadingTime": {
+                    "description": "The time when the lowest sensor value occurred.",
+                    "format": "date-time",
+                    "longDescription": "This property shall contain the date and time when the lowest sensor value was observed.",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "versionAdded": "v1_4_0"
+                },
                 "MaxAllowableOperatingValue": {
                     "description": "The maximum allowable operating value for this equipment.",
                     "longDescription": "This property shall contain the maximum allowable operating value for the equipment that this sensor monitors, as specified by a standards body, manufacturer, or both.",
@@ -426,7 +520,7 @@
                 "PowerFactor": {
                     "description": "The power factor for this sensor.",
                     "excerpt": "SensorPower,SensorPowerArray",
-                    "longDescription": "This property shall identify the quotient of PowerRealWatts and PowerApparentVA for a circuit.  PowerFactor is expressed in unit-less 1/100ths.  This property can appear in sensors of the Power ReadingType, and shall not appear in sensors of other ReadingType values.",
+                    "longDescription": "This property shall identify the quotient of real power (W) and apparent power (VA) for a circuit.  PowerFactor is expressed in unit-less 1/100ths.  This property can appear in sensors of the Power ReadingType, and shall not appear in sensors of other ReadingType values.",
                     "maximum": 1,
                     "minimum": 0,
                     "readonly": true,
@@ -445,7 +539,7 @@
                     ]
                 },
                 "ReactiveVAR": {
-                    "description": "The square root of the difference term of squared ApparentVA and squared Power (Reading) for a circuit, in var units.",
+                    "description": "The square root of the difference term of squared apparent VA and squared power (Reading) for a circuit, in VAR units.",
                     "excerpt": "SensorPower,SensorPowerArray",
                     "longDescription": "This property shall contain the arithmetic mean of product terms of instantaneous voltage and quadrature current measurements calculated over an integer number of line cycles for a circuit.  This property can appear in sensors of the Power ReadingType, and shall not appear in sensors of other ReadingType values.",
                     "readonly": true,
@@ -550,6 +644,12 @@
                         "null"
                     ],
                     "versionAdded": "v1_1_0"
+                },
+                "SensorGroup": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Redundancy.json#/definitions/RedundantGroup",
+                    "description": "The group of sensors that provide readings for this sensor.",
+                    "longDescription": "This property shall contain information for a group of sensors that provide input for the value of this sensor's reading.  If this property is present, the Implementation property shall contain the value `Synthesized`.  The group may be created for redundancy or to improve the accuracy of the reading through multiple sensor inputs.",
+                    "versionAdded": "v1_4_0"
                 },
                 "SensorResetTime": {
                     "description": "The date and time when the time-based properties were last reset.",
@@ -1052,7 +1152,7 @@
                 "ApparentVA": {
                     "description": "The product of voltage and current for an AC circuit, in Volt-Ampere units.",
                     "excerpt": "SensorPower,SensorPowerArray",
-                    "longDescription": "This property shall contain the product of VoltageRMS multiplied by CurrentRMS for a circuit.  This property can appear in sensors of the Power ReadingType, and shall not appear in sensors of other ReadingType values.",
+                    "longDescription": "This property shall contain the product of voltage (RMS) multiplied by current (RMS) for a circuit.  This property can appear in sensors of the Power ReadingType, and shall not appear in sensors of other ReadingType values.",
                     "readonly": true,
                     "type": [
                         "number",
@@ -1102,7 +1202,7 @@
                 "PowerFactor": {
                     "description": "The power factor for this sensor.",
                     "excerpt": "SensorPower,SensorPowerArray",
-                    "longDescription": "This property shall identify the quotient of PowerRealWatts and PowerApparentVA for a circuit.  PowerFactor is expressed in unit-less 1/100ths.  This property can appear in sensors of the Power ReadingType, and shall not appear in sensors of other ReadingType values.",
+                    "longDescription": "This property shall identify the quotient of real power (W) and apparent power (VA) for a circuit.  PowerFactor is expressed in unit-less 1/100ths.  This property can appear in sensors of the Power ReadingType, and shall not appear in sensors of other ReadingType values.",
                     "maximum": 1,
                     "minimum": 0,
                     "readonly": true,
@@ -1112,7 +1212,7 @@
                     ]
                 },
                 "ReactiveVAR": {
-                    "description": "The square root of the difference term of squared ApparentVA and squared Power (Reading) for a circuit, in var units.",
+                    "description": "The square root of the difference term of squared apparent VA and squared power (Reading) for a circuit, in VAR units.",
                     "excerpt": "SensorPower,SensorPowerArray",
                     "longDescription": "This property shall contain the arithmetic mean of product terms of instantaneous voltage and quadrature current measurements calculated over an integer number of line cycles for a circuit.  This property can appear in sensors of the Power ReadingType, and shall not appear in sensors of other ReadingType values.",
                     "readonly": true,
@@ -1158,7 +1258,7 @@
                 "ApparentVA": {
                     "description": "The product of voltage and current for an AC circuit, in Volt-Ampere units.",
                     "excerpt": "SensorPower,SensorPowerArray",
-                    "longDescription": "This property shall contain the product of VoltageRMS multiplied by CurrentRMS for a circuit.  This property can appear in sensors of the Power ReadingType, and shall not appear in sensors of other ReadingType values.",
+                    "longDescription": "This property shall contain the product of voltage (RMS) multiplied by current (RMS) for a circuit.  This property can appear in sensors of the Power ReadingType, and shall not appear in sensors of other ReadingType values.",
                     "readonly": true,
                     "type": [
                         "number",
@@ -1180,7 +1280,7 @@
                 "PowerFactor": {
                     "description": "The power factor for this sensor.",
                     "excerpt": "SensorPower,SensorPowerArray",
-                    "longDescription": "This property shall identify the quotient of PowerRealWatts and PowerApparentVA for a circuit.  PowerFactor is expressed in unit-less 1/100ths.  This property can appear in sensors of the Power ReadingType, and shall not appear in sensors of other ReadingType values.",
+                    "longDescription": "This property shall identify the quotient of real power (W) and apparent power (VA) for a circuit.  PowerFactor is expressed in unit-less 1/100ths.  This property can appear in sensors of the Power ReadingType, and shall not appear in sensors of other ReadingType values.",
                     "maximum": 1,
                     "minimum": 0,
                     "readonly": true,
@@ -1190,7 +1290,7 @@
                     ]
                 },
                 "ReactiveVAR": {
-                    "description": "The square root of the difference term of squared ApparentVA and squared Power (Reading) for a circuit, in var units.",
+                    "description": "The square root of the difference term of squared apparent VA and squared power (Reading) for a circuit, in VAR units.",
                     "excerpt": "SensorPower,SensorPowerArray",
                     "longDescription": "This property shall contain the arithmetic mean of product terms of instantaneous voltage and quadrature current measurements calculated over an integer number of line cycles for a circuit.  This property can appear in sensors of the Power ReadingType, and shall not appear in sensors of other ReadingType values.",
                     "readonly": true,
@@ -1429,6 +1529,6 @@
         }
     },
     "owningEntity": "DMTF",
-    "release": "2021.1",
-    "title": "#Sensor.v1_3_0.Sensor"
+    "release": "2021.2",
+    "title": "#Sensor.v1_4_0.Sensor"
 }

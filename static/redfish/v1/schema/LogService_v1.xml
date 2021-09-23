@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  LogService v1.2.0                                                   -->
+<!--# Redfish Schema:  LogService v1.3.0                                                   -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -35,8 +35,8 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
 
       <EntityType Name="LogService" BaseType="Resource.v1_0_0.Resource" Abstract="true">
-        <Annotation Term="OData.Description" String="The LogService schema contains properties for monitoring and configuring a Log Service."/>
-        <Annotation Term="OData.LongDescription" String="This Resource shall represent a Log Service for a Redfish implementation."/>
+        <Annotation Term="OData.Description" String="The LogService schema contains properties for monitoring and configuring a log service.  When the Id property contains `DeviceLog`, the log contains device-resident log entries that follow the physical device when moved from system-to-system, and not a replication or subset of a system event log."/>
+        <Annotation Term="OData.LongDescription" String="This resource shall represent a log service for a Redfish implementation.  When the Id property contains `DeviceLog`, the log shall contain log entries that migrate with the device."/>
         <Annotation Term="Capabilities.InsertRestrictions">
           <Record>
             <PropertyValue Property="Insertable" Bool="false"/>
@@ -45,7 +45,7 @@
         <Annotation Term="Capabilities.UpdateRestrictions">
           <Record>
             <PropertyValue Property="Updatable" Bool="true"/>
-            <Annotation Term="OData.Description" String="The date and time properties can be updated for a Log Service."/>
+            <Annotation Term="OData.Description" String="The date and time properties can be updated for a log service."/>
           </Record>
         </Annotation>
         <Annotation Term="Capabilities.DeleteRestrictions">
@@ -62,14 +62,27 @@
             <String>/redfish/v1/Chassis/{ChassisId}/LogServices/{LogServiceId}</String>
             <String>/redfish/v1/JobService/Log</String>
             <String>/redfish/v1/TelemetryService/LogService</String>
+            <String>/redfish/v1/Systems/{ComputerSystemId}/Memory/{MemoryId}/DeviceLog</String>
           </Collection>
         </Annotation>
       </EntityType>
 
       <Action Name="ClearLog" IsBound="true">
+        <Annotation Term="OData.Description" String="The action to clear the log for this log service."/>
+        <Annotation Term="OData.LongDescription" String="This action shall delete all entries found in the LogEntryCollection resource for this log service."/>
         <Parameter Name="LogService" Type="LogService.v1_0_0.Actions"/>
-        <Annotation Term="OData.Description" String="The action to clear the log for this Log Service."/>
-        <Annotation Term="OData.LongDescription" String="This action shall delete all entries found in the Entries collection for this Log Service."/>
+        <Parameter Name="LogEntriesETag" Type="Edm.String">
+          <Annotation Term="OData.Description" String="The ETag of the log entry collection within this log service.  If the provided ETag does not match the current ETag of the log entry collection, the request is rejected."/>
+          <Annotation Term="OData.LongDescription" String="This parameter shall contain the ETag of the LogEntryCollection resource for this log service.  If the client-provided ETag does not match the current ETag of the LogEntryCollection resource for this log service, the service shall return the HTTP 428 (Precondition Required) status code to reject the request."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="v1_3_0"/>
+              </Record>
+            </Collection>
+          </Annotation>
+        </Parameter>
       </Action>
 
       <Action Name="CollectDiagnosticData" IsBound="true">
@@ -108,55 +121,55 @@
         <Property Name="MaxNumberOfRecords" Type="Edm.Int64" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The maximum number of log entries that this service can have."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the maximum number of LogEntry Resources in the Entries collection for this service."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the maximum number of LogEntry resources in the LogEntryCollection resource for this service."/>
           <Annotation Term="Validation.Minimum" Int="0"/>
         </Property>
         <Property Name="OverWritePolicy" Type="LogService.v1_0_0.OverWritePolicy" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The overwrite policy for this service that takes place when the log is full."/>
-          <Annotation Term="OData.LongDescription" String="This property shall indicate the policy of the Log Service when the MaxNumberOfRecords has been reached."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate the policy of the log service when the MaxNumberOfRecords has been reached."/>
         </Property>
         <Property Name="DateTime" Type="Edm.DateTimeOffset">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
-          <Annotation Term="OData.Description" String="The current date and time, with UTC offset, that the Log Service uses to set or read time."/>
-          <Annotation Term="OData.LongDescription" String="This property shall represent the current DateTime value, with UTC offset, in Redfish Timestamp format that the Log Service uses to set or read time."/>
+          <Annotation Term="OData.Description" String="The current date and time with UTC offset of the log service."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the current date and time with UTC offset of the log service."/>
         </Property>
         <Property Name="DateTimeLocalOffset" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
-          <Annotation Term="OData.Description" String="The UTC offset that the current DateTime property value contains in the `+HH:MM` format."/>
-          <Annotation Term="OData.LongDescription" String="This property shall represent the UTC offset that the current DateTime property value contains."/>
+          <Annotation Term="OData.Description" String="The time offset from UTC that the DateTime property is in `+HH:MM` format."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the offset from UTC time that the DateTime property contains.  If both DateTime and DateTimeLocalOffset are provided in modification requests, services shall apply DateTimeLocalOffset after DateTime is applied."/>
           <Annotation Term="Validation.Pattern" String="^([-+][0-1][0-9]:[0-5][0-9])$"/>
         </Property>
         <NavigationProperty Name="Entries" Type="LogEntryCollection.LogEntryCollection" ContainsTarget="true" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The link to the log entry collection."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a Resource Collection of type LogEntryCollection."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type LogEntryCollection."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
         <Property Name="Actions" Type="LogService.v1_0_0.Actions" Nullable="false">
-          <Annotation Term="OData.Description" String="The available actions for this Resource."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the available actions for this Resource."/>
+          <Annotation Term="OData.Description" String="The available actions for this resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the available actions for this resource."/>
         </Property>
         <Property Name="Status" Type="Resource.Status" Nullable="false">
-          <Annotation Term="OData.Description" String="The status and health of the Resource and its subordinate or dependent Resources."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain any status or health properties of the Resource."/>
+          <Annotation Term="OData.Description" String="The status and health of the resource and its subordinate or dependent resources."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain any status or health properties of the resource."/>
         </Property>
       </EntityType>
 
       <ComplexType Name="Actions">
         <Annotation Term="OData.AdditionalProperties" Bool="false"/>
-        <Annotation Term="OData.Description" String="The available actions for this Resource."/>
-        <Annotation Term="OData.LongDescription" String="This type shall contain the available actions for this Resource."/>
+        <Annotation Term="OData.Description" String="The available actions for this resource."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain the available actions for this resource."/>
         <Property Name="Oem" Type="LogService.v1_0_0.OemActions" Nullable="false">
-          <Annotation Term="OData.Description" String="The available OEM-specific actions for this Resource."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the available OEM-specific actions for this Resource."/>
+          <Annotation Term="OData.Description" String="The available OEM-specific actions for this resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the available OEM-specific actions for this resource."/>
         </Property>
       </ComplexType>
 
       <ComplexType Name="OemActions">
         <Annotation Term="OData.AdditionalProperties" Bool="true"/>
-        <Annotation Term="OData.Description" String="The available OEM-specific actions for this Resource."/>
-        <Annotation Term="OData.LongDescription" String="This type shall contain the available OEM-specific actions for this Resource."/>
+        <Annotation Term="OData.Description" String="The available OEM-specific actions for this resource."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain the available OEM-specific actions for this resource."/>
       </ComplexType>
 
       <EnumType Name="OverWritePolicy">
@@ -192,7 +205,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="LogService.v1_0_5">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to correct the short and long descriptions in the defined Actions."/>
+      <Annotation Term="OData.Description" String="This version was created to correct the short and long descriptions in the defined actions."/>
       <EntityType Name="LogService" BaseType="LogService.v1_0_4.LogService"/>
     </Schema>
 
@@ -214,6 +227,12 @@
       <EntityType Name="LogService" BaseType="LogService.v1_0_7.LogService"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="LogService.v1_0_9">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="LogService" BaseType="LogService.v1_0_8.LogService"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="LogService.v1_1_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2017.3"/>
@@ -223,7 +242,7 @@
         <Property Name="LogEntryType" Type="LogService.v1_1_0.LogEntryTypes">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The format of the log entries."/>
-          <Annotation Term="OData.LongDescription" String="This property shall represent the EntryType of all LogEntry Resources contained in the Entries collection.  If the service cannot determine or guarantee a single EntryType for all LogEntry Resources, this property's value shall be `Multiple`."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the value for the EntryType property of all LogEntry resources contained in the LogEntryCollection resource for this log service.  If the service cannot determine or guarantee a single EntryType value for all LogEntry resources, this property shall contain the value `Multiple`."/>
         </Property>
       </EntityType>
 
@@ -235,7 +254,7 @@
           <Annotation Term="OData.Description" String="The log contains legacy IPMI System Event Log (SEL) entries."/>
         </Member>
         <Member Name="Multiple">
-          <Annotation Term="OData.Description" String="The log contains multiple log entry types and, therefore, the Log Service cannot guarantee a single entry type."/>
+          <Annotation Term="OData.Description" String="The log contains multiple log entry types and, therefore, the log service cannot guarantee a single entry type."/>
         </Member>
         <Member Name="OEM">
           <Annotation Term="OData.Description" String="The log contains entries in an OEM-defined format."/>
@@ -259,6 +278,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to update descriptions that this schema defines."/>
       <EntityType Name="LogService" BaseType="LogService.v1_1_2.LogService"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="LogService.v1_1_4">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="LogService" BaseType="LogService.v1_1_3.LogService"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="LogService.v1_2_0">
@@ -412,6 +437,26 @@
           <Annotation Term="OData.Description" String="OEM diagnostic data."/>
         </Member>
       </EnumType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="LogService.v1_2_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="LogService" BaseType="LogService.v1_2_0.LogService"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="LogService.v1_3_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2021.2"/>
+      <Annotation Term="OData.Description" String="This version was created to add the LogEntriesETag parameter to the ClearLog action."/>
+
+      <EntityType Name="LogService" BaseType="LogService.v1_2_1.LogService">
+        <Property Name="AutoDSTEnabled" Type="Edm.Boolean" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="An indication of whether the log service is configured for automatic Daylight Saving Time (DST) adjustment."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether the log service is configured for automatic Daylight Saving Time (DST) adjustment.  DST adjustment shall not modify the timestamp of existing log entries."/>
+        </Property>
+      </EntityType>
     </Schema>
 
   </edmx:DataServices>

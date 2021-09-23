@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  SoftwareInventory v1.4.0                                            -->
+<!--# Redfish Schema:  SoftwareInventory v1.5.0                                            -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -267,6 +267,22 @@
           <Annotation Term="OData.Description" String="The hexadecimal string representation of the numeric value of the DSP0274-defined Measurement field  of the measurement block."/>
           <Annotation Term="OData.LongDescription" String="This property shall contain the value of the hexadecimal string representation of the numeric value of the DSP0274-defined Measurement field  of the measurement block."/>
           <Annotation Term="Validation.Pattern" String="^[0-9a-fA-F]+$"/>
+        </Property>
+      </ComplexType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="SoftwareInventory.v1_5_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2021.2"/>
+      <Annotation Term="OData.Description" String="This version was created to add MeasurementIndex property to MeasurementBlock complex type in support of DSP0274."/>
+
+      <EntityType Name="SoftwareInventory" BaseType="SoftwareInventory.v1_4_0.SoftwareInventory"/>
+
+      <ComplexType Name="MeasurementBlock" BaseType="SoftwareInventory.v1_4_0.MeasurementBlock">
+        <Property Name="MeasurementIndex" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The DSP0274-defined Index field of the measurement block."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the value of DSP0274-defined Index field of the measurement block."/>
         </Property>
       </ComplexType>
     </Schema>
