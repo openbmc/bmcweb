@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "32f994bf_015f78d2",
+        "filename": "redfish-core/lib/network_protocol.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 190,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2021-09-23T07:38:26Z",
+      "side": 1,
+      "message": "We have a redfish way to disable/enable the protocols. \nFor example, when we disable IPMI protocol support, there will be no proc/daemon/port active on the system for IPMI. That time, we should be listing the IPMI as \"ProtocolEnabled\": false.\nIf i am understanding right, here if we return, we might not be displaying that this specific protocol is disabled.",
+      "range": {
+        "startLine": 190,
+        "startChar": 20,
+        "endLine": 190,
+        "endChar": 27
+      },
+      "revId": "cd625382bc5580d0967285f283d44c194a596943",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
