@@ -12,6 +12,7 @@
 
 #include <string>
 #include <string_view>
+#include <system_error>
 
 namespace crow
 {
@@ -33,11 +34,16 @@ struct Request
     std::shared_ptr<persistent_data::UserSession> session;
 
     std::string userRole{};
-    Request(
-        boost::beast::http::request<boost::beast::http::string_body> reqIn) :
+    Request(boost::beast::http::request<boost::beast::http::string_body> reqIn,
+            std::error_code& ec) :
         req(std::move(reqIn)),
         fields(req.base()), body(req.body())
-    {}
+    {
+        if (!setUrlInfo())
+        {
+            ec = std::make_error_code(std::errc::invalid_argument);
+        }
+    }
 
     boost::beast::http::verb method() const
     {
@@ -64,6 +70,12 @@ struct Request
         return req.target();
     }
 
+    bool target(const std::string_view target)
+    {
+        req.target(target);
+        return setUrlInfo();
+    }
+
     unsigned version() const
     {
         return req.version();
@@ -77,6 +89,22 @@ struct Request
     bool keepAlive() const
     {
         return req.keep_alive();
+    }
+
+  private:
+    bool setUrlInfo()
+    {
+        boost::urls::error_code ec;
+        urlView = boost::urls::parse_relative_ref(
+            boost::urls::string_view(target().data(), target().size()), ec);
+        if (ec)
+        {
+            return false;
+        }
+        url = std::string_view(urlView.encoded_path().data(),
+                               urlView.encoded_path().size());
+        urlParams = urlView.query_params();
+        return true;
     }
 };
 
