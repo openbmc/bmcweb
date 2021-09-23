@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "94a7bbb7_1d3c536b",
+        "filename": "meson.build",
+        "patchSetId": 1
+      },
+      "lineNbr": 440,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-09-23T02:11:37Z",
+      "side": 1,
+      "message": "Can you remove? \nhttps://mesonbuild.com/Style-guide.html\n\nTabs or spaces?\nAlways spaces.",
+      "revId": "100ee07b897d1ca2a0e3ae883a6b2eb5aa12816c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
