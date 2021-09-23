@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "84c5eab6_cf35b69d",
+        "filename": "redfish-core/lib/pcie.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 182,
+      "author": {
+        "id": 1000404
+      },
+      "writtenOn": "2021-09-23T07:09:41Z",
+      "side": 1,
+      "message": "Thanks for your explanation. I will pay attention about this problem.",
+      "parentUuid": "571bb37c_fcf4b02e",
+      "range": {
+        "startLine": 182,
+        "startChar": 66,
+        "endLine": 182,
+        "endChar": 74
+      },
+      "revId": "d19783e2c5576e499e302f17b6efc714e13f545d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "081608f6_6365fdd5",
         "filename": "redfish-core/lib/pcie.hpp",
         "patchSetId": 3
@@ -45,6 +69,30 @@
       "revId": "d19783e2c5576e499e302f17b6efc714e13f545d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0bb652e0_8db0878a",
+        "filename": "redfish-core/lib/pcie.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 1000404
+      },
+      "writtenOn": "2021-09-23T07:09:41Z",
+      "side": 1,
+      "message": "Remove the nullptr checker here.",
+      "parentUuid": "081608f6_6365fdd5",
+      "range": {
+        "startLine": 189,
+        "startChar": 0,
+        "endLine": 189,
+        "endChar": 48
+      },
+      "revId": "d19783e2c5576e499e302f17b6efc714e13f545d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
