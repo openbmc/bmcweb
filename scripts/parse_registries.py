@@ -54,7 +54,7 @@ def clang_format(filename):
 
 
 files = []
-files.append(make_getter('Base.1.10.0.json',
+files.append(make_getter('Base.1.11.0.json',
                          'base_message_registry.hpp',
                          'base'))
 files.append(make_getter('TaskEvent.1.0.3.json',
