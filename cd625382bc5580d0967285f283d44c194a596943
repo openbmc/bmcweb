@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "9bdcb167_e9eb3187",
+        "filename": "redfish-core/lib/network_protocol.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-09-23T15:47:29Z",
+      "side": 1,
+      "message": "ProtocolEnabled is set to false here.",
+      "range": {
+        "startLine": 130,
+        "startChar": 0,
+        "endLine": 130,
+        "endChar": 76
+      },
+      "revId": "cd625382bc5580d0967285f283d44c194a596943",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "32f994bf_015f78d2",
         "filename": "redfish-core/lib/network_protocol.hpp",
         "patchSetId": 4
@@ -37,6 +60,30 @@
       "side": 1,
       "message": "+1",
       "parentUuid": "32f994bf_015f78d2",
+      "range": {
+        "startLine": 190,
+        "startChar": 20,
+        "endLine": 190,
+        "endChar": 27
+      },
+      "revId": "cd625382bc5580d0967285f283d44c194a596943",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2d1a9ba2_19c84660",
+        "filename": "redfish-core/lib/network_protocol.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 190,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-09-23T15:47:29Z",
+      "side": 1,
+      "message": "\u003e +1\n\nI believe this is already present in the code.  See the other comment for where ProtocolEnabled is already set to false, so does not need to be set again here.",
+      "parentUuid": "cd593831_78866b84",
       "range": {
         "startLine": 190,
         "startChar": 20,
