@@ -256,16 +256,12 @@ static bool isOnWhitelist(std::string_view url, boost::beast::http::verb method)
 }
 
 static std::shared_ptr<persistent_data::UserSession> authenticate(
-    std::string_view url, boost::asio::ip::address& ipAddress [[maybe_unused]],
-    Response& res, boost::beast::http::verb method,
+    boost::asio::ip::address& ipAddress [[maybe_unused]], Response& res,
+    boost::beast::http::verb method,
     const boost::beast::http::header<true>& reqHeader,
     [[maybe_unused]] const std::shared_ptr<persistent_data::UserSession>&
         session)
 {
-    if (isOnWhitelist(url, method))
-    {
-        return nullptr;
-    }
     const persistent_data::AuthConfigMethods& authMethodsConfig =
         persistent_data::SessionStore::getInstance().getAuthMethodsConfig();
 
@@ -308,10 +304,6 @@ static std::shared_ptr<persistent_data::UserSession> authenticate(
         return sessionOut;
     }
 
-    BMCWEB_LOG_WARNING << "[AuthMiddleware] authorization failed";
-    forward_unauthorized::sendUnauthorized(url, reqHeader["User-Agent"],
-                                           reqHeader["accept"], res);
-    res.end();
     return nullptr;
 }
 
