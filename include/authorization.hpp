@@ -223,7 +223,7 @@ static std::shared_ptr<persistent_data::UserSession>
 #endif
 
 // checks if request can be forwarded without authentication
-static bool isOnWhitelist(std::string_view url, boost::beast::http::verb method)
+static bool isOnAllowlist(std::string_view url, boost::beast::http::verb method)
 {
     if (boost::beast::http::verb::get == method)
     {
