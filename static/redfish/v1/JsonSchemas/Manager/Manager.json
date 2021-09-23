@@ -1,5 +1,5 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/Manager.v1_12_0.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/Manager.v1_13_0.json",
     "$ref": "#/definitions/Manager",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
     "copyright": "Copyright 2014-2021 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
@@ -356,15 +356,22 @@
                     "type": "boolean",
                     "versionAdded": "v1_4_0"
                 },
+                "Certificates": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/CertificateCollection.json#/definitions/CertificateCollection",
+                    "description": "The link to a collection of certificates for device identity and attestation.",
+                    "longDescription": "This property shall contain a link to a resource collection of type CertificateCollection that contains certificates for device identity and attestation.",
+                    "readonly": true,
+                    "versionAdded": "v1_13_0"
+                },
                 "CommandShell": {
                     "$ref": "#/definitions/CommandShell",
                     "description": "The command shell service that this manager provides.",
                     "longDescription": "This property shall contain information about the command shell service of this manager."
                 },
                 "DateTime": {
-                    "description": "The current date and time with UTC offset that the manager uses to set or read time.",
+                    "description": "The current date and time with UTC offset of the manager.",
                     "format": "date-time",
-                    "longDescription": "This property shall represent the current DateTime value for the manager, with UTC offset, in Redfish Timestamp format.",
+                    "longDescription": "This property shall contain the current date and time with UTC offset of the manager.",
                     "readonly": false,
                     "type": [
                         "string",
@@ -373,7 +380,7 @@
                 },
                 "DateTimeLocalOffset": {
                     "description": "The time offset from UTC that the DateTime property is in `+HH:MM` format.",
-                    "longDescription": "This property shall represent the offset from UTC time that the current DateTime property contains.",
+                    "longDescription": "This property shall contain the offset from UTC time that the DateTime property contains.  If both DateTime and DateTimeLocalOffset are provided in modification requests, services shall apply DateTimeLocalOffset after DateTime is applied.",
                     "pattern": "^([-+][0-1][0-9]:[0-5][0-9])$",
                     "readonly": false,
                     "type": [
@@ -473,6 +480,15 @@
                         "null"
                     ],
                     "versionAdded": "v1_7_0"
+                },
+                "Measurements": {
+                    "description": "An array of DSP0274-defined measurement blocks.",
+                    "items": {
+                        "$ref": "http://redfish.dmtf.org/schemas/v1/SoftwareInventory.json#/definitions/MeasurementBlock"
+                    },
+                    "longDescription": "This property shall contain an array of DSP0274-defined measurement blocks.",
+                    "type": "array",
+                    "versionAdded": "v1_13_0"
                 },
                 "Model": {
                     "description": "The model information of this manager, as defined by the manufacturer.",
@@ -924,6 +940,6 @@
         }
     },
     "owningEntity": "DMTF",
-    "release": "2021.1",
-    "title": "#Manager.v1_12_0.Manager"
+    "release": "2021.2",
+    "title": "#Manager.v1_13_0.Manager"
 }

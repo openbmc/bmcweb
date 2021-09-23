@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################                   -->
-<!--# Redfish Schema:  Drive v1.12.1                                                                   -->
+<!--# Redfish Schema:  Drive v1.13.0                                                                   -->
 <!--#                                                                                                  -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,                  -->
 <!--# available at http://www.dmtf.org/standards/redfish                                               -->
@@ -59,6 +59,9 @@
   </edmx:Reference>
   <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/SoftwareInventory_v1.xml">
     <edmx:Include Namespace="SoftwareInventory"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/Storage_v1.xml">
+    <edmx:Include Namespace="Storage"/>
   </edmx:Reference>
 
   <edmx:DataServices>
@@ -226,8 +229,8 @@
           </Annotation>
         </Property>
         <Property Name="HotspareType" Type="Drive.v1_0_0.HotspareType">
-          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="The type of hot spare that this drive currently serves as."/>
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The type of hot spare that this drive serves as."/>
           <Annotation Term="OData.LongDescription" String="This property shall contain the hot spare type for the associated drive.  If the drive currently serves as a hot spare, its Status.State field shall be 'StandbySpare' and 'Enabled' when it is part of a volume."/>
         </Property>
         <Property Name="EncryptionAbility" Type="Drive.v1_0_0.EncryptionAbility">
@@ -321,16 +324,16 @@
 
       <EnumType Name="HotspareType">
         <Member Name="None">
-          <Annotation Term="OData.Description" String="The drive is not currently a hot spare."/>
+          <Annotation Term="OData.Description" String="The drive is not a hot spare."/>
         </Member>
         <Member Name="Global">
-          <Annotation Term="OData.Description" String="The drive is currently serving as a hot spare for all other drives in the storage system."/>
+          <Annotation Term="OData.Description" String="The drive is serving as a hot spare for all other drives in this storage domain."/>
         </Member>
         <Member Name="Chassis">
-          <Annotation Term="OData.Description" String="The drive is currently serving as a hot spare for all other drives in the chassis."/>
+          <Annotation Term="OData.Description" String="The drive is serving as a hot spare for all other drives in this storage domain that are contained in the same chassis."/>
         </Member>
         <Member Name="Dedicated">
-          <Annotation Term="OData.Description" String="The drive is currently serving as a hot spare for a user-defined set of drives."/>
+          <Annotation Term="OData.Description" String="The drive is serving as a hot spare for a user-defined set of drives or volumes.  Clients cannot specify this value when modifying the HotspareType property.  This value is reported as a result of configuring the spare drives within a volume."/>
         </Member>
       </EnumType>
 
@@ -478,6 +481,12 @@
       <EntityType Name="Drive" BaseType="Drive.v1_0_11.Drive"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Drive.v1_0_13">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to change the permissions for HotspareType to read-write."/>
+      <EntityType Name="Drive" BaseType="Drive.v1_0_12.Drive"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Drive.v1_1_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2016.2"/>
@@ -587,6 +596,12 @@
       <EntityType Name="Drive" BaseType="Drive.v1_1_10.Drive"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Drive.v1_1_12">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to change the permissions for HotspareType to read-write."/>
+      <EntityType Name="Drive" BaseType="Drive.v1_1_11.Drive"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Drive.v1_2_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2017.1"/>
@@ -657,6 +672,12 @@
       <EntityType Name="Drive" BaseType="Drive.v1_2_8.Drive"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Drive.v1_2_10">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to change the permissions for HotspareType to read-write."/>
+      <EntityType Name="Drive" BaseType="Drive.v1_2_9.Drive"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Drive.v1_3_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2017.3"/>
@@ -719,6 +740,12 @@
       <EntityType Name="Drive" BaseType="Drive.v1_3_7.Drive"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Drive.v1_3_9">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to change the permissions for HotspareType to read-write."/>
+      <EntityType Name="Drive" BaseType="Drive.v1_3_8.Drive"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Drive.v1_4_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2018.1"/>
@@ -777,6 +804,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct various description to use proper normative terminology."/>
       <EntityType Name="Drive" BaseType="Drive.v1_4_7.Drive"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Drive.v1_4_9">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to change the permissions for HotspareType to read-write."/>
+      <EntityType Name="Drive" BaseType="Drive.v1_4_8.Drive"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Drive.v1_5_0">
@@ -843,6 +876,12 @@
       <EntityType Name="Drive" BaseType="Drive.v1_5_6.Drive"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Drive.v1_5_8">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to change the permissions for HotspareType to read-write."/>
+      <EntityType Name="Drive" BaseType="Drive.v1_5_7.Drive"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Drive.v1_6_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2019.1"/>
@@ -888,6 +927,12 @@
       <EntityType Name="Drive" BaseType="Drive.v1_6_4.Drive"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Drive.v1_6_6">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to change the permissions for HotspareType to read-write."/>
+      <EntityType Name="Drive" BaseType="Drive.v1_6_5.Drive"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Drive.v1_7_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2019.2"/>
@@ -924,6 +969,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct various description to use proper normative terminology."/>
       <EntityType Name="Drive" BaseType="Drive.v1_7_3.Drive"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Drive.v1_7_5">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to change the permissions for HotspareType to read-write."/>
+      <EntityType Name="Drive" BaseType="Drive.v1_7_4.Drive"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Drive.v1_8_0">
@@ -966,6 +1017,12 @@
       <EntityType Name="Drive" BaseType="Drive.v1_8_3.Drive"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Drive.v1_8_5">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to change the permissions for HotspareType to read-write."/>
+      <EntityType Name="Drive" BaseType="Drive.v1_8_4.Drive"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Drive.v1_9_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2019.4"/>
@@ -1004,6 +1061,12 @@
       <EntityType Name="Drive" BaseType="Drive.v1_9_3.Drive"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Drive.v1_9_5">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to change the permissions for HotspareType to read-write."/>
+      <EntityType Name="Drive" BaseType="Drive.v1_9_4.Drive"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Drive.v1_10_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2020.2"/>
@@ -1030,6 +1093,12 @@
       <EntityType Name="Drive" BaseType="Drive.v1_10_1.Drive"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Drive.v1_10_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to change the permissions for HotspareType to read-write."/>
+      <EntityType Name="Drive" BaseType="Drive.v1_10_2.Drive"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Drive.v1_11_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2020.3"/>
@@ -1054,6 +1123,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct various description to use proper normative terminology."/>
       <EntityType Name="Drive" BaseType="Drive.v1_11_1.Drive"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Drive.v1_11_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to change the permissions for HotspareType to read-write."/>
+      <EntityType Name="Drive" BaseType="Drive.v1_11_2.Drive"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Drive.v1_12_0">
@@ -1085,6 +1160,28 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct various description to use proper normative terminology."/>
       <EntityType Name="Drive" BaseType="Drive.v1_12_0.Drive"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Drive.v1_12_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to change the permissions for HotspareType to read-write."/>
+      <EntityType Name="Drive" BaseType="Drive.v1_12_1.Drive"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Drive.v1_13_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2021.2"/>
+
+      <EntityType Name="Drive" BaseType="Drive.v1_12_2.Drive"/>
+
+      <ComplexType Name="Links" BaseType="Drive.v1_8_0.Links">
+        <NavigationProperty Name="Storage" Type="Storage.Storage" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="A link to the storage subsystem to which this drive belongs."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource of type Storage that represents the storage subsystem to which this drive belongs."/>
+          <Annotation Term="OData.AutoExpandReferences"/>
+        </NavigationProperty>
+      </ComplexType>
     </Schema>
 
   </edmx:DataServices>

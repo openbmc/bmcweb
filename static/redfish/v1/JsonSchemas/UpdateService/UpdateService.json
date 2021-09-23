@@ -1,5 +1,5 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/UpdateService.v1_9_0.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/UpdateService.v1_10_0.json",
     "$ref": "#/definitions/UpdateService",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
     "copyright": "Copyright 2014-2021 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
@@ -367,6 +367,13 @@
                     "description": "The available actions for this resource.",
                     "longDescription": "This property shall contain the available actions for this resource."
                 },
+                "ClientCertificates": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/CertificateCollection.json#/definitions/CertificateCollection",
+                    "description": "The link to a collection of client identity certificates provided to the server referenced by the ImageURI property in SimpleUpdate.",
+                    "longDescription": "This property shall contain a link to a resource collection of type CertificateCollection that represents the client identity certificates that are provided to the server referenced by the ImageURI property in SimpleUpdate as part of TLS handshaking.",
+                    "readonly": true,
+                    "versionAdded": "v1_10_0"
+                },
                 "Description": {
                     "anyOf": [
                         {
@@ -512,6 +519,6 @@
         }
     },
     "owningEntity": "DMTF",
-    "release": "2021.1",
-    "title": "#UpdateService.v1_9_0.UpdateService"
+    "release": "2021.2",
+    "title": "#UpdateService.v1_10_0.UpdateService"
 }

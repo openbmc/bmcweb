@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  ActionInfo v1.1.2                                                   -->
+<!--# Redfish Schema:  ActionInfo v1.2.0                                                   -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -30,8 +30,8 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
 
       <EntityType Name="ActionInfo" BaseType="Resource.v1_0_0.Resource" Abstract="true">
-        <Annotation Term="OData.Description" String="The ActionInfo schema defines the supported parameters and other information for a Redfish action.  Supported parameters can differ among vendors and even among Resource instances.  This data can ensure that action requests from applications contain supported parameters."/>
-        <Annotation Term="OData.LongDescription" String="This Resource shall represent the supported parameters and other information for a Redfish action on a target within a Redfish implementation.  Supported parameters can differ among vendors and even among Resource instances.  This data can ensure that action requests from applications contain supported parameters."/>
+        <Annotation Term="OData.Description" String="The ActionInfo schema defines the supported parameters and other information for a Redfish action.  Supported parameters can differ among vendors and even among resource instances.  This data can ensure that action requests from applications contain supported parameters."/>
+        <Annotation Term="OData.LongDescription" String="This resource shall represent the supported parameters and other information for a Redfish action on a target within a Redfish implementation.  Supported parameters can differ among vendors and even among resource instances.  This data can ensure that action requests from applications contain supported parameters."/>
         <Annotation Term="Capabilities.InsertRestrictions">
           <Record>
             <PropertyValue Property="Insertable" Bool="false"/>
@@ -48,7 +48,6 @@
           </Record>
         </Annotation>
       </EntityType>
-
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ActionInfo.v1_0_0">
@@ -58,14 +57,14 @@
       <EntityType Name="ActionInfo" BaseType="ActionInfo.ActionInfo">
         <Property Name="Parameters" Type="Collection(ActionInfo.v1_0_0.Parameters)" Nullable="false">
           <Annotation Term="OData.Description" String="The list of parameters included in the specified Redfish action."/>
-          <Annotation Term="OData.LongDescription" String="This property shall list the parameters included in the specified Redfish action for this Resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall list the parameters included in the specified Redfish action for this resource."/>
         </Property>
       </EntityType>
 
       <ComplexType Name="Parameters">
         <Annotation Term="OData.AdditionalProperties" Bool="false"/>
-        <Annotation Term="OData.Description" String="The information about a parameter included in a Redfish action for this Resource."/>
-        <Annotation Term="OData.LongDescription" String="This property shall contain information about a parameter included in a Redfish Action for this Resource."/>
+        <Annotation Term="OData.Description" String="The information about a parameter included in a Redfish action for this resource."/>
+        <Annotation Term="OData.LongDescription" String="This property shall contain information about a parameter included in a Redfish action for this resource."/>
         <Property Name="Name" Type="Edm.String" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description"  String="The name of the parameter for this action."/>
@@ -90,7 +89,7 @@
         <Property Name="AllowableValues" Type="Collection(Edm.String)">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The allowable values for this parameter as applied to this action target."/>
-          <Annotation Term="OData.LongDescription" String="This property shall indicate the allowable values for this parameter as applied to this action target."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate the allowable values for this parameter as applied to this action target.  For arrays, this property shall represent the allowable values for each array member."/>
         </Property>
       </ComplexType>
 
@@ -117,12 +116,11 @@
           <Annotation Term="OData.Description" String="An array of JSON objects."/>
         </Member>
       </EnumType>
-
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ActionInfo.v1_0_1">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to add explicit Permissions annotations to all properties for clarity."/>
+      <Annotation Term="OData.Description" String="This version was created to add explicit permissions annotations to all properties for clarity."/>
       <EntityType Name="ActionInfo" BaseType="ActionInfo.v1_0_0.ActionInfo"/>
     </Schema>
 
@@ -156,22 +154,29 @@
       <EntityType Name="ActionInfo" BaseType="ActionInfo.v1_0_5.ActionInfo"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ActionInfo.v1_0_7">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the behavior of AllowableValues for array parameters."/>
+      <EntityType Name="ActionInfo" BaseType="ActionInfo.v1_0_6.ActionInfo"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ActionInfo.v1_1_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2018.2"/>
       <Annotation Term="OData.Description" String="This version was created to add properties to specify parameter minimum and maximum values."/>
+
       <EntityType Name="ActionInfo" BaseType="ActionInfo.v1_0_4.ActionInfo"/>
 
       <ComplexType Name="Parameters" BaseType="ActionInfo.v1_0_0.Parameters">
         <Property Name="MinimumValue" Type="Edm.Decimal">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The minimum supported value for this parameter."/>
-          <Annotation Term="OData.LongDescription" String="This integer or number property shall contain the minimum value that this service supports.  This property shall not be present for parameters that are of types other than integer or number."/>
+          <Annotation Term="OData.LongDescription" String="This integer or number property shall contain the minimum value that this service supports.  For arrays, this property shall represent the minimum value for each array member.  This property shall not be present for non-integer or number parameters."/>
         </Property>
         <Property Name="MaximumValue" Type="Edm.Decimal">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The maximum supported value for this parameter."/>
-          <Annotation Term="OData.LongDescription" String="This integer or number property shall contain the maximum value that this service supports.  This property shall not be present for non-integer or number parameters."/>
+          <Annotation Term="OData.LongDescription" String="This integer or number property shall contain the maximum value that this service supports.  For arrays, this property shall represent the maximum value for each array member.  This property shall not be present for non-integer or number parameters."/>
         </Property>
       </ComplexType>
     </Schema>
@@ -186,6 +191,32 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to update descriptions that this schema defines."/>
       <EntityType Name="ActionInfo" BaseType="ActionInfo.v1_1_1.ActionInfo"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ActionInfo.v1_1_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the behavior of AllowableValues, MinimumValue, and MaximumValue for array parameters."/>
+      <EntityType Name="ActionInfo" BaseType="ActionInfo.v1_1_2.ActionInfo"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ActionInfo.v1_2_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2021.2"/>
+
+      <EntityType Name="ActionInfo" BaseType="ActionInfo.v1_1_3.ActionInfo"/>
+
+      <ComplexType Name="Parameters" BaseType="ActionInfo.v1_1_0.Parameters">
+        <Property Name="ArraySizeMinimum" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The minimum number of array elements required for this parameter."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the minimum number of array elements required by this service for this parameter.  This property shall not be present for non-array parameters."/>
+        </Property>
+        <Property Name="ArraySizeMaximum" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The maximum number of array elements allowed for this parameter."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the maximum number of array elements that this service supports for this parameter.  This property shall not be present for non-array parameters."/>
+        </Property>
+      </ComplexType>
     </Schema>
 
   </edmx:DataServices>

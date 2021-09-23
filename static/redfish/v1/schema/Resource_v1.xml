@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  Resource v1.12.0                                                    -->
+<!--# Redfish Schema:  Resource v1.13.0                                                    -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -30,18 +30,18 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
 
       <TypeDefinition Name="Id" UnderlyingType="Edm.String">
-        <Annotation Term="OData.Description" String="The identifier that uniquely identifies the resource within the collection of similar resources."/>
-        <Annotation Term="OData.LongDescription" String="This property represents an identifier for the resource.  The resource values shall comply with the Redfish Specification-described requirements."/>
+        <Annotation Term="OData.Description" String="The unique identifier for this resource within the collection of similar resources."/>
+        <Annotation Term="OData.LongDescription" String="This property shall contain the identifier for this resource.  The value shall conform with the 'Id' clause of the Redfish Specification."/>
       </TypeDefinition>
 
       <TypeDefinition Name="Description" UnderlyingType="Edm.String">
         <Annotation Term="OData.Description" String="The description of this resource.  Used for commonality in the schema definitions."/>
-        <Annotation Term="OData.LongDescription" String="This object represents the description of this resource.  The resource values shall comply with the Redfish Specification-described requirements."/>
+        <Annotation Term="OData.LongDescription" String="This property shall contain the description of this resource.  The value shall conform with the 'Description' clause of the Redfish Specification."/>
       </TypeDefinition>
 
       <TypeDefinition Name="Name" UnderlyingType="Edm.String">
         <Annotation Term="OData.Description"  String="The name of the resource or array member."/>
-        <Annotation Term="OData.LongDescription" String="This object represents the name of this resource or array member.  The resource values shall comply with the Redfish Specification-described requirements.  This string value shall be of the 'Name' reserved word format."/>
+        <Annotation Term="OData.LongDescription" String="This property shall contain the name of this resource or array member.  The value shall conform with the 'Name' clause of the Redfish Specification."/>
       </TypeDefinition>
 
       <TypeDefinition Name="UUID" UnderlyingType="Edm.Guid"/>
@@ -310,6 +310,42 @@
             </Collection>
           </Annotation>
         </Member>
+        <Member Name="Suspend">
+          <Annotation Term="OData.Description" String="Write the state of the unit to disk before powering off.  This allows for the state to be restored when powered back on."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the resource will have any state information written to persistent memory and then transition to a power off state.  Upon successful completion, the PowerState property, if supported, shall contain the value `Off`."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="v1_13_0"/>
+              </Record>
+            </Collection>
+          </Annotation>
+        </Member>
+        <Member Name="Pause">
+          <Annotation Term="OData.Description" String="Pause execution on the unit but do not remove power.  This is typically a feature of virtual machine hypervisors."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the resource will transition to a paused state.  Upon successful completion, the PowerState property, if supported, shall contain the value `Paused`."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="v1_13_0"/>
+              </Record>
+            </Collection>
+          </Annotation>
+        </Member>
+        <Member Name="Resume">
+          <Annotation Term="OData.Description" String="Resume execution on the paused unit.  This is typically a feature of virtual machine hypervisors."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the resource will transition to a power on state.  Upon successful completion, the PowerState property, if supported, shall contain the value `On`."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="v1_13_0"/>
+              </Record>
+            </Collection>
+          </Annotation>
+        </Member>
       </EnumType>
 
       <ComplexType Name="Identifier" Abstract="true">
@@ -352,6 +388,17 @@
         <Member Name="PoweringOff">
           <Annotation Term="OData.Description" String="A temporary state between on and off."/>
         </Member>
+        <Member Name="Paused">
+          <Annotation Term="OData.Description" String="The state is paused."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="v1_13_0"/>
+              </Record>
+            </Collection>
+          </Annotation>
+        </Member>
       </EnumType>
     </Schema>
 
@@ -367,8 +414,8 @@
         </Key>
         <Property Name="MemberId" Nullable="false" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="The identifier for the member within the collection."/>
-          <Annotation Term="OData.LongDescription" String="This property shall uniquely identify the member within the collection.  For services supporting Redfish v1.6 or higher, this value shall contain the zero-based array index."/>
+          <Annotation Term="OData.Description" String="The unique identifier for the member within an array."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the unique identifier for this member within an array.  For services supporting Redfish v1.6 or higher, this value shall contain the zero-based array index."/>
           <Annotation Term="Redfish.Required"/>
         </Property>
       </EntityType>
@@ -462,6 +509,11 @@
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_0_12">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct various description to use proper normative terminology."/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_0_13">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the descriptions for Id, Name, Description, and MemberId to be consistent with usage in the specification."/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_1_0">
@@ -646,6 +698,11 @@
       <Annotation Term="OData.Description" String="This version was created to add formats to the different durable name types.  It was also created to correct various description to use proper normative terminology."/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_1_14">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the descriptions for Id, Name, Description, and MemberId to be consistent with usage in the specification."/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_2_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2016.2"/>
@@ -710,6 +767,11 @@
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_2_12">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to add formats to the different durable name types.  It was also created to correct various description to use proper normative terminology."/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_2_13">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the descriptions for Id, Name, Description, and MemberId to be consistent with usage in the specification."/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_3_0">
@@ -1006,6 +1068,11 @@
       <Annotation Term="OData.Description" String="This version was created to add formats to the different durable name types.  It was also created to correct various description to use proper normative terminology."/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_3_12">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the descriptions for Id, Name, Description, and MemberId to be consistent with usage in the specification."/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_4_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2017.1"/>
@@ -1062,6 +1129,11 @@
       <Annotation Term="OData.Description" String="This version was created to add formats to the different durable name types.  It was also created to correct various description to use proper normative terminology."/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_4_11">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the descriptions for Id, Name, Description, and MemberId to be consistent with usage in the specification."/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_5_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2017.2"/>
@@ -1094,6 +1166,18 @@
               <Record>
                 <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
                 <PropertyValue Property="Version" String="v1_12_0"/>
+              </Record>
+            </Collection>
+          </Annotation>
+        </Member>
+        <Member Name="Embedded">
+          <Annotation Term="OData.Description" String="Embedded within a part."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the part is embedded or otherwise permanently incorporated into a larger part or device.  This value shall not be used for parts that can be removed by a user or are considered field-replaceable."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="v1_13_0"/>
               </Record>
             </Collection>
           </Annotation>
@@ -1172,8 +1256,8 @@
         </Property>
         <Property Name="LocationType" Type="Resource.v1_5_0.LocationType">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="The type of location of the part, such as slot, bay, socket, or slot."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the type of location of the part, such as slot, bay, socket, or slot."/>
+          <Annotation Term="OData.Description" String="The type of location of the part."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the type of location of the part."/>
         </Property>
         <Property Name="LocationOrdinalValue" Type="Edm.Int64" DefaultValue="0">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
@@ -1245,6 +1329,11 @@
       <Annotation Term="OData.Description" String="This version was created to add formats to the different durable name types.  It was also created to correct various description to use proper normative terminology.  It was also created to clarify the usage of LocationType within PartLocation."/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_5_10">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct the description for LocationType within PartLocation.  It was also created to clarify the descriptions for Id, Name, Description, and MemberId to be consistent with usage in the specification."/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_6_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2017.3"/>
@@ -1310,6 +1399,11 @@
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_6_8">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to add formats to the different durable name types.  It was also created to correct various description to use proper normative terminology.  It was also created to clarify the usage of LocationType within PartLocation."/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_6_9">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct the description for LocationType within PartLocation.  It was also created to clarify the descriptions for Id, Name, Description, and MemberId to be consistent with usage in the specification."/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_7_0">
@@ -1396,6 +1490,11 @@
       <Annotation Term="OData.Description" String="This version was created to add formats to the different durable name types.  It was also created to correct various description to use proper normative terminology.  It was also created to clarify the usage of LocationType within PartLocation."/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_7_8">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct the description for LocationType within PartLocation.  It was also created to clarify the descriptions for Id, Name, Description, and MemberId to be consistent with usage in the specification."/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_8_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2018.3"/>
@@ -1437,6 +1536,11 @@
       <Annotation Term="OData.Description" String="This version was created to add formats to the different durable name types.  It was also created to correct various description to use proper normative terminology.  It was also created to clarify the usage of LocationType within PartLocation."/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_8_8">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct the description for LocationType within PartLocation.  It was also created to clarify the descriptions for Id, Name, Description, and MemberId to be consistent with usage in the specification."/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_9_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2019.4"/>
@@ -1468,6 +1572,11 @@
       <Annotation Term="OData.Description" String="This version was created to add formats to the different durable name types.  It was also created to correct various description to use proper normative terminology.  It was also created to clarify the usage of LocationType within PartLocation."/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_9_6">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct the description for LocationType within PartLocation.  It was also created to clarify the descriptions for Id, Name, Description, and MemberId to be consistent with usage in the specification."/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_10_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2020.3"/>
@@ -1484,6 +1593,11 @@
       <Annotation Term="OData.Description" String="This version was created to add formats to the different durable name types.  It was also created to correct various description to use proper normative terminology.  It was also created to clarify the usage of LocationType within PartLocation."/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_10_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct the description for LocationType within PartLocation.  It was also created to clarify the descriptions for Id, Name, Description, and MemberId to be consistent with usage in the specification."/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_11_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2020.4"/>
@@ -1495,10 +1609,26 @@
       <Annotation Term="OData.Description" String="This version was created to add formats to the different durable name types.  It was also created to correct various description to use proper normative terminology.  It was also created to clarify the usage of LocationType within PartLocation."/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_11_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct the description for LocationType within PartLocation.  It was also created to clarify the descriptions for Id, Name, Description, and MemberId to be consistent with usage in the specification."/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_12_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2021.1"/>
       <Annotation Term="OData.Description" String="This version was created to deprecate the `NSID` enumeration from Identifiers.  It was also created to add `Backplane` to LocationType within PartLocation."/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_12_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct the description for LocationType within PartLocation.  It was also created to clarify the descriptions for Id, Name, Description, and MemberId to be consistent with usage in the specification."/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_13_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2021.2"/>
+      <Annotation Term="OData.Description" String="This version was created to add `Embedded` to LocationType within PartLocation.  It was also to add the `Pause`, `Resume`, and `Suspend` enumerations to ResetType.  It was also created to add `Paused` to PowerState."/>
     </Schema>
 
   </edmx:DataServices>

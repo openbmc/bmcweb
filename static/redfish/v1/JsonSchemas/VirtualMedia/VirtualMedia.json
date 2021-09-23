@@ -1,13 +1,13 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/VirtualMedia.v1_4_0.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/VirtualMedia.v1_5_0.json",
     "$ref": "#/definitions/VirtualMedia",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
     "copyright": "Copyright 2014-2021 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
     "definitions": {
         "Actions": {
             "additionalProperties": false,
-            "description": "The available actions for this Resource.",
-            "longDescription": "This type shall contain the available actions for this Resource.",
+            "description": "The available actions for this resource.",
+            "longDescription": "This type shall contain the available actions for this resource.",
             "patternProperties": {
                 "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
@@ -31,8 +31,8 @@
                 },
                 "Oem": {
                     "$ref": "#/definitions/OemActions",
-                    "description": "The available OEM-specific actions for this Resource.",
-                    "longDescription": "This property shall contain the available OEM-specific actions for this Resource.",
+                    "description": "The available OEM-specific actions for this resource.",
+                    "longDescription": "This property shall contain the available OEM-specific actions for this resource.",
                     "versionAdded": "v1_1_0"
                 }
             },
@@ -92,43 +92,43 @@
             "longDescription": "This action shall attach remote media to virtual media.",
             "parameters": {
                 "Image": {
-                    "description": "The URI of the remote media to attach to the virtual media.",
-                    "longDescription": "This parameter shall specify the URI of the remote media to be attached to the virtual media.",
+                    "description": "The URI of the media to attach to the virtual media.",
+                    "longDescription": "This parameter shall contain the URI of the media to be attached to the virtual media.  This parameter may specify an absolute URI to remote media or a relative URI to media local to the implementation.  A service may allow a relative URI to reference a SoftwareInventory resource.",
                     "requiredParameter": true,
                     "type": "string"
                 },
                 "Inserted": {
                     "description": "An indication of whether the image is treated as inserted upon completion of the action.  The default is `true`.",
-                    "longDescription": "This parameter shall indicate whether the image is treated as inserted upon completion of the action.  If the client does not provide this parameter, the service shall default this value to `true`.",
+                    "longDescription": "This parameter shall contain whether the image is treated as inserted upon completion of the action.  If the client does not provide this parameter, the service shall default this value to `true`.",
                     "type": "boolean"
                 },
                 "Password": {
-                    "description": "The password to access the Image parameter-specified URI.",
-                    "longDescription": "This parameter shall represent the password to access the Image parameter-specified URI.",
+                    "description": "The password to access the URI specified by the Image parameter.",
+                    "longDescription": "This parameter shall contain the password to access the URI specified by the Image parameter.",
                     "type": "string",
                     "versionAdded": "v1_3_0"
                 },
                 "TransferMethod": {
                     "$ref": "#/definitions/TransferMethod",
-                    "description": "The transfer method to use with the Image.",
-                    "longDescription": "This parameter shall describe how the image transfer occurs.",
+                    "description": "The transfer method to use with the image.",
+                    "longDescription": "This parameter shall contain the transfer method to use with the specified image URI.",
                     "versionAdded": "v1_3_0"
                 },
                 "TransferProtocolType": {
                     "$ref": "#/definitions/TransferProtocolType",
                     "description": "The network protocol to use with the image.",
-                    "longDescription": "This parameter shall represent the network protocol to use with the specified image URI.",
+                    "longDescription": "This parameter shall contain the network protocol to use with the specified image URI.",
                     "versionAdded": "v1_3_0"
                 },
                 "UserName": {
-                    "description": "The user name to access the Image parameter-specified URI.",
-                    "longDescription": "This parameter shall contain the user name to access the Image parameter-specified URI.",
+                    "description": "The username to access the URI specified by the Image parameter.",
+                    "longDescription": "This parameter shall contain the username to access the URI specified by the Image parameter.",
                     "type": "string",
                     "versionAdded": "v1_3_0"
                 },
                 "WriteProtected": {
                     "description": "An indication of whether the remote media is treated as write-protected.  The default is `true`.",
-                    "longDescription": "This parameter shall indicate whether the remote media is treated as write-protected.  If the client does not provide this parameter, the service shall default this value to `true`.",
+                    "longDescription": "This parameter shall contain whether the remote media is treated as write-protected.  If the client does not provide this parameter, the service shall default this value to `true`.",
                     "type": "boolean"
                 }
             },
@@ -177,8 +177,8 @@
         },
         "OemActions": {
             "additionalProperties": true,
-            "description": "The available OEM-specific actions for this Resource.",
-            "longDescription": "This type shall contain the available OEM-specific actions for this Resource.",
+            "description": "The available OEM-specific actions for this resource.",
+            "longDescription": "This type shall contain the available OEM-specific actions for this resource.",
             "patternProperties": {
                 "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
@@ -235,7 +235,7 @@
         "VirtualMedia": {
             "additionalProperties": false,
             "description": "The VirtualMedia schema contains properties related to the monitor and control of an instance of virtual media, such as a remote CD, DVD, or USB device.  A manager for a system or device provides virtual media functionality.",
-            "longDescription": "This Resource shall represent a virtual media service for a Redfish implementation.",
+            "longDescription": "This resource shall represent a virtual media service for a Redfish implementation.",
             "patternProperties": {
                 "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
@@ -265,8 +265,8 @@
                 },
                 "Actions": {
                     "$ref": "#/definitions/Actions",
-                    "description": "The available actions for this Resource.",
-                    "longDescription": "This property shall contain the available actions for this Resource.",
+                    "description": "The available actions for this resource.",
+                    "longDescription": "This property shall contain the available actions for this resource.",
                     "versionAdded": "v1_1_0"
                 },
                 "Certificates": {
@@ -275,6 +275,13 @@
                     "longDescription": "This property shall contain a link to a resource collection of type CertificateCollection that represents the server certificates for the server referenced by the Image property.  If VerifyCertificate is `true`, services shall compare the certificates in this collection with the certificate obtained during handshaking with the image server in order to verify the identify of the image server prior to completing the remote media connection.  If the server cannot be verified, the service shall not complete the remote media connection.  If VerifyCertificate is `false`, the service shall not perform certificate verification.",
                     "readonly": true,
                     "versionAdded": "v1_4_0"
+                },
+                "ClientCertificates": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/CertificateCollection.json#/definitions/CertificateCollection",
+                    "description": "The link to a collection of client identity certificates provided to the server referenced by the Image property.",
+                    "longDescription": "This property shall contain a link to a resource collection of type CertificateCollection that represents the client identity certificates that are provided to the server referenced by the Image property as part of TLS handshaking.",
+                    "readonly": true,
+                    "versionAdded": "v1_5_0"
                 },
                 "ConnectedVia": {
                     "anyOf": [
@@ -286,7 +293,7 @@
                         }
                     ],
                     "description": "The current virtual media connection method.",
-                    "longDescription": "This property shall contain the current connection method from a client to the virtual media that this Resource represents.",
+                    "longDescription": "This property shall contain the current connection method from a client to the virtual media that this resource represents.",
                     "readonly": true
                 },
                 "Description": {
@@ -307,7 +314,7 @@
                 "Image": {
                     "description": "The URI of the location of the selected image.",
                     "format": "uri-reference",
-                    "longDescription": "This property shall contain an URI.  A null value indicated no image connection.",
+                    "longDescription": "This property shall contain the URI of the media attached to the virtual media.  This value may specify an absolute URI to remote media or a relative URI to media local to the implementation.  A service may allow a relative URI to reference a SoftwareInventory resource.  The value `null` shall indicates no image connection.",
                     "readonly": false,
                     "type": [
                         "string",
@@ -337,7 +344,7 @@
                     "items": {
                         "$ref": "#/definitions/MediaType"
                     },
-                    "longDescription": "The values of this array shall be the supported media types for this connection.",
+                    "longDescription": "This property shall contain an array of the supported media types for this connection.",
                     "readonly": true,
                     "type": "array"
                 },
@@ -434,6 +441,6 @@
         }
     },
     "owningEntity": "DMTF",
-    "release": "2021.1",
-    "title": "#VirtualMedia.v1_4_0.VirtualMedia"
+    "release": "2021.2",
+    "title": "#VirtualMedia.v1_5_0.VirtualMedia"
 }

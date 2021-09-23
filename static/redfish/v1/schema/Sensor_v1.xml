@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  Sensor v1.3.0                                                       -->
+<!--# Redfish Schema:  Sensor v1.4.0                                                       -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -30,6 +30,12 @@
   </edmx:Reference>
   <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/PhysicalContext_v1.xml">
     <edmx:Include Namespace="PhysicalContext"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/Control_v1.xml">
+    <edmx:Include Namespace="Control"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/Redundancy_v1.xml">
+    <edmx:Include Namespace="Redundancy"/>
   </edmx:Reference>
 
   <edmx:DataServices>
@@ -62,7 +68,9 @@
             <String>/redfish/v1/PowerEquipment/Sensors/{SensorId}</String>
             <String>/redfish/v1/PowerEquipment/RackPDUs/{PowerDistributionId}/Sensors/{SensorId}</String>
             <String>/redfish/v1/PowerEquipment/FloorPDUs/{PowerDistributionId}/Sensors/{SensorId}</String>
+            <String>/redfish/v1/PowerEquipment/Switchgear/{PowerDistributionId}/Sensors/{SensorId}</String>
             <String>/redfish/v1/PowerEquipment/TransferSwitches/{PowerDistributionId}/Sensors/{SensorId}</String>
+            <String>/redfish/v1/PowerEquipment/PowerShelves/{PowerDistributionId}/Sensors/{SensorId}</String>
           </Collection>
         </Annotation>
       </EntityType>
@@ -230,13 +238,13 @@
         <Property Name="ApparentVA" Type="Edm.Decimal">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The product of voltage and current for an AC circuit, in Volt-Ampere units."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the product of VoltageRMS multiplied by CurrentRMS for a circuit.  This property can appear in sensors of the Power ReadingType, and shall not appear in sensors of other ReadingType values."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the product of voltage (RMS) multiplied by current (RMS) for a circuit.  This property can appear in sensors of the Power ReadingType, and shall not appear in sensors of other ReadingType values."/>
           <Annotation Term="Measures.Unit" String="V.A"/>
           <Annotation Term="Redfish.Excerpt" String="Power,PowerArray"/>
         </Property>
         <Property Name="ReactiveVAR" Type="Edm.Decimal">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="The square root of the difference term of squared ApparentVA and squared Power (Reading) for a circuit, in var units."/>
+          <Annotation Term="OData.Description" String="The square root of the difference term of squared apparent VA and squared power (Reading) for a circuit, in VAR units."/>
           <Annotation Term="OData.LongDescription" String="This property shall contain the arithmetic mean of product terms of instantaneous voltage and quadrature current measurements calculated over an integer number of line cycles for a circuit.  This property can appear in sensors of the Power ReadingType, and shall not appear in sensors of other ReadingType values."/>
           <Annotation Term="Measures.Unit" String="V.A"/>
           <Annotation Term="Redfish.Excerpt" String="Power,PowerArray"/>
@@ -244,7 +252,7 @@
         <Property Name="PowerFactor" Type="Edm.Decimal">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The power factor for this sensor."/>
-          <Annotation Term="OData.LongDescription" String="This property shall identify the quotient of PowerRealWatts and PowerApparentVA for a circuit.  PowerFactor is expressed in unit-less 1/100ths.  This property can appear in sensors of the Power ReadingType, and shall not appear in sensors of other ReadingType values."/>
+          <Annotation Term="OData.LongDescription" String="This property shall identify the quotient of real power (W) and apparent power (VA) for a circuit.  PowerFactor is expressed in unit-less 1/100ths.  This property can appear in sensors of the Power ReadingType, and shall not appear in sensors of other ReadingType values."/>
           <Annotation Term="Validation.Minimum" Int="0"/>
           <Annotation Term="Validation.Maximum" Int="1"/>
           <Annotation Term="Redfish.Excerpt" String="Power,PowerArray"/>
@@ -435,11 +443,35 @@
         </Member>
         <Member Name="EnergykWh">
           <Annotation Term="OData.Description" String="Energy (kWh)."/>
-          <Annotation Term="OData.LongDescription" String="This value shall indicate the energy, integral of real power over time, of the monitored item since the sensor metrics were last reset.  The value of the Reading property shall be in kilowatt-hour units and the ReadingUnits value shall be `kW.h`.  This value is used for large-scale energy consumption measurements, while EnergyJoules is used for device-level consumption measurements."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the energy, integral of real power over time, of the monitored item.  If representing metered power consumption the value shall reflect the power consumption since the sensor metrics were last reset.  The value of the Reading property shall be in kilowatt-hour units and the ReadingUnits value shall be `kW.h`.  This value is used for large-scale energy consumption measurements, while EnergyJoules and EnergyWh are used for device-level consumption measurements."/>
         </Member>
         <Member Name="EnergyJoules">
           <Annotation Term="OData.Description" String="Energy (Joules)."/>
-          <Annotation Term="OData.LongDescription" String="This value shall indicate the energy, integral of real power over time, of the monitored item since the sensor metrics were last reset.  The value of the Reading property shall be in Joule units and the ReadingUnits value shall be `J`.  This value is used for device-level energy consumption measurements, while EnergykWh is used for large-scale consumption measurements."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the energy, integral of real power over time, of the monitored item.  If representing metered power consumption the value shall reflect the power consumption since the sensor metrics were last reset.  The value of the Reading property shall be in Joule units and the ReadingUnits value shall be `J`.  This value is used for device-level energy consumption measurements, while EnergykWh is used for large-scale consumption measurements."/>
+        </Member>
+        <Member Name="EnergyWh">
+          <Annotation Term="OData.Description" String="Energy (Wh)."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the energy, integral of real power over time, of the monitored item.  If representing metered power consumption the value shall reflect the power consumption since the sensor metrics were last reset.  The value of the Reading property shall be in watt-hour units and the ReadingUnits value shall be `W.h`.  This value is used for device-level energy consumption measurements, while EnergykWh is used for large-scale consumption measurements."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="v1_4_0"/>
+              </Record>
+            </Collection>
+          </Annotation>
+        </Member>
+        <Member Name="ChargeAh">
+          <Annotation Term="OData.Description" String="Charge (Ah)."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the amount of charge of the monitored item.  If representing metered power consumption,  integral of real power over time, the value shall reflect the power consumption since the sensor metrics were last reset.  The value of the Reading property shall be in amp-hour units and the ReadingUnits value shall be `A.h`."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="v1_4_0"/>
+              </Record>
+            </Collection>
+          </Annotation>
         </Member>
         <Member Name="Voltage">
           <Annotation Term="OData.Description" String="Voltage (AC or DC)."/>
@@ -532,6 +564,12 @@
       <EntityType Name="Sensor" BaseType="Sensor.v1_0_5.Sensor"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Sensor.v1_0_7">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="Sensor" BaseType="Sensor.v1_0_6.Sensor"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Sensor.v1_1_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2019.4"/>
@@ -578,7 +616,7 @@
           <Annotation Term="OData.Description" String="The reading is acquired from a physical sensor."/>
         </Member>
         <Member Name="Synthesized">
-          <Annotation Term="OData.Description" String="The reading is obtained by applying a calculation on one or more properties.  The calculation is not provided."/>
+          <Annotation Term="OData.Description" String="The reading is obtained by applying a calculation on one or more properties or multiple sensors.  The calculation is not provided."/>
         </Member>
         <Member Name="Reported">
           <Annotation Term="OData.Description" String="The reading is obtained from software or a device."/>
@@ -596,6 +634,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
       <EntityType Name="Sensor" BaseType="Sensor.v1_1_1.Sensor"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Sensor.v1_1_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="Sensor" BaseType="Sensor.v1_1_2.Sensor"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Sensor.v1_2_0">
@@ -646,6 +690,12 @@
       </ComplexType>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Sensor.v1_2_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="Sensor" BaseType="Sensor.v1_2_0.Sensor"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Sensor.v1_3_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2021.1"/>
@@ -660,6 +710,68 @@
       <ComplexType Name="Links" BaseType="Resource.Links">
         <Annotation Term="OData.Description" String="The links to other resources that are related to this resource."/>
         <Annotation Term="OData.LongDescription" String="This Redfish Specification-described type shall contain links to resources that are related to but are not contained by, or subordinate to, this resource."/>
+      </ComplexType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Sensor.v1_3_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="Sensor" BaseType="Sensor.v1_3_0.Sensor"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Sensor.v1_4_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2021.2"/>
+
+      <EntityType Name="Sensor" BaseType="Sensor.v1_3_1.Sensor">
+        <Property Name="SensorGroup" Type="Redundancy.RedundantGroup" Nullable="false">
+          <Annotation Term="OData.Description" String="The group of sensors that provide readings for this sensor."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain information for a group of sensors that provide input for the value of this sensor's reading.  If this property is present, the Implementation property shall contain the value `Synthesized`.  The group may be created for redundancy or to improve the accuracy of the reading through multiple sensor inputs."/>
+        </Property>
+        <Property Name="LowestReading" Type="Edm.Decimal">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The lowest sensor value."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the lowest sensor value since the last ResetMetrics action was performed or the service last reset the time-based property values."/>
+        </Property>
+        <Property Name="LowestReadingTime" Type="Edm.DateTimeOffset">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The time when the lowest sensor value occurred."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the date and time when the lowest sensor value was observed."/>
+        </Property>
+        <Property Name="AverageReading" Type="Edm.Decimal">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The average sensor value."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the average sensor value over the time specified by the value of the AveragingInterval property.  The value shall be reset by the ResetMetrics action."/>
+        </Property>
+        <Property Name="AveragingInterval" Type="Edm.Duration">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The interval over which the average sensor value is calculated."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the interval over which the sensor value is averaged to produce the value of the AverageReading property.  This property shall only be present if the AverageReading property is present."/>
+        </Property>
+        <Property Name="AveragingIntervalAchieved" Type="Edm.Boolean">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="Indicates that enough readings were collected to calculate the average sensor reading over the averaging interval time."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate that enough readings were collected to calculate the AverageReading value over the interval specified by the AveragingInterval property.  The value shall be reset by the ResetMetrics action.  This property shall only be present if the AveragingInterval property is present."/>
+        </Property>
+        <Property Name="Calibration" Type="Edm.Decimal">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The calibration offset applied to the Reading."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the offset applied to the raw sensor value to provide a calibrated value for the sensor as returned by the Reading property.  The value of this property shall follow the units of the Reading property for this sensor instance.  Updating the value of this property shall not affect the value of the CalibrationTime property."/>
+        </Property>
+        <Property Name="CalibrationTime" Type="Edm.DateTimeOffset">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The date and time that the sensor was last calibrated."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the date and time that the sensor was last calibrated.  This property is intended to reflect the actual time the calibration occurred."/>
+        </Property>
+      </EntityType>
+
+      <ComplexType Name="Links" BaseType="Sensor.v1_3_0.Links">
+        <NavigationProperty Name="AssociatedControls" Type="Collection(Control.Control)">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="An array of links to the controls that can affect this sensor."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type Control that represent the controls that can affect this sensor."/>
+          <Annotation Term="OData.AutoExpandReferences"/>
+        </NavigationProperty>
       </ComplexType>
     </Schema>
 

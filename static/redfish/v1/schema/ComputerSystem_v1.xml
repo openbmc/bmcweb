@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  ComputerSystem v1.15.0                                              -->
+<!--# Redfish Schema:  ComputerSystem v1.16.0                                              -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -503,6 +503,18 @@
             </Collection>
           </Annotation>
         </Member>
+        <Member Name="DPU">
+          <Annotation Term="OData.Description" String="A computer system that performs the functions of a data processing unit, such as a SmartNIC."/>
+          <Annotation Term="OData.LongDescription" String="A SystemType of DPU typically represents a single system that performs offload computation as a data processing unit, such as a SmartNIC."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="v1_16_0"/>
+              </Record>
+            </Collection>
+          </Annotation>
+        </Member>
       </EnumType>
 
       <EnumType Name="IndicatorLED">
@@ -599,6 +611,15 @@
         <Property Name="Status" Type="Resource.Status"  Nullable="false">
           <Annotation Term="OData.Description" String="The status and health of the resource and its subordinate or dependent resources."/>
           <Annotation Term="OData.LongDescription" String="This property shall contain any status or health properties of the resource."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Deprecated"/>
+                <PropertyValue Property="Version" String="v1_16_0"/>
+                <PropertyValue Property="Description" String="This property has been deprecated in favor of the Conditions property within Status in the root of this resource."/>
+              </Record>
+            </Collection>
+          </Annotation>
         </Property>
       </ComplexType>
 
@@ -616,6 +637,15 @@
         <Property Name="Status" Type="Resource.Status"  Nullable="false">
           <Annotation Term="OData.Description" String="The status and health of the resource and its subordinate or dependent resources."/>
           <Annotation Term="OData.LongDescription" String="This property shall contain any status or health properties of the resource."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Deprecated"/>
+                <PropertyValue Property="Version" String="v1_16_0"/>
+                <PropertyValue Property="Description" String="This property has been deprecated in favor of the Conditions property within Status in the root of this resource."/>
+              </Record>
+            </Collection>
+          </Annotation>
         </Property>
       </ComplexType>
     </Schema>
@@ -2335,6 +2365,104 @@
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
           <Annotation Term="OData.Description" String="An indication of whether threading is enabled on all processors in this system."/>
           <Annotation Term="OData.LongDescription" String="The value of this property shall indicate that all Processor resources in this system where the ProcessorType property contains `CPU` have multiple threading support enabled."/>
+        </Property>
+      </ComplexType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_16_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2021.2"/>
+      <Annotation Term="OData.Description" String="This version was created to add IdlePowerSaver.  It was also created to add KeyManagement.  It was also created to deprecate Status within ProcessorSummary and MemorySummary in favor of Conditions within Status at the root of the resource."/>
+
+      <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_15_0.ComputerSystem">
+        <Property Name="IdlePowerSaver" Type="ComputerSystem.v1_16_0.IdlePowerSaver">
+          <Annotation Term="OData.Description" String="The idle power saver settings of the computer system."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the idle power saver settings of the computer system."/>
+        </Property>
+        <Property Name="KeyManagement" Type="ComputerSystem.v1_16_0.KeyManagement">
+          <Annotation Term="OData.Description" String="The key management settings of the computer system."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the key management settings of the computer system."/>
+        </Property>
+      </EntityType>
+
+      <ComplexType Name="IdlePowerSaver">
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="OData.Description" String="The idle power saver settings of a computer system."/>
+        <Annotation Term="OData.LongDescription" String="This object shall contain the idle power saver settings of a computer system."/>
+        <Property Name="Enabled" Type="Edm.Boolean" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="An indication of whether idle power saver is enabled."/>
+          <Annotation Term="OData.LongDescription" String="The value of this property shall indicate if idle power saver is enabled."/>
+        </Property>
+        <Property Name="EnterUtilizationPercent" Type="Edm.Decimal">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The percentage of utilization that the computer system shall be lower than to enter idle power save."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the percentage of utilization that the computer system shall be lower than to enter idle power save."/>
+          <Annotation Term="Validation.Minimum" Int="0"/>
+          <Annotation Term="Measures.Unit" String="%"/>
+        </Property>
+        <Property Name="EnterDwellTimeSeconds" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The duration in seconds the computer system is below the EnterUtilizationPercent value before the idle power save is activated."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the duration in seconds the computer system is below the EnterUtilizationPercent value before the idle power save is activated."/>
+          <Annotation Term="Validation.Minimum" Int="0"/>
+          <Annotation Term="Measures.Unit" String="s"/>
+        </Property>
+        <Property Name="ExitUtilizationPercent" Type="Edm.Decimal">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The percentage of utilization that the computer system shall be higher than to exit idle power save."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the percentage of utilization that the computer system shall be higher than to exit idle power save."/>
+          <Annotation Term="Validation.Minimum" Int="0"/>
+          <Annotation Term="Measures.Unit" String="%"/>
+        </Property>
+        <Property Name="ExitDwellTimeSeconds" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The duration in seconds the computer system is above the ExitUtilizationPercent value before the idle power save is stopped."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the duration in seconds the computer system is above the ExitUtilizationPercent value before the idle power save is stopped."/>
+          <Annotation Term="Validation.Minimum" Int="0"/>
+          <Annotation Term="Measures.Unit" String="s"/>
+        </Property>
+      </ComplexType>
+
+      <ComplexType Name="KeyManagement">
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="OData.Description" String="The key management settings of a computer system."/>
+        <Annotation Term="OData.LongDescription" String="This object shall contain the key management settings of a computer system."/>
+        <Property Name="KMIPServers" Type="Collection(ComputerSystem.v1_16_0.KMIPServer)">
+          <Annotation Term="OData.Description" String="The KMIP servers to which this computer system is subscribed."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the KMIP servers to which this computer system is subscribed for key management."/>
+        </Property>
+        <NavigationProperty Name="KMIPCertificates" Type="CertificateCollection.CertificateCollection" ContainsTarget="true" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The link to a collection of server certificates for the servers referenced by the KMIPServers property."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type CertificateCollection that represents the server certificates for the servers referenced by the KMIPServers property."/>
+          <Annotation Term="OData.AutoExpandReferences"/>
+        </NavigationProperty>
+      </ComplexType>
+
+      <ComplexType Name="KMIPServer">
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="OData.Description" String="The KMIP server settings for a computer system."/>
+        <Annotation Term="OData.LongDescription" String="This object shall contain the KMIP server settings for a computer system."/>
+        <Property Name="Address" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The KMIP server address."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the KMIP server address."/>
+        </Property>
+        <Property Name="Port" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The KMIP server port."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the KMIP server port."/>
+        </Property>
+        <Property Name="Username" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The username to access the KMIP server."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the username to access the KMIP server."/>
+        </Property>
+        <Property Name="Password" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The password to access the KMIP server.  The value is `null` in responses."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the password to access the KMIP server.  The value shall be `null` in responses."/>
         </Property>
       </ComplexType>
     </Schema>

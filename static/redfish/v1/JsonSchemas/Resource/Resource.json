@@ -1,5 +1,5 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/Resource.v1_12_0.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/Resource.v1_13_0.json",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
     "copyright": "Copyright 2014-2021 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
     "definitions": {
@@ -271,12 +271,14 @@
                 "Bay",
                 "Connector",
                 "Socket",
-                "Backplane"
+                "Backplane",
+                "Embedded"
             ],
             "enumDescriptions": {
                 "Backplane": "A backplane.",
                 "Bay": "A bay.",
                 "Connector": "A connector or port.",
+                "Embedded": "Embedded within a part.",
                 "Slot": "A slot.",
                 "Socket": "A socket."
             },
@@ -284,11 +286,13 @@
                 "Backplane": "This value shall indicate the part is a backplane in an enclosure.",
                 "Bay": "This value shall indicate the part is located in a bay.",
                 "Connector": "This value shall indicate the part is located in a connector or port.",
+                "Embedded": "This value shall indicate the part is embedded or otherwise permanently incorporated into a larger part or device.  This value shall not be used for parts that can be removed by a user or are considered field-replaceable.",
                 "Slot": "This value shall indicate the part is located in a slot.",
                 "Socket": "This value shall indicate the part is located in a socket."
             },
             "enumVersionAdded": {
-                "Backplane": "v1_12_0"
+                "Backplane": "v1_12_0",
+                "Embedded": "v1_13_0"
             },
             "longDescription": "This enumeration shall list the types of locations for a part within an enclosure.",
             "type": "string"
@@ -360,8 +364,8 @@
                             "type": "null"
                         }
                     ],
-                    "description": "The type of location of the part, such as slot, bay, socket, or slot.",
-                    "longDescription": "This property shall contain the type of location of the part, such as slot, bay, socket, or slot.",
+                    "description": "The type of location of the part.",
+                    "longDescription": "This property shall contain the type of location of the part.",
                     "readonly": true,
                     "versionAdded": "v1_5_0"
                 },
@@ -910,8 +914,8 @@
                     "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/id"
                 },
                 "MemberId": {
-                    "description": "The identifier for the member within the collection.",
-                    "longDescription": "This property shall uniquely identify the member within the collection.  For services supporting Redfish v1.6 or higher, this value shall contain the zero-based array index.",
+                    "description": "The unique identifier for the member within an array.",
+                    "longDescription": "This property shall contain the unique identifier for this member within an array.  For services supporting Redfish v1.6 or higher, this value shall contain the zero-based array index.",
                     "readonly": true,
                     "type": "string"
                 },
@@ -1049,6 +1053,6 @@
         }
     },
     "owningEntity": "DMTF",
-    "release": "2021.1",
-    "title": "#Resource.v1_12_0"
+    "release": "2021.2",
+    "title": "#Resource.v1_13_0"
 }
