@@ -22,6 +22,30 @@
       "revId": "e6f3c22b5c1427f0e505f479722f4394acad1d56",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d60e943b_a56fa094",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 532,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2021-09-23T06:02:24Z",
+      "side": 1,
+      "message": "Agree.\n\nThanks,Ed.\nI have tested the same and it works as expected.",
+      "parentUuid": "ba6718c3_840fe3bc",
+      "range": {
+        "startLine": 532,
+        "startChar": 0,
+        "endLine": 532,
+        "endChar": 59
+      },
+      "revId": "e6f3c22b5c1427f0e505f479722f4394acad1d56",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
