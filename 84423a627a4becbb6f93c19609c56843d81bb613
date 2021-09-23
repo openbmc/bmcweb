@@ -22,6 +22,30 @@
       "revId": "84423a627a4becbb6f93c19609c56843d81bb613",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "09f8d81d_efb929bf",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 10
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-09-23T16:31:07Z",
+      "side": 1,
+      "message": "I did, but I will add more details here.\n\nACK.",
+      "parentUuid": "d1fda690_8b2ca6c7",
+      "range": {
+        "startLine": 21,
+        "startChar": 0,
+        "endLine": 21,
+        "endChar": 7
+      },
+      "revId": "84423a627a4becbb6f93c19609c56843d81bb613",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
