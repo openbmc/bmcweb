@@ -361,6 +361,30 @@
     },
     {
       "key": {
+        "uuid": "1fdd37b9_3a431b32",
+        "filename": "redfish-core/include/registries/privilege_registry.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 581,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-09-23T15:55:33Z",
+      "side": 1,
+      "message": "\u003e \n\u003e -------------------------------------------\n\u003e there is no GET and HEAD method so that\u0027s why we are using privileges::getLogEntry\n\u003e -------------------------------------------\n\u003e \n\nI forgot LogEntry already has a subordinate override already, hence why I think you\u0027re confused;  Lets say we added a subordinate override for SessionService, how would your code handle that?",
+      "parentUuid": "f6d1508c_51171844",
+      "range": {
+        "startLine": 580,
+        "startChar": 0,
+        "endLine": 581,
+        "endChar": 39
+      },
+      "revId": "5bdce35ac5baf1b64eff1ca44264f2a1a3eac3ca",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "3fbe68b7_19a1d62c",
         "filename": "redfish-core/include/registries/privilege_registry.hpp",
         "patchSetId": 10
