@@ -361,6 +361,18 @@ class Connection :
             completeRequest();
             return;
         }
+
+        if (!crow::authorization::isOnWhitelist(req->url, req->method()) &&
+            thisReq.session == nullptr)
+        {
+            BMCWEB_LOG_WARNING << "[AuthMiddleware] authorization failed";
+            forward_unauthorized::sendUnauthorized(
+                req->url, req->getHeaderValue("User-Agent"),
+                req->getHeaderValue("Accept"), res);
+            completeRequest();
+            return;
+        }
+
         res.setCompleteRequestHandler([self(shared_from_this())] {
             boost::asio::post(self->adaptor.get_executor(),
                               [self] { self->completeRequest(); });
@@ -574,8 +586,7 @@ class Connection :
                 }
                 sessionIsFromTransport = false;
                 userSession = crow::authorization::authenticate(
-                    req->url, ip, res, method, parser->get().base(),
-                    userSession);
+                    ip, res, method, parser->get().base(), userSession);
                 bool loggedIn = userSession != nullptr;
                 if (loggedIn)
                 {
@@ -713,7 +724,8 @@ class Connection :
                     userSession = nullptr;
                 }
 
-                req.emplace(parser->release());
+                // Destroy the Request via the std::optional
+                req.reset();
                 doReadHeaders();
             });
     }
