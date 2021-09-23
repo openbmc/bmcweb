@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "926b46ae_1026d264",
+        "filename": "meson.build",
+        "patchSetId": 2
+      },
+      "lineNbr": 175,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-09-23T17:45:40Z",
+      "side": 1,
+      "message": "This has been broke for 16 months ?\nhttps://github.com/openbmc/bmcweb/commit/af6298daa55d41d5a47459215b96ca5ec079dfb4",
+      "revId": "11b04d4abdd0a0181f64e71174fae9079def1472",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
