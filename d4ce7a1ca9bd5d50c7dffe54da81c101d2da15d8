@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "ed89e9f9_add61b1c",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 3123,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-09-23T03:23:03Z",
+      "side": 1,
+      "message": "Yes, `const std::string\u0026` is correct.\nDone",
+      "parentUuid": "9bd9613d_5f557ce1",
+      "range": {
+        "startLine": 3123,
+        "startChar": 33,
+        "endLine": 3123,
+        "endChar": 44
+      },
+      "revId": "d4ce7a1ca9bd5d50c7dffe54da81c101d2da15d8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "773edd16_f5723468",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 12
@@ -36,6 +60,24 @@
       "writtenOn": "2021-09-22T18:15:48Z",
       "side": 1,
       "message": "The old code for this did it in a single pass, without the split.  Is it possible to do that here as well?",
+      "revId": "d4ce7a1ca9bd5d50c7dffe54da81c101d2da15d8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7193bc17_fb3e4933",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 3150,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-09-23T03:23:03Z",
+      "side": 1,
+      "message": "I found an older patch, but I have been using `split` method, maybe I missed something.",
+      "parentUuid": "773edd16_f5723468",
       "revId": "d4ce7a1ca9bd5d50c7dffe54da81c101d2da15d8",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
@@ -65,6 +107,30 @@
     },
     {
       "key": {
+        "uuid": "75b9b86d_4ac6c221",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 3157,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-09-23T03:23:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1954474d_2fd28fa0",
+      "range": {
+        "startLine": 3157,
+        "startChar": 20,
+        "endLine": 3157,
+        "endChar": 31
+      },
+      "revId": "d4ce7a1ca9bd5d50c7dffe54da81c101d2da15d8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d7737767_0aeed36b",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 12
@@ -76,6 +142,30 @@
       "writtenOn": "2021-09-22T18:15:48Z",
       "side": 1,
       "message": "Isn\u0027t your code above in your helper kind of duplicating this code?  We should avoid duplicating code where possible, especially for things like this where the two entities are tied directly together.",
+      "range": {
+        "startLine": 3254,
+        "startChar": 0,
+        "endLine": 3267,
+        "endChar": 75
+      },
+      "revId": "d4ce7a1ca9bd5d50c7dffe54da81c101d2da15d8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "50edd17d_68776b37",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 3267,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-09-23T03:23:03Z",
+      "side": 1,
+      "message": "\u003e Isn\u0027t your code above in your helper kind of duplicating this code?  \n\nI have not followed these codes, and these codes that was merged recently.\n\n\n\u003e We should avoid duplicating code where possible, especially for things like this where the two entities are tied directly together.\n\nYes, but I don\u0027t want to break my patch, because this patch has been around for a long time and I hope to merge it as soon as possible. Then, I can push a new patch here to fix it.",
+      "parentUuid": "d7737767_0aeed36b",
       "range": {
         "startLine": 3254,
         "startChar": 0,
