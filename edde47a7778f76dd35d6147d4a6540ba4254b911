@@ -70,6 +70,30 @@
       "revId": "edde47a7778f76dd35d6147d4a6540ba4254b911",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1c8c3de9_9f8727d3",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 12
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-09-23T21:38:59Z",
+      "side": 1,
+      "message": "\u003e For some reason I remember years ago DMTF having a discussion about assemblies, and how that was largely the future, but in the last year or so, they\u0027ve kind of taken a 180, and now all the new models are using Chassis again for non-trivial cards and devices.\n\nNot sure I would call it a 180.. A Redfish co-chair recently said \"a simple rack server, probably just has 1 chassis\". The mockups show this. Redfish also added Led Identify, location to assembly in the last year so more FRUs could be assemblies. I think for \"non-trivial cards and devices\" (which it sounds like you have that use case  but we don\u0027t at this time) they are still advising chassis (Redfish must then assume a simple rack server probably doesn\u0027t have this use case). \n\n\u003e maybe some code in chassis that checks for the relevant associations to sensors/drives ect that would make the board \"smart\"?  That sounds sucky to code.\n\nYeah that sounds sucky.. I would really prefer some interface(s) to decide.\n\nWe have to get the assemblies code in first, so maybe we punt for a bit here?",
+      "parentUuid": "92b691f8_fd1c1ab0",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 29
+      },
+      "revId": "edde47a7778f76dd35d6147d4a6540ba4254b911",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
