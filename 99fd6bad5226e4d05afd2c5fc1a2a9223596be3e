@@ -22,6 +22,30 @@
       "revId": "99fd6bad5226e4d05afd2c5fc1a2a9223596be3e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9422367a_235f23f4",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 1411,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-09-23T21:29:40Z",
+      "side": 1,
+      "message": "I added the author and reviews of the D-Bus interface. \nhttps://gerrit.openbmc-project.xyz/c/openbmc/phosphor-dbus-interfaces/+/42972\n\nbmcweb is following PDI here.",
+      "parentUuid": "2104ea2e_d1e58968",
+      "range": {
+        "startLine": 1411,
+        "startChar": 46,
+        "endLine": 1411,
+        "endChar": 67
+      },
+      "revId": "99fd6bad5226e4d05afd2c5fc1a2a9223596be3e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
