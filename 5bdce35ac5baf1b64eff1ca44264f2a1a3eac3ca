@@ -337,6 +337,30 @@
     },
     {
       "key": {
+        "uuid": "f6d1508c_51171844",
+        "filename": "redfish-core/include/registries/privilege_registry.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 581,
+      "author": {
+        "id": 1001099
+      },
+      "writtenOn": "2021-09-23T13:43:31Z",
+      "side": 1,
+      "message": "{\n            \"Entity\": \"LogEntry\",\n            \"OperationMap\": {\n                \"GET\": [\n                    { \"Privilege\": [\"Login\"] }\n                ],\n                \"HEAD\": [\n                    {\"Privilege\": [\"Login\"]}\n                ],\n                \"PATCH\": [\n                    {\"Privilege\": [\"ConfigureManager\"]}\n                ],\n                \"PUT\": [\n                    {\"Privilege\": [\"ConfigureManager\"]}\n                ],\n                \"DELETE\": [\n                    {\"Privilege\": [\"ConfigureManager\"]}\n                ],\n                \"POST\": [\n                    {\"Privilege\": [\"ConfigureManager\"]}\n                ]\n            },\n            \"SubordinateOverrides\": [\n                {\n                    \"Targets\": [\n                        \"ComputerSystem\",\n                        \"LogServiceCollection\",\n                        \"LogService\",\n                        \"LogEntryCollection\"\n                    ],\n\n-------------------------------------------\nthere is no GET and HEAD method so that\u0027s why we are using privileges::getLogEntry\n-------------------------------------------\n\n                    \"OperationMap\": {\n                        \"PATCH\": [\n                            {\"Privilege\": [\"ConfigureComponents\"]}\n                        ],\n                        \"PUT\": [\n                            {\"Privilege\": [\"ConfigureComponents\"]}\n                        ],\n                        \"DELETE\": [\n                            {\"Privilege\": [\"ConfigureComponents\"]}\n                        ],\n                        \"POST\": [\n                            {\"Privilege\": [\"ConfigureComponents\"]}\n                        ]\n                    }\n                },\n                {\n                    \"Targets\": [\n                        \"Chassis\",\n                        \"LogServiceCollection\",\n                        \"LogService\",\n                        \"LogEntryCollection\"\n                    ],\n                    \"OperationMap\": {\n                        \"GET\": [\n                            {\"Privilege\": [\"Login\"]}\n                        ],\n                        \"HEAD\": [\n                            {\"Privilege\": [\"Login\"]}\n                        ],\n                        \"PATCH\": [\n                            {\"Privilege\": [\"ConfigureComponents\"]}\n                        ],\n                        \"PUT\": [\n                            {\"Privilege\": [\"ConfigureComponents\"]}\n                        ],\n                        \"DELETE\": [\n                            {\"Privilege\": [\"ConfigureComponents\"]}\n                        ],\n                        \"POST\": [\n                            {\"Privilege\": [\"ConfigureComponents\"]}\n                        ]\n                    }\n                }\n            ]\n        },",
+      "parentUuid": "ac5b8005_7d68a0fe",
+      "range": {
+        "startLine": 580,
+        "startChar": 0,
+        "endLine": 581,
+        "endChar": 39
+      },
+      "revId": "5bdce35ac5baf1b64eff1ca44264f2a1a3eac3ca",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "3fbe68b7_19a1d62c",
         "filename": "redfish-core/include/registries/privilege_registry.hpp",
         "patchSetId": 10
