@@ -355,7 +355,7 @@ class Connection :
             return;
         }
 
-        if (!crow::authorization::isOnWhitelist(req->url, req->method()) &&
+        if (!crow::authorization::isOnAllowlist(req->url, req->method()) &&
             thisReq.session == nullptr)
         {
             BMCWEB_LOG_WARNING << "[AuthMiddleware] authorization failed";
