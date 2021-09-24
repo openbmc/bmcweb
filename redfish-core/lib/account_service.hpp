@@ -1143,9 +1143,9 @@ inline void updateUserProperties(std::shared_ptr<bmcweb::AsyncResp> asyncResp,
 
     dbus::utility::checkDbusPathExists(
         dbusObjectPath,
-        [dbusObjectPath(std::move(dbusObjectPath)), username,
-         password(std::move(password)), roleId(std::move(roleId)), enabled,
-         locked, asyncResp{std::move(asyncResp)}](int rc) {
+        [dbusObjectPath, username, password(std::move(password)),
+         roleId(std::move(roleId)), enabled, locked,
+         asyncResp{std::move(asyncResp)}](int rc) {
             if (!rc)
             {
                 messages::resourceNotFound(
