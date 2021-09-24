@@ -75,3 +75,19 @@ TEST(Utility, GetDateTime)
     EXPECT_EQ(crow::utility::getDateTimeUint(uint64_t{253402300799}),
               "9999-12-31T23:59:59Z");
 }
+
+TEST(Utility, getIDFromURL)
+{
+    using crow::utility::getIDFromURL;
+    EXPECT_EQ(getIDFromURL("/foo/bar"), "bar");
+    EXPECT_EQ(getIDFromURL("/foo"), "foo");
+
+    // Escaped character
+    EXPECT_EQ(getIDFromURL("/foo%20"), "foo ");
+
+    // Invalid url
+    EXPECT_EQ(getIDFromURL("/%"), "");
+
+    // URL with no path component
+    EXPECT_EQ(getIDFromURL(""), "");
+}
