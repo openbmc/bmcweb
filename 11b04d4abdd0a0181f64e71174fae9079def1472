@@ -16,6 +16,24 @@
       "revId": "11b04d4abdd0a0181f64e71174fae9079def1472",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f67fa5a8_77635bbb",
+        "filename": "meson.build",
+        "patchSetId": 2
+      },
+      "lineNbr": 175,
+      "author": {
+        "id": 1000206
+      },
+      "writtenOn": "2021-09-24T10:13:23Z",
+      "side": 1,
+      "message": "its not broken and the endif was at 194.\n\nThis change does not seem correct to me. does clang support fno-fat-lto-objects compiler flags ? i think the earlier logic of adding fno-fat-lto objects only when the compiler is gcc seems correct to me. with this change the clang build with debug/debugoptimized/minsize builds might fail to compile.\n\nThe original logic was written like this :\n\nif(gcc compiler)\n{\n      add generic gcc compiler flags to turn warnings to errors\n      if build type is debug/debugoptimized/minsize then \n            if lto is enable \u0026 optimization is not 0\n                add lto related flags to reduce binary size\n                add gcc linker flags to exclude libs\n            end\n            if bmcweb-logging option is enabled and the build type is debug/debugoptimized\n                then enable debuging flags to bmcweb\n            end\n       end\n}",
+      "parentUuid": "926b46ae_1026d264",
+      "revId": "11b04d4abdd0a0181f64e71174fae9079def1472",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
