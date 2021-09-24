@@ -237,6 +237,30 @@
     },
     {
       "key": {
+        "uuid": "6233b184_e0c4e970",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2021-09-24T14:21:29Z",
+      "side": 1,
+      "message": "This is not Done. The property which you pass in the data should be the redfish property right?",
+      "parentUuid": "3c5858d1_3cbd5dc7",
+      "range": {
+        "startLine": 73,
+        "startChar": 0,
+        "endLine": 76,
+        "endChar": 127
+      },
+      "revId": "902f30b701f5b6284555b63ced64865af73622e1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5f5eb4ba_a22db77f",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 2
@@ -272,6 +296,30 @@
       "side": 1,
       "message": "I think, irrespective of whether \"ServiceEnabled\" is true/false, we must be displaying this response.\nJust that if it is made to false, listing of dump entries and other operations on individual dump entries must not be allowed and an error will be sent back.\n\nYour thoughts, sunitha?",
       "parentUuid": "5f5eb4ba_a22db77f",
+      "range": {
+        "startLine": 2244,
+        "startChar": 23,
+        "endLine": 2275,
+        "endChar": 80
+      },
+      "revId": "902f30b701f5b6284555b63ced64865af73622e1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c211f47e_5c79ceba",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 2275,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2021-09-24T14:21:29Z",
+      "side": 1,
+      "message": "Right. I mistook this GET to the dump data GET",
+      "parentUuid": "cd0d1427_28cbc0dc",
       "range": {
         "startLine": 2244,
         "startChar": 23,
