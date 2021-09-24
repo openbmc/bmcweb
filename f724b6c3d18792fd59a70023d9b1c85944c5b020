@@ -16,6 +16,70 @@
       "revId": "f724b6c3d18792fd59a70023d9b1c85944c5b020",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4898687a_02b7ec9a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-09-24T20:34:56Z",
+      "side": 1,
+      "message": "+1",
+      "parentUuid": "fcdd1f58_41268b7c",
+      "revId": "f724b6c3d18792fd59a70023d9b1c85944c5b020",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2eeafcfc_2fe2b90d",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 2514,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-09-24T20:34:56Z",
+      "side": 1,
+      "message": "typically this is not auto",
+      "range": {
+        "startLine": 2514,
+        "startChar": 24,
+        "endLine": 2514,
+        "endChar": 28
+      },
+      "revId": "f724b6c3d18792fd59a70023d9b1c85944c5b020",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f6093e21_48ee431c",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 2587,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-09-24T20:34:56Z",
+      "side": 1,
+      "message": "Can we share this code? It looks mostly the same",
+      "range": {
+        "startLine": 2553,
+        "startChar": 0,
+        "endLine": 2587,
+        "endChar": 15
+      },
+      "revId": "f724b6c3d18792fd59a70023d9b1c85944c5b020",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
