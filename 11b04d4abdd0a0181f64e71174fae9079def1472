@@ -34,6 +34,24 @@
       "revId": "11b04d4abdd0a0181f64e71174fae9079def1472",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0eeb1cbe_7395d2d1",
+        "filename": "meson.build",
+        "patchSetId": 2
+      },
+      "lineNbr": 175,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-09-24T18:02:19Z",
+      "side": 1,
+      "message": "\u003e its not broken and the endif was at 194.\n\u003e \n\nYes, but in practice it\u0027s only broken for clang, and it only really effects a couple build types (logging enabled) so nobody but me noticed.  Frankly, I\u0027ve had a variation of this patch locally for a long time.\n\n\u003e This change does not seem correct to me. does clang support fno-fat-lto-objects compiler flags ?\n\nEven if it didn\u0027t, wrapping it in the \"get_supported_arguments\" call would remove them if they weren\u0027t supported.\n\n\u003e i think the earlier logic of adding fno-fat-lto objects only when the compiler is gcc seems correct to me. with this change the clang build with debug/debugoptimized/minsize builds might fail to compile.\n\nIt doesn\u0027t fail to compile in those modes.... I\u0027ve added more testing in the commit message to prove that it doesn\u0027t.\n\n\u003e \n\u003e The original logic was written like this :\n\u003e \n\u003e if(gcc compiler)\n\u003e {\n\u003e       add generic gcc compiler flags to turn warnings to errors\n\u003e       if build type is debug/debugoptimized/minsize then \n\u003e             if lto is enable \u0026 optimization is not 0\n\u003e                 add lto related flags to reduce binary size\n\u003e                 add gcc linker flags to exclude libs\n\u003e             end\n\u003e             if bmcweb-logging option is enabled and the build type is debug/debugoptimized\n\u003e                 then enable debuging flags to bmcweb\n\u003e             end\n\u003e        end\n\u003e }\n\nRight.  The logging option is not specific to any compiler.  The lto stuff is not specific to gcc or clang.  I\u0027m fairly certain we can get rid of all our compiler checks, and just rely on get_supported_arguments in meson, but I\u0027m not prepared to make that radical of a change in this patchset.",
+      "parentUuid": "f67fa5a8_77635bbb",
+      "revId": "11b04d4abdd0a0181f64e71174fae9079def1472",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
