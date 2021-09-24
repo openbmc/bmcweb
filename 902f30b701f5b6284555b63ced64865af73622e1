@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "efd72689_4392098f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2021-09-24T09:15:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b7af5d67_3c378849",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 12,
+        "endChar": 63
+      },
+      "revId": "902f30b701f5b6284555b63ced64865af73622e1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1dafa9f0_3f9a5daf",
         "filename": "/COMMIT_MSG",
         "patchSetId": 2
@@ -45,6 +69,30 @@
       "revId": "902f30b701f5b6284555b63ced64865af73622e1",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "64779a72_009b282b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2021-09-24T09:15:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1dafa9f0_3f9a5daf",
+      "range": {
+        "startLine": 22,
+        "startChar": 0,
+        "endLine": 22,
+        "endChar": 10
+      },
+      "revId": "902f30b701f5b6284555b63ced64865af73622e1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "5f9891cb_5c8ee118",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2021-09-24T09:15:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4178b0bf_23eb5ebc",
+      "range": {
+        "startLine": 45,
+        "startChar": 43,
+        "endLine": 45,
+        "endChar": 87
+      },
+      "revId": "902f30b701f5b6284555b63ced64865af73622e1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1715a61a_a53e3ae9",
         "filename": "/COMMIT_MSG",
         "patchSetId": 2
@@ -91,6 +163,30 @@
       "revId": "902f30b701f5b6284555b63ced64865af73622e1",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "966adf69_39351c9c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2021-09-24T09:15:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1715a61a_a53e3ae9",
+      "range": {
+        "startLine": 69,
+        "startChar": 43,
+        "endLine": 69,
+        "endChar": 87
+      },
+      "revId": "902f30b701f5b6284555b63ced64865af73622e1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "3c5858d1_3cbd5dc7",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2021-09-24T09:15:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0f18771e_ce8c66e2",
+      "range": {
+        "startLine": 73,
+        "startChar": 0,
+        "endLine": 76,
+        "endChar": 127
+      },
+      "revId": "902f30b701f5b6284555b63ced64865af73622e1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5f5eb4ba_a22db77f",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 2
@@ -137,6 +257,30 @@
       "revId": "902f30b701f5b6284555b63ced64865af73622e1",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cd0d1427_28cbc0dc",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 2275,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2021-09-24T09:15:57Z",
+      "side": 1,
+      "message": "I think, irrespective of whether \"ServiceEnabled\" is true/false, we must be displaying this response.\nJust that if it is made to false, listing of dump entries and other operations on individual dump entries must not be allowed and an error will be sent back.\n\nYour thoughts, sunitha?",
+      "parentUuid": "5f5eb4ba_a22db77f",
+      "range": {
+        "startLine": 2244,
+        "startChar": 23,
+        "endLine": 2275,
+        "endChar": 80
+      },
+      "revId": "902f30b701f5b6284555b63ced64865af73622e1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -163,6 +307,30 @@
     },
     {
       "key": {
+        "uuid": "30667cc7_862101c4",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 2346,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2021-09-24T09:15:57Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "6983e8ef_1e296dd2",
+      "range": {
+        "startLine": 2346,
+        "startChar": 38,
+        "endLine": 2346,
+        "endChar": 65
+      },
+      "revId": "902f30b701f5b6284555b63ced64865af73622e1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e73837f9_61f26e62",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 2
@@ -174,6 +342,30 @@
       "writtenOn": "2021-09-17T11:10:19Z",
       "side": 1,
       "message": "ServiceDisabled is suitable for actions as well",
+      "range": {
+        "startLine": 2493,
+        "startChar": 38,
+        "endLine": 2493,
+        "endChar": 56
+      },
+      "revId": "902f30b701f5b6284555b63ced64865af73622e1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a4bd21ae_3dfc8eee",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 2493,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2021-09-24T09:15:57Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "e73837f9_61f26e62",
       "range": {
         "startLine": 2493,
         "startChar": 38,
