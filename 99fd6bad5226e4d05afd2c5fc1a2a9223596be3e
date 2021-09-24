@@ -70,6 +70,30 @@
       "revId": "99fd6bad5226e4d05afd2c5fc1a2a9223596be3e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6e771470_ab0decde",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 1411,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-09-24T16:18:41Z",
+      "side": 1,
+      "message": "\u003e This property is added as part of version v1_9_0 of log entry. If the property is not supported it will return false(default).\n\n\"not supported\" is supposed to be property not present, not false, hence this comment.\n\n\u003e If the interface does not support this property then we don\u0027t enter if condition and we will not evaluate but return false. I am not sure if that is intended or not. I will ask other experts to comment.\n\nThis is the conflict here;  there\u0027s no way in the interface definition to convey \"Service provider not supported\" which is required for systems that don\u0027t support reporting back to a service provider.",
+      "parentUuid": "37d9e7d3_f61f71a4",
+      "range": {
+        "startLine": 1411,
+        "startChar": 46,
+        "endLine": 1411,
+        "endChar": 67
+      },
+      "revId": "99fd6bad5226e4d05afd2c5fc1a2a9223596be3e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
