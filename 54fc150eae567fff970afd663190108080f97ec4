@@ -1,0 +1,182 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fc81d5d3_7e721971",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 27
+      },
+      "lineNbr": 1835,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-09-24T19:43:09Z",
+      "side": 1,
+      "message": "????  why forward_as_tuple here?  We\u0027re not forwarding anything.\n\nCan we do something more clear here, and parse the number to an integer, then sort on that?  That seems significantly easier to read than this, because frankly.... I\u0027m not really sure what\u0027s going on here.",
+      "range": {
+        "startLine": 1835,
+        "startChar": 25,
+        "endLine": 1835,
+        "endChar": 46
+      },
+      "revId": "54fc150eae567fff970afd663190108080f97ec4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cf1b00f6_2621cc1d",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 27
+      },
+      "lineNbr": 1851,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-09-24T19:43:09Z",
+      "side": 1,
+      "message": "Should be size_t to match 1852?",
+      "range": {
+        "startLine": 1851,
+        "startChar": 14,
+        "endLine": 1851,
+        "endChar": 17
+      },
+      "revId": "54fc150eae567fff970afd663190108080f97ec4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "74569069_23a46b81",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 27
+      },
+      "lineNbr": 1865,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-09-24T19:43:09Z",
+      "side": 1,
+      "message": "What if the first file is 1GB?  This check doesn\u0027t prevent us from running out of memory.  I suspect this check needs to go into the gzGetLines as an argument for \"limit\"\n\n\nAlso, the way this is written doesn\u0027t work with the paging.  This method needs to be aware of skip and top so it can correctly only read in the files that it needs.  Otherwise, if we generated logs that were \u003e 256KB, there\u0027d be no way to read them.\n\nAs a test, I\u0027d recommend dropping the limit to something much easier to generate (maybe 1k?) and make sure you can still page out the logs, but as written, this code looks like it can\u0027t.",
+      "revId": "54fc150eae567fff970afd663190108080f97ec4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "118a8f3f_331e0b90",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 27
+      },
+      "lineNbr": 1903,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-09-24T19:43:09Z",
+      "side": 1,
+      "message": "Looks like you\u0027re missing OemRecordFormat?",
+      "range": {
+        "startLine": 1903,
+        "startChar": 0,
+        "endLine": 1903,
+        "endChar": 29
+      },
+      "revId": "54fc150eae567fff970afd663190108080f97ec4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f2063893_672f721c",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 27
+      },
+      "lineNbr": 1936,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-09-24T19:43:09Z",
+      "side": 1,
+      "message": "Doesn\u0027t this need enforced?  What prevents a user from requesting 9999999999999999 entries, running the BMC out of memory to generate the json?",
+      "range": {
+        "startLine": 1936,
+        "startChar": 49,
+        "endLine": 1936,
+        "endChar": 80
+      },
+      "revId": "54fc150eae567fff970afd663190108080f97ec4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "140a9d43_d7753fad",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 27
+      },
+      "lineNbr": 1975,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-09-24T19:43:09Z",
+      "side": 1,
+      "message": "at is specifically called out by name in COMMON_ERRORS.md.  I suspect you either want operator[] here (with a range check on id) or you want to use iterators in your loop.",
+      "range": {
+        "startLine": 1975,
+        "startChar": 47,
+        "endLine": 1975,
+        "endChar": 49
+      },
+      "revId": "54fc150eae567fff970afd663190108080f97ec4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f03440df_0e52eb69",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 27
+      },
+      "lineNbr": 2020,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-09-24T19:43:09Z",
+      "side": 1,
+      "message": "init your variables please.",
+      "range": {
+        "startLine": 2020,
+        "startChar": 0,
+        "endLine": 2020,
+        "endChar": 31
+      },
+      "revId": "54fc150eae567fff970afd663190108080f97ec4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a48b33ba_51c0c2a6",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 27
+      },
+      "lineNbr": 2023,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-09-24T19:43:09Z",
+      "side": 1,
+      "message": "Please use from_chars here.",
+      "range": {
+        "startLine": 2023,
+        "startChar": 0,
+        "endLine": 2023,
+        "endChar": 50
+      },
+      "revId": "54fc150eae567fff970afd663190108080f97ec4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
