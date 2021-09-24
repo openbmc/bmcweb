@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "96211ccd_751cf139",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-09-24T20:29:35Z",
+      "side": 1,
+      "message": "Wasn\u0027t https://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/44560/9/redfish-core/lib/service_root.hpp inline?",
+      "revId": "92e4f4bf356ef490e70dd8b7581118ad0a629643",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a6859600_cb1e65cf",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-09-24T20:29:35Z",
+      "side": 1,
+      "message": "I think directly above is easiest to read, let\u0027s keep this consistent",
+      "revId": "92e4f4bf356ef490e70dd8b7581118ad0a629643",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dbdc81ad_1a9c3e43",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-09-24T20:29:35Z",
+      "side": 1,
+      "message": "Cool, yeah, let\u0027s keep this naming consistent",
+      "revId": "92e4f4bf356ef490e70dd8b7581118ad0a629643",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
