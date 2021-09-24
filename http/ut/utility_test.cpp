@@ -56,3 +56,19 @@ TEST(Utility, Base64EncodeDecodeString)
     EXPECT_TRUE(crow::utility::base64Decode(encoded, decoded));
     EXPECT_EQ(data, decoded);
 }
+
+TEST(Utility, getIDFromURL)
+{
+    using crow::utility::getIDFromURL;
+    EXPECT_EQ(getIDFromURL("/foo/bar"), "bar");
+    EXPECT_EQ(getIDFromURL("/foo"), "foo");
+
+    // Escaped character
+    EXPECT_EQ(getIDFromURL("/foo%20"), "foo ");
+
+    // Invalid url
+    EXPECT_EQ(getIDFromURL("/%"), "");
+
+    // URL with no path component
+    EXPECT_EQ(getIDFromURL(""), "");
+}
