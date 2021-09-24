@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "5565cb2d_6edfbc84",
+        "filename": "redfish-core/lib/network_protocol.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-09-24T17:29:21Z",
+      "side": 1,
+      "message": "\u003e Did not notice this earlier. Since we can decide the false/true based on the getPortStatusAndPath; can this for loop be removed and setting the \u0027false\u0027 value to the protocol be done at the getPortStatusAndPath ?\n\u003e \n\nI guess we could, but it doesn\u0027t seem like it\u0027s any cleaner.  Maybe a little, but I\u0027d prefer to do it in another patch (which I\u0027m happy to write).\n\n\u003e if (ec \u003d\u003d boost::system::errc::no_such_process)\n\u003e {\n\u003e   asyncResp-\u003eres.jsonValue[protocol.first][\"Port\"] \u003d\n\u003e             nlohmann::detail::value_t::null;\n\u003e   asyncResp-\u003eres.jsonValue[protocol.first][\"ProtocolEnabled\"] \u003d false;\n\u003e   continue;\n\u003e }\n\nSure, seems reasonable, although the continue is incorrect.  In this context, there is no loop to continue.  We are in a lambda, also protocol.first isn\u0027t available, so we used protocolName.  This is done in the latest patchset.",
+      "parentUuid": "c153c7b2_ca6fb551",
+      "range": {
+        "startLine": 130,
+        "startChar": 0,
+        "endLine": 130,
+        "endChar": 76
+      },
+      "revId": "cd625382bc5580d0967285f283d44c194a596943",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "32f994bf_015f78d2",
         "filename": "redfish-core/lib/network_protocol.hpp",
         "patchSetId": 4
@@ -156,6 +180,30 @@
       "side": 1,
       "message": "But if you return here - say if the no_such_process error is for the first protocol in the list, and the 2nd one is enabled, then is we may miss that data?",
       "parentUuid": "d875a1f1_dad232f5",
+      "range": {
+        "startLine": 190,
+        "startChar": 20,
+        "endLine": 190,
+        "endChar": 27
+      },
+      "revId": "cd625382bc5580d0967285f283d44c194a596943",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "40cc4599_28694011",
+        "filename": "redfish-core/lib/network_protocol.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 190,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-09-24T17:29:21Z",
+      "side": 1,
+      "message": "\u003e But if you return here - say if the no_such_process error is for the first protocol in the list, and the 2nd one is enabled, then is we may miss that data?\n\nWhat list?  This method we\u0027re in is getting called once per protocol;  In this context we are not iterating a list.",
+      "parentUuid": "3fce1962_0e9080d2",
       "range": {
         "startLine": 190,
         "startChar": 20,
