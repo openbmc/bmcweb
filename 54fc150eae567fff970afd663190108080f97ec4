@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "a95743dc_494e8e17",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 27
+      },
+      "lineNbr": 1835,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2021-09-24T20:03:33Z",
+      "side": 1,
+      "message": "This is basically a customized comparator: firstly sort files by length of their file names; if two file names have the same length, sort them by alphabetical order. \n\nThe end effect is that: \".gz123\" \u003e \".gz3\" \u003e \".gz2\".\n\nMaybe we can add a comment here.",
+      "parentUuid": "fc81d5d3_7e721971",
+      "range": {
+        "startLine": 1835,
+        "startChar": 25,
+        "endLine": 1835,
+        "endChar": 46
+      },
+      "revId": "54fc150eae567fff970afd663190108080f97ec4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "cf1b00f6_2621cc1d",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 27
@@ -122,6 +146,30 @@
       "writtenOn": "2021-09-24T19:43:09Z",
       "side": 1,
       "message": "at is specifically called out by name in COMMON_ERRORS.md.  I suspect you either want operator[] here (with a range check on id) or you want to use iterators in your loop.",
+      "range": {
+        "startLine": 1975,
+        "startChar": 47,
+        "endLine": 1975,
+        "endChar": 49
+      },
+      "revId": "54fc150eae567fff970afd663190108080f97ec4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "65d5e92d_c48c64f3",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 27
+      },
+      "lineNbr": 1975,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2021-09-24T20:03:33Z",
+      "side": 1,
+      "message": "id is guarded by `id \u003c std::min\u003cuint64_t\u003e(skip + top, logEntries.size())`. I don\u0027t think we have out-of-boundary issue here. Did I miss something?",
+      "parentUuid": "140a9d43_d7753fad",
       "range": {
         "startLine": 1975,
         "startChar": 47,
