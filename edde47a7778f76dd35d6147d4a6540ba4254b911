@@ -94,6 +94,30 @@
       "revId": "edde47a7778f76dd35d6147d4a6540ba4254b911",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3c52a8db_27b09e99",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 12
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-09-24T18:42:04Z",
+      "side": 1,
+      "message": "\u003e \u003e For some reason I remember years ago DMTF having a discussion about assemblies, and how that was largely the future, but in the last year or so, they\u0027ve kind of taken a 180, and now all the new models are using Chassis again for non-trivial cards and devices.\n\u003e \n\u003e Not sure I would call it a 180.. A Redfish co-chair recently said \"a simple rack server, probably just has 1 chassis\".\n\nBut..... a smart nic can easily exist in a \"simple rack server\", in fact, most new servers are coming with some form of smart nic.  Fair that it\u0027s not a 180, but it\u0027s definitely not as cut and dry as I thought it was.\n\n\u003e The mockups show this. Redfish also added Led Identify, location to assembly in the last year so more FRUs could be assemblies. I think for \"non-trivial cards and devices\" (which it sounds like you have that use case  but we don\u0027t at this time) they are still advising chassis (Redfish must then assume a simple rack server probably doesn\u0027t have this use case).\n\nYep, Willys patches are essentially adding cards with non-trivial controllers on them.\n\n\u003e \n\u003e \u003e maybe some code in chassis that checks for the relevant associations to sensors/drives ect that would make the board \"smart\"?  That sounds sucky to code.\n\u003e \n\u003e Yeah that sounds sucky.. I would really prefer some interface(s) to decide.\n\u003e \n\u003e We have to get the assemblies code in first, so maybe we punt for a bit here?\n\nI\u0027m not following what that means.....  Any assemblies code would have to answer \"From dbus, what is an assembly, and what is a chassis?\"  I\u0027m not sure how we\u0027d get assemblies code in without that?\n\nConsidering that moving a bunch of stuff to chassis is already going to be an API breaking change, I\u0027d really like to only do it once if we can.",
+      "parentUuid": "1c8c3de9_9f8727d3",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 29
+      },
+      "revId": "edde47a7778f76dd35d6147d4a6540ba4254b911",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
