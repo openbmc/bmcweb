@@ -573,6 +573,32 @@ void resourceAtUriInUnknownFormat(crow::Response& res, const std::string& arg1)
 
 /**
  * @internal
+ * @brief Formats ServiceDisabled message into JSON
+ *
+ * See header file for more information
+ * @endinternal
+ */
+nlohmann::json serviceDisabled(const std::string& arg1)
+{
+    return nlohmann::json{
+        {"@odata.type", "#Message.v1_1_1.Message"},
+        {"MessageId", "Base.1.11.0.ServiceDisabled"},
+        {"Message", "The operation failed because the service at " + arg1 +
+                        " is disabled and cannot accept requests."},
+        {"MessageArgs", {arg1}},
+        {"MessageSeverity", "Warning"},
+        {"Resolution", "Enable the service and resubmit the request if the "
+                       "operation failed."}};
+}
+
+void serviceDisabled(crow::Response& res, const std::string& arg1)
+{
+    res.result(boost::beast::http::status::service_unavailable);
+    addMessageToErrorJson(res.jsonValue, serviceDisabled(arg1));
+}
+
+/**
+ * @internal
  * @brief Formats ServiceInUnknownState message into JSON
  *
  * See header file for more information

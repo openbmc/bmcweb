@@ -24,7 +24,7 @@ namespace redfish
 namespace messages
 {
 
-constexpr const char* messageVersionPrefix = "Base.1.8.1.";
+constexpr const char* messageVersionPrefix = "Base.1.11.0.";
 constexpr const char* messageAnnotation = "@Message.ExtendedInfo";
 
 /**
@@ -248,6 +248,18 @@ void propertyValueNotInList(crow::Response& res, const std::string& arg1,
 nlohmann::json resourceAtUriInUnknownFormat(const std::string& arg1);
 
 void resourceAtUriInUnknownFormat(crow::Response& res, const std::string& arg1);
+
+/**
+ * @brief Formats ServiceDisabled message into JSON
+ * Message body: "The operation failed because the service at <arg1> is disabled
+ * and " cannot accept requests."
+ *
+ * @param[in] arg1 Parameter of message that will replace %1 in its body.
+ *
+ * @returns Message ServiceDisabled formatted to JSON */
+nlohmann::json serviceDisabled(const std::string& arg1);
+
+void serviceDisabled(crow::Response& res, const std::string& arg1);
 
 /**
  * @brief Formats ServiceInUnknownState message into JSON
