@@ -2,8 +2,8 @@
 #include "nlohmann/json.hpp"
 
 #include <openssl/crypto.h>
-
 #include <boost/date_time/posix_time/posix_time.hpp>
+#include <boost/url/url_view.hpp>
 
 #include <chrono>
 #include <cstdint>
@@ -653,6 +653,30 @@ inline std::time_t getTimestamp(uint64_t millisTimeStamp)
     return std::chrono::duration_cast<std::chrono::duration<int>>(
                chronoTimeStamp)
         .count();
+}
+
+inline std::string getIDFromURL(const std::string_view url)
+{
+    boost::urls::error_code ec;
+    boost::urls::url_view urlView = boost::urls::parse_relative_ref(
+        boost::urls::string_view(url.data(), url.size()), ec);
+    if (ec)
+    {
+        return "";
+    }
+    size_t endIndex = urlView.encoded_path().rfind('/');
+    if (endIndex == boost::string_view::npos)
+    {
+        return "";
+    }
+    boost::urls::path_view path = urlView.path();
+    std::string ret;
+    for (auto segment : path)
+    {
+        ret = segment.segment();
+    }
+
+    return {ret};
 }
 
 } // namespace utility
