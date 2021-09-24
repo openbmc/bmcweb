@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7d943fed_58c84dc5",
+        "filename": "redfish-core/lib/pcie_slots.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 277,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2021-09-24T14:07:25Z",
+      "side": 1,
+      "message": "This could a constexpr or simply specified inline at line 281",
+      "range": {
+        "startLine": 275,
+        "startChar": 0,
+        "endLine": 277,
+        "endChar": 51
+      },
+      "revId": "82c6ff2a04620226048cfcc4d85e08f0a9c87e12",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
