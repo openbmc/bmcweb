@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "c153c7b2_ca6fb551",
+        "filename": "redfish-core/lib/network_protocol.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2021-09-24T14:32:19Z",
+      "side": 1,
+      "message": "Did not notice this earlier. Since we can decide the false/true based on the getPortStatusAndPath; can this for loop be removed and setting the \u0027false\u0027 value to the protocol be done at the getPortStatusAndPath ?\n\nif (ec \u003d\u003d boost::system::errc::no_such_process)\n{\n  asyncResp-\u003eres.jsonValue[protocol.first][\"Port\"] \u003d\n            nlohmann::detail::value_t::null;\n  asyncResp-\u003eres.jsonValue[protocol.first][\"ProtocolEnabled\"] \u003d false;\n  continue;\n}",
+      "parentUuid": "9bdcb167_e9eb3187",
+      "range": {
+        "startLine": 130,
+        "startChar": 0,
+        "endLine": 130,
+        "endChar": 76
+      },
+      "revId": "cd625382bc5580d0967285f283d44c194a596943",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "32f994bf_015f78d2",
         "filename": "redfish-core/lib/network_protocol.hpp",
         "patchSetId": 4
@@ -108,6 +132,30 @@
       "side": 1,
       "message": "Yes, that is true. I forgot about that. code is good",
       "parentUuid": "2d1a9ba2_19c84660",
+      "range": {
+        "startLine": 190,
+        "startChar": 20,
+        "endLine": 190,
+        "endChar": 27
+      },
+      "revId": "cd625382bc5580d0967285f283d44c194a596943",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3fce1962_0e9080d2",
+        "filename": "redfish-core/lib/network_protocol.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 190,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2021-09-24T14:32:19Z",
+      "side": 1,
+      "message": "But if you return here - say if the no_such_process error is for the first protocol in the list, and the 2nd one is enabled, then is we may miss that data?",
+      "parentUuid": "d875a1f1_dad232f5",
       "range": {
         "startLine": 190,
         "startChar": 20,
