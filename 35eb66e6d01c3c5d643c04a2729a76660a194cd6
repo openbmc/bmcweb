@@ -1,0 +1,165 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "05b13152_5ecc647b",
+        "filename": "include/login_routes.hpp",
+        "patchSetId": 44
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-09-25T16:13:22Z",
+      "side": 1,
+      "message": "If extra formparts are provided should we fail it, or ignore them?  What does the http spec say?",
+      "range": {
+        "startLine": 162,
+        "startChar": 20,
+        "endLine": 162,
+        "endChar": 21
+      },
+      "revId": "35eb66e6d01c3c5d643c04a2729a76660a194cd6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "aa79c8e0_b983bef0",
+        "filename": "include/multipart_parser.hpp",
+        "patchSetId": 44
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-09-25T16:13:22Z",
+      "side": 1,
+      "message": "This is making a copy of the req, which is bad.  We should be taking by reference.",
+      "range": {
+        "startLine": 104,
+        "startChar": 4,
+        "endLine": 104,
+        "endChar": 22
+      },
+      "revId": "35eb66e6d01c3c5d643c04a2729a76660a194cd6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f19290a4_e87b8c81",
+        "filename": "include/multipart_parser.hpp",
+        "patchSetId": 44
+      },
+      "lineNbr": 309,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-09-25T16:13:22Z",
+      "side": 1,
+      "message": "I don\u0027t think either of these are needed now that we\u0027re in the constructor.\n\nI think all of these inits should be moved to inline inits on the variable itself, and moved out of the constructor.",
+      "range": {
+        "startLine": 308,
+        "startChar": 0,
+        "endLine": 309,
+        "endChar": 25
+      },
+      "revId": "35eb66e6d01c3c5d643c04a2729a76660a194cd6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "93072cec_610cc02b",
+        "filename": "include/multipart_parser.hpp",
+        "patchSetId": 44
+      },
+      "lineNbr": 338,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-09-25T16:13:22Z",
+      "side": 1,
+      "message": "Do we need to return an error if there was more data than we parsed?  If not, we should change the parse() method to return void instead of size_t.",
+      "range": {
+        "startLine": 338,
+        "startChar": 0,
+        "endLine": 338,
+        "endChar": 18
+      },
+      "revId": "35eb66e6d01c3c5d643c04a2729a76660a194cd6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dd35262b_c88e8a16",
+        "filename": "include/multipart_parser.hpp",
+        "patchSetId": 44
+      },
+      "lineNbr": 352,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-09-25T16:13:22Z",
+      "side": 1,
+      "message": "this-\u003e isn\u0027t required.",
+      "range": {
+        "startLine": 352,
+        "startChar": 27,
+        "endLine": 352,
+        "endChar": 33
+      },
+      "revId": "35eb66e6d01c3c5d643c04a2729a76660a194cd6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e6b3f735_1843c429",
+        "filename": "include/multipart_parser.hpp",
+        "patchSetId": 44
+      },
+      "lineNbr": 354,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-09-25T16:13:22Z",
+      "side": 1,
+      "message": "init variables inline in the for loop.",
+      "range": {
+        "startLine": 354,
+        "startChar": 8,
+        "endLine": 354,
+        "endChar": 20
+      },
+      "revId": "35eb66e6d01c3c5d643c04a2729a76660a194cd6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3389ae74_991f4d84",
+        "filename": "include/multipart_parser.hpp",
+        "patchSetId": 44
+      },
+      "lineNbr": 361,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-09-25T16:13:22Z",
+      "side": 1,
+      "message": "We should remove this in the final version;  this is going to be very chatty.",
+      "range": {
+        "startLine": 360,
+        "startChar": 0,
+        "endLine": 361,
+        "endChar": 75
+      },
+      "revId": "35eb66e6d01c3c5d643c04a2729a76660a194cd6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
