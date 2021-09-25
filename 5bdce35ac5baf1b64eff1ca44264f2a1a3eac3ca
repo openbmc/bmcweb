@@ -409,6 +409,30 @@
     },
     {
       "key": {
+        "uuid": "9829baf9_9c63db2c",
+        "filename": "redfish-core/include/registries/privilege_registry.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 581,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-09-25T15:56:23Z",
+      "side": 1,
+      "message": "\u003e I get what you mean. You want to create perfect code where we do not need to look back after making a subordinate override variable. Whenever any update happens, we override privilege and then do not need to update the code manually.\n\u003e -------------------------------------------------------------------------------------------\n\nTo be clear, I don\u0027t need perfect code, I need code that doesn\u0027t require maintainers to review every single override line item against the privileges to verify that the right overrides got set.  The whole point of the initial privilege registry implementation was because we found that we couldn\u0027t properly review that way, and lots of things were incorrect against the privilege registry.  Also, in the future, people want to override PrivilegeRegistry with their own custom ones (see the mailing list).  We need an implementation that gets us closer to that goal.  IMO, this takes us further away, and would need to be completely replaced to accomplish that goal.\n\n\u003e In the current code, the User needs to run scripts/parse_registries.py, and then after that, a new cost reference gets generated. So they need to use that (update the code manually).\n\nHerein lies the problem.  In the future when people can override the privilege registry, or we have multiples, there\u0027s no way to have one registry have a subordinate override, and the other not.  That adds to the maintainance burden if we have to review this stuff every time there\u0027s a privilege registry change, or someone puts in their own custom one.\n\n\u003e -------------------------------------------------------------------------------------------\n\u003e But what you are asking might not be possible without making complicated changes.\n\nCorrect, this is why I didn\u0027t do it in the initial patchset, but to implement subordinate overrides, I think it\u0027s going to be necessary.\n\n\u003e \n\u003e Ex:  \"Entity\": \"LogEntry\" has two SubordinateOverrides \"Targets\" which means we need to have at least three references created. 1) for URL path which don\u0027t use SubordinateOverrides 2) first SubordinateOverrides 3) second SubordinateOverrides.\n\u003e SubordinateOverrides definition: SubordinateOverrides lists a hierarchical representation for when to apply the override.\n\u003e \n\u003e That means we need to support all. URL paths can support different hierarchical combinations.\n\nCorrect.\n\n\u003e ---------------------------------------------------------------------------------------------\n\u003e What you are suggesting is also possible:\n\u003e we need to create a cost ref variable for each URL(endpoint path), parse that URL (\"@odata.id\")  and then map it with an \"Entity\" of Redfish_1.1.0_PrivilegeRegistry.json. Then Check it has SubordinateOverrides or not. If yes, then map it \"Targets,\" If the target map with URL path(\"@odata.id\" parse and retrieve their \"Entity\"), it creates const ref for that privilege.\n\u003e \n\u003e There are other complications too, but this is a basic idea.\n\nYep, that sounds about right, and in line with what Gunnar was suggesting.",
+      "parentUuid": "de978415_2d20ad01",
+      "range": {
+        "startLine": 580,
+        "startChar": 0,
+        "endLine": 581,
+        "endChar": 39
+      },
+      "revId": "5bdce35ac5baf1b64eff1ca44264f2a1a3eac3ca",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "3fbe68b7_19a1d62c",
         "filename": "redfish-core/include/registries/privilege_registry.hpp",
         "patchSetId": 10
