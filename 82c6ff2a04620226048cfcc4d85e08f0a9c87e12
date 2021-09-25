@@ -22,6 +22,76 @@
       "revId": "82c6ff2a04620226048cfcc4d85e08f0a9c87e12",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3faac477_c9d35c87",
+        "filename": "redfish-core/lib/pcie_slots.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 277,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-09-25T15:32:00Z",
+      "side": 1,
+      "message": "+1, no need to allocate a string here.",
+      "parentUuid": "7d943fed_58c84dc5",
+      "range": {
+        "startLine": 275,
+        "startChar": 0,
+        "endLine": 277,
+        "endChar": 51
+      },
+      "revId": "82c6ff2a04620226048cfcc4d85e08f0a9c87e12",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e5ada7ac_97897aaa",
+        "filename": "redfish-core/lib/pcie_slots.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 285,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-09-25T15:32:00Z",
+      "side": 1,
+      "message": "This is 8 scopes deep in a lambda, please rearrange to make the code more readable.\n\nSecond off, considering this is looking for location code, can\u0027t we do this at a much higher scope, right after the mapper call on line 333?  Right here you\u0027re assuming that the location interface and the item.PCIe interface exist on the same connection, (because you\u0027re using the same connection name).  You should be getting this information from the mapper instead;  Just add the location interface call to your array on line 338.",
+      "range": {
+        "startLine": 285,
+        "startChar": 0,
+        "endLine": 285,
+        "endChar": 63
+      },
+      "revId": "82c6ff2a04620226048cfcc4d85e08f0a9c87e12",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3cc6288e_b89bb4b0",
+        "filename": "redfish-core/lib/pcie_slots.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 311,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-09-25T15:32:00Z",
+      "side": 1,
+      "message": "This needs range checked before indexing into the array.  The jsonValue could\u0027ve been cleared in between when you located the index and when this lambda ran.",
+      "range": {
+        "startLine": 311,
+        "startChar": 71,
+        "endLine": 311,
+        "endChar": 78
+      },
+      "revId": "82c6ff2a04620226048cfcc4d85e08f0a9c87e12",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
