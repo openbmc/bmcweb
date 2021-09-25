@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "907b3b1f_eae67beb",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 1330,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-09-25T16:40:27Z",
+      "side": 1,
+      "message": "This looks like it\u0027s going to fail on systems that don\u0027t support this interface?",
+      "range": {
+        "startLine": 1330,
+        "startChar": 0,
+        "endLine": 1330,
+        "endChar": 52
+      },
+      "revId": "b15bb8f522aa645d05ec68a839ca5d0bdeef4bf3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ead130b9_0a529f8d",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 1402,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-09-25T16:40:27Z",
+      "side": 1,
+      "message": "Why would stop on boot be based on the Logging settings api?  Seems kind of odd that\u0027s in that namespace?  Shouldn\u0027t this be somewhere in the power settings namespace, given that it\u0027s a parameter on ComputerSystem?  Considering that we\u0027re in the process of enabling multi-host systems, that seems important.",
+      "range": {
+        "startLine": 1402,
+        "startChar": 36,
+        "endLine": 1402,
+        "endChar": 72
+      },
+      "revId": "b15bb8f522aa645d05ec68a839ca5d0bdeef4bf3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8a8928e3_dfe410b1",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 1933,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-09-25T16:40:27Z",
+      "side": 1,
+      "message": "nit: can we prefer to return early here, and avoid the validstopBootEnabled variable alltogether.\n\nThis line would go to \nreturn true;\n\nand line 1946 would go to:\nreturn std::nullopt\n\nAlso, the final condition would no longer need to be in an else.",
+      "range": {
+        "startLine": 1933,
+        "startChar": 8,
+        "endLine": 1933,
+        "endChar": 36
+      },
+      "revId": "b15bb8f522aa645d05ec68a839ca5d0bdeef4bf3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "76cfcaf9_2bc31043",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 1989,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-09-25T16:40:27Z",
+      "side": 1,
+      "message": "This should be property not supported, not resource not found.  The Resource will exist on all systems.",
+      "range": {
+        "startLine": 1989,
+        "startChar": 26,
+        "endLine": 1989,
+        "endChar": 42
+      },
+      "revId": "b15bb8f522aa645d05ec68a839ca5d0bdeef4bf3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
