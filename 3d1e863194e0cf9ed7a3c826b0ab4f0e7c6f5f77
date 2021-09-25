@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "daccdc56_9b86a4cc",
+        "filename": "redfish-core/lib/ut/bios_test.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-09-25T18:35:39Z",
+      "side": 1,
+      "message": "Never using namespace..... not even once.",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 0
+      },
+      "revId": "3d1e863194e0cf9ed7a3c826b0ab4f0e7c6f5f77",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "11648e5c_138d7392",
+        "filename": "redfish-core/lib/ut/bios_test.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-09-25T18:35:39Z",
+      "side": 1,
+      "message": "Now that your request patch is in, does this code compile and work?",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 19,
+        "endChar": 25
+      },
+      "revId": "3d1e863194e0cf9ed7a3c826b0ab4f0e7c6f5f77",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "95fb3364_c9795283",
+        "filename": "redfish-core/lib/ut/bios_test.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-09-25T18:35:39Z",
+      "side": 1,
+      "message": "generally shared pointers aren\u0027t taken by pointer, they\u0027re taken by value.  If you only need a pointer, generally a raw pointer to the contained object, or a weak_ptr is a better choice.",
+      "range": {
+        "startLine": 20,
+        "startChar": 44,
+        "endLine": 20,
+        "endChar": 45
+      },
+      "revId": "3d1e863194e0cf9ed7a3c826b0ab4f0e7c6f5f77",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3468025b_5c69402d",
+        "filename": "redfish-core/lib/ut/bios_test.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-09-25T18:35:39Z",
+      "side": 1,
+      "message": "Tab.",
+      "range": {
+        "startLine": 25,
+        "startChar": 0,
+        "endLine": 25,
+        "endChar": 1
+      },
+      "revId": "3d1e863194e0cf9ed7a3c826b0ab4f0e7c6f5f77",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
