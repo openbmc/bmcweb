@@ -464,6 +464,9 @@ inline void getDimmDataByService(std::shared_ptr<bmcweb::AsyncResp> aResp,
             }
             aResp->res.jsonValue["Id"] = dimmId;
             aResp->res.jsonValue["Name"] = "DIMM Slot";
+            aResp->res.jsonValue["Metrics"] = {
+                {"@odata.id", "/redfish/v1/Systems/system/Memory/" + dimmId +
+                                  "/MemoryMetrics"}};
 
             const auto memorySizeProperty = properties.find("MemorySizeInKB");
             if (memorySizeProperty != properties.end())
@@ -886,6 +889,128 @@ inline void getDimmData(std::shared_ptr<bmcweb::AsyncResp> aResp,
             "xyz.openbmc_project.Inventory.Item.PersistentMemory.Partition"});
 }
 
+inline void getDimmErrorMetricsByService(
+    std::shared_ptr<bmcweb::AsyncResp> aResp, const std::string& dimmId,
+    const std::string& service, const std::string& objPath,
+    const std::string& interface)
+{
+    BMCWEB_LOG_DEBUG << "Get available memory error metrics.";
+    crow::connections::systemBus->async_method_call(
+        [dimmId, aResp{std::move(aResp)}](
+            const boost::system::error_code ec,
+            const boost::container::flat_map<
+                std::string, std::variant<bool, int64_t, uint32_t>>&
+                properties) {
+            if (ec)
+            {
+                BMCWEB_LOG_DEBUG << "DBUS response error";
+                messages::internalError(aResp->res);
+
+                return;
+            }
+
+            // MemoryMetrics support two different error durations;
+            // CurrentPeriod and LifeTime. Right now we are only suporting
+            // "CurrentPeriod" which provides the error metrics since last BMC
+            // reset.
+            for (const auto& property : properties)
+            {
+                if (property.first == "ceCount")
+                {
+                    const int64_t* value =
+                        std::get_if<int64_t>(&property.second);
+                    if (value == nullptr)
+                    {
+                        BMCWEB_LOG_DEBUG << "ceCount failed for dimm: "
+                                         << dimmId;
+                        continue;
+                    }
+                    aResp->res.jsonValue["CurrentPeriod"]
+                                        ["CorrectableECCErrorCount"] = *value;
+                }
+                else if (property.first == "ueCount")
+                {
+                    const int64_t* value =
+                        std::get_if<int64_t>(&property.second);
+                    if (value == nullptr)
+                    {
+                        BMCWEB_LOG_DEBUG << "ueCount failed for dimm: "
+                                         << dimmId;
+                        continue;
+                    }
+                    aResp->res.jsonValue["CurrentPeriod"]
+                                        ["UncorrectableECCErrorCount"] = *value;
+                }
+            }
+        },
+        service, objPath, "org.freedesktop.DBus.Properties", "GetAll",
+        interface);
+}
+
+inline void getMemoryMetrics(std::shared_ptr<bmcweb::AsyncResp> aResp,
+                             const std::string& dimmId)
+{
+    BMCWEB_LOG_DEBUG << "Get available memory metrics for DIMM.";
+
+    crow::connections::systemBus->async_method_call(
+        [dimmId, aResp{std::move(aResp)}](
+            const boost::system::error_code ec,
+            const boost::container::flat_map<
+                std::string, boost::container::flat_map<
+                                 std::string, std::vector<std::string>>>&
+                subtree) {
+            if (ec)
+            {
+                BMCWEB_LOG_DEBUG << "DBUS response error";
+                messages::internalError(aResp->res);
+
+                return;
+            }
+
+            // If we find at least one type of metric, set "found" to true.
+            bool found = false;
+            for (const auto& [path, object] : subtree)
+            {
+                if (path.find(dimmId) != std::string::npos)
+                {
+                    for (const auto& [service, interfaces] : object)
+                    {
+                        // Ideally there shouldn't be multiple
+                        // xyz.openbmc_project.Memory.MemoryECC objects with
+                        // "dimmId" in its path. In that case data available is
+                        // for the last object we find here.
+                        if (std::find(interfaces.begin(), interfaces.end(),
+                                      "xyz.openbmc_project.Memory.MemoryECC") !=
+                            interfaces.end())
+                        {
+                            getDimmErrorMetricsByService(
+                                aResp, dimmId, service, path,
+                                "xyz.openbmc_project.Memory.MemoryECC");
+                            found = true;
+                        }
+                    }
+                }
+            }
+            // Object not found
+            if (!found)
+            {
+                messages::resourceNotFound(aResp->res, "MemoryMetrics", dimmId);
+                return;
+            }
+
+            // If we are here, at least one type of metric is available.
+            aResp->res.jsonValue["Id"] = "Metrics";
+            aResp->res.jsonValue["Name"] = "Memory Metrics";
+            return;
+        },
+        "xyz.openbmc_project.ObjectMapper",
+        "/xyz/openbmc_project/object_mapper",
+        "xyz.openbmc_project.ObjectMapper", "GetSubTree",
+        "/xyz/openbmc_project/", 0,
+        // Interfaces that expose memory metrics.
+        std::array<const char*, 1>{"xyz.openbmc_project.Memory.MemoryECC"});
+}
+
 inline void requestRoutesMemoryCollection(App& app)
 {
     /**
@@ -925,6 +1050,27 @@ inline void requestRoutesMemory(App& app)
                     "/redfish/v1/Systems/system/Memory/" + dimmId;
 
                 getDimmData(asyncResp, dimmId);
+            });
+}
+
+inline void requestRoutesMemoryMetrics(App& app)
+{
+    /**
+     * Functions triggers appropriate requests on DBus
+     */
+    BMCWEB_ROUTE(app, "/redfish/v1/Systems/system/Memory/<str>/MemoryMetrics/")
+        .privileges(redfish::privileges::getMemoryMetrics)
+        .methods(boost::beast::http::verb::get)(
+            [](const crow::Request&,
+               const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+               const std::string& dimmId) {
+                asyncResp->res.jsonValue["@odata.type"] =
+                    "#MemoryMetrics.v1_4_1.MemoryMetrics";
+                asyncResp->res.jsonValue["@odata.id"] =
+                    "/redfish/v1/Systems/system/Memory/" + dimmId +
+                    "/MemoryMetrics";
+
+                getMemoryMetrics(asyncResp, dimmId);
             });
 }
 
