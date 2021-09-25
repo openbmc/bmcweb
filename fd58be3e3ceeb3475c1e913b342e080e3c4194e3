@@ -1,0 +1,395 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "90da7537_a6347253",
+        "filename": "include/vm_websocket.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-09-25T16:30:48Z",
+      "side": 1,
+      "message": "Please use std::array.  Also, please follow the naming convention (today we don\u0027t include \"g\" in the prefix.\n\nAlso, I suspect that \u003d {} is sufficient.\n\nAlso, please don\u0027t use magic numbers.  You\u0027ve hardcoded 2 and 3 in lots of places, please don\u0027t.",
+      "range": {
+        "startLine": 171,
+        "startChar": 40,
+        "endLine": 171,
+        "endChar": 46
+      },
+      "revId": "fd58be3e3ceeb3475c1e913b342e080e3c4194e3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "45481e72_8dff986d",
+        "filename": "include/vm_websocket.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 175,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-09-25T16:30:48Z",
+      "side": 1,
+      "message": "I\u0027m not understanding why we need to write this to the filesystem, especially into /etc.  That seems like the wrong place for temporal data, and generally not how we do IPC for this kind of thing.",
+      "range": {
+        "startLine": 175,
+        "startChar": 0,
+        "endLine": 175,
+        "endChar": 57
+      },
+      "revId": "fd58be3e3ceeb3475c1e913b342e080e3c4194e3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2a6440c8_406ff794",
+        "filename": "include/vm_websocket.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 183,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-09-25T16:30:48Z",
+      "side": 1,
+      "message": "Please just range check this against the consts you\u0027re going to create later.",
+      "range": {
+        "startLine": 183,
+        "startChar": 0,
+        "endLine": 183,
+        "endChar": 63
+      },
+      "revId": "fd58be3e3ceeb3475c1e913b342e080e3c4194e3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "17c9175b_4b049948",
+        "filename": "include/vm_websocket.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-09-25T16:30:48Z",
+      "side": 1,
+      "message": "This doesn\u0027t follow any naming convention we generally use.  snake_case is generally all lower, CamelCase doesn\u0027t have spaces.  Please follow the convention of what was done here previously.",
+      "range": {
+        "startLine": 185,
+        "startChar": 38,
+        "endLine": 185,
+        "endChar": 54
+      },
+      "revId": "fd58be3e3ceeb3475c1e913b342e080e3c4194e3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7e2fc53a_c03925e8",
+        "filename": "include/vm_websocket.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 186,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-09-25T16:30:48Z",
+      "side": 1,
+      "message": "This isn\u0027t needed.  Don\u0027t use end() in new code;  This should\u0027ve printed \"response ended twice\" in the error console if you\u0027d had that turned on.",
+      "range": {
+        "startLine": 186,
+        "startChar": 0,
+        "endLine": 186,
+        "endChar": 33
+      },
+      "revId": "fd58be3e3ceeb3475c1e913b342e080e3c4194e3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7bfb1f55_059d47a9",
+        "filename": "include/vm_websocket.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 202,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-09-25T16:30:48Z",
+      "side": 1,
+      "message": "Please prefer to handle errors first than return.",
+      "range": {
+        "startLine": 197,
+        "startChar": 0,
+        "endLine": 202,
+        "endChar": 5
+      },
+      "revId": "fd58be3e3ceeb3475c1e913b342e080e3c4194e3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5792474e_5b8699bb",
+        "filename": "include/vm_websocket.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 214,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-09-25T16:30:48Z",
+      "side": 1,
+      "message": "This is the right way to parse a URL.",
+      "range": {
+        "startLine": 214,
+        "startChar": 12,
+        "endLine": 214,
+        "endChar": 43
+      },
+      "revId": "fd58be3e3ceeb3475c1e913b342e080e3c4194e3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bbb7aaed_a1f71bab",
+        "filename": "include/vm_websocket.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 220,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-09-25T16:30:48Z",
+      "side": 1,
+      "message": "please read common_errors.md.  This method is called out by name.",
+      "range": {
+        "startLine": 220,
+        "startChar": 42,
+        "endLine": 220,
+        "endChar": 44
+      },
+      "revId": "fd58be3e3ceeb3475c1e913b342e080e3c4194e3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f05db10c_29313f44",
+        "filename": "include/vm_websocket.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 224,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-09-25T16:30:48Z",
+      "side": 1,
+      "message": "Same as above.",
+      "range": {
+        "startLine": 224,
+        "startChar": 44,
+        "endLine": 224,
+        "endChar": 46
+      },
+      "revId": "fd58be3e3ceeb3475c1e913b342e080e3c4194e3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8fa4145c_5c816022",
+        "filename": "include/vm_websocket.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 240,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-09-25T16:30:48Z",
+      "side": 1,
+      "message": "Needs range checked.",
+      "range": {
+        "startLine": 240,
+        "startChar": 12,
+        "endLine": 240,
+        "endChar": 20
+      },
+      "revId": "fd58be3e3ceeb3475c1e913b342e080e3c4194e3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b5f252a9_ac4e11ff",
+        "filename": "include/vm_websocket.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 243,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-09-25T16:30:48Z",
+      "side": 1,
+      "message": "Init your variables inline.",
+      "range": {
+        "startLine": 243,
+        "startChar": 0,
+        "endLine": 243,
+        "endChar": 25
+      },
+      "revId": "fd58be3e3ceeb3475c1e913b342e080e3c4194e3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8cbb00f9_77ffad52",
+        "filename": "include/vm_websocket.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 244,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-09-25T16:30:48Z",
+      "side": 1,
+      "message": "Magic number",
+      "range": {
+        "startLine": 244,
+        "startChar": 43,
+        "endLine": 244,
+        "endChar": 44
+      },
+      "revId": "fd58be3e3ceeb3475c1e913b342e080e3c4194e3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "99ae517a_c7252009",
+        "filename": "include/vm_websocket.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 264,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-09-25T16:30:48Z",
+      "side": 1,
+      "message": "?",
+      "range": {
+        "startLine": 261,
+        "startChar": 0,
+        "endLine": 264,
+        "endChar": 18
+      },
+      "revId": "fd58be3e3ceeb3475c1e913b342e080e3c4194e3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "317e8fc5_d0fabf5b",
+        "filename": "include/vm_websocket.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 270,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-09-25T16:30:48Z",
+      "side": 1,
+      "message": "Please iterate using the structs themselves, not with hardcoded sizes.  Range based for is preferred in this case.",
+      "range": {
+        "startLine": 270,
+        "startChar": 16,
+        "endLine": 270,
+        "endChar": 66
+      },
+      "revId": "fd58be3e3ceeb3475c1e913b342e080e3c4194e3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6b707489_f7b033e6",
+        "filename": "include/vm_websocket.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 277,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-09-25T16:30:48Z",
+      "side": 1,
+      "message": "Please don\u0027t use goto in this way.  I suspect continue would\u0027ve had the same result here.",
+      "range": {
+        "startLine": 277,
+        "startChar": 0,
+        "endLine": 277,
+        "endChar": 43
+      },
+      "revId": "fd58be3e3ceeb3475c1e913b342e080e3c4194e3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "462cfc51_87f0eec7",
+        "filename": "include/vm_websocket.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 282,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-09-25T16:30:48Z",
+      "side": 1,
+      "message": "This check seems incorrect?",
+      "range": {
+        "startLine": 282,
+        "startChar": 0,
+        "endLine": 282,
+        "endChar": 30
+      },
+      "revId": "fd58be3e3ceeb3475c1e913b342e080e3c4194e3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cf7b2129_44414998",
+        "filename": "include/vm_websocket.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 290,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-09-25T16:30:48Z",
+      "side": 1,
+      "message": "???????  This is called out by name in common_errors.md",
+      "range": {
+        "startLine": 290,
+        "startChar": 25,
+        "endLine": 290,
+        "endChar": 45
+      },
+      "revId": "fd58be3e3ceeb3475c1e913b342e080e3c4194e3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
