@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9f473cfb_9e07aedd",
+        "filename": "redfish-core/lib/pcie_slots.hpp",
+        "patchSetId": 110
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-09-25T15:40:32Z",
+      "side": 1,
+      "message": "Didn\u0027t this table already get added here:\nhttps://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/46439/5/redfish-core/lib/pcie.hpp#96",
+      "range": {
+        "startLine": 10,
+        "startChar": 0,
+        "endLine": 41,
+        "endChar": 1
+      },
+      "revId": "b91b53f8031af2943aacb8053bd1bd6a7a34b571",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f9d909a3_8cfaaf6c",
+        "filename": "redfish-core/lib/pcie_slots.hpp",
+        "patchSetId": 110
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-09-25T15:40:32Z",
+      "side": 1,
+      "message": "This can be removed.  OEM slot types would imply that we need other parameters to identify them, which we don\u0027t have.  Lets solve that problem when we get to it.",
+      "range": {
+        "startLine": 69,
+        "startChar": 0,
+        "endLine": 72,
+        "endChar": 5
+      },
+      "revId": "b91b53f8031af2943aacb8053bd1bd6a7a34b571",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3e7ea104_a99a4ebb",
+        "filename": "redfish-core/lib/pcie_slots.hpp",
+        "patchSetId": 110
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-09-25T15:40:32Z",
+      "side": 1,
+      "message": "This is 4 lambda scopes deep.  Please rearrange this code to make it easier to review.  Split into methods where necessary (probably at every step).",
+      "range": {
+        "startLine": 200,
+        "startChar": 0,
+        "endLine": 200,
+        "endChar": 80
+      },
+      "revId": "b91b53f8031af2943aacb8053bd1bd6a7a34b571",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e1db57bb_cf5f26c0",
+        "filename": "redfish-core/lib/pcie_slots.hpp",
+        "patchSetId": 110
+      },
+      "lineNbr": 272,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-09-25T15:40:32Z",
+      "side": 1,
+      "message": "This lambda can be done in the scope above.  (right after the GetSubTree call) there\u0027s no need to wait for PCIe to resolve.",
+      "range": {
+        "startLine": 270,
+        "startChar": 0,
+        "endLine": 272,
+        "endChar": 75
+      },
+      "revId": "b91b53f8031af2943aacb8053bd1bd6a7a34b571",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f3b00758_1f241650",
+        "filename": "redfish-core/lib/pcie_slots.hpp",
+        "patchSetId": 110
+      },
+      "lineNbr": 275,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-09-25T15:40:32Z",
+      "side": 1,
+      "message": "PLEASE don\u0027t hardcode dbus path names like this.  It causes lots of rework later when the next system comes along that wants to use this code.  You should be able to get all information from the mapper.",
+      "range": {
+        "startLine": 275,
+        "startChar": 37,
+        "endLine": 275,
+        "endChar": 44
+      },
+      "revId": "b91b53f8031af2943aacb8053bd1bd6a7a34b571",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
