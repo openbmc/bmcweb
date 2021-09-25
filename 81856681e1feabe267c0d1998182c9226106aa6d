@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1f867b4b_c6086e18",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 3039,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-09-25T18:27:32Z",
+      "side": 0,
+      "message": "You seem to have bypassed getChassis?  That seems like an issue?",
+      "range": {
+        "startLine": 3039,
+        "startChar": 0,
+        "endLine": 3039,
+        "endChar": 59
+      },
+      "revId": "81856681e1feabe267c0d1998182c9226106aa6d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
