@@ -1,0 +1,113 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "01b98a97_c4fd25c3",
+        "filename": "redfish-core/lib/metric_definition.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-09-25T16:05:14Z",
+      "side": 1,
+      "message": "I\u0027m not really understanding why this struct is even required, or why we have to make a very expensive copy, but lets focus on the intent or this handler first, then we can circle back around to this thing.",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 13,
+        "endChar": 15
+      },
+      "revId": "b70b49b671006f789c4c4287076e33d441078248",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "377b7e12_7eaabf5e",
+        "filename": "redfish-core/lib/metric_definition.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-09-25T16:05:14Z",
+      "side": 1,
+      "message": "Shouldn\u0027t this be MetricDefinitions?",
+      "range": {
+        "startLine": 55,
+        "startChar": 32,
+        "endLine": 55,
+        "endChar": 51
+      },
+      "revId": "b70b49b671006f789c4c4287076e33d441078248",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "711f4591_13c6445c",
+        "filename": "redfish-core/lib/metric_definition.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-09-25T16:05:14Z",
+      "side": 1,
+      "message": "Please see common_errors.md.  This method is called out by name.",
+      "range": {
+        "startLine": 69,
+        "startChar": 28,
+        "endLine": 69,
+        "endChar": 49
+      },
+      "revId": "b70b49b671006f789c4c4287076e33d441078248",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "814174c5_f5fb4bb6",
+        "filename": "redfish-core/lib/metric_definition.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-09-25T16:05:14Z",
+      "side": 1,
+      "message": "Same as above.",
+      "range": {
+        "startLine": 111,
+        "startChar": 27,
+        "endLine": 111,
+        "endChar": 48
+      },
+      "revId": "b70b49b671006f789c4c4287076e33d441078248",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4455b7d6_08c127cc",
+        "filename": "redfish-core/lib/metric_definition.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-09-25T16:05:14Z",
+      "side": 1,
+      "message": "Overall, I don\u0027t really think this method of getting Redfish JSON directly from dbus is in line with the OpenBMC architecture.  One of the core tenants is that DBus is protocol agnostic, so that we can reuse code as much as possible.  Getting all these properties from dbus also means that:\n\n1. Every time we add any unit to dbus, now we need a patchset to telemetry service AND bmcweb to add support.  Same goes for some of the other properties.\n2. It puts telemetry service in control of the schema, and ID, which means that when we do something like generic caching, we need to coordinate with telemetry service on parameter naming.  If we had to do this with every service, it would never get done.\n3. It makes it much harder to replace telemetry service in the future.\n4. (minor)This doesn\u0027t have any json type checking, which makes it possible to drop the wrong schemas on dbus and fail the validator.  That should not be possible given the way bmcweb is architected.",
+      "revId": "b70b49b671006f789c4c4287076e33d441078248",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
