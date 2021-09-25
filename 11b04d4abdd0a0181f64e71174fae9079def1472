@@ -111,6 +111,30 @@
       "revId": "11b04d4abdd0a0181f64e71174fae9079def1472",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e22efcb3_39572d79",
+        "filename": "meson.build",
+        "patchSetId": 2
+      },
+      "lineNbr": 237,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-09-25T15:14:24Z",
+      "side": 1,
+      "message": "We could, but frankly I don\u0027t really understand how that map works, and we\u0027re not really changing that logic at the moment, so I don\u0027t really want to mess with it in this patchset.  If you wanted to add a descendent patchset that did that, I\u0027d be fine with it.",
+      "parentUuid": "9d915b38_eecf687b",
+      "range": {
+        "startLine": 209,
+        "startChar": 0,
+        "endLine": 237,
+        "endChar": 5
+      },
+      "revId": "11b04d4abdd0a0181f64e71174fae9079def1472",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
