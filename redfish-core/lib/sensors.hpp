@@ -2996,47 +2996,65 @@ inline void requestRoutesSensorCollection(App& app)
                                               const std::string& chassisId) {
             BMCWEB_LOG_DEBUG << "SensorCollection doGet enter";
 
-            std::shared_ptr<SensorsAsyncResp> asyncResp =
-                std::make_shared<SensorsAsyncResp>(
-                    aResp, chassisId,
-                    sensors::dbus::paths.at(sensors::node::sensors),
-                    sensors::node::sensors);
+            crow::connections::systemBus->async_method_call(
+                [aResp{std::move(aResp)}, chassisId](
+                    const boost::system::error_code ec,
+                    const std::vector<
+                        std::pair<std::string,
+                                  std::vector<std::pair<
+                                      std::string, std::vector<std::string>>>>>&
+                        subtree) {
+                    if (ec)
+                    {
+                        // do not add err msg in redfish response, becaues this
+                        // is not
+                        //     mandatory property
+                        BMCWEB_LOG_ERROR << "DBUS error: no matched iface "
+                                         << ec << "\n";
+                        return;
+                    }
 
-            auto getChassisCb =
-                [asyncResp](
-                    const std::shared_ptr<
-                        boost::container::flat_set<std::string>>& sensorNames) {
-                    BMCWEB_LOG_DEBUG << "getChassisCb enter";
+                    aResp->res.jsonValue["@odata.type"] =
+                        "#SensorCollection.SensorCollection";
+                    aResp->res.jsonValue["@odata.id"] =
+                        "/redfish/v1/Chassis/" + chassisId + "/Sensors";
+                    aResp->res.jsonValue["@odata.context"] =
+                        "/redfish/v1/"
+                        "$metadata#SensorCollection.SensorCollection";
+                    aResp->res.jsonValue["Description"] =
+                        "Resource Collection of Sensor instances";
+                    aResp->res.jsonValue["Name"] = "Sensor Collection";
 
                     nlohmann::json& entriesArray =
-                        asyncResp->asyncResp->res.jsonValue["Members"];
-                    for (auto& sensor : *sensorNames)
+                        aResp->res.jsonValue["Members"];
+                    for (auto& sensorobject : subtree)
                     {
-                        BMCWEB_LOG_DEBUG << "Adding sensor: " << sensor;
+                        std::string sensor = sensorobject.first;
+                        std::size_t lastPos = sensor.rfind("/");
 
-                        sdbusplus::message::object_path path(sensor);
-                        std::string sensorName = path.filename();
-                        if (sensorName.empty())
+                        if (lastPos == std::string::npos ||
+                            lastPos + 1 >= sensor.size())
                         {
                             BMCWEB_LOG_ERROR << "Invalid sensor path: "
                                              << sensor;
-                            messages::internalError(asyncResp->asyncResp->res);
+                            messages::internalError(aResp->res);
                             return;
                         }
+                        std::string sensorName = sensor.substr(lastPos + 1);
                         entriesArray.push_back(
-                            {{"@odata.id", "/redfish/v1/Chassis/" +
-                                               asyncResp->chassisId + "/" +
-                                               asyncResp->chassisSubNode + "/" +
+                            {{"@odata.id", "/redfish/v1/Chassis/" + chassisId +
+                                               "/" + "Sensors" + "/" +
                                                sensorName}});
                     }
-
-                    asyncResp->asyncResp->res.jsonValue["Members@odata.count"] =
+                    aResp->res.jsonValue["Members@odata.count"] =
                         entriesArray.size();
-                    BMCWEB_LOG_DEBUG << "getChassisCb exit";
-                };
+                },
+                "xyz.openbmc_project.ObjectMapper",
+                "/xyz/openbmc_project/object_mapper",
+                "xyz.openbmc_project.ObjectMapper", "GetSubTree",
+                "/xyz/openbmc_project/sensors", 2,
+                std::array<const char*, 1>{"xyz.openbmc_project.Sensor.Value"});
 
-            // Get set of sensors in chassis
-            getChassis(asyncResp, std::move(getChassisCb));
             BMCWEB_LOG_DEBUG << "SensorCollection doGet exit";
         });
 }
