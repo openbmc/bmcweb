@@ -70,6 +70,47 @@
       "revId": "11b04d4abdd0a0181f64e71174fae9079def1472",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bdd53b24_76ce79a7",
+        "filename": "meson.build",
+        "patchSetId": 2
+      },
+      "lineNbr": 175,
+      "author": {
+        "id": 1000206
+      },
+      "writtenOn": "2021-09-25T06:17:39Z",
+      "side": 1,
+      "message": "oh well, i did not release about the get_supoorted_arguements, yes you are correct. we can remove the gcc and clang checks. The earlier version also had compiler version check, not sure if that could cause any breaks.But I think i am good here.",
+      "parentUuid": "2716244c_f003ef81",
+      "revId": "11b04d4abdd0a0181f64e71174fae9079def1472",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9d915b38_eecf687b",
+        "filename": "meson.build",
+        "patchSetId": 2
+      },
+      "lineNbr": 237,
+      "author": {
+        "id": 1000206
+      },
+      "writtenOn": "2021-09-25T06:17:39Z",
+      "side": 1,
+      "message": "can we get rid of these as well, add these features in the feature map like\n\n\u0027redfish-allow-deprecated-hostname-patch\u0027: \u0027-DBMCWEB_ALLOW_DEPRECATED_HOSTNAME_PATCH\u0027,\n\u0027hostname-patch\u0027 : \u0027-DBMCWEB_ALLOW_DEPRECATED_HOSTNAME_PATCH\u0027,\n\u0027redfish-allow-deprecated-power-thermal\u0027: \u0027-DBMCWEB_ALLOW_DEPRECATED_POWER_THERMAL\u0027,\n\u0027power-thermal\u0027 : \u0027-DBMCWEB_NEW_POWERSUBSYSTEM_THERMALSUBSYSTEM\u0027\n...\n\nand the summary should be taken care of automatically.",
+      "range": {
+        "startLine": 209,
+        "startChar": 0,
+        "endLine": 237,
+        "endChar": 5
+      },
+      "revId": "11b04d4abdd0a0181f64e71174fae9079def1472",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
