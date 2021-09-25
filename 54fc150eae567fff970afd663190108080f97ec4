@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "e1f02915_63fb15c2",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 27
+      },
+      "lineNbr": 1835,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-09-25T15:48:13Z",
+      "side": 1,
+      "message": "\u003e This is basically a customized comparator: firstly sort files by length of their file names; if two file names have the same length, sort them by alphabetical order. \n\u003e \n\u003e The end effect is that: \".gz123\" \u003e \".gz3\" \u003e \".gz2\".\n\u003e \n\u003e Maybe we can add a comment here.\n\nThat doesn\u0027t really explain why we need forward as tuple.  My best guess is that we\u0027re generating a tuple of size, string, then relying on the fact that tuples can be implicitly sorted based on the order of the elements.  That\u0027s way too subtle for me, and I\u0027m still not certain that\u0027s what\u0027s going on here (still doesn\u0027t explain the forward_as_tuple).  I\u0027d really like to just see this read in the value.\n\nThe other option would be to zero pad the filename before we do the sort hen sort on the zero padded version, but that seems more complex than just sorting on int.",
+      "parentUuid": "a95743dc_494e8e17",
+      "range": {
+        "startLine": 1835,
+        "startChar": 25,
+        "endLine": 1835,
+        "endChar": 46
+      },
+      "revId": "54fc150eae567fff970afd663190108080f97ec4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "cf1b00f6_2621cc1d",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 27
@@ -170,6 +194,30 @@
       "side": 1,
       "message": "id is guarded by `id \u003c std::min\u003cuint64_t\u003e(skip + top, logEntries.size())`. I don\u0027t think we have out-of-boundary issue here. Did I miss something?",
       "parentUuid": "140a9d43_d7753fad",
+      "range": {
+        "startLine": 1975,
+        "startChar": 47,
+        "endLine": 1975,
+        "endChar": 49
+      },
+      "revId": "54fc150eae567fff970afd663190108080f97ec4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3a254cdb_1f5600d9",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 27
+      },
+      "lineNbr": 1975,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-09-25T15:48:13Z",
+      "side": 1,
+      "message": "That\u0027s fine it\u0027s guarded.... we still don\u0027t use at().  If you have a range check, that\u0027s fine, but we should be using operator[].",
+      "parentUuid": "65d5e92d_c48c64f3",
       "range": {
         "startLine": 1975,
         "startChar": 47,
