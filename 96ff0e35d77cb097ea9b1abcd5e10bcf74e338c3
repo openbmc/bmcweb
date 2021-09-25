@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3da93603_1a45a25f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 44
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-09-25T18:32:01Z",
+      "side": 1,
+      "message": "More description needed about what a \"Resource dump\" is.  \"resource\" has special meaning in redfish, and I don\u0027t believe you\u0027re using the vernacular correctly in this case.",
+      "range": {
+        "startLine": 10,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 14
+      },
+      "revId": "96ff0e35d77cb097ea9b1abcd5e10bcf74e338c3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "52ea2640_abb3683b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 44
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-09-25T18:32:01Z",
+      "side": 1,
+      "message": "50/72 please.",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 13,
+        "endChar": 59
+      },
+      "revId": "96ff0e35d77cb097ea9b1abcd5e10bcf74e338c3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f9dd39a1_995e7ee3",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 44
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-09-25T18:32:01Z",
+      "side": 1,
+      "message": "This would imply that we can send schemaless data through bmcweb, which is actively discouraged by both Redfish and bmcweb.  Please structure this data appropriately so that these endpoints can be reused by others.",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 18,
+        "endChar": 0
+      },
+      "revId": "96ff0e35d77cb097ea9b1abcd5e10bcf74e338c3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "482a7f3d_4febb114",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 44
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-09-25T18:32:01Z",
+      "side": 1,
+      "message": "This is not how redfish describes this, and there is nothing in redfish that\u0027s snake case, especially upper snake case.  Please follow the example of other similar things in terms of naming this.\n\nThis also implies that we\u0027re supporting system-specific naming of these things, which seems wrong.  We should have a fixed set of these that\u0027s known at compile time.",
+      "range": {
+        "startLine": 30,
+        "startChar": 1,
+        "endLine": 30,
+        "endChar": 15
+      },
+      "revId": "96ff0e35d77cb097ea9b1abcd5e10bcf74e338c3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
