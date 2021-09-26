@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "6d526fc0_471de35b",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 1330,
+      "author": {
+        "id": 1000547
+      },
+      "writtenOn": "2021-09-26T08:06:00Z",
+      "side": 1,
+      "message": "We start looking at \"/\",\nIf \"xyz.openbmc_project.Logging.Settings\" doesn\u0027t exist the next if is hit.",
+      "parentUuid": "907b3b1f_eae67beb",
+      "range": {
+        "startLine": 1330,
+        "startChar": 0,
+        "endLine": 1330,
+        "endChar": 52
+      },
+      "revId": "b15bb8f522aa645d05ec68a839ca5d0bdeef4bf3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "ead130b9_0a529f8d",
         "filename": "redfish-core/lib/systems.hpp",
         "patchSetId": 9
@@ -36,6 +60,30 @@
       "writtenOn": "2021-09-25T16:40:27Z",
       "side": 1,
       "message": "Why would stop on boot be based on the Logging settings api?  Seems kind of odd that\u0027s in that namespace?  Shouldn\u0027t this be somewhere in the power settings namespace, given that it\u0027s a parameter on ComputerSystem?  Considering that we\u0027re in the process of enabling multi-host systems, that seems important.",
+      "range": {
+        "startLine": 1402,
+        "startChar": 36,
+        "endLine": 1402,
+        "endChar": 72
+      },
+      "revId": "b15bb8f522aa645d05ec68a839ca5d0bdeef4bf3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "393f27f5_d015d0ea",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 1402,
+      "author": {
+        "id": 1000547
+      },
+      "writtenOn": "2021-09-26T08:06:00Z",
+      "side": 1,
+      "message": "In https://github.com/ibm-openbmc/dev/issues/1068,\ndiscussed inside,\n\"StopBootOnFault\" is mapping busctl set-property xyz.openbmc_project.Settings /xyz/openbmc_project/logging/settings xyz.openbmc_project.Logging.Settings QuiesceOnHwError b true\n@Gunnar Mills",
+      "parentUuid": "ead130b9_0a529f8d",
       "range": {
         "startLine": 1402,
         "startChar": 36,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "8ea9f60a_f02a8829",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 1933,
+      "author": {
+        "id": 1000547
+      },
+      "writtenOn": "2021-09-26T08:06:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8a8928e3_dfe410b1",
+      "range": {
+        "startLine": 1933,
+        "startChar": 8,
+        "endLine": 1933,
+        "endChar": 36
+      },
+      "revId": "b15bb8f522aa645d05ec68a839ca5d0bdeef4bf3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "76cfcaf9_2bc31043",
         "filename": "redfish-core/lib/systems.hpp",
         "patchSetId": 9
@@ -91,6 +163,30 @@
       "revId": "b15bb8f522aa645d05ec68a839ca5d0bdeef4bf3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f49e7a63_97c9af16",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 1989,
+      "author": {
+        "id": 1000547
+      },
+      "writtenOn": "2021-09-26T08:06:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "76cfcaf9_2bc31043",
+      "range": {
+        "startLine": 1989,
+        "startChar": 26,
+        "endLine": 1989,
+        "endChar": 42
+      },
+      "revId": "b15bb8f522aa645d05ec68a839ca5d0bdeef4bf3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
