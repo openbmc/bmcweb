@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "9b16019d_da1679cb",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 1330,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-09-27T00:55:00Z",
+      "side": 1,
+      "message": "Correct.\nIf \"xyz.openbmc_project.Logging.Settings\" doesn\u0027t exist, subtree size will be 0 but an ec isn\u0027t returned",
+      "parentUuid": "6d526fc0_471de35b",
+      "range": {
+        "startLine": 1330,
+        "startChar": 0,
+        "endLine": 1330,
+        "endChar": 52
+      },
+      "revId": "b15bb8f522aa645d05ec68a839ca5d0bdeef4bf3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "ead130b9_0a529f8d",
         "filename": "redfish-core/lib/systems.hpp",
         "patchSetId": 9
@@ -84,6 +108,30 @@
       "side": 1,
       "message": "In https://github.com/ibm-openbmc/dev/issues/1068,\ndiscussed inside,\n\"StopBootOnFault\" is mapping busctl set-property xyz.openbmc_project.Settings /xyz/openbmc_project/logging/settings xyz.openbmc_project.Logging.Settings QuiesceOnHwError b true\n@Gunnar Mills",
       "parentUuid": "ead130b9_0a529f8d",
+      "range": {
+        "startLine": 1402,
+        "startChar": 36,
+        "endLine": 1402,
+        "endChar": 72
+      },
+      "revId": "b15bb8f522aa645d05ec68a839ca5d0bdeef4bf3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "65da91a1_f322b203",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 1402,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-09-27T00:55:00Z",
+      "side": 1,
+      "message": "I added Andrew to the review since he added the interface. \nhttps://github.com/openbmc/phosphor-dbus-interfaces/commit/c271176a57963ad681859c97c7966a11ecd8ec31\nLet\u0027s avoid pointing at a company fork / company bug tracker (ibm-openbmc) upstream",
+      "parentUuid": "393f27f5_d015d0ea",
       "range": {
         "startLine": 1402,
         "startChar": 36,
