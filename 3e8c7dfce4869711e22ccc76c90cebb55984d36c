@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "50d09645_6f1f65c0",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 2841,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-09-27T00:57:47Z",
+      "side": 0,
+      "message": "Why remove lines like this?",
+      "revId": "3e8c7dfce4869711e22ccc76c90cebb55984d36c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "26a8a40d_b7fb2ad7",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 2884,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-09-27T00:57:47Z",
+      "side": 0,
+      "message": "Same here? Why remove these? Lets do that in a separate commit if these really need changed.\nEmpty line changes make reverting commits harder, makes git blame harder to understand, etc.",
+      "revId": "3e8c7dfce4869711e22ccc76c90cebb55984d36c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
