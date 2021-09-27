@@ -159,6 +159,30 @@
     },
     {
       "key": {
+        "uuid": "22725aa6_be64c5b1",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 27
+      },
+      "lineNbr": 1936,
+      "author": {
+        "id": 1000404
+      },
+      "writtenOn": "2021-09-27T07:06:50Z",
+      "side": 1,
+      "message": "Sorry for the poor description. The \"maxEntriesPerPage\" is a constant value and the value is 1000. The range of top handle by \"getTopParam\" which allow 1 to 1000 entries per page.\n\nIt will throw \"queryParameterValueTypeError\" if top out of range.",
+      "parentUuid": "f2063893_672f721c",
+      "range": {
+        "startLine": 1936,
+        "startChar": 49,
+        "endLine": 1936,
+        "endChar": 80
+      },
+      "revId": "54fc150eae567fff970afd663190108080f97ec4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "140a9d43_d7753fad",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 27
