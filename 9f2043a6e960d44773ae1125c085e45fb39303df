@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "e0962c7f_6da4bf27",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 1001083
+      },
+      "writtenOn": "2021-09-27T13:49:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9e3fa0e8_0fee0cbc",
+      "range": {
+        "startLine": 162,
+        "startChar": 0,
+        "endLine": 162,
+        "endChar": 20
+      },
+      "revId": "9f2043a6e960d44773ae1125c085e45fb39303df",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a267016e_564dfc50",
         "filename": "redfish-core/lib/systems.hpp",
         "patchSetId": 10
@@ -60,6 +84,24 @@
     },
     {
       "key": {
+        "uuid": "46c01b37_afa2886a",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 235,
+      "author": {
+        "id": 1001083
+      },
+      "writtenOn": "2021-09-27T13:49:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e0dc886b_5a83742e",
+      "revId": "9f2043a6e960d44773ae1125c085e45fb39303df",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4d1ba4e2_f6188144",
         "filename": "redfish-core/lib/systems.hpp",
         "patchSetId": 10
@@ -71,6 +113,30 @@
       "writtenOn": "2021-09-17T17:39:58Z",
       "side": 1,
       "message": "nit: Can we change this to be:\n\nif (coreCountPtr \u003d\u003d nullptr)\n{\n    coreCount \u003d 0;\n}\n*coreCountPtr +\u003d *coreCountVal;\n\n\nI think that simplifies the logic a little and makes it more clear what operation is being done, initializing the value if it doesn\u0027t exist, then adding up the cores.",
+      "range": {
+        "startLine": 261,
+        "startChar": 0,
+        "endLine": 268,
+        "endChar": 21
+      },
+      "revId": "9f2043a6e960d44773ae1125c085e45fb39303df",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3b6544a8_5d3bb9a5",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 268,
+      "author": {
+        "id": 1001083
+      },
+      "writtenOn": "2021-09-27T13:49:25Z",
+      "side": 1,
+      "message": "I used the else block to avoid a null pointer dereference. Is that ok?\nI\u0027ve tried the suggested code above and hit segmentation fault.",
+      "parentUuid": "4d1ba4e2_f6188144",
       "range": {
         "startLine": 261,
         "startChar": 0,
