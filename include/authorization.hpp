@@ -256,7 +256,8 @@ static bool isOnWhitelist(std::string_view url, boost::beast::http::verb method)
 }
 
 static std::shared_ptr<persistent_data::UserSession> authenticate(
-    std::string_view url, boost::asio::ip::address& ipAddress, Response& res,
+    std::string_view url,
+    [[maybe_unused]] boost::asio::ip::address& ipAddress, Response& res,
     boost::beast::http::verb method,
     const boost::beast::http::header<true>& reqHeader,
     [[maybe_unused]] const std::shared_ptr<persistent_data::UserSession>&
