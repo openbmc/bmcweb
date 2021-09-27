@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "a22f15b3_c9861162",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 2841,
+      "author": {
+        "id": 1000547
+      },
+      "writtenOn": "2021-09-27T01:29:59Z",
+      "side": 0,
+      "message": "I resubmit them again to restore them back.\nDone.",
+      "parentUuid": "50d09645_6f1f65c0",
+      "revId": "3e8c7dfce4869711e22ccc76c90cebb55984d36c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "26a8a40d_b7fb2ad7",
         "filename": "redfish-core/lib/systems.hpp",
         "patchSetId": 13
@@ -33,6 +51,24 @@
       "revId": "3e8c7dfce4869711e22ccc76c90cebb55984d36c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a9710d21_402a1b5e",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 2884,
+      "author": {
+        "id": 1000547
+      },
+      "writtenOn": "2021-09-27T01:29:59Z",
+      "side": 0,
+      "message": "I resubmit them again to restore them back.\nDone.",
+      "parentUuid": "26a8a40d_b7fb2ad7",
+      "revId": "3e8c7dfce4869711e22ccc76c90cebb55984d36c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
