@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "483e8698_e8f362e8",
+        "filename": "include/login_routes.hpp",
+        "patchSetId": 44
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-09-27T07:11:26Z",
+      "side": 1,
+      "message": "For example, there is a req.body():\n```\n-----------------------------d74496d66958873e\nContent-Disposition: form-data; name\u003d\"username\"\nContent-Type: */*\n\nroot\n\n-----------------------------d74496d66958873e\nContent-Disposition: form-data; name\u003d\"password\"\nContent-Type: */*\n\n0penBmc\n\n-----------------------------d74496d66958873e\nContent-Disposition: form-data; name\u003d\"test1\"\nContent-Type: */*\n\ntest value\n\n-----------------------------d74496d66958873e--\n```\n\nWe want to parse `username` and `password`, but this time we parsed `test 1`, so we can ignore it, because it will not affect us.\nI think we only need to use BMCWEB_LOG_INFO to give a hint, like this:\nBMCWEB_LOG_INFO \u003c\u003c \"Extra format, ignore it.\" \u003c\u003c it-\u003evalue();",
+      "parentUuid": "a29f477c_6d2d695a",
+      "range": {
+        "startLine": 162,
+        "startChar": 20,
+        "endLine": 162,
+        "endChar": 21
+      },
+      "revId": "35eb66e6d01c3c5d643c04a2729a76660a194cd6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "aa79c8e0_b983bef0",
         "filename": "include/multipart_parser.hpp",
         "patchSetId": 44
