@@ -124,7 +124,7 @@ inline void requestRoutesMessageRegistryFile(App& app)
 
 inline void handleMessageRegistryGet(
     const crow::Request&, const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-    const std::string& registry, const std::string& registry1)
+    const std::string& registry, const std::string& registryMatch)
 
 {
     const message_registries::Header* header;
@@ -173,9 +173,9 @@ inline void handleMessageRegistryGet(
         return;
     }
 
-    if (registry != registry1)
+    if (registry != registryMatch)
     {
-        messages::resourceNotFound(asyncResp->res, header->type, registry1);
+        messages::resourceNotFound(asyncResp->res, header->type, registryMatch);
         return;
     }
 
