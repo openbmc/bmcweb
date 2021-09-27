@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "e715e0a0_7e9e2343",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2021-09-27T21:04:49Z",
+      "side": 1,
+      "message": "moved them all to inline",
+      "parentUuid": "fdffcdf1_016cfddf",
+      "revId": "92e4f4bf356ef490e70dd8b7581118ad0a629643",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a6859600_cb1e65cf",
         "filename": "redfish-core/lib/bios.hpp",
         "patchSetId": 6
@@ -72,6 +90,24 @@
     },
     {
       "key": {
+        "uuid": "f659fa6d_6cb14816",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2021-09-27T21:04:49Z",
+      "side": 1,
+      "message": "There is a possibility I would mix up the handlers if we put all of them at the bottom.\nI think the requestroutes directly after the handler make that less likely. \n(I could still mess it up, but it would be less likely 😊 )",
+      "parentUuid": "2b324849_4b074343",
+      "revId": "92e4f4bf356ef490e70dd8b7581118ad0a629643",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "dbdc81ad_1a9c3e43",
         "filename": "redfish-core/lib/bios.hpp",
         "patchSetId": 6
@@ -83,6 +119,24 @@
       "writtenOn": "2021-09-24T20:29:35Z",
       "side": 1,
       "message": "Cool, yeah, let\u0027s keep this naming consistent",
+      "revId": "92e4f4bf356ef490e70dd8b7581118ad0a629643",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eaa04819_955f68d5",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2021-09-27T21:04:49Z",
+      "side": 1,
+      "message": "I think the pattern is \"handle\"+(originalName)+(verb) \nLet me know if anything is off with these",
+      "parentUuid": "dbdc81ad_1a9c3e43",
       "revId": "92e4f4bf356ef490e70dd8b7581118ad0a629643",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
