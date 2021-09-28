@@ -138,6 +138,30 @@
       "revId": "b91b53f8031af2943aacb8053bd1bd6a7a34b571",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9912509e_20c5fada",
+        "filename": "redfish-core/lib/pcie_slots.hpp",
+        "patchSetId": 110
+      },
+      "lineNbr": 275,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2021-09-28T21:08:54Z",
+      "side": 1,
+      "message": "Actually now that I look at this, shouldn\u0027t we follow the sensors pattern and just make a single dbus call to get the all-pcie-slots (or whatever we are naming the slot-\u003echassis association) rather than iterating on all the slots in the system?",
+      "parentUuid": "a4cc12bc_d7099e98",
+      "range": {
+        "startLine": 275,
+        "startChar": 37,
+        "endLine": 275,
+        "endChar": 44
+      },
+      "revId": "b91b53f8031af2943aacb8053bd1bd6a7a34b571",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
