@@ -114,6 +114,30 @@
       "revId": "b91b53f8031af2943aacb8053bd1bd6a7a34b571",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a4cc12bc_d7099e98",
+        "filename": "redfish-core/lib/pcie_slots.hpp",
+        "patchSetId": 110
+      },
+      "lineNbr": 275,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2021-09-28T12:59:44Z",
+      "side": 1,
+      "message": "Ed this is an association to the containing chassis.  Rainier can have \u003e 50 slots spread across multiple chassis.  The only hardcoded part here is the association name.  I don\u0027t think it makes sense for the association names to be configurable?",
+      "parentUuid": "f3b00758_1f241650",
+      "range": {
+        "startLine": 275,
+        "startChar": 37,
+        "endLine": 275,
+        "endChar": 44
+      },
+      "revId": "b91b53f8031af2943aacb8053bd1bd6a7a34b571",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
