@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "e40ddb98_78a2c4d4",
+        "filename": "redfish-core/lib/ut/bios_test.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2021-09-28T18:58:00Z",
+      "side": 1,
+      "message": "\"I learned it from watching you\"\n https://github.com/openbmc/bmcweb/blob/master/redfish-core/ut/privileges_test.cpp#L9",
+      "parentUuid": "daccdc56_9b86a4cc",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 0
+      },
+      "revId": "3d1e863194e0cf9ed7a3c826b0ab4f0e7c6f5f77",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "11648e5c_138d7392",
         "filename": "redfish-core/lib/ut/bios_test.cpp",
         "patchSetId": 2
