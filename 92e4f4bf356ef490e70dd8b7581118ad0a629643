@@ -140,6 +140,24 @@
       "revId": "92e4f4bf356ef490e70dd8b7581118ad0a629643",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8c70365a_c570bb65",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-09-28T19:46:03Z",
+      "side": 1,
+      "message": "Looks good. Let\u0027s keep this pattern.",
+      "parentUuid": "eaa04819_955f68d5",
+      "revId": "92e4f4bf356ef490e70dd8b7581118ad0a629643",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
