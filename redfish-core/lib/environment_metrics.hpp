@@ -172,6 +172,67 @@ inline void getPowerWatts(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
 }
 
 inline void
+    getPowerLimitWatts(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                       const std::string& chassisID)
+{
+    crow::connections::systemBus->async_method_call(
+        [asyncResp, chassisID](
+            const boost::system::error_code ec,
+            const std::vector<std::pair<
+                std::string, std::variant<uint32_t, bool>>>& properties) {
+            if (ec)
+            {
+                BMCWEB_LOG_DEBUG << "Can't get Power Limit Watts!";
+                messages::internalError(asyncResp->res);
+                return;
+            }
+
+            nlohmann::json& tempArray =
+                asyncResp->res.jsonValue["PowerLimitWatts"];
+            std::string tempPath = "/redfish/v1/Chassis/" + chassisID;
+            if (tempArray.empty())
+            {
+                tempArray.push_back(
+                    {{"@odata.id", tempPath + "/Power#/PowerControl/0"},
+                     {"DataSourceUri", tempPath + "/Power#/PowerControl/0"}});
+            }
+            nlohmann::json& sensorJson = tempArray.back();
+            bool enabled = false;
+            uint32_t powerCap = 0;
+
+            for (const std::pair<std::string, std::variant<uint32_t, bool>>&
+                     property : properties)
+            {
+                if (!property.first.compare("PowerCap"))
+                {
+                    const uint32_t* u = std::get_if<uint32_t>(&property.second);
+                    powerCap = *u;
+                }
+                else if (!property.first.compare("PowerCapEnable"))
+                {
+                    const bool* b = std::get_if<bool>(&property.second);
+
+                    if (b)
+                    {
+                        enabled = *b;
+                    }
+                }
+            }
+
+            nlohmann::json& value = sensorJson["SetPoint"];
+
+            if (enabled)
+            {
+                value = powerCap;
+            }
+        },
+        "xyz.openbmc_project.Settings",
+        "/xyz/openbmc_project/control/host0/power_cap",
+        "org.freedesktop.DBus.Properties", "GetAll",
+        "xyz.openbmc_project.Control.Power.Cap");
+}
+
+inline void
     getEnvironmentMetrics(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                           const std::string& chassisID)
 {
@@ -179,13 +240,14 @@ inline void
         << "Get properties for EnvironmentMetrics associated to chassis = "
         << chassisID;
     asyncResp->res.jsonValue["@odata.type"] =
-        "#EnvironmentMetrics.v1_0_0.EnvironmentMetrics";
+        "#EnvironmentMetrics.v1_1_0.EnvironmentMetrics";
     asyncResp->res.jsonValue["Name"] = "Chassis Environment Metrics";
     asyncResp->res.jsonValue["Id"] = "EnvironmentMetrics";
     asyncResp->res.jsonValue["@odata.id"] =
         "/redfish/v1/Chassis/" + chassisID + "/EnvironmentMetrics";
     getfanSpeedsPercent(asyncResp, chassisID);
     getPowerWatts(asyncResp, chassisID);
+    getPowerLimitWatts(asyncResp, chassisID);
 }
 
 inline void requestRoutesEnvironmentMetrics(App& app)
