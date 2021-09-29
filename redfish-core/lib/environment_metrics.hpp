@@ -172,6 +172,161 @@ inline void getPowerWatts(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
 }
 
 inline void
+    getPowerLimitWatts(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
+{
+    crow::connections::systemBus->async_method_call(
+        [asyncResp](const boost::system::error_code ec,
+                    const std::vector<
+                        std::pair<std::string, std::variant<uint32_t, bool>>>&
+                        properties) {
+            if (ec)
+            {
+                BMCWEB_LOG_DEBUG << "Can't get Power Limit Watts!";
+                messages::internalError(asyncResp->res);
+                return;
+            }
+            bool enabled = false;
+            uint32_t powerCap = 0;
+            for (const std::pair<std::string, std::variant<uint32_t, bool>>&
+                     property : properties)
+            {
+                if (!property.first.compare("PowerCap"))
+                {
+                    const uint32_t* u = std::get_if<uint32_t>(&property.second);
+                    if (u == nullptr)
+                    {
+                        messages::internalError(asyncResp->res);
+                        BMCWEB_LOG_ERROR << "Fail to get PowerCap status ";
+                        return;
+                    }
+                    powerCap = *u;
+                }
+                else if (!property.first.compare("PowerCapEnable"))
+                {
+                    const bool* b = std::get_if<bool>(&property.second);
+
+                    if (b == nullptr)
+                    {
+                        messages::internalError(asyncResp->res);
+                        BMCWEB_LOG_ERROR
+                            << "Fail to get PowerCapEnable status ";
+                        return;
+                    }
+                    enabled = *b;
+                }
+            }
+            nlohmann::json& value =
+                asyncResp->res.jsonValue["PowerLimitWatts"]["SetPoint"];
+
+            if (!enabled)
+            {
+                asyncResp->res.jsonValue["PowerLimitWatts"]["ControlMode"] =
+                    "disabled ";
+            }
+            else
+            {
+                asyncResp->res.jsonValue["PowerLimitWatts"]["ControlMode"] =
+                    "automatic";
+                value = powerCap;
+            }
+        },
+        "xyz.openbmc_project.Settings",
+        "/xyz/openbmc_project/control/host0/power_cap",
+        "org.freedesktop.DBus.Properties", "GetAll",
+        "xyz.openbmc_project.Control.Power.Cap");
+}
+
+inline void
+    setPowerSetPoint(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                     uint32_t powerCap)
+{
+    BMCWEB_LOG_DEBUG << "Set Power Limit Watts Set Point";
+
+    crow::connections::systemBus->async_method_call(
+        [asyncResp, powerCap](const boost::system::error_code ec,
+                              const std::variant<bool>& powerCapEnable) {
+            if (ec)
+            {
+                messages::internalError(asyncResp->res);
+                BMCWEB_LOG_ERROR << "powerCapEnable Get handler: Dbus error "
+                                 << ec;
+                return;
+            }
+            const bool* b = std::get_if<bool>(&powerCapEnable);
+            if (b == nullptr)
+            {
+                messages::internalError(asyncResp->res);
+                BMCWEB_LOG_ERROR << "Fail to get PowerCapEnable status ";
+                return;
+            }
+            if (!(*b))
+            {
+                messages::actionNotSupported(
+                    asyncResp->res,
+                    "Setting LimitInWatts when PowerLimit feature is disabled");
+                BMCWEB_LOG_ERROR << "PowerLimit feature is disabled ";
+                return;
+            }
+            crow::connections::systemBus->async_method_call(
+                [asyncResp](const boost::system::error_code ec2) {
+                    if (ec2)
+                    {
+                        BMCWEB_LOG_DEBUG << "Power Limit Set: Dbus error: "
+                                         << ec2;
+                        messages::internalError(asyncResp->res);
+                        return;
+                    }
+                },
+                "xyz.openbmc_project.Settings",
+                "/xyz/openbmc_project/control/host0/power_cap",
+                "org.freedesktop.DBus.Properties", "Set",
+                "xyz.openbmc_project.Control.Power.Cap", "PowerCap",
+                std::variant<uint32_t>(powerCap));
+        },
+        "xyz.openbmc_project.Settings",
+        "/xyz/openbmc_project/control/host0/power_cap",
+        "org.freedesktop.DBus.Properties", "Get",
+        "xyz.openbmc_project.Control.Power.Cap", "PowerCapEnable");
+}
+
+inline void
+    setPowerControlMode(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                        const std::string& controlMode)
+{
+    BMCWEB_LOG_DEBUG << "Set Power Limit Watts Control Mode";
+    bool powerCapEnable;
+    if (controlMode == "disabled")
+    {
+        powerCapEnable = false;
+    }
+    else if (controlMode == "automatic")
+    {
+        powerCapEnable = true;
+    }
+    else
+    {
+        BMCWEB_LOG_DEBUG << "Power Control Mode  does not support this mode :"
+                         << controlMode;
+        messages::internalError(asyncResp->res);
+    }
+    crow::connections::systemBus->async_method_call(
+        [asyncResp](const boost::system::error_code ec) {
+            if (ec)
+            {
+                messages::internalError(asyncResp->res);
+                BMCWEB_LOG_ERROR << "powerCapEnable Get handler: Dbus error "
+                                 << ec;
+                return;
+            }
+        },
+        "xyz.openbmc_project.Settings",
+        "/xyz/openbmc_project/control/host0/power_cap",
+        "org.freedesktop.DBus.Properties", "Set",
+        "xyz.openbmc_project.Control.Power.Cap", "PowerCapEnable",
+        std::variant<bool>(powerCapEnable));
+}
+
+inline void
     getEnvironmentMetrics(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                           const std::string& chassisID)
 {
@@ -179,13 +334,14 @@ inline void
         << "Get properties for EnvironmentMetrics associated to chassis = "
         << chassisID;
     asyncResp->res.jsonValue["@odata.type"] =
-        "#EnvironmentMetrics.v1_0_0.EnvironmentMetrics";
+        "#EnvironmentMetrics.v1_1_0.EnvironmentMetrics";
     asyncResp->res.jsonValue["Name"] = "Chassis Environment Metrics";
     asyncResp->res.jsonValue["Id"] = "EnvironmentMetrics";
     asyncResp->res.jsonValue["@odata.id"] =
         "/redfish/v1/Chassis/" + chassisID + "/EnvironmentMetrics";
     getfanSpeedsPercent(asyncResp, chassisID);
     getPowerWatts(asyncResp, chassisID);
+    getPowerLimitWatts(asyncResp);
 }
 
 inline void requestRoutesEnvironmentMetrics(App& app)
@@ -214,6 +370,76 @@ inline void requestRoutesEnvironmentMetrics(App& app)
                     };
                 redfish::chassis_utils::getValidChassisID(
                     asyncResp, chassisID, std::move(getChassisID));
+            });
+
+    BMCWEB_ROUTE(app, "/redfish/v1/Chassis/<str>/EnvironmentMetrics/")
+        .privileges({{"ConfigureComponents"}})
+        // TODO: Use automated PrivilegeRegistry
+        // Need to wait for Redfish to release a new registry
+        .methods(boost::beast::http::verb::patch)(
+            [](const crow::Request& req,
+               const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+               const std::string& chassisID) {
+                std::optional<nlohmann::json> powerLimitWatts;
+                if (!json_util::readJson(req, asyncResp->res, "PowerLimitWatts",
+                                         powerLimitWatts))
+                {
+                    return;
+                }
+
+                if (powerLimitWatts)
+                {
+                    std::optional<uint32_t> setPoint;
+                    std::optional<std::string> controlMode;
+                    if (!redfish::json_util::readJson(
+                            *powerLimitWatts, asyncResp->res, "SetPoint",
+                            setPoint, "ControlMode", controlMode))
+                    {
+                        return;
+                    }
+
+                    if (setPoint)
+                    {
+                        auto getChassisID =
+                            [asyncResp, chassisID,
+                             setPoint](const std::optional<std::string>&
+                                           validChassisID) {
+                                if (!validChassisID)
+                                {
+                                    BMCWEB_LOG_ERROR
+                                        << "Not a valid chassis ID:"
+                                        << chassisID;
+                                    messages::resourceNotFound(
+                                        asyncResp->res, "Chassis", chassisID);
+                                    return;
+                                }
+                                setPowerSetPoint(asyncResp, *setPoint);
+                            };
+                        redfish::chassis_utils::getValidChassisID(
+                            asyncResp, chassisID, std::move(getChassisID));
+                    }
+
+                    if (controlMode)
+                    {
+                        auto getChassisID =
+                            [asyncResp, chassisID,
+                             controlMode](const std::optional<std::string>&
+                                              validChassisID) {
+                                if (!validChassisID)
+                                {
+                                    BMCWEB_LOG_ERROR
+                                        << "Not a valid chassis ID:"
+                                        << chassisID;
+                                    messages::resourceNotFound(
+                                        asyncResp->res, "Chassis", chassisID);
+                                    return;
+                                }
+                                setPowerControlMode(asyncResp, *controlMode);
+                            };
+                        redfish::chassis_utils::getValidChassisID(
+                            asyncResp, chassisID, std::move(getChassisID));
+                    }
+                }
             });
 }
 
