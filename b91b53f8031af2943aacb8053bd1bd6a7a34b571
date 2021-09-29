@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "a4967dbf_2c6d7c4b",
+        "filename": "redfish-core/lib/pcie_slots.hpp",
+        "patchSetId": 110
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1000632
+      },
+      "writtenOn": "2021-09-29T22:52:35Z",
+      "side": 1,
+      "message": "That change is reverted.",
+      "parentUuid": "9f473cfb_9e07aedd",
+      "range": {
+        "startLine": 10,
+        "startChar": 0,
+        "endLine": 41,
+        "endChar": 1
+      },
+      "revId": "b91b53f8031af2943aacb8053bd1bd6a7a34b571",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f9d909a3_8cfaaf6c",
         "filename": "redfish-core/lib/pcie_slots.hpp",
         "patchSetId": 110
@@ -71,6 +95,30 @@
     },
     {
       "key": {
+        "uuid": "9a429927_1d9872fe",
+        "filename": "redfish-core/lib/pcie_slots.hpp",
+        "patchSetId": 110
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 1000632
+      },
+      "writtenOn": "2021-09-29T22:52:35Z",
+      "side": 1,
+      "message": "looks like it 3 lambda scope here. Is there a requirement for lambda deepness. Agree to use a callback in case lambda is too deep.",
+      "parentUuid": "3e7ea104_a99a4ebb",
+      "range": {
+        "startLine": 200,
+        "startChar": 0,
+        "endLine": 200,
+        "endChar": 80
+      },
+      "revId": "b91b53f8031af2943aacb8053bd1bd6a7a34b571",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e1db57bb_cf5f26c0",
         "filename": "redfish-core/lib/pcie_slots.hpp",
         "patchSetId": 110
@@ -82,6 +130,30 @@
       "writtenOn": "2021-09-25T15:40:32Z",
       "side": 1,
       "message": "This lambda can be done in the scope above.  (right after the GetSubTree call) there\u0027s no need to wait for PCIe to resolve.",
+      "range": {
+        "startLine": 270,
+        "startChar": 0,
+        "endLine": 272,
+        "endChar": 75
+      },
+      "revId": "b91b53f8031af2943aacb8053bd1bd6a7a34b571",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "04c8e0c6_371bcd14",
+        "filename": "redfish-core/lib/pcie_slots.hpp",
+        "patchSetId": 110
+      },
+      "lineNbr": 272,
+      "author": {
+        "id": 1000632
+      },
+      "writtenOn": "2021-09-29T22:52:35Z",
+      "side": 1,
+      "message": "Here looks like before read the PCIE property they wanna check the pcie slots -- chassis association to ensure that a pcie slot object belongs to the chassis. since the association lambda is asynchronous, that is why the reading pcie slot lambda is put in the association lambda.",
+      "parentUuid": "e1db57bb_cf5f26c0",
       "range": {
         "startLine": 270,
         "startChar": 0,
