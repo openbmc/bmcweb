@@ -144,6 +144,30 @@
     },
     {
       "key": {
+        "uuid": "2d099fdf_b5fab555",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 1402,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-09-29T17:16:21Z",
+      "side": 1,
+      "message": "From my perspective, considering this is being added to the ComputerSystem interface, doesn\u0027t this need to be some system path specific property, similar to how Host state and power control are set up?  There are people working through multi-host platforms as we speak, so the \"one global to rule them all\" type interfaces don\u0027t really work here.",
+      "parentUuid": "65da91a1_f322b203",
+      "range": {
+        "startLine": 1402,
+        "startChar": 36,
+        "endLine": 1402,
+        "endChar": 72
+      },
+      "revId": "b15bb8f522aa645d05ec68a839ca5d0bdeef4bf3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "8a8928e3_dfe410b1",
         "filename": "redfish-core/lib/systems.hpp",
         "patchSetId": 9
