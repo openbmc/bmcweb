@@ -6,7 +6,6 @@
 
 #include "app.hpp"
 #include "async_resp.hpp"
-#include "dbus_singleton.hpp"
 #include "dbus_utility.hpp"
 #include "error_messages.hpp"
 #include "generated/enums/control.hpp"
@@ -18,6 +17,7 @@
 #include "utils/chassis_utils.hpp"
 #include "utils/dbus_utils.hpp"
 #include "utils/fan_utils.hpp"
+#include "utils/json_utils.hpp"
 #include "utils/sensor_utils.hpp"
 
 #include <asm-generic/errno.h>
@@ -27,7 +27,6 @@
 #include <boost/system/error_code.hpp>
 #include <boost/url/format.hpp>
 #include <nlohmann/json.hpp>
-#include <sdbusplus/asio/property.hpp>
 #include <sdbusplus/message/native_types.hpp>
 #include <sdbusplus/unpack_properties.hpp>
 
@@ -350,73 +349,6 @@ inline void setPowerLimitWatts(
     }
 }
 
-inline void handleEnvironmentMetricsHead(
-    App& app, const crow::Request& req,
-    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-    const std::string& chassisId)
-{
-    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
-    {
-        return;
-    }
-
-    auto respHandler = [asyncResp, chassisId](
-                           const std::optional<std::string>& validChassisPath) {
-        if (!validChassisPath)
-        {
-            messages::resourceNotFound(asyncResp->res, "Chassis", chassisId);
-            return;
-        }
-
-        asyncResp->res.addHeader(
-            boost::beast::http::field::link,
-            "</redfish/v1/JsonSchemas/EnvironmentMetrics/EnvironmentMetrics.json>; rel=describedby");
-    };
-
-    redfish::chassis_utils::getValidChassisPath(asyncResp, chassisId,
-                                                std::move(respHandler));
-}
-
-inline void doEnvironmentMetricsGet(
-    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-    const std::string& chassisId,
-    const std::optional<std::string>& validChassisPath)
-{
-    if (!validChassisPath)
-    {
-        messages::resourceNotFound(asyncResp->res, "Chassis", chassisId);
-        return;
-    }
-
-    asyncResp->res.addHeader(
-        boost::beast::http::field::link,
-        "</redfish/v1/JsonSchemas/EnvironmentMetrics/EnvironmentMetrics.json>; rel=describedby");
-    asyncResp->res.jsonValue["@odata.type"] =
-        "#EnvironmentMetrics.v1_3_0.EnvironmentMetrics";
-    asyncResp->res.jsonValue["Name"] = "Chassis Environment Metrics";
-    asyncResp->res.jsonValue["Id"] = "EnvironmentMetrics";
-    asyncResp->res.jsonValue["@odata.id"] = boost::urls::format(
-        "/redfish/v1/Chassis/{}/EnvironmentMetrics", chassisId);
-
-    getPowerWatts(asyncResp, *validChassisPath, chassisId);
-    getFanSpeedsPercent(asyncResp, *validChassisPath, chassisId);
-}
-
-inline void handleEnvironmentMetricsGet(
-    App& app, const crow::Request& req,
-    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-    const std::string& chassisId)
-{
-    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
-    {
-        return;
-    }
-
-    redfish::chassis_utils::getValidChassisPath(
-        asyncResp, chassisId,
-        std::bind_front(doEnvironmentMetricsGet, asyncResp, chassisId));
-}
-
 inline void afterGetPowerLimitWatts(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const boost::system::error_code& ec,
@@ -570,6 +502,75 @@ inline void getPowerCapObject(
         std::bind_front(afterGetPowerCapObject, asyncResp, callback));
 }
 
+inline void handleEnvironmentMetricsHead(
+    App& app, const crow::Request& req,
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& chassisId)
+{
+    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+    {
+        return;
+    }
+
+    auto respHandler = [asyncResp, chassisId](
+                           const std::optional<std::string>& validChassisPath) {
+        if (!validChassisPath)
+        {
+            messages::resourceNotFound(asyncResp->res, "Chassis", chassisId);
+            return;
+        }
+
+        asyncResp->res.addHeader(
+            boost::beast::http::field::link,
+            "</redfish/v1/JsonSchemas/EnvironmentMetrics/EnvironmentMetrics.json>; rel=describedby");
+    };
+
+    redfish::chassis_utils::getValidChassisPath(asyncResp, chassisId,
+                                                std::move(respHandler));
+}
+
+inline void doEnvironmentMetricsGet(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& chassisId,
+    const std::optional<std::string>& validChassisPath)
+{
+    if (!validChassisPath)
+    {
+        messages::resourceNotFound(asyncResp->res, "Chassis", chassisId);
+        return;
+    }
+
+    asyncResp->res.addHeader(
+        boost::beast::http::field::link,
+        "</redfish/v1/JsonSchemas/EnvironmentMetrics/EnvironmentMetrics.json>; rel=describedby");
+    asyncResp->res.jsonValue["@odata.type"] =
+        "#EnvironmentMetrics.v1_3_0.EnvironmentMetrics";
+    asyncResp->res.jsonValue["Name"] = "Chassis Environment Metrics";
+    asyncResp->res.jsonValue["Id"] = "EnvironmentMetrics";
+    asyncResp->res.jsonValue["@odata.id"] = boost::urls::format(
+        "/redfish/v1/Chassis/{}/EnvironmentMetrics", chassisId);
+
+    getPowerWatts(asyncResp, *validChassisPath, chassisId);
+    getFanSpeedsPercent(asyncResp, *validChassisPath, chassisId);
+    getPowerCapObject(asyncResp, *validChassisPath,
+                      std::bind_front(getPowerLimitWatts, asyncResp));
+}
+
+inline void handleEnvironmentMetricsGet(
+    App& app, const crow::Request& req,
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& chassisId)
+{
+    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+    {
+        return;
+    }
+
+    redfish::chassis_utils::getValidChassisPath(
+        asyncResp, chassisId,
+        std::bind_front(doEnvironmentMetricsGet, asyncResp, chassisId));
+}
+
 inline void populateProcessorEnvMetricsBody(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& processorId, const std::string& objectPath)
@@ -696,6 +697,53 @@ inline void handleProcessorEnvironmentMetricsGet(
                                               asyncResp, processorId));
 }
 
+inline void doEnvironmentMetricsPatch(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& chassisId, const std::optional<uint32_t>& setPoint,
+    const std::optional<std::string>& controlMode,
+    const std::optional<std::string>& validChassisPath)
+{
+    if (!validChassisPath)
+    {
+        messages::resourceNotFound(asyncResp->res, "Chassis", chassisId);
+        return;
+    }
+
+    if (setPoint || controlMode)
+    {
+        getPowerCapObject(asyncResp, *validChassisPath,
+                          std::bind_front(setPowerLimitWatts, asyncResp,
+                                          setPoint, controlMode));
+    }
+}
+
+inline void handleEnvironmentMetricsPatch(
+    App& app, const crow::Request& req,
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& chassisId)
+{
+    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+    {
+        return;
+    }
+
+    std::optional<uint32_t> setPoint;
+    std::optional<std::string> controlMode;
+    if (!json_util::readJsonPatch(                      //
+            req, asyncResp->res,                        //
+            "PowerLimitWatts/ControlMode", controlMode, //
+            "PowerLimitWatts/SetPoint", setPoint        //
+            ))
+    {
+        return;
+    }
+
+    redfish::chassis_utils::getValidChassisPath(
+        asyncResp, chassisId,
+        std::bind_front(doEnvironmentMetricsPatch, asyncResp, chassisId,
+                        setPoint, controlMode));
+}
+
 inline void requestRoutesEnvironmentMetrics(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/Chassis/<str>/EnvironmentMetrics/")
@@ -707,6 +755,11 @@ inline void requestRoutesEnvironmentMetrics(App& app)
         .privileges(redfish::privileges::getEnvironmentMetrics)
         .methods(boost::beast::http::verb::get)(
             std::bind_front(handleEnvironmentMetricsGet, std::ref(app)));
+
+    BMCWEB_ROUTE(app, "/redfish/v1/Chassis/<str>/EnvironmentMetrics/")
+        .privileges(redfish::privileges::patchEnvironmentMetrics)
+        .methods(boost::beast::http::verb::patch)(
+            std::bind_front(handleEnvironmentMetricsPatch, std::ref(app)));
 
     BMCWEB_ROUTE(
         app, "/redfish/v1/Systems/<str>/Processors/<str>/EnvironmentMetrics/")
