@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "487e97c0_ef2f55be",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 27
+      },
+      "lineNbr": 1835,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2021-09-29T00:10:05Z",
+      "side": 1,
+      "message": "Hi Ed, \n\u003e My best guess is that we\u0027re generating a tuple of size, string, then relying on the fact that tuples can be implicitly sorted based on the order of the elements. \nYes, that\u0027s the trick we played here.\n\nSpencer, \n\nI guess we need to change this code to the original if else style comparison, add some comments about what the log names are and how they are sorted here.",
+      "parentUuid": "e1f02915_63fb15c2",
+      "range": {
+        "startLine": 1835,
+        "startChar": 25,
+        "endLine": 1835,
+        "endChar": 46
+      },
+      "revId": "54fc150eae567fff970afd663190108080f97ec4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "cf1b00f6_2621cc1d",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 27
