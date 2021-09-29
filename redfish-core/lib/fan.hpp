@@ -6,6 +6,7 @@
 #include "query.hpp"
 #include "registries/privilege_registry.hpp"
 #include "utils/chassis_utils.hpp"
+#include "utils/json_utils.hpp"
 
 #include <boost/system/error_code.hpp>
 #include <boost/url/format.hpp>
