@@ -267,6 +267,11 @@ Fields common to all schemas
 
 #### EnvironmentMetrics
 
+- PowerLimitWatts/AllowableMax
+- PowerLimitWatts/AllowableMin
+- PowerLimitWatts/ControlMode
+- PowerLimitWatts/SetPoint
+
 ### /redfish/v1/Chassis/{ChassisId}/Power/
 
 #### Power
