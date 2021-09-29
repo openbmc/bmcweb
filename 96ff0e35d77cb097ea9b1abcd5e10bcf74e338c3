@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "a0078bec_0bf00a34",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 44
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2021-09-29T07:37:54Z",
+      "side": 1,
+      "message": "ACK.\nhttps://gerrit.openbmc-project.xyz/c/openbmc/docs/+/41508/5/designs/dump-manager.md is the design document for this change. Here the resource is the hosts resource, which is identified using a specific resource id.",
+      "parentUuid": "3da93603_1a45a25f",
+      "range": {
+        "startLine": 10,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 14
+      },
+      "revId": "96ff0e35d77cb097ea9b1abcd5e10bcf74e338c3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "52ea2640_abb3683b",
         "filename": "/COMMIT_MSG",
         "patchSetId": 44
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "1bc79303_e4246371",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 44
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2021-09-29T07:37:54Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "52ea2640_abb3683b",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 13,
+        "endChar": 59
+      },
+      "revId": "96ff0e35d77cb097ea9b1abcd5e10bcf74e338c3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f9dd39a1_995e7ee3",
         "filename": "/COMMIT_MSG",
         "patchSetId": 44
@@ -59,6 +107,30 @@
       "writtenOn": "2021-09-25T18:32:01Z",
       "side": 1,
       "message": "This would imply that we can send schemaless data through bmcweb, which is actively discouraged by both Redfish and bmcweb.  Please structure this data appropriately so that these endpoints can be reused by others.",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 18,
+        "endChar": 0
+      },
+      "revId": "96ff0e35d77cb097ea9b1abcd5e10bcf74e338c3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "432d6d9c_fc03acda",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 44
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2021-09-29T07:37:54Z",
+      "side": 1,
+      "message": "Yes. This is IBM specific use-case. Seems like we can put this under a IBM specific compiler flag ?\n\nThe DiagnosticDataType is OEM, and we are using OEMDiagnosticDataType field to pass the system specific values as an input to the dump creation",
+      "parentUuid": "f9dd39a1_995e7ee3",
       "range": {
         "startLine": 15,
         "startChar": 0,
