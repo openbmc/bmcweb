@@ -278,6 +278,10 @@ Fields common to all schemas
 - `FanSpeedsPercent@odata.count`
 - PowerWatts/DataSourceUri
 - PowerWatts/Reading
+- PowerLimitWatts/AllowableMax
+- PowerLimitWatts/AllowableMin
+- PowerLimitWatts/ControlMode
+- PowerLimitWatts/SetPoint
 
 ### /redfish/v1/Chassis/{ChassisId}/Power/
 
