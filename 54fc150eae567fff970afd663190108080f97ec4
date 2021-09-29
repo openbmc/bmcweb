@@ -97,6 +97,30 @@
     },
     {
       "key": {
+        "uuid": "d2e721c3_5688c86c",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 27
+      },
+      "lineNbr": 1835,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-09-29T21:45:44Z",
+      "side": 1,
+      "message": "Can we just use this?\n\nhttps://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/47322\n\nIt\u0027s a utility function that we\u0027ll likely need in other places anyway (dimm collections have had this sorting problem for a while now).  See the unit tests, but to use it here is should just be a matter of:\n\nstd::sort(hostLoggerFiles.begin(), hostLoggerFiles.end(), alphanumLess\u003cstd::string\u003e);",
+      "parentUuid": "487e97c0_ef2f55be",
+      "range": {
+        "startLine": 1835,
+        "startChar": 25,
+        "endLine": 1835,
+        "endChar": 46
+      },
+      "revId": "54fc150eae567fff970afd663190108080f97ec4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "cf1b00f6_2621cc1d",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 27
