@@ -212,6 +212,233 @@ inline void getPowerWatts(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
 }
 
 inline void
+    getPowerLimitWatts(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
+{
+    const std::array<std::string, 1> powerCapInterfaces = {
+        "xyz.openbmc_project.Control.Power.Cap"};
+    crow::connections::systemBus->async_method_call(
+        [asyncResp](
+            const boost::system::error_code ec,
+            const std::vector<std::pair<
+                std::string,
+                std::vector<std::pair<std::string, std::vector<std::string>>>>>&
+                powercapsubtree) {
+            if (ec)
+            {
+                BMCWEB_LOG_DEBUG << "D-Bus response error on GetSubTree " << ec;
+                messages::internalError(asyncResp->res);
+                return;
+            }
+
+            for (const auto& [objectPath, serviceName] : powercapsubtree)
+            {
+                if (objectPath.empty() || serviceName.size() != 1)
+                {
+                    BMCWEB_LOG_DEBUG << "Error getting D-Bus object!";
+                    messages::internalError(asyncResp->res);
+                    return;
+                }
+                const std::string& validPath = objectPath;
+                const std::string& connectionName = serviceName[0].first;
+
+                asyncResp->res.jsonValue["PowerLimitWatts"]["SetPoint"] = 0;
+                asyncResp->res.jsonValue["PowerLimitWatts"]["ControlMode"] =
+                    "automatic";
+
+                crow::connections::systemBus->async_method_call(
+                    [asyncResp](const boost::system::error_code ec2,
+                                const std::vector<std::pair<
+                                    std::string, std::variant<uint32_t, bool>>>&
+                                    properties) {
+                        if (ec2)
+                        {
+                            BMCWEB_LOG_DEBUG << "Power Limit Set: Dbus error: "
+                                             << ec2;
+                            messages::internalError(asyncResp->res);
+                            return;
+                        }
+
+                        for (const std::pair<std::string,
+                                             std::variant<uint32_t, bool>>&
+                                 property : properties)
+                        {
+                            if (property.first == "PowerCap")
+                            {
+                                const uint32_t* powerCap =
+                                    std::get_if<uint32_t>(&property.second);
+
+                                if (powerCap == nullptr)
+                                {
+
+                                    messages::internalError(asyncResp->res);
+                                    return;
+                                }
+                                asyncResp->res
+                                    .jsonValue["PowerLimitWatts"]["SetPoint"] =
+                                    *powerCap;
+                            }
+                            else if (property.first == "PowerCapEnable")
+                            {
+                                const bool* powerCapEnable =
+                                    std::get_if<bool>(&property.second);
+
+                                if (powerCapEnable == nullptr)
+                                {
+
+                                    messages::internalError(asyncResp->res);
+                                    return;
+                                }
+                                if (!*powerCapEnable)
+                                {
+                                    asyncResp->res.jsonValue["PowerLimitWatts"]
+                                                            ["ControlMode"] =
+                                        "disabled";
+                                }
+                            }
+                        }
+                    },
+                    connectionName, validPath,
+                    "org.freedesktop.DBus.Properties", "GetAll",
+                    "xyz.openbmc_project.Control.Power.Cap");
+            }
+        },
+        "xyz.openbmc_project.ObjectMapper",
+        "/xyz/openbmc_project/object_mapper",
+        "xyz.openbmc_project.ObjectMapper", "GetSubTree", "/", 0,
+        powerCapInterfaces);
+}
+
+inline void
+    setPowerSetPoint(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                     uint32_t powerCap)
+{
+    BMCWEB_LOG_DEBUG << "Set Power Limit Watts Set Point";
+
+    const std::array<std::string, 1> powerCapInterfaces = {
+        "xyz.openbmc_project.Control.Power.Cap"};
+    crow::connections::systemBus->async_method_call(
+        [asyncResp, powerCap](
+            const boost::system::error_code ec,
+            const std::vector<std::pair<
+                std::string,
+                std::vector<std::pair<std::string, std::vector<std::string>>>>>&
+                powercapsubtree) {
+            if (ec)
+            {
+                BMCWEB_LOG_DEBUG << "D-Bus response error on GetSubTree " << ec;
+                messages::internalError(asyncResp->res);
+                return;
+            }
+
+            for (const auto& [objectPath, serviceName] : powercapsubtree)
+            {
+                if (objectPath.empty() || serviceName.size() != 1)
+                {
+                    BMCWEB_LOG_DEBUG << "Error getting D-Bus object!";
+                    messages::internalError(asyncResp->res);
+                    return;
+                }
+                const std::string& validPath = objectPath;
+                const std::string& connectionName = serviceName[0].first;
+
+                crow::connections::systemBus->async_method_call(
+                    [asyncResp](const boost::system::error_code ec) {
+                        if (ec)
+                        {
+                            BMCWEB_LOG_DEBUG << "Power Limit Set: Dbus error: "
+                                             << ec;
+                            messages::internalError(asyncResp->res);
+                            return;
+                        }
+                    },
+                    connectionName, validPath,
+                    "org.freedesktop.DBus.Properties", "Set",
+                    "xyz.openbmc_project.Control.Power.Cap", "PowerCap",
+                    std::variant<uint32_t>(powerCap));
+            }
+        },
+        "xyz.openbmc_project.ObjectMapper",
+        "/xyz/openbmc_project/object_mapper",
+        "xyz.openbmc_project.ObjectMapper", "GetSubTree", "/", 0,
+        powerCapInterfaces);
+}
+
+inline void
+    setPowerControlMode(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                        const std::string& controlMode)
+{
+    BMCWEB_LOG_DEBUG << "Set Power Limit Watts Control Mode";
+
+    const std::array<std::string, 1> powerCapInterfaces = {
+        "xyz.openbmc_project.Control.Power.Cap"};
+    crow::connections::systemBus->async_method_call(
+        [asyncResp, controlMode](
+            const boost::system::error_code ec,
+            const std::vector<std::pair<
+                std::string,
+                std::vector<std::pair<std::string, std::vector<std::string>>>>>&
+                powercapsubtree) {
+            if (ec)
+            {
+                BMCWEB_LOG_DEBUG << "D-Bus response error on GetSubTree " << ec;
+                messages::internalError(asyncResp->res);
+                return;
+            }
+
+            bool powerCapEnable;
+            if (controlMode == "disabled")
+            {
+                powerCapEnable = false;
+            }
+            else if (controlMode == "automatic")
+            {
+                powerCapEnable = true;
+            }
+            else
+            {
+                BMCWEB_LOG_DEBUG
+                    << "Power Control Mode  does not support this mode :"
+                    << controlMode;
+                messages::propertyValueNotInList(asyncResp->res, controlMode,
+                                                 "ControlMode");
+                return;
+            }
+
+            for (const auto& [objectPath, serviceName] : powercapsubtree)
+            {
+                if (objectPath.empty() || serviceName.size() != 1)
+                {
+                    BMCWEB_LOG_DEBUG << "Error getting D-Bus object!";
+                    messages::internalError(asyncResp->res);
+                    return;
+                }
+                const std::string& validPath = objectPath;
+                const std::string& connectionName = serviceName[0].first;
+
+                crow::connections::systemBus->async_method_call(
+                    [asyncResp](const boost::system::error_code ec) {
+                        if (ec)
+                        {
+                            messages::internalError(asyncResp->res);
+                            BMCWEB_LOG_ERROR
+                                << "powerCapEnable Get handler: Dbus error "
+                                << ec;
+                            return;
+                        }
+                    },
+                    connectionName, validPath,
+                    "org.freedesktop.DBus.Properties", "Set",
+                    "xyz.openbmc_project.Control.Power.Cap", "PowerCapEnable",
+                    std::variant<bool>(powerCapEnable));
+            }
+        },
+        "xyz.openbmc_project.ObjectMapper",
+        "/xyz/openbmc_project/object_mapper",
+        "xyz.openbmc_project.ObjectMapper", "GetSubTree", "/", 0,
+        powerCapInterfaces);
+}
+
+inline void
     getEnvironmentMetrics(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                           const std::string& chassisID)
 {
@@ -219,13 +446,14 @@ inline void
         << "Get properties for EnvironmentMetrics associated to chassis = "
         << chassisID;
     asyncResp->res.jsonValue["@odata.type"] =
-        "#EnvironmentMetrics.v1_0_0.EnvironmentMetrics";
+        "#EnvironmentMetrics.v1_1_0.EnvironmentMetrics";
     asyncResp->res.jsonValue["Name"] = "Chassis Environment Metrics";
     asyncResp->res.jsonValue["Id"] = "EnvironmentMetrics";
     asyncResp->res.jsonValue["@odata.id"] =
         "/redfish/v1/Chassis/" + chassisID + "/EnvironmentMetrics";
     getfanSpeedsPercent(asyncResp, chassisID);
     getPowerWatts(asyncResp, chassisID);
+    getPowerLimitWatts(asyncResp);
 }
 
 inline void requestRoutesEnvironmentMetrics(App& app)
@@ -254,6 +482,76 @@ inline void requestRoutesEnvironmentMetrics(App& app)
                     };
                 redfish::chassis_utils::getValidChassisID(
                     asyncResp, chassisID, std::move(getChassisID));
+            });
+
+    BMCWEB_ROUTE(app, "/redfish/v1/Chassis/<str>/EnvironmentMetrics/")
+        .privileges({{"ConfigureComponents"}})
+        // TODO: Use automated PrivilegeRegistry
+        // Need to wait for Redfish to release a new registry
+        .methods(boost::beast::http::verb::patch)(
+            [](const crow::Request& req,
+               const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+               const std::string& chassisID) {
+                std::optional<nlohmann::json> powerLimitWatts;
+                if (!json_util::readJson(req, asyncResp->res, "PowerLimitWatts",
+                                         powerLimitWatts))
+                {
+                    return;
+                }
+
+                if (powerLimitWatts)
+                {
+                    std::optional<uint32_t> setPoint;
+                    std::optional<std::string> controlMode;
+                    if (!redfish::json_util::readJson(
+                            *powerLimitWatts, asyncResp->res, "SetPoint",
+                            setPoint, "ControlMode", controlMode))
+                    {
+                        return;
+                    }
+
+                    if (setPoint)
+                    {
+                        auto getChassisID =
+                            [asyncResp, chassisID,
+                             setPoint](const std::optional<std::string>&
+                                           validChassisID) {
+                                if (!validChassisID)
+                                {
+                                    BMCWEB_LOG_ERROR
+                                        << "Not a valid chassis ID:"
+                                        << chassisID;
+                                    messages::resourceNotFound(
+                                        asyncResp->res, "Chassis", chassisID);
+                                    return;
+                                }
+                                setPowerSetPoint(asyncResp, *setPoint);
+                            };
+                        redfish::chassis_utils::getValidChassisID(
+                            asyncResp, chassisID, std::move(getChassisID));
+                    }
+
+                    if (controlMode)
+                    {
+                        auto getChassisID =
+                            [asyncResp, chassisID,
+                             controlMode](const std::optional<std::string>&
+                                              validChassisID) {
+                                if (!validChassisID)
+                                {
+                                    BMCWEB_LOG_ERROR
+                                        << "Not a valid chassis ID:"
+                                        << chassisID;
+                                    messages::resourceNotFound(
+                                        asyncResp->res, "Chassis", chassisID);
+                                    return;
+                                }
+                                setPowerControlMode(asyncResp, *controlMode);
+                            };
+                        redfish::chassis_utils::getValidChassisID(
+                            asyncResp, chassisID, std::move(getChassisID));
+                    }
+                }
             });
 }
 
