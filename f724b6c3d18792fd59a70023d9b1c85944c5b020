@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "fffc0856_c382a33d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2021-09-29T14:34:44Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "4898687a_02b7ec9a",
+      "revId": "f724b6c3d18792fd59a70023d9b1c85944c5b020",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2eeafcfc_2fe2b90d",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 3
@@ -60,6 +78,30 @@
     },
     {
       "key": {
+        "uuid": "62610b73_e4337a46",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 2514,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2021-09-29T14:34:44Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "2eeafcfc_2fe2b90d",
+      "range": {
+        "startLine": 2514,
+        "startChar": 24,
+        "endLine": 2514,
+        "endChar": 28
+      },
+      "revId": "f724b6c3d18792fd59a70023d9b1c85944c5b020",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f6093e21_48ee431c",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 3
@@ -71,6 +113,30 @@
       "writtenOn": "2021-09-24T20:34:56Z",
       "side": 1,
       "message": "Can we share this code? It looks mostly the same",
+      "range": {
+        "startLine": 2553,
+        "startChar": 0,
+        "endLine": 2587,
+        "endChar": 15
+      },
+      "revId": "f724b6c3d18792fd59a70023d9b1c85944c5b020",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4b13af13_22d7eab8",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 2587,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2021-09-29T14:34:44Z",
+      "side": 1,
+      "message": "Since this is again an async call inside another async method, pulling this to another method wasn\u0027t working if I am making a decision (in line no 2571) based on the \"isEnabled\" that will be returned by the new method (It was basically not in sync).",
+      "parentUuid": "f6093e21_48ee431c",
       "range": {
         "startLine": 2553,
         "startChar": 0,
