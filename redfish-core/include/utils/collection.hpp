@@ -1,9 +1,8 @@
 #pragma once
 
-#include <boost/container/flat_map.hpp>
-
 #include <string>
 #include <vector>
+#include <human_sort.hpp>
 
 namespace redfish
 {
@@ -39,9 +38,8 @@ inline void
                 messages::internalError(aResp->res);
                 return;
             }
-            nlohmann::json& members = aResp->res.jsonValue["Members"];
-            members = nlohmann::json::array();
 
+            std::vector<std::string> pathNames;
             for (const auto& object : objects)
             {
                 sdbusplus::message::object_path path(object);
@@ -50,6 +48,13 @@ inline void
                 {
                     continue;
                 }
+                pathNames.push_back(leaf);
+            }
+            std::sort(pathNames.begin(), pathNames.end(), alphanumLess<std::string>());
+
+            nlohmann::json& members = aResp->res.jsonValue["Members"];
+            members = nlohmann::json::array();
+            for (const std::string& leaf: pathNames){
                 std::string newPath = collectionPath;
                 newPath += '/';
                 newPath += leaf;
