@@ -166,6 +166,30 @@
       "revId": "99fd6bad5226e4d05afd2c5fc1a2a9223596be3e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "669bc0c9_4f2aeb2d",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 1411,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-09-30T16:53:32Z",
+      "side": 1,
+      "message": "\"NotSupported\", \"Notify\", \"NotNotified\" seems reasonable to me. \nAnother choice would be moving this to a different interface and only supported systems can implement that interface",
+      "parentUuid": "347b6052_6faa691c",
+      "range": {
+        "startLine": 1411,
+        "startChar": 46,
+        "endLine": 1411,
+        "endChar": 67
+      },
+      "revId": "99fd6bad5226e4d05afd2c5fc1a2a9223596be3e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
