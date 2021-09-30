@@ -421,6 +421,11 @@ inline void requestRoutesNetworkProtocol(App& app)
                             .erase(std::unique((*ntpServers).begin(),
                                                (*ntpServers).end()),
                                    (*ntpServers).end());
+                        if ((*ntpServers).size() > 0 &&
+                            (*ntpServers)[0].empty())
+                        {
+                            (*ntpServers).erase((*ntpServers).begin());
+                        }
                         handleNTPServersPatch(*ntpServers, asyncResp);
                     }
                 }
