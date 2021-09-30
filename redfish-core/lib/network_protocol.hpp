@@ -22,6 +22,7 @@
 #include <app.hpp>
 #include <registries/privilege_registry.hpp>
 #include <utils/json_utils.hpp>
+#include <utils/stl_utils.hpp>
 
 #include <optional>
 #include <variant>
@@ -237,9 +238,16 @@ inline void handleNTPProtocolEnabled(
 }
 
 inline void
-    handleNTPServersPatch(const std::vector<std::string>& ntpServers,
-                          const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
+    handleNTPServersPatch(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                          std::vector<std::string>& ntpServers)
 {
+    auto iter = stl_utils::firstDuplicate(ntpServers.begin(), ntpServers.end());
+    if (iter != ntpServers.end())
+    {
+        messages::propertyValueIncorrect(asyncResp->res, "NTPServers", *iter);
+        return;
+    }
+
     crow::connections::systemBus->async_method_call(
         [asyncResp](const boost::system::error_code ec) {
             if (ec)
@@ -393,12 +401,8 @@ inline void requestRoutesNetworkProtocol(App& app)
 
                     if (ntpServers)
                     {
-                        std::sort((*ntpServers).begin(), (*ntpServers).end());
-                        (*ntpServers)
-                            .erase(std::unique((*ntpServers).begin(),
-                                               (*ntpServers).end()),
-                                   (*ntpServers).end());
-                        handleNTPServersPatch(*ntpServers, asyncResp);
+                        stl_utils::removeDuplicate(*ntpServers);
+                        handleNTPServersPatch(asyncResp, *ntpServers);
                     }
                 }
 
