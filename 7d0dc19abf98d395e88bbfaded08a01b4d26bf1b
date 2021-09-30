@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "ac5ff7c1_4f000977",
+        "filename": "redfish-core/include/gzfile.hpp",
+        "patchSetId": 29
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2021-09-30T03:24:29Z",
+      "side": 1,
+      "message": "this can be optimized by make_move_iterator too?",
+      "range": {
+        "startLine": 104,
+        "startChar": 25,
+        "endLine": 104,
+        "endChar": 34
+      },
+      "revId": "7d0dc19abf98d395e88bbfaded08a01b4d26bf1b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "8250bac6_def27ea7",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 29
