@@ -1,7 +1,7 @@
 #pragma once
 
-#include <cstdint>
 #include <cstddef>
+#include <cstdint>
 
 // clang-format off
 constexpr const int bmcwebInsecureDisableXssPrevention =
