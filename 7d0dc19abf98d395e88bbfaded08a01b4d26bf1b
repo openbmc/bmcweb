@@ -91,6 +91,30 @@
       "revId": "7d0dc19abf98d395e88bbfaded08a01b4d26bf1b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fee9a530_8762941f",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 29
+      },
+      "lineNbr": 1852,
+      "author": {
+        "id": 1000404
+      },
+      "writtenOn": "2021-09-30T03:27:36Z",
+      "side": 1,
+      "message": "Yes, I am trying to rebase that branch and fix the problem and will update later. Just upload the part what I am finishing.",
+      "parentUuid": "8250bac6_def27ea7",
+      "range": {
+        "startLine": 1852,
+        "startChar": 40,
+        "endLine": 1852,
+        "endChar": 44
+      },
+      "revId": "7d0dc19abf98d395e88bbfaded08a01b4d26bf1b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
