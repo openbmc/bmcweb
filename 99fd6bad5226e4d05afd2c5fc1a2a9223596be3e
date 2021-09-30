@@ -142,6 +142,30 @@
       "revId": "99fd6bad5226e4d05afd2c5fc1a2a9223596be3e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "347b6052_6faa691c",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 1411,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-09-30T16:21:45Z",
+      "side": 1,
+      "message": "\u003e Seems like there are two options...\n\u003e \n\u003e 1) if the check on line 1410 is never successful, then the property wasn\u0027t there so leave it out of the redfish response\n\nThis would imply that we now allow optional properties on dbus interfaces, which doesn\u0027t seem like it\u0027s maintainable in the long run.\n\n\u003e \n\u003e 2) Turn the d-bus property into an enum with 3 values - NotApplicable, Notify, NotNotify\n\nThat seems reasonable to me for its simplicity in implementation.  nit: Maybe \"NotSupported\" instead for the enum?  \"NotApplicable\" might be confused with something like the service is disabled.",
+      "parentUuid": "be052fe4_4918bb8c",
+      "range": {
+        "startLine": 1411,
+        "startChar": 46,
+        "endLine": 1411,
+        "endChar": 67
+      },
+      "revId": "99fd6bad5226e4d05afd2c5fc1a2a9223596be3e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
