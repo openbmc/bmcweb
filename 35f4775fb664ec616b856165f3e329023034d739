@@ -187,6 +187,30 @@
       "revId": "35f4775fb664ec616b856165f3e329023034d739",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d40d9035_4da0ac48",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 30
+      },
+      "lineNbr": 335,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-09-30T15:37:08Z",
+      "side": 1,
+      "message": "Even if the timer was canceled?  (ie it hits the condition on line 326?)  Doesn\u0027t the timer get canceled every time a second completes?  That seems like keepalive wouldn\u0027t work.",
+      "parentUuid": "3ea9c8cc_65756a4a",
+      "range": {
+        "startLine": 333,
+        "startChar": 0,
+        "endLine": 335,
+        "endChar": 32
+      },
+      "revId": "35f4775fb664ec616b856165f3e329023034d739",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
