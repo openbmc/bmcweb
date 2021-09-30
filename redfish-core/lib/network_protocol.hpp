@@ -44,38 +44,42 @@ inline void
     {
         for (const auto& ifacePair : obj.second)
         {
-            if (obj.first == "/xyz/openbmc_project/network/eth0")
+            if (ifacePair.first !=
+                "xyz.openbmc_project.Network.EthernetInterface")
             {
-                if (ifacePair.first ==
-                    "xyz.openbmc_project.Network.EthernetInterface")
+                continue;
+            }
+
+            for (const auto& propertyPair : ifacePair.second)
+            {
+                if (propertyPair.first == "NTPServers")
                 {
-                    for (const auto& propertyPair : ifacePair.second)
+                    const std::vector<std::string>* ntpServers =
+                        std::get_if<std::vector<std::string>>(
+                            &propertyPair.second);
+                    if (ntpServers != nullptr)
                     {
-                        if (propertyPair.first == "NTPServers")
-                        {
-                            const std::vector<std::string>* ntpServers =
-                                std::get_if<std::vector<std::string>>(
-                                    &propertyPair.second);
-                            if (ntpServers != nullptr)
-                            {
-                                ntpData = *ntpServers;
-                            }
-                        }
-                        else if (propertyPair.first == "DomainName")
-                        {
-                            const std::vector<std::string>* domainNames =
-                                std::get_if<std::vector<std::string>>(
-                                    &propertyPair.second);
-                            if (domainNames != nullptr)
-                            {
-                                dnData = *domainNames;
-                            }
-                        }
+                        ntpData.insert(ntpData.end(), ntpServers->begin(),
+                                       ntpServers->end());
+                    }
+                }
+                else if (propertyPair.first == "DomainName")
+                {
+                    const std::vector<std::string>* domainNames =
+                        std::get_if<std::vector<std::string>>(
+                            &propertyPair.second);
+                    if (domainNames != nullptr)
+                    {
+                        dnData.insert(dnData.end(), domainNames->begin(),
+                                      domainNames->end());
                     }
                 }
             }
         }
     }
+
+    stl_utils::removeDuplicate(ntpData);
+    stl_utils::removeDuplicate(dnData);
 }
 
 template <typename CallbackFunc>
@@ -130,30 +134,28 @@ inline void getNetworkData(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
 
     getNTPProtocolEnabled(asyncResp);
 
-    // TODO Get eth0 interface data, and call the below callback for JSON
-    // preparation
-    getEthernetIfaceData(
-        [hostName, asyncResp](const bool& success,
-                              const std::vector<std::string>& ntpServers,
-                              const std::vector<std::string>& domainNames) {
-            if (!success)
+    getEthernetIfaceData([hostName, asyncResp](
+                             const bool& success,
+                             const std::vector<std::string>& ntpServers,
+                             const std::vector<std::string>& domainNames) {
+        if (!success)
+        {
+            messages::resourceNotFound(asyncResp->res, "ManagerNetworkProtocol",
+                                       "NetworkProtocol");
+            return;
+        }
+        asyncResp->res.jsonValue["NTP"]["NTPServers"] = ntpServers;
+        if (hostName.empty() == false)
+        {
+            std::string fqdn = hostName;
+            if (domainNames.empty() == false)
             {
-                messages::resourceNotFound(asyncResp->res, "EthernetInterface",
-                                           "eth0");
-                return;
+                fqdn += ".";
+                fqdn += domainNames[0];
             }
-            asyncResp->res.jsonValue["NTP"]["NTPServers"] = ntpServers;
-            if (hostName.empty() == false)
-            {
-                std::string fqdn = hostName;
-                if (domainNames.empty() == false)
-                {
-                    fqdn += ".";
-                    fqdn += domainNames[0];
-                }
-                asyncResp->res.jsonValue["FQDN"] = std::move(fqdn);
-            }
-        });
+            asyncResp->res.jsonValue["FQDN"] = std::move(fqdn);
+        }
+    });
 
     Privileges effectiveUserPrivileges =
         redfish::getUserPrivileges(req.userRole);
@@ -252,17 +254,51 @@ inline void
     }
 
     crow::connections::systemBus->async_method_call(
-        [asyncResp](const boost::system::error_code ec) {
+        [asyncResp,
+         ntpServers](boost::system::error_code ec,
+                     const crow::openbmc_mapper::GetSubTreeType& subtree) {
             if (ec)
             {
+                BMCWEB_LOG_WARNING << "D-Bus error: " << ec << ", "
+                                   << ec.message();
                 messages::internalError(asyncResp->res);
                 return;
             }
+
+            for (const auto& [objectPath, serviceMap] : subtree)
+            {
+                for (const auto& [service, interfaces] : serviceMap)
+                {
+                    for (const auto& interface : interfaces)
+                    {
+                        if (interface !=
+                            "xyz.openbmc_project.Network.EthernetInterface")
+                        {
+                            continue;
+                        }
+
+                        crow::connections::systemBus->async_method_call(
+                            [asyncResp](const boost::system::error_code ec) {
+                                if (ec)
+                                {
+                                    messages::internalError(asyncResp->res);
+                                    return;
+                                }
+                            },
+                            service, objectPath,
+                            "org.freedesktop.DBus.Properties", "Set", interface,
+                            "NTPServers",
+                            std::variant<std::vector<std::string>>{ntpServers});
+                    }
+                }
+            }
         },
-        "xyz.openbmc_project.Network", "/xyz/openbmc_project/network/eth0",
-        "org.freedesktop.DBus.Properties", "Set",
-        "xyz.openbmc_project.Network.EthernetInterface", "NTPServers",
-        std::variant<std::vector<std::string>>{ntpServers});
+        "xyz.openbmc_project.ObjectMapper",
+        "/xyz/openbmc_project/object_mapper",
+        "xyz.openbmc_project.ObjectMapper", "GetSubTree",
+        "/xyz/openbmc_project", 0,
+        std::array<const char*, 1>{
+            "xyz.openbmc_project.Network.EthernetInterface"});
 }
 
 inline void
