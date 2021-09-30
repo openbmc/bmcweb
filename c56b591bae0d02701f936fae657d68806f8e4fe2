@@ -16,6 +16,24 @@
       "revId": "c56b591bae0d02701f936fae657d68806f8e4fe2",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a383f129_960068f6",
+        "filename": "include/human_sort.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-09-30T02:36:36Z",
+      "side": 1,
+      "message": "I’ll add more details.  The code is “original”, to meet the openbmc coding standard, (c++17, gtest, ext) but the idea is taken and some of loops and the test cases are taken from\nhttp://www.davekoelle.com/alphanum.html. Which has MiT licensed code in it that is similar.\n\nI’ll get that written in the commit message.",
+      "parentUuid": "b039bd39_2afd7901",
+      "revId": "c56b591bae0d02701f936fae657d68806f8e4fe2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
