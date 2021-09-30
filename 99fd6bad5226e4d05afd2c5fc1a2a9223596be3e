@@ -94,6 +94,30 @@
       "revId": "99fd6bad5226e4d05afd2c5fc1a2a9223596be3e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b106d7d1_33ba57b4",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 1411,
+      "author": {
+        "id": 1001063
+      },
+      "writtenOn": "2021-09-30T14:51:23Z",
+      "side": 1,
+      "message": "Ed, I get your point, but I will need someone else to answer. I think if a system supports v1_9_0 then it will have this property in its interface and its left to the end user to support it or not. I am nit expert here. i need someone else to explain.",
+      "parentUuid": "6e771470_ab0decde",
+      "range": {
+        "startLine": 1411,
+        "startChar": 46,
+        "endLine": 1411,
+        "endChar": 67
+      },
+      "revId": "99fd6bad5226e4d05afd2c5fc1a2a9223596be3e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
