@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8250bac6_def27ea7",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 29
+      },
+      "lineNbr": 1852,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2021-09-30T03:22:46Z",
+      "side": 1,
+      "message": "Hi Spencer, as we discussed offline, can we use the function in https://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/47322?",
+      "range": {
+        "startLine": 1852,
+        "startChar": 40,
+        "endLine": 1852,
+        "endChar": 44
+      },
+      "revId": "7d0dc19abf98d395e88bbfaded08a01b4d26bf1b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
