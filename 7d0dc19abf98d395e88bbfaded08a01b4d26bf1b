@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "1edc9e20_4551abc4",
+        "filename": "redfish-core/include/gzfile.hpp",
+        "patchSetId": 29
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1000404
+      },
+      "writtenOn": "2021-09-30T10:39:43Z",
+      "side": 1,
+      "message": "std::move doesn\u0027t pass by compile, here is the error message: \nerror: passing result of std::move() as a const reference argument; no move will actually happen [performance-move-const-arg,-warnings-as-errors]\n\nFor more detail please refer to: https://jenkins.openbmc.org/job/ci-repository/27239/console",
+      "parentUuid": "eb62f83f_533ded1b",
+      "range": {
+        "startLine": 35,
+        "startChar": 27,
+        "endLine": 35,
+        "endChar": 41
+      },
+      "revId": "7d0dc19abf98d395e88bbfaded08a01b4d26bf1b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3219ea3b_a50b56f5",
         "filename": "redfish-core/include/gzfile.hpp",
         "patchSetId": 29
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "558a20c2_9e009cb7",
+        "filename": "redfish-core/include/gzfile.hpp",
+        "patchSetId": 29
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1000404
+      },
+      "writtenOn": "2021-09-30T10:39:43Z",
+      "side": 1,
+      "message": "please see previous comment.",
+      "parentUuid": "3219ea3b_a50b56f5",
+      "range": {
+        "startLine": 46,
+        "startChar": 30,
+        "endLine": 46,
+        "endChar": 44
+      },
+      "revId": "7d0dc19abf98d395e88bbfaded08a01b4d26bf1b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ac5ff7c1_4f000977",
         "filename": "redfish-core/include/gzfile.hpp",
         "patchSetId": 29
@@ -68,6 +116,30 @@
       "revId": "7d0dc19abf98d395e88bbfaded08a01b4d26bf1b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4a36fe34_003670d4",
+        "filename": "redfish-core/include/gzfile.hpp",
+        "patchSetId": 29
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 1000404
+      },
+      "writtenOn": "2021-09-30T10:39:43Z",
+      "side": 1,
+      "message": "I think bufferStr is std::string here?",
+      "parentUuid": "ac5ff7c1_4f000977",
+      "range": {
+        "startLine": 104,
+        "startChar": 25,
+        "endLine": 104,
+        "endChar": 34
+      },
+      "revId": "7d0dc19abf98d395e88bbfaded08a01b4d26bf1b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -115,6 +187,30 @@
       "revId": "7d0dc19abf98d395e88bbfaded08a01b4d26bf1b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4221502d_2fa217ff",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 29
+      },
+      "lineNbr": 1852,
+      "author": {
+        "id": 1000404
+      },
+      "writtenOn": "2021-09-30T10:39:43Z",
+      "side": 1,
+      "message": "Add the relation chain to https://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/47322, and modify the sorting function here.",
+      "parentUuid": "fee9a530_8762941f",
+      "range": {
+        "startLine": 1852,
+        "startChar": 40,
+        "endLine": 1852,
+        "endChar": 44
+      },
+      "revId": "7d0dc19abf98d395e88bbfaded08a01b4d26bf1b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
