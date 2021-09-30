@@ -48,6 +48,30 @@
     },
     {
       "key": {
+        "uuid": "acdcc7ed_f94451e8",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-09-30T18:40:27Z",
+      "side": 1,
+      "message": "I re-read through this patch, and while I still don\u0027t think the dbus interfaces are great here, I\u0027m ok with us taking the approach of \"Set NTP servers on the first interface we find\" as a temporary solution.  Lets get the code cleaned up, and this should be fine.",
+      "parentUuid": "0b578929_3d66f36c",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 28
+      },
+      "revId": "5298997041609f32e7f1887180acd95e9b7a9f64",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "bc165f49_244a03c8",
         "filename": "redfish-core/lib/network_protocol.hpp",
         "patchSetId": 3
