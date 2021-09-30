@@ -34,6 +34,30 @@ std::string getHostName();
 const static std::array<std::pair<std::string, std::string>, 3> protocolToDBus{
     {{"SSH", "dropbear"}, {"HTTPS", "bmcweb"}, {"IPMI", "phosphor-ipmi-net"}}};
 
+inline std::vector<std::string>
+    deDuplication(const std::vector<std::string>& srcVec)
+{
+    std::vector<std::string> dstVec;
+    for (const auto& vec : srcVec)
+    {
+        if (vec.empty())
+        {
+            continue;
+        }
+
+        auto iter =
+            std::find_if(dstVec.begin(), dstVec.end(),
+                         [&vec](const auto& str) { return str == vec; });
+
+        if (iter == dstVec.end())
+        {
+            dstVec.push_back(vec);
+        }
+    }
+
+    return dstVec;
+}
+
 inline void
     extractNTPServersAndDomainNamesData(const GetManagedObjects& dbusData,
                                         std::vector<std::string>& ntpData,
@@ -393,12 +417,8 @@ inline void requestRoutesNetworkProtocol(App& app)
 
                     if (ntpServers)
                     {
-                        std::sort((*ntpServers).begin(), (*ntpServers).end());
-                        (*ntpServers)
-                            .erase(std::unique((*ntpServers).begin(),
-                                               (*ntpServers).end()),
-                                   (*ntpServers).end());
-                        handleNTPServersPatch(*ntpServers, asyncResp);
+                        handleNTPServersPatch(deDuplication(*ntpServers),
+                                              asyncResp);
                     }
                 }
 
