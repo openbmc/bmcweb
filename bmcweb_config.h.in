@@ -1,7 +1,7 @@
 #pragma once
 
-#include <cstdint>
 #include <cstddef>
+#include <cstdint>
 
 // clang-format off
 constexpr const int bmcwebInsecureDisableXssPrevention =
@@ -10,4 +10,6 @@ constexpr const int bmcwebInsecureDisableXssPrevention =
 constexpr const size_t bmcwebHttpReqBodyLimitMb = @BMCWEB_HTTP_REQ_BODY_LIMIT_MB@;
 
 constexpr const char* mesonInstallPrefix = "@MESON_INSTALL_PREFIX@";
+
+constexpr const char* ntpEthernet = "@NTP_ETHERNET@";
 // clang-format on

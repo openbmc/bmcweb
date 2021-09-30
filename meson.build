@@ -375,6 +375,7 @@ xss_enabled = get_option('insecure-disable-xss')
 conf_data.set10('BMCWEB_INSECURE_DISABLE_XSS_PREVENTION', xss_enabled.enabled())
 conf_data.set('MESON_INSTALL_PREFIX', get_option('prefix'))
 conf_data.set('HTTPS_PORT', get_option('https_port'))
+conf_data.set('NTP_ETHERNET', get_option('ntp-ethernet'))
 configure_file(input: 'bmcweb_config.h.in',
                output: 'bmcweb_config.h',
                configuration: conf_data)

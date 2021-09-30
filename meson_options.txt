@@ -33,6 +33,7 @@ option('redfish-allow-deprecated-hostname-patch', type : 'feature', value : 'dis
 option('redfish-new-powersubsystem-thermalsubsystem', type : 'feature', value : 'disabled', description : 'Enable/disable the new PowerSubsystem, ThermalSubsystem, and all children schemas. This includes displaying all sensors in the SensorCollection. At a later date, this feature will be defaulted to enabled.')
 option('redfish-allow-deprecated-power-thermal', type : 'feature', value : 'enabled', description : 'Enable/disable the old Power / Thermal. The default condition is allowing the old Power / Thermal.')
 option ('https_port', type : 'integer', min : 1, max : 65535, value : 443, description : 'HTTPS Port number.')
+option ('ntp-ethernet', type : 'string', value : 'eth0', description : 'Default NTP Ethernet.')
 
 # Insecure options. Every option that starts with a `insecure` flag should
 # not be enabled by default for any platform, unless the author fully comprehends

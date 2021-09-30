@@ -15,6 +15,8 @@
 */
 #pragma once
 
+#include "bmcweb_config.h"
+
 #include "error_messages.hpp"
 #include "openbmc_dbus_rest.hpp"
 #include "redfish_util.hpp"
@@ -43,7 +45,8 @@ inline void
     {
         for (const auto& ifacePair : obj.second)
         {
-            if (obj.first == "/xyz/openbmc_project/network/eth0")
+            if (obj.first ==
+                "/xyz/openbmc_project/network/" + std::string(ntpEthernet))
             {
                 if (ifacePair.first ==
                     "xyz.openbmc_project.Network.EthernetInterface")
@@ -138,7 +141,7 @@ inline void getNetworkData(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
             if (!success)
             {
                 messages::resourceNotFound(asyncResp->res, "EthernetInterface",
-                                           "eth0");
+                                           ntpEthernet);
                 return;
             }
             asyncResp->res.jsonValue["NTP"]["NTPServers"] = ntpServers;
@@ -268,7 +271,8 @@ inline void
                 return;
             }
         },
-        "xyz.openbmc_project.Network", "/xyz/openbmc_project/network/eth0",
+        "xyz.openbmc_project.Network",
+        "/xyz/openbmc_project/network/" + std::string(ntpEthernet),
         "org.freedesktop.DBus.Properties", "Set",
         "xyz.openbmc_project.Network.EthernetInterface", "NTPServers",
         std::variant<std::vector<std::string>>{ntpServers});
