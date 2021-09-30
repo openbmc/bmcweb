@@ -45,6 +45,69 @@
       "revId": "5298997041609f32e7f1887180acd95e9b7a9f64",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bc165f49_244a03c8",
+        "filename": "redfish-core/lib/network_protocol.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-09-30T18:39:34Z",
+      "side": 1,
+      "message": "Once we match the interface, should we stop looping with a break right here?  That would remove the need to do the \"remove duplicates\" thing below.",
+      "revId": "5298997041609f32e7f1887180acd95e9b7a9f64",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ae841999_b3f423e4",
+        "filename": "redfish-core/lib/network_protocol.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-09-30T18:39:34Z",
+      "side": 1,
+      "message": "FWIW, this shouldn\u0027t be EthernetInterface, this should be ManagerNetworkProtocol (see line 121).  Lets fix this while we\u0027re here as well.",
+      "range": {
+        "startLine": 153,
+        "startChar": 60,
+        "endLine": 153,
+        "endChar": 77
+      },
+      "revId": "5298997041609f32e7f1887180acd95e9b7a9f64",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e354dd4b_caab2ffd",
+        "filename": "redfish-core/lib/network_protocol.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-09-30T18:39:34Z",
+      "side": 1,
+      "message": "This is going to the user, so technically eth0 is wrong as well, but it definitely shouldn\u0027t be ethX, we should be using the interface name we were given.  I suspect this should be hardcoded to \"NetworkProtocol\" as that\u0027s the Id of this resource (see line 125).",
+      "range": {
+        "startLine": 154,
+        "startChar": 44,
+        "endLine": 154,
+        "endChar": 48
+      },
+      "revId": "5298997041609f32e7f1887180acd95e9b7a9f64",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
