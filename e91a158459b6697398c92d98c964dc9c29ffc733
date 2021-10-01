@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "dbe8dbf5_b8f0b71f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-10-01T01:53:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0bf8ecda_de66d68d",
+      "revId": "e91a158459b6697398c92d98c964dc9c29ffc733",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "74b9c231_606b157d",
         "filename": "/COMMIT_MSG",
         "patchSetId": 1
@@ -30,6 +48,30 @@
       "writtenOn": "2021-09-30T15:17:34Z",
       "side": 1,
       "message": "This seems like a bug in the webui?  Is there a reason to think that Redfish should allow setting an empty string over redfish?",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 62
+      },
+      "revId": "e91a158459b6697398c92d98c964dc9c29ffc733",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7c2776fe_f0458e8b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-10-01T01:53:27Z",
+      "side": 1,
+      "message": "\u003e This seems like a bug in the webui? \n\nI do not think so, webui just sends a structure, like this:\n```\ndateTimeForm.ntpServersArray \u003d [\n          this.form.ntp.firstAddress,\n          this.form.ntp.secondAddress,\n          this.form.ntp.thirdAddress,\n        ];\n```\nhttps://github.com/openbmc/webui-vue/blob/master/src/views/Settings/DateTime/DateTime.vue#L359-L363\nIt doesn\u0027t care about the data inside, which means that the data can be empty or repeated, like this:\n192.168.1.1 192.168.1.1 \"\"\nor\n\"\" 192.168.1.1 192.168.1.2\n\nHowever, these values need to be further processed when bmcweb parses to ntpServers. At present, it only does the work of `deduplication`, and does not handle the empty string operation.\n\n\u003e Is there a reason to think that Redfish should allow setting an empty string over redfish?\n\nFrom the redifsh spec, it only shows that NTPServers is an array, and this array can be empty, but it doesn\u0027t care whether the value inside is empty.\nhttp://redfish.dmtf.org/schemas/v1/ManagerNetworkProtocol.v1_8_0.json\n\nIf it contains a null value, it will be updated to D-Bus and 00-bmc-ethX.network, like this:\n```\n# cat  00-bmc-eth0.network \n[Match]\nName\u003deth0\n[Link]\nMACAddress\u003d66:1e:ed:f8:a4:27\n[Network]\nLinkLocalAddressing\u003dyes\nIPv6AcceptRA\u003dfalse\nNTP\u003d\nNTP\u003dcn.pool.ntp.org\nDHCP\u003dtrue\n[DHCP]\nClientIdentifier\u003dmac\nUseDNS\u003dtrue\nUseNTP\u003dtrue\nUseHostname\u003dtrue\nSendHostname\u003dtrue\n```",
+      "parentUuid": "74b9c231_606b157d",
       "range": {
         "startLine": 9,
         "startChar": 0,
