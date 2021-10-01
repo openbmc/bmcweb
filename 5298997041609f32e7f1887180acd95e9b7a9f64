@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "22ad4561_0a50254f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-10-01T02:31:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a5331517_2795431f",
+      "range": {
+        "startLine": 8,
+        "startChar": 0,
+        "endLine": 12,
+        "endChar": 31
+      },
+      "revId": "5298997041609f32e7f1887180acd95e9b7a9f64",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0b578929_3d66f36c",
         "filename": "/COMMIT_MSG",
         "patchSetId": 3
@@ -72,6 +96,30 @@
     },
     {
       "key": {
+        "uuid": "57599d59_659218f0",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-10-01T02:31:37Z",
+      "side": 1,
+      "message": "\u003e Why is the NTPServer interface per-nic at all?  This seems like a phosphor-dbus-interfaces issue that needs fixed to make the NtpServers attribute settable systemwide, not per nic.\n\nYes, I think the best result should be that there is one in the xyz.openbmc_project.Network.EthernetInterface interface to identify whether the current Ethernet is active.\n\n\u003e I re-read through this patch, and while I still don\u0027t think the dbus interfaces are great here, I\u0027m ok with us taking the approach of \"Set NTP servers on the first interface we find\" as a temporary solution.  Lets get the code cleaned up, and this should be fine.\n\nFor systems that do not use eth0 by default, this is a bug. It cannot update NTPServer correctly, which will cause NTP synchronization to fail.\n\nOr we can use a global configuration to get the information of the currently active network card, like this:\nhttps://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/47342/1",
+      "parentUuid": "acdcc7ed_f94451e8",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 28
+      },
+      "revId": "5298997041609f32e7f1887180acd95e9b7a9f64",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "bc165f49_244a03c8",
         "filename": "redfish-core/lib/network_protocol.hpp",
         "patchSetId": 3
@@ -83,6 +131,24 @@
       "writtenOn": "2021-09-30T18:39:34Z",
       "side": 1,
       "message": "Once we match the interface, should we stop looping with a break right here?  That would remove the need to do the \"remove duplicates\" thing below.",
+      "revId": "5298997041609f32e7f1887180acd95e9b7a9f64",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ec90ea91_fb3dc7c9",
+        "filename": "redfish-core/lib/network_protocol.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-10-01T02:31:37Z",
+      "side": 1,
+      "message": "I do not think so.\nWe have two ethernets, eth0 and eth1, and we are using eth1 by default, and the first match will match eth0, which is wrong for our system.",
+      "parentUuid": "bc165f49_244a03c8",
       "revId": "5298997041609f32e7f1887180acd95e9b7a9f64",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
@@ -112,6 +178,30 @@
     },
     {
       "key": {
+        "uuid": "91158fc3_20cc77bc",
+        "filename": "redfish-core/lib/network_protocol.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-10-01T02:31:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ae841999_b3f423e4",
+      "range": {
+        "startLine": 153,
+        "startChar": 60,
+        "endLine": 153,
+        "endChar": 77
+      },
+      "revId": "5298997041609f32e7f1887180acd95e9b7a9f64",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e354dd4b_caab2ffd",
         "filename": "redfish-core/lib/network_protocol.hpp",
         "patchSetId": 3
@@ -132,6 +222,30 @@
       "revId": "5298997041609f32e7f1887180acd95e9b7a9f64",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c1b02bd2_30bb1530",
+        "filename": "redfish-core/lib/network_protocol.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-10-01T02:31:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e354dd4b_caab2ffd",
+      "range": {
+        "startLine": 154,
+        "startChar": 44,
+        "endLine": 154,
+        "endChar": 48
+      },
+      "revId": "5298997041609f32e7f1887180acd95e9b7a9f64",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
