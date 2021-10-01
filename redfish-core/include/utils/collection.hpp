@@ -33,9 +33,16 @@ inline void
         [collectionPath,
          aResp{std::move(aResp)}](const boost::system::error_code ec,
                                   const std::vector<std::string>& objects) {
+            if (ec == boost::system::errc::io_error)
+            {
+                aResp->res.jsonValue["Members"] = nlohmann::json::array();
+                aResp->res.jsonValue["Members@odata.count"] = 0;
+                return;
+            }
+
             if (ec)
             {
-                BMCWEB_LOG_DEBUG << "DBUS response error";
+                BMCWEB_LOG_DEBUG << "DBUS response error " << ec.value();
                 messages::internalError(aResp->res);
                 return;
             }
