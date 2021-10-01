@@ -169,6 +169,30 @@
     },
     {
       "key": {
+        "uuid": "60db36e9_03dff669",
+        "filename": "include/login_routes.hpp",
+        "patchSetId": 44
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-10-01T01:26:38Z",
+      "side": 1,
+      "message": "Thanks Ed.\nI read this link, and then came back to our question:\nThe MIME standard only specifies the format of the protocol, and does not parse the specific content.\nIn other words, as long as we follow the MIME format, we can get the correct `mime_fields`, and each `mime_fields` is processed by the caller and determines whether it is correct.\n\nlike this:\n```\n-----------------------------d74496d66958873e\nContent-Disposition: form-data; name\u003d\"username\"\nContent-Type: */*\n\nroot\n\n-----------------------------d74496d66958873e\nContent-Disposition: form-data; name\u003d\"password\"\nContent-Type: */*\n\n0penBmc\n\n-----------------------------d74496d66958873e\nContent-Disposition: form-data; name\u003d\"test1\"\nContent-Type: */*\n\ntest value\n\n-----------------------------d74496d66958873e--\n```\nIf we want to parse the `username` and `password`, then we can care about `test1` and think this packet is wrong, or we can just ignore `test1` and think this packet is correct, but these are not part of the MIME standard and are made by the caller decided.",
+      "parentUuid": "e955ede1_6e8b823c",
+      "range": {
+        "startLine": 162,
+        "startChar": 20,
+        "endLine": 162,
+        "endChar": 21
+      },
+      "revId": "35eb66e6d01c3c5d643c04a2729a76660a194cd6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "aa79c8e0_b983bef0",
         "filename": "include/multipart_parser.hpp",
         "patchSetId": 44
