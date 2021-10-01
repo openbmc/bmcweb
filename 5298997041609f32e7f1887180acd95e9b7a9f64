@@ -293,6 +293,30 @@
       "revId": "5298997041609f32e7f1887180acd95e9b7a9f64",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "165e06d5_96c9e7be",
+        "filename": "redfish-core/lib/network_protocol.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 302,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-10-01T06:52:42Z",
+      "side": 1,
+      "message": "No, this patch only fixes NTP server properties.\nRegarding dns server, we can get/set according to the corresponding Ethernet ID\nhttps://github.com/openbmc/bmcweb/blob/master/redfish-core/lib/ethernet.hpp#L1866-L1876",
+      "parentUuid": "1cb7935b_4c0e102b",
+      "range": {
+        "startLine": 287,
+        "startChar": 1,
+        "endLine": 302,
+        "endChar": 13
+      },
+      "revId": "5298997041609f32e7f1887180acd95e9b7a9f64",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
