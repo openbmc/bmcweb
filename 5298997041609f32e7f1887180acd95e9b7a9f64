@@ -144,6 +144,30 @@
     },
     {
       "key": {
+        "uuid": "4e0e73d1_e1721995",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-10-01T16:25:58Z",
+      "side": 1,
+      "message": "The primary bug with this is that the response no longer follows restful CRUD semantics, because the response is sorted and aggregated between all the various things.\n\nFor example, if I called\nPATCH NTPServers: [\"2.2.2.2\", \"1.1.1.1\"]\nThen got a 200 back, re-reading would result in:\nGET NTPServers:[\"1.1.1.1\", \"2.2.2.2\"]\nWhich is a bug.  Ordering should not be changed server-side.\n\nThere\u0027s also a lot of questions around if we\u0027re looking at multiple interfaces, what happens when they don\u0027t contain the same data?  This patchset defines the behavior as \"the superset of all interfaces\", but that doesn\u0027t really follow CRUD either, because any modification to that, will now set it on all interfaces.\n\n\n\"to identify whether the current Ethernet is active.\"\nThat doesn\u0027t seem like it would matter in this case?\n\n\u003e @edtanous, NTP server should be per interface basis, Systemd networkd also supports that.\n\nFeel free to propose that to DMTF then?  In this context we\u0027re discussing how to get the existing interfaces to work and follow Restful semantics given that they don\u0027t match.  The initial patchset for this defaulted everything to eth0, because it was assumed that all BMCs had a dedicated NIC at the time.  That assumption clearly doesn\u0027t work for those platforms, so we need to figure out defined behavior for those cases.  Clearly my \"set it on the first interface found\" idea wouldn\u0027t meet the needs, but we need to come up with something that has defined, CRUD behavior, even when the interfaces don\u0027t match.  That might involve a change to the phosphor-networkd interfaces for this, but we\u0027ll see.",
+      "parentUuid": "63db9805_c409e784",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 28
+      },
+      "revId": "5298997041609f32e7f1887180acd95e9b7a9f64",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "bc165f49_244a03c8",
         "filename": "redfish-core/lib/network_protocol.hpp",
         "patchSetId": 3
