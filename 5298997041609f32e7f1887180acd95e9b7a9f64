@@ -120,6 +120,30 @@
     },
     {
       "key": {
+        "uuid": "63db9805_c409e784",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000022
+      },
+      "writtenOn": "2021-10-01T05:54:40Z",
+      "side": 1,
+      "message": "@edtanous, NTP server should be per interface basis, Systemd networkd also supports that.\nHowever Redfish DMTF doesn\u0027t model things that way because that brings more complexity.",
+      "parentUuid": "57599d59_659218f0",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 28
+      },
+      "revId": "5298997041609f32e7f1887180acd95e9b7a9f64",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "bc165f49_244a03c8",
         "filename": "redfish-core/lib/network_protocol.hpp",
         "patchSetId": 3
@@ -246,6 +270,29 @@
       "revId": "5298997041609f32e7f1887180acd95e9b7a9f64",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1cb7935b_4c0e102b",
+        "filename": "redfish-core/lib/network_protocol.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 302,
+      "author": {
+        "id": 1000022
+      },
+      "writtenOn": "2021-10-01T05:54:40Z",
+      "side": 1,
+      "message": "If there are mutiple D-bus objects implementing the xyz.openbmc_project.Network.EthernetInterface, Would you be writing the same dns server details on all the interface? or would it be fine to add it on one of the interface?",
+      "range": {
+        "startLine": 287,
+        "startChar": 1,
+        "endLine": 302,
+        "endChar": 13
+      },
+      "revId": "5298997041609f32e7f1887180acd95e9b7a9f64",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
