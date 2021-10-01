@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "97b07aae_e444e33e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2021-10-01T20:51:28Z",
+      "side": 1,
+      "message": "Did it fail for anything?\nThe wording makes me suspicious.",
+      "range": {
+        "startLine": 60,
+        "startChar": 27,
+        "endLine": 60,
+        "endChar": 46
+      },
+      "revId": "dae25108ef02865b1f34ca2178fce6aca6671835",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f6c63b7f_8d061b8f",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 831,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2021-10-01T20:51:28Z",
+      "side": 1,
+      "message": "NIT: please remove the extra new line, unless there are important",
+      "revId": "dae25108ef02865b1f34ca2178fce6aca6671835",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c930a4b9_eac30c6a",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 952,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2021-10-01T20:51:28Z",
+      "side": 1,
+      "message": "the logic in this function looks almost identaicl to the logic in \ngetDimmData. In fact is there anything different other then the calls to  getDimmPartitionData vs getDimmErrorMetricsByService? (have you thought about refactoring to allow for some code reuse?",
+      "range": {
+        "startLine": 952,
+        "startChar": 12,
+        "endLine": 952,
+        "endChar": 28
+      },
+      "revId": "dae25108ef02865b1f34ca2178fce6aca6671835",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
