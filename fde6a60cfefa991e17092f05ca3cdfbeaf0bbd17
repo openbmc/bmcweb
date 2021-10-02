@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c6835b02_b992ec4a",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-10-02T21:48:58Z",
+      "side": 1,
+      "message": "This patchset seems to be mapping, \"family\" to Model, which doesn\u0027t really seem right to me.  Wouldn\u0027t Family be mapped to EffectiveFamily, and Asset.Model would be mapped to \"Model\"?",
+      "range": {
+        "startLine": 189,
+        "startChar": 31,
+        "endLine": 189,
+        "endChar": 37
+      },
+      "revId": "fde6a60cfefa991e17092f05ca3cdfbeaf0bbd17",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
