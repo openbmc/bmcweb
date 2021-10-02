@@ -22,6 +22,30 @@
       "revId": "74e61871042cc5ba59008d51f8b8e51195bccfa0",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "544a736b_159c6b7a",
+        "filename": "redfish-core/include/utils/collection.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-10-02T21:42:17Z",
+      "side": 1,
+      "message": "I guess we could, but in general we don\u0027t tend to add debug prints for expected paths, and this result is expected.  At some point I\u0027d really like to see a \"log all dbus traffic and timing\" debug option, but that would be at a much higher scope.",
+      "parentUuid": "d968f106_0fe5ceb3",
+      "range": {
+        "startLine": 40,
+        "startChar": 16,
+        "endLine": 40,
+        "endChar": 22
+      },
+      "revId": "74e61871042cc5ba59008d51f8b8e51195bccfa0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
