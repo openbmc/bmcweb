@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c7d48c53_35853de5",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-10-03T00:04:08Z",
+      "side": 1,
+      "message": "Just noticed that somehow this ended up as a string instead of the previous variable name.  @jebr, can you get a patch up to fix this?  Should just be a matter of putting the old one back.",
+      "range": {
+        "startLine": 61,
+        "startChar": 22,
+        "endLine": 61,
+        "endChar": 53
+      },
+      "revId": "58eaf5f0d456c1dd777d5484993e5a4603efc72b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
