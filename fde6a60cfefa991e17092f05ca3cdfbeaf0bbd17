@@ -22,6 +22,30 @@
       "revId": "fde6a60cfefa991e17092f05ca3cdfbeaf0bbd17",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a8f1b442_f4228f42",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-10-03T20:30:46Z",
+      "side": 1,
+      "message": "Only downside of splitting commits up later is sometimes we lose comments. \n\nFrom https://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/44564/9//COMMIT_MSG#18\n\nEd Tanous\nThis seems like it would have a race condition if the models are different.  Also, the redfish schema for this states:\n\n\"The processor model for the primary or majority of processors in this system.\"\nand\n\"This property shall contain the processor model for the central processors in the system, per the description in the Processor Information - Processor Family section of the SMBIOS Specification DSP0134 2.8 or later\"\n\nJonathan Doman\n\u003e \u003e Are we sure this model number matches up to the SMBIOS specification?\n\n\u003e Is it really up to bmcweb to enforce this? \nI thought if your data is wrong on D-Bus (e.g. an empty PartNumber) we just put it out on Redfish.\n\nI think the point is this commit changes Model to pull from Inventory.Decorator.Asset.Model instead of Inventory.Item.Cpu.Family as it was doing before. On Intel systems using smbios-mdr to provide this data on D-Bus, ony the latter is a model string which matches up to the options in the SMBIOS spec. As Ed quoted, I think Redfish spec implies the current behavior is more correct.",
+      "parentUuid": "c6835b02_b992ec4a",
+      "range": {
+        "startLine": 189,
+        "startChar": 31,
+        "endLine": 189,
+        "endChar": 37
+      },
+      "revId": "fde6a60cfefa991e17092f05ca3cdfbeaf0bbd17",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
