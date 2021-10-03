@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "55970071_d4651b07",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1001138
+      },
+      "writtenOn": "2021-10-03T01:40:05Z",
+      "side": 1,
+      "message": "Yes it failed for some log service stuff. I think it is a known issue caused by a local patch.",
+      "parentUuid": "97b07aae_e444e33e",
+      "range": {
+        "startLine": 60,
+        "startChar": 27,
+        "endLine": 60,
+        "endChar": 46
+      },
+      "revId": "dae25108ef02865b1f34ca2178fce6aca6671835",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f6c63b7f_8d061b8f",
         "filename": "redfish-core/lib/memory.hpp",
         "patchSetId": 3
@@ -39,6 +63,24 @@
       "revId": "dae25108ef02865b1f34ca2178fce6aca6671835",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e88bb801_04e5f86f",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 831,
+      "author": {
+        "id": 1001138
+      },
+      "writtenOn": "2021-10-03T01:40:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f6c63b7f_8d061b8f",
+      "revId": "dae25108ef02865b1f34ca2178fce6aca6671835",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -62,6 +104,30 @@
       "revId": "dae25108ef02865b1f34ca2178fce6aca6671835",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bdccb8fb_da17e4eb",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 952,
+      "author": {
+        "id": 1001138
+      },
+      "writtenOn": "2021-10-03T01:40:05Z",
+      "side": 1,
+      "message": "Very good point! I thought about it. Due to following reasons I felt like its better to keep them separated.\n\n1. Since we are dealing with two different schemas, I felt that its more clear if we keep them separated.\n2. Memory errors will be polled periodically. So if we combine the two functions, the function loop will iterate through interfaces that we don\u0027t care about everytime we poll for memory errors.",
+      "parentUuid": "c930a4b9_eac30c6a",
+      "range": {
+        "startLine": 952,
+        "startChar": 12,
+        "endLine": 952,
+        "endChar": 28
+      },
+      "revId": "dae25108ef02865b1f34ca2178fce6aca6671835",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
