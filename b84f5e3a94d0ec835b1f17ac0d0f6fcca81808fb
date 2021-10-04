@@ -16,6 +16,24 @@
       "revId": "b84f5e3a94d0ec835b1f17ac0d0f6fcca81808fb",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fdce9a83_df236558",
+        "filename": "static/redfish/v1/$metadata/index.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-10-04T13:54:39Z",
+      "side": 1,
+      "message": "So Redfish has a major, minor, and Errata.\nThis is for the protocol version but the schemas (data model) follow basically the same rule: \n\nMajorVersion.MinorVersion.Errata\n\nwhere\n\n    MajorVersion \u003d integer: something in the class changed in a backward incompatible way.\n    MinorVersion \u003d integer: a minor update. New functionality may have been added but nothing removed. Compatibility will be preserved with previous minorversions.\n    Errata \u003d integer: something in the prior version was broken and needed to be fixed.\n\n6.2. Protocol version\nhttp://redfish.dmtf.org/schemas/DSP0266_1.5.0.html\n\nSo this 1_0_13 probably has some wording change.\nLooking at it, it looks like it updated the definition of AccountService.",
+      "parentUuid": "2ae54e9a_f963051f",
+      "revId": "b84f5e3a94d0ec835b1f17ac0d0f6fcca81808fb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
