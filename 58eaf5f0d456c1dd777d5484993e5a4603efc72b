@@ -22,6 +22,30 @@
       "revId": "58eaf5f0d456c1dd777d5484993e5a4603efc72b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dca2046f_55f0af3e",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2021-10-04T17:17:10Z",
+      "side": 1,
+      "message": "Sorry about that, I just pushed \nhttps://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/47453\nI will double check them all.",
+      "parentUuid": "c7d48c53_35853de5",
+      "range": {
+        "startLine": 61,
+        "startChar": 22,
+        "endLine": 61,
+        "endChar": 53
+      },
+      "revId": "58eaf5f0d456c1dd777d5484993e5a4603efc72b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
