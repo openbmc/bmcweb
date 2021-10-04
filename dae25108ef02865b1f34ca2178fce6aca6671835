@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "35a450c7_2674a057",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-10-04T21:01:12Z",
+      "side": 1,
+      "message": "super nitpick: but we follow https://chris.beams.io/posts/git-commit/ and not ending in a period is actually a rule\n\n    Separate subject from body with a blank line\n    Limit the subject line to 50 characters\n    Capitalize the subject line\n    Do not end the subject line with a period\n    Use the imperative mood in the subject line\n    Wrap the body at 72 characters\n    Use the body to explain what and why vs. how",
+      "revId": "dae25108ef02865b1f34ca2178fce6aca6671835",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "97b07aae_e444e33e",
         "filename": "/COMMIT_MSG",
         "patchSetId": 3
@@ -46,6 +63,23 @@
       "revId": "dae25108ef02865b1f34ca2178fce6aca6671835",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "65552dd5_2c3eefe9",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-10-04T21:01:12Z",
+      "side": 1,
+      "message": "Thanks for the commit! \nCan you use your full name here?\nFrom https://github.com/openbmc/docs/blob/master/CONTRIBUTING.md#formatting-commit-messages\n\nAll commit messages must include a \"Signed-off-by\" line, which indicates that you the contributor have agreed to the Developer Certificate of Origin (see below). This line must include the full name you commonly use, often a given name and a family name or surname. (ok: Sam Samuelsson, Robert A. Heinlein; not ok: xXthorXx, Sam, RAH)",
+      "revId": "dae25108ef02865b1f34ca2178fce6aca6671835",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     },
     {
       "key": {

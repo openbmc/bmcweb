@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "aa2f02bf_a3f2b6aa",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-10-04T21:01:12Z",
+      "side": 1,
+      "message": "Typically this is the last segment of the URI E.g. \"MemoryMetrics\" or \"dimm\" as above",
+      "revId": "b7c868adf26d7ef9a87f16209d048b5e8dd9ac89",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d6aa7bbc_a4709eee",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 924,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-10-04T21:01:12Z",
+      "side": 1,
+      "message": "It is more typical we do:\n                messages::internalError(aResp-\u003eres);\n                return;\n\nThis should not happen. If you have the property ceCount, it should be the correct type.",
+      "revId": "b7c868adf26d7ef9a87f16209d048b5e8dd9ac89",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5f3506bd_d9db294b",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 938,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-10-04T21:01:12Z",
+      "side": 1,
+      "message": "Typically this is \n\n                messages::internalError(aResp-\u003eres);\n                return;",
+      "revId": "b7c868adf26d7ef9a87f16209d048b5e8dd9ac89",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1cfce533_d5ccb3d7",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 980,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-10-04T21:01:12Z",
+      "side": 1,
+      "message": "More often I see code like \n\n            /* When there is more than one TPMEnable object... */\n            if (subtree.size() \u003e 1)\n            {\n                BMCWEB_LOG_DEBUG\n                    \u003c\u003c \"DBUS response has more than 1 TPM Enable object:\"\n                    \u003c\u003c subtree.size();\n                // Throw an internal Error and return\n                messages::internalError(aResp-\u003eres);\n                return;\n            }\n\nvs just using the last \n\nFrom https://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/43930/14/redfish-core/lib/systems.hpp",
+      "revId": "b7c868adf26d7ef9a87f16209d048b5e8dd9ac89",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
