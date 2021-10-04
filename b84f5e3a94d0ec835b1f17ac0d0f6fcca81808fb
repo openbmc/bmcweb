@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2ae54e9a_f963051f",
+        "filename": "static/redfish/v1/$metadata/index.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1000004
+      },
+      "writtenOn": "2021-10-04T12:33:03Z",
+      "side": 1,
+      "message": "What\u0027s up with these older versions coming in here?",
+      "revId": "b84f5e3a94d0ec835b1f17ac0d0f6fcca81808fb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
