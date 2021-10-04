@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "7c8dc015_aae48d4d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-10-04T19:50:00Z",
+      "side": 1,
+      "message": "In Q4 2021 this feature will be removed, and the Redfish schema enforced, making the HostName read-only.\u0027",
+      "parentUuid": "6e71ca59_2d037873",
+      "range": {
+        "startLine": 9,
+        "startChar": 43,
+        "endLine": 9,
+        "endChar": 46
+      },
+      "revId": "15bcac411bbceccc9d03cb06ea29351ec0e26c64",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "61ce574e_b4fe4d40",
         "filename": "redfish-core/lib/network_protocol.hpp",
         "patchSetId": 1
