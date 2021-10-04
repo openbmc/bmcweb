@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "c0513746_7680418b",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 182,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-10-04T18:38:56Z",
+      "side": 1,
+      "message": "I still don\u0027t understand the difference in the schema between \"model\" and \"EffectiveModel\".  Lets try to understand that, and we can figure out if the other Processor code needs to change.",
+      "parentUuid": "53504902_61e9d2c1",
+      "range": {
+        "startLine": 182,
+        "startChar": 15,
+        "endLine": 182,
+        "endChar": 78
+      },
+      "revId": "4d4170811058880d290dd761140c92378b8906f5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "0d8027f0_ec18bbf6",
         "filename": "redfish-core/lib/processor.hpp",
         "patchSetId": 4
