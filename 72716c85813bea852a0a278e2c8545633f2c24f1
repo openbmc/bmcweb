@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "20c04876_68557218",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 520,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2021-10-04T12:13:27Z",
+      "side": 1,
+      "message": "Ack. Will look at this.",
+      "parentUuid": "bf21e72b_2ec0a6c1",
+      "range": {
+        "startLine": 520,
+        "startChar": 20,
+        "endLine": 520,
+        "endChar": 76
+      },
+      "revId": "72716c85813bea852a0a278e2c8545633f2c24f1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a2327ee0_140c7859",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 1
@@ -36,6 +60,30 @@
       "writtenOn": "2021-09-22T17:40:37Z",
       "side": 1,
       "message": "How would a session cause a dump?  OriginOfCondition is intended to point at a System component that caused this \"failure\".  I suspect origin of condition isn\u0027t what you want here.",
+      "range": {
+        "startLine": 554,
+        "startChar": 24,
+        "endLine": 554,
+        "endChar": 75
+      },
+      "revId": "72716c85813bea852a0a278e2c8545633f2c24f1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1f111bdf_b99621d1",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 554,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2021-10-04T12:13:27Z",
+      "side": 1,
+      "message": "Sure, will try to move it to an appropriate property.",
+      "parentUuid": "a2327ee0_140c7859",
       "range": {
         "startLine": 554,
         "startChar": 24,
