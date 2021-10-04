@@ -211,16 +211,6 @@ if( get_option('bmcweb-logging').enabled() or \
     },section : 'Enabled Features')
 endif
 
-if( get_option('redfish-allow-deprecated-hostname-patch').enabled())
- add_project_arguments([
-   '-DBMCWEB_ALLOW_DEPRECATED_HOSTNAME_PATCH'
-   ],
-  language : 'cpp')
-
-  summary({'hostname-patch' :'-DBMCWEB_ALLOW_DEPRECATED_HOSTNAME_PATCH'
-    },section : 'Enabled Features')
-endif
-
 if( get_option('redfish-allow-deprecated-power-thermal').enabled())
  add_project_arguments([
    '-DBMCWEB_ALLOW_DEPRECATED_POWER_THERMAL'
