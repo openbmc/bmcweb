@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "53504902_61e9d2c1",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 182,
+      "author": {
+        "id": 1000388
+      },
+      "writtenOn": "2021-10-04T16:56:05Z",
+      "side": 1,
+      "message": "Actually, looking through it looks like we set \"Model\" not \"EffectiveModel\" further down within \"getCpuAssetData\" - Maybe we should be using EffectiveModel as to not collide with the asset model?",
+      "parentUuid": "41676b03_7c8983b4",
+      "range": {
+        "startLine": 182,
+        "startChar": 15,
+        "endLine": 182,
+        "endChar": 78
+      },
+      "revId": "4d4170811058880d290dd761140c92378b8906f5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "0d8027f0_ec18bbf6",
         "filename": "redfish-core/lib/processor.hpp",
         "patchSetId": 4
