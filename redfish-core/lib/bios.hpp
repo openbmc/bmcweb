@@ -58,7 +58,7 @@ inline void
 inline void requestRoutesBiosReset(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/Systems/system/Bios/Actions/Bios.ResetBios/")
-        .privileges({{"redfish::privileges::postBios"}})
+        .privileges(redfish::privileges::postBios)
         .methods(boost::beast::http::verb::post)(handleBiosResetPost);
 }
 
