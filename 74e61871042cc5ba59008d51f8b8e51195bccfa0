@@ -46,6 +46,30 @@
       "revId": "74e61871042cc5ba59008d51f8b8e51195bccfa0",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "643f6e2a_ed9555b5",
+        "filename": "redfish-core/include/utils/collection.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2021-10-04T18:30:24Z",
+      "side": 1,
+      "message": "I would not have thought errc:io_error to be an expected result. \n\nI suppose it would be expected on systems that don\u0027t have inventory system working. Sounds good",
+      "parentUuid": "544a736b_159c6b7a",
+      "range": {
+        "startLine": 40,
+        "startChar": 16,
+        "endLine": 40,
+        "endChar": 22
+      },
+      "revId": "74e61871042cc5ba59008d51f8b8e51195bccfa0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
