@@ -15,6 +15,8 @@
 */
 #pragma once
 
+#include <bmcweb_config.h>
+
 #include <app.hpp>
 #include <async_resp.hpp>
 #include <http_request.hpp>
@@ -76,7 +78,7 @@ inline void
     protocolFeatures["ExpandQuery"]["Links"] = false;
     protocolFeatures["ExpandQuery"]["NoLinks"] = false;
     protocolFeatures["FilterQuery"] = false;
-    protocolFeatures["OnlyMemberQuery"] = false;
+    protocolFeatures["OnlyMemberQuery"] = bmcwebInsecureEnableQueryParams;
     protocolFeatures["SelectQuery"] = false;
     protocolFeatures["DeepOperations"]["DeepPOST"] = false;
     protocolFeatures["DeepOperations"]["DeepPATCH"] = false;
