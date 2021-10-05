@@ -16,6 +16,24 @@
       "revId": "e544e54f97604924d9d7b24a2002337964c8786e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b3d20c07_bd4db4cd",
+        "filename": "redfish-core/lib/ut/service_root_test.cpp",
+        "patchSetId": 22
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2021-10-05T16:50:37Z",
+      "side": 1,
+      "message": "yes, there are still some issues with this test\nI would like to validate the size of the json. That is my only way to make sure additional fields are not present.\n\nThere might be a cleaver way to do (automatically increasing the size for every element tested against, but I will probablly end up doing something simplistic like json.size()\u003d\u003d28)",
+      "parentUuid": "47715f24_b3f7522a",
+      "revId": "e544e54f97604924d9d7b24a2002337964c8786e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
