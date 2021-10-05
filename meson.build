@@ -370,6 +370,7 @@ srcfiles_unittest = files(
   'test/include/json_html_serializer.cpp',
   'test/include/http_utility_test.cpp',
   'test/include/human_sort_test.cpp',
+  'test/include/async_resolve_test.cpp',
   'test/include/ibm/configfile_test.cpp',
   'test/include/ibm/lock_test.cpp',
   'test/include/multipart_test.cpp',

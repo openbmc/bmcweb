@@ -148,7 +148,7 @@ class ConnectionInfo : public std::enable_shared_from_this<ConnectionInfo>
     std::function<void(bool, uint32_t, Response&)> callback;
 
 #ifdef BMCWEB_DBUS_DNS_RESOLVER
-    using Resolver = crow::async_resolve::Resolver;
+    using Resolver = async_resolve::Resolver;
 #else
     using Resolver = boost::asio::ip::tcp::resolver;
 #endif
