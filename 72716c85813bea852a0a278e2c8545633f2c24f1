@@ -93,6 +93,30 @@
       "revId": "72716c85813bea852a0a278e2c8545633f2c24f1",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2cdfab73_78079335",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 554,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2021-10-05T05:12:32Z",
+      "side": 1,
+      "message": "This is being discussed at redfish forum : https://redfishforum.com/thread/547/usage-originofcondition-parameter-logentry-schema",
+      "parentUuid": "1f111bdf_b99621d1",
+      "range": {
+        "startLine": 554,
+        "startChar": 24,
+        "endLine": 554,
+        "endChar": 75
+      },
+      "revId": "72716c85813bea852a0a278e2c8545633f2c24f1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
