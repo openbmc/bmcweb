@@ -97,6 +97,30 @@
     },
     {
       "key": {
+        "uuid": "43acfd40_b7332ec2",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 182,
+      "author": {
+        "id": 1000388
+      },
+      "writtenOn": "2021-10-05T16:00:42Z",
+      "side": 1,
+      "message": "Looking at the Redfish Resource and Schema guide at https://www.dmtf.org/sites/default/files/standards/documents/DSP2046_2021.2.pdf\n\nSection 6.86.6 at page 668, we see:\n\n```\n\"Manufacturer\": \"Intel(R) Corporation\",\n\"Model\": \"Multi-Core Intel(R) Xeon(R) processor 7xxx Series\",\n\"ProcessorId\": {\n    \"VendorId\": \"GenuineIntel\",\n    \"IdentificationRegisters\": \"0x34AC34DC8901274A\",\n    \"EffectiveFamily\": \"0x42\",\n    \"EffectiveModel\": \"0x61\",\n    \"Step\": \"0x1\",\n    \"MicrocodeInfo\": \"0x429943\"\n},\n```\n\nFrom this, I think perhaps the EffectiveModel and EffectiveFamily are the correct properties to set the numeric family / model  CPUID response that we got and set for the D-Bus object?",
+      "parentUuid": "c0513746_7680418b",
+      "range": {
+        "startLine": 182,
+        "startChar": 15,
+        "endLine": 182,
+        "endChar": 78
+      },
+      "revId": "4d4170811058880d290dd761140c92378b8906f5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "0d8027f0_ec18bbf6",
         "filename": "redfish-core/lib/processor.hpp",
         "patchSetId": 4
