@@ -345,7 +345,6 @@ class Connection :
                         << thisReq.methodString() << " " << thisReq.target()
                         << " " << thisReq.ipAddress.to_string();
 
-        res.setCompleteRequestHandler(nullptr);
         res.isAliveHelper = [this]() -> bool { return isAlive(); };
 
         thisReq.ioService = static_cast<decltype(thisReq.ioService)>(
