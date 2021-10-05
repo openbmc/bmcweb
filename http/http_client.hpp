@@ -60,7 +60,7 @@ enum class ConnState
 class HttpClient : public std::enable_shared_from_this<HttpClient>
 {
   private:
-    crow::async_resolve::Resolver resolver;
+    async_resolve::Resolver resolver;
     boost::beast::tcp_stream conn;
     boost::asio::steady_timer timer;
     boost::beast::flat_static_buffer<httpReadBodyLimit> buffer;
