@@ -81,6 +81,30 @@
       "revId": "e91a158459b6697398c92d98c964dc9c29ffc733",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7ff0a7b4_e8881392",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-10-05T21:20:32Z",
+      "side": 1,
+      "message": "\u003e \u003e This seems like a bug in the webui? \n\u003e \n\u003e I do not think so, webui just sends a structure, like this:\n\u003e ```\n\u003e dateTimeForm.ntpServersArray \u003d [\n\u003e           this.form.ntp.firstAddress,\n\u003e           this.form.ntp.secondAddress,\n\u003e           this.form.ntp.thirdAddress,\n\u003e         ];\n\u003e ```\n\u003e https://github.com/openbmc/webui-vue/blob/master/src/views/Settings/DateTime/DateTime.vue#L359-L363\n\u003e It doesn\u0027t care about the data inside, which means that the data can be empty or repeated, like this:\n\u003e 192.168.1.1 192.168.1.1 \"\"\n\u003e or\n\u003e \"\" 192.168.1.1 192.168.1.2\n\u003e \n\nRight..... that\u0027s the bug I\u0027m talking about.  If the UI has a fixed number of elements for a variable array API, it needs to be looking at the data and doing the filtering itself. \n\n\u003e However, these values need to be further processed when bmcweb parses to ntpServers. At present, it only does the work of `deduplication`, and does not handle the empty string operation.\n\nPer the Redfish specification, we don\u0027t support empty strings in an array being used as a \"null\" value.\n\nI still assert this is a bug in the webui.\n\n\u003e \n\u003e \u003e Is there a reason to think that Redfish should allow setting an empty string over redfish?\n\u003e \n\u003e From the redifsh spec, it only shows that NTPServers is an array, and this array can be empty, but it doesn\u0027t care whether the value inside is empty.\n\nFrom crud semantics, bmcweb should reject any empty string, condiering this property \"shall contain all the NTP servers for which this manager is using to obtain time.\"\n\nand \"\" is not a valid NTP server.\n\n\u003e http://redfish.dmtf.org/schemas/v1/ManagerNetworkProtocol.v1_8_0.json\n\u003e \n\u003e If it contains a null value, it will be updated to D-Bus and 00-bmc-ethX.network, like this:\n\nThat is another bug, Phosphor-Networkd should not accept a blank NTP server string, and should be checking for basic FQDN url compliance before accepting and blindly putting it into the config file.\n\n\u003e ```\n\u003e # cat  00-bmc-eth0.network \n\u003e [Match]\n\u003e Name\u003deth0\n\u003e [Link]\n\u003e MACAddress\u003d66:1e:ed:f8:a4:27\n\u003e [Network]\n\u003e LinkLocalAddressing\u003dyes\n\u003e IPv6AcceptRA\u003dfalse\n\u003e NTP\u003d\n\u003e NTP\u003dcn.pool.ntp.org\n\u003e DHCP\u003dtrue\n\u003e [DHCP]\n\u003e ClientIdentifier\u003dmac\n\u003e UseDNS\u003dtrue\n\u003e UseNTP\u003dtrue\n\u003e UseHostname\u003dtrue\n\u003e SendHostname\u003dtrue\n\u003e ```",
+      "parentUuid": "7c2776fe_f0458e8b",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 62
+      },
+      "revId": "e91a158459b6697398c92d98c964dc9c29ffc733",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
