@@ -209,26 +209,6 @@ inline void getNetworkData(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     }
 } // namespace redfish
 
-#ifdef BMCWEB_ALLOW_DEPRECATED_HOSTNAME_PATCH
-inline void
-    handleHostnamePatch(const std::string& hostName,
-                        const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
-{
-    crow::connections::systemBus->async_method_call(
-        [asyncResp](const boost::system::error_code ec) {
-            if (ec)
-            {
-                messages::internalError(asyncResp->res);
-                return;
-            }
-        },
-        "xyz.openbmc_project.Network", "/xyz/openbmc_project/network/config",
-        "org.freedesktop.DBus.Properties", "Set",
-        "xyz.openbmc_project.Network.SystemConfiguration", "HostName",
-        std::variant<std::string>(hostName));
-}
-#endif
-
 inline void handleNTPProtocolEnabled(
     const bool& ntpEnabled, const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
@@ -391,11 +371,7 @@ inline void requestRoutesNetworkProtocol(App& app)
                 asyncResp->res.result(boost::beast::http::status::no_content);
                 if (newHostName)
                 {
-#ifdef BMCWEB_ALLOW_DEPRECATED_HOSTNAME_PATCH
-                    handleHostnamePatch(*newHostName, asyncResp);
-#else
                     messages::propertyNotWritable(asyncResp->res, "HostName");
-#endif
                 }
 
                 if (ntp)
