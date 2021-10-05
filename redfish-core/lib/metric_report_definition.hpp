@@ -391,7 +391,7 @@ inline void requestRoutesMetricReportDefinitionCollection(App& app)
                 for (const auto& [chassis, sensorType] : chassisSensors)
                 {
                     retrieveUriToDbusMap(
-                        chassis, sensorType,
+                        asyncResp, chassis, sensorType,
                         [asyncResp, addReportReq](
                             const boost::beast::http::status status,
                             const boost::container::flat_map<
