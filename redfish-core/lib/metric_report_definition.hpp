@@ -291,9 +291,30 @@ class AddReport
                 }
 
                 const std::string& dbusPath = el->second;
-                readingParams.emplace_back(dbusPath, "SINGLE", id, uri);
+                readingParams.emplace_back(dbusPath, "", id, uri);
             }
         }
+        nlohmann::json jsonData;
+        nlohmann::json metricParameters = nlohmann::json::array();
+        metricParameters.get_ref<nlohmann::json::array_t&>().reserve(
+            readingParams.size());
+
+        std::transform(readingParams.begin(), readingParams.end(),
+                       std::back_inserter(metricParameters), [](auto& item) {
+                           auto& [dbusPath, operationType, id, metadata] = item;
+                           return nlohmann::json({{"sensorPaths", {dbusPath}},
+                                                  {"id", id},
+                                                  {"metadata", metadata}});
+                       });
+
+        jsonData["reportName"] = "TelemetryService/" + args.name;
+        jsonData["reportingType"] = args.reportingType;
+        jsonData["emitsReadingsUpdate"] = args.emitsReadingsUpdate;
+        jsonData["logToMetricReportsCollection"] =
+            args.logToMetricReportsCollection;
+        jsonData["interval"] = args.interval;
+        jsonData["metricParameters"] = metricParameters;
+
         const std::shared_ptr<bmcweb::AsyncResp> aResp = asyncResp;
         crow::connections::systemBus->async_method_call(
             [aResp, name = args.name, uriToDbus = std::move(uriToDbus)](
@@ -330,10 +351,8 @@ class AddReport
                 messages::created(aResp->res);
             },
             telemetry::service, "/xyz/openbmc_project/Telemetry/Reports",
-            "xyz.openbmc_project.Telemetry.ReportManager", "AddReport",
-            "TelemetryService/" + args.name, args.reportingType,
-            args.emitsReadingsUpdate, args.logToMetricReportsCollection,
-            args.interval, readingParams);
+            "xyz.openbmc_project.Telemetry.ReportManager", "AddReportJson",
+            jsonData.dump());
     }
 
     void insert(const boost::container::flat_map<std::string, std::string>& el)
