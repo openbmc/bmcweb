@@ -323,8 +323,10 @@ class Connection :
             BMCWEB_LOG_DEBUG << "Request failed to construct" << reqEc;
             return;
         }
-        thisReq.session = userSession;
-
+        if (userSession)
+        {
+            thisReq.session = userSession;
+        }
         // Fetch the client IP address
         readClientIp();
 
@@ -345,7 +347,6 @@ class Connection :
                         << thisReq.methodString() << " " << thisReq.target()
                         << " " << thisReq.ipAddress.to_string();
 
-        res.setCompleteRequestHandler(nullptr);
         res.isAliveHelper = [this]() -> bool { return isAlive(); };
 
         thisReq.ioService = static_cast<decltype(thisReq.ioService)>(
