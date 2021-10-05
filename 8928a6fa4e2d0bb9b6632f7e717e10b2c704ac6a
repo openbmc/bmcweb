@@ -16,6 +16,41 @@
       "revId": "8928a6fa4e2d0bb9b6632f7e717e10b2c704ac6a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "52a9200f_f5b9a6a9",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 243,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-10-05T16:41:02Z",
+      "side": 1,
+      "message": "Can you rebase this and probably https://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/43170/13 and pick up 2021.2",
+      "parentUuid": "1b8e171e_405285fa",
+      "revId": "8928a6fa4e2d0bb9b6632f7e717e10b2c704ac6a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5183ecbe_f4efd84c",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 250,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-10-05T16:41:02Z",
+      "side": 1,
+      "message": "The set will be a separate commit?",
+      "revId": "8928a6fa4e2d0bb9b6632f7e717e10b2c704ac6a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
