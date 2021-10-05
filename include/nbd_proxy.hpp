@@ -252,8 +252,7 @@ inline void requestRoutes(App& app)
 {
     BMCWEB_ROUTE(app, "/nbd/<str>")
         .websocket()
-        .onopen([](crow::websocket::Connection& conn,
-                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
+        .onopen([](crow::websocket::Connection& conn) {
             BMCWEB_LOG_DEBUG << "nbd-proxy.onopen(" << &conn << ")";
 
             auto getUserInfoHandler =

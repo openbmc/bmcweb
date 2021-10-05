@@ -37,7 +37,11 @@ struct Response
     }
 
     Response() : stringResponse(response_type{})
-    {}
+    {
+        BMCWEB_LOG_DEBUG << this << "Constructing new response";
+    }
+
+    Response(Response&& res) = delete;
 
     Response& operator=(const Response& r) = delete;
 
@@ -113,22 +117,16 @@ struct Response
     {
         if (completed)
         {
-            BMCWEB_LOG_ERROR << "Response was ended twice";
+            BMCWEB_LOG_ERROR << this << " Response was ended twice";
             return;
         }
         completed = true;
-        BMCWEB_LOG_DEBUG << "calling completion handler";
+        BMCWEB_LOG_DEBUG << this << " calling completion handler";
         if (completeRequestHandler)
         {
-            BMCWEB_LOG_DEBUG << "completion handler was valid";
-            completeRequestHandler();
+            BMCWEB_LOG_DEBUG << this << " completion handler was valid";
+            completeRequestHandler(*this);
         }
-    }
-
-    void end(std::string_view bodyPart)
-    {
-        write(bodyPart);
-        end();
     }
 
     bool isAlive()
@@ -136,14 +134,36 @@ struct Response
         return isAliveHelper && isAliveHelper();
     }
 
-    void setCompleteRequestHandler(std::function<void()> newHandler)
+    void setCompleteRequestHandler(std::function<void(Response&)>&& handler)
     {
-        completeRequestHandler = std::move(newHandler);
+        BMCWEB_LOG_DEBUG << this << " setting completion handler";
+        completeRequestHandler = std::move(handler);
+    }
+
+    std::function<void(Response&)> releaseCompleteRequestHandler()
+    {
+        BMCWEB_LOG_DEBUG << this << " releasing completion handler"
+                         << static_cast<bool>(completeRequestHandler);
+        std::function<void(Response&)> ret = completeRequestHandler;
+        completeRequestHandler = nullptr;
+        return ret;
+    }
+
+    void setIsAliveHelper(std::function<bool()>&& handler)
+    {
+        isAliveHelper = std::move(handler);
+    }
+
+    std::function<bool()> releaseIsAliveHelper()
+    {
+        std::function<bool()> ret = std::move(isAliveHelper);
+        isAliveHelper = nullptr;
+        return ret;
     }
 
   private:
-    bool completed{};
-    std::function<void()> completeRequestHandler;
+    bool completed = false;
+    std::function<void(Response&)> completeRequestHandler;
     std::function<bool()> isAliveHelper;
 
     // In case of a JSON object, set the Content-Type header

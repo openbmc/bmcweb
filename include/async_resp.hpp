@@ -15,11 +15,7 @@ namespace bmcweb
 class AsyncResp
 {
   public:
-    AsyncResp(crow::Response& response) : res(response)
-    {}
-
-    AsyncResp(crow::Response& response, std::function<void()>&& function) :
-        res(response), func(std::move(function))
+    AsyncResp()
     {}
 
     AsyncResp(const AsyncResp&) = delete;
@@ -27,16 +23,10 @@ class AsyncResp
 
     ~AsyncResp()
     {
-        if (func && res.result() == boost::beast::http::status::ok)
-        {
-            func();
-        }
-
         res.end();
     }
 
-    crow::Response& res;
-    std::function<void()> func;
+    crow::Response res;
 };
 
 } // namespace bmcweb
