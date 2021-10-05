@@ -70,8 +70,7 @@ class ConnectionImpl : public Connection
   public:
     ConnectionImpl(
         const crow::Request& reqIn, Adaptor adaptorIn,
-        std::function<void(Connection&, std::shared_ptr<bmcweb::AsyncResp>)>
-            openHandler,
+        std::function<void(Connection&)> openHandler,
         std::function<void(Connection&, const std::string&, bool)>
             messageHandler,
         std::function<void(Connection&, const std::string&)> closeHandler,
@@ -206,7 +205,7 @@ class ConnectionImpl : public Connection
 
         if (openHandler)
         {
-            openHandler(*this, asyncResp);
+            openHandler(*this);
         }
     }
 
@@ -286,8 +285,7 @@ class ConnectionImpl : public Connection
     std::vector<std::string> outBuffer;
     bool doingWrite = false;
 
-    std::function<void(Connection&, std::shared_ptr<bmcweb::AsyncResp>)>
-        openHandler;
+    std::function<void(Connection&)> openHandler;
     std::function<void(Connection&, const std::string&, bool)> messageHandler;
     std::function<void(Connection&, const std::string&)> closeHandler;
     std::function<void(Connection&)> errorHandler;

@@ -37,12 +37,15 @@ struct Response
     }
 
     Response() : stringResponse(response_type{})
-    {}
+    {
+        BMCWEB_LOG_DEBUG << this << "Constructing new response";
+    }
+
+    Response(Response&& res) = delete;
 
     ~Response() = default;
 
     Response(const Response&) = delete;
-    Response(Response&&) = delete;
 
     Response& operator=(const Response& r) = delete;
 
