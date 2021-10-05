@@ -145,6 +145,30 @@
     },
     {
       "key": {
+        "uuid": "aab25a80_328707c4",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 182,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-10-05T21:07:52Z",
+      "side": 1,
+      "message": "That seems like a reasonable difference to me, and makes a ton of sense.  Do we want to just write up a patchset for that smbios change ahead of the maintainers response?",
+      "parentUuid": "11a85d80_34b30be6",
+      "range": {
+        "startLine": 182,
+        "startChar": 15,
+        "endLine": 182,
+        "endChar": 78
+      },
+      "revId": "4d4170811058880d290dd761140c92378b8906f5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "0d8027f0_ec18bbf6",
         "filename": "redfish-core/lib/processor.hpp",
         "patchSetId": 4
@@ -180,6 +204,30 @@
       "side": 1,
       "message": "I think there\u0027s no harm in introducing this for both at the processor level and the subprocessor level.",
       "parentUuid": "0d8027f0_ec18bbf6",
+      "range": {
+        "startLine": 194,
+        "startChar": 12,
+        "endLine": 204,
+        "endChar": 13
+      },
+      "revId": "4d4170811058880d290dd761140c92378b8906f5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "080c1427_f7b69856",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 204,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-10-05T21:07:52Z",
+      "side": 1,
+      "message": "Agreed.",
+      "parentUuid": "63b037a7_6f86649f",
       "range": {
         "startLine": 194,
         "startChar": 12,
