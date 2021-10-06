@@ -1,4 +1,3 @@
-/*
 // Copyright (c) 2018 Intel Corporation
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -12,7 +11,6 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
-*/
 #include "error_messages.hpp"
 
 #include "http_response.hpp"
@@ -35,7 +33,6 @@
 
 namespace redfish
 {
-
 namespace messages
 {
 
@@ -75,8 +72,8 @@ static void addMessageToErrorJson(nlohmann::json& target,
     }
 
     // This check could technically be done in the default construction
-    // branch above, but because we need the pointer to the extended info field
-    // anyway, it's more efficient to do it here.
+    // branch above, but because we need the pointer to the extended info
+    // field anyway, it's more efficient to do it here.
     auto& extendedInfo = error[messages::messageAnnotation];
     if (!extendedInfo.is_array())
     {
@@ -472,8 +469,8 @@ void createFailedMissingReqProperties(crow::Response& res,
 
 /**
  * @internal
- * @brief Formats PropertyValueFormatError message into JSON for the specified
- * property
+ * @brief Formats PropertyValueFormatError message into JSON for the
+ * specified property
  *
  * See header file for more information
  * @endinternal
@@ -1767,6 +1764,48 @@ void operationNotAllowed(crow::Response& res)
 {
     res.result(boost::beast::http::status::method_not_allowed);
     addMessageToErrorJson(res.jsonValue, operationNotAllowed());
+}
+
+/**
+ * @internal
+ * @brief Formats ArraySizeTooLong message into JSON
+ *
+ * See header file for more information
+ * @endinternal
+ */
+nlohmann::json arraySizeTooLong(std::string_view property, uint64_t length)
+{
+    std::string valStr = std::to_string(length);
+    return getLog(redfish::registries::base::Index::arraySizeTooLong,
+                  std::to_array<std::string_view>({property, valStr}));
+}
+
+void arraySizeTooLong(crow::Response& res, std::string_view property,
+                      uint64_t length)
+{
+    res.result(boost::beast::http::status::method_not_allowed);
+    addMessageToErrorJson(res.jsonValue, arraySizeTooLong(property, length));
+}
+
+/**
+ * @internal
+ * @brief Formats StringValueTooLong message into JSON
+ *
+ * See header file for more information
+ * @endinternal
+ */
+nlohmann::json stringValueTooLong(std::string_view property, uint64_t length)
+{
+    std::string valStr = std::to_string(length);
+    return getLog(redfish::registries::base::Index::stringValueTooLong,
+                  std::to_array<std::string_view>({property, valStr}));
+}
+
+void stringValueTooLong(crow::Response& res, std::string_view property,
+                        uint64_t length)
+{
+    res.result(boost::beast::http::status::method_not_allowed);
+    addMessageToErrorJson(res.jsonValue, stringValueTooLong(property, length));
 }
 
 void invalidUpload(crow::Response& res, std::string_view arg1,
