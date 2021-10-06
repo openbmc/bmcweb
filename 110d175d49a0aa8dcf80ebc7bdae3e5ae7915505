@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "45b48bba_f2df91d3",
+        "filename": "http/http_connection.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 550,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2021-10-06T23:53:26Z",
+      "side": 1,
+      "message": "no, req is not setup here.\nWhy do you want to make this change? I suspect it will led to closing request before they are read.",
+      "range": {
+        "startLine": 550,
+        "startChar": 21,
+        "endLine": 550,
+        "endChar": 24
+      },
+      "revId": "110d175d49a0aa8dcf80ebc7bdae3e5ae7915505",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
