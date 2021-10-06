@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "19b4461f_778bccd2",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-10-06T15:59:05Z",
+      "side": 1,
+      "message": "Redfish service validator?  Looking at this, it doesn\u0027t look like it will pass, as there\u0027s no handler for /redfish/v1/TelemetryService/Triggers/\u003cstr\u003e",
+      "revId": "3324a24394c8067d5c8b9db8c7c3c4e99dbe99c7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "07552eac_08c62e5d",
+        "filename": "redfish-core/include/utils/telemetry_utils.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-10-06T15:59:05Z",
+      "side": 1,
+      "message": "This helper function already exists here:\nhttps://github.com/openbmc/bmcweb/blob/9a128eb3fc3008f802974360e98de6495ed1a66b/redfish-core/include/utils/collection.hpp#L26\n\nLets avoid creating another generic \"get collection\" method that\u0027s specific to telemetry, and use the existing one.\n\nI realize this is already used, but lets avoid propogating it further and deduplicate it with the other one.",
+      "range": {
+        "startLine": 39,
+        "startChar": 0,
+        "endLine": 39,
+        "endChar": 78
+      },
+      "revId": "3324a24394c8067d5c8b9db8c7c3c4e99dbe99c7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
