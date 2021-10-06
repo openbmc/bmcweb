@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "0d8a5789_1fd6c9a2",
+        "filename": "redfish-core/include/gzfile.hpp",
+        "patchSetId": 29
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1000404
+      },
+      "writtenOn": "2021-10-06T07:32:36Z",
+      "side": 1,
+      "message": "OK, I misunderstand the meaning here. Done.",
+      "parentUuid": "0413e4e4_ffafdf95",
+      "range": {
+        "startLine": 35,
+        "startChar": 27,
+        "endLine": 35,
+        "endChar": 41
+      },
+      "revId": "7d0dc19abf98d395e88bbfaded08a01b4d26bf1b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3219ea3b_a50b56f5",
         "filename": "redfish-core/include/gzfile.hpp",
         "patchSetId": 29
@@ -144,6 +168,30 @@
     },
     {
       "key": {
+        "uuid": "d63a2ff4_f53ff094",
+        "filename": "redfish-core/include/gzfile.hpp",
+        "patchSetId": 29
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1000404
+      },
+      "writtenOn": "2021-10-06T07:32:36Z",
+      "side": 1,
+      "message": "It work normally now. Sorry for the confusion.",
+      "parentUuid": "d1eb27c3_33931ffa",
+      "range": {
+        "startLine": 46,
+        "startChar": 30,
+        "endLine": 46,
+        "endChar": 44
+      },
+      "revId": "7d0dc19abf98d395e88bbfaded08a01b4d26bf1b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ac5ff7c1_4f000977",
         "filename": "redfish-core/include/gzfile.hpp",
         "patchSetId": 29
@@ -212,6 +260,30 @@
       "revId": "7d0dc19abf98d395e88bbfaded08a01b4d26bf1b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ac92ab40_73a4fc28",
+        "filename": "redfish-core/include/gzfile.hpp",
+        "patchSetId": 29
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 1000404
+      },
+      "writtenOn": "2021-10-06T07:32:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d807bb15_bdba26ff",
+      "range": {
+        "startLine": 104,
+        "startChar": 25,
+        "endLine": 104,
+        "endChar": 34
+      },
+      "revId": "7d0dc19abf98d395e88bbfaded08a01b4d26bf1b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
