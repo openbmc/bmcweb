@@ -1204,7 +1204,7 @@ class Router
         {
             rules[ruleIndex]->handleUpgrade(req, res, std::move(adaptor));
         }
-        catch (std::exception& e)
+        catch (const std::exception& e)
         {
             BMCWEB_LOG_ERROR << "An uncaught exception occurred: " << e.what();
             res.result(boost::beast::http::status::internal_server_error);

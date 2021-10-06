@@ -58,7 +58,7 @@ TEST(Crow, Rule)
         r.validate();
         fail("empty handler should fail to validate");
     }
-    catch (runtime_error& e)
+    catch (const runtime_error& e)
     {}
 
     int x = 0;
@@ -412,7 +412,7 @@ TEST(Crow, server_handling_error_request)
             c.receive(asio::buffer(buf, 2048));
             fail();
         }
-        catch (std::exception& e)
+        catch (const std::exception& e)
         {
             // std::cerr << e.what() << std::endl;
         }
@@ -891,7 +891,7 @@ TEST(Crow, routeDynamic)
         app.routeDynamic("/invalid_test/<double>/<path>")([]() { return ""; });
         fail();
     }
-    catch (std::exception&)
+    catch (const std::exception&)
     {}
 
     // app is in an invalid state when routeDynamic throws an exception.
@@ -900,7 +900,7 @@ TEST(Crow, routeDynamic)
         app.validate();
         fail();
     }
-    catch (std::exception&)
+    catch (const std::exception&)
     {}
 
     {
