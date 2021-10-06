@@ -118,6 +118,23 @@
       "revId": "edde47a7778f76dd35d6147d4a6540ba4254b911",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2b8957f6_17d51f42",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 204,
+      "author": {
+        "id": 1001048
+      },
+      "writtenOn": "2021-10-06T07:24:06Z",
+      "side": 1,
+      "message": "nit : Instead using magic number (7) ,can we use enumeration of it for readability of code ..?",
+      "revId": "edde47a7778f76dd35d6147d4a6540ba4254b911",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
