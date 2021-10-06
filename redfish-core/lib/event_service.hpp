@@ -44,6 +44,9 @@ static constexpr const std::array<const char*, 1> supportedResourceTypes = {
 #endif
 
 static constexpr const uint8_t maxNoOfSubscriptions = 20;
+static constexpr const uint16_t maxContextSizeED = 256;
+static constexpr const uint16_t maxDestinationSize = 1024;
+static constexpr const uint16_t maxHeaderSizeED = 8096;
 
 inline void requestRoutesEventService(App& app)
 {
@@ -252,6 +255,13 @@ inline void requestRoutesEventDestinationCollection(App& app)
             return;
         }
 
+        if (destUrl.size() > maxDestinationSize)
+        {
+            messages::stringValueTooLong(asyncResp->res, "Destination",
+                                         maxDestinationSize);
+            return;
+        }
+
         if (regPrefixes && msgIds)
         {
             if (!regPrefixes->empty() && !msgIds->empty())
@@ -329,13 +339,30 @@ inline void requestRoutesEventDestinationCollection(App& app)
 
         if (context)
         {
+            if (context->size() > maxContextSizeED)
+            {
+                messages::stringValueTooLong(asyncResp->res, "Context",
+                                             maxContextSizeED);
+                return;
+            }
             subValue->customText = *context;
         }
 
         if (headers)
         {
+            size_t cumulativeLen = 0;
+
             for (const nlohmann::json& headerChunk : *headers)
             {
+                std::string hdr{headerChunk.dump(
+                    -1, ' ', true, nlohmann::json::error_handler_t::replace)};
+                cumulativeLen += hdr.length();
+                if (cumulativeLen > maxHeaderSizeED)
+                {
+                    messages::arraySizeTooLong(asyncResp->res, "HttpHeaders",
+                                               maxHeaderSizeED);
+                    return;
+                }
                 for (const auto& item : headerChunk.items())
                 {
                     const std::string* value =
