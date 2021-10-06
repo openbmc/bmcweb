@@ -2,6 +2,52 @@
   "comments": [
     {
       "key": {
+        "uuid": "4a889fc2_a4021d43",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 20
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-10-06T22:42:08Z",
+      "side": 1,
+      "message": "This doesn\u0027t seem right, not everything is a slot type.",
+      "range": {
+        "startLine": 31,
+        "startChar": 0,
+        "endLine": 31,
+        "endChar": 16
+      },
+      "revId": "9f5fc1f9ffc9cf2dd39f4dbdcc90096376cff1cd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b8273925_a00a3004",
+        "filename": "redfish-core/include/utils/location_utils.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-10-06T22:42:08Z",
+      "side": 1,
+      "message": "Please take a look at how we generally write these.  We try to avoid the json_pointer thing.  Return the translated interface into the calling scope, and let the calling scope both deal with errors and figure out where to put this in the tree\n\nsomething like\n\nstd::string locationType \u003d getLocationType(interface);\nif (locationType.empty()){\n   internal error....\n}\nasyncResp-\u003eres[Location] \u003d locationType;\n\nThis keeps the method calls simple, and gives each handler the ability to manage its own errors, which tend to be different.",
+      "range": {
+        "startLine": 25,
+        "startChar": 12,
+        "endLine": 25,
+        "endChar": 27
+      },
+      "revId": "9f5fc1f9ffc9cf2dd39f4dbdcc90096376cff1cd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "3e2d9fdf_1078a8d8",
         "filename": "redfish-core/include/utils/location_utils.hpp",
         "patchSetId": 20
@@ -13,6 +59,144 @@
       "writtenOn": "2021-09-02T15:33:21Z",
       "side": 1,
       "message": "why not just `else { return false; }` and then you can get rid of the std::optional?",
+      "revId": "9f5fc1f9ffc9cf2dd39f4dbdcc90096376cff1cd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b9580f34_a9b4b3e7",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 2138,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-10-06T22:42:08Z",
+      "side": 1,
+      "message": "You didn\u0027t ask the mapper for this interface, so does this path ever get hit?",
+      "range": {
+        "startLine": 2138,
+        "startChar": 43,
+        "endLine": 2138,
+        "endChar": 57
+      },
+      "revId": "9f5fc1f9ffc9cf2dd39f4dbdcc90096376cff1cd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ccadc941_3e286062",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 2140,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-10-06T22:42:08Z",
+      "side": 1,
+      "message": "Please don\u0027t use starts_with in this context.  It tends to lead to bugs, and is listed in Common errors.md.",
+      "range": {
+        "startLine": 2140,
+        "startChar": 33,
+        "endLine": 2140,
+        "endChar": 51
+      },
+      "revId": "9f5fc1f9ffc9cf2dd39f4dbdcc90096376cff1cd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0c70cbb9_0a825357",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 2145,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-10-06T22:42:08Z",
+      "side": 1,
+      "message": "This is in the managers resource, which by definition, is ALWAYS embedded.  In the DC-SCM case, it might be on a card, but it would still be embedded type, with the card being its own Chassis.  There\u0027s no need to do complex lookups here, and although embedded is correct, I\u0027m not really sure what value this is adding to the redfish tree.  Maybe you could enumerate your use cases in the commit message.\n\nAlso, I see no testing of this mentioned.",
+      "range": {
+        "startLine": 2144,
+        "startChar": 0,
+        "endLine": 2145,
+        "endChar": 74
+      },
+      "revId": "9f5fc1f9ffc9cf2dd39f4dbdcc90096376cff1cd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4da50864_21e3df30",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 780,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-10-06T22:42:08Z",
+      "side": 1,
+      "message": "Same as above.",
+      "range": {
+        "startLine": 780,
+        "startChar": 22,
+        "endLine": 780,
+        "endChar": 39
+      },
+      "revId": "9f5fc1f9ffc9cf2dd39f4dbdcc90096376cff1cd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f4d60092_d2a0b529",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-10-06T22:42:08Z",
+      "side": 1,
+      "message": "I\u0027m not really following how this is expected to work.  \"StorageController\" isn\u0027t a physical device, so how does it have a Location?  The chassis the storage controller is attached to might have a location, but there\u0027s no such thing as a socketted storage controller (in the redfish definition of storage controller).",
+      "range": {
+        "startLine": 164,
+        "startChar": 0,
+        "endLine": 168,
+        "endChar": 0
+      },
+      "revId": "9f5fc1f9ffc9cf2dd39f4dbdcc90096376cff1cd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "10831e42_2384868e",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 339,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-10-06T22:42:08Z",
+      "side": 1,
+      "message": "This assumes there\u0027s one connection name for the drive.  You can\u0027t make that assumption, as the mapper for your interfaces, and parse them appropriately.",
+      "range": {
+        "startLine": 339,
+        "startChar": 45,
+        "endLine": 339,
+        "endChar": 63
+      },
       "revId": "9f5fc1f9ffc9cf2dd39f4dbdcc90096376cff1cd",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
