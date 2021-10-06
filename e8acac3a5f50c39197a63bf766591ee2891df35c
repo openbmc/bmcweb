@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "7e3f1523_dc079172",
+        "filename": "http/http_connection.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 364,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-10-06T02:26:28Z",
+      "side": 1,
+      "message": "\u003e It would appear that we would not know if a request is allowlisted until we get to handle. \n\u003e It is sort of late to know that, especially because we just finished reading the request. \n\nThat seems like the time you would need to know whether or not it\u0027s allowed without authentication is when you actually check the authentication.  Is there a reason you would want to know it sooner?\n\n\u003e \n\u003e I worry about bmc\u0027s with low memory getting very very (unauthenticated) long request and crashing.\n\nThat\u0027s not how that works, and it\u0027s covered.  All the URIs on the allow list are \"known\" to have small request payloads.  In fact, the only one that supports POST with a body at all is login, and we know that data structure is less than 4k, so we know the body limits can never \"hurt\" us unless someone is intentionally attacking us, and in that case, the parser fails out and we drop the connection as soon as someone tries to send more data than that.  So the worst thing you can do without a password is to open and close a bunch of connections.",
+      "parentUuid": "ffb3941a_f55a0114",
+      "revId": "e8acac3a5f50c39197a63bf766591ee2891df35c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "3248928b_abcc4419",
         "filename": "http/http_connection.hpp",
         "patchSetId": 2
@@ -30,6 +48,30 @@
       "writtenOn": "2021-10-05T21:00:12Z",
       "side": 1,
       "message": "Why can\u0027t we conditionally authenticate based on the allowlist here? \n\nThat would feel cleaner to me.",
+      "range": {
+        "startLine": 588,
+        "startChar": 36,
+        "endLine": 588,
+        "endChar": 49
+      },
+      "revId": "e8acac3a5f50c39197a63bf766591ee2891df35c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "21652be0_56814278",
+        "filename": "http/http_connection.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 588,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-10-06T02:26:28Z",
+      "side": 1,
+      "message": "In theory we could, but in terms of abstraction, allowlist is an authorization check, this is an authentication check (ignore the fact that the namespace is called authorization), so they should be separate, if only to make it look like we understand security principals.\n\nIf we parsed the allowlist here, which we could, we\u0027d have to store the result somewhere in the connections class to be used later on when we decide if we want to return 401, which has the potential to have issues on keepalive, or issues getting reset.  It\u0027s much simpler to just put the check after the request is complete.",
+      "parentUuid": "3248928b_abcc4419",
       "range": {
         "startLine": 588,
         "startChar": 36,
@@ -62,6 +104,30 @@
       "revId": "e8acac3a5f50c39197a63bf766591ee2891df35c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "922e87cb_172c16b6",
+        "filename": "http/http_connection.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 727,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-10-06T02:26:28Z",
+      "side": 1,
+      "message": "keep in mind, reset() is being called on the std::optional::reset(), not crow::Request::reset(), which essentially \"empties out\" the optional, so yes, that calls the destructor on Request, but doesn\u0027t call the constructor, because we haven\u0027t constructed a new object, req is just \"empty\".\n\nIn theory we should be checking the std::optional for filledness at every step before we dereference it (I added one new check in a different patch), but fixing that all through the connection class is another patchset.",
+      "parentUuid": "6a0b6361_674b1f92",
+      "range": {
+        "startLine": 727,
+        "startChar": 20,
+        "endLine": 727,
+        "endChar": 25
+      },
+      "revId": "e8acac3a5f50c39197a63bf766591ee2891df35c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
