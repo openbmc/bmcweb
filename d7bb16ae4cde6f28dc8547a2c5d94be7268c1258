@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "43b01761_e8bfeaa0",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 18
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-10-06T19:47:01Z",
+      "side": 1,
+      "message": "Also moves a bunch of code around.",
+      "revId": "d7bb16ae4cde6f28dc8547a2c5d94be7268c1258",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dcc30831_cffc6daf",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 289,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-10-06T19:47:01Z",
+      "side": 1,
+      "message": "This would be easier to review if this was 2 commits:\ncommit 1: move the code: e.g. move getDriveAsset, getDrivePresent, etc. \ncommit 2: add MediaType",
+      "revId": "d7bb16ae4cde6f28dc8547a2c5d94be7268c1258",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
