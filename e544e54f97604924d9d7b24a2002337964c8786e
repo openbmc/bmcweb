@@ -34,6 +34,47 @@
       "revId": "e544e54f97604924d9d7b24a2002337964c8786e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9fe1894a_e30f3446",
+        "filename": "redfish-core/lib/ut/service_root_test.cpp",
+        "patchSetId": 22
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-10-06T02:11:37Z",
+      "side": 1,
+      "message": "This probably should stay and get commented in, I\u0027m guessing the UUID one should go (although the TODO seems reasonable to keep)",
+      "parentUuid": "b3d20c07_bd4db4cd",
+      "revId": "e544e54f97604924d9d7b24a2002337964c8786e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5db65f8a_135fc232",
+        "filename": "redfish-core/lib/ut/service_root_test.cpp",
+        "patchSetId": 22
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-10-06T02:11:37Z",
+      "side": 1,
+      "message": "Take a look a the $only patch that I CCed you on.  I changed setCompleteRequestHandler to include the actual Response object in it.  I THINK that would mean in this context, you could get rid of the class entirely, and just do your assertions directly in the completeRequestHandler callback, which would simplify this code quite a bit.  Take a look and see.  Having to build a test class that takes the ownership of the request and the response for every endpoint seems like overkill.",
+      "range": {
+        "startLine": 60,
+        "startChar": 52,
+        "endLine": 60,
+        "endChar": 72
+      },
+      "revId": "e544e54f97604924d9d7b24a2002337964c8786e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
