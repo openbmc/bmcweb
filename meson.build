@@ -1,10 +1,10 @@
 project('bmcweb', 'cpp',
         version : '1.0',
-        meson_version: '>=0.53.2',
+        meson_version: '>=0.57.0',
         default_options: [
             'werror=true',
             'warning_level=3',
-            'cpp_std=c++17',
+            'cpp_std=c++20',
             'buildtype=debugoptimized',
             'b_ndebug=if-release',
             'b_lto=true',
@@ -22,8 +22,8 @@ summary('Issues',project_issues_url, section: 'Report Issues')
 
 # Validate the c++ Standard
 
-if get_option('cpp_std') != 'c++17'
-    error('This project requires c++17 support')
+if get_option('cpp_std') != 'c++20'
+    error('This project requires c++20 support')
 endif
 
 # Get compiler and default build type
