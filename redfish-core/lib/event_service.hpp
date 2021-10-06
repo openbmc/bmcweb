@@ -252,6 +252,15 @@ inline void requestRoutesEventDestinationCollection(App& app)
             return;
         }
 
+        // https://stackoverflow.com/questions/417142/what-is-the-maximum-length-of-a-url-in-different-browsers
+        static constexpr const uint16_t maxDestinationSize = 2000;
+        if (destUrl.size() > maxDestinationSize)
+        {
+            messages::stringValueTooLong(asyncResp->res, "Destination",
+                                         maxDestinationSize);
+            return;
+        }
+
         if (regPrefixes && msgIds)
         {
             if (!regPrefixes->empty() && !msgIds->empty())
@@ -329,13 +338,35 @@ inline void requestRoutesEventDestinationCollection(App& app)
 
         if (context)
         {
+            // This value is selected aribitrarily.
+            constexpr const size_t maxContextSize = 256;
+            if (context->size() > maxContextSize)
+            {
+                messages::stringValueTooLong(asyncResp->res, "Context",
+                                             maxContextSizeED);
+                return;
+            }
             subValue->customText = *context;
         }
 
         if (headers)
         {
+            size_t cumulativeLen = 0;
+
             for (const nlohmann::json& headerChunk : *headers)
             {
+                std::string hdr{headerChunk.dump(
+                    -1, ' ', true, nlohmann::json::error_handler_t::replace)};
+                cumulativeLen += hdr.length();
+
+                // This value is selected to mirror http_connection.hpp
+                constexpr const uint16_t maxHeaderSizeED = 8096;
+                if (cumulativeLen > maxHeaderSizeED)
+                {
+                    messages::arraySizeTooLong(asyncResp->res, "HttpHeaders",
+                                               maxHeaderSizeED);
+                    return;
+                }
                 for (const auto& item : headerChunk.items())
                 {
                     const std::string* value =
