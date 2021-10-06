@@ -452,6 +452,26 @@ void propertyValueFormatError(crow::Response& res, std::string_view arg1,
 
 /**
  * @internal
+ * @brief Formats PropertySizeExceeded message into JSON for the specified
+ * property
+ *
+ * See header file for more information
+ * @endinternal
+ */
+nlohmann::json propertySizeExceeded(std::string_view arg1)
+{
+    return getLog(redfish::registries::base::Index::propertySizeExceeded,
+                  std::to_array({arg1}));
+}
+
+void propertySizeExceeded(crow::Response& res, std::string_view arg1)
+{
+    res.result(boost::beast::http::status::bad_request);
+    addMessageToJson(res.jsonValue, propertySizeExceeded(arg1), arg1);
+}
+
+/**
+ * @internal
  * @brief Formats PropertyValueNotInList message into JSON for the specified
  * property
  *
