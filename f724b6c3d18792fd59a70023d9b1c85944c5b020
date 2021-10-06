@@ -101,6 +101,30 @@
     },
     {
       "key": {
+        "uuid": "d396c79a_64b9d7f7",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 2484,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2021-10-06T14:18:03Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "8f908da4_6e257a4b",
+      "range": {
+        "startLine": 2481,
+        "startChar": 0,
+        "endLine": 2484,
+        "endChar": 35
+      },
+      "revId": "f724b6c3d18792fd59a70023d9b1c85944c5b020",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2eeafcfc_2fe2b90d",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 3
@@ -230,6 +254,30 @@
       "side": 1,
       "message": "Looking at this again, why do we even need to check whether the service is enabled?  Shouldn\u0027t the dump manager be enforcing that policy, and returning the right error code if we try to run an action on a discabled service?",
       "parentUuid": "4b13af13_22d7eab8",
+      "range": {
+        "startLine": 2553,
+        "startChar": 0,
+        "endLine": 2587,
+        "endChar": 15
+      },
+      "revId": "f724b6c3d18792fd59a70023d9b1c85944c5b020",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "16035b1a_354412ba",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 2587,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2021-10-06T14:18:03Z",
+      "side": 1,
+      "message": "Agree. i will think through this if the changes can be done",
+      "parentUuid": "844bdfe6_c416d64e",
       "range": {
         "startLine": 2553,
         "startChar": 0,
