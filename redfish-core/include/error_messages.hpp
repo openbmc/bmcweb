@@ -258,6 +258,18 @@ void propertyValueOutOfRange(crow::Response& res, std::string_view arg1,
                              std::string_view arg2);
 
 /**
+ * @brief Formats PropertySizeExceeded message into JSON
+ * Message body: "The property <arg1> is too long. The value exceeds its size
+ * limit."
+ *
+ * @param[in] arg1 Parameter of message that will replace %1 in its body.
+ *
+ * @returns Message PropertySizeExceeded formatted to JSON */
+nlohmann::json propertySizeExceeded(std::string_view arg1);
+
+void propertySizeExceeded(crow::Response& res, std::string_view arg1);
+
+/**
  * @brief Formats ResourceAtUriInUnknownFormat message into JSON
  * Message body: "The resource at <arg1> is in a format not recognized by the
  * service."
