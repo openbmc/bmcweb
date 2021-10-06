@@ -122,6 +122,75 @@
     },
     {
       "key": {
+        "uuid": "a87fdbe4_0bbb64cb",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 42
+      },
+      "lineNbr": 279,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-10-06T22:48:48Z",
+      "side": 1,
+      "message": "Please don\u0027t use auto in this context.  The type is known.  Also, you\u0027re missing const, which will likely incur a copy for every item in the list.",
+      "range": {
+        "startLine": 279,
+        "startChar": 52,
+        "endLine": 279,
+        "endChar": 56
+      },
+      "revId": "87206ef0ce21f494d09cf1e6f86e92b378579c81",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9831f117_d21169c9",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 42
+      },
+      "lineNbr": 279,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-10-06T22:48:48Z",
+      "side": 1,
+      "message": "asyncResp isn\u0027t used in this lambda.",
+      "range": {
+        "startLine": 279,
+        "startChar": 29,
+        "endLine": 279,
+        "endChar": 38
+      },
+      "revId": "87206ef0ce21f494d09cf1e6f86e92b378579c81",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f177ad94_a90b6de5",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 42
+      },
+      "lineNbr": 281,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-10-06T22:48:48Z",
+      "side": 1,
+      "message": "I\u0027m guessing you missed a reference here.  This is a copy.",
+      "range": {
+        "startLine": 280,
+        "startChar": 0,
+        "endLine": 281,
+        "endChar": 50
+      },
+      "revId": "87206ef0ce21f494d09cf1e6f86e92b378579c81",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "41744115_b0f42995",
         "filename": "redfish-core/lib/storage.hpp",
         "patchSetId": 42
@@ -133,6 +202,75 @@
       "writtenOn": "2021-09-21T01:44:20Z",
       "side": 1,
       "message": "can be simplified to `return path.filename() \u003d\u003d storageId`",
+      "revId": "87206ef0ce21f494d09cf1e6f86e92b378579c81",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "24804916_fdcf8c04",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 42
+      },
+      "lineNbr": 288,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-10-06T22:48:48Z",
+      "side": 1,
+      "message": "Simplify this to a single:\nreturn path.filename() \u003d\u003d storageId",
+      "range": {
+        "startLine": 283,
+        "startChar": 0,
+        "endLine": 288,
+        "endChar": 44
+      },
+      "revId": "87206ef0ce21f494d09cf1e6f86e92b378579c81",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9a1ff776_e36237d1",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 42
+      },
+      "lineNbr": 412,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-10-06T22:48:48Z",
+      "side": 1,
+      "message": "Generally we treat std::optional like we would a pointer, so just if(chassisId) here.",
+      "range": {
+        "startLine": 412,
+        "startChar": 32,
+        "endLine": 412,
+        "endChar": 53
+      },
+      "revId": "87206ef0ce21f494d09cf1e6f86e92b378579c81",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "db57e6f3_db81db9c",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 42
+      },
+      "lineNbr": 416,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-10-06T22:48:48Z",
+      "side": 1,
+      "message": "same here, *chassisId is prefered.",
+      "range": {
+        "startLine": 416,
+        "startChar": 54,
+        "endLine": 416,
+        "endChar": 71
+      },
       "revId": "87206ef0ce21f494d09cf1e6f86e92b378579c81",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true

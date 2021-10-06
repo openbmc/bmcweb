@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9f77b596_b7317d40",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 43
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-10-06T22:48:48Z",
+      "side": 1,
+      "message": "You\u0027re not doing any sort of filtering here?  Doesn\u0027t this link every Chassis to every Storage Device?",
+      "range": {
+        "startLine": 123,
+        "startChar": 0,
+        "endLine": 126,
+        "endChar": 20
+      },
+      "revId": "6641333e5f4f193c04cda2c849c90d7792f64aa5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "890576de_99edbb11",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 43
+      },
+      "lineNbr": 491,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-10-06T22:48:48Z",
+      "side": 1,
+      "message": "Please don\u0027t hardcode path names.  Use the mapper appropriately.",
+      "range": {
+        "startLine": 491,
+        "startChar": 57,
+        "endLine": 491,
+        "endChar": 72
+      },
+      "revId": "6641333e5f4f193c04cda2c849c90d7792f64aa5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bc2c15a2_55ba330e",
+        "filename": "redfish-core/lib/redfish_util.hpp",
+        "patchSetId": 43
+      },
+      "lineNbr": 238,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-10-06T22:48:48Z",
+      "side": 1,
+      "message": "This is using the subpath mechanisms, which should be avoided here, because at most they would be used for \"containedBy\".  This is trying to link a storage controller to a drive, which should use an association.",
+      "range": {
+        "startLine": 238,
+        "startChar": 5,
+        "endLine": 238,
+        "endChar": 17
+      },
+      "revId": "6641333e5f4f193c04cda2c849c90d7792f64aa5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
