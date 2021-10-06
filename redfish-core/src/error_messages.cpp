@@ -1,4 +1,4 @@
-/*
+//*
 // Copyright (c) 2018 Intel Corporation
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -1767,6 +1767,48 @@ void operationNotAllowed(crow::Response& res)
 {
     res.result(boost::beast::http::status::method_not_allowed);
     addMessageToErrorJson(res.jsonValue, operationNotAllowed());
+}
+
+/**
+ * @internal
+ * @brief Formats ArraySizeTooLong message into JSON
+ *
+ * See header file for more information
+ * @endinternal
+ */
+nlohmann::json arraySizeTooLong(std::string_view property, uint64_t length)
+{
+    std::string valStr = std::to_string(value);
+    return getLog(redfish::registries::base::Index::arraySizeTooLong,
+                  std::to_array<std::string_view>({property, valStr}));
+}
+
+void arraySizeTooLong(crow::Response& res, std::string_view property,
+                      uint64_t value)
+{
+    res.result(boost::beast::http::status::method_not_allowed);
+    addMessageToErrorJson(res.jsonValue, arraySizeTooLong(property, length));
+}
+
+/**
+ * @internal
+ * @brief Formats StringValueTooLong message into JSON
+ *
+ * See header file for more information
+ * @endinternal
+ */
+nlohmann::json stringValueTooLong(std::string_view property, uint64_t length)
+{
+    std::string valStr = std::to_string(value);
+    return getLog(redfish::registries::base::Index::stringValueTooLong,
+                  std::to_array<std::string_view>({property, valStr}));
+}
+
+void stringValueTooLong(crow::Response& res, std::string_view property,
+                        uint64_t length)
+{
+    res.result(boost::beast::http::status::method_not_allowed);
+    addMessageToErrorJson(res.jsonValue, stringValueTooLong(property, value));
 }
 
 void invalidUpload(crow::Response& res, std::string_view arg1,
