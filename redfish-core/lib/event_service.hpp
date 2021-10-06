@@ -25,6 +25,10 @@
 
 #include <span>
 
+#define MAX_CONTEXT_SIZE 256
+#define MAX_DESTINATION_SIZE 1024
+#define MAX_HEADER_SIZE 8096
+
 namespace redfish
 {
 
@@ -250,6 +254,12 @@ inline void requestRoutesEventDestinationCollection(App& app)
             return;
         }
 
+        if (destUrl.size() > MAX_DESTINATION_SIZE)
+        {
+            messages::propertySizeExceeded(asyncResp->res, "Destination");
+            return;
+        }
+
         if (regPrefixes && msgIds)
         {
             if (!regPrefixes->empty() && !msgIds->empty())
@@ -327,13 +337,29 @@ inline void requestRoutesEventDestinationCollection(App& app)
 
         if (context)
         {
+            if (context->size() > MAX_CONTEXT_SIZE)
+            {
+                messages::propertySizeExceeded(asyncResp->res, "Context");
+                return;
+            }
             subValue->customText = *context;
         }
 
         if (headers)
         {
+            size_t cumulativeLen = 0;
+
             for (const nlohmann::json& headerChunk : *headers)
             {
+                std::string hdr{headerChunk.dump(
+                    -1, ' ', true, nlohmann::json::error_handler_t::replace)};
+                cumulativeLen += hdr.length();
+                if (cumulativeLen > MAX_HEADER_SIZE)
+                {
+                    messages::propertySizeExceeded(asyncResp->res,
+                                                   "HttpHeaders");
+                    return;
+                }
                 for (const auto& item : headerChunk.items())
                 {
                     const std::string* value =

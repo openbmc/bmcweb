@@ -1108,7 +1108,18 @@ constexpr std::array registry =
             {},
             "Correct the request body and resubmit the request if it failed.",
         }},
-
+    MessageEntry{
+        "PropertySizeExceeded",
+        {
+            "Indicates that a given property exceeds the size limit imposed.",
+            "The property %1 is too long. The value exceeds its size limit.",
+            "Warning",
+            1,
+            {
+                "string",
+            },
+            "Correct the value for the property in the request body and resubmit the request if the operation failed.",
+        }}
 };
 
 enum class Index
@@ -1206,5 +1217,6 @@ enum class Index
     success = 90,
     undeterminedFault = 91,
     unrecognizedRequestBody = 92,
+    propertySizeExceeded = 93
 };
 } // namespace redfish::registries::base
