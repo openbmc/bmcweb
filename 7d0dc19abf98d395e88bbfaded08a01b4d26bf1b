@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "0413e4e4_ffafdf95",
+        "filename": "redfish-core/include/gzfile.hpp",
+        "patchSetId": 29
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2021-10-06T01:18:00Z",
+      "side": 1,
+      "message": "I am referring to \n\n```\nlastMessage.insert(lastMessage.end(), std::make_move_iterator(newLastMessage.begin()), std::make_move_iterator(newLastMessage.end()));\n```",
+      "parentUuid": "1edc9e20_4551abc4",
+      "range": {
+        "startLine": 35,
+        "startChar": 27,
+        "endLine": 35,
+        "endChar": 41
+      },
+      "revId": "7d0dc19abf98d395e88bbfaded08a01b4d26bf1b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "3219ea3b_a50b56f5",
         "filename": "redfish-core/include/gzfile.hpp",
         "patchSetId": 29
@@ -96,6 +120,30 @@
     },
     {
       "key": {
+        "uuid": "d1eb27c3_33931ffa",
+        "filename": "redfish-core/include/gzfile.hpp",
+        "patchSetId": 29
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2021-10-06T01:18:00Z",
+      "side": 1,
+      "message": "```\nlastMessage \u003d std::move(newLastMessage)\n```\nThis doesn\u0027t work?",
+      "parentUuid": "558a20c2_9e009cb7",
+      "range": {
+        "startLine": 46,
+        "startChar": 30,
+        "endLine": 46,
+        "endChar": 44
+      },
+      "revId": "7d0dc19abf98d395e88bbfaded08a01b4d26bf1b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "ac5ff7c1_4f000977",
         "filename": "redfish-core/include/gzfile.hpp",
         "patchSetId": 29
@@ -140,6 +188,30 @@
       "revId": "7d0dc19abf98d395e88bbfaded08a01b4d26bf1b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d807bb15_bdba26ff",
+        "filename": "redfish-core/include/gzfile.hpp",
+        "patchSetId": 29
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2021-10-06T01:18:00Z",
+      "side": 1,
+      "message": "See above.",
+      "parentUuid": "4a36fe34_003670d4",
+      "range": {
+        "startLine": 104,
+        "startChar": 25,
+        "endLine": 104,
+        "endChar": 34
+      },
+      "revId": "7d0dc19abf98d395e88bbfaded08a01b4d26bf1b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     },
     {
       "key": {
