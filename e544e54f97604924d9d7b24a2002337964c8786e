@@ -75,6 +75,30 @@
       "revId": "e544e54f97604924d9d7b24a2002337964c8786e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "02f51481_b479250c",
+        "filename": "redfish-core/lib/ut/service_root_test.cpp",
+        "patchSetId": 22
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2021-10-06T03:35:01Z",
+      "side": 1,
+      "message": "https://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/47474/4/http/http_response.hpp#137\n\nThat will make my test code much simpler. Why did I not think of that when I added setCompeteRequestHandler. \n\nThanks",
+      "parentUuid": "5db65f8a_135fc232",
+      "range": {
+        "startLine": 60,
+        "startChar": 52,
+        "endLine": 60,
+        "endChar": 72
+      },
+      "revId": "e544e54f97604924d9d7b24a2002337964c8786e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
