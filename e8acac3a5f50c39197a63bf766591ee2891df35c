@@ -55,6 +55,24 @@
     },
     {
       "key": {
+        "uuid": "b1d94436_609f26f7",
+        "filename": "http/http_connection.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 364,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-10-06T05:57:29Z",
+      "side": 1,
+      "message": "That\u0027s the thing, we\u0027re going to answer it either way, we just answer it with 401 or 200 dependent on this branch, which has to be here (ie, we can\u0027t answer before we\u0027ve read in the full request).\n\nif we completely dropped the request on an allowlist failure, I\u0027d agree with you, we should close it sooner, but as-is, we need a branch here.",
+      "parentUuid": "f5418585_d99edab0",
+      "revId": "e8acac3a5f50c39197a63bf766591ee2891df35c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "3248928b_abcc4419",
         "filename": "http/http_connection.hpp",
         "patchSetId": 2
@@ -114,6 +132,30 @@
       "side": 1,
       "message": "I don\u0027t really care if people think we understand security.\n\nStoring the result is also trouble, I have been convinced.",
       "parentUuid": "21652be0_56814278",
+      "range": {
+        "startLine": 588,
+        "startChar": 36,
+        "endLine": 588,
+        "endChar": 49
+      },
+      "revId": "e8acac3a5f50c39197a63bf766591ee2891df35c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c7e100b4_bcb23b36",
+        "filename": "http/http_connection.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 588,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-10-06T05:57:29Z",
+      "side": 1,
+      "message": "\u003e I don\u0027t really care if people think we understand security.\n\u003e \n\u003e Storing the result is also trouble, I have been convinced.\n\n👍",
+      "parentUuid": "97c6de08_078d6efa",
       "range": {
         "startLine": 588,
         "startChar": 36,
