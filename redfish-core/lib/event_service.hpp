@@ -253,6 +253,14 @@ inline void requestRoutesEventDestinationCollection(App& app)
             return;
         }
 
+        size_t maxDestinationSize = 1024;
+        if (destUrl.size() > maxDestinationSize)
+        {
+            messages::propertyValueOutOfRange(asyncResp->res, destUrl,
+                                              "Destination");
+            return;
+        }
+
         if (regPrefixes && msgIds)
         {
             if (!regPrefixes->empty() && !msgIds->empty())
@@ -330,13 +338,32 @@ inline void requestRoutesEventDestinationCollection(App& app)
 
         if (context)
         {
+            size_t maxContextSizeED = 256;
+            if (context->size() > maxContextSizeED)
+            {
+                messages::propertyValueOutOfRange(asyncResp->res, *context,
+                                                  "Context");
+                return;
+            }
             subValue->customText = *context;
         }
 
         if (headers)
         {
+            size_t cumulativeLen = 0;
+
             for (const nlohmann::json& headerChunk : *headers)
             {
+                std::string hdr{headerChunk.dump(
+                    -1, ' ', true, nlohmann::json::error_handler_t::replace)};
+                cumulativeLen += hdr.length();
+                size_t maxHeaderSizeED = 8096;
+                if (cumulativeLen > maxHeaderSizeED)
+                {
+                    messages::propertyValueOutOfRange(
+                        asyncResp->res, "<Omitted>", "HttpHeaders");
+                    return;
+                }
                 for (const auto& item : headerChunk.items())
                 {
                     const std::string* value =
