@@ -56,6 +56,14 @@ class App
         router.handleUpgrade(req, res, std::forward<Adaptor>(adaptor));
     }
 
+    void handleAsync(Request& req,
+                     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) 
+    {
+        boost::asio::dispatch(*io, [this, &req, asyncResp]() {
+            handle(req, asyncResp);
+        });
+    }
+
     void handle(Request& req,
                 const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
     {
