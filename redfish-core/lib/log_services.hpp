@@ -493,7 +493,7 @@ inline void
                 continue;
             }
 
-            thisEntry["@odata.type"] = "#LogEntry.v1_8_0.LogEntry";
+            thisEntry["@odata.type"] = "#LogEntry.v1_9_0.LogEntry";
             thisEntry["@odata.id"] = entriesPath + entryID;
             thisEntry["Id"] = entryID;
             thisEntry["EntryType"] = "Event";
@@ -577,7 +577,7 @@ inline void
             }
 
             asyncResp->res.jsonValue["@odata.type"] =
-                "#LogEntry.v1_8_0.LogEntry";
+                "#LogEntry.v1_9_0.LogEntry";
             asyncResp->res.jsonValue["@odata.id"] = entriesPath + entryID;
             asyncResp->res.jsonValue["Id"] = entryID;
             asyncResp->res.jsonValue["EntryType"] = "Event";
@@ -1137,7 +1137,7 @@ static LogParseError
     }
 
     // Fill in the log entry with the gathered data
-    logEntryJson["@odata.type"] = "#LogEntry.v1_8_0.LogEntry";
+    logEntryJson["@odata.type"] = "#LogEntry.v1_9_0.LogEntry";
     logEntryJson["@odata.id"] =
         "/redfish/v1/Systems/system/LogServices/EventLog/Entries/" + logEntryID;
     logEntryJson["Name"] = "System Event Log Entry";
@@ -1356,6 +1356,7 @@ inline void requestRoutesDBusEventLogEntryCollection(App& app)
                 const std::string* severity = nullptr;
                 const std::string* message = nullptr;
                 const std::string* filePath = nullptr;
+                const std::string* resolution = nullptr;
                 bool resolved = false;
                 for (const auto& interfaceMap : objectPath.second)
                 {
@@ -1381,6 +1382,11 @@ inline void requestRoutesDBusEventLogEntryCollection(App& app)
                             else if (propertyMap.first == "Severity")
                             {
                                 severity = std::get_if<std::string>(
+                                    &propertyMap.second);
+                            }
+                            else if (propertyMap.first == "Resolution")
+                            {
+                                resolution = std::get_if<std::string>(
                                     &propertyMap.second);
                             }
                             else if (propertyMap.first == "Message")
@@ -1431,7 +1437,7 @@ inline void requestRoutesDBusEventLogEntryCollection(App& app)
                 }
                 entriesArray.push_back({});
                 nlohmann::json& thisEntry = entriesArray.back();
-                thisEntry["@odata.type"] = "#LogEntry.v1_8_0.LogEntry";
+                thisEntry["@odata.type"] = "#LogEntry.v1_9_0.LogEntry";
                 thisEntry["@odata.id"] =
                     "/redfish/v1/Systems/system/LogServices/EventLog/Entries/" +
                     std::to_string(*id);
@@ -1439,6 +1445,10 @@ inline void requestRoutesDBusEventLogEntryCollection(App& app)
                 thisEntry["Id"] = std::to_string(*id);
                 thisEntry["Message"] = *message;
                 thisEntry["Resolved"] = resolved;
+                if ((resolution != nullptr) && (!(*resolution).empty()))
+                {
+                    thisEntry["Resolution"] = *resolution;
+                }
                 thisEntry["EntryType"] = "Event";
                 thisEntry["Severity"] =
                     translateSeverityDbusToRedfish(*severity);
@@ -1505,6 +1515,7 @@ inline void requestRoutesDBusEventLogEntry(App& app)
             const std::string* severity = nullptr;
             const std::string* message = nullptr;
             const std::string* filePath = nullptr;
+            const std::string* resolution = nullptr;
             bool resolved = false;
 
             for (const auto& propertyMap : resp)
@@ -1525,6 +1536,10 @@ inline void requestRoutesDBusEventLogEntry(App& app)
                 else if (propertyMap.first == "Severity")
                 {
                     severity = std::get_if<std::string>(&propertyMap.second);
+                }
+                else if (propertyMap.first == "Resolution")
+                {
+                    resolution = std::get_if<std::string>(&propertyMap.second);
                 }
                 else if (propertyMap.first == "Message")
                 {
@@ -1553,7 +1568,7 @@ inline void requestRoutesDBusEventLogEntry(App& app)
                 return;
             }
             asyncResp->res.jsonValue["@odata.type"] =
-                "#LogEntry.v1_8_0.LogEntry";
+                "#LogEntry.v1_9_0.LogEntry";
             asyncResp->res.jsonValue["@odata.id"] =
                 "/redfish/v1/Systems/system/LogServices/EventLog/Entries/" +
                 std::to_string(*id);
@@ -1561,6 +1576,10 @@ inline void requestRoutesDBusEventLogEntry(App& app)
             asyncResp->res.jsonValue["Id"] = std::to_string(*id);
             asyncResp->res.jsonValue["Message"] = *message;
             asyncResp->res.jsonValue["Resolved"] = resolved;
+            if ((resolution != nullptr) && (!(*resolution).empty()))
+            {
+                asyncResp->res.jsonValue["Resolution"] = *resolution;
+            }
             asyncResp->res.jsonValue["EntryType"] = "Event";
             asyncResp->res.jsonValue["Severity"] =
                 translateSeverityDbusToRedfish(*severity);
@@ -2161,7 +2180,7 @@ static int
     }
 
     // Fill in the log entry with the gathered data
-    bmcJournalLogEntryJson["@odata.type"] = "#LogEntry.v1_8_0.LogEntry";
+    bmcJournalLogEntryJson["@odata.type"] = "#LogEntry.v1_9_0.LogEntry";
     bmcJournalLogEntryJson["@odata.id"] =
         "/redfish/v1/Managers/bmc/LogServices/Journal/Entries/" +
         bmcJournalLogEntryID;
@@ -3345,7 +3364,7 @@ static void fillPostCodeEntry(
         // add to AsyncResp
         logEntryArray.push_back({});
         nlohmann::json& bmcLogEntry = logEntryArray.back();
-        bmcLogEntry["@odata.type"] = "#LogEntry.v1_8_0.LogEntry";
+        bmcLogEntry["@odata.type"] = "#LogEntry.v1_9_0.LogEntry";
         bmcLogEntry["@odata.id"] =
             "/redfish/v1/Systems/system/LogServices/PostCodes/Entries/" +
             postcodeEntryID;
