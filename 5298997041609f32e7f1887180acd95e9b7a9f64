@@ -216,6 +216,30 @@
     },
     {
       "key": {
+        "uuid": "3e7a2dbb_1eee0266",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-10-07T15:15:07Z",
+      "side": 1,
+      "message": "\u003e \u003e The primary bug with this is that the response no longer follows restful CRUD semantics, because the response is sorted and aggregated between all the various things.\n\u003e \n\u003e This is handled in bmcweb, but I don\u0027t understand why the restful CRUD is not followed after sorting?\n\nSee the section where I say \"for example, if I called\".  we should be writing the value as written, unless given special directives, like null, which redfish has specific non-crud rules for.\n\n\u003e Does this have any effect?\n\u003e https://github.com/openbmc/bmcweb/blob/master/redfish-core/lib/network_protocol.hpp#L419-L423\n\u003e \n\u003e \u003e That doesn\u0027t seem like it would matter in this case?\n\u003e \n\u003e Why? If we know which Ethernet is active, it is very convenient for us to update NTPServers.\n\nI see no \"active\" check in this code.  If we were selecting ONE interface, that might be fine, or if we had a way to consistently do the \"merge\" of the interfaces, that might work fine too, but as written, this doesn\u0027t fit the rest semantics.\n\n\u003e \n\u003e \u003e Also, please answer these questions of CRUD behavior when the interfaces are different in your commit message.\n\u003e \n\u003e Ack",
+      "parentUuid": "2cf35c53_49b83834",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 28
+      },
+      "revId": "5298997041609f32e7f1887180acd95e9b7a9f64",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "bc165f49_244a03c8",
         "filename": "redfish-core/lib/network_protocol.hpp",
         "patchSetId": 3
