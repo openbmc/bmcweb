@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "e4fd3b64_644460d8",
+        "filename": "http/routing.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 1343,
+      "author": {
+        "id": 1000411
+      },
+      "writtenOn": "2021-10-07T10:30:32Z",
+      "side": 1,
+      "message": "I have generally seen that in bmcweb we avoid using try-catch?\nJust wanted to know",
+      "revId": "60d44d873768d04bf6d0aa6e7aaeb3b5e90bacfd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "943f475a_fb00a920",
         "filename": "include/nbd_proxy.hpp",
         "patchSetId": 9
@@ -141,6 +158,23 @@
       "revId": "60d44d873768d04bf6d0aa6e7aaeb3b5e90bacfd",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "29a3cb48_41a26a6e",
+        "filename": "include/sessions.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 1000411
+      },
+      "writtenOn": "2021-10-07T10:30:32Z",
+      "side": 1,
+      "message": "same\ndo we prefer to use?",
+      "revId": "60d44d873768d04bf6d0aa6e7aaeb3b5e90bacfd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     },
     {
       "key": {
