@@ -27,7 +27,7 @@ class AsyncResp
 
     ~AsyncResp()
     {
-        if (func && res.result() == boost::beast::http::status::ok)
+        if (func)
         {
             func();
         }
