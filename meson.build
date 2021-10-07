@@ -283,7 +283,14 @@ openssl = dependency('openssl', required : true)
 bmcweb_dependencies += [pam, atomic, openssl]
 
 sdbusplus = dependency('sdbusplus', required : false, include_type: 'system')
+sdbusplus_build = false
 if not sdbusplus.found()
+  sdbusplus_build = true
+endif
+if not cxx.has_header('sdbusplus/utility/dedup_variant.hpp')
+  sdbusplus_build = true
+endif
+if sdbusplus_build
   sdbusplus_proj = subproject('sdbusplus', required: true)
   sdbusplus = sdbusplus_proj.get_variable('sdbusplus_dep')
   sdbusplus = sdbusplus.as_system('system')
