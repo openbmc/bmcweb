@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "704599f6_c5107d17",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-10-07T15:11:34Z",
+      "side": 1,
+      "message": "We should be relying on a version, not the existence of a header.",
+      "range": {
+        "startLine": 11,
+        "startChar": 0,
+        "endLine": 13,
+        "endChar": 0
+      },
+      "revId": "f921ab0617bac635a23e8ab0fd9d465582f70de8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eacbc19e_41ea50d5",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-10-07T15:11:34Z",
+      "side": 1,
+      "message": "Separate commit please.",
+      "range": {
+        "startLine": 14,
+        "startChar": 0,
+        "endLine": 16,
+        "endChar": 18
+      },
+      "revId": "f921ab0617bac635a23e8ab0fd9d465582f70de8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4f166a84_d2623d36",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-10-07T15:11:34Z",
+      "side": 1,
+      "message": "I\u0027m not understanding how any of these changes would\u0027ve helped get it to build.  Upgrading dependencies would\u0027ve helped?",
+      "range": {
+        "startLine": 18,
+        "startChar": 8,
+        "endLine": 18,
+        "endChar": 31
+      },
+      "revId": "f921ab0617bac635a23e8ab0fd9d465582f70de8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cc6445ec_1febdbb3",
+        "filename": "meson.build",
+        "patchSetId": 2
+      },
+      "lineNbr": 302,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-10-07T15:11:34Z",
+      "side": 1,
+      "message": "I\u0027m not quite following what this is doing, and it\u0027s certainly an anti-pattern to do version matching based on the existence of a header.",
+      "range": {
+        "startLine": 300,
+        "startChar": 0,
+        "endLine": 302,
+        "endChar": 5
+      },
+      "revId": "f921ab0617bac635a23e8ab0fd9d465582f70de8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
