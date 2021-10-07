@@ -129,6 +129,30 @@
       "revId": "e91a158459b6697398c92d98c964dc9c29ffc733",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "27d7b86d_6df51f7b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-10-07T15:41:12Z",
+      "side": 1,
+      "message": "\u003e \u003e  that\u0027s the bug I\u0027m talking about.  If the UI has a fixed number of elements for a variable array API, it needs to be looking at the data and doing the filtering itself. \n\u003e \n\u003e If this is a webUI bug, then for lines https://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/47344/2/redfish-core/lib/network_protocol.hpp:419-423, should it also be handled in webUI? bmcweb only needs to get the attribute value of ntpServers?\n\nYes, those lines are incorrect as well.  They are another example of putting business logic in bmcweb that should be in phosphor-networkd.\n\n\u003e \n\u003e \u003e I still assert this is a bug in the webui.\n\u003e \n\u003e Even if this is a webUI bug, do we need to do further verification in bmcweb?\n\nphosphor-networkd is where we should be doing the validation, but yes, the bmc should be doing more validation.",
+      "parentUuid": "cb2209e6_128dfda8",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 62
+      },
+      "revId": "e91a158459b6697398c92d98c964dc9c29ffc733",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
