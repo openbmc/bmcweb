@@ -46,6 +46,30 @@
       "revId": "fde6a60cfefa991e17092f05ca3cdfbeaf0bbd17",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "717c111d_0c17bcbc",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-10-07T18:41:15Z",
+      "side": 1,
+      "message": "FWIW, I have an open issue with DMTF about something related to this.  There seems to be the EffectiveFamily property for the hex version of this, but no Family property that this would normally be loaded in.\n\nPart of me wonders if that\u0027s a typo, or was on purpose.  Mapping the property called \"model\" to family, when there\u0027s a separate EffectiveFamily property, and a differently defined \"Model\" property on the processor itself, seems really odd.  As a user, I would\u0027ve expected ProcessorSummary.Model for a given system to match Processor.Model for the processors in the system, but the way the descriptions read, that\u0027s not the case.  On the simple-rack-mounted-server mockup, Processor.Model puts the string version of the table 22 processor family in the Processor.Model resource, which I don\u0027t think is what we did on OpenBMC initially.  Maybe that\u0027s some of the issue?",
+      "parentUuid": "a8f1b442_f4228f42",
+      "range": {
+        "startLine": 189,
+        "startChar": 31,
+        "endLine": 189,
+        "endChar": 37
+      },
+      "revId": "fde6a60cfefa991e17092f05ca3cdfbeaf0bbd17",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
