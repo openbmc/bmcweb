@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "5a920e9b_d5a318ed",
+        "filename": "http/http_connection.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 550,
+      "author": {
+        "id": 1000388
+      },
+      "writtenOn": "2021-10-07T17:38:28Z",
+      "side": 1,
+      "message": "Taking it out.",
+      "parentUuid": "a13ea1ab_aca89d9d",
+      "range": {
+        "startLine": 550,
+        "startChar": 21,
+        "endLine": 550,
+        "endChar": 24
+      },
+      "revId": "110d175d49a0aa8dcf80ebc7bdae3e5ae7915505",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3bca0501_aee04080",
         "filename": "http/http_request.hpp",
         "patchSetId": 2
@@ -141,6 +165,30 @@
       "revId": "110d175d49a0aa8dcf80ebc7bdae3e5ae7915505",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dcd5ab53_3cd277c7",
+        "filename": "http/http_request.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1000388
+      },
+      "writtenOn": "2021-10-07T17:38:28Z",
+      "side": 1,
+      "message": "I\u0027ll add this back.",
+      "parentUuid": "729aa024_274f6bfb",
+      "range": {
+        "startLine": 42,
+        "startChar": 4,
+        "endLine": 66,
+        "endChar": 0
+      },
+      "revId": "110d175d49a0aa8dcf80ebc7bdae3e5ae7915505",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
