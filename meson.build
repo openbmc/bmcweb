@@ -307,13 +307,8 @@ bmcweb_dependencies += [systemd, zlib]
 if cxx.has_header('nlohmann/json.hpp')
     nlohmann_json = declare_dependency()
 else
-    subproject('nlohmann', required: false)
-    nlohmann_json = declare_dependency(
-        include_directories: [
-            'subprojects/nlohmann/single_include',
-            'subprojects/nlohmann/single_include/nlohmann',
-        ]
-    )
+    nlohmann_json_proj = subproject('nlohmann', required: true)
+    nlohmann_json = nlohmann_json_proj.get_variable('nlohmann_json_dep')
     nlohmann_json = nlohmann_json.as_system('system')
 endif
 bmcweb_dependencies += nlohmann_json
