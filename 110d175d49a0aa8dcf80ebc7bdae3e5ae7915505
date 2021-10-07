@@ -93,6 +93,30 @@
       "revId": "110d175d49a0aa8dcf80ebc7bdae3e5ae7915505",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "388f2f30_d8f7aa09",
+        "filename": "http/http_request.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2021-10-07T16:55:54Z",
+      "side": 1,
+      "message": "gotcha, I did not make that connection earlier.\nIcan modify grpc_server.hpp, or we can just add this back.",
+      "parentUuid": "3bca0501_aee04080",
+      "range": {
+        "startLine": 42,
+        "startChar": 4,
+        "endLine": 66,
+        "endChar": 0
+      },
+      "revId": "110d175d49a0aa8dcf80ebc7bdae3e5ae7915505",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
