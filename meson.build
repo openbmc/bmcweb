@@ -87,6 +87,7 @@ feature_map = {
   'vm-websocket'                                : '-DBMCWEB_ENABLE_VM_WEBSOCKET',
   'xtoken-auth'                                 : '-DBMCWEB_ENABLE_XTOKEN_AUTHENTICATION',
   #'vm-nbdproxy'                                : '-DBMCWEB_ENABLE_VM_NBDPROXY',
+  'insecure-grpc'                               : '-DBMCWEB_ENABLE_GRPC',
 }
 
 # Get the options status and build a project summary to show which flags are
@@ -305,6 +306,59 @@ if get_option('tests').enabled()
   gmock = gmock.as_system('system')
 endif
 
+if get_option('insecure-grpc').enabled()
+  grpcpp = dependency('libgrpc++', required: false)
+  if not grpcpp.found()
+    grpcpp = cxx.find_library('libgrpc++')
+  endif
+  bmcweb_dependencies += grpcpp
+
+  protobuf = dependency('protobuf', required: false)
+  if not protobuf.found()
+    protobuf = cxx.find_library('protobuf')
+  endif
+  bmcweb_dependencies += protobuf
+
+  grpcpp_reflection = dependency('grpc++_reflection', required: false)
+  if not grpcpp_reflection.found()
+    grpcpp_reflection = cxx.find_library('grpc++_reflection')
+  endif
+  bmcweb_dependencies += grpcpp_reflection
+
+  dl = cxx.find_library('libdl')
+  bmcweb_dependencies += dl
+
+  grpc = dependency('grpc', required: false)
+  if not protobuf.found()
+    grpc = cxx.find_library('grpc')
+  endif
+
+  bmcweb_dependencies += grpc
+
+
+  protoc = find_program('protoc')
+  grpc_cpp_plugin = find_program('grpc_cpp_plugin')
+
+  proto_gen = generator(protoc,
+    output    : ['@BASENAME@.pb.cc', '@BASENAME@.pb.h'],
+    arguments : ['--proto_path=@SOURCE_DIR@/static/grpc', '--cpp_out=@BUILD_DIR@', '@INPUT@'])
+
+  grpc_gen = generator(protoc,
+    output    : ['@BASENAME@.grpc.pb.cc', '@BASENAME@.grpc.pb.h'],
+    arguments : ['--proto_path=@SOURCE_DIR@/static/grpc', '--plugin=protoc-gen-grpc=' + grpc_cpp_plugin.full_path(), '--grpc_out=@BUILD_DIR@', '@INPUT@'])
+
+  protobuf_generated = [
+    proto_gen.process('static/grpc/redfish_v1.proto', preserve_path_from : meson.current_source_dir() + '/static/grpc'),
+    grpc_gen.process('static/grpc/redfish_v1.proto', preserve_path_from : meson.current_source_dir() + '/static/grpc')
+  ]
+
+  bmcweb_dependencies += protobuf
+
+  threads = dependency('threads')
+  bmcweb_dependencies += threads
+  srcfiles_grpc = ['src/struct_proto_conversion.cpp', protobuf_generated]
+endif
+
 # Gather the Configuration data
 
 conf_data = configuration_data()
@@ -360,6 +414,10 @@ srcfiles_bmcweb = [
   'src/boost_beast.cpp',
   'src/boost_url.cpp',
 ]
+
+if get_option('insecure-grpc').enabled()
+  srcfiles_bmcweb += srcfiles_grpc
+endif
 
 # Generate the bmcweb executable
 executable(
