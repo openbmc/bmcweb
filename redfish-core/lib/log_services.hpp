@@ -1379,6 +1379,7 @@ inline void requestRoutesDBusEventLogEntryCollection(App& app)
                         std::string* severity = nullptr;
                         std::string* message = nullptr;
                         std::string* filePath = nullptr;
+                        std::string* resolution = nullptr;
                         bool resolved = false;
                         for (auto& interfaceMap : objectPath.second)
                         {
@@ -1422,6 +1423,17 @@ inline void requestRoutesDBusEventLogEntryCollection(App& app)
                                         severity = std::get_if<std::string>(
                                             &propertyMap.second);
                                     }
+                                    else if (propertyMap.first == "Resolution")
+                                    {
+                                        resolution = std::get_if<std::string>(
+                                            &propertyMap.second);
+                                        if (resolution == nullptr)
+                                        {
+                                            messages::internalError(
+                                                asyncResp->res);
+                                            return;
+                                        }
+                                    }
                                     else if (propertyMap.first == "Message")
                                     {
                                         message = std::get_if<std::string>(
@@ -1440,8 +1452,9 @@ inline void requestRoutesDBusEventLogEntryCollection(App& app)
                                         resolved = *resolveptr;
                                     }
                                 }
-                                if (id == nullptr || message == nullptr ||
-                                    severity == nullptr)
+                                if ((id == nullptr) || (message == nullptr) ||
+                                    (resolution == nullptr) ||
+                                    (severity == nullptr))
                                 {
                                     messages::internalError(asyncResp->res);
                                     return;
@@ -1479,6 +1492,10 @@ inline void requestRoutesDBusEventLogEntryCollection(App& app)
                         thisEntry["Id"] = std::to_string(*id);
                         thisEntry["Message"] = *message;
                         thisEntry["Resolved"] = resolved;
+                        if (!(*resolution).empty())
+                        {
+                            thisEntry["Resolution"] = *resolution;
+                        }
                         thisEntry["EntryType"] = "Event";
                         thisEntry["Severity"] =
                             translateSeverityDbusToRedfish(*severity);
@@ -1547,6 +1564,7 @@ inline void requestRoutesDBusEventLogEntry(App& app)
                         std::string* severity = nullptr;
                         std::string* message = nullptr;
                         std::string* filePath = nullptr;
+                        std::string* resolution = nullptr;
                         bool resolved = false;
 
                         for (auto& propertyMap : resp)
@@ -1581,6 +1599,16 @@ inline void requestRoutesDBusEventLogEntry(App& app)
                                 severity = std::get_if<std::string>(
                                     &propertyMap.second);
                             }
+                            else if (propertyMap.first == "Resolution")
+                            {
+                                resolution = std::get_if<std::string>(
+                                    &propertyMap.second);
+                                if (resolution == nullptr)
+                                {
+                                    messages::internalError(asyncResp->res);
+                                    return;
+                                }
+                            }
                             else if (propertyMap.first == "Message")
                             {
                                 message = std::get_if<std::string>(
@@ -1603,8 +1631,8 @@ inline void requestRoutesDBusEventLogEntry(App& app)
                                     &propertyMap.second);
                             }
                         }
-                        if (id == nullptr || message == nullptr ||
-                            severity == nullptr)
+                        if ((id == nullptr) || (message == nullptr) ||
+                            (resolution == nullptr) || (severity == nullptr))
                         {
                             messages::internalError(asyncResp->res);
                             return;
@@ -1620,6 +1648,11 @@ inline void requestRoutesDBusEventLogEntry(App& app)
                         asyncResp->res.jsonValue["Id"] = std::to_string(*id);
                         asyncResp->res.jsonValue["Message"] = *message;
                         asyncResp->res.jsonValue["Resolved"] = resolved;
+                        if (!(*resolution).empty())
+                        {
+                            asyncResp->res.jsonValue["Resolution"] =
+                                *resolution;
+                        }
                         asyncResp->res.jsonValue["EntryType"] = "Event";
                         asyncResp->res.jsonValue["Severity"] =
                             translateSeverityDbusToRedfish(*severity);
