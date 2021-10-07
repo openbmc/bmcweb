@@ -46,6 +46,30 @@
       "revId": "110d175d49a0aa8dcf80ebc7bdae3e5ae7915505",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a13ea1ab_aca89d9d",
+        "filename": "http/http_connection.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 550,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2021-10-07T00:32:01Z",
+      "side": 1,
+      "message": "These lines dont make sense anymore.\nThe first check is the make sure req is not null, So the second check and deferance it, and make sure that reade_headers() is not null.\n\nread_headers does exactly what is deleted (to the left). The main differance is the req-\u003eread_header requires req to be setup, and it is most certainly not set up now",
+      "parentUuid": "549e6a09_c07b33ea",
+      "range": {
+        "startLine": 550,
+        "startChar": 21,
+        "endLine": 550,
+        "endChar": 24
+      },
+      "revId": "110d175d49a0aa8dcf80ebc7bdae3e5ae7915505",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
