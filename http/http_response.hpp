@@ -142,8 +142,8 @@ struct Response
     }
 
   private:
-    bool completed{};
     std::function<void()> completeRequestHandler;
+    bool completed{};
     std::function<bool()> isAliveHelper;
 
     // In case of a JSON object, set the Content-Type header
