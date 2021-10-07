@@ -1,0 +1,17 @@
+syntax = "proto3";
+package redfish.v1;
+
+import "google/protobuf/struct.proto";
+
+message Request {
+    string url = 1;
+    google.protobuf.Struct message = 2;
+}
+
+service RedfishV1 {
+    rpc Get (Request) returns (google.protobuf.Struct) {}
+    rpc Post (Request) returns (google.protobuf.Struct) {}
+    rpc Patch (Request) returns (google.protobuf.Struct) {}
+    rpc Put (Request) returns (google.protobuf.Struct) {}
+    rpc Delete (Request) returns (google.protobuf.Struct) {}
+}

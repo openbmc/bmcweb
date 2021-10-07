@@ -31,6 +31,10 @@
 #include <nbd_proxy.hpp>
 #endif
 
+#ifdef BMCWEB_ENABLE_GRPC
+#include <grpc_server.hpp>
+#endif
+
 constexpr int defaultPort = 18080;
 
 inline void setupSocket(crow::App& app)
@@ -70,6 +74,10 @@ int main(int /*argc*/, char** /*argv*/)
 
     crow::connections::systemBus =
         std::make_shared<sdbusplus::asio::connection>(*io);
+
+#ifdef BMCWEB_ENABLE_GRPC
+    std::thread grpc_thread(RunServer, std::ref(app));
+#endif
 
     // Static assets need to be initialized before Authorization, because auth
     // needs to build the whitelist from the static routes
