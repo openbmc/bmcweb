@@ -105,6 +105,30 @@
       "revId": "e91a158459b6697398c92d98c964dc9c29ffc733",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cb2209e6_128dfda8",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-10-07T02:52:46Z",
+      "side": 1,
+      "message": "\u003e  that\u0027s the bug I\u0027m talking about.  If the UI has a fixed number of elements for a variable array API, it needs to be looking at the data and doing the filtering itself. \n\nIf this is a webUI bug, then for lines https://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/47344/2/redfish-core/lib/network_protocol.hpp:419-423, should it also be handled in webUI? bmcweb only needs to get the attribute value of ntpServers?\n\n\u003e I still assert this is a bug in the webui.\n\nEven if this is a webUI bug, do we need to do further verification in bmcweb?",
+      "parentUuid": "7ff0a7b4_e8881392",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 62
+      },
+      "revId": "e91a158459b6697398c92d98c964dc9c29ffc733",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
