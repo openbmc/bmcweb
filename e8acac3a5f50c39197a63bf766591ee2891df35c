@@ -272,6 +272,30 @@
       "revId": "e8acac3a5f50c39197a63bf766591ee2891df35c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "21bd591a_4a9efbc6",
+        "filename": "http/http_connection.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 727,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2021-10-07T13:58:51Z",
+      "side": 1,
+      "message": "Ed, can you please add a comment at this line to make it clear to a reader that this will call the std::optional::reset() and ultimately req gets destructed ? This is because people may tend to search for a crow::Request::reset()",
+      "parentUuid": "2199611c_9b2322e8",
+      "range": {
+        "startLine": 727,
+        "startChar": 20,
+        "endLine": 727,
+        "endChar": 25
+      },
+      "revId": "e8acac3a5f50c39197a63bf766591ee2891df35c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
