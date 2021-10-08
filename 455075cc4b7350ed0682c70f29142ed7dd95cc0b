@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "c9fb8673_577bc572",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-10-08T19:06:17Z",
+      "side": 1,
+      "message": "There\u0027s no need to include the old test results.  They just clutter things up.",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 19,
+        "endChar": 7
+      },
+      "revId": "455075cc4b7350ed0682c70f29142ed7dd95cc0b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e1519a04_d5c4f65b",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 3
@@ -19,6 +42,24 @@
     },
     {
       "key": {
+        "uuid": "ba7ad046_8b3b38d0",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1455,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-10-08T19:06:17Z",
+      "side": 1,
+      "message": "\u003e I think this check was added for properties that are required or needed for the LogEntry to be useful (message). I am kind of guessing here though. \n\u003e Why should resolution be here?\n\u003e \n\u003e             \"required\": [\n\u003e                 \"EntryType\",\n\u003e                 \"@odata.id\",\n\u003e                 \"@odata.type\",\n\u003e                 \"Id\",\n\u003e                 \"Name\"\n\u003e \n\u003e Resolution should not be nullptr since it is part of\n\u003e https://github.com/openbmc/phosphor-dbus-interfaces/blob/39bdb4711855ed9caf18b55427691c80e8e8ac8e/yaml/xyz/openbmc_project/Logging/Entry.interface.yaml#L37\n\nConsidering that the initial version of Entry didn\u0027t have that, lets do our best to not require it, especially considering it\u0027s less code to not require it, and there\u0027s other fields that we already don\u0027t check.  id, message, and severity are explicitly checked here because they\u0027re required by the redfish schema, so we prefer to return Internal error rather than produce an incorrect redfish schema.  Resolution is not required, so it shouldn\u0027t be in this check.\n\n\u003e \n\u003e and that is the interface we are looking for \n\u003e                             if (interfaceMap.first \u003d\u003d\n\u003e                                 \"xyz.openbmc_project.Logging.Entry\")\n\u003e \n\u003e so I guess I am okay with this.. just seems like this expands this check to be for all properties in https://github.com/openbmc/phosphor-dbus-interfaces/blob/39bdb4711855ed9caf18b55427691c80e8e8ac8e/yaml/xyz/openbmc_project/Logging/Entry.interface.yaml#L37",
+      "parentUuid": "e1519a04_d5c4f65b",
+      "revId": "455075cc4b7350ed0682c70f29142ed7dd95cc0b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "3ca0ebb4_426729a0",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 3
@@ -30,6 +71,24 @@
       "writtenOn": "2021-10-08T17:52:46Z",
       "side": 1,
       "message": "We typically don\u0027t check for empty.. \nWhy do you need to here?",
+      "revId": "455075cc4b7350ed0682c70f29142ed7dd95cc0b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "81da7b40_35494115",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1495,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-10-08T19:06:17Z",
+      "side": 1,
+      "message": "This is an interesting question;  How do you know the difference between \"Resolution not populated for this log\" and \"Resolution not supported\"?",
+      "parentUuid": "3ca0ebb4_426729a0",
       "revId": "455075cc4b7350ed0682c70f29142ed7dd95cc0b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
