@@ -196,6 +196,24 @@
     },
     {
       "key": {
+        "uuid": "f29c289d_e614f970",
+        "filename": "include/sessions.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-10-08T19:10:18Z",
+      "side": 1,
+      "message": "sdbusplus doesn\u0027t support return codes for this usecase, so while we prefer to not use try/catch, it is the only option here to avoid throwing into a C library, which is undefined behavior.",
+      "parentUuid": "29a3cb48_41a26a6e",
+      "revId": "60d44d873768d04bf6d0aa6e7aaeb3b5e90bacfd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "9d5432df_375bb156",
         "filename": "include/sessions.hpp",
         "patchSetId": 9
