@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "f2871615_46d24ddd",
+        "filename": "http/routing.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 1343,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-10-08T19:09:12Z",
+      "side": 1,
+      "message": "we do, but because we still have exceptions enabled, we do have to have some barriers in case users call methods that throw.\n\nFWIW, this check is removed in: https://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/46841",
+      "parentUuid": "e4fd3b64_644460d8",
+      "revId": "60d44d873768d04bf6d0aa6e7aaeb3b5e90bacfd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "943f475a_fb00a920",
         "filename": "include/nbd_proxy.hpp",
         "patchSetId": 9
