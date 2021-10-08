@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "a6a94d16_2f5d84e9",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000520
+      },
+      "writtenOn": "2021-10-08T00:11:44Z",
+      "side": 1,
+      "message": "That would be in the ideal case, but as of now, there is an existing pattern of usage in this meson.build file that uses header existence:\n\nhttps://github.com/openbmc/bmcweb/blob/44fad2aa3ba9e28bb52c0ff21ba2cdbd2812b199/meson.build#L307\n\nhttps://github.com/openbmc/bmcweb/blob/44fad2aa3ba9e28bb52c0ff21ba2cdbd2812b199/meson.build#L330\n\nAlso, as I mentioned below, sdbusplus version has been stuck at 1.0.0 for some time, so we can\u0027t use version number as a validator for this.",
+      "parentUuid": "704599f6_c5107d17",
+      "range": {
+        "startLine": 11,
+        "startChar": 0,
+        "endLine": 13,
+        "endChar": 0
+      },
+      "revId": "f921ab0617bac635a23e8ab0fd9d465582f70de8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "eacbc19e_41ea50d5",
         "filename": "/COMMIT_MSG",
         "patchSetId": 2
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "236b37f4_fd640315",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1000520
+      },
+      "writtenOn": "2021-10-08T00:11:44Z",
+      "side": 1,
+      "message": "Done: https://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/47656",
+      "parentUuid": "eacbc19e_41ea50d5",
+      "range": {
+        "startLine": 14,
+        "startChar": 0,
+        "endLine": 16,
+        "endChar": 18
+      },
+      "revId": "f921ab0617bac635a23e8ab0fd9d465582f70de8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4f166a84_d2623d36",
         "filename": "/COMMIT_MSG",
         "patchSetId": 2
@@ -68,6 +116,30 @@
       "revId": "f921ab0617bac635a23e8ab0fd9d465582f70de8",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2582006c_597b9322",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1000520
+      },
+      "writtenOn": "2021-10-08T00:11:44Z",
+      "side": 1,
+      "message": "I think I have, on my development workstation, a local copy of the sdbusplus library that exists, but is out of date, thus missing this header file.\n\nUnfortunately, version numbers aren\u0027t changed in sdbusplus (it\u0027s been at 1.0.0 for some time now), so lacking that, needed another way to tell Meson about the need for a new up-to-date version of it.",
+      "parentUuid": "4f166a84_d2623d36",
+      "range": {
+        "startLine": 18,
+        "startChar": 8,
+        "endLine": 18,
+        "endChar": 31
+      },
+      "revId": "f921ab0617bac635a23e8ab0fd9d465582f70de8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
