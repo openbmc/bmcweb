@@ -153,6 +153,30 @@
       "revId": "e91a158459b6697398c92d98c964dc9c29ffc733",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6fc0da2f_fe2c035f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-10-08T05:46:28Z",
+      "side": 1,
+      "message": "\u003e Yes, those lines are incorrect as well.  They are another example of putting business logic in bmcweb that should be in phosphor-networkd.\n\nso, Do I need to abandon this patch and fix it in phosphor-networkd?\n\n\u003e phosphor-networkd is where we should be doing the validation, but yes, the bmc should be doing more validation.\n\nDoes bmcweb need to do this verification?",
+      "parentUuid": "27d7b86d_6df51f7b",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 62
+      },
+      "revId": "e91a158459b6697398c92d98c964dc9c29ffc733",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
