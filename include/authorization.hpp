@@ -285,7 +285,7 @@ static std::shared_ptr<persistent_data::UserSession> authenticate(
     }
 #endif
     std::string_view authHeader = reqHeader["Authorization"];
-    BMCWEB_LOG_ERROR << "authHeader=" << authHeader;
+    BMCWEB_LOG_DEBUG << "authHeader=" << authHeader;
 
     if (sessionOut == nullptr && authMethodsConfig.sessionToken)
     {
