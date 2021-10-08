@@ -240,6 +240,30 @@
     },
     {
       "key": {
+        "uuid": "ed92b300_1bc00113",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-10-08T05:50:05Z",
+      "side": 1,
+      "message": "\u003e See the section where I say \"for example, if I called\".  we should be writing the value as written, unless given special directives, like null, which redfish has specific non-crud rules for.\n\nOkay, got it.\n\n\u003e I see no \"active\" check in this code.  If we were selecting ONE interface, that might be fine, or if we had a way to consistently do the \"merge\" of the interfaces, that might work fine too, but as written, this doesn\u0027t fit the rest semantics.\n\nDo you agree this way?\nhttps://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/47342/1\n\nOr, Do you have any good opinions on this bug?",
+      "parentUuid": "3e7a2dbb_1eee0266",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 28
+      },
+      "revId": "5298997041609f32e7f1887180acd95e9b7a9f64",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "bc165f49_244a03c8",
         "filename": "redfish-core/lib/network_protocol.hpp",
         "patchSetId": 3
