@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "2397ecc7_f81ecb1b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-10-08T17:09:00Z",
+      "side": 1,
+      "message": "\u003e That would be in the ideal case, but as of now, there is an existing pattern of usage in this meson.build file that uses header existence:\n\u003e \n\u003e https://github.com/openbmc/bmcweb/blob/44fad2aa3ba9e28bb52c0ff21ba2cdbd2812b199/meson.build#L307\n\u003e \n\u003e https://github.com/openbmc/bmcweb/blob/44fad2aa3ba9e28bb52c0ff21ba2cdbd2812b199/meson.build#L330\n\nBoth of those are doing a \"does this library exist\" check, not a \"is this library the correct version\" check like you\u0027re doing here.  Checking for the existence of every header a library could possibly add in intermediate versions gets messy in a hurry.  If we did that , this file would be at least twice as long.\n\n\u003e \n\u003e Also, as I mentioned below, sdbusplus version has been stuck at 1.0.0 for some time, so we can\u0027t use version number as a validator for this.\n\nThat sounds like the problem to fix, although in openbmc the official version of things is largely kept within yocto, so we\u0027re not great at that.",
+      "parentUuid": "a6a94d16_2f5d84e9",
+      "range": {
+        "startLine": 11,
+        "startChar": 0,
+        "endLine": 13,
+        "endChar": 0
+      },
+      "revId": "f921ab0617bac635a23e8ab0fd9d465582f70de8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "eacbc19e_41ea50d5",
         "filename": "/COMMIT_MSG",
         "patchSetId": 2
@@ -140,6 +164,30 @@
       "revId": "f921ab0617bac635a23e8ab0fd9d465582f70de8",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "114020fd_8fd167dc",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-10-08T17:09:00Z",
+      "side": 1,
+      "message": "\u003e I think I have, on my development workstation, a local copy of the sdbusplus library that exists, but is out of date, thus missing this header file.\n\u003e \n\u003e Unfortunately, version numbers aren\u0027t changed in sdbusplus (it\u0027s been at 1.0.0 for some time now), so lacking that, needed another way to tell Meson about the need for a new up-to-date version of it.\n\nOr you just need to install the latest version of sdbusplus on your workstation?\n\nI agree, this is a problem, but the fix can\u0027t involve every dependency in the system tracking a pseudo versioning of sdbusplus via the existence of header files.  That gets unmaintainable in a hurry.\n\nI wonder if the other answer is to just always prefer subproject over the system-provided files.  That needs more thought.",
+      "parentUuid": "2582006c_597b9322",
+      "range": {
+        "startLine": 18,
+        "startChar": 8,
+        "endLine": 18,
+        "endChar": 31
+      },
+      "revId": "f921ab0617bac635a23e8ab0fd9d465582f70de8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     },
     {
       "key": {
