@@ -264,6 +264,30 @@
     },
     {
       "key": {
+        "uuid": "e91646f2_e0eefa55",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000044
+      },
+      "writtenOn": "2021-10-08T09:11:53Z",
+      "side": 1,
+      "message": "\u003e There\u0027s also a lot of questions around if we\u0027re looking at multiple interfaces, what happens when they don\u0027t contain the same data?  This patchset defines the behavior as \"the superset of all interfaces\", but that doesn\u0027t really follow CRUD either, because any modification to that, will now set it on all interfaces.\n\nBefore we get DMTF update on Redfish schema, I prefer to set the same NTP servers for multiple interfaces, which does resolve the problem.\nFrom the Reffish perspective, we are sure that all the interfaces contain the same NTP data as long as we set the same data to all the interfaces.",
+      "parentUuid": "ed92b300_1bc00113",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 28
+      },
+      "revId": "5298997041609f32e7f1887180acd95e9b7a9f64",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "bc165f49_244a03c8",
         "filename": "redfish-core/lib/network_protocol.hpp",
         "patchSetId": 3
