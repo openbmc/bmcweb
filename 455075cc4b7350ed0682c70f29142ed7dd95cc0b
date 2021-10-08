@@ -60,6 +60,24 @@
     },
     {
       "key": {
+        "uuid": "a3d60727_0e93b048",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1455,
+      "author": {
+        "id": 1001063
+      },
+      "writtenOn": "2021-10-08T21:15:28Z",
+      "side": 1,
+      "message": "I have seen in some cases on HW a different version of code the interface \"xyz.openbmc_project.Logging.Entry\" did not have resolution property. In that case access in line 1495 would crash system. The intent is to check it here since line 1426 will not be executed. I can move this check to line 1495 if that is OK? but I want to check for the validity of nullptr",
+      "parentUuid": "ba7ad046_8b3b38d0",
+      "revId": "455075cc4b7350ed0682c70f29142ed7dd95cc0b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "3ca0ebb4_426729a0",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 3
