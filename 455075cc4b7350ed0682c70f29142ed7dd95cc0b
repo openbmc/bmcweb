@@ -95,6 +95,24 @@
     },
     {
       "key": {
+        "uuid": "1dbb5ed9_aefbdd41",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1495,
+      "author": {
+        "id": 1001063
+      },
+      "writtenOn": "2021-10-08T21:02:50Z",
+      "side": 1,
+      "message": "The reason I put the check in here is to make sure we don\u0027t return empty string. When I ran the validator it gave me warning saying value is empty and check for spelling. Also this aligns with what we discussed on ServiceProviderNotify property. If the property is not supported then we don\u0027t return it. In this case it is not populated. Not all PEL\u0027s have resolution field populated. @ed, the value is empty by default and I assume no one populated the value or in a system which does not support i we would read back empty string. I am open to suggestions here",
+      "parentUuid": "81da7b40_35494115",
+      "revId": "455075cc4b7350ed0682c70f29142ed7dd95cc0b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "b1d0a56c_5448b5ec",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 3
