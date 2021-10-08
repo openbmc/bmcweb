@@ -529,13 +529,13 @@ class Connection :
             [this,
              self(shared_from_this())](const boost::system::error_code& ec,
                                        std::size_t bytesTransferred) {
-                BMCWEB_LOG_ERROR << this << " async_read_header "
+                BMCWEB_LOG_DEBUG << this << " async_read_header "
                                  << bytesTransferred << " Bytes";
                 bool errorWhileReading = false;
                 if (ec)
                 {
                     errorWhileReading = true;
-                    BMCWEB_LOG_ERROR
+                    BMCWEB_LOG_WARNING
                         << this << " Error while reading: " << ec.message();
                 }
                 else
