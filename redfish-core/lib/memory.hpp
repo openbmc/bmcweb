@@ -19,10 +19,10 @@
 
 #include <app.hpp>
 #include <boost/container/flat_map.hpp>
-#include <boost/format.hpp>
 #include <registries/privilege_registry.hpp>
 #include <utils/collection.hpp>
 #include <utils/json_utils.hpp>
+#include <utils/hex_utils.hpp>
 
 namespace redfish
 {
@@ -154,7 +154,7 @@ inline void dimmPropToHex(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
         return;
     }
 
-    aResp->res.jsonValue[key] = (boost::format("0x%04x") % *value).str();
+    aResp->res.jsonValue[key] = "0x" + intToHexString(*value);
 }
 
 inline void getPersistentMemoryProperties(
