@@ -12,8 +12,6 @@
 
 #include <async_resp.hpp>
 #include <boost/container/flat_map.hpp>
-#include <boost/container/small_vector.hpp>
-#include <boost/lexical_cast.hpp>
 
 #include <cerrno>
 #include <cstdint>
