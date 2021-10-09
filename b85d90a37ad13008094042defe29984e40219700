@@ -46,6 +46,30 @@
       "revId": "b85d90a37ad13008094042defe29984e40219700",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b6624950_b9a20959",
+        "filename": "redfish-core/lib/network_protocol.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 302,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-10-09T02:39:01Z",
+      "side": 1,
+      "message": "\u003e in Redfish, we don\u0027t have a single interface.  It defines NTP servers for the system as a whole.  So long as we can resolve the ordering issue, I\u0027m ok with setting all ethernet devices.\n\nPlease check this patch:\nhttps://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/47344",
+      "parentUuid": "ca401230_3b357073",
+      "range": {
+        "startLine": 286,
+        "startChar": 0,
+        "endLine": 302,
+        "endChar": 13
+      },
+      "revId": "b85d90a37ad13008094042defe29984e40219700",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
