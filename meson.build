@@ -259,6 +259,8 @@ cxx.get_supported_arguments([
   '-DBOOST_ASIO_USE_TS_EXECUTOR_AS_DEFAULT',
   '-DBOOST_ASIO_DISABLE_THREADS',
   '-DBOOST_BEAST_USE_STD_STRING_VIEW',
+  '-DBOOST_BEAST_SEPARATE_COMPILATION',
+  '-DBOOST_ASIO_SEPARATE_COMPILATION',
   '-DBOOST_ERROR_CODE_HEADER_ONLY',
   '-DBOOST_SYSTEM_NO_DEPRECATED',
   '-DBOOST_ASIO_NO_DEPRECATED',
@@ -350,7 +352,10 @@ srcfiles_bmcweb = [
   'src/webserver_main.cpp',
   'redfish-core/src/error_messages.cpp',
   'redfish-core/src/utils/json_utils.cpp',
-  'src/boost_url.cpp'
+  'src/boost_url.cpp',
+  'src/boost_beast.cpp',
+  'src/boost_asio.cpp',
+  'src/boost_asio_ssl.cpp',
 ]
 
 srcfiles_unittest = [
@@ -422,7 +427,10 @@ if(get_option('tests').enabled())
     testname = src_test.split('/')[-1].split('.')[0]
     test(testname,executable(testname, 
         [src_test,
-        'src/boost_url.cpp'],
+        'src/boost_url.cpp',
+        'src/boost_beast.cpp',
+        'src/boost_asio.cpp',
+        'src/boost_asio_ssl.cpp',],
                 include_directories : incdir,
                 install_dir: bindir,
                 dependencies: [
