@@ -57,6 +57,30 @@
       "revId": "d6070725bcb702cb5819269c4e80e91e45e1dc6b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fc853cb7_92580528",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-10-09T16:24:22Z",
+      "side": 1,
+      "message": "I can\u0027t follow your link (it just links to \"if ((rules[ruleIndex]-\u003egetMethods() \" in routing.hpp.)\n\nBut yes, I would expect session to be used and understood later in the code, which is why this is a TODO.  The code here is potentially a privilege bypass if the next route down has higher privileges than the previous.  Hence why this is a TODO.  If you have any ideas on how to write the code such that it\u0027s not a privilege bypass, I\u0027m happy to hear about it, but it\u0027s a problem that I haven\u0027t solved in this patchset yet.",
+      "parentUuid": "17daca1e_5b5d01c0",
+      "range": {
+        "startLine": 85,
+        "startChar": 4,
+        "endLine": 85,
+        "endChar": 36
+      },
+      "revId": "d6070725bcb702cb5819269c4e80e91e45e1dc6b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
