@@ -177,6 +177,30 @@
       "revId": "e91a158459b6697398c92d98c964dc9c29ffc733",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eb1e71cf_77ad67dd",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000396
+      },
+      "writtenOn": "2021-10-11T16:50:08Z",
+      "side": 1,
+      "message": "@ed so on the front end, should we be passing in null for empty NTP server form fields instead of \"\"?",
+      "parentUuid": "6fc0da2f_fe2c035f",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 62
+      },
+      "revId": "e91a158459b6697398c92d98c964dc9c29ffc733",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
