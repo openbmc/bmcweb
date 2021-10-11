@@ -273,6 +273,30 @@
       "revId": "e91a158459b6697398c92d98c964dc9c29ffc733",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "76faf09a_29cc9b87",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000396
+      },
+      "writtenOn": "2021-10-11T19:08:36Z",
+      "side": 1,
+      "message": "We didn\u0027t allow that on the front end, if all fields were empty and you try to save then the form validation would say field required. \n\nI opened an issue for this https://github.com/openbmc/webui-vue/issues/81 feel free to leave a comment on the story if I missed the mark on the issue description",
+      "parentUuid": "47247e80_cf1baebc",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 62
+      },
+      "revId": "e91a158459b6697398c92d98c964dc9c29ffc733",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
