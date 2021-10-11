@@ -1,0 +1,280 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1f8dd11f_faf11da9",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 102
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-10-11T20:01:44Z",
+      "side": 1,
+      "message": "It seems odd that these two would be different MetricDefinitions?",
+      "range": {
+        "startLine": 51,
+        "startChar": 0,
+        "endLine": 56,
+        "endChar": 5
+      },
+      "revId": "32e557279450226ed9c06312649d90b802f3d4c5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ccc3c01f_fa081c01",
+        "filename": "redfish-core/include/utils/get_chassis_names.hpp",
+        "patchSetId": 102
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-10-11T20:01:44Z",
+      "side": 1,
+      "message": "There are 3 places in the Chassis code where this list is used, this is adding a forth.  Can we get it down to one with a definition somewhere in chassis that this code can pull in?",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 20,
+        "endChar": 54
+      },
+      "revId": "32e557279450226ed9c06312649d90b802f3d4c5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "51881bd5_aa0c6a84",
+        "filename": "redfish-core/lib/metric_definition.hpp",
+        "patchSetId": 102
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-10-11T20:01:44Z",
+      "side": 1,
+      "message": "This variant would allow non compliant interfaces to work with this code, (ie, if you published a sensor as a uint16_t).  Considering that we\u0027ve fixed the behavior of all the sensors to use the Double interface, please make this just pull in double like we do in other places, and delete the ValueVisitor class.",
+      "range": {
+        "startLine": 45,
+        "startChar": 0,
+        "endLine": 46,
+        "endChar": 69
+      },
+      "revId": "32e557279450226ed9c06312649d90b802f3d4c5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d5bca864_a0d07581",
+        "filename": "redfish-core/lib/metric_definition.hpp",
+        "patchSetId": 102
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-10-11T20:01:44Z",
+      "side": 1,
+      "message": "Please don\u0027t do Gets like this when grabbing many value;  It\u0027s very inefficient.  Please prefer to use the GetManagedObjects interfaces (ideally) or GetAll (fallback if GetManagedObjects is complex)  for these kinds of requests.\n\nI suspect doing that will render this helper function to only need to be called once.",
+      "range": {
+        "startLine": 58,
+        "startChar": 0,
+        "endLine": 60,
+        "endChar": 1
+      },
+      "revId": "32e557279450226ed9c06312649d90b802f3d4c5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9b272d82_139b6da7",
+        "filename": "redfish-core/lib/metric_definition.hpp",
+        "patchSetId": 102
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-10-11T20:01:44Z",
+      "side": 1,
+      "message": "Please avoid auto here and use brace initialization.",
+      "range": {
+        "startLine": 148,
+        "startChar": 10,
+        "endLine": 148,
+        "endChar": 14
+      },
+      "revId": "32e557279450226ed9c06312649d90b802f3d4c5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "75ac406e_0e2bd7d7",
+        "filename": "redfish-core/lib/metric_definition.hpp",
+        "patchSetId": 102
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-10-11T20:01:44Z",
+      "side": 1,
+      "message": "This seems like it\u0027s missing 80% of the types?",
+      "range": {
+        "startLine": 149,
+        "startChar": 4,
+        "endLine": 149,
+        "endChar": 72
+      },
+      "revId": "32e557279450226ed9c06312649d90b802f3d4c5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "46c7ed87_21091160",
+        "filename": "redfish-core/lib/metric_definition.hpp",
+        "patchSetId": 102
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-10-11T20:01:44Z",
+      "side": 1,
+      "message": "I\u0027m not quite following this.  this is checking to see if it\u0027s a fan tach, or a fan pwm, then mapping it to the upper case versions of that name?  If not, it falls back to making every sensor its own metric definition, which I thought we agreed wasn\u0027t what redfish specifies.",
+      "range": {
+        "startLine": 163,
+        "startChar": 0,
+        "endLine": 169,
+        "endChar": 62
+      },
+      "revId": "32e557279450226ed9c06312649d90b802f3d4c5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "92204fad_1df3b210",
+        "filename": "redfish-core/lib/metric_definition.hpp",
+        "patchSetId": 102
+      },
+      "lineNbr": 211,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-10-11T20:01:44Z",
+      "side": 1,
+      "message": "This is very similar to the use_count() pattern we used to use in other places, and found lots of issues with.  At the very least, using the RAII objects themselves would be an improvement here.\n\nGenerally it would invove taking the object you construct on 185, and make it a real class with a destructor that calls the callback.",
+      "range": {
+        "startLine": 209,
+        "startChar": 0,
+        "endLine": 211,
+        "endChar": 17
+      },
+      "revId": "32e557279450226ed9c06312649d90b802f3d4c5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c637665b_bad94348",
+        "filename": "redfish-core/lib/metric_definition.hpp",
+        "patchSetId": 102
+      },
+      "lineNbr": 259,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-10-11T20:01:44Z",
+      "side": 1,
+      "message": "This seems like a little bit of overkill.  Considering we know exactly what sensor namespaces exist at compile time (because of the dbus  abstractions) couldn\u0027t this just return a fixed list of metric types and avoid dbus entirely?  Or is there something subtle that I\u0027m missing here?",
+      "range": {
+        "startLine": 253,
+        "startChar": 0,
+        "endLine": 259,
+        "endChar": 25
+      },
+      "revId": "32e557279450226ed9c06312649d90b802f3d4c5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b6acee04_2bce916f",
+        "filename": "redfish-core/lib/metric_definition.hpp",
+        "patchSetId": 102
+      },
+      "lineNbr": 332,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-10-11T20:01:44Z",
+      "side": 1,
+      "message": "We\u0027re many scopes deep here.  Please rearrange your code to be easier to read.",
+      "range": {
+        "startLine": 332,
+        "startChar": 0,
+        "endLine": 332,
+        "endChar": 61
+      },
+      "revId": "32e557279450226ed9c06312649d90b802f3d4c5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9d2a5514_4a74a5ef",
+        "filename": "redfish-core/lib/metric_definition.hpp",
+        "patchSetId": 102
+      },
+      "lineNbr": 342,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-10-11T20:01:44Z",
+      "side": 1,
+      "message": "Generally name is something more human readable, and doesn\u0027t always follow the ID, which in this case is a dbus path.",
+      "range": {
+        "startLine": 342,
+        "startChar": 28,
+        "endLine": 342,
+        "endChar": 68
+      },
+      "revId": "32e557279450226ed9c06312649d90b802f3d4c5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f5130006_d107ebc2",
+        "filename": "redfish-core/lib/metric_definition.hpp",
+        "patchSetId": 102
+      },
+      "lineNbr": 353,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-10-11T20:01:44Z",
+      "side": 1,
+      "message": "Both these calls can fail.  Please handle your errors",
+      "range": {
+        "startLine": 353,
+        "startChar": 40,
+        "endLine": 353,
+        "endChar": 51
+      },
+      "revId": "32e557279450226ed9c06312649d90b802f3d4c5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
