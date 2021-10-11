@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "181c4f2b_428aa516",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-10-11T16:53:35Z",
+      "side": 1,
+      "message": "The only ones I can think of:\n\n1. It means we have a minimum requirement on boost 1.66 when they added this feature.\n2. In theory, it means that we could be compiling more than we intended, and taking out more at link time.  In practice, the binaries are the same, and the build is about the same speed.\n3. It\u0027s slightly more code in the build system.\n4. If boost ever removes that feature, we\u0027ll have to stop using it.\n\n\nThat\u0027s about all I can think of, but some of them are a stretch.  The short version is, there\u0027s really no downsides that matter.",
+      "parentUuid": "6e4dcc91_819bf967",
+      "revId": "9a48156f3ab0544d4be7da9df1a019d31edf408f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "03803b74_e3e4f604",
         "filename": "src/boost_asio.cpp",
         "patchSetId": 1
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "8063af89_30d38d61",
+        "filename": "src/boost_asio.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-10-11T16:53:35Z",
+      "side": 1,
+      "message": "I was bored I guess?\n\nFixed.",
+      "parentUuid": "03803b74_e3e4f604",
+      "revId": "9a48156f3ab0544d4be7da9df1a019d31edf408f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "ea4181cb_cfd26833",
         "filename": "src/boost_beast.cpp",
         "patchSetId": 1
@@ -47,6 +83,24 @@
       "writtenOn": "2021-10-11T16:12:29Z",
       "side": 1,
       "message": "Does having a TODO make this easier to search later? Just a thought.",
+      "revId": "9a48156f3ab0544d4be7da9df1a019d31edf408f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "75f83252_1e83b802",
+        "filename": "src/boost_beast.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-10-11T16:53:35Z",
+      "side": 1,
+      "message": "Sure.",
+      "parentUuid": "ea4181cb_cfd26833",
       "revId": "9a48156f3ab0544d4be7da9df1a019d31edf408f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
