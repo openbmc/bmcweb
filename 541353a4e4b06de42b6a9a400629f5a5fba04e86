@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bff4ac81_3666651d",
+        "filename": "redfish-core/include/event_service_manager.hpp",
+        "patchSetId": 53
+      },
+      "lineNbr": 538,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-10-11T19:39:38Z",
+      "side": 1,
+      "message": "Does this need to set internalError somehow?  See below, where i suggested moving the get_if up to the calling scope to simplify this flow.",
+      "range": {
+        "startLine": 538,
+        "startChar": 12,
+        "endLine": 538,
+        "endChar": 19
+      },
+      "revId": "541353a4e4b06de42b6a9a400629f5a5fba04e86",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ed4e92f9_313b9c9c",
+        "filename": "redfish-core/include/event_service_manager.hpp",
+        "patchSetId": 53
+      },
+      "lineNbr": 1327,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-10-11T19:39:38Z",
+      "side": 1,
+      "message": "I thought we generally preferred snake_case for these?  If we\u0027re already matching on the interface, do we need to match on the path at all?",
+      "range": {
+        "startLine": 1327,
+        "startChar": 68,
+        "endLine": 1327,
+        "endChar": 77
+      },
+      "revId": "541353a4e4b06de42b6a9a400629f5a5fba04e86",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bcac6d09_6da74472",
+        "filename": "redfish-core/include/event_service_manager.hpp",
+        "patchSetId": 53
+      },
+      "lineNbr": 1348,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-10-11T19:39:38Z",
+      "side": 1,
+      "message": "nit, please spell out interface.",
+      "range": {
+        "startLine": 1348,
+        "startChar": 28,
+        "endLine": 1348,
+        "endChar": 32
+      },
+      "revId": "541353a4e4b06de42b6a9a400629f5a5fba04e86",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "535f6828_88278f2c",
+        "filename": "redfish-core/lib/metric_report.hpp",
+        "patchSetId": 53
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-10-11T19:39:38Z",
+      "side": 1,
+      "message": "Would it make more sense for this to just take by TimestampReadings\u0026, and leave the error handling to calling code? (leaving the return type as void like it was before)  As written, this function doesn\u0027t need to take a variant, and it simplifies the error handling a bit if it\u0027s just all in calling code, because that code needs a branch anyway.",
+      "range": {
+        "startLine": 37,
+        "startChar": 29,
+        "endLine": 37,
+        "endChar": 61
+      },
+      "revId": "541353a4e4b06de42b6a9a400629f5a5fba04e86",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}

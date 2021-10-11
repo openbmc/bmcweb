@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "73b18a2a_b5fb86c9",
+        "filename": "redfish-core/include/event_service_manager.hpp",
+        "patchSetId": 53
+      },
+      "lineNbr": 1424,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-10-11T19:39:38Z",
+      "side": 0,
+      "message": "nit: I find the previous code easier to read, as it appropriately splits up the methods here.  I think the fact that the new code has a lot less in it is good, but would prefer if it were still in its own method, to save scopes and reduce the wrapping.",
+      "range": {
+        "startLine": 1424,
+        "startChar": 16,
+        "endLine": 1424,
+        "endChar": 32
+      },
+      "revId": "8e659c88fc872073f7f6dbc225cfac37d4e97ff6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
