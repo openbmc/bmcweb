@@ -201,6 +201,30 @@
       "revId": "e91a158459b6697398c92d98c964dc9c29ffc733",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "35fc7bbc_3e93af9f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-10-11T18:00:17Z",
+      "side": 1,
+      "message": "No, you should be passing the array of NTP servers as you want them.  So if you have one server, pass\n\nNTPServers: [\"www.foobar.com\"]\n\nIf you have two servers:\nNTPServers: [\"www.foobar.com\", \"www.extrafoobar.com\"]\n\nThere should be no null, or empty string in the list.\n\nNow, this assumes that the UI has access to the current servers, and is doing read-modify-write.  In the specification, technically PATCHING [{}, nullptr] is in fact allowed to atomically delete an entry index from the table without effecting the others, but given the way the UI works with a fixed set of items, and a single submit button, I\u0027d be surprised if you needed that behavior, as it can always just set the whole list.",
+      "parentUuid": "eb1e71cf_77ad67dd",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 62
+      },
+      "revId": "e91a158459b6697398c92d98c964dc9c29ffc733",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
