@@ -225,6 +225,30 @@
       "revId": "e91a158459b6697398c92d98c964dc9c29ffc733",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b37cb3cd_ffff47f5",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000396
+      },
+      "writtenOn": "2021-10-11T18:35:55Z",
+      "side": 1,
+      "message": "If [1.1.1.1, 2.2.2.2, 3.3.3.3] is displayed in the UI and a user removes 2.2.2.2 from the input field and saves, what should the patch look like? \n[1.1.1.1, null, 3.3.3.3]?",
+      "parentUuid": "35fc7bbc_3e93af9f",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 62
+      },
+      "revId": "e91a158459b6697398c92d98c964dc9c29ffc733",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
