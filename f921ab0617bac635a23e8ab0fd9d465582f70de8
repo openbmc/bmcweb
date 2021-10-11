@@ -191,6 +191,30 @@
     },
     {
       "key": {
+        "uuid": "5c5fcf75_d112d691",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1000520
+      },
+      "writtenOn": "2021-10-11T22:21:25Z",
+      "side": 1,
+      "message": "Yes, I need to update sdbusplus on my local workstation, but detecting out-of-date libraries is the job of a \"./configure\" script (or the modern equivalent thereof, which is this meson.build file). This gotcha will affect other people in the future, not just me, so instead of keeping it a known gotcha for the future, using software to resolve the gotcha seems like the best approach to me.\n\nAs for changing version numbers in sdbusplus, that is up to the maintainers of sdbusplus, and is beyond the scope of this patch.\n\nAnd, I agree with you totally, about wanting to prefer subproject instead of a system-provided file. In a cross-compilation environment such as OpenBMC, this is essential, actually. You don\u0027t want local libraries on a developer\u0027s own workstation to ever have the chance to pollute a cross-compilation intended for a totally different architecture. This goes towards the goal of being able to do a hermetic build, which seems to me to be good software engineering practice. Let\u0027s do that.",
+      "parentUuid": "114020fd_8fd167dc",
+      "range": {
+        "startLine": 18,
+        "startChar": 8,
+        "endLine": 18,
+        "endChar": 31
+      },
+      "revId": "f921ab0617bac635a23e8ab0fd9d465582f70de8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "cc6445ec_1febdbb3",
         "filename": "meson.build",
         "patchSetId": 2
