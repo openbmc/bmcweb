@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "980040d2_fa12a27c",
+        "filename": "include/ut/human_sort_test.cpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-10-12T19:29:47Z",
+      "side": 1,
+      "message": "This is not a C header (gmock is a c++ project), and not all C headers require extern C.",
+      "parentUuid": "5c728212_b40879ea",
+      "range": {
+        "startLine": 5,
+        "startChar": 9,
+        "endLine": 5,
+        "endChar": 24
+      },
+      "revId": "02827ca504e2f2b0f28be561a3329a676e8678ae",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "85a52ccb_daf7f61d",
         "filename": "include/ut/human_sort_test.cpp",
         "patchSetId": 9
@@ -36,6 +60,24 @@
       "writtenOn": "2021-10-12T10:18:32Z",
       "side": 1,
       "message": "#pragma once ..??",
+      "revId": "02827ca504e2f2b0f28be561a3329a676e8678ae",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8da24a07_fb260973",
+        "filename": "include/ut/human_sort_test.cpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-10-12T19:29:47Z",
+      "side": 1,
+      "message": "This is a cpp file, #pragma once is not required not desired for compile units.",
+      "parentUuid": "85a52ccb_daf7f61d",
       "revId": "02827ca504e2f2b0f28be561a3329a676e8678ae",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
