@@ -55,6 +55,23 @@
     },
     {
       "key": {
+        "uuid": "26acae5d_7245312f",
+        "filename": "redfish-core/ut/hex_utils_test.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1001048
+      },
+      "writtenOn": "2021-10-12T09:55:59Z",
+      "side": 1,
+      "message": "nit : as C header ,you can put under extern C {...} .",
+      "revId": "8fb6d93ee3c156b858d173be35d09380d7d6f3ca",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a5b45a31_7f76bf5f",
         "filename": "redfish-core/ut/hex_utils_test.cpp",
         "patchSetId": 2
