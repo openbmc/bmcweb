@@ -309,6 +309,30 @@
     },
     {
       "key": {
+        "uuid": "4b334d18_4d73b15c",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 219,
+      "author": {
+        "id": 1001026
+      },
+      "writtenOn": "2021-10-12T18:04:50Z",
+      "side": 1,
+      "message": "It could work here, but I think that this would not improve code readability. What if we have multiple unused elements? Then we can\u0027t name everything \u0027_\u0027.\n\nOptionally I can refactor this function to not use this mechanism:\nfor (const auto\u0026 metric : metrics){\n  // do something with metric.uris\n}\n\nIs it worth it?",
+      "parentUuid": "1ed94be9_ed13dfd5",
+      "range": {
+        "startLine": 219,
+        "startChar": 22,
+        "endLine": 219,
+        "endChar": 24
+      },
+      "revId": "7bb6e4c9838b38c14d9bae72350ba31489b983f3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "942acb89_b5d9516d",
         "filename": "redfish-core/lib/trigger.hpp",
         "patchSetId": 4
