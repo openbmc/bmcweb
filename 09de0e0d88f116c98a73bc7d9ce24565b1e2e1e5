@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c15d91c7_90f54728",
+        "filename": "redfish-core/include/gzfile.hpp",
+        "patchSetId": 35
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1001048
+      },
+      "writtenOn": "2021-10-12T11:52:40Z",
+      "side": 1,
+      "message": "If this is C header you can include under extern \"C\" { ...}",
+      "revId": "09de0e0d88f116c98a73bc7d9ce24565b1e2e1e5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dcc621cc_ca5a44d6",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 35
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1001048
+      },
+      "writtenOn": "2021-10-12T11:52:40Z",
+      "side": 1,
+      "message": "If C headers ,you can include under extern \"C\" { }",
+      "range": {
+        "startLine": 26,
+        "startChar": 0,
+        "endLine": 27,
+        "endChar": 19
+      },
+      "revId": "09de0e0d88f116c98a73bc7d9ce24565b1e2e1e5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
