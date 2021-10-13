@@ -1,5 +1,4 @@
 #pragma once
-#include <tinyxml2.h>
 
 #include <app.hpp>
 #include <async_resp.hpp>
