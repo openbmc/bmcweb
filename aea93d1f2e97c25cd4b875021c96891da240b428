@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6b643535_9262f70e",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 494,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2021-10-13T21:20:42Z",
+      "side": 1,
+      "message": "Ed mentioned that I shouldn\u0027t hardcode path names in https://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/43744/43/redfish-core/lib/chassis.hpp#491,\n\nMove the discussion to there.",
+      "range": {
+        "startLine": 492,
+        "startChar": 30,
+        "endLine": 494,
+        "endChar": 75
+      },
+      "revId": "aea93d1f2e97c25cd4b875021c96891da240b428",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
