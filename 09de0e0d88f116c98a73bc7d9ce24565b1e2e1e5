@@ -39,6 +39,30 @@
       "revId": "09de0e0d88f116c98a73bc7d9ce24565b1e2e1e5",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "edc64007_82ba7781",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 35
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2021-10-13T23:06:28Z",
+      "side": 1,
+      "message": "Ack. I believe it is handled in the included header already.",
+      "parentUuid": "dcc621cc_ca5a44d6",
+      "range": {
+        "startLine": 26,
+        "startChar": 0,
+        "endLine": 27,
+        "endChar": 19
+      },
+      "revId": "09de0e0d88f116c98a73bc7d9ce24565b1e2e1e5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
