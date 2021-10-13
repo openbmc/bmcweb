@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "3d1ed134_1b0674b6",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 43
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2021-10-13T21:20:50Z",
+      "side": 1,
+      "message": "Moved to https://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/47815",
+      "parentUuid": "6bfbda59_45266de2",
+      "range": {
+        "startLine": 123,
+        "startChar": 0,
+        "endLine": 126,
+        "endChar": 20
+      },
+      "revId": "6641333e5f4f193c04cda2c849c90d7792f64aa5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "890576de_99edbb11",
         "filename": "redfish-core/lib/chassis.hpp",
         "patchSetId": 43
