@@ -291,12 +291,10 @@ endif
 bmcweb_dependencies += sdbusplus
 
 if get_option('rest').enabled()
-  tinyxml = dependency('tinyxml2', required: false)
-  if not tinyxml.found()
-    tinyxml_proj = subproject('tinyxml2', required: true)
-    tinyxml = tinyxml_proj.get_variable('tinyxml2_dep')
-    tinyxml = tinyxml.as_system('system')
-  endif
+  tinyxml = dependency('tinyxml2',
+      default_options: ['tests=false'],
+      include_type: 'system',
+  )
   bmcweb_dependencies += tinyxml
 endif
 
