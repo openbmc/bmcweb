@@ -378,7 +378,7 @@ configure_file(input: 'bmcweb_config.h.in',
 
 # Configure and install systemd unit files
 
-systemd_system_unit_dir = systemd.get_pkgconfig_variable('systemdsystemunitdir')
+systemd_system_unit_dir = systemd.get_variable(pkgconfig: 'systemdsystemunitdir')
 
 bindir = get_option('prefix') + '/' +get_option('bindir')
 
@@ -421,7 +421,7 @@ executable('bmcweb',srcfiles_bmcweb,
 if(get_option('tests').enabled())
   foreach src_test : srcfiles_unittest
     testname = src_test.split('/')[-1].split('.')[0]
-    test(testname,executable(testname, 
+    test(testname,executable(testname,
         [src_test,
         'src/boost_url.cpp'],
                 include_directories : incdir,
