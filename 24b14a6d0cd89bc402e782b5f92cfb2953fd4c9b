@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "9519ec76_4ebdf38b",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 3198,
+      "author": {
+        "id": 1001027
+      },
+      "writtenOn": "2021-10-13T06:44:34Z",
+      "side": 1,
+      "message": "\u003e Ed and zhanghaicheng, thermal metrics allow us to collect all thermal sensors from the requested chassis and the sub-chassis under the requested chassis. This can be achieved to collect all sub-chassis using association say \u0027all_chassis\u0027 from requested chassis to sub chassis if exists and then collect the list of all sensors using association `all_sensors` from the chassis collection. Let us know if it can be added to this commit or I can push a commit on top of this commit.\n\nLet Ed decide whether to do this.\nIf you want to do it, you need to modify line 639, so please push a commit on top of this commit.",
+      "parentUuid": "e2ec96e1_aec706dd",
+      "revId": "24b14a6d0cd89bc402e782b5f92cfb2953fd4c9b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "f0342dab_f6aebbdf",
         "filename": "redfish-core/lib/sensors.hpp",
         "patchSetId": 18
@@ -30,6 +48,24 @@
       "writtenOn": "2021-10-12T17:35:13Z",
       "side": 1,
       "message": "Ed and zhanghaicheng, there is a performance issue with this call. As tested on AST2600 it can take upto ~70ms. Looks like this call identifies the ObjectMapper is implemented on a root or sensor path on the connections. It can be cut down using approach -\u003e first try to use the sensor path to get GetManagedObjects for the connection if there is a failure then fallback to default root path for the connection. In that case we can get rid of this call.",
+      "revId": "24b14a6d0cd89bc402e782b5f92cfb2953fd4c9b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1dae8bc8_f429e891",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 3364,
+      "author": {
+        "id": 1001027
+      },
+      "writtenOn": "2021-10-13T06:44:34Z",
+      "side": 1,
+      "message": "\u003e first try to use the sensor path to get GetManagedObjects for the connection\n\nSounds great, but I don’t know how to do this? Please elaborate.",
+      "parentUuid": "f0342dab_f6aebbdf",
       "revId": "24b14a6d0cd89bc402e782b5f92cfb2953fd4c9b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
