@@ -73,6 +73,70 @@ inline void getChassisState(std::shared_ptr<bmcweb::AsyncResp> aResp)
 }
 
 /**
+ * @brief Retrieves resources over dbus to link to the chassis
+ *
+ * @param[in] aResp       - Shared pointer for completing asynchronous calls.
+ * @param[in] chassisPath  - Chassis dbus path to look for the storage.
+ * @param[in] resoruce     - Resource to link to the chassis
+ * @param[in] resourceURI  - Resource URI to add the resource
+ * @param[in] interfaces   - List of interfaces to constrain the GetSubTree
+ * search
+ *
+ * @return None.
+ */
+inline void getChassisResources(std::shared_ptr<bmcweb::AsyncResp> asyncResp,
+                                const std::string& chassisPath,
+                                const std::string& resource,
+                                const std::string& resourceURI)
+{
+    crow::connections::systemBus->async_method_call(
+        [asyncResp, resource,
+         resourceURI](const boost::system::error_code ec,
+                      const std::variant<std::vector<std::string>>& resources) {
+            BMCWEB_LOG_ERROR << "getChassisResources(): 0";
+            if (ec)
+            {
+                return;
+            }
+            BMCWEB_LOG_ERROR << "getChassisResources(): 1";
+
+            const std::vector<std::string>* resourcePath =
+                std::get_if<std::vector<std::string>>(&resources);
+            if (resourcePath == nullptr)
+            {
+                return;
+            }
+
+            BMCWEB_LOG_ERROR << "getChassisResources(): 2";
+
+            nlohmann::json& resourcesLink =
+                asyncResp->res.jsonValue["Links"][resource];
+            resourcesLink = nlohmann::json::array();
+            auto& count = asyncResp->res.jsonValue[resource + "@odata.count"];
+            count = 0;
+
+            for (const auto& path : *resourcePath)
+            {
+                BMCWEB_LOG_ERROR << "getChassisResources(): 3 " << path;
+
+                sdbusplus::message::object_path objectPath(path);
+                std::string leaf = objectPath.filename();
+                if (leaf.empty())
+                {
+                    BMCWEB_LOG_ERROR << "filename() is empty in " << path;
+                    continue;
+                }
+                resourcesLink.push_back({{"@odata.id", resourceURI + leaf}});
+            }
+            count = resourcesLink.size();
+            BMCWEB_LOG_ERROR << "getChassisResources(): 4 " << count;
+        },
+        "xyz.openbmc_project.ObjectMapper", chassisPath + "/" + resource,
+        "org.freedesktop.DBus.Properties", "Get",
+        "xyz.openbmc_project.Association", "endpoints");
+}
+
+/**
  * DBus types primitives for several generic DBus interfaces
  * TODO(Pawel) consider move this to separate file into boost::dbus
  */
@@ -369,11 +433,11 @@ inline void requestRoutesChassis(App& app)
                         }
 
                         crow::connections::systemBus->async_method_call(
-                            [asyncResp, chassisId(std::string(chassisId))](
-                                const boost::system::error_code /*ec2*/,
-                                const std::vector<
-                                    std::pair<std::string, VariantType>>&
-                                    propertiesList) {
+                            [asyncResp, chassisId(std::string(chassisId)),
+                             path](const boost::system::error_code /*ec2*/,
+                                   const std::vector<
+                                       std::pair<std::string, VariantType>>&
+                                       propertiesList) {
                                 for (const std::pair<std::string, VariantType>&
                                          property : propertiesList)
                                 {
@@ -425,6 +489,9 @@ inline void requestRoutesChassis(App& app)
                                     {{{"@odata.id",
                                        "/redfish/v1/Managers/bmc"}}};
                                 getChassisState(asyncResp);
+                                getChassisResources(
+                                    asyncResp, path, "Storage",
+                                    "/redfish/v1/Systems/system/Storage/");
                             },
                             connectionName, path,
                             "org.freedesktop.DBus.Properties", "GetAll",
