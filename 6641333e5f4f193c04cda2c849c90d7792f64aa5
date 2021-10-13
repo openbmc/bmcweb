@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "6bfbda59_45266de2",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 43
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2021-10-13T20:40:24Z",
+      "side": 1,
+      "message": "WIP to moved it to a new review to separate this into smaller changes.\n\nI will ise /${resource} and /chassis to link between it.",
+      "parentUuid": "9f77b596_b7317d40",
+      "range": {
+        "startLine": 123,
+        "startChar": 0,
+        "endLine": 126,
+        "endChar": 20
+      },
+      "revId": "6641333e5f4f193c04cda2c849c90d7792f64aa5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "890576de_99edbb11",
         "filename": "redfish-core/lib/chassis.hpp",
         "patchSetId": 43
@@ -36,6 +60,30 @@
       "writtenOn": "2021-10-06T22:48:48Z",
       "side": 1,
       "message": "Please don\u0027t hardcode path names.  Use the mapper appropriately.",
+      "range": {
+        "startLine": 491,
+        "startChar": 57,
+        "endLine": 491,
+        "endChar": 72
+      },
+      "revId": "6641333e5f4f193c04cda2c849c90d7792f64aa5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9ea2657a_cb2ab19e",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 43
+      },
+      "lineNbr": 491,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2021-10-13T20:40:24Z",
+      "side": 1,
+      "message": "how do I get the resource URI for the resource that I want to link to?\n\nAre you thinking of the dbus path instead?",
+      "parentUuid": "890576de_99edbb11",
       "range": {
         "startLine": 491,
         "startChar": 57,

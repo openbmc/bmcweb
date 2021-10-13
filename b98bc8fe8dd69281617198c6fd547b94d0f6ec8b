@@ -190,6 +190,30 @@
     },
     {
       "key": {
+        "uuid": "1d60fdef_e1230f2a",
+        "filename": "redfish-core/lib/redfish_util.hpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2021-10-13T20:40:24Z",
+      "side": 1,
+      "message": "in summary, I want a function that parse the inventory items to find a chassis.\n\nIt will have a custom function to determine if it is a chassis and do something if it passed (callback)... then cleanup if it failed.\n\nIn most cases it will just be posting error message. Maybe we can just stick it in here instead of treating it as the function.",
+      "parentUuid": "702c0d0f_08a756c7",
+      "range": {
+        "startLine": 79,
+        "startChar": 0,
+        "endLine": 79,
+        "endChar": 59
+      },
+      "revId": "b98bc8fe8dd69281617198c6fd547b94d0f6ec8b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "77c63d04_5371afec",
         "filename": "redfish-core/lib/redfish_util.hpp",
         "patchSetId": 32
