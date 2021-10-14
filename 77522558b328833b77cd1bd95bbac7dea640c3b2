@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "256ed13d_39ca5163",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 29
+      },
+      "lineNbr": 490,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-10-14T20:37:00Z",
+      "side": 1,
+      "message": "Don\u0027t we need some updates here for https://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/46874 ?",
+      "revId": "77522558b328833b77cd1bd95bbac7dea640c3b2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
