@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5b422a2b_56173d05",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 2522,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-10-14T02:50:25Z",
+      "side": 1,
+      "message": "typically don\u0027t use auto here for these \nconst bool enable \u003d std::get_if\u003cbool\u003e(\u0026property.second); ?",
+      "range": {
+        "startLine": 2522,
+        "startChar": 34,
+        "endLine": 2522,
+        "endChar": 39
+      },
+      "revId": "ad93471569ffb0b097249ee2ce6dd6107c66eeb5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
