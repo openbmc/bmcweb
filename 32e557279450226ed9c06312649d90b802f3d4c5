@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "a1fc2399_be94092f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 102
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2021-10-15T12:10:11Z",
+      "side": 1,
+      "message": "Yes you are right.\n\nI will fix this typo.",
+      "parentUuid": "c371980d_710fc5f8",
+      "range": {
+        "startLine": 9,
+        "startChar": 45,
+        "endLine": 10,
+        "endChar": 32
+      },
+      "revId": "32e557279450226ed9c06312649d90b802f3d4c5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "cc1d6a8c_91ad3500",
         "filename": "/COMMIT_MSG",
         "patchSetId": 102
@@ -36,6 +60,30 @@
       "writtenOn": "2021-10-11T20:06:12Z",
       "side": 1,
       "message": "based on the below of two temp sensors having the same metric, that doesn\u0027t really seem true?",
+      "range": {
+        "startLine": 11,
+        "startChar": 8,
+        "endLine": 11,
+        "endChar": 45
+      },
+      "revId": "32e557279450226ed9c06312649d90b802f3d4c5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bf76d531_2b3124de",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 102
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2021-10-15T12:10:11Z",
+      "side": 1,
+      "message": "That\u0027s leftover from previous patchset where it was grouped by reading type. I will delete it.",
+      "parentUuid": "cc1d6a8c_91ad3500",
       "range": {
         "startLine": 11,
         "startChar": 8,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "5fd6dbc2_465d01ed",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 102
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2021-10-15T12:10:11Z",
+      "side": 1,
+      "message": "Ok, I will put this behind mentioned flag.",
+      "parentUuid": "fce37f05_b2c04290",
+      "range": {
+        "startLine": 17,
+        "startChar": 48,
+        "endLine": 18,
+        "endChar": 8
+      },
+      "revId": "32e557279450226ed9c06312649d90b802f3d4c5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "04de3d05_5016e9ee",
         "filename": "/COMMIT_MSG",
         "patchSetId": 102
@@ -88,6 +160,24 @@
     },
     {
       "key": {
+        "uuid": "b04e7b65_b6b824ca",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 102
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2021-10-15T12:10:11Z",
+      "side": 1,
+      "message": "I would like to meet and discuss about this in real time. Let\u0027s discuss this further on discord in MetricDefinition thread.",
+      "parentUuid": "04de3d05_5016e9ee",
+      "revId": "32e557279450226ed9c06312649d90b802f3d4c5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "1f8dd11f_faf11da9",
         "filename": "/COMMIT_MSG",
         "patchSetId": 102
@@ -99,6 +189,30 @@
       "writtenOn": "2021-10-11T20:01:44Z",
       "side": 1,
       "message": "It seems odd that these two would be different MetricDefinitions?",
+      "range": {
+        "startLine": 51,
+        "startChar": 0,
+        "endLine": 56,
+        "endChar": 5
+      },
+      "revId": "32e557279450226ed9c06312649d90b802f3d4c5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e0c7ecf7_70b0a498",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 102
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2021-10-15T12:10:11Z",
+      "side": 1,
+      "message": "That\u0027s how it\u0027s implemented in mockup and your suggestion was to follow whatever is present in telemetry service mockup.",
+      "parentUuid": "1f8dd11f_faf11da9",
       "range": {
         "startLine": 51,
         "startChar": 0,
@@ -134,6 +248,30 @@
     },
     {
       "key": {
+        "uuid": "83611f44_3a66a579",
+        "filename": "redfish-core/include/utils/get_chassis_names.hpp",
+        "patchSetId": 102
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2021-10-15T12:10:11Z",
+      "side": 1,
+      "message": "Sure, I will do that.",
+      "parentUuid": "ccc3c01f_fa081c01",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 20,
+        "endChar": 54
+      },
+      "revId": "32e557279450226ed9c06312649d90b802f3d4c5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "51881bd5_aa0c6a84",
         "filename": "redfish-core/lib/metric_definition.hpp",
         "patchSetId": 102
@@ -145,6 +283,30 @@
       "writtenOn": "2021-10-11T20:01:44Z",
       "side": 1,
       "message": "This variant would allow non compliant interfaces to work with this code, (ie, if you published a sensor as a uint16_t).  Considering that we\u0027ve fixed the behavior of all the sensors to use the Double interface, please make this just pull in double like we do in other places, and delete the ValueVisitor class.",
+      "range": {
+        "startLine": 45,
+        "startChar": 0,
+        "endLine": 46,
+        "endChar": 69
+      },
+      "revId": "32e557279450226ed9c06312649d90b802f3d4c5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9036bea9_ac82ee80",
+        "filename": "redfish-core/lib/metric_definition.hpp",
+        "patchSetId": 102
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2021-10-15T12:10:11Z",
+      "side": 1,
+      "message": "Sure I will fix that.",
+      "parentUuid": "51881bd5_aa0c6a84",
       "range": {
         "startLine": 45,
         "startChar": 0,
@@ -180,6 +342,30 @@
     },
     {
       "key": {
+        "uuid": "5ee4764a_c0a69ffa",
+        "filename": "redfish-core/lib/metric_definition.hpp",
+        "patchSetId": 102
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2021-10-15T12:10:11Z",
+      "side": 1,
+      "message": "Yes, you are right I will fix it.",
+      "parentUuid": "d5bca864_a0d07581",
+      "range": {
+        "startLine": 58,
+        "startChar": 0,
+        "endLine": 60,
+        "endChar": 1
+      },
+      "revId": "32e557279450226ed9c06312649d90b802f3d4c5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "9b272d82_139b6da7",
         "filename": "redfish-core/lib/metric_definition.hpp",
         "patchSetId": 102
@@ -191,6 +377,30 @@
       "writtenOn": "2021-10-11T20:01:44Z",
       "side": 1,
       "message": "Please avoid auto here and use brace initialization.",
+      "range": {
+        "startLine": 148,
+        "startChar": 10,
+        "endLine": 148,
+        "endChar": 14
+      },
+      "revId": "32e557279450226ed9c06312649d90b802f3d4c5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "43414c21_65b4bc98",
+        "filename": "redfish-core/lib/metric_definition.hpp",
+        "patchSetId": 102
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2021-10-15T12:10:11Z",
+      "side": 1,
+      "message": "Ok, I will fix it.",
+      "parentUuid": "9b272d82_139b6da7",
       "range": {
         "startLine": 148,
         "startChar": 10,
@@ -226,6 +436,30 @@
     },
     {
       "key": {
+        "uuid": "527b3cb1_c438444c",
+        "filename": "redfish-core/lib/metric_definition.hpp",
+        "patchSetId": 102
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2021-10-15T12:10:11Z",
+      "side": 1,
+      "message": "It\u0027s intentional.\n\nThis list contains sensors we want to put in same MetricDefinition, for other 80% which are missing we will use path.filename() as a MetricDefinition name.",
+      "parentUuid": "75ac406e_0e2bd7d7",
+      "range": {
+        "startLine": 149,
+        "startChar": 4,
+        "endLine": 149,
+        "endChar": 72
+      },
+      "revId": "32e557279450226ed9c06312649d90b802f3d4c5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "46c7ed87_21091160",
         "filename": "redfish-core/lib/metric_definition.hpp",
         "patchSetId": 102
@@ -237,6 +471,30 @@
       "writtenOn": "2021-10-11T20:01:44Z",
       "side": 1,
       "message": "I\u0027m not quite following this.  this is checking to see if it\u0027s a fan tach, or a fan pwm, then mapping it to the upper case versions of that name?  If not, it falls back to making every sensor its own metric definition, which I thought we agreed wasn\u0027t what redfish specifies.",
+      "range": {
+        "startLine": 163,
+        "startChar": 0,
+        "endLine": 169,
+        "endChar": 62
+      },
+      "revId": "32e557279450226ed9c06312649d90b802f3d4c5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a427217a_352c4114",
+        "filename": "redfish-core/lib/metric_definition.hpp",
+        "patchSetId": 102
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2021-10-15T12:10:11Z",
+      "side": 1,
+      "message": "We agreed to not use reading type or reading unit as a metric definition name and to follow what is shown in telemetry service mockup.\n\nhttps://redfish.dmtf.org/redfish/mockups/v1/1109#TelemetryService--MetricDefinitions--PowerConsumedWatts\n\nSo to follow up sensor name is used as metric definition name. I just though that this was what we agreed. Maybe I got this wrong, so how should we name MetricDefinition which contains MetricProperty: {\n  /redfish/v1/Chassis/chassis1/Sensors/ps0_input_voltage,\n  /redfish/v1/Chassis/chassis2/Sensors/ps0_input_voltage\n}?",
+      "parentUuid": "46c7ed87_21091160",
       "range": {
         "startLine": 163,
         "startChar": 0,
@@ -272,6 +530,30 @@
     },
     {
       "key": {
+        "uuid": "00a8d3b2_0f45dfa9",
+        "filename": "redfish-core/lib/metric_definition.hpp",
+        "patchSetId": 102
+      },
+      "lineNbr": 211,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2021-10-15T12:10:11Z",
+      "side": 1,
+      "message": "Some time ago there was idea to use RAII object but you suggested to removed. I assumed that you are against RAII pattern so that why I introduced this workaround.\n\nFor reference: https://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/33363/76/redfish-core/include/utils/finalizer.hpp\n\nAnyway I will do as you suggested.",
+      "parentUuid": "92204fad_1df3b210",
+      "range": {
+        "startLine": 209,
+        "startChar": 0,
+        "endLine": 211,
+        "endChar": 17
+      },
+      "revId": "32e557279450226ed9c06312649d90b802f3d4c5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c637665b_bad94348",
         "filename": "redfish-core/lib/metric_definition.hpp",
         "patchSetId": 102
@@ -283,6 +565,30 @@
       "writtenOn": "2021-10-11T20:01:44Z",
       "side": 1,
       "message": "This seems like a little bit of overkill.  Considering we know exactly what sensor namespaces exist at compile time (because of the dbus  abstractions) couldn\u0027t this just return a fixed list of metric types and avoid dbus entirely?  Or is there something subtle that I\u0027m missing here?",
+      "range": {
+        "startLine": 253,
+        "startChar": 0,
+        "endLine": 259,
+        "endChar": 25
+      },
+      "revId": "32e557279450226ed9c06312649d90b802f3d4c5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b813e58c_be019481",
+        "filename": "redfish-core/lib/metric_definition.hpp",
+        "patchSetId": 102
+      },
+      "lineNbr": 259,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2021-10-15T12:10:11Z",
+      "side": 1,
+      "message": "Some system may introduce new sensors which are not present on other systems. Goal is to cover all sensors on all systems which implement sensor interface.",
+      "parentUuid": "c637665b_bad94348",
       "range": {
         "startLine": 253,
         "startChar": 0,
@@ -318,6 +624,30 @@
     },
     {
       "key": {
+        "uuid": "51975349_6eb2539b",
+        "filename": "redfish-core/lib/metric_definition.hpp",
+        "patchSetId": 102
+      },
+      "lineNbr": 332,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2021-10-15T12:10:11Z",
+      "side": 1,
+      "message": "Ok, I will do that.",
+      "parentUuid": "b6acee04_2bce916f",
+      "range": {
+        "startLine": 332,
+        "startChar": 0,
+        "endLine": 332,
+        "endChar": 61
+      },
+      "revId": "32e557279450226ed9c06312649d90b802f3d4c5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "9d2a5514_4a74a5ef",
         "filename": "redfish-core/lib/metric_definition.hpp",
         "patchSetId": 102
@@ -341,6 +671,30 @@
     },
     {
       "key": {
+        "uuid": "215a34f1_d96987ac",
+        "filename": "redfish-core/lib/metric_definition.hpp",
+        "patchSetId": 102
+      },
+      "lineNbr": 342,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2021-10-15T12:10:11Z",
+      "side": 1,
+      "message": "Considering we have only dbus path to sensor and sensor interface. How are we supposed to create a user friendly name?",
+      "parentUuid": "9d2a5514_4a74a5ef",
+      "range": {
+        "startLine": 342,
+        "startChar": 28,
+        "endLine": 342,
+        "endChar": 68
+      },
+      "revId": "32e557279450226ed9c06312649d90b802f3d4c5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "f5130006_d107ebc2",
         "filename": "redfish-core/lib/metric_definition.hpp",
         "patchSetId": 102
@@ -352,6 +706,30 @@
       "writtenOn": "2021-10-11T20:01:44Z",
       "side": 1,
       "message": "Both these calls can fail.  Please handle your errors",
+      "range": {
+        "startLine": 353,
+        "startChar": 40,
+        "endLine": 353,
+        "endChar": 51
+      },
+      "revId": "32e557279450226ed9c06312649d90b802f3d4c5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7064d0b1_9da32dfd",
+        "filename": "redfish-core/lib/metric_definition.hpp",
+        "patchSetId": 102
+      },
+      "lineNbr": 353,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2021-10-15T12:10:11Z",
+      "side": 1,
+      "message": "Ok, I will do that.",
+      "parentUuid": "f5130006_d107ebc2",
       "range": {
         "startLine": 353,
         "startChar": 40,
