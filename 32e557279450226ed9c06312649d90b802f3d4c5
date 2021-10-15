@@ -554,6 +554,30 @@
     },
     {
       "key": {
+        "uuid": "c71716d0_c1364bef",
+        "filename": "redfish-core/lib/metric_definition.hpp",
+        "patchSetId": 102
+      },
+      "lineNbr": 211,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2021-10-15T12:15:29Z",
+      "side": 1,
+      "message": "Here are few of your older comments:\n\nhttps://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/33363/56/redfish-core/lib/metric_definition.hpp#58\n\nhttps://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/33363/70/redfish-core/lib/metric_definition.hpp#59",
+      "parentUuid": "00a8d3b2_0f45dfa9",
+      "range": {
+        "startLine": 209,
+        "startChar": 0,
+        "endLine": 211,
+        "endChar": 17
+      },
+      "revId": "32e557279450226ed9c06312649d90b802f3d4c5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c637665b_bad94348",
         "filename": "redfish-core/lib/metric_definition.hpp",
         "patchSetId": 102
