@@ -310,6 +310,55 @@ class InventoryItem
 };
 
 /**
+ * @brief Response handler for parsing object connections necessary for sensors
+ * @param sensorNames Sensors retrieved from chassis
+ * @param subtree  Sensor subtrees
+ * @param callback Callback for processing gathered connections
+ */
+template <typename Callback>
+inline void getObjectsWithConnectionHandler(
+    const std::shared_ptr<boost::container::flat_set<std::string>>& sensorNames,
+    const GetSubTreeType& subtree, Callback&& callback)
+{
+    BMCWEB_LOG_DEBUG << "Found " << subtree.size() << " subtrees";
+
+    // Make unique list of connections only for requested sensor types and
+    // found in the chassis
+    boost::container::flat_set<std::string> connections;
+    std::set<std::pair<std::string, std::string>> objectsWithConnection;
+    // Intrinsic to avoid malloc.  Most systems will have < 8 sensor
+    // producers
+    connections.reserve(8);
+
+    BMCWEB_LOG_DEBUG << "sensorNames list count: " << sensorNames->size();
+    for (const std::string& tsensor : *sensorNames)
+    {
+        BMCWEB_LOG_DEBUG << "Sensor to find: " << tsensor;
+    }
+
+    for (const std::pair<
+             std::string,
+             std::vector<std::pair<std::string, std::vector<std::string>>>>&
+             object : subtree)
+    {
+        if (sensorNames->find(object.first) != sensorNames->end())
+        {
+            for (const std::pair<std::string, std::vector<std::string>>&
+                     objData : object.second)
+            {
+                BMCWEB_LOG_DEBUG << "Adding connection: " << objData.first;
+                connections.insert(objData.first);
+                objectsWithConnection.insert(
+                    std::make_pair(object.first, objData.first));
+            }
+        }
+    }
+    BMCWEB_LOG_DEBUG << "Found " << connections.size() << " connections";
+    callback(std::move(connections), std::move(objectsWithConnection));
+    BMCWEB_LOG_DEBUG << "getObjectsWithConnection resp_handler exit";
+}
+
+/**
  * @brief Get objects with connection necessary for sensors
  * @param SensorsAsyncResp Pointer to object holding response data
  * @param sensorNames Sensors retrieved from chassis
@@ -339,42 +388,8 @@ void getObjectsWithConnection(
             return;
         }
 
-        BMCWEB_LOG_DEBUG << "Found " << subtree.size() << " subtrees";
-
-        // Make unique list of connections only for requested sensor types and
-        // found in the chassis
-        boost::container::flat_set<std::string> connections;
-        std::set<std::pair<std::string, std::string>> objectsWithConnection;
-        // Intrinsic to avoid malloc.  Most systems will have < 8 sensor
-        // producers
-        connections.reserve(8);
-
-        BMCWEB_LOG_DEBUG << "sensorNames list count: " << sensorNames->size();
-        for (const std::string& tsensor : *sensorNames)
-        {
-            BMCWEB_LOG_DEBUG << "Sensor to find: " << tsensor;
-        }
-
-        for (const std::pair<
-                 std::string,
-                 std::vector<std::pair<std::string, std::vector<std::string>>>>&
-                 object : subtree)
-        {
-            if (sensorNames->find(object.first) != sensorNames->end())
-            {
-                for (const std::pair<std::string, std::vector<std::string>>&
-                         objData : object.second)
-                {
-                    BMCWEB_LOG_DEBUG << "Adding connection: " << objData.first;
-                    connections.insert(objData.first);
-                    objectsWithConnection.insert(
-                        std::make_pair(object.first, objData.first));
-                }
-            }
-        }
-        BMCWEB_LOG_DEBUG << "Found " << connections.size() << " connections";
-        callback(std::move(connections), std::move(objectsWithConnection));
-        BMCWEB_LOG_DEBUG << "getObjectsWithConnection resp_handler exit";
+        getObjectsWithConnectionHandler(sensorNames, subtree,
+                                        std::move(callback));
     };
     // Make call to ObjectMapper to find all sensors objects
     crow::connections::systemBus->async_method_call(
@@ -402,6 +417,25 @@ void getConnections(
                    /*objectsWithConnection*/) { callback(connections); };
     getObjectsWithConnection(sensorsAsyncResp, sensorNames,
                              std::move(objectsWithConnectionCb));
+}
+
+/**
+ * @brief Create connections necessary for sensors
+ * @param sensorNames Sensors retrieved from chassis
+ * @param subtree  Sensor subtrees
+ * @param callback Callback for processing gathered connections
+ */
+template <typename Callback>
+void getConnections(
+    const std::shared_ptr<boost::container::flat_set<std::string>> sensorNames,
+    const GetSubTreeType& subtree, Callback&& callback)
+{
+    auto objectsWithConnectionCb =
+        [callback](const boost::container::flat_set<std::string>& connections,
+                   const std::set<std::pair<std::string, std::string>>&
+                   /*objectsWithConnection*/) { callback(connections); };
+    getObjectsWithConnectionHandler(sensorNames, subtree,
+                                    std::move(objectsWithConnectionCb));
 }
 
 /**
@@ -2715,7 +2749,8 @@ inline void getSensorData(
 
 inline void processSensorList(
     const std::shared_ptr<SensorsAsyncResp>& sensorsAsyncResp,
-    const std::shared_ptr<boost::container::flat_set<std::string>>& sensorNames)
+    const std::shared_ptr<boost::container::flat_set<std::string>>& sensorNames,
+    const GetSubTreeType& subtree = {})
 {
     auto getConnectionCb =
         [sensorsAsyncResp, sensorNames](
@@ -2755,7 +2790,15 @@ inline void processSensorList(
         };
 
     // Get set of connections that provide sensor values
-    getConnections(sensorsAsyncResp, sensorNames, std::move(getConnectionCb));
+    if (subtree.empty())
+    {
+        getConnections(sensorsAsyncResp, sensorNames,
+                       std::move(getConnectionCb));
+    }
+    else
+    {
+        getConnections(sensorNames, subtree, std::move(getConnectionCb));
+    }
 }
 
 /**
@@ -3113,7 +3156,7 @@ inline void requestRoutesSensor(App& app)
                             boost::container::flat_set<std::string>>();
 
                     sensorList->emplace(sensorPath);
-                    processSensorList(asyncResp, sensorList);
+                    processSensorList(asyncResp, sensorList, subtree);
                     BMCWEB_LOG_DEBUG << "respHandler1 exit";
                 },
                 "xyz.openbmc_project.ObjectMapper",
