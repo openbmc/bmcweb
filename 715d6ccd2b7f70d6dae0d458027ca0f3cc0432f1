@@ -1,0 +1,234 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "901127b0_bee691d6",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 30
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-10-16T18:30:59Z",
+      "side": 1,
+      "message": "Please delete.  constitency in initialization makes it easier to read this.",
+      "range": {
+        "startLine": 82,
+        "startChar": 31,
+        "endLine": 82,
+        "endChar": 36
+      },
+      "revId": "715d6ccd2b7f70d6dae0d458027ca0f3cc0432f1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a0350042_4f5028f7",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 30
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-10-16T18:30:59Z",
+      "side": 1,
+      "message": "Rather than having the foundSnmpClient variable, can could you just return here instead of continuing?  That would remove the need for the variable, the setting of the variable, and the branch.",
+      "range": {
+        "startLine": 167,
+        "startChar": 0,
+        "endLine": 167,
+        "endChar": 68
+      },
+      "revId": "715d6ccd2b7f70d6dae0d458027ca0f3cc0432f1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9000faa8_a8659198",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 30
+      },
+      "lineNbr": 175,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-10-16T18:30:59Z",
+      "side": 1,
+      "message": "This return is unnecessary and doesn\u0027t do anything.",
+      "range": {
+        "startLine": 175,
+        "startChar": 16,
+        "endLine": 175,
+        "endChar": 22
+      },
+      "revId": "715d6ccd2b7f70d6dae0d458027ca0f3cc0432f1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "14766b10_42dbb50f",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 30
+      },
+      "lineNbr": 220,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-10-16T18:30:59Z",
+      "side": 1,
+      "message": "Why do we need to set the snmp dbus id here just to immediately set it back to empty string after?  Should it just be an input parameter onto addSubscription?",
+      "range": {
+        "startLine": 220,
+        "startChar": 47,
+        "endLine": 220,
+        "endChar": 60
+      },
+      "revId": "715d6ccd2b7f70d6dae0d458027ca0f3cc0432f1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "59deba77_9da6c6d7",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 30
+      },
+      "lineNbr": 398,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-10-16T18:30:59Z",
+      "side": 1,
+      "message": "The way this code is written, all systems will now be required to have SNMP installed.  I suspect you should be using the mapper here and handling the errors properly.",
+      "range": {
+        "startLine": 398,
+        "startChar": 0,
+        "endLine": 398,
+        "endChar": 64
+      },
+      "revId": "715d6ccd2b7f70d6dae0d458027ca0f3cc0432f1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b22d5e19_cbcbc467",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 30
+      },
+      "lineNbr": 411,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-10-16T18:30:59Z",
+      "side": 1,
+      "message": "please avoid auto in this context.  It makes it hard to understand what the return type is.",
+      "range": {
+        "startLine": 411,
+        "startChar": 35,
+        "endLine": 411,
+        "endChar": 39
+      },
+      "revId": "715d6ccd2b7f70d6dae0d458027ca0f3cc0432f1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b815620e_f1db07da",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 30
+      },
+      "lineNbr": 429,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-10-16T18:30:59Z",
+      "side": 1,
+      "message": "This is now quite a few scopes deep into something that was already reasonably complex.  can it be broken up into smaller methods?",
+      "range": {
+        "startLine": 422,
+        "startChar": 0,
+        "endLine": 429,
+        "endChar": 25
+      },
+      "revId": "715d6ccd2b7f70d6dae0d458027ca0f3cc0432f1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "845ec27e_ec8d8090",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 30
+      },
+      "lineNbr": 486,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-10-16T18:30:59Z",
+      "side": 1,
+      "message": "Please prefer to use .data() and .size() here rather than c_str().  It is faster to construct and is less error prone (even though this code looks like it uses it properly).",
+      "range": {
+        "startLine": 486,
+        "startChar": 47,
+        "endLine": 486,
+        "endChar": 52
+      },
+      "revId": "715d6ccd2b7f70d6dae0d458027ca0f3cc0432f1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "99318468_9bc6656e",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 30
+      },
+      "lineNbr": 489,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-10-16T18:30:59Z",
+      "side": 1,
+      "message": "Please use the appropriate logging mechanisms.",
+      "range": {
+        "startLine": 489,
+        "startChar": 20,
+        "endLine": 489,
+        "endChar": 29
+      },
+      "revId": "715d6ccd2b7f70d6dae0d458027ca0f3cc0432f1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3e130d26_0907d60c",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 30
+      },
+      "lineNbr": 728,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-10-16T18:30:59Z",
+      "side": 1,
+      "message": "in cases like this, prefer to return immediately on line 726 and avoid the \"else\" case.",
+      "range": {
+        "startLine": 728,
+        "startChar": 16,
+        "endLine": 728,
+        "endChar": 20
+      },
+      "revId": "715d6ccd2b7f70d6dae0d458027ca0f3cc0432f1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
