@@ -81,6 +81,30 @@
       "revId": "3324a24394c8067d5c8b9db8c7c3c4e99dbe99c7",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "20d8e8ae_dfdceb0f",
+        "filename": "redfish-core/include/utils/telemetry_utils.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-10-16T18:15:39Z",
+      "side": 1,
+      "message": "\u003e Unfortunately, for Telemetry Reports and Triggers we must use our version of \u0027getCollection\u0027 (this one here). I have tried to use function call you had suggested but it didn\u0027t work in every case.\n\nWhich cases?\n\n\u003e For example in Telemetry there can be no Reports and no Triggers, then our \u0027getCollection\u0027 will recognize error from dbus enquiry -\u003e boost::system::errc::io_error, as \u0027objects not found\u0027 and provide empty members array with \u0027members.count \u003d 0\u0027 data. For the same case your version of \u0027getCollection\u0027 will process io_error as any other error and respond with internal error notification, giving no substantial (and expected by Telemetry) JSON data in return. Please take that into account and reconsider.\n\nhttps://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/47419\n\nplease rebase on top of this patch and retest.  I believe it already fixes the issue you found.  If it works for you, please help to review it.",
+      "parentUuid": "ff56e02f_0775f09d",
+      "range": {
+        "startLine": 39,
+        "startChar": 0,
+        "endLine": 39,
+        "endChar": 78
+      },
+      "revId": "3324a24394c8067d5c8b9db8c7c3c4e99dbe99c7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
