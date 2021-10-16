@@ -105,6 +105,30 @@
       "revId": "d6070725bcb702cb5819269c4e80e91e45e1dc6b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bf220902_8a7d0d7c",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-10-16T19:21:18Z",
+      "side": 1,
+      "message": "The GET method permissions can easily be different between routes.  Please do more research into how PrivilegeRegistry is defined.  It defines permissions per resource.",
+      "parentUuid": "af7a6f65_454704ac",
+      "range": {
+        "startLine": 85,
+        "startChar": 4,
+        "endLine": 85,
+        "endChar": 36
+      },
+      "revId": "d6070725bcb702cb5819269c4e80e91e45e1dc6b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
