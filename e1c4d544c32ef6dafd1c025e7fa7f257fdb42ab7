@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2b4ba559_16f0fd95",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-10-16T18:04:41Z",
+      "side": 1,
+      "message": "This looks like a violation of one of the common rules around multi-concurrent access, and in practice, is going to cause a new cache to be formed that has no cache invalidation, which will lead to incorrect results later.  Lets get the commit messaged updated with the details of exactly what you\u0027re wanting to accomplish, and go from there.",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 71
+      },
+      "revId": "e1c4d544c32ef6dafd1c025e7fa7f257fdb42ab7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5fded79c_4ce55828",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-10-16T18:04:41Z",
+      "side": 1,
+      "message": "Looking at the code, there\u0027s no way this could be true, given that sensors can disappear at runtime.  Lets get the previous comment addressed, and go from there.  once we figure out what we want, then we can figure out an appropriate test plan.",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 43
+      },
+      "revId": "e1c4d544c32ef6dafd1c025e7fa7f257fdb42ab7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
