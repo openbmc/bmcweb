@@ -146,6 +146,30 @@
       "revId": "9f2043a6e960d44773ae1125c085e45fb39303df",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4618db24_cdba78f2",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 268,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-10-16T18:12:28Z",
+      "side": 1,
+      "message": "you\u0027re right, you would have to again update the pointer.  nbd.  This was a nit.",
+      "parentUuid": "3b6544a8_5d3bb9a5",
+      "range": {
+        "startLine": 261,
+        "startChar": 0,
+        "endLine": 268,
+        "endChar": 21
+      },
+      "revId": "9f2043a6e960d44773ae1125c085e45fb39303df",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
