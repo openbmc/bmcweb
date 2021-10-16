@@ -3107,7 +3107,7 @@ inline void requestRoutesSensor(App& app)
                     BMCWEB_LOG_DEBUG << "Found sensor path for sensor '"
                                      << sensorName << "': " << sensorPath;
 
-                    const std::shared_ptr<
+                    static const std::shared_ptr<
                         boost::container::flat_set<std::string>>
                         sensorList = std::make_shared<
                             boost::container::flat_set<std::string>>();
