@@ -1,0 +1,159 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "95f2cd0d_9d5353da",
+        "filename": "redfish-core/lib/network_protocol.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-10-17T17:44:52Z",
+      "side": 1,
+      "message": "This is a utils method, and should go in the utils folder, along with some unit tests.",
+      "revId": "95a23769121956db90ef0090fbd5478f5ab41b13",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d1493e73_7d9e513d",
+        "filename": "redfish-core/lib/network_protocol.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-10-17T17:44:52Z",
+      "side": 1,
+      "message": "Is there a way to avoid making a complete copy of the vector?  Given the most common use, we don\u0027t use the vector afterward, so it seems like an in-place version would be better.",
+      "range": {
+        "startLine": 37,
+        "startChar": 7,
+        "endLine": 37,
+        "endChar": 31
+      },
+      "revId": "95a23769121956db90ef0090fbd5478f5ab41b13",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7be1ecd0_a7743e42",
+        "filename": "redfish-core/lib/network_protocol.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-10-17T17:44:52Z",
+      "side": 1,
+      "message": "nit: does it make more sense to name this \"removeDuplicates\"",
+      "range": {
+        "startLine": 38,
+        "startChar": 4,
+        "endLine": 38,
+        "endChar": 17
+      },
+      "revId": "95a23769121956db90ef0090fbd5478f5ab41b13",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bf5ad37f_31586285",
+        "filename": "redfish-core/lib/network_protocol.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-10-17T17:44:52Z",
+      "side": 1,
+      "message": "std::string please.",
+      "range": {
+        "startLine": 41,
+        "startChar": 15,
+        "endLine": 41,
+        "endChar": 19
+      },
+      "revId": "95a23769121956db90ef0090fbd5478f5ab41b13",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eae0f90d_8e11ec2b",
+        "filename": "redfish-core/lib/network_protocol.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-10-17T17:44:52Z",
+      "side": 1,
+      "message": "You have a std::string instance called \"vec\"?  That doesn\u0027t seem like a very descriptive name, and could be very misleading, as it implies it\u0027s yet another vector being contained within, when in fact, it\u0027s a string.",
+      "range": {
+        "startLine": 41,
+        "startChar": 21,
+        "endLine": 41,
+        "endChar": 24
+      },
+      "revId": "95a23769121956db90ef0090fbd5478f5ab41b13",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d96c1928_7ed6dc53",
+        "filename": "redfish-core/lib/network_protocol.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-10-17T17:44:52Z",
+      "side": 1,
+      "message": "Why is this necessary?  Don\u0027t empty strings need deduplicated as well?",
+      "range": {
+        "startLine": 43,
+        "startChar": 0,
+        "endLine": 46,
+        "endChar": 9
+      },
+      "revId": "95a23769121956db90ef0090fbd5478f5ab41b13",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "12dd60c2_0f7b5d4f",
+        "filename": "redfish-core/lib/network_protocol.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 420,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-10-17T17:44:52Z",
+      "side": 1,
+      "message": "Please move this to its own line for readability.",
+      "range": {
+        "startLine": 420,
+        "startChar": 46,
+        "endLine": 420,
+        "endChar": 73
+      },
+      "revId": "95a23769121956db90ef0090fbd5478f5ab41b13",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
