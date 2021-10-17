@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "24f0b106_cfcd52f7",
+        "filename": "redfish-core/include/utils/telemetry_utils.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-10-17T21:35:37Z",
+      "side": 1,
+      "message": "These days this should be using sdbusplus::message::object_path::operator+\u003d to do this transformation.",
+      "range": {
+        "startLine": 77,
+        "startChar": 0,
+        "endLine": 77,
+        "endChar": 43
+      },
+      "revId": "b330002e56648de285dc1cd7506de7ee457f8f97",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a133ee74_7dbd574a",
+        "filename": "redfish-core/lib/trigger.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-10-17T21:35:37Z",
+      "side": 1,
+      "message": "Considering there is no GET verb for this path yet, wouldn\u0027t that be a prerequisite of this patchset?  As written, it would allow deletion of paths that don\u0027t exist yet.",
+      "range": {
+        "startLine": 15,
+        "startChar": 17,
+        "endLine": 15,
+        "endChar": 50
+      },
+      "revId": "b330002e56648de285dc1cd7506de7ee457f8f97",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "036c236f_72e9e5f8",
+        "filename": "redfish-core/lib/trigger.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-10-17T21:35:37Z",
+      "side": 1,
+      "message": "This comment doesn\u0027t really seem needed, considering we can use EBADR?",
+      "range": {
+        "startLine": 24,
+        "startChar": 0,
+        "endLine": 27,
+        "endChar": 27
+      },
+      "revId": "b330002e56648de285dc1cd7506de7ee457f8f97",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4c983c53_d61f2578",
+        "filename": "redfish-core/lib/trigger.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-10-17T21:35:37Z",
+      "side": 1,
+      "message": "Should this be using success instead?\n\nhttps://github.com/openbmc/bmcweb/blob/81856681e1feabe267c0d1998182c9226106aa6d/redfish-core/src/error_messages.cpp#L1478",
+      "range": {
+        "startLine": 42,
+        "startChar": 24,
+        "endLine": 43,
+        "endChar": 68
+      },
+      "revId": "b330002e56648de285dc1cd7506de7ee457f8f97",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
