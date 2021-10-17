@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a6719e8a_4e4477a0",
+        "filename": "redfish-core/lib/network_protocol.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 264,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-10-17T17:49:28Z",
+      "side": 0,
+      "message": "Considering that we now deduplicate between multiple endpoints on the GET, don\u0027t we also need to fail a call if it contains duplicates?  Otherwise, you would write\n\n[1.1.1.1, 1.1.1.1]\n\nand get back \n\n[1.1.1.1]",
+      "range": {
+        "startLine": 264,
+        "startChar": 4,
+        "endLine": 264,
+        "endChar": 25
+      },
+      "revId": "95a23769121956db90ef0090fbd5478f5ab41b13",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
