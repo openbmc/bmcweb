@@ -75,6 +75,30 @@
       "revId": "eb73d8d1f103c2f4573dc74c5e74613e8bda0e15",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c171f931_8025407f",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1298,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-10-17T22:10:53Z",
+      "side": 1,
+      "message": "The conflict here is that I\u0027m pretty sure this style of init compiles smaller/constructs more efficiently than the operator[] alternative, which requires constructing intermediate strings to do the lookup.  Yeah, it\u0027s fugly, but I\u0027m hesitant to do it the other way.",
+      "parentUuid": "9468c399_7d50fb79",
+      "range": {
+        "startLine": 1298,
+        "startChar": 21,
+        "endLine": 1298,
+        "endChar": 28
+      },
+      "revId": "eb73d8d1f103c2f4573dc74c5e74613e8bda0e15",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
