@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ef093479_8c719076",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-10-17T17:58:04Z",
+      "side": 1,
+      "message": "Looking at this patch, I don\u0027t see how this could be the case.  See next comment in trigger.hpp.",
+      "range": {
+        "startLine": 17,
+        "startChar": 2,
+        "endLine": 17,
+        "endChar": 61
+      },
+      "revId": "098d12eda3d0e5477dc52a1b8840170eb46a0bb6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "96b83794_d7be2f5f",
+        "filename": "redfish-core/include/utils/telemetry_utils.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-10-17T17:58:04Z",
+      "side": 1,
+      "message": "All three of these variables are only used in only one place.  Please inline at the lowest possible scope.",
+      "range": {
+        "startLine": 23,
+        "startChar": 0,
+        "endLine": 23,
+        "endChar": 76
+      },
+      "revId": "098d12eda3d0e5477dc52a1b8840170eb46a0bb6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b21d9a46_72508cdb",
+        "filename": "redfish-core/lib/trigger.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-10-17T17:58:04Z",
+      "side": 1,
+      "message": "I don\u0027t understand how this could pass the service validator, given that there\u0027s no BMCWEB_ROUTE for /redfish/v1/TelemetryService/Triggers/\u003cstr\u003e in this patchset.  Am I missing something?",
+      "range": {
+        "startLine": 12,
+        "startChar": 1,
+        "endLine": 14,
+        "endChar": 0
+      },
+      "revId": "098d12eda3d0e5477dc52a1b8840170eb46a0bb6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
