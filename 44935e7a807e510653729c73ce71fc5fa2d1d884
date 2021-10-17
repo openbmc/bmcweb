@@ -22,6 +22,138 @@
       "revId": "44935e7a807e510653729c73ce71fc5fa2d1d884",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5ca06fa0_c02ddc8e",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 2503,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-10-17T21:53:43Z",
+      "side": 1,
+      "message": "Could you use one of the common variant types instead?  I believe all these types are already covered.",
+      "range": {
+        "startLine": 2501,
+        "startChar": 0,
+        "endLine": 2503,
+        "endChar": 73
+      },
+      "revId": "44935e7a807e510653729c73ce71fc5fa2d1d884",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a291ac7b_20fcc70e",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 2505,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-10-17T21:53:43Z",
+      "side": 1,
+      "message": "I don\u0027t ever see this being used as a map, only being looped over.  Maybe you meant std::vector\u003cstd::pair\u003c\u003e\u003e?",
+      "range": {
+        "startLine": 2505,
+        "startChar": 16,
+        "endLine": 2505,
+        "endChar": 42
+      },
+      "revId": "44935e7a807e510653729c73ce71fc5fa2d1d884",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b2a85dd3_c1b940e3",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 2526,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-10-17T21:53:43Z",
+      "side": 1,
+      "message": "Please break this code up such that it\u0027s readable.  This code is 9 scopes deep.",
+      "revId": "44935e7a807e510653729c73ce71fc5fa2d1d884",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1dac1cd7_befb2fcb",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 2556,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-10-17T21:53:43Z",
+      "side": 1,
+      "message": "Same comment as below.  std::chrono::milliseconds is signed, I suspect you want std::duration\u003cuint64_t, std::milli\u003e",
+      "range": {
+        "startLine": 2556,
+        "startChar": 0,
+        "endLine": 2556,
+        "endChar": 63
+      },
+      "revId": "44935e7a807e510653729c73ce71fc5fa2d1d884",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "73ac516b_9da949eb",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 2592,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-10-17T21:53:43Z",
+      "side": 1,
+      "message": "Technically this and the milliseconds type above should be std::chrono::duration\u003cuint64_t\u003e to avoid casting issues from int to uint.  std::chrono::seconds uses a signed type.",
+      "range": {
+        "startLine": 2592,
+        "startChar": 49,
+        "endLine": 2592,
+        "endChar": 56
+      },
+      "revId": "44935e7a807e510653729c73ce71fc5fa2d1d884",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4aff0316_06164e3c",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 2597,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-10-17T21:53:43Z",
+      "side": 1,
+      "message": "nit: this should be warning level to account for additions to the schema in the future.",
+      "range": {
+        "startLine": 2597,
+        "startChar": 28,
+        "endLine": 2597,
+        "endChar": 44
+      },
+      "revId": "44935e7a807e510653729c73ce71fc5fa2d1d884",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
