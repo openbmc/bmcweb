@@ -279,6 +279,7 @@ enum class LedState
 class InventoryItem
 {
   public:
+    InventoryItem(){};
     InventoryItem(const std::string& objPath) :
         objectPath(objPath), name(), isPresent(true), isFunctional(true),
         isPowerSupply(false), powerSupplyEfficiencyPercent(-1), manufacturer(),
@@ -1444,17 +1445,17 @@ inline void
  * @return Inventory item within vector, or nullptr if no match found.
  */
 inline InventoryItem* findInventoryItem(
-    const std::shared_ptr<std::vector<InventoryItem>>& inventoryItems,
+    const std::shared_ptr<
+        boost::container::flat_map<std::string, InventoryItem>>& inventoryItems,
     const std::string& invItemObjPath)
 {
-    for (InventoryItem& inventoryItem : *inventoryItems)
+    auto it = inventoryItems->find(invItemObjPath);
+    if (it == inventoryItems->end())
     {
-        if (inventoryItem.objectPath == invItemObjPath)
-        {
-            return &inventoryItem;
-        }
+        return nullptr;
     }
-    return nullptr;
+
+    return &(it->second);
 }
 
 /**
@@ -1464,10 +1465,11 @@ inline InventoryItem* findInventoryItem(
  * @return Inventory item within vector, or nullptr if no match found.
  */
 inline InventoryItem* findInventoryItemForSensor(
-    const std::shared_ptr<std::vector<InventoryItem>>& inventoryItems,
+    const std::shared_ptr<
+        boost::container::flat_map<std::string, InventoryItem>>& inventoryItems,
     const std::string& sensorObjPath)
 {
-    for (InventoryItem& inventoryItem : *inventoryItems)
+    for (auto& [_, inventoryItem] : *inventoryItems)
     {
         if (inventoryItem.sensors.count(sensorObjPath) > 0)
         {
@@ -1483,11 +1485,11 @@ inline InventoryItem* findInventoryItemForSensor(
  * @param ledObjPath D-Bus object path of led.
  * @return Inventory item within vector, or nullptr if no match found.
  */
-inline InventoryItem*
-    findInventoryItemForLed(std::vector<InventoryItem>& inventoryItems,
-                            const std::string& ledObjPath)
+inline InventoryItem* findInventoryItemForLed(
+    boost::container::flat_map<std::string, InventoryItem>& inventoryItems,
+    const std::string& ledObjPath)
 {
-    for (InventoryItem& inventoryItem : inventoryItems)
+    for (auto& [_, inventoryItem] : inventoryItems)
     {
         if (inventoryItem.ledObjectPath == ledObjPath)
         {
@@ -1512,7 +1514,8 @@ inline InventoryItem*
  * @param sensorObjPath D-Bus object path of sensor
  */
 inline void addInventoryItem(
-    const std::shared_ptr<std::vector<InventoryItem>>& inventoryItems,
+    const std::shared_ptr<
+        boost::container::flat_map<std::string, InventoryItem>>& inventoryItems,
     const std::string& invItemObjPath, const std::string& sensorObjPath)
 {
     // Look for inventory item in vector
@@ -1522,8 +1525,8 @@ inline void addInventoryItem(
     // If inventory item doesn't exist in vector, add it
     if (inventoryItem == nullptr)
     {
-        inventoryItems->emplace_back(invItemObjPath);
-        inventoryItem = &(inventoryItems->back());
+        inventoryItems->emplace(invItemObjPath, invItemObjPath);
+        inventoryItem = &((*inventoryItems)[sensorObjPath]);
     }
 
     // Add sensor to set of sensors associated with inventory item
@@ -1674,7 +1677,8 @@ inline void storeInventoryItemData(
 template <typename Callback>
 static void getInventoryItemsData(
     std::shared_ptr<SensorsAsyncResp> sensorsAsyncResp,
-    std::shared_ptr<std::vector<InventoryItem>> inventoryItems,
+    std::shared_ptr<boost::container::flat_map<std::string, InventoryItem>>&
+        inventoryItems,
     std::shared_ptr<boost::container::flat_set<std::string>> invConnections,
     std::shared_ptr<boost::container::flat_map<std::string, std::string>>
         objectMgrPaths,
@@ -1774,7 +1778,8 @@ static void getInventoryItemsData(
 template <typename Callback>
 static void getInventoryItemsConnections(
     const std::shared_ptr<SensorsAsyncResp>& sensorsAsyncResp,
-    const std::shared_ptr<std::vector<InventoryItem>>& inventoryItems,
+    const std::shared_ptr<
+        boost::container::flat_map<std::string, InventoryItem>>& inventoryItems,
     Callback&& callback)
 {
     BMCWEB_LOG_DEBUG << "getInventoryItemsConnections enter";
@@ -1849,7 +1854,8 @@ static void getInventoryItemsConnections(
  *
  * The callback must have the following signature:
  *   @code
- *   callback(std::shared_ptr<std::vector<InventoryItem>> inventoryItems)
+ *   callback(const std::shared_ptr<boost::container::flat_map<std::string,
+ * InventoryItem>>& inventoryItems,inventoryItems)
  *   @endcode
  *
  * @param sensorsAsyncResp Pointer to object holding response data.
@@ -1882,8 +1888,9 @@ static void getInventoryItemAssociations(
         }
 
         // Create vector to hold list of inventory items
-        std::shared_ptr<std::vector<InventoryItem>> inventoryItems =
-            std::make_shared<std::vector<InventoryItem>>();
+        std::shared_ptr<boost::container::flat_map<std::string, InventoryItem>>
+            inventoryItems = std::make_shared<
+                boost::container::flat_map<std::string, InventoryItem>>();
 
         // Loop through returned object paths
         std::string sensorAssocPath;
@@ -1944,7 +1951,7 @@ static void getInventoryItemAssociations(
                                  std::string, dbus::utility::DbusVariantType>>&
                 interfacesDict = objDictEntry.second;
 
-            for (InventoryItem& inventoryItem : *inventoryItems)
+            for (auto& [_, inventoryItem] : *inventoryItems)
             {
                 inventoryAssocPath = inventoryItem.objectPath;
                 inventoryAssocPath += "/leds";
@@ -2026,7 +2033,8 @@ static void getInventoryItemAssociations(
 template <typename Callback>
 void getInventoryLedData(
     std::shared_ptr<SensorsAsyncResp> sensorsAsyncResp,
-    std::shared_ptr<std::vector<InventoryItem>> inventoryItems,
+    std::shared_ptr<boost::container::flat_map<std::string, InventoryItem>>
+        inventoryItems,
     std::shared_ptr<boost::container::flat_map<std::string, std::string>>
         ledConnections,
     Callback&& callback, size_t ledConnectionsIndex = 0)
@@ -2139,7 +2147,8 @@ void getInventoryLedData(
 template <typename Callback>
 void getInventoryLeds(
     std::shared_ptr<SensorsAsyncResp> sensorsAsyncResp,
-    std::shared_ptr<std::vector<InventoryItem>> inventoryItems,
+    std::shared_ptr<boost::container::flat_map<std::string, InventoryItem>>
+        inventoryItems,
     Callback&& callback)
 {
     BMCWEB_LOG_DEBUG << "getInventoryLeds enter";
@@ -2212,7 +2221,8 @@ void getInventoryLeds(
  *
  * The callback must have the following signature:
  *   @code
- *   callback(std::shared_ptr<std::vector<InventoryItem>> inventoryItems)
+ *   callback(std::shared_ptr<boost::container::flat_map<std::string,
+ * InventoryItem>> inventoryItems)
  *   @endcode
  *
  * @param sensorsAsyncResp Pointer to object holding response data.
@@ -2224,7 +2234,8 @@ void getInventoryLeds(
 template <typename Callback>
 void getPowerSupplyAttributesData(
     const std::shared_ptr<SensorsAsyncResp>& sensorsAsyncResp,
-    std::shared_ptr<std::vector<InventoryItem>> inventoryItems,
+    std::shared_ptr<boost::container::flat_map<std::string, InventoryItem>>
+        inventoryItems,
     const boost::container::flat_map<std::string, std::string>&
         psAttributesConnections,
     Callback&& callback)
@@ -2263,7 +2274,7 @@ void getPowerSupplyAttributesData(
         {
             BMCWEB_LOG_DEBUG << "PS EfficiencyPercent value: " << *value;
             // Store value in Power Supply Inventory Items
-            for (InventoryItem& inventoryItem : *inventoryItems)
+            for (auto& [_, inventoryItem] : *inventoryItems)
             {
                 if (inventoryItem.isPowerSupply == true)
                 {
@@ -2308,7 +2319,8 @@ void getPowerSupplyAttributesData(
  *
  * The callback must have the following signature:
  *   @code
- *   callback(std::shared_ptr<std::vector<InventoryItem>> inventoryItems)
+ *   callback(std::shared_ptr<boost::container::flat_map<std::string,
+ * InventoryItem>> inventoryItems)
  *   @endcode
  *
  * @param sensorsAsyncResp Pointer to object holding response data.
@@ -2318,7 +2330,8 @@ void getPowerSupplyAttributesData(
 template <typename Callback>
 void getPowerSupplyAttributes(
     std::shared_ptr<SensorsAsyncResp> sensorsAsyncResp,
-    std::shared_ptr<std::vector<InventoryItem>> inventoryItems,
+    std::shared_ptr<boost::container::flat_map<std::string, InventoryItem>>
+        inventoryItems,
     Callback&& callback)
 {
     BMCWEB_LOG_DEBUG << "getPowerSupplyAttributes enter";
@@ -2408,7 +2421,8 @@ void getPowerSupplyAttributes(
  *
  * The callback must have the following signature:
  *   @code
- *   callback(std::shared_ptr<std::vector<InventoryItem>> inventoryItems)
+ *   callback(std::shared_ptr<boost::container::flat_map<std::string,
+ * InventoryItem>> inventoryItems)
  *   @endcode
  *
  * @param sensorsAsyncResp Pointer to object holding response data.
@@ -2428,7 +2442,9 @@ static void getInventoryItems(
     BMCWEB_LOG_DEBUG << "getInventoryItems enter";
     auto getInventoryItemAssociationsCb =
         [sensorsAsyncResp, objectMgrPaths, callback{std::move(callback)}](
-            std::shared_ptr<std::vector<InventoryItem>> inventoryItems) {
+            std::shared_ptr<
+                boost::container::flat_map<std::string, InventoryItem>>
+                inventoryItems) {
             BMCWEB_LOG_DEBUG << "getInventoryItemAssociationsCb enter";
             auto getInventoryItemsConnectionsCb =
                 [sensorsAsyncResp, inventoryItems, objectMgrPaths,
@@ -2569,7 +2585,8 @@ inline void getSensorData(
     const boost::container::flat_set<std::string>& connections,
     const std::shared_ptr<boost::container::flat_map<std::string, std::string>>&
         objectMgrPaths,
-    const std::shared_ptr<std::vector<InventoryItem>>& inventoryItems)
+    const std::shared_ptr<
+        boost::container::flat_map<std::string, InventoryItem>>& inventoryItems)
 {
     BMCWEB_LOG_DEBUG << "getSensorData enter";
     // Get managed objects from all services exposing sensors
@@ -2764,8 +2781,8 @@ inline void processSensorList(
                     auto getInventoryItemsCb =
                         [sensorsAsyncResp, sensorNames, connections,
                          objectMgrPaths](
-                            const std::shared_ptr<std::vector<InventoryItem>>&
-                                inventoryItems) {
+                            const std::shared_ptr<boost::container::flat_map<
+                                std::string, InventoryItem>>& inventoryItems) {
                             BMCWEB_LOG_DEBUG << "getInventoryItemsCb enter";
                             // Get sensor data and store results in JSON
                             getSensorData(sensorsAsyncResp, sensorNames,
