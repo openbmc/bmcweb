@@ -1989,20 +1989,18 @@ static void getInventoryItemAssociations(
  * @param ledConnectionsIndex Current index in ledConnections.  Only specified
  * in recursive calls to this function.
  */
-template <typename Callback>
 void getInventoryLedData(
     std::shared_ptr<SensorsAsyncResp> sensorsAsyncResp,
     std::shared_ptr<std::vector<InventoryItem>> inventoryItems,
     std::shared_ptr<boost::container::flat_map<std::string, std::string>>
         ledConnections,
-    Callback&& callback, size_t ledConnectionsIndex = 0)
+    size_t ledConnectionsIndex = 0)
 {
     BMCWEB_LOG_DEBUG << "getInventoryLedData enter";
 
     // If no more connections left, call callback
     if (ledConnectionsIndex >= ledConnections->size())
     {
-        callback();
         BMCWEB_LOG_DEBUG << "getInventoryLedData exit";
         return;
     }
@@ -2016,7 +2014,6 @@ void getInventoryLedData(
         // Response handler for Get State property
         auto respHandler =
             [sensorsAsyncResp, inventoryItems, ledConnections, ledPath,
-             callback{std::move(callback)},
              ledConnectionsIndex](const boost::system::error_code ec,
                                   const std::variant<std::string>& ledState) {
                 BMCWEB_LOG_DEBUG << "getInventoryLedData respHandler enter";
@@ -2064,8 +2061,7 @@ void getInventoryLedData(
 
                 // Recurse to get LED data from next connection
                 getInventoryLedData(sensorsAsyncResp, inventoryItems,
-                                    ledConnections, std::move(callback),
-                                    ledConnectionsIndex + 1);
+                                    ledConnections, ledConnectionsIndex + 1);
 
                 BMCWEB_LOG_DEBUG << "getInventoryLedData respHandler exit";
             };
@@ -2102,11 +2098,9 @@ void getInventoryLedData(
  * @param inventoryItems D-Bus inventory items associated with sensors.
  * @param callback Callback to invoke when inventory items have been obtained.
  */
-template <typename Callback>
 void getInventoryLeds(
     std::shared_ptr<SensorsAsyncResp> sensorsAsyncResp,
-    std::shared_ptr<std::vector<InventoryItem>> inventoryItems,
-    Callback&& callback)
+    std::shared_ptr<std::vector<InventoryItem>> inventoryItems)
 {
     BMCWEB_LOG_DEBUG << "getInventoryLeds enter";
 
@@ -2115,7 +2109,7 @@ void getInventoryLeds(
         "xyz.openbmc_project.Led.Physical"};
 
     // Response handler for parsing output from GetSubTree
-    auto respHandler = [callback{std::move(callback)}, sensorsAsyncResp,
+    auto respHandler = [sensorsAsyncResp,
                         inventoryItems](const boost::system::error_code ec,
                                         const GetSubTreeType& subtree) {
         BMCWEB_LOG_DEBUG << "getInventoryLeds respHandler enter";
@@ -2151,8 +2145,7 @@ void getInventoryLeds(
             }
         }
 
-        getInventoryLedData(sensorsAsyncResp, inventoryItems, ledConnections,
-                            std::move(callback));
+        getInventoryLedData(sensorsAsyncResp, inventoryItems, ledConnections);
         BMCWEB_LOG_DEBUG << "getInventoryLeds respHandler exit";
     };
     // Make call to ObjectMapper to find all inventory items
@@ -2187,20 +2180,17 @@ void getInventoryLeds(
  *        Supply Attributes
  * @param callback Callback to invoke when data has been obtained.
  */
-template <typename Callback>
 void getPowerSupplyAttributesData(
     const std::shared_ptr<SensorsAsyncResp>& sensorsAsyncResp,
     std::shared_ptr<std::vector<InventoryItem>> inventoryItems,
     const boost::container::flat_map<std::string, std::string>&
-        psAttributesConnections,
-    Callback&& callback)
+        psAttributesConnections)
 {
     BMCWEB_LOG_DEBUG << "getPowerSupplyAttributesData enter";
 
     if (psAttributesConnections.empty())
     {
         BMCWEB_LOG_DEBUG << "Can't find PowerSupplyAttributes, no connections!";
-        callback(inventoryItems);
         return;
     }
 
@@ -2211,8 +2201,7 @@ void getPowerSupplyAttributesData(
     const std::string& psAttributesConnection = (*it).second;
 
     // Response handler for Get DeratingFactor property
-    auto respHandler = [sensorsAsyncResp, inventoryItems,
-                        callback{std::move(callback)}](
+    auto respHandler = [sensorsAsyncResp, inventoryItems](
                            const boost::system::error_code ec,
                            const std::variant<uint32_t>& deratingFactor) {
         BMCWEB_LOG_DEBUG << "getPowerSupplyAttributesData respHandler enter";
@@ -2245,7 +2234,6 @@ void getPowerSupplyAttributesData(
         }
 
         BMCWEB_LOG_DEBUG << "getPowerSupplyAttributesData respHandler exit";
-        callback(inventoryItems);
     };
 
     // Get the DeratingFactor property for the PowerSupplyAttributes
@@ -2281,11 +2269,9 @@ void getPowerSupplyAttributesData(
  * @param inventoryItems D-Bus inventory items associated with sensors.
  * @param callback Callback to invoke when data has been obtained.
  */
-template <typename Callback>
 void getPowerSupplyAttributes(
     std::shared_ptr<SensorsAsyncResp> sensorsAsyncResp,
-    std::shared_ptr<std::vector<InventoryItem>> inventoryItems,
-    Callback&& callback)
+    std::shared_ptr<std::vector<InventoryItem>> inventoryItems)
 {
     BMCWEB_LOG_DEBUG << "getPowerSupplyAttributes enter";
 
@@ -2293,7 +2279,6 @@ void getPowerSupplyAttributes(
     if (sensorsAsyncResp->chassisSubNode != sensors::node::power)
     {
         BMCWEB_LOG_DEBUG << "getPowerSupplyAttributes exit since not Power";
-        callback(inventoryItems);
         return;
     }
 
@@ -2301,7 +2286,7 @@ void getPowerSupplyAttributes(
         "xyz.openbmc_project.Control.PowerSupplyAttributes"};
 
     // Response handler for parsing output from GetSubTree
-    auto respHandler = [callback{std::move(callback)}, sensorsAsyncResp,
+    auto respHandler = [sensorsAsyncResp,
                         inventoryItems](const boost::system::error_code ec,
                                         const GetSubTreeType& subtree) {
         BMCWEB_LOG_DEBUG << "getPowerSupplyAttributes respHandler enter";
@@ -2315,7 +2300,6 @@ void getPowerSupplyAttributes(
         if (subtree.size() == 0)
         {
             BMCWEB_LOG_DEBUG << "Can't find Power Supply Attributes!";
-            callback(inventoryItems);
             return;
         }
 
@@ -2328,7 +2312,6 @@ void getPowerSupplyAttributes(
         if (subtree[0].first.empty() || subtree[0].second.empty())
         {
             BMCWEB_LOG_DEBUG << "Power Supply Attributes mapper error!";
-            callback(inventoryItems);
             return;
         }
 
@@ -2338,7 +2321,6 @@ void getPowerSupplyAttributes(
         if (connection.empty())
         {
             BMCWEB_LOG_DEBUG << "Power Supply Attributes mapper error!";
-            callback(inventoryItems);
             return;
         }
 
@@ -2347,8 +2329,7 @@ void getPowerSupplyAttributes(
                          << connection;
 
         getPowerSupplyAttributesData(sensorsAsyncResp, inventoryItems,
-                                     psAttributesConnections,
-                                     std::move(callback));
+                                     psAttributesConnections);
         BMCWEB_LOG_DEBUG << "getPowerSupplyAttributes respHandler exit";
     };
     // Make call to ObjectMapper to find the PowerSupplyAttributes service
@@ -2397,33 +2378,19 @@ static void getInventoryItems(
             std::shared_ptr<std::vector<InventoryItem>> inventoryItems) {
             BMCWEB_LOG_DEBUG << "getInventoryItemAssociationsCb enter";
             auto getInventoryItemsConnectionsCb =
-                [sensorsAsyncResp, inventoryItems, objectMgrPaths,
-                 callback{std::move(callback)}](
+                [sensorsAsyncResp, inventoryItems, objectMgrPaths](
                     std::shared_ptr<boost::container::flat_set<std::string>>
                         invConnections) {
                     BMCWEB_LOG_DEBUG << "getInventoryItemsConnectionsCb enter";
-                    auto getInventoryItemsDataCb =
-                        [sensorsAsyncResp, inventoryItems,
-                         callback{std::move(callback)}]() {
-                            BMCWEB_LOG_DEBUG << "getInventoryItemsDataCb enter";
-
-                            auto getInventoryLedsCb = [sensorsAsyncResp,
-                                                       inventoryItems,
-                                                       callback{std::move(
-                                                           callback)}]() {
-                                BMCWEB_LOG_DEBUG << "getInventoryLedsCb enter";
-                                // Find Power Supply Attributes and get the data
-                                getPowerSupplyAttributes(sensorsAsyncResp,
-                                                         inventoryItems,
-                                                         std::move(callback));
-                                BMCWEB_LOG_DEBUG << "getInventoryLedsCb exit";
-                            };
-
-                            // Find led connections and get the data
-                            getInventoryLeds(sensorsAsyncResp, inventoryItems,
-                                             std::move(getInventoryLedsCb));
-                            BMCWEB_LOG_DEBUG << "getInventoryItemsDataCb exit";
-                        };
+                    auto getInventoryItemsDataCb = [sensorsAsyncResp,
+                                                    inventoryItems]() {
+                        BMCWEB_LOG_DEBUG << "getInventoryItemsDataCb enter";
+                        // Find led connections and get the data
+                        getInventoryLeds(sensorsAsyncResp, inventoryItems);
+                        getPowerSupplyAttributes(sensorsAsyncResp,
+                                                 inventoryItems);
+                        BMCWEB_LOG_DEBUG << "getInventoryItemsDataCb exit";
+                    };
 
                     // Get inventory item data from connections
                     getInventoryItemsData(sensorsAsyncResp, inventoryItems,
@@ -2436,6 +2403,8 @@ static void getInventoryItems(
             getInventoryItemsConnections(
                 sensorsAsyncResp, inventoryItems,
                 std::move(getInventoryItemsConnectionsCb));
+
+            callback(inventoryItems);
             BMCWEB_LOG_DEBUG << "getInventoryItemAssociationsCb exit";
         };
 
