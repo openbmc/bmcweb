@@ -1,0 +1,165 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c5e52b26_dfb3586a",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-10-17T21:43:33Z",
+      "side": 1,
+      "message": "This enum already exists in the form of boost::beast::http::verb.",
+      "range": {
+        "startLine": 26,
+        "startChar": 0,
+        "endLine": 26,
+        "endChar": 21
+      },
+      "revId": "d8e44221dd2b603dfdd80058b081902be82900df",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b43f009f_0ef953a0",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-10-17T21:43:33Z",
+      "side": 1,
+      "message": "Considering that this is always called with static values (for the two uses I see) does it make sense to break this up into two methods, one for get, and one for post, thus removing the need for the enum, and making each much simpler?",
+      "range": {
+        "startLine": 32,
+        "startChar": 58,
+        "endLine": 32,
+        "endChar": 76
+      },
+      "revId": "d8e44221dd2b603dfdd80058b081902be82900df",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "68bfffdf_47548b74",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-10-17T21:43:33Z",
+      "side": 1,
+      "message": "Generally these would be constexpr array, but considering the comment above, that might be moot.",
+      "range": {
+        "startLine": 34,
+        "startChar": 22,
+        "endLine": 34,
+        "endChar": 28
+      },
+      "revId": "d8e44221dd2b603dfdd80058b081902be82900df",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "71a12892_0e5de4dc",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-10-17T21:43:33Z",
+      "side": 1,
+      "message": "Please prefer if/else ladders for these.  They compile smaller and run faster.",
+      "range": {
+        "startLine": 56,
+        "startChar": 0,
+        "endLine": 58,
+        "endChar": 70
+      },
+      "revId": "d8e44221dd2b603dfdd80058b081902be82900df",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f226367e_b4a21500",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-10-17T21:43:33Z",
+      "side": 1,
+      "message": "Considering none of these can throw the below exceptions, they should be after the try/catch block.",
+      "range": {
+        "startLine": 133,
+        "startChar": 0,
+        "endLine": 154,
+        "endChar": 9
+      },
+      "revId": "d8e44221dd2b603dfdd80058b081902be82900df",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1fc9a4a2_b9c1c810",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-10-17T21:43:33Z",
+      "side": 1,
+      "message": "I realize this isn\u0027t an issue with this patchset, but can this even happen?  There\u0027s only json encoding going on, which to my understanding, can\u0027t fail.",
+      "range": {
+        "startLine": 162,
+        "startChar": 0,
+        "endLine": 166,
+        "endChar": 5
+      },
+      "revId": "d8e44221dd2b603dfdd80058b081902be82900df",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "335dda4f_2a051393",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 181,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-10-17T21:43:33Z",
+      "side": 1,
+      "message": "Please see the other commit where I ask about this.  This kind of business logic checking shouldn\u0027t be in bmcweb.",
+      "range": {
+        "startLine": 181,
+        "startChar": 12,
+        "endLine": 181,
+        "endChar": 21
+      },
+      "revId": "d8e44221dd2b603dfdd80058b081902be82900df",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
