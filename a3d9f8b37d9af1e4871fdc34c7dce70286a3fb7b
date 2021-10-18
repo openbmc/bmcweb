@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6682b65f_672f4526",
+        "filename": "redfish-core/include/utils/stl_utils.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-10-18T20:46:07Z",
+      "side": 1,
+      "message": "What does ret \u003d false convey?",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 21
+      },
+      "revId": "a3d9f8b37d9af1e4871fdc34c7dce70286a3fb7b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c30e43a9_882d45d5",
+        "filename": "redfish-core/lib/network_protocol.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 244,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-10-18T20:46:07Z",
+      "side": 1,
+      "message": "for patch, shouldn\u0027t we be using a utility function called \"hasDuplicates\"?\n\nThis method is now trying to do dual duty of both removing duplicates and detecting duplicates, which makes its use a lot more complex.",
+      "range": {
+        "startLine": 244,
+        "startChar": 4,
+        "endLine": 244,
+        "endChar": 48
+      },
+      "revId": "a3d9f8b37d9af1e4871fdc34c7dce70286a3fb7b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "91403167_e6cd4e78",
+        "filename": "redfish-core/lib/network_protocol.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 249,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-10-18T20:46:07Z",
+      "side": 1,
+      "message": "This isn\u0027t how this error is defined generally.  We should probably have a mechanism that just returns \"NtpServers/2\" and the actual value of that index, rather than joining them by semicolons.",
+      "range": {
+        "startLine": 249,
+        "startChar": 12,
+        "endLine": 249,
+        "endChar": 39
+      },
+      "revId": "a3d9f8b37d9af1e4871fdc34c7dce70286a3fb7b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
