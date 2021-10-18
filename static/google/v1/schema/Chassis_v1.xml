@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!---->
+<!--##########################################################       -->
+<!--# Google Schema:  Chassis v1.0.0                                 -->
+<!--#                                                                -->
+<!--##########################################################       -->
+<!---->
+<edmx:Edmx Version="1.0">
+
+  <edmx:DataServices>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Chassis">
+
+      <EntityType Name="Chassis" BaseType="Chassis.v1_0_0.Resource" Abstract="true">
+        <Annotation Term="OData.Description" String="The Chassis schema describes the chassis of the Google Service, located at the '/google/v1/Chassis' URI."/>
+        <Annotation Term="OData.LongDescription" String="This Resource represents the Google chassis.  All values that this schema describes for Resources shall comply with the Google Specification-described requirements."/>
+      </EntityType>
+
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Chassis.v1_0_0">
+
+      <EntityType Name="Chassis" BaseType="Chassis.Chassis">
+        <Property Name="Version" Type="Edm.String" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The Google chassis."/>
+          <Annotation Term="OData.LongDescription" String="This property shall represent the Google protocol version."/>
+          <Annotation Term="Validation.Pattern" String="^\d+\.\d+\.\d+$"/>
+        </Property>
+      </EntityType>
+
+    </Schema>
+
+  </edmx:DataServices>
+</edmx:Edmx>
