@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "d4a6ac8b_4baebc9f",
+        "filename": "redfish-core/lib/network_protocol.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-10-18T06:18:45Z",
+      "side": 1,
+      "message": "Sure.\nMoved to redfish-core/include/utils/stl_utils.hpp and added unit tests.",
+      "parentUuid": "95f2cd0d_9d5353da",
+      "revId": "95a23769121956db90ef0090fbd5478f5ab41b13",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d1493e73_7d9e513d",
         "filename": "redfish-core/lib/network_protocol.hpp",
         "patchSetId": 4
@@ -42,6 +60,30 @@
     },
     {
       "key": {
+        "uuid": "078ea79e_37c2698f",
+        "filename": "redfish-core/lib/network_protocol.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-10-18T06:18:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d1493e73_7d9e513d",
+      "range": {
+        "startLine": 37,
+        "startChar": 7,
+        "endLine": 37,
+        "endChar": 31
+      },
+      "revId": "95a23769121956db90ef0090fbd5478f5ab41b13",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7be1ecd0_a7743e42",
         "filename": "redfish-core/lib/network_protocol.hpp",
         "patchSetId": 4
@@ -62,6 +104,30 @@
       "revId": "95a23769121956db90ef0090fbd5478f5ab41b13",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dc1c2cb7_08bff38d",
+        "filename": "redfish-core/lib/network_protocol.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-10-18T06:18:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7be1ecd0_a7743e42",
+      "range": {
+        "startLine": 38,
+        "startChar": 4,
+        "endLine": 38,
+        "endChar": 17
+      },
+      "revId": "95a23769121956db90ef0090fbd5478f5ab41b13",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -111,6 +177,54 @@
     },
     {
       "key": {
+        "uuid": "639d807b_bfa4af9a",
+        "filename": "redfish-core/lib/network_protocol.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-10-18T06:18:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "eae0f90d_8e11ec2b",
+      "range": {
+        "startLine": 41,
+        "startChar": 21,
+        "endLine": 41,
+        "endChar": 24
+      },
+      "revId": "95a23769121956db90ef0090fbd5478f5ab41b13",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "44824ad5_0681ac2b",
+        "filename": "redfish-core/lib/network_protocol.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-10-18T06:18:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bf5ad37f_31586285",
+      "range": {
+        "startLine": 41,
+        "startChar": 15,
+        "endLine": 41,
+        "endChar": 19
+      },
+      "revId": "95a23769121956db90ef0090fbd5478f5ab41b13",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d96c1928_7ed6dc53",
         "filename": "redfish-core/lib/network_protocol.hpp",
         "patchSetId": 4
@@ -122,6 +236,30 @@
       "writtenOn": "2021-10-17T17:44:52Z",
       "side": 1,
       "message": "Why is this necessary?  Don\u0027t empty strings need deduplicated as well?",
+      "range": {
+        "startLine": 43,
+        "startChar": 0,
+        "endLine": 46,
+        "endChar": 9
+      },
+      "revId": "95a23769121956db90ef0090fbd5478f5ab41b13",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1f691939_20ad0479",
+        "filename": "redfish-core/lib/network_protocol.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-10-18T06:18:45Z",
+      "side": 1,
+      "message": "Should remove all empty strings.",
+      "parentUuid": "d96c1928_7ed6dc53",
       "range": {
         "startLine": 43,
         "startChar": 0,
@@ -154,6 +292,30 @@
       "revId": "95a23769121956db90ef0090fbd5478f5ab41b13",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ab49475c_bd636866",
+        "filename": "redfish-core/lib/network_protocol.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 420,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-10-18T06:18:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "12dd60c2_0f7b5d4f",
+      "range": {
+        "startLine": 420,
+        "startChar": 46,
+        "endLine": 420,
+        "endChar": 73
+      },
+      "revId": "95a23769121956db90ef0090fbd5478f5ab41b13",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
