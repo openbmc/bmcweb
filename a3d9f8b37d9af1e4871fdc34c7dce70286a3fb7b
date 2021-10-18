@@ -25,6 +25,53 @@
     },
     {
       "key": {
+        "uuid": "d85a7632_b36ed787",
+        "filename": "redfish-core/include/utils/stl_utils.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-10-18T20:47:32Z",
+      "side": 1,
+      "message": "nvm, I see.  I suspect this method is doing dual duty.",
+      "parentUuid": "6682b65f_672f4526",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 21
+      },
+      "revId": "a3d9f8b37d9af1e4871fdc34c7dce70286a3fb7b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "51af48b8_89539338",
+        "filename": "redfish-core/include/utils/stl_utils.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-10-18T20:47:32Z",
+      "side": 1,
+      "message": "This looks like it\u0027s iterating an extra time.  Should we do something similar to the first answer here:\nhttps://stackoverflow.com/questions/49863158/c-remove-duplicate-values-from-a-vector-without-sorting\n\nWhich only loops the list once, and looking at it, would be less code.",
+      "range": {
+        "startLine": 20,
+        "startChar": 0,
+        "endLine": 20,
+        "endChar": 69
+      },
+      "revId": "a3d9f8b37d9af1e4871fdc34c7dce70286a3fb7b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c30e43a9_882d45d5",
         "filename": "redfish-core/lib/network_protocol.hpp",
         "patchSetId": 7
