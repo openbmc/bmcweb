@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!---->
+<!--##############################################################       -->
+<!--# Google Schema:  RootOfTrust v1.0.0                                 -->
+<!--#                                                                    -->
+<!--##############################################################       -->
+<!---->
+<edmx:Edmx Version="1.0">
+
+  <edmx:DataServices>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="RootOfTrust">
+
+      <EntityType Name="RootOfTrust" BaseType="RootOfTrust.v1_0_0.Resource" Abstract="true">
+        <Annotation Term="OData.Description" String="The RootOfTrust schema describes the Google root of trust device, located at the '/google/v1/Chassis/RootOfTrust' URI."/>
+        <Annotation Term="OData.LongDescription" String="This Resource represents the Google root of trust device.  All values that this schema describes for Resources shall comply with the Google Specification-described requirements."/>
+        <Property Name="Version" Type="Edm.String" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The version of the root of trust device."/>
+          <Annotation Term="OData.LongDescription" String="This property shall represent the Google root of trust protocol version."/>
+          <Annotation Term="Validation.Pattern" String="^\d+\.\d+\.\d+$"/>
+        </Property>
+        <Property Name="Actions" Type="RootOfTrust.v1_0_0.Actions" Nullable="false">
+          <Annotation Term="OData.Description" String="The available actions for this resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the available actions for this resource."/>
+        </Property>
+      </EntityType>
+
+      <Action Name="Mailbox" >
+        <Annotation Term="OData.Description" String="This action sends commands to root of trust."/>
+        <Annotation Term="OData.LongDescription" String="This action shall send arbitrary commands to root of trust."/>
+        <Parameter Name="SendCommand" Type="Edm.String"/>
+      </Action>
+
+    </Schema>
+  </edmx:DataServices>
+</edmx:Edmx>
