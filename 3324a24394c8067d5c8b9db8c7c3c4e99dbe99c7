@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "8425dd76_1866d6bc",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-10-18T15:32:11Z",
+      "side": 1,
+      "message": "\u003e Correct, however I have executed validation on /redfish/v1/TelemetryService/Triggers/ without Triggers created, the commit message is already updated accordingly.\n\nBut if a trigger existed (which is the golden path) this code would fail the validator.  I\u0027m fine if you want to split GET into its own patch, but it will need to be merged at the same time as this, so please make sure to stack them as dependencies.",
+      "parentUuid": "b8f8ebfe_ea96f3ba",
+      "revId": "3324a24394c8067d5c8b9db8c7c3c4e99dbe99c7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "07552eac_08c62e5d",
         "filename": "redfish-core/include/utils/telemetry_utils.hpp",
         "patchSetId": 4
