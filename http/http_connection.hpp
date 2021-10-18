@@ -248,10 +248,21 @@ class Connection :
                 thisReq.getHeaderValue(boost::beast::http::field::upgrade),
                 "websocket"))
         {
-            handler->handleUpgrade(thisReq, res, std::move(adaptor));
-            // delete lambda with self shared_ptr
-            // to enable connection destruction
-            asyncResp->res.setCompleteRequestHandler(nullptr);
+            asyncResp->res.setCompleteRequestHandler(
+                [self(shared_from_this())](crow::Response& thisRes) {
+                if (thisRes.result() != boost::beast::http::status::ok)
+                {
+                    // When any error occurs before handle upgrade,
+                    // the result in response will be set to respective
+                    // error. By default the Result will be OK (200),
+                    // which implies successful handle upgrade. Response
+                    // needs to be sent over this connection only on
+                    // failure.
+                    self->completeRequest(thisRes);
+                    return;
+                }
+            });
+            handler->handleUpgrade(thisReq, asyncResp, std::move(adaptor));
             return;
         }
         std::string_view expected =
