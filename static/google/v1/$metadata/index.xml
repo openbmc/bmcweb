@@ -4,4 +4,12 @@
         <edmx:Include Namespace="GoogleServiceRoot"/>
         <edmx:Include Namespace="GoogleServiceRoot.v1_0_0"/>
     </edmx:Reference>
+    <edmx:Reference Uri="/google/v1/schema/Chassis_v1.xml">
+        <edmx:Include Namespace="Chassis"/>
+        <edmx:Include Namespace="Chassis.v1_0_0"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="/google/v1/schema/RootOfTrust_v1.xml">
+        <edmx:Include Namespace="RootOfTrust"/>
+        <edmx:Include Namespace="RootOfTrust.v1_0_0"/>
+    </edmx:Reference>
 </edmx:Edmx>

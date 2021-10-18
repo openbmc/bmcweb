@@ -20,6 +20,16 @@
             "kind": "Singleton",
             "name": "ServiceRoot",
             "url": "/google/v1/ServiceRoot"
+        },
+        {
+            "kind": "Singleton",
+            "name": "Chassis",
+            "url": "/google/v1/Chassis"
+        },
+        {
+            "kind": "Singleton",
+            "name": "RootOfTrust",
+            "url": "/google/v1/Chassis/RootOfTrust"
         }
     ]
 }
