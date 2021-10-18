@@ -72,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "ce0ddb46_656543d3",
+        "filename": "redfish-core/lib/trigger.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-10-18T15:20:16Z",
+      "side": 1,
+      "message": "\u003e If we are talking about order of merge you are right.\n\u003e \nYes, I was refering to merge order.\n\n\u003e If we are talking about order of implementation this is not true, we can add and list resources using dbus calls, this allows to property implement and test delete method.\n\nAgreed.\n\nIt helps a lot as a maintainer if that merge order is conveyed in the dependencies of the patchset (ie, this patchset should be stacked on top of the GET patchset, if it\u0027s a dependency).",
+      "parentUuid": "e9c50c65_ce0d8202",
+      "range": {
+        "startLine": 15,
+        "startChar": 17,
+        "endLine": 15,
+        "endChar": 50
+      },
+      "revId": "b330002e56648de285dc1cd7506de7ee457f8f97",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "036c236f_72e9e5f8",
         "filename": "redfish-core/lib/trigger.hpp",
         "patchSetId": 1
