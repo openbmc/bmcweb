@@ -1140,12 +1140,13 @@ class Router
     }
 
     template <typename Adaptor>
-    void handleUpgrade(const Request& req, Response& res, Adaptor&& adaptor)
+    void handleUpgrade(const Request& req,
+                       const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                       Adaptor&& adaptor)
     {
         if (static_cast<size_t>(req.method()) >= perMethods.size())
         {
-            res.result(boost::beast::http::status::not_found);
-            res.end();
+            asyncResp->res.result(boost::beast::http::status::not_found);
             return;
         }
 
@@ -1158,8 +1159,7 @@ class Router
         if (ruleIndex == 0U)
         {
             BMCWEB_LOG_DEBUG << "Cannot match rules " << req.url;
-            res.result(boost::beast::http::status::not_found);
-            res.end();
+            asyncResp->res.result(boost::beast::http::status::not_found);
             return;
         }
 
@@ -1175,8 +1175,7 @@ class Router
                              << " with " << req.methodString() << "("
                              << static_cast<uint32_t>(req.method()) << ") / "
                              << rules[ruleIndex]->getMethods();
-            res.result(boost::beast::http::status::not_found);
-            res.end();
+            asyncResp->res.result(boost::beast::http::status::not_found);
             return;
         }
 
@@ -1187,14 +1186,19 @@ class Router
         // any uncaught exceptions become 500s
         try
         {
-            rules[ruleIndex]->handleUpgrade(req, res,
+            // Creating temporary response object to call handleUpgrade
+            // We cannot pass the asyncResp as it will be destroyed
+            // The response object is not initialized as handleUpgrade wouldn't
+            // be using this object
+            crow::Response resp;
+            rules[ruleIndex]->handleUpgrade(req, resp,
                                             std::forward<Adaptor>(adaptor));
         }
         catch (const std::exception& e)
         {
             BMCWEB_LOG_ERROR << "An uncaught exception occurred: " << e.what();
-            res.result(boost::beast::http::status::internal_server_error);
-            res.end();
+            asyncResp->res.result(
+                boost::beast::http::status::internal_server_error);
             return;
         }
         catch (...)
@@ -1202,8 +1206,8 @@ class Router
             BMCWEB_LOG_ERROR
                 << "An uncaught exception occurred. The type was unknown "
                    "so no information was available.";
-            res.result(boost::beast::http::status::internal_server_error);
-            res.end();
+            asyncResp->res.result(
+                boost::beast::http::status::internal_server_error);
             return;
         }
     }
