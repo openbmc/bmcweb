@@ -21,5 +21,10 @@
             "name": "ServiceRoot",
             "url": "/google/v1/ServiceRoot"
         }
+        {
+            "kind": "Singleton",
+            "name": "RootOfTrust",
+            "url": "/google/v1/RootOfTrust"
+        }
     ]
 }
