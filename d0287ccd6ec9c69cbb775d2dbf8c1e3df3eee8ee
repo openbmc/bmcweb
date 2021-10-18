@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "e9468923_8d34c843",
+        "filename": "redfish-core/lib/network_protocol.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-10-18T06:19:09Z",
+      "side": 1,
+      "message": "Removed",
+      "parentUuid": "8ad7edb0_41866811",
+      "range": {
+        "startLine": 32,
+        "startChar": 6,
+        "endLine": 32,
+        "endChar": 22
+      },
+      "revId": "d0287ccd6ec9c69cbb775d2dbf8c1e3df3eee8ee",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d9ecc31e_c59d2c66",
         "filename": "redfish-core/lib/network_protocol.hpp",
         "patchSetId": 7
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "8e6128e7_0f4d46d2",
+        "filename": "redfish-core/lib/network_protocol.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-10-18T06:19:09Z",
+      "side": 1,
+      "message": "Removed",
+      "parentUuid": "d9ecc31e_c59d2c66",
+      "range": {
+        "startLine": 166,
+        "startChar": 0,
+        "endLine": 166,
+        "endChar": 73
+      },
+      "revId": "d0287ccd6ec9c69cbb775d2dbf8c1e3df3eee8ee",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a8082873_2614d7ff",
         "filename": "redfish-core/lib/network_protocol.hpp",
         "patchSetId": 7
@@ -68,6 +116,30 @@
       "revId": "d0287ccd6ec9c69cbb775d2dbf8c1e3df3eee8ee",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5032bc48_47e2b003",
+        "filename": "redfish-core/lib/network_protocol.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 298,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-10-18T06:19:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a8082873_2614d7ff",
+      "range": {
+        "startLine": 298,
+        "startChar": 31,
+        "endLine": 298,
+        "endChar": 38
+      },
+      "revId": "d0287ccd6ec9c69cbb775d2dbf8c1e3df3eee8ee",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
