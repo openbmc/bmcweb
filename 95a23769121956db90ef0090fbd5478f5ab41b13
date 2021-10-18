@@ -272,6 +272,30 @@
     },
     {
       "key": {
+        "uuid": "9da1b8d0_7210cdda",
+        "filename": "redfish-core/lib/network_protocol.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-10-18T06:29:20Z",
+      "side": 1,
+      "message": "No, it shouldn\u0027t.  Empty strings should be an error that phosphor-networkd should return when attempting to set empty string.",
+      "parentUuid": "1f691939_20ad0479",
+      "range": {
+        "startLine": 43,
+        "startChar": 0,
+        "endLine": 46,
+        "endChar": 9
+      },
+      "revId": "95a23769121956db90ef0090fbd5478f5ab41b13",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "12dd60c2_0f7b5d4f",
         "filename": "redfish-core/lib/network_protocol.hpp",
         "patchSetId": 4
