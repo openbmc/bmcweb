@@ -39,6 +39,9 @@ struct Response
     Response() : stringResponse(response_type{})
     {}
 
+    Response(response_type& stringRes) : stringResponse(stringRes)
+    {}
+
     ~Response() = default;
 
     Response(const Response&) = delete;
