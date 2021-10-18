@@ -54,6 +54,9 @@ struct Response
         res.isAliveHelper = nullptr;
     }
 
+    explicit Response(response_type& stringRes) : stringResponse(stringRes)
+    {}
+
     ~Response() = default;
 
     Response(const Response&) = delete;
