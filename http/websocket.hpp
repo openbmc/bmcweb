@@ -95,7 +95,7 @@ class ConnectionImpl : public Connection
             ws.get_executor().context());
     }
 
-    void start()
+    void start(std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
     {
         BMCWEB_LOG_DEBUG << "starting connection " << this;
 
@@ -104,8 +104,8 @@ class ConnectionImpl : public Connection
         std::string_view protocol = req[bf::sec_websocket_protocol];
 
         ws.set_option(boost::beast::websocket::stream_base::decorator(
-            [session{session}, protocol{std::string(protocol)}](
-                boost::beast::websocket::response_type& m) {
+            [session{session}, protocol{std::string(protocol)},
+             asyncResp](boost::beast::websocket::response_type& m) {
 
 #ifndef BMCWEB_INSECURE_DISABLE_CSRF_PREVENTION
             if (session != nullptr)
@@ -135,6 +135,7 @@ class ConnectionImpl : public Connection
             m.insert("X-XSS-Protection", "1; "
                                          "mode=block");
             m.insert("X-Content-Type-Options", "nosniff");
+            asyncResp->res = std::move(Response(m));
         }));
 
         // Perform the websocket upgrade
