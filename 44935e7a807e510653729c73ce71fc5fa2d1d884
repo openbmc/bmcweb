@@ -144,6 +144,30 @@
     },
     {
       "key": {
+        "uuid": "47af21d2_5a52e7c0",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 2503,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-10-18T21:08:09Z",
+      "side": 1,
+      "message": "+1, DbusVariantType already includes uint8_t.",
+      "parentUuid": "c38fd235_52044a3f",
+      "range": {
+        "startLine": 2501,
+        "startChar": 0,
+        "endLine": 2503,
+        "endChar": 73
+      },
+      "revId": "44935e7a807e510653729c73ce71fc5fa2d1d884",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a291ac7b_20fcc70e",
         "filename": "redfish-core/lib/systems.hpp",
         "patchSetId": 4
