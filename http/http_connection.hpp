@@ -382,10 +382,31 @@ class Connection :
                 thisReq.getHeaderValue(boost::beast::http::field::upgrade),
                 "websocket"))
         {
-            handler->handleUpgrade(thisReq, res, std::move(adaptor));
-            // delete lambda with self shared_ptr
-            // to enable connection destruction
-            asyncResp->res.setCompleteRequestHandler(nullptr);
+            asyncResp->res.setCompleteRequestHandler(
+                [self(shared_from_this())](crow::Response& thisRes) {
+                if (self->res.resultInt() != 101)
+                {
+                    // When any error occurs during handle upgradation,
+                    // the result in response will be set to respective
+                    // error. By default the Result will be OK (101),
+                    // which implies successful handle upgrade. Response
+                    // needs to be sent over this connection only on
+                    // failure.
+                    boost::asio::post(self->adaptor.get_executor(),
+                                      [self, &thisRes] {
+                                          self->completeRequest(thisRes);
+                                      });
+                    return;
+                }
+
+                // Set Complete request handler to NULL to remove
+                // the shared pointer of connection to enable
+                // connection destruction. As the connection would
+                // get upgraded, we wouldn't need this connection
+                // any longer
+                self->res.setCompleteRequestHandler(nullptr);
+            });
+            handler->handleUpgrade(thisReq, asyncResp, std::move(adaptor));
             return;
         }
         handler->handle(thisReq, asyncResp);
