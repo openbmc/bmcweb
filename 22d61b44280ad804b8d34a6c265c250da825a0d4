@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "caf4b7f0_873dec53",
+        "filename": "redfish-core/include/utils/stl_utils.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-10-19T16:12:22Z",
+      "side": 1,
+      "message": "Need all of these includes?",
+      "revId": "22d61b44280ad804b8d34a6c265c250da825a0d4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "58936451_37e5ef7b",
+        "filename": "redfish-core/ut/stl_utils_test.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-10-19T16:12:22Z",
+      "side": 1,
+      "message": "Nitpick: \"return vector\" doesn\u0027t make a lot of sense to me. \n\ncan we call this expectedVector? \nOr expectedVec ? expectedValues ?\nE.g. looking to match what we call this in other tests: \n\nhttps://github.com/openbmc/bmcweb/blob/master/redfish-core/ut/privileges_test.cpp#L120",
+      "range": {
+        "startLine": 8,
+        "startChar": 29,
+        "endLine": 8,
+        "endChar": 36
+      },
+      "revId": "22d61b44280ad804b8d34a6c265c250da825a0d4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
