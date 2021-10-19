@@ -22,6 +22,64 @@
       "revId": "7773df01646372bbbe8a142d914897433f0964b5",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3ab84f96_a42ac6c7",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 195,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-10-19T16:18:29Z",
+      "side": 1,
+      "message": "+1",
+      "parentUuid": "d3b1bfe8_24d522f9",
+      "range": {
+        "startLine": 195,
+        "startChar": 20,
+        "endLine": 195,
+        "endChar": 37
+      },
+      "revId": "7773df01646372bbbe8a142d914897433f0964b5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "24a1b6b2_60490b13",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 202,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-10-19T16:18:29Z",
+      "side": 1,
+      "message": "Why not just an error like you do below ?\n\n            if (b \u003d\u003d nullptr)\n            {\n                messages::internalError(asyncResp-\u003eres);\n                BMCWEB_LOG_ERROR \u003c\u003c \"Fail to get PowerCapEnable status \";\n                return;\n            }",
+      "revId": "7773df01646372bbbe8a142d914897433f0964b5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5eb87054_5853e5e9",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 248,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-10-19T16:18:29Z",
+      "side": 1,
+      "message": "How does the client enable this?",
+      "revId": "7773df01646372bbbe8a142d914897433f0964b5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
