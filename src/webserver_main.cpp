@@ -23,6 +23,7 @@
 #include <ssl_key_handler.hpp>
 #include <vm_websocket.hpp>
 #include <webassets.hpp>
+#include <webassets_licenses.hpp>
 
 #include <memory>
 #include <string>
@@ -76,6 +77,10 @@ int main(int /*argc*/, char** /*argv*/)
 
 #ifdef BMCWEB_ENABLE_STATIC_HOSTING
     crow::webassets::requestRoutes(app);
+#endif
+
+#ifdef BMCWEB_ENABLE_STATIC_LICENSE_HOSTING
+    crow::webassets::licenses::requestRoutes(app);
 #endif
 
 #ifdef BMCWEB_ENABLE_KVM

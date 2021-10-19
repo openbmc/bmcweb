@@ -83,6 +83,7 @@ feature_map = {
   'redfish-dump-log'                : '-DBMCWEB_ENABLE_REDFISH_DUMP_LOG',
   'rest'                            : '-DBMCWEB_ENABLE_DBUS_REST',
   'static-hosting'                  : '-DBMCWEB_ENABLE_STATIC_HOSTING',
+  'static-license-hosting'          : '-DBMCWEB_ENABLE_STATIC_LICENSE_HOSTING',
   'insecure-tftp-update'            : '-DBMCWEB_INSECURE_ENABLE_REDFISH_FW_TFTP_UPDATE',
   #'vm-nbdproxy'                     : '-DBMCWEB_ENABLE_VM_NBDPROXY',
   'vm-websocket'                    : '-DBMCWEB_ENABLE_VM_WEBSOCKET',
