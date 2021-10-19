@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f2a3c655_5f7bb5ea",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 2976,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-10-19T02:41:40Z",
+      "side": 0,
+      "message": "this needs its own patch.",
+      "range": {
+        "startLine": 2975,
+        "startChar": 0,
+        "endLine": 2976,
+        "endChar": 63
+      },
+      "revId": "18f569aa751241a44976f636a865999c00d4a1ad",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
