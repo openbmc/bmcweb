@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2c50824e_a4e41360",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 36
+      },
+      "lineNbr": 1961,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-10-19T02:08:28Z",
+      "side": 1,
+      "message": "This is still reading all log entries into ram, just to index them.  I suspect top and skip need to be passed into this function to ensure that \u003e available memory paging works properly, and doesn\u0027t run the BMC out of memory.\n\nIf you want to handle that in a different patch, that\u0027s fine, but it will need to be done.",
+      "range": {
+        "startLine": 1961,
+        "startChar": 0,
+        "endLine": 1961,
+        "endChar": 71
+      },
+      "revId": "792b94befe9d7216a343d3306bbc18f9e8cff04c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
