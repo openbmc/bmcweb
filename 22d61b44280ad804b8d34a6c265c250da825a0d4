@@ -19,6 +19,75 @@
     },
     {
       "key": {
+        "uuid": "48035282_29fd73b0",
+        "filename": "redfish-core/include/utils/stl_utils.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-10-19T19:08:14Z",
+      "side": 1,
+      "message": "nit, this should really be called \"firstDuplicate\"",
+      "range": {
+        "startLine": 14,
+        "startChar": 16,
+        "endLine": 14,
+        "endChar": 29
+      },
+      "revId": "22d61b44280ad804b8d34a6c265c250da825a0d4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "86dbb783_2531fcb2",
+        "filename": "redfish-core/lib/network_protocol.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 404,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-10-19T19:08:14Z",
+      "side": 1,
+      "message": "Why do we need to make a copy here?  Cant we just do this in place?",
+      "range": {
+        "startLine": 404,
+        "startChar": 0,
+        "endLine": 404,
+        "endChar": 77
+      },
+      "revId": "22d61b44280ad804b8d34a6c265c250da825a0d4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2be3a9bd_98abc804",
+        "filename": "redfish-core/lib/network_protocol.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 408,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-10-19T19:08:14Z",
+      "side": 1,
+      "message": "I realize this is a one liner, but it\u0027s non-trivial, duplicated in the unit tests, and could be useful elsewhere.  Could we move this one line into a method called \"remove duplicates\" and put it in the stl_utils class?",
+      "range": {
+        "startLine": 405,
+        "startChar": 0,
+        "endLine": 408,
+        "endChar": 49
+      },
+      "revId": "22d61b44280ad804b8d34a6c265c250da825a0d4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "58936451_37e5ef7b",
         "filename": "redfish-core/ut/stl_utils_test.cpp",
         "patchSetId": 8
