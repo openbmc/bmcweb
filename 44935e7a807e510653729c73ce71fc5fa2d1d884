@@ -239,6 +239,30 @@
     },
     {
       "key": {
+        "uuid": "bfdb9012_2eec4659",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 2505,
+      "author": {
+        "id": 1000238
+      },
+      "writtenOn": "2021-10-19T14:35:01Z",
+      "side": 1,
+      "message": "Having system issues while trying to test.  Will push update once testing completed.",
+      "parentUuid": "ef906735_8eecf3f6",
+      "range": {
+        "startLine": 2505,
+        "startChar": 16,
+        "endLine": 2505,
+        "endChar": 42
+      },
+      "revId": "44935e7a807e510653729c73ce71fc5fa2d1d884",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b2a85dd3_c1b940e3",
         "filename": "redfish-core/lib/systems.hpp",
         "patchSetId": 4
