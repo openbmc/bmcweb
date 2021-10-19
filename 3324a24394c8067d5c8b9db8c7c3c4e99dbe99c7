@@ -123,6 +123,30 @@
       "revId": "3324a24394c8067d5c8b9db8c7c3c4e99dbe99c7",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "57795b11_7256d697",
+        "filename": "redfish-core/include/utils/telemetry_utils.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-10-19T17:06:26Z",
+      "side": 1,
+      "message": "The above patchset merged a moment ago.  Please rebase and retry.",
+      "parentUuid": "20d8e8ae_dfdceb0f",
+      "range": {
+        "startLine": 39,
+        "startChar": 0,
+        "endLine": 39,
+        "endChar": 78
+      },
+      "revId": "3324a24394c8067d5c8b9db8c7c3c4e99dbe99c7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
