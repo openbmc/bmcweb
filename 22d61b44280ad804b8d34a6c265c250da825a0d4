@@ -108,6 +108,53 @@
       "revId": "22d61b44280ad804b8d34a6c265c250da825a0d4",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "85e06978_299f7ed6",
+        "filename": "redfish-core/ut/stl_utils_test.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-10-19T19:12:03Z",
+      "side": 1,
+      "message": "Would it make this cleaner if this used ElementsAre instead of constructing another vector?  It seems like it solves this in a cleaner way, and would remove the intermediate variable entirely.",
+      "parentUuid": "58936451_37e5ef7b",
+      "range": {
+        "startLine": 8,
+        "startChar": 29,
+        "endLine": 8,
+        "endChar": 36
+      },
+      "revId": "22d61b44280ad804b8d34a6c265c250da825a0d4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "60106e27_6006e332",
+        "filename": "redfish-core/ut/stl_utils_test.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-10-19T19:12:03Z",
+      "side": 1,
+      "message": "This is the copy of the code that I\u0027d like to see abstracted to a method.",
+      "range": {
+        "startLine": 10,
+        "startChar": 0,
+        "endLine": 12,
+        "endChar": 22
+      },
+      "revId": "22d61b44280ad804b8d34a6c265c250da825a0d4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
