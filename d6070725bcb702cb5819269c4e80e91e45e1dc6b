@@ -37,6 +37,29 @@
     },
     {
       "key": {
+        "uuid": "d5408d2c_6ce07d09",
+        "filename": "redfish-core/include/query.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1001027
+      },
+      "writtenOn": "2021-10-19T01:02:41Z",
+      "side": 1,
+      "message": "CompleteHandler captured the Query, but this Query is a new data, not from the previous request.",
+      "range": {
+        "startLine": 22,
+        "startChar": 35,
+        "endLine": 22,
+        "endChar": 40
+      },
+      "revId": "d6070725bcb702cb5819269c4e80e91e45e1dc6b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "17daca1e_5b5d01c0",
         "filename": "redfish-core/include/utils/query_param.hpp",
         "patchSetId": 4
