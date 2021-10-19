@@ -161,12 +161,6 @@ class RedfishService
         requestRoutesDBusEventLogEntryDownload(app);
 #endif
 
-#ifdef BMCWEB_ENABLE_REDFISH_HOST_LOGGER
-        requestRoutesSystemHostLogger(app);
-        requestRoutesSystemHostLoggerCollection(app);
-        requestRoutesSystemHostLoggerLogEntry(app);
-#endif
-
         requestRoutesMessageRegistryFileCollection(app);
         requestRoutesMessageRegistryFile(app);
         requestRoutesMessageRegistry(app);
