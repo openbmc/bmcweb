@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "999a72fd_e7c9e3f6",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-10-19T14:56:36Z",
+      "side": 1,
+      "message": "What does the Action do? \nWhy is it needed?",
+      "revId": "28f0375025eb9464b6c87ed910f09e239ea1f8fc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "24c67a3a_6834c3f0",
+        "filename": "include/google/google_service_root.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-10-19T14:56:36Z",
+      "side": 1,
+      "message": "Don\u0027t you want this in the GET, telling the client it exists and how to use it?",
+      "revId": "28f0375025eb9464b6c87ed910f09e239ea1f8fc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c4552dd9_1cc5fca6",
+        "filename": "include/google/google_service_root.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-10-19T14:56:36Z",
+      "side": 1,
+      "message": "Where is this d-bus API?",
+      "revId": "28f0375025eb9464b6c87ed910f09e239ea1f8fc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a8e795f8_3869cba8",
+        "filename": "static/google/v1/odata/index.json",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-10-19T14:56:36Z",
+      "side": 1,
+      "message": "Don\u0027t you also need to update the xml files too?\n\nhttps://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/41450",
+      "revId": "28f0375025eb9464b6c87ed910f09e239ea1f8fc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
