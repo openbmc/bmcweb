@@ -413,6 +413,23 @@
     },
     {
       "key": {
+        "uuid": "5f5890ba_dde77e5c",
+        "filename": "redfish-core/lib/metric_definition.hpp",
+        "patchSetId": 102
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 1001083
+      },
+      "writtenOn": "2021-10-20T22:15:05Z",
+      "side": 1,
+      "message": "Why not define this inside of mapSensorToMetricDefinition()? \nDo you plan on using this variable elsewhere?",
+      "revId": "32e557279450226ed9c06312649d90b802f3d4c5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "75ac406e_0e2bd7d7",
         "filename": "redfish-core/lib/metric_definition.hpp",
         "patchSetId": 102
