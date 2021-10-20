@@ -22,6 +22,30 @@
       "revId": "18f569aa751241a44976f636a865999c00d4a1ad",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eb8e4e20_7c9ac7da",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 2976,
+      "author": {
+        "id": 1001027
+      },
+      "writtenOn": "2021-10-20T08:51:45Z",
+      "side": 0,
+      "message": "\u003e this needs its own patch.\n\nhttps://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/47998",
+      "parentUuid": "f2a3c655_5f7bb5ea",
+      "range": {
+        "startLine": 2975,
+        "startChar": 0,
+        "endLine": 2976,
+        "endChar": 63
+      },
+      "revId": "18f569aa751241a44976f636a865999c00d4a1ad",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
