@@ -2233,9 +2233,7 @@ inline void requestRoutes(App& app)
             [](const crow::Request&,
                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                const std::string& connection) {
-                introspectObjects(
-                    connection, "/",
-                    std::make_shared<bmcweb::AsyncResp>(asyncResp->res));
+                introspectObjects(connection, "/", asyncResp);
             });
 
     BMCWEB_ROUTE(app, "/bus/system/<str>/<path>")
