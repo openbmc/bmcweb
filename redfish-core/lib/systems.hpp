@@ -2716,8 +2716,115 @@ inline void setIdlePowerSaver(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
                 return;
             }
 
-            // Valid Power IdlePowerSaver object found, now set any values that
-            // need to be updated
+            // Valid Power IdlePowerSaver object found, now set parameters
+
+            // Ensure utilization paremeters do not conflict
+            if (ipsEnterUtil || ipsExitUtil)
+            {
+                BMCWEB_LOG_ERROR << "CJC: Validating Enter <= Exit Utilization";
+                uint8_t enterUtil;
+                uint8_t exitUtil;
+                if (ipsEnterUtil)
+                {
+                    enterUtil = *ipsEnterUtil;
+                    BMCWEB_LOG_ERROR << "USER set EnterUtilizationPercent: "
+                                     << uint64_t(enterUtil);
+                }
+                else
+                {
+                    // get current EnterUtil
+                    crow::connections::systemBus->async_method_call(
+                        [aResp, &enterUtil](const boost::system::error_code ec,
+                                            std::variant<uint8_t>& util) {
+                            if (ec)
+                            {
+                                BMCWEB_LOG_ERROR
+                                    << "DBUS response error trying to read "
+                                       ""
+                                    << ec;
+                                messages::internalError(aResp->res);
+                                return;
+                            }
+                            const uint8_t* u = std::get_if<uint8_t>(&util);
+                            if (u == nullptr)
+                            {
+                                BMCWEB_LOG_ERROR
+                                    << "Unable to get EnterUtilizationPercent "
+                                       "property";
+                                messages::internalError(aResp->res);
+                                return;
+                            }
+                            enterUtil = *u;
+                            BMCWEB_LOG_ERROR
+                                << "GET returned EnterUtilizationPercent: "
+                                << uint64_t(enterUtil) << " and "
+                                << uint64_t(*u);
+                        },
+                        service, path, "org.freedesktop.DBus.Properties", "Get",
+                        "xyz.openbmc_project.Control.Power.IdlePowerSaver",
+                        "EnterUtilizationPercent");
+                }
+
+                if (ipsExitUtil)
+                {
+                    exitUtil = *ipsExitUtil;
+                    BMCWEB_LOG_ERROR << "USER set ExitUtilizationPercent="
+                                     << uint64_t(exitUtil);
+                }
+                else
+                {
+                    // get current ExitUtil
+                    crow::connections::systemBus->async_method_call(
+                        [aResp, &exitUtil](const boost::system::error_code ec,
+                                           std::variant<uint8_t>& util) {
+                            if (ec)
+                            {
+                                BMCWEB_LOG_ERROR
+                                    << "DBUS response error trying to read "
+                                       "ExitUtilizationPercent"
+                                    << ec;
+                                messages::internalError(aResp->res);
+                                return;
+                            }
+                            const uint8_t* u = std::get_if<uint8_t>(&util);
+                            if (u == nullptr)
+                            {
+                                BMCWEB_LOG_ERROR
+                                    << "Unable to get ExitUtilizationPercent "
+                                       "property";
+                                messages::internalError(aResp->res);
+                                return;
+                            }
+                            exitUtil = *u;
+                            BMCWEB_LOG_ERROR
+                                << "GET returned ExitUtilizationPercent: "
+                                << uint64_t(exitUtil) << " and "
+                                << uint64_t(*u);
+                        },
+                        service, path, "org.freedesktop.DBus.Properties", "Get",
+                        "xyz.openbmc_project.Control.Power.IdlePowerSaver",
+                        "ExitUtilizationPercent");
+                }
+
+                if (enterUtil > exitUtil)
+                {
+                    BMCWEB_LOG_ERROR << "BAD: EnterUtilizationPercent ("
+                                     << uint64_t(enterUtil) << ") > "
+                                     << "ExitUtilizationPercent ("
+                                     << uint64_t(exitUtil) << ")";
+                    messages::propertyValueConflict(aResp->res,
+                                                    "EnterUtilizationPercent",
+                                                    "ExitUtilizationPercent");
+                    return;
+                }
+                else
+                {
+                    BMCWEB_LOG_ERROR << "GOOD: EnterUtilizationPercent ("
+                                     << uint64_t(enterUtil) << ") <= "
+                                     << "ExitUtilizationPercent ("
+                                     << uint64_t(exitUtil) << ")";
+                }
+            }
 
             if (ipsEnable)
             {
