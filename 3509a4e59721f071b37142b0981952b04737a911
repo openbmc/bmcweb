@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d9b0d908_46e404af",
+        "filename": "redfish-core/lib/network_protocol.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-10-21T18:24:21Z",
+      "side": 1,
+      "message": "The commit message talks about NTPServers in depth, but makes no mention that this is changing the behavior for DomainName as well.",
+      "range": {
+        "startLine": 82,
+        "startChar": 0,
+        "endLine": 82,
+        "endChar": 39
+      },
+      "revId": "3509a4e59721f071b37142b0981952b04737a911",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
