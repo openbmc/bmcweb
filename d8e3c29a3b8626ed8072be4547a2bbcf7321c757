@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0e1e7d1b_86f80cf3",
+        "filename": "include/nbd_proxy.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 260,
+      "author": {
+        "id": 1001027
+      },
+      "writtenOn": "2021-10-21T06:28:29Z",
+      "side": 0,
+      "message": "There will be no error when compiling, because this file is not added to compile. But I think it is better to delete it. \nI have done it.",
+      "range": {
+        "startLine": 260,
+        "startChar": 24,
+        "endLine": 260,
+        "endChar": 33
+      },
+      "revId": "d8e3c29a3b8626ed8072be4547a2bbcf7321c757",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3164947f_40f02994",
+        "filename": "include/nbd_proxy.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 305,
+      "author": {
+        "id": 1001027
+      },
+      "writtenOn": "2021-10-21T06:28:29Z",
+      "side": 0,
+      "message": "Same as above",
+      "range": {
+        "startLine": 305,
+        "startChar": 47,
+        "endLine": 305,
+        "endChar": 56
+      },
+      "revId": "d8e3c29a3b8626ed8072be4547a2bbcf7321c757",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
