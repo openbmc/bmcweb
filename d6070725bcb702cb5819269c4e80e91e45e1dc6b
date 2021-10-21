@@ -153,6 +153,30 @@
     },
     {
       "key": {
+        "uuid": "114e3a6c_94ec920e",
+        "filename": "http/websocket.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1001027
+      },
+      "writtenOn": "2021-10-21T06:26:14Z",
+      "side": 1,
+      "message": "\u003e If anyone is interested in helping.  This change, moving the openHandler back to only supporting websocket disconnects and not 404s, needs broken out into its own change.\n\nI commit it in https://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/48033",
+      "parentUuid": "059354ca_3127ec3d",
+      "range": {
+        "startLine": 68,
+        "startChar": 8,
+        "endLine": 68,
+        "endChar": 53
+      },
+      "revId": "d6070725bcb702cb5819269c4e80e91e45e1dc6b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d5408d2c_6ce07d09",
         "filename": "redfish-core/include/query.hpp",
         "patchSetId": 4
