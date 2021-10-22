@@ -889,11 +889,54 @@ inline void createDump(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
         createDumpParamVec;
 
     crow::connections::systemBus->async_method_call(
-        [asyncResp, req](const boost::system::error_code ec,
-                         const sdbusplus::message::object_path& objPath) {
+        [asyncResp, req,
+         dumpType](const boost::system::error_code ec,
+                   const sdbusplus::message::message& msg,
+                   const sdbusplus::message::object_path& objPath) {
             if (ec)
             {
                 BMCWEB_LOG_ERROR << "CreateDump resp_handler got error " << ec;
+                const sd_bus_error* dbusError = msg.get_error();
+                if (dbusError == nullptr)
+                {
+                    messages::internalError(asyncResp->res);
+                    return;
+                }
+
+                BMCWEB_LOG_ERROR << "CreateDump DBus error: " << dbusError->name
+                                 << " and error msg: " << dbusError->message;
+
+                if (strcmp(dbusError->name, "xyz.openbmc_project.Common.Error."
+                                            "NotAllowed") == 0)
+                {
+                    // This will be returned as a result of createDump call
+                    // made when the host is not powered on.
+                    messages::resourceInStandby(asyncResp->res);
+                    return;
+                }
+                if (strcmp(dbusError->name, "xyz.openbmc_project.Dump."
+                                            "Create.Error.Disabled") == 0)
+                {
+                    std::string dumpPath;
+                    if (dumpType == "BMC")
+                    {
+                        dumpPath = "/redfish/v1/Managers/bmc/LogServices/Dump/";
+                    }
+                    else if (dumpType == "System")
+                    {
+                        dumpPath =
+                            "/redfish/v1/Systems/system/LogServices/Dump/";
+                    }
+                    messages::serviceDisabled(asyncResp->res, dumpPath);
+                    return;
+                }
+                // Other Dbus errors such as:
+                // xyz.openbmc_project.Common.Error.InvalidArgument &
+                // org.freedesktop.DBus.Error.InvalidArgs are all related to
+                // the dbus call that is made here in the bmcweb
+                // implementation and has nothing to do with the client's
+                // input in the request. Hence, returning internal error
+                // back to the client.
                 messages::internalError(asyncResp->res);
                 return;
             }
