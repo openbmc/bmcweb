@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "95d3824c_2bb0dcd9",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2021-10-22T00:49:19Z",
+      "side": 1,
+      "message": ".",
+      "parentUuid": "0bfdcff9_823ed83b",
+      "revId": "a7447ecd0a87cb0428bd279213e5903399dcc8c4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a8629a2c_2ed73212",
         "filename": "http/http_connection.hpp",
         "patchSetId": 3
@@ -133,6 +151,30 @@
       "revId": "a7447ecd0a87cb0428bd279213e5903399dcc8c4",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "222c1bb6_c909bc58",
+        "filename": "http/http_connection.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 386,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2021-10-22T00:49:19Z",
+      "side": 1,
+      "message": "I agree, my bad",
+      "parentUuid": "0011b0bd_d2f6e434",
+      "range": {
+        "startLine": 386,
+        "startChar": 12,
+        "endLine": 386,
+        "endChar": 18
+      },
+      "revId": "a7447ecd0a87cb0428bd279213e5903399dcc8c4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
