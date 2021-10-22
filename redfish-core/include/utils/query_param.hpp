@@ -13,15 +13,28 @@ namespace redfish
 {
 namespace query_param
 {
+const uint64_t expandMaxLevel = 2;  // todo
+const uint64_t expandMinLenth = 12; //*($levels=1)
 struct Query
 {
     bool isOnly = false;
+    bool isExpand = false;
+    uint64_t expandLevel;
+    std::string expandType;
+    std::vector<std::string> pendingUrlVec;
+    std::vector<std::string> processedUrlVec;
+    nlohmann::json jsonValue;
 };
-inline std::optional<Query>
+
+void processAllParams(crow::App& app, std::shared_ptr<Query>& query,
+                      crow::Response& intermediateResponse,
+                      std::function<void(crow::Response&)>& completionHandler);
+
+std::shared_ptr<Query>
     parseParameters(const boost::urls::params_view& urlParams,
                     crow::Response& res)
 {
-    Query ret{};
+    auto ret = std::make_shared<Query>();
     for (const boost::urls::params_view::value_type& it : urlParams)
     {
         if (it.key.compare("only") == 0)
@@ -30,19 +43,224 @@ inline std::optional<Query>
             if (urlParams.size() != 1)
             {
                 messages::queryCombinationInvalid(res);
-                return std::nullopt;
+                return nullptr;
             }
             if (!it.value.empty())
             {
                 messages::queryParameterValueFormatError(
                     res, std::string(it.value), std ::string(it.key));
-                return std::nullopt;
+                return nullptr;
             }
-            ret.isOnly = true;
+            ret->isOnly = true;
+        }
+        else if (it.key.compare("$expand") == 0)
+        {
+            std::string value = std::string(it.value);
+            if (value == "*" || value == "." || value == "~")
+            {
+                ret->isExpand = true;
+                ret->expandType = std::move(value);
+                ret->expandLevel = 1;
+            }
+            else if (value.size() >= expandMinLenth &&
+                     value.substr(1, 9) == "($levels=" &&
+                     (value[0] == '*' || value[0] == '.' || value[0] == '~') &&
+                     value[value.size() - 1] == ')')
+            {
+                ret->isExpand = true;
+                ret->expandType = value[0];
+                ret->expandLevel = strtoul(
+                    value.substr(10, value.size() - 2).c_str(), nullptr, 10);
+                ret->expandLevel = ret->expandLevel < expandMaxLevel
+                                       ? ret->expandLevel
+                                       : expandMaxLevel;
+            }
+            else
+            {
+                messages::queryParameterValueFormatError(
+                    res, std::string(it.value), std ::string(it.key));
+                return nullptr;
+            }
         }
     }
     return ret;
 }
+
+inline void recursiveToGetUrls(nlohmann::json& j, std::shared_ptr<Query>& query)
+{
+    auto itExpand = j.find("isExpand");
+    if (itExpand == j.end())
+    {
+        auto it = j.find("@odata.id");
+        if (it != j.end())
+        {
+            std::string url = it->get<std::string>();
+
+            if (url.find('#') == std::string::npos)
+            {
+                query->pendingUrlVec.push_back(url);
+            }
+        }
+        else if (query->expandType == "*" || query->expandType == ".")
+        {
+            it = j.find("@Redfish.Settings");
+            if (it != j.end())
+            {
+                std::string url = it->get<std::string>();
+                if (url.find('#') == std::string::npos)
+                {
+                    query->pendingUrlVec.push_back(url);
+                }
+            }
+            else
+            {
+                it = j.find("@Redfish.ActionInfo");
+                if (it != j.end())
+                {
+                    std::string url = it->get<std::string>();
+                    if (url.find('#') == std::string::npos)
+                    {
+                        query->pendingUrlVec.push_back(url);
+                    }
+                }
+                else
+                {
+                    it = j.find("@Redfish.CollectionCapabilities");
+                    if (it != j.end())
+                    {
+                        std::string url = it->get<std::string>();
+                        if (url.find('#') == std::string::npos)
+                        {
+                            query->pendingUrlVec.push_back(url);
+                        }
+                    }
+                }
+            }
+        }
+    }
+    for (auto it = j.begin(); it != j.end(); ++it)
+    {
+        if (it->is_object())
+        {
+            if (query->expandType == "." && it.key() == "Links")
+            {
+                continue;
+            }
+            recursiveToGetUrls(*it, query);
+        }
+        else if (it->is_array())
+        {
+            for (auto& itArray : *it)
+            {
+                recursiveToGetUrls(itArray, query);
+            }
+        }
+    }
+}
+
+inline bool insertJson(nlohmann::json& base, const std::string& pos,
+                       const nlohmann::json& data,
+                       const std::shared_ptr<Query>& query)
+{
+    auto itExpand = base.find("isExpand");
+    if (itExpand != base.end())
+    {
+        if (itExpand->get<unsigned int>() <= query->expandLevel)
+        {
+            return false;
+        }
+    }
+    else
+    {
+        auto it = base.find("@odata.id");
+        if (it != base.end())
+        {
+            if (it->get<std::string>() == pos)
+            {
+                base = data;
+                return true;
+            }
+        }
+        else if (query->expandType == "*" || query->expandType == ".")
+        {
+            it = base.find("@Redfish.Settings");
+            if (it != base.end())
+            {
+                if (it->get<std::string>() == pos)
+                {
+                    base = data;
+                    return true;
+                }
+            }
+            else
+            {
+                it = base.find("@Redfish.ActionInfo");
+                if (it != base.end())
+                {
+                    if (it->get<std::string>() == pos)
+                    {
+                        base = data;
+                        return true;
+                    }
+                }
+                else
+                {
+                    it = base.find("@Redfish.CollectionCapabilities");
+                    if (it != base.end())
+                    {
+                        if (it->get<std::string>() == pos)
+                        {
+                            base = data;
+                            return true;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    for (auto it = base.begin(); it != base.end(); ++it)
+    {
+        if (it->is_object())
+        {
+            if (query->expandType == "." && it.key() == "Links")
+            {
+                continue;
+            }
+            if (insertJson(*it, pos, data, query))
+            {
+                return true;
+            }
+        }
+        else if (it->is_array())
+        {
+            for (auto& itArray : *it)
+            {
+                if (insertJson(itArray, pos, data, query))
+                {
+                    return true;
+                }
+            }
+        }
+    }
+    return false;
+}
+
+inline void deleteExpand(nlohmann::json& j)
+{
+    auto it = j.find("isExpand");
+    if (it != j.end())
+    {
+        j.erase(it);
+    }
+    for (auto& it : j)
+    {
+        if (it.is_structured())
+        {
+            deleteExpand(it);
+        }
+    }
+}
+
 inline bool processOnly(crow::App& app, crow::Response& res,
                         std::function<void(crow::Response&)>& completionHandler)
 {
@@ -95,7 +313,77 @@ inline bool processOnly(crow::App& app, crow::Response& res,
     app.handle(newReq, asyncResp);
     return true;
 }
-void processAllParams(crow::App& app, const std::optional<Query>& query,
+
+inline bool
+    processExpand(crow::App& app, crow::Response& res,
+                  std::function<void(crow::Response&)>& completionHandler,
+                  std::shared_ptr<Query>& query)
+{
+    if (query->pendingUrlVec.size() == 0)
+    {
+        if (res.jsonValue.find("isExpand") == res.jsonValue.end())
+        {
+            res.jsonValue["isExpand"] = query->expandLevel + 1;
+        }
+        recursiveToGetUrls(res.jsonValue, query);
+        if (query->pendingUrlVec.size() == 0)
+        {
+            deleteExpand(res.jsonValue);
+            return false;
+        }
+        query->jsonValue = res.jsonValue;
+
+        for (auto url : query->pendingUrlVec)
+        {
+            std::error_code ec;
+            crow::Request newReq({boost::beast::http::verb::get, url, 11}, ec);
+            if (ec)
+            {
+                messages::internalError(res);
+                completionHandler(res);
+                return true;
+            }
+
+            auto asyncResp = std::make_shared<bmcweb::AsyncResp>();
+            BMCWEB_LOG_DEBUG << "setting completion handler on "
+                             << &asyncResp->res;
+            asyncResp->res.setCompleteRequestHandler(
+                [&app, handler(completionHandler),
+                 query](crow::Response& res) mutable {
+                    BMCWEB_LOG_DEBUG << "Starting query params handling";
+                    processAllParams(app, query, res, handler);
+                });
+            asyncResp->res.setIsAliveHelper(res.releaseIsAliveHelper());
+            app.handle(newReq, asyncResp);
+        }
+        return true;
+    }
+    if (res.jsonValue.find("isExpand") == res.jsonValue.end())
+    {
+        res.jsonValue["isExpand"] = query->expandLevel;
+    }
+    insertJson(query->jsonValue, res.jsonValue["@odata.id"], res.jsonValue,
+               query);
+    query->processedUrlVec.push_back(res.jsonValue["@odata.id"]);
+
+    if (query->pendingUrlVec.size() == query->processedUrlVec.size())
+    {
+        query->expandLevel -= 1;
+        res.jsonValue = query->jsonValue;
+        if (query->expandLevel == 0)
+        {
+            deleteExpand(res.jsonValue);
+            return false;
+        }
+        query->pendingUrlVec.clear();
+        query->processedUrlVec.clear();
+        return processExpand(app, res, completionHandler, query);
+    }
+
+    return true;
+}
+
+void processAllParams(crow::App& app, std::shared_ptr<Query>& query,
                       crow::Response& intermediateResponse,
                       std::function<void(crow::Response&)>& completionHandler)
 {
@@ -105,13 +393,6 @@ void processAllParams(crow::App& app, const std::optional<Query>& query,
         return;
     }
     BMCWEB_LOG_DEBUG << "Processing query params";
-    if (!query)
-    {
-        BMCWEB_LOG_DEBUG << "No query params to process";
-        // Query params weren't valid, no need to continue;
-        completionHandler(intermediateResponse);
-        return;
-    }
     // If the request failed, there's no reason to even try to run query
     // params.
     if (intermediateResponse.resultInt() < 200 ||
@@ -124,6 +405,13 @@ void processAllParams(crow::App& app, const std::optional<Query>& query,
     {
         processOnly(app, intermediateResponse, completionHandler);
         return;
+    }
+    if (query->isExpand)
+    {
+        if (processExpand(app, intermediateResponse, completionHandler, query))
+        {
+            return;
+        }
     }
     completionHandler(intermediateResponse);
 }
