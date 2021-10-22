@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9093223a_37500b94",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-10-22T14:15:21Z",
+      "side": 1,
+      "message": "What Test?",
+      "revId": "e0945076b2bc82350a09a1f3da2eb61453291946",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b466f25b_b0e57eb0",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-10-22T14:15:21Z",
+      "side": 1,
+      "message": "I still want to see it tested. \n\nCould you remove this part and just describe the testing? E.g.\n\nTested: Opened KVM in webui-vue and it works.",
+      "revId": "e0945076b2bc82350a09a1f3da2eb61453291946",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "44eb4df5_05b1ee07",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-10-22T14:15:21Z",
+      "side": 1,
+      "message": "Open KVM through bmcweb? \nLike you connected to the websocket? Didn\u0027t use the GUI?",
+      "revId": "e0945076b2bc82350a09a1f3da2eb61453291946",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
