@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "dc959538_5ff8387a",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-10-22T15:29:04Z",
+      "side": 1,
+      "message": "Aren\u0027t you calling this sensorType below? Can we be consistent here ?",
+      "range": {
+        "startLine": 52,
+        "startChar": 49,
+        "endLine": 52,
+        "endChar": 53
+      },
+      "revId": "20132c87b94c4c41f4d84f5d653d050f30a31e18",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "87826c4a_3aad9ce1",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-10-22T15:29:04Z",
+      "side": 1,
+      "message": "But don\u0027t you call this name below?",
+      "range": {
+        "startLine": 52,
+        "startChar": 56,
+        "endLine": 52,
+        "endChar": 63
+      },
+      "revId": "20132c87b94c4c41f4d84f5d653d050f30a31e18",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
