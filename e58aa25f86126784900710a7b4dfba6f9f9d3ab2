@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2abcbbbe_bfc0fdd3",
+        "filename": "redfish-core/include/query.hpp",
+        "patchSetId": 54
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-10-22T14:19:57Z",
+      "side": 1,
+      "message": "Why the empty line to start the file? \nTypically see something more like \n\n\nline 1- #pragma once\nline 2 -\nline 3 - #include \u003capp.hpp\u003e\nline 4 -\nline 5 - namespace redfish\n\nE.g. look at https://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/38952/54/redfish-core/lib/systems.hpp",
+      "revId": "e58aa25f86126784900710a7b4dfba6f9f9d3ab2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "32dbdef3_ce3bc684",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 54
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-10-22T14:19:57Z",
+      "side": 1,
+      "message": "Can you make these look like other files?\ne.g. https://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/38952/54/redfish-core/lib/systems.hpp\n\nNo new line to start, a new line after #pragma once, a new line before namespace redfish",
+      "revId": "e58aa25f86126784900710a7b4dfba6f9f9d3ab2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
