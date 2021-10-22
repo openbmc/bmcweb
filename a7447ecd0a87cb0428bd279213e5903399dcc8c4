@@ -65,6 +65,30 @@
     },
     {
       "key": {
+        "uuid": "72fd9c9c_a261a4cf",
+        "filename": "http/http_connection.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 368,
+      "author": {
+        "id": 1001027
+      },
+      "writtenOn": "2021-10-22T00:43:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "96d925cb_14f2486f",
+      "range": {
+        "startLine": 368,
+        "startChar": 10,
+        "endLine": 368,
+        "endChar": 19
+      },
+      "revId": "a7447ecd0a87cb0428bd279213e5903399dcc8c4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "55dc85e1_6c16a70b",
         "filename": "http/http_connection.hpp",
         "patchSetId": 3
@@ -76,6 +100,30 @@
       "writtenOn": "2021-10-21T18:18:29Z",
       "side": 1,
       "message": "same as above \"Response was ended twice\"",
+      "range": {
+        "startLine": 386,
+        "startChar": 12,
+        "endLine": 386,
+        "endChar": 18
+      },
+      "revId": "a7447ecd0a87cb0428bd279213e5903399dcc8c4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0011b0bd_d2f6e434",
+        "filename": "http/http_connection.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 386,
+      "author": {
+        "id": 1001027
+      },
+      "writtenOn": "2021-10-22T00:43:13Z",
+      "side": 1,
+      "message": "No, this is different from above. CompleteRequest(res) is not called here.",
+      "parentUuid": "55dc85e1_6c16a70b",
       "range": {
         "startLine": 386,
         "startChar": 12,
