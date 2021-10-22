@@ -8,8 +8,12 @@ inline bool setUpRedfishRoute(crow::App& app, const crow::Request& req,
                               crow::Response& res)
 {
     BMCWEB_LOG_DEBUG << "setup redfish route";
-    std::optional<query_param::Query> query =
-        query_param::parseParameters(req.urlView.params(), res);
+    auto query = query_param::parseParameters(req.urlView.params(), res);
+    if (query == nullptr)
+    {
+        BMCWEB_LOG_DEBUG << "No query params to process";
+        return true;
+    }
     std::function<void(crow::Response&)> handler =
         res.releaseCompleteRequestHandler();
     BMCWEB_LOG_DEBUG << "Function was valid: " << static_cast<bool>(handler);
