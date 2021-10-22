@@ -16,6 +16,24 @@
       "revId": "6110b08ed1f9ca8cc283a4e03243528272e6ba1e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e47a90ba_6ce7c4d8",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1001027
+      },
+      "writtenOn": "2021-10-22T03:07:16Z",
+      "side": 1,
+      "message": "I just tested a few URLs and they can be accessed normally. Bmcweb is ok, too. These are already included basic auth and token based auth.\nI don\u0027t know what is MUTUAL_TLS.",
+      "parentUuid": "e20f7ee1_95ff6e24",
+      "revId": "6110b08ed1f9ca8cc283a4e03243528272e6ba1e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
