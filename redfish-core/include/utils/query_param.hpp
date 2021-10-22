@@ -18,15 +18,42 @@ struct Query
 {
     bool isOnly = false;
     bool isExpand = false;
+    bool isSelect = false;
     uint64_t expandLevel;
     std::string expandType;
     std::vector<std::string> pendingUrlVec;
+    std::vector<std::vector<std::string>> selectPropertyVec;
     nlohmann::json jsonValue;
 };
 
 void processAllParams(crow::App& app, Query& query,
                       crow::Response& intermediateResponse,
                       std::function<void(crow::Response&)>& completionHandler);
+
+std::vector<std::string> stringSplit(const std::string& s,
+                                     const std::string& delim)
+{
+    std::vector<std::string> elems;
+    size_t pos = 0;
+    size_t len = s.length();
+    size_t delimLen = delim.length();
+    if (delimLen == 0)
+    {
+        return elems;
+    }
+    while (pos < len)
+    {
+        size_t findPos = s.find(delim, pos);
+        if (findPos == std::string::npos)
+        {
+            elems.push_back(s.substr(pos, len - pos));
+            break;
+        }
+        elems.push_back(s.substr(pos, findPos - pos));
+        pos = findPos + delimLen;
+    }
+    return elems;
+}
 
 inline std::optional<Query>
     parseParameters(const boost::urls::query_params_view& urlParams,
@@ -78,6 +105,21 @@ inline std::optional<Query>
                 messages::queryParameterValueFormatError(res, it.value(),
                                                          it.key());
                 return std::nullopt;
+            }
+        }
+        else if (it.key() == "$select")
+        {
+            ret.isSelect = true;
+            std::string value = std::string(it.value());
+            auto result = stringSplit(value, ",");
+            for (auto& itResult : result)
+            {
+                auto v = stringSplit(itResult, "/");
+                if (v.empty())
+                {
+                    continue;
+                }
+                ret.selectPropertyVec.push_back(std::move(v));
             }
         }
     }
@@ -258,6 +300,63 @@ inline void deleteExpand(nlohmann::json& j)
     }
 }
 
+void recursiveSelect(std::vector<std::string> v, nlohmann::json& src,
+                     nlohmann::json& dst)
+{
+    if (v.empty())
+    {
+        return;
+    }
+    if (src.is_array())
+    {
+        for (auto it : src)
+        {
+            dst.push_back(nlohmann::json());
+            recursiveSelect(v, it, dst.back());
+        }
+        return;
+    }
+    std::string key = v[0];
+    auto it = src.find(key);
+    if (v.size() == 1)
+    {
+        dst.insert(it, ++it);
+    }
+    else
+    {
+        v.erase(v.begin());
+        if (it->is_array())
+        {
+            dst[key] = nlohmann::json::array();
+        }
+        else
+        {
+            dst[key] = nlohmann::json::object();
+        }
+        recursiveSelect(v, *it, dst[key]);
+    }
+    it = src.find("@odata.id");
+    if (it != src.end())
+    {
+        dst.insert(it, ++it);
+    }
+    it = src.find("@odata.type");
+    if (it != src.end())
+    {
+        dst.insert(it, ++it);
+    }
+    it = src.find("@odata.context");
+    if (it != src.end())
+    {
+        dst.insert(it, ++it);
+    }
+    it = src.find("@odata.etag");
+    if (it != src.end())
+    {
+        dst.insert(it, ++it);
+    }
+}
+
 inline bool processOnly(crow::App& app, crow::Response& res,
                         std::function<void(crow::Response&)>& completionHandler)
 {
@@ -416,6 +515,16 @@ inline bool
     return true;
 }
 
+inline void processSelect(crow::Response& res, Query& query)
+{
+    auto jsonValue = nlohmann::json::object();
+    for (auto& it : query.selectPropertyVec)
+    {
+        recursiveSelect(it, res.jsonValue, jsonValue);
+    }
+    res.jsonValue = jsonValue;
+}
+
 void processAllParams(crow::App& app, Query& query,
                       crow::Response& intermediateResponse,
                       std::function<void(crow::Response&)>& completionHandler)
@@ -445,6 +554,10 @@ void processAllParams(crow::App& app, Query& query,
         {
             return;
         }
+    }
+    if (query.isSelect)
+    {
+        processSelect(intermediateResponse, query);
     }
     completionHandler(intermediateResponse);
 }
