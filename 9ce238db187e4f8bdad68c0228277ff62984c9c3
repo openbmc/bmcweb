@@ -94,6 +94,52 @@
       "revId": "9ce238db187e4f8bdad68c0228277ff62984c9c3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d13af7a0_cda16da0",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 930,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-10-25T16:03:25Z",
+      "side": 1,
+      "message": "Prefer to return here and remove the else on the next line.",
+      "range": {
+        "startLine": 930,
+        "startChar": 0,
+        "endLine": 930,
+        "endChar": 72
+      },
+      "revId": "9ce238db187e4f8bdad68c0228277ff62984c9c3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "314286ee_e9d2be76",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 943,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-10-25T16:03:25Z",
+      "side": 1,
+      "message": "While we\u0027re here, this return does nothing and can be removed.",
+      "range": {
+        "startLine": 943,
+        "startChar": 0,
+        "endLine": 943,
+        "endChar": 23
+      },
+      "revId": "9ce238db187e4f8bdad68c0228277ff62984c9c3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
