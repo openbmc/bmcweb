@@ -34,6 +34,24 @@
       "revId": "6110b08ed1f9ca8cc283a4e03243528272e6ba1e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "546da146_8d661ddf",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-10-25T16:08:07Z",
+      "side": 1,
+      "message": "Can you update the commit msg? \n\"Test passed\" doesn\u0027t tell me which test, what the test does. \n\nE.g. looking for something more like\nTested: Basic and Token auth both still work. \n\nAs for Mutual TLS there is a guide here: \nhttps://github.com/openbmc/docs/blob/master/security/TLS-configuration.md",
+      "parentUuid": "e47a90ba_6ce7c4d8",
+      "revId": "6110b08ed1f9ca8cc283a4e03243528272e6ba1e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
