@@ -70,6 +70,30 @@
       "revId": "998b173852f54c53d5600eb417676445a9034657",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fc5a4a00_bdcf3288",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 2498,
+      "author": {
+        "id": 1000238
+      },
+      "writtenOn": "2021-10-25T18:31:28Z",
+      "side": 1,
+      "message": "I would think we would want to return as much valid data as we have on a Get, but I can make the code change.",
+      "parentUuid": "f0fb76ca_2c65e123",
+      "range": {
+        "startLine": 2491,
+        "startChar": 0,
+        "endLine": 2498,
+        "endChar": 13
+      },
+      "revId": "998b173852f54c53d5600eb417676445a9034657",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
