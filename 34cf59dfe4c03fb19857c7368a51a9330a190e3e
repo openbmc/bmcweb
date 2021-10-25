@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5c8c351e_652c3e77",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 3141,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-10-25T21:37:48Z",
+      "side": 1,
+      "message": "Will have to do something different (along with the rest of these) when we support multiple ComputerSystems.",
+      "revId": "34cf59dfe4c03fb19857c7368a51a9330a190e3e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
