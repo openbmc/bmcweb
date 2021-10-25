@@ -30,11 +30,11 @@ inline void fillReportDefinition(
     asyncResp->res.jsonValue["@odata.type"] =
         "#MetricReportDefinition.v1_3_0.MetricReportDefinition";
     asyncResp->res.jsonValue["@odata.id"] =
-        telemetry::metricReportDefinitionUri + id;
+        telemetry::metricReportDefinitionUri + std::string("/") + id;
     asyncResp->res.jsonValue["Id"] = id;
     asyncResp->res.jsonValue["Name"] = id;
     asyncResp->res.jsonValue["MetricReport"]["@odata.id"] =
-        telemetry::metricReportUri + id;
+        telemetry::metricReportUri + std::string("/") + id;
     asyncResp->res.jsonValue["Status"]["State"] = "Enabled";
     asyncResp->res.jsonValue["ReportUpdates"] = "Overwrite";
 
@@ -362,9 +362,11 @@ inline void requestRoutesMetricReportDefinitionCollection(App& app)
                     "/redfish/v1/TelemetryService/MetricReportDefinitions";
                 asyncResp->res.jsonValue["Name"] =
                     "Metric Definition Collection";
-
-                telemetry::getReportCollection(
-                    asyncResp, telemetry::metricReportDefinitionUri);
+                const std::vector<const char*> interfaces{
+                    telemetry::reportInterface};
+                collection_util::getCollectionMembers(
+                    asyncResp, telemetry::metricReportDefinitionUri, interfaces,
+                    "/xyz/openbmc_project/Telemetry/Reports/TelemetryService");
             });
 
     BMCWEB_ROUTE(app, "/redfish/v1/TelemetryService/MetricReportDefinitions/")

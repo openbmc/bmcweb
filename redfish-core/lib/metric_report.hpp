@@ -1,5 +1,6 @@
 #pragma once
 
+#include "utils/collection.hpp"
 #include "utils/telemetry_utils.hpp"
 
 #include <app.hpp>
@@ -39,11 +40,11 @@ inline void fillReport(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
 {
     asyncResp->res.jsonValue["@odata.type"] =
         "#MetricReport.v1_3_0.MetricReport";
-    asyncResp->res.jsonValue["@odata.id"] = telemetry::metricReportUri + id;
+    asyncResp->res.jsonValue["@odata.id"] = telemetry::metricReportUri + std::string("/") + id;
     asyncResp->res.jsonValue["Id"] = id;
     asyncResp->res.jsonValue["Name"] = id;
     asyncResp->res.jsonValue["MetricReportDefinition"]["@odata.id"] =
-        telemetry::metricReportDefinitionUri + id;
+        telemetry::metricReportDefinitionUri + std::string("/") + id;
 
     const TimestampReadings* timestampReadings =
         std::get_if<TimestampReadings>(&var);
@@ -73,9 +74,11 @@ inline void requestRoutesMetricReportCollection(App& app)
                 asyncResp->res.jsonValue["@odata.id"] =
                     "/redfish/v1/TelemetryService/MetricReports";
                 asyncResp->res.jsonValue["Name"] = "Metric Report Collection";
-
-                telemetry::getReportCollection(asyncResp,
-                                               telemetry::metricReportUri);
+                const std::vector<const char*> interfaces{
+                    telemetry::reportInterface};
+                collection_util::getCollectionMembers(
+                    asyncResp, telemetry::metricReportUri, interfaces,
+                    "/xyz/openbmc_project/Telemetry/Reports/TelemetryService");
             });
 }
 
