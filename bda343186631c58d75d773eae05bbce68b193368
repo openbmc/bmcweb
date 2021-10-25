@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "b34b4eab_feb3a8d5",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 855,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2021-10-25T05:26:42Z",
+      "side": 1,
+      "message": "This can be named as systemDumpPath to be more appropriate. \nCan you move this to the section where it is consumed ? ie. line 928. then it need not be passed into the lambda",
+      "range": {
+        "startLine": 855,
+        "startChar": 8,
+        "endLine": 855,
+        "endChar": 23
+      },
+      "revId": "bda343186631c58d75d773eae05bbce68b193368",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "195fa107_247a05f4",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 7
@@ -37,6 +60,24 @@
     },
     {
       "key": {
+        "uuid": "a972a73b_0fe7e199",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 917,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2021-10-25T05:26:42Z",
+      "side": 1,
+      "message": "https://github.com/DMTF/Redfish/issues/4850 has the DMTF recommendations for this kind of use-cases \nresourceInStandby seems OK for this case",
+      "parentUuid": "023b1b09_d9e32a51",
+      "revId": "bda343186631c58d75d773eae05bbce68b193368",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "923ca07d_90083eef",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 7
@@ -66,6 +107,29 @@
       "side": 1,
       "message": "I will remove it",
       "parentUuid": "923ca07d_90083eef",
+      "revId": "bda343186631c58d75d773eae05bbce68b193368",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "12683430_b9ee2c07",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 939,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2021-10-25T05:26:42Z",
+      "side": 1,
+      "message": "Can you be more clear about this comment here? \nDoes this mean that if any kind of invalid arguments are passed / arguments are missing, there is no different errors thrown by the dbus. Thus bmcweb can not differentiate the specific error. So you are returning 500?",
+      "range": {
+        "startLine": 934,
+        "startChar": 0,
+        "endLine": 939,
+        "endChar": 42
+      },
       "revId": "bda343186631c58d75d773eae05bbce68b193368",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
