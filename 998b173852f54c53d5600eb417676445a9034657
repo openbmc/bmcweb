@@ -94,6 +94,30 @@
       "revId": "998b173852f54c53d5600eb417676445a9034657",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1ea092d5_a1208dd1",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 2498,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-10-25T18:38:01Z",
+      "side": 1,
+      "message": "This should not happen.\nIf it does, an internal error is returned and some of these properties are missing.\nThat sounds reasonable to me.\nI would really be fine either way but since \"would stop on the first failing property\" is what we have been doing in other current commits, I would vote for it.",
+      "parentUuid": "fc5a4a00_bdcf3288",
+      "range": {
+        "startLine": 2491,
+        "startChar": 0,
+        "endLine": 2498,
+        "endChar": 13
+      },
+      "revId": "998b173852f54c53d5600eb417676445a9034657",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
