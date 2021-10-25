@@ -1,5 +1,6 @@
 #pragma once
 
+#include "utils/collection.hpp"
 #include "utils/telemetry_utils.hpp"
 
 #include <app.hpp>
@@ -73,9 +74,11 @@ inline void requestRoutesMetricReportCollection(App& app)
                 asyncResp->res.jsonValue["@odata.id"] =
                     "/redfish/v1/TelemetryService/MetricReports";
                 asyncResp->res.jsonValue["Name"] = "Metric Report Collection";
-
-                telemetry::getReportCollection(asyncResp,
-                                               telemetry::metricReportUri);
+                const std::vector<const char*> interfaces{
+                    telemetry::reportInterface};
+                collection_util::getCollectionMembers(
+                    asyncResp, telemetry::metricReportUri, interfaces,
+                    "/xyz/openbmc_project/Telemetry/Reports/TelemetryService");
             });
 }
 
