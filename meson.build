@@ -311,10 +311,10 @@ else
 endif
 bmcweb_dependencies += nlohmann_json
 
-boost = dependency('boost',version : '>=1.75.0', required : false, include_type: 'system')
+boost = dependency('boost',version : '>=1.77.0', required : false, include_type: 'system')
 if not boost.found()
   subproject('boost', required: false)
-  boost_inc = include_directories('subprojects/boost_1_75_0/', is_system:true)
+  boost_inc = include_directories('subprojects/boost_1_77_0/', is_system:true)
   boost  = declare_dependency(include_directories : boost_inc)
   boost = boost.as_system('system')
 endif
