@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "0c487ff5_dadcad83",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 855,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2021-10-25T10:49:29Z",
+      "side": 1,
+      "message": "Again I must be capturing dumpType in the lambda and have this check on 923 and add the msg to the redfish resp",
+      "parentUuid": "b34b4eab_feb3a8d5",
+      "range": {
+        "startLine": 855,
+        "startChar": 8,
+        "endLine": 855,
+        "endChar": 23
+      },
+      "revId": "bda343186631c58d75d773eae05bbce68b193368",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "195fa107_247a05f4",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 7
@@ -124,6 +148,30 @@
       "writtenOn": "2021-10-25T05:26:42Z",
       "side": 1,
       "message": "Can you be more clear about this comment here? \nDoes this mean that if any kind of invalid arguments are passed / arguments are missing, there is no different errors thrown by the dbus. Thus bmcweb can not differentiate the specific error. So you are returning 500?",
+      "range": {
+        "startLine": 934,
+        "startChar": 0,
+        "endLine": 939,
+        "endChar": 42
+      },
+      "revId": "bda343186631c58d75d773eae05bbce68b193368",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d9b3ed16_60b76ab6",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 939,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2021-10-25T10:49:29Z",
+      "side": 1,
+      "message": "There are different errors returned, so it can be differentiated.\n\nBut, here what I meant is, if there are any errors in the createdump call made from the bmcweb code (bad path mentioned below), the response would be internal error because the client has nothing to do with the internal implementation of bmcweb and it is not a user error.\n\nErrors:\n------\n\n1. busctl call xyz.openbmc_project.Dump.Manager1 /xyz/openbmc_project/dump/bmc xyz.openbmc_project.Dump.Create CreateDump                 \n\nCall failed: The name is not activatable\n\nJournal log:\nCreateDump resp_handler got error generic:113; message: No route to host\n\n\n2. busctl call xyz.openbmc_project.Dump.Manager /xyz/openbmc_project/dump/resource xyz.openbmc_project.Dump.Create CreateDump a{sv} 1 \"com.ibm.Dump.Create.CreateParameters.VSPString\" s \"str\"                                   \n                 \nCall failed: Invalid argument was given.\n\nJournal log:\nCreateDump resp_handler got error generic:5; message: Input/output error\n\n3. busctl call xyz.openbmc_project.Dump.Manager /xyz/openbmc_project/dump/bmc xyz.openbmc_project.Dump.Create CreateDump1\n\nCall failed: Unknown method CreateDump1 or interface xyz.openbmc_project.Dump.Create.\n\nJournal log:\nCreateDump resp_handler got error generic:53; message: Invalid request descriptor\n\n4. busctl call xyz.openbmc_project.Dump.Manager /xyz/openbmc_project/dump/bmc xyz.openbmc_project.Dump.Create CreateDump \n\nCall failed: Invalid arguments \u0027\u0027 to call xyz.openbmc_project.Dump.Create.CreateDump(), expecting \u0027a{sv}\u0027.\n\nJournal log:\nCreateDump resp_handler got error generic:22; message: Invalid argument",
+      "parentUuid": "12683430_b9ee2c07",
       "range": {
         "startLine": 934,
         "startChar": 0,
