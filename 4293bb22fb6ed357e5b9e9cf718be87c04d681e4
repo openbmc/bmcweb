@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "5eaaa60a_054c63c5",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 231,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-10-25T16:36:31Z",
+      "side": 1,
+      "message": "But of this ControlMode enum we only allow 2 of them, I think we need an allowable values",
+      "parentUuid": "a69250ba_1f6151c6",
+      "revId": "4293bb22fb6ed357e5b9e9cf718be87c04d681e4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "2d2a0034_06cf6fa7",
         "filename": "redfish-core/lib/environment_metrics.hpp",
         "patchSetId": 5
@@ -101,6 +119,24 @@
       "side": 1,
       "message": "When PowerCapEnable is false, the backend is allowed to modify the value of PowerCap.\nThe reason for writing this way is to consider that when ControlMode is disabled, SetPoint is null, and when the value of PowerCap is modified at this time, SetPoint is always null, which cannot reflect that the value of PowerCap has been changed.",
       "parentUuid": "d52cd66e_0584fafc",
+      "revId": "4293bb22fb6ed357e5b9e9cf718be87c04d681e4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5cec7ae1_379ab8a9",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 264,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-10-25T16:36:31Z",
+      "side": 1,
+      "message": "I think this falls into Redfish\u0027s \"A client might want to turn off the water and still adjust the plumbing\". See https://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/44644. \nCan we just remove this check?",
+      "parentUuid": "2c5f1745_550ca692",
       "revId": "4293bb22fb6ed357e5b9e9cf718be87c04d681e4",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
