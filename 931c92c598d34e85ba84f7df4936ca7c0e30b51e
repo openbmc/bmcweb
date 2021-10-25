@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "582fbe40_a701f7b6",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 56
+      },
+      "lineNbr": 748,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2021-10-25T05:58:00Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "9bab8203_d7821488",
+      "range": {
+        "startLine": 748,
+        "startChar": 29,
+        "endLine": 748,
+        "endChar": 55
+      },
+      "revId": "931c92c598d34e85ba84f7df4936ca7c0e30b51e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "add4ea23_32853fbc",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 56
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "9faf4c41_1c337220",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 56
+      },
+      "lineNbr": 769,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2021-10-25T05:58:00Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "add4ea23_32853fbc",
+      "range": {
+        "startLine": 769,
+        "startChar": 10,
+        "endLine": 769,
+        "endChar": 22
+      },
+      "revId": "931c92c598d34e85ba84f7df4936ca7c0e30b51e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "cd7477a4_3de1aba3",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 56
@@ -59,6 +107,30 @@
       "writtenOn": "2021-10-19T17:11:19Z",
       "side": 1,
       "message": "This seems like a functional change that wasn\u0027t mentioned in the commit message.  This now means that failed dumps will return internal error?",
+      "range": {
+        "startLine": 797,
+        "startChar": 16,
+        "endLine": 797,
+        "endChar": 75
+      },
+      "revId": "931c92c598d34e85ba84f7df4936ca7c0e30b51e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d0ae53cc_ae048bd7",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 56
+      },
+      "lineNbr": 797,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2021-10-25T05:58:00Z",
+      "side": 1,
+      "message": "Will add it in the commit message.\n\n\u003e This now means that failed dumps will return internal error?\nYes",
+      "parentUuid": "cd7477a4_3de1aba3",
       "range": {
         "startLine": 797,
         "startChar": 16,
@@ -105,6 +177,30 @@
       "writtenOn": "2021-10-19T17:11:19Z",
       "side": 1,
       "message": "This seems to be calling a new API prototype.  Any commits that need to land before this one will work?",
+      "range": {
+        "startLine": 911,
+        "startChar": 57,
+        "endLine": 911,
+        "endChar": 75
+      },
+      "revId": "931c92c598d34e85ba84f7df4936ca7c0e30b51e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7724d1ab_dfb70fdc",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 56
+      },
+      "lineNbr": 911,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2021-10-25T05:58:00Z",
+      "side": 1,
+      "message": "No. The backend changes w.r.t this has already been merged upstream long back",
+      "parentUuid": "992e0f28_b883b378",
       "range": {
         "startLine": 911,
         "startChar": 57,
