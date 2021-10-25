@@ -22,6 +22,30 @@
       "revId": "9ce238db187e4f8bdad68c0228277ff62984c9c3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eaf07bc8_0d69c5bb",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 924,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2021-10-25T11:44:58Z",
+      "side": 1,
+      "message": "Since this createDump call is for both bmc and host dumps, and the creation of host dumps only will be returning this error, we need to have a check if it is System and then hardcode the dump path in line 930.\n\nNot sure if it is right if we donot have any check for dump type and simply hardcode the System logentry path in 930 line",
+      "parentUuid": "cd1d7bdd_08ec4883",
+      "range": {
+        "startLine": 924,
+        "startChar": 25,
+        "endLine": 924,
+        "endChar": 46
+      },
+      "revId": "9ce238db187e4f8bdad68c0228277ff62984c9c3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
