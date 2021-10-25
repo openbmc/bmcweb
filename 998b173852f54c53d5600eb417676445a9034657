@@ -22,6 +22,30 @@
       "revId": "998b173852f54c53d5600eb417676445a9034657",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "64f83042_19abc319",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 2498,
+      "author": {
+        "id": 1000238
+      },
+      "writtenOn": "2021-10-25T18:09:16Z",
+      "side": 1,
+      "message": "That is one option, but by doing that none of the other parameters would get parsed.  It would stop on the first failing property.",
+      "parentUuid": "a1201c81_b135f5a5",
+      "range": {
+        "startLine": 2491,
+        "startChar": 0,
+        "endLine": 2498,
+        "endChar": 13
+      },
+      "revId": "998b173852f54c53d5600eb417676445a9034657",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
