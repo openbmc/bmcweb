@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cd1d7bdd_08ec4883",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 924,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2021-10-25T11:22:12Z",
+      "side": 1,
+      "message": "It should be the backend who checks this and returns this error. No check needed here for the dumpType. bmcweb will need to always map the xyz.openbmc_project.Dump.Create.Error.Disabled to serviceDisabled",
+      "range": {
+        "startLine": 924,
+        "startChar": 25,
+        "endLine": 924,
+        "endChar": 46
+      },
+      "revId": "9ce238db187e4f8bdad68c0228277ff62984c9c3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
