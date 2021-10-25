@@ -1,6 +1,7 @@
 #pragma once
 
 #include "utils/telemetry_utils.hpp"
+#include "utils/collection.hpp"
 
 #include <app.hpp>
 #include <registries/privilege_registry.hpp>
@@ -73,9 +74,9 @@ inline void requestRoutesMetricReportCollection(App& app)
                 asyncResp->res.jsonValue["@odata.id"] =
                     "/redfish/v1/TelemetryService/MetricReports";
                 asyncResp->res.jsonValue["Name"] = "Metric Report Collection";
-
-                telemetry::getReportCollection(asyncResp,
-                                               telemetry::metricReportUri);
+                const std::vector<const char*> interfaces{telemetry::reportInterface};
+                collection_util::getCollectionMembers(asyncResp, telemetry::metricReportUri,
+                                     interfaces);
             });
 }
 
