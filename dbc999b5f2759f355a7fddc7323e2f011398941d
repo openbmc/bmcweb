@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "2668573c_3d55ea98",
+        "filename": "redfish-core/lib/network_protocol.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-10-25T16:28:59Z",
+      "side": 1,
+      "message": "This behavior changed between the last patchset and this one.  I suspect the old behavior was ok, but just needed documented in the commit message;  Now this looks like it just duplicates domain names",
+      "range": {
+        "startLine": 73,
+        "startChar": 0,
+        "endLine": 74,
+        "endChar": 58
+      },
+      "revId": "dbc999b5f2759f355a7fddc7323e2f011398941d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "98cb2f8d_d7c63ce0",
         "filename": "redfish-core/lib/network_protocol.hpp",
         "patchSetId": 16
