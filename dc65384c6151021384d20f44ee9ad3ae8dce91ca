@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e7a8ef3a_0a62ec6f",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 2802,
+      "author": {
+        "id": 1000238
+      },
+      "writtenOn": "2021-10-26T22:21:56Z",
+      "side": 1,
+      "message": "Currently having issue with the assignment on line 2798.  Logic seems correct to me, but when I trace the two values, exitUtil (captured variable) is different from what was read by the Get.\n\nTrace:\nOct 26 21:25:14 ever6bmc bmcweb[11926]:  CJC: Validating Enter \u003c\u003d Exit Utilization\nOct 26 21:25:14 ever6bmc bmcweb[11926]:  USER set EnterUtilizationPercent: 30\nOct 26 21:25:14 ever6bmc bmcweb[11926]:  BAD: EnterUtilizationPercent (30) \u003e ExitUtilizationPercent (0)\nOct 26 21:25:14 ever6bmc bmcweb[11926]:  GET returned ExitUtilizationPercent: 0 and 12   \u003c\u003d\u003d\u003d\u003d\u003d\u003d\u003d SHOULD BE SAME",
+      "range": {
+        "startLine": 2798,
+        "startChar": 0,
+        "endLine": 2802,
+        "endChar": 48
+      },
+      "revId": "dc65384c6151021384d20f44ee9ad3ae8dce91ca",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
