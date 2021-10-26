@@ -16,6 +16,24 @@
       "revId": "43ea78d81f2c1ea1de068409a06e989258dd2113",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4d72f4d4_bab3dcda",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1001027
+      },
+      "writtenOn": "2021-10-26T06:23:58Z",
+      "side": 1,
+      "message": "\u003e Still a WIP ? \n\u003e If not can we clean this up ?\n\u003e These look like magic numbers, can you add a comment explaining ?\n\n\"expand\" has a property called MaxLevels. I didn\u0027t find out what its value should be in the document, so I first set 2 according to the example provided in the document.\nhttps://www.dmtf.org/sites/default/files/standards/documents/DSP0268_2021.2.pdf",
+      "parentUuid": "c120fded_1862185c",
+      "revId": "43ea78d81f2c1ea1de068409a06e989258dd2113",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
