@@ -16,6 +16,24 @@
       "revId": "6110b08ed1f9ca8cc283a4e03243528272e6ba1e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7bf4ac00_1e84565b",
+        "filename": "http/websocket.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 198,
+      "author": {
+        "id": 1001027
+      },
+      "writtenOn": "2021-10-26T00:59:32Z",
+      "side": 0,
+      "message": "\u003e I assume an appropriate return code is still being set.\n\nI have no idea about this.Maybe you can discuss this with Ed.\n@Ed",
+      "parentUuid": "c6c52187_490facc5",
+      "revId": "6110b08ed1f9ca8cc283a4e03243528272e6ba1e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
