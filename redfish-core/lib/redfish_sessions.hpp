@@ -19,6 +19,7 @@
 #include "persistent_data.hpp"
 
 #include <app.hpp>
+#include <http/utility.hpp>
 #include <registries/privilege_registry.hpp>
 
 namespace redfish
@@ -175,7 +176,7 @@ inline void requestRoutesSession(App& app)
                 if ((pamrc != PAM_SUCCESS) && !isConfigureSelfOnly)
                 {
                     messages::resourceAtUriUnauthorized(
-                        asyncResp->res, std::string(req.url),
+                        asyncResp->res, req.urlView,
                         "Invalid username or password");
                     return;
                 }
@@ -212,8 +213,9 @@ inline void requestRoutesSession(App& app)
                 if (session->isConfigureSelfOnly)
                 {
                     messages::passwordChangeRequired(
-                        asyncResp->res, "/redfish/v1/AccountService/Accounts/" +
-                                            session->username);
+                        asyncResp->res, crow::utility::urlFromPieces(
+                                            "redfish", "v1", "AccountService",
+                                            "Accounts", req.session->username));
                 }
 
                 fillSessionObject(asyncResp->res, *session);
