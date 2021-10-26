@@ -331,7 +331,7 @@ inline static bool
             indexStr.data(), indexStr.data() + indexStr.size(), index);
         if (ec != std::errc())
         {
-            messages::resourceMissingAtURI(asyncResp->res, entryID);
+            messages::resourceMissingAtURI(asyncResp->res, crow::utility::urlFromPieces(entryID));
             return false;
         }
     }
@@ -340,7 +340,7 @@ inline static bool
         std::from_chars(tsStr.data(), tsStr.data() + tsStr.size(), timestamp);
     if (ec != std::errc())
     {
-        messages::resourceMissingAtURI(asyncResp->res, entryID);
+        messages::resourceMissingAtURI(asyncResp->res, crow::utility::urlFromPieces(entryID));
         return false;
     }
     return true;
@@ -815,8 +815,7 @@ inline void createDump(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
             (*diagnosticDataType != "OEM"))
         {
             BMCWEB_LOG_ERROR << "Wrong parameter values passed";
-            messages::invalidObject(asyncResp->res,
-                                    "System Dump creation parameters");
+            messages::internalError(asyncResp->res);
             return;
         }
     }
@@ -834,8 +833,7 @@ inline void createDump(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
         {
             BMCWEB_LOG_ERROR
                 << "Wrong parameter value passed for 'DiagnosticDataType'";
-            messages::invalidObject(asyncResp->res,
-                                    "BMC Dump creation parameters");
+            messages::internalError(asyncResp->res);
             return;
         }
     }
@@ -1326,7 +1324,7 @@ inline void requestRoutesJournalEventLogEntry(App& app)
                     }
                 }
                 // Requested ID was not found
-                messages::resourceMissingAtURI(asyncResp->res, targetID);
+                messages::resourceMissingAtURI(asyncResp->res, crow::utility::urlFromPieces(targetID));
             });
 }
 
@@ -2087,7 +2085,7 @@ inline void requestRoutesBMCJournalLogEntry(App& app)
                 // Confirm that the entry ID matches what was requested
                 if (idStr != entryID)
                 {
-                    messages::resourceMissingAtURI(asyncResp->res, entryID);
+                    messages::resourceMissingAtURI(asyncResp->res, crow::utility::urlFromPieces(entryID));
                     return;
                 }
 
@@ -2425,7 +2423,7 @@ static void
 
             if (filename.empty() || timestamp.empty())
             {
-                messages::resourceMissingAtURI(asyncResp->res, logID);
+                messages::resourceMissingAtURI(asyncResp->res, crow::utility::urlFromPieces(logID));
                 return;
             }
 
@@ -2583,7 +2581,7 @@ inline void requestRoutesCrashdumpFile(App& app)
                             dbusFilepath.empty())
                         {
                             messages::resourceMissingAtURI(asyncResp->res,
-                                                           fileName);
+                                                           crow::utility::urlFromPieces(fileName));
                             return;
                         }
 
@@ -2591,14 +2589,14 @@ inline void requestRoutesCrashdumpFile(App& app)
                         if (fileName != dbusFilename)
                         {
                             messages::resourceMissingAtURI(asyncResp->res,
-                                                           fileName);
+                                                           crow::utility::urlFromPieces(fileName));
                             return;
                         }
 
                         if (!std::filesystem::exists(dbusFilepath))
                         {
                             messages::resourceMissingAtURI(asyncResp->res,
-                                                           fileName);
+                                                           crow::utility::urlFromPieces(fileName));
                             return;
                         }
                         std::ifstream ifs(dbusFilepath, std::ios::in |
@@ -3271,7 +3269,7 @@ inline void requestRoutesPostCodesEntry(App& app)
                 if (!parsePostCode(targetID, codeIndex, bootIndex))
                 {
                     // Requested ID was not found
-                    messages::resourceMissingAtURI(asyncResp->res, targetID);
+                    messages::resourceMissingAtURI(asyncResp->res, crow::utility::urlFromPieces(targetID));
                     return;
                 }
                 if (bootIndex == 0 || codeIndex == 0)
