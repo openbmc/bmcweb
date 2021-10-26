@@ -75,3 +75,19 @@ TEST(Utility, GetDateTime)
     EXPECT_EQ(crow::utility::getDateTimeUint(uint64_t{253402300799}),
               "9999-12-31T23:59:59+00:00");
 }
+
+TEST(Utility, UrlFromPieces)
+{
+    using crow::utility::urlFromPieces;
+    boost::urls::url url = urlFromPieces("redfish", "v1", "foo");
+    EXPECT_EQ(std::string_view(url.data(), url.size()), "/redfish/v1/foo");
+
+    url = urlFromPieces("/", "badString");
+    EXPECT_EQ(std::string_view(url.data(), url.size()), "/%2f/badString");
+
+    url = urlFromPieces("bad?tring");
+    EXPECT_EQ(std::string_view(url.data(), url.size()), "/bad%3ftring");
+
+    url = urlFromPieces("/", "bad&tring");
+    EXPECT_EQ(std::string_view(url.data(), url.size()), "/%2f/bad&tring");
+}
