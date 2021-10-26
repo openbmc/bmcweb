@@ -794,7 +794,9 @@ inline CreatePIDRet createPidInterface(
         if (managedItem == nullptr)
         {
             BMCWEB_LOG_ERROR << "Failed to get chassis from config patch";
-            messages::invalidObject(response->res, it.key());
+            messages::invalidObject(response->res,
+                                    crow::utility::urlFromPieces(
+                                        "redfish", "v1", "Chassis", chassis));
             return CreatePIDRet::fail;
         }
     }
@@ -895,7 +897,9 @@ inline CreatePIDRet createPidInterface(
                 !findChassis(managedObj, zonesStr[0], chassis))
             {
                 BMCWEB_LOG_ERROR << "Failed to get chassis from config patch";
-                messages::invalidObject(response->res, it.key());
+                messages::invalidObject(
+                    response->res, crow::utility::urlFromPieces(
+                                       "redfish", "v1", "Chassis", chassis));
                 return CreatePIDRet::fail;
             }
 
@@ -957,7 +961,8 @@ inline CreatePIDRet createPidInterface(
             {
                 BMCWEB_LOG_ERROR << "Invalid setpointoffset "
                                  << *setpointOffset;
-                messages::invalidObject(response->res, it.key());
+                messages::propertyValueNotInList(response->res, it.key(),
+                                                 "SetPointOffset");
                 return CreatePIDRet::fail;
             }
         }
@@ -1012,7 +1017,9 @@ inline CreatePIDRet createPidInterface(
             if (!dbus::utility::getNthStringFromPath(chassisId, 3, chassis))
             {
                 BMCWEB_LOG_ERROR << "Got invalid path " << chassisId;
-                messages::invalidObject(response->res, chassisId);
+                messages::invalidObject(
+                    response->res, crow::utility::urlFromPieces(
+                                       "redfish", "v1", "Chassis", chassisId));
                 return CreatePIDRet::fail;
             }
         }
@@ -1060,7 +1067,9 @@ inline CreatePIDRet createPidInterface(
                 !findChassis(managedObj, zonesStrs[0], chassis))
             {
                 BMCWEB_LOG_ERROR << "Failed to get chassis from config patch";
-                messages::invalidObject(response->res, it.key());
+                messages::invalidObject(
+                    response->res, crow::utility::urlFromPieces(
+                                       "redfish", "v1", "Chassis", chassis));
                 return CreatePIDRet::fail;
             }
             output["Zones"] = std::move(zonesStrs);
@@ -1560,7 +1569,8 @@ struct SetPIDValues : std::enable_shared_from_this<SetPIDValues>
                 if (createNewObject && it.value() == nullptr)
                 {
                     // can't delete a non-existent object
-                    messages::invalidObject(response->res, name);
+                    messages::propertyValueNotInList(response->res, it.value(),
+                                                     name);
                     continue;
                 }
 
@@ -1623,7 +1633,7 @@ struct SetPIDValues : std::enable_shared_from_this<SetPIDValues>
                     if (chassis.empty())
                     {
                         BMCWEB_LOG_ERROR << "Failed to get chassis from config";
-                        messages::invalidObject(response->res, name);
+                        messages::internalError(response->res);
                         return;
                     }
 
@@ -1641,7 +1651,9 @@ struct SetPIDValues : std::enable_shared_from_this<SetPIDValues>
                     {
                         BMCWEB_LOG_ERROR << "Failed to find chassis on dbus";
                         messages::resourceMissingAtURI(
-                            response->res, "/redfish/v1/Chassis/" + chassis);
+                            response->res,
+                            crow::utility::urlFromPieces("redfish", "v1",
+                                                         "Chassis", chassis));
                         return;
                     }
 

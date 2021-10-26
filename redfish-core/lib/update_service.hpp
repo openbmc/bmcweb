@@ -917,8 +917,9 @@ inline void requestRoutesSoftwareInventory(App& app)
                             << "Input swID " + *swId + " not found!";
                         messages::resourceMissingAtURI(
                             asyncResp->res,
-                            "/redfish/v1/UpdateService/FirmwareInventory/" +
-                                *swId);
+                            crow::utility::urlFromPieces(
+                                "redfish", "v1", "UpdateService",
+                                "FirmwareInventory", *swId));
                         return;
                     }
                     asyncResp->res.jsonValue["@odata.type"] =

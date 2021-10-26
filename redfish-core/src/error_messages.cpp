@@ -13,6 +13,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 */
+#include <boost/url/url.hpp>
 #include <error_messages.hpp>
 #include <logging.hpp>
 
@@ -156,19 +157,20 @@ void malformedJSON(crow::Response& res)
  * See header file for more information
  * @endinternal
  */
-nlohmann::json resourceMissingAtURI(const std::string& arg1)
+nlohmann::json resourceMissingAtURI(const boost::urls::url_view arg1)
 {
+    std::string url(arg1.data(), arg1.size());
     return nlohmann::json{
         {"@odata.type", "#Message.v1_1_1.Message"},
         {"MessageId", "Base.1.8.1.ResourceMissingAtURI"},
-        {"Message", "The resource at the URI " + arg1 + " was not found."},
-        {"MessageArgs", {arg1}},
+        {"Message", "The resource at the URI " + url + " was not found."},
+        {"MessageArgs", {url}},
         {"MessageSeverity", "Critical"},
         {"Resolution", "Place a valid resource at the URI or correct the "
                        "URI and resubmit the request."}};
 }
 
-void resourceMissingAtURI(crow::Response& res, const std::string& arg1)
+void resourceMissingAtURI(crow::Response& res, const boost::urls::url_view arg1)
 {
     res.result(boost::beast::http::status::bad_request);
     addMessageToErrorJson(res.jsonValue, resourceMissingAtURI(arg1));
@@ -271,22 +273,24 @@ void unrecognizedRequestBody(crow::Response& res)
  * See header file for more information
  * @endinternal
  */
-nlohmann::json resourceAtUriUnauthorized(const std::string& arg1,
+nlohmann::json resourceAtUriUnauthorized(const boost::urls::url_view arg1,
                                          const std::string& arg2)
 {
+    std::string url(arg1.data(), arg1.size());
     return nlohmann::json{
         {"@odata.type", "#Message.v1_1_1.Message"},
         {"MessageId", "Base.1.8.1.ResourceAtUriUnauthorized"},
-        {"Message", "While accessing the resource at " + arg1 +
+        {"Message", "While accessing the resource at " + url +
                         ", the service received an authorization error " +
                         arg2 + "."},
-        {"MessageArgs", {arg1, arg2}},
+        {"MessageArgs", {url, arg2}},
         {"MessageSeverity", "Critical"},
         {"Resolution", "Ensure that the appropriate access is provided for "
                        "the service in order for it to access the URI."}};
 }
 
-void resourceAtUriUnauthorized(crow::Response& res, const std::string& arg1,
+void resourceAtUriUnauthorized(crow::Response& res,
+                               const boost::urls::url_view arg1,
                                const std::string& arg2)
 {
     res.result(boost::beast::http::status::unauthorized);
@@ -555,20 +559,22 @@ void propertyValueNotInList(crow::Response& res, const std::string& arg1,
  * See header file for more information
  * @endinternal
  */
-nlohmann::json resourceAtUriInUnknownFormat(const std::string& arg1)
+nlohmann::json resourceAtUriInUnknownFormat(const boost::urls::url_view arg1)
 {
+    std::string url(arg1.data(), arg1.size());
     return nlohmann::json{
         {"@odata.type", "#Message.v1_1_1.Message"},
         {"MessageId", "Base.1.8.1.ResourceAtUriInUnknownFormat"},
-        {"Message", "The resource at " + arg1 +
+        {"Message", "The resource at " + url +
                         " is in a format not recognized by the service."},
-        {"MessageArgs", {arg1}},
+        {"MessageArgs", {url}},
         {"MessageSeverity", "Critical"},
         {"Resolution", "Place an image or resource or file that is "
                        "recognized by the service at the URI."}};
 }
 
-void resourceAtUriInUnknownFormat(crow::Response& res, const std::string& arg1)
+void resourceAtUriInUnknownFormat(crow::Response& res,
+                                  const boost::urls::url_view arg1)
 {
     res.result(boost::beast::http::status::bad_request);
     addMessageToErrorJson(res.jsonValue, resourceAtUriInUnknownFormat(arg1));
@@ -797,21 +803,23 @@ void resourceTypeIncompatible(crow::Response& res, const std::string& arg1,
  * See header file for more information
  * @endinternal
  */
-nlohmann::json resetRequired(const std::string& arg1, const std::string& arg2)
+nlohmann::json resetRequired(const boost::urls::url_view arg1,
+                             const std::string& arg2)
 {
+    std::string url(arg1.data(), arg1.size());
     return nlohmann::json{
         {"@odata.type", "#Message.v1_1_1.Message"},
         {"MessageId", "Base.1.8.1.ResetRequired"},
         {"Message", "In order to complete the operation, a component reset is "
                     "required with the Reset action URI '" +
-                        arg1 + "' and ResetType '" + arg2 + "'."},
-        {"MessageArgs", {arg1, arg2}},
+                        url + "' and ResetType '" + arg2 + "'."},
+        {"MessageArgs", {url, arg2}},
         {"MessageSeverity", "Warning"},
         {"Resolution",
          "Perform the required Reset action on the specified component."}};
 }
 
-void resetRequired(crow::Response& res, const std::string& arg1,
+void resetRequired(crow::Response& res, const boost::urls::url_view arg1,
                    const std::string& arg2)
 {
     res.result(boost::beast::http::status::bad_request);
@@ -936,20 +944,22 @@ void propertyValueIncorrect(crow::Response& res, const std::string& arg1,
  * See header file for more information
  * @endinternal
  */
-nlohmann::json resourceCreationConflict(const std::string& arg1)
+nlohmann::json resourceCreationConflict(const boost::urls::url_view arg1)
 {
+    std::string url(arg1.data(), arg1.size());
     return nlohmann::json{
         {"@odata.type", "#Message.v1_1_1.Message"},
         {"MessageId", "Base.1.8.1.ResourceCreationConflict"},
         {"Message", "The resource could not be created.  The service has a "
                     "resource at URI '" +
-                        arg1 + "' that conflicts with the creation request."},
-        {"MessageArgs", {arg1}},
+                        url + "' that conflicts with the creation request."},
+        {"MessageArgs", {url}},
         {"MessageSeverity", "Warning"},
         {"Resolution", "No resolution is required."}};
 }
 
-void resourceCreationConflict(crow::Response& res, const std::string& arg1)
+void resourceCreationConflict(crow::Response& res,
+                              const boost::urls::url_view arg1)
 {
     res.result(boost::beast::http::status::bad_request);
     addMessageToErrorJson(res.jsonValue, resourceCreationConflict(arg1));
@@ -1150,22 +1160,24 @@ void resourceNotFound(crow::Response& res, const std::string& arg1,
  * See header file for more information
  * @endinternal
  */
-nlohmann::json couldNotEstablishConnection(const std::string& arg1)
+nlohmann::json couldNotEstablishConnection(const boost::urls::url_view arg1)
 {
+    std::string url(arg1.data(), arg1.size());
     return nlohmann::json{
         {"@odata.type", "#Message.v1_1_1.Message"},
         {"MessageId", "Base.1.8.1.CouldNotEstablishConnection"},
         {"Message",
-         "The service failed to establish a connection with the URI " + arg1 +
+         "The service failed to establish a connection with the URI " + url +
              "."},
-        {"MessageArgs", {arg1}},
+        {"MessageArgs", {url}},
         {"MessageSeverity", "Critical"},
         {"Resolution",
          "Ensure that the URI contains a valid and reachable node name, "
          "protocol information and other URI components."}};
 }
 
-void couldNotEstablishConnection(crow::Response& res, const std::string& arg1)
+void couldNotEstablishConnection(crow::Response& res,
+                                 const boost::urls::url_view arg1)
 {
     res.result(boost::beast::http::status::not_found);
     addMessageToErrorJson(res.jsonValue, couldNotEstablishConnection(arg1));
@@ -1323,16 +1335,17 @@ void actionParameterNotSupported(crow::Response& res, const std::string& arg1,
  * See header file for more information
  * @endinternal
  */
-nlohmann::json sourceDoesNotSupportProtocol(const std::string& arg1,
+nlohmann::json sourceDoesNotSupportProtocol(const boost::urls::url_view arg1,
                                             const std::string& arg2)
 {
+    std::string url(arg1.data(), arg1.size());
     return nlohmann::json{
         {"@odata.type", "#Message.v1_1_1.Message"},
         {"MessageId", "Base.1.8.1.SourceDoesNotSupportProtocol"},
-        {"Message", "The other end of the connection at " + arg1 +
+        {"Message", "The other end of the connection at " + url +
                         " does not support the specified protocol " + arg2 +
                         "."},
-        {"MessageArgs", {arg1, arg2}},
+        {"MessageArgs", {url, arg2}},
         {"MessageSeverity", "Critical"},
         {"Resolution", "Change protocols or URIs. "}};
 }
@@ -1375,20 +1388,21 @@ void accountRemoved(crow::Response& res)
  * See header file for more information
  * @endinternal
  */
-nlohmann::json accessDenied(const std::string& arg1)
+nlohmann::json accessDenied(const boost::urls::url_view arg1)
 {
+    std::string url(arg1.data(), arg1.size());
     return nlohmann::json{
         {"@odata.type", "#Message.v1_1_1.Message"},
         {"MessageId", "Base.1.8.1.AccessDenied"},
-        {"Message", "While attempting to establish a connection to " + arg1 +
+        {"Message", "While attempting to establish a connection to " + url +
                         ", the service denied access."},
-        {"MessageArgs", {arg1}},
+        {"MessageArgs", {url}},
         {"MessageSeverity", "Critical"},
         {"Resolution", "Attempt to ensure that the URI is correct and that "
                        "the service has the appropriate credentials."}};
 }
 
-void accessDenied(crow::Response& res, const std::string& arg1)
+void accessDenied(crow::Response& res, const boost::urls::url_view arg1)
 {
     res.result(boost::beast::http::status::forbidden);
     addMessageToErrorJson(res.jsonValue, accessDenied(arg1));
@@ -1607,20 +1621,21 @@ void noValidSession(crow::Response& res)
  * See header file for more information
  * @endinternal
  */
-nlohmann::json invalidObject(const std::string& arg1)
+nlohmann::json invalidObject(const boost::urls::url_view arg1)
 {
+    std::string url(arg1.data(), arg1.size());
     return nlohmann::json{
         {"@odata.type", "#Message.v1_1_1.Message"},
         {"MessageId", "Base.1.8.1.InvalidObject"},
-        {"Message", "The object at " + arg1 + " is invalid."},
-        {"MessageArgs", {arg1}},
+        {"Message", "The object at " + url + " is invalid."},
+        {"MessageArgs", {url}},
         {"MessageSeverity", "Critical"},
         {"Resolution",
          "Either the object is malformed or the URI is not correct.  "
          "Correct the condition and resubmit the request if it failed."}};
 }
 
-void invalidObject(crow::Response& res, const std::string& arg1)
+void invalidObject(crow::Response& res, const boost::urls::url_view arg1)
 {
     res.result(boost::beast::http::status::bad_request);
     addMessageToErrorJson(res.jsonValue, invalidObject(arg1));
@@ -2103,8 +2118,10 @@ void queryParameterOutOfRange(crow::Response& res, const std::string& arg1,
  * See header file for more information
  * @endinternal
  */
-void passwordChangeRequired(crow::Response& res, const std::string& arg1)
+void passwordChangeRequired(crow::Response& res,
+                            const boost::urls::url_view arg1)
 {
+    std::string url(arg1.data(), arg1.size());
     messages::addMessageToJsonRoot(
         res.jsonValue,
         nlohmann::json{
@@ -2114,8 +2131,8 @@ void passwordChangeRequired(crow::Response& res, const std::string& arg1)
                         "changed before access is granted.  PATCH the "
                         "'Password' property for this account located at "
                         "the target URI '" +
-                            arg1 + "' to complete this process."},
-            {"MessageArgs", {arg1}},
+                            url + "' to complete this process."},
+            {"MessageArgs", {url}},
             {"MessageSeverity", "Critical"},
             {"Resolution", "Change the password for this account using "
                            "a PATCH to the 'Password' property at the URI "
