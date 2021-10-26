@@ -21,11 +21,13 @@ struct Query
     bool isExpand = false;
     bool isSelect = false;
     bool isSkip = false;
+    bool isTop = false;
     uint64_t expandLevel;
     std::string expandType;
     std::vector<std::string> pendingUrlVec;
     std::vector<std::vector<std::string>> selectPropertyVec;
     uint64_t skipValue;
+    uint64_t topValue;
     nlohmann::json jsonValue;
 };
 
@@ -131,6 +133,14 @@ inline std::optional<Query>
             if (ret.skipValue > 0)
             {
                 ret.isSkip = true;
+            }
+        }
+        else if (it.key() == "$top")
+        {
+            ret.topValue = strtoul(it.value().c_str(), nullptr, 10);
+            if (ret.topValue > 0)
+            {
+                ret.isTop = true;
             }
         }
     }
@@ -568,6 +578,20 @@ inline void processSkip(crow::Response& res, Query& query)
     it->erase(it->begin(), it->begin() + int(query.skipValue));
 }
 
+inline void processTop(crow::Response& res, Query& query)
+{
+    auto it = res.jsonValue.find("Members");
+    if (it == res.jsonValue.end())
+    {
+        return;
+    }
+    if (it->size() <= query.topValue)
+    {
+        return;
+    }
+    it->erase(it->begin() + int(query.topValue), it->end());
+}
+
 void processAllParams(crow::App& app, Query& query,
                       crow::Response& intermediateResponse,
                       std::function<void(crow::Response&)>& completionHandler)
@@ -605,6 +629,10 @@ void processAllParams(crow::App& app, Query& query,
     if (query.isSkip)
     {
         processSkip(intermediateResponse, query);
+    }
+    if (query.isTop)
+    {
+        processTop(intermediateResponse, query);
     }
     completionHandler(intermediateResponse);
 }
