@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "ac8eb62d_4ff77c1c",
+        "filename": "redfish-core/include/utils/telemetry_utils.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-10-26T23:48:16Z",
+      "side": 1,
+      "message": "Ah, I see, that was correct on master.  I chose instead to inline it where appropriate, which should give the same result.  Let me know if that work for you.\n\nDone.",
+      "parentUuid": "ff249c24_ea4c0ec4",
+      "revId": "f837466d95623b36945a96bc8a3cdec18fc4e902",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "f21cdb2b_8e5d62f8",
         "filename": "redfish-core/lib/metric_report.hpp",
         "patchSetId": 2
