@@ -1412,8 +1412,9 @@ class Router
                     {
                         redfish::messages::passwordChangeRequired(
                             asyncResp->res,
-                            "/redfish/v1/AccountService/Accounts/" +
-                                req.session->username);
+                            crow::utility::urlFromPieces(
+                                "redfish", "v1", "AccountService", "Accounts",
+                                req.session->username));
                     }
                     return;
                 }
