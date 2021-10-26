@@ -34,13 +34,13 @@ namespace redfish
 inline std::string getTransferProtocolTypeFromUri(const std::string& imageUri)
 {
     boost::urls::error_code ec;
-    boost::urls::url_view url =
-        boost::urls::parse_uri(boost::string_view(imageUri), ec);
-    if (ec)
+    boost::urls::result<boost::urls::url_view> url =
+        boost::urls::parse_uri(boost::string_view(imageUri));
+    if (url)
     {
         return "None";
     }
-    boost::string_view scheme = url.scheme();
+    boost::string_view scheme = url->scheme();
     if (scheme == "smb")
     {
         return "CIFS";
@@ -327,14 +327,14 @@ inline std::optional<TransferProtocol>
     getTransferProtocolFromUri(const std::string& imageUri)
 {
     boost::urls::error_code ec;
-    boost::urls::url_view url =
-        boost::urls::parse_uri(boost::string_view(imageUri), ec);
+    boost::urls::result<boost::urls::url_view> url =
+        boost::urls::parse_uri(boost::string_view(imageUri));
     if (ec)
     {
         return {};
     }
 
-    boost::string_view scheme = url.scheme();
+    boost::string_view scheme = url->scheme();
     if (scheme == "smb")
     {
         return TransferProtocol::smb;
