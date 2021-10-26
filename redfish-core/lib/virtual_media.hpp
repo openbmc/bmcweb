@@ -306,7 +306,7 @@ enum class TransferProtocol
  *
  */
 inline std::optional<TransferProtocol>
-    getTransferProtocolFromUri(const std::string& imageUri)
+    getTransferProtocolFromUri(const boost::urls::url_view imageUri)
 {
     boost::urls::result<boost::urls::url_view> url =
         boost::urls::parse_uri(boost::string_view(imageUri));
@@ -421,9 +421,15 @@ inline bool
 
         return false;
     }
-
+    boost::urls::result<boost::urls::url_view> url =
+        boost::urls::parse_uri(boost::string_view(imageUrl));
+    if (!url)
+    {
+        messages::resourceAtUriInUnknownFormat(res, *url);
+        return {};
+    }
     std::optional<TransferProtocol> uriTransferProtocolType =
-        getTransferProtocolFromUri(imageUrl);
+        getTransferProtocolFromUri(*url);
 
     std::optional<TransferProtocol> paramTransferProtocolType =
         getTransferProtocolFromParam(transferProtocolType);
@@ -435,7 +441,7 @@ inline bool
                             "contain specified protocol type from list: "
                             "(smb, https).";
 
-        messages::resourceAtUriInUnknownFormat(res, imageUrl);
+        messages::resourceAtUriInUnknownFormat(res, *url);
 
         return false;
     }
@@ -460,7 +466,7 @@ inline bool
                             "contain specified protocol type or param "
                             "TransferProtocolType must be provided.";
 
-        messages::resourceAtUriInUnknownFormat(res, imageUrl);
+        messages::resourceAtUriInUnknownFormat(res, *url);
 
         return false;
     }
