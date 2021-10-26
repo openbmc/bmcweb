@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "3bba2f81_cc33d34f",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 30
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1000400
+      },
+      "writtenOn": "2021-10-26T04:19:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "901127b0_bee691d6",
+      "range": {
+        "startLine": 82,
+        "startChar": 31,
+        "endLine": 82,
+        "endChar": 36
+      },
+      "revId": "715d6ccd2b7f70d6dae0d458027ca0f3cc0432f1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a0350042_4f5028f7",
         "filename": "redfish-core/lib/event_service.hpp",
         "patchSetId": 30
@@ -45,6 +69,30 @@
       "revId": "715d6ccd2b7f70d6dae0d458027ca0f3cc0432f1",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "210356c7_061dd2c0",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 30
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 1000400
+      },
+      "writtenOn": "2021-10-26T04:19:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a0350042_4f5028f7",
+      "range": {
+        "startLine": 167,
+        "startChar": 0,
+        "endLine": 167,
+        "endChar": 68
+      },
+      "revId": "715d6ccd2b7f70d6dae0d458027ca0f3cc0432f1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "4e85740e_d961cfcc",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 30
+      },
+      "lineNbr": 175,
+      "author": {
+        "id": 1000400
+      },
+      "writtenOn": "2021-10-26T04:19:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9000faa8_a8659198",
+      "range": {
+        "startLine": 175,
+        "startChar": 16,
+        "endLine": 175,
+        "endChar": 22
+      },
+      "revId": "715d6ccd2b7f70d6dae0d458027ca0f3cc0432f1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "14766b10_42dbb50f",
         "filename": "redfish-core/lib/event_service.hpp",
         "patchSetId": 30
@@ -82,6 +154,30 @@
       "writtenOn": "2021-10-16T18:30:59Z",
       "side": 1,
       "message": "Why do we need to set the snmp dbus id here just to immediately set it back to empty string after?  Should it just be an input parameter onto addSubscription?",
+      "range": {
+        "startLine": 220,
+        "startChar": 47,
+        "endLine": 220,
+        "endChar": 60
+      },
+      "revId": "715d6ccd2b7f70d6dae0d458027ca0f3cc0432f1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ed60125d_0e83b415",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 30
+      },
+      "lineNbr": 220,
+      "author": {
+        "id": 1000400
+      },
+      "writtenOn": "2021-10-26T04:19:01Z",
+      "side": 1,
+      "message": "Yes, It is just a variable used by addsubscription to determine whether it is SNMP subscription or not. \nIf you think this is inappropriate, I can overload addsubscription and pass in this parameter.",
+      "parentUuid": "14766b10_42dbb50f",
       "range": {
         "startLine": 220,
         "startChar": 47,
@@ -165,6 +261,30 @@
     },
     {
       "key": {
+        "uuid": "c47f16e2_0b09a3a3",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 30
+      },
+      "lineNbr": 398,
+      "author": {
+        "id": 1000400
+      },
+      "writtenOn": "2021-10-26T04:19:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6665a289_fdd328da",
+      "range": {
+        "startLine": 398,
+        "startChar": 0,
+        "endLine": 398,
+        "endChar": 64
+      },
+      "revId": "715d6ccd2b7f70d6dae0d458027ca0f3cc0432f1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b22d5e19_cbcbc467",
         "filename": "redfish-core/lib/event_service.hpp",
         "patchSetId": 30
@@ -185,6 +305,30 @@
       "revId": "715d6ccd2b7f70d6dae0d458027ca0f3cc0432f1",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "297b6f04_f3343be7",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 30
+      },
+      "lineNbr": 411,
+      "author": {
+        "id": 1000400
+      },
+      "writtenOn": "2021-10-26T04:19:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b22d5e19_cbcbc467",
+      "range": {
+        "startLine": 411,
+        "startChar": 35,
+        "endLine": 411,
+        "endChar": 39
+      },
+      "revId": "715d6ccd2b7f70d6dae0d458027ca0f3cc0432f1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -211,6 +355,30 @@
     },
     {
       "key": {
+        "uuid": "debf6c3f_31bc86d0",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 30
+      },
+      "lineNbr": 429,
+      "author": {
+        "id": 1000400
+      },
+      "writtenOn": "2021-10-26T04:19:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b815620e_f1db07da",
+      "range": {
+        "startLine": 422,
+        "startChar": 0,
+        "endLine": 429,
+        "endChar": 25
+      },
+      "revId": "715d6ccd2b7f70d6dae0d458027ca0f3cc0432f1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "845ec27e_ec8d8090",
         "filename": "redfish-core/lib/event_service.hpp",
         "patchSetId": 30
@@ -222,6 +390,30 @@
       "writtenOn": "2021-10-16T18:30:59Z",
       "side": 1,
       "message": "Please prefer to use .data() and .size() here rather than c_str().  It is faster to construct and is less error prone (even though this code looks like it uses it properly).",
+      "range": {
+        "startLine": 486,
+        "startChar": 47,
+        "endLine": 486,
+        "endChar": 52
+      },
+      "revId": "715d6ccd2b7f70d6dae0d458027ca0f3cc0432f1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "30e63a91_4ed52749",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 30
+      },
+      "lineNbr": 486,
+      "author": {
+        "id": 1000400
+      },
+      "writtenOn": "2021-10-26T04:19:01Z",
+      "side": 1,
+      "message": "Thank you. I refer to the usage in other files, and change it to use \"destUrl\" only here.",
+      "parentUuid": "845ec27e_ec8d8090",
       "range": {
         "startLine": 486,
         "startChar": 47,
@@ -257,6 +449,30 @@
     },
     {
       "key": {
+        "uuid": "44aae982_b7b5d2f2",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 30
+      },
+      "lineNbr": 489,
+      "author": {
+        "id": 1000400
+      },
+      "writtenOn": "2021-10-26T04:19:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "99318468_9bc6656e",
+      "range": {
+        "startLine": 489,
+        "startChar": 20,
+        "endLine": 489,
+        "endChar": 29
+      },
+      "revId": "715d6ccd2b7f70d6dae0d458027ca0f3cc0432f1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3e130d26_0907d60c",
         "filename": "redfish-core/lib/event_service.hpp",
         "patchSetId": 30
@@ -277,6 +493,30 @@
       "revId": "715d6ccd2b7f70d6dae0d458027ca0f3cc0432f1",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9a1ee925_2066af97",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 30
+      },
+      "lineNbr": 728,
+      "author": {
+        "id": 1000400
+      },
+      "writtenOn": "2021-10-26T04:19:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3e130d26_0907d60c",
+      "range": {
+        "startLine": 728,
+        "startChar": 16,
+        "endLine": 728,
+        "endChar": 20
+      },
+      "revId": "715d6ccd2b7f70d6dae0d458027ca0f3cc0432f1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
