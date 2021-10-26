@@ -187,17 +187,14 @@ inline static bool getEntryTimestamp(sd_journal* journal,
 static bool getSkipParam(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                          const crow::Request& req, uint64_t& skip)
 {
-    boost::urls::query_params_view::iterator it = req.urlParams.find("$skip");
-    if (it != req.urlParams.end())
+    boost::urls::params_view::iterator it = req.urlView.params().find("$skip");
+    if (it != req.urlView.params().end())
     {
-        std::string skipParam = it->value();
-        char* ptr = nullptr;
-        skip = std::strtoul(skipParam.c_str(), &ptr, 10);
-        if (skipParam.empty() || *ptr != '\0')
+        std::from_chars_result r = std::from_chars(
+            (*it).value.data(), (*it).value.data() + (*it).value.size(), skip);
+        if (r.ec != std::errc())
         {
-
-            messages::queryParameterValueTypeError(
-                asyncResp->res, std::string(skipParam), "$skip");
+            messages::queryParameterValueTypeError(asyncResp->res, "", "$skip");
             return false;
         }
     }
@@ -208,16 +205,14 @@ static constexpr const uint64_t maxEntriesPerPage = 1000;
 static bool getTopParam(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                         const crow::Request& req, uint64_t& top)
 {
-    boost::urls::query_params_view::iterator it = req.urlParams.find("$top");
-    if (it != req.urlParams.end())
+    boost::urls::params_view::iterator it = req.urlView.params().find("$top");
+    if (it != req.urlView.params().end())
     {
-        std::string topParam = it->value();
-        char* ptr = nullptr;
-        top = std::strtoul(topParam.c_str(), &ptr, 10);
-        if (topParam.empty() || *ptr != '\0')
+        std::from_chars_result r = std::from_chars(
+            (*it).value.data(), (*it).value.data() + (*it).value.size(), top);
+        if (r.ec != std::errc())
         {
-            messages::queryParameterValueTypeError(
-                asyncResp->res, std::string(topParam), "$top");
+            messages::queryParameterValueTypeError(asyncResp->res, "", "$top");
             return false;
         }
         if (top < 1U || top > maxEntriesPerPage)
