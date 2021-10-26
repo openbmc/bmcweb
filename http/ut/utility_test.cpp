@@ -56,3 +56,19 @@ TEST(Utility, Base64EncodeDecodeString)
     EXPECT_TRUE(crow::utility::base64Decode(encoded, decoded));
     EXPECT_EQ(data, decoded);
 }
+
+TEST(Utility, UrlFromPieces)
+{
+    using crow::utility::urlFromPieces;
+    boost::urls::url url = urlFromPieces("redfish", "v1", "foo");
+    EXPECT_EQ(std::string_view(url.data(), url.size()), "/redfish/v1/foo");
+
+    url = urlFromPieces("/", "badString");
+    EXPECT_EQ(std::string_view(url.data(), url.size()), "/%2f/badString");
+
+    url = urlFromPieces("bad?tring");
+    EXPECT_EQ(std::string_view(url.data(), url.size()), "/bad%3ftring");
+
+    url = urlFromPieces("/", "bad&tring");
+    EXPECT_EQ(std::string_view(url.data(), url.size()), "/%2f/bad&tring");
+}
