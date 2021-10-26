@@ -149,6 +149,30 @@
     },
     {
       "key": {
+        "uuid": "c207d4e7_faa3fdae",
+        "filename": "redfish-core/lib/metric_report.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-10-26T23:48:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8fe8a92e_bd2bfc99",
+      "range": {
+        "startLine": 80,
+        "startChar": 69,
+        "endLine": 80,
+        "endChar": 70
+      },
+      "revId": "f837466d95623b36945a96bc8a3cdec18fc4e902",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "db6d8add_9fbf47a4",
         "filename": "redfish-core/lib/metric_report_definition.hpp",
         "patchSetId": 2
