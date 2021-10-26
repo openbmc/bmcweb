@@ -31,6 +31,28 @@ namespace redfish
 /**
  * @brief Function extracts transfer protocol name from URI.
  */
+#ifdef NEW_BOOST_URL
+inline std::string getTransferProtocolTypeFromUri(const std::string& imageUri)
+{
+    boost::urls::result<boost::urls::url_view> url =
+        boost::urls::parse_uri(boost::string_view(imageUri));
+    if (!url)
+    {
+        return "None";
+    }
+    boost::string_view scheme = url->scheme();
+    if (scheme == "smb")
+    {
+        return "CIFS";
+    }
+    if (scheme == "https")
+    {
+        return "HTTPS";
+    }
+
+    return "None";
+}
+#else
 inline std::string getTransferProtocolTypeFromUri(const std::string& imageUri)
 {
     boost::urls::error_code ec;
@@ -52,6 +74,7 @@ inline std::string getTransferProtocolTypeFromUri(const std::string& imageUri)
 
     return "None";
 }
+#endif
 
 /**
  * @brief Read all known properties from VM object interfaces
@@ -306,6 +329,34 @@ enum class TransferProtocol
  * @brief Function extracts transfer protocol type from URI.
  *
  */
+#ifdef NEW_BOOST_URL
+inline std::optional<TransferProtocol>
+    getTransferProtocolFromUri(const std::string& imageUri)
+{
+    boost::urls::result<boost::urls::url_view> url =
+        boost::urls::parse_uri(boost::string_view(imageUri));
+    if (!url)
+    {
+        return {};
+    }
+
+    boost::string_view scheme = url->scheme();
+    if (scheme == "smb")
+    {
+        return TransferProtocol::smb;
+    }
+    if (scheme == "https")
+    {
+        return TransferProtocol::https;
+    }
+    if (!scheme.empty())
+    {
+        return TransferProtocol::invalid;
+    }
+
+    return {};
+}
+#else
 inline std::optional<TransferProtocol>
     getTransferProtocolFromUri(const std::string& imageUri)
 {
@@ -333,6 +384,7 @@ inline std::optional<TransferProtocol>
 
     return {};
 }
+#endif
 
 /**
  * @brief Function convert transfer protocol from string param.
