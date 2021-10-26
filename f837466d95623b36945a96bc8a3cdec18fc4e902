@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "ff249c24_ea4c0ec4",
+        "filename": "redfish-core/include/utils/telemetry_utils.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-10-26T23:44:58Z",
+      "side": 1,
+      "message": "\u003e Please add here subtree path, needed for Telemetry to obtain MetricReports/MetricReportDefinitions collection (check other remarks to see why this one is required):\n\nConsidering that\u0027s already incorrect on master, lets do that in a different patch, which I\u0027m happy to write as I get time, but I\u0027d like to keep this patch focused on deduplicating code for the same functionality.\n\n\u003e \n\u003e constexpr const char* reportSubtree \u003d\n\u003e     \"/xyz/openbmc_project/Telemetry/Reports/TelemetryService\";",
+      "parentUuid": "11fbc28b_44125749",
+      "revId": "f837466d95623b36945a96bc8a3cdec18fc4e902",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "f21cdb2b_8e5d62f8",
         "filename": "redfish-core/lib/metric_report.hpp",
         "patchSetId": 2
@@ -58,6 +76,54 @@
         "startChar": 31,
         "endLine": 80,
         "endChar": 57
+      },
+      "revId": "f837466d95623b36945a96bc8a3cdec18fc4e902",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2e8e660f_d0811d51",
+        "filename": "redfish-core/lib/metric_report.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-10-26T23:44:58Z",
+      "side": 1,
+      "message": "\u003e Is it possible to modify getCollectionMembers so that \u0027newPath\u0027 gets extra ending slash only when collectionPath does not have it already? \n\u003e Otherwise there may be situations when returned collection members will contain doubled slashes in @odata.id members:\n\u003e \n\u003e \"Members\": [\n\u003e   {\n\u003e     \"@odata.id\": \"/redfish/v1/TelemetryService/MetricReportDefinitions//PowerMetricStats\"\n\u003e   }\n\u003e ]\n\u003e --\n\u003e inline void getCollectionMembers(...)\n\u003e {\n\u003e   [...]\n\u003e   std::string newPath \u003d collectionPath;\n\u003e   newPath +\u003d \u0027/\u0027;\n\u003e   [...]\n\u003e }\n\u003e --\n\nI\u0027m not certain I\u0027m following this request.  I\u0027m assuming in the case where someone wrote something like?\n\ncollection_util::getCollectionMembers(\n                    asyncResp, \"/redfish/v1/TelemetryService/MetricReportDefinitions/\", interfaces);\n\nAssuming I understand (which I might not) IMO, that\u0027s misusing the API, and given that they\u0027re testing these things, should show up immediately when the validator is run.  I\u0027d rather keep the code simple here, and rely on the caller to understand the calling convention.  This also has the benefit of all our call sites being consistent in their use of this.",
+      "parentUuid": "a96bcf48_a2672d75",
+      "range": {
+        "startLine": 80,
+        "startChar": 31,
+        "endLine": 80,
+        "endChar": 57
+      },
+      "revId": "f837466d95623b36945a96bc8a3cdec18fc4e902",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8fe8a92e_bd2bfc99",
+        "filename": "redfish-core/lib/metric_report.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-10-26T23:44:58Z",
+      "side": 1,
+      "message": "Ah, excellent point (that would\u0027ve showed up in my testing when I got there).  Will do shortly.",
+      "parentUuid": "f21cdb2b_8e5d62f8",
+      "range": {
+        "startLine": 80,
+        "startChar": 69,
+        "endLine": 80,
+        "endChar": 70
       },
       "revId": "f837466d95623b36945a96bc8a3cdec18fc4e902",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
