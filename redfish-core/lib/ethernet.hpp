@@ -15,6 +15,8 @@
 */
 #pragma once
 
+#include "query.hpp"
+
 #include <app.hpp>
 #include <boost/container/flat_map.hpp>
 #include <boost/container/flat_set.hpp>
@@ -1835,10 +1837,11 @@ inline void requestEthernetInterfacesRoutes(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/Managers/bmc/EthernetInterfaces/")
         .privileges(redfish::privileges::getEthernetInterfaceCollection)
-        .methods(
-            boost::beast::http::verb::
-                get)([](const crow::Request&,
-                        const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
+        .methods(boost::beast::http::verb::get)([&app](const crow::Request& req,
+                                                       const std::shared_ptr<
+                                                           bmcweb::AsyncResp>&
+                                                           asyncResp) {
+            redfish::setUpRedfishRoute(app, req, asyncResp->res);
             asyncResp->res.jsonValue["@odata.type"] =
                 "#EthernetInterfaceCollection.EthernetInterfaceCollection";
             asyncResp->res.jsonValue["@odata.id"] =
