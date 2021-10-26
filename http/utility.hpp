@@ -3,6 +3,7 @@
 #include <openssl/crypto.h>
 
 #include <boost/date_time/posix_time/posix_time.hpp>
+#include <boost/url/url.hpp>
 
 #include <array>
 #include <chrono>
@@ -670,6 +671,26 @@ struct ConstantTimeCompare
         return constantTimeStringCompare(a, b);
     }
 };
+
+namespace details
+{
+inline boost::urls::url
+    urlFromPiecesDetail(const std::initializer_list<std::string_view> args)
+{
+    boost::urls::url url;
+    for (const std::string_view& arg : args)
+    {
+        url.segments().push_back(arg);
+    }
+    return url;
+}
+} // namespace details
+
+template <typename... AV>
+inline boost::urls::url urlFromPieces(const AV... args)
+{
+    return details::urlFromPiecesDetail({args...});
+}
 
 } // namespace utility
 } // namespace crow
