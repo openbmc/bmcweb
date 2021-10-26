@@ -216,6 +216,7 @@ inline void requestRoutesEventDestinationCollection(App& app)
                 std::optional<std::vector<std::string>> resTypes;
                 std::optional<std::vector<nlohmann::json>> headers;
                 std::optional<std::vector<nlohmann::json>> mrdJsonArray;
+                boost::beast::http::fields httpHeaders;
 
                 if (!json_util::readJson(
                         req, asyncResp->res, "Destination", destUrl, "Context",
@@ -288,8 +289,29 @@ inline void requestRoutesEventDestinationCollection(App& app)
                     path = "/";
                 }
 
+                if (headers)
+                {
+                    for (const nlohmann::json& headerChunk : *headers)
+                    {
+                        for (const auto& item : headerChunk.items())
+                        {
+                            const std::string* value =
+                                item.value().get_ptr<const std::string*>();
+                            if (value == nullptr)
+                            {
+                                messages::propertyValueFormatError(
+                                    asyncResp->res, item.value().dump(2, true),
+                                    "HttpHeaders/" + item.key());
+                                return;
+                            }
+                            httpHeaders.set(item.key(), *value);
+                        }
+                    }
+                }
+
                 std::shared_ptr<Subscription> subValue =
-                    std::make_shared<Subscription>(host, port, path, uriProto);
+                    std::make_shared<Subscription>(host, port, path, uriProto,
+                                                   httpHeaders);
 
                 subValue->destinationUrl = destUrl;
 
@@ -340,26 +362,6 @@ inline void requestRoutesEventDestinationCollection(App& app)
                 if (context)
                 {
                     subValue->customText = *context;
-                }
-
-                if (headers)
-                {
-                    for (const nlohmann::json& headerChunk : *headers)
-                    {
-                        for (const auto& item : headerChunk.items())
-                        {
-                            const std::string* value =
-                                item.value().get_ptr<const std::string*>();
-                            if (value == nullptr)
-                            {
-                                messages::propertyValueFormatError(
-                                    asyncResp->res, item.value().dump(2, true),
-                                    "HttpHeaders/" + item.key());
-                                return;
-                            }
-                            subValue->httpHeaders.set(item.key(), *value);
-                        }
-                    }
                 }
 
                 if (regPrefixes)
