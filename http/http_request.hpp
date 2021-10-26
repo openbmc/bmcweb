@@ -23,7 +23,9 @@ struct Request
     boost::beast::http::fields& fields;
     std::string_view url{};
     boost::urls::url_view urlView{};
+#ifndef NEW_BOOST_URL
     boost::urls::query_params_view urlParams{};
+#endif
     bool isSecure{false};
 
     const std::string& body;
@@ -98,6 +100,22 @@ struct Request
     }
 
   private:
+#ifdef NEW_BOOST_URL
+    bool setUrlInfo()
+    {
+        auto result = boost::urls::parse_relative_ref(
+            boost::urls::string_view(target().data(), target().size()));
+
+        if (!result)
+        {
+            return false;
+        }
+        urlView = *result;
+        url = std::string_view(urlView.encoded_path().data(),
+                               urlView.encoded_path().size());
+        return true;
+    }
+#else
     bool setUrlInfo()
     {
         boost::urls::error_code ec;
@@ -112,6 +130,7 @@ struct Request
         urlParams = urlView.query_params();
         return true;
     }
+#endif
 };
 
 } // namespace crow
