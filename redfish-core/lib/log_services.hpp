@@ -328,7 +328,8 @@ inline static bool
             indexStr.data(), indexStr.data() + indexStr.size(), index);
         if (ec != std::errc())
         {
-            messages::resourceMissingAtURI(asyncResp->res, entryID);
+            messages::resourceMissingAtURI(
+                asyncResp->res, crow::utility::urlFromPieces(entryID));
             return false;
         }
     }
@@ -337,7 +338,8 @@ inline static bool
         std::from_chars(tsStr.data(), tsStr.data() + tsStr.size(), timestamp);
     if (ec != std::errc())
     {
-        messages::resourceMissingAtURI(asyncResp->res, entryID);
+        messages::resourceMissingAtURI(asyncResp->res,
+                                       crow::utility::urlFromPieces(entryID));
         return false;
     }
     return true;
@@ -812,8 +814,7 @@ inline void createDump(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
             (*diagnosticDataType != "OEM"))
         {
             BMCWEB_LOG_ERROR << "Wrong parameter values passed";
-            messages::invalidObject(asyncResp->res,
-                                    "System Dump creation parameters");
+            messages::internalError(asyncResp->res);
             return;
         }
     }
@@ -831,8 +832,7 @@ inline void createDump(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
         {
             BMCWEB_LOG_ERROR
                 << "Wrong parameter value passed for 'DiagnosticDataType'";
-            messages::invalidObject(asyncResp->res,
-                                    "BMC Dump creation parameters");
+            messages::internalError(asyncResp->res);
             return;
         }
     }
@@ -1332,7 +1332,8 @@ inline void requestRoutesJournalEventLogEntry(App& app)
                     }
                 }
                 // Requested ID was not found
-                messages::resourceMissingAtURI(asyncResp->res, targetID);
+                messages::resourceMissingAtURI(
+                    asyncResp->res, crow::utility::urlFromPieces(targetID));
             });
 }
 
@@ -1976,7 +1977,7 @@ inline void requestRoutesSystemHostLoggerLogEntry(App& app)
         app, "/redfish/v1/Systems/system/LogServices/HostLogger/Entries/<str>/")
         .privileges(redfish::privileges::getLogEntry)
         .methods(boost::beast::http::verb::get)(
-            [](const crow::Request&,
+            [](const crow::Request& req,
                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                const std::string& param) {
                 const std::string& targetID = param;
@@ -1989,12 +1990,12 @@ inline void requestRoutesSystemHostLoggerLogEntry(App& app)
                 auto [ptr, ec] = std::from_chars(targetID.data(), end, idInt);
                 if (ec == std::errc::invalid_argument)
                 {
-                    messages::resourceMissingAtURI(asyncResp->res, targetID);
+                    messages::resourceMissingAtURI(asyncResp->res, req.urlView);
                     return;
                 }
                 if (ec == std::errc::result_out_of_range)
                 {
-                    messages::resourceMissingAtURI(asyncResp->res, targetID);
+                    messages::resourceMissingAtURI(asyncResp->res, req.urlView);
                     return;
                 }
 
@@ -2026,7 +2027,7 @@ inline void requestRoutesSystemHostLoggerLogEntry(App& app)
                 }
 
                 // Requested ID was not found
-                messages::resourceMissingAtURI(asyncResp->res, targetID);
+                messages::resourceMissingAtURI(asyncResp->res, req.urlView);
             });
 }
 
@@ -2304,7 +2305,8 @@ inline void requestRoutesBMCJournalLogEntry(App& app)
                 // Confirm that the entry ID matches what was requested
                 if (idStr != entryID)
                 {
-                    messages::resourceMissingAtURI(asyncResp->res, entryID);
+                    messages::resourceMissingAtURI(
+                        asyncResp->res, crow::utility::urlFromPieces(entryID));
                     return;
                 }
 
@@ -2642,7 +2644,8 @@ static void
 
             if (filename.empty() || timestamp.empty())
             {
-                messages::resourceMissingAtURI(asyncResp->res, logID);
+                messages::resourceMissingAtURI(
+                    asyncResp->res, crow::utility::urlFromPieces(logID));
                 return;
             }
 
@@ -2801,23 +2804,26 @@ inline void requestRoutesCrashdumpFile(App& app)
                         if (dbusFilename.empty() || dbusTimestamp.empty() ||
                             dbusFilepath.empty())
                         {
-                            messages::resourceMissingAtURI(asyncResp->res,
-                                                           fileName);
+                            messages::resourceMissingAtURI(
+                                asyncResp->res,
+                                crow::utility::urlFromPieces(fileName));
                             return;
                         }
 
                         // Verify the file name parameter is correct
                         if (fileName != dbusFilename)
                         {
-                            messages::resourceMissingAtURI(asyncResp->res,
-                                                           fileName);
+                            messages::resourceMissingAtURI(
+                                asyncResp->res,
+                                crow::utility::urlFromPieces(fileName));
                             return;
                         }
 
                         if (!std::filesystem::exists(dbusFilepath))
                         {
-                            messages::resourceMissingAtURI(asyncResp->res,
-                                                           fileName);
+                            messages::resourceMissingAtURI(
+                                asyncResp->res,
+                                crow::utility::urlFromPieces(fileName));
                             return;
                         }
                         std::ifstream ifs(dbusFilepath,
@@ -3464,7 +3470,8 @@ inline void requestRoutesPostCodesEntry(App& app)
                 if (!parsePostCode(targetID, codeIndex, bootIndex))
                 {
                     // Requested ID was not found
-                    messages::resourceMissingAtURI(asyncResp->res, targetID);
+                    messages::resourceMissingAtURI(
+                        asyncResp->res, crow::utility::urlFromPieces(targetID));
                     return;
                 }
                 if (bootIndex == 0 || codeIndex == 0)
