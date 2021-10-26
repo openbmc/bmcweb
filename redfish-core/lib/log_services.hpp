@@ -15,7 +15,9 @@
 */
 #pragma once
 
+#include "gzfile.hpp"
 #include "http_utility.hpp"
+#include "human_sort.hpp"
 #include "registries.hpp"
 #include "registries/base_message_registry.hpp"
 #include "registries/openbmc_message_registry.hpp"
@@ -975,6 +977,12 @@ inline void requestRoutesSystemLogServiceCollection(App& app)
                     {{"@odata.id",
                       "/redfish/v1/Systems/system/LogServices/Crashdump"}});
 #endif
+
+#ifdef BMCWEB_ENABLE_REDFISH_HOST_LOGGER
+                logServiceArray.push_back(
+                    {{"@odata.id",
+                      "/redfish/v1/Systems/system/LogServices/HostLogger"}});
+#endif
                 asyncResp->res.jsonValue["Members@odata.count"] =
                     logServiceArray.size();
 
@@ -1814,6 +1822,240 @@ inline void requestRoutesDBusEventLogEntryDownload(App& app)
                     "xyz.openbmc_project.Logging",
                     "/xyz/openbmc_project/logging/entry/" + entryID,
                     "xyz.openbmc_project.Logging.Entry", "GetEntry");
+            });
+}
+
+constexpr const char* hostLoggerFolderPath = "/var/log/console";
+
+inline bool
+    getHostLoggerFiles(const std::string& hostLoggerFilePath,
+                       std::vector<std::filesystem::path>& hostLoggerFiles)
+{
+    std::error_code ec;
+    std::filesystem::directory_iterator logPath(hostLoggerFilePath, ec);
+    if (ec)
+    {
+        BMCWEB_LOG_ERROR << ec.message();
+        return false;
+    }
+    for (const std::filesystem::directory_entry& it : logPath)
+    {
+        std::string filename = it.path().filename();
+        // Prefix of each log files is "log". Find the file and save the
+        // path
+        if (boost::starts_with(filename, "log"))
+        {
+            hostLoggerFiles.emplace_back(it.path());
+        }
+    }
+    // As the log files rotate, they are appended with a ".#" that is higher for
+    // the older logs. Since we start from oldest logs, sort the name in
+    // descending order.
+    std::sort(hostLoggerFiles.rbegin(), hostLoggerFiles.rend(),
+              AlphanumLess<std::string>());
+
+    return true;
+}
+
+inline bool
+    getHostLoggerEntries(std::vector<std::filesystem::path>& hostLoggerFiles,
+                         uint64_t& skip, uint64_t& top,
+                         std::vector<std::string>& logEntries, size_t& logCount)
+{
+    GzFileReader logFile;
+
+    // Go though all log files and expose host logs.
+    for (const std::filesystem::path& it : hostLoggerFiles)
+    {
+        if (!logFile.gzGetLines(it.string(), skip, top, logEntries, logCount))
+        {
+            BMCWEB_LOG_ERROR << "fail to expose host logs";
+            return false;
+        }
+    }
+    // Get lastMessage from constructor by getter
+    std::string lastMessage = logFile.getLastMessage();
+    if (!lastMessage.empty())
+    {
+        logCount++;
+        if (logCount > skip && logCount <= (skip + top))
+        {
+            logEntries.push_back(lastMessage);
+        }
+    }
+    return true;
+}
+
+inline void fillHostLoggerEntryJson(const std::string& logEntryID,
+                                    const std::string& msg,
+                                    nlohmann::json& logEntryJson)
+{
+    // Fill in the log entry with the gathered data.
+    logEntryJson = {
+        {"@odata.type", "#LogEntry.v1_4_0.LogEntry"},
+        {"@odata.id",
+         "/redfish/v1/Systems/system/LogServices/HostLogger/Entries/" +
+             logEntryID},
+        {"Name", "Host Logger Entry"},
+        {"Id", logEntryID},
+        {"Message", msg},
+        {"EntryType", "Oem"},
+        {"Severity", "OK"},
+        {"OemRecordFormat", "Host Logger Entry"}};
+}
+
+inline void requestRoutesSystemHostLogger(App& app)
+{
+    BMCWEB_ROUTE(app, "/redfish/v1/Systems/system/LogServices/HostLogger/")
+        .privileges(redfish::privileges::getLogService)
+        .methods(boost::beast::http::verb::get)(
+            [](const crow::Request&,
+               const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
+                asyncResp->res.jsonValue["@odata.id"] =
+                    "/redfish/v1/Systems/system/LogServices/HostLogger";
+                asyncResp->res.jsonValue["@odata.type"] =
+                    "#LogService.v1_1_0.LogService";
+                asyncResp->res.jsonValue["Name"] = "Host Logger Service";
+                asyncResp->res.jsonValue["Description"] = "Host Logger Service";
+                asyncResp->res.jsonValue["Id"] = "HostLogger";
+                asyncResp->res.jsonValue["Entries"] = {
+                    {"@odata.id", "/redfish/v1/Systems/system/LogServices/"
+                                  "HostLogger/Entries"}};
+            });
+}
+
+inline void requestRoutesSystemHostLoggerCollection(App& app)
+{
+    BMCWEB_ROUTE(app,
+                 "/redfish/v1/Systems/system/LogServices/HostLogger/Entries/")
+        .privileges(redfish::privileges::getLogEntry)
+        .methods(boost::beast::http::verb::get)(
+            [](const crow::Request& req,
+               const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
+                uint64_t skip = 0;
+                uint64_t top = maxEntriesPerPage; // Show max 1000 entries by
+                                                  // default, allow range 1 to
+                                                  // 1000 entries per page.
+                if (!getSkipParam(asyncResp, req, skip))
+                {
+                    return;
+                }
+                if (!getTopParam(asyncResp, req, top))
+                {
+                    return;
+                }
+                asyncResp->res.jsonValue["@odata.id"] =
+                    "/redfish/v1/Systems/system/LogServices/HostLogger/Entries";
+                asyncResp->res.jsonValue["@odata.type"] =
+                    "#LogEntryCollection.LogEntryCollection";
+                asyncResp->res.jsonValue["Name"] = "HostLogger Entries";
+                asyncResp->res.jsonValue["Description"] =
+                    "Collection of HostLogger Entries";
+                nlohmann::json& logEntryArray =
+                    asyncResp->res.jsonValue["Members"];
+                logEntryArray = nlohmann::json::array();
+                asyncResp->res.jsonValue["Members@odata.count"] = 0;
+
+                std::vector<std::filesystem::path> hostLoggerFiles;
+                if (!getHostLoggerFiles(hostLoggerFolderPath, hostLoggerFiles))
+                {
+                    BMCWEB_LOG_ERROR << "fail to get host log file path";
+                    return;
+                }
+
+                size_t logCount = 0;
+                // This vector only store the entries we want to expose that
+                // control by skip and top.
+                std::vector<std::string> logEntries;
+                if (!getHostLoggerEntries(hostLoggerFiles, skip, top,
+                                          logEntries, logCount))
+                {
+                    messages::internalError(asyncResp->res);
+                    return;
+                }
+                // If vector is empty, that means skip value larger than total
+                // log count
+                if (logEntries.size() == 0)
+                {
+                    asyncResp->res.jsonValue["Members@odata.count"] = logCount;
+                    return;
+                }
+                else if (logEntries.size() > 0)
+                {
+                    for (size_t i = 0; i < logEntries.size(); i++)
+                    {
+                        logEntryArray.push_back({});
+                        nlohmann::json& hostLogEntry = logEntryArray.back();
+                        fillHostLoggerEntryJson(std::to_string(skip + i),
+                                                logEntries[i], hostLogEntry);
+                    }
+
+                    asyncResp->res.jsonValue["Members@odata.count"] = logCount;
+                    if (skip + top < logCount)
+                    {
+                        asyncResp->res.jsonValue["Members@odata.nextLink"] =
+                            "/redfish/v1/Systems/system/LogServices/HostLogger/"
+                            "Entries?$skip=" +
+                            std::to_string(skip + top);
+                    }
+                }
+            });
+}
+
+inline void requestRoutesSystemHostLoggerLogEntry(App& app)
+{
+    BMCWEB_ROUTE(
+        app, "/redfish/v1/Systems/system/LogServices/HostLogger/Entries/<str>/")
+        .privileges(redfish::privileges::getLogEntry)
+        .methods(boost::beast::http::verb::get)(
+            [](const crow::Request&,
+               const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+               const std::string& param) {
+                const std::string& targetID = param;
+
+                uint64_t idInt = 0;
+                auto [ptr, ec] = std::from_chars(
+                    targetID.data(), targetID.data() + targetID.size(), idInt);
+                if (ec == std::errc::invalid_argument)
+                {
+                    messages::resourceMissingAtURI(asyncResp->res, targetID);
+                    return;
+                }
+                else if (ec == std::errc::result_out_of_range)
+                {
+                    messages::resourceMissingAtURI(asyncResp->res, targetID);
+                    return;
+                }
+
+                std::vector<std::filesystem::path> hostLoggerFiles;
+                if (!getHostLoggerFiles(hostLoggerFolderPath, hostLoggerFiles))
+                {
+                    BMCWEB_LOG_ERROR << "fail to get host log file path";
+                    return;
+                }
+
+                size_t logCount = 0;
+                uint64_t top = 1;
+                std::vector<std::string> logEntries;
+                // We can get specific entry by skip and top. For example, if we
+                // want to get nth entry, we can set skip = n-1 and top = 1 to
+                // get that entry
+                if (!getHostLoggerEntries(hostLoggerFiles, idInt, top,
+                                          logEntries, logCount))
+                {
+                    messages::internalError(asyncResp->res);
+                    return;
+                }
+
+                if (!logEntries.empty())
+                {
+                    fillHostLoggerEntryJson(targetID, logEntries[0],
+                                            asyncResp->res.jsonValue);
+                    return;
+                }
+
+                // Requested ID was not found
+                messages::resourceMissingAtURI(asyncResp->res, targetID);
             });
 }
 
