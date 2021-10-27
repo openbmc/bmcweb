@@ -140,6 +140,30 @@
       "revId": "dc65384c6151021384d20f44ee9ad3ae8dce91ca",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0069fc34_ea79a4d2",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 2802,
+      "author": {
+        "id": 1000238
+      },
+      "writtenOn": "2021-10-27T19:14:45Z",
+      "side": 1,
+      "message": "I had some confusion on how the async requests execute and now I understand what is happening.  I am still not quite sure how to most efficiently code this validation.\n\nThe user could specify one or both of enter/exit utilization.  If they are not specifying one, it needs to read the current value of that property so it can compare.  If the Get is async, how do I wait for the result of the GET before doing the comparison?",
+      "parentUuid": "576bd652_555bb9e0",
+      "range": {
+        "startLine": 2798,
+        "startChar": 0,
+        "endLine": 2802,
+        "endChar": 48
+      },
+      "revId": "dc65384c6151021384d20f44ee9ad3ae8dce91ca",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
