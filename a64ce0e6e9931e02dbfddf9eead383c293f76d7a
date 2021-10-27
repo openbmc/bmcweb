@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "082d2050_bda72e67",
+        "filename": "meson.build",
+        "patchSetId": 2
+      },
+      "lineNbr": 431,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2021-10-27T20:44:25Z",
+      "side": 1,
+      "message": "I need this for \nhttps://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/44696/6/meson.build",
+      "range": {
+        "startLine": 431,
+        "startChar": 26,
+        "endLine": 431,
+        "endChar": 41
+      },
+      "revId": "a64ce0e6e9931e02dbfddf9eead383c293f76d7a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    }
+  ]
+}
