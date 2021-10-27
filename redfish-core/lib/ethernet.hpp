@@ -101,7 +101,7 @@ struct EthernetInterfaceData
     bool NTPEnabled;
     bool HostNameEnabled;
     bool SendHostNameEnabled;
-    bool linkUp;
+    std::string linkStatus;
     bool nicEnabled;
     std::string DHCPEnabled;
     std::string operatingMode;
@@ -201,6 +201,32 @@ inline std::string
     return "";
 }
 
+inline bool translateLinkStatusDbusToRedfish(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const EthernetInterfaceData& ethData)
+{
+
+    nlohmann::json& jsonResponse = asyncResp->res.jsonValue;
+
+    if (ethData.linkStatus == "linkDown")
+    {
+        jsonResponse["LinkStatus"] = "LinkDown";
+    }
+    else if (ethData.linkStatus == "linkUp")
+    {
+        jsonResponse["LinkStatus"] = "LinkUp";
+    }
+    else if (ethData.linkStatus == "noLink")
+    {
+        jsonResponse["LinkStatus"] = "LinkUp";
+    }
+    else
+    {
+        return false;
+    }
+    return true;
+}
+
 inline bool extractEthernetInterfaceData(const std::string& ethifaceId,
                                          GetManagedObjects& dbusData,
                                          EthernetInterfaceData& ethData)
@@ -266,13 +292,14 @@ inline bool extractEthernetInterfaceData(const std::string& ethifaceId,
                                 ethData.speed = *speed;
                             }
                         }
-                        else if (propertyPair.first == "LinkUp")
+                        else if (propertyPair.first == "LinkStatus")
                         {
-                            const bool* linkUp =
-                                std::get_if<bool>(&propertyPair.second);
-                            if (linkUp != nullptr)
+                            const std::string* linkStatus =
+                                std::get_if<std::string>(&propertyPair.second);
+                            if (linkStatus != nullptr)
                             {
-                                ethData.linkUp = *linkUp;
+                                ethData.linkStatus = linkStatus->substr(
+                                    linkStatus->rfind(".") + 1);
                             }
                         }
                         else if (propertyPair.first == "NICEnabled")
@@ -1700,16 +1727,20 @@ inline void parseInterfaceData(
 
     if (ethData.nicEnabled)
     {
-        jsonResponse["LinkStatus"] = "LinkUp";
         jsonResponse["Status"]["State"] = "Enabled";
     }
     else
     {
-        jsonResponse["LinkStatus"] = "NoLink";
         jsonResponse["Status"]["State"] = "Disabled";
     }
 
-    jsonResponse["LinkStatus"] = ethData.linkUp ? "LinkUp" : "LinkDown";
+    if (translateLinkStatusDbusToRedfish(asyncResp, ethData) == false)
+    {
+        BMCWEB_LOG_ERROR << "Unknown linkStatus : " << ethData.linkStatus;
+        messages::internalError(asyncResp->res);
+        return;
+    }
+
     jsonResponse["SpeedMbps"] = ethData.speed;
     jsonResponse["MACAddress"] = ethData.mac_address;
     jsonResponse["DHCPv4"]["DHCPEnabled"] =
