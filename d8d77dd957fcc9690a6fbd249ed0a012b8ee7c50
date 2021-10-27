@@ -2,6 +2,52 @@
   "comments": [
     {
       "key": {
+        "uuid": "30ec34f7_82baaf02",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-10-27T18:55:01Z",
+      "side": 1,
+      "message": "This also changes what property we look for for that information.  Considering theres\u0027 only one EthernetInterface implementation I know of, that\u0027s probably fine, but you need to update the interfaces to match.",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 12,
+        "endChar": 7
+      },
+      "revId": "d8d77dd957fcc9690a6fbd249ed0a012b8ee7c50",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e34f7a07_dca5c39b",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 269,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-10-27T18:55:01Z",
+      "side": 1,
+      "message": "LinkStatus doesn\u0027t exist in this interface.  LinkUp (the one you removed) does.  What am I missing?\n\nhttps://github.com/openbmc/phosphor-dbus-interfaces/blob/0ef46c1e65fb6e88667d468bad88932be481ab54/yaml/xyz/openbmc_project/Network/EthernetInterface.interface.yaml",
+      "range": {
+        "startLine": 269,
+        "startChar": 56,
+        "endLine": 269,
+        "endChar": 66
+      },
+      "revId": "d8d77dd957fcc9690a6fbd249ed0a012b8ee7c50",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "27a18938_98bb4a39",
         "filename": "redfish-core/lib/ethernet.hpp",
         "patchSetId": 2
@@ -13,6 +59,70 @@
       "writtenOn": "2021-10-27T15:53:33Z",
       "side": 1,
       "message": "Why do we still need line 1704 and 1709 ?",
+      "revId": "d8d77dd957fcc9690a6fbd249ed0a012b8ee7c50",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "365b2945_5a69c6a4",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1704,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-10-27T18:55:01Z",
+      "side": 1,
+      "message": "+1",
+      "parentUuid": "27a18938_98bb4a39",
+      "revId": "d8d77dd957fcc9690a6fbd249ed0a012b8ee7c50",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "83ee8d64_fce8003a",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1726,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-10-27T18:55:01Z",
+      "side": 1,
+      "message": "\"Unknown\" isn\u0027t valid on the LinkStatus schema in Redfish.  What lead you to believe it was?  Am I reading something incorrectly?\n\nhttps://redfish.dmtf.org/schemas/EthernetInterface_v1.xml",
+      "range": {
+        "startLine": 1726,
+        "startChar": 7,
+        "endLine": 1726,
+        "endChar": 47
+      },
+      "revId": "d8d77dd957fcc9690a6fbd249ed0a012b8ee7c50",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0a9d48d4_805802e5",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1727,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-10-27T18:55:01Z",
+      "side": 1,
+      "message": "Considering this is more than just a boolean case now, please move it into its own method like we do for other dbus-\u003eredfish enum conversions.",
+      "range": {
+        "startLine": 1712,
+        "startChar": 0,
+        "endLine": 1727,
+        "endChar": 5
+      },
       "revId": "d8d77dd957fcc9690a6fbd249ed0a012b8ee7c50",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
