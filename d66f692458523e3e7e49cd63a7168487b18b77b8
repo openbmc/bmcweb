@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b4cbace0_cd504f92",
+        "filename": "redfish-core/lib/ut/service_root_test.cpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-10-27T18:56:35Z",
+      "side": 1,
+      "message": "can this be a const reference instead of a copy?  If not, not a huge deal, this is only a unit test, so speed doesn\u0027t matter that much.",
+      "range": {
+        "startLine": 16,
+        "startChar": 4,
+        "endLine": 16,
+        "endChar": 18
+      },
+      "revId": "d66f692458523e3e7e49cd63a7168487b18b77b8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ebc5d10f_2c125a1f",
+        "filename": "redfish-core/lib/ut/service_root_test.cpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-10-27T18:56:35Z",
+      "side": 1,
+      "message": "Could this whole thing be replaced with a regex?  That seems like it would be a lot better in this case.  I believe the redfish schema even already has a regex in it you could just use.",
+      "range": {
+        "startLine": 42,
+        "startChar": 0,
+        "endLine": 85,
+        "endChar": 0
+      },
+      "revId": "d66f692458523e3e7e49cd63a7168487b18b77b8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
