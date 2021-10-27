@@ -6,8 +6,14 @@
 #include "http_request.hpp"
 #include "routing.hpp"
 
+#include <charconv>
+#include <stack>
 #include <string_view>
 #include <vector>
+
+#define PARAM_NOACTION 0
+#define PARAM_ERASE 1
+#define PARAM_FORMATERROR 2
 
 namespace redfish
 {
@@ -22,13 +28,36 @@ struct Query
     bool isSelect = false;
     bool isSkip = false;
     bool isTop = false;
+    bool isFilter = false;
     uint64_t expandLevel;
     std::string expandType;
     std::vector<std::string> pendingUrlVec;
     std::vector<std::vector<std::string>> selectPropertyVec;
     uint64_t skipValue;
     uint64_t topValue;
+    std::string filterValue;
+    std::vector<std::string> filterVec;
     nlohmann::json jsonValue;
+};
+
+enum class FilterType
+{
+    Grouping,
+    Compare,
+    Logical,
+    String,
+    Boolean,
+    Integer,
+    Double
+};
+
+struct FilterValue
+{
+    FilterType type;
+    std::string s;
+    bool b;
+    int n;
+    double d;
 };
 
 void processAllParams(crow::App& app, Query& query,
@@ -142,6 +171,55 @@ inline std::optional<Query>
             {
                 ret.isTop = true;
             }
+        }
+        else if (it.key() == "$filter")
+        {
+            std::string value = it.value();
+            if (value.empty())
+            {
+                messages::queryParameterValueFormatError(res, it.value(),
+                                                         it.key());
+                return std::nullopt;
+            }
+
+            ret.filterValue = value;
+            value.erase(0, value.find_first_not_of(' '));
+            value.erase(value.find_last_not_of(' ') + 1);
+
+            std::string result{};
+            for (size_t i = 0; i < value.length(); i++)
+            {
+                if (value[i] != ' ')
+                {
+                    if (value[i] == '(' || value[i] == ')')
+                    {
+                        if (i > 0 && value[i - 1] != ' ')
+                        {
+                            result.append(1, ' ');
+                            result.append(1, value[i]);
+                        }
+                        else if (i < value.length() - 1 && value[i + 1] != ' ')
+                        {
+                            result.append(1, value[i]);
+                            result.append(1, ' ');
+                        }
+                        else
+                        {
+                            result.append(1, value[i]);
+                        }
+                    }
+                    else
+                    {
+                        result.append(1, value[i]);
+                    }
+                }
+                else if (value[i + 1] != ' ')
+                {
+                    result.append(1, value[i]);
+                }
+            }
+            ret.filterVec = stringSplit(result, " ");
+            ret.isFilter = true;
         }
     }
     return ret;
@@ -394,6 +472,523 @@ void recursiveSelect(std::vector<std::string> v, nlohmann::json& src,
     }
 }
 
+inline bool getJsonValueForFilter(std::vector<std::string>& v,
+                                  nlohmann::json& j,
+                                  std::vector<FilterValue>& dstV)
+{
+    if (v.empty())
+    {
+        return true;
+    }
+    std::string key = v[0];
+    auto it = j.find(key);
+    if (it == j.end())
+    {
+        return false;
+    }
+    v.erase(v.begin());
+    if (v.empty())
+    {
+        if (it->is_string())
+        {
+            FilterValue fv;
+            fv.type = FilterType::String;
+            fv.s = it->get<std::string>();
+            dstV.push_back(std::move(fv));
+            return true;
+        }
+        if (it->is_boolean())
+        {
+            FilterValue fv;
+            fv.type = FilterType::Boolean;
+            fv.b = it->get<bool>();
+            dstV.push_back(std::move(fv));
+            return true;
+        }
+        if (it->is_number_float())
+        {
+            FilterValue fv;
+            fv.type = FilterType::Double;
+            fv.d = it->get<float>();
+            dstV.push_back(std::move(fv));
+            return true;
+        }
+        if (it->is_number())
+        {
+            FilterValue fv;
+            fv.type = FilterType::Integer;
+            fv.n = it->get<int>();
+            dstV.push_back(std::move(fv));
+            return true;
+        }
+        return false;
+    }
+    return getJsonValueForFilter(v, *it, dstV);
+}
+
+inline uint8_t getFilterOperatorPrecedence(const std::string& opt)
+{
+    if (opt == "not")
+    {
+        return 5;
+    }
+    if (opt == "gt" || opt == "ge" || opt == "lt" || opt == "le")
+    {
+        return 4;
+    }
+    if (opt == "eq" || opt == "ne")
+    {
+        return 3;
+    }
+    if (opt == "and")
+    {
+        return 2;
+    }
+    if (opt == "or")
+    {
+        return 1;
+    }
+    return 0;
+}
+
+inline bool isNumber(const std::string& str)
+{
+    if (str.empty())
+    {
+        return false;
+    }
+    for (size_t i = 0; i < str.size(); i++)
+    {
+        if (i == 0 && str[i] == '-')
+        {
+            continue;
+        }
+        if (i == 0 && str[i] == '.')
+        {
+            return false;
+        }
+        if ((str[i] < '0' || str[i] > '9') && str[i] != '.')
+        {
+            return false;
+        }
+    }
+    return true;
+}
+
+inline int8_t parseFilterParameters(nlohmann::json& j, Query& query)
+{
+    std::vector<FilterValue> filterValueVec;
+    for (auto& it : query.filterVec)
+    {
+        if (it == "(" || it == ")")
+        {
+            FilterValue fv;
+            fv.type = FilterType::Grouping;
+            fv.s = it;
+            filterValueVec.push_back(std::move(fv));
+        }
+        else if (it == "eq" || it == "ne" || it == "ge" || it == "gt" ||
+                 it == "le" || it == "lt")
+        {
+            FilterValue fv;
+            fv.type = FilterType::Compare;
+            fv.s = it;
+            filterValueVec.push_back(std::move(fv));
+        }
+        else if (it == "and" || it == "not" || it == "or")
+        {
+            FilterValue fv;
+            fv.type = FilterType::Logical;
+            fv.s = it;
+            filterValueVec.push_back(std::move(fv));
+        }
+        else if (it == "true" || it == "false")
+        {
+            FilterValue fv;
+            fv.type = FilterType::Boolean;
+            fv.b = it == "true" ? true : false;
+            filterValueVec.push_back(std::move(fv));
+        }
+        else if (it[0] == '\'' && it[it.size() - 1] == '\'' && it.size() >= 2)
+        {
+            FilterValue fv;
+            fv.type = FilterType::String;
+            fv.s = it.substr(1, it.size() - 2);
+            filterValueVec.push_back(std::move(fv));
+        }
+        else if (isNumber(it))
+        {
+            if (it.find('.') == std::string::npos)
+            {
+                int value;
+                auto result =
+                    std::from_chars(it.data(), it.data() + it.size(), value);
+                if (result.ec != std::errc())
+                {
+                    return PARAM_FORMATERROR;
+                }
+                FilterValue fv;
+                fv.type = FilterType::Integer;
+                fv.n = value;
+                filterValueVec.push_back(std::move(fv));
+            }
+            else
+            {
+                char* end;
+                FilterValue fv;
+                fv.d = std::strtod(it.data(), &end);
+                fv.type = FilterType::Double;
+                filterValueVec.push_back(std::move(fv));
+            }
+        }
+        else
+        {
+            // get value from json
+            auto v = stringSplit(it, "/");
+            if (!getJsonValueForFilter(v, j, filterValueVec))
+            {
+                return PARAM_FORMATERROR;
+            }
+        }
+    }
+    // change to RPN
+    std::stack<FilterValue> stackOpt;
+    std::stack<FilterValue> stackRPN;
+    for (auto& it : filterValueVec)
+    {
+        if (it.type == FilterType::String || it.type == FilterType::Boolean ||
+            it.type == FilterType::Integer || it.type == FilterType::Double)
+        {
+            stackRPN.push(it);
+        }
+        else if (it.type == FilterType::Grouping)
+        {
+            if (it.s == "(")
+            {
+                stackOpt.push(it);
+            }
+            else
+            {
+                while (!stackOpt.empty())
+                {
+                    FilterValue fv = stackOpt.top();
+                    if (fv.type != FilterType::Grouping)
+                    {
+                        stackRPN.push(fv);
+                        stackOpt.pop();
+                    }
+                    else if (fv.s == "(")
+                    {
+                        stackOpt.pop();
+                        break;
+                    }
+                }
+            }
+        }
+        else
+        {
+            while (true)
+            {
+                if (stackOpt.empty())
+                {
+                    stackOpt.push(it);
+                    break;
+                }
+                FilterValue fv = stackOpt.top();
+                if (fv.s == "(")
+                {
+                    stackOpt.push(it);
+                    break;
+                }
+                if (getFilterOperatorPrecedence(it.s) >
+                    getFilterOperatorPrecedence(fv.s))
+                {
+                    stackOpt.push(it);
+                    break;
+                }
+                stackRPN.push(fv);
+                stackOpt.pop();
+            }
+        }
+    }
+    while (!stackOpt.empty())
+    {
+        FilterValue fv = stackOpt.top();
+        stackRPN.push(fv);
+        stackOpt.pop();
+    }
+    filterValueVec.clear();
+    while (!stackRPN.empty())
+    {
+        stackOpt.push(stackRPN.top());
+        stackRPN.pop();
+    }
+    // use RPN to calc
+    while (!stackOpt.empty())
+    {
+        FilterValue fv = stackOpt.top();
+        stackOpt.pop();
+        if (fv.type == FilterType::Double || fv.type == FilterType::Integer ||
+            fv.type == FilterType::Boolean || fv.type == FilterType::String)
+        {
+            stackRPN.push(fv);
+        }
+        else if (fv.s == "and" && stackRPN.size() >= 2)
+        {
+            FilterValue fv1 = stackRPN.top();
+            stackRPN.pop();
+            FilterValue fv2 = stackRPN.top();
+            stackRPN.pop();
+            if (fv1.type == FilterType::Boolean &&
+                fv2.type == FilterType::Boolean)
+            {
+                FilterValue fv;
+                fv.type = FilterType::Boolean;
+                fv.b = fv1.b && fv2.b;
+                stackRPN.push(fv);
+            }
+        }
+        else if (fv.s == "or" && stackRPN.size() >= 2)
+        {
+            FilterValue fv1 = stackRPN.top();
+            stackRPN.pop();
+            FilterValue fv2 = stackRPN.top();
+            stackRPN.pop();
+            if (fv1.type == FilterType::Boolean &&
+                fv2.type == FilterType::Boolean)
+            {
+                FilterValue fv;
+                fv.type = FilterType::Boolean;
+                fv.b = fv1.b || fv2.b;
+                stackRPN.push(fv);
+            }
+        }
+        else if (fv.s == "not" && stackRPN.size() >= 1)
+        {
+            FilterValue fv1 = stackRPN.top();
+            stackRPN.pop();
+            if (fv1.type == FilterType::Boolean)
+            {
+                FilterValue fv;
+                fv.type = FilterType::Boolean;
+                fv.b = !fv1.b;
+                stackRPN.push(fv);
+            }
+        }
+        else if (fv.s == "eq" && stackRPN.size() >= 2)
+        {
+            FilterValue fv1 = stackRPN.top();
+            stackRPN.pop();
+            FilterValue fv2 = stackRPN.top();
+            stackRPN.pop();
+            if (fv1.type == fv2.type)
+            {
+                FilterValue fv;
+                fv.type = FilterType::Boolean;
+                if (fv1.type == FilterType::Integer)
+                {
+                    fv.b = fv1.n == fv2.n;
+                }
+                else if (fv1.type == FilterType::Boolean)
+                {
+                    fv.b = fv1.b == fv2.b;
+                }
+                else if (fv1.type == FilterType::String)
+                {
+                    fv.b = fv1.s == fv2.s;
+                }
+                stackRPN.push(fv);
+            }
+        }
+        else if (fv.s == "ne" && stackRPN.size() >= 2)
+        {
+            FilterValue fv1 = stackRPN.top();
+            stackRPN.pop();
+            FilterValue fv2 = stackRPN.top();
+            stackRPN.pop();
+            if (fv1.type == fv2.type)
+            {
+                FilterValue fv;
+                fv.type = FilterType::Boolean;
+                if (fv1.type == FilterType::Integer)
+                {
+                    fv.b = fv1.n != fv2.n;
+                }
+                else if (fv1.type == FilterType::Boolean)
+                {
+                    fv.b = fv1.b != fv2.b;
+                }
+                else if (fv1.type == FilterType::String)
+                {
+                    fv.b = fv1.s != fv2.s;
+                }
+                stackRPN.push(fv);
+            }
+        }
+        else if (fv.s == "ge" && stackRPN.size() >= 2)
+        {
+            FilterValue fv1 = stackRPN.top();
+            stackRPN.pop();
+            FilterValue fv2 = stackRPN.top();
+            stackRPN.pop();
+            if ((fv1.type == FilterType::Integer ||
+                 fv1.type == FilterType::Double) &&
+                (fv2.type == FilterType::Integer ||
+                 fv2.type == FilterType::Double))
+            {
+                FilterValue fv;
+                fv.type = FilterType::Boolean;
+                if (fv1.type == FilterType::Integer &&
+                    fv2.type == FilterType::Integer)
+                {
+                    fv.b = fv1.n >= fv2.n;
+                }
+                else if (fv1.type == FilterType::Double &&
+                         fv2.type == FilterType::Double)
+                {
+                    fv.b = fv1.d >= fv2.d;
+                }
+                else if (fv1.type == FilterType::Double &&
+                         fv2.type == FilterType::Integer)
+                {
+                    fv.b = fv1.d >= fv2.n;
+                }
+                else if (fv1.type == FilterType::Integer &&
+                         fv2.type == FilterType::Double)
+                {
+                    fv.b = fv1.n >= fv2.d;
+                }
+                stackRPN.push(fv);
+            }
+        }
+        else if (fv.s == "gt" && stackRPN.size() >= 2)
+        {
+            FilterValue fv1 = stackRPN.top();
+            stackRPN.pop();
+            FilterValue fv2 = stackRPN.top();
+            stackRPN.pop();
+            if ((fv1.type == FilterType::Integer ||
+                 fv1.type == FilterType::Double) &&
+                (fv2.type == FilterType::Integer ||
+                 fv2.type == FilterType::Double))
+            {
+                FilterValue fv;
+                fv.type = FilterType::Boolean;
+                if (fv1.type == FilterType::Integer &&
+                    fv2.type == FilterType::Integer)
+                {
+                    fv.b = fv1.n > fv2.n;
+                }
+                else if (fv1.type == FilterType::Double &&
+                         fv2.type == FilterType::Double)
+                {
+                    fv.b = fv1.d > fv2.d;
+                }
+                else if (fv1.type == FilterType::Double &&
+                         fv2.type == FilterType::Integer)
+                {
+                    fv.b = fv1.d > fv2.n;
+                }
+                else if (fv1.type == FilterType::Integer &&
+                         fv2.type == FilterType::Double)
+                {
+                    fv.b = fv1.n > fv2.d;
+                }
+                stackRPN.push(fv);
+            }
+        }
+        else if (fv.s == "le" && stackRPN.size() >= 2)
+        {
+            FilterValue fv1 = stackRPN.top();
+            stackRPN.pop();
+            FilterValue fv2 = stackRPN.top();
+            stackRPN.pop();
+            if ((fv1.type == FilterType::Integer ||
+                 fv1.type == FilterType::Double) &&
+                (fv2.type == FilterType::Integer ||
+                 fv2.type == FilterType::Double))
+            {
+                FilterValue fv;
+                fv.type = FilterType::Boolean;
+                if (fv1.type == FilterType::Integer &&
+                    fv2.type == FilterType::Integer)
+                {
+                    fv.b = fv1.n <= fv2.n;
+                }
+                else if (fv1.type == FilterType::Double &&
+                         fv2.type == FilterType::Double)
+                {
+                    fv.b = fv1.d <= fv2.d;
+                }
+                else if (fv1.type == FilterType::Double &&
+                         fv2.type == FilterType::Integer)
+                {
+                    fv.b = fv1.d <= fv2.n;
+                }
+                else if (fv1.type == FilterType::Integer &&
+                         fv2.type == FilterType::Double)
+                {
+                    fv.b = fv1.n <= fv2.d;
+                }
+                stackRPN.push(fv);
+            }
+        }
+        else if (fv.s == "lt" && stackRPN.size() >= 2)
+        {
+            FilterValue fv1 = stackRPN.top();
+            stackRPN.pop();
+            FilterValue fv2 = stackRPN.top();
+            stackRPN.pop();
+            if ((fv1.type == FilterType::Integer ||
+                 fv1.type == FilterType::Double) &&
+                (fv2.type == FilterType::Integer ||
+                 fv2.type == FilterType::Double))
+            {
+                FilterValue fv;
+                fv.type = FilterType::Boolean;
+                if (fv1.type == FilterType::Integer &&
+                    fv2.type == FilterType::Integer)
+                {
+                    fv.b = fv1.n < fv2.n;
+                }
+                else if (fv1.type == FilterType::Double &&
+                         fv2.type == FilterType::Double)
+                {
+                    fv.b = fv1.d < fv2.d;
+                }
+                else if (fv1.type == FilterType::Double &&
+                         fv2.type == FilterType::Integer)
+                {
+                    fv.b = fv1.d < fv2.n;
+                }
+                else if (fv1.type == FilterType::Integer &&
+                         fv2.type == FilterType::Double)
+                {
+                    fv.b = fv1.n < fv2.d;
+                }
+                stackRPN.push(fv);
+            }
+        }
+        else
+        {
+            return PARAM_FORMATERROR;
+        }
+    }
+    if (stackRPN.size() == 1)
+    {
+        FilterValue fv = stackRPN.top();
+        if (fv.type == FilterType::Boolean)
+        {
+            if (fv.b)
+            {
+                return PARAM_NOACTION;
+            }
+            return PARAM_ERASE;
+        }
+    }
+    return PARAM_FORMATERROR;
+}
+
 inline bool processOnly(crow::App& app, crow::Response& res,
                         std::function<void(crow::Response&)>& completionHandler)
 {
@@ -592,6 +1187,31 @@ inline void processTop(crow::Response& res, Query& query)
     it->erase(it->begin() + int(query.topValue), it->end());
 }
 
+inline void processFilter(crow::Response& res, Query& query)
+{
+    auto itMembers = res.jsonValue.find("Members");
+    if (itMembers == res.jsonValue.end())
+    {
+        return;
+    }
+    for (auto it = itMembers->begin(); it != itMembers->end();)
+    {
+        auto ret = parseFilterParameters(*it, query);
+        if (ret == PARAM_ERASE)
+        {
+            it = itMembers->erase(it);
+            continue;
+        }
+        if (ret == PARAM_FORMATERROR)
+        {
+            messages::queryParameterValueFormatError(res, query.filterValue,
+                                                     "$filter");
+            return;
+        }
+        it++;
+    }
+}
+
 void processAllParams(crow::App& app, Query& query,
                       crow::Response& intermediateResponse,
                       std::function<void(crow::Response&)>& completionHandler)
@@ -633,6 +1253,10 @@ void processAllParams(crow::App& app, Query& query,
     if (query.isTop)
     {
         processTop(intermediateResponse, query);
+    }
+    if (query.isFilter)
+    {
+        processFilter(intermediateResponse, query);
     }
     completionHandler(intermediateResponse);
 }
