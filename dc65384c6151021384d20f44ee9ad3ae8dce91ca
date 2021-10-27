@@ -46,6 +46,30 @@
       "revId": "dc65384c6151021384d20f44ee9ad3ae8dce91ca",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f8c89424_0dbf19a9",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 2802,
+      "author": {
+        "id": 1000238
+      },
+      "writtenOn": "2021-10-27T13:26:36Z",
+      "side": 1,
+      "message": "The \u0026 is to pass it by reference to the lambda function.  If I don\u0027t have that, it does not compile:\n| ../../../../../../workspace/sources/bmcweb/redfish-core/include/../lib/systems.hpp:2798:38: error: assignment of read-only variable \u0027exitUtil\u0027\n|  2798 |                             exitUtil \u003d *u;\n|       |                             ~~~~~~~~~^~~~",
+      "parentUuid": "7d96ecb1_81040fba",
+      "range": {
+        "startLine": 2798,
+        "startChar": 0,
+        "endLine": 2802,
+        "endChar": 48
+      },
+      "revId": "dc65384c6151021384d20f44ee9ad3ae8dce91ca",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
