@@ -2,6 +2,52 @@
   "comments": [
     {
       "key": {
+        "uuid": "d29db276_94e89a21",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 2725,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-10-27T17:48:34Z",
+      "side": 1,
+      "message": "Init your variables, although these look declared in the wrong spot.",
+      "range": {
+        "startLine": 2725,
+        "startChar": 24,
+        "endLine": 2725,
+        "endChar": 33
+      },
+      "revId": "dc65384c6151021384d20f44ee9ad3ae8dce91ca",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bbd81b93_0bf1a0e3",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 2737,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-10-27T17:48:34Z",
+      "side": 1,
+      "message": "same as below.",
+      "range": {
+        "startLine": 2737,
+        "startChar": 33,
+        "endLine": 2737,
+        "endChar": 42
+      },
+      "revId": "dc65384c6151021384d20f44ee9ad3ae8dce91ca",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e7a8ef3a_0a62ec6f",
         "filename": "redfish-core/lib/systems.hpp",
         "patchSetId": 1
@@ -61,6 +107,30 @@
       "side": 1,
       "message": "The \u0026 is to pass it by reference to the lambda function.  If I don\u0027t have that, it does not compile:\n| ../../../../../../workspace/sources/bmcweb/redfish-core/include/../lib/systems.hpp:2798:38: error: assignment of read-only variable \u0027exitUtil\u0027\n|  2798 |                             exitUtil \u003d *u;\n|       |                             ~~~~~~~~~^~~~",
       "parentUuid": "7d96ecb1_81040fba",
+      "range": {
+        "startLine": 2798,
+        "startChar": 0,
+        "endLine": 2802,
+        "endChar": 48
+      },
+      "revId": "dc65384c6151021384d20f44ee9ad3ae8dce91ca",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "576bd652_555bb9e0",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 2802,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-10-27T17:48:34Z",
+      "side": 1,
+      "message": "Right, because it\u0027s const int that context.  If you want it non-const, declare your lambda as mutable, but I still don\u0027t think it\u0027s going to do what I think you want.  You\u0027re trying to share some state between two different async routines without having proper ownership between them, so I doubt it\u0027s going to do what you expect, although it will avoid possible seg faults.",
+      "parentUuid": "f8c89424_0dbf19a9",
       "range": {
         "startLine": 2798,
         "startChar": 0,
