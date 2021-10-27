@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f02ea864_cf736598",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 219,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-10-27T16:18:05Z",
+      "side": 1,
+      "message": "Declare your variables where they\u0027re used please.",
+      "range": {
+        "startLine": 219,
+        "startChar": 0,
+        "endLine": 219,
+        "endChar": 55
+      },
+      "revId": "628dacc453a6603f9f335ba9c57ff3a0be1ffe8b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0469368c_06b308b8",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 314,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-10-27T16:18:05Z",
+      "side": 1,
+      "message": "Aren\u0027t we now setting the httpHeaders twice?  Once here, and once on line 347?",
+      "range": {
+        "startLine": 314,
+        "startChar": 51,
+        "endLine": 314,
+        "endChar": 62
+      },
+      "revId": "628dacc453a6603f9f335ba9c57ff3a0be1ffe8b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
