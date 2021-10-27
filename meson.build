@@ -344,31 +344,6 @@ if get_option('tests').enabled()
   gmock = gmock.as_system('system')
 endif
 
-# Source files
-
-srcfiles_bmcweb = [
-  'src/webserver_main.cpp',
-  'redfish-core/src/error_messages.cpp',
-  'redfish-core/src/utils/json_utils.cpp',
-  'src/boost_url.cpp',
-  'src/boost_beast.cpp',
-  'src/boost_asio.cpp',
-  'src/boost_asio_ssl.cpp',
-]
-
-srcfiles_unittest = [
-  'include/ut/dbus_utility_test.cpp',
-  'include/ut/http_utility_test.cpp',
-  'include/ut/human_sort_test.cpp',
-  'redfish-core/ut/privileges_test.cpp',
-  'redfish-core/ut/lock_test.cpp',
-  'redfish-core/ut/configfile_test.cpp',
-  'redfish-core/ut/time_utils_test.cpp',
-  'redfish-core/ut/stl_utils_test.cpp',
-  'redfish-core/ut/hex_utils_test.cpp',
-  'http/ut/utility_test.cpp'
-]
-
 # Gather the Configuration data
 
 conf_data = configuration_data()
@@ -414,35 +389,52 @@ configure_file(input : 'pam-webserver',
 
 install_subdir('static', install_dir : 'share/www', strip_directory : true)
 
-# Generate the bmcweb executable and the test binary
+# Source files
 
-executable('bmcweb',srcfiles_bmcweb,
-            include_directories : incdir,
-            dependencies: bmcweb_dependencies,
-            link_args: '-Wl,--gc-sections',
-            install: true,
-            install_dir:bindir)
+srcfiles_bmcweb = [
+  'redfish-core/src/error_messages.cpp',
+  'redfish-core/src/utils/json_utils.cpp',
+  'src/boost_url.cpp',
+  'src/boost_beast.cpp',
+  'src/boost_asio.cpp',
+  'src/boost_asio_ssl.cpp',
+]
+
+# Generate the bmcweb executable
+executable(
+  'bmcweb',
+  srcfiles_bmcweb + ['src/webserver_main.cpp'],
+  include_directories : incdir,
+  dependencies: bmcweb_dependencies,
+  link_args: '-Wl,--gc-sections',
+  install: true,
+  install_dir:bindir
+)
+
+srcfiles_unittest = [
+  'include/ut/dbus_utility_test.cpp',
+  'include/ut/http_utility_test.cpp',
+  'include/ut/human_sort_test.cpp',
+  'redfish-core/ut/privileges_test.cpp',
+  'redfish-core/ut/lock_test.cpp',
+  'redfish-core/ut/configfile_test.cpp',
+  'redfish-core/ut/time_utils_test.cpp',
+  'redfish-core/ut/stl_utils_test.cpp',
+  'redfish-core/ut/hex_utils_test.cpp',
+  'http/ut/utility_test.cpp'
+]
 
 if(get_option('tests').enabled())
-  foreach src_test : srcfiles_unittest
-    testname = src_test.split('/')[-1].split('.')[0]
-    test(testname,executable(testname,
-        [src_test,
-        'src/boost_url.cpp',
-        'src/boost_beast.cpp',
-        'src/boost_asio.cpp',
-        'src/boost_asio_ssl.cpp',],
-                include_directories : incdir,
-                install_dir: bindir,
-                dependencies: [
-                                boost,
-                                boost_url,
-                                gtest,
-                                openssl,
-                                gmock,
-                                nlohmann_json,
-                                sdbusplus,
-                                pam
-                              ]))
-  endforeach
+    # generate the test executable
+    ut_bin = executable(
+      'bmcweb_unit_test',
+      srcfiles_unittest + srcfiles_bmcweb,
+      include_directories : incdir,
+      install_dir: bindir,
+      dependencies: bmcweb_dependencies + [
+        gtest,
+        gmock,
+      ]
+    )
+    test('bmcweb_unit_test', ut_bin)
 endif
