@@ -1,0 +1,107 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "dca59cf5_153a87e7",
+        "filename": "redfish-core/include/gzfile.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2021-10-27T17:40:56Z",
+      "side": 1,
+      "message": "should we only increase totalFilesSize here?\n\nIIUC, totalFilesSize should only apply to the entries that are actually stored in memory.",
+      "range": {
+        "startLine": 114,
+        "startChar": 20,
+        "endLine": 114,
+        "endChar": 30
+      },
+      "revId": "654dd2ed9f86be41108892383ebee8b867dd2638",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "14d7356c_62014454",
+        "filename": "redfish-core/include/gzfile.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2021-10-27T17:40:56Z",
+      "side": 1,
+      "message": "nit: this can just be \"lastDelimiter \u003d string(1, bufferStr.back())\"",
+      "range": {
+        "startLine": 154,
+        "startChar": 28,
+        "endLine": 154,
+        "endChar": 63
+      },
+      "revId": "654dd2ed9f86be41108892383ebee8b867dd2638",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8b93cff7_16f67fbe",
+        "filename": "redfish-core/include/gzfile.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2021-10-27T17:40:56Z",
+      "side": 1,
+      "message": "There is an edge case for paging: 5 zip files don\u0027t contain a single delimiter, this lastMessage becomes unnecessarily large.\n\nWhat we can we do is: only store lastMessage when `logCount \u003e skip \u0026\u0026 logCount \u003c\u003d (skip + top)`",
+      "range": {
+        "startLine": 159,
+        "startChar": 12,
+        "endLine": 159,
+        "endChar": 23
+      },
+      "revId": "654dd2ed9f86be41108892383ebee8b867dd2638",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1ff0ba9c_c4e8297d",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1836,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2021-10-27T17:40:56Z",
+      "side": 1,
+      "message": "what if hostLoggerFilePath doesn\u0027t exist? will `ec` be `true`?",
+      "revId": "654dd2ed9f86be41108892383ebee8b867dd2638",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "437feec2_c06e24a4",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1960,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2021-10-27T17:40:56Z",
+      "side": 1,
+      "message": "wait: does this solve the issue when \"/var/log/console\" doesn\u0027t exist, it returns an empty list rather than internal errors? \n\nSee my comments above.",
+      "revId": "654dd2ed9f86be41108892383ebee8b867dd2638",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
