@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "27a18938_98bb4a39",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1704,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-10-27T15:53:33Z",
+      "side": 1,
+      "message": "Why do we still need line 1704 and 1709 ?",
+      "revId": "d8d77dd957fcc9690a6fbd249ed0a012b8ee7c50",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
