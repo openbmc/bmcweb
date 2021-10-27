@@ -149,6 +149,24 @@
     },
     {
       "key": {
+        "uuid": "cf80ee45_34d5f2e0",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1495,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-10-27T16:15:18Z",
+      "side": 1,
+      "message": "We typically just put the property out even if it is empty. \nI guess I don\u0027t understand the difference from this and \nhttps://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/38044\n\nResolution is a property on the interface, so put it out on Redfish. \n\nIf it isn\u0027t supported then \n\"Then that interface needs split up into interfaces that are fully implementable\".\n\nAll that said, I could live with an empty check",
+      "parentUuid": "1dbb5ed9_aefbdd41",
+      "revId": "455075cc4b7350ed0682c70f29142ed7dd95cc0b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "b1d0a56c_5448b5ec",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 3
