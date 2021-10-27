@@ -118,6 +118,30 @@
       "revId": "998b173852f54c53d5600eb417676445a9034657",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dab54402_c9522e82",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 2498,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-10-27T16:55:29Z",
+      "side": 1,
+      "message": "In general, dbus schema violations should be rare, so we err on the side of returning early, as it results in less code.  Also, because in general a user can only process one internalError, so proceeding further doesn\u0027t do us much good.\n\nIdeally we wouldn\u0027t ever return partial results, because we don\u0027t know which fields are required and which are optional, but again, it\u0027s rare, especially in non-development environments, so we don\u0027t fully optimize that case.",
+      "parentUuid": "1ea092d5_a1208dd1",
+      "range": {
+        "startLine": 2491,
+        "startChar": 0,
+        "endLine": 2498,
+        "endChar": 13
+      },
+      "revId": "998b173852f54c53d5600eb417676445a9034657",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
