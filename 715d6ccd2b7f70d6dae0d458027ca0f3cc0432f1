@@ -190,6 +190,30 @@
     },
     {
       "key": {
+        "uuid": "694e4465_206011f7",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 30
+      },
+      "lineNbr": 220,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-10-27T16:58:23Z",
+      "side": 1,
+      "message": "I think adding another parameter on addSubscription would be better.",
+      "parentUuid": "ed60125d_0e83b415",
+      "range": {
+        "startLine": 220,
+        "startChar": 47,
+        "endLine": 220,
+        "endChar": 60
+      },
+      "revId": "715d6ccd2b7f70d6dae0d458027ca0f3cc0432f1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "59deba77_9da6c6d7",
         "filename": "redfish-core/lib/event_service.hpp",
         "patchSetId": 30
