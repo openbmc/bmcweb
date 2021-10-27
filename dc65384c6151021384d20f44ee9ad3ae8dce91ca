@@ -22,6 +22,30 @@
       "revId": "dc65384c6151021384d20f44ee9ad3ae8dce91ca",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7d96ecb1_81040fba",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 2802,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-10-27T02:08:28Z",
+      "side": 1,
+      "message": "exitUtil is going out of scope, so it\u0027s pointing at garbage memory by the time you read it in the callback.  Change line 2778 to \n\n[aResp, exitUtil]\n\n(ie, remove the \u0026 from exitUtil) and i\u0027ll bet your error will go away.",
+      "parentUuid": "e7a8ef3a_0a62ec6f",
+      "range": {
+        "startLine": 2798,
+        "startChar": 0,
+        "endLine": 2802,
+        "endChar": 48
+      },
+      "revId": "dc65384c6151021384d20f44ee9ad3ae8dce91ca",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
