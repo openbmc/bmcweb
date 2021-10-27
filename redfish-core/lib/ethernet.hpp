@@ -101,7 +101,7 @@ struct EthernetInterfaceData
     bool NTPEnabled;
     bool HostNameEnabled;
     bool SendHostNameEnabled;
-    bool linkUp;
+    std::string linkStatus;
     bool nicEnabled;
     std::string DHCPEnabled;
     std::string operatingMode;
@@ -266,13 +266,14 @@ inline bool extractEthernetInterfaceData(const std::string& ethifaceId,
                                 ethData.speed = *speed;
                             }
                         }
-                        else if (propertyPair.first == "LinkUp")
+                        else if (propertyPair.first == "LinkStatus")
                         {
-                            const bool* linkUp =
-                                std::get_if<bool>(&propertyPair.second);
-                            if (linkUp != nullptr)
+                            const std::string* linkStatus =
+                                std::get_if<std::string>(&propertyPair.second);
+                            if (linkStatus != nullptr)
                             {
-                                ethData.linkUp = *linkUp;
+                                ethData.linkStatus = linkStatus->substr(
+                                    linkStatus->rfind(".") + 1);
                             }
                         }
                         else if (propertyPair.first == "NICEnabled")
@@ -1708,8 +1709,22 @@ inline void parseInterfaceData(
         jsonResponse["LinkStatus"] = "NoLink";
         jsonResponse["Status"]["State"] = "Disabled";
     }
-
-    jsonResponse["LinkStatus"] = ethData.linkUp ? "LinkUp" : "LinkDown";
+    if (ethData.linkStatus == "linkdown")
+    {
+        jsonResponse["LinkStatus"] = "LinkDown";
+    }
+    else if (ethData.linkStatus == "linkup")
+    {
+        jsonResponse["LinkStatus"] = "LinkUp";
+    }
+    else if (ethData.linkStatus == "nolink")
+    {
+        jsonResponse["LinkStatus"] = "NoLink";
+    }
+    else
+    {
+        jsonResponse["LinkStatus"] = "Unknown";
+    }
     jsonResponse["SpeedMbps"] = ethData.speed;
     jsonResponse["MACAddress"] = ethData.mac_address;
     jsonResponse["DHCPv4"]["DHCPEnabled"] =
