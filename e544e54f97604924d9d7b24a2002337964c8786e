@@ -55,6 +55,24 @@
     },
     {
       "key": {
+        "uuid": "9a62796e_c0f5061b",
+        "filename": "redfish-core/lib/ut/service_root_test.cpp",
+        "patchSetId": 22
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2021-10-27T17:30:04Z",
+      "side": 1,
+      "message": "On the most recent version of this, I added some testing for uuid.",
+      "parentUuid": "9fe1894a_e30f3446",
+      "revId": "e544e54f97604924d9d7b24a2002337964c8786e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5db65f8a_135fc232",
         "filename": "redfish-core/lib/ut/service_root_test.cpp",
         "patchSetId": 22
@@ -114,6 +132,30 @@
       "side": 1,
       "message": "\u003e https://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/47474/4/http/http_response.hpp#137\n\u003e \n\u003e That will make my test code much simpler. Why did I not think of that when I added setCompeteRequestHandler. \n\u003e \n\u003e Thanks\n\nProbably because it\u0027s super non-obvious and only just came to _me_ as I was looking at something totally different.  I really dislike how the completion handlers work, but we inherited it from crow a long time ago.",
       "parentUuid": "02f51481_b479250c",
+      "range": {
+        "startLine": 60,
+        "startChar": 52,
+        "endLine": 60,
+        "endChar": 72
+      },
+      "revId": "e544e54f97604924d9d7b24a2002337964c8786e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7cbd3938_dca76191",
+        "filename": "redfish-core/lib/ut/service_root_test.cpp",
+        "patchSetId": 22
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2021-10-27T17:30:04Z",
+      "side": 1,
+      "message": "I rebased on a smaller change\nhttps://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/48002\n\n47474 is a monster",
+      "parentUuid": "19780a92_7ef2fa47",
       "range": {
         "startLine": 60,
         "startChar": 52,
