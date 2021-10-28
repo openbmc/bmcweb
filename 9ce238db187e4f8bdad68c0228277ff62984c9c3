@@ -145,6 +145,30 @@
     },
     {
       "key": {
+        "uuid": "5e43ce4a_6c6fbcbc",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 924,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-10-28T21:27:08Z",
+      "side": 1,
+      "message": "But there is no reason the bmc dump manager could not return Create.Error.Disabled.",
+      "parentUuid": "6359c573_27fa26f5",
+      "range": {
+        "startLine": 924,
+        "startChar": 25,
+        "endLine": 924,
+        "endChar": 46
+      },
+      "revId": "9ce238db187e4f8bdad68c0228277ff62984c9c3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d13af7a0_cda16da0",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 8
