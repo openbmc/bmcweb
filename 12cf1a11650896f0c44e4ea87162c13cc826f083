@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "bd719fb8_da7cc6eb",
+        "filename": "include/async_resp.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1001027
+      },
+      "writtenOn": "2021-10-28T06:30:37Z",
+      "side": 0,
+      "message": "\u003e Looks like this patchset collided a little with this one?\n\u003e \n\u003e https://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/48033/5\n\nThere is no conflict between the two patchsets, but I hope these two patchsets can be merged together.",
+      "parentUuid": "c28ba5ee_d5acc940",
+      "revId": "12cf1a11650896f0c44e4ea87162c13cc826f083",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "46527ae2_7ed2950d",
         "filename": "include/openbmc_dbus_rest.hpp",
         "patchSetId": 9
@@ -30,6 +48,30 @@
       "writtenOn": "2021-10-27T20:28:24Z",
       "side": 0,
       "message": "This seems unrelated and wrong?",
+      "range": {
+        "startLine": 2238,
+        "startChar": 20,
+        "endLine": 2238,
+        "endChar": 71
+      },
+      "revId": "12cf1a11650896f0c44e4ea87162c13cc826f083",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e2bbebf6_4d2b7dd2",
+        "filename": "include/openbmc_dbus_rest.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 2238,
+      "author": {
+        "id": 1001027
+      },
+      "writtenOn": "2021-10-28T06:30:37Z",
+      "side": 0,
+      "message": "\u003e This seems unrelated and wrong?\n\nAsyncResp is used here.\nWhat\u0027s wrong? I tested this url, it\u0027s ok.",
+      "parentUuid": "46527ae2_7ed2950d",
       "range": {
         "startLine": 2238,
         "startChar": 20,
