@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "dec6ba3c_6e4094c3",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-10-28T22:04:41Z",
+      "side": 1,
+      "message": "I commented on it later.  This changes us to be looking for the LinkStatus property on dbus, which doesn\u0027t exist in the interface today.",
+      "parentUuid": "78f3bd32_bbaa7f2d",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 12,
+        "endChar": 7
+      },
+      "revId": "d8d77dd957fcc9690a6fbd249ed0a012b8ee7c50",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "b3f6be34_c46ef2a4",
         "filename": "/COMMIT_MSG",
         "patchSetId": 2
@@ -119,6 +143,30 @@
       "side": 1,
       "message": "LinkUp function is renamed as LinkStatus. The changes are in network-phosphor module.",
       "parentUuid": "e34f7a07_dca5c39b",
+      "range": {
+        "startLine": 269,
+        "startChar": 56,
+        "endLine": 269,
+        "endChar": 66
+      },
+      "revId": "d8d77dd957fcc9690a6fbd249ed0a012b8ee7c50",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "30ca9bb4_398c27b9",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 269,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-10-28T22:04:41Z",
+      "side": 1,
+      "message": "If there are other changes needed to make this work, can you please mention and provide links for them in your commit message?\n\nAlso, the changes can\u0027t ONLY be in phosphor-networkd, they need to also modify phosphor-dbus-interfaces appropriately.  Please link that commit as well in your commit message.",
+      "parentUuid": "512cd89c_3fd415b4",
       "range": {
         "startLine": 269,
         "startChar": 56,
@@ -219,6 +267,30 @@
       "side": 1,
       "message": "Agreed. There is no Unknown option in Redfish spec. in your opinion what should be jsonResponse[\"LinkStatus\"] when ethData.linkStatus  is not equal to NoLink, LinkUp or LinkDown?",
       "parentUuid": "83ee8d64_fce8003a",
+      "range": {
+        "startLine": 1726,
+        "startChar": 7,
+        "endLine": 1726,
+        "endChar": 47
+      },
+      "revId": "d8d77dd957fcc9690a6fbd249ed0a012b8ee7c50",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a82b7df9_ae6f09ac",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1726,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-10-28T22:04:41Z",
+      "side": 1,
+      "message": "\u003e Agreed. There is no Unknown option in Redfish spec. in your opinion what should be jsonResponse[\"LinkStatus\"] when ethData.linkStatus  is not equal to NoLink, LinkUp or LinkDown?\n\nThere should be no value for link status, and we should set InternalError because the property didn\u0027t match the dbus specification.  There\u0027s other code around that you can use as an example for how to do this.",
+      "parentUuid": "b27d84e9_16159bdf",
       "range": {
         "startLine": 1726,
         "startChar": 7,
