@@ -25,6 +25,54 @@
     },
     {
       "key": {
+        "uuid": "cab8a43b_8c4c85ff",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 36
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2021-10-28T19:14:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "da748825_6bb178be",
+      "range": {
+        "startLine": 10,
+        "startChar": 45,
+        "endLine": 10,
+        "endChar": 46
+      },
+      "revId": "124df8fe10ff0a784134b093bfc5193a677d40c9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fc1909b2_ae090168",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 36
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2021-10-28T19:14:44Z",
+      "side": 1,
+      "message": "extremely extreme, bro",
+      "parentUuid": "da748825_6bb178be",
+      "range": {
+        "startLine": 10,
+        "startChar": 45,
+        "endLine": 10,
+        "endChar": 46
+      },
+      "revId": "124df8fe10ff0a784134b093bfc5193a677d40c9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b1c7f2e7_8d04a813",
         "filename": "redfish-core/lib/ut/service_root_test.cpp",
         "patchSetId": 36
@@ -36,6 +84,30 @@
       "writtenOn": "2021-10-28T18:32:09Z",
       "side": 1,
       "message": "At some point I\u0027d really like to see us do the same thing we did with Response, where they\u0027re default constructable.\n\nBut that\u0027s not something you need to worry about in this patchset.",
+      "range": {
+        "startLine": 55,
+        "startChar": 0,
+        "endLine": 57,
+        "endChar": 30
+      },
+      "revId": "124df8fe10ff0a784134b093bfc5193a677d40c9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "87c394ce_23ab6068",
+        "filename": "redfish-core/lib/ut/service_root_test.cpp",
+        "patchSetId": 36
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2021-10-28T19:14:44Z",
+      "side": 1,
+      "message": "noted",
+      "parentUuid": "b1c7f2e7_8d04a813",
       "range": {
         "startLine": 55,
         "startChar": 0,
@@ -91,6 +163,30 @@
       "revId": "124df8fe10ff0a784134b093bfc5193a677d40c9",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "733b5038_5eb180e5",
+        "filename": "redfish-core/lib/ut/service_root_test.cpp",
+        "patchSetId": 36
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2021-10-28T19:14:44Z",
+      "side": 1,
+      "message": "I thought I needed the lambda to capture the state of the res, but it turns out that was wrong.",
+      "parentUuid": "1eec8b3d_999e94ac",
+      "range": {
+        "startLine": 64,
+        "startChar": 34,
+        "endLine": 64,
+        "endChar": 41
+      },
+      "revId": "124df8fe10ff0a784134b093bfc5193a677d40c9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
