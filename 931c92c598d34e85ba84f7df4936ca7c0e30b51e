@@ -166,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "8317fa23_8e9f5e83",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 56
+      },
+      "lineNbr": 829,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2021-10-28T05:31:47Z",
+      "side": 1,
+      "message": "Interface added signal is received even when the dump collection is in progress. Thus the task will not be complete at this point.\nxyz.openbmc_project.Common.Progress is more relevant here to track the dump collection process completion. Every dump supports/implements this as of now (the current implementation). \n\nDo you have any systems in mind who doesn\u0027t implement this and with this change they may break?",
+      "parentUuid": "6f18f229_909208a9",
+      "range": {
+        "startLine": 826,
+        "startChar": 0,
+        "endLine": 829,
+        "endChar": 60
+      },
+      "revId": "931c92c598d34e85ba84f7df4936ca7c0e30b51e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "992e0f28_b883b378",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 56
