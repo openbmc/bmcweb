@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "06e0202b_608f9801",
+        "filename": "redfish-core/include/event_service_manager.hpp",
+        "patchSetId": 53
+      },
+      "lineNbr": 538,
+      "author": {
+        "id": 1001148
+      },
+      "writtenOn": "2021-10-28T14:46:03Z",
+      "side": 1,
+      "message": "Please check below for the comment related to this matter. I\u0027ve added it marked as [*].",
+      "parentUuid": "bff4ac81_3666651d",
+      "range": {
+        "startLine": 538,
+        "startChar": 12,
+        "endLine": 538,
+        "endChar": 19
+      },
+      "revId": "541353a4e4b06de42b6a9a400629f5a5fba04e86",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "ed4e92f9_313b9c9c",
         "filename": "redfish-core/include/event_service_manager.hpp",
         "patchSetId": 53
@@ -45,6 +69,30 @@
       "revId": "541353a4e4b06de42b6a9a400629f5a5fba04e86",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e098937e_30f8d961",
+        "filename": "redfish-core/include/event_service_manager.hpp",
+        "patchSetId": 53
+      },
+      "lineNbr": 1327,
+      "author": {
+        "id": 1001148
+      },
+      "writtenOn": "2021-10-28T14:46:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ed4e92f9_313b9c9c",
+      "range": {
+        "startLine": 1327,
+        "startChar": 68,
+        "endLine": 1327,
+        "endChar": 77
+      },
+      "revId": "541353a4e4b06de42b6a9a400629f5a5fba04e86",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "73722eb3_248a3bfd",
+        "filename": "redfish-core/include/event_service_manager.hpp",
+        "patchSetId": 53
+      },
+      "lineNbr": 1348,
+      "author": {
+        "id": 1001148
+      },
+      "writtenOn": "2021-10-28T14:46:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bcac6d09_6da74472",
+      "range": {
+        "startLine": 1348,
+        "startChar": 28,
+        "endLine": 1348,
+        "endChar": 32
+      },
+      "revId": "541353a4e4b06de42b6a9a400629f5a5fba04e86",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "535f6828_88278f2c",
         "filename": "redfish-core/lib/metric_report.hpp",
         "patchSetId": 53
@@ -82,6 +154,30 @@
       "writtenOn": "2021-10-11T19:39:38Z",
       "side": 1,
       "message": "Would it make more sense for this to just take by TimestampReadings\u0026, and leave the error handling to calling code? (leaving the return type as void like it was before)  As written, this function doesn\u0027t need to take a variant, and it simplifies the error handling a bit if it\u0027s just all in calling code, because that code needs a branch anyway.",
+      "range": {
+        "startLine": 37,
+        "startChar": 29,
+        "endLine": 37,
+        "endChar": 61
+      },
+      "revId": "541353a4e4b06de42b6a9a400629f5a5fba04e86",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b3c1416a_4599f388",
+        "filename": "redfish-core/lib/metric_report.hpp",
+        "patchSetId": 53
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1001148
+      },
+      "writtenOn": "2021-10-28T14:46:03Z",
+      "side": 1,
+      "message": "[*] Moving get_if of \u0027TimestampReadings\u0027 before point where \u0027fillReport()\u0027 is called will duplicate error handling code, which is currently in one place only, assuming that fillReport may be used also  elsewhere - this code repeating will happen again. Moreover soon there will be more error checks in this function, then we could face a situation when some related errors are handled within \u0027fillReport()\u0027 and others before it is called. I strongly suggest to keep this one as it is right now.",
+      "parentUuid": "535f6828_88278f2c",
       "range": {
         "startLine": 37,
         "startChar": 29,
