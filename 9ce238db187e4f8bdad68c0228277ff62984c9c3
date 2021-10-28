@@ -121,6 +121,30 @@
     },
     {
       "key": {
+        "uuid": "6359c573_27fa26f5",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 924,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2021-10-28T19:21:45Z",
+      "side": 1,
+      "message": "The dump manager returns this error for system dumps when the dump policy is disabled. There is no dump policy enable/disable flag option for the bmc dump.",
+      "parentUuid": "f83330c2_87319d0f",
+      "range": {
+        "startLine": 924,
+        "startChar": 25,
+        "endLine": 924,
+        "endChar": 46
+      },
+      "revId": "9ce238db187e4f8bdad68c0228277ff62984c9c3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d13af7a0_cda16da0",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 8
@@ -144,6 +168,30 @@
     },
     {
       "key": {
+        "uuid": "e6868e85_dd99ef48",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 930,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2021-10-28T19:21:45Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "d13af7a0_cda16da0",
+      "range": {
+        "startLine": 930,
+        "startChar": 0,
+        "endLine": 930,
+        "endChar": 72
+      },
+      "revId": "9ce238db187e4f8bdad68c0228277ff62984c9c3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "314286ee_e9d2be76",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 8
@@ -164,6 +212,30 @@
       "revId": "9ce238db187e4f8bdad68c0228277ff62984c9c3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f418add5_6d1b5277",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 943,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2021-10-28T19:21:45Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "314286ee_e9d2be76",
+      "range": {
+        "startLine": 943,
+        "startChar": 0,
+        "endLine": 943,
+        "endChar": 23
+      },
+      "revId": "9ce238db187e4f8bdad68c0228277ff62984c9c3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
