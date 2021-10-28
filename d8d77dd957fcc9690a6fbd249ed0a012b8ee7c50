@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "78f3bd32_bbaa7f2d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1001244
+      },
+      "writtenOn": "2021-10-28T08:15:10Z",
+      "side": 1,
+      "message": "Did not understand this comment. Can you please elaborate?",
+      "parentUuid": "30ec34f7_82baaf02",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 12,
+        "endChar": 7
+      },
+      "revId": "d8d77dd957fcc9690a6fbd249ed0a012b8ee7c50",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "b3f6be34_c46ef2a4",
         "filename": "/COMMIT_MSG",
         "patchSetId": 2
@@ -42,6 +66,24 @@
     },
     {
       "key": {
+        "uuid": "77d778a4_911bc4fd",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1001244
+      },
+      "writtenOn": "2021-10-28T08:15:10Z",
+      "side": 1,
+      "message": "Yes...will run.",
+      "parentUuid": "b3f6be34_c46ef2a4",
+      "revId": "d8d77dd957fcc9690a6fbd249ed0a012b8ee7c50",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e34f7a07_dca5c39b",
         "filename": "redfish-core/lib/ethernet.hpp",
         "patchSetId": 2
@@ -53,6 +95,30 @@
       "writtenOn": "2021-10-27T18:55:01Z",
       "side": 1,
       "message": "LinkStatus doesn\u0027t exist in this interface.  LinkUp (the one you removed) does.  What am I missing?\n\nhttps://github.com/openbmc/phosphor-dbus-interfaces/blob/0ef46c1e65fb6e88667d468bad88932be481ab54/yaml/xyz/openbmc_project/Network/EthernetInterface.interface.yaml",
+      "range": {
+        "startLine": 269,
+        "startChar": 56,
+        "endLine": 269,
+        "endChar": 66
+      },
+      "revId": "d8d77dd957fcc9690a6fbd249ed0a012b8ee7c50",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "512cd89c_3fd415b4",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 269,
+      "author": {
+        "id": 1001244
+      },
+      "writtenOn": "2021-10-28T08:15:10Z",
+      "side": 1,
+      "message": "LinkUp function is renamed as LinkStatus. The changes are in network-phosphor module.",
+      "parentUuid": "e34f7a07_dca5c39b",
       "range": {
         "startLine": 269,
         "startChar": 56,
@@ -100,6 +166,24 @@
     },
     {
       "key": {
+        "uuid": "38a72c43_3f86e144",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1704,
+      "author": {
+        "id": 1001244
+      },
+      "writtenOn": "2021-10-28T08:15:10Z",
+      "side": 1,
+      "message": "Agreed we really dont need it. Will remove it.",
+      "parentUuid": "365b2945_5a69c6a4",
+      "revId": "d8d77dd957fcc9690a6fbd249ed0a012b8ee7c50",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "83ee8d64_fce8003a",
         "filename": "redfish-core/lib/ethernet.hpp",
         "patchSetId": 2
@@ -123,6 +207,30 @@
     },
     {
       "key": {
+        "uuid": "b27d84e9_16159bdf",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1726,
+      "author": {
+        "id": 1001244
+      },
+      "writtenOn": "2021-10-28T08:15:10Z",
+      "side": 1,
+      "message": "Agreed. There is no Unknown option in Redfish spec. in your opinion what should be jsonResponse[\"LinkStatus\"] when ethData.linkStatus  is not equal to NoLink, LinkUp or LinkDown?",
+      "parentUuid": "83ee8d64_fce8003a",
+      "range": {
+        "startLine": 1726,
+        "startChar": 7,
+        "endLine": 1726,
+        "endChar": 47
+      },
+      "revId": "d8d77dd957fcc9690a6fbd249ed0a012b8ee7c50",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "0a9d48d4_805802e5",
         "filename": "redfish-core/lib/ethernet.hpp",
         "patchSetId": 2
@@ -134,6 +242,30 @@
       "writtenOn": "2021-10-27T18:55:01Z",
       "side": 1,
       "message": "Considering this is more than just a boolean case now, please move it into its own method like we do for other dbus-\u003eredfish enum conversions.",
+      "range": {
+        "startLine": 1712,
+        "startChar": 0,
+        "endLine": 1727,
+        "endChar": 5
+      },
+      "revId": "d8d77dd957fcc9690a6fbd249ed0a012b8ee7c50",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7e2689a5_178befa7",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1727,
+      "author": {
+        "id": 1001244
+      },
+      "writtenOn": "2021-10-28T08:15:10Z",
+      "side": 1,
+      "message": "OK",
+      "parentUuid": "0a9d48d4_805802e5",
       "range": {
         "startLine": 1712,
         "startChar": 0,
