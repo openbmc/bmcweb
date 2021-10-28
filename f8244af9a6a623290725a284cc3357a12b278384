@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a90fbc1c_5ccf04b4",
+        "filename": "meson.build",
+        "patchSetId": 33
+      },
+      "lineNbr": 364,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-10-28T16:25:48Z",
+      "side": 1,
+      "message": "nit, end this line with a comma.  This prevents what you\u0027re seeing here, where a functionally one line change shows up as a two line change when new items are added.",
+      "range": {
+        "startLine": 364,
+        "startChar": 44,
+        "endLine": 364,
+        "endChar": 45
+      },
+      "revId": "f8244af9a6a623290725a284cc3357a12b278384",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
