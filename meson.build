@@ -60,31 +60,33 @@ incdir = include_directories(
 ## create a MAP of  "options : feature_flag"
 
 feature_map = {
-  'insecure-disable-auth'           : '-DBMCWEB_INSECURE_DISABLE_AUTHENTICATION',
-  'insecure-disable-csrf'           : '-DBMCWEB_INSECURE_DISABLE_CSRF_PREVENTION',
-  'insecure-disable-ssl'            : '-DBMCWEB_INSECURE_DISABLE_SSL',
-  'host-serial-socket'              : '-DBMCWEB_ENABLE_HOST_SERIAL_WEBSOCKET',
-  'ibm-management-console'          : '-DBMCWEB_ENABLE_IBM_MANAGEMENT_CONSOLE',
-  'google-api'                      : '-DBMCWEB_ENABLE_GOOGLE_API',
-  'kvm'                             : '-DBMCWEB_ENABLE_KVM' ,
-  'basic-auth'                      : '-DBMCWEB_ENABLE_BASIC_AUTHENTICATION',
-  'session-auth'                    : '-DBMCWEB_ENABLE_SESSION_AUTHENTICATION',
-  'xtoken-auth'                     : '-DBMCWEB_ENABLE_XTOKEN_AUTHENTICATION',
-  'cookie-auth'                     : '-DBMCWEB_ENABLE_COOKIE_AUTHENTICATION',
-  'mutual-tls-auth'                 : '-DBMCWEB_ENABLE_MUTUAL_TLS_AUTHENTICATION',
-  'pam'                             : '-DWEBSERVER_ENABLE_PAM',
-  'insecure-push-style-notification': '-DBMCWEB_INSECURE_ENABLE_HTTP_PUSH_STYLE_EVENTING',
-  'redfish'                         : '-DBMCWEB_ENABLE_REDFISH',
-  'redfish-bmc-journal'             : '-DBMCWEB_ENABLE_REDFISH_BMC_JOURNAL',
-  'redfish-cpu-log'                 : '-DBMCWEB_ENABLE_REDFISH_CPU_LOG',
-  'redfish-dbus-log'                : '-DBMCWEB_ENABLE_REDFISH_DBUS_LOG_ENTRIES',
-  'redfish-provisioning-feature'    : '-DBMCWEB_ENABLE_REDFISH_PROVISIONING_FEATURE',
-  'redfish-dump-log'                : '-DBMCWEB_ENABLE_REDFISH_DUMP_LOG',
-  'rest'                            : '-DBMCWEB_ENABLE_DBUS_REST',
-  'static-hosting'                  : '-DBMCWEB_ENABLE_STATIC_HOSTING',
-  'insecure-tftp-update'            : '-DBMCWEB_INSECURE_ENABLE_REDFISH_FW_TFTP_UPDATE',
-  #'vm-nbdproxy'                     : '-DBMCWEB_ENABLE_VM_NBDPROXY',
-  'vm-websocket'                    : '-DBMCWEB_ENABLE_VM_WEBSOCKET',
+  'basic-auth'                                  : '-DBMCWEB_ENABLE_BASIC_AUTHENTICATION',
+  'cookie-auth'                                 : '-DBMCWEB_ENABLE_COOKIE_AUTHENTICATION',
+  'google-api'                                  : '-DBMCWEB_ENABLE_GOOGLE_API',
+  'host-serial-socket'                          : '-DBMCWEB_ENABLE_HOST_SERIAL_WEBSOCKET',
+  'ibm-management-console'                      : '-DBMCWEB_ENABLE_IBM_MANAGEMENT_CONSOLE',
+  'insecure-disable-auth'                       : '-DBMCWEB_INSECURE_DISABLE_AUTHENTICATION',
+  'insecure-disable-csrf'                       : '-DBMCWEB_INSECURE_DISABLE_CSRF_PREVENTION',
+  'insecure-disable-ssl'                        : '-DBMCWEB_INSECURE_DISABLE_SSL',
+  'insecure-push-style-notification'            : '-DBMCWEB_INSECURE_ENABLE_HTTP_PUSH_STYLE_EVENTING',
+  'insecure-tftp-update'                        : '-DBMCWEB_INSECURE_ENABLE_REDFISH_FW_TFTP_UPDATE',
+  'kvm'                                         : '-DBMCWEB_ENABLE_KVM' ,
+  'mutual-tls-auth'                             : '-DBMCWEB_ENABLE_MUTUAL_TLS_AUTHENTICATION',
+  'pam'                                         : '-DWEBSERVER_ENABLE_PAM',
+  'redfish'                                     : '-DBMCWEB_ENABLE_REDFISH',
+  'redfish-bmc-journal'                         : '-DBMCWEB_ENABLE_REDFISH_BMC_JOURNAL',
+  'redfish-cpu-log'                             : '-DBMCWEB_ENABLE_REDFISH_CPU_LOG',
+  'redfish-dbus-log'                            : '-DBMCWEB_ENABLE_REDFISH_DBUS_LOG_ENTRIES',
+  'redfish-dump-log'                            : '-DBMCWEB_ENABLE_REDFISH_DUMP_LOG',
+  'redfish-provisioning-feature'                : '-DBMCWEB_ENABLE_REDFISH_PROVISIONING_FEATURE',
+  'rest'                                        : '-DBMCWEB_ENABLE_DBUS_REST',
+  'redfish-allow-deprecated-power-thermal'      : '-DBMCWEB_ALLOW_DEPRECATED_POWER_THERMAL',
+  'redfish-new-powersubsystem-thermalsubsystem' : '-DBMCWEB_NEW_POWERSUBSYSTEM_THERMALSUBSYSTEM',
+  'session-auth'                                : '-DBMCWEB_ENABLE_SESSION_AUTHENTICATION',
+  'static-hosting'                              : '-DBMCWEB_ENABLE_STATIC_HOSTING',
+  #'vm-nbdproxy'                                : '-DBMCWEB_ENABLE_VM_NBDPROXY',
+  'vm-websocket'                                : '-DBMCWEB_ENABLE_VM_WEBSOCKET',
+  'xtoken-auth'                                 : '-DBMCWEB_ENABLE_XTOKEN_AUTHENTICATION',
 }
 
 # Get the options status and build a project summary to show which flags are
@@ -208,26 +210,7 @@ if( get_option('bmcweb-logging').enabled() or \
 
   summary({'debug' :'-DBMCWEB_ENABLE_DEBUG',
      'logging' : '-DBMCWEB_ENABLE_LOGGING',
-    },section : 'Enabled Features')
-endif
 
-if( get_option('redfish-allow-deprecated-power-thermal').enabled())
- add_project_arguments([
-   '-DBMCWEB_ALLOW_DEPRECATED_POWER_THERMAL'
-   ],
-  language : 'cpp')
-
-  summary({'power-thermal' :'-DBMCWEB_ALLOW_DEPRECATED_POWER_THERMAL'
-    },section : 'Enabled Features')
-endif
-
-if( get_option('redfish-new-powersubsystem-thermalsubsystem').enabled())
- add_project_arguments([
-   '-DBMCWEB_NEW_POWERSUBSYSTEM_THERMALSUBSYSTEM'
-   ],
-  language : 'cpp')
-
-  summary({'new-powersubsystem-thermalsubsystem' :'-DBMCWEB_NEW_POWERSUBSYSTEM_THERMALSUBSYSTEM'
     },section : 'Enabled Features')
 endif
 
