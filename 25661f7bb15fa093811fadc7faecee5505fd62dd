@@ -1,0 +1,141 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "dbfbcdbe_dc4022f2",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-10-28T04:00:39Z",
+      "side": 1,
+      "message": "Can you add an allowable values for this?",
+      "revId": "25661f7bb15fa093811fadc7faecee5505fd62dd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a416b2d0_68f835ab",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-10-28T04:00:39Z",
+      "side": 1,
+      "message": "We shouldn\u0027t see a InternalError when we set \n\u0027{ \"PowerLimitWatts\": {\"ControlMode\": \"badValue\"}}\u0027",
+      "revId": "25661f7bb15fa093811fadc7faecee5505fd62dd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "db39147a_e1d021ad",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 226,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-10-28T04:00:39Z",
+      "side": 1,
+      "message": "Can we use a proper variable name here? \npowerCap ?",
+      "range": {
+        "startLine": 226,
+        "startChar": 48,
+        "endLine": 226,
+        "endChar": 49
+      },
+      "revId": "25661f7bb15fa093811fadc7faecee5505fd62dd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "aecad2f7_6570999b",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 239,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-10-28T04:00:39Z",
+      "side": 1,
+      "message": "Can we use a proper variable name here as well?",
+      "range": {
+        "startLine": 239,
+        "startChar": 44,
+        "endLine": 239,
+        "endChar": 45
+      },
+      "revId": "25661f7bb15fa093811fadc7faecee5505fd62dd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2239f055_adf6430c",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 256,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-10-28T04:00:39Z",
+      "side": 1,
+      "message": "Why does this need to be in the if / else ?",
+      "revId": "25661f7bb15fa093811fadc7faecee5505fd62dd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1fef8a09_118bb281",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 296,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-10-28T04:00:39Z",
+      "side": 1,
+      "message": "Can you use a proper variable name ? If this is still needed? I don\u0027t understand why..",
+      "range": {
+        "startLine": 296,
+        "startChar": 24,
+        "endLine": 296,
+        "endChar": 25
+      },
+      "revId": "25661f7bb15fa093811fadc7faecee5505fd62dd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "29ecd58e_43ca3f25",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 323,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-10-28T04:00:39Z",
+      "side": 1,
+      "message": "Huh? Why do we still need this call?",
+      "revId": "25661f7bb15fa093811fadc7faecee5505fd62dd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
