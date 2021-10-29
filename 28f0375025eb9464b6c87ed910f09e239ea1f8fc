@@ -36,6 +36,24 @@
     },
     {
       "key": {
+        "uuid": "802b2e3b_e7c27eb9",
+        "filename": "include/google/google_service_root.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2021-10-29T22:39:06Z",
+      "side": 1,
+      "message": "Agreed, redfish is discoverable, so you can start at the root, and find all the child nodes.\nAs such GET should include enough information for a clients to know what nodes/actions are available.  \n\nSo you there should be some information about \"google/v1/RootOfTrust/Actions/Mailbox.SendCommand\"\n\nLet us know your thoughts.",
+      "parentUuid": "24c67a3a_6834c3f0",
+      "revId": "28f0375025eb9464b6c87ed910f09e239ea1f8fc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c4552dd9_1cc5fca6",
         "filename": "include/google/google_service_root.hpp",
         "patchSetId": 3
@@ -47,6 +65,24 @@
       "writtenOn": "2021-10-19T14:56:36Z",
       "side": 1,
       "message": "Where is this d-bus API?",
+      "revId": "28f0375025eb9464b6c87ed910f09e239ea1f8fc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "457a66ff_d9a4c0e0",
+        "filename": "include/google/google_service_root.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2021-10-29T22:39:06Z",
+      "side": 1,
+      "message": "I don\u0027t think the d-bus API for hoth is planned be public. Ed might have a better answer.",
+      "parentUuid": "c4552dd9_1cc5fca6",
       "revId": "28f0375025eb9464b6c87ed910f09e239ea1f8fc",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
