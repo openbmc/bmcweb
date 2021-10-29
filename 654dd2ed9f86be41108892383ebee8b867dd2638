@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "7aaf77fa_c8359ec3",
+        "filename": "redfish-core/include/gzfile.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 1000404
+      },
+      "writtenOn": "2021-10-29T08:34:39Z",
+      "side": 1,
+      "message": "Yes, I think it is more accurately of the memory what we actually use. Done.",
+      "parentUuid": "dca59cf5_153a87e7",
+      "range": {
+        "startLine": 114,
+        "startChar": 20,
+        "endLine": 114,
+        "endChar": 30
+      },
+      "revId": "654dd2ed9f86be41108892383ebee8b867dd2638",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "14d7356c_62014454",
         "filename": "redfish-core/include/gzfile.hpp",
         "patchSetId": 2
@@ -45,6 +69,30 @@
       "revId": "654dd2ed9f86be41108892383ebee8b867dd2638",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c7354b59_abeda82d",
+        "filename": "redfish-core/include/gzfile.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 1000404
+      },
+      "writtenOn": "2021-10-29T08:34:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "14d7356c_62014454",
+      "range": {
+        "startLine": 154,
+        "startChar": 28,
+        "endLine": 154,
+        "endChar": 63
+      },
+      "revId": "654dd2ed9f86be41108892383ebee8b867dd2638",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "692f5c0f_fda1ff49",
+        "filename": "redfish-core/include/gzfile.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 1000404
+      },
+      "writtenOn": "2021-10-29T08:34:39Z",
+      "side": 1,
+      "message": "Done. Also add a checker for lastMessage size limit.",
+      "parentUuid": "8b93cff7_16f67fbe",
+      "range": {
+        "startLine": 159,
+        "startChar": 12,
+        "endLine": 159,
+        "endChar": 23
+      },
+      "revId": "654dd2ed9f86be41108892383ebee8b867dd2638",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1ff0ba9c_c4e8297d",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 2
@@ -88,6 +160,24 @@
     },
     {
       "key": {
+        "uuid": "8cf73543_582398f6",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1836,
+      "author": {
+        "id": 1000404
+      },
+      "writtenOn": "2021-10-29T08:34:39Z",
+      "side": 1,
+      "message": "I think it will return false here. The reason please see below comment.",
+      "parentUuid": "1ff0ba9c_c4e8297d",
+      "revId": "654dd2ed9f86be41108892383ebee8b867dd2638",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "437feec2_c06e24a4",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 2
@@ -102,6 +192,24 @@
       "revId": "654dd2ed9f86be41108892383ebee8b867dd2638",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8d951428_aed3f172",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1960,
+      "author": {
+        "id": 1000404
+      },
+      "writtenOn": "2021-10-29T08:34:39Z",
+      "side": 1,
+      "message": "The internal errors happen because previous code we call \"messages::internalError\" here, like line 1973. Now it just print an error message and return an empty collection. Here is an sample result when file is not exist or file path(/var/log/console) is not exist:\n\n{\n  \"@odata.id\": \"/redfish/v1/Systems/system/LogServices/HostLogger/Entries\",\n  \"@odata.type\": \"#LogEntryCollection.LogEntryCollection\",\n  \"Description\": \"Collection of HostLogger Entries\",\n  \"Members\": [],\n  \"Members@odata.count\": 0,\n  \"Name\": \"HostLogger Entries\"\n}",
+      "parentUuid": "437feec2_c06e24a4",
+      "revId": "654dd2ed9f86be41108892383ebee8b867dd2638",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
