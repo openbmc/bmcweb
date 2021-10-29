@@ -173,6 +173,30 @@
     },
     {
       "key": {
+        "uuid": "a6ce1bac_3748a8b7",
+        "filename": "redfish-core/lib/metric_report.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1001148
+      },
+      "writtenOn": "2021-10-29T15:50:52Z",
+      "side": 1,
+      "message": "So I see three alternatives to fix problem of doubled ending slashes:\n- remove ending slash from string assigned to \u0027telemetry::metricReportUri\u0027, but this const is used in the code in several other places, and so these places must be adjusted together with the change\n- modifying \u0027getCollectionMembers\u0027 function, so that it adds ending slash to path only if needed (you don\u0027t like this idea)\n- create helper function for removing ending slash from string, it could be called just before passing \u0027telemetry::metricReportUri\u0027 to \u0027collection_util::getCollectionMembers\u0027, i.e.: telemetry::stripEndingSlashFromUri(telemetry::metricReportUri)\n\nWhat is your opinion, which approach could be included to eliminate the problem?",
+      "parentUuid": "2e8e660f_d0811d51",
+      "range": {
+        "startLine": 80,
+        "startChar": 31,
+        "endLine": 80,
+        "endChar": 57
+      },
+      "revId": "f837466d95623b36945a96bc8a3cdec18fc4e902",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "db6d8add_9fbf47a4",
         "filename": "redfish-core/lib/metric_report_definition.hpp",
         "patchSetId": 2
