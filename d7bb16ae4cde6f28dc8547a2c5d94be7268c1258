@@ -33,6 +33,24 @@
       "revId": "d7bb16ae4cde6f28dc8547a2c5d94be7268c1258",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "46771ce4_83d412be",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 289,
+      "author": {
+        "id": 1000879
+      },
+      "writtenOn": "2021-11-01T12:45:25Z",
+      "side": 1,
+      "message": "I agree with Gunnar, could you do so?",
+      "parentUuid": "dcc30831_cffc6daf",
+      "revId": "d7bb16ae4cde6f28dc8547a2c5d94be7268c1258",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
