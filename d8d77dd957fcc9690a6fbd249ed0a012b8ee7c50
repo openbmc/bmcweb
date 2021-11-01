@@ -303,6 +303,30 @@
     },
     {
       "key": {
+        "uuid": "98029338_e781a133",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1726,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-11-01T23:35:27Z",
+      "side": 1,
+      "message": "This comment looks like it was ignored on the latest patchset?",
+      "parentUuid": "a82b7df9_ae6f09ac",
+      "range": {
+        "startLine": 1726,
+        "startChar": 7,
+        "endLine": 1726,
+        "endChar": 47
+      },
+      "revId": "d8d77dd957fcc9690a6fbd249ed0a012b8ee7c50",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "0a9d48d4_805802e5",
         "filename": "redfish-core/lib/ethernet.hpp",
         "patchSetId": 2
