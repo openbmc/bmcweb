@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "8b779021_5f268cb5",
+        "filename": "redfish-core/include/event_service_manager.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1079,
+      "author": {
+        "id": 1000907
+      },
+      "writtenOn": "2021-11-01T19:23:41Z",
+      "side": 1,
+      "message": "Will add this to a different function.",
+      "parentUuid": "c36ef483_90e5f866",
+      "range": {
+        "startLine": 1079,
+        "startChar": 12,
+        "endLine": 1079,
+        "endChar": 66
+      },
+      "revId": "a5afed08069a30dd55357cd40525a6652f96c7d2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "0bfc18d4_e05f9d31",
         "filename": "redfish-core/include/event_service_manager.hpp",
         "patchSetId": 4
@@ -36,6 +60,30 @@
       "writtenOn": "2021-11-01T16:48:56Z",
       "side": 1,
       "message": "This looks really confusing to me.  If the log entry has a \" \" space character in it, it\u0027s invalid?  Then the branch itself just changes the logging, and doesn\u0027t actually change any processing of the entry?  Unless I\u0027m mistaken, this whole section of code, isn\u0027t really needed?",
+      "range": {
+        "startLine": 1110,
+        "startChar": 0,
+        "endLine": 1110,
+        "endChar": 55
+      },
+      "revId": "a5afed08069a30dd55357cd40525a6652f96c7d2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "10a99dc2_2e373c91",
+        "filename": "redfish-core/include/event_service_manager.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1110,
+      "author": {
+        "id": 1000907
+      },
+      "writtenOn": "2021-11-01T19:23:41Z",
+      "side": 1,
+      "message": "Thank you for pointing this out.\nLine 1110 to 1117 isn\u0027t actually required in this Patchset. Missed to remove it during Cleanup.\nWill remove this block.",
+      "parentUuid": "0bfc18d4_e05f9d31",
       "range": {
         "startLine": 1110,
         "startChar": 0,

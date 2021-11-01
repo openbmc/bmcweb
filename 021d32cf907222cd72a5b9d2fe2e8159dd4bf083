@@ -22,6 +22,30 @@
       "revId": "021d32cf907222cd72a5b9d2fe2e8159dd4bf083",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dc70b0f8_0f17fc66",
+        "filename": "redfish-core/include/event_service_manager.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 1000907
+      },
+      "writtenOn": "2021-11-01T19:23:41Z",
+      "side": 0,
+      "message": "Nope. This section was actually causing issue when multiple events were occurring at very short interval.\nThe previous timestamp needs to be retained (non-zero) throughout the service lifetime.\nResetting to zero would actually lead to duplication of Event ID\u0027s.",
+      "parentUuid": "fedf8094_44b37273",
+      "range": {
+        "startLine": 133,
+        "startChar": 0,
+        "endLine": 137,
+        "endChar": 0
+      },
+      "revId": "021d32cf907222cd72a5b9d2fe2e8159dd4bf083",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
