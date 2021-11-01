@@ -35,6 +35,19 @@
 namespace redfish
 {
 
+using GetSubTreeType = std::vector<
+    std::pair<std::string,
+              std::vector<std::pair<std::string, std::vector<std::string>>>>>;
+
+using SensorVariant = std::variant<int64_t, double, uint16_t, uint32_t,
+                                   uint64_t, bool, std::string>;
+
+using ManagedObjectsVectorType = std::vector<std::pair<
+    sdbusplus::message::object_path,
+    boost::container::flat_map<
+        std::string, boost::container::flat_map<
+                         std::string, dbus::utility::DbusVariantType>>>>;
+
 namespace sensors
 {
 namespace node
