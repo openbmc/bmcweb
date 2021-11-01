@@ -35,6 +35,10 @@
 namespace redfish
 {
 
+using GetSubTreeType = std::vector<
+    std::pair<std::string,
+              std::vector<std::pair<std::string, std::vector<std::string>>>>>;
+
 /**
  * Function reboots the BMC.
  *
