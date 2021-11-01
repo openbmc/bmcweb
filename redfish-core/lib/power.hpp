@@ -297,6 +297,8 @@ inline void requestRoutesPower(App& app)
                 std::move(valueHandler));
         };
 
+        getPowerMetricData(sensorAsyncResp);
+
         constexpr std::array<std::string_view, 2> interfaces = {
             "xyz.openbmc_project.Inventory.Item.Board",
             "xyz.openbmc_project.Inventory.Item.Chassis"};
