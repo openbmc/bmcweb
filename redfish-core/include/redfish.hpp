@@ -73,6 +73,7 @@ class RedfishService
         requestRoutesPower(app);
 #endif
         requestRoutesManagerCollection(app);
+        requestRoutesManagerDiagnosticData(app);
         requestRoutesManager(app);
         requestRoutesManagerResetAction(app);
         requestRoutesManagerResetActionInfo(app);

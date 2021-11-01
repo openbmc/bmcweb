@@ -16,6 +16,7 @@
 #pragma once
 
 #include "health.hpp"
+#include "manager_diagnostic_data.hpp"
 #include "redfish_util.hpp"
 
 #include <app.hpp>
@@ -2028,6 +2029,12 @@ inline void requestRoutesManager(App& app)
 
             managerGetLastResetTime(asyncResp);
 
+            // ManagerDiagnosticData
+            nlohmann::json& managerDiagnosticData =
+                asyncResp->res.jsonValue["ManagerDiagnosticData"];
+            managerDiagnosticData["@odata.id"] =
+                "/redfish/v1/Managers/bmc/ManagerDiagnosticData";
+
             auto pids = std::make_shared<GetPIDValues>(asyncResp);
             pids->run();
 
@@ -2286,4 +2293,42 @@ inline void requestRoutesManagerCollection(App& app)
                     {{"@odata.id", "/redfish/v1/Managers/bmc"}}};
             });
 }
+
+inline void requestRoutesManagerDiagnosticData(App& app)
+{
+    BMCWEB_ROUTE(app, "/redfish/v1/Managers/bmc/ManagerDiagnosticData")
+        .privileges(redfish::privileges::getManagerCollection)
+        .methods(boost::beast::http::verb::get)(
+            [](const crow::Request&,
+               const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
+                // Collections don't include the static data added by SubRoute
+                // because it has a duplicate entry for members
+
+                asyncResp->res.jsonValue["@odata.type"] =
+                    "#ManagerDiagnosticData.ManagerDiagnosticData";
+
+                // 1. I2C buses
+                // TODO: connect to i2cstats-dbus
+                // auto i2cObjects = nlohmann::json::array();
+                // for (int i=0; i<2; i++) {
+                //    nlohmann::json i2cBus;
+                //    i2cBus["I2CBusName"] = "i2c-" + std::to_string(i);
+                //    i2cBus["BusErrorCount"] = 11 + i;
+                //    i2cBus["NACKCount"] = 22 + i;
+                //    i2cObjects.push_back(i2cBus);
+                //}
+                // asyncResp->res.jsonValue["I2CBuses"] = i2cObjects;
+
+                // 2. Memory status
+                int memAvailable = 0, slab = 0, kernelStack = 0;
+                managerDiagnosticDataGetMemoryInfo(memAvailable, slab,
+                                                   kernelStack);
+                nlohmann::json& memoryStat =
+                    asyncResp->res.jsonValue["MemoryStat"];
+                memoryStat["KernelStack"] = kernelStack;
+                memoryStat["MemAvailable"] = memAvailable;
+                memoryStat["Slab"] = slab;
+            });
+}
+
 } // namespace redfish
