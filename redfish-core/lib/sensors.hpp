@@ -47,6 +47,13 @@
 namespace redfish
 {
 
+using DbusVariantType =
+      std::variant<int64_t, double, uint16_t, uint32_t,
+                   uint64_t, bool, std::string>;
+
+static constexpr const char* powerMetricIface =
+    "xyz.openbmc_project.Power.PowerMetric";
+
 namespace sensors
 {
 namespace node
@@ -2934,6 +2941,127 @@ inline void requestRoutesSensor(App& app)
         .privileges(redfish::privileges::getSensor)
         .methods(boost::beast::http::verb::get)(
             std::bind_front(sensors::handleSensorGet, std::ref(app)));
+}
+
+inline void getPowerMetricData(
+    const std::shared_ptr<SensorsAsyncResp>& sensorsAsyncResp)
+{
+    BMCWEB_LOG_DEBUG << "getPowerMetricData enter";
+    constexpr std::array<std::string_view, 1> powerMetricIfaces = {
+        powerMetricIface};
+
+    dbus::utility::getSubTree(
+        "/xyz/openbmc_project/Power", 0, powerMetricIfaces,
+        [sensorsAsyncResp](
+            const boost::system::error_code& ec,
+            const dbus::utility::MapperGetSubTreeResponse& subtree) {
+        if (ec)
+        {
+            messages::internalError(sensorsAsyncResp->asyncResp->res);
+            BMCWEB_LOG_ERROR << "PowerMetric GetSubTree handler: Dbus error"
+                             << ec;
+            return;
+        }
+        if (subtree.empty())
+        {
+            // This is an optional interface so just return
+            // if there is no instance found
+            return;
+        }
+        if (subtree.size() > 1)
+        {
+            // More then one PowerMetric object is not
+            // supported and is an error
+            messages::internalError(sensorsAsyncResp->asyncResp->res);
+            BMCWEB_LOG_ERROR << "PowerMetric found more than one object error";
+            return;
+        }
+        if ((subtree[0].first.empty()) || (subtree[0].second.size() != 1))
+        {
+            messages::internalError(sensorsAsyncResp->asyncResp->res);
+            BMCWEB_LOG_ERROR << "PowerMetric mapper error";
+            return;
+        }
+
+        const std::string& path = subtree[0].first;
+        const std::string& service = subtree[0].second.begin()->first;
+        if (service.empty())
+        {
+            messages::internalError(sensorsAsyncResp->asyncResp->res);
+            BMCWEB_LOG_ERROR << "PowerMetric service error";
+            return;
+        }
+
+        sdbusplus::asio::getAllProperties(
+            *crow::connections::systemBus, service, path, powerMetricIface,
+            [path, service, sensorsAsyncResp](
+                const boost::system::error_code& ec2,
+                const std::vector<
+                    std::pair<std::string, DbusVariantType>>&
+                    properties) {
+            if (ec2)
+            {
+                messages::internalError(sensorsAsyncResp->asyncResp->res);
+                BMCWEB_LOG_ERROR << "PowerMetric GetAll handler: Dbus error"
+                                 << ec2;
+                return;
+            }
+
+            nlohmann::json& tempArray =
+                sensorsAsyncResp->asyncResp->res.jsonValue["PowerControl"];
+            nlohmann::json& sensorJson = tempArray.back();
+            for (const std::pair<std::string, DbusVariantType>& property :
+                 properties)
+            {
+                if (property.first == "IntervalInMin")
+                {
+                    const uint64_t* iIntervalInMin =
+                        std::get_if<uint64_t>(&property.second);
+                    if (iIntervalInMin != nullptr)
+                    {
+                        nlohmann::json& value =
+                            sensorJson["PowerMetrics"]["IntervalInMin"];
+                        value = *iIntervalInMin;
+                    }
+                }
+                else if (property.first == "MinConsumedWatts")
+                {
+                    const uint16_t* iMinConsumedWatts =
+                        std::get_if<uint16_t>(&property.second);
+                    if (iMinConsumedWatts != nullptr)
+                    {
+                        nlohmann::json& value =
+                            sensorJson["PowerMetrics"]["MinConsumedWatts"];
+                        value = *iMinConsumedWatts;
+                    }
+                }
+                else if (property.first == "MaxConsumedWatts")
+                {
+                    const uint16_t* iMaxConsumedWatts =
+                        std::get_if<uint16_t>(&property.second);
+                    if (iMaxConsumedWatts != nullptr)
+                    {
+                        nlohmann::json& value =
+                            sensorJson["PowerMetrics"]["MaxConsumedWatts"];
+                        value = *iMaxConsumedWatts;
+                    }
+                }
+                else if (property.first == "AverageConsumedWatts")
+                {
+                    const uint16_t* iAverageConsumedWatts =
+                        std::get_if<uint16_t>(&property.second);
+                    if (iAverageConsumedWatts != nullptr)
+                    {
+                        nlohmann::json& value =
+                            sensorJson["PowerMetrics"]["AverageConsumedWatts"];
+                        value = *iAverageConsumedWatts;
+                    }
+                }
+            }
+        });
+    });
+
+    BMCWEB_LOG_DEBUG << "getPowerMetricData exit";
 }
 
 } // namespace redfish
