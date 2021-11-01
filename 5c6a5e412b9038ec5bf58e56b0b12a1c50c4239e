@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "6fe8c53c_51b05761",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 46
+      },
+      "lineNbr": 827,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-11-01T23:22:21Z",
+      "side": 1,
+      "message": "FWIW, it\u0027s been on my list to look at cleaning up.  We copied this pattern from boost, which has the advantage that there\u0027s no requirement that the HANDLER object get put on heap.  In practice, we tend to put most on heap anyway, so it\u0027s not a huge win, and having to template specialize each of these is probably a loss on binary size.\n\nWith that said, consistency is a good thing.  If we wanted to fix it, it should be another patch.",
+      "parentUuid": "5de4717b_31c47f1e",
+      "range": {
+        "startLine": 827,
+        "startChar": 0,
+        "endLine": 827,
+        "endChar": 27
+      },
+      "revId": "5c6a5e412b9038ec5bf58e56b0b12a1c50c4239e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e0353f4e_982adbb2",
         "filename": "redfish-core/lib/processor.hpp",
         "patchSetId": 46
@@ -214,6 +238,52 @@
     },
     {
       "key": {
+        "uuid": "9ec5bfc3_14379d45",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 46
+      },
+      "lineNbr": 986,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-11-01T23:22:21Z",
+      "side": 1,
+      "message": "ecHandler?",
+      "range": {
+        "startLine": 986,
+        "startChar": 61,
+        "endLine": 986,
+        "endChar": 69
+      },
+      "revId": "5c6a5e412b9038ec5bf58e56b0b12a1c50c4239e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8bc6b0c9_b7f11cdb",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 46
+      },
+      "lineNbr": 1009,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-11-01T23:22:21Z",
+      "side": 1,
+      "message": "Can this be hit in practice?  I suspect it\u0027s not needed;  If ecHander isn\u0027t set, then cpuPath isn\u0027t empty, correct?",
+      "range": {
+        "startLine": 1003,
+        "startChar": 0,
+        "endLine": 1009,
+        "endChar": 9
+      },
+      "revId": "5c6a5e412b9038ec5bf58e56b0b12a1c50c4239e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "080e98cb_a685d0cf",
         "filename": "redfish-core/lib/processor.hpp",
         "patchSetId": 46
@@ -301,6 +371,52 @@
         "startChar": 16,
         "endLine": 1062,
         "endChar": 40
+      },
+      "revId": "5c6a5e412b9038ec5bf58e56b0b12a1c50c4239e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8e7bf8bb_573ccef1",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 46
+      },
+      "lineNbr": 1062,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-11-01T23:22:21Z",
+      "side": 1,
+      "message": "Isn\u0027t this conditional incorrect?  If subtree size is 0, shouldn\u0027t we still return ResourceNotFound?",
+      "range": {
+        "startLine": 1062,
+        "startChar": 0,
+        "endLine": 1062,
+        "endChar": 40
+      },
+      "revId": "5c6a5e412b9038ec5bf58e56b0b12a1c50c4239e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c4c49b46_cb02d9f3",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 46
+      },
+      "lineNbr": 1155,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-11-01T23:22:21Z",
+      "side": 1,
+      "message": "This is just enumerating the cores under the CPU by path.   I thought we were going to use an association here to match the other resources, and to make sure that things like \"contained by\" work properly?",
+      "range": {
+        "startLine": 1151,
+        "startChar": 0,
+        "endLine": 1155,
+        "endChar": 63
       },
       "revId": "5c6a5e412b9038ec5bf58e56b0b12a1c50c4239e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
