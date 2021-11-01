@@ -299,6 +299,81 @@ inline void requestRoutesPower(App& app)
                             // be null if the limit is not enabled.
                             value = powerCap * std::pow(10, scale);
                         }
+
+                        auto PowerMetricHandler =
+                        [sensorAsyncResp](
+                            const boost::system::error_code ec,
+                            const std::vector<std::pair<std::string, SensorVariant>>&
+                                properties) {
+                            if (ec)
+                            {
+                                messages::internalError(sensorAsyncResp->asyncResp->res);
+                                BMCWEB_LOG_ERROR
+                                    << "Power Metric GetAll handler: Dbus error " << ec;
+                                return;
+                            }
+                            nlohmann::json& tempArray =
+                                sensorAsyncResp->asyncResp->res.jsonValue["PowerControl"];
+                            nlohmann::json& sensorJson = tempArray.back();
+                            for (const std::pair<std::string, SensorVariant>& property :
+                                properties)
+                            {
+                                if (!property.first.compare("IntervalInMin"))
+                                {
+                                    const uint64_t* i =
+                                    std::get_if<uint64_t>(
+                                        &property.second);
+
+                                    if (i)
+                                    {
+                                        nlohmann::json& value =
+                                            sensorJson["PowerMetrics"]["IntervalInMin"];
+                                        value = *i;
+                                    }
+                                }
+                                else if (!property.first.compare("MinConsumedWatts"))
+                                {
+                                    const uint16_t* i =
+                                    std::get_if<uint16_t>(
+                                        &property.second);
+                                    if (i)
+                                    {
+                                        nlohmann::json& value =
+                                            sensorJson["PowerMetrics"]["MinConsumedWatts"];
+                                        value = *i;
+                                    }
+                                }
+                                else if (!property.first.compare("MaxConsumedWatts"))
+                                {
+                                    const uint16_t* i =
+                                    std::get_if<uint16_t>(
+                                        &property.second);
+                                    if (i)
+                                    {
+                                        nlohmann::json& value =
+                                            sensorJson["PowerMetrics"]["MaxConsumedWatts"];
+                                        value = *i;
+                                    }
+                                }
+                                else if (!property.first.compare("AverageConsumedWatts"))
+                                {
+                                    const uint16_t* i =
+                                    std::get_if<uint16_t>(
+                                        &property.second);
+                                    if (i)
+                                    {
+                                        nlohmann::json& value =
+                                            sensorJson["PowerMetrics"]["AverageConsumedWatts"];
+                                        value = *i;
+                                    }
+                                }
+                            }
+                        };
+                        crow::connections::systemBus->async_method_call(
+                            std::move(PowerMetricHandler), "xyz.openbmc_project.NodeManagerProxy",
+                            "/xyz/openbmc_project/Power/PowerMetric",
+                            "org.freedesktop.DBus.Properties", "GetAll",
+                            "xyz.openbmc_project.Power.PowerMetric");
                     };
 
                     crow::connections::systemBus->async_method_call(
