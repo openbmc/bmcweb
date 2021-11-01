@@ -46,6 +46,30 @@
       "revId": "021d32cf907222cd72a5b9d2fe2e8159dd4bf083",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "756b3597_2228beb4",
+        "filename": "redfish-core/include/event_service_manager.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-11-01T23:31:11Z",
+      "side": 0,
+      "message": "\u003e Nope. This section was actually causing issue when multiple events were occurring at very short interval.\n\nThe original patch that added this claimed it was fixing that exact issue.\n\n\u003e The previous timestamp needs to be retained (non-zero) throughout the service lifetime.\n\nbut prevTs is static, which is a bit of an anti-pattern here, but it means it applies to more than one request, so it needs reset at SOME point at the beginning of the request.  Ideally we\u0027d refactor this to not be static, because that would be a lot more obvious.\n\n\u003e Resetting to zero would actually lead to duplication of Event ID\u0027s.\n\nso when is it reset in between requests?",
+      "parentUuid": "dc70b0f8_0f17fc66",
+      "range": {
+        "startLine": 133,
+        "startChar": 0,
+        "endLine": 137,
+        "endChar": 0
+      },
+      "revId": "021d32cf907222cd72a5b9d2fe2e8159dd4bf083",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
