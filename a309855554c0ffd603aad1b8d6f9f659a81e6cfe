@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a99b0550_e25b3812",
+        "filename": "redfish-core/lib/power.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 323,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-11-01T22:38:46Z",
+      "side": 1,
+      "message": "Can you please use a real variable name here?\nSingle letter variable names are bad for readablity, searchablity, etc. \nIn places where it is clear (e.g. iterating over a collection) I don\u0027t mind it but I don\u0027t it is appropriate here.",
+      "range": {
+        "startLine": 323,
+        "startChar": 52,
+        "endLine": 323,
+        "endChar": 53
+      },
+      "revId": "a309855554c0ffd603aad1b8d6f9f659a81e6cfe",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "61d501a5_fbf7e7b3",
+        "filename": "redfish-core/lib/power.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 327,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-11-01T22:38:46Z",
+      "side": 1,
+      "message": "More typical.. Code is \n\nconst std::string* value \u003d std::get_if\u003cstd::string\u003e(\u0026intervalInMin);\nif (intervalInMin \u003d\u003d nullptr)\n{\n                BMCWEB_LOG_DEBUG \u003c\u003c \"Null value returned \"\n                                    \"for locaton code\";\n                messages::internalError(asyncResp-\u003eres);\n                return;\n}\n asyncResp-\u003eres.jsonValue[\"PowerMetrics\"][\"IntervalInMin\"] \u003d *intervalInMin;",
+      "revId": "a309855554c0ffd603aad1b8d6f9f659a81e6cfe",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "961bf80f_70b9353b",
+        "filename": "redfish-core/lib/power.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 373,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-11-01T22:38:46Z",
+      "side": 1,
+      "message": "Need a mapper call here? \nI don\u0027t think \"xyz.openbmc_project.NodeManagerProxy\" is a service everyone uses.",
+      "revId": "a309855554c0ffd603aad1b8d6f9f659a81e6cfe",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
