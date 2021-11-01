@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "5de4717b_31c47f1e",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 46
+      },
+      "lineNbr": 827,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-11-01T06:11:26Z",
+      "side": 1,
+      "message": "This method is used everywhere in bmcweb repo, maybe it can be refactored in the future, but I am sure it is not in this patch.",
+      "parentUuid": "f56f43ba_08c06c89",
+      "range": {
+        "startLine": 827,
+        "startChar": 0,
+        "endLine": 827,
+        "endChar": 27
+      },
+      "revId": "5c6a5e412b9038ec5bf58e56b0b12a1c50c4239e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e0353f4e_982adbb2",
         "filename": "redfish-core/lib/processor.hpp",
         "patchSetId": 46
@@ -36,6 +60,30 @@
       "writtenOn": "2021-10-30T00:39:42Z",
       "side": 1,
       "message": "is this used for empty string?",
+      "range": {
+        "startLine": 852,
+        "startChar": 24,
+        "endLine": 852,
+        "endChar": 26
+      },
+      "revId": "5c6a5e412b9038ec5bf58e56b0b12a1c50c4239e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7be57286_b7fc5a14",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 46
+      },
+      "lineNbr": 852,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-11-01T06:11:26Z",
+      "side": 1,
+      "message": "Yes",
+      "parentUuid": "e0353f4e_982adbb2",
       "range": {
         "startLine": 852,
         "startChar": 24,
@@ -95,6 +143,30 @@
     },
     {
       "key": {
+        "uuid": "bc9e0937_f5b12a70",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 46
+      },
+      "lineNbr": 955,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-11-01T06:11:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5d692edb_ea531ec9",
+      "range": {
+        "startLine": 946,
+        "startChar": 0,
+        "endLine": 955,
+        "endChar": 43
+      },
+      "revId": "5c6a5e412b9038ec5bf58e56b0b12a1c50c4239e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b3f3009d_e1881574",
         "filename": "redfish-core/lib/processor.hpp",
         "patchSetId": 46
@@ -115,6 +187,30 @@
       "revId": "5c6a5e412b9038ec5bf58e56b0b12a1c50c4239e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6d24f5dd_3fb08e53",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 46
+      },
+      "lineNbr": 967,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-11-01T06:11:26Z",
+      "side": 1,
+      "message": "Currently, since we have not verified that functional is equal to true, I agree to `combine into else if`",
+      "parentUuid": "b3f3009d_e1881574",
+      "range": {
+        "startLine": 965,
+        "startChar": 16,
+        "endLine": 967,
+        "endChar": 36
+      },
+      "revId": "5c6a5e412b9038ec5bf58e56b0b12a1c50c4239e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -141,6 +237,30 @@
     },
     {
       "key": {
+        "uuid": "119bbef5_31697334",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 46
+      },
+      "lineNbr": 1035,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-11-01T06:11:26Z",
+      "side": 1,
+      "message": "Why? I am not following that does this have any effect or error?",
+      "parentUuid": "080e98cb_a685d0cf",
+      "range": {
+        "startLine": 1035,
+        "startChar": 27,
+        "endLine": 1035,
+        "endChar": 31
+      },
+      "revId": "5c6a5e412b9038ec5bf58e56b0b12a1c50c4239e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "0aa653fe_33e89422",
         "filename": "redfish-core/lib/processor.hpp",
         "patchSetId": 46
@@ -152,6 +272,30 @@
       "writtenOn": "2021-10-30T00:39:42Z",
       "side": 1,
       "message": "!empty()?\n\nAlso, do we even need to check this? If we don\u0027t return valid cordId, when it should be not found, right?",
+      "range": {
+        "startLine": 1062,
+        "startChar": 16,
+        "endLine": 1062,
+        "endChar": 40
+      },
+      "revId": "5c6a5e412b9038ec5bf58e56b0b12a1c50c4239e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c152535f_de428117",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 46
+      },
+      "lineNbr": 1062,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-11-01T06:11:26Z",
+      "side": 1,
+      "message": "\u003e !empty()?\n\nDone\n\n\u003e Also, do we even need to check this? If we don\u0027t return valid cordId, when it should be not found, right?\n\nYes, we need to check it.\nBecause for example:\nURL \u003d redfish/v1/Systems/system/Processors/cpu0/SubProcessors/core123\nthis is invalid corId, we should return Not Found right?",
+      "parentUuid": "0aa653fe_33e89422",
       "range": {
         "startLine": 1062,
         "startChar": 16,
