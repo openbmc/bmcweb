@@ -17,6 +17,8 @@
 
 #include "health.hpp"
 #include "redfish_util.hpp"
+#include "manager_diagnostic_data.hpp"
+#include "sensors.hpp"
 
 #include <app.hpp>
 #include <boost/algorithm/string/replace.hpp>
@@ -33,6 +35,10 @@
 
 namespace redfish
 {
+
+using GetSubTreeType = std::vector<
+    std::pair<std::string,
+              std::vector<std::pair<std::string, std::vector<std::string>>>>>;
 
 /**
  * Function reboots the BMC.
@@ -2027,6 +2033,12 @@ inline void requestRoutesManager(App& app)
                                                  "FirmwareVersion", true);
 
             managerGetLastResetTime(asyncResp);
+
+            // ManagerDiagnosticData
+            nlohmann::json& managerDiagnosticData =
+                asyncResp->res.jsonValue["ManagerDiagnosticData"];
+            managerDiagnosticData["@odata.id"] =
+                "/redfish/v1/Managers/bmc/ManagerDiagnosticData";
 
             auto pids = std::make_shared<GetPIDValues>(asyncResp);
             pids->run();
