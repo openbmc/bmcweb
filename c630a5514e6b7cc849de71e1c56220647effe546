@@ -16,6 +16,29 @@
       "revId": "c630a5514e6b7cc849de71e1c56220647effe546",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0f7ec8fc_78f8b74a",
+        "filename": "redfish-core/lib/certificate_service.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-11-02T19:27:32Z",
+      "side": 1,
+      "message": "Just reviewing my own code, this is wrong, and not going to work.  WIP.",
+      "range": {
+        "startLine": 95,
+        "startChar": 11,
+        "endLine": 96,
+        "endChar": 54
+      },
+      "revId": "c630a5514e6b7cc849de71e1c56220647effe546",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
