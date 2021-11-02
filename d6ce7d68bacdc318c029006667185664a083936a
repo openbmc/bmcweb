@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "c31e1d9b_83d5e0d8",
+        "filename": "redfish-core/include/utils/telemetry_utils.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1001026
+      },
+      "writtenOn": "2021-11-02T13:45:43Z",
+      "side": 1,
+      "message": "You are right. While this change requires slight modification of telemetry backend, it was worth it and made a lot of sense.\n\nI would leave id as optional, so client can pass his own value.",
+      "parentUuid": "5d59b612_dabed1b6",
+      "range": {
+        "startLine": 73,
+        "startChar": 0,
+        "endLine": 87,
+        "endChar": 1
+      },
+      "revId": "d6ce7d68bacdc318c029006667185664a083936a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3a26d7be_e91ba886",
         "filename": "redfish-core/include/utils/telemetry_utils.hpp",
         "patchSetId": 7
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "203ae88e_6da17055",
+        "filename": "redfish-core/include/utils/telemetry_utils.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1001026
+      },
+      "writtenOn": "2021-11-02T13:45:43Z",
+      "side": 1,
+      "message": "I rewrote this function, and now it is way simpler.",
+      "parentUuid": "3a26d7be_e91ba886",
+      "range": {
+        "startLine": 95,
+        "startChar": 4,
+        "endLine": 95,
+        "endChar": 58
+      },
+      "revId": "d6ce7d68bacdc318c029006667185664a083936a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "364e671e_cec26b23",
         "filename": "redfish-core/include/utils/telemetry_utils.hpp",
         "patchSetId": 7
@@ -59,6 +107,30 @@
       "writtenOn": "2021-10-17T21:29:50Z",
       "side": 1,
       "message": "note that this is a dbus utility function, not a URL utility function.  You ideally should be using boost::uri, then using url::segments[3] and url::segments[4]",
+      "range": {
+        "startLine": 117,
+        "startChar": 13,
+        "endLine": 117,
+        "endChar": 17
+      },
+      "revId": "d6ce7d68bacdc318c029006667185664a083936a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4a3f22ef_1c42cebb",
+        "filename": "redfish-core/include/utils/telemetry_utils.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 1001026
+      },
+      "writtenOn": "2021-11-02T13:45:43Z",
+      "side": 1,
+      "message": "I am aware of that, but url_view::segments is not yet in the boost.url version used by bmcweb.\nI tried to update it locally, but it seems to be a little tricky as it is depending on latest development version of boost (which is newer than current 1.77 release).\n\nI am more than eager to do this the proper way, when it will be possible.",
+      "parentUuid": "364e671e_cec26b23",
       "range": {
         "startLine": 117,
         "startChar": 13,
@@ -94,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "4360db01_2a43ea20",
+        "filename": "redfish-core/include/utils/telemetry_utils.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 1001026
+      },
+      "writtenOn": "2021-11-02T13:45:43Z",
+      "side": 1,
+      "message": "Given following MetricProperty: /redfish/v1/Chassis/AC_Baseboard/Thermal#/Fans/0/Reading\nwe except chassis \u003d \"AC_Baseboard\" and node \u003d \"Thermal\", to further process them in dbus\u003c-\u003euri mapper.",
+      "parentUuid": "ab2098a3_1e04a76c",
+      "range": {
+        "startLine": 128,
+        "startChar": 0,
+        "endLine": 128,
+        "endChar": 40
+      },
+      "revId": "d6ce7d68bacdc318c029006667185664a083936a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "192d5ce8_7d1137a3",
         "filename": "redfish-core/include/utils/telemetry_utils.hpp",
         "patchSetId": 7
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "f7dee26c_a5ca1f23",
+        "filename": "redfish-core/include/utils/telemetry_utils.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 1001026
+      },
+      "writtenOn": "2021-11-02T13:45:43Z",
+      "side": 1,
+      "message": "This function name suggest it is converting already validated redfish name to dbus name. And this is the only Action which differs - the rest are named the same on dbus.\n\nAnd... while I was writing this comment I found out that I do not validate user input for Action. I will add another method to keep it clean 😊",
+      "parentUuid": "192d5ce8_7d1137a3",
+      "range": {
+        "startLine": 144,
+        "startChar": 23,
+        "endLine": 144,
+        "endChar": 36
+      },
+      "revId": "d6ce7d68bacdc318c029006667185664a083936a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "29cd5393_a6e11a97",
         "filename": "redfish-core/lib/trigger.hpp",
         "patchSetId": 7
@@ -128,6 +248,30 @@
       "writtenOn": "2021-10-17T21:29:50Z",
       "side": 1,
       "message": "Why the sub structs here?  Seems like neither are used in isolation, so the don\u0027t need to be separate structs?",
+      "range": {
+        "startLine": 32,
+        "startChar": 0,
+        "endLine": 47,
+        "endChar": 17
+      },
+      "revId": "d6ce7d68bacdc318c029006667185664a083936a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1fab5db3_6152ed9c",
+        "filename": "redfish-core/lib/trigger.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1001026
+      },
+      "writtenOn": "2021-11-02T13:45:43Z",
+      "side": 1,
+      "message": "My intention was to separate fields to create logical and readable hierarchy\n\ndbusArgs - used to store params passed during AddTrigger dbus call\n\nparsedInfo - used to store information provided by user, which are not directly passed on dbus, but might be usable during parse and validation of other params.\n\nYes, there might be incredibly slight overhead due to memory alignment, but it is nearly negligible, when compared to improved readability of code.",
+      "parentUuid": "29cd5393_a6e11a97",
       "range": {
         "startLine": 32,
         "startChar": 0,
@@ -163,6 +307,30 @@
     },
     {
       "key": {
+        "uuid": "62ae35f6_454ddef4",
+        "filename": "redfish-core/lib/trigger.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1001026
+      },
+      "writtenOn": "2021-11-02T13:45:43Z",
+      "side": 1,
+      "message": "Done - for this function and getDiscreteTriggerCondition.",
+      "parentUuid": "b00aade2_6b8d0ab4",
+      "range": {
+        "startLine": 52,
+        "startChar": 7,
+        "endLine": 52,
+        "endChar": 11
+      },
+      "revId": "d6ce7d68bacdc318c029006667185664a083936a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "91dca17f_b6f25a91",
         "filename": "redfish-core/lib/trigger.hpp",
         "patchSetId": 7
@@ -183,6 +351,30 @@
       "revId": "d6ce7d68bacdc318c029006667185664a083936a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0e69ce08_2946c0f9",
+        "filename": "redfish-core/lib/trigger.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1001026
+      },
+      "writtenOn": "2021-11-02T13:45:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "91dca17f_b6f25a91",
+      "range": {
+        "startLine": 53,
+        "startChar": 26,
+        "endLine": 53,
+        "endChar": 64
+      },
+      "revId": "d6ce7d68bacdc318c029006667185664a083936a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -209,6 +401,30 @@
     },
     {
       "key": {
+        "uuid": "0576aae0_001d0eac",
+        "filename": "redfish-core/lib/trigger.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1001026
+      },
+      "writtenOn": "2021-11-02T13:45:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0f60d597_64350376",
+      "range": {
+        "startLine": 101,
+        "startChar": 41,
+        "endLine": 101,
+        "endChar": 57
+      },
+      "revId": "d6ce7d68bacdc318c029006667185664a083936a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ed68ad0f_6a3d80ba",
         "filename": "redfish-core/lib/trigger.hpp",
         "patchSetId": 7
@@ -220,6 +436,30 @@
       "writtenOn": "2021-10-17T21:29:50Z",
       "side": 1,
       "message": "Please don\u0027t construct what are essentially static maps like this just to do lookups on them.  use a struct if that\u0027s what you want to do.\n\nSaid another way, I see no use of numericThresholdsMap.find() in the code below, and the operator[] could easily be replaced with struct members.",
+      "range": {
+        "startLine": 103,
+        "startChar": 0,
+        "endLine": 108,
+        "endChar": 63
+      },
+      "revId": "d6ce7d68bacdc318c029006667185664a083936a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b88461d1_92964e3c",
+        "filename": "redfish-core/lib/trigger.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 1001026
+      },
+      "writtenOn": "2021-11-02T13:45:43Z",
+      "side": 1,
+      "message": "I would like to leave this flat_map here, because in the line 123 I am using this to loop over both key and value. \n\nAccording do redfish spec, \"NumericThresholds\" is complex type which contains up to 4 properties (UpperCritical, LowerCriticall, etc.) and all of those properties are objects of same type. While struct could be used here, this would decrease readability of code, and would require creation of additional helper method, which would need to be called 4 times, for each struct.\n\nFor now I can improve this fragment by removing the initialization (lines 105-108), as the optional() would be created by operator [] in lines 112-115 anyway. Of course reserve() will be called 😊\n\nBut if you insist, I can remove this map altogether, but it just seems a little wrong for me.",
+      "parentUuid": "ed68ad0f_6a3d80ba",
       "range": {
         "startLine": 103,
         "startChar": 0,
@@ -255,6 +495,30 @@
     },
     {
       "key": {
+        "uuid": "1eebb073_54433aa5",
+        "filename": "redfish-core/lib/trigger.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 1001026
+      },
+      "writtenOn": "2021-11-02T13:45:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "93b656e6_9d541435",
+      "range": {
+        "startLine": 127,
+        "startChar": 0,
+        "endLine": 127,
+        "endChar": 27
+      },
+      "revId": "d6ce7d68bacdc318c029006667185664a083936a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8399973a_f1afc0f3",
         "filename": "redfish-core/lib/trigger.hpp",
         "patchSetId": 7
@@ -266,6 +530,30 @@
       "writtenOn": "2021-10-17T21:29:50Z",
       "side": 1,
       "message": "all 3 of these params are required in the standard?",
+      "range": {
+        "startLine": 131,
+        "startChar": 58,
+        "endLine": 132,
+        "endChar": 75
+      },
+      "revId": "d6ce7d68bacdc318c029006667185664a083936a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a6a81b21_20aaa65d",
+        "filename": "redfish-core/lib/trigger.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 1001026
+      },
+      "writtenOn": "2021-11-02T13:45:43Z",
+      "side": 1,
+      "message": "This is good question. By redfish schemas there are only two required properties for the whole Trigger resource: Id and Name.\n\nI found in .yaml schema that those 3 fields are \u0027nullable\u0027 - does this mean that they are not required? Or am I missing any other docs?\n\nFrom Telemetry Service backend it just doesn\u0027t make much sense for them to not be required. There is just no way for us to deduce those values and they must be passed.\n\nFor now I would leave them as required, and I will research more about this.",
+      "parentUuid": "8399973a_f1afc0f3",
       "range": {
         "startLine": 131,
         "startChar": 58,
@@ -301,6 +589,30 @@
     },
     {
       "key": {
+        "uuid": "f18d72a2_c69c810c",
+        "filename": "redfish-core/lib/trigger.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 1001026
+      },
+      "writtenOn": "2021-11-02T13:45:43Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "6fe909bd_bdb5f345",
+      "range": {
+        "startLine": 139,
+        "startChar": 28,
+        "endLine": 139,
+        "endChar": 46
+      },
+      "revId": "d6ce7d68bacdc318c029006667185664a083936a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "050d7e0e_1e523d8f",
         "filename": "redfish-core/lib/trigger.hpp",
         "patchSetId": 7
@@ -312,6 +624,30 @@
       "writtenOn": "2021-10-17T21:29:50Z",
       "side": 1,
       "message": "This looks like it was designed to avoid the warning that std::milliseconds uses int64_t and this code uses uint64_t.  I suspect we need to align our types here.",
+      "range": {
+        "startLine": 148,
+        "startChar": 50,
+        "endLine": 148,
+        "endChar": 58
+      },
+      "revId": "d6ce7d68bacdc318c029006667185664a083936a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cadfc943_7b1633a2",
+        "filename": "redfish-core/lib/trigger.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 1001026
+      },
+      "writtenOn": "2021-11-02T13:45:43Z",
+      "side": 1,
+      "message": "DwellTime cannot be negative, so this is why we are passing uint64 over dbus. I don\u0027t know if this can be improved here. Or did I misunderstood you? What can be done otherwise to align the types?",
+      "parentUuid": "050d7e0e_1e523d8f",
       "range": {
         "startLine": 148,
         "startChar": 50,
@@ -347,6 +683,30 @@
     },
     {
       "key": {
+        "uuid": "09d54235_824dd93d",
+        "filename": "redfish-core/lib/trigger.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 1001026
+      },
+      "writtenOn": "2021-11-02T13:45:43Z",
+      "side": 1,
+      "message": "ctx.dbusArgs.thresholds is a variant of two different vectors, and getting reference to it, while possible is not much helpful. But there is other improvement possible - std::move()",
+      "parentUuid": "87506087_5daac682",
+      "range": {
+        "startLine": 153,
+        "startChar": 0,
+        "endLine": 153,
+        "endChar": 44
+      },
+      "revId": "d6ce7d68bacdc318c029006667185664a083936a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "993bec63_f7c341f5",
         "filename": "redfish-core/lib/trigger.hpp",
         "patchSetId": 7
@@ -367,6 +727,30 @@
       "revId": "d6ce7d68bacdc318c029006667185664a083936a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5830337a_fd379e79",
+        "filename": "redfish-core/lib/trigger.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 1001026
+      },
+      "writtenOn": "2021-11-02T13:45:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "993bec63_f7c341f5",
+      "range": {
+        "startLine": 164,
+        "startChar": 0,
+        "endLine": 165,
+        "endChar": 5
+      },
+      "revId": "d6ce7d68bacdc318c029006667185664a083936a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -393,6 +777,30 @@
     },
     {
       "key": {
+        "uuid": "f9b4cced_9afb0b80",
+        "filename": "redfish-core/lib/trigger.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 1001026
+      },
+      "writtenOn": "2021-11-02T13:45:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b25c1275_4b73e240",
+      "range": {
+        "startLine": 169,
+        "startChar": 62,
+        "endLine": 169,
+        "endChar": 64
+      },
+      "revId": "d6ce7d68bacdc318c029006667185664a083936a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "81b626bc_99ea7bed",
         "filename": "redfish-core/lib/trigger.hpp",
         "patchSetId": 7
@@ -404,6 +812,30 @@
       "writtenOn": "2021-10-17T21:29:50Z",
       "side": 1,
       "message": "Same comment as above, lets avoid the copy.",
+      "range": {
+        "startLine": 201,
+        "startChar": 0,
+        "endLine": 201,
+        "endChar": 44
+      },
+      "revId": "d6ce7d68bacdc318c029006667185664a083936a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b164df7a_67af642d",
+        "filename": "redfish-core/lib/trigger.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 1001026
+      },
+      "writtenOn": "2021-11-02T13:45:43Z",
+      "side": 1,
+      "message": "As above (thresholds is a variant), I think it would be better to use std::move()",
+      "parentUuid": "81b626bc_99ea7bed",
       "range": {
         "startLine": 201,
         "startChar": 0,
@@ -439,6 +871,30 @@
     },
     {
       "key": {
+        "uuid": "e8695945_d714b97d",
+        "filename": "redfish-core/lib/trigger.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 337,
+      "author": {
+        "id": 1001026
+      },
+      "writtenOn": "2021-11-02T13:45:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5eaa6f57_b2576ccc",
+      "range": {
+        "startLine": 337,
+        "startChar": 0,
+        "endLine": 337,
+        "endChar": 72
+      },
+      "revId": "d6ce7d68bacdc318c029006667185664a083936a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "76c744a9_24e23db8",
         "filename": "redfish-core/lib/trigger.hpp",
         "patchSetId": 7
@@ -462,6 +918,30 @@
     },
     {
       "key": {
+        "uuid": "089eed88_c90a7326",
+        "filename": "redfish-core/lib/trigger.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 364,
+      "author": {
+        "id": 1001026
+      },
+      "writtenOn": "2021-11-02T13:45:43Z",
+      "side": 1,
+      "message": "numeric thresholds is an object of up to 4 properties.",
+      "parentUuid": "76c744a9_24e23db8",
+      "range": {
+        "startLine": 364,
+        "startChar": 18,
+        "endLine": 364,
+        "endChar": 32
+      },
+      "revId": "d6ce7d68bacdc318c029006667185664a083936a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6eb162cf_ec17a4c5",
         "filename": "redfish-core/lib/trigger.hpp",
         "patchSetId": 7
@@ -482,6 +962,30 @@
       "revId": "d6ce7d68bacdc318c029006667185664a083936a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b71496ad_d1a83e16",
+        "filename": "redfish-core/lib/trigger.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 379,
+      "author": {
+        "id": 1001026
+      },
+      "writtenOn": "2021-11-02T13:45:43Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "6eb162cf_ec17a4c5",
+      "range": {
+        "startLine": 376,
+        "startChar": 0,
+        "endLine": 379,
+        "endChar": 5
+      },
+      "revId": "d6ce7d68bacdc318c029006667185664a083936a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
