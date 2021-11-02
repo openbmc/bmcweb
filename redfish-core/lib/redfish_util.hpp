@@ -13,8 +13,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 */
-#ifndef BMCWEB_ENABLE_REDFISH_ONE_CHASSIS
 #pragma once
+#ifndef BMCWEB_ENABLE_REDFISH_ONE_CHASSIS
 
 namespace redfish
 {
