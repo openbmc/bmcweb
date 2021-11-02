@@ -70,6 +70,30 @@
       "revId": "021d32cf907222cd72a5b9d2fe2e8159dd4bf083",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "653da653_2ec41b8b",
+        "filename": "redfish-core/include/event_service_manager.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 1000907
+      },
+      "writtenOn": "2021-11-02T17:55:15Z",
+      "side": 0,
+      "message": "So initially, during each call to readEventLogsFromFile() (i.e. This would be called whenever there is a new entry added to redfish file or when a new file is created),\nthe read was treated like a first entry, and the bool variable was passed as true (Line 1118, 1133 and 1137 below).\nThis state (true/false) is then used in getUniqueEntryID() and it sets prevTs to 0.\n\nLets consider a case where the Events are occurring very close to each other :\nX.Y.Z.0000 \u003c- iNotify Event\nX.Y.Z.0010\nX.Y.Z.0020 \u003c- Reads Till here\n\nX.Y.Z.0100 \u003c- Next iNotify Event\nX.Y.Z.0110\n\n\nHere, for the first iNotify Event, readEventLogsFromFile() would be called and it would read till the end of the file resulting in Event ID\u0027s \nABC\nABC_1\nABC_2\n\nNow, when the next iNotify Event occurs, the prevTs would be Zero according to the previous implementation. Due to Which the Event ID\u0027s would be \nABC\nABC_1\n\nInstead of\n\nABC_3\nABC_4\n\nSo, by clearing the prevTs, we would end up duplicating Event ID\u0027s.\n\nIn order to avoid this, we need to always have this prevTs and not set it to Zero.",
+      "parentUuid": "756b3597_2228beb4",
+      "range": {
+        "startLine": 133,
+        "startChar": 0,
+        "endLine": 137,
+        "endChar": 0
+      },
+      "revId": "021d32cf907222cd72a5b9d2fe2e8159dd4bf083",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
