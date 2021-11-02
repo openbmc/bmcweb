@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "d054d6fa_91dabe13",
+        "filename": "redfish-core/include/utils/telemetry_utils.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-11-02T18:12:22Z",
+      "side": 1,
+      "message": "\u003e You are right. While this change requires slight modification of telemetry backend, it was worth it and made a lot of sense.\n\u003e \n\u003e I would leave id as optional, so client can pass his own value.\n\nWe should look at the redfish spec for what it allows.  I\u0027m not sure it allows selecting IDs for new POSTs, because that would imply a specific implementation of URIs.  For example, other Redfish instances use a GUID for ID, so the client would have to have prior knowlege of what ID fields are supported.\n\nIn general, if the client wants to set some kind of user-writable ID, generally we\u0027d use the Context property, similar to how Subscription works.",
+      "parentUuid": "c31e1d9b_83d5e0d8",
+      "range": {
+        "startLine": 73,
+        "startChar": 0,
+        "endLine": 87,
+        "endChar": 1
+      },
+      "revId": "d6ce7d68bacdc318c029006667185664a083936a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "3a26d7be_e91ba886",
         "filename": "redfish-core/include/utils/telemetry_utils.hpp",
         "patchSetId": 7
@@ -143,6 +167,30 @@
     },
     {
       "key": {
+        "uuid": "70563d84_041a0401",
+        "filename": "redfish-core/include/utils/telemetry_utils.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-11-02T18:12:22Z",
+      "side": 1,
+      "message": "if this is something you\u0027re interested in, check out this series:\n\nhttps://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/48297",
+      "parentUuid": "4a3f22ef_1c42cebb",
+      "range": {
+        "startLine": 117,
+        "startChar": 13,
+        "endLine": 117,
+        "endChar": 17
+      },
+      "revId": "d6ce7d68bacdc318c029006667185664a083936a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "ab2098a3_1e04a76c",
         "filename": "redfish-core/include/utils/telemetry_utils.hpp",
         "patchSetId": 7
@@ -190,6 +238,30 @@
     },
     {
       "key": {
+        "uuid": "eee003a2_f59bcfb0",
+        "filename": "redfish-core/include/utils/telemetry_utils.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-11-02T18:12:22Z",
+      "side": 1,
+      "message": "Ah, I see now;  We really need to get a real uri parser in here, because that code is really hard to understand.",
+      "parentUuid": "4360db01_2a43ea20",
+      "range": {
+        "startLine": 128,
+        "startChar": 0,
+        "endLine": 128,
+        "endChar": 40
+      },
+      "revId": "d6ce7d68bacdc318c029006667185664a083936a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "192d5ce8_7d1137a3",
         "filename": "redfish-core/include/utils/telemetry_utils.hpp",
         "patchSetId": 7
@@ -234,6 +306,30 @@
       "revId": "d6ce7d68bacdc318c029006667185664a083936a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0a52b319_88ada03b",
+        "filename": "redfish-core/include/utils/telemetry_utils.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-11-02T18:12:22Z",
+      "side": 1,
+      "message": "\u003e This function name suggest it is converting already validated redfish name to dbus name. And this is the only Action which differs - the rest are named the same on dbus.\n\u003e \n\u003e And... while I was writing this comment I found out that I do not validate user input for Action. I will add another method to keep it clean 😊\n\nEven in the cases where they\u0027re the same, I\u0027d like to see us be consistent, because they could potentially change or get added to in the future.  It looks like you found the issue I was really pointing out though, in that we\u0027re not validating the users input here.",
+      "parentUuid": "f7dee26c_a5ca1f23",
+      "range": {
+        "startLine": 144,
+        "startChar": 23,
+        "endLine": 144,
+        "endChar": 36
+      },
+      "revId": "d6ce7d68bacdc318c029006667185664a083936a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     },
     {
       "key": {
