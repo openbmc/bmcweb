@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "a0e6448a_c8d97232",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 46
+      },
+      "lineNbr": 827,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-11-02T01:01:28Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "6fe8c53c_51b05761",
+      "range": {
+        "startLine": 827,
+        "startChar": 0,
+        "endLine": 827,
+        "endChar": 27
+      },
+      "revId": "5c6a5e412b9038ec5bf58e56b0b12a1c50c4239e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e0353f4e_982adbb2",
         "filename": "redfish-core/lib/processor.hpp",
         "patchSetId": 46
@@ -261,6 +285,30 @@
     },
     {
       "key": {
+        "uuid": "6a7aaed8_78ba1531",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 46
+      },
+      "lineNbr": 986,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-11-02T01:01:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9ec5bfc3_14379d45",
+      "range": {
+        "startLine": 986,
+        "startChar": 61,
+        "endLine": 986,
+        "endChar": 69
+      },
+      "revId": "5c6a5e412b9038ec5bf58e56b0b12a1c50c4239e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8bc6b0c9_b7f11cdb",
         "filename": "redfish-core/lib/processor.hpp",
         "patchSetId": 46
@@ -272,6 +320,30 @@
       "writtenOn": "2021-11-01T23:22:21Z",
       "side": 1,
       "message": "Can this be hit in practice?  I suspect it\u0027s not needed;  If ecHander isn\u0027t set, then cpuPath isn\u0027t empty, correct?",
+      "range": {
+        "startLine": 1003,
+        "startChar": 0,
+        "endLine": 1009,
+        "endChar": 9
+      },
+      "revId": "5c6a5e412b9038ec5bf58e56b0b12a1c50c4239e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b8de9416_a7af2491",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 46
+      },
+      "lineNbr": 1009,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-11-02T01:01:28Z",
+      "side": 1,
+      "message": "No, please check L: 852\nIf the GetSubTreePaths method returns empty, it will execute L: 852, we should return Not Found, correct?",
+      "parentUuid": "8bc6b0c9_b7f11cdb",
       "range": {
         "startLine": 1003,
         "startChar": 0,
@@ -401,6 +473,30 @@
     },
     {
       "key": {
+        "uuid": "636894b4_e521d6d6",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 46
+      },
+      "lineNbr": 1062,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-11-02T01:01:28Z",
+      "side": 1,
+      "message": "No, For example:\ncpuPath \u003d /xyz/openbmc_project/inventory/system/chassis/motherboard/cpu0, it does not contain core111, and we want to get core111 data.\nThe correct result should return Not Found, But subtree size may not be 0.\ndoes make sense?",
+      "parentUuid": "8e7bf8bb_573ccef1",
+      "range": {
+        "startLine": 1062,
+        "startChar": 0,
+        "endLine": 1062,
+        "endChar": 40
+      },
+      "revId": "5c6a5e412b9038ec5bf58e56b0b12a1c50c4239e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c4c49b46_cb02d9f3",
         "filename": "redfish-core/lib/processor.hpp",
         "patchSetId": 46
@@ -412,6 +508,30 @@
       "writtenOn": "2021-11-01T23:22:21Z",
       "side": 1,
       "message": "This is just enumerating the cores under the CPU by path.   I thought we were going to use an association here to match the other resources, and to make sure that things like \"contained by\" work properly?",
+      "range": {
+        "startLine": 1151,
+        "startChar": 0,
+        "endLine": 1155,
+        "endChar": 63
+      },
+      "revId": "5c6a5e412b9038ec5bf58e56b0b12a1c50c4239e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fc76c84b_3d63109d",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 46
+      },
+      "lineNbr": 1155,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-11-02T01:01:28Z",
+      "side": 1,
+      "message": "We can not use associations.\nBecause data such as cpu and core are sent through Host,\nBut for inventoryManager repo, the association.json is static, there will be a situation: if there are 24 cores under cpu0, it is possible that only 20 are found, and we can only see 20 on D-Bus, so the association can not be used.",
+      "parentUuid": "c4c49b46_cb02d9f3",
       "range": {
         "startLine": 1151,
         "startChar": 0,
