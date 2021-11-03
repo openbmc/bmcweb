@@ -416,13 +416,13 @@ inline void requestRoutesEventDestinationCollection(App& app)
                         // Check for Message ID in each of the selected Registry
                         for (const std::string& it : registryPrefix)
                         {
-                            const boost::beast::span<
+                            const std::span<
                                 const redfish::message_registries::MessageEntry>
                                 registry = redfish::message_registries::
                                     getRegistryFromPrefix(it);
 
                             if (std::any_of(
-                                    registry.cbegin(), registry.cend(),
+                                    registry.begin(), registry.end(),
                                     [&id](const redfish::message_registries::
                                               MessageEntry& messageEntry) {
                                         return !id.compare(messageEntry.first);
