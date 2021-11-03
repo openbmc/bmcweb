@@ -36,6 +36,7 @@
 #include <fstream>
 #include <memory>
 #include <variant>
+#include <span>
 
 namespace redfish
 {
@@ -51,22 +52,22 @@ static constexpr const char* eventServiceFile =
 
 namespace message_registries
 {
-inline boost::beast::span<const MessageEntry>
+inline std::span<const MessageEntry>
     getRegistryFromPrefix(const std::string& registryName)
 {
     if (task_event::header.registryPrefix == registryName)
     {
-        return boost::beast::span<const MessageEntry>(task_event::registry);
+        return std::span<const MessageEntry>(task_event::registry);
     }
     if (openbmc::header.registryPrefix == registryName)
     {
-        return boost::beast::span<const MessageEntry>(openbmc::registry);
+        return std::span<const MessageEntry>(openbmc::registry);
     }
     if (base::header.registryPrefix == registryName)
     {
-        return boost::beast::span<const MessageEntry>(base::registry);
+        return std::span<const MessageEntry>(base::registry);
     }
-    return boost::beast::span<const MessageEntry>(openbmc::registry);
+    return std::span<const MessageEntry>(openbmc::registry);
 }
 } // namespace message_registries
 
@@ -88,14 +89,14 @@ namespace message_registries
 {
 static const Message*
     getMsgFromRegistry(const std::string& messageKey,
-                       const boost::beast::span<const MessageEntry>& registry)
+                       const std::span<const MessageEntry>& registry)
 {
-    boost::beast::span<const MessageEntry>::const_iterator messageIt =
-        std::find_if(registry.cbegin(), registry.cend(),
+    std::span<const MessageEntry>::iterator messageIt =
+        std::find_if(registry.begin(), registry.end(),
                      [&messageKey](const MessageEntry& messageEntry) {
                          return !messageKey.compare(messageEntry.first);
                      });
-    if (messageIt != registry.cend())
+    if (messageIt != registry.end())
     {
         return &messageIt->second;
     }

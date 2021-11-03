@@ -39,6 +39,7 @@
 #include <optional>
 #include <string_view>
 #include <variant>
+#include <span>
 
 namespace redfish
 {
@@ -57,15 +58,15 @@ namespace message_registries
 {
 static const Message* getMessageFromRegistry(
     const std::string& messageKey,
-    const boost::beast::span<const MessageEntry> registry)
+    const std::span<const MessageEntry> registry)
 {
-    boost::beast::span<const MessageEntry>::const_iterator messageIt =
-        std::find_if(registry.cbegin(), registry.cend(),
+    std::span<const MessageEntry>::iterator messageIt =
+        std::find_if(registry.begin(), registry.end(),
                      [&messageKey](const MessageEntry& messageEntry) {
                          return !std::strcmp(messageEntry.first,
                                              messageKey.c_str());
                      });
-    if (messageIt != registry.cend())
+    if (messageIt != registry.end())
     {
         return &messageIt->second;
     }
@@ -88,13 +89,13 @@ static const Message* getMessage(const std::string_view& messageID)
     if (std::string(base::header.registryPrefix) == registryName)
     {
         return getMessageFromRegistry(
-            messageKey, boost::beast::span<const MessageEntry>(base::registry));
+            messageKey, std::span<const MessageEntry>(base::registry));
     }
     if (std::string(openbmc::header.registryPrefix) == registryName)
     {
         return getMessageFromRegistry(
             messageKey,
-            boost::beast::span<const MessageEntry>(openbmc::registry));
+            std::span<const MessageEntry>(openbmc::registry));
     }
     return nullptr;
 }
@@ -1127,7 +1128,7 @@ static int fillEventLogEntryJson(const std::string& logEntryID,
     }
 
     // Get the MessageArgs from the log if there are any
-    boost::beast::span<std::string> messageArgs;
+    std::span<std::string> messageArgs;
     if (logEntryFields.size() > 1)
     {
         std::string& messageArgsStart = logEntryFields[1];
