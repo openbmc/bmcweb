@@ -1861,13 +1861,12 @@ inline void requestAccountServiceRoutes(App& app)
                 // their ConfigureSelf privilege does not apply.  In either
                 // case, perform the authority check again without the user's
                 // ConfigureSelf privilege.
+                Privileges effectiveUserPrivileges =
+                    redfish::getUserPrivileges(req.userRole);
                 if ((username != req.session->username))
                 {
                     Privileges requiredPermissionsToChangeNonSelf = {
                         "ConfigureUsers"};
-                    Privileges effectiveUserPrivileges =
-                        redfish::getUserPrivileges(req.userRole);
-
                     if (!effectiveUserPrivileges.isSupersetOf(
                             requiredPermissionsToChangeNonSelf))
                     {
@@ -1875,7 +1874,18 @@ inline void requestAccountServiceRoutes(App& app)
                         return;
                     }
                 }
-
+                else
+                {
+                    Privileges requiredPermissionsNotOnlyChangePaswd = {
+                        "ConfigureUsers"};
+                    if ((!effectiveUserPrivileges.isSupersetOf(
+                            requiredPermissionsNotOnlyChangePaswd)) &&
+                        (newUserName || enabled || roleId || locked))
+                    {
+                        messages::insufficientPrivilege(asyncResp->res);
+                        return;
+                    }
+                }
                 // if user name is not provided in the patch method or if it
                 // matches the user name in the URI, then we are treating it as
                 // updating user properties other then username. If username
