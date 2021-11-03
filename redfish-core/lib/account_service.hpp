@@ -1861,15 +1861,22 @@ inline void requestAccountServiceRoutes(App& app)
                 // their ConfigureSelf privilege does not apply.  In either
                 // case, perform the authority check again without the user's
                 // ConfigureSelf privilege.
-                if ((username != req.session->username))
+                Privileges effectiveUserPrivileges =
+                    redfish::getUserPrivileges(req.userRole);
+                Privileges configureUsers = {"ConfigureUsers"};
+                bool userHasConfigureUsers =
+                    effectiveUserPrivileges.isSupersetOf(configureUsers);
+                if (!userHasConfigureUsers)
                 {
-                    Privileges requiredPermissionsToChangeNonSelf = {
-                        "ConfigureUsers"};
-                    Privileges effectiveUserPrivileges =
-                        redfish::getUserPrivileges(req.userRole);
 
-                    if (!effectiveUserPrivileges.isSupersetOf(
-                            requiredPermissionsToChangeNonSelf))
+                    // Can't modify other users
+                    if (username != req.session->username)
+                    {
+                        messages::insufficientPrivilege(asyncResp->res);
+                        return;
+                    }
+                    // Can't modify properties other than password
+                    if (newUserName || enabled || roleId || locked)
                     {
                         messages::insufficientPrivilege(asyncResp->res);
                         return;
