@@ -1846,32 +1846,35 @@ inline void requestAccountServiceRoutes(App& app)
                 std::optional<bool> enabled;
                 std::optional<std::string> roleId;
                 std::optional<bool> locked;
-                if (!json_util::readJson(req, asyncResp->res, "UserName",
-                                         newUserName, "Password", password,
-                                         "RoleId", roleId, "Enabled", enabled,
-                                         "Locked", locked))
+
+                Privileges effectiveUserPrivileges =
+                    redfish::getUserPrivileges(req.userRole);
+                Privileges configureUsers = {"ConfigureUsers"};
+                bool userHasConfigureUsers =
+                    effectiveUserPrivileges.isSupersetOf(configureUsers);
+                if (userHasConfigureUsers)
                 {
-                    return;
+                    // Users with ConfigureUsers can modify for all users
+                    if (!json_util::readJson(req, asyncResp->res, "UserName",
+                                             newUserName, "Password", password,
+                                             "RoleId", roleId, "Enabled",
+                                             enabled, "Locked", locked))
+                    {
+                        return;
+                    }
                 }
-
-                // Perform a proper ConfigureSelf authority check.  If the
-                // session is being used to PATCH a property other than
-                // Password, then the ConfigureSelf privilege does not apply.
-                // If the user is operating on an account not their own, then
-                // their ConfigureSelf privilege does not apply.  In either
-                // case, perform the authority check again without the user's
-                // ConfigureSelf privilege.
-                if ((username != req.session->username))
+                else
                 {
-                    Privileges requiredPermissionsToChangeNonSelf = {
-                        "ConfigureUsers"};
-                    Privileges effectiveUserPrivileges =
-                        redfish::getUserPrivileges(req.userRole);
-
-                    if (!effectiveUserPrivileges.isSupersetOf(
-                            requiredPermissionsToChangeNonSelf))
+                    // ConfigureSelf accounts can only modify their own account
+                    if (username != req.session->username)
                     {
                         messages::insufficientPrivilege(asyncResp->res);
+                        return;
+                    }
+                    // ConfigureSelf accounts can only modify their password
+                    if (!json_util::readJson(req, asyncResp->res, "Password",
+                                             password))
+                    {
                         return;
                     }
                 }
