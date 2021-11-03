@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "5936e5ad_f8a54e4d",
+        "filename": "redfish-core/include/utils/telemetry_utils.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1001026
+      },
+      "writtenOn": "2021-11-03T15:42:23Z",
+      "side": 1,
+      "message": "So, I checked the redfish spec and could not find anything about POST not allowing for setting \u0027Id\u0027 property. We just need to guarantee that it is unique across the collection of given resource. And the user of redfish api needs to know that it must be unique. There is also a fragment that we can ignore its user-set value if needed. But I don\u0027t think that we really need to ignore it, let me explain:\n \nThe Trigger URI will be /redfish/v1/TelemetryService/Triggers/{TriggerId} and should be stored in \u0027Location\u0027 header of message returned by POST request. Redfish spec says \u0027The identifier term in the URI pattern shall match the Id string property for the corresponding Resource\u0027.\n\nIf user want to set \u0027Id\u0027 - I would allow it, and just return messages::resourceAlreadyExists in case it is already used. If not passed - it will be set by the service. And this is what I meant as \u0027optional\u0027, because once GET will be implemented, it will be always returned, as it is required for this resource.\n\nId is also not modifiable, so this way we limit user-writability to creation of resource. There will be no way to change it in the lifetime of resource by PATCH. \n\nThis way we won\u0027t create any additional properties and everything will still be compatible with DMTF schemas.",
+      "parentUuid": "d054d6fa_91dabe13",
+      "range": {
+        "startLine": 73,
+        "startChar": 0,
+        "endLine": 87,
+        "endChar": 1
+      },
+      "revId": "d6ce7d68bacdc318c029006667185664a083936a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "3a26d7be_e91ba886",
         "filename": "redfish-core/include/utils/telemetry_utils.hpp",
         "patchSetId": 7
@@ -321,6 +345,30 @@
       "side": 1,
       "message": "\u003e This function name suggest it is converting already validated redfish name to dbus name. And this is the only Action which differs - the rest are named the same on dbus.\n\u003e \n\u003e And... while I was writing this comment I found out that I do not validate user input for Action. I will add another method to keep it clean 😊\n\nEven in the cases where they\u0027re the same, I\u0027d like to see us be consistent, because they could potentially change or get added to in the future.  It looks like you found the issue I was really pointing out though, in that we\u0027re not validating the users input here.",
       "parentUuid": "f7dee26c_a5ca1f23",
+      "range": {
+        "startLine": 144,
+        "startChar": 23,
+        "endLine": 144,
+        "endChar": 36
+      },
+      "revId": "d6ce7d68bacdc318c029006667185664a083936a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d9227d78_3ad51ff7",
+        "filename": "redfish-core/include/utils/telemetry_utils.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 1001026
+      },
+      "writtenOn": "2021-11-03T15:42:23Z",
+      "side": 1,
+      "message": "So I was thinking about using boost bidirectional map, or maybe just simple constexpr std::array of std::pair. This will allow to convert it both ways in case of GET method. Would such implementation be acceptable?",
+      "parentUuid": "0a52b319_88ada03b",
       "range": {
         "startLine": 144,
         "startChar": 23,
