@@ -405,6 +405,30 @@
     },
     {
       "key": {
+        "uuid": "5661cf29_90043acd",
+        "filename": "redfish-core/include/utils/telemetry_utils.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-11-03T16:38:18Z",
+      "side": 1,
+      "message": "Both of those take more code, are slower, and more memory.  Please just write if/else ladders for each, as that\u0027s what we do other places.",
+      "parentUuid": "d9227d78_3ad51ff7",
+      "range": {
+        "startLine": 144,
+        "startChar": 23,
+        "endLine": 144,
+        "endChar": 36
+      },
+      "revId": "d6ce7d68bacdc318c029006667185664a083936a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "29cd5393_a6e11a97",
         "filename": "redfish-core/lib/trigger.hpp",
         "patchSetId": 7
