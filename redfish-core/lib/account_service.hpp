@@ -1846,13 +1846,6 @@ inline void requestAccountServiceRoutes(App& app)
                 std::optional<bool> enabled;
                 std::optional<std::string> roleId;
                 std::optional<bool> locked;
-                if (!json_util::readJson(req, asyncResp->res, "UserName",
-                                         newUserName, "Password", password,
-                                         "RoleId", roleId, "Enabled", enabled,
-                                         "Locked", locked))
-                {
-                    return;
-                }
 
                 // Perform a proper ConfigureSelf authority check.  If the
                 // session is being used to PATCH a property other than
@@ -1861,17 +1854,34 @@ inline void requestAccountServiceRoutes(App& app)
                 // their ConfigureSelf privilege does not apply.  In either
                 // case, perform the authority check again without the user's
                 // ConfigureSelf privilege.
-                if ((username != req.session->username))
+                Privileges effectiveUserPrivileges =
+                    redfish::getUserPrivileges(req.userRole);
+                Privileges configureUsers = {"ConfigureUsers"};
+                bool userHasConfigureUsers =
+                    effectiveUserPrivileges.isSupersetOf(configureUsers);
+                if (!userHasConfigureUsers)
                 {
-                    Privileges requiredPermissionsToChangeNonSelf = {
-                        "ConfigureUsers"};
-                    Privileges effectiveUserPrivileges =
-                        redfish::getUserPrivileges(req.userRole);
-
-                    if (!effectiveUserPrivileges.isSupersetOf(
-                            requiredPermissionsToChangeNonSelf))
+                    // ConfigureSelf accounts are only allowed to modify their
+                    // password
+                    if (!json_util::readJson(req, asyncResp->res, "Password",
+                                             password))
+                    {
+                        return;
+                    }
+                    // Can't modify other users
+                    if (username != req.session->username)
                     {
                         messages::insufficientPrivilege(asyncResp->res);
+                        return;
+                    }
+                }
+                else
+                {
+                    if (!json_util::readJson(req, asyncResp->res, "UserName",
+                                             newUserName, "Password", password,
+                                             "RoleId", roleId, "Enabled",
+                                             enabled, "Locked", locked))
+                    {
                         return;
                     }
                 }
