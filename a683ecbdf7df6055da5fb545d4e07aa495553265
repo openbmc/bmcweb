@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b5765b4b_2a6660c3",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1869,
+      "author": {
+        "id": 1000235
+      },
+      "writtenOn": "2021-11-04T21:22:01Z",
+      "side": 1,
+      "message": "Should this issue the insufficientPrivilege message?",
+      "revId": "a683ecbdf7df6055da5fb545d4e07aa495553265",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
