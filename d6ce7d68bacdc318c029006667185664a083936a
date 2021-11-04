@@ -121,6 +121,30 @@
     },
     {
       "key": {
+        "uuid": "90cf0c13_370078c5",
+        "filename": "redfish-core/include/utils/telemetry_utils.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1001026
+      },
+      "writtenOn": "2021-11-04T16:42:18Z",
+      "side": 1,
+      "message": "\u003e \"The service may ignore any service controlled properties, such as Id , which would force the service to overwrite those properties.\"\n\nYeah, it was exactly what I was referencing in previous comment. It also says that it \u0027may\u0027 be ignored. So if user sets it properly, I see no reason to ignore it.\n\nIn the same section we also have:\n\"The POST operation shall not be idempotent.\"\nWhich means that subsequent identical POST calls may yield different result (like when user tries to add same ID twice), so as long as we detect repeated ID, I think we are still compliant with spec.",
+      "parentUuid": "400db810_91c2112c",
+      "range": {
+        "startLine": 73,
+        "startChar": 0,
+        "endLine": 87,
+        "endChar": 1
+      },
+      "revId": "d6ce7d68bacdc318c029006667185664a083936a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "3a26d7be_e91ba886",
         "filename": "redfish-core/include/utils/telemetry_utils.hpp",
         "patchSetId": 7
@@ -426,6 +450,30 @@
       "revId": "d6ce7d68bacdc318c029006667185664a083936a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "596f2711_73ef48e5",
+        "filename": "redfish-core/include/utils/telemetry_utils.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 1001026
+      },
+      "writtenOn": "2021-11-04T16:42:18Z",
+      "side": 1,
+      "message": "Understood, fixed in latest patchset.",
+      "parentUuid": "5661cf29_90043acd",
+      "range": {
+        "startLine": 144,
+        "startChar": 23,
+        "endLine": 144,
+        "endChar": 36
+      },
+      "revId": "d6ce7d68bacdc318c029006667185664a083936a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
