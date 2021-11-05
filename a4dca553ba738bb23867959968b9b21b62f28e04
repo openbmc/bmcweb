@@ -52,6 +52,24 @@
       "revId": "a4dca553ba738bb23867959968b9b21b62f28e04",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5599e3ec_0c86d85a",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1879,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-11-05T10:29:55Z",
+      "side": 1,
+      "message": "These 2 patches solve the same problem. I am curious why a new patch is needed to fix it?\nSince I saw +1, I think you can leave a comment here for new ideas and problems, and @Xiaochao can fix it.",
+      "parentUuid": "d267a722_61ba7342",
+      "revId": "a4dca553ba738bb23867959968b9b21b62f28e04",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
