@@ -145,6 +145,30 @@
     },
     {
       "key": {
+        "uuid": "d92fa5e8_8ac165ef",
+        "filename": "redfish-core/include/utils/telemetry_utils.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-11-05T16:45:02Z",
+      "side": 1,
+      "message": "Sure, that seems reasonable.",
+      "parentUuid": "90cf0c13_370078c5",
+      "range": {
+        "startLine": 73,
+        "startChar": 0,
+        "endLine": 87,
+        "endChar": 1
+      },
+      "revId": "d6ce7d68bacdc318c029006667185664a083936a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "3a26d7be_e91ba886",
         "filename": "redfish-core/include/utils/telemetry_utils.hpp",
         "patchSetId": 7
