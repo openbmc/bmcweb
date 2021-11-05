@@ -1,0 +1,257 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fc0914e9_ab658671",
+        "filename": "redfish-core/include/utils/telemetry_utils.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-11-05T19:11:04Z",
+      "side": 1,
+      "message": "nit, can you just write this as\n\nif(redfishAction \u003d\u003d \"RedfishEvent\"){\n    return \"RedfishEvent\";\n}\nif (redfishAction \u003d\u003d \"LogToLogService\"){\n   return \"LogToLogService\";\n}\n\nI realize the logic is the same, but it makes it a lot more clear what\u0027s going on, and makes all of our redfish -\u003e dbus enum conversions the same.",
+      "range": {
+        "startLine": 139,
+        "startChar": 0,
+        "endLine": 142,
+        "endChar": 5
+      },
+      "revId": "16b76ae0c8155630cb378be3394b37fff566813e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dd4443ce_e1a2187a",
+        "filename": "redfish-core/lib/trigger.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-11-05T19:11:04Z",
+      "side": 1,
+      "message": "This is a little confusing in name, given that \"isMetricTypeDiscrete\" as a question should never be able to return unknown.  Would it be more clear if this returned something like\n\nenum class MetricType{\nDiscrete,\nNumeric,\n}\n\nThen rename this to \"getMetricType\".",
+      "range": {
+        "startLine": 52,
+        "startChar": 27,
+        "endLine": 52,
+        "endChar": 47
+      },
+      "revId": "16b76ae0c8155630cb378be3394b37fff566813e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d4854272_83559164",
+        "filename": "redfish-core/lib/trigger.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-11-05T19:11:04Z",
+      "side": 1,
+      "message": "This follows the same thing, where the api is a little tough to determine the behavior of.  Again, I think an enum class here would help quite a bit.",
+      "range": {
+        "startLine": 66,
+        "startChar": 4,
+        "endLine": 66,
+        "endChar": 32
+      },
+      "revId": "16b76ae0c8155630cb378be3394b37fff566813e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cd9fb8dc_f830b6ac",
+        "filename": "redfish-core/lib/trigger.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-11-05T19:11:04Z",
+      "side": 1,
+      "message": "In all code paths it looks like this just gets loaded into ctx.dbusArgs.thresholds.  Could this instead be a reference, and avoid the moves entirely?  Something like\n\nstd::vector\u003cNumericThresholdParams\u003e\u0026 parsedParams; ctx.dbusArgs.thresholds;",
+      "range": {
+        "startLine": 84,
+        "startChar": 0,
+        "endLine": 84,
+        "endChar": 53
+      },
+      "revId": "16b76ae0c8155630cb378be3394b37fff566813e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a4fba219_722d7c27",
+        "filename": "redfish-core/lib/trigger.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-11-05T19:11:04Z",
+      "side": 1,
+      "message": "Please read these directly into a struct with 4 members, or possibly a std::array of size 4 if that makes the loop below cleaner.  This pattern of using operator[] on a map directly in line with a readJson call has some undefined behavior that\u0027s very difficult to trace down when it occurs, and definitely has UB here, as map references are potentially invalidated whenever the map is modified, which happens 4 times in the course of calling this function.  Said another way, the reference to numericThresholdsMap[\"UpperCritical\"] will be invalidated when the call to numericThresholdsMap[\"LowerCritical\"] is done.",
+      "range": {
+        "startLine": 98,
+        "startChar": 32,
+        "endLine": 98,
+        "endChar": 49
+      },
+      "revId": "16b76ae0c8155630cb378be3394b37fff566813e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d3fd4674_734483d6",
+        "filename": "redfish-core/lib/trigger.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-11-05T19:11:04Z",
+      "side": 1,
+      "message": "nit: This doesn\u0027t look right.  You reserve of size numericThresholds.size(), then loop over numericThresholdsMap.",
+      "range": {
+        "startLine": 106,
+        "startChar": 0,
+        "endLine": 106,
+        "endChar": 51
+      },
+      "revId": "16b76ae0c8155630cb378be3394b37fff566813e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "426cc176_d2d96926",
+        "filename": "redfish-core/lib/trigger.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-11-05T19:11:04Z",
+      "side": 1,
+      "message": "This is converting an int64_t based time into a uint64_t based time.  Does this need range checked, or instead, should we use std::duration_cast\u003cstd::duration\u003cuint64_t, std::milli\u003e\u003e to do this conversion?",
+      "range": {
+        "startLine": 133,
+        "startChar": 50,
+        "endLine": 133,
+        "endChar": 58
+      },
+      "revId": "16b76ae0c8155630cb378be3394b37fff566813e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "56792d1e_d078934d",
+        "filename": "redfish-core/lib/trigger.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-11-05T19:11:04Z",
+      "side": 1,
+      "message": "Same comment as above, could this be a referernce.",
+      "range": {
+        "startLine": 147,
+        "startChar": 0,
+        "endLine": 147,
+        "endChar": 54
+      },
+      "revId": "16b76ae0c8155630cb378be3394b37fff566813e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "da457a58_a852ff63",
+        "filename": "redfish-core/lib/trigger.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-11-05T19:11:04Z",
+      "side": 1,
+      "message": "missing const.  Please just declare this explicitly as const nlohmann::json\u0026.",
+      "range": {
+        "startLine": 155,
+        "startChar": 9,
+        "endLine": 155,
+        "endChar": 13
+      },
+      "revId": "16b76ae0c8155630cb378be3394b37fff566813e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3e04a6e9_ed356a16",
+        "filename": "redfish-core/lib/trigger.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 183,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-11-05T19:11:04Z",
+      "side": 1,
+      "message": "Should be using duration cast.  This happens often enough (I think there\u0027s two other places we have to do this in code today) and is confusing enough that it might be worth having a helper function to encapsulate this?  the other uses are for EnterDwellTimeSeconds and ExitDwellTimeSeconds",
+      "range": {
+        "startLine": 183,
+        "startChar": 29,
+        "endLine": 183,
+        "endChar": 70
+      },
+      "revId": "16b76ae0c8155630cb378be3394b37fff566813e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e0983543_cfc6f185",
+        "filename": "redfish-core/lib/trigger.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 510,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-11-05T19:11:04Z",
+      "side": 1,
+      "message": "Generally when we do things like this, instead of constructing an int, we construct an object with something useful in the destructor.  This ensures that even if exceptions are thrown, or the call count has behavior issues, we can still run the final result.",
+      "range": {
+        "startLine": 510,
+        "startChar": 12,
+        "endLine": 510,
+        "endChar": 66
+      },
+      "revId": "16b76ae0c8155630cb378be3394b37fff566813e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
