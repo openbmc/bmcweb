@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "19f10039_7375a234",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 264,
+      "author": {
+        "id": 1000547
+      },
+      "writtenOn": "2021-11-05T02:42:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a398fc2_546b492e",
+      "revId": "8767b6a588f8e10dc5d4ef05a25e8ff9d6bc16e1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8c614a3a_67126319",
         "filename": "redfish-core/lib/environment_metrics.hpp",
         "patchSetId": 8
@@ -33,6 +51,24 @@
       "revId": "8767b6a588f8e10dc5d4ef05a25e8ff9d6bc16e1",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b21fbb68_11be641e",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 268,
+      "author": {
+        "id": 1000547
+      },
+      "writtenOn": "2021-11-05T02:42:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8c614a3a_67126319",
+      "revId": "8767b6a588f8e10dc5d4ef05a25e8ff9d6bc16e1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
