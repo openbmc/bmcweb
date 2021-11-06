@@ -187,6 +187,30 @@
       "revId": "541353a4e4b06de42b6a9a400629f5a5fba04e86",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0ddaed0c_292b66aa",
+        "filename": "redfish-core/lib/metric_report.hpp",
+        "patchSetId": 53
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-11-06T20:25:24Z",
+      "side": 1,
+      "message": "\u003e [*] Moving get_if of \u0027TimestampReadings\u0027 before point where \u0027fillReport()\u0027 is called will duplicate error handling code, which is currently in one place only, assuming that fillReport may be used also  elsewhere - this code repeating will happen again.\n\nThere is currently only one use of fillReport.  When there\u0027s multiple, then we can consider moving this to a variant, but I still don\u0027t think it will be a net decrease in code.  With that said, I\u0027m not super worried about this.  If you want to do it this way, I\u0027m ok with it.\n\n\u003e  Moreover soon there will be more error checks in this function, then we could face a situation when some related errors are handled within \u0027fillReport()\u0027 and others before it is called. I strongly suggest to keep this one as it is right now.\n\nI\u0027m not sure I understand the argument, we can handle multiple errors from any level of the stack, but sure, this code is already in place, so I\u0027m ok with it.",
+      "parentUuid": "b3c1416a_4599f388",
+      "range": {
+        "startLine": 37,
+        "startChar": 29,
+        "endLine": 37,
+        "endChar": 61
+      },
+      "revId": "541353a4e4b06de42b6a9a400629f5a5fba04e86",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
