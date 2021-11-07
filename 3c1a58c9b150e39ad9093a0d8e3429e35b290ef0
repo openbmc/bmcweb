@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "990c5eb3_59cba59b",
+        "filename": "DEVELOPING.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-11-07T22:40:59Z",
+      "side": 1,
+      "message": "Were you going to do anything here? \nI don\u0027t see any changes, I am fine if you don\u0027t but you said you were going to.",
+      "parentUuid": "0f013ca9_6673f0c8",
+      "range": {
+        "startLine": 129,
+        "startChar": 0,
+        "endLine": 144,
+        "endChar": 48
+      },
+      "revId": "3c1a58c9b150e39ad9093a0d8e3429e35b290ef0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "0e06df0d_33b0243a",
         "filename": "DEVELOPING.md",
         "patchSetId": 1
@@ -226,6 +250,30 @@
       "side": 1,
       "message": "\u003e I would like to see some more concrete rules here. E.g \n\u003e \n\u003e Any breaking api change even if behind a compile flag will be sent to the mailing list. \n\u003e Any breaking api change will have a transition period of 1 openbmc release, roughly 6 months.\n\nI\u0027d like rules here too, but I intentionally avoided them because this was supposed to be the uncontroversial commit 😊  I\u0027m sure people will have strong opinions on compatibility and breakages considering how many patches try to break compatibility.\n\n\u003e \n\u003e A breaking api change might look like the following: \n\u003e Send email to the list and place new behavior behind a meson option defaulted to the existing behavior.\n\u003e Following the release, change the default to be the new behavior and added appropriate deprecation warnings to the old behavior. \n\u003e Following the 2nd release, remove the meson option and the old behavior.\n\nAll of this is great, but unless it\u0027s really needed as part of this, I\u0027d like to do it in the next patch (which I\u0027m happy to write).  For the moment, I\u0027d like to keep this scoped on documenting \"What is a breaking change?\"  Once everyone is agreed on that, we can start on a \"So you want to make a breaking change?\" section, which is kind of what you\u0027re getting at.\n\n\u003e \n\u003e Note: Are we having openbmc releases anymore?\n\nIDK, but when we write this, lets scope it on dates that line up with the approximate release boundaries so that we\u0027re not explicitly tied to them, but can tie ourselves to them if we choose.\n\n\u003e Think we need to have some more discussion here.",
       "parentUuid": "a9c7f6cd_74465599",
+      "range": {
+        "startLine": 153,
+        "startChar": 0,
+        "endLine": 163,
+        "endChar": 39
+      },
+      "revId": "3c1a58c9b150e39ad9093a0d8e3429e35b290ef0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0e6aac71_1581023c",
+        "filename": "DEVELOPING.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-11-07T22:40:59Z",
+      "side": 1,
+      "message": "\u003e All of this is great, but unless it\u0027s really needed as part of this, I\u0027d like to do it in the next patch (which I\u0027m happy to write).  For the moment, I\u0027d like to keep this scoped on documenting \"What is a breaking change?\"  Once everyone is agreed on that, we can start on a \"So you want to make a breaking change?\" section, which is kind of what you\u0027re getting at.\n\nI am still struggling a bit here this section just feels larger incomplete. It isn\u0027t like reviewers can point at this section and be done because there aren\u0027t really any actions behind this. \nE.g. I can say \"Common Error 5\" and the author can look at the common errors document and understand what must be done. \n\nThat said, this paragraph is 3 things: example of other open source code (kernel) having compatibility rules, why compatibility is important to bmcweb, and what compatibility we are concerned about. \n\nAll should be documented and I can get on board with come back later with rules around compatibility.  \n\n\u003e IDK, but when we write this, lets scope it on dates that line up with the approximate release boundaries so that we\u0027re not explicitly tied to them, but can tie ourselves to them if we choose.\n\nI like this.",
+      "parentUuid": "8eecb3aa_d5c63f6e",
       "range": {
         "startLine": 153,
         "startChar": 0,
