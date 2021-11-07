@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4be3e72d_2d821d6b",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-11-07T22:43:35Z",
+      "side": 1,
+      "message": "Need to do a check for  serviceName[0].first.empty()?\nOr connectName.empty() ?",
+      "revId": "0534f957be3afe5b54c738a3ecafc7a59019cba1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
