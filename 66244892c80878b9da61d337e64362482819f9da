@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "762548cc_6d5af101",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 24
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-11-07T17:27:32Z",
+      "side": 1,
+      "message": "With 72 you are referring to characters in a line or characters in the complete body of commit message.\nfor 72 lines in a character, I don\u0027t see any violation in the highlighted section. \nFor later I still don\u0027t see that being followed in any of the recently merged commits.\nAm I missing something here?",
+      "parentUuid": "8e3f783d_1a770b1c",
+      "range": {
+        "startLine": 8,
+        "startChar": 0,
+        "endLine": 12,
+        "endChar": 62
+      },
+      "revId": "66244892c80878b9da61d337e64362482819f9da",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "4aa27e0a_b402eb2f",
         "filename": "redfish-core/lib/port.hpp",
         "patchSetId": 24
