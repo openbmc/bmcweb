@@ -386,6 +386,110 @@ inline void getDriveState(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
         "xyz.openbmc_project.State.Drive", "Rebuilding");
 }
 
+inline void
+    getDriveItemsStates(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                        const std::string& connectionName,
+                        const std::string& path)
+{
+    crow::connections::systemBus->async_method_call(
+        [asyncResp](
+            const boost::system::error_code ec,
+            const std::vector<std::pair<
+                std::string, std::variant<bool, std::string, uint64_t>>>&
+                propertiesList) {
+            if (ec)
+            {
+                // this interface isn't necessary
+                return;
+            }
+            for (const std::pair<std::string,
+                                 std::variant<bool, std::string, uint64_t>>&
+                     property : propertiesList)
+            {
+                const std::string& propertyName = property.first;
+                if (propertyName == "Type")
+                {
+                    const std::string* value =
+                        std::get_if<std::string>(&property.second);
+                    if (value == nullptr)
+                    {
+                        // illegal property
+                        BMCWEB_LOG_ERROR << "Illegal property: Type";
+                        messages::internalError(asyncResp->res);
+                        return;
+                    }
+
+                    const std::string& mediaType = *value;
+                    if (mediaType == "xyz.openbmc_project.Inventory.Item.Drive."
+                                     "DriveType.HDD")
+                    {
+                        asyncResp->res.jsonValue["MediaType"] = "HDD";
+                    }
+                    else if (mediaType == "xyz.openbmc_project.Inventory.Item."
+                                          "Drive.DriveType.SSD")
+                    {
+                        asyncResp->res.jsonValue["MediaType"] = "SSD";
+                    }
+                }
+                else if (propertyName == "Capacity")
+                {
+                    const uint64_t* capacity =
+                        std::get_if<uint64_t>(&property.second);
+                    if (capacity == nullptr)
+                    {
+                        BMCWEB_LOG_ERROR << "Illegal property: Capacity";
+                        messages::internalError(asyncResp->res);
+                        return;
+                    }
+                    if (*capacity)
+                    {
+                        asyncResp->res.jsonValue["CapacityBytes"] = *capacity;
+                    }
+                }
+                else if (propertyName == "Protocol")
+                {
+                    const std::string* value =
+                        std::get_if<std::string>(&property.second);
+                    if (value == nullptr)
+                    {
+                        BMCWEB_LOG_ERROR << "Illegal property: Protocol";
+                        messages::internalError(asyncResp->res);
+                        return;
+                    }
+
+                    const std::string& proto = *value;
+                    if (proto == "xyz.openbmc_project.Inventory."
+                                 "Item.Drive.DriveProtocol.SAS")
+                    {
+                        asyncResp->res.jsonValue["Protocol"] = "SAS";
+                    }
+                    else if (proto == "xyz.openbmc_project.Inventory."
+                                      "Item.Drive.DriveProtocol.SATA")
+                    {
+                        asyncResp->res.jsonValue["Protocol"] = "SATA";
+                    }
+                    else if (proto == "xyz.openbmc_project.Inventory."
+                                      "Item.Drive.DriveProtocol.NVMe")
+                    {
+                        asyncResp->res.jsonValue["Protocol"] = "NVMe";
+                    }
+                    else if (proto == "xyz.openbmc_project.Inventory."
+                                      "Item.Drive.DriveProtocol.FC")
+                    {
+                        asyncResp->res.jsonValue["Protocol"] = "FC";
+                    }
+                    else if (proto == "xyz.openbmc_project.Inventory."
+                                      "Item.Drive.DriveProtocol.USB")
+                    {
+                        asyncResp->res.jsonValue["Protocol"] = "USB";
+                    }
+                }
+            }
+        },
+        connectionName, path, "org.freedesktop.DBus.Properties", "GetAll",
+        "xyz.openbmc_project.Inventory.Item.Drive");
+}
+
 inline void requestRoutesDrive(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/Systems/system/Storage/1/Drives/<str>/")
@@ -468,6 +572,7 @@ inline void requestRoutesDrive(App& app)
                     getDriveAsset(asyncResp, connectionName, path);
                     getDrivePresent(asyncResp, connectionName, path);
                     getDriveState(asyncResp, connectionName, path);
+                    getDriveItemsStates(asyncResp, connectionName, path);
                 },
                 "xyz.openbmc_project.ObjectMapper",
                 "/xyz/openbmc_project/object_mapper",
