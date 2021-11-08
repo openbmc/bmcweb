@@ -16,6 +16,24 @@
       "revId": "0534f957be3afe5b54c738a3ecafc7a59019cba1",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b6f3344d_1926e287",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 1000547
+      },
+      "writtenOn": "2021-11-08T03:22:09Z",
+      "side": 1,
+      "message": "Under the premise that the serviceName has a value, it may happen that the connectionName is empty?",
+      "parentUuid": "4be3e72d_2d821d6b",
+      "revId": "0534f957be3afe5b54c738a3ecafc7a59019cba1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
