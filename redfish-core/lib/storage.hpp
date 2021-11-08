@@ -372,6 +372,57 @@ inline void getDriveState(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
         "xyz.openbmc_project.State.Drive", "Rebuilding");
 }
 
+inline std::optional<std::string> convertDriveType(const std::string& type)
+{
+    if (type == "xyz.openbmc_project.Inventory.Item.Drive.DriveType.HDD")
+    {
+        return "HDD";
+    }
+    if (type == "xyz.openbmc_project.Inventory.Item.Drive.DriveType.SSD")
+    {
+        return "SSD";
+    }
+
+    return std::nullopt;
+}
+
+inline void getDriveType(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                         const std::string& connectionName,
+                         const std::string& path)
+{
+    crow::connections::systemBus->async_method_call(
+        [asyncResp, path](const boost::system::error_code ec,
+                          const std::variant<std::string> type) {
+            if (ec)
+            {
+                BMCWEB_LOG_ERROR << "Missing property Drive Type";
+                return;
+            }
+
+            if (!std::holds_alternative<std::string>(type))
+            {
+                BMCWEB_LOG_ERROR << "Missing property Drive Type";
+                messages::internalError(asyncResp->res);
+                return;
+            }
+
+            const std::string& typeInterface = std::get<std::string>(type);
+            std::optional<std::string> mediaType =
+                convertDriveType(typeInterface);
+            if (!mediaType)
+            {
+                BMCWEB_LOG_DEBUG << typeInterface
+                                 << " is not a supported Media Type";
+                messages::internalError(asyncResp->res);
+                return;
+            }
+
+            asyncResp->res.jsonValue["MediaType"] = *mediaType;
+        },
+        connectionName, path, "org.freedesktop.DBus.Properties", "Get",
+        "xyz.openbmc_project.Inventory.Item.Drive", "Type");
+}
+
 inline void requestRoutesDrive(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/Systems/system/Storage/1/Drives/<str>/")
@@ -454,6 +505,7 @@ inline void requestRoutesDrive(App& app)
                     getDriveAsset(asyncResp, connectionName, path);
                     getDrivePresent(asyncResp, connectionName, path);
                     getDriveState(asyncResp, connectionName, path);
+                    getDriveType(asyncResp, connectionName, path);
                 },
                 "xyz.openbmc_project.ObjectMapper",
                 "/xyz/openbmc_project/object_mapper",
