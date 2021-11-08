@@ -264,6 +264,128 @@ inline void requestRoutesStorage(App& app)
         });
 }
 
+inline void getDriveAsset(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                          const std::string& connectionName,
+                          const std::string& path)
+{
+    crow::connections::systemBus->async_method_call(
+        [asyncResp](
+            const boost::system::error_code ec,
+            const std::vector<std::pair<
+                std::string, std::variant<bool, std::string, uint64_t>>>&
+                propertiesList) {
+            if (ec)
+            {
+                // this interface isn't necessary
+                return;
+            }
+            for (const std::pair<std::string,
+                                 std::variant<bool, std::string, uint64_t>>&
+                     property : propertiesList)
+            {
+                // Store DBus properties that are also
+                // Redfish properties with same name and a
+                // string value
+                const std::string& propertyName = property.first;
+                if ((propertyName == "PartNumber") ||
+                    (propertyName == "SerialNumber") ||
+                    (propertyName == "Manufacturer") ||
+                    (propertyName == "Model"))
+                {
+                    const std::string* value =
+                        std::get_if<std::string>(&property.second);
+                    if (value == nullptr)
+                    {
+                        // illegal property
+                        messages::internalError(asyncResp->res);
+                        return;
+                    }
+                    asyncResp->res.jsonValue[propertyName] = *value;
+                }
+            }
+        },
+        connectionName, path, "org.freedesktop.DBus.Properties", "GetAll",
+        "xyz.openbmc_project.Inventory.Decorator.Asset");
+}
+
+inline void getDrivePresent(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                            const std::string& connectionName,
+                            const std::string& path)
+{
+    crow::connections::systemBus->async_method_call(
+        [asyncResp, path](const boost::system::error_code ec,
+                          const std::variant<bool> present) {
+            // this interface isn't necessary, only check it if
+            // we get a good return
+            if (ec)
+            {
+                return;
+            }
+
+            if (!std::holds_alternative<bool>(present))
+            {
+                BMCWEB_LOG_DEBUG << "Illegal property: Present";
+                messages::internalError(asyncResp->res);
+                return;
+            }
+
+            const bool* enabled = std::get_if<bool>(&present);
+            if (enabled == nullptr)
+            {
+                BMCWEB_LOG_DEBUG << "Illegal property present";
+                messages::internalError(asyncResp->res);
+                return;
+            }
+            if (!(*enabled))
+            {
+                asyncResp->res.jsonValue["Status"]["State"] = "Disabled";
+            }
+        },
+        connectionName, path, "org.freedesktop.DBus.Properties", "Get",
+        "xyz.openbmc_project.Inventory.Item", "Present");
+}
+
+inline void getDriveState(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                          const std::string& connectionName,
+                          const std::string& path)
+{
+    crow::connections::systemBus->async_method_call(
+        [asyncResp](const boost::system::error_code ec,
+                    const std::variant<bool> rebuilding) {
+            // this interface isn't necessary, only check it
+            // if we get a good return
+            if (ec)
+            {
+                return;
+            }
+
+            if (!std::holds_alternative<bool>(rebuilding))
+            {
+                BMCWEB_LOG_DEBUG << "Illegal property: Rebuilding";
+                messages::internalError(asyncResp->res);
+                return;
+            }
+            const bool* updating = std::get_if<bool>(&rebuilding);
+            if (updating == nullptr)
+            {
+                BMCWEB_LOG_DEBUG << "Illegal property present";
+                messages::internalError(asyncResp->res);
+                return;
+            }
+
+            // updating and disabled in the backend shouldn't be
+            // able to be set at the same time, so we don't need
+            // to check for the race condition of these two
+            // calls
+            if ((*updating))
+            {
+                asyncResp->res.jsonValue["Status"]["State"] = "Updating";
+            }
+        },
+        connectionName, path, "org.freedesktop.DBus.Properties", "Get",
+        "xyz.openbmc_project.State.Drive", "Rebuilding");
+}
+
 inline void requestRoutesDrive(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/Systems/system/Storage/1/Drives/<str>/")
@@ -284,24 +406,28 @@ inline void requestRoutesDrive(App& app)
                         return;
                     }
 
-                    auto object2 = std::find_if(
+                    auto drive = std::find_if(
                         subtree.begin(), subtree.end(),
-                        [&driveId](auto& object) {
-                            const std::string& path = object.first;
-                            return boost::ends_with(path, "/" + driveId);
+                        [&driveId](const std::pair<
+                                   std::string,
+                                   std::vector<std::pair<
+                                       std::string, std::vector<std::string>>>>&
+                                       object) {
+                            return sdbusplus::message::object_path(object.first)
+                                       .filename() == driveId;
                         });
 
-                    if (object2 == subtree.end())
+                    if (drive == subtree.end())
                     {
                         messages::resourceNotFound(asyncResp->res, "Drive",
                                                    driveId);
                         return;
                     }
 
-                    const std::string& path = object2->first;
+                    const std::string& path = drive->first;
                     const std::vector<
                         std::pair<std::string, std::vector<std::string>>>&
-                        connectionNames = object2->second;
+                        connectionNames = drive->second;
 
                     asyncResp->res.jsonValue["@odata.type"] =
                         "#Drive.v1_7_0.Drive";
@@ -315,7 +441,7 @@ inline void requestRoutesDrive(App& app)
                     {
                         BMCWEB_LOG_ERROR << "Connection size "
                                          << connectionNames.size()
-                                         << ", greater than 1";
+                                         << ", not equal to 1";
                         messages::internalError(asyncResp->res);
                         return;
                     }
@@ -329,53 +455,6 @@ inline void requestRoutesDrive(App& app)
                                  "/redfish/v1/Chassis/" + chassisId}};
                         });
 
-                    const std::string& connectionName =
-                        connectionNames[0].first;
-                    crow::connections::systemBus->async_method_call(
-                        [asyncResp](
-                            const boost::system::error_code ec2,
-                            const std::vector<std::pair<
-                                std::string,
-                                std::variant<bool, std::string, uint64_t>>>&
-                                propertiesList) {
-                            if (ec2)
-                            {
-                                // this interface isn't necessary
-                                return;
-                            }
-                            for (const std::pair<
-                                     std::string,
-                                     std::variant<bool, std::string, uint64_t>>&
-                                     property : propertiesList)
-                            {
-                                // Store DBus properties that are also
-                                // Redfish properties with same name and a
-                                // string value
-                                const std::string& propertyName =
-                                    property.first;
-                                if ((propertyName == "PartNumber") ||
-                                    (propertyName == "SerialNumber") ||
-                                    (propertyName == "Manufacturer") ||
-                                    (propertyName == "Model"))
-                                {
-                                    const std::string* value =
-                                        std::get_if<std::string>(
-                                            &property.second);
-                                    if (value == nullptr)
-                                    {
-                                        // illegal property
-                                        messages::internalError(asyncResp->res);
-                                        return;
-                                    }
-                                    asyncResp->res.jsonValue[propertyName] =
-                                        *value;
-                                }
-                            }
-                        },
-                        connectionName, path, "org.freedesktop.DBus.Properties",
-                        "GetAll",
-                        "xyz.openbmc_project.Inventory.Decorator.Asset");
-
                     // default it to Enabled
                     asyncResp->res.jsonValue["Status"]["State"] = "Enabled";
 
@@ -383,61 +462,12 @@ inline void requestRoutesDrive(App& app)
                     health->inventory.emplace_back(path);
                     health->populate();
 
-                    crow::connections::systemBus->async_method_call(
-                        [asyncResp, path](const boost::system::error_code ec2,
-                                          const std::variant<bool> present) {
-                            // this interface isn't necessary, only check it if
-                            // we get a good return
-                            if (ec2)
-                            {
-                                return;
-                            }
-                            const bool* enabled = std::get_if<bool>(&present);
-                            if (enabled == nullptr)
-                            {
-                                BMCWEB_LOG_DEBUG << "Illegal property present";
-                                messages::internalError(asyncResp->res);
-                                return;
-                            }
-                            if (!(*enabled))
-                            {
-                                asyncResp->res.jsonValue["Status"]["State"] =
-                                    "Disabled";
-                            }
-                        },
-                        connectionName, path, "org.freedesktop.DBus.Properties",
-                        "Get", "xyz.openbmc_project.Inventory.Item", "Present");
+                    const std::string& connectionName =
+                        connectionNames[0].first;
 
-                    crow::connections::systemBus->async_method_call(
-                        [asyncResp](const boost::system::error_code ec2,
-                                    const std::variant<bool> rebuilding) {
-                            // this interface isn't necessary, only check it if
-                            // we get a good return
-                            if (ec2)
-                            {
-                                return;
-                            }
-                            const bool* updating =
-                                std::get_if<bool>(&rebuilding);
-                            if (updating == nullptr)
-                            {
-                                BMCWEB_LOG_DEBUG << "Illegal property present";
-                                messages::internalError(asyncResp->res);
-                                return;
-                            }
-
-                            // updating and disabled in the backend shouldn't be
-                            // able to be set at the same time, so we don't need
-                            // to check for the race condition of these two
-                            // calls
-                            if ((*updating))
-                            {
-                                asyncResp->res.jsonValue["Status"]["State"] =
-                                    "Updating";
-                            }
-                        },
-                        connectionName, path, "org.freedesktop.DBus.Properties",
-                        "Get", "xyz.openbmc_project.State.Drive", "Rebuilding");
+                    getDriveAsset(asyncResp, connectionName, path);
+                    getDrivePresent(asyncResp, connectionName, path);
+                    getDriveState(asyncResp, connectionName, path);
                 },
                 "xyz.openbmc_project.ObjectMapper",
                 "/xyz/openbmc_project/object_mapper",
