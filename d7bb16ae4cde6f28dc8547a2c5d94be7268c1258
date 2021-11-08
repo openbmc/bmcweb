@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "2c4624e3_4e3cb142",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 18
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2021-11-08T10:59:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "43b01761_e8bfeaa0",
+      "revId": "d7bb16ae4cde6f28dc8547a2c5d94be7268c1258",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "dcc30831_cffc6daf",
         "filename": "redfish-core/lib/storage.hpp",
         "patchSetId": 18
@@ -48,6 +66,24 @@
       "side": 1,
       "message": "I agree with Gunnar, could you do so?",
       "parentUuid": "dcc30831_cffc6daf",
+      "revId": "d7bb16ae4cde6f28dc8547a2c5d94be7268c1258",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d4f10531_b856e5ac",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 289,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2021-11-08T10:59:34Z",
+      "side": 1,
+      "message": "sorry for the delay. I have cleaned it up bit more now. I have moved the MediaType change to the next review.",
+      "parentUuid": "46771ce4_83d412be",
       "revId": "d7bb16ae4cde6f28dc8547a2c5d94be7268c1258",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true

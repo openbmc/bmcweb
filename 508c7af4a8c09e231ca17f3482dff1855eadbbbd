@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "9170b1ea_395701c8",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 280,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2021-11-08T10:59:34Z",
+      "side": 1,
+      "message": "These properties are not required, so we should not error out if it is missing.\n\nThe `PartNumber`, `SerialNumber`, ... will just not be in the output.",
+      "parentUuid": "a910518b_f9c68e3b",
+      "range": {
+        "startLine": 280,
+        "startChar": 16,
+        "endLine": 280,
+        "endChar": 23
+      },
+      "revId": "508c7af4a8c09e231ca17f3482dff1855eadbbbd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "da6d90c7_a29184b1",
         "filename": "redfish-core/lib/storage.hpp",
         "patchSetId": 17
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "9580f3b4_8181b2f4",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 296,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2021-11-08T10:59:34Z",
+      "side": 1,
+      "message": "Done. Thanks.",
+      "parentUuid": "da6d90c7_a29184b1",
+      "range": {
+        "startLine": 296,
+        "startChar": 24,
+        "endLine": 296,
+        "endChar": 35
+      },
+      "revId": "508c7af4a8c09e231ca17f3482dff1855eadbbbd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7a4008a7_ef7f1ae3",
         "filename": "redfish-core/lib/storage.hpp",
         "patchSetId": 17
@@ -65,6 +113,24 @@
     },
     {
       "key": {
+        "uuid": "a538d351_24be2781",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 299,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2021-11-08T10:59:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7a4008a7_ef7f1ae3",
+      "revId": "508c7af4a8c09e231ca17f3482dff1855eadbbbd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bf345c1c_d93062df",
         "filename": "redfish-core/lib/storage.hpp",
         "patchSetId": 17
@@ -76,6 +142,30 @@
       "writtenOn": "2021-09-21T11:07:36Z",
       "side": 1,
       "message": "don\u0027t we need messages::internalError(asyncResp-\u003eres);?",
+      "range": {
+        "startLine": 322,
+        "startChar": 16,
+        "endLine": 322,
+        "endChar": 23
+      },
+      "revId": "508c7af4a8c09e231ca17f3482dff1855eadbbbd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "703eefa3_1b6445eb",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 322,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2021-11-08T10:59:34Z",
+      "side": 1,
+      "message": "same comment as above. The property is not required, so no error requried.",
+      "parentUuid": "bf345c1c_d93062df",
       "range": {
         "startLine": 322,
         "startChar": 16,
@@ -111,6 +201,30 @@
     },
     {
       "key": {
+        "uuid": "40aca3bb_e0cacdee",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 324,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2021-11-08T10:59:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "733add92_fd776023",
+      "range": {
+        "startLine": 324,
+        "startChar": 34,
+        "endLine": 324,
+        "endChar": 45
+      },
+      "revId": "508c7af4a8c09e231ca17f3482dff1855eadbbbd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f7c77232_b6361e3b",
         "filename": "redfish-core/lib/storage.hpp",
         "patchSetId": 17
@@ -122,6 +236,30 @@
       "writtenOn": "2021-09-21T11:07:36Z",
       "side": 1,
       "message": "don\u0027t we need messages::internalError(asyncResp-\u003eres);?",
+      "range": {
+        "startLine": 351,
+        "startChar": 16,
+        "endLine": 351,
+        "endChar": 23
+      },
+      "revId": "508c7af4a8c09e231ca17f3482dff1855eadbbbd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3ac7bb17_31dfaaeb",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 351,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2021-11-08T10:59:34Z",
+      "side": 1,
+      "message": "same comment as above. The property is not required, so no error requried.",
+      "parentUuid": "f7c77232_b6361e3b",
       "range": {
         "startLine": 351,
         "startChar": 16,
@@ -157,6 +295,30 @@
     },
     {
       "key": {
+        "uuid": "52006522_e64400a1",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 353,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2021-11-08T10:59:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bd7900d9_17714c08",
+      "range": {
+        "startLine": 353,
+        "startChar": 35,
+        "endLine": 353,
+        "endChar": 46
+      },
+      "revId": "508c7af4a8c09e231ca17f3482dff1855eadbbbd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b98e6c15_7f137039",
         "filename": "redfish-core/lib/storage.hpp",
         "patchSetId": 17
@@ -177,6 +339,30 @@
       "revId": "508c7af4a8c09e231ca17f3482dff1855eadbbbd",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5d0b239d_640976b5",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 393,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2021-11-08T10:59:34Z",
+      "side": 1,
+      "message": "I guess I just copied it from other function. Cleaned it up now. Thanks",
+      "parentUuid": "b98e6c15_7f137039",
+      "range": {
+        "startLine": 393,
+        "startChar": 58,
+        "endLine": 393,
+        "endChar": 61
+      },
+      "revId": "508c7af4a8c09e231ca17f3482dff1855eadbbbd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -203,6 +389,30 @@
     },
     {
       "key": {
+        "uuid": "e24a263e_bb81a796",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 401,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2021-11-08T10:59:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4be7fb56_409987bb",
+      "range": {
+        "startLine": 401,
+        "startChar": 43,
+        "endLine": 401,
+        "endChar": 54
+      },
+      "revId": "508c7af4a8c09e231ca17f3482dff1855eadbbbd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f800d1d6_2bcd8d34",
         "filename": "redfish-core/lib/storage.hpp",
         "patchSetId": 17
@@ -214,6 +424,30 @@
       "writtenOn": "2021-09-21T11:07:36Z",
       "side": 1,
       "message": "don\u0027t we need \u0026driveId?",
+      "range": {
+        "startLine": 433,
+        "startChar": 32,
+        "endLine": 433,
+        "endChar": 39
+      },
+      "revId": "508c7af4a8c09e231ca17f3482dff1855eadbbbd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a1315af4_1e15ac17",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 433,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2021-11-08T10:59:34Z",
+      "side": 1,
+      "message": "we can\u0027t use a reference to `driveId`, since driveId might be out of scope before we get to use it. So we need to create a copy.",
+      "parentUuid": "f800d1d6_2bcd8d34",
       "range": {
         "startLine": 433,
         "startChar": 32,
@@ -272,6 +506,54 @@
     },
     {
       "key": {
+        "uuid": "b64aad73_ee51b2ab",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 443,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2021-11-08T10:59:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e3367720_7b06722e",
+      "range": {
+        "startLine": 443,
+        "startChar": 29,
+        "endLine": 443,
+        "endChar": 36
+      },
+      "revId": "508c7af4a8c09e231ca17f3482dff1855eadbbbd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d171dada_6d994c14",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 443,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2021-11-08T10:59:34Z",
+      "side": 1,
+      "message": "Tried \n```\ncrow::openbmc_mapper::GetSubTreeType::iterator drive \u003d\n...\n```\n\nAnd got this error\n\n```\n../redfish-core/include/../lib/storage.hpp:395:37: error: conversion from ‘__normal_iterator\u003cconst std::pair\u003cstd::__cxx11::basic_string\u003cchar\u003e, std::vector\u003cstd::pair\u003cstd::__cxx11::basic_string\u003cchar\u003e, std::vector\u003cstd::__cxx11::basic_string\u003cchar\u003e \u003e \u003e \u003e \u003e*,[...]\u003e’ to non-scalar type ‘__normal_iterator\u003cstd::pair\u003cstd::__cxx11::basic_string\u003cchar\u003e, std::vector\u003cstd::pair\u003cstd::__cxx11::basic_string\u003cchar\u003e, std::vector\u003cstd::__cxx11::basic_string\u003cchar\u003e \u003e \u003e \u003e \u003e*,[...]\u003e’ requested\n  395 |                         std::find_if(\n      |                         ~~~~~~~~~~~~^\n  396 |                             subtree.begin(), subtree.end(),\n      |                             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n  397 |                             [\u0026driveId](\n      |                             ~~~~~~~~~~~\n  398 |                                 const std::pair\u003c\n      |                                 ~~~~~~~~~~\n  399 |                                     std::string,\n      |                                     ~~~~~~~~~~~~\n  400 |                                     std::vector\u003cstd::pair\u003c\n      |                                     ~~~~~~~~~~~~~~~~~~~~~~\n  401 |                                         std::string, std::vector\u003cstd::string\u003e\u003e\u003e\u003e\u0026\n      |                                         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n  402 |                                     object) {\n      |                                     ~~~~~~~~~\n  403 |                                 return sdbusplus::message::object_path(\n      |                                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n  404 |                                            object.first)\n      |                                            ~~~~~~~~~~~~~\n  405 |                                            .filename() \u003d\u003d driveId;\n      |                                            ~~~~~~~~~~~~~~~~~~~~~~~\n  406 |                             });\n```",
+      "parentUuid": "79b2e103_9fed33db",
+      "range": {
+        "startLine": 443,
+        "startChar": 24,
+        "endLine": 443,
+        "endChar": 28
+      },
+      "revId": "508c7af4a8c09e231ca17f3482dff1855eadbbbd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "25ebea15_f9ef3873",
         "filename": "redfish-core/lib/storage.hpp",
         "patchSetId": 17
@@ -292,6 +574,30 @@
       "revId": "508c7af4a8c09e231ca17f3482dff1855eadbbbd",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fe32f5b4_81a7e6c0",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 474,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2021-11-08T10:59:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "25ebea15_f9ef3873",
+      "range": {
+        "startLine": 474,
+        "startChar": 45,
+        "endLine": 474,
+        "endChar": 67
+      },
+      "revId": "508c7af4a8c09e231ca17f3482dff1855eadbbbd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
