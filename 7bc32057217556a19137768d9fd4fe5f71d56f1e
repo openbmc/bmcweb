@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "9ba7bb70_4e868dd1",
+        "filename": "DEVELOPING.md",
+        "patchSetId": 3
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-11-08T05:59:52Z",
+      "side": 1,
+      "message": "\u003e Nitpick: unnecessary comma \n\u003e I would actually be in favor of just leaving these exceptions out.\n\u003e I hope bug fixes would come with a \"why these changes are useful\". And the 2nd sentence only applies to new function...\n\nSure, seems reasonable.\n\n\u003e Even documentation in most cases should state \"why it is needed\". I just don\u0027t think this sentence does much.\n\nAgreed, it\u0027s too much, although documentation is itself.... documentation, so it\u0027s a little meta, but I think we can handle that on a case by case basis.  I just just trying to avoid commits with \"documentation is a good thing\".",
+      "parentUuid": "22aca6e3_79e8e16f",
+      "range": {
+        "startLine": 134,
+        "startChar": 38,
+        "endLine": 134,
+        "endChar": 39
+      },
+      "revId": "7bc32057217556a19137768d9fd4fe5f71d56f1e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c96fc421_f39ecd70",
         "filename": "DEVELOPING.md",
         "patchSetId": 3
@@ -71,6 +95,54 @@
     },
     {
       "key": {
+        "uuid": "bdae1ee1_443cfee7",
+        "filename": "DEVELOPING.md",
+        "patchSetId": 3
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-11-08T05:59:52Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "c96fc421_f39ecd70",
+      "range": {
+        "startLine": 141,
+        "startChar": 73,
+        "endLine": 141,
+        "endChar": 74
+      },
+      "revId": "7bc32057217556a19137768d9fd4fe5f71d56f1e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "66bd4607_50084bf8",
+        "filename": "DEVELOPING.md",
+        "patchSetId": 3
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-11-08T05:59:52Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "63c809f8_d138a0af",
+      "range": {
+        "startLine": 141,
+        "startChar": 15,
+        "endLine": 141,
+        "endChar": 16
+      },
+      "revId": "7bc32057217556a19137768d9fd4fe5f71d56f1e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c1cb74b9_db5c26e5",
         "filename": "DEVELOPING.md",
         "patchSetId": 3
@@ -91,6 +163,30 @@
       "revId": "7bc32057217556a19137768d9fd4fe5f71d56f1e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9cf8acac_b58a4a7a",
+        "filename": "DEVELOPING.md",
+        "patchSetId": 3
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-11-08T05:59:52Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "c1cb74b9_db5c26e5",
+      "range": {
+        "startLine": 142,
+        "startChar": 56,
+        "endLine": 142,
+        "endChar": 57
+      },
+      "revId": "7bc32057217556a19137768d9fd4fe5f71d56f1e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "f78b690c_da225e42",
+        "filename": "DEVELOPING.md",
+        "patchSetId": 3
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-11-08T05:59:52Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "a633e656_250bac08",
+      "range": {
+        "startLine": 153,
+        "startChar": 31,
+        "endLine": 153,
+        "endChar": 35
+      },
+      "revId": "7bc32057217556a19137768d9fd4fe5f71d56f1e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "10a7a8fe_f835f2e6",
         "filename": "DEVELOPING.md",
         "patchSetId": 3
@@ -134,6 +254,24 @@
     },
     {
       "key": {
+        "uuid": "139483ff_4e2539c6",
+        "filename": "DEVELOPING.md",
+        "patchSetId": 3
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-11-08T05:59:52Z",
+      "side": 1,
+      "message": "I didn\u0027t think it needed to be called out explicitly.   A number of security changes are visible to users, and a number aren\u0027t, so I didn\u0027t think it deserved its own callout, but what did you have in mind?",
+      "parentUuid": "10a7a8fe_f835f2e6",
+      "revId": "7bc32057217556a19137768d9fd4fe5f71d56f1e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "13416c61_3ac7438b",
         "filename": "DEVELOPING.md",
         "patchSetId": 3
@@ -145,6 +283,24 @@
       "writtenOn": "2021-11-07T22:40:59Z",
       "side": 1,
       "message": "New schemas?",
+      "revId": "7bc32057217556a19137768d9fd4fe5f71d56f1e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "04b5a408_833a7037",
+        "filename": "DEVELOPING.md",
+        "patchSetId": 3
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-11-08T05:59:52Z",
+      "side": 1,
+      "message": "I kinda lumped that in with new items added to a collection (given that a correctly implemented new schema would require a new odata link) but sure, we can call it out explicitly.  ACK",
+      "parentUuid": "13416c61_3ac7438b",
       "revId": "7bc32057217556a19137768d9fd4fe5f71d56f1e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
