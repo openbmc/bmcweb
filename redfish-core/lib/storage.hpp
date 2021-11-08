@@ -345,6 +345,132 @@ inline void getDriveState(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
         });
 }
 
+inline std::optional<std::string> convertDriveType(const std::string& type)
+{
+    if (type == "xyz.openbmc_project.Inventory.Item.Drive.DriveType.HDD")
+    {
+        return "HDD";
+    }
+    if (type == "xyz.openbmc_project.Inventory.Item.Drive.DriveType.SSD")
+    {
+        return "SSD";
+    }
+
+    return std::nullopt;
+}
+
+inline std::optional<std::string> convertDriveProtocol(const std::string& proto)
+{
+    if (proto == "xyz.openbmc_project.Inventory.Item.Drive.DriveProtocol.SAS")
+    {
+        return "SAS";
+    }
+    if (proto == "xyz.openbmc_project.Inventory.Item.Drive.DriveProtocol.SATA")
+    {
+        return "SATA";
+    }
+    if (proto == "xyz.openbmc_project.Inventory.Item.Drive.DriveProtocol.NVMe")
+    {
+        return "NVMe";
+    }
+    if (proto == "xyz.openbmc_project.Inventory.Item.Drive.DriveProtocol.FC")
+    {
+        return "FC";
+    }
+
+    return std::nullopt;
+}
+
+inline void
+    getDriveItemProperties(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                           const std::string& connectionName,
+                           const std::string& path)
+{
+    sdbusplus::asio::getAllProperties(
+        *crow::connections::systemBus, connectionName, path,
+        "xyz.openbmc_project.Inventory.Item.Drive",
+        [asyncResp](const boost::system::error_code ec,
+                    const std::vector<
+                        std::pair<std::string, dbus::utility::DbusVariantType>>&
+                        propertiesList) {
+            if (ec)
+            {
+                // this interface isn't required
+                return;
+            }
+            for (const std::pair<std::string, dbus::utility::DbusVariantType>&
+                     property : propertiesList)
+            {
+                const std::string& propertyName = property.first;
+                if (propertyName == "Type")
+                {
+                    const std::string* value =
+                        std::get_if<std::string>(&property.second);
+                    if (value == nullptr)
+                    {
+                        // illegal property
+                        BMCWEB_LOG_ERROR << "Illegal property: Type";
+                        messages::internalError(asyncResp->res);
+                        return;
+                    }
+
+                    std::optional<std::string> mediaType =
+                        convertDriveType(*value);
+                    if (!mediaType)
+                    {
+                        BMCWEB_LOG_ERROR << "Unsupported DriveType Interface: "
+                                         << *value;
+                        messages::internalError(asyncResp->res);
+                        return;
+                    }
+
+                    asyncResp->res.jsonValue["MediaType"] = *mediaType;
+                }
+                else if (propertyName == "Capacity")
+                {
+                    const uint64_t* capacity =
+                        std::get_if<uint64_t>(&property.second);
+                    if (capacity == nullptr)
+                    {
+                        BMCWEB_LOG_ERROR << "Illegal property: Capacity";
+                        messages::internalError(asyncResp->res);
+                        return;
+                    }
+                    if (*capacity == 0)
+                    {
+                        // drive capacity not known
+                        continue;
+                    }
+
+                    asyncResp->res.jsonValue["CapacityBytes"] = *capacity;
+                }
+                else if (propertyName == "Protocol")
+                {
+                    const std::string* value =
+                        std::get_if<std::string>(&property.second);
+                    if (value == nullptr)
+                    {
+                        BMCWEB_LOG_ERROR << "Illegal property: Protocol";
+                        messages::internalError(asyncResp->res);
+                        return;
+                    }
+
+                    std::optional<std::string> proto =
+                        convertDriveProtocol(*value);
+                    if (!proto)
+                    {
+                        BMCWEB_LOG_ERROR
+                            << "Unsupported DrivePrototype Interface: "
+                            << *value;
+                        messages::internalError(asyncResp->res);
+                        return;
+                    }
+                    asyncResp->res.jsonValue["Protocol"] = *proto;
+                }
+            }
+        });
+}
+
 inline void requestRoutesDrive(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/Systems/system/Storage/1/Drives/<str>/")
@@ -427,6 +553,7 @@ inline void requestRoutesDrive(App& app)
                     getDriveAsset(asyncResp, connectionName, path);
                     getDrivePresent(asyncResp, connectionName, path);
                     getDriveState(asyncResp, connectionName, path);
+                    getDriveItemProperties(asyncResp, connectionName, path);
                 },
                 "xyz.openbmc_project.ObjectMapper",
                 "/xyz/openbmc_project/object_mapper",
