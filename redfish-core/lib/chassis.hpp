@@ -385,17 +385,15 @@ inline void requestRoutesChassis(App& app)
                                     if ((propertyName == "PartNumber") ||
                                         (propertyName == "SerialNumber") ||
                                         (propertyName == "Manufacturer") ||
-                                        (propertyName == "Model"))
+                                        (propertyName == "Model") ||
+                                        (propertyName == "SparePartNumber")
                                     {
-                                        const std::string* value =
-                                            std::get_if<std::string>(
-                                                &property.second);
-                                        if (value != nullptr)
-                                        {
-                                            asyncResp->res
-                                                .jsonValue[propertyName] =
-                                                *value;
-                                        }
+                            const std::string* value =
+                                std::get_if<std::string>(&property.second);
+                            if ((value != nullptr) || (value != ""))
+                            {
+                                asyncResp->res.jsonValue[propertyName] = *value;
+                            }
                                     }
                                 }
                                 asyncResp->res.jsonValue["Name"] = chassisId;
