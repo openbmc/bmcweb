@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2340bd2a_c95959fc",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 12
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2021-11-09T13:02:07Z",
+      "side": 1,
+      "message": "Commit message should be formatted using 50/72 style",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 16,
+        "endChar": 27
+      },
+      "revId": "6907513f153a4cf8c26193c40084f59fb7c30112",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "95a4d63c_b0f1a141",
+        "filename": "redfish-core/lib/hypervisor_system.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 452,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2021-11-09T13:02:07Z",
+      "side": 1,
+      "message": "nit: Same as above, you could use enum class with enabled/dissabled values to make it more readable in places where it is called.",
+      "range": {
+        "startLine": 452,
+        "startChar": 27,
+        "endLine": 452,
+        "endChar": 54
+      },
+      "revId": "6907513f153a4cf8c26193c40084f59fb7c30112",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e4b7e4eb_cf761320",
+        "filename": "redfish-core/lib/hypervisor_system.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 480,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2021-11-09T13:02:07Z",
+      "side": 1,
+      "message": "nit: This should be an enum to make it clear in places where it is used.\n\nAlso simple types like int,double,float,bool,enum should be passed via copy instead of reference there is more room for optimization when you pass something equal or smaller than sizeof(size_t).",
+      "range": {
+        "startLine": 480,
+        "startChar": 56,
+        "endLine": 480,
+        "endChar": 76
+      },
+      "revId": "6907513f153a4cf8c26193c40084f59fb7c30112",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "04eba70e_09839e74",
+        "filename": "redfish-core/lib/hypervisor_system.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 595,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2021-11-09T13:02:07Z",
+      "side": 1,
+      "message": "This is confusing will it enable or dissable interface?",
+      "range": {
+        "startLine": 594,
+        "startChar": 33,
+        "endLine": 595,
+        "endChar": 28
+      },
+      "revId": "6907513f153a4cf8c26193c40084f59fb7c30112",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "11eaf910_e9f44d9d",
+        "filename": "redfish-core/lib/hypervisor_system.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 597,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2021-11-09T13:02:07Z",
+      "side": 1,
+      "message": "nit: It\u0027s confusing what does this false stands for. I recommend using constexpr bool with proper name.",
+      "range": {
+        "startLine": 597,
+        "startChar": 41,
+        "endLine": 597,
+        "endChar": 46
+      },
+      "revId": "6907513f153a4cf8c26193c40084f59fb7c30112",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3c0b8718_b37c680f",
+        "filename": "redfish-core/lib/hypervisor_system.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 618,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2021-11-09T13:02:07Z",
+      "side": 1,
+      "message": "Regular expression usually are avoided in bmcweb, because they are slow.\n\nThat should be simple to replace with for loop. Also as a note {0,61} will limit hostName to 63 characters, but if condition above says it should be up to 255 characters.",
+      "range": {
+        "startLine": 618,
+        "startChar": 47,
+        "endLine": 618,
+        "endChar": 53
+      },
+      "revId": "6907513f153a4cf8c26193c40084f59fb7c30112",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
