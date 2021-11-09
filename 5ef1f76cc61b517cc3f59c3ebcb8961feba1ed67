@@ -1,0 +1,159 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cfd31e40_371097d9",
+        "filename": "include/multipart_parser.hpp",
+        "patchSetId": 49
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2021-11-09T12:20:22Z",
+      "side": 1,
+      "message": "If possible you should have only one of each sections. Having public: private: then public: is a bit confusing. In this case it would be more common to do it like this:\n\nprivate:\n  // Types that are necessary for compilation\n\npublic:\n  // as usual\nprivate:\n  // as usual",
+      "range": {
+        "startLine": 97,
+        "startChar": 2,
+        "endLine": 101,
+        "endChar": 10
+      },
+      "revId": "5ef1f76cc61b517cc3f59c3ebcb8961feba1ed67",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e0fcf86f_bb84daa6",
+        "filename": "include/multipart_parser.hpp",
+        "patchSetId": 49
+      },
+      "lineNbr": 172,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2021-11-09T12:20:22Z",
+      "side": 1,
+      "message": "You should create function for this one. I\u0027m not familiar with this algorithm and it would help me a lot if whole algorithm would be placed in function instead of marking on the beginning with a comment.",
+      "range": {
+        "startLine": 172,
+        "startChar": 12,
+        "endLine": 172,
+        "endChar": 77
+      },
+      "revId": "5ef1f76cc61b517cc3f59c3ebcb8961feba1ed67",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "49321297_46add938",
+        "filename": "include/multipart_parser.hpp",
+        "patchSetId": 49
+      },
+      "lineNbr": 306,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2021-11-09T12:20:22Z",
+      "side": 1,
+      "message": "nit:\n\nIt seems strange that this parser holds reference to req even after parsing is finished.\n\nAlso it would be more object oriented if there was parse method that returns error code by value:\n\nFor example instead:\nstd::error_code ec;\nMultipartParser parser(req, ec);\n\nYou could do:\nMultipartParser parser;\nstd::error_code ec \u003d parse.parse(req);",
+      "range": {
+        "startLine": 305,
+        "startChar": 4,
+        "endLine": 306,
+        "endChar": 18
+      },
+      "revId": "5ef1f76cc61b517cc3f59c3ebcb8961feba1ed67",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9e6275b4_6b5672a1",
+        "filename": "include/multipart_parser.hpp",
+        "patchSetId": 49
+      },
+      "lineNbr": 397,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2021-11-09T12:20:22Z",
+      "side": 1,
+      "message": "This doesn\u0027t seem to be simple fallthrough, one could think that changing state doesn\u0027t matter because you are doing fallthrough. But on a second look it matters because next iteration may start from different state.\n\nI would like to see [[fallthrough]] replaced with break;\n\nSomeone could assume that this line could be deleted, because there is fallthrough and it would be true if this switch wasn\u0027t executed in loop, which may be hard to see because this switch has more than 100 lines of code.",
+      "range": {
+        "startLine": 397,
+        "startChar": 20,
+        "endLine": 397,
+        "endChar": 48
+      },
+      "revId": "5ef1f76cc61b517cc3f59c3ebcb8961feba1ed67",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7b1677f1_d82e5c23",
+        "filename": "include/ut/multipart_test.cpp",
+        "patchSetId": 49
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2021-11-09T12:20:22Z",
+      "side": 1,
+      "message": "I don\u0027t know about code coverage but from user point of view this is lacking some tests. As a user I would like to see how MultipartTest behaves when req.body() is not a multiparty, is empty, is not valid html request, malformed (for example missing \\r\\n), what about other types of multipart data is form-data only type that is allowed?\n\nTests should be more than code coverage, they are also examples how to use your code.",
+      "revId": "5ef1f76cc61b517cc3f59c3ebcb8961feba1ed67",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0ef7e6cf_3aa2dc70",
+        "filename": "include/ut/multipart_test.cpp",
+        "patchSetId": 49
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2021-11-09T12:20:22Z",
+      "side": 1,
+      "message": "This doesn\u0027t say anything about what is wrong with request below. There is error code about empty header still it would be nice to see it in test names.",
+      "range": {
+        "startLine": 42,
+        "startChar": 20,
+        "endLine": 42,
+        "endChar": 42
+      },
+      "revId": "5ef1f76cc61b517cc3f59c3ebcb8961feba1ed67",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1d6b22d1_26e67fd8",
+        "filename": "include/ut/multipart_test.cpp",
+        "patchSetId": 49
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2021-11-09T12:20:22Z",
+      "side": 1,
+      "message": "What about other error values? You still have at least 9 more tests to write. One for each error value.",
+      "range": {
+        "startLine": 61,
+        "startChar": 43,
+        "endLine": 61,
+        "endChar": 74
+      },
+      "revId": "5ef1f76cc61b517cc3f59c3ebcb8961feba1ed67",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
