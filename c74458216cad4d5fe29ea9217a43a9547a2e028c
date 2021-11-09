@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "85ddafba_b7c300e4",
+        "filename": "redfish-core/lib/ut/service_root_test.cpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1000056
+      },
+      "writtenOn": "2021-11-09T10:50:18Z",
+      "side": 1,
+      "message": "This is definitely useful but I wonder how this will work when the route handler is mostly making D-Bus calls to other services:\n- Would the handler have to be further split up into a part that receives a D-Bus response and would the unit test here test just that part?\n- Would we use https://gerrit.openbmc-project.xyz/c/openbmc/docs/+/37378/ (however this design actually calls out unit testing as a non-goal)",
+      "revId": "c74458216cad4d5fe29ea9217a43a9547a2e028c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
