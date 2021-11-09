@@ -2580,7 +2580,7 @@ inline void getSensorData(
                                  << " sensorType " << sensorType;
                 if (sensorNames->find(objPath) == sensorNames->end())
                 {
-                    BMCWEB_LOG_ERROR << sensorName << " not in sensor list ";
+                    BMCWEB_LOG_DEBUG << sensorName << " not in sensor list ";
                     continue;
                 }
 
