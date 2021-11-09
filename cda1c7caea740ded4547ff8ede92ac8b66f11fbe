@@ -22,6 +22,30 @@
       "revId": "cda1c7caea740ded4547ff8ede92ac8b66f11fbe",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e0546e4f_cdc98491",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 57
+      },
+      "lineNbr": 780,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2021-11-09T10:55:57Z",
+      "side": 1,
+      "message": "Yes. My latest PS (59) contains this change",
+      "parentUuid": "9fd4b311_c5761974",
+      "range": {
+        "startLine": 779,
+        "startChar": 3,
+        "endLine": 780,
+        "endChar": 46
+      },
+      "revId": "cda1c7caea740ded4547ff8ede92ac8b66f11fbe",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
