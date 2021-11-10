@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "5f2cfe1e_32134b3f",
+        "filename": "redfish-core/include/utils/telemetry_utils.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 1001026
+      },
+      "writtenOn": "2021-11-10T20:16:43Z",
+      "side": 1,
+      "message": "Sure!",
+      "parentUuid": "fc0914e9_ab658671",
+      "range": {
+        "startLine": 139,
+        "startChar": 0,
+        "endLine": 142,
+        "endChar": 5
+      },
+      "revId": "16b76ae0c8155630cb378be3394b37fff566813e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "dd4443ce_e1a2187a",
         "filename": "redfish-core/lib/trigger.hpp",
         "patchSetId": 10
@@ -36,6 +60,30 @@
       "writtenOn": "2021-11-05T19:11:04Z",
       "side": 1,
       "message": "This is a little confusing in name, given that \"isMetricTypeDiscrete\" as a question should never be able to return unknown.  Would it be more clear if this returned something like\n\nenum class MetricType{\nDiscrete,\nNumeric,\n}\n\nThen rename this to \"getMetricType\".",
+      "range": {
+        "startLine": 52,
+        "startChar": 27,
+        "endLine": 52,
+        "endChar": 47
+      },
+      "revId": "16b76ae0c8155630cb378be3394b37fff566813e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "321ff6ee_bf84225e",
+        "filename": "redfish-core/lib/trigger.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1001026
+      },
+      "writtenOn": "2021-11-10T20:16:43Z",
+      "side": 1,
+      "message": "Thanks for suggestion, this seems like it could improve readability, and will be similar to other getX functions.",
+      "parentUuid": "dd4443ce_e1a2187a",
       "range": {
         "startLine": 52,
         "startChar": 27,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "e0402a8e_f61a1cb1",
+        "filename": "redfish-core/lib/trigger.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1001026
+      },
+      "writtenOn": "2021-11-10T20:16:43Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "d4854272_83559164",
+      "range": {
+        "startLine": 66,
+        "startChar": 4,
+        "endLine": 66,
+        "endChar": 32
+      },
+      "revId": "16b76ae0c8155630cb378be3394b37fff566813e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "cd9fb8dc_f830b6ac",
         "filename": "redfish-core/lib/trigger.hpp",
         "patchSetId": 10
@@ -82,6 +154,30 @@
       "writtenOn": "2021-11-05T19:11:04Z",
       "side": 1,
       "message": "In all code paths it looks like this just gets loaded into ctx.dbusArgs.thresholds.  Could this instead be a reference, and avoid the moves entirely?  Something like\n\nstd::vector\u003cNumericThresholdParams\u003e\u0026 parsedParams; ctx.dbusArgs.thresholds;",
+      "range": {
+        "startLine": 84,
+        "startChar": 0,
+        "endLine": 84,
+        "endChar": 53
+      },
+      "revId": "16b76ae0c8155630cb378be3394b37fff566813e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e98bb894_f78df2a2",
+        "filename": "redfish-core/lib/trigger.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1001026
+      },
+      "writtenOn": "2021-11-10T20:16:43Z",
+      "side": 1,
+      "message": "I think I have already commented about this before, but ctx.dbusArgs.thresholds is a variant - which can\u0027t be split due to it representing a dbus type.\n\nSo either std::move needs to stay, or I can do something like that:\n ctx.dbusArgs.thresholds \u003d std::vector\u003cNumericThresholdParams\u003e{};\n std::vector\u003cNumericThresholdParams\u003e\u0026 parsedParams \u003d std::get\u003cstd::vector\u003cNumericThresholdParams\u003e\u003e(ctx.dbusArgs.thresholds);",
+      "parentUuid": "cd9fb8dc_f830b6ac",
       "range": {
         "startLine": 84,
         "startChar": 0,
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "53a1161a_c5ea6957",
+        "filename": "redfish-core/lib/trigger.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1001026
+      },
+      "writtenOn": "2021-11-10T20:16:43Z",
+      "side": 1,
+      "message": "NumericThresholds is very unusual case, due to it being an object with multiple optional keys, where each of them is referencing same complex type, I thinks this function needs a small refactor.\n\nI decided to not use readJson in this particular case - this way we can loop directly over key/values of json. There are just two additional checks that must be made: if the numericThresholds json is an object, and if its keys are correctly named. It looks way cleaner and seems to be slightly faster, as there no additional structs/arrays or maps.\n\nI will push it with latest patchset, but if you insist, I can easily rewrite it again to use struct/array solution.",
+      "parentUuid": "a4fba219_722d7c27",
+      "range": {
+        "startLine": 98,
+        "startChar": 32,
+        "endLine": 98,
+        "endChar": 49
+      },
+      "revId": "16b76ae0c8155630cb378be3394b37fff566813e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d3fd4674_734483d6",
         "filename": "redfish-core/lib/trigger.hpp",
         "patchSetId": 10
@@ -128,6 +248,30 @@
       "writtenOn": "2021-11-05T19:11:04Z",
       "side": 1,
       "message": "nit: This doesn\u0027t look right.  You reserve of size numericThresholds.size(), then loop over numericThresholdsMap.",
+      "range": {
+        "startLine": 106,
+        "startChar": 0,
+        "endLine": 106,
+        "endChar": 51
+      },
+      "revId": "16b76ae0c8155630cb378be3394b37fff566813e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0cbc479c_9a693b74",
+        "filename": "redfish-core/lib/trigger.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 1001026
+      },
+      "writtenOn": "2021-11-10T20:16:43Z",
+      "side": 1,
+      "message": "numericThresholds will always have between 0 and 4 keys. The map always have 4 keys, but some of them may stay std::nullopt - and line 110 is checking this. So emplace_back will always be called the same number of times as the size used during reservation.\n\nBut after refactor, which I described in above comment, this will look more clear.",
+      "parentUuid": "d3fd4674_734483d6",
       "range": {
         "startLine": 106,
         "startChar": 0,
@@ -163,6 +307,30 @@
     },
     {
       "key": {
+        "uuid": "293656b2_14eb4c59",
+        "filename": "redfish-core/lib/trigger.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 1001026
+      },
+      "writtenOn": "2021-11-10T20:16:43Z",
+      "side": 1,
+      "message": "I am working on overflow-safe helper, which might be useful here, but its not finished and tested yet. I will let you know once I have something.",
+      "parentUuid": "426cc176_d2d96926",
+      "range": {
+        "startLine": 133,
+        "startChar": 50,
+        "endLine": 133,
+        "endChar": 58
+      },
+      "revId": "16b76ae0c8155630cb378be3394b37fff566813e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "56792d1e_d078934d",
         "filename": "redfish-core/lib/trigger.hpp",
         "patchSetId": 10
@@ -174,6 +342,30 @@
       "writtenOn": "2021-11-05T19:11:04Z",
       "side": 1,
       "message": "Same comment as above, could this be a referernce.",
+      "range": {
+        "startLine": 147,
+        "startChar": 0,
+        "endLine": 147,
+        "endChar": 54
+      },
+      "revId": "16b76ae0c8155630cb378be3394b37fff566813e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "16d9a166_f92e5eca",
+        "filename": "redfish-core/lib/trigger.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 1001026
+      },
+      "writtenOn": "2021-11-10T20:16:43Z",
+      "side": 1,
+      "message": "See my comment above",
+      "parentUuid": "56792d1e_d078934d",
       "range": {
         "startLine": 147,
         "startChar": 0,
@@ -209,6 +401,30 @@
     },
     {
       "key": {
+        "uuid": "2dfcea4d_8f23a0b6",
+        "filename": "redfish-core/lib/trigger.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 1001026
+      },
+      "writtenOn": "2021-11-10T20:16:43Z",
+      "side": 1,
+      "message": "Can\u0027t be const as readJson is expecting non-const reference.\nI managed to modify it to use const reference, please take a look here: https://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/48763",
+      "parentUuid": "da457a58_a852ff63",
+      "range": {
+        "startLine": 155,
+        "startChar": 9,
+        "endLine": 155,
+        "endChar": 13
+      },
+      "revId": "16b76ae0c8155630cb378be3394b37fff566813e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "3e04a6e9_ed356a16",
         "filename": "redfish-core/lib/trigger.hpp",
         "patchSetId": 10
@@ -232,6 +448,30 @@
     },
     {
       "key": {
+        "uuid": "2aa34eb0_c245b385",
+        "filename": "redfish-core/lib/trigger.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 183,
+      "author": {
+        "id": 1001026
+      },
+      "writtenOn": "2021-11-10T20:16:43Z",
+      "side": 1,
+      "message": "I am working on overflow-safe helper, which might be useful here, but its not finished and tested yet. I will let you know once I have something.",
+      "parentUuid": "3e04a6e9_ed356a16",
+      "range": {
+        "startLine": 183,
+        "startChar": 29,
+        "endLine": 183,
+        "endChar": 70
+      },
+      "revId": "16b76ae0c8155630cb378be3394b37fff566813e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e0983543_cfc6f185",
         "filename": "redfish-core/lib/trigger.hpp",
         "patchSetId": 10
@@ -243,6 +483,30 @@
       "writtenOn": "2021-11-05T19:11:04Z",
       "side": 1,
       "message": "Generally when we do things like this, instead of constructing an int, we construct an object with something useful in the destructor.  This ensures that even if exceptions are thrown, or the call count has behavior issues, we can still run the final result.",
+      "range": {
+        "startLine": 510,
+        "startChar": 12,
+        "endLine": 510,
+        "endChar": 66
+      },
+      "revId": "16b76ae0c8155630cb378be3394b37fff566813e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e6d78e35_d8c8bf2f",
+        "filename": "redfish-core/lib/trigger.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 510,
+      "author": {
+        "id": 1001026
+      },
+      "writtenOn": "2021-11-10T20:16:43Z",
+      "side": 1,
+      "message": "I reused Finalizer class idea from the past. I can include it in other similar cases in bmcweb (like MetricReportDefinition), if approved here.",
+      "parentUuid": "e0983543_cfc6f185",
       "range": {
         "startLine": 510,
         "startChar": 12,
