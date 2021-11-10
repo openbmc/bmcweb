@@ -103,7 +103,7 @@ bool checkRange(const FromType& from, const std::string& key)
 }
 
 template <typename Type>
-UnpackErrorCode unpackValueWithErrorCode(nlohmann::json& jsonValue,
+UnpackErrorCode unpackValueWithErrorCode(const nlohmann::json& jsonValue,
                                          const std::string& key, Type& value)
 {
     UnpackErrorCode ret = UnpackErrorCode::success;
@@ -111,11 +111,11 @@ UnpackErrorCode unpackValueWithErrorCode(nlohmann::json& jsonValue,
     if constexpr (std::is_floating_point_v<Type>)
     {
         double helper = 0;
-        double* jsonPtr = jsonValue.get_ptr<double*>();
+        const double* jsonPtr = jsonValue.get_ptr<const double*>();
 
         if (jsonPtr == nullptr)
         {
-            int64_t* intPtr = jsonValue.get_ptr<int64_t*>();
+            const int64_t* intPtr = jsonValue.get_ptr<const int64_t*>();
             if (intPtr != nullptr)
             {
                 helper = static_cast<double>(*intPtr);
@@ -135,7 +135,7 @@ UnpackErrorCode unpackValueWithErrorCode(nlohmann::json& jsonValue,
 
     else if constexpr (std::is_signed_v<Type>)
     {
-        int64_t* jsonPtr = jsonValue.get_ptr<int64_t*>();
+        const int64_t* jsonPtr = jsonValue.get_ptr<const int64_t*>();
         if (jsonPtr == nullptr)
         {
             return UnpackErrorCode::invalidType;
@@ -150,7 +150,7 @@ UnpackErrorCode unpackValueWithErrorCode(nlohmann::json& jsonValue,
     else if constexpr ((std::is_unsigned_v<Type>)&&(
                            !std::is_same_v<bool, Type>))
     {
-        uint64_t* jsonPtr = jsonValue.get_ptr<uint64_t*>();
+        const uint64_t* jsonPtr = jsonValue.get_ptr<const uint64_t*>();
         if (jsonPtr == nullptr)
         {
             return UnpackErrorCode::invalidType;
@@ -176,7 +176,7 @@ UnpackErrorCode unpackValueWithErrorCode(nlohmann::json& jsonValue,
     }
     else
     {
-        using JsonType = std::add_const_t<std::add_pointer_t<Type>>;
+        using JsonType = std::add_pointer_t<std::add_const_t<Type>>;
         JsonType jsonPtr = jsonValue.get_ptr<JsonType>();
         if (jsonPtr == nullptr)
         {
@@ -191,7 +191,7 @@ UnpackErrorCode unpackValueWithErrorCode(nlohmann::json& jsonValue,
 }
 
 template <typename Type>
-bool unpackValue(nlohmann::json& jsonValue, const std::string& key,
+bool unpackValue(const nlohmann::json& jsonValue, const std::string& key,
                  crow::Response& res, Type& value)
 {
     bool ret = true;
@@ -280,7 +280,8 @@ bool unpackValue(nlohmann::json& jsonValue, const std::string& key,
 }
 
 template <typename Type>
-bool unpackValue(nlohmann::json& jsonValue, const std::string& key, Type& value)
+bool unpackValue(const nlohmann::json& jsonValue, const std::string& key,
+                 Type& value)
 {
     bool ret = true;
     if constexpr (IsOptional<Type>::value)
@@ -335,7 +336,7 @@ bool unpackValue(nlohmann::json& jsonValue, const std::string& key, Type& value)
 }
 
 template <size_t Count, size_t Index>
-bool readJsonValues(const std::string& key, nlohmann::json&,
+bool readJsonValues(const std::string& key, const nlohmann::json&,
                     crow::Response& res, std::bitset<Count>&)
 {
     BMCWEB_LOG_DEBUG << "Unable to find variable for key" << key;
@@ -345,7 +346,7 @@ bool readJsonValues(const std::string& key, nlohmann::json&,
 
 template <size_t Count, size_t Index, typename ValueType,
           typename... UnpackTypes>
-bool readJsonValues(const std::string& key, nlohmann::json& jsonValue,
+bool readJsonValues(const std::string& key, const nlohmann::json& jsonValue,
                     crow::Response& res, std::bitset<Count>& handled,
                     const char* keyToCheck, ValueType& valueToFill,
                     UnpackTypes&... in)
@@ -386,8 +387,8 @@ bool handleMissing(std::bitset<Count>& handled, crow::Response& res,
 } // namespace details
 
 template <typename... UnpackTypes>
-bool readJson(nlohmann::json& jsonRequest, crow::Response& res, const char* key,
-              UnpackTypes&... in)
+bool readJson(const nlohmann::json& jsonRequest, crow::Response& res,
+              const char* key, UnpackTypes&... in)
 {
     bool result = true;
     if (!jsonRequest.is_object())
@@ -432,10 +433,10 @@ bool readJson(const crow::Request& req, crow::Response& res, const char* key,
 }
 
 template <typename Type>
-bool getValueFromJsonObject(nlohmann::json& jsonData, const std::string& key,
-                            Type& value)
+bool getValueFromJsonObject(const nlohmann::json& jsonData,
+                            const std::string& key, Type& value)
 {
-    nlohmann::json::iterator it = jsonData.find(key);
+    nlohmann::json::const_iterator it = jsonData.find(key);
     if (it == jsonData.end())
     {
         BMCWEB_LOG_DEBUG << "Key " << key << " not exist";
