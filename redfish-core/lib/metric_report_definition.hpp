@@ -197,7 +197,17 @@ inline bool getUserParameters(crow::Response& res, const crow::Request& req,
                                              durationStr);
             return false;
         }
-        args.interval = static_cast<uint64_t>(durationNum->count());
+
+        std::optional<uint64_t> durationCount =
+            time_utils::safeDurationCount<uint64_t>(*durationNum);
+        if (!durationCount)
+        {
+            messages::propertyValueNotInList(res, "RecurrenceInterval",
+                                             durationStr);
+            return false;
+        }
+
+        args.interval = *durationCount;
     }
 
     args.metrics.reserve(metrics.size());

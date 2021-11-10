@@ -1,5 +1,7 @@
 #include "utils/time_utils.hpp"
 
+#include <limits>
+
 #include <gmock/gmock.h>
 
 TEST(FromDurationTest, PositiveTests)
@@ -30,6 +32,7 @@ TEST(FromDurationTest, NegativeTests)
               std::nullopt);
     EXPECT_EQ(fromDurationString("PT-9H"), std::nullopt);
 }
+
 TEST(ToDurationTest, PositiveTests)
 {
     using redfish::time_utils::toDurationString;
@@ -49,4 +52,62 @@ TEST(ToDurationTest, NegativeTests)
     using redfish::time_utils::toDurationString;
     using std::chrono::milliseconds;
     EXPECT_EQ(toDurationString(milliseconds(-250)), "");
+}
+
+TEST(SafeDurationCountTest, PositiveTests)
+{
+    using redfish::time_utils::safeDurationCount;
+    using std::chrono::milliseconds;
+    using Duration32u = std::chrono::duration<uint32_t, std::giga>;
+    using Duration16 = std::chrono::duration<int16_t, std::kilo>;
+
+    EXPECT_EQ(safeDurationCount<uint64_t>(milliseconds(0)), 0ull);
+    EXPECT_EQ(safeDurationCount<uint64_t>(milliseconds(10)), 10ull);
+    EXPECT_EQ(safeDurationCount<uint64_t>(
+                  milliseconds(std::numeric_limits<int64_t>::max())),
+              std::numeric_limits<int64_t>::max());
+
+    EXPECT_EQ(safeDurationCount<uint32_t>(Duration32u(0)), 0ull);
+    EXPECT_EQ(safeDurationCount<uint32_t>(Duration32u(10)), 10ull);
+    EXPECT_EQ(safeDurationCount<uint32_t>(
+                  Duration32u(std::numeric_limits<int32_t>::max())),
+              std::numeric_limits<int32_t>::max());
+    EXPECT_EQ(safeDurationCount<uint32_t>(
+                  Duration32u(std::numeric_limits<uint32_t>::max())),
+              std::numeric_limits<uint32_t>::max());
+
+    EXPECT_EQ(safeDurationCount<int32_t>(milliseconds(-123)), -123);
+    EXPECT_EQ(safeDurationCount<int32_t>(milliseconds(10)), 10ull);
+    EXPECT_EQ(safeDurationCount<int32_t>(Duration16(-123)), -123);
+    EXPECT_EQ(safeDurationCount<int32_t>(Duration16(10)), 10ull);
+    EXPECT_EQ(safeDurationCount<int32_t>(
+                  milliseconds(std::numeric_limits<int32_t>::min())),
+              std::numeric_limits<int32_t>::min());
+    EXPECT_EQ(safeDurationCount<int32_t>(
+                  milliseconds(std::numeric_limits<int32_t>::max())),
+              std::numeric_limits<int32_t>::max());
+}
+
+TEST(SafeDurationCountTest, NegativeTests)
+{
+    using redfish::time_utils::safeDurationCount;
+    using std::chrono::milliseconds;
+    using Duration64u = std::chrono::duration<uint64_t, std::milli>;
+
+    EXPECT_EQ(safeDurationCount<uint64_t>(milliseconds(-1)), std::nullopt);
+    EXPECT_EQ(safeDurationCount<int64_t>(
+                  Duration64u(std::numeric_limits<uint64_t>::max())),
+              std::nullopt);
+
+    EXPECT_EQ(safeDurationCount<uint32_t>(milliseconds(-10000)), std::nullopt);
+    EXPECT_EQ(safeDurationCount<uint32_t>(
+                  Duration64u(std::numeric_limits<uint64_t>::max())),
+              std::nullopt);
+
+    EXPECT_EQ(safeDurationCount<int32_t>(
+                  milliseconds(std::numeric_limits<int64_t>::max())),
+              std::nullopt);
+    EXPECT_EQ(safeDurationCount<int32_t>(
+                  milliseconds(std::numeric_limits<int64_t>::min())),
+              std::nullopt);
 }

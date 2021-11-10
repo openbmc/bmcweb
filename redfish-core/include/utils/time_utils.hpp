@@ -8,6 +8,7 @@
 #include <optional>
 #include <string>
 #include <system_error>
+#include <utility>
 
 namespace redfish
 {
@@ -206,6 +207,34 @@ inline std::string toDurationString(std::chrono::milliseconds ms)
     }
 
     return fmt;
+}
+
+template <typename BaseTypeTo, typename BaseTypeFrom, typename Ratio>
+requires(std::is_integral_v<BaseTypeTo>&& std::is_integral_v<BaseTypeFrom>)
+    std::optional<BaseTypeTo> safeDurationCount(
+        const std::chrono::duration<BaseTypeFrom, Ratio>& from)
+{
+    auto count = from.count();
+
+    if constexpr (std::cmp_less(std::numeric_limits<BaseTypeFrom>::min(),
+                                std::numeric_limits<BaseTypeTo>::min()))
+    {
+        if (std::cmp_less(count, std::numeric_limits<BaseTypeTo>::min()))
+        {
+            return std::nullopt;
+        }
+    }
+
+    if constexpr (std::cmp_greater(std::numeric_limits<BaseTypeFrom>::max(),
+                                   std::numeric_limits<BaseTypeTo>::max()))
+    {
+        if (std::cmp_greater(count, std::numeric_limits<BaseTypeTo>::max()))
+        {
+            return std::nullopt;
+        }
+    }
+
+    return std::make_optional(static_cast<BaseTypeTo>(count));
 }
 
 } // namespace time_utils
