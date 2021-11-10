@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "57ed7201_c00a1862",
+        "filename": "redfish-core/include/event_service_manager.hpp",
+        "patchSetId": 53
+      },
+      "lineNbr": 538,
+      "author": {
+        "id": 1001148
+      },
+      "writtenOn": "2021-11-10T09:28:44Z",
+      "side": 1,
+      "message": "Closing due to discussion in separate comment (marked as [*]) within the review.",
+      "parentUuid": "06e0202b_608f9801",
+      "range": {
+        "startLine": 538,
+        "startChar": 12,
+        "endLine": 538,
+        "endChar": 19
+      },
+      "revId": "541353a4e4b06de42b6a9a400629f5a5fba04e86",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ed4e92f9_313b9c9c",
         "filename": "redfish-core/include/event_service_manager.hpp",
         "patchSetId": 53
@@ -211,6 +235,30 @@
       "revId": "541353a4e4b06de42b6a9a400629f5a5fba04e86",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dd3ccf56_085c048d",
+        "filename": "redfish-core/lib/metric_report.hpp",
+        "patchSetId": 53
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1001148
+      },
+      "writtenOn": "2021-11-10T09:28:44Z",
+      "side": 1,
+      "message": "I would vote to use the change at this point as it is now, if you agree I will keep this remark closed.",
+      "parentUuid": "0ddaed0c_292b66aa",
+      "range": {
+        "startLine": 37,
+        "startChar": 29,
+        "endLine": 37,
+        "endChar": 61
+      },
+      "revId": "541353a4e4b06de42b6a9a400629f5a5fba04e86",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
