@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "844283c4_c749b4cb",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 34
+      },
+      "lineNbr": 980,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2021-11-10T19:15:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5d7a366c_9d924a5b",
+      "range": {
+        "startLine": 979,
+        "startChar": 24,
+        "endLine": 980,
+        "endChar": 32
+      },
+      "revId": "94fc2a250eadd32ee23d6adafa142c65ce11dbf0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8777b397_3bd7eed6",
         "filename": "redfish-core/lib/update_service.hpp",
         "patchSetId": 34
@@ -45,6 +69,30 @@
       "revId": "94fc2a250eadd32ee23d6adafa142c65ce11dbf0",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9a8980ba_cca2d920",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 34
+      },
+      "lineNbr": 999,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2021-11-10T19:15:14Z",
+      "side": 1,
+      "message": "um, I think that was a comment from somewhere else. I forgot to remove it.\n\nremoved it now. Sorry for the confusion.",
+      "parentUuid": "8777b397_3bd7eed6",
+      "range": {
+        "startLine": 999,
+        "startChar": 24,
+        "endLine": 999,
+        "endChar": 67
+      },
+      "revId": "94fc2a250eadd32ee23d6adafa142c65ce11dbf0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
