@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "8741fb3f_a3f7ddf6",
+        "filename": "http/http_connection.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 532,
+      "author": {
+        "id": 1000004
+      },
+      "writtenOn": "2021-11-10T02:34:30Z",
+      "side": 1,
+      "message": "I just wasn\u0027t sure what warranted the ERROR here. I can def turn this to debug if y\u0027all think that\u0027s best.",
+      "parentUuid": "b228bf07_62aeb1ec",
+      "revId": "c3c2f420baaba7989901948f737ddc28c9ccf902",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d3084914_b6efdc9f",
         "filename": "include/authorization.hpp",
         "patchSetId": 1
@@ -30,6 +48,30 @@
       "writtenOn": "2021-11-10T01:22:46Z",
       "side": 1,
       "message": "Why WARNING and not DEBUG?",
+      "range": {
+        "startLine": 288,
+        "startChar": 4,
+        "endLine": 288,
+        "endChar": 23
+      },
+      "revId": "c3c2f420baaba7989901948f737ddc28c9ccf902",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c52a8449_9fc10925",
+        "filename": "include/authorization.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 288,
+      "author": {
+        "id": 1000004
+      },
+      "writtenOn": "2021-11-10T02:34:30Z",
+      "side": 1,
+      "message": "I just wasn\u0027t sure what warranted the ERROR here. I can def turn this to debug if y\u0027all think that\u0027s best. It may even be a bug? At least when we log this, there is nothing in the \"authHeader\" variable.",
+      "parentUuid": "d3084914_b6efdc9f",
       "range": {
         "startLine": 288,
         "startChar": 4,
