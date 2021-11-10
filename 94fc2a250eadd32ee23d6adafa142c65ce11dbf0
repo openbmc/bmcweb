@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5d7a366c_9d924a5b",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 34
+      },
+      "lineNbr": 980,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2021-11-10T08:46:42Z",
+      "side": 1,
+      "message": "Comments in code explaining what your block is doing often means you should change your code. In this case simple rename should be fine. Instead of foundFirmware you could name your variable foundFirmwareWithMatchingSwId it\u0027s a bit long, but it will make your comment redundant.",
+      "range": {
+        "startLine": 979,
+        "startChar": 24,
+        "endLine": 980,
+        "endChar": 32
+      },
+      "revId": "94fc2a250eadd32ee23d6adafa142c65ce11dbf0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8777b397_3bd7eed6",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 34
+      },
+      "lineNbr": 999,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2021-11-10T08:46:42Z",
+      "side": 1,
+      "message": "This is confusing to me. I can see below that you are setting writeProtected flag. I don\u0027t see any relation to \u0027image apply time\u0027, can you explain how this two are connected to each other?",
+      "range": {
+        "startLine": 999,
+        "startChar": 24,
+        "endLine": 999,
+        "endChar": 67
+      },
+      "revId": "94fc2a250eadd32ee23d6adafa142c65ce11dbf0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
