@@ -37,6 +37,47 @@
     },
     {
       "key": {
+        "uuid": "cfa25252_f77911f3",
+        "filename": "http/http_connection.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 532,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-11-11T21:58:22Z",
+      "side": 1,
+      "message": "this should probably be DEBUG, not warning.",
+      "parentUuid": "8741fb3f_a3f7ddf6",
+      "revId": "c3c2f420baaba7989901948f737ddc28c9ccf902",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dd306f5c_91278f9e",
+        "filename": "http/http_connection.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 538,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-11-11T21:58:22Z",
+      "side": 1,
+      "message": "I\u0027m not quite following why this isn\u0027t an error?  Because some clients disconnect uncleanly?",
+      "range": {
+        "startLine": 538,
+        "startChar": 20,
+        "endLine": 538,
+        "endChar": 38
+      },
+      "revId": "c3c2f420baaba7989901948f737ddc28c9ccf902",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d3084914_b6efdc9f",
         "filename": "include/authorization.hpp",
         "patchSetId": 1
@@ -72,6 +113,30 @@
       "side": 1,
       "message": "I just wasn\u0027t sure what warranted the ERROR here. I can def turn this to debug if y\u0027all think that\u0027s best. It may even be a bug? At least when we log this, there is nothing in the \"authHeader\" variable.",
       "parentUuid": "d3084914_b6efdc9f",
+      "range": {
+        "startLine": 288,
+        "startChar": 4,
+        "endLine": 288,
+        "endChar": 23
+      },
+      "revId": "c3c2f420baaba7989901948f737ddc28c9ccf902",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2700c23c_0def553d",
+        "filename": "include/authorization.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 288,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-11-11T21:58:22Z",
+      "side": 1,
+      "message": "Yeah, this should be DEBUG.",
+      "parentUuid": "c52a8449_9fc10925",
       "range": {
         "startLine": 288,
         "startChar": 4,
