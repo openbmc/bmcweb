@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "be9a5297_a93daf08",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 2583,
+      "author": {
+        "id": 1000331
+      },
+      "writtenOn": "2021-11-11T16:09:04Z",
+      "side": 1,
+      "message": "This change seems fine with me.  The if statement doesn\u0027t make sense to me.  sensorNames is the set of requested sensors within the current chassis.  So it would be normal I think for the output from GetManagedObjects to contain additional paths.  I don\u0027t know why this was logged.\n\nThis file has been through many changes by many different people, so I wonder if the purpose of some of the parameters changed over time and this if statement was not updated properly.",
+      "revId": "accdbb2c0eb90d64f60be6319685c0814cafff49",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
