@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d881232d_0d3377ad",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 35
+      },
+      "lineNbr": 947,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-11-11T23:17:53Z",
+      "side": 1,
+      "message": "Please use the appropriate macros.",
+      "range": {
+        "startLine": 947,
+        "startChar": 20,
+        "endLine": 947,
+        "endChar": 44
+      },
+      "revId": "5a672ad61fdf3d6c47270e6d7c7943746fe296e2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4a9b44cd_2a126942",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 35
+      },
+      "lineNbr": 995,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-11-11T23:17:53Z",
+      "side": 1,
+      "message": "Can we just write this with a normal loop?  That would make this code a lot more clear.",
+      "range": {
+        "startLine": 979,
+        "startChar": 5,
+        "endLine": 995,
+        "endChar": 25
+      },
+      "revId": "5a672ad61fdf3d6c47270e6d7c7943746fe296e2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "923e8a98_faacda6c",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 35
+      },
+      "lineNbr": 1014,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-11-11T23:17:53Z",
+      "side": 1,
+      "message": "please put this into its own function",
+      "range": {
+        "startLine": 997,
+        "startChar": 5,
+        "endLine": 1014,
+        "endChar": 72
+      },
+      "revId": "5a672ad61fdf3d6c47270e6d7c7943746fe296e2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
