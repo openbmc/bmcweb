@@ -135,8 +135,8 @@ inline void getPhysicalSecurityData(std::shared_ptr<bmcweb::AsyncResp> aResp)
             {
                 // do not add err msg in redfish response, because this is not
                 //     mandatory property
-                BMCWEB_LOG_ERROR << "DBUS error: no matched iface " << ec
-                                 << "\n";
+                BMCWEB_LOG_INFO << "DBUS error: no matched iface " << ec
+                                << "\n";
                 return;
             }
             // Iterate over all retrieved ObjectPaths.
