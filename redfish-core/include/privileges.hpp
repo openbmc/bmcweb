@@ -262,10 +262,10 @@ inline bool isOperationAllowedWithPrivileges(
     }
     for (auto& requiredPrivileges : operationPrivilegesRequired)
     {
-        BMCWEB_LOG_ERROR << "Checking operation privileges...";
+        BMCWEB_LOG_DEBUG << "Checking operation privileges...";
         if (userPrivileges.isSupersetOf(requiredPrivileges))
         {
-            BMCWEB_LOG_ERROR << "...success";
+            BMCWEB_LOG_DEBUG << "...success";
             return true;
         }
     }
