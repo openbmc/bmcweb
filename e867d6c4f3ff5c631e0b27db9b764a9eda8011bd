@@ -141,6 +141,30 @@
       "revId": "e867d6c4f3ff5c631e0b27db9b764a9eda8011bd",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5fc6372a_495a268e",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 406,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2021-11-12T16:53:19Z",
+      "side": 1,
+      "message": "I think I have addressed it now.\n\nSo that `getPrettyName` only take in the service name and object path and utilizes the mapper from other place to look for the one we care about.",
+      "parentUuid": "166953ae_f239e287",
+      "range": {
+        "startLine": 406,
+        "startChar": 43,
+        "endLine": 406,
+        "endChar": 56
+      },
+      "revId": "e867d6c4f3ff5c631e0b27db9b764a9eda8011bd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
