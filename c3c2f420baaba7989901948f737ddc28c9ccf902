@@ -120,6 +120,30 @@
     },
     {
       "key": {
+        "uuid": "11a00ba9_f8ad862b",
+        "filename": "http/http_connection.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 538,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2021-11-12T11:38:46Z",
+      "side": 1,
+      "message": "How about checking ec for this errors, if it\u0027s end of stream make it lower priority if it\u0027s something else log it as error.\n\nThis can potentially hide some other issues.",
+      "parentUuid": "c9d4af0e_32044d5c",
+      "range": {
+        "startLine": 538,
+        "startChar": 20,
+        "endLine": 538,
+        "endChar": 38
+      },
+      "revId": "c3c2f420baaba7989901948f737ddc28c9ccf902",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d3084914_b6efdc9f",
         "filename": "include/authorization.hpp",
         "patchSetId": 1
