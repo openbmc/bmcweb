@@ -36,7 +36,7 @@ static void cleanupTempSession(Request& req)
 }
 
 #ifdef BMCWEB_ENABLE_BASIC_AUTHENTICATION
-static std::shared_ptr<persistent_data::UserSession>
+[[maybe_unused]] static std::shared_ptr<persistent_data::UserSession>
     performBasicAuth(const boost::asio::ip::address& clientIp,
                      std::string_view authHeader)
 {
@@ -93,7 +93,7 @@ static std::shared_ptr<persistent_data::UserSession>
 #endif
 
 #ifdef BMCWEB_ENABLE_SESSION_AUTHENTICATION
-static std::shared_ptr<persistent_data::UserSession>
+[[maybe_unused]] static std::shared_ptr<persistent_data::UserSession>
     performTokenAuth(std::string_view authHeader)
 {
     BMCWEB_LOG_DEBUG << "[AuthMiddleware] Token authentication";
@@ -109,7 +109,7 @@ static std::shared_ptr<persistent_data::UserSession>
 #endif
 
 #ifdef BMCWEB_ENABLE_XTOKEN_AUTHENTICATION
-static std::shared_ptr<persistent_data::UserSession>
+[[maybe_unused]] static std::shared_ptr<persistent_data::UserSession>
     performXtokenAuth(const boost::beast::http::header<true>& reqHeader)
 {
     BMCWEB_LOG_DEBUG << "[AuthMiddleware] X-Auth-Token authentication";
@@ -126,7 +126,7 @@ static std::shared_ptr<persistent_data::UserSession>
 #endif
 
 #ifdef BMCWEB_ENABLE_COOKIE_AUTHENTICATION
-static std::shared_ptr<persistent_data::UserSession>
+[[maybe_unused]] static std::shared_ptr<persistent_data::UserSession>
     performCookieAuth(boost::beast::http::verb method,
                       const boost::beast::http::header<true>& reqHeader)
 {
@@ -187,7 +187,7 @@ static std::shared_ptr<persistent_data::UserSession>
 #endif
 
 #ifdef BMCWEB_ENABLE_MUTUAL_TLS_AUTHENTICATION
-static std::shared_ptr<persistent_data::UserSession>
+[[maybe_unused]] static std::shared_ptr<persistent_data::UserSession>
     performTLSAuth(Response& res,
                    const boost::beast::http::header<true>& reqHeader,
                    const std::weak_ptr<persistent_data::UserSession>& session)
@@ -223,8 +223,12 @@ static std::shared_ptr<persistent_data::UserSession>
 #endif
 
 // checks if request can be forwarded without authentication
-static bool isOnAllowlist(std::string_view url, boost::beast::http::verb method)
+static bool isOnAllowlist([[maybe_unused]] std::string_view url,
+                          [[maybe_unused]] boost::beast::http::verb method)
 {
+#ifdef BMCWEB_INSECURE_DISABLE_AUTHENTICATION
+    return true;
+#else
     if (boost::beast::http::verb::get == method)
     {
         if (url == "/redfish/v1" || url == "/redfish/v1/" ||
@@ -253,15 +257,20 @@ static bool isOnAllowlist(std::string_view url, boost::beast::http::verb method)
     }
 
     return false;
+#endif
 }
 
 static std::shared_ptr<persistent_data::UserSession> authenticate(
-    boost::asio::ip::address& ipAddress [[maybe_unused]],
-    Response& res [[maybe_unused]], boost::beast::http::verb method,
-    const boost::beast::http::header<true>& reqHeader,
+    [[maybe_unused]] boost::asio::ip::address& ipAddress,
+    [[maybe_unused]] Response& res,
+    [[maybe_unused]] boost::beast::http::verb method,
+    [[maybe_unused]] const boost::beast::http::header<true>& reqHeader,
     [[maybe_unused]] const std::shared_ptr<persistent_data::UserSession>&
         session)
 {
+#ifdef BMCWEB_INSECURE_DISABLE_AUTHENTICATION
+    return nullptr;
+#endif
     const persistent_data::AuthConfigMethods& authMethodsConfig =
         persistent_data::SessionStore::getInstance().getAuthMethodsConfig();
 
