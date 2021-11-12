@@ -46,6 +46,30 @@
       "revId": "cda1c7caea740ded4547ff8ede92ac8b66f11fbe",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "06ce7b2c_61b48b7a",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 57
+      },
+      "lineNbr": 780,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2021-11-12T08:21:46Z",
+      "side": 1,
+      "message": "It\u0027s my bad. I was looking at older patch set.",
+      "parentUuid": "e0546e4f_cdc98491",
+      "range": {
+        "startLine": 779,
+        "startChar": 3,
+        "endLine": 780,
+        "endChar": 46
+      },
+      "revId": "cda1c7caea740ded4547ff8ede92ac8b66f11fbe",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
