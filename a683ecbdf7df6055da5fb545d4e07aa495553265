@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "f0447aa9_2ea9cf0c",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1862,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2021-11-12T11:45:41Z",
+      "side": 1,
+      "message": "Since there is if and else it would look more straightforward if conditions are reversed, I mean to use:\n\nif (userHasConfigureUsers) {\n\n} else {\n\n}\n\nInstead of\nif (!userHasConfigureUsers) {\n\n} else {\n\n}",
+      "range": {
+        "startLine": 1862,
+        "startChar": 16,
+        "endLine": 1862,
+        "endChar": 43
+      },
+      "revId": "a683ecbdf7df6055da5fb545d4e07aa495553265",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "b5765b4b_2a6660c3",
         "filename": "redfish-core/lib/account_service.hpp",
         "patchSetId": 1
