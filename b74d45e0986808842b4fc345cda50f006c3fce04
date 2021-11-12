@@ -22,6 +22,52 @@
       "revId": "b74d45e0986808842b4fc345cda50f006c3fce04",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e17052f5_31aad580",
+        "filename": "redfish-core/lib/redfish_sessions.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2021-11-12T11:12:36Z",
+      "side": 1,
+      "message": "This can have potential issues let\u0027s say there is session 110 and you are looking for session 10. You may find incorrect session.\n\nI don\u0027t know what session path looks like but I guess sdbusplus::message::object_path.filename() is a method you want to use here.",
+      "range": {
+        "startLine": 98,
+        "startChar": 28,
+        "endLine": 98,
+        "endChar": 78
+      },
+      "revId": "b74d45e0986808842b4fc345cda50f006c3fce04",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d598e652_58357602",
+        "filename": "redfish-core/lib/redfish_sessions.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2021-11-12T11:12:36Z",
+      "side": 1,
+      "message": "It\u0027s pointer you should not dereference it before checking if it\u0027s valid. Same issue can happen with remoteIpAddr.",
+      "range": {
+        "startLine": 154,
+        "startChar": 36,
+        "endLine": 154,
+        "endChar": 45
+      },
+      "revId": "b74d45e0986808842b4fc345cda50f006c3fce04",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
