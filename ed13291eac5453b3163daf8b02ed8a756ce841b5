@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "dcb6865b_07a4c992",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 197,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2021-11-12T11:26:50Z",
+      "side": 1,
+      "message": "It is discouraged in bmcweb, because it may throw exception.\nYou can use assemblyArray.find instead",
+      "range": {
+        "startLine": 197,
+        "startChar": 47,
+        "endLine": 197,
+        "endChar": 63
+      },
+      "revId": "ed13291eac5453b3163daf8b02ed8a756ce841b5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3141bea3_dd16ee5b",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 272,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2021-11-12T11:26:50Z",
+      "side": 1,
+      "message": "not needed",
+      "range": {
+        "startLine": 272,
+        "startChar": 4,
+        "endLine": 272,
+        "endChar": 11
+      },
+      "revId": "ed13291eac5453b3163daf8b02ed8a756ce841b5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "588a34c4_24c55dfd",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 344,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2021-11-12T11:26:50Z",
+      "side": 1,
+      "message": "It should be done by calling a callback. In doGet you will pass:\ngetAssemblyProperties(aResp, chassisPath, updatedAssemblyList);\n\nin doPatch:\nsetAssemblylocationIndicators(aResp, chassisPath, updatedAssemblyList, req);",
+      "range": {
+        "startLine": 335,
+        "startChar": 0,
+        "endLine": 344,
+        "endChar": 17
+      },
+      "revId": "ed13291eac5453b3163daf8b02ed8a756ce841b5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
