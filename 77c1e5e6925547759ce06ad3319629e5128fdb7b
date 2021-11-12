@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "df87f087_645a920a",
+        "filename": "redfish-core/include/utils/log_utils.hpp",
+        "patchSetId": 37
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2021-11-12T19:00:09Z",
+      "side": 1,
+      "message": "yeah, that is wrong. I added a comment mentioning that it should be\n\n```\nasyncResp-\u003eres.jsonValue[\"Status\"][\"Conditions\"];\n```\n\nI just didn\u0027t get the chance to fix it and test it again.",
+      "parentUuid": "3f259d69_a994156b",
+      "range": {
+        "startLine": 36,
+        "startChar": 12,
+        "endLine": 38,
+        "endChar": 53
+      },
+      "revId": "77c1e5e6925547759ce06ad3319629e5128fdb7b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "cf29b795_052ae725",
         "filename": "redfish-core/include/utils/log_utils.hpp",
         "patchSetId": 37
@@ -36,6 +60,30 @@
       "writtenOn": "2021-11-12T08:57:34Z",
       "side": 1,
       "message": "I wonder how it is possible to mistake log service with deviceId? Can you give me some example?\n\nComment about what are you doing in code doesn\u0027t really help, it would be helpful to know why we can mistake serviceName with deviceId. If you explain when it can happen maybe I will be able to suggest different solution.",
+      "range": {
+        "startLine": 41,
+        "startChar": 0,
+        "endLine": 48,
+        "endChar": 17
+      },
+      "revId": "77c1e5e6925547759ce06ad3319629e5128fdb7b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "29b53dc2_a136e672",
+        "filename": "redfish-core/include/utils/log_utils.hpp",
+        "patchSetId": 37
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2021-11-12T19:00:09Z",
+      "side": 1,
+      "message": "I don\u0027t remember exactly why I added this comment.\n\nI think this is just to make sure that `obj.first` is always a subpath of `logPath`.\n\n\nSO like \nlogPath \u003d /xyz/openbmc_proejct/some_device\nobj.first \u003d /xyz/openbmc_proejct/some_device/log0\n\n\nWant to make sure that `obj.first` !\u003d logPath. Maybe I should just do that instead.\n\nAlso this is in WIP and will be restructure once I get the chance,",
+      "parentUuid": "cf29b795_052ae725",
       "range": {
         "startLine": 41,
         "startChar": 0,
