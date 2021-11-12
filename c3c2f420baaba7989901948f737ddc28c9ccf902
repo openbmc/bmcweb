@@ -55,6 +55,24 @@
     },
     {
       "key": {
+        "uuid": "e674d7af_af3ff58f",
+        "filename": "http/http_connection.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 532,
+      "author": {
+        "id": 1000004
+      },
+      "writtenOn": "2021-11-12T02:07:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cfa25252_f77911f3",
+      "revId": "c3c2f420baaba7989901948f737ddc28c9ccf902",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "dd306f5c_91278f9e",
         "filename": "http/http_connection.hpp",
         "patchSetId": 1
@@ -66,6 +84,30 @@
       "writtenOn": "2021-11-11T21:58:22Z",
       "side": 1,
       "message": "I\u0027m not quite following why this isn\u0027t an error?  Because some clients disconnect uncleanly?",
+      "range": {
+        "startLine": 538,
+        "startChar": 20,
+        "endLine": 538,
+        "endChar": 38
+      },
+      "revId": "c3c2f420baaba7989901948f737ddc28c9ccf902",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c9d4af0e_32044d5c",
+        "filename": "http/http_connection.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 538,
+      "author": {
+        "id": 1000004
+      },
+      "writtenOn": "2021-11-12T02:07:40Z",
+      "side": 1,
+      "message": "Yeah, I\u0027m not sure. We saw it consistently on our p10bmc system but we do a lot of things with our clients and tests. I do see below, when we hit this path, we just close the connection and return so I was going with the idea that if an error is not returned to the caller then I\u0027d prefer we not log it as an error in the journal. I can turn this back to an error though if you want.",
+      "parentUuid": "dd306f5c_91278f9e",
       "range": {
         "startLine": 538,
         "startChar": 20,
@@ -146,6 +188,30 @@
       "revId": "c3c2f420baaba7989901948f737ddc28c9ccf902",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "41f3457b_35263ea1",
+        "filename": "include/authorization.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 288,
+      "author": {
+        "id": 1000004
+      },
+      "writtenOn": "2021-11-12T02:07:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2700c23c_0def553d",
+      "range": {
+        "startLine": 288,
+        "startChar": 4,
+        "endLine": 288,
+        "endChar": 23
+      },
+      "revId": "c3c2f420baaba7989901948f737ddc28c9ccf902",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
