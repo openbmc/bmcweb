@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "27de4924_f8cae77c",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 457,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-11-13T18:30:08Z",
+      "side": 1,
+      "message": "FYI, this is still incorrect, as it\u0027s assuming that the connection that hosts the drive object is the same one as hosts the asset, present, and state interfaces.  WIth that said, this was incorrect before, so that\u0027s ok.",
+      "range": {
+        "startLine": 455,
+        "startChar": 0,
+        "endLine": 457,
+        "endChar": 67
+      },
+      "revId": "76e55bf37497e6b229755d7b26a121bd448af946",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
