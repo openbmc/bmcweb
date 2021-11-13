@@ -25,6 +25,29 @@
     },
     {
       "key": {
+        "uuid": "d2705bd7_19981234",
+        "filename": "redfish-core/lib/redfish_sessions.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-11-13T18:16:21Z",
+      "side": 1,
+      "message": "For what it\u0027s worth, I really don\u0027t like that we\u0027re grabbing an IPMI specific structure here.  This implies that we\u0027ll need separate interfaces for IPMI, Redfish, PLDM, dbus-rest, ect, and that would make this api very slow to have to poll all of those.",
+      "range": {
+        "startLine": 66,
+        "startChar": 19,
+        "endLine": 66,
+        "endChar": 59
+      },
+      "revId": "b74d45e0986808842b4fc345cda50f006c3fce04",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e17052f5_31aad580",
         "filename": "redfish-core/lib/redfish_sessions.hpp",
         "patchSetId": 12
@@ -48,6 +71,30 @@
     },
     {
       "key": {
+        "uuid": "f00bdb2f_ef7de8e5",
+        "filename": "redfish-core/lib/redfish_sessions.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-11-13T18:16:21Z",
+      "side": 1,
+      "message": "+1.  To the author: please read and understand COMMON_ERRORS.md.  This method is called out explicitly by name.",
+      "parentUuid": "e17052f5_31aad580",
+      "range": {
+        "startLine": 98,
+        "startChar": 28,
+        "endLine": 98,
+        "endChar": 78
+      },
+      "revId": "b74d45e0986808842b4fc345cda50f006c3fce04",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d598e652_58357602",
         "filename": "redfish-core/lib/redfish_sessions.hpp",
         "patchSetId": 12
@@ -59,6 +106,30 @@
       "writtenOn": "2021-11-12T11:12:36Z",
       "side": 1,
       "message": "It\u0027s pointer you should not dereference it before checking if it\u0027s valid. Same issue can happen with remoteIpAddr.",
+      "range": {
+        "startLine": 154,
+        "startChar": 36,
+        "endLine": 154,
+        "endChar": 45
+      },
+      "revId": "b74d45e0986808842b4fc345cda50f006c3fce04",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "40d1b358_71ce8492",
+        "filename": "redfish-core/lib/redfish_sessions.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-11-13T18:16:21Z",
+      "side": 1,
+      "message": "+1",
+      "parentUuid": "d598e652_58357602",
       "range": {
         "startLine": 154,
         "startChar": 36,
