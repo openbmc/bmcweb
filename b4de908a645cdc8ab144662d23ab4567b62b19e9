@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "9d1a6622_3058345c",
+        "filename": "include/authorization.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2021-11-13T20:24:21Z",
+      "side": 1,
+      "message": "Yes, I am getting defined but unused functions errors in bitbake. Any concerns with maybe_unused annotations on functions?",
+      "parentUuid": "297bd393_88df4c7f",
+      "range": {
+        "startLine": 39,
+        "startChar": 0,
+        "endLine": 39,
+        "endChar": 17
+      },
+      "revId": "b4de908a645cdc8ab144662d23ab4567b62b19e9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4ce13ebe_8a2e1d5f",
         "filename": "include/authorization.hpp",
         "patchSetId": 1
@@ -45,6 +69,30 @@
       "revId": "b4de908a645cdc8ab144662d23ab4567b62b19e9",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0aeb52ea_5e07ea8a",
+        "filename": "include/authorization.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 273,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2021-11-13T20:24:21Z",
+      "side": 1,
+      "message": "Done. Moved preprocessors to the calling scope. Kept this file minimum changed.",
+      "parentUuid": "4ce13ebe_8a2e1d5f",
+      "range": {
+        "startLine": 271,
+        "startChar": 0,
+        "endLine": 273,
+        "endChar": 6
+      },
+      "revId": "b4de908a645cdc8ab144662d23ab4567b62b19e9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
