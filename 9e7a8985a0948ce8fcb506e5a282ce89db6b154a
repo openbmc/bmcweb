@@ -1,0 +1,113 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "97bdc996_65da7ee0",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 389,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-11-13T18:34:45Z",
+      "side": 1,
+      "message": "nit: \"required\" is probably a better word here.",
+      "range": {
+        "startLine": 389,
+        "startChar": 40,
+        "endLine": 389,
+        "endChar": 49
+      },
+      "revId": "9e7a8985a0948ce8fcb506e5a282ce89db6b154a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "86195b2c_ecd734ee",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 419,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-11-13T18:34:45Z",
+      "side": 1,
+      "message": "Same as below, put in its own method, and make it cause an internal error if it isn\u0027t a recognized type.",
+      "range": {
+        "startLine": 410,
+        "startChar": 0,
+        "endLine": 419,
+        "endChar": 21
+      },
+      "revId": "9e7a8985a0948ce8fcb506e5a282ce89db6b154a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5de996a6_7fdcef29",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 431,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-11-13T18:34:45Z",
+      "side": 1,
+      "message": "nit, can you please add \u003d\u003d 0 to make this more clear what\u0027s going on.  Also, invert the check to save hosizontal scopes.\n\nif (*capacity \u003d\u003d 0){\n    // drive capacity not known\n    continue;\n}",
+      "range": {
+        "startLine": 431,
+        "startChar": 25,
+        "endLine": 431,
+        "endChar": 33
+      },
+      "revId": "9e7a8985a0948ce8fcb506e5a282ce89db6b154a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d06f49d0_15934281",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 472,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-11-13T18:34:45Z",
+      "side": 1,
+      "message": "Please put this lookup in its own method.",
+      "range": {
+        "startLine": 447,
+        "startChar": 0,
+        "endLine": 472,
+        "endChar": 21
+      },
+      "revId": "9e7a8985a0948ce8fcb506e5a282ce89db6b154a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "067dc42d_e7417cde",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 473,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-11-13T18:34:45Z",
+      "side": 1,
+      "message": "Else internalError?",
+      "revId": "9e7a8985a0948ce8fcb506e5a282ce89db6b154a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
