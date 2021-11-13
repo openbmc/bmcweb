@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "297bd393_88df4c7f",
+        "filename": "include/authorization.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-11-13T17:36:31Z",
+      "side": 1,
+      "message": "Rather than maybe_unused here, should all of these be beneath the DISABLE_AUTHENTICATION ifdef?\n\nAlso, I think this is the only case where we\u0027ve needed to use maybe_unused on a method definition.  Were there compiler errors if you didn\u0027t have it?",
+      "range": {
+        "startLine": 39,
+        "startChar": 0,
+        "endLine": 39,
+        "endChar": 17
+      },
+      "revId": "b4de908a645cdc8ab144662d23ab4567b62b19e9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4ce13ebe_8a2e1d5f",
+        "filename": "include/authorization.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 273,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-11-13T17:36:31Z",
+      "side": 1,
+      "message": "Can we just do this in the calling scope?  something like\n\nifndef BMCWEB_INSECURE_DISABLE_AUTHENTICATION\nauthenticate()\n\nendif\n\nThat seems cleaner than adding maybe_unused to every parameter here.",
+      "range": {
+        "startLine": 271,
+        "startChar": 0,
+        "endLine": 273,
+        "endChar": 6
+      },
+      "revId": "b4de908a645cdc8ab144662d23ab4567b62b19e9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
