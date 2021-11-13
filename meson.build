@@ -72,7 +72,6 @@ feature_map = {
   'insecure-tftp-update'                        : '-DBMCWEB_INSECURE_ENABLE_REDFISH_FW_TFTP_UPDATE',
   'kvm'                                         : '-DBMCWEB_ENABLE_KVM' ,
   'mutual-tls-auth'                             : '-DBMCWEB_ENABLE_MUTUAL_TLS_AUTHENTICATION',
-  'pam'                                         : '-DWEBSERVER_ENABLE_PAM',
   'redfish'                                     : '-DBMCWEB_ENABLE_REDFISH',
   'redfish-bmc-journal'                         : '-DBMCWEB_ENABLE_REDFISH_BMC_JOURNAL',
   'redfish-cpu-log'                             : '-DBMCWEB_ENABLE_REDFISH_CPU_LOG',
@@ -263,7 +262,7 @@ language : 'cpp')
 # automatically during the configure step
 bmcweb_dependencies = []
 
-pam = cxx.find_library('pam', required: get_option('pam'))
+pam = cxx.find_library('pam', required: true)
 atomic =  cxx.find_library('atomic', required: true)
 openssl = dependency('openssl', required : true)
 bmcweb_dependencies += [pam, atomic, openssl]

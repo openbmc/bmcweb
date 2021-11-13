@@ -1,4 +1,3 @@
-option('pam', type: 'feature', value : 'enabled', description : 'Built static libraries')
 option('yocto-deps', type: 'feature', value: 'disabled', description : 'Use YOCTO dependencies system')
 option('kvm', type : 'feature',value : 'enabled', description : 'Enable the KVM host video WebSocket.  Path is \'/kvm/0\'.  Video is from the BMC\'s \'/dev/video\' device.')
 option ('tests', type : 'feature', value : 'enabled', description : 'Enable Unit tests for bmcweb')

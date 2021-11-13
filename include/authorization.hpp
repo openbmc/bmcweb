@@ -223,7 +223,8 @@ static std::shared_ptr<persistent_data::UserSession>
 #endif
 
 // checks if request can be forwarded without authentication
-static bool isOnAllowlist(std::string_view url, boost::beast::http::verb method)
+[[maybe_unused]] static bool isOnAllowlist(std::string_view url,
+                                           boost::beast::http::verb method)
 {
     if (boost::beast::http::verb::get == method)
     {
@@ -255,12 +256,13 @@ static bool isOnAllowlist(std::string_view url, boost::beast::http::verb method)
     return false;
 }
 
-static std::shared_ptr<persistent_data::UserSession> authenticate(
-    boost::asio::ip::address& ipAddress [[maybe_unused]],
-    Response& res [[maybe_unused]], boost::beast::http::verb method,
-    const boost::beast::http::header<true>& reqHeader,
-    [[maybe_unused]] const std::shared_ptr<persistent_data::UserSession>&
-        session)
+[[maybe_unused]] static std::shared_ptr<persistent_data::UserSession>
+    authenticate(
+        boost::asio::ip::address& ipAddress [[maybe_unused]],
+        Response& res [[maybe_unused]], boost::beast::http::verb method,
+        const boost::beast::http::header<true>& reqHeader,
+        [[maybe_unused]] const std::shared_ptr<persistent_data::UserSession>&
+            session)
 {
     const persistent_data::AuthConfigMethods& authMethodsConfig =
         persistent_data::SessionStore::getInstance().getAuthMethodsConfig();
