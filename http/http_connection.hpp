@@ -354,7 +354,7 @@ class Connection :
             completeRequest();
             return;
         }
-
+#ifndef BMCWEB_INSECURE_DISABLE_AUTHENTICATION
         if (!crow::authorization::isOnAllowlist(req->url, req->method()) &&
             thisReq.session == nullptr)
         {
@@ -365,7 +365,7 @@ class Connection :
             completeRequest();
             return;
         }
-
+#endif // BMCWEB_INSECURE_DISABLE_AUTHENTICATION
         res.setCompleteRequestHandler([self(shared_from_this())] {
             boost::asio::post(self->adaptor.get_executor(),
                               [self] { self->completeRequest(); });
@@ -558,7 +558,6 @@ class Connection :
                     return;
                 }
 
-                boost::beast::http::verb method = parser->get().method();
                 readClientIp();
 
                 boost::asio::ip::address ip;
@@ -567,8 +566,11 @@ class Connection :
                     BMCWEB_LOG_DEBUG << "Unable to get client IP";
                 }
                 sessionIsFromTransport = false;
+#ifndef BMCWEB_INSECURE_DISABLE_AUTHENTICATION
+                boost::beast::http::verb method = parser->get().method();
                 userSession = crow::authorization::authenticate(
                     ip, res, method, parser->get().base(), userSession);
+#endif // BMCWEB_INSECURE_DISABLE_AUTHENTICATION
                 bool loggedIn = userSession != nullptr;
                 if (loggedIn)
                 {
