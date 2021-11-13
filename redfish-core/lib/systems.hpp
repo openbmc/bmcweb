@@ -2479,7 +2479,7 @@ using ipsPropertiesType =
  *
  * @return true if successful
  */
-bool parseIpsProperties(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
+inline bool parseIpsProperties(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
                         ipsPropertiesType& properties)
 {
     for (const auto& property : properties)
