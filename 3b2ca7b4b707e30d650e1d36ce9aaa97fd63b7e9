@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7abef537_3a4e4849",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-11-13T18:43:12Z",
+      "side": 1,
+      "message": "Out of curiosity, is there a reason your investigating all these error print paths?  Your patches stand alone as is, and are good changes, but if you have some overarching goals here (like avoiding ERROR level logging on non-errors) it would be good to know that so we can be more consistent on this in future patches.",
+      "revId": "3b2ca7b4b707e30d650e1d36ce9aaa97fd63b7e9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
