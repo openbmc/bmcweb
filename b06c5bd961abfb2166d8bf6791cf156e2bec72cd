@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d0f57080_f67b2f46",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000206
+      },
+      "writtenOn": "2021-11-14T02:47:34Z",
+      "side": 1,
+      "message": "looks like who added the boost upgrade forgot to upgrade that in the CI scripts.\n\ndownloading the boost lib for every bmcweb build in CI is a waste of CI resources which can be avoided.",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 14
+      },
+      "revId": "b06c5bd961abfb2166d8bf6791cf156e2bec72cd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
