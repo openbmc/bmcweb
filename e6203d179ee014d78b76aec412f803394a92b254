@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "484d574b_8209112f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2021-11-15T09:03:18Z",
+      "side": 1,
+      "message": "In case of existing get property people use variant with one type which always is set to some value.\nhttps://godbolt.org/z/fcK5EWTEP\n\nIn case of getProperty it is done properly, to variant type is added extra type to determine if value is present (type expected is same as type on dbus).\nhttps://godbolt.org/z/56dKsd1j9\n\nIf you take a look at the examples, one branch is optimized out. Which might be the reason why it produces bigger binary size.",
+      "range": {
+        "startLine": 12,
+        "startChar": 0,
+        "endLine": 13,
+        "endChar": 51
+      },
+      "revId": "e6203d179ee014d78b76aec412f803394a92b254",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}

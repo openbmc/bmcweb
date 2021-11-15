@@ -22,6 +22,98 @@
       "revId": "579b4ccc6153f3fc9fcb88f918b58d87c485c70d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b718f654_eb45df86",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 3008,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2021-11-15T09:03:18Z",
+      "side": 1,
+      "message": "It should be more efficient if passed by value since it\u0027s smaller than pointer size.",
+      "range": {
+        "startLine": 3008,
+        "startChar": 39,
+        "endLine": 3008,
+        "endChar": 54
+      },
+      "revId": "579b4ccc6153f3fc9fcb88f918b58d87c485c70d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "20a2ed7f_c7fb59f9",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1727,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2021-11-15T09:03:18Z",
+      "side": 1,
+      "message": "It should be more efficient to pass it by value since it\u0027s equal as pointer size.",
+      "range": {
+        "startLine": 1727,
+        "startChar": 16,
+        "endLine": 1727,
+        "endChar": 31
+      },
+      "revId": "579b4ccc6153f3fc9fcb88f918b58d87c485c70d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9d2b4dcf_b9a7a27e",
+        "filename": "redfish-core/lib/power.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2021-11-15T09:03:18Z",
+      "side": 1,
+      "message": "It can be const\u0026 since modifications are done on a copy",
+      "range": {
+        "startLine": 27,
+        "startChar": 4,
+        "endLine": 27,
+        "endChar": 32
+      },
+      "revId": "579b4ccc6153f3fc9fcb88f918b58d87c485c70d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "55dddbce_0736a849",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1739,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2021-11-15T09:03:18Z",
+      "side": 1,
+      "message": "[[maybe_unused]] const std::string\u0026 hostName",
+      "range": {
+        "startLine": 1739,
+        "startChar": 38,
+        "endLine": 1739,
+        "endChar": 69
+      },
+      "revId": "579b4ccc6153f3fc9fcb88f918b58d87c485c70d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
