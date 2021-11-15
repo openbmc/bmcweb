@@ -93,6 +93,30 @@
       "revId": "77c1e5e6925547759ce06ad3319629e5128fdb7b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7dfadaa6_4f331386",
+        "filename": "redfish-core/include/utils/log_utils.hpp",
+        "patchSetId": 37
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2021-11-15T11:12:12Z",
+      "side": 1,
+      "message": "ObjectMapper will return SubTree of logPath which objects match any of the interfaces. It is guaranteed that paths returned will start with logPath and path !\u003d logPath",
+      "parentUuid": "29b53dc2_a136e672",
+      "range": {
+        "startLine": 41,
+        "startChar": 0,
+        "endLine": 48,
+        "endChar": 17
+      },
+      "revId": "77c1e5e6925547759ce06ad3319629e5128fdb7b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
