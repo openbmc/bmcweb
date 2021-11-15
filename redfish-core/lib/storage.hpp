@@ -424,15 +424,6 @@ inline void requestRoutesDrive(App& app)
                     asyncResp->res.jsonValue["Name"] = driveId;
                     asyncResp->res.jsonValue["Id"] = driveId;
 
-                    if (connectionNames.size() != 1)
-                    {
-                        BMCWEB_LOG_ERROR << "Connection size "
-                                         << connectionNames.size()
-                                         << ", not equal to 1";
-                        messages::internalError(asyncResp->res);
-                        return;
-                    }
-
                     getMainChassisId(
                         asyncResp,
                         [](const std::string& chassisId,
@@ -449,19 +440,39 @@ inline void requestRoutesDrive(App& app)
                     health->inventory.emplace_back(path);
                     health->populate();
 
-                    const std::string& connectionName =
-                        connectionNames[0].first;
-
-                    getDriveAsset(asyncResp, connectionName, path);
-                    getDrivePresent(asyncResp, connectionName, path);
-                    getDriveState(asyncResp, connectionName, path);
+                    for (const auto& [connectionName, interfaceList] :
+                         connectionNames)
+                    {
+                        for (const auto& interface : interfaceList)
+                        {
+                            if (interface ==
+                                "xyz.openbmc_project.Inventory.Decorator.Asset")
+                            {
+                                getDriveAsset(asyncResp, connectionName, path);
+                            }
+                            else if (interface ==
+                                     "xyz.openbmc_project.Inventory.Item")
+                            {
+                                getDrivePresent(asyncResp, connectionName,
+                                                path);
+                            }
+                            else if (interface ==
+                                     "xyz.openbmc_project.State.Drive")
+                            {
+                                getDriveState(asyncResp, connectionName, path);
+                            }
+                        }
+                    }
                 },
                 "xyz.openbmc_project.ObjectMapper",
                 "/xyz/openbmc_project/object_mapper",
                 "xyz.openbmc_project.ObjectMapper", "GetSubTree",
                 "/xyz/openbmc_project/inventory", int32_t(0),
-                std::array<const char*, 1>{
-                    "xyz.openbmc_project.Inventory.Item.Drive"});
+                std::array<const char*, 4>{
+                    "xyz.openbmc_project.Inventory.Item.Drive",
+                    "xyz.openbmc_project.Inventory.Decorator.Asset",
+                    "xyz.openbmc_project.Inventory.Item",
+                    "xyz.openbmc_project.State.Drive"});
         });
 }
 } // namespace redfish
