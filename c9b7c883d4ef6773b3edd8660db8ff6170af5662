@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ebc68fd6_7b44bba2",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 86
+      },
+      "lineNbr": 885,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2021-11-15T11:38:25Z",
+      "side": 1,
+      "message": "Why not call GetSubTree with only one interface (\"xyz.openbmc_project.Inventory.Item.Dimm\") and then if needed check if returned items also support \"xyz.openbmc_project.Inventory.Item.PersistentMemory.Partition\" and \"xyz.openbmc_project.Association.Definitions\" that should be more efficient. ObjectMapper will return less results and filtering will be performed on smaller subset.\n\nBut looking at the code other interfaces are optional and are checked in specific handlers so there seem to be no need for this code at all.",
+      "range": {
+        "startLine": 871,
+        "startChar": 0,
+        "endLine": 885,
+        "endChar": 17
+      },
+      "revId": "c9b7c883d4ef6773b3edd8660db8ff6170af5662",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0a38d038_7fa1ee90",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 86
+      },
+      "lineNbr": 1016,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2021-11-15T11:38:25Z",
+      "side": 1,
+      "message": "Depending on the use case you may want to use objectPath.filename() \u003d\u003d dimmId here instead",
+      "range": {
+        "startLine": 1013,
+        "startChar": 0,
+        "endLine": 1016,
+        "endChar": 17
+      },
+      "revId": "c9b7c883d4ef6773b3edd8660db8ff6170af5662",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6bbd7ba5_c34bc90a",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 86
+      },
+      "lineNbr": 1032,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2021-11-15T11:38:25Z",
+      "side": 1,
+      "message": "Same as above, looks like you don\u0027t need it.",
+      "range": {
+        "startLine": 1022,
+        "startChar": 0,
+        "endLine": 1032,
+        "endChar": 17
+      },
+      "revId": "c9b7c883d4ef6773b3edd8660db8ff6170af5662",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
