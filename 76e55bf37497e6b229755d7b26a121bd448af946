@@ -22,6 +22,30 @@
       "revId": "76e55bf37497e6b229755d7b26a121bd448af946",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "40c2acd0_f4e25239",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 457,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2021-11-15T07:27:53Z",
+      "side": 1,
+      "message": "oh it is?\n\nSince we are forcing the connection to only be one, I guess that is also wrong.\n\nI guess we want to add all of the different interfaces to the object mapper and use the filename() to find the driveId and go from there instead.\n\n```\nstd::array\u003cconst char*, 1\u003e{\n                    \"xyz.openbmc_project.Inventory.Item.Drive\"}\n```\n\nand the one with `xyz.openbmc_project.Inventory.Item.Drive` will have the existing function without the asset, present, and state.\n\nMaybe something like https://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/48832?",
+      "parentUuid": "27de4924_f8cae77c",
+      "range": {
+        "startLine": 455,
+        "startChar": 0,
+        "endLine": 457,
+        "endChar": 67
+      },
+      "revId": "76e55bf37497e6b229755d7b26a121bd448af946",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }

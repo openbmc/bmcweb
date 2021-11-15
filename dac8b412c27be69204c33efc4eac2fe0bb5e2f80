@@ -22,6 +22,30 @@
       "revId": "dac8b412c27be69204c33efc4eac2fe0bb5e2f80",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "77da4d8d_1bcf4302",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 21
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2021-11-15T07:27:53Z",
+      "side": 1,
+      "message": "sounds good. I have removed it now.",
+      "parentUuid": "0bd90ae0_8cca7b26",
+      "range": {
+        "startLine": 11,
+        "startChar": 0,
+        "endLine": 12,
+        "endChar": 17
+      },
+      "revId": "dac8b412c27be69204c33efc4eac2fe0bb5e2f80",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
