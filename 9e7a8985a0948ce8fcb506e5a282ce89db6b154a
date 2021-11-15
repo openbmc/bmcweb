@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "b48b684d_e2ef24e3",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 389,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2021-11-15T07:51:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "97bdc996_65da7ee0",
+      "range": {
+        "startLine": 389,
+        "startChar": 40,
+        "endLine": 389,
+        "endChar": 49
+      },
+      "revId": "9e7a8985a0948ce8fcb506e5a282ce89db6b154a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "86195b2c_ecd734ee",
         "filename": "redfish-core/lib/storage.hpp",
         "patchSetId": 10
@@ -45,6 +69,30 @@
       "revId": "9e7a8985a0948ce8fcb506e5a282ce89db6b154a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "15c23f5c_d822484e",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 419,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2021-11-15T07:51:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "86195b2c_ecd734ee",
+      "range": {
+        "startLine": 410,
+        "startChar": 0,
+        "endLine": 419,
+        "endChar": 21
+      },
+      "revId": "9e7a8985a0948ce8fcb506e5a282ce89db6b154a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,53 @@
     },
     {
       "key": {
+        "uuid": "8e0d2116_ce7d3316",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 431,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2021-11-15T07:51:07Z",
+      "side": 1,
+      "message": "Done. Thanks.",
+      "parentUuid": "5de996a6_7fdcef29",
+      "range": {
+        "startLine": 431,
+        "startChar": 25,
+        "endLine": 431,
+        "endChar": 33
+      },
+      "revId": "9e7a8985a0948ce8fcb506e5a282ce89db6b154a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "68c605c7_5d73c559",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 469,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2021-11-15T07:51:07Z",
+      "side": 1,
+      "message": "just realized that this is actually not supported. Removed it as part of the next patch.\n\nhttps://github.com/openbmc/phosphor-dbus-interfaces/blob/master/yaml/xyz/openbmc_project/Inventory/Item/Drive.interface.yaml",
+      "range": {
+        "startLine": 468,
+        "startChar": 0,
+        "endLine": 469,
+        "endChar": 69
+      },
+      "revId": "9e7a8985a0948ce8fcb506e5a282ce89db6b154a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d06f49d0_15934281",
         "filename": "redfish-core/lib/storage.hpp",
         "patchSetId": 10
@@ -94,6 +189,30 @@
     },
     {
       "key": {
+        "uuid": "4197c7ec_d4921f09",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 472,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2021-11-15T07:51:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d06f49d0_15934281",
+      "range": {
+        "startLine": 447,
+        "startChar": 0,
+        "endLine": 472,
+        "endChar": 21
+      },
+      "revId": "9e7a8985a0948ce8fcb506e5a282ce89db6b154a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "067dc42d_e7417cde",
         "filename": "redfish-core/lib/storage.hpp",
         "patchSetId": 10
@@ -108,6 +227,24 @@
       "revId": "9e7a8985a0948ce8fcb506e5a282ce89db6b154a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4f539c7f_7905a144",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 473,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2021-11-15T07:51:07Z",
+      "side": 1,
+      "message": "Done. Added for both Protocol and Type",
+      "parentUuid": "067dc42d_e7417cde",
+      "revId": "9e7a8985a0948ce8fcb506e5a282ce89db6b154a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
