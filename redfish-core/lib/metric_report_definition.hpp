@@ -235,9 +235,8 @@ inline bool getChassisSensorNode(
                 !dbus::utility::getNthStringFromPath(uri, 3, chassis) ||
                 !dbus::utility::getNthStringFromPath(uri, 4, node))
             {
-                BMCWEB_LOG_ERROR << "Failed to get chassis and sensor Node "
-                                    "from "
-                                 << uri;
+                BMCWEB_LOG_ERROR
+                    << "Failed to get chassis and sensor Node from " << uri;
                 messages::propertyValueIncorrect(asyncResp->res, uri,
                                                  "MetricProperties/" +
                                                      std::to_string(i));
@@ -281,9 +280,9 @@ class AddReport
                 auto el = uriToDbus.find(uri);
                 if (el == uriToDbus.end())
                 {
-                    BMCWEB_LOG_ERROR << "Failed to find DBus sensor "
-                                        "corresponding to URI "
-                                     << uri;
+                    BMCWEB_LOG_ERROR
+                        << "Failed to find DBus sensor corresponding to URI "
+                        << uri;
                     messages::propertyValueNotInList(asyncResp->res, uri,
                                                      "MetricProperties/" +
                                                          std::to_string(i));
@@ -371,45 +370,45 @@ inline void requestRoutesMetricReportDefinitionCollection(App& app)
 
     BMCWEB_ROUTE(app, "/redfish/v1/TelemetryService/MetricReportDefinitions/")
         .privileges(redfish::privileges::postMetricReportDefinitionCollection)
-        .methods(boost::beast::http::verb::post)(
-            [](const crow::Request& req,
-               const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
-                telemetry::AddReportArgs args;
-                if (!telemetry::getUserParameters(asyncResp->res, req, args))
-                {
-                    return;
-                }
+        .methods(
+            boost::beast::http::verb::
+                post)([](const crow::Request& req,
+                         const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
+            telemetry::AddReportArgs args;
+            if (!telemetry::getUserParameters(asyncResp->res, req, args))
+            {
+                return;
+            }
 
-                boost::container::flat_set<std::pair<std::string, std::string>>
-                    chassisSensors;
-                if (!telemetry::getChassisSensorNode(asyncResp, args.metrics,
-                                                     chassisSensors))
-                {
-                    return;
-                }
+            boost::container::flat_set<std::pair<std::string, std::string>>
+                chassisSensors;
+            if (!telemetry::getChassisSensorNode(asyncResp, args.metrics,
+                                                 chassisSensors))
+            {
+                return;
+            }
 
-                auto addReportReq = std::make_shared<telemetry::AddReport>(
-                    std::move(args), asyncResp);
-                for (const auto& [chassis, sensorType] : chassisSensors)
-                {
-                    retrieveUriToDbusMap(
-                        chassis, sensorType,
-                        [asyncResp, addReportReq](
-                            const boost::beast::http::status status,
-                            const boost::container::flat_map<
-                                std::string, std::string>& uriToDbus) {
-                            if (status != boost::beast::http::status::ok)
-                            {
-                                BMCWEB_LOG_ERROR
-                                    << "Failed to retrieve URI to dbus "
-                                       "sensors map with err "
-                                    << static_cast<unsigned>(status);
-                                return;
-                            }
-                            addReportReq->insert(uriToDbus);
-                        });
-                }
-            });
+            auto addReportReq = std::make_shared<telemetry::AddReport>(
+                std::move(args), asyncResp);
+            for (const auto& [chassis, sensorType] : chassisSensors)
+            {
+                retrieveUriToDbusMap(
+                    chassis, sensorType,
+                    [asyncResp,
+                     addReportReq](const boost::beast::http::status status,
+                                   const boost::container::flat_map<
+                                       std::string, std::string>& uriToDbus) {
+                        if (status != boost::beast::http::status::ok)
+                        {
+                            BMCWEB_LOG_ERROR
+                                << "Failed to retrieve URI to dbus sensors map with err "
+                                << static_cast<unsigned>(status);
+                            return;
+                        }
+                        addReportReq->insert(uriToDbus);
+                    });
+            }
+        });
 }
 
 inline void requestRoutesMetricReportDefinition(App& app)

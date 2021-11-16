@@ -34,8 +34,8 @@ inline void handleMessageRegistryFileCollectionGet(
     // because it has a duplicate entry for members
 
     asyncResp->res.jsonValue = {
-        {"@odata.type", "#MessageRegistryFileCollection."
-                        "MessageRegistryFileCollection"},
+        {"@odata.type",
+         "#MessageRegistryFileCollection.MessageRegistryFileCollection"},
         {"@odata.id", "/redfish/v1/Registries"},
         {"Name", "MessageRegistryFile Collection"},
         {"Description", "Collection of MessageRegistryFiles"},
