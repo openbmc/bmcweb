@@ -1166,6 +1166,9 @@
     <edmx:Reference Uri="/redfish/v1/schema/ManagerCollection_v1.xml">
         <edmx:Include Namespace="ManagerCollection"/>
     </edmx:Reference>
+    <edmx:Reference Uri="/redfish/v1/schema/ManagerDiagnosticData_v1.xml">
+        <edmx:Include Namespace="ManagerDiagnosticData"/>
+    </edmx:Reference>
     <edmx:Reference Uri="/redfish/v1/schema/ManagerNetworkProtocol_v1.xml">
         <edmx:Include Namespace="ManagerNetworkProtocol"/>
         <edmx:Include Namespace="ManagerNetworkProtocol.v1_0_0"/>

@@ -465,6 +465,20 @@
                     "longDescription": "This property shall contain a link to a resource collection of type LogServiceCollection that this manager uses.",
                     "readonly": true
                 },
+                "ManagerDiagnosticData": {
+                    "anyOf": [
+                        {
+                            "$ref": "http://redfish.dmtf.org/schemas/v1/ManagerDiagnosticData.json#/definitions/ManagerDiagnosticData"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The Manager's diagnostic data.",
+                    "longDescription": "The Manager's diagnostic data.",
+                    "readonly": true,
+                    "versionAdded": "v1_13_0"
+                },
                 "ManagerType": {
                     "$ref": "#/definitions/ManagerType",
                     "description": "The type of manager that this resource represents.",

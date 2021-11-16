@@ -67,6 +67,9 @@
   <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/CertificateCollection_v1.xml">
     <edmx:Include Namespace="CertificateCollection"/>
   </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/ManagerDiagnosticData_v1.xml">
+    <edmx:Include Namespace="ManagerDiagnosticData"/>
+  </edmx:Reference>
 
   <edmx:DataServices>
 
@@ -1285,6 +1288,11 @@
           <Annotation Term="OData.Description" String="An array of DSP0274-defined measurement blocks."/>
           <Annotation Term="OData.LongDescription" String="This property shall contain an array of DSP0274-defined measurement blocks."/>
         </Property>
+        <NavigationProperty Name="ManagerDiagnosticData" Type="ManagerDiagnosticData.ManagerDiagnosticData">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The Manager's diagnostic data."/>
+          <Annotation Term="OData.LongDescription" String="The Manager's diagnostic data."/>
+        </NavigationProperty>
       </EntityType>
     </Schema>
 
