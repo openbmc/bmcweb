@@ -51,6 +51,24 @@
       "revId": "0534f957be3afe5b54c738a3ecafc7a59019cba1",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "aaaf36ff_4e1227c9",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 353,
+      "author": {
+        "id": 1000547
+      },
+      "writtenOn": "2021-11-16T02:36:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "16cf1ba9_35fed8b2",
+      "revId": "0534f957be3afe5b54c738a3ecafc7a59019cba1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
