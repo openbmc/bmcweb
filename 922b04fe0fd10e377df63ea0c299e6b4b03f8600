@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "7f117f37_ce4e83db",
+        "filename": "redfish-core/lib/trigger.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1001148
+      },
+      "writtenOn": "2021-11-16T17:22:24Z",
+      "side": 1,
+      "message": "No additional comments here, so closing this one. Please reopen if the matter still requires additional discussion.",
+      "parentUuid": "698c2559_6e4a1ded",
+      "range": {
+        "startLine": 23,
+        "startChar": 28,
+        "endLine": 23,
+        "endChar": 31
+      },
+      "revId": "922b04fe0fd10e377df63ea0c299e6b4b03f8600",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "aa74d1d8_6f6b5918",
         "filename": "redfish-core/lib/trigger.hpp",
         "patchSetId": 2
@@ -141,6 +165,30 @@
       "revId": "922b04fe0fd10e377df63ea0c299e6b4b03f8600",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "143a66d9_7e95e6af",
+        "filename": "redfish-core/lib/trigger.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1001148
+      },
+      "writtenOn": "2021-11-16T17:22:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4f9fca46_6bd8814b",
+      "range": {
+        "startLine": 42,
+        "startChar": 41,
+        "endLine": 42,
+        "endChar": 55
+      },
+      "revId": "922b04fe0fd10e377df63ea0c299e6b4b03f8600",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
