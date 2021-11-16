@@ -79,6 +79,7 @@ class RedfishService
         requestRoutesManagerResetAction(app);
         requestRoutesManagerResetActionInfo(app);
         requestRoutesManagerResetToDefaultsAction(app);
+        requestRoutesManagerDiagnosticData(app);
         requestRoutesChassisCollection(app);
         requestRoutesChassis(app);
         requestRoutesChassisResetAction(app);
