@@ -67,6 +67,9 @@
   <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/CertificateCollection_v1.xml">
     <edmx:Include Namespace="CertificateCollection"/>
   </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/ManagerDiagnosticData_v1.xml">
+    <edmx:Include Namespace="ManagerDiagnosticData"/>
+  </edmx:Reference>
 
   <edmx:DataServices>
 
@@ -1260,6 +1263,11 @@
         <NavigationProperty Name="USBPorts" Type="PortCollection.PortCollection" Nullable="false">
           <Annotation Term="OData.Description" String="The USB ports of the manager."/>
           <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type PortCollection that represent the USB ports of the manager."/>
+        </NavigationProperty>
+        <NavigationProperty Name="ManagerDiagnosticData" Type="ManagerDiagnosticData.ManagerDiagnosticData">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The Manager's diagnostic data."/>
+          <Annotation Term="OData.LongDescription" String="The Manager's diagnostic data."/>
         </NavigationProperty>
       </EntityType>
     </Schema>
