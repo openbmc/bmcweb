@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<edmx:Edmx xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx" Version="4.0">
+  <edmx:Reference Uri="http://docs.oasis-open.org/odata/odata/v4.0/errata03/csd01/complete/vocabularies/Org.OData.Core.V1.xml">
+    <edmx:Include Namespace="Org.OData.Core.V1" Alias="OData"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://docs.oasis-open.org/odata/odata/v4.0/errata03/csd01/complete/vocabularies/Org.OData.Capabilities.V1.xml">
+    <edmx:Include Namespace="Org.OData.Capabilities.V1" Alias="Capabilities"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://docs.oasis-open.org/odata/odata/v4.0/errata03/csd01/complete/vocabularies/Org.OData.Measures.V1.xml">
+    <edmx:Include Namespace="Org.OData.Measures.V1" Alias="Measures"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/RedfishExtensions_v1.xml">
+    <edmx:Include Namespace="RedfishExtensions.v1_0_0" Alias="Redfish"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/Resource_v1.xml">
+    <edmx:Include Namespace="Resource"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/MemoryMetrics_v1.xml">
+    <edmx:Include Namespace="MemoryMetrics"/>
+  </edmx:Reference>
+  
+  <edmx:DataServices>
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ManagerDiagnosticData">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="Diagnostic data used for at-scale analysis. Not intended for end-users."/>
+      <Annotation Term="OData.LongDescription" String="Diagnostic data used for at-scale analysis. Not intended for end-users."/>
+      <ComplexType Name="ManagerDiagnosticData">
+        <Annotation Term="Redfish.Uris">
+          <Collection>
+            <String>/redfish/v1/Managers/{ManagerId}/ManagerDiagnosticData</String>
+          </Collection>
+        </Annotation>
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="OData.Description" String="Description."/>
+        <Annotation Term="OData.LongDescription" String="Long description."/>
+        <Property Name="I2CBuses" Type="Collection(ManagerDiagnosticData.I2CBusStat)">
+          <Annotation Term="OData.Description" String="Stats of the I2C Buses."/>
+          <Annotation Term="OData.LongDescription" String="Stats of the I2C Buses."/>
+        </Property>
+        <Property Name="MemoryStat" Type="ManagerDiagnosticData.MemoryStat">
+          <Annotation Term="OData.Description" String="Memory stats of the Manager."/>
+          <Annotation Term="OData.LongDescription" String="Memory stats of the Manager."/>
+        </Property>
+        <Property Name="ProcessorStat" Type="ManagerDiagnosticData.ProcessorStat">
+          <Annotation Term="OData.Description" String="Memory stats of the Manager."/>
+          <Annotation Term="OData.LongDescription" String="Memory stats of the Manager."/>
+        </Property>
+        <Property Name="BootTimeStat" Type="ManagerDiagnosticData.BootTimeStat">
+          <Annotation Term="OData.Description" String="Boot time stats of the Manager."/>
+          <Annotation Term="OData.LongDescription" String="Boot time stats of the Manager."/>
+        </Property>
+        <Property Name="FreeStorageSpaceMiB" Type="Edm.Decimal">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="Available storage space on the Manager in MiB."/>
+          <Annotation Term="OData.LongDescription" String="Available storage space on the Manager in MiB."/>
+          <Annotation Term="Measures.Unit" String="MiBy"/>
+        </Property>
+        <Property Name="MemoryECCStat" Type="ManagerDiagnosticData.MemoryECCStat" Nullable="true">
+          <Annotation Term="OData.Description" String="Memory ECC stats of the Manager."/>
+          <Annotation Term="OData.LongDescription" String="Memory ECC stats of the Manager."/>
+        </Property>
+        <Property Name="TopProcesses" Type="Collection(ManagerDiagnosticData.ProcessStat)" Nullable="true">
+          <Annotation Term="OData.Description" String="List of top processes."/>
+          <Annotation Term="OData.LongDescription" String="List of top processes."/>
+        </Property>
+      </ComplexType>
+      
+      <ComplexType Name="I2CBusStat">
+        <Annotation Term="OData.Description" String="Statistics about the I2C buses."/>
+        <Annotation Term="OData.LongDescription" String="Statistics about the I2C buses."/>
+        <Property Name="I2CBusName" Type="Edm.String" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="Name of the I2C Bus."/>
+          <Annotation Term="OData.LongDescription" String="Name of the I2C Bus."/>
+        </Property>
+        <Property Name="InitiatedTransactionCount" Type="Edm.Int64" Nullable="true">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="Total transaction count on this I2C bus."/>
+          <Annotation Term="OData.LongDescription" String="Total transaction count on this I2C bus."/>
+        </Property>
+        <Property Name="BusErrorCount" Type="Edm.Int64" Nullable="true">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="Bus error count on this I2C bus."/>
+          <Annotation Term="OData.LongDescription" String="Bus error count on this bus. Example of this error: interface detects SDA's rising or falling edge while SCL is high, in an invalid position during a byte transfer."/>
+        </Property>
+        <Property Name="NACKCount" Type="Edm.Int64" Nullable="true">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="NACK count on this I2C bus."/>
+          <Annotation Term="OData.LongDescription" String="NACK count on this I2C bus."/>
+        </Property>
+      </ComplexType>
+      
+      <ComplexType Name="MemoryStat">
+        <Annotation Term="OData.Description" String="Statisticss about memory usage."/>
+        <Annotation Term="OData.LongDescription" String="Statistics about memory usage."/>
+        <Property Name="TotalBytes" Type="Edm.Int64" Nullable="true">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="Amount of total memory."/>
+          <Annotation Term="OData.LongDescription" String="Amount of total memory."/>
+           <Annotation Term="Measures.Unit" String="By"/>
+        </Property>
+        <Property Name="UsedBytes" Type="Edm.Int64" Nullable="true">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="Used memory."/>
+          <Annotation Term="OData.LongDescription" String="Used memory, calculated as total - free - (buffers and cache)."/>
+          <Annotation Term="Measures.Unit" String="By"/>
+        </Property>
+        <Property Name="FreeBytes" Type="Edm.Int64" Nullable="true">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="Unused memory."/>
+          <Annotation Term="OData.LongDescription" String="Unused memory."/>
+          <Annotation Term="Measures.Unit" String="By"/>
+        </Property>
+        <Property Name="SharedBytes" Type="Edm.Int64" Nullable="true">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="Memory used by tmpfs."/>
+          <Annotation Term="OData.LongDescription" String="Memory used by tmpfs."/>
+          <Annotation Term="Measures.Unit" String="By"/>
+        </Property>
+        <Property Name="BuffersAndCacheBytes" Type="Edm.Int64" Nullable="true">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="Memory used by kernel buffers, page caches and slabs."/>
+          <Annotation Term="OData.LongDescription" String="Memory used by kernel buffers, page caches and slabs. Calculated as buffers + cache."/>
+          <Annotation Term="Measures.Unit" String="By"/>
+        </Property>
+        <Property Name="AvailableBytes" Type="Edm.Int64" Nullable="true">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="Memory available for starting new programs without swapping."/>
+          <Annotation Term="OData.LongDescription" String="Memory available for starting new programs without swapping. This includes free memory plus reclaimable cache and buffers."/>
+          <Annotation Term="Measures.Unit" String="By"/>
+        </Property>
+      </ComplexType>
+      
+      <ComplexType Name="ProcessStat">
+        <Annotation Term="OData.Description" String="Statisticss a running process."/>
+        <Annotation Term="OData.LongDescription" String="Statistics a running process."/>
+        <Property Name="CommandLine" Type="Edm.String" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="Command line of this process."/>
+          <Annotation Term="OData.LongDescription" String="Command line of this process."/>
+        </Property>
+        <Property Name="UserTimeSeconds" Type="Edm.Decimal" Nullable="true">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="Userspace CPU time of this process."/>
+          <Annotation Term="OData.LongDescription" String="Userspace CPU time of this process."/>
+          <Annotation Term="Measures.Unit" String="s"/>
+        </Property>
+        <Property Name="KernelTimeSeconds" Type="Edm.Decimal" Nullable="true">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="Kernel space CPU time of this process."/>
+          <Annotation Term="OData.LongDescription" String="Kernel space CPU time of this process."/>
+          <Annotation Term="Measures.Unit" String="s"/>
+        </Property>
+        <Property Name="ResidentSetSizeBytes" Type="Edm.Int64" Nullable="true">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="Resident set size of this process."/>
+          <Annotation Term="OData.LongDescription" String="Resident set size a process. The amount of memory allocated to the process and is in RAM."/>
+          <Annotation Term="Measures.Unit" String="By"/>
+        </Property>
+      </ComplexType>                                    
+      
+      <ComplexType Name="ProcessorStat">
+        <Annotation Term="OData.Description" String="Statisticss about processor usage."/>
+        <Annotation Term="OData.LongDescription" String="Statistics about processor usage."/>
+        <Property Name="KernelPercent" Type="Edm.Decimal" Nullable="true">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="Percent of CPU time spent in kernel mode."/>
+          <Annotation Term="OData.LongDescription" String="Percent of CPU time spent in kernel mode."/>
+          <Annotation Term="Measures.Unit" String="%"/>
+        </Property>
+        <Property Name="UserPercent" Type="Edm.Decimal" Nullable="true">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="Percent of CPU time spent in user mode."/>
+          <Annotation Term="OData.LongDescription" String="Percent of CPU time spent in user mode."/>
+          <Annotation Term="Measures.Unit" String="%"/>
+        </Property>
+      </ComplexType>
+      
+      <ComplexType Name="BootTimeStat">
+        <Annotation Term="OData.Description" String="Statistics about the time spent in various boot stages."/>
+        <Annotation Term="OData.LongDescription" String="Statistics about the time spent in various boot stages."/>
+        <Property Name="FirmwareTimeSeconds" Type="Edm.Decimal" Nullable="true">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The time the Manager spent in the Firmware stage."/>
+          <Annotation Term="OData.LongDescription" String="The time the Manager spent in the Firmware stage."/>
+          <Annotation Term="Measures.Unit" String="s"/>
+        </Property>
+        <Property Name="LoaderTimeSeconds" Type="Edm.Decimal" Nullable="true">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The time the Manager spent in the Loader stage."/>
+          <Annotation Term="OData.LongDescription" String="The time the Manager spent in the Loader stage."/>
+          <Annotation Term="Measures.Unit" String="s"/>
+        </Property>
+        <Property Name="KernelTimeSeconds" Type="Edm.Decimal" Nullable="true">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The time the Manager spent in the Kernel stage."/>
+          <Annotation Term="OData.LongDescription" String="The time the Manager spent in the Kernel stage."/>
+          <Annotation Term="Measures.Unit" String="s"/>
+        </Property>
+        <Property Name="InitrdTimeSeconds" Type="Edm.Decimal" Nullable="true">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The time Manager spent in the Initrd boot stage."/>
+          <Annotation Term="OData.LongDescription" String="The time the Manager spent in the Initrd boot stage."/>
+          <Annotation Term="Measures.Unit" String="s"/>
+        </Property>
+        <Property Name="UserspaceTimeSeconds" Type="Edm.Decimal" Nullable="true">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The time Manager spent in the Userspace boot stage."/>
+          <Annotation Term="OData.LongDescription" String="The time the Manager spent in the Userspace boot stage."/>
+          <Annotation Term="Measures.Unit" String="s"/>
+        </Property>
+      </ComplexType>
+      
+      <ComplexType Name="MemoryECCStat">
+        <Annotation Term="OData.Description" String="Statistics about memory error correction."/>
+        <Annotation Term="OData.LongDescription" String="Statistics about memory error correction."/>
+        <Property Name="CorrectableECCErrorCount" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The number of the correctable errors since reset."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the number of correctable errors since reset.  When this resource is subordinate to the MemorySummary object, this property shall be the sum of CorrectableECCErrorCount over all memory."/>
+        </Property>
+        <Property Name="UncorrectableECCErrorCount" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The number of the uncorrectable errors since reset."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the number of uncorrectable errors since reset.  When this resource is subordinate to the MemorySummary object, this property shall be the sum of UncorrectableECCErrorCount over all memory."/>
+        </Property>
+      </ComplexType>
+      
+      <Action Name="ResetMetrics" IsBound="true">
+        <Parameter Name="MemoryECCMetrics" Type="Actions">
+          <Annotation Term="OData.Description" String="The metric to reset."/>
+          <Annotation Term="OData.LongDescription" String="The metric to reset."/>
+        </Parameter>
+        <Annotation Term="OData.Description" String="This action resets the ECC stats."/>
+        <Annotation Term="OData.LongDescription" String="This action resets the ECC stats."/>
+      </Action>
+      
+      <ComplexType Name="Actions">
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="OData.Description" String="The available actions for this resource."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain the available actions for this resource."/>
+      </ComplexType>
+    </Schema>
+  </edmx:DataServices>
+</edmx:Edmx>

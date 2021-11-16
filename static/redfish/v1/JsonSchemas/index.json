@@ -70,6 +70,9 @@
       "@odata.id": "/redfish/v1/JsonSchemas/ManagerAccount"
     },
     {
+      "@odata.id": "/redfish/v1/JsonSchemas/ManagerDiagnosticData"
+    },
+    {
       "@odata.id": "/redfish/v1/JsonSchemas/ManagerNetworkProtocol"
     },
     {
