@@ -67,15 +67,16 @@ inline void requestRoutesCertificateService(App& app)
                     {"@odata.id",
                      "/redfish/v1/CertificateService/CertificateLocations"}};
             }
-            asyncResp->res.jsonValue["Actions"]
-                                    ["#CertificateService.ReplaceCertificate"] =
-                {{"target", "/redfish/v1/CertificateService/Actions/"
-                            "CertificateService.ReplaceCertificate"},
-                 {"CertificateType@Redfish.AllowableValues", {"PEM"}}};
+            asyncResp->res
+                .jsonValue["Actions"]
+                          ["#CertificateService.ReplaceCertificate"] = {
+                {"target",
+                 "/redfish/v1/CertificateService/Actions/CertificateService.ReplaceCertificate"},
+                {"CertificateType@Redfish.AllowableValues", {"PEM"}}};
             asyncResp->res
                 .jsonValue["Actions"]["#CertificateService.GenerateCSR"] = {
-                {"target", "/redfish/v1/CertificateService/Actions/"
-                           "CertificateService.GenerateCSR"}};
+                {"target",
+                 "/redfish/v1/CertificateService/Actions/CertificateService.GenerateCSR"}};
         });
 } // requestRoutesCertificateService
 
@@ -235,184 +236,185 @@ static void getCSR(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
  */
 inline void requestRoutesCertificateActionGenerateCSR(App& app)
 {
-    BMCWEB_ROUTE(app, "/redfish/v1/CertificateService/Actions/"
-                      "CertificateService.GenerateCSR/")
+    BMCWEB_ROUTE(
+        app,
+        "/redfish/v1/CertificateService/Actions/CertificateService.GenerateCSR/")
         // Incorrect Privilege;  Should be ConfigureManager
         //.privileges(redfish::privileges::postCertificateService)
         .privileges({{"ConfigureComponents"}})
-        .methods(boost::beast::http::verb::post)(
-            [](const crow::Request& req,
-               const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
-                static const int rsaKeyBitLength = 2048;
+        .methods(
+            boost::beast::http::verb::
+                post)([](const crow::Request& req,
+                         const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
+            static const int rsaKeyBitLength = 2048;
 
-                // Required parameters
-                std::string city;
-                std::string commonName;
-                std::string country;
-                std::string organization;
-                std::string organizationalUnit;
-                std::string state;
-                nlohmann::json certificateCollection;
+            // Required parameters
+            std::string city;
+            std::string commonName;
+            std::string country;
+            std::string organization;
+            std::string organizationalUnit;
+            std::string state;
+            nlohmann::json certificateCollection;
 
-                // Optional parameters
-                std::optional<std::vector<std::string>> optAlternativeNames =
-                    std::vector<std::string>();
-                std::optional<std::string> optContactPerson = "";
-                std::optional<std::string> optChallengePassword = "";
-                std::optional<std::string> optEmail = "";
-                std::optional<std::string> optGivenName = "";
-                std::optional<std::string> optInitials = "";
-                std::optional<int64_t> optKeyBitLength = rsaKeyBitLength;
-                std::optional<std::string> optKeyCurveId = "secp384r1";
-                std::optional<std::string> optKeyPairAlgorithm = "EC";
-                std::optional<std::vector<std::string>> optKeyUsage =
-                    std::vector<std::string>();
-                std::optional<std::string> optSurname = "";
-                std::optional<std::string> optUnstructuredName = "";
-                if (!json_util::readJson(
-                        req, asyncResp->res, "City", city, "CommonName",
-                        commonName, "ContactPerson", optContactPerson,
-                        "Country", country, "Organization", organization,
-                        "OrganizationalUnit", organizationalUnit, "State",
-                        state, "CertificateCollection", certificateCollection,
-                        "AlternativeNames", optAlternativeNames,
-                        "ChallengePassword", optChallengePassword, "Email",
-                        optEmail, "GivenName", optGivenName, "Initials",
-                        optInitials, "KeyBitLength", optKeyBitLength,
-                        "KeyCurveId", optKeyCurveId, "KeyPairAlgorithm",
-                        optKeyPairAlgorithm, "KeyUsage", optKeyUsage, "Surname",
-                        optSurname, "UnstructuredName", optUnstructuredName))
+            // Optional parameters
+            std::optional<std::vector<std::string>> optAlternativeNames =
+                std::vector<std::string>();
+            std::optional<std::string> optContactPerson = "";
+            std::optional<std::string> optChallengePassword = "";
+            std::optional<std::string> optEmail = "";
+            std::optional<std::string> optGivenName = "";
+            std::optional<std::string> optInitials = "";
+            std::optional<int64_t> optKeyBitLength = rsaKeyBitLength;
+            std::optional<std::string> optKeyCurveId = "secp384r1";
+            std::optional<std::string> optKeyPairAlgorithm = "EC";
+            std::optional<std::vector<std::string>> optKeyUsage =
+                std::vector<std::string>();
+            std::optional<std::string> optSurname = "";
+            std::optional<std::string> optUnstructuredName = "";
+            if (!json_util::readJson(
+                    req, asyncResp->res, "City", city, "CommonName", commonName,
+                    "ContactPerson", optContactPerson, "Country", country,
+                    "Organization", organization, "OrganizationalUnit",
+                    organizationalUnit, "State", state, "CertificateCollection",
+                    certificateCollection, "AlternativeNames",
+                    optAlternativeNames, "ChallengePassword",
+                    optChallengePassword, "Email", optEmail, "GivenName",
+                    optGivenName, "Initials", optInitials, "KeyBitLength",
+                    optKeyBitLength, "KeyCurveId", optKeyCurveId,
+                    "KeyPairAlgorithm", optKeyPairAlgorithm, "KeyUsage",
+                    optKeyUsage, "Surname", optSurname, "UnstructuredName",
+                    optUnstructuredName))
+            {
+                return;
+            }
+
+            // bmcweb has no way to store or decode a private key challenge
+            // password, which will likely cause bmcweb to crash on startup
+            // if this is not set on a post so not allowing the user to set
+            // value
+            if (*optChallengePassword != "")
+            {
+                messages::actionParameterNotSupported(
+                    asyncResp->res, "GenerateCSR", "ChallengePassword");
+                return;
+            }
+
+            std::string certURI;
+            if (!redfish::json_util::readJson(certificateCollection,
+                                              asyncResp->res, "@odata.id",
+                                              certURI))
+            {
+                return;
+            }
+
+            std::string objectPath;
+            std::string service;
+            if (boost::starts_with(
+                    certURI,
+                    "/redfish/v1/Managers/bmc/NetworkProtocol/HTTPS/Certificates"))
+            {
+                objectPath = certs::httpsObjectPath;
+                service = certs::httpsServiceName;
+            }
+            else if (boost::starts_with(
+                         certURI,
+                         "/redfish/v1/AccountService/LDAP/Certificates"))
+            {
+                objectPath = certs::ldapObjectPath;
+                service = certs::ldapServiceName;
+            }
+            else
+            {
+                messages::actionParameterNotSupported(
+                    asyncResp->res, "CertificateCollection", "GenerateCSR");
+                return;
+            }
+
+            // supporting only EC and RSA algorithm
+            if (*optKeyPairAlgorithm != "EC" && *optKeyPairAlgorithm != "RSA")
+            {
+                messages::actionParameterNotSupported(
+                    asyncResp->res, "KeyPairAlgorithm", "GenerateCSR");
+                return;
+            }
+
+            // supporting only 2048 key bit length for RSA algorithm due to
+            // time consumed in generating private key
+            if (*optKeyPairAlgorithm == "RSA" &&
+                *optKeyBitLength != rsaKeyBitLength)
+            {
+                messages::propertyValueNotInList(
+                    asyncResp->res, std::to_string(*optKeyBitLength),
+                    "KeyBitLength");
+                return;
+            }
+
+            // validate KeyUsage supporting only 1 type based on URL
+            if (boost::starts_with(
+                    certURI,
+                    "/redfish/v1/Managers/bmc/NetworkProtocol/HTTPS/Certificates"))
+            {
+                if (optKeyUsage->size() == 0)
                 {
-                    return;
+                    optKeyUsage->push_back("ServerAuthentication");
                 }
-
-                // bmcweb has no way to store or decode a private key challenge
-                // password, which will likely cause bmcweb to crash on startup
-                // if this is not set on a post so not allowing the user to set
-                // value
-                if (*optChallengePassword != "")
+                else if (optKeyUsage->size() == 1)
                 {
-                    messages::actionParameterNotSupported(
-                        asyncResp->res, "GenerateCSR", "ChallengePassword");
-                    return;
-                }
-
-                std::string certURI;
-                if (!redfish::json_util::readJson(certificateCollection,
-                                                  asyncResp->res, "@odata.id",
-                                                  certURI))
-                {
-                    return;
-                }
-
-                std::string objectPath;
-                std::string service;
-                if (boost::starts_with(certURI,
-                                       "/redfish/v1/Managers/bmc/"
-                                       "NetworkProtocol/HTTPS/Certificates"))
-                {
-                    objectPath = certs::httpsObjectPath;
-                    service = certs::httpsServiceName;
-                }
-                else if (boost::starts_with(
-                             certURI,
-                             "/redfish/v1/AccountService/LDAP/Certificates"))
-                {
-                    objectPath = certs::ldapObjectPath;
-                    service = certs::ldapServiceName;
+                    if ((*optKeyUsage)[0] != "ServerAuthentication")
+                    {
+                        messages::propertyValueNotInList(
+                            asyncResp->res, (*optKeyUsage)[0], "KeyUsage");
+                        return;
+                    }
                 }
                 else
                 {
                     messages::actionParameterNotSupported(
-                        asyncResp->res, "CertificateCollection", "GenerateCSR");
+                        asyncResp->res, "KeyUsage", "GenerateCSR");
                     return;
                 }
-
-                // supporting only EC and RSA algorithm
-                if (*optKeyPairAlgorithm != "EC" &&
-                    *optKeyPairAlgorithm != "RSA")
+            }
+            else if (boost::starts_with(
+                         certURI,
+                         "/redfish/v1/AccountService/LDAP/Certificates"))
+            {
+                if (optKeyUsage->size() == 0)
+                {
+                    optKeyUsage->push_back("ClientAuthentication");
+                }
+                else if (optKeyUsage->size() == 1)
+                {
+                    if ((*optKeyUsage)[0] != "ClientAuthentication")
+                    {
+                        messages::propertyValueNotInList(
+                            asyncResp->res, (*optKeyUsage)[0], "KeyUsage");
+                        return;
+                    }
+                }
+                else
                 {
                     messages::actionParameterNotSupported(
-                        asyncResp->res, "KeyPairAlgorithm", "GenerateCSR");
+                        asyncResp->res, "KeyUsage", "GenerateCSR");
                     return;
                 }
+            }
 
-                // supporting only 2048 key bit length for RSA algorithm due to
-                // time consumed in generating private key
-                if (*optKeyPairAlgorithm == "RSA" &&
-                    *optKeyBitLength != rsaKeyBitLength)
-                {
-                    messages::propertyValueNotInList(
-                        asyncResp->res, std::to_string(*optKeyBitLength),
-                        "KeyBitLength");
-                    return;
-                }
+            // Only allow one CSR matcher at a time so setting retry
+            // time-out and timer expiry to 10 seconds for now.
+            static const int timeOut = 10;
+            if (csrMatcher)
+            {
+                messages::serviceTemporarilyUnavailable(
+                    asyncResp->res, std::to_string(timeOut));
+                return;
+            }
 
-                // validate KeyUsage supporting only 1 type based on URL
-                if (boost::starts_with(certURI,
-                                       "/redfish/v1/Managers/bmc/"
-                                       "NetworkProtocol/HTTPS/Certificates"))
-                {
-                    if (optKeyUsage->size() == 0)
-                    {
-                        optKeyUsage->push_back("ServerAuthentication");
-                    }
-                    else if (optKeyUsage->size() == 1)
-                    {
-                        if ((*optKeyUsage)[0] != "ServerAuthentication")
-                        {
-                            messages::propertyValueNotInList(
-                                asyncResp->res, (*optKeyUsage)[0], "KeyUsage");
-                            return;
-                        }
-                    }
-                    else
-                    {
-                        messages::actionParameterNotSupported(
-                            asyncResp->res, "KeyUsage", "GenerateCSR");
-                        return;
-                    }
-                }
-                else if (boost::starts_with(
-                             certURI,
-                             "/redfish/v1/AccountService/LDAP/Certificates"))
-                {
-                    if (optKeyUsage->size() == 0)
-                    {
-                        optKeyUsage->push_back("ClientAuthentication");
-                    }
-                    else if (optKeyUsage->size() == 1)
-                    {
-                        if ((*optKeyUsage)[0] != "ClientAuthentication")
-                        {
-                            messages::propertyValueNotInList(
-                                asyncResp->res, (*optKeyUsage)[0], "KeyUsage");
-                            return;
-                        }
-                    }
-                    else
-                    {
-                        messages::actionParameterNotSupported(
-                            asyncResp->res, "KeyUsage", "GenerateCSR");
-                        return;
-                    }
-                }
-
-                // Only allow one CSR matcher at a time so setting retry
-                // time-out and timer expiry to 10 seconds for now.
-                static const int timeOut = 10;
-                if (csrMatcher)
-                {
-                    messages::serviceTemporarilyUnavailable(
-                        asyncResp->res, std::to_string(timeOut));
-                    return;
-                }
-
-                // Make this static so it survives outside this method
-                static boost::asio::steady_timer timeout(*req.ioService);
-                timeout.expires_after(std::chrono::seconds(timeOut));
-                timeout.async_wait([asyncResp](
-                                       const boost::system::error_code& ec) {
+            // Make this static so it survives outside this method
+            static boost::asio::steady_timer timeout(*req.ioService);
+            timeout.expires_after(std::chrono::seconds(timeOut));
+            timeout.async_wait(
+                [asyncResp](const boost::system::error_code& ec) {
                     csrMatcher = nullptr;
                     if (ec)
                     {
@@ -428,65 +430,61 @@ inline void requestRoutesCertificateActionGenerateCSR(App& app)
                     messages::internalError(asyncResp->res);
                 });
 
-                // create a matcher to wait on CSR object
-                BMCWEB_LOG_DEBUG << "create matcher with path " << objectPath;
-                std::string match(
-                    "type='signal',"
-                    "interface='org.freedesktop.DBus.ObjectManager',"
-                    "path='" +
-                    objectPath +
-                    "',"
-                    "member='InterfacesAdded'");
-                csrMatcher = std::make_unique<sdbusplus::bus::match::match>(
-                    *crow::connections::systemBus, match,
-                    [asyncResp, service, objectPath,
-                     certURI](sdbusplus::message::message& m) {
-                        timeout.cancel();
-                        if (m.is_method_error())
+            // create a matcher to wait on CSR object
+            BMCWEB_LOG_DEBUG << "create matcher with path " << objectPath;
+            std::string match("type='signal',"
+                              "interface='org.freedesktop.DBus.ObjectManager',"
+                              "path='" +
+                              objectPath +
+                              "',"
+                              "member='InterfacesAdded'");
+            csrMatcher = std::make_unique<sdbusplus::bus::match::match>(
+                *crow::connections::systemBus, match,
+                [asyncResp, service, objectPath,
+                 certURI](sdbusplus::message::message& m) {
+                    timeout.cancel();
+                    if (m.is_method_error())
+                    {
+                        BMCWEB_LOG_ERROR << "Dbus method error!!!";
+                        messages::internalError(asyncResp->res);
+                        return;
+                    }
+                    std::vector<
+                        std::pair<std::string,
+                                  std::vector<std::pair<
+                                      std::string, std::variant<std::string>>>>>
+                        interfacesProperties;
+                    sdbusplus::message::object_path csrObjectPath;
+                    m.read(csrObjectPath, interfacesProperties);
+                    BMCWEB_LOG_DEBUG << "CSR object added" << csrObjectPath.str;
+                    for (auto& interface : interfacesProperties)
+                    {
+                        if (interface.first == "xyz.openbmc_project.Certs.CSR")
                         {
-                            BMCWEB_LOG_ERROR << "Dbus method error!!!";
-                            messages::internalError(asyncResp->res);
-                            return;
+                            getCSR(asyncResp, certURI, service, objectPath,
+                                   csrObjectPath.str);
+                            break;
                         }
-                        std::vector<std::pair<
-                            std::string,
-                            std::vector<std::pair<std::string,
-                                                  std::variant<std::string>>>>>
-                            interfacesProperties;
-                        sdbusplus::message::object_path csrObjectPath;
-                        m.read(csrObjectPath, interfacesProperties);
-                        BMCWEB_LOG_DEBUG << "CSR object added"
-                                         << csrObjectPath.str;
-                        for (auto& interface : interfacesProperties)
-                        {
-                            if (interface.first ==
-                                "xyz.openbmc_project.Certs.CSR")
-                            {
-                                getCSR(asyncResp, certURI, service, objectPath,
-                                       csrObjectPath.str);
-                                break;
-                            }
-                        }
-                    });
-                crow::connections::systemBus->async_method_call(
-                    [asyncResp](const boost::system::error_code& ec,
-                                const std::string&) {
-                        if (ec)
-                        {
-                            BMCWEB_LOG_ERROR << "DBUS response error: "
-                                             << ec.message();
-                            messages::internalError(asyncResp->res);
-                            return;
-                        }
-                    },
-                    service, objectPath, "xyz.openbmc_project.Certs.CSR.Create",
-                    "GenerateCSR", *optAlternativeNames, *optChallengePassword,
-                    city, commonName, *optContactPerson, country, *optEmail,
-                    *optGivenName, *optInitials, *optKeyBitLength,
-                    *optKeyCurveId, *optKeyPairAlgorithm, *optKeyUsage,
-                    organization, organizationalUnit, state, *optSurname,
-                    *optUnstructuredName);
-            });
+                    }
+                });
+            crow::connections::systemBus->async_method_call(
+                [asyncResp](const boost::system::error_code& ec,
+                            const std::string&) {
+                    if (ec)
+                    {
+                        BMCWEB_LOG_ERROR << "DBUS response error: "
+                                         << ec.message();
+                        messages::internalError(asyncResp->res);
+                        return;
+                    }
+                },
+                service, objectPath, "xyz.openbmc_project.Certs.CSR.Create",
+                "GenerateCSR", *optAlternativeNames, *optChallengePassword,
+                city, commonName, *optContactPerson, country, *optEmail,
+                *optGivenName, *optInitials, *optKeyBitLength, *optKeyCurveId,
+                *optKeyPairAlgorithm, *optKeyUsage, organization,
+                organizationalUnit, state, *optSurname, *optUnstructuredName);
+        });
 } // requestRoutesCertificateActionGenerateCSR
 
 /**
@@ -676,8 +674,9 @@ using GetObjectType =
  */
 inline void requestRoutesCertificateActionsReplaceCertificate(App& app)
 {
-    BMCWEB_ROUTE(app, "/redfish/v1/CertificateService/Actions/"
-                      "CertificateService.ReplaceCertificate/")
+    BMCWEB_ROUTE(
+        app,
+        "/redfish/v1/CertificateService/Actions/CertificateService.ReplaceCertificate/")
         .privileges(redfish::privileges::postCertificateService)
         .methods(
             boost::beast::http::verb::
@@ -730,9 +729,9 @@ inline void requestRoutesCertificateActionsReplaceCertificate(App& app)
             std::string objectPath;
             std::string name;
             std::string service;
-            if (boost::starts_with(certURI,
-                                   "/redfish/v1/Managers/bmc/NetworkProtocol/"
-                                   "HTTPS/Certificates/"))
+            if (boost::starts_with(
+                    certURI,
+                    "/redfish/v1/Managers/bmc/NetworkProtocol/HTTPS/Certificates/"))
             {
                 objectPath = std::string(certs::httpsObjectPath) + "/" +
                              std::to_string(id);
@@ -861,8 +860,7 @@ inline void requestRoutesHTTPSCertificateCollection(App& app)
                         {
                             members.push_back(
                                 {{"@odata.id",
-                                  "/redfish/v1/Managers/bmc/"
-                                  "NetworkProtocol/HTTPS/Certificates/" +
+                                  "/redfish/v1/Managers/bmc/NetworkProtocol/HTTPS/Certificates/" +
                                       std::to_string(id)}});
                         }
                     }
@@ -876,60 +874,57 @@ inline void requestRoutesHTTPSCertificateCollection(App& app)
     BMCWEB_ROUTE(app,
                  "/redfish/v1/Managers/bmc/NetworkProtocol/HTTPS/Certificates/")
         .privileges(redfish::privileges::postCertificateCollection)
-        .methods(boost::beast::http::verb::post)(
-            [](const crow::Request& req,
-               const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
-                BMCWEB_LOG_DEBUG << "HTTPSCertificateCollection::doPost";
+        .methods(
+            boost::beast::http::verb::
+                post)([](const crow::Request& req,
+                         const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
+            BMCWEB_LOG_DEBUG << "HTTPSCertificateCollection::doPost";
 
-                asyncResp->res.jsonValue = {
-                    {"Name", "HTTPS Certificate"},
-                    {"Description", "HTTPS Certificate"}};
+            asyncResp->res.jsonValue = {{"Name", "HTTPS Certificate"},
+                                        {"Description", "HTTPS Certificate"}};
 
-                std::string certFileBody =
-                    getCertificateFromReqBody(asyncResp, req);
+            std::string certFileBody =
+                getCertificateFromReqBody(asyncResp, req);
 
-                if (certFileBody.empty())
-                {
-                    BMCWEB_LOG_ERROR
-                        << "Cannot get certificate from request body.";
-                    messages::unrecognizedRequestBody(asyncResp->res);
-                    return;
-                }
+            if (certFileBody.empty())
+            {
+                BMCWEB_LOG_ERROR << "Cannot get certificate from request body.";
+                messages::unrecognizedRequestBody(asyncResp->res);
+                return;
+            }
 
-                std::shared_ptr<CertificateFile> certFile =
-                    std::make_shared<CertificateFile>(certFileBody);
+            std::shared_ptr<CertificateFile> certFile =
+                std::make_shared<CertificateFile>(certFileBody);
 
-                crow::connections::systemBus->async_method_call(
-                    [asyncResp, certFile](const boost::system::error_code ec,
-                                          const std::string& objectPath) {
-                        if (ec)
-                        {
-                            BMCWEB_LOG_ERROR << "DBUS response error: " << ec;
-                            messages::internalError(asyncResp->res);
-                            return;
-                        }
-                        long certId = getIDFromURL(objectPath);
-                        if (certId < 0)
-                        {
-                            BMCWEB_LOG_ERROR << "Invalid objectPath value"
-                                             << objectPath;
-                            messages::internalError(asyncResp->res);
-                            return;
-                        }
-                        std::string certURL =
-                            "/redfish/v1/Managers/bmc/NetworkProtocol/HTTPS/"
-                            "Certificates/" +
-                            std::to_string(certId);
-                        getCertificateProperties(
-                            asyncResp, objectPath, certs::httpsServiceName,
-                            certId, certURL, "HTTPS Certificate");
-                        BMCWEB_LOG_DEBUG << "HTTPS certificate install file="
-                                         << certFile->getCertFilePath();
-                    },
-                    certs::httpsServiceName, certs::httpsObjectPath,
-                    certs::certInstallIntf, "Install",
-                    certFile->getCertFilePath());
-            });
+            crow::connections::systemBus->async_method_call(
+                [asyncResp, certFile](const boost::system::error_code ec,
+                                      const std::string& objectPath) {
+                    if (ec)
+                    {
+                        BMCWEB_LOG_ERROR << "DBUS response error: " << ec;
+                        messages::internalError(asyncResp->res);
+                        return;
+                    }
+                    long certId = getIDFromURL(objectPath);
+                    if (certId < 0)
+                    {
+                        BMCWEB_LOG_ERROR << "Invalid objectPath value"
+                                         << objectPath;
+                        messages::internalError(asyncResp->res);
+                        return;
+                    }
+                    std::string certURL =
+                        "/redfish/v1/Managers/bmc/NetworkProtocol/HTTPS/Certificates/" +
+                        std::to_string(certId);
+                    getCertificateProperties(asyncResp, objectPath,
+                                             certs::httpsServiceName, certId,
+                                             certURL, "HTTPS Certificate");
+                    BMCWEB_LOG_DEBUG << "HTTPS certificate install file="
+                                     << certFile->getCertFilePath();
+                },
+                certs::httpsServiceName, certs::httpsObjectPath,
+                certs::certInstallIntf, "Install", certFile->getCertFilePath());
+        });
 } // requestRoutesHTTPSCertificateCollection
 
 /**
@@ -1022,49 +1017,47 @@ inline void requestRoutesLDAPCertificateCollection(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/AccountService/LDAP/Certificates/")
         .privileges(redfish::privileges::getCertificateCollection)
-        .methods(boost::beast::http::verb::get)(
-            [](const crow::Request&,
-               const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
-                asyncResp->res.jsonValue = {
-                    {"@odata.id",
-                     "/redfish/v1/AccountService/LDAP/Certificates"},
-                    {"@odata.type",
-                     "#CertificateCollection.CertificateCollection"},
-                    {"Name", "LDAP Certificates Collection"},
-                    {"Description",
-                     "A Collection of LDAP certificate instances"}};
+        .methods(
+            boost::beast::http::verb::
+                get)([](const crow::Request&,
+                        const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
+            asyncResp->res.jsonValue = {
+                {"@odata.id", "/redfish/v1/AccountService/LDAP/Certificates"},
+                {"@odata.type", "#CertificateCollection.CertificateCollection"},
+                {"Name", "LDAP Certificates Collection"},
+                {"Description", "A Collection of LDAP certificate instances"}};
 
-                crow::connections::systemBus->async_method_call(
-                    [asyncResp](const boost::system::error_code ec,
-                                const ManagedObjectType& certs) {
-                        nlohmann::json& members =
-                            asyncResp->res.jsonValue["Members"];
-                        nlohmann::json& count =
-                            asyncResp->res.jsonValue["Members@odata.count"];
-                        members = nlohmann::json::array();
-                        count = 0;
-                        if (ec)
+            crow::connections::systemBus->async_method_call(
+                [asyncResp](const boost::system::error_code ec,
+                            const ManagedObjectType& certs) {
+                    nlohmann::json& members =
+                        asyncResp->res.jsonValue["Members"];
+                    nlohmann::json& count =
+                        asyncResp->res.jsonValue["Members@odata.count"];
+                    members = nlohmann::json::array();
+                    count = 0;
+                    if (ec)
+                    {
+                        BMCWEB_LOG_WARNING << "LDAP certificate query failed: "
+                                           << ec;
+                        return;
+                    }
+                    for (const auto& cert : certs)
+                    {
+                        long id = getIDFromURL(cert.first.str);
+                        if (id >= 0)
                         {
-                            BMCWEB_LOG_WARNING
-                                << "LDAP certificate query failed: " << ec;
-                            return;
+                            members.push_back(
+                                {{"@odata.id",
+                                  "/redfish/v1/AccountService/LDAP/Certificates/" +
+                                      std::to_string(id)}});
                         }
-                        for (const auto& cert : certs)
-                        {
-                            long id = getIDFromURL(cert.first.str);
-                            if (id >= 0)
-                            {
-                                members.push_back(
-                                    {{"@odata.id", "/redfish/v1/AccountService/"
-                                                   "LDAP/Certificates/" +
-                                                       std::to_string(id)}});
-                            }
-                        }
-                        count = members.size();
-                    },
-                    certs::ldapServiceName, certs::ldapObjectPath,
-                    certs::dbusObjManagerIntf, "GetManagedObjects");
-            });
+                    }
+                    count = members.size();
+                },
+                certs::ldapServiceName, certs::ldapObjectPath,
+                certs::dbusObjManagerIntf, "GetManagedObjects");
+        });
 
     BMCWEB_ROUTE(app, "/redfish/v1/AccountService/LDAP/Certificates/")
         .privileges(redfish::privileges::postCertificateCollection)
@@ -1156,98 +1149,96 @@ inline void requestRoutesTrustStoreCertificateCollection(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/Managers/bmc/Truststore/Certificates/")
         .privileges(redfish::privileges::getCertificate)
-        .methods(boost::beast::http::verb::get)(
-            [](const crow::Request&,
-               const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
-                asyncResp->res.jsonValue = {
-                    {"@odata.id",
-                     "/redfish/v1/Managers/bmc/Truststore/Certificates/"},
-                    {"@odata.type",
-                     "#CertificateCollection.CertificateCollection"},
-                    {"Name", "TrustStore Certificates Collection"},
-                    {"Description",
-                     "A Collection of TrustStore certificate instances"}};
+        .methods(
+            boost::beast::http::verb::
+                get)([](const crow::Request&,
+                        const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
+            asyncResp->res.jsonValue = {
+                {"@odata.id",
+                 "/redfish/v1/Managers/bmc/Truststore/Certificates/"},
+                {"@odata.type", "#CertificateCollection.CertificateCollection"},
+                {"Name", "TrustStore Certificates Collection"},
+                {"Description",
+                 "A Collection of TrustStore certificate instances"}};
 
-                crow::connections::systemBus->async_method_call(
-                    [asyncResp](const boost::system::error_code ec,
-                                const ManagedObjectType& certs) {
-                        if (ec)
+            crow::connections::systemBus->async_method_call(
+                [asyncResp](const boost::system::error_code ec,
+                            const ManagedObjectType& certs) {
+                    if (ec)
+                    {
+                        BMCWEB_LOG_ERROR << "DBUS response error: " << ec;
+                        messages::internalError(asyncResp->res);
+                        return;
+                    }
+                    nlohmann::json& members =
+                        asyncResp->res.jsonValue["Members"];
+                    members = nlohmann::json::array();
+                    for (const auto& cert : certs)
+                    {
+                        long id = getIDFromURL(cert.first.str);
+                        if (id >= 0)
                         {
-                            BMCWEB_LOG_ERROR << "DBUS response error: " << ec;
-                            messages::internalError(asyncResp->res);
-                            return;
+                            members.push_back(
+                                {{"@odata.id",
+                                  "/redfish/v1/Managers/bmc/Truststore/Certificates/" +
+                                      std::to_string(id)}});
                         }
-                        nlohmann::json& members =
-                            asyncResp->res.jsonValue["Members"];
-                        members = nlohmann::json::array();
-                        for (const auto& cert : certs)
-                        {
-                            long id = getIDFromURL(cert.first.str);
-                            if (id >= 0)
-                            {
-                                members.push_back(
-                                    {{"@odata.id", "/redfish/v1/Managers/bmc/"
-                                                   "Truststore/Certificates/" +
-                                                       std::to_string(id)}});
-                            }
-                        }
-                        asyncResp->res.jsonValue["Members@odata.count"] =
-                            members.size();
-                    },
-                    certs::authorityServiceName, certs::authorityObjectPath,
-                    certs::dbusObjManagerIntf, "GetManagedObjects");
-            });
+                    }
+                    asyncResp->res.jsonValue["Members@odata.count"] =
+                        members.size();
+                },
+                certs::authorityServiceName, certs::authorityObjectPath,
+                certs::dbusObjManagerIntf, "GetManagedObjects");
+        });
 
     BMCWEB_ROUTE(app, "/redfish/v1/Managers/bmc/Truststore/Certificates/")
         .privileges(redfish::privileges::postCertificateCollection)
-        .methods(boost::beast::http::verb::post)(
-            [](const crow::Request& req,
-               const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
-                std::string certFileBody =
-                    getCertificateFromReqBody(asyncResp, req);
+        .methods(
+            boost::beast::http::verb::
+                post)([](const crow::Request& req,
+                         const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
+            std::string certFileBody =
+                getCertificateFromReqBody(asyncResp, req);
 
-                if (certFileBody.empty())
-                {
-                    BMCWEB_LOG_ERROR
-                        << "Cannot get certificate from request body.";
-                    messages::unrecognizedRequestBody(asyncResp->res);
-                    return;
-                }
+            if (certFileBody.empty())
+            {
+                BMCWEB_LOG_ERROR << "Cannot get certificate from request body.";
+                messages::unrecognizedRequestBody(asyncResp->res);
+                return;
+            }
 
-                std::shared_ptr<CertificateFile> certFile =
-                    std::make_shared<CertificateFile>(certFileBody);
-                crow::connections::systemBus->async_method_call(
-                    [asyncResp, certFile](const boost::system::error_code ec,
-                                          const std::string& objectPath) {
-                        if (ec)
-                        {
-                            BMCWEB_LOG_ERROR << "DBUS response error: " << ec;
-                            messages::internalError(asyncResp->res);
-                            return;
-                        }
-                        long certId = getIDFromURL(objectPath);
-                        if (certId < 0)
-                        {
-                            BMCWEB_LOG_ERROR << "Invalid objectPath value"
-                                             << objectPath;
-                            messages::internalError(asyncResp->res);
-                            return;
-                        }
-                        std::string certURL = "/redfish/v1/Managers/bmc/"
-                                              "Truststore/Certificates/" +
-                                              std::to_string(certId);
+            std::shared_ptr<CertificateFile> certFile =
+                std::make_shared<CertificateFile>(certFileBody);
+            crow::connections::systemBus->async_method_call(
+                [asyncResp, certFile](const boost::system::error_code ec,
+                                      const std::string& objectPath) {
+                    if (ec)
+                    {
+                        BMCWEB_LOG_ERROR << "DBUS response error: " << ec;
+                        messages::internalError(asyncResp->res);
+                        return;
+                    }
+                    long certId = getIDFromURL(objectPath);
+                    if (certId < 0)
+                    {
+                        BMCWEB_LOG_ERROR << "Invalid objectPath value"
+                                         << objectPath;
+                        messages::internalError(asyncResp->res);
+                        return;
+                    }
+                    std::string certURL =
+                        "/redfish/v1/Managers/bmc/Truststore/Certificates/" +
+                        std::to_string(certId);
 
-                        getCertificateProperties(
-                            asyncResp, objectPath, certs::authorityServiceName,
-                            certId, certURL, "TrustStore Certificate");
-                        BMCWEB_LOG_DEBUG
-                            << "TrustStore certificate install file="
-                            << certFile->getCertFilePath();
-                    },
-                    certs::authorityServiceName, certs::authorityObjectPath,
-                    certs::certInstallIntf, "Install",
-                    certFile->getCertFilePath());
-            });
+                    getCertificateProperties(
+                        asyncResp, objectPath, certs::authorityServiceName,
+                        certId, certURL, "TrustStore Certificate");
+                    BMCWEB_LOG_DEBUG << "TrustStore certificate install file="
+                                     << certFile->getCertFilePath();
+                },
+                certs::authorityServiceName, certs::authorityObjectPath,
+                certs::certInstallIntf, "Install", certFile->getCertFilePath());
+        });
 } // requestRoutesTrustStoreCertificateCollection
 
 /**

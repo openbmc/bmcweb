@@ -348,16 +348,13 @@ inline void
                                             if (value == nullptr)
                                             {
                                                 BMCWEB_LOG_DEBUG
-                                                    << "Find incorrect type of "
-                                                       "MemorySize";
+                                                    << "Find incorrect type of MemorySize";
                                                 continue;
                                             }
                                             nlohmann::json& totalMemory =
-                                                aResp->res
-                                                    .jsonValue["MemorySummar"
-                                                               "y"]
-                                                              ["TotalSystemMe"
-                                                               "moryGiB"];
+                                                aResp->res.jsonValue
+                                                    ["MemorySummary"]
+                                                    ["TotalSystemMemoryGiB"];
                                             uint64_t* preValue =
                                                 totalMemory
                                                     .get_ptr<uint64_t*>();
@@ -365,10 +362,9 @@ inline void
                                             {
                                                 continue;
                                             }
-                                            aResp->res
-                                                .jsonValue["MemorySummary"]
-                                                          ["TotalSystemMemoryGi"
-                                                           "B"] =
+                                            aResp->res.jsonValue
+                                                ["MemorySummary"]
+                                                ["TotalSystemMemoryGiB"] =
                                                 *value / (1024 * 1024) +
                                                 *preValue;
                                             aResp->res
@@ -388,8 +384,7 @@ inline void
                                                 if (ec3)
                                                 {
                                                     BMCWEB_LOG_ERROR
-                                                        << "DBUS response "
-                                                           "error "
+                                                        << "DBUS response error "
                                                         << ec3;
                                                     return;
                                                 }
@@ -400,11 +395,9 @@ inline void
                                             ->async_method_call(
                                                 std::move(getDimmProperties),
                                                 service, path,
-                                                "org.freedesktop.DBus."
-                                                "Properties",
+                                                "org.freedesktop.DBus.Properties",
                                                 "Get",
-                                                "xyz.openbmc_project.State."
-                                                "Decorator.OperationalStatus",
+                                                "xyz.openbmc_project.State.Decorator.OperationalStatus",
                                                 "Functional");
                                     }
                                 },
@@ -526,8 +519,7 @@ inline void
                                 },
                                 connection.first, path,
                                 "org.freedesktop.DBus.Properties", "GetAll",
-                                "xyz.openbmc_project.Inventory.Decorator."
-                                "Asset");
+                                "xyz.openbmc_project.Inventory.Decorator.Asset");
 
                             crow::connections::systemBus->async_method_call(
                                 [aResp](
@@ -550,8 +542,7 @@ inline void
                                 },
                                 connection.first, path,
                                 "org.freedesktop.DBus.Properties", "Get",
-                                "xyz.openbmc_project.Inventory.Decorator."
-                                "AssetTag",
+                                "xyz.openbmc_project.Inventory.Decorator.AssetTag",
                                 "AssetTag");
                         }
                     }
@@ -601,26 +592,29 @@ inline void getHostState(const std::shared_ptr<bmcweb::AsyncResp>& aResp)
                     aResp->res.jsonValue["PowerState"] = "On";
                     aResp->res.jsonValue["Status"]["State"] = "Enabled";
                 }
-                else if (*s == "xyz.openbmc_project.State.Host.HostState."
-                               "Quiesced")
+                else if (*s ==
+                         "xyz.openbmc_project.State.Host.HostState.Quiesced")
                 {
                     aResp->res.jsonValue["PowerState"] = "On";
                     aResp->res.jsonValue["Status"]["State"] = "Quiesced";
                 }
-                else if (*s == "xyz.openbmc_project.State.Host.HostState."
-                               "DiagnosticMode")
+                else if (
+                    *s ==
+                    "xyz.openbmc_project.State.Host.HostState.DiagnosticMode")
                 {
                     aResp->res.jsonValue["PowerState"] = "On";
                     aResp->res.jsonValue["Status"]["State"] = "InTest";
                 }
-                else if (*s == "xyz.openbmc_project.State.Host.HostState."
-                               "TransitioningToRunning")
+                else if (
+                    *s ==
+                    "xyz.openbmc_project.State.Host.HostState.TransitioningToRunning")
                 {
                     aResp->res.jsonValue["PowerState"] = "PoweringOn";
                     aResp->res.jsonValue["Status"]["State"] = "Starting";
                 }
-                else if (*s == "xyz.openbmc_project.State.Host.HostState."
-                               "TransitioningToOff")
+                else if (
+                    *s ==
+                    "xyz.openbmc_project.State.Host.HostState.TransitioningToOff")
                 {
                     aResp->res.jsonValue["PowerState"] = "PoweringOff";
                     aResp->res.jsonValue["Status"]["State"] = "Disabled";
@@ -766,9 +760,9 @@ inline int assignBootParameters(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
     }
     else
     {
-        BMCWEB_LOG_DEBUG << "Invalid property value for "
-                            "BootSourceOverrideTarget: "
-                         << bootSource;
+        BMCWEB_LOG_DEBUG
+            << "Invalid property value for BootSourceOverrideTarget: "
+            << bootSource;
         messages::propertyValueNotInList(aResp->res, rfSource,
                                          "BootSourceTargetOverride");
         return -1;
@@ -811,56 +805,56 @@ inline void getBootProgress(const std::shared_ptr<bmcweb::AsyncResp>& aResp)
             // Now convert the D-Bus BootProgress to the appropriate Redfish
             // enum
             std::string rfBpLastState = "None";
-            if (*bootProgressStr == "xyz.openbmc_project.State.Boot.Progress."
-                                    "ProgressStages.Unspecified")
+            if (*bootProgressStr ==
+                "xyz.openbmc_project.State.Boot.Progress.ProgressStages.Unspecified")
             {
                 rfBpLastState = "None";
             }
-            else if (*bootProgressStr ==
-                     "xyz.openbmc_project.State.Boot.Progress.ProgressStages."
-                     "PrimaryProcInit")
+            else if (
+                *bootProgressStr ==
+                "xyz.openbmc_project.State.Boot.Progress.ProgressStages.PrimaryProcInit")
             {
                 rfBpLastState = "PrimaryProcessorInitializationStarted";
             }
-            else if (*bootProgressStr ==
-                     "xyz.openbmc_project.State.Boot.Progress.ProgressStages."
-                     "BusInit")
+            else if (
+                *bootProgressStr ==
+                "xyz.openbmc_project.State.Boot.Progress.ProgressStages.BusInit")
             {
                 rfBpLastState = "BusInitializationStarted";
             }
-            else if (*bootProgressStr ==
-                     "xyz.openbmc_project.State.Boot.Progress.ProgressStages."
-                     "MemoryInit")
+            else if (
+                *bootProgressStr ==
+                "xyz.openbmc_project.State.Boot.Progress.ProgressStages.MemoryInit")
             {
                 rfBpLastState = "MemoryInitializationStarted";
             }
-            else if (*bootProgressStr ==
-                     "xyz.openbmc_project.State.Boot.Progress.ProgressStages."
-                     "SecondaryProcInit")
+            else if (
+                *bootProgressStr ==
+                "xyz.openbmc_project.State.Boot.Progress.ProgressStages.SecondaryProcInit")
             {
                 rfBpLastState = "SecondaryProcessorInitializationStarted";
             }
-            else if (*bootProgressStr ==
-                     "xyz.openbmc_project.State.Boot.Progress.ProgressStages."
-                     "PCIInit")
+            else if (
+                *bootProgressStr ==
+                "xyz.openbmc_project.State.Boot.Progress.ProgressStages.PCIInit")
             {
                 rfBpLastState = "PCIResourceConfigStarted";
             }
-            else if (*bootProgressStr ==
-                     "xyz.openbmc_project.State.Boot.Progress.ProgressStages."
-                     "SystemInitComplete")
+            else if (
+                *bootProgressStr ==
+                "xyz.openbmc_project.State.Boot.Progress.ProgressStages.SystemInitComplete")
             {
                 rfBpLastState = "SystemHardwareInitializationComplete";
             }
-            else if (*bootProgressStr ==
-                     "xyz.openbmc_project.State.Boot.Progress.ProgressStages."
-                     "OSStart")
+            else if (
+                *bootProgressStr ==
+                "xyz.openbmc_project.State.Boot.Progress.ProgressStages.OSStart")
             {
                 rfBpLastState = "OSBootStarted";
             }
-            else if (*bootProgressStr ==
-                     "xyz.openbmc_project.State.Boot.Progress.ProgressStages."
-                     "OSRunning")
+            else if (
+                *bootProgressStr ==
+                "xyz.openbmc_project.State.Boot.Progress.ProgressStages.OSRunning")
             {
                 rfBpLastState = "OSRunning";
             }
@@ -908,9 +902,10 @@ inline void getBootOverrideType(const std::shared_ptr<bmcweb::AsyncResp>& aResp)
 
             BMCWEB_LOG_DEBUG << "Boot type: " << *bootTypeStr;
 
-            aResp->res.jsonValue["Boot"]["BootSourceOverrideMode@Redfish."
-                                         "AllowableValues"] = {"Legacy",
-                                                               "UEFI"};
+            aResp->res
+                .jsonValue["Boot"]
+                          ["BootSourceOverrideMode@Redfish.AllowableValues"] = {
+                "Legacy", "UEFI"};
 
             auto rfType = dbusToRfBootType(*bootTypeStr);
             if (rfType.empty())
@@ -958,9 +953,10 @@ inline void getBootOverrideMode(const std::shared_ptr<bmcweb::AsyncResp>& aResp)
 
             BMCWEB_LOG_DEBUG << "Boot mode: " << *bootModeStr;
 
-            aResp->res.jsonValue["Boot"]["BootSourceOverrideTarget@Redfish."
-                                         "AllowableValues"] = {
-                "None", "Pxe", "Hdd", "Cd", "Diags", "BiosSetup", "Usb"};
+            aResp->res
+                .jsonValue["Boot"]
+                          ["BootSourceOverrideTarget@Redfish.AllowableValues"] =
+                {"None", "Pxe", "Hdd", "Cd", "Diags", "BiosSetup", "Usb"};
 
             if (*bootModeStr !=
                 "xyz.openbmc_project.Control.Boot.Mode.Modes.Regular")
@@ -1269,9 +1265,10 @@ inline void getAutomaticRetry(const std::shared_ptr<bmcweb::AsyncResp>& aResp)
             // "AutomaticRetryConfig" can be 3 values, Disabled, RetryAlways,
             // and RetryAttempts. OpenBMC only supports Disabled and
             // RetryAttempts.
-            aResp->res.jsonValue["Boot"]["AutomaticRetryConfig@Redfish."
-                                         "AllowableValues"] = {"Disabled",
-                                                               "RetryAttempts"};
+            aResp->res
+                .jsonValue["Boot"]
+                          ["AutomaticRetryConfig@Redfish.AllowableValues"] = {
+                "Disabled", "RetryAttempts"};
         },
         "xyz.openbmc_project.Settings",
         "/xyz/openbmc_project/control/host0/auto_reboot",
@@ -1300,17 +1297,13 @@ inline void
                 return;
             }
 
-            const boost::container::flat_map<std::string, std::string>
-                policyMaps = {
-                    {"xyz.openbmc_project.Control.Power.RestorePolicy.Policy."
-                     "AlwaysOn",
-                     "AlwaysOn"},
-                    {"xyz.openbmc_project.Control.Power.RestorePolicy.Policy."
-                     "AlwaysOff",
-                     "AlwaysOff"},
-                    {"xyz.openbmc_project.Control.Power.RestorePolicy.Policy."
-                     "Restore",
-                     "LastState"}};
+            const boost::container::flat_map<std::string, std::string> policyMaps = {
+                {"xyz.openbmc_project.Control.Power.RestorePolicy.Policy.AlwaysOn",
+                 "AlwaysOn"},
+                {"xyz.openbmc_project.Control.Power.RestorePolicy.Policy.AlwaysOff",
+                 "AlwaysOff"},
+                {"xyz.openbmc_project.Control.Power.RestorePolicy.Policy.Restore",
+                 "LastState"}};
 
             const std::string* policyPtr = std::get_if<std::string>(&policy);
 
@@ -1507,9 +1500,9 @@ inline void setTrustedModuleRequiredToBoot(
                 [aResp](const boost::system::error_code ec) {
                     if (ec)
                     {
-                        BMCWEB_LOG_DEBUG << "DBUS response error: Set "
-                                            "TrustedModuleRequiredToBoot"
-                                         << ec;
+                        BMCWEB_LOG_DEBUG
+                            << "DBUS response error: Set TrustedModuleRequiredToBoot"
+                            << ec;
                         messages::internalError(aResp->res);
                         return;
                     }
@@ -1624,9 +1617,9 @@ inline void setBootEnable(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
     }
     else
     {
-        BMCWEB_LOG_DEBUG << "Invalid property value for "
-                            "BootSourceOverrideEnabled: "
-                         << *bootEnable;
+        BMCWEB_LOG_DEBUG
+            << "Invalid property value for BootSourceOverrideEnabled: "
+            << *bootEnable;
         messages::propertyValueNotInList(aResp->res, *bootEnable,
                                          "BootSourceOverrideEnabled");
         return;
@@ -1873,8 +1866,7 @@ inline void setAutomaticRetry(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
     }
     else
     {
-        BMCWEB_LOG_DEBUG << "Invalid property value for "
-                            "AutomaticRetryConfig: "
+        BMCWEB_LOG_DEBUG << "Invalid property value for AutomaticRetryConfig: "
                          << automaticRetryConfig;
         messages::propertyValueNotInList(aResp->res, automaticRetryConfig,
                                          "AutomaticRetryConfig");
@@ -1911,12 +1903,12 @@ inline void
     BMCWEB_LOG_DEBUG << "Set power restore policy.";
 
     const boost::container::flat_map<std::string, std::string> policyMaps = {
-        {"AlwaysOn", "xyz.openbmc_project.Control.Power.RestorePolicy.Policy."
-                     "AlwaysOn"},
-        {"AlwaysOff", "xyz.openbmc_project.Control.Power.RestorePolicy.Policy."
-                      "AlwaysOff"},
-        {"LastState", "xyz.openbmc_project.Control.Power.RestorePolicy.Policy."
-                      "Restore"}};
+        {"AlwaysOn",
+         "xyz.openbmc_project.Control.Power.RestorePolicy.Policy.AlwaysOn"},
+        {"AlwaysOff",
+         "xyz.openbmc_project.Control.Power.RestorePolicy.Policy.AlwaysOff"},
+        {"LastState",
+         "xyz.openbmc_project.Control.Power.RestorePolicy.Policy.Restore"}};
 
     std::string powerRestorPolicy;
 
@@ -2031,23 +2023,23 @@ inline void translatePowerMode(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
 {
     std::string modeString;
 
-    if (modeValue == "xyz.openbmc_project.Control.Power.Mode."
-                     "PowerMode.Static")
+    if (modeValue == "xyz.openbmc_project.Control.Power.Mode.PowerMode.Static")
     {
         aResp->res.jsonValue["PowerMode"] = "Static";
     }
-    else if (modeValue == "xyz.openbmc_project.Control.Power.Mode."
-                          "PowerMode.MaximumPerformance")
+    else if (
+        modeValue ==
+        "xyz.openbmc_project.Control.Power.Mode.PowerMode.MaximumPerformance")
     {
         aResp->res.jsonValue["PowerMode"] = "MaximumPerformance";
     }
-    else if (modeValue == "xyz.openbmc_project.Control.Power.Mode."
-                          "PowerMode.PowerSaving")
+    else if (modeValue ==
+             "xyz.openbmc_project.Control.Power.Mode.PowerMode.PowerSaving")
     {
         aResp->res.jsonValue["PowerMode"] = "PowerSaving";
     }
-    else if (modeValue == "xyz.openbmc_project.Control.Power.Mode."
-                          "PowerMode.OEM")
+    else if (modeValue ==
+             "xyz.openbmc_project.Control.Power.Mode.PowerMode.OEM")
     {
         aResp->res.jsonValue["PowerMode"] = "OEM";
     }
@@ -2172,8 +2164,8 @@ inline std::string
     }
     else if (modeString == "MaximumPerformance")
     {
-        mode = "xyz.openbmc_project.Control.Power.Mode.PowerMode."
-               "MaximumPerformance";
+        mode =
+            "xyz.openbmc_project.Control.Power.Mode.PowerMode.MaximumPerformance";
     }
     else if (modeString == "PowerSaving")
     {
@@ -2694,9 +2686,9 @@ inline void setIdlePowerSaver(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
             {
                 // More then one PowerIdlePowerSaver object is not supported and
                 // is an error
-                BMCWEB_LOG_DEBUG << "Found more than 1 system D-Bus "
-                                    "Power.IdlePowerSaver objects: "
-                                 << subtree.size();
+                BMCWEB_LOG_DEBUG
+                    << "Found more than 1 system D-Bus Power.IdlePowerSaver objects: "
+                    << subtree.size();
                 messages::internalError(aResp->res);
                 return;
             }
@@ -2928,8 +2920,8 @@ inline void requestRoutesSystemActionsReset(App& app)
             }
             else if (resetType == "GracefulRestart")
             {
-                command = "xyz.openbmc_project.State.Host.Transition."
-                          "GracefulWarmReboot";
+                command =
+                    "xyz.openbmc_project.State.Host.Transition.GracefulWarmReboot";
                 hostCommand = true;
             }
             else if (resetType == "PowerCycle")

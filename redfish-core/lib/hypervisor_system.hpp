@@ -58,26 +58,26 @@ inline void getHypervisorState(const std::shared_ptr<bmcweb::AsyncResp>& aResp)
                 aResp->res.jsonValue["PowerState"] = "On";
                 aResp->res.jsonValue["Status"]["State"] = "Enabled";
             }
-            else if (*s == "xyz.openbmc_project.State.Host.HostState."
-                           "Quiesced")
+            else if (*s == "xyz.openbmc_project.State.Host.HostState.Quiesced")
             {
                 aResp->res.jsonValue["PowerState"] = "On";
                 aResp->res.jsonValue["Status"]["State"] = "Quiesced";
             }
-            else if (*s == "xyz.openbmc_project.State.Host.HostState."
-                           "Standby")
+            else if (*s == "xyz.openbmc_project.State.Host.HostState.Standby")
             {
                 aResp->res.jsonValue["PowerState"] = "On";
                 aResp->res.jsonValue["Status"]["State"] = "StandbyOffline";
             }
-            else if (*s == "xyz.openbmc_project.State.Host.HostState."
-                           "TransitioningToRunning")
+            else if (
+                *s ==
+                "xyz.openbmc_project.State.Host.HostState.TransitioningToRunning")
             {
                 aResp->res.jsonValue["PowerState"] = "PoweringOn";
                 aResp->res.jsonValue["Status"]["State"] = "Starting";
             }
-            else if (*s == "xyz.openbmc_project.State.Host.HostState."
-                           "TransitioningToOff")
+            else if (
+                *s ==
+                "xyz.openbmc_project.State.Host.HostState.TransitioningToOff")
             {
                 aResp->res.jsonValue["PowerState"] = "PoweringOff";
                 aResp->res.jsonValue["Status"]["State"] = "Enabled";
@@ -727,43 +727,43 @@ inline void requestRoutesHypervisorSystems(App& app)
 
     BMCWEB_ROUTE(app, "/redfish/v1/Systems/hypervisor/")
         .privileges(redfish::privileges::getComputerSystem)
-        .methods(boost::beast::http::verb::get)(
-            [](const crow::Request&,
-               const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
-                crow::connections::systemBus->async_method_call(
-                    [asyncResp](const boost::system::error_code ec,
-                                const std::variant<std::string>& /*hostName*/) {
-                        if (ec)
-                        {
-                            messages::resourceNotFound(asyncResp->res, "System",
-                                                       "hypervisor");
-                            return;
-                        }
-                        BMCWEB_LOG_DEBUG << "Hypervisor is available";
+        .methods(
+            boost::beast::http::verb::
+                get)([](const crow::Request&,
+                        const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
+            crow::connections::systemBus->async_method_call(
+                [asyncResp](const boost::system::error_code ec,
+                            const std::variant<std::string>& /*hostName*/) {
+                    if (ec)
+                    {
+                        messages::resourceNotFound(asyncResp->res, "System",
+                                                   "hypervisor");
+                        return;
+                    }
+                    BMCWEB_LOG_DEBUG << "Hypervisor is available";
 
-                        asyncResp->res.jsonValue["@odata.type"] =
-                            "#ComputerSystem.v1_6_0.ComputerSystem";
-                        asyncResp->res.jsonValue["@odata.id"] =
-                            "/redfish/v1/Systems/hypervisor";
-                        asyncResp->res.jsonValue["Description"] = "Hypervisor";
-                        asyncResp->res.jsonValue["Name"] = "Hypervisor";
-                        asyncResp->res.jsonValue["Id"] = "hypervisor";
-                        asyncResp->res.jsonValue["SystemType"] = "OS";
-                        asyncResp->res.jsonValue["Links"]["ManagedBy"] = {
-                            {{"@odata.id", "/redfish/v1/Managers/bmc"}}};
-                        asyncResp->res.jsonValue["EthernetInterfaces"] = {
-                            {"@odata.id", "/redfish/v1/Systems/hypervisor/"
-                                          "EthernetInterfaces"}};
-                        getHypervisorState(asyncResp);
-                        getHypervisorActions(asyncResp);
-                        // TODO: Add "SystemType" : "hypervisor"
-                    },
-                    "xyz.openbmc_project.Settings",
-                    "/xyz/openbmc_project/network/hypervisor",
-                    "org.freedesktop.DBus.Properties", "Get",
-                    "xyz.openbmc_project.Network.SystemConfiguration",
-                    "HostName");
-            });
+                    asyncResp->res.jsonValue["@odata.type"] =
+                        "#ComputerSystem.v1_6_0.ComputerSystem";
+                    asyncResp->res.jsonValue["@odata.id"] =
+                        "/redfish/v1/Systems/hypervisor";
+                    asyncResp->res.jsonValue["Description"] = "Hypervisor";
+                    asyncResp->res.jsonValue["Name"] = "Hypervisor";
+                    asyncResp->res.jsonValue["Id"] = "hypervisor";
+                    asyncResp->res.jsonValue["SystemType"] = "OS";
+                    asyncResp->res.jsonValue["Links"]["ManagedBy"] = {
+                        {{"@odata.id", "/redfish/v1/Managers/bmc"}}};
+                    asyncResp->res.jsonValue["EthernetInterfaces"] = {
+                        {"@odata.id",
+                         "/redfish/v1/Systems/hypervisor/EthernetInterfaces"}};
+                    getHypervisorState(asyncResp);
+                    getHypervisorActions(asyncResp);
+                    // TODO: Add "SystemType" : "hypervisor"
+                },
+                "xyz.openbmc_project.Settings",
+                "/xyz/openbmc_project/network/hypervisor",
+                "org.freedesktop.DBus.Properties", "Get",
+                "xyz.openbmc_project.Network.SystemConfiguration", "HostName");
+        });
 
     /**
      * HypervisorInterfaceCollection class to handle the GET and PATCH on
@@ -772,58 +772,58 @@ inline void requestRoutesHypervisorSystems(App& app)
 
     BMCWEB_ROUTE(app, "/redfish/v1/Systems/hypervisor/EthernetInterfaces/")
         .privileges(redfish::privileges::getEthernetInterfaceCollection)
-        .methods(boost::beast::http::verb::get)(
-            [](const crow::Request&,
-               const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
-                const std::array<const char*, 1> interfaces = {
-                    "xyz.openbmc_project.Network.EthernetInterface"};
+        .methods(
+            boost::beast::http::verb::
+                get)([](const crow::Request&,
+                        const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
+            const std::array<const char*, 1> interfaces = {
+                "xyz.openbmc_project.Network.EthernetInterface"};
 
-                crow::connections::systemBus->async_method_call(
-                    [asyncResp](const boost::system::error_code error,
-                                const std::vector<std::string>& ifaceList) {
-                        if (error)
+            crow::connections::systemBus->async_method_call(
+                [asyncResp](const boost::system::error_code error,
+                            const std::vector<std::string>& ifaceList) {
+                    if (error)
+                    {
+                        messages::resourceNotFound(asyncResp->res, "System",
+                                                   "hypervisor");
+                        return;
+                    }
+                    asyncResp->res.jsonValue["@odata.type"] =
+                        "#EthernetInterfaceCollection."
+                        "EthernetInterfaceCollection";
+                    asyncResp->res.jsonValue["@odata.id"] =
+                        "/redfish/v1/Systems/hypervisor/EthernetInterfaces";
+                    asyncResp->res.jsonValue["Name"] = "Hypervisor Ethernet "
+                                                       "Interface Collection";
+                    asyncResp->res.jsonValue["Description"] =
+                        "Collection of Virtual Management "
+                        "Interfaces for the hypervisor";
+
+                    nlohmann::json& ifaceArray =
+                        asyncResp->res.jsonValue["Members"];
+                    ifaceArray = nlohmann::json::array();
+                    for (const std::string& iface : ifaceList)
+                    {
+                        sdbusplus::message::object_path path(iface);
+                        std::string name = path.filename();
+                        if (name.empty())
                         {
-                            messages::resourceNotFound(asyncResp->res, "System",
-                                                       "hypervisor");
-                            return;
+                            continue;
                         }
-                        asyncResp->res.jsonValue["@odata.type"] =
-                            "#EthernetInterfaceCollection."
-                            "EthernetInterfaceCollection";
-                        asyncResp->res.jsonValue["@odata.id"] =
-                            "/redfish/v1/Systems/hypervisor/EthernetInterfaces";
-                        asyncResp->res.jsonValue["Name"] =
-                            "Hypervisor Ethernet "
-                            "Interface Collection";
-                        asyncResp->res.jsonValue["Description"] =
-                            "Collection of Virtual Management "
-                            "Interfaces for the hypervisor";
 
-                        nlohmann::json& ifaceArray =
-                            asyncResp->res.jsonValue["Members"];
-                        ifaceArray = nlohmann::json::array();
-                        for (const std::string& iface : ifaceList)
-                        {
-                            sdbusplus::message::object_path path(iface);
-                            std::string name = path.filename();
-                            if (name.empty())
-                            {
-                                continue;
-                            }
-
-                            ifaceArray.push_back(
-                                {{"@odata.id", "/redfish/v1/Systems/hypervisor/"
-                                               "EthernetInterfaces/" +
-                                                   name}});
-                        }
-                        asyncResp->res.jsonValue["Members@odata.count"] =
-                            ifaceArray.size();
-                    },
-                    "xyz.openbmc_project.ObjectMapper",
-                    "/xyz/openbmc_project/object_mapper",
-                    "xyz.openbmc_project.ObjectMapper", "GetSubTreePaths",
-                    "/xyz/openbmc_project/network/hypervisor", 0, interfaces);
-            });
+                        ifaceArray.push_back(
+                            {{"@odata.id",
+                              "/redfish/v1/Systems/hypervisor/EthernetInterfaces/" +
+                                  name}});
+                    }
+                    asyncResp->res.jsonValue["Members@odata.count"] =
+                        ifaceArray.size();
+                },
+                "xyz.openbmc_project.ObjectMapper",
+                "/xyz/openbmc_project/object_mapper",
+                "xyz.openbmc_project.ObjectMapper", "GetSubTreePaths",
+                "/xyz/openbmc_project/network/hypervisor", 0, interfaces);
+        });
 
     BMCWEB_ROUTE(app,
                  "/redfish/v1/Systems/hypervisor/EthernetInterfaces/<str>/")

@@ -777,8 +777,9 @@ inline void doVmAction(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
 
 inline void requestNBDVirtualMediaRoutes(App& app)
 {
-    BMCWEB_ROUTE(app, "/redfish/v1/Managers/<str>/VirtualMedia/<str>/Actions/"
-                      "VirtualMedia.InsertMedia")
+    BMCWEB_ROUTE(
+        app,
+        "/redfish/v1/Managers/<str>/VirtualMedia/<str>/Actions/VirtualMedia.InsertMedia")
         .privileges(redfish::privileges::postVirtualMedia)
         .methods(boost::beast::http::verb::post)(
             [](const crow::Request& req,
@@ -922,8 +923,9 @@ inline void requestNBDVirtualMediaRoutes(App& app)
                     std::array<const char*, 0>());
             });
 
-    BMCWEB_ROUTE(app, "/redfish/v1/Managers/<str>/VirtualMedia/<str>/Actions/"
-                      "VirtualMedia.EjectMedia")
+    BMCWEB_ROUTE(
+        app,
+        "/redfish/v1/Managers/<str>/VirtualMedia/<str>/Actions/VirtualMedia.EjectMedia")
         .privileges(redfish::privileges::postVirtualMedia)
         .methods(boost::beast::http::verb::post)(
             [](const crow::Request& req,
