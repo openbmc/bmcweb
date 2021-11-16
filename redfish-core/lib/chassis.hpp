@@ -529,7 +529,8 @@ inline void handleChassisGetSubTree(
         const std::string& connectionName = connectionNames[0].first;
 
         const std::vector<std::string>& interfaces2 = connectionNames[0].second;
-        const std::array<const char*, 2> hasIndicatorLed = {
+        const std::array<const char*, 3> hasIndicatorLed = {
+            "xyz.openbmc_project.Inventory.Item.Chassis",
             "xyz.openbmc_project.Inventory.Item.Panel",
             "xyz.openbmc_project.Inventory.Item.Board.Motherboard"};
 
@@ -738,7 +739,8 @@ inline void
             const std::vector<std::string>& interfaces3 =
                 connectionNames[0].second;
 
-            const std::array<const char*, 2> hasIndicatorLed = {
+            const std::array<const char*, 3> hasIndicatorLed = {
+                "xyz.openbmc_project.Inventory.Item.Chassis",
                 "xyz.openbmc_project.Inventory.Item.Panel",
                 "xyz.openbmc_project.Inventory.Item.Board.Motherboard"};
             bool indicatorChassis = false;
