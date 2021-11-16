@@ -152,8 +152,7 @@ inline void requestRoutesStorage(App& app)
                         storageController["@odata.type"] =
                             "#Storage.v1_7_0.StorageController";
                         storageController["@odata.id"] =
-                            "/redfish/v1/Systems/system/Storage/1"
-                            "#/StorageControllers/" +
+                            "/redfish/v1/Systems/system/Storage/1#/StorageControllers/" +
                             std::to_string(index);
                         storageController["Name"] = id;
                         storageController["MemberId"] = id;

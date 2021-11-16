@@ -75,8 +75,8 @@ inline std::string translateMemoryTypeToRedfish(const std::string& memoryType)
     {
         return "DDR2_SDRAM_FB_DIMM";
     }
-    if (memoryType == "xyz.openbmc_project.Inventory.Item.Dimm.DeviceType.DDR2_"
-                      "SDRAM_FB_DIMM_PROB")
+    if (memoryType ==
+        "xyz.openbmc_project.Inventory.Item.Dimm.DeviceType.DDR2_SDRAM_FB_DIMM_PROB")
     {
         return "DDR2_SDRAM_FB_DIMM_PROBE";
     }
@@ -188,8 +188,8 @@ inline void getPersistentMemoryProperties(
             if (value == nullptr)
             {
                 messages::internalError(aResp->res);
-                BMCWEB_LOG_DEBUG << "Invalid property type for "
-                                    "VolatileRegionSizeLimitKiB";
+                BMCWEB_LOG_DEBUG
+                    << "Invalid property type for VolatileRegionSizeLimitKiB";
                 return;
             }
             aResp->res.jsonValue["VolatileRegionSizeLimitMiB"] = (*value) >> 10;
@@ -251,8 +251,8 @@ inline void getPersistentMemoryProperties(
             if (value == nullptr)
             {
                 messages::internalError(aResp->res);
-                BMCWEB_LOG_DEBUG << "Invalid property type for "
-                                    "VolatileRegionMaxSizeInKib";
+                BMCWEB_LOG_DEBUG
+                    << "Invalid property type for VolatileRegionMaxSizeInKib";
                 return;
             }
             aResp->res.jsonValue["VolatileRegionSizeMaxMiB"] = (*value) >> 10;
@@ -277,8 +277,8 @@ inline void getPersistentMemoryProperties(
             if (value == nullptr)
             {
                 messages::internalError(aResp->res);
-                BMCWEB_LOG_DEBUG << "Invalid property type for "
-                                    "AllocationIncrementInKiB";
+                BMCWEB_LOG_DEBUG
+                    << "Invalid property type for AllocationIncrementInKiB";
                 return;
             }
             aResp->res.jsonValue["AllocationIncrementMiB"] = (*value) >> 10;
@@ -290,8 +290,8 @@ inline void getPersistentMemoryProperties(
             if (value == nullptr)
             {
                 messages::internalError(aResp->res);
-                BMCWEB_LOG_DEBUG << "Invalid property type for "
-                                    "AllocationAlignmentInKiB";
+                BMCWEB_LOG_DEBUG
+                    << "Invalid property type for AllocationAlignmentInKiB";
                 return;
             }
             aResp->res.jsonValue["AllocationAlignmentMiB"] = (*value) >> 10;
@@ -353,8 +353,8 @@ inline void getPersistentMemoryProperties(
             if (value == nullptr)
             {
                 messages::internalError(aResp->res);
-                BMCWEB_LOG_DEBUG << "Invalid property type for "
-                                    "MaxAveragePowerLimitmW";
+                BMCWEB_LOG_DEBUG
+                    << "Invalid property type for MaxAveragePowerLimitmW";
                 return;
             }
             aResp->res.jsonValue["MaxTDPMilliWatts"] = *value;
@@ -860,9 +860,9 @@ inline void getDimmData(std::shared_ptr<bmcweb::AsyncResp> aResp,
                         // device, i.e.
                         // /xyz/openbmc_project/Inventory/Item/Dimm1/Partition1
                         // /xyz/openbmc_project/Inventory/Item/Dimm1/Partition2
-                        if (std::find(interfaces.begin(), interfaces.end(),
-                                      "xyz.openbmc_project.Inventory.Item."
-                                      "PersistentMemory.Partition") !=
+                        if (std::find(
+                                interfaces.begin(), interfaces.end(),
+                                "xyz.openbmc_project.Inventory.Item.PersistentMemory.Partition") !=
                             interfaces.end())
                         {
                             getDimmPartitionData(aResp, service, path);
