@@ -11,7 +11,7 @@ using GetSubTreeType = std::vector<
               std::vector<std::pair<std::string, std::vector<std::string>>>>>;
 
 inline void
-    managerDiagnosticDataGetCPUUtilization(const std::shared_ptr<bmcweb::AsyncResp>& aResp)
+    managerDiagnosticDataGetUtilization(const std::shared_ptr<bmcweb::AsyncResp>& aResp)
 {
     const std::string chassisId = "bmc"; // Must use "bmc" as a "chassis"
 
@@ -34,6 +34,7 @@ inline void
             // Keep track of values that are known so far. If both requested
             // values become available, write them into the response.
             std::unordered_map<std::string, double> cpuUsagePercentValues;
+            std::unordered_map<std::string, double> memoryUsagePercentValues;
 
             // GetSubTreeType is an a{sa{sas}}
             // Loop through each sa{sas} in the a{sa{sas}}
@@ -51,7 +52,43 @@ inline void
                 {
                     processorMetricName = "UserPercent";
                 }
-                else
+
+                std::string memoryMetricName;
+                if (name == "Memory_Available")
+                {
+                    memoryMetricName = "AvailablePercent";
+                }
+                else if (name == "Memory_BufferAndCache")
+                {
+                    memoryMetricName = "BufferAndCachePercent";
+                }
+                else if (name == "Memory_Free")
+                {
+                    memoryMetricName = "FreePercent";
+                }
+                else if (name == "Memory_Shared")
+                {
+                    memoryMetricName = "SharedPercent";
+                }
+                else if (name == "Memory_Used")
+                {
+                    memoryMetricName = "UsedPercent";
+                }
+
+                std::string serviceName;
+                std::unordered_map<std::string, double>* valuesPtr; 
+                if (processorMetricName != "")
+                {
+                    serviceName = processorMetricName;
+                    valuesPtr = &cpuUsagePercentValues;
+                }
+                else if (memoryMetricName != "")
+                {
+                    serviceName = memoryMetricName;
+                    valuesPtr = &memoryUsagePercentValues;
+                }
+
+                if (serviceName == "")
                 {
                     continue;
                 }
@@ -66,7 +103,7 @@ inline void
                 if (numServices != 1)
                 {
                     BMCWEB_LOG_DEBUG
-                        << "Expecting exactly 1 service for CPU metrics, got "
+                        << "Expecting exactly 1 service for CPU/memory metrics, got "
                         << numServices;
                     continue;
                 }
@@ -81,6 +118,7 @@ inline void
                         "org.freedesktop.DBus.Properties", "Get");
                 m.append("xyz.openbmc_project.Sensor.Value");
                 m.append("Value");
+
                 try
                 {
                     sdbusplus::message::message reply =
@@ -92,11 +130,11 @@ inline void
                     {
                         BMCWEB_LOG_ERROR << "Null value returned for " << path
                                          << " of service "
-                                         << processorMetricName;
+                                         << serviceName;
                     }
                     else
                     {
-                        cpuUsagePercentValues[processorMetricName] = *d;
+                        (*valuesPtr)[serviceName] = *d;
                     }
                 }
                 catch (const std::exception& e)
@@ -111,7 +149,6 @@ inline void
             // populated
             if (cpuUsagePercentValues.size() == 2)
             {
-
                 for (const auto& kv : cpuUsagePercentValues)
                 {
                     aResp->res.jsonValue["CPUUtilization"]["#ProcessorMetrics"]
@@ -132,13 +169,18 @@ inline void
                 }
                 messages::internalError(aResp->res);
             }
+
+            // Populate memory utilization
+            for (const auto& [key, value] : memoryUsagePercentValues)
+            {
+                aResp->res.jsonValue["MemoryStat"]["#MemoryStat"][key] = value;
+            }
         },
         "xyz.openbmc_project.ObjectMapper",
         "/xyz/openbmc_project/object_mapper",
         "xyz.openbmc_project.ObjectMapper", "GetSubTree",
         "/xyz/openbmc_project/sensors", 2, interfaces);
 }
-
 inline void requestRoutesManagerDiagnosticData(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/Managers/bmc/ManagerDiagnosticData")
@@ -151,7 +193,8 @@ inline void requestRoutesManagerDiagnosticData(App& app)
                 asyncResp->res.jsonValue["@odata.id"] =
                     "/redfish/v1/Managers/bmc/ManagerDiagnosticData";
 
-                managerDiagnosticDataGetCPUUtilization(asyncResp);                
+                // Gets both CPU and memory usage
+                managerDiagnosticDataGetUtilization(asyncResp);
             });
 }
 
