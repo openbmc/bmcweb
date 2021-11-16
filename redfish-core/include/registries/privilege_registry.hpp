@@ -832,6 +832,14 @@ const static auto& putManagerAccountCollection = privilegeSetConfigureUsers;
 const static auto& deleteManagerAccountCollection = privilegeSetConfigureUsers;
 const static auto& postManagerAccountCollection = privilegeSetConfigureUsers;
 
+// ManagerDiagnosticData
+const static auto& getManagerDiagnosticData = privilegeSetLogin;
+const static auto& headManagerDiagnosticData = privilegeSetLogin;
+const static auto& patchManagerDiagnosticData = privilegeSetConfigureManager;
+const static auto& postManagerDiagnosticData = privilegeSetConfigureManager;
+const static auto& putManagerDiagnosticData = privilegeSetConfigureManager;
+const static auto& deleteManagerDiagnosticData = privilegeSetConfigureManager;
+
 // ManagerNetworkProtocol
 const static auto& getManagerNetworkProtocol = privilegeSetLogin;
 const static auto& headManagerNetworkProtocol = privilegeSetLogin;
