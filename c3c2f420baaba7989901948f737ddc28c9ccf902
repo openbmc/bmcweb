@@ -168,6 +168,30 @@
     },
     {
       "key": {
+        "uuid": "e845a7b9_2bd0b994",
+        "filename": "http/http_connection.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 538,
+      "author": {
+        "id": 1000004
+      },
+      "writtenOn": "2021-11-16T02:12:56Z",
+      "side": 1,
+      "message": "Sounds good to me. Note, I did not retest this change, it seems fairly straightforward but if you\u0027d like it re-tested let me know and I\u0027ll queue it up.",
+      "parentUuid": "ac1414a4_db32a0b4",
+      "range": {
+        "startLine": 538,
+        "startChar": 20,
+        "endLine": 538,
+        "endChar": 38
+      },
+      "revId": "c3c2f420baaba7989901948f737ddc28c9ccf902",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d3084914_b6efdc9f",
         "filename": "include/authorization.hpp",
         "patchSetId": 1

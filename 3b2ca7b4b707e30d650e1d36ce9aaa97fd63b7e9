@@ -16,6 +16,24 @@
       "revId": "3b2ca7b4b707e30d650e1d36ce9aaa97fd63b7e9",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "365fbbe9_dc5efbd7",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1000004
+      },
+      "writtenOn": "2021-11-16T02:12:56Z",
+      "side": 1,
+      "message": "Yeah, we\u0027ve run into a lot of issues in our p10bmc testing with external clients talking to the BMC (a lot of external client issues but difficult to debug with minimal error returns from the BMC). We decided via a downstream commit (https://github.com/ibm-openbmc/bmcweb/commit/32c0c6b49fcbf84d677ebd2422415219fc670360) to enable the error traces by default (these have already proven to be quite useful for issue debug). I have a TODO to work with the community on a better way to allow users to enable/disable debug logs within bmcweb and to also be able to define the level of trace enabled at compile time. Until then, I\u0027m at least trying to get the easier log cleanups into upstream.",
+      "parentUuid": "7abef537_3a4e4849",
+      "revId": "3b2ca7b4b707e30d650e1d36ce9aaa97fd63b7e9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
