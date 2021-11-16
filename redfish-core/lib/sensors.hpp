@@ -1251,8 +1251,7 @@ inline void populateFanRedundancy(
                                 {
 
                                     BMCWEB_LOG_ERROR
-                                        << "Invalid redundancy interface "
-                                           "types";
+                                        << "Invalid redundancy interface types";
                                     messages::internalError(
                                         sensorsAsyncResp->asyncResp->res);
                                     return;

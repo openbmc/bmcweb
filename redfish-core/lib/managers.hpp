@@ -187,9 +187,9 @@ inline void requestRoutesManagerResetToDefaultsAction(App& app)
 
                 if (resetType != "ResetAll")
                 {
-                    BMCWEB_LOG_DEBUG << "Invalid property value for "
-                                        "ResetToDefaultsType: "
-                                     << resetType;
+                    BMCWEB_LOG_DEBUG
+                        << "Invalid property value for ResetToDefaultsType: "
+                        << resetType;
                     messages::actionParameterNotSupported(
                         asyncResp->res, resetType, "ResetToDefaultsType");
                     return;
@@ -276,8 +276,8 @@ inline void
                 asyncResp->res.jsonValue["Oem"]["OpenBmc"]["Fan"];
             nlohmann::json& fans = configRoot["FanControllers"];
             fans["@odata.type"] = "#OemManager.FanControllers";
-            fans["@odata.id"] = "/redfish/v1/Managers/bmc#/Oem/OpenBmc/"
-                                "Fan/FanControllers";
+            fans["@odata.id"] =
+                "/redfish/v1/Managers/bmc#/Oem/OpenBmc/Fan/FanControllers";
 
             nlohmann::json& pids = configRoot["PidControllers"];
             pids["@odata.type"] = "#OemManager.PidControllers";
@@ -373,9 +373,9 @@ inline void
                         nlohmann::json& zone = zones[name];
                         zone["Chassis"] = {
                             {"@odata.id", "/redfish/v1/Chassis/" + chassis}};
-                        zone["@odata.id"] = "/redfish/v1/Managers/bmc#/Oem/"
-                                            "OpenBmc/Fan/FanZones/" +
-                                            name;
+                        zone["@odata.id"] =
+                            "/redfish/v1/Managers/bmc#/Oem/OpenBmc/Fan/FanZones/" +
+                            name;
                         zone["@odata.type"] = "#OemManager.FanZone";
                         config = &zone;
                     }
@@ -393,8 +393,7 @@ inline void
                         config = &controller;
 
                         controller["@odata.id"] =
-                            "/redfish/v1/Managers/bmc#/Oem/"
-                            "OpenBmc/Fan/StepwiseControllers/" +
+                            "/redfish/v1/Managers/bmc#/Oem/OpenBmc/Fan/StepwiseControllers/" +
                             name;
                         controller["@odata.type"] =
                             "#OemManager.StepwiseController";
@@ -419,8 +418,7 @@ inline void
                         if (isFan)
                         {
                             element["@odata.id"] =
-                                "/redfish/v1/Managers/bmc#/Oem/"
-                                "OpenBmc/Fan/FanControllers/" +
+                                "/redfish/v1/Managers/bmc#/Oem/OpenBmc/Fan/FanControllers/" +
                                 name;
                             element["@odata.type"] =
                                 "#OemManager.FanController";
@@ -428,8 +426,7 @@ inline void
                         else
                         {
                             element["@odata.id"] =
-                                "/redfish/v1/Managers/bmc#/Oem/"
-                                "OpenBmc/Fan/PidControllers/" +
+                                "/redfish/v1/Managers/bmc#/Oem/OpenBmc/Fan/PidControllers/" +
                                 name;
                             element["@odata.type"] =
                                 "#OemManager.PidController";
@@ -500,8 +497,7 @@ inline void
                                     if (keys->size() != values->size())
                                     {
                                         BMCWEB_LOG_ERROR
-                                            << "Reading and Output size don't "
-                                               "match ";
+                                            << "Reading and Output size don't match ";
                                         messages::internalError(asyncResp->res);
                                         return;
                                     }
@@ -556,8 +552,7 @@ inline void
                                     dbus::utility::escapePathForDbus(itemCopy);
                                     data.push_back(
                                         {{"@odata.id",
-                                          "/redfish/v1/Managers/bmc#/Oem/"
-                                          "OpenBmc/Fan/FanZones/" +
+                                          "/redfish/v1/Managers/bmc#/Oem/OpenBmc/Fan/FanZones/" +
                                               itemCopy}});
                                 }
                             }
@@ -1190,9 +1185,9 @@ struct GetPIDValues : std::enable_shared_from_this<GetPIDValues>
                                                       std::string>>& resp) {
                         if (ec2)
                         {
-                            BMCWEB_LOG_ERROR << "GetPIDValues: Can't get "
-                                                "thermalModeIface "
-                                             << path;
+                            BMCWEB_LOG_ERROR
+                                << "GetPIDValues: Can't get thermalModeIface "
+                                << path;
                             messages::internalError(self->asyncResp->res);
                             return;
                         }
@@ -1206,8 +1201,7 @@ struct GetPIDValues : std::enable_shared_from_this<GetPIDValues>
                                 if (current == nullptr)
                                 {
                                     BMCWEB_LOG_ERROR
-                                        << "GetPIDValues: thermal mode "
-                                           "iface invalid "
+                                        << "GetPIDValues: thermal mode iface invalid "
                                         << path;
                                     messages::internalError(
                                         self->asyncResp->res);
@@ -1222,8 +1216,7 @@ struct GetPIDValues : std::enable_shared_from_this<GetPIDValues>
                                 if (supported == nullptr)
                                 {
                                     BMCWEB_LOG_ERROR
-                                        << "GetPIDValues: thermal mode "
-                                           "iface invalid"
+                                        << "GetPIDValues: thermal mode iface invalid"
                                         << path;
                                     messages::internalError(
                                         self->asyncResp->res);
@@ -1233,9 +1226,9 @@ struct GetPIDValues : std::enable_shared_from_this<GetPIDValues>
                         }
                         if (current == nullptr || supported == nullptr)
                         {
-                            BMCWEB_LOG_ERROR << "GetPIDValues: thermal mode "
-                                                "iface invalid "
-                                             << path;
+                            BMCWEB_LOG_ERROR
+                                << "GetPIDValues: thermal mode iface invalid "
+                                << path;
                             messages::internalError(self->asyncResp->res);
                             return;
                         }
@@ -1407,9 +1400,9 @@ struct SetPIDValues : std::enable_shared_from_this<SetPIDValues>
                                                       std::string>>& r) {
                         if (ec2)
                         {
-                            BMCWEB_LOG_ERROR << "SetPIDValues: Can't get "
-                                                "thermalModeIface "
-                                             << path;
+                            BMCWEB_LOG_ERROR
+                                << "SetPIDValues: Can't get thermalModeIface "
+                                << path;
                             messages::internalError(self->asyncResp->res);
                             return;
                         }
@@ -1423,8 +1416,7 @@ struct SetPIDValues : std::enable_shared_from_this<SetPIDValues>
                                 if (current == nullptr)
                                 {
                                     BMCWEB_LOG_ERROR
-                                        << "SetPIDValues: thermal mode "
-                                           "iface invalid "
+                                        << "SetPIDValues: thermal mode iface invalid "
                                         << path;
                                     messages::internalError(
                                         self->asyncResp->res);
@@ -1439,8 +1431,7 @@ struct SetPIDValues : std::enable_shared_from_this<SetPIDValues>
                                 if (supported == nullptr)
                                 {
                                     BMCWEB_LOG_ERROR
-                                        << "SetPIDValues: thermal mode "
-                                           "iface invalid"
+                                        << "SetPIDValues: thermal mode iface invalid"
                                         << path;
                                     messages::internalError(
                                         self->asyncResp->res);
@@ -1450,9 +1441,9 @@ struct SetPIDValues : std::enable_shared_from_this<SetPIDValues>
                         }
                         if (current == nullptr || supported == nullptr)
                         {
-                            BMCWEB_LOG_ERROR << "SetPIDValues: thermal mode "
-                                                "iface invalid "
-                                             << path;
+                            BMCWEB_LOG_ERROR
+                                << "SetPIDValues: thermal mode iface invalid "
+                                << path;
                             messages::internalError(self->asyncResp->res);
                             return;
                         }
@@ -1721,9 +1712,7 @@ inline void getLocation(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
                 *value;
         },
         connectionName, path, "org.freedesktop.DBus.Properties", "Get",
-        "xyz.openbmc_project.Inventory.Decorator."
-        "LocationCode",
-        "LocationCode");
+        "xyz.openbmc_project.Inventory.Decorator.LocationCode", "LocationCode");
 }
 // avoid name collision systems.hpp
 inline void
@@ -2168,12 +2157,11 @@ inline void requestRoutesManager(App& app)
                                 },
                                 connectionName, path,
                                 "org.freedesktop.DBus.Properties", "GetAll",
-                                "xyz.openbmc_project.Inventory.Decorator."
-                                "Asset");
+                                "xyz.openbmc_project.Inventory.Decorator.Asset");
                         }
-                        else if (interfaceName ==
-                                 "xyz.openbmc_project.Inventory."
-                                 "Decorator.LocationCode")
+                        else if (
+                            interfaceName ==
+                            "xyz.openbmc_project.Inventory.Decorator.LocationCode")
                         {
                             getLocation(asyncResp, connectionName, path);
                         }

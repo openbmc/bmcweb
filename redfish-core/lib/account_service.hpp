@@ -146,8 +146,10 @@ inline void userErrorMessageHandler(
     else if ((strcmp(errorMessage,
                      "xyz.openbmc_project.Common.Error.InvalidArgument") ==
               0) ||
-             (strcmp(errorMessage, "xyz.openbmc_project.User.Common.Error."
-                                   "UserNameGroupFail") == 0))
+             (strcmp(
+                  errorMessage,
+                  "xyz.openbmc_project.User.Common.Error.UserNameGroupFail") ==
+              0))
     {
         messages::propertyValueFormatError(asyncResp->res, newUser, "UserName");
     }
@@ -395,9 +397,9 @@ inline void getLDAPConfigData(const std::string& ldapType,
                              const GetObjectType& resp) {
             if (ec || resp.empty())
             {
-                BMCWEB_LOG_ERROR << "DBUS response error during getting of "
-                                    "service name: "
-                                 << ec;
+                BMCWEB_LOG_ERROR
+                    << "DBUS response error during getting of service name: "
+                    << ec;
                 LDAPConfigData empty{};
                 callback(false, empty, ldapType);
                 return;
@@ -420,15 +422,14 @@ inline void getLDAPConfigData(const std::string& ldapType,
 
                     if (ldapType == "LDAP")
                     {
-                        ldapDbusType = "xyz.openbmc_project.User.Ldap.Config."
-                                       "Type.OpenLdap";
+                        ldapDbusType =
+                            "xyz.openbmc_project.User.Ldap.Config.Type.OpenLdap";
                         searchString = "openldap";
                     }
                     else if (ldapType == "ActiveDirectory")
                     {
                         ldapDbusType =
-                            "xyz.openbmc_project.User.Ldap.Config.Type."
-                            "ActiveDirectory";
+                            "xyz.openbmc_project.User.Ldap.Config.Type.ActiveDirectory";
                         searchString = "active_directory";
                     }
                     else
@@ -518,9 +519,9 @@ inline void getLDAPConfigData(const std::string& ldapType,
                                     }
                                 }
                             }
-                            else if (interface.first ==
-                                     "xyz.openbmc_project.User."
-                                     "PrivilegeMapperEntry")
+                            else if (
+                                interface.first ==
+                                "xyz.openbmc_project.User.PrivilegeMapperEntry")
                             {
                                 LDAPRoleMapData roleMapData{};
                                 for (const auto& property : interface.second)
@@ -901,8 +902,8 @@ inline void
     {
 #ifndef BMCWEB_ENABLE_BASIC_AUTHENTICATION
         messages::actionNotSupported(
-            asyncResp->res, "Setting BasicAuth when basic-auth feature "
-                            "is disabled");
+            asyncResp->res,
+            "Setting BasicAuth when basic-auth feature is disabled");
         return;
 #endif
         authMethodsConfig.basic = *basicAuth;
@@ -911,9 +912,9 @@ inline void
     if (cookie)
     {
 #ifndef BMCWEB_ENABLE_COOKIE_AUTHENTICATION
-        messages::actionNotSupported(asyncResp->res,
-                                     "Setting Cookie when cookie-auth feature "
-                                     "is disabled");
+        messages::actionNotSupported(
+            asyncResp->res,
+            "Setting Cookie when cookie-auth feature is disabled");
         return;
 #endif
         authMethodsConfig.cookie = *cookie;
@@ -923,8 +924,8 @@ inline void
     {
 #ifndef BMCWEB_ENABLE_SESSION_AUTHENTICATION
         messages::actionNotSupported(
-            asyncResp->res, "Setting SessionToken when session-auth feature "
-                            "is disabled");
+            asyncResp->res,
+            "Setting SessionToken when session-auth feature is disabled");
         return;
 #endif
         authMethodsConfig.sessionToken = *sessionToken;
@@ -933,9 +934,9 @@ inline void
     if (xToken)
     {
 #ifndef BMCWEB_ENABLE_XTOKEN_AUTHENTICATION
-        messages::actionNotSupported(asyncResp->res,
-                                     "Setting XToken when xtoken-auth feature "
-                                     "is disabled");
+        messages::actionNotSupported(
+            asyncResp->res,
+            "Setting XToken when xtoken-auth feature is disabled");
         return;
 #endif
         authMethodsConfig.xtoken = *xToken;
@@ -944,9 +945,9 @@ inline void
     if (tls)
     {
 #ifndef BMCWEB_ENABLE_MUTUAL_TLS_AUTHENTICATION
-        messages::actionNotSupported(asyncResp->res,
-                                     "Setting TLS when mutual-tls-auth feature "
-                                     "is disabled");
+        messages::actionNotSupported(
+            asyncResp->res,
+            "Setting TLS when mutual-tls-auth feature is disabled");
         return;
 #endif
         authMethodsConfig.tls = *tls;
@@ -1798,8 +1799,7 @@ inline void requestAccountServiceRoutes(App& app)
 
                                     asyncResp->res.jsonValue["Links"]["Role"] =
                                         {{"@odata.id",
-                                          "/redfish/v1/AccountService/"
-                                          "Roles/" +
+                                          "/redfish/v1/AccountService/Roles/" +
                                               role}};
                                 }
                                 else if (property.first ==
@@ -1809,9 +1809,8 @@ inline void requestAccountServiceRoutes(App& app)
                                         std::get_if<bool>(&property.second);
                                     if (userPasswordExpired == nullptr)
                                     {
-                                        BMCWEB_LOG_ERROR << "UserPassword"
-                                                            "Expired "
-                                                            "wasn't a bool";
+                                        BMCWEB_LOG_ERROR
+                                            << "UserPasswordExpired wasn't a bool";
                                         messages::internalError(asyncResp->res);
                                         return;
                                     }

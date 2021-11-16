@@ -1089,8 +1089,8 @@ inline bool isDomainnameValid(const std::string& domainname)
 {
     // Can have multiple subdomains
     // Top Level Domain's min length is 2 character
-    const std::regex pattern("^([A-Za-z0-9][a-zA-Z0-9\\-]{1,61}|[a-zA-Z0-9]"
-                             "{1,30}\\.)*[a-zA-Z]{2,}$");
+    const std::regex pattern(
+        "^([A-Za-z0-9][a-zA-Z0-9\\-]{1,61}|[a-zA-Z0-9]{1,30}\\.)*[a-zA-Z]{2,}$");
 
     return std::regex_match(domainname, pattern);
 }
