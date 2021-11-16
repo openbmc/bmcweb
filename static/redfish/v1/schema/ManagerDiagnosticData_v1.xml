@@ -104,7 +104,7 @@
           <Annotation Term="OData.LongDescription" String="The actions property shall contain the available actions for this resource."/>
         </Property>
       </EntityType>
-      
+
       <ComplexType Name="I2CBusStatistics">
         <Annotation Term="OData.AdditionalProperties" Bool="false"/>
         <Annotation Term="OData.Description" String="The statistics of an I2C bus."/>
@@ -130,7 +130,7 @@
           <Annotation Term="OData.LongDescription" String="This property shall contain the number of NACKs on this I2C bus."/>
         </Property>
       </ComplexType>
-      
+
       <ComplexType Name="MemoryStatistics">
         <Annotation Term="OData.AdditionalProperties" Bool="false"/>
         <Annotation Term="OData.Description" String="The memory statistics of a manager."/>
@@ -172,7 +172,7 @@
           <Annotation Term="Measures.Unit" String="By"/>
         </Property>
       </ComplexType>
-      
+
       <ComplexType Name="ProcessStatistics">
         <Annotation Term="OData.AdditionalProperties" Bool="false"/>
         <Annotation Term="OData.Description" String="The statistics of a process running on a manager."/>
