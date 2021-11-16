@@ -16,6 +16,7 @@
 #pragma once
 
 #include "health.hpp"
+#include "manager_diagnostic_data.hpp"
 #include "redfish_util.hpp"
 
 #include <app.hpp>
@@ -2027,6 +2028,12 @@ inline void requestRoutesManager(App& app)
                                                  "FirmwareVersion", true);
 
             managerGetLastResetTime(asyncResp);
+
+            // ManagerDiagnosticData
+            nlohmann::json& managerDiagnosticData =
+                asyncResp->res.jsonValue["ManagerDiagnosticData"];
+            managerDiagnosticData["@odata.id"] =
+                "/redfish/v1/Managers/bmc/ManagerDiagnosticData";
 
             auto pids = std::make_shared<GetPIDValues>(asyncResp);
             pids->run();
