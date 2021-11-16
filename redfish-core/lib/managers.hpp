@@ -16,6 +16,7 @@
 #pragma once
 
 #include "health.hpp"
+#include "manager_diagnostic_data.hpp"
 #include "redfish_util.hpp"
 
 #include <app.hpp>
@@ -1959,7 +1960,7 @@ inline void requestRoutesManager(App& app)
                                                            asyncResp) {
             asyncResp->res.jsonValue["@odata.id"] = "/redfish/v1/Managers/bmc";
             asyncResp->res.jsonValue["@odata.type"] =
-                "#Manager.v1_11_0.Manager";
+                "#Manager.v1_14_0.Manager";
             asyncResp->res.jsonValue["Id"] = "bmc";
             asyncResp->res.jsonValue["Name"] = "OpenBmc Manager";
             asyncResp->res.jsonValue["Description"] =
@@ -2055,6 +2056,12 @@ inline void requestRoutesManager(App& app)
                                                  "FirmwareVersion", true);
 
             managerGetLastResetTime(asyncResp);
+
+            // ManagerDiagnosticData
+            nlohmann::json& managerDiagnosticData =
+                asyncResp->res.jsonValue["ManagerDiagnosticData"];
+            managerDiagnosticData["@odata.id"] =
+                "/redfish/v1/Managers/bmc/ManagerDiagnosticData";
 
             auto pids = std::make_shared<GetPIDValues>(asyncResp);
             pids->run();
