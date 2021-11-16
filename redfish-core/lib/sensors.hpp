@@ -2972,9 +2972,10 @@ inline void retrieveUriToDbusMap(const std::string& chassis,
         return;
     }
 
-    auto asyncResp = std::make_shared<bmcweb::AsyncResp>();
+    auto res = std::make_shared<crow::Response>();
+    auto asyncResp = std::make_shared<bmcweb::AsyncResp>(*res);
     auto callback =
-        [asyncResp, mapCompleteCb{std::move(mapComplete)}](
+        [res, asyncResp, mapCompleteCb{std::move(mapComplete)}](
             const boost::beast::http::status status,
             const boost::container::flat_map<std::string, std::string>&
                 uriToDbus) { mapCompleteCb(status, uriToDbus); };
