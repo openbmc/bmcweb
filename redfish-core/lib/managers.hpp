@@ -2028,6 +2028,13 @@ inline void requestRoutesManager(App& app)
 
             managerGetLastResetTime(asyncResp);
 
+            // ManagerDiagnosticData
+            nlohmann::json& managerDiagnosticData =
+                asyncResp->res.jsonValue["ManagerDiagnosticData"];
+            managerDiagnosticData["@odata.id"] =
+                "/redfish/v1/Managers/bmc/ManagerDiagnosticData";
+
+
             auto pids = std::make_shared<GetPIDValues>(asyncResp);
             pids->run();
 
