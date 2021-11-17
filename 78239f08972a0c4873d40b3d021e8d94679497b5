@@ -16,6 +16,24 @@
       "revId": "78239f08972a0c4873d40b3d021e8d94679497b5",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "46eae7cc_e711539c",
+        "filename": "redfish-core/lib/trigger.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 1001148
+      },
+      "writtenOn": "2021-11-17T10:02:46Z",
+      "side": 1,
+      "message": "The code you have included in the comment represents the old way of extracting data from the variant. I have suggested something new which in my opinion is more compact, easier to read and robust. If you do not mind I would wait for comments from the others and if after all restoring the old method will be confirmed as a must here I will sadly comply.",
+      "parentUuid": "6d9c9e02_b4c8fccc",
+      "revId": "78239f08972a0c4873d40b3d021e8d94679497b5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
