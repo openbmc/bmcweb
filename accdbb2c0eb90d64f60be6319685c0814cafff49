@@ -16,6 +16,24 @@
       "revId": "accdbb2c0eb90d64f60be6319685c0814cafff49",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e3f3630e_c27019d0",
+        "filename": "meson.build",
+        "patchSetId": 2
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2021-11-17T21:29:59Z",
+      "side": 0,
+      "message": "No, no codes reference the preprocessor. \nhttps://github.com/openbmc/bmcweb/search?p\u003d1\u0026q\u003dWEBSERVER_ENABLE_PAM",
+      "parentUuid": "1aabe83f_0510ffc8",
+      "revId": "accdbb2c0eb90d64f60be6319685c0814cafff49",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
