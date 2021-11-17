@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6d9c9e02_b4c8fccc",
+        "filename": "redfish-core/lib/trigger.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2021-11-17T08:01:41Z",
+      "side": 1,
+      "message": "Personally I am ok with it, but it\u0027s something that is not common in bmcweb. I think that maintainers would prefer it like this:\n\nconst bool* discrete \u003d nullptr;\nconst std::string\u0026 name \u003d nullptr;\n\nfor (const auto\u0026 [property, valueVariant] : ret) {\n  if (property \u003d\u003d \"Discrete\") {\n    discrete \u003d std::get_if\u003cbool\u003e(\u0026valueVariant);\n  } else if (property \u003d\u003d \"Name\") {\n    name \u003d std::get_if\u003cstd::string\u003e(\u0026valueVariant);\n  }\n}\n\nif (!discrete || !name) {\n  BMCWEB_LOG_ERROR \u003c\u003c \"Property type mismatch or property is missing\";\n  messages::internalError(asyncResp-\u003eres);\n  return;\n}\n\nSo you handle all parameters here then you can call helpers like getMetricProperties with value that is already verified:\ninline std::vector\u003cstd::string\u003e getMetricProperties(const TriggerSensorsParams\u0026 params);",
+      "revId": "78239f08972a0c4873d40b3d021e8d94679497b5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
