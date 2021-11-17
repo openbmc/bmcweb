@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "66ff2278_c01264b6",
+        "filename": "redfish-core/include/utils/telemetry_utils.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1001026
+      },
+      "writtenOn": "2021-11-17T13:14:16Z",
+      "side": 1,
+      "message": "I couldn\u0027t find such operator for this type. Do you have any examples?",
+      "parentUuid": "24f0b106_cfcd52f7",
+      "range": {
+        "startLine": 77,
+        "startChar": 0,
+        "endLine": 77,
+        "endChar": 43
+      },
+      "revId": "b330002e56648de285dc1cd7506de7ee457f8f97",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a133ee74_7dbd574a",
         "filename": "redfish-core/lib/trigger.hpp",
         "patchSetId": 1
@@ -96,6 +120,30 @@
     },
     {
       "key": {
+        "uuid": "4cfca7f9_8d86e94f",
+        "filename": "redfish-core/lib/trigger.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1001026
+      },
+      "writtenOn": "2021-11-17T13:14:16Z",
+      "side": 1,
+      "message": "Agreed, I am stacking this change on top of Lukasz\u0027s GET implementation. While this change would work standalone, this will show suggested order of merges, and will improve testing experience.",
+      "parentUuid": "ce0ddb46_656543d3",
+      "range": {
+        "startLine": 15,
+        "startChar": 17,
+        "endLine": 15,
+        "endChar": 50
+      },
+      "revId": "b330002e56648de285dc1cd7506de7ee457f8f97",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "036c236f_72e9e5f8",
         "filename": "redfish-core/lib/trigger.hpp",
         "patchSetId": 1
@@ -119,6 +167,30 @@
     },
     {
       "key": {
+        "uuid": "eda22778_504891a5",
+        "filename": "redfish-core/lib/trigger.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1001026
+      },
+      "writtenOn": "2021-11-17T13:14:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "036c236f_72e9e5f8",
+      "range": {
+        "startLine": 24,
+        "startChar": 0,
+        "endLine": 27,
+        "endChar": 27
+      },
+      "revId": "b330002e56648de285dc1cd7506de7ee457f8f97",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4c983c53_d61f2578",
         "filename": "redfish-core/lib/trigger.hpp",
         "patchSetId": 1
@@ -130,6 +202,30 @@
       "writtenOn": "2021-10-17T21:35:37Z",
       "side": 1,
       "message": "Should this be using success instead?\n\nhttps://github.com/openbmc/bmcweb/blob/81856681e1feabe267c0d1998182c9226106aa6d/redfish-core/src/error_messages.cpp#L1478",
+      "range": {
+        "startLine": 42,
+        "startChar": 24,
+        "endLine": 43,
+        "endChar": 68
+      },
+      "revId": "b330002e56648de285dc1cd7506de7ee457f8f97",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d8627ba9_4f01f755",
+        "filename": "redfish-core/lib/trigger.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1001026
+      },
+      "writtenOn": "2021-11-17T13:14:16Z",
+      "side": 1,
+      "message": "In redfish spec there are 2 possible results:\n1) HTTP 200 status code with a body that contains the JSON representation of the targeted resource after the modification has been applied, or, for the delete operation, a representation of the deleted resource\n2)  HTTP 204 status code with an empty payload in the event that service cannot return a\nrepresentation of the modified or deleted resource\n\nI think, that in this case, option (2) would make more sense?",
+      "parentUuid": "4c983c53_d61f2578",
       "range": {
         "startLine": 42,
         "startChar": 24,
