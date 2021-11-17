@@ -34,6 +34,29 @@
       "revId": "78239f08972a0c4873d40b3d021e8d94679497b5",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9ffdad41_c92415cd",
+        "filename": "redfish-core/lib/trigger.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 212,
+      "author": {
+        "id": 1001026
+      },
+      "writtenOn": "2021-11-17T13:05:42Z",
+      "side": 1,
+      "message": "We should use \"Name\" property from dbus here.",
+      "range": {
+        "startLine": 212,
+        "startChar": 39,
+        "endLine": 212,
+        "endChar": 42
+      },
+      "revId": "78239f08972a0c4873d40b3d021e8d94679497b5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
