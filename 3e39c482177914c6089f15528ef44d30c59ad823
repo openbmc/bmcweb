@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3d113f83_139d528e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-11-17T19:23:13Z",
+      "side": 1,
+      "message": "A scary option.",
+      "revId": "3e39c482177914c6089f15528ef44d30c59ad823",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3dbf2cd4_f7b12036",
+        "filename": "meson.build",
+        "patchSetId": 2
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-11-17T19:23:13Z",
+      "side": 1,
+      "message": "So this is just making this feature work?",
+      "revId": "3e39c482177914c6089f15528ef44d30c59ad823",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}

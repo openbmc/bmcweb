@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1aabe83f_0510ffc8",
+        "filename": "meson.build",
+        "patchSetId": 2
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-11-17T19:23:13Z",
+      "side": 0,
+      "message": "Don\u0027t need to remove any other code?\nhttps://github.com/openbmc/bmcweb/search?p\u003d1\u0026q\u003dPam",
+      "revId": "accdbb2c0eb90d64f60be6319685c0814cafff49",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
