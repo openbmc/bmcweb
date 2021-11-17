@@ -217,7 +217,8 @@ inline void requestRoutesChassis(App& app)
                             std::pair<std::string, std::vector<std::string>>>&
                             connectionNames = object.second;
 
-                        if (!boost::ends_with(path, chassisId))
+                        sdbusplus::message::object_path objPath(path);
+                        if (objPath.filename() != chassisId)
                         {
                             continue;
                         }
@@ -544,7 +545,8 @@ inline void requestRoutesChassis(App& app)
                             std::pair<std::string, std::vector<std::string>>>&
                             connectionNames = object.second;
 
-                        if (!boost::ends_with(path, chassisId))
+                        sdbusplus::message::object_path objPath(path);
+                        if (objPath.filename() != chassisId)
                         {
                             continue;
                         }
