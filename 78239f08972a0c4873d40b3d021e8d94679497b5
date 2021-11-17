@@ -55,6 +55,24 @@
     },
     {
       "key": {
+        "uuid": "dfde51d6_ac1e18b3",
+        "filename": "redfish-core/lib/trigger.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2021-11-17T14:05:23Z",
+      "side": 1,
+      "message": "After seeing how bmcweb is maintained I would like to suggest something that in my opinion has changes of being accepted.\n\nThere need to be separate commit which doesn\u0027t introduce new functionality it just changes old usage with new usage in couple of places. Once it gets positive feedback all other usages in whole bmcweb needs to be replaced with new approach (As far I understand currently in bmcweb that\u0027s the only way to change existing style to new one). As an addition binary size needs to be measure before and after this change.",
+      "parentUuid": "a8da3048_eddb9836",
+      "revId": "78239f08972a0c4873d40b3d021e8d94679497b5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "9ffdad41_c92415cd",
         "filename": "redfish-core/lib/trigger.hpp",
         "patchSetId": 5
