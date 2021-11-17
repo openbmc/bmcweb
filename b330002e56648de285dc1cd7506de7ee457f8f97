@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "dfc2b647_ec6f09b1",
+        "filename": "redfish-core/include/utils/telemetry_utils.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1001026
+      },
+      "writtenOn": "2021-11-17T14:43:18Z",
+      "side": 1,
+      "message": "Oh, I think you meant / operator, instead of +. Pushing change now.",
+      "parentUuid": "66ff2278_c01264b6",
+      "range": {
+        "startLine": 77,
+        "startChar": 0,
+        "endLine": 77,
+        "endChar": 43
+      },
+      "revId": "b330002e56648de285dc1cd7506de7ee457f8f97",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a133ee74_7dbd574a",
         "filename": "redfish-core/lib/trigger.hpp",
         "patchSetId": 1
