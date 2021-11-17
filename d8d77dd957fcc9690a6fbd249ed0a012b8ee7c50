@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "5ca7d5d4_0d66b1d0",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1001244
+      },
+      "writtenOn": "2021-11-17T13:22:31Z",
+      "side": 1,
+      "message": "The dbus changes also exist. The changes are tracked through \n\nhttps://gerrit.openbmc-project.xyz/c/openbmc/phosphor-networkd/+/48332\n\nhttps://gerrit.openbmc-project.xyz/c/openbmc/phosphor-dbus-interfaces/+/48333\n\nhttps://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/48329",
+      "parentUuid": "dec6ba3c_6e4094c3",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 12,
+        "endChar": 7
+      },
+      "revId": "d8d77dd957fcc9690a6fbd249ed0a012b8ee7c50",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "b3f6be34_c46ef2a4",
         "filename": "/COMMIT_MSG",
         "patchSetId": 2
@@ -253,6 +277,24 @@
       "revId": "d8d77dd957fcc9690a6fbd249ed0a012b8ee7c50",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5f247404_f7f3e5c1",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1704,
+      "author": {
+        "id": 1001244
+      },
+      "writtenOn": "2021-11-17T13:22:31Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "38a72c43_3f86e144",
+      "revId": "d8d77dd957fcc9690a6fbd249ed0a012b8ee7c50",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
