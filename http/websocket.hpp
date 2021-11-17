@@ -193,10 +193,10 @@ class ConnectionImpl : public Connection
     {
         BMCWEB_LOG_DEBUG << "Websocket accepted connection";
 
-        auto asyncResp = std::make_shared<bmcweb::AsyncResp>(
-            res, [this, self(shared_from_this())]() { doRead(); });
+        auto asyncResp = std::make_shared<bmcweb::AsyncResp>();
 
         asyncResp->res.result(boost::beast::http::status::ok);
+        doRead();
 
         if (openHandler)
         {
