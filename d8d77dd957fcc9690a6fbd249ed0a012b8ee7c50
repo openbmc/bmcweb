@@ -179,6 +179,30 @@
     },
     {
       "key": {
+        "uuid": "aab3165a_dddb1835",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 269,
+      "author": {
+        "id": 1001244
+      },
+      "writtenOn": "2021-11-17T13:16:48Z",
+      "side": 1,
+      "message": "Yes, there are three changes. phosphor-dbus-interfaces, phosphor-networkd and bmcweb.  Here are the commits for these changes \n\nhttps://gerrit.openbmc-project.xyz/c/openbmc/phosphor-networkd/+/48332\n\nhttps://gerrit.openbmc-project.xyz/c/openbmc/phosphor-dbus-interfaces/+/48333\n\nhttps://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/48329",
+      "parentUuid": "30ca9bb4_398c27b9",
+      "range": {
+        "startLine": 269,
+        "startChar": 56,
+        "endLine": 269,
+        "endChar": 66
+      },
+      "revId": "d8d77dd957fcc9690a6fbd249ed0a012b8ee7c50",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "27a18938_98bb4a39",
         "filename": "redfish-core/lib/ethernet.hpp",
         "patchSetId": 2
@@ -315,6 +339,30 @@
       "side": 1,
       "message": "This comment looks like it was ignored on the latest patchset?",
       "parentUuid": "a82b7df9_ae6f09ac",
+      "range": {
+        "startLine": 1726,
+        "startChar": 7,
+        "endLine": 1726,
+        "endChar": 47
+      },
+      "revId": "d8d77dd957fcc9690a6fbd249ed0a012b8ee7c50",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "079ce2ff_9ad66c63",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1726,
+      "author": {
+        "id": 1001244
+      },
+      "writtenOn": "2021-11-17T13:16:48Z",
+      "side": 1,
+      "message": "Ok...I will fix it.",
+      "parentUuid": "98029338_e781a133",
       "range": {
         "startLine": 1726,
         "startChar": 7,
