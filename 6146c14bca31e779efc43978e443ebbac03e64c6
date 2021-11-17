@@ -1,0 +1,78 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "82e23469_3f85cb34",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 34
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 1000004
+      },
+      "writtenOn": "2021-11-17T21:42:05Z",
+      "side": 1,
+      "message": "Why was this changed to ERROR trace? General rule I\u0027ve been pushing for is if we\u0027re not returning an error to the client, lets not trace to the ERROR buffer. This may just be a rebase issue.",
+      "revId": "6146c14bca31e779efc43978e443ebbac03e64c6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "183061bd_29f2f93d",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 34
+      },
+      "lineNbr": 237,
+      "author": {
+        "id": 1000004
+      },
+      "writtenOn": "2021-11-17T21:42:05Z",
+      "side": 1,
+      "message": "If we go with the default \"RackMount\" then don\u0027t we need to add the Actions?",
+      "revId": "6146c14bca31e779efc43978e443ebbac03e64c6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "18c563df_398075ca",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 34
+      },
+      "lineNbr": 267,
+      "author": {
+        "id": 1000004
+      },
+      "writtenOn": "2021-11-17T21:42:05Z",
+      "side": 1,
+      "message": "ERROR? This will trigger an error response to the client so be good to have this log when error traces are enabled.",
+      "range": {
+        "startLine": 267,
+        "startChar": 27,
+        "endLine": 267,
+        "endChar": 32
+      },
+      "revId": "6146c14bca31e779efc43978e443ebbac03e64c6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "11c032ee_53978d0f",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 34
+      },
+      "lineNbr": 798,
+      "author": {
+        "id": 1000004
+      },
+      "writtenOn": "2021-11-17T21:42:05Z",
+      "side": 1,
+      "message": "Is all this code really needed? The code above ensures we don\u0027t return this action unless it\u0027s supported. If we do need a check, can\u0027t we just reuse the logic above vs. writing all this new code?",
+      "revId": "6146c14bca31e779efc43978e443ebbac03e64c6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
