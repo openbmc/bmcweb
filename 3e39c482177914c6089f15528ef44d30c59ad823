@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "795c1cbb_7785af27",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-11-17T22:11:13Z",
+      "side": 1,
+      "message": "Technically it\u0027s already \"insecure-disable-auth\".  We could change it to \"insecure-scary-disable-auth\" 😊",
+      "parentUuid": "5ef6c606_14ab1fd8",
+      "revId": "3e39c482177914c6089f15528ef44d30c59ad823",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3dbf2cd4_f7b12036",
         "filename": "meson.build",
         "patchSetId": 2
@@ -66,6 +84,24 @@
       "side": 1,
       "message": "Yes",
       "parentUuid": "3dbf2cd4_f7b12036",
+      "revId": "3e39c482177914c6089f15528ef44d30c59ad823",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f558722f_0483211c",
+        "filename": "meson.build",
+        "patchSetId": 2
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-11-17T22:11:13Z",
+      "side": 1,
+      "message": "Yeah, this feature existed a long....long.....long time ago for testing the performance consequences of our auth stuff, as well as I think the nginx reverse proxy stuff that ibm worked on a long time back.  Somewhere along the line it got broken/removed, so this is largely just making it function as intended again.",
+      "parentUuid": "c7c32295_87cf6119",
       "revId": "3e39c482177914c6089f15528ef44d30c59ad823",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": false

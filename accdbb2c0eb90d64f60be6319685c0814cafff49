@@ -34,6 +34,24 @@
       "revId": "accdbb2c0eb90d64f60be6319685c0814cafff49",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "15f7980f_488bb694",
+        "filename": "meson.build",
+        "patchSetId": 2
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-11-17T22:11:13Z",
+      "side": 0,
+      "message": "This option predates this codebase being called \"bmcweb\" (hence why it starts with \"WEBSERVER\"), and in the context of openbmc does nothing these days.  In theory it was meant to be able to allow plugging in different auth frameworks, under the assumption that maybe we\u0027d want sssd some day.  I asked NAN to remove it at the same time he did this patch as a cleanup, because it\u0027s an option that doesn\u0027t work anymore, that we shouldn\u0027t advertise.",
+      "parentUuid": "e3f3630e_c27019d0",
+      "revId": "accdbb2c0eb90d64f60be6319685c0814cafff49",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
