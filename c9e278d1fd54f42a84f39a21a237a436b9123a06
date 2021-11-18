@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "1709a5e4_8db14eae",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000276
+      },
+      "writtenOn": "2021-11-18T19:46:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2bc07f07_6479a7db",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 46
+      },
+      "revId": "c9e278d1fd54f42a84f39a21a237a436b9123a06",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "04429352_a2773b3e",
         "filename": "/COMMIT_MSG",
         "patchSetId": 1
@@ -36,6 +60,30 @@
       "writtenOn": "2021-11-18T19:39:39Z",
       "side": 1,
       "message": "Electing your replacement is not quite how that works.  Krzysztof would need to show participation in maintainer level decisions, large scale migrations, code reviews, bug triage, and discord/ML discussions.  When we split this up, and Krzysztof proposes himself as a maintainer, we can discuss in that thread.",
+      "range": {
+        "startLine": 11,
+        "startChar": 0,
+        "endLine": 12,
+        "endChar": 18
+      },
+      "revId": "c9e278d1fd54f42a84f39a21a237a436b9123a06",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b53a5d99_49c2dc56",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000276
+      },
+      "writtenOn": "2021-11-18T19:46:16Z",
+      "side": 1,
+      "message": "Thanks!  I wasn\u0027t sure of the process.  Krzysztof has started to increase code review participation but sounds like there are other things he still needs to do.  Should he push the review to propose himself as a maintainer?",
+      "parentUuid": "04429352_a2773b3e",
       "range": {
         "startLine": 11,
         "startChar": 0,
