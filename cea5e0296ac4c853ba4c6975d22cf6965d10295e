@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "7ab6605a_ec43fd71",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-11-18T02:27:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "aa765b41_30deb160",
+      "revId": "cea5e0296ac4c853ba4c6975d22cf6965d10295e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fccd7a1d_c1afb2e5",
         "filename": "redfish-core/lib/chassis.hpp",
         "patchSetId": 2
@@ -39,6 +57,30 @@
       "revId": "cea5e0296ac4c853ba4c6975d22cf6965d10295e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "89056634_8009055c",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 222,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-11-18T02:27:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fccd7a1d_c1afb2e5",
+      "range": {
+        "startLine": 222,
+        "startChar": 28,
+        "endLine": 222,
+        "endChar": 61
+      },
+      "revId": "cea5e0296ac4c853ba4c6975d22cf6965d10295e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
