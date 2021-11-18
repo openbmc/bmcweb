@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9d086da2_f6eb5a69",
+        "filename": "redfish-core/lib/trigger.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-11-18T20:12:55Z",
+      "side": 1,
+      "message": "Please follow the existing patterns we have for reading in dbus properties when building new resources.  If these patterns are something you\u0027d like to see as a new coding style:\n\n1. It definitely doesn\u0027t belong in a trigger specific file.\n2. It should be done separately from enabling a new resource type, such that we can evaluate its effect on binary size and code duplication.",
+      "range": {
+        "startLine": 40,
+        "startChar": 0,
+        "endLine": 63,
+        "endChar": 0
+      },
+      "revId": "c3e37369cb8efc8dd85c36e75022d9f91f4c14c3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "afd651b5_72a33a73",
+        "filename": "redfish-core/lib/trigger.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-11-18T20:12:55Z",
+      "side": 1,
+      "message": "This is constructing yet another map, and forcing a significant amount of code to be generated which is slower than the way we handle this in other places.",
+      "range": {
+        "startLine": 64,
+        "startChar": 0,
+        "endLine": 73,
+        "endChar": 1
+      },
+      "revId": "c3e37369cb8efc8dd85c36e75022d9f91f4c14c3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8d823979_a038fc00",
+        "filename": "redfish-core/lib/trigger.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-11-18T20:12:55Z",
+      "side": 1,
+      "message": "Please use if/else if ladders like we do elsewhere.  They compile to smaller code, use less memory, and are faster.",
+      "range": {
+        "startLine": 91,
+        "startChar": 0,
+        "endLine": 94,
+        "endChar": 48
+      },
+      "revId": "c3e37369cb8efc8dd85c36e75022d9f91f4c14c3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f6404165_fd03b318",
+        "filename": "redfish-core/lib/trigger.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 198,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-11-18T20:12:55Z",
+      "side": 1,
+      "message": "If you don\u0027t need to take ownership (as this function doesn\u0027t) there\u0027s no need to pass by shared_ptr.  Pass by crow::Response\u0026.",
+      "range": {
+        "startLine": 198,
+        "startChar": 11,
+        "endLine": 198,
+        "endChar": 55
+      },
+      "revId": "c3e37369cb8efc8dd85c36e75022d9f91f4c14c3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ba282522_cc05a158",
+        "filename": "redfish-core/lib/trigger.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-11-18T20:12:55Z",
+      "side": 1,
+      "message": "Given that id can be customer generated, doesn\u0027t this need url escaped.  Ie, if I create an ID that has a space in it, this will break.",
+      "range": {
+        "startLine": 210,
+        "startChar": 76,
+        "endLine": 210,
+        "endChar": 78
+      },
+      "revId": "c3e37369cb8efc8dd85c36e75022d9f91f4c14c3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f56dfe1b_c3aff5c8",
+        "filename": "redfish-core/lib/trigger.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 252,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-11-18T20:12:55Z",
+      "side": 1,
+      "message": "Please use sdbusplus::message::path::operator+\u003d for this operation.  The only place we use this pattern anymore is for things that had different escaping rules that had yet to be updated (ie sensors).",
+      "range": {
+        "startLine": 252,
+        "startChar": 4,
+        "endLine": 252,
+        "endChar": 43
+      },
+      "revId": "c3e37369cb8efc8dd85c36e75022d9f91f4c14c3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
