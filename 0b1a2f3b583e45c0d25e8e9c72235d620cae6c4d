@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "4073642d_863a41aa",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-11-18T17:32:40Z",
+      "side": 1,
+      "message": "Please also run the redfish service validator as the the documentation asks.",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 6
+      },
+      "revId": "0b1a2f3b583e45c0d25e8e9c72235d620cae6c4d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "60575e79_e2d9f0b0",
         "filename": "redfish-core/lib/manager_diagnostic_data.hpp",
         "patchSetId": 3
