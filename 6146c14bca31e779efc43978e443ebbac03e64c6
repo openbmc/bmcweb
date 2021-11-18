@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "34b3955c_59407dec",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 34
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2021-11-18T02:14:14Z",
+      "side": 1,
+      "message": "oh. I thought I changed it on accident after rebase and changed it manually. Apparently it was good before.\n\nI have reverted it.",
+      "parentUuid": "82e23469_3f85cb34",
+      "revId": "6146c14bca31e779efc43978e443ebbac03e64c6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "183061bd_29f2f93d",
         "filename": "redfish-core/lib/chassis.hpp",
         "patchSetId": 34
@@ -30,6 +48,24 @@
       "writtenOn": "2021-11-17T21:42:05Z",
       "side": 1,
       "message": "If we go with the default \"RackMount\" then don\u0027t we need to add the Actions?",
+      "revId": "6146c14bca31e779efc43978e443ebbac03e64c6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c31a8f23_61e15cf9",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 34
+      },
+      "lineNbr": 237,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2021-11-18T02:14:14Z",
+      "side": 1,
+      "message": "this is actually wrong. I was debugging it and it should be also add the action.\n\nIt is indicated by chassisType \u003d\u003d nullopt",
+      "parentUuid": "183061bd_29f2f93d",
       "revId": "6146c14bca31e779efc43978e443ebbac03e64c6",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
@@ -56,6 +92,30 @@
       "revId": "6146c14bca31e779efc43978e443ebbac03e64c6",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ee09e9c1_ef2c9b56",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 34
+      },
+      "lineNbr": 267,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2021-11-18T02:14:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "18c563df_398075ca",
+      "range": {
+        "startLine": 267,
+        "startChar": 27,
+        "endLine": 267,
+        "endChar": 32
+      },
+      "revId": "6146c14bca31e779efc43978e443ebbac03e64c6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
