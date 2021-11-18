@@ -22,6 +22,30 @@
       "revId": "f4f28fb432224ffea7f258372f3c3ed3887a5621",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3e950d1c_7de6b0a1",
+        "filename": "redfish-core/include/utils/telemetry_utils.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1001026
+      },
+      "writtenOn": "2021-11-18T08:16:16Z",
+      "side": 1,
+      "message": "triggerUri is used. I just moved them from trigger.hpp for consistency, but for some reason diff is not showing it - maybe due to rebase?",
+      "parentUuid": "f96c6512_ce6a963c",
+      "range": {
+        "startLine": 16,
+        "startChar": 0,
+        "endLine": 18,
+        "endChar": 75
+      },
+      "revId": "f4f28fb432224ffea7f258372f3c3ed3887a5621",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
