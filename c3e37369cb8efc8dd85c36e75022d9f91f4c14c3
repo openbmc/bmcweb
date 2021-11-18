@@ -71,6 +71,184 @@
     },
     {
       "key": {
+        "uuid": "0f338b95_9aaf081f",
+        "filename": "redfish-core/lib/trigger.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-11-18T21:19:18Z",
+      "side": 1,
+      "message": "if this fails we should be setting internalError",
+      "range": {
+        "startLine": 110,
+        "startChar": 12,
+        "endLine": 111,
+        "endChar": 52
+      },
+      "revId": "c3e37369cb8efc8dd85c36e75022d9f91f4c14c3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "11df115e_c4584de2",
+        "filename": "redfish-core/lib/trigger.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-11-18T21:19:18Z",
+      "side": 1,
+      "message": "Please prefer to return early which saves scopes.\n\nAlso, when this fails, we need to set internal error (500) per DEVELOPING.md",
+      "range": {
+        "startLine": 125,
+        "startChar": 0,
+        "endLine": 127,
+        "endChar": 5
+      },
+      "revId": "c3e37369cb8efc8dd85c36e75022d9f91f4c14c3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f77cb58a_ff2a3c77",
+        "filename": "redfish-core/lib/trigger.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-11-18T21:19:18Z",
+      "side": 1,
+      "message": "This is a perfect case of where we shouldn\u0027t be using auto.  from this context, it\u0027s impossible to know the type of name, severity, dwellTime, or value, without jumping between references.",
+      "range": {
+        "startLine": 128,
+        "startChar": 19,
+        "endLine": 128,
+        "endChar": 23
+      },
+      "revId": "c3e37369cb8efc8dd85c36e75022d9f91f4c14c3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ed0e1d0b_8d0c5676",
+        "filename": "redfish-core/lib/trigger.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-11-18T21:19:18Z",
+      "side": 1,
+      "message": "toDurationString can fail.  Please handle the failure.",
+      "range": {
+        "startLine": 133,
+        "startChar": 42,
+        "endLine": 133,
+        "endChar": 58
+      },
+      "revId": "c3e37369cb8efc8dd85c36e75022d9f91f4c14c3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "84526f47_e26905bf",
+        "filename": "redfish-core/lib/trigger.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-11-18T21:19:18Z",
+      "side": 1,
+      "message": "std::chrono::milliseconds is signed, dwelltime is unsigned, which can lead to over/underflow.  Please handle that case.",
+      "range": {
+        "startLine": 134,
+        "startChar": 47,
+        "endLine": 134,
+        "endChar": 59
+      },
+      "revId": "c3e37369cb8efc8dd85c36e75022d9f91f4c14c3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "38834733_36102ae6",
+        "filename": "redfish-core/lib/trigger.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-11-18T21:19:18Z",
+      "side": 1,
+      "message": "as written, this is going to do a map lookup 3 times for the same key.  Please use brace initialization to reduce this to one lookup.\n\nSomething like:\n\nthresholds[type] \u003d {{\"Reading\", reading}, {\"Activation\", activation}.... ect",
+      "range": {
+        "startLine": 153,
+        "startChar": 12,
+        "endLine": 153,
+        "endChar": 28
+      },
+      "revId": "c3e37369cb8efc8dd85c36e75022d9f91f4c14c3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3bbbf597_dd972191",
+        "filename": "redfish-core/lib/trigger.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-11-18T21:19:18Z",
+      "side": 1,
+      "message": "Same comments as above are present in this function as well.",
+      "revId": "c3e37369cb8efc8dd85c36e75022d9f91f4c14c3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4f2627b0_0116fbaf",
+        "filename": "redfish-core/lib/trigger.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-11-18T21:19:18Z",
+      "side": 1,
+      "message": "similar to above, please prefer to return early, and handle your error with 500 internalerror when this check fails.  There are several more of these in this file, but this is that last time I\u0027ll add a comment for it.  Please fix all of them.",
+      "range": {
+        "startLine": 166,
+        "startChar": 0,
+        "endLine": 168,
+        "endChar": 5
+      },
+      "revId": "c3e37369cb8efc8dd85c36e75022d9f91f4c14c3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "f6404165_fd03b318",
         "filename": "redfish-core/lib/trigger.hpp",
         "patchSetId": 6
@@ -110,6 +288,29 @@
         "startChar": 76,
         "endLine": 210,
         "endChar": 78
+      },
+      "revId": "c3e37369cb8efc8dd85c36e75022d9f91f4c14c3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "54c2359a_a4e9bf6f",
+        "filename": "redfish-core/lib/trigger.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 239,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-11-18T21:19:18Z",
+      "side": 1,
+      "message": "Looks duplicated with line 212?  Generally we don\u0027t take Names from dbus, given they\u0027re part of the API boundary.",
+      "range": {
+        "startLine": 239,
+        "startChar": 8,
+        "endLine": 239,
+        "endChar": 49
       },
       "revId": "c3e37369cb8efc8dd85c36e75022d9f91f4c14c3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
