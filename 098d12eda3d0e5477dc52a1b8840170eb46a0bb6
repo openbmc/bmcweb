@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "1a299a0f_481f9c5f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-11-18T19:55:40Z",
+      "side": 1,
+      "message": "I don\u0027t think this is closed.  As this patch exists, the redfish tree will fail if the collection isn\u0027t empty, but it looks like there\u0027s another patchset that\u0027s now chained that would make this pass?\n\nI\u0027m fine with it being separate, but we need to keep in mind that those two patches need to merge together.",
+      "parentUuid": "3b28b6ee_77a7664d",
+      "range": {
+        "startLine": 17,
+        "startChar": 2,
+        "endLine": 17,
+        "endChar": 61
+      },
+      "revId": "098d12eda3d0e5477dc52a1b8840170eb46a0bb6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "96b83794_d7be2f5f",
         "filename": "redfish-core/include/utils/telemetry_utils.hpp",
         "patchSetId": 6
@@ -164,6 +188,30 @@
       "revId": "098d12eda3d0e5477dc52a1b8840170eb46a0bb6",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "40005496_4153d04c",
+        "filename": "redfish-core/lib/trigger.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-11-18T19:55:40Z",
+      "side": 1,
+      "message": "The resolution to this isn\u0027t \"just use an empty collection\" but I see that this patch is now stacked with a patch that implements the above route.  Those will need to merge together.",
+      "parentUuid": "7af9448c_2659210d",
+      "range": {
+        "startLine": 12,
+        "startChar": 1,
+        "endLine": 14,
+        "endChar": 0
+      },
+      "revId": "098d12eda3d0e5477dc52a1b8840170eb46a0bb6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
