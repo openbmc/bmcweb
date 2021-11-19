@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5df2a363_08c54f1c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 58
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-11-19T18:24:33Z",
+      "side": 1,
+      "message": "50/72 please.",
+      "range": {
+        "startLine": 8,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 40
+      },
+      "revId": "b7ffc971f824b9f5388ae9c804971cdcdd795a84",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "646ea5bf_b7d2098c",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 58
+      },
+      "lineNbr": 760,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-11-19T18:24:33Z",
+      "side": 1,
+      "message": "As written doesn\u0027t this now have a race condition?  Lets say a task gets created, and immediately jumps to progress \u003d\u003d 100%.  The way this code is written, it creates the dump object, THEN sets up the match, and this code would now fail in that condition (which seems likely to happen in practice).  This race is made worse by the fact that the dump code doesn\u0027t have any bail out timeout.",
+      "range": {
+        "startLine": 760,
+        "startChar": 0,
+        "endLine": 760,
+        "endChar": 35
+      },
+      "revId": "b7ffc971f824b9f5388ae9c804971cdcdd795a84",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4020f2ea_0a2679cf",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 58
+      },
+      "lineNbr": 786,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-11-19T18:24:33Z",
+      "side": 1,
+      "message": "nit, just as a naming convention, we follow what boost does here;  Please call it ec.",
+      "range": {
+        "startLine": 786,
+        "startChar": 38,
+        "endLine": 786,
+        "endChar": 41
+      },
+      "revId": "b7ffc971f824b9f5388ae9c804971cdcdd795a84",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
