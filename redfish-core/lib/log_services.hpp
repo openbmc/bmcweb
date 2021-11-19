@@ -21,6 +21,8 @@
 #include "registries.hpp"
 #include "registries/base_message_registry.hpp"
 #include "registries/openbmc_message_registry.hpp"
+#include "registries/resource_event_message_registry.hpp"
+#include "registries/task_event_message_registry.hpp"
 #include "task.hpp"
 
 #include <systemd/sd-journal.h>
@@ -39,8 +41,10 @@
 #include <charconv>
 #include <filesystem>
 #include <optional>
+#include <string>
 #include <string_view>
 #include <variant>
+#include <vector>
 
 namespace redfish
 {
@@ -54,6 +58,28 @@ constexpr char const* crashdumpOnDemandInterface =
     "com.intel.crashdump.OnDemand";
 constexpr char const* crashdumpTelemetryInterface =
     "com.intel.crashdump.Telemetry";
+
+inline std::string translateSeverityDbusToRedfish(const std::string& s)
+{
+    if ((s == "xyz.openbmc_project.Logging.Entry.Level.Alert") ||
+        (s == "xyz.openbmc_project.Logging.Entry.Level.Critical") ||
+        (s == "xyz.openbmc_project.Logging.Entry.Level.Emergency") ||
+        (s == "xyz.openbmc_project.Logging.Entry.Level.Error"))
+    {
+        return "Critical";
+    }
+    if ((s == "xyz.openbmc_project.Logging.Entry.Level.Debug") ||
+        (s == "xyz.openbmc_project.Logging.Entry.Level.Informational") ||
+        (s == "xyz.openbmc_project.Logging.Entry.Level.Notice"))
+    {
+        return "OK";
+    }
+    if (s == "xyz.openbmc_project.Logging.Entry.Level.Warning")
+    {
+        return "Warning";
+    }
+    return "";
+}
 
 namespace message_registries
 {
@@ -98,41 +124,104 @@ static const Message* getMessage(const std::string_view& messageID)
             messageKey,
             boost::beast::span<const MessageEntry>(openbmc::registry));
     }
+    if (std::string(resource_event::header.registryPrefix) == registryName)
+    {
+        return getMessageFromRegistry(
+            messageKey,
+            boost::beast::span<const MessageEntry>(resource_event::registry));
+    }
+    if (std::string(task_event::header.registryPrefix) == registryName)
+    {
+        return getMessageFromRegistry(
+            messageKey,
+            boost::beast::span<const MessageEntry>(task_event::registry));
+    }
     return nullptr;
 }
+
+static void generateMessageRegistry(
+    nlohmann::json& logEntry,
+    const std::string& odataId /* e.g. /redfish/v1/Systems/system/LogServices/"
+                                 "EventLog/Entries/ */
+    ,
+    const std::string& odataTypeVer /* e.g. v1_8_0 */, const std::string& id,
+    const std::string& name, const std::string& timestamp,
+    const std::string& messageId, const std::string& messageArgs,
+    const std::string& resolution, const std::string& severity = "")
+{
+    BMCWEB_LOG_DEBUG << "Generating MessageRegitry for [" << messageId << "]";
+    const Message* msg = getMessage(messageId);
+
+    if (msg == nullptr)
+    {
+        BMCWEB_LOG_ERROR << "Failed to lookup the message for MessageId["
+                         << messageId << "]";
+        return;
+    }
+
+    // Severity can be overwritten by caller. Using the one defined in the
+    // message registries by default.
+    std::string sev;
+    if (severity.size() == 0)
+    {
+        sev = msg->severity;
+    }
+    else
+    {
+        sev = translateSeverityDbusToRedfish(severity);
+    }
+
+    // Convert messageArgs string for its json format used later.
+    std::vector<std::string> fields;
+    fields.reserve(msg->numberOfArgs);
+    boost::split(fields, messageArgs, boost::is_any_of(","));
+
+    // Trim leading and tailing whitespace of each arg.
+    for (auto& f : fields)
+    {
+        boost::trim(f);
+    }
+    boost::beast::span<std::string> msgArgs;
+    msgArgs = {&fields[0], fields.size()};
+
+    std::string message = msg->message;
+    int i = 0;
+    for (auto& arg : msgArgs)
+    {
+        // Substituion
+        std::string argStr = "%" + std::to_string(++i);
+        size_t argPos = message.find(argStr);
+        if (argPos != std::string::npos)
+        {
+            message.replace(argPos, argStr.length(), arg);
+        }
+    }
+
+    logEntry = {{"@odata.id", odataId + id},
+                {"@odata.type", "#LogEntry." + odataTypeVer + ".LogEntry"},
+                {"Id", id},
+                {"Name", name},
+                {"EntryType", "Event"},
+                {"Severity", sev},
+                {"Created", timestamp},
+                {"Message", message},
+                {"MessageId", messageId},
+                {"MessageArgs", msgArgs},
+                {"Resolution", resolution}};
+}
+
 } // namespace message_registries
 
 namespace fs = std::filesystem;
 
 using GetManagedPropertyType = boost::container::flat_map<
     std::string, std::variant<std::string, bool, uint8_t, int16_t, uint16_t,
-                              int32_t, uint32_t, int64_t, uint64_t, double>>;
+                              int32_t, uint32_t, int64_t, uint64_t, double,
+                              std::vector<std::string>>>;
 
 using GetManagedObjectsType = boost::container::flat_map<
     sdbusplus::message::object_path,
     boost::container::flat_map<std::string, GetManagedPropertyType>>;
-
-inline std::string translateSeverityDbusToRedfish(const std::string& s)
-{
-    if ((s == "xyz.openbmc_project.Logging.Entry.Level.Alert") ||
-        (s == "xyz.openbmc_project.Logging.Entry.Level.Critical") ||
-        (s == "xyz.openbmc_project.Logging.Entry.Level.Emergency") ||
-        (s == "xyz.openbmc_project.Logging.Entry.Level.Error"))
-    {
-        return "Critical";
-    }
-    if ((s == "xyz.openbmc_project.Logging.Entry.Level.Debug") ||
-        (s == "xyz.openbmc_project.Logging.Entry.Level.Informational") ||
-        (s == "xyz.openbmc_project.Logging.Entry.Level.Notice"))
-    {
-        return "OK";
-    }
-    if (s == "xyz.openbmc_project.Logging.Entry.Level.Warning")
-    {
-        return "Warning";
-    }
-    return "";
-}
 
 inline static int getJournalMetadata(sd_journal* journal,
                                      const std::string_view& field,
@@ -1343,6 +1432,64 @@ inline void requestRoutesJournalEventLogEntry(App& app)
             });
 }
 
+class AdditionalData
+{
+    enum SameKeyOp
+    {
+        overwrite = 0,
+        append = 1,
+    };
+
+  public:
+    // DBus Event Log additionalData format is like,
+    // "key1=val1" "key2=val2"...
+    AdditionalData(const std::vector<std::string>& additionalData,
+                   const SameKeyOp& op = overwrite)
+    {
+        conversion(additionalData, data, op);
+    }
+
+    void conversion(const std::vector<std::string>& additionalData,
+                    std::map<std::string, std::string>& data,
+                    const SameKeyOp& op)
+    {
+        for (auto& kv : additionalData)
+        {
+            std::vector<std::string> fields;
+            fields.reserve(2);
+            boost::split(fields, kv, boost::is_any_of("="));
+            if (data.count(fields[0]) <= 0)
+            {
+                data[fields[0]] = "";
+            }
+            if (op == overwrite)
+            {
+                data[fields[0]] = fields[1];
+            }
+            else if (op == append)
+            {
+                // In append mode, all values for the same key will be separated
+                // by ';', e.g., "key1=val1_1;val1_2;...;val1_n"
+                data[fields[0]] += (data[fields[0]].size()) ? ";" : "";
+                data[fields[0]] += fields[1];
+            }
+        }
+    }
+
+    std::string& operator[](const std::string& key)
+    {
+        return data[key];
+    }
+
+    std::size_t count(const std::string& key)
+    {
+        return data.count(key);
+    }
+
+  protected:
+    std::map<std::string, std::string> data;
+};
+
 inline void requestRoutesDBusEventLogEntryCollection(App& app)
 {
     BMCWEB_ROUTE(app,
@@ -1388,6 +1535,8 @@ inline void requestRoutesDBusEventLogEntryCollection(App& app)
                         std::string* message = nullptr;
                         std::string* filePath = nullptr;
                         bool resolved = false;
+                        std::string* resolution = nullptr;
+                        std::vector<std::string>* additionalDataRaw = nullptr;
                         for (auto& interfaceMap : objectPath.second)
                         {
                             if (interfaceMap.first ==
@@ -1447,6 +1596,18 @@ inline void requestRoutesDBusEventLogEntryCollection(App& app)
                                         }
                                         resolved = *resolveptr;
                                     }
+                                    else if (propertyMap.first == "Resolution")
+                                    {
+                                        resolution = std::get_if<std::string>(
+                                            &propertyMap.second);
+                                    }
+                                    else if (propertyMap.first ==
+                                             "AdditionalData")
+                                    {
+                                        additionalDataRaw = std::get_if<
+                                            std::vector<std::string>>(
+                                            &propertyMap.second);
+                                    }
                                 }
                                 if (id == nullptr || message == nullptr ||
                                     severity == nullptr)
@@ -1478,29 +1639,72 @@ inline void requestRoutesDBusEventLogEntryCollection(App& app)
                         }
                         entriesArray.push_back({});
                         nlohmann::json& thisEntry = entriesArray.back();
-                        thisEntry["@odata.type"] = "#LogEntry.v1_8_0.LogEntry";
-                        thisEntry["@odata.id"] =
-                            "/redfish/v1/Systems/system/"
-                            "LogServices/EventLog/Entries/" +
-                            std::to_string(*id);
-                        thisEntry["Name"] = "System Event Log Entry";
-                        thisEntry["Id"] = std::to_string(*id);
-                        thisEntry["Message"] = *message;
-                        thisEntry["Resolved"] = resolved;
-                        thisEntry["EntryType"] = "Event";
-                        thisEntry["Severity"] =
-                            translateSeverityDbusToRedfish(*severity);
-                        thisEntry["Created"] =
-                            crow::utility::getDateTime(timestamp);
-                        thisEntry["Modified"] =
-                            crow::utility::getDateTime(updateTimestamp);
-                        if (filePath != nullptr)
+
+                        // Determine if it's a message registry format or not.
+                        bool isMessageRegistry = false;
+                        std::string messageId;
+                        std::string messageArgs;
+                        if (additionalDataRaw != nullptr)
                         {
-                            thisEntry["AdditionalDataURI"] =
+                            AdditionalData additional(*additionalDataRaw);
+                            if (additional.count("REDFISH_MESSAGE_ID") > 0)
+                            {
+                                isMessageRegistry = true;
+                                messageId = additional["REDFISH_MESSAGE_ID"];
+                                BMCWEB_LOG_DEBUG << "MessageId: [" << messageId
+                                                 << "]";
+
+                                if (additional.count("REDFISH_MESSAGE_ARGS") >
+                                    0)
+                                {
+                                    messageArgs =
+                                        additional["REDFISH_MESSAGE_ARGS"];
+                                }
+                            }
+                        }
+
+                        if (isMessageRegistry)
+                        {
+                            message_registries::generateMessageRegistry(
+                                thisEntry,
                                 "/redfish/v1/Systems/system/LogServices/"
-                                "EventLog/"
-                                "Entries/" +
-                                std::to_string(*id) + "/attachment";
+                                "EventLog/Entries/",
+                                "v1_9_0", std::to_string(*id),
+                                "System Event Log Entry",
+                                crow::utility::getDateTime(timestamp),
+                                messageId, messageArgs, *resolution, *severity);
+                        }
+
+                        // generateMessageRegistry will not create the entry if
+                        // the messageId can't be found in message registries.
+                        // So check the entry 'Id' anyway to cover that case.
+                        if (thisEntry["Id"].size() == 0)
+                        {
+                            thisEntry["@odata.type"] =
+                                "#LogEntry.v1_8_0.LogEntry";
+                            thisEntry["@odata.id"] =
+                                "/redfish/v1/Systems/system/"
+                                "LogServices/EventLog/Entries/" +
+                                std::to_string(*id);
+                            thisEntry["Name"] = "System Event Log Entry";
+                            thisEntry["Id"] = std::to_string(*id);
+                            thisEntry["Message"] = *message;
+                            thisEntry["Resolved"] = resolved;
+                            thisEntry["EntryType"] = "Event";
+                            thisEntry["Severity"] =
+                                translateSeverityDbusToRedfish(*severity);
+                            thisEntry["Created"] =
+                                crow::utility::getDateTime(timestamp);
+                            thisEntry["Modified"] =
+                                crow::utility::getDateTime(updateTimestamp);
+                            if (filePath != nullptr)
+                            {
+                                thisEntry["AdditionalDataURI"] =
+                                    "/redfish/v1/Systems/system/LogServices/"
+                                    "EventLog/"
+                                    "Entries/" +
+                                    std::to_string(*id) + "/attachment";
+                            }
                         }
                     }
                     std::sort(entriesArray.begin(), entriesArray.end(),
@@ -1556,6 +1760,8 @@ inline void requestRoutesDBusEventLogEntry(App& app)
                         std::string* message = nullptr;
                         std::string* filePath = nullptr;
                         bool resolved = false;
+                        std::string* resolution = nullptr;
+                        std::vector<std::string>* additionalDataRaw = nullptr;
 
                         for (auto& propertyMap : resp)
                         {
@@ -1605,6 +1811,17 @@ inline void requestRoutesDBusEventLogEntry(App& app)
                                 }
                                 resolved = *resolveptr;
                             }
+                            else if (propertyMap.first == "Resolution")
+                            {
+                                resolution = std::get_if<std::string>(
+                                    &propertyMap.second);
+                            }
+                            else if (propertyMap.first == "AdditionalData")
+                            {
+                                additionalDataRaw =
+                                    std::get_if<std::vector<std::string>>(
+                                        &propertyMap.second);
+                            }
                             else if (propertyMap.first == "Path")
                             {
                                 filePath = std::get_if<std::string>(
@@ -1617,31 +1834,75 @@ inline void requestRoutesDBusEventLogEntry(App& app)
                             messages::internalError(asyncResp->res);
                             return;
                         }
-                        asyncResp->res.jsonValue["@odata.type"] =
-                            "#LogEntry.v1_8_0.LogEntry";
-                        asyncResp->res.jsonValue["@odata.id"] =
-                            "/redfish/v1/Systems/system/LogServices/EventLog/"
-                            "Entries/" +
-                            std::to_string(*id);
-                        asyncResp->res.jsonValue["Name"] =
-                            "System Event Log Entry";
-                        asyncResp->res.jsonValue["Id"] = std::to_string(*id);
-                        asyncResp->res.jsonValue["Message"] = *message;
-                        asyncResp->res.jsonValue["Resolved"] = resolved;
-                        asyncResp->res.jsonValue["EntryType"] = "Event";
-                        asyncResp->res.jsonValue["Severity"] =
-                            translateSeverityDbusToRedfish(*severity);
-                        asyncResp->res.jsonValue["Created"] =
-                            crow::utility::getDateTime(timestamp);
-                        asyncResp->res.jsonValue["Modified"] =
-                            crow::utility::getDateTime(updateTimestamp);
-                        if (filePath != nullptr)
+
+                        // Determine if it's a message registry format or not.
+                        bool isMessageRegistry = false;
+                        std::string messageId;
+                        std::string messageArgs;
+                        if (additionalDataRaw != nullptr)
                         {
-                            asyncResp->res.jsonValue["AdditionalDataURI"] =
+                            AdditionalData additional(*additionalDataRaw);
+                            if (additional.count("REDFISH_MESSAGE_ID") > 0)
+                            {
+                                isMessageRegistry = true;
+                                messageId = additional["REDFISH_MESSAGE_ID"];
+                                BMCWEB_LOG_DEBUG << "MessageId: [" << messageId
+                                                 << "]";
+
+                                if (additional.count("REDFISH_MESSAGE_ARGS") >
+                                    0)
+                                {
+                                    messageArgs =
+                                        additional["REDFISH_MESSAGE_ARGS"];
+                                }
+                            }
+                        }
+
+                        if (isMessageRegistry)
+                        {
+                            message_registries::generateMessageRegistry(
+                                asyncResp->res.jsonValue,
+                                "/redfish/v1/Systems/system/LogServices/"
+                                "EventLog/Entries/",
+                                "v1_9_0", std::to_string(*id),
+                                "System Event Log Entry",
+                                crow::utility::getDateTime(timestamp),
+                                messageId, messageArgs, *resolution, *severity);
+                        }
+
+                        // generateMessageRegistry will not create the entry if
+                        // the messageId can't be found in message registries.
+                        // So check the entry 'Id' anyway to cover that case.
+                        if (asyncResp->res.jsonValue["Id"].size() == 0)
+                        {
+                            asyncResp->res.jsonValue["@odata.type"] =
+                                "#LogEntry.v1_8_0.LogEntry";
+                            asyncResp->res.jsonValue["@odata.id"] =
                                 "/redfish/v1/Systems/system/LogServices/"
                                 "EventLog/"
-                                "attachment/" +
+                                "Entries/" +
                                 std::to_string(*id);
+                            asyncResp->res.jsonValue["Name"] =
+                                "System Event Log Entry";
+                            asyncResp->res.jsonValue["Id"] =
+                                std::to_string(*id);
+                            asyncResp->res.jsonValue["Message"] = *message;
+                            asyncResp->res.jsonValue["Resolved"] = resolved;
+                            asyncResp->res.jsonValue["EntryType"] = "Event";
+                            asyncResp->res.jsonValue["Severity"] =
+                                translateSeverityDbusToRedfish(*severity);
+                            asyncResp->res.jsonValue["Created"] =
+                                crow::utility::getDateTime(timestamp);
+                            asyncResp->res.jsonValue["Modified"] =
+                                crow::utility::getDateTime(updateTimestamp);
+                            if (filePath != nullptr)
+                            {
+                                asyncResp->res.jsonValue["AdditionalDataURI"] =
+                                    "/redfish/v1/Systems/system/LogServices/"
+                                    "EventLog/"
+                                    "attachment/" +
+                                    std::to_string(*id);
+                            }
                         }
                     },
                     "xyz.openbmc_project.Logging",
