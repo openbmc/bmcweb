@@ -46,6 +46,30 @@
       "revId": "e6203d179ee014d78b76aec412f803394a92b254",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c3304f1e_c8f565c2",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2021-11-19T08:22:40Z",
+      "side": 1,
+      "message": "Good point.\n\nBefore this change there was calls to async_method_call for \"Get\" and variant\u003cstd::string\u003e. This changes it under the deck to std::variant\u003cstd::monostate, std::string\u003e. It fixes dead code, but introduces additional code for this variant type. I will check if using common variant type will help with it.",
+      "parentUuid": "6251ecb5_61621948",
+      "range": {
+        "startLine": 12,
+        "startChar": 0,
+        "endLine": 13,
+        "endChar": 51
+      },
+      "revId": "e6203d179ee014d78b76aec412f803394a92b254",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
