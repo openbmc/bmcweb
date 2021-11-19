@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "b9ca9160_cf0c8d5b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-11-19T18:31:44Z",
+      "side": 1,
+      "message": "Thanks for this commit! \nFrom https://chris.beams.io/posts/git-commit/\n\n    Limit the subject line to 50 characters\n    Wrap the body at 72 characters",
+      "revId": "93d0f45672eb1311acf3116974c1250f34a35e6f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "3c3f3382_8d496600",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 3
