@@ -29,7 +29,7 @@ const Header header = {
     "0.2.0",
     "OpenBMC",
 };
-constexpr std::array<MessageEntry, 188> registry = {
+constexpr std::array<MessageEntry, 187> registry = {
     MessageEntry{
         "ADDDCCorrectable",
         {
@@ -150,18 +150,6 @@ constexpr std::array<MessageEntry, 188> registry = {
             {},
             "None.",
         }},
-    MessageEntry{"BIOSFirmwarePanicReason",
-                 {
-                     "Indicates the reason for BIOS firmware panic.",
-                     "BIOS firmware panic occurred due to %1.",
-                     "Warning",
-                     "Warning",
-                     1,
-                     {
-                         "string",
-                     },
-                     "None.",
-                 }},
     MessageEntry{"BIOSFirmwareRecoveryReason",
                  {
                      "Indicates the reason for BIOS firmware recovery.",
@@ -236,18 +224,6 @@ constexpr std::array<MessageEntry, 188> registry = {
                      2,
                      {
                          "string",
-                         "string",
-                     },
-                     "None.",
-                 }},
-    MessageEntry{"BMCFirmwarePanicReason",
-                 {
-                     "Indicates the reason for last BMC firmware panic.",
-                     "BMC firmware panic occurred due to %1.",
-                     "Warning",
-                     "Warning",
-                     1,
-                     {
                          "string",
                      },
                      "None.",
@@ -490,7 +466,7 @@ constexpr std::array<MessageEntry, 188> registry = {
                  }},
     MessageEntry{"FirmwareResiliencyError",
                  {
-                     "Indicates firmware encountered resilience error.",
+                     "Indicates firmware encountered resiliency error.",
                      "Firmware resiliency error. Error reason: %1.",
                      "Critical",
                      "Critical",
@@ -500,6 +476,31 @@ constexpr std::array<MessageEntry, 188> registry = {
                      },
                      "None.",
                  }},
+    MessageEntry{"FirmwareResiliencyEvent",
+                 {
+                     "Indicates the reason for last firmware resiliency event.",
+                     "Firmware resiliency event occurred due to %1.",
+                     "Warning",
+                     "Warning",
+                     1,
+                     {
+                         "string",
+                     },
+                     "None.",
+                 }},
+    MessageEntry{
+        "FirmwareResiliencyNotification",
+        {
+            "Indicates the reason for last firmware resiliency notification.",
+            "Firmware resiliency notification: %1.",
+            "OK",
+            "OK",
+            1,
+            {
+                "string",
+            },
+            "None.",
+        }},
     MessageEntry{"FirmwareUpdateCompleted",
                  {
                      "Indicates a firmware update has completed successfully.",
@@ -847,18 +848,6 @@ constexpr std::array<MessageEntry, 188> registry = {
             "are not documented because they only provide clues that must "
             "be interpreted individually..",
         }},
-    MessageEntry{"MEFirmwarePanicReason",
-                 {
-                     "Indicates the reason for ME firmware panic.",
-                     "ME firmware panic occurred due to %1.",
-                     "Warning",
-                     "Warning",
-                     1,
-                     {
-                         "string",
-                     },
-                     "None.",
-                 }},
     MessageEntry{"MEFirmwareRecoveryReason",
                  {
                      "Indicates the reason for ME firmware recovery.",
