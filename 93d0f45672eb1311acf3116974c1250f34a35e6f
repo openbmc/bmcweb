@@ -1,0 +1,165 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3c3f3382_8d496600",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2021-11-19T15:01:03Z",
+      "side": 1,
+      "message": "I believe that doxygen above this method could be placed then this comment can be moved there.",
+      "range": {
+        "startLine": 144,
+        "startChar": 31,
+        "endLine": 145,
+        "endChar": 54
+      },
+      "revId": "93d0f45672eb1311acf3116974c1250f34a35e6f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "de2185bd_71b9d384",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1447,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2021-11-19T15:01:03Z",
+      "side": 1,
+      "message": "You want it passed by copy since it\u0027s size is less/equal pointer size.",
+      "range": {
+        "startLine": 1447,
+        "startChar": 19,
+        "endLine": 1447,
+        "endChar": 35
+      },
+      "revId": "93d0f45672eb1311acf3116974c1250f34a35e6f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6491f809_545684b5",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1454,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2021-11-19T15:01:03Z",
+      "side": 1,
+      "message": "This method should be private, it\u0027s only used in constructor",
+      "range": {
+        "startLine": 1452,
+        "startChar": 0,
+        "endLine": 1454,
+        "endChar": 40
+      },
+      "revId": "93d0f45672eb1311acf3116974c1250f34a35e6f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dd245c33_f07a766f",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1479,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2021-11-19T15:01:03Z",
+      "side": 1,
+      "message": "Looking at the use cases you want this method to be const",
+      "range": {
+        "startLine": 1479,
+        "startChar": 4,
+        "endLine": 1479,
+        "endChar": 51
+      },
+      "revId": "93d0f45672eb1311acf3116974c1250f34a35e6f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ce1b41ce_8e2ee005",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1484,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2021-11-19T15:01:03Z",
+      "side": 1,
+      "message": "this methods should be const",
+      "range": {
+        "startLine": 1484,
+        "startChar": 42,
+        "endLine": 1484,
+        "endChar": 45
+      },
+      "revId": "93d0f45672eb1311acf3116974c1250f34a35e6f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "819f9f38_409837a5",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1489,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2021-11-19T15:01:03Z",
+      "side": 1,
+      "message": "Is this a base class for something else? If not it should be private.",
+      "range": {
+        "startLine": 1489,
+        "startChar": 2,
+        "endLine": 1489,
+        "endChar": 11
+      },
+      "revId": "93d0f45672eb1311acf3116974c1250f34a35e6f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "18b316be_70f279d6",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1708,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2021-11-19T15:01:03Z",
+      "side": 1,
+      "message": "Looks like code duplication, please create a function.",
+      "range": {
+        "startLine": 1643,
+        "startChar": 24,
+        "endLine": 1708,
+        "endChar": 25
+      },
+      "revId": "93d0f45672eb1311acf3116974c1250f34a35e6f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
