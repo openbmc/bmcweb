@@ -29,7 +29,7 @@ const Header header = {
     "0.3.0",
     "OpenBMC",
 };
-constexpr std::array<MessageEntry, 189> registry = {
+constexpr std::array<MessageEntry, 191> registry = {
     MessageEntry{
         "ADDDCCorrectable",
         {
@@ -499,9 +499,21 @@ constexpr std::array<MessageEntry, 189> registry = {
                      {"string"},
                      "None.",
                  }},
+    MessageEntry{"FirmwareResiliency",
+                 {
+                     "Indicates the reason for last firmware resiliency event.",
+                     "Firmware resiliency event occurred due to %1.",
+                     "Warning",
+                     "Warning",
+                     1,
+                     {
+                         "string",
+                     },
+                     "None.",
+                 }},
     MessageEntry{"FirmwareResiliencyError",
                  {
-                     "Indicates firmware encountered resilience error.",
+                     "Indicates firmware encountered resiliency error.",
                      "Firmware resiliency error. Error reason: %1.",
                      "Critical",
                      "Critical",
@@ -552,6 +564,19 @@ constexpr std::array<MessageEntry, 189> registry = {
                      {"string", "string"},
                      "None.",
                  }},
+    MessageEntry{
+        "FirmwareUpdateStatus",
+        {
+            "Indicates the reason for last firmware update on resiliency system.",
+            "Firmware update occurred due to %1.",
+            "OK",
+            "OK",
+            1,
+            {
+                "string",
+            },
+            "None.",
+        }},
     MessageEntry{
         "GeneralFirmwareSecurityViolation",
         {
