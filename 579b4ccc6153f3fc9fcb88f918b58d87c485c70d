@@ -48,6 +48,30 @@
     },
     {
       "key": {
+        "uuid": "407e8ffd_19b7d292",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 3008,
+      "author": {
+        "id": 1000900
+      },
+      "writtenOn": "2021-11-19T02:23:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b718f654_eb45df86",
+      "range": {
+        "startLine": 3008,
+        "startChar": 39,
+        "endLine": 3008,
+        "endChar": 54
+      },
+      "revId": "579b4ccc6153f3fc9fcb88f918b58d87c485c70d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "20a2ed7f_c7fb59f9",
         "filename": "redfish-core/lib/managers.hpp",
         "patchSetId": 1
@@ -68,6 +92,30 @@
       "revId": "579b4ccc6153f3fc9fcb88f918b58d87c485c70d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a55c2121_6b124c14",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1727,
+      "author": {
+        "id": 1000900
+      },
+      "writtenOn": "2021-11-19T02:23:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "20a2ed7f_c7fb59f9",
+      "range": {
+        "startLine": 1727,
+        "startChar": 16,
+        "endLine": 1727,
+        "endChar": 31
+      },
+      "revId": "579b4ccc6153f3fc9fcb88f918b58d87c485c70d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -94,6 +142,30 @@
     },
     {
       "key": {
+        "uuid": "0ea6563b_6836a049",
+        "filename": "redfish-core/lib/power.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1000900
+      },
+      "writtenOn": "2021-11-19T02:23:22Z",
+      "side": 1,
+      "message": "sure, but that\u0027s not really related to this commit.",
+      "parentUuid": "9d2b4dcf_b9a7a27e",
+      "range": {
+        "startLine": 27,
+        "startChar": 4,
+        "endLine": 27,
+        "endChar": 32
+      },
+      "revId": "579b4ccc6153f3fc9fcb88f918b58d87c485c70d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "55dddbce_0736a849",
         "filename": "redfish-core/lib/systems.hpp",
         "patchSetId": 1
@@ -105,6 +177,30 @@
       "writtenOn": "2021-11-15T09:03:18Z",
       "side": 1,
       "message": "[[maybe_unused]] const std::string\u0026 hostName",
+      "range": {
+        "startLine": 1739,
+        "startChar": 38,
+        "endLine": 1739,
+        "endChar": 69
+      },
+      "revId": "579b4ccc6153f3fc9fcb88f918b58d87c485c70d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "328a18af_e78ec039",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1739,
+      "author": {
+        "id": 1000900
+      },
+      "writtenOn": "2021-11-19T02:23:22Z",
+      "side": 1,
+      "message": "hostName is *actually* unused so I think it\u0027s better to keep it commented as a form of documentation.",
+      "parentUuid": "55dddbce_0736a849",
       "range": {
         "startLine": 1739,
         "startChar": 38,

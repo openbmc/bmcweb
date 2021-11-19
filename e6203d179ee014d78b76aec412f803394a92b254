@@ -22,6 +22,30 @@
       "revId": "e6203d179ee014d78b76aec412f803394a92b254",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6251ecb5_61621948",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000900
+      },
+      "writtenOn": "2021-11-19T02:23:22Z",
+      "side": 1,
+      "message": "It\u0027s a good point.\n\nMaybe it\u0027s also the adding of another lambda layer to every call site that increases the size. Each lambda is its own unique type so wouldn\u0027t that double the template instantiations?\n\nI tried to look at the machine code to understand it better, but the function names are stupendously complicated and impossible for me to follow.",
+      "parentUuid": "484d574b_8209112f",
+      "range": {
+        "startLine": 12,
+        "startChar": 0,
+        "endLine": 13,
+        "endChar": 51
+      },
+      "revId": "e6203d179ee014d78b76aec412f803394a92b254",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
