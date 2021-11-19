@@ -62,12 +62,12 @@ namespace redfish::registries::openbmc
 const Header header = {
     "Copyright 2022 OpenBMC. All rights reserved.",
     "#MessageRegistry.v1_4_0.MessageRegistry",
-    "OpenBMC.0.4.0",
+    "OpenBMC.0.5.0",
     "OpenBMC Message Registry",
     "en",
     "This registry defines the base messages for OpenBMC.",
     "OpenBMC",
-    "0.4.0",
+    "0.5.0",
     "OpenBMC",
 };
 constexpr std::array registry = {
@@ -169,7 +169,6 @@ constexpr std::array registry = {
                      {},
                      "None.",
                  }},
-
     MessageEntry{"BIOSAttributesChanged",
                  {
                      "Indicates that a set of BIOS Attributes has changed.",
@@ -506,9 +505,21 @@ constexpr std::array registry = {
                      {"string"},
                      "None.",
                  }},
+    MessageEntry{"FirmwareResiliency",
+                 {
+                     "Indicates the reason for last firmware resiliency event.",
+                     "Firmware resiliency event occurred due to %1.",
+                     "Warning",
+                     "Warning",
+                     1,
+                     {
+                         "string",
+                     },
+                     "None.",
+                 }},
     MessageEntry{"FirmwareResiliencyError",
                  {
-                     "Indicates firmware encountered resilience error.",
+                     "Indicates firmware encountered resiliency error.",
                      "Firmware resiliency error. Error reason: %1.",
                      "Critical",
                      1,
@@ -554,6 +565,19 @@ constexpr std::array registry = {
                      {"string", "string"},
                      "None.",
                  }},
+    MessageEntry{
+        "FirmwareUpdateStatus",
+        {
+            "Indicates the reason for last firmware update on resiliency system.",
+            "Firmware update occurred due to %1.",
+            "OK",
+            "OK",
+            1,
+            {
+                "string",
+            },
+            "None.",
+        }},
     MessageEntry{
         "GeneralFirmwareSecurityViolation",
         {
