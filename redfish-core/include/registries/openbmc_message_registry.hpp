@@ -21,15 +21,15 @@ namespace redfish::message_registries::openbmc
 const Header header = {
     "Copyright 2018 OpenBMC. All rights reserved.",
     "#MessageRegistry.v1_4_0.MessageRegistry",
-    "OpenBMC.0.2.0",
+    "OpenBMC.0.3.0",
     "OpenBMC Message Registry",
     "en",
     "This registry defines the base messages for OpenBMC.",
     "OpenBMC",
-    "0.2.0",
+    "0.3.0",
     "OpenBMC",
 };
-constexpr std::array<MessageEntry, 188> registry = {
+constexpr std::array<MessageEntry, 190> registry = {
     MessageEntry{
         "ADDDCCorrectable",
         {
@@ -488,9 +488,21 @@ constexpr std::array<MessageEntry, 188> registry = {
                      {"string"},
                      "None.",
                  }},
+    MessageEntry{"FirmwareResiliency",
+                 {
+                     "Indicates the reason for last firmware resiliency event.",
+                     "Firmware resiliency event occurred due to %1.",
+                     "Warning",
+                     "Warning",
+                     1,
+                     {
+                         "string",
+                     },
+                     "None.",
+                 }},
     MessageEntry{"FirmwareResiliencyError",
                  {
-                     "Indicates firmware encountered resilience error.",
+                     "Indicates firmware encountered resiliency error.",
                      "Firmware resiliency error. Error reason: %1.",
                      "Critical",
                      "Critical",
@@ -541,6 +553,19 @@ constexpr std::array<MessageEntry, 188> registry = {
                      {"string", "string"},
                      "None.",
                  }},
+    MessageEntry{
+        "FirmwareUpdateStatus",
+        {
+            "Indicates the reason for last firmware update on resiliency system.",
+            "Firmware update occurred due to %1.",
+            "OK",
+            "OK",
+            1,
+            {
+                "string",
+            },
+            "None.",
+        }},
     MessageEntry{
         "GeneralFirmwareSecurityViolation",
         {
