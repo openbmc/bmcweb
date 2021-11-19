@@ -46,6 +46,30 @@
       "revId": "f4f28fb432224ffea7f258372f3c3ed3887a5621",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "44e80ec1_f63a3f46",
+        "filename": "redfish-core/include/utils/telemetry_utils.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2021-11-19T08:43:26Z",
+      "side": 1,
+      "message": "Ok, I found it. Both of them are used.",
+      "parentUuid": "3e950d1c_7de6b0a1",
+      "range": {
+        "startLine": 16,
+        "startChar": 0,
+        "endLine": 18,
+        "endChar": 75
+      },
+      "revId": "f4f28fb432224ffea7f258372f3c3ed3887a5621",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
