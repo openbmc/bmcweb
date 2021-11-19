@@ -62,12 +62,12 @@ namespace redfish::registries::openbmc
 const Header header = {
     "Copyright 2022 OpenBMC. All rights reserved.",
     "#MessageRegistry.v1_4_0.MessageRegistry",
-    "OpenBMC.0.4.0",
+    "OpenBMC.0.5.0",
     "OpenBMC Message Registry",
     "en",
     "This registry defines the base messages for OpenBMC.",
     "OpenBMC",
-    "0.4.0",
+    "0.5.0",
     "OpenBMC",
 };
 constexpr std::array registry = {
@@ -506,15 +506,24 @@ constexpr std::array registry = {
                      {"string"},
                      "None.",
                  }},
-    MessageEntry{"FirmwareResiliencyError",
+    MessageEntry{"FirmwareResiliency",
                  {
-                     "Indicates firmware encountered resilience error.",
-                     "Firmware resiliency error. Error reason: %1.",
-                     "Critical",
+                     "Indicates the reason for last firmware resiliency event.",
+                     "Firmware resiliency event occurred due to %1.",
+                     "Warning",
                      1,
                      {
                          "string",
                      },
+                     "None.",
+                 }},
+    MessageEntry{"FirmwareResiliencyError",
+                 {
+                     "Indicates firmware encountered resiliency error.",
+                     "Firmware resiliency error. Error reason: %1.",
+                     "Critical",
+                     1,
+                     {"string"},
                      "None.",
                  }},
     MessageEntry{"FirmwareUpdateCompleted",
@@ -554,6 +563,16 @@ constexpr std::array registry = {
                      {"string", "string"},
                      "None.",
                  }},
+    MessageEntry{
+        "FirmwareUpdateStatus",
+        {
+            "Indicates the reason for last firmware update on resiliency system.",
+            "Firmware update occurred due to %1.",
+            "OK",
+            1,
+            {"string"},
+            "None.",
+        }},
     MessageEntry{
         "GeneralFirmwareSecurityViolation",
         {
@@ -864,9 +883,7 @@ constexpr std::array registry = {
                      "ME firmware resiliency error. Error reason: %1.",
                      "Critical",
                      1,
-                     {
-                         "string",
-                     },
+                     {"string"},
                      "None.",
                  }},
 
