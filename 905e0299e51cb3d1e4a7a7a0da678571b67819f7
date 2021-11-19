@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "47ba7b23_835f2e03",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 2228,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-11-19T17:51:06Z",
+      "side": 1,
+      "message": "Gerrit is way off on this diff",
+      "revId": "905e0299e51cb3d1e4a7a7a0da678571b67819f7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
