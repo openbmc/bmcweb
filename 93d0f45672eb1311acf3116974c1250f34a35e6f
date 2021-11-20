@@ -42,6 +42,30 @@
     },
     {
       "key": {
+        "uuid": "8f0607bd_106fce35",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 1000910
+      },
+      "writtenOn": "2021-11-20T21:29:59Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "3c3f3382_8d496600",
+      "range": {
+        "startLine": 144,
+        "startChar": 31,
+        "endLine": 145,
+        "endChar": 54
+      },
+      "revId": "93d0f45672eb1311acf3116974c1250f34a35e6f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "de2185bd_71b9d384",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 3
@@ -62,6 +86,30 @@
       "revId": "93d0f45672eb1311acf3116974c1250f34a35e6f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a16f60ae_da15a423",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1447,
+      "author": {
+        "id": 1000910
+      },
+      "writtenOn": "2021-11-20T21:29:59Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "de2185bd_71b9d384",
+      "range": {
+        "startLine": 1447,
+        "startChar": 19,
+        "endLine": 1447,
+        "endChar": 35
+      },
+      "revId": "93d0f45672eb1311acf3116974c1250f34a35e6f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -88,6 +136,30 @@
     },
     {
       "key": {
+        "uuid": "d46cf0da_e36c0101",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1454,
+      "author": {
+        "id": 1000910
+      },
+      "writtenOn": "2021-11-20T21:29:59Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "6491f809_545684b5",
+      "range": {
+        "startLine": 1452,
+        "startChar": 0,
+        "endLine": 1454,
+        "endChar": 40
+      },
+      "revId": "93d0f45672eb1311acf3116974c1250f34a35e6f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "dd245c33_f07a766f",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 3
@@ -108,6 +180,30 @@
       "revId": "93d0f45672eb1311acf3116974c1250f34a35e6f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6163f68b_d1c4c968",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1479,
+      "author": {
+        "id": 1000910
+      },
+      "writtenOn": "2021-11-20T21:29:59Z",
+      "side": 1,
+      "message": "Ack if you mean \u0027const std::string\u0026 operator[](...)\u0027.",
+      "parentUuid": "dd245c33_f07a766f",
+      "range": {
+        "startLine": 1479,
+        "startChar": 4,
+        "endLine": 1479,
+        "endChar": 51
+      },
+      "revId": "93d0f45672eb1311acf3116974c1250f34a35e6f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -134,6 +230,30 @@
     },
     {
       "key": {
+        "uuid": "97968283_84dd9408",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1484,
+      "author": {
+        "id": 1000910
+      },
+      "writtenOn": "2021-11-20T21:29:59Z",
+      "side": 1,
+      "message": "build fail if to make this method const.",
+      "parentUuid": "ce1b41ce_8e2ee005",
+      "range": {
+        "startLine": 1484,
+        "startChar": 42,
+        "endLine": 1484,
+        "endChar": 45
+      },
+      "revId": "93d0f45672eb1311acf3116974c1250f34a35e6f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "819f9f38_409837a5",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 3
@@ -157,6 +277,30 @@
     },
     {
       "key": {
+        "uuid": "9a1473d1_25a92bac",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1489,
+      "author": {
+        "id": 1000910
+      },
+      "writtenOn": "2021-11-20T21:29:59Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "819f9f38_409837a5",
+      "range": {
+        "startLine": 1489,
+        "startChar": 2,
+        "endLine": 1489,
+        "endChar": 11
+      },
+      "revId": "93d0f45672eb1311acf3116974c1250f34a35e6f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "18b316be_70f279d6",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 3
@@ -174,6 +318,23 @@
         "endLine": 1708,
         "endChar": 25
       },
+      "revId": "93d0f45672eb1311acf3116974c1250f34a35e6f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b994ff35_fb366a8a",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1708,
+      "author": {
+        "id": 1000910
+      },
+      "writtenOn": "2021-11-20T21:29:59Z",
+      "side": 1,
+      "message": "I\u0027ve already tried to avoid code duplication by using AdditionalData class and generateMessageRegistry(), but this file contains duplicated code in every pair of LogEntryCollection and LogEntry implementations. Just tried to minimize the changes to this file to focus on the functional change itself. Are you OK with that?",
       "revId": "93d0f45672eb1311acf3116974c1250f34a35e6f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
