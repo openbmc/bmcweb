@@ -37,6 +37,23 @@
     },
     {
       "key": {
+        "uuid": "5040aeaa_f6c3fc04",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-11-21T18:04:40Z",
+      "side": 1,
+      "message": "Please talk through how the message registry is built and versioned.  I see no mention of that in your patchset, and it looks like that won\u0027t work as the redfish spec requires given the way this is written.",
+      "revId": "93d0f45672eb1311acf3116974c1250f34a35e6f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "3c3f3382_8d496600",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 3

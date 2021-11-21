@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "998766ef_d650c084",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 1686,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-11-21T18:04:40Z",
+      "side": 1,
+      "message": "This doesn\u0027t seem to implement message registry properly, given that there are URIs for message registries, and any MessageId entry MUST be present and versioned in the registry.  Please familiarize yourself with how this is implemented in the other logging mechanisms and plan on improving your patch series.  Given the Logging APIs, it isn\u0027t clear how you would make this work in terms of design, but I\u0027m open to what possibilities you have there.",
+      "range": {
+        "startLine": 1686,
+        "startChar": 32,
+        "endLine": 1686,
+        "endChar": 41
+      },
+      "revId": "f410856d65c7571b54fbf41d2c2a550a3dc2bb54",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
