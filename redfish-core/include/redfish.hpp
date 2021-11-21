@@ -23,6 +23,44 @@
 #include "../lib/event_service.hpp"
 #include "../lib/hypervisor_system.hpp"
 #include "../lib/log_services.hpp"
+/*
+namespace redfish {
+inline void requestRoutesSystemLogServiceCollection(App& app);
+inline void requestRoutesEventLogService(App& app);
+inline void requestRoutesJournalEventLogClear(App& app);
+inline void requestRoutesJournalEventLogEntryCollection(App& app);
+inline void requestRoutesJournalEventLogEntry(App& app);
+inline void requestRoutesDBusEventLogEntryCollection(App& app);
+inline void requestRoutesDBusEventLogEntry(App& app);
+inline void requestRoutesDBusEventLogEntryDownload(App& app);
+inline void requestRoutesBMCLogServiceCollection(App& app);
+inline void requestRoutesBMCJournalLogService(App& app);
+inline void requestRoutesBMCJournalLogEntryCollection(App& app);
+inline void requestRoutesBMCJournalLogEntry(App& app);
+inline void requestRoutesBMCDumpService(App& app);
+inline void requestRoutesBMCDumpEntryCollection(App& app);
+inline void requestRoutesBMCDumpEntry(App& app);
+inline void requestRoutesBMCDumpCreate(App& app);
+inline void requestRoutesBMCDumpClear(App& app);
+inline void requestRoutesSystemDumpService(App& app);
+inline void requestRoutesSystemDumpEntryCollection(App& app);
+inline void requestRoutesSystemDumpEntry(App& app);
+inline void requestRoutesSystemDumpCreate(App& app);
+inline void requestRoutesSystemDumpClear(App& app);
+inline void requestRoutesCrashdumpService(App& app);
+void inline requestRoutesCrashdumpClear(App& app);
+inline void requestRoutesCrashdumpEntryCollection(App& app);
+inline void requestRoutesCrashdumpEntry(App& app);
+inline void requestRoutesCrashdumpFile(App& app);
+inline void requestRoutesCrashdumpCollect(App& app);
+inline void requestRoutesDBusLogServiceActionsClear(App& app);
+inline void requestRoutesPostCodesLogService(App& app);
+inline void requestRoutesPostCodesClear(App& app);
+inline void requestRoutesPostCodesEntryCollection(App& app);
+inline void requestRoutesPostCodesEntryAdditionalData(App& app);
+inline void requestRoutesPostCodesEntry(App& app);
+}*/
+
 #include "../lib/managers.hpp"
 #include "../lib/memory.hpp"
 #include "../lib/message_registries.hpp"
@@ -34,7 +72,7 @@
 #include "../lib/processor.hpp"
 #include "../lib/redfish_sessions.hpp"
 #include "../lib/roles.hpp"
-#include "../lib/sensors.hpp"
+/* #include "../lib/sensors.hpp" */ void requestRoutesSensorCollection(App& app);
 #include "../lib/service_root.hpp"
 #include "../lib/storage.hpp"
 #include "../lib/systems.hpp"
