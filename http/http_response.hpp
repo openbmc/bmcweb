@@ -56,10 +56,7 @@ struct Response
         stringResponse->result(v);
     }
 
-    boost::beast::http::status result()
-    {
-        return stringResponse->result();
-    }
+    boost::beast::http::status result();
 
     unsigned resultInt()
     {

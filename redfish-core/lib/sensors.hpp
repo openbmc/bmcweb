@@ -194,63 +194,14 @@ class SensorsAsyncResp
                      const std::string& chassisIdIn,
                      const std::vector<const char*>& typesIn,
                      const std::string_view& subNode,
-                     DataCompleteCb&& creationComplete) :
-        asyncResp(asyncResp),
-        chassisId(chassisIdIn), types(typesIn),
-        chassisSubNode(subNode), metadata{std::vector<SensorData>()},
-        dataComplete{std::move(creationComplete)}
-    {}
+                     DataCompleteCb&& creationComplete);
 
-    ~SensorsAsyncResp()
-    {
-        if (asyncResp->res.result() ==
-            boost::beast::http::status::internal_server_error)
-        {
-            // Reset the json object to clear out any data that made it in
-            // before the error happened todo(ed) handle error condition with
-            // proper code
-            asyncResp->res.jsonValue = nlohmann::json::object();
-        }
-
-        if (dataComplete && metadata)
-        {
-            boost::container::flat_map<std::string, std::string> map;
-            if (asyncResp->res.result() == boost::beast::http::status::ok)
-            {
-                for (auto& sensor : *metadata)
-                {
-                    map.insert(std::make_pair(sensor.uri + sensor.valueKey,
-                                              sensor.dbusPath));
-                }
-            }
-            dataComplete(asyncResp->res.result(), map);
-        }
-    }
+    ~SensorsAsyncResp();
 
     void addMetadata(const nlohmann::json& sensorObject,
-                     const std::string& valueKey, const std::string& dbusPath)
-    {
-        if (metadata)
-        {
-            metadata->emplace_back(SensorData{sensorObject["Name"],
-                                              sensorObject["@odata.id"],
-                                              valueKey, dbusPath});
-        }
-    }
+                     const std::string& valueKey, const std::string& dbusPath);
 
-    void updateUri(const std::string& name, const std::string& uri)
-    {
-        if (metadata)
-        {
-            for (auto& sensor : *metadata)
-            {
-                if (sensor.name == name)
-                {
-                    sensor.uri = uri;
-                }
-            }
-        }
-    }
+    void updateUri(const std::string& name, const std::string& uri);
 
     const std::shared_ptr<bmcweb::AsyncResp> asyncResp;
     const std::string chassisId;
