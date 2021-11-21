@@ -15,6 +15,22 @@
 */
 #ifndef BMCWEB_ENABLE_REDFISH_ONE_CHASSIS
 #pragma once
+#include <charconv>
+#include "../../http/logging.hpp"
+
+// With this, openbmc_dbus_rest.hpp does not need to be included
+// in certain cases
+namespace crow
+{
+namespace openbmc_mapper
+{
+
+using GetSubTreeType = std::vector<
+    std::pair<std::string,
+              std::vector<std::pair<std::string, std::vector<std::string>>>>>;
+
+}
+}
 
 namespace redfish
 {

@@ -1,6 +1,6 @@
 #pragma once
-#include <http_request.hpp>
-#include <http_response.hpp>
+#include <http_request_class_decl.hpp>
+#include <http_response_class_decl.hpp>
 #include <http_utility.hpp>
 
 namespace forward_unauthorized

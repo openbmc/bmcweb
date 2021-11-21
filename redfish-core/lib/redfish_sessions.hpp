@@ -18,8 +18,11 @@
 #include "error_messages.hpp"
 #include "persistent_data.hpp"
 
-#include <app.hpp>
+#include <app_class_decl.hpp>
 #include <registries/privilege_registry.hpp>
+#include "../include/utils/json_utils.hpp"
+
+using crow::App;
 
 namespace redfish
 {
@@ -44,7 +47,7 @@ inline void fillSessionObject(crow::Response& res,
 #endif
 }
 
-inline void requestRoutesSession(App& app)
+void requestRoutesSession(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/SessionService/Sessions/<str>/")
         .privileges(redfish::privileges::getSession)

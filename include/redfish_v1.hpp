@@ -1,8 +1,8 @@
 #pragma once
 
-#include <app.hpp>
-#include <http_request.hpp>
-#include <http_response.hpp>
+#include <app_class_decl.hpp>
+#include <http_request_class_decl.hpp>
+#include <http_response_class_decl.hpp>
 #include <rf_async_resp.hpp>
 
 #include <string>

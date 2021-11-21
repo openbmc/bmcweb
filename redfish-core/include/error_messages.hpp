@@ -14,7 +14,7 @@
 // limitations under the License.
 */
 #pragma once
-#include "http_response.hpp"
+#include "http_response_class_decl.hpp"
 
 #include <nlohmann/json.hpp>
 

@@ -1,4 +1,4 @@
-#include <app.hpp>
+#include <app_class_decl.hpp>
 #include <boost/algorithm/string/predicate.hpp>
 #include <boost/lexical_cast.hpp>
 #include <gzip_helper.hpp>

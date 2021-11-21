@@ -16,13 +16,27 @@
 #pragma once
 
 #include "error_messages.hpp"
-#include "openbmc_dbus_rest.hpp"
 #include "redfish_util.hpp"
+#include "hypervisor_system.hpp"
 
-#include <app.hpp>
+#include <app_class_decl.hpp>
 #include <registries/privilege_registry.hpp>
 #include <utils/json_utils.hpp>
 #include <utils/stl_utils.hpp>
+
+using PropertiesMapType = boost::container::flat_map<
+    std::string, std::variant<std::string, bool, uint8_t, int16_t, uint16_t,
+                              int32_t, uint32_t, int64_t, uint64_t, double>>;
+
+using GetManagedObjects = std::vector<std::pair<
+    sdbusplus::message::object_path,
+    std::vector<std::pair<
+        std::string,
+        boost::container::flat_map<
+            std::string,
+            std::variant<std::string, bool, uint8_t, int16_t, uint16_t, int32_t,
+                         uint32_t, int64_t, uint64_t, double,
+                         std::vector<std::string>>>>>>>;
 
 #include <optional>
 #include <variant>
@@ -360,7 +374,7 @@ inline void
         "xyz.openbmc_project.Time.Synchronization", "TimeSyncMethod");
 }
 
-inline void requestRoutesNetworkProtocol(App& app)
+void requestRoutesNetworkProtocol(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/Managers/bmc/NetworkProtocol/")
         .privileges(redfish::privileges::patchManagerNetworkProtocol)

@@ -15,7 +15,7 @@
 */
 #pragma once
 
-#include <app.hpp>
+#include <app_class_decl.hpp>
 #include <registries/privilege_registry.hpp>
 
 #include <variant>
@@ -71,7 +71,7 @@ inline bool getAssignedPrivFromRole(std::string_view role,
     return true;
 }
 
-inline void requestRoutesRoles(App& app)
+void requestRoutesRoles(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/AccountService/Roles/<str>/")
         .privileges(redfish::privileges::getRole)
@@ -100,7 +100,7 @@ inline void requestRoutesRoles(App& app)
             });
 }
 
-inline void requestRoutesRoleCollection(App& app)
+void requestRoutesRoleCollection(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/AccountService/Roles/")
         .privileges(redfish::privileges::getRoleCollection)

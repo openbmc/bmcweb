@@ -1,8 +1,10 @@
 #pragma once
 
-#include <app.hpp>
 #include <registries/privilege_registry.hpp>
 #include <utils/fw_utils.hpp>
+#include "app_class_decl.hpp"
+using crow::App;
+
 namespace redfish
 {
 /**
@@ -24,42 +26,9 @@ inline void
     fw_util::populateFirmwareInformation(asyncResp, fw_util::biosPurpose, "",
                                          true);
 }
-inline void requestRoutesBiosService(App& app)
-{
-    BMCWEB_ROUTE(app, "/redfish/v1/Systems/system/Bios/")
-        .privileges(redfish::privileges::getBios)
-        .methods(boost::beast::http::verb::get)(handleBiosServiceGet);
-}
 
-/**
- * BiosReset class supports handle POST method for Reset bios.
- * The class retrieves and sends data directly to D-Bus.
- *
- * Function handles POST method request.
- * Analyzes POST body message before sends Reset request data to D-Bus.
- */
-inline void
-    handleBiosResetPost(const crow::Request&,
-                        const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
-{
-    crow::connections::systemBus->async_method_call(
-        [asyncResp](const boost::system::error_code ec) {
-            if (ec)
-            {
-                BMCWEB_LOG_ERROR << "Failed to reset bios: " << ec;
-                messages::internalError(asyncResp->res);
-                return;
-            }
-        },
-        "org.open_power.Software.Host.Updater", "/xyz/openbmc_project/software",
-        "xyz.openbmc_project.Common.FactoryReset", "Reset");
-}
+void requestRoutesBiosService(crow::App& app);
+void requestRoutesBiosReset(crow::App& app);
 
-inline void requestRoutesBiosReset(App& app)
-{
-    BMCWEB_ROUTE(app, "/redfish/v1/Systems/system/Bios/Actions/Bios.ResetBios/")
-        .privileges(redfish::privileges::postBios)
-        .methods(boost::beast::http::verb::post)(handleBiosResetPost);
-}
 
 } // namespace redfish

@@ -15,15 +15,17 @@
 */
 #pragma once
 
-#include <app.hpp>
+#include <app_class_decl.hpp>
 #include <dbus_utility.hpp>
 #include <error_messages.hpp>
-#include <openbmc_dbus_rest.hpp>
 #include <persistent_data.hpp>
 #include <registries/privilege_registry.hpp>
 #include <utils/json_utils.hpp>
+#include <boost/algorithm/string/predicate.hpp>
 
 #include <variant>
+
+using crow::App;
 
 namespace redfish
 {
@@ -1258,7 +1260,7 @@ inline void updateUserProperties(std::shared_ptr<bmcweb::AsyncResp> asyncResp,
         });
 }
 
-inline void requestAccountServiceRoutes(App& app)
+void requestAccountServiceRoutes(App& app)
 {
 
     BMCWEB_ROUTE(app, "/redfish/v1/AccountService/")

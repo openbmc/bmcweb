@@ -16,14 +16,23 @@
 #pragma once
 
 #include "bmcweb_config.h"
+#include "task.hpp"
 
-#include <app.hpp>
+#include <app_class_decl.hpp>
 #include <boost/container/flat_map.hpp>
 #include <registries/privilege_registry.hpp>
 #include <utils/fw_utils.hpp>
 
 #include <variant>
 
+
+
+using VariantType = std::variant<bool, std::string, uint64_t, uint32_t>;
+using ManagedObjectsType = std::vector<std::pair<
+    sdbusplus::message::object_path,
+    std::vector<std::pair<std::string,
+                          std::vector<std::pair<std::string, VariantType>>>>>>;
+                          
 namespace redfish
 {
 
@@ -387,7 +396,7 @@ static void monitorForSoftwareAvailable(
  * UpdateServiceActionsSimpleUpdate class supports handle POST method for
  * SimpleUpdate action.
  */
-inline void requestRoutesUpdateServiceActionsSimpleUpdate(App& app)
+void requestRoutesUpdateServiceActionsSimpleUpdate(App& app)
 {
     BMCWEB_ROUTE(
         app, "/redfish/v1/UpdateService/Actions/UpdateService.SimpleUpdate/")
@@ -507,7 +516,7 @@ inline void requestRoutesUpdateServiceActionsSimpleUpdate(App& app)
         });
 }
 
-inline void requestRoutesUpdateService(App& app)
+void requestRoutesUpdateService(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/UpdateService/")
         .privileges(redfish::privileges::getUpdateService)
@@ -687,7 +696,7 @@ inline void requestRoutesUpdateService(App& app)
             });
 }
 
-inline void requestRoutesSoftwareInventoryCollection(App& app)
+void requestRoutesSoftwareInventoryCollection(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/UpdateService/FirmwareInventory/")
         .privileges(redfish::privileges::getSoftwareInventoryCollection)
@@ -776,7 +785,7 @@ inline static void
     }
 }
 
-inline void requestRoutesSoftwareInventory(App& app)
+void requestRoutesSoftwareInventory(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/UpdateService/FirmwareInventory/<str>/")
         .privileges(redfish::privileges::getSoftwareInventory)

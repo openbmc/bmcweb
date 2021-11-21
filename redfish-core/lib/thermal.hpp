@@ -17,13 +17,13 @@
 
 #include "sensors.hpp"
 
-#include <app.hpp>
+#include <app_class_decl.hpp>
 #include <registries/privilege_registry.hpp>
 
 namespace redfish
 {
 
-inline void requestRoutesThermal(App& app)
+void requestRoutesThermal(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/Chassis/<str>/Thermal/")
         .privileges(redfish::privileges::getThermal)

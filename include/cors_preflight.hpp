@@ -1,8 +1,10 @@
 #pragma once
 
-#include <app.hpp>
-#include <http_request.hpp>
-#include <http_response.hpp>
+#include <app_class_decl.hpp>
+#include <http_request_class_decl.hpp>
+#include <http_response_class_decl.hpp>
+
+using crow::App;
 
 namespace cors_preflight
 {

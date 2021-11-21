@@ -26,120 +26,45 @@ struct Response
 
     nlohmann::json jsonValue;
 
-    void addHeader(const std::string_view key, const std::string_view value)
-    {
-        stringResponse->set(key, value);
-    }
+    void addHeader(const std::string_view key, const std::string_view value);
 
-    void addHeader(boost::beast::http::field key, std::string_view value)
-    {
-        stringResponse->set(key, value);
-    }
+    void addHeader(boost::beast::http::field key, std::string_view value);
 
-    Response() : stringResponse(response_type{})
-    {}
+    Response();
 
     Response& operator=(const Response& r) = delete;
 
-    Response& operator=(Response&& r) noexcept
-    {
-        BMCWEB_LOG_DEBUG << "Moving response containers";
-        stringResponse = std::move(r.stringResponse);
-        r.stringResponse.emplace(response_type{});
-        jsonValue = std::move(r.jsonValue);
-        completed = r.completed;
-        return *this;
-    }
+    Response& operator=(Response&& r) noexcept;
 
-    void result(boost::beast::http::status v)
-    {
-        stringResponse->result(v);
-    }
+    void result(boost::beast::http::status v);
 
-    boost::beast::http::status result()
-    {
-        return stringResponse->result();
-    }
+    boost::beast::http::status result();
 
-    unsigned resultInt()
-    {
-        return stringResponse->result_int();
-    }
+    unsigned resultInt();
 
-    std::string_view reason()
-    {
-        return stringResponse->reason();
-    }
+    std::string_view reason();
 
-    bool isCompleted() const noexcept
-    {
-        return completed;
-    }
+    bool isCompleted() const noexcept;
 
-    std::string& body()
-    {
-        return stringResponse->body();
-    }
+    std::string& body();
 
-    void keepAlive(bool k)
-    {
-        stringResponse->keep_alive(k);
-    }
+    void keepAlive(bool k);
 
-    bool keepAlive()
-    {
-        return stringResponse->keep_alive();
-    }
+    bool keepAlive();
 
-    void preparePayload()
-    {
-        stringResponse->prepare_payload();
-    }
+    void preparePayload();
 
-    void clear()
-    {
-        BMCWEB_LOG_DEBUG << this << " Clearing response containers";
-        stringResponse.emplace(response_type{});
-        jsonValue.clear();
-        completed = false;
-    }
+    void clear();
 
-    void write(std::string_view bodyPart)
-    {
-        stringResponse->body() += std::string(bodyPart);
-    }
+    void write(std::string_view bodyPart);
 
-    void end()
-    {
-        if (completed)
-        {
-            BMCWEB_LOG_ERROR << "Response was ended twice";
-            return;
-        }
-        completed = true;
-        BMCWEB_LOG_DEBUG << "calling completion handler";
-        if (completeRequestHandler)
-        {
-            BMCWEB_LOG_DEBUG << "completion handler was valid";
-            completeRequestHandler();
-        }
-    }
+    void end();
 
-    void end(std::string_view bodyPart)
-    {
-        write(bodyPart);
-        end();
-    }
+    void end(std::string_view bodyPart);
 
-    bool isAlive()
-    {
-        return isAliveHelper && isAliveHelper();
-    }
+    bool isAlive();
 
-    void setCompleteRequestHandler(std::function<void()> newHandler)
-    {
-        completeRequestHandler = std::move(newHandler);
-    }
+    void setCompleteRequestHandler(std::function<void()> newHandler);
 
   private:
     bool completed{};
@@ -147,9 +72,6 @@ struct Response
     std::function<bool()> isAliveHelper;
 
     // In case of a JSON object, set the Content-Type header
-    void jsonMode()
-    {
-        addHeader("Content-Type", "application/json");
-    }
+    void jsonMode();
 };
 } // namespace crow

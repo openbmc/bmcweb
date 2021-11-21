@@ -1,11 +1,11 @@
 #pragma once
 
-#include "async_resp.hpp"
-#include "http_request.hpp"
-#include "http_server.hpp"
+#include "async_resp_class_decl.hpp"
+#include "http_request_class_decl.hpp"
+#include "http_server_class_decl.hpp"
 #include "logging.hpp"
 #include "privileges.hpp"
-#include "routing.hpp"
+#include "routing_class_decl.hpp"
 #include "utility.hpp"
 
 #include <chrono>
@@ -36,9 +36,8 @@ class App
 #endif
 
     explicit App(std::shared_ptr<boost::asio::io_context> ioIn =
-                     std::make_shared<boost::asio::io_context>()) :
-        io(std::move(ioIn))
-    {}
+                    std::make_shared<boost::asio::io_context>());
+
     ~App()
     {
         this->stop();
@@ -145,42 +144,11 @@ class App
     }
 
 #ifdef BMCWEB_ENABLE_SSL
-    App& sslFile(const std::string& crtFilename, const std::string& keyFilename)
-    {
-        sslContext = std::make_shared<ssl_context_t>(
-            boost::asio::ssl::context::tls_server);
-        sslContext->set_verify_mode(boost::asio::ssl::verify_peer);
-        sslContext->use_certificate_file(crtFilename, ssl_context_t::pem);
-        sslContext->use_private_key_file(keyFilename, ssl_context_t::pem);
-        sslContext->set_options(boost::asio::ssl::context::default_workarounds |
-                                boost::asio::ssl::context::no_sslv2 |
-                                boost::asio::ssl::context::no_sslv3 |
-                                boost::asio::ssl::context::no_tlsv1 |
-                                boost::asio::ssl::context::no_tlsv1_1);
-        return *this;
-    }
+    App& sslFile(const std::string& crtFilename, const std::string& keyFilename);
 
-    App& sslFile(const std::string& pemFilename)
-    {
-        sslContext = std::make_shared<ssl_context_t>(
-            boost::asio::ssl::context::tls_server);
-        sslContext->set_verify_mode(boost::asio::ssl::verify_peer);
-        sslContext->load_verify_file(pemFilename);
-        sslContext->set_options(boost::asio::ssl::context::default_workarounds |
-                                boost::asio::ssl::context::no_sslv2 |
-                                boost::asio::ssl::context::no_sslv3 |
-                                boost::asio::ssl::context::no_tlsv1 |
-                                boost::asio::ssl::context::no_tlsv1_1);
-        return *this;
-    }
+    App& sslFile(const std::string& pemFilename);
 
-    App& ssl(std::shared_ptr<boost::asio::ssl::context>&& ctx)
-    {
-        sslContext = std::move(ctx);
-        BMCWEB_LOG_INFO << "app::ssl context use_count="
-                        << sslContext.use_count();
-        return *this;
-    }
+    App& ssl(std::shared_ptr<boost::asio::ssl::context>&& ctx);
 
     std::shared_ptr<ssl_context_t> sslContext = nullptr;
 

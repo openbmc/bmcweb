@@ -1,5 +1,6 @@
 #pragma once
-#include <async_resp.hpp>
+#include <async_resp_class_decl.hpp>
+#include "../error_messages.hpp"
 
 #include <algorithm>
 #include <string>

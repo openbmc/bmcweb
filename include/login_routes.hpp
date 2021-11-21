@@ -1,10 +1,10 @@
 #pragma once
 
-#include <app.hpp>
+#include <app_class_decl.hpp>
 #include <boost/container/flat_set.hpp>
 #include <common.hpp>
-#include <http_request.hpp>
-#include <http_response.hpp>
+#include <http_request_class_decl.hpp>
+#include <http_response_class_decl.hpp>
 #include <pam_authenticate.hpp>
 #include <webassets.hpp>
 

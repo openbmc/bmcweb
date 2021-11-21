@@ -1,4 +1,4 @@
-#include <app.hpp>
+#include <app_class_decl.hpp>
 
 #include "gmock/gmock.h"
 #include "gtest/gtest.h"

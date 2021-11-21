@@ -21,8 +21,10 @@
 #include "registries/resource_event_message_registry.hpp"
 #include "registries/task_event_message_registry.hpp"
 
-#include <app.hpp>
+#include <app_class_decl.hpp>
 #include <registries/privilege_registry.hpp>
+
+using crow::App;
 
 namespace redfish
 {
@@ -47,16 +49,7 @@ inline void handleMessageRegistryFileCollectionGet(
           {{"@odata.id", "/redfish/v1/Registries/OpenBMC"}}}}};
 }
 
-inline void requestRoutesMessageRegistryFileCollection(App& app)
-{
-    /**
-     * Functions triggers appropriate requests on DBus
-     */
-    BMCWEB_ROUTE(app, "/redfish/v1/Registries/")
-        .privileges(redfish::privileges::getMessageRegistryFileCollection)
-        .methods(boost::beast::http::verb::get)(
-            handleMessageRegistryFileCollectionGet);
-}
+void requestRoutesMessageRegistryFileCollection(App& app);
 
 inline void handleMessageRoutesMessageRegistryFileGet(
     const crow::Request&, const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
@@ -114,13 +107,7 @@ inline void handleMessageRoutesMessageRegistryFileGet(
     }
 }
 
-inline void requestRoutesMessageRegistryFile(App& app)
-{
-    BMCWEB_ROUTE(app, "/redfish/v1/Registries/<str>/")
-        .privileges(redfish::privileges::getMessageRegistryFile)
-        .methods(boost::beast::http::verb::get)(
-            handleMessageRoutesMessageRegistryFileGet);
-}
+void requestRoutesMessageRegistryFile(App& app);
 
 inline void handleMessageRegistryGet(
     const crow::Request&, const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
@@ -217,10 +204,6 @@ inline void handleMessageRegistryGet(
     }
 }
 
-inline void requestRoutesMessageRegistry(App& app)
-{
-    BMCWEB_ROUTE(app, "/redfish/v1/Registries/<str>/<str>/")
-        .privileges(redfish::privileges::getMessageRegistryFile)
-        .methods(boost::beast::http::verb::get)(handleMessageRegistryGet);
-}
+void requestRoutesMessageRegistry(App& app);
+
 } // namespace redfish

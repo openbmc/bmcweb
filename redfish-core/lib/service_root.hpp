@@ -15,7 +15,7 @@
 */
 #pragma once
 
-#include <app.hpp>
+#include <app_class_decl.hpp>
 #include <persistent_data.hpp>
 #include <registries/privilege_registry.hpp>
 #include <utils/systemd_utils.hpp>
@@ -64,7 +64,7 @@ inline void
         {"@odata.id", "/redfish/v1/TelemetryService"}};
 }
 
-inline void requestRoutesServiceRoot(App& app)
+void requestRoutesServiceRoot(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/")
         .privileges(redfish::privileges::getServiceRoot)

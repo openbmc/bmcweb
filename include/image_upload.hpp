@@ -1,6 +1,6 @@
 #pragma once
 
-#include <app.hpp>
+#include <app_class_decl.hpp>
 #include <boost/uuid/uuid.hpp>
 #include <boost/uuid/uuid_generators.hpp>
 #include <boost/uuid/uuid_io.hpp>

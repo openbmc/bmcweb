@@ -18,7 +18,7 @@
 
 #include "sensors.hpp"
 
-#include <app.hpp>
+#include <app_class_decl.hpp>
 #include <registries/privilege_registry.hpp>
 
 namespace redfish
@@ -125,7 +125,8 @@ inline void setPowerCapOverride(
         };
     getValidChassisPath(sensorsAsyncResp, std::move(getChassisPath));
 }
-inline void requestRoutesPower(App& app)
+
+void requestRoutesPower(App& app)
 {
 
     BMCWEB_ROUTE(app, "/redfish/v1/Chassis/<str>/Power/")

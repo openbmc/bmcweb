@@ -2,15 +2,15 @@
 
 #include "common.hpp"
 #include "error_messages.hpp"
-#include "http_request.hpp"
-#include "http_response.hpp"
+#include "http_request_class_decl.hpp"
+#include "http_response_class_decl.hpp"
 #include "logging.hpp"
 #include "privileges.hpp"
 #include "sessions.hpp"
 #include "utility.hpp"
-#include "websocket.hpp"
+#include "websocket_class_decl.hpp"
 
-#include <async_resp.hpp>
+#include <async_resp_class_decl.hpp>
 #include <boost/container/flat_map.hpp>
 
 #include <cerrno>

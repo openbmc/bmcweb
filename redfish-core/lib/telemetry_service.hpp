@@ -2,10 +2,12 @@
 
 #include "utils/telemetry_utils.hpp"
 
-#include <app.hpp>
+#include <app_class_decl.hpp>
 #include <registries/privilege_registry.hpp>
 
 #include <variant>
+
+using crow::App;
 
 namespace redfish
 {
@@ -73,7 +75,7 @@ inline void handleTelemetryServiceGet(
         "xyz.openbmc_project.Telemetry.ReportManager");
 }
 
-inline void requestRoutesTelemetryService(App& app)
+void requestRoutesTelemetryService(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/TelemetryService/")
         .privileges(redfish::privileges::getTelemetryService)

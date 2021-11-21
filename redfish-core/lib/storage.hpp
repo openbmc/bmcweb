@@ -15,15 +15,15 @@
 */
 #pragma once
 
-#include "health.hpp"
-#include "openbmc_dbus_rest.hpp"
+#include "health_class_decl.hpp"
 
-#include <app.hpp>
+#include "redfish_util.hpp"
+#include <app_class_decl.hpp>
 #include <registries/privilege_registry.hpp>
 
 namespace redfish
 {
-inline void requestRoutesStorageCollection(App& app)
+void requestRoutesStorageCollection(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/Systems/system/Storage/")
         .privileges(redfish::privileges::getStorageCollection)
@@ -41,7 +41,7 @@ inline void requestRoutesStorageCollection(App& app)
             });
 }
 
-inline void requestRoutesStorage(App& app)
+void requestRoutesStorage(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/Systems/system/Storage/1/")
         .privileges(redfish::privileges::getStorage)
@@ -264,7 +264,7 @@ inline void requestRoutesStorage(App& app)
         });
 }
 
-inline void requestRoutesDrive(App& app)
+void requestRoutesDrive(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/Systems/system/Storage/1/Drives/<str>/")
         .privileges(redfish::privileges::getDrive)

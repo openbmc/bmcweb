@@ -1,7 +1,7 @@
 #pragma once
-#include "http_request.hpp"
+#include "http_request_class_decl.hpp"
 
-#include <async_resp.hpp>
+#include <async_resp_class_decl.hpp>
 #include <boost/algorithm/string/predicate.hpp>
 #include <boost/asio/buffer.hpp>
 #include <boost/beast/websocket.hpp>

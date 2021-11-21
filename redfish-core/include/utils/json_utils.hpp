@@ -16,8 +16,8 @@
 #pragma once
 
 #include <error_messages.hpp>
-#include <http_request.hpp>
-#include <http_response.hpp>
+#include <http_request_class_decl.hpp>
+#include <http_response_class_decl.hpp>
 #include <nlohmann/json.hpp>
 
 #include <bitset>

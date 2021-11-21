@@ -15,15 +15,16 @@
 */
 #pragma once
 
-#include "health.hpp"
+#include "health_class_decl.hpp"
 
-#include <app.hpp>
+#include <app_class_decl.hpp>
 #include <boost/container/flat_map.hpp>
 #include <registries/privilege_registry.hpp>
 #include <sdbusplus/message/native_types.hpp>
 #include <sdbusplus/utility/dedup_variant.hpp>
 #include <utils/collection.hpp>
 #include <utils/json_utils.hpp>
+#include "../include/utils/hex_utils.hpp"
 
 namespace redfish
 {
@@ -1062,7 +1063,7 @@ inline void patchAppliedOperatingConfig(
         std::variant<sdbusplus::message::object_path>(std::move(configPath)));
 }
 
-inline void requestRoutesOperatingConfigCollection(App& app)
+void requestRoutesOperatingConfigCollection(App& app)
 {
 
     BMCWEB_ROUTE(
@@ -1125,7 +1126,7 @@ inline void requestRoutesOperatingConfigCollection(App& app)
             });
 }
 
-inline void requestRoutesOperatingConfig(App& app)
+void requestRoutesOperatingConfig(App& app)
 {
     BMCWEB_ROUTE(
         app,
@@ -1187,7 +1188,7 @@ inline void requestRoutesOperatingConfig(App& app)
         });
 }
 
-inline void requestRoutesProcessorCollection(App& app)
+void requestRoutesProcessorCollection(App& app)
 {
     /**
      * Functions triggers appropriate requests on DBus
@@ -1211,7 +1212,7 @@ inline void requestRoutesProcessorCollection(App& app)
             });
 }
 
-inline void requestRoutesProcessor(App& app)
+void requestRoutesProcessor(App& app)
 {
     /**
      * Functions triggers appropriate requests on DBus

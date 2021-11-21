@@ -1,5 +1,5 @@
 #pragma once
-#include "http_request.hpp"
+#include "http_request_class_decl.hpp"
 
 #include <boost/algorithm/string.hpp>
 

@@ -14,7 +14,7 @@
 // limitations under the License.
 */
 #pragma once
-#include <app.hpp>
+#include <app_class_decl.hpp>
 #include <boost/asio/buffer.hpp>
 #include <boost/asio/local/stream_protocol.hpp>
 #include <boost/asio/write.hpp>
@@ -23,7 +23,7 @@
 #include <boost/container/flat_map.hpp>
 #include <dbus_utility.hpp>
 #include <privileges.hpp>
-#include <websocket.hpp>
+#include <websocket_class_decl.hpp>
 
 #include <variant>
 

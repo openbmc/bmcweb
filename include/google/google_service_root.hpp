@@ -1,7 +1,7 @@
 #pragma once
 
-#include <app.hpp>
-#include <async_resp.hpp>
+#include <app_class_decl.hpp>
+#include <async_resp_class_decl.hpp>
 #include <nlohmann/json.hpp>
 
 namespace crow

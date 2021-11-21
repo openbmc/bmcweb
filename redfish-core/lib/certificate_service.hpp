@@ -1,6 +1,6 @@
 #pragma once
 
-#include <app.hpp>
+#include <app_class_decl.hpp>
 #include <boost/convert.hpp>
 #include <boost/convert/strtol.hpp>
 #include <registries/privilege_registry.hpp>
@@ -35,12 +35,26 @@ constexpr char const* authorityObjectPath =
  * are installed.
  */
 
+
+using DbusVariantType =
+    std::variant<std::vector<std::tuple<std::string, std::string, std::string>>,
+                std::vector<std::string>, std::vector<double>, std::string,
+                int64_t, uint64_t, double, int32_t, uint32_t, int16_t,
+                uint16_t, uint8_t, bool>;
+
+using DBusPropertiesMap =
+    boost::container::flat_map<std::string, DbusVariantType>;
+using DBusInteracesMap =
+    boost::container::flat_map<std::string, DBusPropertiesMap>;
+using ManagedObjectType =
+std::vector<std::pair<sdbusplus::message::object_path, DBusInteracesMap>>;
+
 // TODO: Issue#61 No entries are available for Certificate
 // service at https://www.dmtf.org/standards/redfish
 // "redfish standard registries". Need to modify after DMTF
 // publish Privilege details for certificate service
 
-inline void requestRoutesCertificateService(App& app)
+void requestRoutesCertificateService(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/CertificateService/")
         .privileges(redfish::privileges::getCertificateService)
@@ -233,7 +247,7 @@ static void getCSR(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
 /**
  * Action to Generate CSR
  */
-inline void requestRoutesCertificateActionGenerateCSR(App& app)
+void requestRoutesCertificateActionGenerateCSR(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/CertificateService/Actions/"
                       "CertificateService.GenerateCSR/")
@@ -674,7 +688,7 @@ using GetObjectType =
 /**
  * Action to replace an existing certificate
  */
-inline void requestRoutesCertificateActionsReplaceCertificate(App& app)
+void requestRoutesCertificateActionsReplaceCertificate(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/CertificateService/Actions/"
                       "CertificateService.ReplaceCertificate/")
@@ -791,7 +805,7 @@ inline void requestRoutesCertificateActionsReplaceCertificate(App& app)
  * of a component, account or service.
  */
 
-inline void requestRoutesHTTPSCertificate(App& app)
+void requestRoutesHTTPSCertificate(App& app)
 {
     BMCWEB_ROUTE(
         app,
@@ -826,7 +840,7 @@ inline void requestRoutesHTTPSCertificate(App& app)
 /**
  * Collection of HTTPS certificates
  */
-inline void requestRoutesHTTPSCertificateCollection(App& app)
+void requestRoutesHTTPSCertificateCollection(App& app)
 {
     BMCWEB_ROUTE(app,
                  "/redfish/v1/Managers/bmc/NetworkProtocol/HTTPS/Certificates/")
@@ -979,7 +993,7 @@ inline void
  * The certificate location schema defines a resource that an administrator
  * can use in order to locate all certificates installed on a given service.
  */
-inline void requestRoutesCertificateLocations(App& app)
+void requestRoutesCertificateLocations(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/CertificateService/CertificateLocations/")
         .privileges(redfish::privileges::getCertificateLocations)
@@ -1018,7 +1032,7 @@ inline void requestRoutesCertificateLocations(App& app)
 /**
  * Collection of LDAP certificates
  */
-inline void requestRoutesLDAPCertificateCollection(App& app)
+void requestRoutesLDAPCertificateCollection(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/AccountService/LDAP/Certificates/")
         .privileges(redfish::privileges::getCertificateCollection)
@@ -1121,7 +1135,7 @@ inline void requestRoutesLDAPCertificateCollection(App& app)
  * Certificate resource describes a certificate used to prove the identity
  * of a component, account or service.
  */
-inline void requestRoutesLDAPCertificate(App& app)
+void requestRoutesLDAPCertificate(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/AccountService/LDAP/Certificates/<str>/")
         .privileges(redfish::privileges::getCertificate)
@@ -1152,7 +1166,7 @@ inline void requestRoutesLDAPCertificate(App& app)
 /**
  * Collection of TrustStoreCertificate certificates
  */
-inline void requestRoutesTrustStoreCertificateCollection(App& app)
+void requestRoutesTrustStoreCertificateCollection(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/Managers/bmc/Truststore/Certificates/")
         .privileges(redfish::privileges::getCertificate)
@@ -1254,7 +1268,7 @@ inline void requestRoutesTrustStoreCertificateCollection(App& app)
  * Certificate resource describes a certificate used to prove the identity
  * of a component, account or service.
  */
-inline void requestRoutesTrustStoreCertificate(App& app)
+void requestRoutesTrustStoreCertificate(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/Managers/bmc/Truststore/Certificates/<str>/")
         .privileges(redfish::privileges::getCertificate)

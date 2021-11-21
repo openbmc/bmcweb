@@ -1,6 +1,6 @@
 #pragma once
 
-#include "http_response.hpp"
+#include "http_response_class_decl.hpp"
 
 namespace redfish
 {

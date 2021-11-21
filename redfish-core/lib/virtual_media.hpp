@@ -15,7 +15,7 @@
 */
 #pragma once
 
-#include <app.hpp>
+#include <app_class_decl.hpp>
 #include <boost/container/flat_map.hpp>
 #include <boost/process/async_pipe.hpp>
 #include <boost/type_traits/has_dereference.hpp>
@@ -775,7 +775,7 @@ inline void doVmAction(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     }
 }
 
-inline void requestNBDVirtualMediaRoutes(App& app)
+void requestNBDVirtualMediaRoutes(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/Managers/<str>/VirtualMedia/<str>/Actions/"
                       "VirtualMedia.InsertMedia")

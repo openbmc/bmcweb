@@ -2,7 +2,8 @@
 
 #include "utils/telemetry_utils.hpp"
 
-#include <app.hpp>
+#include <app_class_decl.hpp>
+using crow::App;
 #include <registries/privilege_registry.hpp>
 
 namespace redfish
@@ -61,7 +62,7 @@ inline void fillReport(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
 }
 } // namespace telemetry
 
-inline void requestRoutesMetricReportCollection(App& app)
+void requestRoutesMetricReportCollection(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/TelemetryService/MetricReports/")
         .privileges(redfish::privileges::getMetricReportCollection)
@@ -79,7 +80,7 @@ inline void requestRoutesMetricReportCollection(App& app)
             });
 }
 
-inline void requestRoutesMetricReport(App& app)
+void requestRoutesMetricReport(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/TelemetryService/MetricReports/<str>/")
         .privileges(redfish::privileges::getMetricReport)
