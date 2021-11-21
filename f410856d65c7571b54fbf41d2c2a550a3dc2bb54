@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "b2ce410e_02484050",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-11-21T18:05:34Z",
+      "side": 1,
+      "message": "Considering that these are on dbus, it seems odd that we would have Redfish specific parameters in a dbus API.  Can you please talk to how we would avoid duplicating this between the interfaces, and keep the Redfish specific things bounded?",
+      "range": {
+        "startLine": 10,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 47
+      },
+      "revId": "f410856d65c7571b54fbf41d2c2a550a3dc2bb54",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "998766ef_d650c084",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 5
