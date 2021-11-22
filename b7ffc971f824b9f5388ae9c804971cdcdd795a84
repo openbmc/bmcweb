@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "47966c6d_db4f2f26",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 58
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2021-11-22T10:44:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5df2a363_08c54f1c",
+      "range": {
+        "startLine": 8,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 40
+      },
+      "revId": "b7ffc971f824b9f5388ae9c804971cdcdd795a84",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "646ea5bf_b7d2098c",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 58
