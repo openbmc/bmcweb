@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "3d8f46e4_b76c9faa",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000500
+      },
+      "writtenOn": "2021-11-22T18:10:30Z",
+      "side": 1,
+      "message": "Done.\nReran the service validator.",
+      "parentUuid": "4073642d_863a41aa",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 6
+      },
+      "revId": "0b1a2f3b583e45c0d25e8e9c72235d620cae6c4d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "38c35b6c_8a56b275",
         "filename": "redfish-core/lib/manager_diagnostic_data.hpp",
         "patchSetId": 3
@@ -39,6 +63,24 @@
       "revId": "0b1a2f3b583e45c0d25e8e9c72235d620cae6c4d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a742e6ea_2ff21fb3",
+        "filename": "redfish-core/lib/manager_diagnostic_data.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1000500
+      },
+      "writtenOn": "2021-11-22T18:10:30Z",
+      "side": 1,
+      "message": "Added #pragma once.",
+      "parentUuid": "38c35b6c_8a56b275",
+      "revId": "0b1a2f3b583e45c0d25e8e9c72235d620cae6c4d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -77,6 +119,24 @@
     },
     {
       "key": {
+        "uuid": "8ed2c116_b1fb1ca9",
+        "filename": "redfish-core/lib/manager_diagnostic_data.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1000500
+      },
+      "writtenOn": "2021-11-22T18:10:30Z",
+      "side": 1,
+      "message": "Removed unused include files.",
+      "parentUuid": "48db25d6_ead9877c",
+      "revId": "0b1a2f3b583e45c0d25e8e9c72235d620cae6c4d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "05c4028b_faf5c37e",
         "filename": "redfish-core/lib/manager_diagnostic_data.hpp",
         "patchSetId": 3
@@ -91,6 +151,24 @@
       "revId": "0b1a2f3b583e45c0d25e8e9c72235d620cae6c4d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bd9b62d8_7cb23bf3",
+        "filename": "redfish-core/lib/manager_diagnostic_data.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1000500
+      },
+      "writtenOn": "2021-11-22T18:10:30Z",
+      "side": 1,
+      "message": "The schemas are still under discussion with DMTF: https://github.com/DMTF/Redfish/pull/4877\n\nThe work-in-progress Schema have been added to the latest version of the patch.\n\nThe schemas may still go through some minor changes (such as: change \"bytes\" to \"percent\", changing the names of certain properties, etc), but the overall structure should not change too much.",
+      "parentUuid": "05c4028b_faf5c37e",
+      "revId": "0b1a2f3b583e45c0d25e8e9c72235d620cae6c4d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
