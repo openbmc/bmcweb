@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "cdbaf37a_f9694a57",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000566
+      },
+      "writtenOn": "2021-11-22T17:07:00Z",
+      "side": 1,
+      "message": "Updated the subject line. Thank You",
+      "parentUuid": "506b446a_026fe513",
+      "revId": "baf7307dae22651c1331d0669ebb4eb8c42b23a0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "0eef68bb_5f1e9077",
         "filename": "/COMMIT_MSG",
         "patchSetId": 1
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "d932ab58_002e46dd",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1000566
+      },
+      "writtenOn": "2021-11-22T17:07:00Z",
+      "side": 1,
+      "message": "Latest Redfish Service Validator is having issues. working to fix soon.",
+      "parentUuid": "0eef68bb_5f1e9077",
+      "revId": "baf7307dae22651c1331d0669ebb4eb8c42b23a0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "97bfd764_c169e254",
         "filename": "redfish-core/include/registries/openbmc_message_registry.hpp",
         "patchSetId": 1
@@ -47,6 +83,30 @@
       "writtenOn": "2021-11-20T00:06:33Z",
       "side": 1,
       "message": "resilience vs. resiliency. Pick one and stay consistent between the message name and description. I prefer \"resilience\" but they have the same meaning, AFAIK.",
+      "range": {
+        "startLine": 481,
+        "startChar": 61,
+        "endLine": 481,
+        "endChar": 71
+      },
+      "revId": "baf7307dae22651c1331d0669ebb4eb8c42b23a0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dc50fe85_a866e2d3",
+        "filename": "redfish-core/include/registries/openbmc_message_registry.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 481,
+      "author": {
+        "id": 1000566
+      },
+      "writtenOn": "2021-11-22T17:07:00Z",
+      "side": 1,
+      "message": "used resiliency as changes are minimal and aligns with MessageID in pfr-manager. Thank You",
+      "parentUuid": "97bfd764_c169e254",
       "range": {
         "startLine": 481,
         "startChar": 61,
@@ -105,6 +165,30 @@
       "writtenOn": "2021-11-20T00:06:33Z",
       "side": 1,
       "message": "This phrasing seems awkward - this is the \"notification\". How about just \"Firmware resilience notification: %1\".",
+      "range": {
+        "startLine": 495,
+        "startChar": 13,
+        "endLine": 495,
+        "endChar": 65
+      },
+      "revId": "baf7307dae22651c1331d0669ebb4eb8c42b23a0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8f419cf1_aaf34454",
+        "filename": "redfish-core/include/registries/openbmc_message_registry.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 495,
+      "author": {
+        "id": 1000566
+      },
+      "writtenOn": "2021-11-22T17:07:00Z",
+      "side": 1,
+      "message": "Modified. Thank You",
+      "parentUuid": "7e7b8712_c363a2f8",
       "range": {
         "startLine": 495,
         "startChar": 13,
