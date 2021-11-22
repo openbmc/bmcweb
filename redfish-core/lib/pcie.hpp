@@ -94,6 +94,45 @@ inline void requestRoutesSystemPCIeDeviceCollection(App& app)
             });
 }
 
+inline std::optional<std::string>
+    redfishPcieGenerationFromDbus(const std::string& generationInUse)
+{
+    if (generationInUse ==
+        "xyz.openbmc_project.Inventory.Item.PCIeSlot.Generations.Gen1")
+    {
+        return "Gen1";
+    }
+    if (generationInUse ==
+        "xyz.openbmc_project.Inventory.Item.PCIeSlot.Generations.Gen2")
+    {
+        return "Gen2";
+    }
+    if (generationInUse ==
+        "xyz.openbmc_project.Inventory.Item.PCIeSlot.Generations.Gen3")
+    {
+        return "Gen3";
+    }
+    if (generationInUse ==
+        "xyz.openbmc_project.Inventory.Item.PCIeSlot.Generations.Gen4")
+    {
+        return "Gen4";
+    }
+    if (generationInUse ==
+        "xyz.openbmc_project.Inventory.Item.PCIeSlot.Generations.Gen5")
+    {
+        return "Gen5";
+    }
+    if (generationInUse.empty() ||
+        generationInUse ==
+            "xyz.openbmc_project.Inventory.Item.PCIeSlot.Generations.Unknown")
+    {
+        return "";
+    }
+
+    // The value is not unknown or Gen1-5, need return an internal error.
+    return std::nullopt;
+}
+
 inline void requestRoutesSystemPCIeDevice(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/Systems/system/PCIeDevices/<str>/")
@@ -150,6 +189,25 @@ inline void requestRoutesSystemPCIeDevice(App& app)
                         asyncResp->res.jsonValue["DeviceType"] = *property;
                     }
 
+                    if (std::string* property = std::get_if<std::string>(
+                            &pcieDevProperties["GenerationInUse"]);
+                        property)
+                    {
+                        std::optional<std::string> generationInUse =
+                            redfishPcieGenerationFromDbus(*property);
+                        if (!generationInUse)
+                        {
+                            messages::internalError(asyncResp->res);
+                            return;
+                        }
+                        if (*generationInUse == "")
+                        {
+                            // unknown, no need to handle
+                            return;
+                        }
+                        asyncResp->res.jsonValue["PCIeInterface"]["PcieType"] =
+                            *generationInUse;
+                    }
                     asyncResp->res.jsonValue["PCIeFunctions"] = {
                         {"@odata.id",
                          "/redfish/v1/Systems/system/PCIeDevices/" + device +
