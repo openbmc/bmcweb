@@ -1,0 +1,165 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "091a1cc7_531487c5",
+        "filename": "redfish-core/lib/manager_diagnostic_data.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2021-11-22T09:25:21Z",
+      "side": 1,
+      "message": "Your function name should start with werb.",
+      "range": {
+        "startLine": 12,
+        "startChar": 4,
+        "endLine": 12,
+        "endChar": 39
+      },
+      "revId": "c8e21b56a1b51cc35d1bccaa318d0f357ed3390b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "653d1820_7ccdfbc3",
+        "filename": "redfish-core/lib/manager_diagnostic_data.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2021-11-22T09:25:21Z",
+      "side": 1,
+      "message": "considering how it is used it name be std::vector\u003cdouble\u003e",
+      "range": {
+        "startLine": 34,
+        "startChar": 12,
+        "endLine": 34,
+        "endChar": 51
+      },
+      "revId": "c8e21b56a1b51cc35d1bccaa318d0f357ed3390b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "13b9e3b6_ac95315b",
+        "filename": "redfish-core/lib/manager_diagnostic_data.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2021-11-22T09:25:21Z",
+      "side": 1,
+      "message": "trailing whitespace",
+      "range": {
+        "startLine": 77,
+        "startChar": 67,
+        "endLine": 77,
+        "endChar": 68
+      },
+      "revId": "c8e21b56a1b51cc35d1bccaa318d0f357ed3390b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cac3ccfc_106cb444",
+        "filename": "redfish-core/lib/manager_diagnostic_data.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2021-11-22T09:25:21Z",
+      "side": 1,
+      "message": "I doubt it will be accepted because it\u0027s inconsistent with other parts of bmcweb. I saw in one review suggestion to use RAII object, but I guess it\u0027s a good place for discussion. It looks like you will need something like this https://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/44935/13/redfish-core/include/utils/finalizer.hpp the question is if the solution will be accepted in other review.",
+      "range": {
+        "startLine": 122,
+        "startChar": 20,
+        "endLine": 124,
+        "endChar": 47
+      },
+      "revId": "c8e21b56a1b51cc35d1bccaa318d0f357ed3390b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "72100f59_1e2a1c13",
+        "filename": "redfish-core/lib/manager_diagnostic_data.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2021-11-22T09:25:21Z",
+      "side": 1,
+      "message": "Validation should be performed as fast as possible, so instead of adding entries to map, verify it here and add to vector instead only when data is valid. That will allow to use std::vector\u003cdouble\u003e instead of map.",
+      "range": {
+        "startLine": 135,
+        "startChar": 24,
+        "endLine": 135,
+        "endChar": 55
+      },
+      "revId": "c8e21b56a1b51cc35d1bccaa318d0f357ed3390b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7ed8919e_7ecd0526",
+        "filename": "redfish-core/lib/manager_diagnostic_data.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2021-11-22T09:25:21Z",
+      "side": 1,
+      "message": "bmcweb doesn\u0027t allow exceptions",
+      "range": {
+        "startLine": 138,
+        "startChar": 16,
+        "endLine": 138,
+        "endChar": 47
+      },
+      "revId": "c8e21b56a1b51cc35d1bccaa318d0f357ed3390b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "20998769_59e52f85",
+        "filename": "redfish-core/lib/manager_diagnostic_data.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2021-11-22T09:25:21Z",
+      "side": 1,
+      "message": "How can you be sure that there are no entries like: {\"abc\", 42}, {\"xyz\", 12} It will make this check pass while it should not.",
+      "range": {
+        "startLine": 148,
+        "startChar": 12,
+        "endLine": 148,
+        "endChar": 50
+      },
+      "revId": "c8e21b56a1b51cc35d1bccaa318d0f357ed3390b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
