@@ -34,6 +34,29 @@
       "revId": "ec763d98670db934ecf4cdfbb70cff1ca4abd193",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bf8f4177_6fd43dff",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 395,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-11-23T21:16:57Z",
+      "side": 1,
+      "message": "This doesn\u0027t do what you intend.  This makes all fields optional, including the non-optional ones.",
+      "range": {
+        "startLine": 395,
+        "startChar": 44,
+        "endLine": 395,
+        "endChar": 58
+      },
+      "revId": "ec763d98670db934ecf4cdfbb70cff1ca4abd193",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
