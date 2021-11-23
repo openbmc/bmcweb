@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3720d6ab_c2b173af",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 36
+      },
+      "lineNbr": 790,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2021-11-23T08:30:42Z",
+      "side": 1,
+      "message": "This Api seems inconvenient. Let\u0027s say I want to check if my cassis support rest instead of true/false I get \"RackMount\", \"StandAlone\" or nullopt and all of them means true.\n\nWhy not just use std::function\u003cboost::system::error_code ec, bool\u003e as a callback type?",
+      "range": {
+        "startLine": 790,
+        "startChar": 12,
+        "endLine": 790,
+        "endChar": 38
+      },
+      "revId": "30f72e76e79e952018014974d6352f5c5d3884fa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "be113e8c_530f35be",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 36
+      },
+      "lineNbr": 806,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2021-11-23T08:30:42Z",
+      "side": 1,
+      "message": "Why is this comment useful?",
+      "range": {
+        "startLine": 806,
+        "startChar": 12,
+        "endLine": 806,
+        "endChar": 54
+      },
+      "revId": "30f72e76e79e952018014974d6352f5c5d3884fa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
