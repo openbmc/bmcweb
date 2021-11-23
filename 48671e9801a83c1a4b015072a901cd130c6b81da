@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c3ae9047_c97f99d1",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-11-23T17:49:12Z",
+      "side": 1,
+      "message": "Yep.  This is largely why we haven\u0027t spent the effort to do it yet, although we should do it anyway.\n\nOnce we do something like:\nhttps://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/37445\n\nAnd the same for the Response object, we should be able to decrease the compile times quite a bit.",
+      "range": {
+        "startLine": 11,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 64
+      },
+      "revId": "48671e9801a83c1a4b015072a901cd130c6b81da",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
