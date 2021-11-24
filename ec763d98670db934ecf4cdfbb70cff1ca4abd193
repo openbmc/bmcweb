@@ -123,6 +123,30 @@
       "revId": "ec763d98670db934ecf4cdfbb70cff1ca4abd193",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "44fbadfa_b108f6a3",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 395,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2021-11-24T05:46:54Z",
+      "side": 1,
+      "message": "Ah, I see that the rest do not have an empty string as a default in PDI. +1, please add this check for SparePartNumebr only",
+      "parentUuid": "dbc1c119_c81a096a",
+      "range": {
+        "startLine": 395,
+        "startChar": 44,
+        "endLine": 395,
+        "endChar": 58
+      },
+      "revId": "ec763d98670db934ecf4cdfbb70cff1ca4abd193",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
