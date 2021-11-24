@@ -99,6 +99,30 @@
       "revId": "ec763d98670db934ecf4cdfbb70cff1ca4abd193",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dbc1c119_c81a096a",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 395,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2021-11-24T05:44:24Z",
+      "side": 1,
+      "message": "Aren\u0027t all of the fields in the if check above optional? The only required properties in the chassis schema are Id, Name, ChassisType, @odata.id and @odata.name, right?",
+      "parentUuid": "f9caa73f_e31f3c09",
+      "range": {
+        "startLine": 395,
+        "startChar": 44,
+        "endLine": 395,
+        "endChar": 58
+      },
+      "revId": "ec763d98670db934ecf4cdfbb70cff1ca4abd193",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
