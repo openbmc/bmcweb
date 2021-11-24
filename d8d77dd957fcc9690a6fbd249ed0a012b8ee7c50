@@ -97,6 +97,30 @@
     },
     {
       "key": {
+        "uuid": "82c2bc11_2036d891",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1001244
+      },
+      "writtenOn": "2021-11-24T13:55:21Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "5ca7d5d4_0d66b1d0",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 12,
+        "endChar": 7
+      },
+      "revId": "d8d77dd957fcc9690a6fbd249ed0a012b8ee7c50",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b3f6be34_c46ef2a4",
         "filename": "/COMMIT_MSG",
         "patchSetId": 2
@@ -129,6 +153,24 @@
       "revId": "d8d77dd957fcc9690a6fbd249ed0a012b8ee7c50",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9f1c7f3b_9ed7411d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1001244
+      },
+      "writtenOn": "2021-11-24T13:55:21Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "77d778a4_911bc4fd",
+      "revId": "d8d77dd957fcc9690a6fbd249ed0a012b8ee7c50",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -417,6 +459,30 @@
     },
     {
       "key": {
+        "uuid": "24535cba_17b26b1c",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1726,
+      "author": {
+        "id": 1001244
+      },
+      "writtenOn": "2021-11-24T13:55:21Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "079ce2ff_9ad66c63",
+      "range": {
+        "startLine": 1726,
+        "startChar": 7,
+        "endLine": 1726,
+        "endChar": 47
+      },
+      "revId": "d8d77dd957fcc9690a6fbd249ed0a012b8ee7c50",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0a9d48d4_805802e5",
         "filename": "redfish-core/lib/ethernet.hpp",
         "patchSetId": 2
@@ -461,6 +527,30 @@
       "revId": "d8d77dd957fcc9690a6fbd249ed0a012b8ee7c50",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "993c5deb_cf8b4feb",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1727,
+      "author": {
+        "id": 1001244
+      },
+      "writtenOn": "2021-11-24T13:55:21Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "7e2689a5_178befa7",
+      "range": {
+        "startLine": 1712,
+        "startChar": 0,
+        "endLine": 1727,
+        "endChar": 5
+      },
+      "revId": "d8d77dd957fcc9690a6fbd249ed0a012b8ee7c50",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
