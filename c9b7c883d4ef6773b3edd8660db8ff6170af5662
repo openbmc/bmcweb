@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "4534a6bc_2dd8ab0b",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 86
+      },
+      "lineNbr": 885,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-11-25T03:28:02Z",
+      "side": 1,
+      "message": "The relationship between \"xyz.openbmc_project.Inventory.Item.Dimm\", \"xyz.openbmc_project.Inventory.Item.PersistentMemory.Partition\" and \"xyz.openbmc_project.Association.Definitions\" interface is or, not and.\n\nIn other words, the subtree we get can have \"xyz.openbmc_project.Inventory.Item.Dimm\" interface, \"xyz.openbmc_project.Inventory.Item.PersistentMemory.Partition\" interface, or \"xyz.openbmc_project.Association.Definitions\" interface.",
+      "parentUuid": "ebc68fd6_7b44bba2",
+      "range": {
+        "startLine": 871,
+        "startChar": 0,
+        "endLine": 885,
+        "endChar": 17
+      },
+      "revId": "c9b7c883d4ef6773b3edd8660db8ff6170af5662",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "0a38d038_7fa1ee90",
         "filename": "redfish-core/lib/memory.hpp",
         "patchSetId": 86
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "92cea6c0_586e3f11",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 86
+      },
+      "lineNbr": 1016,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-11-25T03:28:02Z",
+      "side": 1,
+      "message": "Correct.\nDone",
+      "parentUuid": "0a38d038_7fa1ee90",
+      "range": {
+        "startLine": 1013,
+        "startChar": 0,
+        "endLine": 1016,
+        "endChar": 17
+      },
+      "revId": "c9b7c883d4ef6773b3edd8660db8ff6170af5662",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6bbd7ba5_c34bc90a",
         "filename": "redfish-core/lib/memory.hpp",
         "patchSetId": 86
@@ -59,6 +107,30 @@
       "writtenOn": "2021-11-15T11:38:25Z",
       "side": 1,
       "message": "Same as above, looks like you don\u0027t need it.",
+      "range": {
+        "startLine": 1022,
+        "startChar": 0,
+        "endLine": 1032,
+        "endChar": 17
+      },
+      "revId": "c9b7c883d4ef6773b3edd8660db8ff6170af5662",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "10a45693_5c647a06",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 86
+      },
+      "lineNbr": 1032,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-11-25T03:28:02Z",
+      "side": 1,
+      "message": "Same as above :)",
+      "parentUuid": "6bbd7ba5_c34bc90a",
       "range": {
         "startLine": 1022,
         "startChar": 0,
