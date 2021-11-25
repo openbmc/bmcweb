@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "798efa13_74beb800",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 86
+      },
+      "lineNbr": 885,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2021-11-25T08:04:54Z",
+      "side": 1,
+      "message": "This code will filter out any object which doesn\u0027t support xyz.openbmc_project.Inventory.Item.Dimm so it looks like mandatory.\n\nObject mapper returns collection of objects with any of the mentioned interfaces.\n\nIf all of them are optional then xyz.openbmc_project.Inventory.Item.Dimm is also optional and you don\u0027t need to skip it in line 889.\n\nIf xyz.openbmc_project.Inventory.Item.Dimm is required after all you can also delete this check and modify call to object mapper to return only list of object with interface xyz.openbmc_project.Inventory.Item.Dimm. You can still check if this object supports other interfaces, but your list will contain interfaces that implement xyz.openbmc_project.Inventory.Item.Dimm so this filtering won\u0027t be needed.",
+      "parentUuid": "4534a6bc_2dd8ab0b",
+      "range": {
+        "startLine": 871,
+        "startChar": 0,
+        "endLine": 885,
+        "endChar": 17
+      },
+      "revId": "c9b7c883d4ef6773b3edd8660db8ff6170af5662",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "0a38d038_7fa1ee90",
         "filename": "redfish-core/lib/memory.hpp",
         "patchSetId": 86
