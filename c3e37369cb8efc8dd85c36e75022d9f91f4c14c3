@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "78e440c2_0b58f186",
+        "filename": "redfish-core/lib/trigger.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1001148
+      },
+      "writtenOn": "2021-11-25T11:03:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9d086da2_f6eb5a69",
+      "range": {
+        "startLine": 40,
+        "startChar": 0,
+        "endLine": 63,
+        "endChar": 0
+      },
+      "revId": "c3e37369cb8efc8dd85c36e75022d9f91f4c14c3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "afd651b5_72a33a73",
         "filename": "redfish-core/lib/trigger.hpp",
         "patchSetId": 6
@@ -45,6 +69,30 @@
       "revId": "c3e37369cb8efc8dd85c36e75022d9f91f4c14c3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bd1d51bb_50d1abeb",
+        "filename": "redfish-core/lib/trigger.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1001148
+      },
+      "writtenOn": "2021-11-25T11:03:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "afd651b5_72a33a73",
+      "range": {
+        "startLine": 64,
+        "startChar": 0,
+        "endLine": 73,
+        "endChar": 1
+      },
+      "revId": "c3e37369cb8efc8dd85c36e75022d9f91f4c14c3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "2ac9bedf_f4d907ad",
+        "filename": "redfish-core/lib/trigger.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1001148
+      },
+      "writtenOn": "2021-11-25T11:03:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8d823979_a038fc00",
+      "range": {
+        "startLine": 91,
+        "startChar": 0,
+        "endLine": 94,
+        "endChar": 48
+      },
+      "revId": "c3e37369cb8efc8dd85c36e75022d9f91f4c14c3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0f338b95_9aaf081f",
         "filename": "redfish-core/lib/trigger.hpp",
         "patchSetId": 6
@@ -91,6 +163,30 @@
       "revId": "c3e37369cb8efc8dd85c36e75022d9f91f4c14c3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f717fe67_6a95346d",
+        "filename": "redfish-core/lib/trigger.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 1001148
+      },
+      "writtenOn": "2021-11-25T11:03:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0f338b95_9aaf081f",
+      "range": {
+        "startLine": 110,
+        "startChar": 12,
+        "endLine": 111,
+        "endChar": 52
+      },
+      "revId": "c3e37369cb8efc8dd85c36e75022d9f91f4c14c3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "5dd90e1d_40283bb6",
+        "filename": "redfish-core/lib/trigger.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 1001148
+      },
+      "writtenOn": "2021-11-25T11:03:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "11df115e_c4584de2",
+      "range": {
+        "startLine": 125,
+        "startChar": 0,
+        "endLine": 127,
+        "endChar": 5
+      },
+      "revId": "c3e37369cb8efc8dd85c36e75022d9f91f4c14c3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f77cb58a_ff2a3c77",
         "filename": "redfish-core/lib/trigger.hpp",
         "patchSetId": 6
@@ -128,6 +248,30 @@
       "writtenOn": "2021-11-18T21:19:18Z",
       "side": 1,
       "message": "This is a perfect case of where we shouldn\u0027t be using auto.  from this context, it\u0027s impossible to know the type of name, severity, dwellTime, or value, without jumping between references.",
+      "range": {
+        "startLine": 128,
+        "startChar": 19,
+        "endLine": 128,
+        "endChar": 23
+      },
+      "revId": "c3e37369cb8efc8dd85c36e75022d9f91f4c14c3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0d6fe824_7c3bc0bc",
+        "filename": "redfish-core/lib/trigger.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 1001148
+      },
+      "writtenOn": "2021-11-25T11:03:32Z",
+      "side": 1,
+      "message": "I would vote to keep this structured binding as it is here, I understand its drawbacks, which I will keep in mind in the future, however this C++ feature is commonly used in bmcweb especially in \u0027for\u0027 loops and IMO this code is much easier to read than i.e. using a tie instead.",
+      "parentUuid": "f77cb58a_ff2a3c77",
       "range": {
         "startLine": 128,
         "startChar": 19,
@@ -163,6 +307,30 @@
     },
     {
       "key": {
+        "uuid": "37327361_2a8e9974",
+        "filename": "redfish-core/lib/trigger.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 1001148
+      },
+      "writtenOn": "2021-11-25T11:03:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ed0e1d0b_8d0c5676",
+      "range": {
+        "startLine": 133,
+        "startChar": 42,
+        "endLine": 133,
+        "endChar": 58
+      },
+      "revId": "c3e37369cb8efc8dd85c36e75022d9f91f4c14c3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "84526f47_e26905bf",
         "filename": "redfish-core/lib/trigger.hpp",
         "patchSetId": 6
@@ -183,6 +351,30 @@
       "revId": "c3e37369cb8efc8dd85c36e75022d9f91f4c14c3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b21e5331_e6ef51ba",
+        "filename": "redfish-core/lib/trigger.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 1001148
+      },
+      "writtenOn": "2021-11-25T11:03:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "84526f47_e26905bf",
+      "range": {
+        "startLine": 134,
+        "startChar": 47,
+        "endLine": 134,
+        "endChar": 59
+      },
+      "revId": "c3e37369cb8efc8dd85c36e75022d9f91f4c14c3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -209,6 +401,30 @@
     },
     {
       "key": {
+        "uuid": "1ae9e3b0_bec04b19",
+        "filename": "redfish-core/lib/trigger.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 1001148
+      },
+      "writtenOn": "2021-11-25T11:03:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "38834733_36102ae6",
+      "range": {
+        "startLine": 153,
+        "startChar": 12,
+        "endLine": 153,
+        "endChar": 28
+      },
+      "revId": "c3e37369cb8efc8dd85c36e75022d9f91f4c14c3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3bbbf597_dd972191",
         "filename": "redfish-core/lib/trigger.hpp",
         "patchSetId": 6
@@ -223,6 +439,24 @@
       "revId": "c3e37369cb8efc8dd85c36e75022d9f91f4c14c3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "abfc0958_75e96e46",
+        "filename": "redfish-core/lib/trigger.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 1001148
+      },
+      "writtenOn": "2021-11-25T11:03:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3bbbf597_dd972191",
+      "revId": "c3e37369cb8efc8dd85c36e75022d9f91f4c14c3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -249,6 +483,30 @@
     },
     {
       "key": {
+        "uuid": "462c4a16_3841ca76",
+        "filename": "redfish-core/lib/trigger.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 1001148
+      },
+      "writtenOn": "2021-11-25T11:03:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4f2627b0_0116fbaf",
+      "range": {
+        "startLine": 166,
+        "startChar": 0,
+        "endLine": 168,
+        "endChar": 5
+      },
+      "revId": "c3e37369cb8efc8dd85c36e75022d9f91f4c14c3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f6404165_fd03b318",
         "filename": "redfish-core/lib/trigger.hpp",
         "patchSetId": 6
@@ -269,6 +527,30 @@
       "revId": "c3e37369cb8efc8dd85c36e75022d9f91f4c14c3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "84fe5c27_d05f2b3a",
+        "filename": "redfish-core/lib/trigger.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 198,
+      "author": {
+        "id": 1001148
+      },
+      "writtenOn": "2021-11-25T11:03:32Z",
+      "side": 1,
+      "message": "Used passing of \u0027asyncResp-\u003eres.jsonValue\u0027 instead, gives the same effect to what you had suggested.",
+      "parentUuid": "f6404165_fd03b318",
+      "range": {
+        "startLine": 198,
+        "startChar": 11,
+        "endLine": 198,
+        "endChar": 55
+      },
+      "revId": "c3e37369cb8efc8dd85c36e75022d9f91f4c14c3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -295,6 +577,30 @@
     },
     {
       "key": {
+        "uuid": "271b2a31_9ee34b87",
+        "filename": "redfish-core/lib/trigger.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 1001148
+      },
+      "writtenOn": "2021-11-25T11:03:32Z",
+      "side": 1,
+      "message": "Trigger Id is initially stored in Telemetry Service which does Id name validation of acceptable characters that can only be in scope of [a-zA-Z0-9_] and additionally Id must be unique across Trigger collections. So i.e. trying to create trigger with Id name having a space in it will give you error, trying to get trigger by Id with space in Id name will give you ResourceNotFound error as such name cannot exist in Telemetry.",
+      "parentUuid": "ba282522_cc05a158",
+      "range": {
+        "startLine": 210,
+        "startChar": 76,
+        "endLine": 210,
+        "endChar": 78
+      },
+      "revId": "c3e37369cb8efc8dd85c36e75022d9f91f4c14c3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "54c2359a_a4e9bf6f",
         "filename": "redfish-core/lib/trigger.hpp",
         "patchSetId": 6
@@ -318,6 +624,30 @@
     },
     {
       "key": {
+        "uuid": "c580aef4_4c6d8e28",
+        "filename": "redfish-core/lib/trigger.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 239,
+      "author": {
+        "id": 1001148
+      },
+      "writtenOn": "2021-11-25T11:03:32Z",
+      "side": 1,
+      "message": "Duplication removed, Trigger Name is initially stored in Telemetry Service which handles the Name in accordance with the Redfish Specification, it can be safely used here.",
+      "parentUuid": "54c2359a_a4e9bf6f",
+      "range": {
+        "startLine": 239,
+        "startChar": 8,
+        "endLine": 239,
+        "endChar": 49
+      },
+      "revId": "c3e37369cb8efc8dd85c36e75022d9f91f4c14c3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f56dfe1b_c3aff5c8",
         "filename": "redfish-core/lib/trigger.hpp",
         "patchSetId": 6
@@ -338,6 +668,30 @@
       "revId": "c3e37369cb8efc8dd85c36e75022d9f91f4c14c3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7629febf_ec2aed39",
+        "filename": "redfish-core/lib/trigger.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 252,
+      "author": {
+        "id": 1001148
+      },
+      "writtenOn": "2021-11-25T11:03:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f56dfe1b_c3aff5c8",
+      "range": {
+        "startLine": 252,
+        "startChar": 4,
+        "endLine": 252,
+        "endChar": 43
+      },
+      "revId": "c3e37369cb8efc8dd85c36e75022d9f91f4c14c3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
