@@ -325,23 +325,43 @@ inline void
         std::variant<bool>(ledState));
 }
 
+inline bool validateLedState(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
+                             const std::string& ledState)
+{
+    if (ledState.empty())
+    {
+        return true;
+    }
+
+    if (ledState != "Lit" && ledState != "Blinking" && ledState != "Off")
+    {
+        messages::propertyValueNotInList(aResp->res, ledState, "IndicatorLED");
+        return false;
+    }
+
+    return true;
+}
+
 /**
  * @brief Retrieves identify led group properties over D-Bus
  *
  * @param[in] aResp     Shared pointer for generating response message.
  * @param[in] objPath   Object path
+ * @param[in] isIndicatorLedState Need to get indicator LED status
  *
  * @return None.
  */
 inline void
     getLocationIndicatorActive(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
-                               const std::string& objPath)
+                               const std::string& objPath,
+                               bool isIndicatorLedState = false)
 {
     BMCWEB_LOG_DEBUG << "Get location indicator active";
 
     crow::connections::systemBus->async_method_call(
-        [objPath, aResp](const boost::system::error_code ec,
-                         const std::variant<std::vector<std::string>>& resp) {
+        [objPath, aResp, isIndicatorLedState](
+            const boost::system::error_code ec,
+            const std::variant<std::vector<std::string>>& resp) {
             if (ec)
             {
                 BMCWEB_LOG_DEBUG << "DBUS response error, ec: " << ec.value();
@@ -360,11 +380,13 @@ inline void
 
             for (const auto& endpoint : *endpoints)
             {
-                auto callback = [aResp,
-                                 endpoint](const std::string& serviceName) {
+                bool isBlink = boost::ends_with(endpoint, "_blink");
+                auto callback = [aResp, endpoint, isIndicatorLedState,
+                                 isBlink](const std::string& serviceName) {
                     crow::connections::systemBus->async_method_call(
-                        [aResp](const boost::system::error_code ec,
-                                const std::variant<bool> asserted) {
+                        [aResp, isBlink, isIndicatorLedState](
+                            const boost::system::error_code ec,
+                            const std::variant<bool> asserted) {
                             if (ec)
                             {
                                 BMCWEB_LOG_ERROR
@@ -385,6 +407,28 @@ inline void
 
                             aResp->res.jsonValue["LocationIndicatorActive"] =
                                 *ledOn;
+
+                            if (isIndicatorLedState)
+                            {
+                                if (*ledOn)
+                                {
+                                    if (isBlink)
+                                    {
+                                        aResp->res.jsonValue["IndicatorLED"] =
+                                            "Blinking";
+                                    }
+                                    else
+                                    {
+                                        aResp->res.jsonValue["IndicatorLED"] =
+                                            "Lit";
+                                    }
+                                }
+                                else
+                                {
+                                    aResp->res.jsonValue["IndicatorLED"] =
+                                        "Off";
+                                }
+                            }
                         },
                         serviceName, endpoint,
                         "org.freedesktop.DBus.Properties", "Get",
@@ -405,20 +449,25 @@ inline void
  * @param[in] aResp     Shared pointer for generating response message.
  * @param[in] objPath   Object path
  * @param[in] locationIndicatorActive true or false
+ * @param[in] ledState  Need to set indicator LED status
  *
  * @return None.
  */
-inline void
-    setLocationIndicatorActive(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
-                               const std::string& objPath,
-                               bool locationIndicatorActive)
+inline void setLocationIndicatorActive(
+    const std::shared_ptr<bmcweb::AsyncResp>& aResp, const std::string& objPath,
+    bool locationIndicatorActive, const std::string& ledState = "")
 {
     BMCWEB_LOG_DEBUG << "Set location indicator active";
 
+    if (!validateLedState(aResp, ledState))
+    {
+        return;
+    }
+
     crow::connections::systemBus->async_method_call(
-        [aResp, locationIndicatorActive](
-            const boost::system::error_code ec,
-            const std::variant<std::vector<std::string>>& resp) {
+        [aResp, locationIndicatorActive,
+         ledState](const boost::system::error_code ec,
+                   const std::variant<std::vector<std::string>>& resp) {
             if (ec)
             {
                 BMCWEB_LOG_DEBUG << "DBUS response error, ec: " << ec.value();
@@ -437,11 +486,25 @@ inline void
 
             for (auto& endpoint : *endpoints)
             {
-                auto callback = [aResp, endpoint, locationIndicatorActive](
-                                    const std::string& serviceName) {
+                bool ledOn = locationIndicatorActive;
+                if (!ledState.empty())
+                {
+                    if ((boost::ends_with(endpoint, "_blink") &&
+                         ledState == "Blinking") ||
+                        ledState == "Lit")
+                    {
+                        ledOn = true;
+                    }
+                    else
+                    {
+                        ledOn = false;
+                    }
+                }
+
+                auto callback = [aResp, endpoint,
+                                 ledOn](const std::string& serviceName) {
                     crow::connections::systemBus->async_method_call(
-                        [aResp, locationIndicatorActive](
-                            const boost::system::error_code ec) {
+                        [aResp, ledOn](const boost::system::error_code ec) {
                             if (ec)
                             {
                                 BMCWEB_LOG_ERROR
@@ -454,10 +517,10 @@ inline void
                         serviceName, endpoint,
                         "org.freedesktop.DBus.Properties", "Set",
                         "xyz.openbmc_project.Led.Group", "Asserted",
-                        std::variant<bool>(locationIndicatorActive));
+                        std::variant<bool>(ledOn));
                 };
-                getLEDService(aResp, endpoint, std::move(callback));
 
+                getLEDService(aResp, endpoint, std::move(callback));
                 break;
             }
         },
