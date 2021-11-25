@@ -378,7 +378,7 @@ inline void requestRoutesChassis(App& app)
                                           interface) != interfaces2.end())
                             {
                                 getIndicatorLedState(asyncResp);
-                                getLocationIndicatorActive(asyncResp);
+                                getLocationIndicatorActive(asyncResp, path);
                                 break;
                             }
                         }
@@ -572,7 +572,7 @@ inline void requestRoutesChassis(App& app)
                             if (indicatorChassis)
                             {
                                 setLocationIndicatorActive(
-                                    asyncResp, *locationIndicatorActive);
+                                    asyncResp, path, *locationIndicatorActive);
                             }
                             else
                             {
@@ -584,7 +584,8 @@ inline void requestRoutesChassis(App& app)
                         {
                             if (indicatorChassis)
                             {
-                                setIndicatorLedState(asyncResp, *indicatorLed);
+                                setLocationIndicatorActive(
+                                    asyncResp, path, false, *indicatorLed);
                             }
                             else
                             {
