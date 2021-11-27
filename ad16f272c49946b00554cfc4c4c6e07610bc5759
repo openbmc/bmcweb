@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "744f2877_5e0ab97c",
+        "filename": "redfish-core/lib/led.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 333,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-11-27T00:30:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a0cab7b9_4b2abc71",
+      "revId": "ad16f272c49946b00554cfc4c4c6e07610bc5759",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "57933ec7_1fb67cd9",
         "filename": "redfish-core/lib/led.hpp",
         "patchSetId": 2
@@ -33,6 +51,24 @@
       "revId": "ad16f272c49946b00554cfc4c4c6e07610bc5759",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "42e280b5_bb117d1d",
+        "filename": "redfish-core/lib/led.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 427,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-11-27T00:30:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "57933ec7_1fb67cd9",
+      "revId": "ad16f272c49946b00554cfc4c4c6e07610bc5759",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -59,6 +95,30 @@
     },
     {
       "key": {
+        "uuid": "30a77f88_aacc8382",
+        "filename": "redfish-core/lib/led.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 437,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-11-27T00:30:57Z",
+      "side": 1,
+      "message": "No, If ledState is not equal to empty, then it can only be equal to these values(Lit, Blinking, ledState).",
+      "parentUuid": "fa659372_1b8fa4b8",
+      "range": {
+        "startLine": 436,
+        "startChar": 41,
+        "endLine": 437,
+        "endChar": 25
+      },
+      "revId": "ad16f272c49946b00554cfc4c4c6e07610bc5759",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "bb2d19d5_8b61c6f6",
         "filename": "redfish-core/lib/led.hpp",
         "patchSetId": 2
@@ -70,6 +130,30 @@
       "writtenOn": "2021-11-26T07:18:04Z",
       "side": 1,
       "message": "I thought boost::ends_with is really deprecated",
+      "range": {
+        "startLine": 469,
+        "startChar": 24,
+        "endLine": 469,
+        "endChar": 40
+      },
+      "revId": "ad16f272c49946b00554cfc4c4c6e07610bc5759",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dc01dd02_447e3c53",
+        "filename": "redfish-core/lib/led.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 469,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-11-27T00:30:57Z",
+      "side": 1,
+      "message": "Because we want to verify that the suffix is a string of “_blink”.",
+      "parentUuid": "bb2d19d5_8b61c6f6",
       "range": {
         "startLine": 469,
         "startChar": 24,
