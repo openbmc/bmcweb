@@ -2,6 +2,52 @@
   "comments": [
     {
       "key": {
+        "uuid": "c5945f04_21dd076e",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 36
+      },
+      "lineNbr": 230,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-11-29T19:04:07Z",
+      "side": 1,
+      "message": "nit: this should be \"addChassisReset\"",
+      "range": {
+        "startLine": 230,
+        "startChar": 12,
+        "endLine": 230,
+        "endChar": 26
+      },
+      "revId": "30f72e76e79e952018014974d6352f5c5d3884fa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6f0e1527_f058fc4a",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 36
+      },
+      "lineNbr": 240,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-11-29T19:04:07Z",
+      "side": 1,
+      "message": "This doesn\u0027t seem right.  Shouldn\u0027t we be checking for which chassis dbus interfaces actually implement reset?",
+      "range": {
+        "startLine": 233,
+        "startChar": 0,
+        "endLine": 240,
+        "endChar": 5
+      },
+      "revId": "30f72e76e79e952018014974d6352f5c5d3884fa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "3720d6ab_c2b173af",
         "filename": "redfish-core/lib/chassis.hpp",
         "patchSetId": 36
@@ -25,6 +71,23 @@
     },
     {
       "key": {
+        "uuid": "846b2215_32fdf07f",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 36
+      },
+      "lineNbr": 795,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-11-29T19:04:07Z",
+      "side": 1,
+      "message": "This general pattern of \"check interfaces, then call set\" is generally not how we do things like this.  Generally we take a pattern of attempting to do the set directly, and returning the correct errors.  I think some of the conflict is that you\u0027re making a distinction based on type in bmcweb code, which is kind of business logic.  bmcweb should be as close to a dumb dbus-\u003eredfish converter as is possible, so we should be relying on whether or not the objects implement the interfaces we need.",
+      "revId": "30f72e76e79e952018014974d6352f5c5d3884fa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "be113e8c_530f35be",
         "filename": "redfish-core/lib/chassis.hpp",
         "patchSetId": 36
@@ -41,6 +104,53 @@
         "startChar": 12,
         "endLine": 806,
         "endChar": 54
+      },
+      "revId": "30f72e76e79e952018014974d6352f5c5d3884fa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "60d8b326_9c3b8234",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 36
+      },
+      "lineNbr": 806,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-11-29T19:04:07Z",
+      "side": 1,
+      "message": "Krzysztof, it would help a lot to prefix these types of comments with \"nit\" because removing this would definitely not hold up this patchset.",
+      "parentUuid": "be113e8c_530f35be",
+      "range": {
+        "startLine": 806,
+        "startChar": 12,
+        "endLine": 806,
+        "endChar": 54
+      },
+      "revId": "30f72e76e79e952018014974d6352f5c5d3884fa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "21f0284a_d02364ba",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 36
+      },
+      "lineNbr": 883,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-11-29T19:04:07Z",
+      "side": 1,
+      "message": "Please don\u0027t make copies of crow::request.  They are generally not needed.",
+      "range": {
+        "startLine": 883,
+        "startChar": 21,
+        "endLine": 883,
+        "endChar": 24
       },
       "revId": "30f72e76e79e952018014974d6352f5c5d3884fa",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
