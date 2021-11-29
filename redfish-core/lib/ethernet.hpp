@@ -494,6 +494,11 @@ inline void
                                 ipv6Address.prefixLength = *prefix;
                             }
                         }
+                        else if (property.first == "Type" ||
+                                 property.first == "Gateway")
+                        {
+                            // Type & Gateway is not used
+                        }
                         else
                         {
                             BMCWEB_LOG_ERROR
@@ -567,6 +572,11 @@ inline void
                                 // convert it to the string
                                 ipv4Address.netmask = getNetmask(*mask);
                             }
+                        }
+                        else if (property.first == "Type" ||
+                                 property.first == "Gateway")
+                        {
+                            // Type & Gateway is not used
                         }
                         else
                         {
