@@ -261,6 +261,12 @@ inline bool extractHypervisorInterfaceData(
                                 ipv4Address.netmask = getNetmask(*mask);
                             }
                         }
+                        else if (property.first == "Type" ||
+                                 property.first == "Gateway")
+                        {
+                            // Type & Gateway is not used
+                            continue;
+                        }
                         else
                         {
                             BMCWEB_LOG_ERROR
