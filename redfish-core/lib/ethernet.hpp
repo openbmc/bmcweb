@@ -496,7 +496,7 @@ inline void
                         }
                         else
                         {
-                            BMCWEB_LOG_ERROR
+                            BMCWEB_LOG_DEBUG
                                 << "Got extra property: " << property.first
                                 << " on the " << objpath.first.str << " object";
                         }
@@ -570,7 +570,7 @@ inline void
                         }
                         else
                         {
-                            BMCWEB_LOG_ERROR
+                            BMCWEB_LOG_DEBUG
                                 << "Got extra property: " << property.first
                                 << " on the " << objpath.first.str << " object";
                         }
