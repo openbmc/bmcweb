@@ -601,6 +601,30 @@
     },
     {
       "key": {
+        "uuid": "d429d447_952b3f75",
+        "filename": "redfish-core/lib/trigger.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-11-30T17:52:51Z",
+      "side": 1,
+      "message": "\u003e Trigger Id is initially stored in Telemetry Service which does Id name validation of acceptable characters that can only be in scope of [a-zA-Z0-9_] and additionally Id must be unique across Trigger collections. So i.e. trying to create trigger with Id name having a space in it will give you error, trying to get trigger by Id with space in Id name will give you ResourceNotFound error as such name cannot exist in Telemetry.\n\nSure, but at a bmcweb level, we can\u0027t guarantee that, because the dbus interfaces don\u0027t enforce it.  With that said, it\u0027s wrong in a lot of other places, so we can just fix it when https://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/48297/3 lands.",
+      "parentUuid": "271b2a31_9ee34b87",
+      "range": {
+        "startLine": 210,
+        "startChar": 76,
+        "endLine": 210,
+        "endChar": 78
+      },
+      "revId": "c3e37369cb8efc8dd85c36e75022d9f91f4c14c3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "54c2359a_a4e9bf6f",
         "filename": "redfish-core/lib/trigger.hpp",
         "patchSetId": 6
