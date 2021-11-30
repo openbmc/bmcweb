@@ -388,11 +388,11 @@ inline void requestRoutesTask(App& app)
                 asyncResp->res.jsonValue["Name"] = "Task " + strParam;
                 asyncResp->res.jsonValue["TaskState"] = ptr->state;
                 asyncResp->res.jsonValue["StartTime"] =
-                    crow::utility::getDateTime(ptr->startTime);
+                    crow::utility::getDateTimeInt(ptr->startTime);
                 if (ptr->endTime)
                 {
                     asyncResp->res.jsonValue["EndTime"] =
-                        crow::utility::getDateTime(*(ptr->endTime));
+                        crow::utility::getDateTimeInt(*(ptr->endTime));
                 }
                 asyncResp->res.jsonValue["TaskStatus"] = ptr->status;
                 asyncResp->res.jsonValue["Messages"] = ptr->messages;

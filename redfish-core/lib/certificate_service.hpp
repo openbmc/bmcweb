@@ -643,9 +643,8 @@ static void getCertificateProperties(
                         std::get_if<uint64_t>(&property.second);
                     if (value)
                     {
-                        std::time_t time = static_cast<std::time_t>(*value);
                         asyncResp->res.jsonValue["ValidNotAfter"] =
-                            crow::utility::getDateTime(time);
+                            crow::utility::getDateTimeUint(*value);
                     }
                 }
                 else if (property.first == "ValidNotBefore")
@@ -654,9 +653,8 @@ static void getCertificateProperties(
                         std::get_if<uint64_t>(&property.second);
                     if (value)
                     {
-                        std::time_t time = static_cast<std::time_t>(*value);
                         asyncResp->res.jsonValue["ValidNotBefore"] =
-                            crow::utility::getDateTime(time);
+                            crow::utility::getDateTimeUint(*value);
                     }
                 }
             }
