@@ -141,6 +141,24 @@
       "revId": "df85fd505cd843be405eeb2dae6efcc099f40ac1",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f28d21ee_2285bc90",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 573,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-11-30T17:55:31Z",
+      "side": 1,
+      "message": "\u003e Actually here (as per implementation), we need only gateway, prefix length, and address to fill the ipv\u003c4/6\u003econfig object.\n\nRight, so code it such that they\u0027re skipped\n\nelse if (property.first \u003d\u003d \"Type\"){\n   // Type is not used\n}\nelse if (property.first \u003d\u003d \"Origin\"){\n   // Origin is not used\n}\nelse{\n    BMCWEB_LOG_ERROR....\n}",
+      "parentUuid": "ef53592e_452a407e",
+      "revId": "df85fd505cd843be405eeb2dae6efcc099f40ac1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
