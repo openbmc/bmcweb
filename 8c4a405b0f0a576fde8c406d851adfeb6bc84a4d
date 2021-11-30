@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cc0dfbff_ebe7acfc",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2021-11-30T08:09:26Z",
+      "side": 1,
+      "message": "What are the issue? Is this specific to this change? If not, please update.\nYou can run redfish validator for specific sub node (/redfish/v1/Registries/OpenBMC) and make sure it is passed.  Other failure can be take as separate commit.",
+      "range": {
+        "startLine": 19,
+        "startChar": 26,
+        "endLine": 19,
+        "endChar": 54
+      },
+      "revId": "8c4a405b0f0a576fde8c406d851adfeb6bc84a4d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cb4d2dd0_97e2569d",
+        "filename": "redfish-core/include/registries/openbmc_message_registry.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 490,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2021-11-30T08:09:26Z",
+      "side": 1,
+      "message": "Move this above the FirmwareResiliencyError i.e Line no: 466",
+      "range": {
+        "startLine": 479,
+        "startChar": 4,
+        "endLine": 490,
+        "endChar": 20
+      },
+      "revId": "8c4a405b0f0a576fde8c406d851adfeb6bc84a4d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "62dd59ab_ecf0be41",
+        "filename": "redfish-core/include/registries/openbmc_message_registry.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 492,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2021-11-30T08:09:26Z",
+      "side": 1,
+      "message": "Notification",
+      "range": {
+        "startLine": 492,
+        "startChar": 27,
+        "endLine": 492,
+        "endChar": 33
+      },
+      "revId": "8c4a405b0f0a576fde8c406d851adfeb6bc84a4d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
