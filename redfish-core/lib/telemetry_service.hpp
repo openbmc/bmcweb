@@ -49,6 +49,9 @@ inline void handleTelemetryServiceGet(
         "/redfish/v1/TelemetryService/MetricReports";
     asyncResp->res.jsonValue["Triggers"]["@odata.id"] =
         "/redfish/v1/TelemetryService/Triggers";
+    asyncResp->res.jsonValue["LogService"]["@odata.id"] =
+        boost::urls::format("/redfish/v1/Managers/{}/LogServices/Journal",
+                            BMCWEB_REDFISH_MANAGER_URI_NAME);
 
     dbus::utility::getAllProperties(
         telemetry::service, "/xyz/openbmc_project/Telemetry/Reports",
