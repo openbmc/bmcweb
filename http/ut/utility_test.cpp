@@ -56,3 +56,14 @@ TEST(Utility, Base64EncodeDecodeString)
     EXPECT_TRUE(crow::utility::base64Decode(encoded, decoded));
     EXPECT_EQ(data, decoded);
 }
+
+TEST(Utility, GetDateTime)
+{
+    // epoch
+    EXPECT_EQ(crow::utility::getDateTime(0LL), "1970-01-01T00:00:00Z");
+    // some time in the past
+    EXPECT_EQ(crow::utility::getDateTime(1638312095LL), "2021-11-30T22:41:35Z");
+    // some time in the future, beyond 2038
+    EXPECT_EQ(crow::utility::getDateTime(41638312095LL),
+              "3289-06-18T21:48:15Z");
+}
