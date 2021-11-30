@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "98148516_f963bf08",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-11-30T17:48:10Z",
+      "side": 1,
+      "message": "I think this needs more explanation. Typically when a reviewer asks questions like \"why\" on a commit msg, they are looking for more information in the commit msg its self. \n\nhttps://github.com/openbmc/phosphor-dbus-interfaces/blob/master/yaml/xyz/openbmc_project/Network/IP.interface.yaml has 5 properties, why are we only implementing 3?",
+      "parentUuid": "4432063e_a8e04262",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 61
+      },
+      "revId": "df85fd505cd843be405eeb2dae6efcc099f40ac1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "fe7cced8_ba83f15a",
         "filename": "redfish-core/lib/ethernet.hpp",
         "patchSetId": 1
@@ -96,6 +120,24 @@
       "side": 1,
       "message": "Actually here (as per implementation), we need only gateway, prefix length, and address to fill the ipv\u003c4/6\u003econfig object.\nSo the other properties here are not needed but just skip it whenever properties other than these three are encountered.\nThat is why I have changed it to debug trace.",
       "parentUuid": "13e3366c_482290c3",
+      "revId": "df85fd505cd843be405eeb2dae6efcc099f40ac1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ef53592e_452a407e",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 573,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-11-30T17:48:10Z",
+      "side": 1,
+      "message": "\u003e Actually here (as per implementation), we need only gateway, prefix length, and address to fill the ipv\u003c4/6\u003econfig object.\n\nWhy are they not needed? Can you explain this in the commit msg?",
+      "parentUuid": "daf6491e_be473880",
       "revId": "df85fd505cd843be405eeb2dae6efcc099f40ac1",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
