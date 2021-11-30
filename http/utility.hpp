@@ -1,8 +1,9 @@
 #pragma once
-
 #include "nlohmann/json.hpp"
 
 #include <openssl/crypto.h>
+
+#include <boost/date_time/posix_time/posix_time.hpp>
 
 #include <chrono>
 #include <cstdint>
@@ -572,26 +573,28 @@ inline bool base64Decode(const std::string_view input, std::string& output)
 }
 
 /**
- * Method returns Date Time information according to requested format
+ * Method returns Date Time information in the ISO extended format
  *
- * @param[in] time time in second since the Epoch
+ * @param[in] timestamp in second since the Epoch; it can be negative
  *
- * @return Date Time according to requested format
+ * @return Date Time in the ISO extended format
  */
-inline std::string getDateTime(const std::time_t& time)
+inline std::string getDateTime(boost::posix_time::seconds secondsSinceEpoch)
 {
-    std::array<char, 128> dateTime;
-    std::string redfishDateTime("0000-00-00T00:00:00Z00:00");
+    boost::posix_time::ptime epoch(boost::gregorian::date(1970, 1, 1));
+    boost::posix_time::ptime time = epoch + secondsSinceEpoch;
+    // append zero offset to the end according to the Redfish spec for Date-Time
+    return boost::posix_time::to_iso_extended_string(time) + 'Z';
+}
 
-    if (std::strftime(dateTime.begin(), dateTime.size(), "%FT%T%z",
-                      std::localtime(&time)))
-    {
-        // insert the colon required by the ISO 8601 standard
-        redfishDateTime = std::string(dateTime.data());
-        redfishDateTime.insert(redfishDateTime.end() - 2, ':');
-    }
+inline std::string getDateTimeUint(uint64_t secondsSinceEpoch)
+{
+    return getDateTime(boost::posix_time::seconds(secondsSinceEpoch));
+}
 
-    return redfishDateTime;
+inline std::string getDateTimeStdtime(std::time_t secondsSinceEpoch)
+{
+    return getDateTime(boost::posix_time::seconds(secondsSinceEpoch));
 }
 
 /**
@@ -606,7 +609,7 @@ inline std::string getDateTime(const std::time_t& time)
 inline std::pair<std::string, std::string> getDateTimeOffsetNow()
 {
     std::time_t time = std::time(nullptr);
-    std::string dateTime = getDateTime(time);
+    std::string dateTime = getDateTimeStdtime(time);
 
     /* extract the local Time Offset value from the
      * recevied dateTime string.

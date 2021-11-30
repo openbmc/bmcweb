@@ -1739,12 +1739,11 @@ inline void
             }
             // LastRebootTime is epoch time, in milliseconds
             // https://github.com/openbmc/phosphor-dbus-interfaces/blob/7f9a128eb9296e926422ddc312c148b625890bb6/xyz/openbmc_project/State/BMC.interface.yaml#L19
-            time_t lastResetTimeStamp =
-                static_cast<time_t>(*lastResetTimePtr / 1000);
+            uint64_t lastResetTimeStamp = *lastResetTimePtr / 1000;
 
             // Convert to ISO 8601 standard
             aResp->res.jsonValue["LastResetTime"] =
-                crow::utility::getDateTime(lastResetTimeStamp);
+                crow::utility::getDateTimeUint(lastResetTimeStamp);
         },
         "xyz.openbmc_project.State.BMC", "/xyz/openbmc_project/state/bmc0",
         "org.freedesktop.DBus.Properties", "Get",
