@@ -1,8 +1,9 @@
 #pragma once
-
 #include "nlohmann/json.hpp"
 
 #include <openssl/crypto.h>
+
+#include <boost/date_time/posix_time/posix_time.hpp>
 
 #include <chrono>
 #include <cstdint>
@@ -574,24 +575,18 @@ inline bool base64Decode(const std::string_view input, std::string& output)
 /**
  * Method returns Date Time information according to requested format
  *
- * @param[in] time time in second since the Epoch
+ * @param[in] time timestamp in second since the Epoch
  *
  * @return Date Time according to requested format
  */
-inline std::string getDateTime(const std::time_t& time)
+template <typename T>
+inline std::string getDateTime(T timestamp)
 {
-    std::array<char, 128> dateTime;
-    std::string redfishDateTime("0000-00-00T00:00:00Z00:00");
-
-    if (std::strftime(dateTime.begin(), dateTime.size(), "%FT%T%z",
-                      std::localtime(&time)))
-    {
-        // insert the colon required by the ISO 8601 standard
-        redfishDateTime = std::string(dateTime.data());
-        redfishDateTime.insert(redfishDateTime.end() - 2, ':');
-    }
-
-    return redfishDateTime;
+    boost::posix_time::ptime epoch(boost::gregorian::date(1970, 1, 1));
+    boost::posix_time::ptime time =
+        epoch + boost::posix_time::seconds(timestamp);
+    // append zero offset to the end according to the Redfish spec for Date-Time
+    return boost::posix_time::to_iso_extended_string(time) + 'Z';
 }
 
 /**

@@ -182,8 +182,7 @@ inline static bool getEntryTimestamp(sd_journal* journal,
                          << strerror(-ret);
         return false;
     }
-    entryTimestamp = crow::utility::getDateTime(
-        static_cast<std::time_t>(timestamp / 1000 / 1000));
+    entryTimestamp = crow::utility::getDateTime(timestamp / 1000 / 1000);
     return true;
 }
 
@@ -421,7 +420,7 @@ inline void
                 {
                     continue;
                 }
-                std::time_t timestamp;
+                uint64_t timestamp = 0;
                 uint64_t size = 0;
                 std::string dumpStatus;
                 nlohmann::json thisEntry;
@@ -487,8 +486,7 @@ inline void
                                     messages::internalError(asyncResp->res);
                                     break;
                                 }
-                                timestamp =
-                                    static_cast<std::time_t>(*usecsTimeStamp);
+                                timestamp = *usecsTimeStamp;
                                 break;
                             }
                         }

@@ -26,8 +26,7 @@ inline nlohmann::json toMetricValues(const Readings& readings)
             {"MetricId", id},
             {"MetricProperty", metadata},
             {"MetricValue", std::to_string(sensorValue)},
-            {"Timestamp",
-             crow::utility::getDateTime(static_cast<time_t>(timestamp))},
+            {"Timestamp", crow::utility::getDateTime(timestamp)},
         });
     }
 
@@ -58,7 +57,7 @@ inline void fillReport(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
 
     const auto& [timestamp, readings] = *timestampReadings;
     asyncResp->res.jsonValue["Timestamp"] =
-        crow::utility::getDateTime(static_cast<time_t>(timestamp));
+        crow::utility::getDateTime(timestamp);
     asyncResp->res.jsonValue["MetricValues"] = toMetricValues(readings);
 }
 } // namespace telemetry
