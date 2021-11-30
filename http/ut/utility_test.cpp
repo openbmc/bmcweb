@@ -56,3 +56,22 @@ TEST(Utility, Base64EncodeDecodeString)
     EXPECT_TRUE(crow::utility::base64Decode(encoded, decoded));
     EXPECT_EQ(data, decoded);
 }
+
+TEST(Utility, GetDateTime)
+{
+    // some time before the epoch
+    EXPECT_EQ(crow::utility::getDateTimeStdtime(std::time_t{-1234567}),
+              "1969-12-17T17:03:53Z");
+    // epoch
+    EXPECT_EQ(crow::utility::getDateTimeStdtime(std::time_t{0}),
+              "1970-01-01T00:00:00Z");
+    // some time in the past after the epoch
+    EXPECT_EQ(crow::utility::getDateTimeUint(uint64_t{1638312095}),
+              "2021-11-30T22:41:35Z");
+    // some time in the future, beyond 2038
+    EXPECT_EQ(crow::utility::getDateTimeUint(uint64_t{41638312095}),
+              "3289-06-18T21:48:15Z");
+    // the maximum time we support
+    EXPECT_EQ(crow::utility::getDateTimeUint(uint64_t{253402300799}),
+              "9999-12-31T23:59:59Z");
+}
