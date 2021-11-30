@@ -1171,8 +1171,7 @@ inline void getLastResetTime(const std::shared_ptr<bmcweb::AsyncResp>& aResp)
             }
             // LastStateChangeTime is epoch time, in milliseconds
             // https://github.com/openbmc/phosphor-dbus-interfaces/blob/33e8e1dd64da53a66e888d33dc82001305cd0bf9/xyz/openbmc_project/State/Chassis.interface.yaml#L19
-            time_t lastResetTimeStamp =
-                static_cast<time_t>(*lastResetTimePtr / 1000);
+            uint64_t lastResetTimeStamp = *lastResetTimePtr / 1000;
 
             // Convert to ISO 8601 standard
             aResp->res.jsonValue["LastResetTime"] =
