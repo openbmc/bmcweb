@@ -135,6 +135,30 @@
     },
     {
       "key": {
+        "uuid": "581307bd_f3fe494e",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 36
+      },
+      "lineNbr": 806,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2021-11-30T08:49:57Z",
+      "side": 1,
+      "message": "Ok, I will keep it in mind.",
+      "parentUuid": "60d8b326_9c3b8234",
+      "range": {
+        "startLine": 806,
+        "startChar": 12,
+        "endLine": 806,
+        "endChar": 54
+      },
+      "revId": "30f72e76e79e952018014974d6352f5c5d3884fa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "21f0284a_d02364ba",
         "filename": "redfish-core/lib/chassis.hpp",
         "patchSetId": 36
