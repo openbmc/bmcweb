@@ -91,6 +91,24 @@
     },
     {
       "key": {
+        "uuid": "ae6291ec_64ecd7f9",
+        "filename": "redfish-core/lib/trigger.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2021-11-30T08:39:20Z",
+      "side": 1,
+      "message": "Let\u0027s keep this open and see what maintainers think about it.",
+      "parentUuid": "2ff417fd_95e9b031",
+      "revId": "78239f08972a0c4873d40b3d021e8d94679497b5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "9ffdad41_c92415cd",
         "filename": "redfish-core/lib/trigger.hpp",
         "patchSetId": 5
