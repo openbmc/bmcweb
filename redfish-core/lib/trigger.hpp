@@ -665,6 +665,16 @@ inline bool parsePostTriggerParams(crow::Response& res,
         {
             std::string dbusAction = toDbusTriggerAction(action);
 
+            if constexpr (!BMCWEB_REDFISH_BMC_JOURNAL)
+            {
+                if (action == "LogToLogService")
+                {
+                    messages::propertyValueExternalConflict(
+                        res, "TriggerActions", action);
+                    return false;
+                }
+            }
+
             if (dbusAction.empty())
             {
                 messages::propertyValueNotInList(res, action, "TriggerActions");
