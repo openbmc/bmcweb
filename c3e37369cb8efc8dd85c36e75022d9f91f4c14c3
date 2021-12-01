@@ -625,6 +625,30 @@
     },
     {
       "key": {
+        "uuid": "ef441190_25ed0ada",
+        "filename": "redfish-core/lib/trigger.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 1001148
+      },
+      "writtenOn": "2021-12-01T10:10:24Z",
+      "side": 1,
+      "message": "I understand your remark, I suggest to go on with the change as it is now and upgrade it once your improvement is submitted. Is this approach acceptable?",
+      "parentUuid": "d429d447_952b3f75",
+      "range": {
+        "startLine": 210,
+        "startChar": 76,
+        "endLine": 210,
+        "endChar": 78
+      },
+      "revId": "c3e37369cb8efc8dd85c36e75022d9f91f4c14c3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "54c2359a_a4e9bf6f",
         "filename": "redfish-core/lib/trigger.hpp",
         "patchSetId": 6
