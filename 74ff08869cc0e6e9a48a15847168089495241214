@@ -57,6 +57,30 @@
       "revId": "74ff08869cc0e6e9a48a15847168089495241214",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1ec7b0bf_864923a0",
+        "filename": "http/utility.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 582,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2021-12-01T01:08:02Z",
+      "side": 1,
+      "message": "Yeah, that\u0027s a good question. I went with uint64_t before, unfortunately, I am getting many compilation warnings (in the existing codes, we have int64_t, time_t (int32_t), and uint64_t calling this function). \n\nThe boost header should have handled different templates IIUC, right? What\u0027s the int64_t underflow here?",
+      "parentUuid": "e84d4a29_63d35e80",
+      "range": {
+        "startLine": 582,
+        "startChar": 0,
+        "endLine": 582,
+        "endChar": 21
+      },
+      "revId": "74ff08869cc0e6e9a48a15847168089495241214",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
