@@ -1,5 +1,5 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/StorageController.v1_3_0.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/StorageController.v1_4_0.json",
     "$ref": "#/definitions/StorageController",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
     "copyright": "Copyright 2014-2021 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
@@ -370,6 +370,26 @@
                     },
                     "longDescription": "This property shall contain the ANA characteristics and volume information.",
                     "type": "array"
+                },
+                "AllocatedCompletionQueues": {
+                    "description": "The number of I/O completion queues allocated to this NVMe I/O controller.",
+                    "longDescription": "This property shall contain the number of I/O completion queues allocated to this NVMe I/O controller.",
+                    "readonly": true,
+                    "type": [
+                        "integer",
+                        "null"
+                    ],
+                    "versionAdded": "v1_4_0"
+                },
+                "AllocatedSubmissionQueues": {
+                    "description": "The number of I/O submission queues allocated to this NVMe I/O controller.",
+                    "longDescription": "This property shall contain the number of I/O submission queues allocated to this NVMe I/O controller.",
+                    "readonly": true,
+                    "type": [
+                        "integer",
+                        "null"
+                    ],
+                    "versionAdded": "v1_4_0"
                 },
                 "ControllerType": {
                     "anyOf": [
@@ -842,6 +862,6 @@
         }
     },
     "owningEntity": "DMTF",
-    "release": "2021.2",
-    "title": "#StorageController.v1_3_0.StorageController"
+    "release": "2021.3",
+    "title": "#StorageController.v1_4_0.StorageController"
 }

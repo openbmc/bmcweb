@@ -9,7 +9,7 @@ import json
 
 import xml.etree.ElementTree as ET
 
-VERSION = "DSP8010_2021.2"
+VERSION = "DSP8010_2021.3"
 
 # To use a new schema, add to list and rerun tool
 include_list = [
@@ -161,9 +161,9 @@ with open(metadata_index_path, 'w') as metadata_index:
         " Version=\"4.0\">\n")
 
     for zip_filepath in zip_ref.namelist():
-        if zip_filepath.startswith(VERSION + '/' + VERSION + '/csdl/') and \
+        if zip_filepath.startswith('csdl/') and \
             (zip_filepath != VERSION + "/csdl/") and \
-                (zip_filepath != VERSION + '/' + VERSION + "/csdl/"):
+                (zip_filepath != "csdl/"):
             filename = os.path.basename(zip_filepath)
 
             # filename looks like Zone_v1.xml
@@ -260,7 +260,7 @@ with open(metadata_index_path, 'w') as metadata_index:
 
 schema_files = {}
 for zip_filepath in zip_ref.namelist():
-    if zip_filepath.startswith(os.path.join(VERSION, VERSION, 'json-schema/')):
+    if zip_filepath.startswith(os.path.join('json-schema/')):
         filename = os.path.basename(zip_filepath)
         filenamesplit = filename.split(".")
 
@@ -281,7 +281,7 @@ for zip_filepath in zip_ref.namelist():
 
 for schema, version in schema_files.items():
     basename = schema + "." + version + ".json"
-    zip_filepath = os.path.join(VERSION, VERSION, "json-schema", basename)
+    zip_filepath = os.path.join("json-schema", basename)
     schemadir = os.path.join(json_schema_path, schema)
     os.makedirs(schemadir)
     location_json = OrderedDict()

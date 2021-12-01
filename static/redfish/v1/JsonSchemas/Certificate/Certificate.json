@@ -1,5 +1,5 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/Certificate.v1_4_0.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/Certificate.v1_5_0.json",
     "$ref": "#/definitions/Certificate",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
     "copyright": "Copyright 2014-2021 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
@@ -177,6 +177,19 @@
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Oem",
                     "description": "The OEM extension property.",
                     "longDescription": "This property shall contain the OEM extensions.  All values for properties that this object contains shall conform to the Redfish Specification-described requirements."
+                },
+                "SPDM": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/SPDM"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "SPDM-related information for the certificate.",
+                    "longDescription": "The value of this property shall contain SPDM-related information for the certificate.  This property shall only be present for SPDM certificates.",
+                    "versionAdded": "v1_5_0"
                 },
                 "SerialNumber": {
                     "description": "The serial number of the certificate.",
@@ -575,9 +588,41 @@
                 "CSRString"
             ],
             "type": "object"
+        },
+        "SPDM": {
+            "additionalProperties": false,
+            "description": "SPDM-related information for a certificate.",
+            "longDescription": "This type shall contain contain SPDM-related information for a certificate.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "SlotId": {
+                    "description": "Slot identifier of the certificate.",
+                    "longDescription": "The value of this property shall contain an integer between 0 and 7, inclusive, that represents the slot identifier for an SPDM-provided certificate.",
+                    "readonly": true,
+                    "type": [
+                        "integer",
+                        "null"
+                    ],
+                    "versionAdded": "v1_5_0"
+                }
+            },
+            "type": "object"
         }
     },
     "owningEntity": "DMTF",
-    "release": "2021.2",
-    "title": "#Certificate.v1_4_0.Certificate"
+    "release": "2021.3",
+    "title": "#Certificate.v1_5_0.Certificate"
 }

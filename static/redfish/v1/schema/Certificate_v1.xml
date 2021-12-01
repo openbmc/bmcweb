@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  Certificate v1.4.0                                                  -->
+<!--# Redfish Schema:  Certificate v1.5.0                                                  -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -529,7 +529,7 @@
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
       </ComplexType>
-      
+
       <EnumType Name="CertificateUsageType">
         <Member Name="User">
           <Annotation Term="OData.Description" String="This certificate is a user certificate like those associated with a manager account."/>
@@ -550,6 +550,29 @@
           <Annotation Term="OData.Description" String="This certificate is a BIOS certificate like those associated with UEFI."/>
         </Member>
       </EnumType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Certificate.v1_5_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2021.3"/>
+
+      <EntityType Name="Certificate" BaseType="Certificate.v1_4_0.Certificate">
+        <Property Name="SPDM" Type="Certificate.v1_5_0.SPDM">
+          <Annotation Term="OData.Description" String="SPDM-related information for the certificate."/>
+          <Annotation Term="OData.LongDescription" String="The value of this property shall contain SPDM-related information for the certificate.  This property shall only be present for SPDM certificates."/>
+        </Property>
+      </EntityType>
+
+      <ComplexType Name="SPDM">
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="OData.Description" String="SPDM-related information for a certificate."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain contain SPDM-related information for a certificate."/>
+        <Property Name="SlotId" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="Slot identifier of the certificate."/>
+          <Annotation Term="OData.LongDescription" String="The value of this property shall contain an integer between 0 and 7, inclusive, that represents the slot identifier for an SPDM-provided certificate."/>
+        </Property>
+      </ComplexType>
     </Schema>
 
   </edmx:DataServices>
