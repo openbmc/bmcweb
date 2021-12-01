@@ -154,6 +154,30 @@
     },
     {
       "key": {
+        "uuid": "b6978905_225d2ecb",
+        "filename": "http/utility.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 587,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2021-12-01T07:09:44Z",
+      "side": 1,
+      "message": "https://github.com/openbmc/bmcweb/blob/7c8c4058e265f784679b9144ff33b89f50f1bf59/http/utility.hpp#L577 The existing code is using \"second\" as unit.\n\nSo LogService has been wrong for some time I guess. I will fix it in the next patchset.\n\nThe other places should be good. They have converted the unit into seconds.",
+      "parentUuid": "10889b25_8d93a7a7",
+      "range": {
+        "startLine": 587,
+        "startChar": 35,
+        "endLine": 587,
+        "endChar": 42
+      },
+      "revId": "74ff08869cc0e6e9a48a15847168089495241214",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "ccd3d78c_4e3eb8d3",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 2
@@ -165,6 +189,30 @@
       "writtenOn": "2021-12-01T03:49:12Z",
       "side": 1,
       "message": "This now looks wrong.  getDateTime now takes seconds since epoch, this gives microseconds since epoch.",
+      "range": {
+        "startLine": 489,
+        "startChar": 0,
+        "endLine": 489,
+        "endChar": 60
+      },
+      "revId": "74ff08869cc0e6e9a48a15847168089495241214",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "83201d4f_55324f81",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 489,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2021-12-01T07:09:44Z",
+      "side": 1,
+      "message": "Hi Ed, I guess originally it is wrong. https://github.com/openbmc/bmcweb/blob/7c8c4058e265f784679b9144ff33b89f50f1bf59/http/utility.hpp#L577 The existing code is using \"second\" as unit.\n\nIt should divide by 1000 * 1000 like the other code.",
+      "parentUuid": "ccd3d78c_4e3eb8d3",
       "range": {
         "startLine": 489,
         "startChar": 0,
