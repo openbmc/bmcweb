@@ -541,5 +541,25 @@
       </ComplexType>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="StorageController.v1_4_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2021.3"/>
+
+      <EntityType Name="StorageController" BaseType="StorageController.v1_3_0.StorageController"/>
+
+      <ComplexType Name="NVMeControllerProperties" BaseType="StorageController.v1_0_0.NVMeControllerProperties">
+        <Property Name="AllocatedSubmissionQueues" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The number of I/O submission queues allocated to this NVMe I/O controller."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the number of I/O submission queues allocated to this NVMe I/O controller."/>
+        </Property>
+        <Property Name="AllocatedCompletionQueues" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The number of I/O completion queues allocated to this NVMe I/O controller."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the number of I/O completion queues allocated to this NVMe I/O controller."/>
+        </Property>
+      </ComplexType>
+    </Schema>
+
   </edmx:DataServices>
 </edmx:Edmx>

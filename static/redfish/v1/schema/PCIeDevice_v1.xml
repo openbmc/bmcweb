@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  PCIeDevice v1.7.0                                                   -->
+<!--# Redfish Schema:  PCIeDevice v1.8.0                                                   -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -79,6 +79,12 @@
         <Annotation Term="OData.AdditionalProperties" Bool="false"/>
         <Annotation Term="OData.Description" String="This type describes a PCIe Interface."/>
         <Annotation Term="OData.LongDescription" String="This type shall describe the PCIe interface characteristics of a PCIe device."/>
+      </ComplexType>
+
+      <ComplexType Name="PCIeErrors" Abstract="true">
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="OData.Description" String="The PCIe errors associated with this device."/>
+        <Annotation Term="OData.LongDescription" String="This property shall contain properties that describe the PCIe errors associated with this device."/>
       </ComplexType>
 
       <EnumType Name="PCIeTypes">
@@ -469,6 +475,56 @@
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
       </EntityType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="PCIeDevice.v1_8_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2021.3"/>
+
+      <EntityType Name="PCIeDevice" BaseType="PCIeDevice.v1_7_0.PCIeDevice"/>
+
+      <ComplexType Name="PCIeErrors" BaseType="PCIeDevice.PCIeErrors">
+        <Property Name="CorrectableErrorCount" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The total number of the PCIe correctable errors for this device."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the total number of the PCIe correctable errors for this device."/>
+        </Property>
+        <Property Name="NonFatalErrorCount" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The total number of the PCIe non-fatal errors for this device."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the total number of the PCIe non-fatal errors for this device."/>
+        </Property>
+        <Property Name="FatalErrorCount" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The total number of the PCIe fatal errors for this device."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the total number of the PCIe fatal errors for this device."/>
+        </Property>
+        <Property Name="L0ToRecoveryCount" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The total number of times the PCIe link states transitioned from L0 to the recovery state for this device."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the total number of times the PCIe link transitioned from L0 to the recovery state for this device."/>
+        </Property>
+        <Property Name="ReplayCount" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The total number of the PCIe replays issued by this device."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the total number of the replays issued on the PCIe link by this device.  A replay is a retransmission of a TLP and occurs because the ACK timer is expired, which means that the receiver did not send the ACK or this device did not properly decode the ACK."/>
+        </Property>
+        <Property Name="ReplayRolloverCount" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The total number of the PCIe replay rollovers issued by this device."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the total number of the replay rollovers issued on the PCIe link by this device.  A replay rollover occurs when consecutive replays failed to resolve the errors on the link, which means that this device forced the link into the recovery state."/>
+        </Property>
+        <Property Name="NAKSentCount" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The total number of NAKs issued on the PCIe link by this device."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the total number of NAKs issued on the PCIe link by this device.  A NAK is issued by the device when it detects that a TLP from the receiver was missed.  This could be because the receiver did not transmit it, or because this device could not properly decode the packet."/>
+        </Property>
+        <Property Name="NAKReceivedCount" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The total number of NAKs issued on the PCIe link by the receiver."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the total number of NAKs issued on the PCIe link by the receiver.  A NAK is issued by the receiver when it detects that a TLP from this device was missed.  This could be because this device did not transmit it, or because the receiver could not properly decode the packet."/>
+        </Property>
+      </ComplexType>
     </Schema>
 
   </edmx:DataServices>

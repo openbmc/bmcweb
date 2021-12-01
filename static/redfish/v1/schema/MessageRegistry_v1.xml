@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  MessageRegistry v1.4.2                                              -->
+<!--# Redfish Schema:  MessageRegistry v1.5.0                                              -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -423,6 +423,34 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to clarify that Severity and MessageSeverity can be overridden by the service."/>
       <EntityType Name="MessageRegistry" BaseType="MessageRegistry.v1_4_1.MessageRegistry"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="MessageRegistry.v1_5_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2021.3"/>
+      <Annotation Term="OData.Description" String="This version was created to deprecate the Severity property and replace it with the MessageSeverity property, in order to tie the values to those used for the Health property within Status."/>
+
+      <EntityType Name="MessageRegistry" BaseType="MessageRegistry.v1_4_2.MessageRegistry"/>
+
+      <ComplexType Name="Message" BaseType="MessageRegistry.v1_4_0.Message">
+        <Property Name="VersionAdded" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="Validation.Pattern" String="^\d+\.\d+\.\d+$"/>
+          <Annotation Term="OData.Description" String="The registry version which added this message."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the version of the message registry when the message was added.  This property shall not appear for messages created at version `1.0.0` of a message registry."/>
+        </Property>
+        <Property Name="Deprecated" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The reason the message has been deprecated."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate that a message is deprecated.  The value of the string should explain the deprecation, including reference to new message or messages to be used.  The message can be supported in new and existing implementations, but usage in new implementations is discouraged.  Deprecated messages are likely to be removed in a future major version of the message registry."/>
+        </Property>
+        <Property Name="VersionDeprecated" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="Validation.Pattern" String="^\d+\.\d+\.\d+$"/>
+          <Annotation Term="OData.Description" String="The registry version when the the message was deprecated."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the version of the registry when the message was deprecated.  This property shall not appear if the message has not been deprecated."/>
+        </Property>
+      </ComplexType>
     </Schema>
 
   </edmx:DataServices>

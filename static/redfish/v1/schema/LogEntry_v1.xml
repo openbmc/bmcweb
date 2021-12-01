@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  LogEntry v1.9.0                                                     -->
+<!--# Redfish Schema:  LogEntry v1.10.0                                                    -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -1135,6 +1135,30 @@
         <Member Name="OEM">
           <Annotation Term="OData.Description" String="OEM diagnostic data."/>
         </Member>
+        <Member Name="CPER">
+          <Annotation Term="OData.Description" String="UEFI Common Platform Error Record."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the data provided at the URI specified by the AdditionalDataURI property is a complete UEFI Specification-defined Common Platform Error Record.  The CPER data shall contain a Record Header and at least one Section as defined by the UEFI Specification."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="v1_10_0"/>
+              </Record>
+            </Collection>
+          </Annotation>
+        </Member>
+        <Member Name="CPERSection">
+          <Annotation Term="OData.Description" String="A Section of a UEFI Common Platform Error Record."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the data provided at the URI specified by the AdditionalDataURI property is a single Section of a UEFI Specification-defined Common Platform Error Record.  The CPER data shall contain one Section as defined by the UEFI Specification, with no Record Header."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="v1_10_0"/>
+              </Record>
+            </Collection>
+          </Annotation>
+        </Member>
       </EnumType>
     </Schema>
 
@@ -1175,6 +1199,14 @@
           <Annotation Term="OData.LongDescription" String="This property shall contain the resolution of the log entry.  Services can replace the resolution defined in the message registry with a more specific resolution in a log entry."/>
         </Property>
       </EntityType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="LogEntry.v1_10_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2021.3"/>
+      <Annotation Term="OData.Description" String="This version was created add `CPER` and `CPERSection` to LogDiagnosticDataTypes."/>
+
+      <EntityType Name="LogEntry" BaseType="LogEntry.v1_9_0.LogEntry"/>
     </Schema>
 
   </edmx:DataServices>

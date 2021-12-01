@@ -1411,7 +1411,7 @@
         </Property>
         <Property Name="BootOrder" Type="Collection(Edm.String)">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
-          <Annotation Term="OData.Description" String="An array of BootOptionReference strings that represent the persistent boot order for with this computer system."/>
+          <Annotation Term="OData.Description" String="An array of BootOptionReference strings that represent the persistent boot order for with this computer system.  Changes to the boot order typically require a system reset before they take effect.  It is likely that a client finds the `@Redfish.Settings` term in this resource, and if it is found, the client makes requests to change boot order settings by modifying the resource identified by the `@Redfish.Settings` term."/>
           <Annotation Term="OData.LongDescription" String="This property shall contain an array of BootOptionReference strings that represent the persistent boot order for this computer system.  For UEFI systems, this is the UEFI Specification-defined UEFI BootOrder."/>
         </Property>
       </ComplexType>
@@ -1573,6 +1573,12 @@
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_5_9.ComputerSystem"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_5_11">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the BootOrder property might be controlled with a settings resource."/>
+      <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_5_10.ComputerSystem"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_6_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2018.3"/>
@@ -1670,6 +1676,12 @@
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_6_7.ComputerSystem"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_6_9">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the BootOrder property might be controlled with a settings resource."/>
+      <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_6_8.ComputerSystem"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_7_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2019.1"/>
@@ -1736,6 +1748,12 @@
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_7_6.ComputerSystem"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_7_8">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the BootOrder property might be controlled with a settings resource."/>
+      <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_7_7.ComputerSystem"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_8_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2019.2"/>
@@ -1785,6 +1803,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to clarify the behavior of the AliasBootOrder and BootSourceOverrideTarget properties.  It was also created to correct various description to use proper normative terminology."/>
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_8_5.ComputerSystem"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_8_7">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the BootOrder property might be controlled with a settings resource."/>
+      <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_8_6.ComputerSystem"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_9_0">
@@ -1839,6 +1863,12 @@
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_9_5.ComputerSystem"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_9_7">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the BootOrder property might be controlled with a settings resource."/>
+      <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_9_6.ComputerSystem"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_10_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2019.4"/>
@@ -1882,6 +1912,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to clarify the behavior of the AliasBootOrder and BootSourceOverrideTarget properties.  It was also created to correct various description to use proper normative terminology."/>
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_10_4.ComputerSystem"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_10_6">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the BootOrder property might be controlled with a settings resource."/>
+      <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_10_5.ComputerSystem"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_11_0">
@@ -1951,6 +1987,12 @@
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_11_3.ComputerSystem"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_11_5">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the BootOrder property might be controlled with a settings resource."/>
+      <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_11_4.ComputerSystem"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_12_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2020.2"/>
@@ -1981,6 +2023,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to clarify the behavior of the AliasBootOrder and BootSourceOverrideTarget properties.  It was also created to correct various description to use proper normative terminology."/>
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_12_2.ComputerSystem"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_12_4">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the BootOrder property might be controlled with a settings resource."/>
+      <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_12_3.ComputerSystem"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_13_0">
@@ -2236,6 +2284,12 @@
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_13_1.ComputerSystem"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_13_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the BootOrder property might be controlled with a settings resource."/>
+      <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_13_2.ComputerSystem"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_14_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2020.4"/>
@@ -2287,6 +2341,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to clarify the behavior of the AliasBootOrder and BootSourceOverrideTarget properties.  It was also created to correct various description to use proper normative terminology."/>
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_14_0.ComputerSystem"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_14_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the BootOrder property might be controlled with a settings resource."/>
+      <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_14_1.ComputerSystem"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_15_0">
@@ -2367,6 +2427,12 @@
           <Annotation Term="OData.LongDescription" String="The value of this property shall indicate that all Processor resources in this system where the ProcessorType property contains `CPU` have multiple threading support enabled."/>
         </Property>
       </ComplexType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_15_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the BootOrder property might be controlled with a settings resource."/>
+      <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_15_0.ComputerSystem"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_16_0">
@@ -2465,6 +2531,12 @@
           <Annotation Term="OData.LongDescription" String="This property shall contain the password to access the KMIP server.  The value shall be `null` in responses."/>
         </Property>
       </ComplexType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_16_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the BootOrder property might be controlled with a settings resource."/>
+      <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_16_0.ComputerSystem"/>
     </Schema>
 
   </edmx:DataServices>
