@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  MetricDefinition v1.2.0                                             -->
+<!--# Redfish Schema:  MetricDefinition v1.2.1                                             -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -192,7 +192,7 @@
 
         <Property Name="CalculationParameters" Type="Collection(MetricDefinition.v1_0_0.CalculationParamsType)">
           <Annotation Term="OData.Description" String="The metric properties that are part of a calculation."/>
-          <Annotation Term="OData.LongDescription" String="This property shall list the metric properties that are part of a calculation.  This property should be present when the value of the ImplementationType property is `Synthesized or `Calculated`."/>
+          <Annotation Term="OData.LongDescription" String="This property shall list the metric properties that are part of a calculation.  This property should be present when the value of the ImplementationType property is `Synthesized` or `Calculated`."/>
         </Property>
 
         <Property Name="PhysicalContext" Type="PhysicalContext.PhysicalContext">
@@ -375,6 +375,12 @@
       <EntityType Name="MetricDefinition" BaseType="MetricDefinition.v1_0_6.MetricDefinition"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="MetricDefinition.v1_0_8">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="MetricDefinition" BaseType="MetricDefinition.v1_0_7.MetricDefinition"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="MetricDefinition.v1_1_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2020.3"/>
@@ -401,12 +407,24 @@
       <EntityType Name="MetricDefinition" BaseType="MetricDefinition.v1_1_1.MetricDefinition"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="MetricDefinition.v1_1_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="MetricDefinition" BaseType="MetricDefinition.v1_1_2.MetricDefinition"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="MetricDefinition.v1_2_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2021.1"/>
       <Annotation Term="OData.Description" String="This version was created to add `String` to the MetricType enumeration."/>
 
       <EntityType Name="MetricDefinition" BaseType="MetricDefinition.v1_1_2.MetricDefinition"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="MetricDefinition.v1_2_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="MetricDefinition" BaseType="MetricDefinition.v1_2_0.MetricDefinition"/>
     </Schema>
 
   </edmx:DataServices>

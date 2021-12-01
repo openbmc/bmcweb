@@ -1,5 +1,5 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/LogEntry.v1_9_0.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/LogEntry.v1_10_0.json",
     "$ref": "#/definitions/LogEntry",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
     "copyright": "Copyright 2014-2021 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
@@ -83,13 +83,25 @@
                 "Manager",
                 "PreOS",
                 "OS",
-                "OEM"
+                "OEM",
+                "CPER",
+                "CPERSection"
             ],
             "enumDescriptions": {
+                "CPER": "UEFI Common Platform Error Record.",
+                "CPERSection": "A Section of a UEFI Common Platform Error Record.",
                 "Manager": "Manager diagnostic data.",
                 "OEM": "OEM diagnostic data.",
                 "OS": "Operating system (OS) diagnostic data.",
                 "PreOS": "Pre-OS diagnostic data."
+            },
+            "enumLongDescriptions": {
+                "CPER": "This value shall indicate the data provided at the URI specified by the AdditionalDataURI property is a complete UEFI Specification-defined Common Platform Error Record.  The CPER data shall contain a Record Header and at least one Section as defined by the UEFI Specification.",
+                "CPERSection": "This value shall indicate the data provided at the URI specified by the AdditionalDataURI property is a single Section of a UEFI Specification-defined Common Platform Error Record.  The CPER data shall contain one Section as defined by the UEFI Specification, with no Record Header."
+            },
+            "enumVersionAdded": {
+                "CPER": "v1_10_0",
+                "CPERSection": "v1_10_0"
             },
             "type": "string"
         },
@@ -676,6 +688,6 @@
         }
     },
     "owningEntity": "DMTF",
-    "release": "2021.1",
-    "title": "#LogEntry.v1_9_0.LogEntry"
+    "release": "2021.3",
+    "title": "#LogEntry.v1_10_0.LogEntry"
 }

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  ManagerAccount v1.8.0                                               -->
+<!--# Redfish Schema:  ManagerAccount v1.8.1                                               -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -39,7 +39,7 @@
 
       <EntityType Name="ManagerAccount" BaseType="Resource.v1_0_0.Resource" Abstract="true">
         <Annotation Term="OData.Description" String="The ManagerAccount schema defines the user accounts that are owned by a manager.  Changes to a manager account might affect the current Redfish service connection if this manager is responsible for the Redfish service."/>
-        <Annotation Term="OData.LongDescription" String="This resource shall represent a user account for the manager in a Redfish implementation."/>
+        <Annotation Term="OData.LongDescription" String="This resource shall represent a user account for the manager in a Redfish implementation.  The account shall indicate the allowed access to one of more services in the manager."/>
         <Annotation Term="Capabilities.InsertRestrictions">
           <Record>
             <PropertyValue Property="Insertable" Bool="false"/>
@@ -446,8 +446,8 @@
         </Property>
         <Property Name="AccountTypes" Type="Collection(ManagerAccount.AccountTypes)">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
-          <Annotation Term="OData.Description" String="The account types."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain an array of the various account types that apply to the account.  If this property is not provided by the client, the default value shall be an array that contains the value `Redfish`.  The service may add additional values when this property is set or updated if allowed by the value of the StrictAccountTypes property."/>
+          <Annotation Term="OData.Description" String="The list of services in the manager that the account is allowed to access."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of the various manager services that the account is allowed to access.  This shall not include functionality for receiving events or other notifications.  If this property is not provided by the client, the default value shall be an array that contains the value `Redfish`.  The service may add additional values when this property is set or updated if allowed by the value of the StrictAccountTypes property."/>
           <Annotation Term="Redfish.Required"/>
         </Property>
         <Property Name="OEMAccountTypes" Type="Collection(Edm.String)">
@@ -594,6 +594,12 @@
       <EntityType Name="ManagerAccount" BaseType="ManagerAccount.v1_4_4.ManagerAccount"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ManagerAccount.v1_4_6">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update the descriptions of the resource and the AccountTypes property to clarify intended usage."/>
+      <EntityType Name="ManagerAccount" BaseType="ManagerAccount.v1_4_5.ManagerAccount"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ManagerAccount.v1_5_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2019.4"/>
@@ -638,6 +644,12 @@
       <EntityType Name="ManagerAccount" BaseType="ManagerAccount.v1_5_3.ManagerAccount"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ManagerAccount.v1_5_5">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update the descriptions of the resource and the AccountTypes property to clarify intended usage."/>
+      <EntityType Name="ManagerAccount" BaseType="ManagerAccount.v1_5_4.ManagerAccount"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ManagerAccount.v1_6_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2020.1"/>
@@ -670,6 +682,12 @@
       <EntityType Name="ManagerAccount" BaseType="ManagerAccount.v1_6_2.ManagerAccount"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ManagerAccount.v1_6_4">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update the descriptions of the resource and the AccountTypes property to clarify intended usage."/>
+      <EntityType Name="ManagerAccount" BaseType="ManagerAccount.v1_6_3.ManagerAccount"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ManagerAccount.v1_7_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to add additional SNMPv3 authentication protocols.  It was also created to extend the values for AccountTypes."/>
@@ -690,6 +708,12 @@
       <EntityType Name="ManagerAccount" BaseType="ManagerAccount.v1_7_0.ManagerAccount"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ManagerAccount.v1_7_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update the descriptions of the resource and the AccountTypes property to clarify intended usage."/>
+      <EntityType Name="ManagerAccount" BaseType="ManagerAccount.v1_7_1.ManagerAccount"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ManagerAccount.v1_8_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2021.1"/>
@@ -707,6 +731,12 @@
           <Annotation Term="OData.LongDescription" String="This property shall indicate whether this account is a bootstrap account created by the Redfish Host Interface Specification-defined credential bootstrapping."/>
         </Property>
       </EntityType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ManagerAccount.v1_8_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update the descriptions of the resource and the AccountTypes property to clarify intended usage."/>
+      <EntityType Name="ManagerAccount" BaseType="ManagerAccount.v1_8_0.ManagerAccount"/>
     </Schema>
 
   </edmx:DataServices>

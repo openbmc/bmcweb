@@ -1,5 +1,5 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/PCIeDevice.v1_7_0.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/PCIeDevice.v1_8_0.json",
     "$ref": "#/definitions/PCIeDevice",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
     "copyright": "Copyright 2014-2021 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
@@ -329,6 +329,108 @@
             ],
             "type": "object"
         },
+        "PCIeErrors": {
+            "additionalProperties": false,
+            "description": "The PCIe errors associated with this device.",
+            "longDescription": "This property shall contain properties that describe the PCIe errors associated with this device.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "CorrectableErrorCount": {
+                    "description": "The total number of the PCIe correctable errors for this device.",
+                    "longDescription": "This property shall contain the total number of the PCIe correctable errors for this device.",
+                    "readonly": true,
+                    "type": [
+                        "integer",
+                        "null"
+                    ],
+                    "versionAdded": "v1_8_0"
+                },
+                "FatalErrorCount": {
+                    "description": "The total number of the PCIe fatal errors for this device.",
+                    "longDescription": "This property shall contain the total number of the PCIe fatal errors for this device.",
+                    "readonly": true,
+                    "type": [
+                        "integer",
+                        "null"
+                    ],
+                    "versionAdded": "v1_8_0"
+                },
+                "L0ToRecoveryCount": {
+                    "description": "The total number of times the PCIe link states transitioned from L0 to the recovery state for this device.",
+                    "longDescription": "This property shall contain the total number of times the PCIe link transitioned from L0 to the recovery state for this device.",
+                    "readonly": true,
+                    "type": [
+                        "integer",
+                        "null"
+                    ],
+                    "versionAdded": "v1_8_0"
+                },
+                "NAKReceivedCount": {
+                    "description": "The total number of NAKs issued on the PCIe link by the receiver.",
+                    "longDescription": "This property shall contain the total number of NAKs issued on the PCIe link by the receiver.  A NAK is issued by the receiver when it detects that a TLP from this device was missed.  This could be because this device did not transmit it, or because the receiver could not properly decode the packet.",
+                    "readonly": true,
+                    "type": [
+                        "integer",
+                        "null"
+                    ],
+                    "versionAdded": "v1_8_0"
+                },
+                "NAKSentCount": {
+                    "description": "The total number of NAKs issued on the PCIe link by this device.",
+                    "longDescription": "This property shall contain the total number of NAKs issued on the PCIe link by this device.  A NAK is issued by the device when it detects that a TLP from the receiver was missed.  This could be because the receiver did not transmit it, or because this device could not properly decode the packet.",
+                    "readonly": true,
+                    "type": [
+                        "integer",
+                        "null"
+                    ],
+                    "versionAdded": "v1_8_0"
+                },
+                "NonFatalErrorCount": {
+                    "description": "The total number of the PCIe non-fatal errors for this device.",
+                    "longDescription": "This property shall contain the total number of the PCIe non-fatal errors for this device.",
+                    "readonly": true,
+                    "type": [
+                        "integer",
+                        "null"
+                    ],
+                    "versionAdded": "v1_8_0"
+                },
+                "ReplayCount": {
+                    "description": "The total number of the PCIe replays issued by this device.",
+                    "longDescription": "This property shall contain the total number of the replays issued on the PCIe link by this device.  A replay is a retransmission of a TLP and occurs because the ACK timer is expired, which means that the receiver did not send the ACK or this device did not properly decode the ACK.",
+                    "readonly": true,
+                    "type": [
+                        "integer",
+                        "null"
+                    ],
+                    "versionAdded": "v1_8_0"
+                },
+                "ReplayRolloverCount": {
+                    "description": "The total number of the PCIe replay rollovers issued by this device.",
+                    "longDescription": "This property shall contain the total number of the replay rollovers issued on the PCIe link by this device.  A replay rollover occurs when consecutive replays failed to resolve the errors on the link, which means that this device forced the link into the recovery state.",
+                    "readonly": true,
+                    "type": [
+                        "integer",
+                        "null"
+                    ],
+                    "versionAdded": "v1_8_0"
+                }
+            },
+            "type": "object"
+        },
         "PCIeInterface": {
             "additionalProperties": false,
             "description": "Properties that describe a PCIe interface.",
@@ -409,6 +511,6 @@
         }
     },
     "owningEntity": "DMTF",
-    "release": "2021.1",
-    "title": "#PCIeDevice.v1_7_0.PCIeDevice"
+    "release": "2021.3",
+    "title": "#PCIeDevice.v1_8_0.PCIeDevice"
 }
