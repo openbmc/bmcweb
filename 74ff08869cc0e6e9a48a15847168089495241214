@@ -178,6 +178,30 @@
     },
     {
       "key": {
+        "uuid": "a46c147a_2dfb3742",
+        "filename": "http/utility.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 587,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-12-01T17:09:48Z",
+      "side": 1,
+      "message": "\u003e https://github.com/openbmc/bmcweb/blob/7c8c4058e265f784679b9144ff33b89f50f1bf59/http/utility.hpp#L577 The existing code is using \"second\" as unit.\n\u003e \n\u003e So LogService has been wrong for some time I guess. I will fix it in the next patchset.\n\u003e \n\u003e The other places should be good. They have converted the unit into seconds.\n\nGotta love consistency.  Lets do our best to test and make sure the responses don\u0027t change.",
+      "parentUuid": "b6978905_225d2ecb",
+      "range": {
+        "startLine": 587,
+        "startChar": 35,
+        "endLine": 587,
+        "endChar": 42
+      },
+      "revId": "74ff08869cc0e6e9a48a15847168089495241214",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "ccd3d78c_4e3eb8d3",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 2
