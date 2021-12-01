@@ -2,6 +2,52 @@
   "comments": [
     {
       "key": {
+        "uuid": "f481622b_9c44652d",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 204,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-12-01T20:20:14Z",
+      "side": 1,
+      "message": "This is still very complex for the operation it\u0027s doing.  Look at translateAddressOriginDbusToRedfish for an example of how to simplify.  (obviously this wont need the isIPv4 argument)\n\nGenerally the whole enum is used in this to avoid using substr.",
+      "range": {
+        "startLine": 204,
+        "startChar": 12,
+        "endLine": 204,
+        "endChar": 44
+      },
+      "revId": "cdab6bdfad65da537e1e5617d01ba88ce0b8a84a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "63111e2f_8f294b9b",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 302,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-12-01T20:20:14Z",
+      "side": 1,
+      "message": "Don\u0027t use substr here.  Match the whole enum, namespace and all.",
+      "range": {
+        "startLine": 301,
+        "startChar": 0,
+        "endLine": 302,
+        "endChar": 64
+      },
+      "revId": "cdab6bdfad65da537e1e5617d01ba88ce0b8a84a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "447dbd0a_28ab2b0f",
         "filename": "redfish-core/lib/ethernet.hpp",
         "patchSetId": 8
@@ -13,6 +59,30 @@
       "writtenOn": "2021-11-30T08:26:03Z",
       "side": 1,
       "message": "Returning here is not the practice followed in bmcweb AFAIK. If any of property is not failed to fetch and if its not mandatory property, lets log error and continue with other properties. So just cross check with schema once, is \"LinkStatus\" is mandatory property  or not.",
+      "range": {
+        "startLine": 1740,
+        "startChar": 8,
+        "endLine": 1741,
+        "endChar": 15
+      },
+      "revId": "cdab6bdfad65da537e1e5617d01ba88ce0b8a84a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4fa49e24_aaa4c977",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 1741,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-12-01T20:20:14Z",
+      "side": 1,
+      "message": "\u003e Returning here is not the practice followed in bmcweb AFAIK. If any of property is not failed to fetch and if its not mandatory property, lets log error and continue with other properties. So just cross check with schema once, is \"LinkStatus\" is mandatory property  or not.\n\nWe\u0027re not consistent on this. Sometimes we return, sometimes we don\u0027t.  Considering it\u0027s 500 error, and the client should be ignoring the response anyway, this is fine.",
+      "parentUuid": "447dbd0a_28ab2b0f",
       "range": {
         "startLine": 1740,
         "startChar": 8,
