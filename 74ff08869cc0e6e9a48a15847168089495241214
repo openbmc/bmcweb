@@ -173,6 +173,30 @@
     },
     {
       "key": {
+        "uuid": "8fdeae06_ce446bf7",
+        "filename": "http/utility.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 582,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2021-12-01T18:16:22Z",
+      "side": 1,
+      "message": "\u003e Ideally we\u0027d clean those up, but for the moment, can we just make sure that we only specialize this for those three (int64_t, time_t, and uint64_t) then?  I\u0027d really like to understand where we\u0027re using int64_t, that seems odd.  All of dbus should be uint64_t, sys calls should be int32_t/time_t.....  I\u0027m not seeing the int64_t in your patchset.\n\nint64_t is the future std::time_t type.\n\n\n\u003e getDateTime(-5) will underflow.  I\u0027m not sure boost handles that correctly, and because some of these are being taken from user input (ie untrusted input) we need to be careful of that a little.\nI believe Boost should have handled all the integral types. \n\nTested: \ncrow::utility::getDateTime(-50000LL) \u003d\u003e \"1969-12-31T10:06:40Z\"\n\n\u003e As I say this, I just realized that if we have a int16_t, it can implicitly convert to int64_t......  so even if we limited the scope, we still get bit by that.\n\nYes, I believe we as long as it compiles, it means boost can handle the Template Instantiation of the corresponding type. The template fits well here given the \"boost::posix_time::seconds\" itself is using template.\n\nAny more comments?",
+      "parentUuid": "c2ffba29_0677abfd",
+      "range": {
+        "startLine": 582,
+        "startChar": 0,
+        "endLine": 582,
+        "endChar": 21
+      },
+      "revId": "74ff08869cc0e6e9a48a15847168089495241214",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "10889b25_8d93a7a7",
         "filename": "http/utility.hpp",
         "patchSetId": 2
