@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ba9269b8_dee5e6e4",
+        "filename": "redfish-core/include/event_service_manager.hpp",
+        "patchSetId": 57
+      },
+      "lineNbr": 511,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-12-01T03:36:23Z",
+      "side": 1,
+      "message": "Isn\u0027t this wrong?  metricReportDefinitionUri doesn\u0027t end with a slash, so presumably this should\u0027ve been metricReportDefinitionUri + \"/\" + id, similar to line 48 of metric_report.hpp.",
+      "range": {
+        "startLine": 511,
+        "startChar": 29,
+        "endLine": 511,
+        "endChar": 71
+      },
+      "revId": "383848b9088056371743a28eb1f9a3ed415dc46b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
