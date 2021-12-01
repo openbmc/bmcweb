@@ -229,8 +229,11 @@ nlohmann::json internalError(void)
                        "consider resetting the service."}};
 }
 
-void internalError(crow::Response& res)
+void internalError(crow::Response& res, const bmcweb::source_location location)
 {
+    BMCWEB_LOG_CRITICAL << "Internal Error " << location.file_name() << "("
+                        << location.line() << ":" << location.column() << ") `"
+                        << location.function_name() << "`: ";
     res.result(boost::beast::http::status::internal_server_error);
     addMessageToErrorJson(res.jsonValue, internalError());
 }
