@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a99969e8_1bf60f66",
+        "filename": "redfish-core/lib/trigger.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-12-01T16:48:27Z",
+      "side": 1,
+      "message": "This should go in time utils, not in trigger.hpp  Please also write some unit tests for it.",
+      "range": {
+        "startLine": 80,
+        "startChar": 34,
+        "endLine": 80,
+        "endChar": 57
+      },
+      "revId": "f6bf2403670fd25ba41125cea5e0edae5ebd5c5a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b1aeac51_56499983",
+        "filename": "redfish-core/lib/trigger.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-12-01T16:48:27Z",
+      "side": 1,
+      "message": "Please prefer a pattern of returning early instead of adding extra branches.  something like\n\nif maxTimeMs \u003e\u003d timeMs){\n   return nullopt;\n}\nreturn time_utils::toDurationString(std::chrono::milliseconds(timeMs));",
+      "range": {
+        "startLine": 86,
+        "startChar": 0,
+        "endLine": 87,
+        "endChar": 5
+      },
+      "revId": "f6bf2403670fd25ba41125cea5e0edae5ebd5c5a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "69ed4c5c_db8e2fe7",
+        "filename": "redfish-core/lib/trigger.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 196,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-12-01T16:48:27Z",
+      "side": 1,
+      "message": "Last I understood, this still compiled much larger than doing a simple loop.  Do we understand why yet?  This isn\u0027t a pattern I want to propogate if it causes large binary sizes.\n\nAlso, from a maintenance standpoint, it doesn\u0027t have the ability to support optional parameters on an interface, nor multiple interfaces, nor type conversion at the callsite, so I worry a little bit about its usefulness as written as interfaces adjust over time.  If this is a pattern you\u0027d like to see, lets move over one of the previously written (ideally a non-trivial) handlers to it first to determine its utility and impact on binary size.  Using new patterns on new code is difficult to maintain, as it can cause maintenance issues where it isn\u0027t clear if our design pattern is incorrect, or this specific handler is incorrect.  Also, I worry a little bit about having two patterns for this;  Is this a pattern you\u0027re willing to propagate through the codebase?",
+      "range": {
+        "startLine": 196,
+        "startChar": 56,
+        "endLine": 196,
+        "endChar": 79
+      },
+      "revId": "f6bf2403670fd25ba41125cea5e0edae5ebd5c5a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "85fbd35d_912de3ef",
+        "filename": "redfish-core/lib/trigger.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 226,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-12-01T16:48:27Z",
+      "side": 1,
+      "message": "This looks wrong to me.  from the redfish spec\"This type shall specify the condition, in relationship to the discrete trigger values, which constitutes a trigger.\"\n\nWhether or not the discrete triggers list is empty doesn\u0027t really determine that, does it?  Am I missing something?",
+      "range": {
+        "startLine": 226,
+        "startChar": 0,
+        "endLine": 226,
+        "endChar": 64
+      },
+      "revId": "f6bf2403670fd25ba41125cea5e0edae5ebd5c5a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
