@@ -16,6 +16,23 @@
       "revId": "968e7a66d1370d3301903fdfe7b81da5e6f1b632",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9e85f489_82525f9a",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 56
+      },
+      "lineNbr": 738,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-12-01T20:40:29Z",
+      "side": 1,
+      "message": "Is this really an internal Error? Looks like a badly formatted request to me",
+      "revId": "968e7a66d1370d3301903fdfe7b81da5e6f1b632",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
