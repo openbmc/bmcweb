@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "acbe1310_96a97062",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-12-01T19:07:28Z",
+      "side": 1,
+      "message": "\"Patching will return internal Server error\" doesn\u0027t sound like correct return code.",
+      "revId": "388cfc0189a88d9a5493b55381021f34bdb2f6b4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7f8a2718_cd3e135f",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 3139,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-12-01T19:07:28Z",
+      "side": 1,
+      "message": "How does this handle \n/redfish/v1/Chassis/badChassisId/Sensors/\u003cstr\u003e/\n/redfish/v1/Chassis/\u003cstr\u003e/Sensors/badSensorId/\n\nhttps://github.com/openbmc/bmcweb/blob/80be2cdb217fd11e60c403a019134ee970ae6453/COMMON_ERRORS.md#11-not-responding-to-404",
+      "revId": "388cfc0189a88d9a5493b55381021f34bdb2f6b4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "42f46b8b_1fa6b4ad",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 3162,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-12-01T19:07:28Z",
+      "side": 1,
+      "message": "These are ReadOnly \n\n                \"Reading\": {\n                    \"description\": \"The sensor value.\",\n                    \"excerpt\": \"Sensor\",\n                    \"longDescription\": \"This property shall contain the sensor value.\",\n                    \"readonly\": true,\n                    \"type\": [\n                        \"number\",\n                        \"null\"\n                    ]\n                },\n\n                \"Id\": {\n                    \"$ref\": \"http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Id\",\n                    \"readonly\": true\n                },\n\n\nIf you really need this usecase, this should be atleast behind a flag, defaulted to disabled",
+      "revId": "388cfc0189a88d9a5493b55381021f34bdb2f6b4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
