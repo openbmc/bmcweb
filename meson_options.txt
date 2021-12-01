@@ -21,6 +21,7 @@ option('redfish-dbus-log', type : 'feature', value : 'disabled', description : '
 option('redfish-host-logger', type : 'feature', value : 'enabled', description : 'Enable host log service transactions based on phosphor-hostlogger through Redfish.  Paths are under \'/redfish/v1/Systems/system/LogServices/HostLogger\'')
 option('redfish-provisioning-feature', type : 'feature', value : 'disabled', description : 'Enable provisioning feature support in redfish. Paths are under \'/redfish/v1/Systems/system/\'')
 option('bmcweb-logging', type : 'feature', value : 'disabled', description : 'Enable output the extended debug logs')
+option('redfish-sensor-patch', type : 'feature', value : 'disabled', description : 'Enable patching of sensors under /Chassis/<>/Sensors')
 option('basic-auth', type : 'feature', value : 'enabled', description : '''Enable basic authentication''')
 option('session-auth', type : 'feature', value : 'enabled', description : '''Enable session authentication''')
 option('xtoken-auth', type : 'feature', value : 'enabled', description : '''Enable xtoken authentication''')

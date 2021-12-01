@@ -2817,47 +2817,13 @@ inline bool findSensorNameUsingSensorPath(
  * @brief Entry point for overriding sensor values of given sensor
  *
  * @param sensorAsyncResp   response object
- * @param allCollections   Collections extract from sensors' request patch info
- * @param chassisSubNode   Chassis Node for which the query has to happen
+ * @param overrideMap   Collections of sensors to be updated
  */
-inline void setSensorsOverride(
-    const std::shared_ptr<SensorsAsyncResp>& sensorAsyncResp,
-    std::unordered_map<std::string, std::vector<nlohmann::json>>&
-        allCollections)
+inline void
+    setSensor(const std::shared_ptr<SensorsAsyncResp>& sensorAsyncResp,
+              std::unordered_map<std::string, std::pair<double, std::string>>&
+                  overrideMap)
 {
-    BMCWEB_LOG_INFO << "setSensorsOverride for subNode"
-                    << sensorAsyncResp->chassisSubNode << "\n";
-
-    const char* propertyValueName;
-    std::unordered_map<std::string, std::pair<double, std::string>> overrideMap;
-    std::string memberId;
-    double value;
-    for (auto& collectionItems : allCollections)
-    {
-        if (collectionItems.first == "Temperatures")
-        {
-            propertyValueName = "ReadingCelsius";
-        }
-        else if (collectionItems.first == "Fans")
-        {
-            propertyValueName = "Reading";
-        }
-        else
-        {
-            propertyValueName = "ReadingVolts";
-        }
-        for (auto& item : collectionItems.second)
-        {
-            if (!json_util::readJson(item, sensorAsyncResp->asyncResp->res,
-                                     "MemberId", memberId, propertyValueName,
-                                     value))
-            {
-                return;
-            }
-            overrideMap.emplace(memberId,
-                                std::make_pair(value, collectionItems.first));
-        }
-    }
 
     auto getChassisSensorListCb = [sensorAsyncResp, overrideMap](
                                       const std::shared_ptr<
@@ -2945,6 +2911,55 @@ inline void setSensorsOverride(
     };
     // get full sensor list for the given chassisId and cross verify the sensor.
     getChassis(sensorAsyncResp, std::move(getChassisSensorListCb));
+}
+
+/**
+ * @brief Entry point for overriding sensor values of given sensor
+ *
+ * @param sensorAsyncResp   response object
+ * @param allCollections   Collections extract from sensors' request patch info
+ */
+inline void setSensorsOverride(
+    const std::shared_ptr<SensorsAsyncResp>& sensorAsyncResp,
+    std::unordered_map<std::string, std::vector<nlohmann::json>>&
+        allCollections)
+{
+    BMCWEB_LOG_INFO << "setSensorsOverride for subNode"
+                    << sensorAsyncResp->chassisSubNode << "\n";
+
+    const char* propertyValueName;
+    std::unordered_map<std::string, std::pair<double, std::string>> overrideMap;
+    std::string memberId;
+    double value;
+    for (auto& collectionItems : allCollections)
+    {
+        if (collectionItems.first == "Temperatures")
+        {
+            propertyValueName = "ReadingCelsius";
+        }
+        else if (collectionItems.first == "Fans")
+        {
+            propertyValueName = "Reading";
+        }
+        else
+        {
+            propertyValueName = "ReadingVolts";
+        }
+        for (auto& item : collectionItems.second)
+        {
+            if (!json_util::readJson(item, sensorAsyncResp->asyncResp->res,
+                                     "MemberId", memberId, propertyValueName,
+                                     value))
+            {
+
+                return;
+            }
+            overrideMap.emplace(memberId,
+                                std::make_pair(value, collectionItems.first));
+        }
+    }
+
+    setSensor(sensorAsyncResp, overrideMap);
 }
 
 /**
@@ -3120,6 +3135,42 @@ inline void requestRoutesSensor(App& app)
                 "xyz.openbmc_project.ObjectMapper", "GetSubTree",
                 "/xyz/openbmc_project/sensors", 2, interfaces);
         });
+
+#ifdef REDFISH_SENSOR_PATCHING
+    BMCWEB_ROUTE(app, "/redfish/v1/Chassis/<str>/Sensors/<str>/")
+        .privileges(redfish::privileges::patchSensor)
+        .methods(boost::beast::http::verb::patch)(
+            [](const crow::Request& req,
+               const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+               const std::string& chassisName, const std::string&) {
+                std::unordered_map<std::string, std::pair<double, std::string>>
+                    overrideMap;
+                std::string memberId;
+                double value = 0;
+                auto sensorPaths =
+                    sensors::dbus::paths.find(sensors::node::sensors);
+                if (sensorPaths == sensors::dbus::paths.end())
+                {
+                    messages::internalError(asyncResp->res);
+                    return;
+                }
+
+                auto sensorsAsyncResp = std::make_shared<SensorsAsyncResp>(
+                    asyncResp, chassisName, sensorPaths->second,
+                    sensors::node::sensors);
+
+                if (!json_util::readJson(req, sensorsAsyncResp->asyncResp->res,
+                                         "Id", memberId, "Reading", value))
+                {
+
+                    return;
+                }
+
+                overrideMap.emplace(memberId, std::make_pair(value, "Reading"));
+
+                setSensor(sensorsAsyncResp, overrideMap);
+            });
+#endif
 }
 
 } // namespace redfish

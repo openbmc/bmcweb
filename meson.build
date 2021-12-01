@@ -214,6 +214,11 @@ if( get_option('bmcweb-logging').enabled() or \
     },section : 'Enabled Features')
 endif
 
+if(get_option('redfish-sensor-patch').enabled())
+  add_project_arguments('-DREDFISH_SENSOR_PATCHING', language: 'cpp')
+  message('Enabling redfish patching of sensors under /Chassis/<>/Sensors')
+endif
+
 # Set Compiler Security flags
 
 security_flags = [
