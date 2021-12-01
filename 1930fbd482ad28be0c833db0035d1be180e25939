@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "78c5a3c7_2b449973",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-12-01T00:45:27Z",
+      "side": 1,
+      "message": "Might have been good to reference where the spec defines these / why these are Hex ? Oh well, for next time. :) \n\nI see Hex in the example response you listed, but don\u0027t see this in the descriptions.   \n\n                \"EffectiveFamily\": {\n                    \"description\": \"The effective family for this processor.\",\n                    \"longDescription\": \"This property shall indicate the effective Family information as provided by the manufacturer of this processor.\",\n                    \"readonly\": true,\n                    \"type\": [\n                        \"string\",\n                        \"null\"\n                    ]\n                },\n                \"EffectiveModel\": {\n                    \"description\": \"The effective model for this processor.\",\n                    \"longDescription\": \"This property shall indicate the effective Model information as provided by the manufacturer of this processor.\",\n                    \"readonly\": true,\n                    \"type\": [\n                        \"string\",\n                        \"null\"\n                    ]",
+      "revId": "1930fbd482ad28be0c833db0035d1be180e25939",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
