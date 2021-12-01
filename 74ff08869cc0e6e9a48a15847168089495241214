@@ -37,6 +37,29 @@
     },
     {
       "key": {
+        "uuid": "ebf55ee7_c947f81a",
+        "filename": "http/utility.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-12-01T03:30:18Z",
+      "side": 1,
+      "message": "do we need the io portion?  posix_time_types.hpp seems like a more specific header for what we need?",
+      "range": {
+        "startLine": 6,
+        "startChar": 37,
+        "endLine": 6,
+        "endChar": 47
+      },
+      "revId": "74ff08869cc0e6e9a48a15847168089495241214",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e84d4a29_63d35e80",
         "filename": "http/utility.hpp",
         "patchSetId": 2
@@ -72,6 +95,30 @@
       "side": 1,
       "message": "Yeah, that\u0027s a good question. I went with uint64_t before, unfortunately, I am getting many compilation warnings (in the existing codes, we have int64_t, time_t (int32_t), and uint64_t calling this function). \n\nThe boost header should have handled different templates IIUC, right? What\u0027s the int64_t underflow here?",
       "parentUuid": "e84d4a29_63d35e80",
+      "range": {
+        "startLine": 582,
+        "startChar": 0,
+        "endLine": 582,
+        "endChar": 21
+      },
+      "revId": "74ff08869cc0e6e9a48a15847168089495241214",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c2ffba29_0677abfd",
+        "filename": "http/utility.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 582,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-12-01T03:30:18Z",
+      "side": 1,
+      "message": "\u003e Yeah, that\u0027s a good question. I went with uint64_t before, unfortunately, I am getting many compilation warnings (in the existing codes, we have int64_t, time_t (int32_t), and uint64_t calling this function). \n\nIdeally we\u0027d clean those up, but for the moment, can we just make sure that we only specialize this for those three (int64_t, time_t, and uint64_t) then?  I\u0027d really like to understand where we\u0027re using int64_t, that seems odd.  All of dbus should be uint64_t, sys calls should be int32_t/time_t.....  I\u0027m not seeing the int64_t in your patchset.\n\nAs I say this, I just realized that if we have a int16_t, it can implicitly convert to int64_t......  so even if we limited the scope, we still get bit by that.\n\n\u003e \n\u003e The boost header should have handled different templates IIUC, right? What\u0027s the int64_t underflow here?\n\ngetDateTime(-5) will underflow.  I\u0027m not sure boost handles that correctly, and because some of these are being taken from user input (ie untrusted input) we need to be careful of that a little.",
+      "parentUuid": "1ec7b0bf_864923a0",
       "range": {
         "startLine": 582,
         "startChar": 0,
