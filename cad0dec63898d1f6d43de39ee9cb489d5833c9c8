@@ -141,6 +141,30 @@
       "revId": "cad0dec63898d1f6d43de39ee9cb489d5833c9c8",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f8ac1818_c07cb616",
+        "filename": "http/utility.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 593,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-12-02T18:04:30Z",
+      "side": 1,
+      "message": "It\u0027s close, but not quite.  The current version still duplicates the template code.  Hang on for 10 minutes, let me push a patch with what I\u0027m thinking.",
+      "parentUuid": "ac10cf3f_598a606d",
+      "range": {
+        "startLine": 593,
+        "startChar": 19,
+        "endLine": 593,
+        "endChar": 30
+      },
+      "revId": "cad0dec63898d1f6d43de39ee9cb489d5833c9c8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
