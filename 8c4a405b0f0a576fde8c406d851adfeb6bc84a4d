@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "269f7ed8_979a1755",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1000566
+      },
+      "writtenOn": "2021-12-02T10:52:34Z",
+      "side": 1,
+      "message": "Redfish Validator passed. Thank You",
+      "parentUuid": "cc0dfbff_ebe7acfc",
+      "range": {
+        "startLine": 19,
+        "startChar": 26,
+        "endLine": 19,
+        "endChar": 54
+      },
+      "revId": "8c4a405b0f0a576fde8c406d851adfeb6bc84a4d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "cb4d2dd0_97e2569d",
         "filename": "redfish-core/include/registries/openbmc_message_registry.hpp",
         "patchSetId": 2
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "59ce840c_9bcfc437",
+        "filename": "redfish-core/include/registries/openbmc_message_registry.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 490,
+      "author": {
+        "id": 1000566
+      },
+      "writtenOn": "2021-12-02T10:52:34Z",
+      "side": 1,
+      "message": "as per Alphabetic order FirmwareResiliencyEvent comes after FirmwareResiliencyError. Thank You",
+      "parentUuid": "cb4d2dd0_97e2569d",
+      "range": {
+        "startLine": 479,
+        "startChar": 4,
+        "endLine": 490,
+        "endChar": 20
+      },
+      "revId": "8c4a405b0f0a576fde8c406d851adfeb6bc84a4d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "62dd59ab_ecf0be41",
         "filename": "redfish-core/include/registries/openbmc_message_registry.hpp",
         "patchSetId": 2
@@ -59,6 +107,30 @@
       "writtenOn": "2021-11-30T08:09:26Z",
       "side": 1,
       "message": "Notification",
+      "range": {
+        "startLine": 492,
+        "startChar": 27,
+        "endLine": 492,
+        "endChar": 33
+      },
+      "revId": "8c4a405b0f0a576fde8c406d851adfeb6bc84a4d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ec0e3a3a_8b4051d3",
+        "filename": "redfish-core/include/registries/openbmc_message_registry.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 492,
+      "author": {
+        "id": 1000566
+      },
+      "writtenOn": "2021-12-02T10:52:34Z",
+      "side": 1,
+      "message": "Updated. Thank You",
+      "parentUuid": "62dd59ab_ecf0be41",
       "range": {
         "startLine": 492,
         "startChar": 27,
