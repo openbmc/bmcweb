@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "db85bd79_41efa724",
+        "filename": "http/utility.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 354,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2021-12-02T17:01:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "887b48b1_f5375300",
+      "range": {
+        "startLine": 354,
+        "startChar": 58,
+        "endLine": 354,
+        "endChar": 63
+      },
+      "revId": "cad0dec63898d1f6d43de39ee9cb489d5833c9c8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e773afc1_75605e15",
         "filename": "http/utility.hpp",
         "patchSetId": 8
@@ -36,6 +60,30 @@
       "writtenOn": "2021-12-02T05:13:52Z",
       "side": 1,
       "message": "See the other note, I still don\u0027t like that this duplicates getDateTime between the template instantiations, when all we really need to template create is boost::seconds.",
+      "range": {
+        "startLine": 593,
+        "startChar": 19,
+        "endLine": 593,
+        "endChar": 30
+      },
+      "revId": "cad0dec63898d1f6d43de39ee9cb489d5833c9c8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "78a1b0b1_d117f1c5",
+        "filename": "http/utility.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 593,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2021-12-02T17:01:06Z",
+      "side": 1,
+      "message": "I though we also want to control the type and limit it to time_t and uint64_t.",
+      "parentUuid": "e773afc1_75605e15",
       "range": {
         "startLine": 593,
         "startChar": 19,
