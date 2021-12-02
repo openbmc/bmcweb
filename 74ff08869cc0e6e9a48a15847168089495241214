@@ -293,6 +293,30 @@
     },
     {
       "key": {
+        "uuid": "8423d47b_0ec910bd",
+        "filename": "http/utility.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 582,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2021-12-02T16:57:00Z",
+      "side": 1,
+      "message": "Brace construction of the arguments doesn\u0027t work.",
+      "parentUuid": "027a9581_8dbda32b",
+      "range": {
+        "startLine": 582,
+        "startChar": 0,
+        "endLine": 582,
+        "endChar": 21
+      },
+      "revId": "74ff08869cc0e6e9a48a15847168089495241214",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "10889b25_8d93a7a7",
         "filename": "http/utility.hpp",
         "patchSetId": 2
