@@ -102,6 +102,30 @@
     },
     {
       "key": {
+        "uuid": "cd76b17b_cdc9d699",
+        "filename": "http/utility.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-12-02T05:13:52Z",
+      "side": 1,
+      "message": "ACK",
+      "parentUuid": "6b57f9b8_d45ae3b6",
+      "range": {
+        "startLine": 6,
+        "startChar": 37,
+        "endLine": 6,
+        "endChar": 47
+      },
+      "revId": "74ff08869cc0e6e9a48a15847168089495241214",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e84d4a29_63d35e80",
         "filename": "http/utility.hpp",
         "patchSetId": 2
@@ -242,6 +266,30 @@
       "revId": "74ff08869cc0e6e9a48a15847168089495241214",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "027a9581_8dbda32b",
+        "filename": "http/utility.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 582,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-12-02T05:13:52Z",
+      "side": 1,
+      "message": "That\u0027s still going to duplicate the code between the template instantiations, which was the goal of removing the template.  Did the brace construction of the arguments approach above not work?",
+      "parentUuid": "94c81f50_9721d8c0",
+      "range": {
+        "startLine": 582,
+        "startChar": 0,
+        "endLine": 582,
+        "endChar": 21
+      },
+      "revId": "74ff08869cc0e6e9a48a15847168089495241214",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     },
     {
       "key": {
