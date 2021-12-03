@@ -21,6 +21,7 @@
 #include <boost/beast/core/tcp_stream.hpp>
 #include <boost/beast/http/message.hpp>
 #include <boost/beast/version.hpp>
+#include <boost/circular_buffer.hpp>
 #include <include/async_resolve.hpp>
 
 #include <cstdlib>
