@@ -163,11 +163,6 @@ endif
 # compiler arguments , we know that will pass
 
 if (cxx.get_id() == 'gcc' and cxx.version().version_compare('>8.0'))
-
-  ## remove once bmcweb/issues/147 is fixed
-  add_global_link_arguments('-Wno-stringop-overflow',language:['c','cpp'])
-  add_project_arguments('-Wno-stringop-overflow',language:['c','cpp'])
-
   add_project_arguments(
     cxx.get_supported_arguments([
      '-Wduplicated-cond',
