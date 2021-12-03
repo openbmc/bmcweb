@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "d7cd3864_ab020619",
+        "filename": "include/multipart_parser.hpp",
+        "patchSetId": 51
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2021-12-03T08:53:59Z",
+      "side": 1,
+      "message": "You can return std::error_code instead of passing it as reference. And use no discard attribute to get compiler warning when result is ignored.\n\nhttps://en.cppreference.com/w/cpp/language/attributes/nodiscard",
+      "range": {
+        "startLine": 117,
+        "startChar": 4,
+        "endLine": 117,
+        "endChar": 8
+      },
+      "revId": "3b44fe25cea1474b428adf101fd91d781a631050",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "b8a32c23_e045cf65",
         "filename": "include/ut/multipart_test.cpp",
         "patchSetId": 51
