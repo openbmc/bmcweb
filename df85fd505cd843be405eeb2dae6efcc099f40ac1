@@ -97,6 +97,30 @@
     },
     {
       "key": {
+        "uuid": "a2facefc_065c298a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2021-12-03T05:33:57Z",
+      "side": 1,
+      "message": "Just that when we do a GET, the logs are filled with errors - which are not. So this commit is just cleaning up these traces.\n\nI have put in the commit message. Hope that should do.\nDone",
+      "parentUuid": "f626f7fe_84fa0102",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 61
+      },
+      "revId": "df85fd505cd843be405eeb2dae6efcc099f40ac1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fe7cced8_ba83f15a",
         "filename": "redfish-core/lib/ethernet.hpp",
         "patchSetId": 1
@@ -183,6 +207,24 @@
       "revId": "df85fd505cd843be405eeb2dae6efcc099f40ac1",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2c150485_15ef2fc3",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 573,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2021-12-03T05:33:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f28d21ee_2285bc90",
+      "revId": "df85fd505cd843be405eeb2dae6efcc099f40ac1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
