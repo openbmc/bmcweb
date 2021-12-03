@@ -1808,9 +1808,7 @@ inline void parseInterfaceData(
         {
             ipv6StaticArray.push_back(
                 {{"Address", ipv6Config.address},
-                 {"PrefixLength", ipv6Config.prefixLength},
-                 {"AddressOrigin", ipv6Config.origin},
-                 {"AddressState", nullptr}});
+                 {"PrefixLength", ipv6Config.prefixLength}});
         }
     }
 }
