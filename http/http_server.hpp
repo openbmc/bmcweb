@@ -2,7 +2,6 @@
 
 #include "http_connection.hpp"
 #include "logging.hpp"
-#include "timer_queue.hpp"
 
 #include <boost/asio/ip/address.hpp>
 #include <boost/asio/ip/tcp.hpp>
@@ -36,8 +35,8 @@ class Server
                std::make_shared<boost::asio::io_context>()) :
         ioService(std::move(io)),
         acceptor(std::move(acceptorIn)),
-        signals(*ioService, SIGINT, SIGTERM, SIGHUP), timer(*ioService),
-        handler(handlerIn), adaptorCtx(std::move(adaptorCtx))
+        signals(*ioService, SIGINT, SIGTERM, SIGHUP), handler(handlerIn),
+        adaptorCtx(std::move(adaptorCtx))
     {}
 
     Server(Handler* handlerIn, const std::string& bindaddr, uint16_t port,
@@ -90,19 +89,6 @@ class Server
             }
             return this->dateStr;
         };
-
-        timer.expires_after(std::chrono::seconds(1));
-
-        timerHandler = [this](const boost::system::error_code& ec) {
-            if (ec)
-            {
-                return;
-            }
-            timerQueue.process();
-            timer.expires_after(std::chrono::seconds(1));
-            timer.async_wait(timerHandler);
-        };
-        timer.async_wait(timerHandler);
 
         BMCWEB_LOG_INFO << "bmcweb server is running, local endpoint "
                         << acceptor->local_endpoint();
@@ -179,13 +165,14 @@ class Server
     void doAccept()
     {
         std::optional<Adaptor> adaptorTemp;
+        boost::asio::steady_timer timer(*ioService);
         if constexpr (std::is_same<Adaptor,
                                    boost::beast::ssl_stream<
                                        boost::asio::ip::tcp::socket>>::value)
         {
             adaptorTemp = Adaptor(*ioService, *adaptorCtx);
             auto p = std::make_shared<Connection<Adaptor, Handler>>(
-                handler, getCachedDateStr, timerQueue,
+                handler, std::move(timer), getCachedDateStr,
                 std::move(adaptorTemp.value()));
 
             acceptor->async_accept(p->socket().next_layer(),
@@ -203,7 +190,7 @@ class Server
         {
             adaptorTemp = Adaptor(*ioService);
             auto p = std::make_shared<Connection<Adaptor, Handler>>(
-                handler, getCachedDateStr, timerQueue,
+                handler, std::move(timer), getCachedDateStr,
                 std::move(adaptorTemp.value()));
 
             acceptor->async_accept(
@@ -220,21 +207,17 @@ class Server
 
   private:
     std::shared_ptr<boost::asio::io_context> ioService;
-    detail::TimerQueue timerQueue;
     std::function<std::string()> getCachedDateStr;
     std::unique_ptr<boost::asio::ip::tcp::acceptor> acceptor;
     boost::asio::signal_set signals;
-    boost::asio::steady_timer timer;
 
     std::string dateStr;
 
     Handler* handler;
 
-    std::function<void(const boost::system::error_code& ec)> timerHandler;
-
 #ifdef BMCWEB_ENABLE_SSL
     bool useSsl{false};
 #endif
     std::shared_ptr<boost::asio::ssl::context> adaptorCtx;
-}; // namespace crow
+};
 } // namespace crow
