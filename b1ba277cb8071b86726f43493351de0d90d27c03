@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b7ab3c10_ac94bac9",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2021-12-03T13:04:40Z",
+      "side": 1,
+      "message": "Please mention \"on a system where the bmcweb error traces are enabled\"",
+      "range": {
+        "startLine": 8,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 60
+      },
+      "revId": "b1ba277cb8071b86726f43493351de0d90d27c03",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
