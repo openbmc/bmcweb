@@ -22,6 +22,30 @@
       "revId": "d35d12f35307f430558d1fa906186a4930dabb2f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ec9a2a4d_a9c5c48b",
+        "filename": "redfish-core/include/registries/openbmc_message_registry.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 477,
+      "author": {
+        "id": 1000566
+      },
+      "writtenOn": "2021-12-03T11:36:57Z",
+      "side": 1,
+      "message": "BMC recovers and boot up with recovery version. Hence no resolution is required. Thank You",
+      "parentUuid": "d7918191_97c6c305",
+      "range": {
+        "startLine": 477,
+        "startChar": 22,
+        "endLine": 477,
+        "endChar": 26
+      },
+      "revId": "d35d12f35307f430558d1fa906186a4930dabb2f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
