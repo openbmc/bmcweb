@@ -20,6 +20,8 @@
 #include <boost/beast/http/fields.hpp>
 #include <registries/privilege_registry.hpp>
 
+#include <span>
+
 namespace redfish
 {
 
