@@ -24,7 +24,7 @@ TEST(FromDurationTest, NegativeTests)
     EXPECT_EQ(fromDurationString("P1T"), std::nullopt);
     EXPECT_EQ(fromDurationString("PT100M1000S100"), std::nullopt);
     EXPECT_EQ(fromDurationString("PDTHMS"), std::nullopt);
-    EXPECT_EQ(fromDurationString("P99999999999999999DT"), std::nullopt);
+    EXPECT_EQ(fromDurationString("P9999999999999999999999999DT"), std::nullopt);
     EXPECT_EQ(fromDurationString("PD222T222H222M222.222S"), std::nullopt);
     EXPECT_EQ(fromDurationString("PT99999H9999999999999999999999M99999999999S"),
               std::nullopt);
