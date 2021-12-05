@@ -22,6 +22,30 @@
       "revId": "2c134f69615bef86af325b87debb86f8d5697dd6",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "defd93cc_2e6f064c",
+        "filename": "redfish-core/lib/redfish_sessions.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 266,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-12-05T20:01:19Z",
+      "side": 1,
+      "message": "To be more concrete, this is the check to determine if a user is allowed to log in, using the standard pam mechanisms.\n\nhttps://github.com/openbmc/bmcweb/blob/889ff6943d62762eeaf58824b651d2edaf940d1d/include/pam_authenticate.hpp#L98\n\nIf this is succeeding for NoAccess users that means that phosphor-user-manager has failed its API guarantees, and hasn\u0027t disabled the user properly.",
+      "parentUuid": "f5ff2ccb_91799a83",
+      "range": {
+        "startLine": 199,
+        "startChar": 0,
+        "endLine": 266,
+        "endChar": 37
+      },
+      "revId": "2c134f69615bef86af325b87debb86f8d5697dd6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
