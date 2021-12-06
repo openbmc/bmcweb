@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "faec9a74_065023c7",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2021-12-06T14:30:37Z",
+      "side": 1,
+      "message": "Acording to boost documentation it should skip parsing once all headers are parsed, but instead it produces \u0027bad version\u0027 when response contains body. Or end of stream when response doesn\u0027t contain body.",
+      "range": {
+        "startLine": 173,
+        "startChar": 8,
+        "endLine": 173,
+        "endChar": 37
+      },
+      "revId": "0caca8dab544ad0d3f93b1b5f2b337ec0a520e21",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
