@@ -106,6 +106,10 @@ namespace fs = std::filesystem;
 using GetManagedPropertyType =
     boost::container::flat_map<std::string, dbus::utility::DbusVariantType>;
 
+using GetManagedObjectsType = boost::container::flat_map<
+    sdbusplus::message::object_path,
+    boost::container::flat_map<std::string, GetManagedPropertyType>>;
+
 inline std::string translateSeverityDbusToRedfish(const std::string& s)
 {
     if ((s == "xyz.openbmc_project.Logging.Entry.Level.Alert") ||
@@ -371,6 +375,78 @@ static bool
     std::sort(redfishLogFiles.begin(), redfishLogFiles.end());
 
     return !redfishLogFiles.empty();
+}
+
+void deleteDbusLogEntry(const std::string& entryId,
+                        const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
+{
+    auto respHandler = [asyncResp](const boost::system::error_code ec) {
+        if (ec)
+        {
+            asyncResp->res.result(
+                boost::beast::http::status::internal_server_error);
+            return;
+        }
+        asyncResp->res.result(boost::beast::http::status::no_content);
+    };
+    crow::connections::systemBus->async_method_call(
+        respHandler, "xyz.openbmc_project.Logging",
+        "/xyz/openbmc_project/logging/entry/" + entryId,
+        "xyz.openbmc_project.Object.Delete", "Delete");
+}
+
+void deleteDbusSELEntry(std::string& entryID,
+                        const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
+{
+    crow::connections::systemBus->async_method_call(
+        [asyncResp, entryID](const boost::system::error_code ec,
+                             GetManagedPropertyType& resp) {
+            if (ec.value() == EBADR)
+            {
+                messages::resourceNotFound(asyncResp->res, "SELLogEntry",
+                                           entryID);
+
+                return;
+            }
+            if (ec)
+            {
+                BMCWEB_LOG_ERROR << "SELLogEntry (DBus) "
+                                    "resp_handler got error "
+                                 << ec;
+                messages::internalError(asyncResp->res);
+                return;
+            }
+            uint32_t* id = nullptr;
+            std::string* message = nullptr;
+
+            for (auto& propertyMap : resp)
+            {
+                if (propertyMap.first == "Id")
+                {
+                    id = std::get_if<uint32_t>(&propertyMap.second);
+                }
+
+                else if (propertyMap.first == "Message")
+                {
+                    message = std::get_if<std::string>(&propertyMap.second);
+                }
+            }
+            if (id == nullptr || message == nullptr)
+            {
+                messages::internalError(asyncResp->res);
+                return;
+            }
+            if (*message == "xyz.openbmc_project.Logging.SEL.Error.Created")
+            {
+                deleteDbusLogEntry(entryID, asyncResp);
+                return;
+            }
+            messages::resourceNotFound(asyncResp->res, "SELLogEntry", entryID);
+            return;
+        },
+        "xyz.openbmc_project.Logging",
+        "/xyz/openbmc_project/logging/entry/" + entryID,
+        "org.freedesktop.DBus.Properties", "GetAll", "");
 }
 
 inline void
@@ -965,6 +1041,9 @@ inline void requestRoutesSystemLogServiceCollection(App& app)
                 logServiceArray.push_back(
                     {{"@odata.id",
                       "/redfish/v1/Systems/system/LogServices/EventLog"}});
+                logServiceArray.push_back(
+                    {{"@odata.id",
+                      "/redfish/v1/Systems/system/LogServices/SEL"}});
 #ifdef BMCWEB_ENABLE_REDFISH_DUMP_LOG
                 logServiceArray.push_back(
                     {{"@odata.id",
@@ -1050,6 +1129,40 @@ inline void requestRoutesEventLogService(App& app)
                 {"target",
                  "/redfish/v1/Systems/system/LogServices/EventLog/Actions/LogService.ClearLog"}};
         });
+}
+
+inline void requestRoutesSELLogService(App& app)
+{
+    BMCWEB_ROUTE(app, "/redfish/v1/Systems/system/LogServices/SEL/")
+        .privileges(redfish::privileges::getLogService)
+        .methods(boost::beast::http::verb::get)(
+            [](const crow::Request&,
+               const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
+                asyncResp->res.jsonValue["@odata.id"] =
+                    "/redfish/v1/Systems/system/LogServices/SEL";
+                asyncResp->res.jsonValue["@odata.type"] =
+                    "#LogService.v1_1_0.LogService";
+                asyncResp->res.jsonValue["Name"] = "SEL Log Service";
+                asyncResp->res.jsonValue["Description"] = "IPMI SEL Service";
+                asyncResp->res.jsonValue["Id"] = "SEL";
+                asyncResp->res.jsonValue["OverWritePolicy"] = "WrapsWhenFull";
+
+                std::pair<std::string, std::string> redfishDateTimeOffset =
+                    crow::utility::getDateTimeOffsetNow();
+
+                asyncResp->res.jsonValue["DateTime"] =
+                    redfishDateTimeOffset.first;
+                asyncResp->res.jsonValue["DateTimeLocalOffset"] =
+                    redfishDateTimeOffset.second;
+
+                asyncResp->res.jsonValue["Entries"] = {
+                    {"@odata.id",
+                     "/redfish/v1/Systems/system/LogServices/SEL/Entries"}};
+                asyncResp->res.jsonValue["Actions"]["#LogService.ClearLog"] = {
+
+                    {"target", "/redfish/v1/Systems/system/LogServices/SEL/"
+                               "Actions/LogService.ClearLog"}};
+            });
 }
 
 inline void requestRoutesJournalEventLogClear(App& app)
@@ -1818,6 +1931,349 @@ inline void requestRoutesDBusEventLogEntryDownload(App& app)
                     "/xyz/openbmc_project/logging/entry/" + entryID,
                     "xyz.openbmc_project.Logging.Entry", "GetEntry");
             });
+}
+
+void populateRedfishSELEntry(GetManagedPropertyType& resp,
+                             nlohmann::json& thisEntry)
+{
+    uint32_t* id = nullptr;
+    std::time_t timestamp{};
+    std::time_t updateTimestamp{};
+    std::string* severity = nullptr;
+    std::string* message = nullptr;
+    std::vector<std::string>* additionalDataVectorString = nullptr;
+    std::string generatorId;
+    std::string messageId;
+    bool resolved = false;
+
+    for (auto& propertyMap : resp)
+    {
+        if (propertyMap.first == "Id")
+        {
+            id = std::get_if<uint32_t>(&propertyMap.second);
+        }
+        else if (propertyMap.first == "Timestamp")
+        {
+            const uint64_t* millisTimeStamp =
+                std::get_if<uint64_t>(&propertyMap.second);
+            if (millisTimeStamp != nullptr)
+            {
+                timestamp = crow::utility::getTimestamp(*millisTimeStamp);
+            }
+        }
+        else if (propertyMap.first == "UpdateTimestamp")
+        {
+            const uint64_t* millisTimeStamp =
+                std::get_if<uint64_t>(&propertyMap.second);
+            if (millisTimeStamp != nullptr)
+            {
+                updateTimestamp = crow::utility::getTimestamp(*millisTimeStamp);
+            }
+        }
+        else if (propertyMap.first == "Severity")
+        {
+            severity = std::get_if<std::string>(&propertyMap.second);
+        }
+        else if (propertyMap.first == "Message")
+        {
+            message = std::get_if<std::string>(&propertyMap.second);
+        }
+        else if (propertyMap.first == "Resolved")
+        {
+            bool* resolveptr = std::get_if<bool>(&propertyMap.second);
+            if (resolveptr == nullptr)
+            {
+                throw std::runtime_error("Invalid SEL Entry");
+                return;
+            }
+            resolved = *resolveptr;
+        }
+        else if (propertyMap.first == "AdditionalData")
+        {
+            std::string eventDir;
+            std::string recordType;
+            std::string sensorData;
+            std::ostringstream hexCodeEventDir;
+            additionalDataVectorString =
+                std::get_if<std::vector<std::string>>(&propertyMap.second);
+            for (std::string& i : *additionalDataVectorString)
+            {
+                std::vector<std::string> additionalDataKVpair;
+                boost::split(additionalDataKVpair, i, boost::is_any_of("="));
+                if (additionalDataKVpair.size() == 2)
+                {
+                    if (additionalDataKVpair[0] == "EVENT_DIR")
+                    {
+                        hexCodeEventDir << "0x" << std::setfill('0')
+                                        << std::setw(2) << std::hex
+                                        << std::stoi(additionalDataKVpair[1]);
+                    }
+                    else if (additionalDataKVpair[0] == "GENERATOR_ID")
+                    {
+                        std::ostringstream hexCodeGeneratorId;
+                        if (!additionalDataKVpair[1].empty())
+                        {
+                            hexCodeGeneratorId
+                                << "0x" << std::setfill('0') << std::setw(4)
+                                << std::hex
+                                << std::stoi(additionalDataKVpair[1]);
+                            generatorId = hexCodeGeneratorId.str();
+                        }
+                    }
+                    else if (additionalDataKVpair[0] == "RECORD_TYPE")
+                    {
+                        recordType = additionalDataKVpair[1];
+                    }
+                    else if (additionalDataKVpair[0] == "SENSOR_DATA")
+                    {
+                        sensorData = additionalDataKVpair[1];
+                        boost::algorithm::to_lower(sensorData);
+                    }
+                }
+            }
+            // MessageId for SEL is of the form 0xNNaabbcc
+            // where 'NN' is the EventDir/EventType byte, aa is first byte
+            // sensor data, bb is second byte sensor data, cc is third byte
+            // sensor data
+            messageId = hexCodeEventDir.str() + sensorData;
+        }
+    }
+    if (id == nullptr || message == nullptr || severity == nullptr)
+    {
+        throw std::runtime_error("Invalid SEL Entry");
+        return;
+    }
+    if (*message != "xyz.openbmc_project.Logging.SEL.Error.Created")
+    {
+        return;
+    }
+    thisEntry["@odata.type"] = "#LogEntry.v1_8_0.LogEntry";
+    thisEntry["@odata.id"] = "/redfish/v1/Systems/system/LogServices/SEL/"
+                             "Entries/" +
+                             std::to_string(*id);
+    thisEntry["Name"] = "System Event Log Entry";
+    thisEntry["Id"] = std::to_string(*id);
+    if (!generatorId.empty())
+    {
+        thisEntry["GeneratorId"] = generatorId;
+    }
+    if (!messageId.empty())
+    {
+        thisEntry["MessageId"] = messageId;
+    }
+    thisEntry["Message"] = *message;
+    thisEntry["Resolved"] = resolved;
+    thisEntry["EntryType"] = "SEL";
+    thisEntry["Severity"] = translateSeverityDbusToRedfish(*severity);
+    thisEntry["Created"] = crow::utility::getDateTimeStdtime(timestamp);
+    thisEntry["Modified"] = crow::utility::getDateTimeStdtime(updateTimestamp);
+}
+
+inline void requestRoutesDBusSELLogEntryCollection(App& app)
+{
+    BMCWEB_ROUTE(app, "/redfish/v1/Systems/system/LogServices/SEL/Entries/")
+        .privileges(redfish::privileges::getLogEntryCollection)
+        .methods(
+            boost::beast::http::verb::
+                get)([](const crow::Request&,
+                        const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
+            // Collections don't include the static data added by SubRoute
+            // because it has a duplicate entry for members
+            asyncResp->res.jsonValue["@odata.type"] =
+                "#LogEntryCollection.LogEntryCollection";
+            asyncResp->res.jsonValue["@odata.id"] =
+                "/redfish/v1/Systems/system/LogServices/SEL/Entries";
+            asyncResp->res.jsonValue["Name"] = "System Event Log Entries";
+            asyncResp->res.jsonValue["Description"] =
+                "Collection of System Event Log Entries";
+
+            // DBus implementation of SEL/Entries
+            // Make call to Logging Service to find all log entry objects
+            crow::connections::systemBus->async_method_call(
+                [asyncResp](const boost::system::error_code ec,
+                            GetManagedObjectsType& resp) {
+                    if (ec)
+                    {
+                        // TODO Handle for specific error code
+                        BMCWEB_LOG_ERROR
+                            << "getLogEntriesIfaceData resp_handler got error "
+                            << ec;
+                        messages::internalError(asyncResp->res);
+                        return;
+                    }
+                    nlohmann::json& entriesArray =
+                        asyncResp->res.jsonValue["Members"];
+                    entriesArray = nlohmann::json::array();
+                    for (auto& objectPath : resp)
+                    {
+                        nlohmann::json thisEntry = nlohmann::json::object();
+                        for (auto& interfaceMap : objectPath.second)
+                        {
+                            if (interfaceMap.first ==
+                                "xyz.openbmc_project.Logging.Entry")
+                            {
+                                try
+                                {
+                                    populateRedfishSELEntry(interfaceMap.second,
+                                                            thisEntry);
+                                    if (!thisEntry.empty())
+                                    {
+                                        entriesArray.push_back(thisEntry);
+                                    }
+                                }
+                                catch (const std::runtime_error& e)
+                                {
+                                    messages::internalError(asyncResp->res);
+                                    continue;
+                                }
+                            }
+                        }
+                    }
+                    std::sort(entriesArray.begin(), entriesArray.end(),
+                              [](const nlohmann::json& left,
+                                 const nlohmann::json& right) {
+                                  return (left["Id"] <= right["Id"]);
+                              });
+                    asyncResp->res.jsonValue["Members@odata.count"] =
+                        entriesArray.size();
+                },
+                "xyz.openbmc_project.Logging", "/xyz/openbmc_project/logging",
+                "org.freedesktop.DBus.ObjectManager", "GetManagedObjects");
+        });
+}
+
+inline void requestRoutesDBusSELLogEntry(App& app)
+{
+    BMCWEB_ROUTE(app,
+                 "/redfish/v1/Systems/system/LogServices/SEL/Entries/<str>/")
+        .privileges(redfish::privileges::getLogEntry)
+        .methods(boost::beast::http::verb::get)(
+            [](const crow::Request&,
+               const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+               const std::string& param)
+
+            {
+                std::string entryID = param;
+                dbus::utility::escapePathForDbus(entryID);
+
+                // DBus implementation of EventLog/Entries
+                // Make call to Logging Service to find all log entry objects
+                crow::connections::systemBus->async_method_call(
+                    [asyncResp, entryID](const boost::system::error_code ec,
+                                         GetManagedPropertyType& resp) {
+                        if (ec.value() == EBADR)
+                        {
+                            messages::resourceNotFound(asyncResp->res,
+                                                       "SELLogEntry", entryID);
+                            return;
+                        }
+                        if (ec)
+                        {
+                            BMCWEB_LOG_ERROR << "SELLogEntry (DBus) "
+                                                "resp_handler got error "
+                                             << ec;
+                            messages::internalError(asyncResp->res);
+                            return;
+                        }
+                        nlohmann::json& thisEntry = asyncResp->res.jsonValue;
+                        thisEntry = nlohmann::json::object();
+                        try
+                        {
+                            populateRedfishSELEntry(resp, thisEntry);
+                        }
+                        catch (const std::runtime_error& e)
+                        {
+                            messages::internalError(asyncResp->res);
+                            return;
+                        }
+                    },
+                    "xyz.openbmc_project.Logging",
+                    "/xyz/openbmc_project/logging/entry/" + entryID,
+                    "org.freedesktop.DBus.Properties", "GetAll", "");
+            });
+
+    BMCWEB_ROUTE(app,
+                 "/redfish/v1/Systems/system/LogServices/SEL/Entries/<str>/")
+        .privileges(redfish::privileges::deleteLogEntry)
+        .methods(boost::beast::http::verb::delete_)(
+            [](const crow::Request&,
+               const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+               const std::string& param) {
+                std::string entryID = param;
+
+                dbus::utility::escapePathForDbus(entryID);
+                deleteDbusSELEntry(entryID, asyncResp);
+            });
+}
+
+inline void requestRoutesDBusSELLogServiceActionsClear(App& app)
+{
+    /**
+     * Function handles POST method request.
+     * The Clear Log actions does not require any parameter.The action deletes
+     * all entries found in the Entries collection for this Log Service.
+     */
+
+    BMCWEB_ROUTE(app, "/redfish/v1/Systems/system/LogServices/SEL/Actions/"
+                      "LogService.ClearLog/")
+        .privileges(redfish::privileges::postLogService)
+        .methods(
+            boost::beast::http::verb::
+                post)([](const crow::Request&,
+                         const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
+            crow::connections::systemBus->async_method_call(
+                [asyncResp](const boost::system::error_code ec,
+                            GetManagedObjectsType& resp) {
+                    if (ec)
+                    {
+                        // TODO Handle for specific error code
+                        BMCWEB_LOG_ERROR
+                            << "getLogEntriesIfaceData resp_handler got error "
+                            << ec;
+                        messages::internalError(asyncResp->res);
+                        return;
+                    }
+
+                    for (auto& objectPath : resp)
+                    {
+                        uint32_t* id = nullptr;
+                        std::string* message = nullptr;
+                        for (auto& interfaceMap : objectPath.second)
+                        {
+                            if (interfaceMap.first ==
+                                "xyz.openbmc_project.Logging.Entry")
+                            {
+                                for (auto& propertyMap : interfaceMap.second)
+                                {
+                                    if (propertyMap.first == "Id")
+                                    {
+                                        id = std::get_if<uint32_t>(
+                                            &propertyMap.second);
+                                    }
+                                    else if (propertyMap.first == "Message")
+                                    {
+                                        message = std::get_if<std::string>(
+                                            &propertyMap.second);
+                                    }
+                                }
+                                if (id == nullptr || message == nullptr)
+                                {
+                                    messages::internalError(asyncResp->res);
+                                    continue;
+                                }
+                                if (*message ==
+                                    "xyz.openbmc_project.Logging.SEL.Error.Created")
+                                {
+                                    std::string entryId = std::to_string(*id);
+                                    deleteDbusLogEntry(entryId, asyncResp);
+                                }
+                            }
+                        }
+                    }
+                },
+                "xyz.openbmc_project.Logging", "/xyz/openbmc_project/logging",
+                "org.freedesktop.DBus.ObjectManager", "GetManagedObjects");
+        });
 }
 
 constexpr const char* hostLoggerFolderPath = "/var/log/console";
