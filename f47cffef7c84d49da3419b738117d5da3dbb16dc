@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8665e396_c9830213",
+        "filename": "meson.build",
+        "patchSetId": 4
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-12-06T02:16:10Z",
+      "side": 0,
+      "message": "Don\u0027t need this since we have -Wunused already? (line commit, line 128)",
+      "revId": "f47cffef7c84d49da3419b738117d5da3dbb16dc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7131f72a_c19afd53",
+        "filename": "meson.build",
+        "patchSetId": 4
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-12-06T02:16:10Z",
+      "side": 0,
+      "message": "Don\u0027t need these, because?",
+      "range": {
+        "startLine": 149,
+        "startChar": 0,
+        "endLine": 154,
+        "endChar": 25
+      },
+      "revId": "f47cffef7c84d49da3419b738117d5da3dbb16dc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ab6575cb_442b0380",
+        "filename": "meson.build",
+        "patchSetId": 4
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-12-06T02:16:10Z",
+      "side": 0,
+      "message": "Why don\u0027t we need this? I see it on line 165 but that is for gcc, this is clang.",
+      "revId": "f47cffef7c84d49da3419b738117d5da3dbb16dc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
