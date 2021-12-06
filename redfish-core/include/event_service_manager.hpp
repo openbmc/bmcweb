@@ -41,9 +41,6 @@
 namespace redfish
 {
 
-using ReadingsObjType =
-    std::vector<std::tuple<std::string, std::string, double, int32_t>>;
-
 static constexpr const char* eventFormatType = "Event";
 static constexpr const char* metricReportFormatType = "MetricReport";
 

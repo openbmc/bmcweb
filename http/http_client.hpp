@@ -68,7 +68,8 @@ class HttpClient : public std::enable_shared_from_this<HttpClient>
     std::optional<
         boost::beast::http::response_parser<boost::beast::http::string_body>>
         parser;
-    boost::circular_buffer_space_optimized<std::string> requestDataQueue{};
+    boost::circular_buffer_space_optimized<std::string> requestDataQueue{
+        httpReadBodyLimit};
 
     ConnState state = ConnState::initialized;
 
@@ -169,7 +170,7 @@ class HttpClient : public std::enable_shared_from_this<HttpClient>
         parser->body_limit(httpReadBodyLimit);
 
         // Check only for the response header
-        parser->skip(true);
+        //        parser->skip(true);
 
         // Receive the HTTP response
         boost::beast::http::async_read(
