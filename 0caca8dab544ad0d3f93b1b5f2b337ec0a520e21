@@ -22,6 +22,30 @@
       "revId": "0caca8dab544ad0d3f93b1b5f2b337ec0a520e21",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5594cf23_6790abc8",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-12-06T15:51:30Z",
+      "side": 1,
+      "message": "We typically don\u0027t have commented out code, so if this is no longer needed, lets remove this code and comment",
+      "parentUuid": "faec9a74_065023c7",
+      "range": {
+        "startLine": 173,
+        "startChar": 8,
+        "endLine": 173,
+        "endChar": 37
+      },
+      "revId": "0caca8dab544ad0d3f93b1b5f2b337ec0a520e21",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
