@@ -94,6 +94,30 @@
       "revId": "2c134f69615bef86af325b87debb86f8d5697dd6",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b9d6a4e3_f051f770",
+        "filename": "redfish-core/lib/redfish_sessions.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 266,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-12-06T19:17:56Z",
+      "side": 1,
+      "message": "\u003e I made these changes to get the https://github.com/openbmc/bmcweb/blob/master/http/routing.hpp#L1415 logic applied when the redfish session is getting created. This will validate the remote user\u0027s privilege while logging in. \n\u003e \n\u003e I believe the pam authentication does not cover the validation for roles, priv etc for the remote users. Am i missing something here?\n\nYes.  Pam handles authentication, dbus handles authorization.  If a user should not have access then the user itself should be disabled, and that pam check should fail.\n\nIdeally we shouldn\u0027t be using dbus at all for role generation (we previously used only PAM) but a lot of code got stuck in as part of the LDAP work that complicated the design.\n\nIn a perfect world, if we\u0027re going to authenticate/authorize over dbus, we should ONLY be using dbus.  If we\u0027re using pam, we should ONLY be using pam.  We shouldn\u0027t do the pam/dbus hybrid we have now, that\u0027s what leads to bugs like this.",
+      "parentUuid": "3767fd46_b02f1381",
+      "range": {
+        "startLine": 199,
+        "startChar": 0,
+        "endLine": 266,
+        "endChar": 37
+      },
+      "revId": "2c134f69615bef86af325b87debb86f8d5697dd6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
