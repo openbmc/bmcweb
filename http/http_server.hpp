@@ -178,44 +178,32 @@ class Server
 
     void doAccept()
     {
-        std::optional<Adaptor> adaptorTemp;
+        boost::asio::steady_timer timer(*ioService);
+        std::shared_ptr<Connection<Adaptor, Handler>> connection;
         if constexpr (std::is_same<Adaptor,
                                    boost::beast::ssl_stream<
                                        boost::asio::ip::tcp::socket>>::value)
         {
-            adaptorTemp = Adaptor(*ioService, *adaptorCtx);
-            auto p = std::make_shared<Connection<Adaptor, Handler>>(
-                handler, getCachedDateStr, timerQueue,
-                std::move(adaptorTemp.value()));
-
-            acceptor->async_accept(p->socket().next_layer(),
-                                   [this, p](boost::system::error_code ec) {
-                                       if (!ec)
-                                       {
-                                           boost::asio::post(
-                                               *this->ioService,
-                                               [p] { p->start(); });
-                                       }
-                                       doAccept();
-                                   });
+            connection = std::make_shared<Connection<Adaptor, Handler>>(
+                handler, std::move(timer), getCachedDateStr,
+                Adaptor(*ioService, *adaptorCtx));
         }
         else
         {
-            adaptorTemp = Adaptor(*ioService);
-            auto p = std::make_shared<Connection<Adaptor, Handler>>(
-                handler, getCachedDateStr, timerQueue,
-                std::move(adaptorTemp.value()));
-
-            acceptor->async_accept(
-                p->socket(), [this, p](boost::system::error_code ec) {
-                    if (!ec)
-                    {
-                        boost::asio::post(*this->ioService,
-                                          [p] { p->start(); });
-                    }
-                    doAccept();
-                });
+            connection = std::make_shared<Connection<Adaptor, Handler>>(
+                handler, std::move(timer), getCachedDateStr,
+                Adaptor(*ioService));
         }
+        acceptor->async_accept(
+            boost::beast::get_lowest_layer(connection->socket()),
+            [this, connection](boost::system::error_code ec) {
+                if (!ec)
+                {
+                    boost::asio::post(*this->ioService,
+                                      [connection] { connection->start(); });
+                }
+                doAccept();
+            });
     }
 
   private:
