@@ -97,6 +97,7 @@ class RedfishService
 
         requestRoutesSystemLogServiceCollection(app);
         requestRoutesEventLogService(app);
+        requestRoutesSELLogService(app);
         requestRoutesPostCodesEntryAdditionalData(app);
 
         requestRoutesPostCodesLogService(app);
@@ -163,6 +164,9 @@ class RedfishService
         requestRoutesDBusEventLogEntryCollection(app);
         requestRoutesDBusEventLogEntry(app);
         requestRoutesDBusEventLogEntryDownload(app);
+        requestRoutesDBusSELLogEntryCollection(app);
+        requestRoutesDBusSELLogEntry(app);
+        requestRoutesDBusSELLogServiceActionsClear(app);
 #endif
 
 #ifdef BMCWEB_ENABLE_REDFISH_HOST_LOGGER
