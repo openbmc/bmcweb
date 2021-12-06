@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0c63d5f3_3d470a97",
+        "filename": "http/http_connection.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 431,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2021-12-06T10:51:12Z",
+      "side": 1,
+      "message": "This is no consistend. In some functions you are using thisRes in some functions you are using res. In all cases you are calling completeRequest(res) and then this line works like res \u003d std::move(res).\n\nIs there any reason to do it this way? Am I missing something?",
+      "range": {
+        "startLine": 431,
+        "startChar": 8,
+        "endLine": 431,
+        "endChar": 33
+      },
+      "revId": "194314dd039bceef0394f37f3c19430e530e02ab",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
