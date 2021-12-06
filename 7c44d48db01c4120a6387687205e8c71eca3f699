@@ -1,0 +1,106 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cb937998_096f2e78",
+        "filename": "redfish-core/include/registries/privilege_registry.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-12-06T21:48:51Z",
+      "side": 1,
+      "message": "We should not edit this directly",
+      "revId": "7c44d48db01c4120a6387687205e8c71eca3f699",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "885b8885_645144c0",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 742,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-12-06T21:48:51Z",
+      "side": 1,
+      "message": "This is a Chassis schema but according to https://redfish.dmtf.org/schemas/v1/Chassis_v1.xml, the chassis schema can only be at the following locations:\n\n\u003cCollection\u003e\n\u003cString\u003e/redfish/v1/Chassis/{ChassisId}\u003c/String\u003e\n\u003c/Collection\u003e",
+      "revId": "7c44d48db01c4120a6387687205e8c71eca3f699",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1c3e11c7_65557a47",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 755,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-12-06T21:48:51Z",
+      "side": 1,
+      "message": "Why Optane in the name?",
+      "revId": "7c44d48db01c4120a6387687205e8c71eca3f699",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9fda26dc_6a3ddbd9",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 756,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-12-06T21:48:51Z",
+      "side": 1,
+      "message": "This is typically the last segment of the URI",
+      "revId": "7c44d48db01c4120a6387687205e8c71eca3f699",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9cc8d83a_258595d8",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 759,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-12-06T21:48:51Z",
+      "side": 1,
+      "message": "If you look at https://redfish.dmtf.org/schemas/v1/ThermalMetrics_v1.xml, ThermalMetrics can only be at the following URIs: \n\u003cCollection\u003e\n\u003cString\u003e\n/redfish/v1/Chassis/{ChassisId}/ThermalSubsystem/ThermalMetrics\n\u003c/String\u003e\n\u003c/Collection\u003e",
+      "revId": "7c44d48db01c4120a6387687205e8c71eca3f699",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "268852c0_5e114e56",
+        "filename": "redfish-core/lib/thermal.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 186,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-12-06T21:48:51Z",
+      "side": 1,
+      "message": "This is not correct: https://redfish.dmtf.org/schemas/v1/ThermalMetrics_v1.xml",
+      "revId": "7c44d48db01c4120a6387687205e8c71eca3f699",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
