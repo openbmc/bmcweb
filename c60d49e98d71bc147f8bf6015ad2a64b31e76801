@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "be8b1764_da38b584",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 36
+      },
+      "lineNbr": 707,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2021-12-06T21:43:07Z",
+      "side": 1,
+      "message": "The ResetType is optional, should use the default reset if the string is empty.\n\n\nProbably Powercycle.",
+      "range": {
+        "startLine": 690,
+        "startChar": 0,
+        "endLine": 707,
+        "endChar": 68
+      },
+      "revId": "c60d49e98d71bc147f8bf6015ad2a64b31e76801",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
