@@ -729,4 +729,34 @@ inline void requestRoutesChassisResetActionInfo(App& app)
             });
 }
 
+/**
+ * Chassis override class for delivering Chassis Schema to
+ * represent physical components of memory
+ * Functions triggers appropriate requests on DBus
+ */
+inline void requestRoutesMemoryChassis(App& app)
+{
+    /**
+     * Functions triggers appropriate requests on DBus
+     */
+    BMCWEB_ROUTE(app, "/redfish/v1/Systems/system/Memory/<str>/Chassis")
+        .privileges(redfish::privileges::getMemoryChassis)
+        .methods(boost::beast::http::verb::get)(
+            [](const crow::Request&,
+               const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+               const std::string& dimmId) {
+                asyncResp->res.jsonValue["@odata.type"] =
+                    "#Chassis.v1_3_0.Chassis";
+                asyncResp->res.jsonValue["@odata.id"] =
+                    "/redfish/v1/Systems/system/Memory/" + dimmId + "/Chassis";
+                asyncResp->res.jsonValue["Name"] = "Chassis for " + dimmId;
+                asyncResp->res.jsonValue["Description"] =
+                    "Optane Persistent Memory Chassis";
+                asyncResp->res.jsonValue["Id"] = "Chassis for " + dimmId;
+                asyncResp->res.jsonValue["ThermalMetrics"]["@odata.id"] =
+                    "/redfish/v1/Systems/system/Memory/" + dimmId +
+                    "/Chassis/ThermalMetrics";
+            });
+}
+
 } // namespace redfish

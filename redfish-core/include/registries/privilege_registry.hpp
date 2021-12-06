@@ -207,6 +207,7 @@ const static auto& postCertificateService = privilegeSetConfigureManager;
 
 // Chassis
 const static auto& getChassis = privilegeSetLogin;
+const static auto& getMemoryChassis = privilegeSetLogin;
 const static auto& headChassis = privilegeSetLogin;
 const static auto& patchChassis = privilegeSetConfigureComponents;
 const static auto& putChassis = privilegeSetConfigureComponents;
@@ -1325,6 +1326,7 @@ const static auto& postTelemetryService = privilegeSetConfigureManager;
 
 // Thermal
 const static auto& getThermal = privilegeSetLogin;
+const static auto& getMemoryThermal = privilegeSetLogin;
 const static auto& headThermal = privilegeSetLogin;
 const static auto& patchThermal = privilegeSetConfigureManager;
 const static auto& putThermal = privilegeSetConfigureManager;

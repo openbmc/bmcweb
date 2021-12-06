@@ -29,7 +29,8 @@ namespace redfish
 
 using DimmProperty =
     std::variant<std::string, std::vector<uint32_t>, std::vector<uint16_t>,
-                 uint64_t, uint32_t, uint16_t, uint8_t, bool>;
+                 uint64_t, uint32_t, uint16_t, uint8_t, bool,
+                 std::map<std::string, int>>;
 
 using DimmProperties = boost::container::flat_map<std::string, DimmProperty>;
 
