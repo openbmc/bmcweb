@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "3e240a12_b830ee72",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2021-12-07T13:05:30Z",
+      "side": 1,
+      "message": "Yes, it\u0027s my bad. I did copy wrong constant. It was supposed to be maxRequestQueueSize which is 50.",
+      "parentUuid": "0fe72e06_3fda4fc8",
+      "range": {
+        "startLine": 72,
+        "startChar": 8,
+        "endLine": 72,
+        "endChar": 25
+      },
+      "revId": "0caca8dab544ad0d3f93b1b5f2b337ec0a520e21",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "faec9a74_065023c7",
         "filename": "http/http_client.hpp",
         "patchSetId": 1
@@ -84,6 +108,30 @@
       "side": 1,
       "message": "Here\u0027s what I suspect is happening:\n\nskip(true) is set on parser\n\nClient sends request\nServer sends headers\nParser reads first requests headers, then calls back\nServer sends body, which gets queued in buffer\nclient starts a new request on the same connection, tries to read HTTP version\nbuffer contains the previous requests body, which causes this failure.\n\n\nWith all of the above said, I think deleting this line is the right fix.  I feel like I commented on that in another review, but it\u0027s lost now.\n\nAgree with Gunnar, don\u0027t comment out the code, remove it entirely.",
       "parentUuid": "5594cf23_6790abc8",
+      "range": {
+        "startLine": 173,
+        "startChar": 8,
+        "endLine": 173,
+        "endChar": 37
+      },
+      "revId": "0caca8dab544ad0d3f93b1b5f2b337ec0a520e21",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "08b10bbe_4a7fa9d5",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2021-12-07T13:05:30Z",
+      "side": 1,
+      "message": "Yes, I agree, I will remove it.",
+      "parentUuid": "d930cb07_ea83a291",
       "range": {
         "startLine": 173,
         "startChar": 8,

@@ -22,6 +22,30 @@
       "revId": "889ff6943d62762eeaf58824b651d2edaf940d1d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fed3f884_cdb4988d",
+        "filename": "redfish-core/include/event_service_manager.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2021-12-07T13:05:30Z",
+      "side": 0,
+      "message": "I will move it to separate review.",
+      "parentUuid": "b6224f37_1713b687",
+      "range": {
+        "startLine": 44,
+        "startChar": 6,
+        "endLine": 44,
+        "endChar": 21
+      },
+      "revId": "889ff6943d62762eeaf58824b651d2edaf940d1d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
