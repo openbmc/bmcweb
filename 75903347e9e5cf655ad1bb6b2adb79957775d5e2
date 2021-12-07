@@ -69,6 +69,24 @@
       "revId": "75903347e9e5cf655ad1bb6b2adb79957775d5e2",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3c815f10_4ffcf733",
+        "filename": "http/http_connection.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 280,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-12-07T20:53:42Z",
+      "side": 1,
+      "message": "Also, the theory is that unless the BMC is being attacked, this path would never be hit.  100 connections that are actually running real data is a LOT, and we\u0027d likely overload the NIC bandwidth or dbus bandwidth before we  hit this number in any real scenario.",
+      "parentUuid": "26e2f9a2_7ef94d91",
+      "revId": "75903347e9e5cf655ad1bb6b2adb79957775d5e2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
