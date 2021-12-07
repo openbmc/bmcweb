@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "9e1a9fd6_449a9633",
+        "filename": "redfish-core/lib/manager_diagnostic_data.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000500
+      },
+      "writtenOn": "2021-12-07T23:28:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "091a1cc7_531487c5",
+      "range": {
+        "startLine": 12,
+        "startChar": 4,
+        "endLine": 12,
+        "endChar": 39
+      },
+      "revId": "c8e21b56a1b51cc35d1bccaa318d0f357ed3390b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "653d1820_7ccdfbc3",
         "filename": "redfish-core/lib/manager_diagnostic_data.hpp",
         "patchSetId": 16
@@ -45,6 +69,30 @@
       "revId": "c8e21b56a1b51cc35d1bccaa318d0f357ed3390b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "04dcd7ea_83108770",
+        "filename": "redfish-core/lib/manager_diagnostic_data.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1000500
+      },
+      "writtenOn": "2021-12-07T23:28:05Z",
+      "side": 1,
+      "message": "I revisited this rewrote this entire part. Completely got rid of the `unordered_map`.\nI found I don\u0027t need to keep track of such mapping at all, since each one of the sensors is self-sufficient and we can populate the ManagerDiagnosticData with as much data as is available on the system.",
+      "parentUuid": "653d1820_7ccdfbc3",
+      "range": {
+        "startLine": 34,
+        "startChar": 12,
+        "endLine": 34,
+        "endChar": 51
+      },
+      "revId": "c8e21b56a1b51cc35d1bccaa318d0f357ed3390b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "19a0db97_424e2e0f",
+        "filename": "redfish-core/lib/manager_diagnostic_data.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1000500
+      },
+      "writtenOn": "2021-12-07T23:28:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "13b9e3b6_ac95315b",
+      "range": {
+        "startLine": 77,
+        "startChar": 67,
+        "endLine": 77,
+        "endChar": 68
+      },
+      "revId": "c8e21b56a1b51cc35d1bccaa318d0f357ed3390b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "cac3ccfc_106cb444",
         "filename": "redfish-core/lib/manager_diagnostic_data.hpp",
         "patchSetId": 16
@@ -91,6 +163,30 @@
       "revId": "c8e21b56a1b51cc35d1bccaa318d0f357ed3390b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6b9f40fd_0fa56891",
+        "filename": "redfish-core/lib/manager_diagnostic_data.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 1000500
+      },
+      "writtenOn": "2021-12-07T23:28:05Z",
+      "side": 1,
+      "message": "I completely got rid of the synchronous DBus calls.",
+      "parentUuid": "cac3ccfc_106cb444",
+      "range": {
+        "startLine": 122,
+        "startChar": 20,
+        "endLine": 124,
+        "endChar": 47
+      },
+      "revId": "c8e21b56a1b51cc35d1bccaa318d0f357ed3390b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "757083fb_8dd95a08",
+        "filename": "redfish-core/lib/manager_diagnostic_data.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 1000500
+      },
+      "writtenOn": "2021-12-07T23:28:05Z",
+      "side": 1,
+      "message": "Same as above, there is actually no need to assemble the readings into an `unordered_map` or `vector` so this gets removed.",
+      "parentUuid": "72100f59_1e2a1c13",
+      "range": {
+        "startLine": 135,
+        "startChar": 24,
+        "endLine": 135,
+        "endChar": 55
+      },
+      "revId": "c8e21b56a1b51cc35d1bccaa318d0f357ed3390b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7ed8919e_7ecd0526",
         "filename": "redfish-core/lib/manager_diagnostic_data.hpp",
         "patchSetId": 16
@@ -140,6 +260,30 @@
     },
     {
       "key": {
+        "uuid": "be299185_8121d751",
+        "filename": "redfish-core/lib/manager_diagnostic_data.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 1000500
+      },
+      "writtenOn": "2021-12-07T23:28:05Z",
+      "side": 1,
+      "message": "Removed due to no longer using synchronous calls.",
+      "parentUuid": "7ed8919e_7ecd0526",
+      "range": {
+        "startLine": 138,
+        "startChar": 16,
+        "endLine": 138,
+        "endChar": 47
+      },
+      "revId": "c8e21b56a1b51cc35d1bccaa318d0f357ed3390b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "20998769_59e52f85",
         "filename": "redfish-core/lib/manager_diagnostic_data.hpp",
         "patchSetId": 16
@@ -160,6 +304,30 @@
       "revId": "c8e21b56a1b51cc35d1bccaa318d0f357ed3390b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3990707e_94518ada",
+        "filename": "redfish-core/lib/manager_diagnostic_data.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 1000500
+      },
+      "writtenOn": "2021-12-07T23:28:05Z",
+      "side": 1,
+      "message": "I realized this check is not necessary, so it is now removed.",
+      "parentUuid": "20998769_59e52f85",
+      "range": {
+        "startLine": 148,
+        "startChar": 12,
+        "endLine": 148,
+        "endChar": 50
+      },
+      "revId": "c8e21b56a1b51cc35d1bccaa318d0f357ed3390b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
