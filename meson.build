@@ -392,6 +392,7 @@ srcfiles_unittest = [
   'redfish-core/ut/time_utils_test.cpp',
   'redfish-core/ut/stl_utils_test.cpp',
   'redfish-core/ut/hex_utils_test.cpp',
+  'redfish-core/ut/ip_utils_test.cpp',
   'http/ut/utility_test.cpp'
 ]
 
