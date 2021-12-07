@@ -6,6 +6,7 @@
 
 #include <openssl/rand.h>
 
+#include <boost/asio/ip/address.hpp>
 #include <boost/container/flat_map.hpp>
 #include <boost/uuid/uuid.hpp>
 #include <boost/uuid/uuid_generators.hpp>
@@ -211,7 +212,8 @@ class SessionStore
 {
   public:
     std::shared_ptr<UserSession> generateUserSession(
-        const std::string_view username, const std::string_view clientIp,
+        const std::string_view username,
+        const boost::asio::ip::address& clientIp,
         const std::string_view clientId,
         PersistenceType persistence = PersistenceType::TIMEOUT,
         bool isConfigureSelfOnly = false)
@@ -261,9 +263,23 @@ class SessionStore
                 return nullptr;
             }
         }
+
+        // Covert IPv4-mapped IPv6 address back to IPv4
+        std::string clientIpAddr;
+        if (clientIp.is_v6() && clientIp.to_v6().is_v4_mapped())
+        {
+            clientIpAddr = boost::asio::ip::make_address_v4(
+                               boost::asio::ip::v4_mapped, clientIp.to_v6())
+                               .to_string();
+        }
+        else
+        {
+            clientIpAddr = clientIp.to_string();
+        }
+
         auto session = std::make_shared<UserSession>(
             UserSession{uniqueId, sessionToken, std::string(username),
-                        csrfToken, std::string(clientId), std::string(clientIp),
+                        csrfToken, std::string(clientId), clientIpAddr,
                         std::chrono::steady_clock::now(), persistence, false,
                         isConfigureSelfOnly});
         auto it = authTokens.emplace(std::make_pair(sessionToken, session));
