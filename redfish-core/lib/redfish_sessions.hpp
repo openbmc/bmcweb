@@ -201,7 +201,7 @@ inline void requestRoutesSession(App& app)
                 std::shared_ptr<persistent_data::UserSession> session =
                     persistent_data::SessionStore::getInstance()
                         .generateUserSession(
-                            username, req.ipAddress.to_string(), clientId,
+                            username, req.ipAddress, clientId,
                             persistent_data::PersistenceType::TIMEOUT,
                             isConfigureSelfOnly);
                 asyncResp->res.addHeader("X-Auth-Token", session->sessionToken);
