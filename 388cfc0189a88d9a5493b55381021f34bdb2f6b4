@@ -19,6 +19,46 @@
     },
     {
       "key": {
+        "uuid": "900f101e_8b316f9f",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 2933,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-12-07T00:17:58Z",
+      "side": 1,
+      "message": "Both of these should be declared in the scope they\u0027re used.",
+      "range": {
+        "startLine": 2932,
+        "startChar": 0,
+        "endLine": 2933,
+        "endChar": 17
+      },
+      "revId": "388cfc0189a88d9a5493b55381021f34bdb2f6b4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bd8f7991_a83ad2e1",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 2963,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-12-07T00:17:58Z",
+      "side": 1,
+      "message": "You moved this function, then it looks like you copied and pasted a significant portion of it?  Please take a look and make sure this is what you intended.",
+      "revId": "388cfc0189a88d9a5493b55381021f34bdb2f6b4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "7f8a2718_cd3e135f",
         "filename": "redfish-core/lib/sensors.hpp",
         "patchSetId": 7
@@ -83,6 +123,24 @@
       "side": 1,
       "message": "This is just an extension of the existing design, We can do patching for the \"reading\" in Thermal and Power sensors.\nThis patch will add the same functionality in Sensors ,user will be able to change the sensor value only in Manufacturing mode mode for testing purpose",
       "parentUuid": "42f46b8b_1fa6b4ad",
+      "revId": "388cfc0189a88d9a5493b55381021f34bdb2f6b4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e0717304_5981e809",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 3162,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-12-07T00:17:58Z",
+      "side": 1,
+      "message": "I\u0027m on the fence here.  What we originally did technically violates Redfish, but is part of a \"test\" mode, so (at the time) it was deemed that standard compliance wasn\u0027t that important, as there\u0027s no expectation that it would get used in a \"real\" deployment.  I\u0027m struggling a little because, yes, it\u0027s incorrect, but it really is just a minor extension of something we already checked in and approved.\n\nI need to give this more thought.  It would help this patchset a ton if someone would open up a review in the DMTF github to discuss this.",
+      "parentUuid": "7b2a1d73_0723cb35",
       "revId": "388cfc0189a88d9a5493b55381021f34bdb2f6b4",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
