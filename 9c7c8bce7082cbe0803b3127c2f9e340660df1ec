@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "bfee4696_45a19d6e",
+        "filename": "http/http_server.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-12-07T20:07:07Z",
+      "side": 1,
+      "message": "Will fix in next patchset.",
+      "parentUuid": "247b04f0_d81aa59d",
+      "range": {
+        "startLine": 168,
+        "startChar": 54,
+        "endLine": 168,
+        "endChar": 55
+      },
+      "revId": "9c7c8bce7082cbe0803b3127c2f9e340660df1ec",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8c32664a_5b0ceba9",
         "filename": "http/http_server.hpp",
         "patchSetId": 1
@@ -60,6 +84,30 @@
       "writtenOn": "2021-12-07T19:08:34Z",
       "side": 1,
       "message": "nit:\nwhy no std::move",
+      "range": {
+        "startLine": 175,
+        "startChar": 16,
+        "endLine": 175,
+        "endChar": 23
+      },
+      "revId": "9c7c8bce7082cbe0803b3127c2f9e340660df1ec",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bad2dd80_6a6d7e2b",
+        "filename": "http/http_server.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 175,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-12-07T20:07:07Z",
+      "side": 1,
+      "message": "This is already an rvalue, a move would be redundant (which clang-tidy would also yell at your for) in this context.",
+      "parentUuid": "8c32664a_5b0ceba9",
       "range": {
         "startLine": 175,
         "startChar": 16,

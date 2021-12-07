@@ -22,6 +22,30 @@
       "revId": "e180c9a904d586daacf5799d9e2e420e4aea043e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "778d86c5_a52364ad",
+        "filename": "http/http_server.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-12-07T20:07:07Z",
+      "side": 0,
+      "message": "As mentioned in the commit message, it uses boost::beast::get_lowest_layey, which is essentially \"call next layer until it no longer exists\"",
+      "parentUuid": "5ea9bdfe_47c1d3ba",
+      "range": {
+        "startLine": 178,
+        "startChar": 47,
+        "endLine": 178,
+        "endChar": 57
+      },
+      "revId": "e180c9a904d586daacf5799d9e2e420e4aea043e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
