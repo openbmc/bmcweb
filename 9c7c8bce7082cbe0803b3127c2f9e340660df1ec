@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "744e3335_28803b6b",
+        "filename": "http/http_server.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-12-07T19:21:45Z",
+      "side": 1,
+      "message": "I know this was there before and nitpick but single var names in cases like this, hurt readability, e.g. harder to search for \"p\", harder to understand\nI am good with single var names in expected cases / small scope (e.g. iterating over a list / std::exception e)",
+      "range": {
+        "startLine": 168,
+        "startChar": 54,
+        "endLine": 168,
+        "endChar": 55
+      },
+      "revId": "9c7c8bce7082cbe0803b3127c2f9e340660df1ec",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "8c32664a_5b0ceba9",
         "filename": "http/http_server.hpp",
         "patchSetId": 1
