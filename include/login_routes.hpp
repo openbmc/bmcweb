@@ -143,8 +143,7 @@ inline void requestRoutes(App& app)
                     auto session =
                         persistent_data::SessionStore::getInstance()
                             .generateUserSession(
-                                username, req.ipAddress.to_string(),
-                                unsupportedClientId,
+                                username, req.ipAddress, unsupportedClientId,
                                 persistent_data::PersistenceType::TIMEOUT,
                                 isConfigureSelfOnly);
 
