@@ -22,6 +22,30 @@
       "revId": "194314dd039bceef0394f37f3c19430e530e02ab",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2b846857_0667fc6f",
+        "filename": "http/http_connection.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 431,
+      "author": {
+        "id": 1001027
+      },
+      "writtenOn": "2021-12-07T00:32:09Z",
+      "side": 1,
+      "message": "No, in some cases, thisRes in completeRequest(crow::Response\u0026 thisRes) is different from the member res of Connection.\ncompleteRequest(res) will also be called in res.end(), this time res comes from AsyncResp. Please take a look at async_resp.hpp and http_response.hpp.",
+      "parentUuid": "0c63d5f3_3d470a97",
+      "range": {
+        "startLine": 431,
+        "startChar": 8,
+        "endLine": 431,
+        "endChar": 33
+      },
+      "revId": "194314dd039bceef0394f37f3c19430e530e02ab",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
