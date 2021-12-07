@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8c32664a_5b0ceba9",
+        "filename": "http/http_server.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 175,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2021-12-07T19:08:34Z",
+      "side": 1,
+      "message": "nit:\nwhy no std::move",
+      "range": {
+        "startLine": 175,
+        "startChar": 16,
+        "endLine": 175,
+        "endChar": 23
+      },
+      "revId": "9c7c8bce7082cbe0803b3127c2f9e340660df1ec",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    }
+  ]
+}
