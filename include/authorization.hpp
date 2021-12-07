@@ -87,7 +87,7 @@ static std::shared_ptr<persistent_data::UserSession>
     // calling directly into pam for every request
     std::string unsupportedClientId = "";
     return persistent_data::SessionStore::getInstance().generateUserSession(
-        user, clientIp.to_string(), unsupportedClientId,
+        user, clientIp, unsupportedClientId,
         persistent_data::PersistenceType::SINGLE_REQUEST, isConfigureSelfOnly);
 }
 #endif

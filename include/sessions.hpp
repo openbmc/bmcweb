@@ -15,6 +15,7 @@
 #include <pam_authenticate.hpp>
 #include <random.hpp>
 #include <sdbusplus/bus/match.hpp>
+#include <utils/ip_utils.hpp>
 
 #include <csignal>
 #include <random>
@@ -211,7 +212,8 @@ class SessionStore
 {
   public:
     std::shared_ptr<UserSession> generateUserSession(
-        const std::string_view username, const std::string_view clientIp,
+        const std::string_view username,
+        const boost::asio::ip::address& clientIp,
         const std::string_view clientId,
         PersistenceType persistence = PersistenceType::TIMEOUT,
         bool isConfigureSelfOnly = false)
@@ -261,11 +263,12 @@ class SessionStore
                 return nullptr;
             }
         }
-        auto session = std::make_shared<UserSession>(
-            UserSession{uniqueId, sessionToken, std::string(username),
-                        csrfToken, std::string(clientId), std::string(clientIp),
-                        std::chrono::steady_clock::now(), persistence, false,
-                        isConfigureSelfOnly});
+
+        auto session = std::make_shared<UserSession>(UserSession{
+            uniqueId, sessionToken, std::string(username), csrfToken,
+            std::string(clientId), redfish::ip_util::toString(clientIp),
+            std::chrono::steady_clock::now(), persistence, false,
+            isConfigureSelfOnly});
         auto it = authTokens.emplace(std::make_pair(sessionToken, session));
         // Only need to write to disk if session isn't about to be destroyed.
         needWrite = persistence == PersistenceType::TIMEOUT;
