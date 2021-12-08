@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0d22ffa4_96603da1",
+        "filename": "include/sessions.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 267,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-12-08T01:10:15Z",
+      "side": 1,
+      "message": "Typo",
+      "range": {
+        "startLine": 267,
+        "startChar": 11,
+        "endLine": 267,
+        "endChar": 17
+      },
+      "revId": "224d7937c37a39a0a3f94ac7c8910898f2973de5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a85988ed_8257feee",
+        "filename": "include/sessions.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 279,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-12-08T01:10:15Z",
+      "side": 1,
+      "message": "This definitely deserves its own method with some unit tests.",
+      "range": {
+        "startLine": 268,
+        "startChar": 0,
+        "endLine": 279,
+        "endChar": 0
+      },
+      "revId": "224d7937c37a39a0a3f94ac7c8910898f2973de5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
