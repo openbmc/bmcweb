@@ -1501,8 +1501,11 @@ inline void requestAccountServiceRoutes(App& app)
                 Privileges effectiveUserPrivileges =
                     redfish::getUserPrivileges(req.userRole);
 
-                std::string thisUser = req.session->username;
-
+                std::string thisUser;
+                if (req.session)
+                {
+                    thisUser = req.session->username;
+                }
                 crow::connections::systemBus->async_method_call(
                     [asyncResp, thisUser, effectiveUserPrivileges](
                         const boost::system::error_code ec,
