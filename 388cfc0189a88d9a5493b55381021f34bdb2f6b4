@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "e43d6e3b_43545906",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000929
+      },
+      "writtenOn": "2021-12-08T07:36:57Z",
+      "side": 1,
+      "message": "This same behavior for Thermal and Power senor\n\nif its not in Manufactring mode then we cant patch and bmcweb will respond with internal server error",
+      "parentUuid": "acbe1310_96a97062",
+      "revId": "388cfc0189a88d9a5493b55381021f34bdb2f6b4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "900f101e_8b316f9f",
         "filename": "redfish-core/lib/sensors.hpp",
         "patchSetId": 7
@@ -53,6 +71,24 @@
       "writtenOn": "2021-12-07T00:17:58Z",
       "side": 1,
       "message": "You moved this function, then it looks like you copied and pasted a significant portion of it?  Please take a look and make sure this is what you intended.",
+      "revId": "388cfc0189a88d9a5493b55381021f34bdb2f6b4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "531782b0_6e475945",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 2963,
+      "author": {
+        "id": 1000929
+      },
+      "writtenOn": "2021-12-08T07:36:57Z",
+      "side": 1,
+      "message": "Thermal \u0026 Power sensors are have collection of sensors\n\nbut for Chassis/\u003cstr\u003e/Sensors/\u003cstr\u003e/ its not ,  setSensorsOverride() will parse info from the collection and then proceed for patching \n\nso to avoid code duplication we splited this function\n\nsetSensor()invoked from line 3170 directly , since  Chassis/\u003cstr\u003e/Sensors/\u003cstr\u003e/ is not having any collection",
+      "parentUuid": "bd8f7991_a83ad2e1",
       "revId": "388cfc0189a88d9a5493b55381021f34bdb2f6b4",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
