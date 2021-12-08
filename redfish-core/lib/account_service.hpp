@@ -1501,8 +1501,10 @@ inline void requestAccountServiceRoutes(App& app)
                 Privileges effectiveUserPrivileges =
                     redfish::getUserPrivileges(req.userRole);
 
-                std::string thisUser = req.session->username;
-
+                std::string thisUser = "";
+#ifndef BMCWEB_INSECURE_DISABLE_AUTHENTICATION
+                thisUser = req.session->username;
+#endif // BMCWEB_INSECURE_DISABLE_AUTHENTICATION
                 crow::connections::systemBus->async_method_call(
                     [asyncResp, thisUser, effectiveUserPrivileges](
                         const boost::system::error_code ec,
