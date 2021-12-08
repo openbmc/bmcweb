@@ -2925,12 +2925,28 @@ inline void setSensorsOverride(
                         [sensorAsyncResp](const boost::system::error_code ec) {
                             if (ec)
                             {
-                                BMCWEB_LOG_DEBUG
-                                    << "setOverrideValueStatus DBUS error: "
-                                    << ec;
-                                messages::internalError(
-                                    sensorAsyncResp->asyncResp->res);
-                                return;
+                                if (ec.value() ==
+                                    boost::system::errc::permission_denied)
+                                {
+                                    BMCWEB_LOG_WARNING
+                                        << "Manufacturing mode is not Enabled...can't "
+                                           "Override the sensor value. ";
+
+                                    messages::actionNotSupported(
+                                        sensorAsyncResp->asyncResp->res,
+                                        "Overriding of Sensor Value for non "
+                                        "manufacturing mode");
+                                    return;
+                                }
+                                else
+                                {
+                                    BMCWEB_LOG_DEBUG
+                                        << "setOverrideValueStatus DBUS error: "
+                                        << ec;
+                                    messages::internalError(
+                                        sensorAsyncResp->asyncResp->res);
+                                    return;
+                                }
                             }
                         },
                         item.second, item.first,
