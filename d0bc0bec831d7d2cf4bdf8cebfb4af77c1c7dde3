@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2a879e75_49b54d90",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 69
+      },
+      "lineNbr": 407,
+      "author": {
+        "id": 1000547
+      },
+      "writtenOn": "2021-12-08T01:11:25Z",
+      "side": 1,
+      "message": "Need to delete this blank line？",
+      "range": {
+        "startLine": 407,
+        "startChar": 0,
+        "endLine": 407,
+        "endChar": 0
+      },
+      "revId": "d0bc0bec831d7d2cf4bdf8cebfb4af77c1c7dde3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
