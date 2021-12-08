@@ -2881,64 +2881,70 @@ inline void setSensorsOverride(
             }
         }
         // Get the connection to which the memberId belongs
-        auto getObjectsWithConnectionCb =
-            [sensorAsyncResp, overrideMap](
-                const boost::container::flat_set<std::string>& /*connections*/,
-                const std::set<std::pair<std::string, std::string>>&
-                    objectsWithConnection) {
-                if (objectsWithConnection.size() != overrideMap.size())
+        auto getObjectsWithConnectionCb = [sensorAsyncResp, overrideMap](
+                                              const boost::container::flat_set<
+                                                  std::string>& /*connections*/,
+                                              const std::set<std::pair<
+                                                  std::string, std::string>>&
+                                                  objectsWithConnection) {
+            if (objectsWithConnection.size() != overrideMap.size())
+            {
+                BMCWEB_LOG_INFO
+                    << "Unable to find all objects with proper connection "
+                    << objectsWithConnection.size() << " requested "
+                    << overrideMap.size() << "\n";
+                messages::resourceNotFound(sensorAsyncResp->asyncResp->res,
+                                           sensorAsyncResp->chassisSubNode ==
+                                                   sensors::node::thermal
+                                               ? "Temperatures"
+                                               : "Voltages",
+                                           "Count");
+                return;
+            }
+            for (const auto& item : objectsWithConnection)
+            {
+                sdbusplus::message::object_path path(item.first);
+                std::string sensorName = path.filename();
+                if (sensorName.empty())
                 {
-                    BMCWEB_LOG_INFO
-                        << "Unable to find all objects with proper connection "
-                        << objectsWithConnection.size() << " requested "
-                        << overrideMap.size() << "\n";
-                    messages::resourceNotFound(
-                        sensorAsyncResp->asyncResp->res,
-                        sensorAsyncResp->chassisSubNode ==
-                                sensors::node::thermal
-                            ? "Temperatures"
-                            : "Voltages",
-                        "Count");
+                    messages::internalError(sensorAsyncResp->asyncResp->res);
                     return;
                 }
-                for (const auto& item : objectsWithConnection)
-                {
-                    sdbusplus::message::object_path path(item.first);
-                    std::string sensorName = path.filename();
-                    if (sensorName.empty())
-                    {
-                        messages::internalError(
-                            sensorAsyncResp->asyncResp->res);
-                        return;
-                    }
 
-                    const auto& iterator = overrideMap.find(sensorName);
-                    if (iterator == overrideMap.end())
-                    {
-                        BMCWEB_LOG_INFO << "Unable to find sensor object"
-                                        << item.first << "\n";
-                        messages::internalError(
-                            sensorAsyncResp->asyncResp->res);
-                        return;
-                    }
-                    crow::connections::systemBus->async_method_call(
-                        [sensorAsyncResp](const boost::system::error_code ec) {
-                            if (ec)
+                const auto& iterator = overrideMap.find(sensorName);
+                if (iterator == overrideMap.end())
+                {
+                    BMCWEB_LOG_INFO << "Unable to find sensor object"
+                                    << item.first << "\n";
+                    messages::internalError(sensorAsyncResp->asyncResp->res);
+                    return;
+                }
+                crow::connections::systemBus->async_method_call(
+                    [sensorAsyncResp](const boost::system::error_code ec) {
+                        if (ec)
+                        {
+                            if (ec.value() ==
+                                boost::system::errc::permission_denied)
                             {
-                                BMCWEB_LOG_DEBUG
-                                    << "setOverrideValueStatus DBUS error: "
-                                    << ec;
-                                messages::internalError(
+                                BMCWEB_LOG_WARNING
+                                    << "Manufacturing mode is not Enabled...can't "
+                                       "Override the sensor value. ";
+
+                                messages::insufficientPrivilege(
                                     sensorAsyncResp->asyncResp->res);
                                 return;
                             }
-                        },
-                        item.second, item.first,
-                        "org.freedesktop.DBus.Properties", "Set",
-                        "xyz.openbmc_project.Sensor.Value", "Value",
-                        std::variant<double>(iterator->second.first));
-                }
-            };
+                            BMCWEB_LOG_DEBUG
+                                << "setOverrideValueStatus DBUS error: " << ec;
+                            messages::internalError(
+                                sensorAsyncResp->asyncResp->res);
+                        }
+                    },
+                    item.second, item.first, "org.freedesktop.DBus.Properties",
+                    "Set", "xyz.openbmc_project.Sensor.Value", "Value",
+                    std::variant<double>(iterator->second.first));
+            }
+        };
         // Get object with connection for the given sensor name
         getObjectsWithConnection(sensorAsyncResp, sensorNames,
                                  std::move(getObjectsWithConnectionCb));
