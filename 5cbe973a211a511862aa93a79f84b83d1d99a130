@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ad239e7e_a18b956a",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1504,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2021-12-08T16:50:02Z",
+      "side": 1,
+      "message": "nit: not need to set it to an empty string\n\n```\nstd::string thisUser;\n```",
+      "range": {
+        "startLine": 1504,
+        "startChar": 36,
+        "endLine": 1504,
+        "endChar": 41
+      },
+      "revId": "5cbe973a211a511862aa93a79f84b83d1d99a130",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
