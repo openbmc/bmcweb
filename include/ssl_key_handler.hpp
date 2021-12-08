@@ -109,6 +109,7 @@ inline bool verifyOpensslKeyCert(const std::string& filepath)
         EVP_PKEY* pkey = PEM_read_PrivateKey(file, nullptr, nullptr, nullptr);
         if (pkey != nullptr)
         {
+#if (OPENSSL_VERSION_NUMBER < 0x30000000L)
             RSA* rsa = EVP_PKEY_get1_RSA(pkey);
             if (rsa != nullptr)
             {
@@ -142,6 +143,26 @@ inline bool verifyOpensslKeyCert(const std::string& filepath)
                     EC_KEY_free(ec);
                 }
             }
+#else
+            EVP_PKEY_CTX* pkey_ctx =
+                EVP_PKEY_CTX_new_from_pkey(nullptr, pkey, nullptr);
+
+            if (!pkey_ctx)
+            {
+                std::cerr << "Unable to allocate pkey_ctx " << ERR_get_error()
+                          << "\n";
+            }
+            else if (EVP_PKEY_check(pkey_ctx) == 1)
+            {
+                privateKeyValid = true;
+            }
+            else
+            {
+
+                std::cerr << "Key not valid error number " << ERR_get_error()
+                          << "\n";
+            }
+#endif
 
             if (privateKeyValid)
             {
@@ -164,6 +185,9 @@ inline bool verifyOpensslKeyCert(const std::string& filepath)
                 }
             }
 
+#if (OPENSSL_VERSION_NUMBER > 0x30000000L)
+            EVP_PKEY_CTX_free(pkey_ctx);
+#endif
             EVP_PKEY_free(pkey);
         }
         fclose(file);
