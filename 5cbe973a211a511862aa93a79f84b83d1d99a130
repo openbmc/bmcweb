@@ -22,6 +22,29 @@
       "revId": "5cbe973a211a511862aa93a79f84b83d1d99a130",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6c72bbe1_1599cd2a",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1505,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-12-08T17:23:52Z",
+      "side": 1,
+      "message": "Rather than this, we should have a nullptr check.  req.session isn\u0027t gauranteed to be filled, and could be nullptr (as is happening here)\n\nSomething like:\n\nif (req.session){\n   thisUser \u003d req.session-\u003eusername;\n}",
+      "range": {
+        "startLine": 1505,
+        "startChar": 0,
+        "endLine": 1505,
+        "endChar": 46
+      },
+      "revId": "5cbe973a211a511862aa93a79f84b83d1d99a130",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
