@@ -584,17 +584,6 @@ class Connection :
                 {
                     startDeadline(loggedInAttempts);
                     BMCWEB_LOG_DEBUG << "Starting slow deadline";
-
-                    req->urlParams = req->urlView.query_params();
-
-#ifdef BMCWEB_ENABLE_DEBUG
-                    std::string paramList = "";
-                    for (const auto param : req->urlParams)
-                    {
-                        paramList += param->key() + " " + param->value() + " ";
-                    }
-                    BMCWEB_LOG_DEBUG << "QueryParams: " << paramList;
-#endif
                 }
                 else
                 {
