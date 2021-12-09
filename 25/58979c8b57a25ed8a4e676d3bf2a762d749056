@@ -1,0 +1,10 @@
+Code-Review+2: Ed Tanous <ed@tanous.net>
+Code-Review+1: AppaRao Puli <apparao.puli@linux.intel.com>
+Code-Review+1: Sunitha Harish <sunithaharish04@gmail.com>
+Verified+1: OpenBMC CI <openbmcbump-ci@yahoo.com>
+Ok-To-Test+1: OpenBMC CI <openbmcbump-ci@yahoo.com>
+Submitted-by: Ed Tanous <ed@tanous.net>
+Submitted-at: Thu, 09 Dec 2021 22:33:29 +0000
+Reviewed-on: https://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/44449
+Project: openbmc/bmcweb
+Branch: refs/heads/master
