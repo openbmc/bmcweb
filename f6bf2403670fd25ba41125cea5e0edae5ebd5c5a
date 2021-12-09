@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "1ce564b5_1ef723a7",
+        "filename": "redfish-core/lib/trigger.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1001148
+      },
+      "writtenOn": "2021-12-09T13:53:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a99969e8_1bf60f66",
+      "range": {
+        "startLine": 80,
+        "startChar": 34,
+        "endLine": 80,
+        "endChar": 57
+      },
+      "revId": "f6bf2403670fd25ba41125cea5e0edae5ebd5c5a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b1aeac51_56499983",
         "filename": "redfish-core/lib/trigger.hpp",
         "patchSetId": 8
@@ -45,6 +69,30 @@
       "revId": "f6bf2403670fd25ba41125cea5e0edae5ebd5c5a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "587d59cb_aed843fc",
+        "filename": "redfish-core/lib/trigger.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1001148
+      },
+      "writtenOn": "2021-12-09T13:53:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b1aeac51_56499983",
+      "range": {
+        "startLine": 86,
+        "startChar": 0,
+        "endLine": 87,
+        "endChar": 5
+      },
+      "revId": "f6bf2403670fd25ba41125cea5e0edae5ebd5c5a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "09072966_0a4cb149",
+        "filename": "redfish-core/lib/trigger.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 196,
+      "author": {
+        "id": 1001148
+      },
+      "writtenOn": "2021-12-09T13:53:51Z",
+      "side": 1,
+      "message": "Due to your doubts regarding usage of \u0027unpackPropertiesNoThrow\u0027 I decided to use accepted and common in bmcweb approach for extracting properties. And so I am closing this one as done, but please let us raise the subject of including \u0027unpackPropertiesNoThrow\u0027 into bmcweb later on in a separate discussion.",
+      "parentUuid": "69ed4c5c_db8e2fe7",
+      "range": {
+        "startLine": 196,
+        "startChar": 56,
+        "endLine": 196,
+        "endChar": 79
+      },
+      "revId": "f6bf2403670fd25ba41125cea5e0edae5ebd5c5a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "85fbd35d_912de3ef",
         "filename": "redfish-core/lib/trigger.hpp",
         "patchSetId": 8
@@ -82,6 +154,30 @@
       "writtenOn": "2021-12-01T16:48:27Z",
       "side": 1,
       "message": "This looks wrong to me.  from the redfish spec\"This type shall specify the condition, in relationship to the discrete trigger values, which constitutes a trigger.\"\n\nWhether or not the discrete triggers list is empty doesn\u0027t really determine that, does it?  Am I missing something?",
+      "range": {
+        "startLine": 226,
+        "startChar": 0,
+        "endLine": 226,
+        "endChar": 64
+      },
+      "revId": "f6bf2403670fd25ba41125cea5e0edae5ebd5c5a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7f6a9842_d248f8e8",
+        "filename": "redfish-core/lib/trigger.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 226,
+      "author": {
+        "id": 1001148
+      },
+      "writtenOn": "2021-12-09T13:53:51Z",
+      "side": 1,
+      "message": "As stated in DMTF (https://redfish.dmtf.org/schemas/v1/Triggers.v1_2_0.json) the DiscreteTriggers shall be present when DiscreteTriggerCondition is \u0027Specified\u0027, when DiscreteTriggers is empty then we assume that DiscreteTriggerCondition represents \u0027Changed\u0027.\n\nThis behavior is reflected just like this in Telemetry Service - in there if at least one discrete threshold is defined for the Trigger then appropriate actions are executed exactly when value from related metric meets given threshold condition (\u0027Specified\u0027 state), on the other hand when no discrete thresholds are defined for the Trigger appropriate actions are executed every time when value from related metric is changed (\u0027Changed\u0027 state).\n\nTherefore at this point checking discreteTriggers against being empty is sufficient to deduce state of DiscreteTriggerCondition.",
+      "parentUuid": "85fbd35d_912de3ef",
       "range": {
         "startLine": 226,
         "startChar": 0,
