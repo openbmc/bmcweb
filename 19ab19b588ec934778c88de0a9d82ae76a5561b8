@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "f10fdcf9_0013e63d",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 2938,
+      "author": {
+        "id": 1000416
+      },
+      "writtenOn": "2021-12-09T09:03:31Z",
+      "side": 1,
+      "message": "Replaced the text now. In RedFish Response \"Message\" may not understand by user. I have use exact  message to convey the message. \n\"Message\": \"The action insufficientPrivilege is not supported by the resource.\",",
+      "parentUuid": "a60ca027_d2c384b6",
+      "range": {
+        "startLine": 2937,
+        "startChar": 41,
+        "endLine": 2938,
+        "endChar": 59
+      },
+      "revId": "19ab19b588ec934778c88de0a9d82ae76a5561b8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "26a0d898_78a538d5",
         "filename": "redfish-core/lib/sensors.hpp",
         "patchSetId": 1
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "7f0cb70b_b1d11e32",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 2942,
+      "author": {
+        "id": 1000416
+      },
+      "writtenOn": "2021-12-09T09:03:31Z",
+      "side": 1,
+      "message": "Removed else. Thanks.",
+      "parentUuid": "26a0d898_78a538d5",
+      "range": {
+        "startLine": 2941,
+        "startChar": 0,
+        "endLine": 2942,
+        "endChar": 33
+      },
+      "revId": "19ab19b588ec934778c88de0a9d82ae76a5561b8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d8e355ad_18a4a4fa",
         "filename": "redfish-core/lib/sensors.hpp",
         "patchSetId": 1
@@ -59,6 +107,30 @@
       "writtenOn": "2021-12-08T20:29:29Z",
       "side": 1,
       "message": "This return is also redundant.",
+      "range": {
+        "startLine": 2948,
+        "startChar": 0,
+        "endLine": 2948,
+        "endChar": 43
+      },
+      "revId": "19ab19b588ec934778c88de0a9d82ae76a5561b8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8777933d_ac25ca03",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 2948,
+      "author": {
+        "id": 1000416
+      },
+      "writtenOn": "2021-12-09T09:03:31Z",
+      "side": 1,
+      "message": "Removed.",
+      "parentUuid": "d8e355ad_18a4a4fa",
       "range": {
         "startLine": 2948,
         "startChar": 0,
