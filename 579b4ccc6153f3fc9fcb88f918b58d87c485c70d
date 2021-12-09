@@ -210,6 +210,30 @@
       "revId": "579b4ccc6153f3fc9fcb88f918b58d87c485c70d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e9e02679_6502bc86",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1739,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2021-12-09T08:11:47Z",
+      "side": 1,
+      "message": "When I rebased this commit I added [[maybe_unused]], I didn\u0027t notice this comment.\n\nI will revert it back to /*hostName*/ in next patchset.",
+      "parentUuid": "328a18af_e78ec039",
+      "range": {
+        "startLine": 1739,
+        "startChar": 38,
+        "endLine": 1739,
+        "endChar": 69
+      },
+      "revId": "579b4ccc6153f3fc9fcb88f918b58d87c485c70d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
