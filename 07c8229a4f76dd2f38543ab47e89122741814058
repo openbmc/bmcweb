@@ -22,6 +22,30 @@
       "revId": "07c8229a4f76dd2f38543ab47e89122741814058",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2ae9d2db_3575c795",
+        "filename": "redfish-core/include/event_service_manager.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1325,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2021-12-09T08:09:09Z",
+      "side": 1,
+      "message": "Event service uses same function to fill report as telemetry service. Since getProperty is used fillReport doesn\u0027t take variant anymore as parameter. In this case source of data is from signal, so get_if needs to be performed.\n\nIt may look like it\u0027s unrelated, but this change is needed in this patch.",
+      "parentUuid": "8e56cc1d_0f07337b",
+      "range": {
+        "startLine": 1323,
+        "startChar": 0,
+        "endLine": 1325,
+        "endChar": 70
+      },
+      "revId": "07c8229a4f76dd2f38543ab47e89122741814058",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
