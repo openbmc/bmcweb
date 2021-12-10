@@ -95,6 +95,24 @@
     },
     {
       "key": {
+        "uuid": "91a79bac_87cc249b",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 2963,
+      "author": {
+        "id": 1000929
+      },
+      "writtenOn": "2021-12-10T15:51:14Z",
+      "side": 1,
+      "message": "pushed another patch that disable this feature by default at compilation time",
+      "parentUuid": "531782b0_6e475945",
+      "revId": "388cfc0189a88d9a5493b55381021f34bdb2f6b4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "7f8a2718_cd3e135f",
         "filename": "redfish-core/lib/sensors.hpp",
         "patchSetId": 7
