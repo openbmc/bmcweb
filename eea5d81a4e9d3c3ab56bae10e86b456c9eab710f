@@ -427,6 +427,30 @@
     },
     {
       "key": {
+        "uuid": "a45d62d6_8c6986e3",
+        "filename": "include/multipart_parser.hpp",
+        "patchSetId": 53
+      },
+      "lineNbr": 352,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2021-12-10T11:19:11Z",
+      "side": 1,
+      "message": "Branch where this condition is false is not covered in unit tests.",
+      "parentUuid": "b98321a6_d42dfd97",
+      "range": {
+        "startLine": 352,
+        "startChar": 20,
+        "endLine": 352,
+        "endChar": 49
+      },
+      "revId": "eea5d81a4e9d3c3ab56bae10e86b456c9eab710f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "4433458e_c4c648bf",
         "filename": "include/multipart_parser.hpp",
         "patchSetId": 53
