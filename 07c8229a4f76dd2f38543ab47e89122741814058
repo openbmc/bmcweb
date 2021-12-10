@@ -46,6 +46,30 @@
       "revId": "07c8229a4f76dd2f38543ab47e89122741814058",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d84c307a_460b2f78",
+        "filename": "redfish-core/include/event_service_manager.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1325,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-12-10T18:58:18Z",
+      "side": 1,
+      "message": "AH, I see it now.  Thanks for the clarification.  Fine as is.",
+      "parentUuid": "2ae9d2db_3575c795",
+      "range": {
+        "startLine": 1323,
+        "startChar": 0,
+        "endLine": 1325,
+        "endChar": 70
+      },
+      "revId": "07c8229a4f76dd2f38543ab47e89122741814058",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
