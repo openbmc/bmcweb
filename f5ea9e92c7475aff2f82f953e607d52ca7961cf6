@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fce91939_e8a67c65",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-12-10T02:37:54Z",
+      "side": 1,
+      "message": "A bit more in the commit msg for next time, was this a validator error, some history, etc. ;)",
+      "revId": "f5ea9e92c7475aff2f82f953e607d52ca7961cf6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a381bb38_11d5ecd6",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-12-10T02:37:54Z",
+      "side": 1,
+      "message": "\"IPv6StaticAddresses\": {\n                    \"description\": \"The IPv6 static addresses assigned to this interface.  See IPv6Addresses for the addresses in use by this interface.\",\n                    \"items\": {\n                        \"anyOf\": [\n                            {\n                                \"$ref\": \"http://redfish.dmtf.org/schemas/v1/IPAddresses.json#/definitions/IPv6StaticAddress\"\n                            },\n                            {\n                                \"type\": \"null\"\n                            }\n                        ]\n                    },\n                    \"longDescription\": \"This property shall contain an array of objects that represent the IPv6 static connection characteristics for this interface.\",\n                    \"type\": \"array\"\n                },\n\n\n\n      \"IPv6StaticAddress\": {\n            \"additionalProperties\": false,\n            \"description\": \"This type represents a single IPv6 static address to be assigned on a network interface.\",\n            \"longDescription\": \"This type shall represent a single IPv6 static address to be assigned on a network interface.\",\n            \"patternProperties\": {\n                \"^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\\\.[a-zA-Z_][a-zA-Z0-9_]*$\": {\n                    \"description\": \"This property shall specify a valid odata or Redfish property.\",\n                    \"type\": [\n                        \"array\",\n                        \"boolean\",\n                        \"integer\",\n                        \"number\",\n                        \"null\",\n                        \"object\",\n                        \"string\"\n                    ]\n                }\n            },\n            \"properties\": {\n                \"Address\": {\n                    \"description\": \"A valid IPv6 address.\",\n                    \"longDescription\": \"This property provides access to a static IPv6 address that is currently assigned on a network interface.\",\n                    \"readonly\": false,\n                    \"type\": [\n                        \"string\",\n                        \"null\"\n                    ]\n                },\n                \"Oem\": {\n                    \"$ref\": \"http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Oem\",\n                    \"description\": \"The OEM extension property.\",\n                    \"longDescription\": \"This property shall contain the OEM extensions.  All values for properties contained in this object shall conform to the Redfish Specification-described requirements.\"\n                },\n                \"PrefixLength\": {\n                    \"anyOf\": [\n                        {\n                            \"$ref\": \"#/definitions/PrefixLength\"\n                        },\n                        {\n                            \"type\": \"null\"\n                        }\n                    ],\n                    \"description\": \"The prefix length, in bits, of this IPv6 address.\",\n                    \"longDescription\": \"This property shall contain the IPv6 network prefix length, in bits, for this address.\",\n                    \"readonly\": false\n                }\n            },\n            \"required\": [\n                \"Address\",\n                \"PrefixLength\"\n            ],\n            \"type\": \"object\"\n        },",
+      "revId": "f5ea9e92c7475aff2f82f953e607d52ca7961cf6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
