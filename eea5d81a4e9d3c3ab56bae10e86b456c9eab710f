@@ -72,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "404d42ed_70c6edbb",
+        "filename": "include/multipart_parser.hpp",
+        "patchSetId": 53
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-12-10T01:29:12Z",
+      "side": 1,
+      "message": "Sure, I will remove it.",
+      "parentUuid": "6f24c5ab_adb5a2a7",
+      "range": {
+        "startLine": 54,
+        "startChar": 0,
+        "endLine": 96,
+        "endChar": 1
+      },
+      "revId": "eea5d81a4e9d3c3ab56bae10e86b456c9eab710f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "792180bf_dccf2cff",
         "filename": "include/multipart_parser.hpp",
         "patchSetId": 53
@@ -106,6 +130,30 @@
       "writtenOn": "2021-12-10T01:09:28Z",
       "side": 1,
       "message": "It looks like we\u0027ve removed everything that can actually set the State::ERROR state, so maybe this can be removed now?\n\nWith that said, it seems odd that we can no longer hit the error state, when I see errors getting set below (like on line 150)  Maybe we need a bunch of state \u003d State::ERROR in places?",
+      "parentUuid": "792180bf_dccf2cff",
+      "range": {
+        "startLine": 139,
+        "startChar": 16,
+        "endLine": 140,
+        "endChar": 30
+      },
+      "revId": "eea5d81a4e9d3c3ab56bae10e86b456c9eab710f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "841d5b35_c2579a38",
+        "filename": "include/multipart_parser.hpp",
+        "patchSetId": 53
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-12-10T01:29:12Z",
+      "side": 1,
+      "message": "Yeah, I will refator it.",
       "parentUuid": "792180bf_dccf2cff",
       "range": {
         "startLine": 139,
