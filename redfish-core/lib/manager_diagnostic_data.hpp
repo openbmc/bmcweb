@@ -82,7 +82,6 @@ std::optional<std::pair<std::string, std::string>>
 std::optional<std::string>
     checkAndGetSoleNonMapperGetObjectResponse(const GetObjectType& objects)
 {
-
     std::optional<std::pair<std::string, std::string>> ret;
 
     if (objects.empty())
