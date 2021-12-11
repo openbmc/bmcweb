@@ -542,6 +542,10 @@ inline void
     {
         dumpPath = "/redfish/v1/Managers/bmc/LogServices/Dump/Entries/";
     }
+    else if (dumpType == "FaultLog")
+    {
+        dumpPath = "/redfish/v1/Managers/faultlog/LogServices/Dump/Entries/";
+    }
     else if (dumpType == "System")
     {
         dumpPath = "/redfish/v1/Systems/system/LogServices/Dump/Entries/";
@@ -670,6 +674,15 @@ inline void
                         "/redfish/v1/Managers/bmc/LogServices/Dump/Entries/" +
                         entryID + "/attachment";
                 }
+                else if (dumpType == "FaultLog")
+                {
+                    asyncResp->res.jsonValue["DiagnosticDataType"] = "OEM"; //?
+                    asyncResp->res.jsonValue["OEMDiagnosticDataType"] =
+                        "FaultLog"; //?
+                    asyncResp->res.jsonValue["AdditionalDataURI"] =
+                        "/redfish/v1/Systems/system/LogServices/Dump/Entries/" +
+                        entryID + "/attachment";
+                }
                 else if (dumpType == "System")
                 {
                     asyncResp->res.jsonValue["DiagnosticDataType"] = "OEM";
@@ -706,7 +719,7 @@ inline void deleteDumpEntry(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                 return;
             }
             BMCWEB_LOG_ERROR << "Dump (DBus) doDelete respHandler got error "
-                             << ec;
+                             << ec << " entryID=" << entryID;
             messages::internalError(asyncResp->res);
             return;
         }
@@ -781,6 +794,10 @@ inline void createDump(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     {
         dumpPath = "/redfish/v1/Managers/bmc/LogServices/Dump/Entries/";
     }
+    else if (dumpType == "FaultLog")
+    {
+        dumpPath = "/redfish/v1/Managers/faultlog/LogServices/Dump/Entries/";
+    }
     else if (dumpType == "System")
     {
         dumpPath = "/redfish/v1/Systems/system/LogServices/Dump/Entries/";
@@ -823,7 +840,7 @@ inline void createDump(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
             return;
         }
     }
-    else if (dumpType == "BMC")
+    else if (dumpType == "BMC" || dumpType == "FaultLog")
     {
         if (!diagnosticDataType)
         {
@@ -841,7 +858,6 @@ inline void createDump(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                                     "BMC Dump creation parameters");
             return;
         }
-    }
 
     crow::connections::systemBus->async_method_call(
         [asyncResp, payload(task::Payload(req)), dumpPath,
@@ -883,6 +899,7 @@ inline void clearDump(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
             for (const std::string& path : subTreePaths)
             {
                 sdbusplus::message::object_path objPath(path);
+
                 std::string logID = objPath.filename();
                 if (logID.empty())
                 {
@@ -2444,6 +2461,62 @@ inline void requestRoutesBMCDumpClear(App& app)
             [](const crow::Request&,
                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
                 clearDump(asyncResp, "BMC");
+            });
+}
+
+inline void requestRoutesFaultLogDumpEntry(App& app)
+{
+    BMCWEB_ROUTE(app,
+                 "/redfish/v1/Managers/faultlog/LogServices/Dump/Entries/<str>/")
+        .privileges(redfish::privileges::getLogEntry)
+        .methods(boost::beast::http::verb::get)(
+            [](const crow::Request&,
+               const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+               const std::string& param) {
+                getDumpEntryById(asyncResp, param, "FaultLog");
+            });
+/*
+    BMCWEB_ROUTE(app,
+                 "/redfish/v1/Managers/faultlog/LogServices/Dump/Entries/<str>/")
+        .privileges(redfish::privileges::deleteLogEntry)
+        .methods(boost::beast::http::verb::delete_)(
+            [](const crow::Request&,
+               const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+               const std::string& param) {
+                deleteDumpEntry(asyncResp, param, "FaultLog");
+            });
+*/
+}
+
+inline void requestRoutesFaultLogDumpCreate(App& app)
+{
+    BMCWEB_ROUTE(app, "/redfish/v1/Managers/faultlog/LogServices/Dump/"
+                      "Actions/"
+                      "LogService.CollectDiagnosticData/")
+        .privileges(redfish::privileges::postLogService)
+        .methods(boost::beast::http::verb::post)(
+            [](const crow::Request& req,
+               const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
+
+                std::cout << "requestRoutesFaultLogDumpCreate\n";
+                BMCWEB_LOG_DEBUG << "MyDebug";
+                BMCWEB_LOG_INFO << "MyInfo";
+                BMCWEB_LOG_ERROR << "MyError";
+
+                createDump(asyncResp, req, "FaultLog");
+            });
+}
+
+inline void requestRoutesFaultLogDumpClear(App& app)
+{
+    BMCWEB_ROUTE(app, "/redfish/v1/Managers/faultlog/LogServices/Dump/"
+                      "Actions/"
+                      "LogService.ClearLog/")
+        .privileges(redfish::privileges::postLogService)
+        .methods(boost::beast::http::verb::post)(
+            [](const crow::Request&,
+               const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
+                clearDump(asyncResp, "FaultLog");
             });
 }
 
