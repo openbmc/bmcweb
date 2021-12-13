@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c65532a7_c8092ec7",
+        "filename": "scripts/hostlogger_test.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2021-12-13T23:53:23Z",
+      "side": 1,
+      "message": "Out of curiosity, did this script even get ran?  This syntax doesn\u0027t even work in python3.\n\n```\n$ ./scripts/hostlogger_test.py --help              \nFile \".../openbmc-sources/bmcweb/./scripts/hostlogger_test.py\", line 36\n    print \"There occurs error when get request, status_code \u003d \" + str(\n          ^\nSyntaxError: invalid syntax\n```",
+      "range": {
+        "startLine": 36,
+        "startChar": 0,
+        "endLine": 40,
+        "endChar": 16
+      },
+      "revId": "5e89efd9f5f72a86419565d1826b0ad1a545ac0b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
