@@ -32,6 +32,7 @@
 #include <boost/beast/http.hpp>
 #include <boost/container/flat_map.hpp>
 #include <boost/system/linux_error.hpp>
+#include <dbus_utility.hpp>
 #include <error_messages.hpp>
 #include <registries/privilege_registry.hpp>
 
@@ -738,8 +739,8 @@ inline void
                 return task::completed;
             }
             std::vector<std::pair<
-                std::string,
-                std::vector<std::pair<std::string, std::variant<std::string>>>>>
+                std::string, std::vector<std::pair<
+                                 std::string, dbus::utility::DbusVariantType>>>>
                 interfacesList;
 
             sdbusplus::message::object_path objPath;
@@ -902,7 +903,8 @@ inline void clearDump(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
 }
 
 inline static void parseCrashdumpParameters(
-    const std::vector<std::pair<std::string, VariantType>>& params,
+    const std::vector<std::pair<std::string, dbus::utility::DbusVariantType>>&
+        params,
     std::string& filename, std::string& timestamp, std::string& logfile)
 {
     for (auto property : params)
@@ -1672,7 +1674,7 @@ inline void requestRoutesDBusEventLogEntry(App& app)
                     "/xyz/openbmc_project/logging/entry/" + entryId,
                     "org.freedesktop.DBus.Properties", "Set",
                     "xyz.openbmc_project.Logging.Entry", "Resolved",
-                    std::variant<bool>(*resolved));
+                    dbus::utility::DbusVariantType(*resolved));
             });
 
     BMCWEB_ROUTE(
@@ -2640,7 +2642,9 @@ static void
     auto getStoredLogCallback =
         [asyncResp, logID, &logEntryJson](
             const boost::system::error_code ec,
-            const std::vector<std::pair<std::string, VariantType>>& params) {
+            const std::vector<
+                std::pair<std::string, dbus::utility::DbusVariantType>>&
+                params) {
             if (ec)
             {
                 BMCWEB_LOG_DEBUG << "failed to get log ec: " << ec.message();
@@ -2801,7 +2805,8 @@ inline void requestRoutesCrashdumpFile(App& app)
                 auto getStoredLogCallback =
                     [asyncResp, logID, fileName](
                         const boost::system::error_code ec,
-                        const std::vector<std::pair<std::string, VariantType>>&
+                        const std::vector<std::pair<
+                            std::string, dbus::utility::DbusVariantType>>&
                             resp) {
                         if (ec)
                         {
@@ -3320,7 +3325,7 @@ static void
     crow::connections::systemBus->async_method_call(
         [aResp, entryCount, skip,
          top](const boost::system::error_code ec,
-              const std::variant<uint16_t>& bootCount) {
+              const dbus::utility::DbusVariantType& bootCount) {
             if (ec)
             {
                 BMCWEB_LOG_DEBUG << "DBUS response error " << ec;

@@ -165,6 +165,7 @@ endif
 if (cxx.get_id() == 'gcc' and cxx.version().version_compare('>8.0'))
   add_project_arguments(
     cxx.get_supported_arguments([
+     '-Wno-psabi',
      '-Wduplicated-cond',
      '-Wduplicated-branches',
      '-Wlogical-op',
@@ -234,7 +235,6 @@ endif
 
 add_project_arguments(
 cxx.get_supported_arguments([
-  '-DBOOST_ASIO_USE_TS_EXECUTOR_AS_DEFAULT',
   '-DBOOST_ASIO_DISABLE_THREADS',
   '-DBOOST_BEAST_USE_STD_STRING_VIEW',
   '-DBOOST_BEAST_SEPARATE_COMPILATION',

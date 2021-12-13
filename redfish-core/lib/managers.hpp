@@ -50,7 +50,7 @@ inline void
     const char* destProperty = "RequestedBMCTransition";
 
     // Create the D-Bus variant for D-Bus call.
-    VariantType dbusPropertyValue(propertyValue);
+    dbus::utility::DbusVariantType dbusPropertyValue(propertyValue);
 
     crow::connections::systemBus->async_method_call(
         [asyncResp](const boost::system::error_code ec) {
@@ -79,7 +79,7 @@ inline void
     const char* destProperty = "RequestedBMCTransition";
 
     // Create the D-Bus variant for D-Bus call.
-    VariantType dbusPropertyValue(propertyValue);
+    dbus::utility::DbusVariantType dbusPropertyValue(propertyValue);
 
     crow::connections::systemBus->async_method_call(
         [asyncResp](const boost::system::error_code ec) {
@@ -1178,11 +1178,11 @@ struct GetPIDValues : std::enable_shared_from_this<GetPIDValues>
                 const std::string& path = subtreeLocal[0].first;
                 const std::string& owner = subtreeLocal[0].second[0].first;
                 crow::connections::systemBus->async_method_call(
-                    [path, owner, self](
-                        const boost::system::error_code ec2,
-                        const boost::container::flat_map<
-                            std::string, std::variant<std::vector<std::string>,
-                                                      std::string>>& resp) {
+                    [path, owner,
+                     self](const boost::system::error_code ec2,
+                           const boost::container::flat_map<
+                               std::string, dbus::utility::DbusVariantType>&
+                               resp) {
                         if (ec2)
                         {
                             BMCWEB_LOG_ERROR
@@ -1396,8 +1396,7 @@ struct SetPIDValues : std::enable_shared_from_this<SetPIDValues>
                     [self, path, owner](
                         const boost::system::error_code ec2,
                         const boost::container::flat_map<
-                            std::string, std::variant<std::vector<std::string>,
-                                                      std::string>>& r) {
+                            std::string, dbus::utility::DbusVariantType>& r) {
                         if (ec2)
                         {
                             BMCWEB_LOG_ERROR
@@ -1487,7 +1486,7 @@ struct SetPIDValues : std::enable_shared_from_this<SetPIDValues>
                 },
                 profileConnection, profilePath,
                 "org.freedesktop.DBus.Properties", "Set", thermalModeIface,
-                "Current", std::variant<std::string>(*profile));
+                "Current", dbus::utility::DbusVariantType(*profile));
         }
 
         for (auto& containerPair : configuration)
@@ -1690,7 +1689,7 @@ inline void getLocation(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
 
     crow::connections::systemBus->async_method_call(
         [aResp](const boost::system::error_code ec,
-                const std::variant<std::string>& property) {
+                const dbus::utility::DbusVariantType& property) {
             if (ec)
             {
                 BMCWEB_LOG_DEBUG << "DBUS response error for "
@@ -1722,7 +1721,7 @@ inline void
 
     crow::connections::systemBus->async_method_call(
         [aResp](const boost::system::error_code ec,
-                std::variant<uint64_t>& lastResetTime) {
+                dbus::utility::DbusVariantType& lastResetTime) {
             if (ec)
             {
                 BMCWEB_LOG_DEBUG << "D-BUS response error " << ec;
@@ -1854,7 +1853,7 @@ inline void
                 "/xyz/openbmc_project/software/" + firmwareId,
                 "org.freedesktop.DBus.Properties", "Set",
                 "xyz.openbmc_project.Software.RedundancyPriority", "Priority",
-                std::variant<uint8_t>(static_cast<uint8_t>(0)));
+                dbus::utility::DbusVariantType(static_cast<uint8_t>(0)));
         },
         "xyz.openbmc_project.Software.BMC.Updater",
         "/xyz/openbmc_project/software", "org.freedesktop.DBus.ObjectManager",
@@ -1899,7 +1898,7 @@ inline void setDateTime(std::shared_ptr<bmcweb::AsyncResp> aResp,
             "xyz.openbmc_project.Time.Manager", "/xyz/openbmc_project/time/bmc",
             "org.freedesktop.DBus.Properties", "Set",
             "xyz.openbmc_project.Time.EpochTime", "Elapsed",
-            std::variant<uint64_t>(durMicroSecs));
+            dbus::utility::DbusVariantType(durMicroSecs));
     }
     else
     {
@@ -2038,7 +2037,7 @@ inline void requestRoutesManager(App& app)
             {
                 crow::connections::systemBus->async_method_call(
                     [asyncResp](const boost::system::error_code ec,
-                                const std::variant<double>& resp) {
+                                const dbus::utility::DbusVariantType& resp) {
                         if (ec)
                         {
                             BMCWEB_LOG_ERROR << "Error while getting progress";
@@ -2115,9 +2114,9 @@ inline void requestRoutesManager(App& app)
                             crow::connections::systemBus->async_method_call(
                                 [asyncResp](
                                     const boost::system::error_code ec,
-                                    const std::vector<
-                                        std::pair<std::string,
-                                                  std::variant<std::string>>>&
+                                    const std::vector<std::pair<
+                                        std::string,
+                                        dbus::utility::DbusVariantType>>&
                                         propertiesList) {
                                     if (ec)
                                     {
@@ -2127,7 +2126,7 @@ inline void requestRoutesManager(App& app)
                                     }
                                     for (const std::pair<
                                              std::string,
-                                             std::variant<std::string>>&
+                                             dbus::utility::DbusVariantType>&
                                              property : propertiesList)
                                     {
                                         const std::string& propertyName =

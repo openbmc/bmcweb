@@ -3,9 +3,9 @@
 #include <app.hpp>
 #include <boost/convert.hpp>
 #include <boost/convert/strtol.hpp>
+#include <dbus_utility.hpp>
 #include <registries/privilege_registry.hpp>
 
-#include <variant>
 namespace redfish
 {
 namespace certs
@@ -449,10 +449,10 @@ inline void requestRoutesCertificateActionGenerateCSR(App& app)
                         messages::internalError(asyncResp->res);
                         return;
                     }
-                    std::vector<
-                        std::pair<std::string,
-                                  std::vector<std::pair<
-                                      std::string, std::variant<std::string>>>>>
+                    std::vector<std::pair<
+                        std::string,
+                        std::vector<std::pair<std::string,
+                                              dbus::utility::DbusVariantType>>>>
                         interfacesProperties;
                     sdbusplus::message::object_path csrObjectPath;
                     m.read(csrObjectPath, interfacesProperties);
@@ -569,9 +569,8 @@ static void getCertificateProperties(
     const std::string& objectPath, const std::string& service, long certId,
     const std::string& certURL, const std::string& name)
 {
-    using PropertyType =
-        std::variant<std::string, uint64_t, std::vector<std::string>>;
-    using PropertiesMap = boost::container::flat_map<std::string, PropertyType>;
+    using PropertiesMap =
+        boost::container::flat_map<std::string, dbus::utility::DbusVariantType>;
     BMCWEB_LOG_DEBUG << "getCertificateProperties Path=" << objectPath
                      << " certId=" << certId << " certURl=" << certURL;
     crow::connections::systemBus->async_method_call(

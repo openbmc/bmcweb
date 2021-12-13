@@ -19,6 +19,7 @@
 #include <boost/container/flat_map.hpp>
 #include <boost/container/flat_set.hpp>
 #include <dbus_singleton.hpp>
+#include <dbus_utility.hpp>
 #include <error_messages.hpp>
 #include <registries/privilege_registry.hpp>
 #include <utils/json_utils.hpp>
@@ -34,19 +35,14 @@ namespace redfish
  * DBus types primitives for several generic DBus interfaces
  * TODO(Pawel) consider move this to separate file into boost::dbus
  */
-using PropertiesMapType = boost::container::flat_map<
-    std::string, std::variant<std::string, bool, uint8_t, int16_t, uint16_t,
-                              int32_t, uint32_t, int64_t, uint64_t, double>>;
+using PropertiesMapType =
+    boost::container::flat_map<std::string, dbus::utility::DbusVariantType>;
 
 using GetManagedObjects = std::vector<std::pair<
     sdbusplus::message::object_path,
-    std::vector<std::pair<
-        std::string,
-        boost::container::flat_map<
-            std::string,
-            std::variant<std::string, bool, uint8_t, int16_t, uint16_t, int32_t,
-                         uint32_t, int64_t, uint64_t, double,
-                         std::vector<std::string>>>>>>>;
+    std::vector<std::pair<std::string,
+                          boost::container::flat_map<
+                              std::string, dbus::utility::DbusVariantType>>>>>;
 
 enum class LinkType
 {
@@ -614,7 +610,7 @@ void changeVlanId(const std::string& ifaceId, const uint32_t& inputVlanId,
         std::string("/xyz/openbmc_project/network/") + ifaceId,
         "org.freedesktop.DBus.Properties", "Set",
         "xyz.openbmc_project.Network.VLAN", "Id",
-        std::variant<uint32_t>(inputVlanId));
+        dbus::utility::DbusVariantType(inputVlanId));
 }
 
 /**
@@ -748,7 +744,7 @@ inline void updateIPv4DefaultGateway(
         "/xyz/openbmc_project/network/" + ifaceId,
         "org.freedesktop.DBus.Properties", "Set",
         "xyz.openbmc_project.Network.EthernetInterface", "DefaultGateway",
-        std::variant<std::string>(gateway));
+        dbus::utility::DbusVariantType(gateway));
 }
 /**
  * @brief Creates a static IPv4 entry
@@ -1055,7 +1051,7 @@ inline void
         "xyz.openbmc_project.Network", "/xyz/openbmc_project/network/config",
         "org.freedesktop.DBus.Properties", "Set",
         "xyz.openbmc_project.Network.SystemConfiguration", "HostName",
-        std::variant<std::string>(hostname));
+        dbus::utility::DbusVariantType(hostname));
 }
 
 inline void
@@ -1075,7 +1071,7 @@ inline void
         "/xyz/openbmc_project/network/" + ifaceId,
         "org.freedesktop.DBus.Properties", "Set",
         "xyz.openbmc_project.Network.EthernetInterface", "DomainName",
-        std::variant<std::vector<std::string>>(vectorDomainname));
+        dbus::utility::DbusVariantType(vectorDomainname));
 }
 
 inline bool isHostnameValid(const std::string& hostname)
@@ -1154,7 +1150,7 @@ inline void
         "/xyz/openbmc_project/network/" + ifaceId,
         "org.freedesktop.DBus.Properties", "Set",
         "xyz.openbmc_project.Network.MACAddress", "MACAddress",
-        std::variant<std::string>(macAddress));
+        dbus::utility::DbusVariantType(macAddress));
 }
 
 inline void setDHCPEnabled(const std::string& ifaceId,
@@ -1177,7 +1173,7 @@ inline void setDHCPEnabled(const std::string& ifaceId,
         "/xyz/openbmc_project/network/" + ifaceId,
         "org.freedesktop.DBus.Properties", "Set",
         "xyz.openbmc_project.Network.EthernetInterface", propertyName,
-        std::variant<std::string>{dhcp});
+        dbus::utility::DbusVariantType{dhcp});
 }
 
 inline void setEthernetInterfaceBoolProperty(
@@ -1197,7 +1193,7 @@ inline void setEthernetInterfaceBoolProperty(
         "/xyz/openbmc_project/network/" + ifaceId,
         "org.freedesktop.DBus.Properties", "Set",
         "xyz.openbmc_project.Network.EthernetInterface", propertyName,
-        std::variant<bool>{value});
+        dbus::utility::DbusVariantType{value});
 }
 
 inline void setDHCPv4Config(const std::string& propertyName, const bool& value,
@@ -1217,7 +1213,7 @@ inline void setDHCPv4Config(const std::string& propertyName, const bool& value,
         "/xyz/openbmc_project/network/config/dhcp",
         "org.freedesktop.DBus.Properties", "Set",
         "xyz.openbmc_project.Network.DHCPConfiguration", propertyName,
-        std::variant<bool>{value});
+        dbus::utility::DbusVariantType{value});
 }
 
 inline void handleDHCPPatch(const std::string& ifaceId,
@@ -1550,7 +1546,7 @@ inline void handleStaticNameServersPatch(
         "/xyz/openbmc_project/network/" + ifaceId,
         "org.freedesktop.DBus.Properties", "Set",
         "xyz.openbmc_project.Network.EthernetInterface", "StaticNameServers",
-        std::variant<std::vector<std::string>>{updatedStaticNameServers});
+        dbus::utility::DbusVariantType{updatedStaticNameServers});
 }
 
 inline void handleIPv6StaticAddressesPatch(
@@ -2174,7 +2170,7 @@ inline void requestEthernetInterfacesRoutes(App& app)
                                     "/xyz/openbmc_project/network/" + ifaceId,
                                     "org.freedesktop.DBus.Properties", "Set",
                                     "xyz.openbmc_project.Network.VLAN", "Id",
-                                    std::variant<uint32_t>(vlanId));
+                                    dbus::utility::DbusVariantType(vlanId));
                             }
                             else
                             {

@@ -20,6 +20,7 @@
 #include "redfish_util.hpp"
 
 #include <app.hpp>
+#include <dbus_utility.hpp>
 #include <registries/privilege_registry.hpp>
 #include <utils/json_utils.hpp>
 #include <utils/stl_utils.hpp>
@@ -231,7 +232,7 @@ inline void handleNTPProtocolEnabled(
         "xyz.openbmc_project.Settings", "/xyz/openbmc_project/time/sync_method",
         "org.freedesktop.DBus.Properties", "Set",
         "xyz.openbmc_project.Time.Synchronization", "TimeSyncMethod",
-        std::variant<std::string>{timeSyncMethod});
+        dbus::utility::DbusVariantType{timeSyncMethod});
 }
 
 inline void
@@ -283,7 +284,7 @@ inline void
                             service, objectPath,
                             "org.freedesktop.DBus.Properties", "Set", interface,
                             "NTPServers",
-                            std::variant<std::vector<std::string>>{ntpServers});
+                            dbus::utility::DbusVariantType{ntpServers});
                     }
                 }
             }
@@ -326,7 +327,8 @@ inline void
                         entry.second.begin()->first, entry.first,
                         "org.freedesktop.DBus.Properties", "Set",
                         "xyz.openbmc_project.Control.Service.Attributes",
-                        "Running", std::variant<bool>{protocolEnabled});
+                        "Running",
+                        dbus::utility::DbusVariantType{protocolEnabled});
 
                     crow::connections::systemBus->async_method_call(
                         [asyncResp](const boost::system::error_code ec2) {
@@ -339,7 +341,8 @@ inline void
                         entry.second.begin()->first, entry.first,
                         "org.freedesktop.DBus.Properties", "Set",
                         "xyz.openbmc_project.Control.Service.Attributes",
-                        "Enabled", std::variant<bool>{protocolEnabled});
+                        "Enabled",
+                        dbus::utility::DbusVariantType{protocolEnabled});
                 }
             }
         },
@@ -368,7 +371,7 @@ inline void
 {
     crow::connections::systemBus->async_method_call(
         [asyncResp](const boost::system::error_code errorCode,
-                    const std::variant<std::string>& timeSyncMethod) {
+                    const dbus::utility::DbusVariantType& timeSyncMethod) {
             if (errorCode)
             {
                 return;
