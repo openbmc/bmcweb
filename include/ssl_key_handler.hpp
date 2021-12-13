@@ -307,28 +307,32 @@ inline void generateSslCertificate(const std::string& filepath,
 
 EVP_PKEY* createEcKey()
 {
+    std::unique_ptr<EVP_PKEY_CTX, decltype(&::EVP_PKEY_CTX_free)> ctx{
+        nullptr, &::EVP_PKEY_CTX_free};
     EVP_PKEY* pKey = nullptr;
-    int eccgrp = 0;
-    eccgrp = OBJ_txt2nid("secp384r1");
 
-    EC_KEY* myecc = EC_KEY_new_by_curve_name(eccgrp);
-    if (myecc != nullptr)
+    ctx.reset(EVP_PKEY_CTX_new_id(NID_secp384r1, nullptr));
+    if (!ctx)
     {
-        EC_KEY_set_asn1_flag(myecc, OPENSSL_EC_NAMED_CURVE);
-        EC_KEY_generate_key(myecc);
-        pKey = EVP_PKEY_new();
-        if (pKey != nullptr)
-        {
-            if (EVP_PKEY_assign_EC_KEY(pKey, myecc))
-            {
-                /* pKey owns myecc from now */
-                if (EC_KEY_check_key(myecc) <= 0)
-                {
-                    fprintf(stderr, "EC_check_key failed.\n");
-                }
-            }
-        }
+        return nullptr;
     }
+
+    if (EVP_PKEY_CTX_set_ec_param_enc(ctx.get(), OPENSSL_EC_NAMED_CURVE) <= 0)
+    {
+        return nullptr;
+    }
+
+    if (EVP_PKEY_keygen_init(ctx.get()) <= 0)
+    {
+        return nullptr;
+    }
+
+    /* Generate key */
+    if (EVP_PKEY_keygen(ctx.get(), &pKey) <= 0)
+    {
+        return nullptr;
+    }
+
     return pKey;
 }
 
