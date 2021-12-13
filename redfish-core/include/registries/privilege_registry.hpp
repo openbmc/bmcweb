@@ -1439,4 +1439,12 @@ const static auto& postZoneCollection = privilegeSetConfigureComponents;
 const static auto& putZoneCollection = privilegeSetConfigureComponents;
 const static auto& deleteZoneCollection = privilegeSetConfigureComponents;
 
+// ExternalStorer
+const static auto& getExternalStorer = privilegeSetLogin;
+const static auto& headExternalStorer = privilegeSetLogin;
+const static auto& patchExternalStorer = privilegeSetConfigureComponents;
+const static auto& postExternalStorer = privilegeSetConfigureComponents;
+const static auto& putExternalStorer = privilegeSetConfigureComponents;
+const static auto& deleteExternalStorer = privilegeSetConfigureComponents;
+
 } // namespace redfish::privileges

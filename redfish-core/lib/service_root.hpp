@@ -62,6 +62,9 @@ inline void
         {"@odata.id", "/redfish/v1/EventService"}};
     asyncResp->res.jsonValue["TelemetryService"] = {
         {"@odata.id", "/redfish/v1/TelemetryService"}};
+
+    asyncResp->res.jsonValue["ExternalStorers"] = {
+        {"@odata.id", "/redfish/v1/ExternalStorers"}};
 }
 
 inline void requestRoutesServiceRoot(App& app)
