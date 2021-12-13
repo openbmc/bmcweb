@@ -161,8 +161,21 @@ inline void getPropertiesForEnumerate(
             for (const auto& [name, value] : propertiesList)
             {
                 nlohmann::json& propertyJson = objectJson[name];
-                std::visit([&propertyJson](auto&& val) { propertyJson = val; },
-                           value);
+                std::visit(
+                    [&propertyJson](auto&& val) {
+                        if constexpr (std::is_same_v<
+                                          std::decay_t<decltype(val)>,
+                                          sdbusplus::message::unix_fd>)
+                        {
+                            propertyJson = val.fd;
+                        }
+                        else
+                        {
+
+                            propertyJson = val;
+                        }
+                    },
+                    value);
             }
         },
         service, objectPath, "org.freedesktop.DBus.Properties", "GetAll",
@@ -262,9 +275,22 @@ inline void getManagedObjectsForEnumerate(
                         {
                             nlohmann::json& propertyJson =
                                 objectJson[property.first];
-                            std::visit([&propertyJson](
-                                           auto&& val) { propertyJson = val; },
-                                       property.second);
+                            std::visit(
+                                [&propertyJson](auto&& val) {
+                                    if constexpr (
+                                        std::is_same_v<
+                                            std::decay_t<decltype(val)>,
+                                            sdbusplus::message::unix_fd>)
+                                    {
+                                        propertyJson = val.fd;
+                                    }
+                                    else
+                                    {
+
+                                        propertyJson = val;
+                                    }
+                                },
+                                property.second);
                         }
                     }
                 }
