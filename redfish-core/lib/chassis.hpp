@@ -79,7 +79,7 @@ inline void getChassisState(std::shared_ptr<bmcweb::AsyncResp> aResp)
 // Note, this is not a very useful Variant, but because it isn't used to get
 // values, it should be as simple as possible
 // TODO(ed) invent a nullvariant type
-using VariantType = std::variant<bool, std::string, uint64_t, uint32_t>;
+using VariantType = std::variant<bool, std::string, uint64_t, uint32_t, uint8_t>;
 using ManagedObjectsType = std::vector<std::pair<
     sdbusplus::message::object_path,
     std::vector<std::pair<std::string,

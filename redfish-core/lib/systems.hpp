@@ -2010,6 +2010,59 @@ inline void getProvisioningStatus(std::shared_ptr<bmcweb::AsyncResp> aResp)
 #endif
 
 /**
+ * @brief Retrieves provisioned platform state
+ *
+ * @param[in] aResp     Shared pointer for completing asynchronous calls.
+ *
+ * @return None.
+ */
+inline void getPlatformState(std::shared_ptr<bmcweb::AsyncResp> aResp)
+{
+    BMCWEB_LOG_DEBUG << "Get OEM information.";
+    crow::connections::systemBus->async_method_call(
+        [aResp](const boost::system::error_code ec,
+                const std::vector<std::pair<std::string, VariantType>>&
+                    propertiesList) {
+            nlohmann::json& oemPFR =
+                aResp->res.jsonValue["Oem"]["OpenBmc"]["FirmwareProvisioning"]["Status"];
+
+            if (ec)
+            {
+                BMCWEB_LOG_DEBUG << "DBUS response error " << ec;
+                // not an error, don't have to have the interface
+                return;
+            }
+
+            const uint8_t* postcode = nullptr;
+            const std::string* platformState = nullptr;
+            for (const std::pair<std::string, VariantType>& property :
+                 propertiesList)
+            {
+                if (property.first == "Data")
+                {
+                    postcode = std::get_if<uint8_t>(&property.second);
+                }
+                else if (property.first == "PlatformState")
+                {
+                    platformState = std::get_if<std::string>(&property.second);
+                }
+            }
+
+            if ((postcode == nullptr) || (platformState == nullptr))
+            {
+                BMCWEB_LOG_DEBUG << "Unable to get PFR platform state.";
+                messages::internalError(aResp->res);
+                return;
+            }
+            oemPFR["Data"] = *postcode;
+            oemPFR["PlatformState"] = *platformState;
+        },
+        "xyz.openbmc_project.PFR.Manager", "/xyz/openbmc_project/pfr",
+        "org.freedesktop.DBus.Properties", "GetAll",
+        "xyz.openbmc_project.State.Boot.Platform");
+}
+
+/**
  * @brief Translate the PowerMode to a response message.
  *
  * @param[in] aResp  Shared pointer for generating response message.
@@ -3125,6 +3178,7 @@ inline void requestRoutesSystems(App& app)
 #ifdef BMCWEB_ENABLE_REDFISH_PROVISIONING_FEATURE
             getProvisioningStatus(asyncResp);
 #endif
+            getPlatformState(asyncResp);
             getTrustedModuleRequiredToBoot(asyncResp);
             getPowerMode(asyncResp);
             getIdlePowerSaver(asyncResp);
