@@ -1,6 +1,7 @@
 #pragma once
 
 #include "common.hpp"
+#include "dbus_utility.hpp"
 #include "error_messages.hpp"
 #include "http_request.hpp"
 #include "http_response.hpp"
@@ -1306,12 +1307,10 @@ class Router
         }
 
         crow::connections::systemBus->async_method_call(
-            [&req, asyncResp, &rules, ruleIndex, found](
-                const boost::system::error_code ec,
-                const std::map<
-                    std::string,
-                    std::variant<bool, std::string, std::vector<std::string>>>&
-                    userInfo) {
+            [&req, asyncResp, &rules, ruleIndex,
+             found](const boost::system::error_code ec,
+                    const std::map<std::string, dbus::utility::DbusVariantType>&
+                        userInfo) {
                 if (ec)
                 {
                     BMCWEB_LOG_ERROR << "GetUserInfo failed...";
