@@ -256,56 +256,54 @@ inline void requestRoutes(App& app)
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
             BMCWEB_LOG_DEBUG << "nbd-proxy.onopen(" << &conn << ")";
 
-            auto getUserInfoHandler =
-                [&conn, asyncResp](
-                    const boost::system::error_code ec,
-                    boost::container::flat_map<
-                        std::string, std::variant<bool, std::string,
-                                                  std::vector<std::string>>>
-                        userInfo) {
-                    if (ec)
-                    {
-                        BMCWEB_LOG_ERROR << "GetUserInfo failed...";
-                        conn.close("Failed to get user information");
-                        return;
-                    }
+            auto getUserInfoHandler = [&conn, asyncResp](
+                                          const boost::system::error_code ec,
+                                          boost::container::flat_map <
+                                              std::string,
+                                          dbus::utility::DbusVariantType >>
+                                              userInfo) {
+                if (ec)
+                {
+                    BMCWEB_LOG_ERROR << "GetUserInfo failed...";
+                    conn.close("Failed to get user information");
+                    return;
+                }
 
-                    const std::string* userRolePtr = nullptr;
-                    auto userInfoIter = userInfo.find("UserPrivilege");
-                    if (userInfoIter != userInfo.end())
-                    {
-                        userRolePtr =
-                            std::get_if<std::string>(&userInfoIter->second);
-                    }
+                const std::string* userRolePtr = nullptr;
+                auto userInfoIter = userInfo.find("UserPrivilege");
+                if (userInfoIter != userInfo.end())
+                {
+                    userRolePtr =
+                        std::get_if<std::string>(&userInfoIter->second);
+                }
 
-                    std::string userRole{};
-                    if (userRolePtr != nullptr)
-                    {
-                        userRole = *userRolePtr;
-                        BMCWEB_LOG_DEBUG << "userName = " << conn.getUserName()
-                                         << " userRole = " << *userRolePtr;
-                    }
+                std::string userRole{};
+                if (userRolePtr != nullptr)
+                {
+                    userRole = *userRolePtr;
+                    BMCWEB_LOG_DEBUG << "userName = " << conn.getUserName()
+                                     << " userRole = " << *userRolePtr;
+                }
 
-                    // Get the user privileges from the role
-                    ::redfish::Privileges userPrivileges =
-                        ::redfish::getUserPrivileges(userRole);
+                // Get the user privileges from the role
+                ::redfish::Privileges userPrivileges =
+                    ::redfish::getUserPrivileges(userRole);
 
-                    const ::redfish::Privileges requiredPrivileges{
-                        requiredPrivilegeString};
+                const ::redfish::Privileges requiredPrivileges{
+                    requiredPrivilegeString};
 
-                    if (!userPrivileges.isSupersetOf(requiredPrivileges))
-                    {
-                        BMCWEB_LOG_DEBUG
-                            << "User " << conn.getUserName()
-                            << " not authorized for nbd connection";
-                        conn.close("Unathourized access");
-                        return;
-                    }
+                if (!userPrivileges.isSupersetOf(requiredPrivileges))
+                {
+                    BMCWEB_LOG_DEBUG << "User " << conn.getUserName()
+                                     << " not authorized for nbd connection";
+                    conn.close("Unathourized access");
+                    return;
+                }
 
-                    auto openHandler = [&conn, asyncResp](
-                                           const boost::system::error_code ec,
-                                           const dbus::utility::
-                                               ManagedObjectType& objects) {
+                auto openHandler =
+                    [&conn, asyncResp](
+                        const boost::system::error_code ec,
+                        const dbus::utility::ManagedObjectType& objects) {
                         const std::string* socketValue = nullptr;
                         const std::string* endpointValue = nullptr;
                         const std::string* endpointObjectPath = nullptr;
@@ -404,13 +402,11 @@ inline void requestRoutes(App& app)
 
                         sessions[&conn]->run();
                     };
-                    crow::connections::systemBus->async_method_call(
-                        std::move(openHandler),
-                        "xyz.openbmc_project.VirtualMedia",
-                        "/xyz/openbmc_project/VirtualMedia",
-                        "org.freedesktop.DBus.ObjectManager",
-                        "GetManagedObjects");
-                };
+                crow::connections::systemBus->async_method_call(
+                    std::move(openHandler), "xyz.openbmc_project.VirtualMedia",
+                    "/xyz/openbmc_project/VirtualMedia",
+                    "org.freedesktop.DBus.ObjectManager", "GetManagedObjects");
+            };
 
             crow::connections::systemBus->async_method_call(
                 std::move(getUserInfoHandler),
