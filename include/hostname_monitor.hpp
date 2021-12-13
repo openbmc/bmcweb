@@ -2,6 +2,7 @@
 #ifdef BMCWEB_ENABLE_SSL
 #include <boost/container/flat_map.hpp>
 #include <dbus_singleton.hpp>
+#include <include/dbus_utility.hpp>
 #include <sdbusplus/bus/match.hpp>
 #include <sdbusplus/message/types.hpp>
 #include <ssl_key_handler.hpp>
@@ -42,7 +43,7 @@ inline int onPropertyUpdate(sd_bus_message* m, void* /* userdata */,
 
     sdbusplus::message::message message(m);
     std::string iface;
-    boost::container::flat_map<std::string, std::variant<std::string>>
+    boost::container::flat_map<std::string, dbus::utility::DbusVariantType>
         changedProperties;
 
     message.read(iface, changedProperties);

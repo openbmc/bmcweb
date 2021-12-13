@@ -5,6 +5,7 @@
 #include <boost/uuid/uuid_generators.hpp>
 #include <boost/uuid/uuid_io.hpp>
 #include <dbus_singleton.hpp>
+#include <dbus_utility.hpp>
 
 #include <cstdio>
 #include <fstream>
@@ -64,8 +65,8 @@ inline void
 
             sdbusplus::message::object_path path;
             std::vector<std::pair<
-                std::string,
-                std::vector<std::pair<std::string, std::variant<std::string>>>>>
+                std::string, std::vector<std::pair<
+                                 std::string, dbus::utility::DbusVariantType>>>>
                 interfaces;
             m.read(path, interfaces);
 
