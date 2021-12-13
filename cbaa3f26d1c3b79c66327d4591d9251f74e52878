@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f142f2b0_bcfb10a6",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 414,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-12-13T17:08:28Z",
+      "side": 1,
+      "message": "Given that this code is many scopes deep though, I\u0027d really like to see this cleaned up and recoranized, but I don\u0027t see a reason to hold it up functionally.  Please plan on rearranging this code in your next commit to abstract it, and reduce the scope usage..\n\nThanks,",
+      "revId": "cbaa3f26d1c3b79c66327d4591d9251f74e52878",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
