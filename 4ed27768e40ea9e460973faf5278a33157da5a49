@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0a414287_26406b2a",
+        "filename": "redfish-core/lib/pcie.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2021-12-13T14:59:01Z",
+      "side": 1,
+      "message": "This seems like we are defining a magic?",
+      "range": {
+        "startLine": 131,
+        "startChar": 0,
+        "endLine": 132,
+        "endChar": 20
+      },
+      "revId": "4ed27768e40ea9e460973faf5278a33157da5a49",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
