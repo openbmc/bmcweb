@@ -16,6 +16,7 @@
 #pragma once
 #ifndef BMCWEB_ENABLE_REDFISH_ONE_CHASSIS
 
+#include <dbus_utility.hpp>
 namespace redfish
 {
 
@@ -172,8 +173,7 @@ void getPortNumber(const std::string& socketPath, CallbackFunc&& callback)
     crow::connections::systemBus->async_method_call(
         [callback{std::move(callback)}](
             const boost::system::error_code ec,
-            const std::variant<
-                std::vector<std::tuple<std::string, std::string>>>& resp) {
+            const dbus::utility::DbusVariantType& resp) {
             if (ec)
             {
                 BMCWEB_LOG_ERROR << ec;
