@@ -1,5 +1,6 @@
 #pragma once
 #include <async_resp.hpp>
+#include <dbus_utility.hpp>
 
 #include <algorithm>
 #include <string>
@@ -39,9 +40,9 @@ inline void
 {
     // Used later to determine running (known on Redfish as active) FW images
     crow::connections::systemBus->async_method_call(
-        [aResp, fwVersionPurpose, activeVersionPropName, populateLinkToImages](
-            const boost::system::error_code ec,
-            const std::variant<std::vector<std::string>>& resp) {
+        [aResp, fwVersionPurpose, activeVersionPropName,
+         populateLinkToImages](const boost::system::error_code ec,
+                               const dbus::utility::DbusVariantType& resp) {
             BMCWEB_LOG_DEBUG << "populateFirmwareInformation enter";
             if (ec)
             {
@@ -132,8 +133,8 @@ inline void
                                 const boost::system::error_code ec3,
                                 const boost::container::flat_map<
                                     std::string,
-                                    std::variant<bool, std::string, uint64_t,
-                                                 uint32_t>>& propertiesList) {
+                                    dbus::utility::DbusVariantType>&
+                                    propertiesList) {
                                 if (ec3)
                                 {
                                     BMCWEB_LOG_ERROR << "error_code = " << ec3;
@@ -150,9 +151,9 @@ inline void
 
                                 boost::container::flat_map<
                                     std::string,
-                                    std::variant<bool, std::string, uint64_t,
-                                                 uint32_t>>::const_iterator it =
-                                    propertiesList.find("Purpose");
+                                    dbus::utility::DbusVariantType>::
+                                    const_iterator it =
+                                        propertiesList.find("Purpose");
                                 if (it == propertiesList.end())
                                 {
                                     BMCWEB_LOG_ERROR
@@ -331,11 +332,10 @@ inline void getFwStatus(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     BMCWEB_LOG_DEBUG << "getFwStatus: swId " << *swId << " svc " << dbusSvc;
 
     crow::connections::systemBus->async_method_call(
-        [asyncResp,
-         swId](const boost::system::error_code errorCode,
-               const boost::container::flat_map<
-                   std::string, std::variant<bool, std::string, uint64_t,
-                                             uint32_t>>& propertiesList) {
+        [asyncResp, swId](
+            const boost::system::error_code errorCode,
+            const boost::container::flat_map<
+                std::string, dbus::utility::DbusVariantType>& propertiesList) {
             if (errorCode)
             {
                 // not all fwtypes are updateable, this is ok
@@ -343,9 +343,8 @@ inline void getFwStatus(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                 return;
             }
             boost::container::flat_map<
-                std::string, std::variant<bool, std::string, uint64_t,
-                                          uint32_t>>::const_iterator it =
-                propertiesList.find("Activation");
+                std::string, dbus::utility::DbusVariantType>::const_iterator
+                it = propertiesList.find("Activation");
             if (it == propertiesList.end())
             {
                 BMCWEB_LOG_DEBUG << "Can't find property \"Activation\"!";
@@ -388,7 +387,7 @@ inline void
 {
     crow::connections::systemBus->async_method_call(
         [asyncResp, fwId](const boost::system::error_code ec,
-                          const std::variant<std::vector<std::string>>& resp) {
+                          dbus::utility::DbusVariantType& resp) {
             if (ec)
             {
                 BMCWEB_LOG_DEBUG << " error_code = " << ec
