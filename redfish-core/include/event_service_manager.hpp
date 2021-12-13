@@ -24,6 +24,7 @@
 
 #include <boost/asio/io_context.hpp>
 #include <boost/container/flat_map.hpp>
+#include <dbus_utility.hpp>
 #include <error_messages.hpp>
 #include <event_service_store.hpp>
 #include <http_client.hpp>
@@ -500,9 +501,8 @@ class Subscription : public persistent_data::UserSubscription
     }
 #endif
 
-    void filterAndSendReports(
-        const std::string& id,
-        const std::variant<telemetry::TimestampReadings>& var)
+    void filterAndSendReports(const std::string& id,
+                              const dbus::utility::DbusVariantType& var)
     {
         std::string mrdUri = telemetry::metricReportDefinitionUri + ("/" + id);
 
@@ -1315,8 +1315,7 @@ class EventServiceManager
         }
 
         std::string interface;
-        std::vector<
-            std::pair<std::string, std::variant<telemetry::TimestampReadings>>>
+        std::vector<std::pair<std::string, dbus::utility::DbusVariantType>>
             props;
         std::vector<std::string> invalidProps;
         msg.read(interface, props, invalidProps);
@@ -1330,8 +1329,7 @@ class EventServiceManager
             return;
         }
 
-        const std::variant<telemetry::TimestampReadings>& readings =
-            found->second;
+        const dbus::utility::DbusVariantType& readings = found->second;
         for (const auto& it :
              EventServiceManager::getInstance().subscriptionsMap)
         {

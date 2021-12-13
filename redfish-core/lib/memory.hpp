@@ -19,6 +19,7 @@
 
 #include <app.hpp>
 #include <boost/container/flat_map.hpp>
+#include <dbus_utility.hpp>
 #include <registries/privilege_registry.hpp>
 #include <utils/collection.hpp>
 #include <utils/hex_utils.hpp>
@@ -27,11 +28,8 @@
 namespace redfish
 {
 
-using DimmProperty =
-    std::variant<std::string, std::vector<uint32_t>, std::vector<uint16_t>,
-                 uint64_t, uint32_t, uint16_t, uint8_t, bool>;
-
-using DimmProperties = boost::container::flat_map<std::string, DimmProperty>;
+using DimmProperties =
+    boost::container::flat_map<std::string, dbus::utility::DbusVariantType>;
 
 inline std::string translateMemoryTypeToRedfish(const std::string& memoryType)
 {
@@ -142,9 +140,9 @@ inline std::string translateMemoryTypeToRedfish(const std::string& memoryType)
     return "";
 }
 
-inline void dimmPropToHex(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
-                          const char* key,
-                          const std::pair<std::string, DimmProperty>& property)
+inline void dimmPropToHex(
+    const std::shared_ptr<bmcweb::AsyncResp>& aResp, const char* key,
+    const std::pair<std::string, dbus::utility::DbusVariantType>& property)
 {
     const uint16_t* value = std::get_if<uint16_t>(&property.second);
     if (value == nullptr)
@@ -745,8 +743,7 @@ inline void getDimmPartitionData(std::shared_ptr<bmcweb::AsyncResp> aResp,
         [aResp{std::move(aResp)}](
             const boost::system::error_code ec,
             const boost::container::flat_map<
-                std::string, std::variant<std::string, uint64_t, uint32_t,
-                                          bool>>& properties) {
+                std::string, dbus::utility::DbusVariantType>& properties) {
             if (ec)
             {
                 BMCWEB_LOG_DEBUG << "DBUS response error";

@@ -3,6 +3,7 @@
 #include "utils/telemetry_utils.hpp"
 
 #include <app.hpp>
+#include <dbus_utility.hpp>
 #include <registries/privilege_registry.hpp>
 
 #include <variant>
@@ -25,9 +26,10 @@ inline void handleTelemetryServiceGet(
         "/redfish/v1/TelemetryService/MetricReports";
 
     crow::connections::systemBus->async_method_call(
-        [asyncResp](const boost::system::error_code ec,
-                    const std::vector<std::pair<
-                        std::string, std::variant<uint32_t, uint64_t>>>& ret) {
+        [asyncResp](
+            const boost::system::error_code ec,
+            const std::vector<
+                std::pair<std::string, dbus::utility::DbusVariantType>>& ret) {
             if (ec == boost::system::errc::host_unreachable)
             {
                 asyncResp->res.jsonValue["Status"]["State"] = "Absent";
