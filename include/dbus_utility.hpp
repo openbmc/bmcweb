@@ -16,6 +16,7 @@
 #pragma once
 
 #include <sdbusplus/message.hpp>
+#include <sdbusplus/utility/dedup_variant.hpp>
 
 #include <filesystem>
 #include <regex>
@@ -26,12 +27,35 @@ namespace dbus
 namespace utility
 {
 
-using DbusVariantType =
-    std::variant<std::vector<std::tuple<std::string, std::string, std::string>>,
-                 std::vector<std::string>, std::vector<double>, std::string,
-                 int64_t, uint64_t, double, int32_t, uint32_t, int16_t,
-                 uint16_t, uint8_t, bool>;
+// clang-format off
+using DbusVariantType = sdbusplus::utility::dedup_variant_t<
+    std::vector<std::tuple<std::string, std::string, std::string>>,
+    std::vector<std::string>,
+    std::vector<double>,
+    std::string,
+    int64_t,
+    uint64_t,
+    double,
+    int32_t,
+    uint32_t,
+    int16_t,
+    uint16_t,
+    uint8_t,
+    bool,
+    size_t,
+    sdbusplus::message::unix_fd,
+    std::vector<uint32_t>,
+    std::vector<uint16_t>,
+    sdbusplus::message::object_path,
+    std::tuple<uint64_t, std::vector<std::tuple<std::string, std::string, double, uint64_t>>>,
+    std::vector<std::tuple<std::string, std::string>>,
+    std::vector<std::tuple<uint32_t, std::vector<uint32_t>>>,
+    std::vector<std::tuple<uint32_t, size_t>>,
+    std::vector<std::tuple<sdbusplus::message::object_path, std::string,
+                           std::string, std::string>>
+ >;
 
+// clang-format on
 using DBusPropertiesMap =
     boost::container::flat_map<std::string, DbusVariantType>;
 using DBusInteracesMap =
