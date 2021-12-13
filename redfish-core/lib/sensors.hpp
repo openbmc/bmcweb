@@ -21,6 +21,7 @@
 #include <boost/container/flat_map.hpp>
 #include <boost/range/algorithm/replace_copy_if.hpp>
 #include <dbus_singleton.hpp>
+#include <dbus_utility.hpp>
 #include <registries/privilege_registry.hpp>
 #include <utils/json_utils.hpp>
 
@@ -35,13 +36,11 @@ using GetSubTreeType = std::vector<
     std::pair<std::string,
               std::vector<std::pair<std::string, std::vector<std::string>>>>>;
 
-using SensorVariant =
-    std::variant<int64_t, double, uint32_t, bool, std::string>;
-
 using ManagedObjectsVectorType = std::vector<std::pair<
     sdbusplus::message::object_path,
     boost::container::flat_map<
-        std::string, boost::container::flat_map<std::string, SensorVariant>>>>;
+        std::string, boost::container::flat_map<
+                         std::string, dbus::utility::DbusVariantType>>>>;
 
 namespace sensors
 {
@@ -596,8 +595,7 @@ void getChassis(const std::shared_ptr<SensorsAsyncResp>& sensorsAsyncResp,
         crow::connections::systemBus->async_method_call(
             [sensorsAsyncResp, callback{std::move(callback)}](
                 const boost::system::error_code& e,
-                const std::variant<std::vector<std::string>>&
-                    variantEndpoints) {
+                const dbus::utility::DbusVariantType& variantEndpoints) {
                 if (e)
                 {
                     if (e.value() != EBADR)
@@ -742,7 +740,8 @@ inline std::string getState(const InventoryItem* inventoryItem)
 inline std::string getHealth(
     nlohmann::json& sensorJson,
     const boost::container::flat_map<
-        std::string, boost::container::flat_map<std::string, SensorVariant>>&
+        std::string, boost::container::flat_map<
+                         std::string, dbus::utility::DbusVariantType>>&
         interfacesDict,
     const InventoryItem* inventoryItem)
 {
@@ -895,7 +894,8 @@ inline void objectInterfacesToJson(
     const std::string& sensorName, const std::string& sensorType,
     const std::shared_ptr<SensorsAsyncResp>& sensorsAsyncResp,
     const boost::container::flat_map<
-        std::string, boost::container::flat_map<std::string, SensorVariant>>&
+        std::string, boost::container::flat_map<
+                         std::string, dbus::utility::DbusVariantType>>&
         interfacesDict,
     nlohmann::json& sensorJson, InventoryItem* inventoryItem)
 {
@@ -1101,7 +1101,8 @@ inline void objectInterfacesToJson(
             auto thisValueIt = interfaceProperties->second.find(std::get<1>(p));
             if (thisValueIt != interfaceProperties->second.end())
             {
-                const SensorVariant& valueVariant = thisValueIt->second;
+                const dbus::utility::DbusVariantType& valueVariant =
+                    thisValueIt->second;
 
                 // The property we want to set may be nested json, so use
                 // a json_pointer for easy indexing into the json structure.
@@ -1179,7 +1180,7 @@ inline void populateFanRedundancy(
                 crow::connections::systemBus->async_method_call(
                     [path, owner,
                      sensorsAsyncResp](const boost::system::error_code e,
-                                       std::variant<std::vector<std::string>>
+                                       const dbus::utility::DbusVariantType&
                                            variantEndpoints) {
                         if (e)
                         {
@@ -1215,9 +1216,7 @@ inline void populateFanRedundancy(
                                 const boost::system::error_code& err,
                                 const boost::container::flat_map<
                                     std::string,
-                                    std::variant<uint8_t,
-                                                 std::vector<std::string>,
-                                                 std::string>>& ret) {
+                                    dbus::utility::DbusVariantType>& ret) {
                                 if (err)
                                 {
                                     return; // don't have to have this
@@ -1511,7 +1510,8 @@ inline void addInventoryItem(
 inline void storeInventoryItemData(
     InventoryItem& inventoryItem,
     const boost::container::flat_map<
-        std::string, boost::container::flat_map<std::string, SensorVariant>>&
+        std::string, boost::container::flat_map<
+                         std::string, dbus::utility::DbusVariantType>>&
         interfacesDict)
 {
     // Get properties from Inventory.Item interface
@@ -2013,61 +2013,61 @@ void getInventoryLedData(
         const std::string& ledPath = (*it).first;
         const std::string& ledConnection = (*it).second;
         // Response handler for Get State property
-        auto respHandler =
-            [sensorsAsyncResp, inventoryItems, ledConnections, ledPath,
-             callback{std::move(callback)},
-             ledConnectionsIndex](const boost::system::error_code ec,
-                                  const std::variant<std::string>& ledState) {
-                BMCWEB_LOG_DEBUG << "getInventoryLedData respHandler enter";
-                if (ec)
-                {
-                    BMCWEB_LOG_ERROR
-                        << "getInventoryLedData respHandler DBus error " << ec;
-                    messages::internalError(sensorsAsyncResp->asyncResp->res);
-                    return;
-                }
+        auto respHandler = [sensorsAsyncResp, inventoryItems, ledConnections,
+                            ledPath, callback{std::move(callback)},
+                            ledConnectionsIndex](
+                               const boost::system::error_code ec,
+                               const dbus::utility::DbusVariantType& ledState) {
+            BMCWEB_LOG_DEBUG << "getInventoryLedData respHandler enter";
+            if (ec)
+            {
+                BMCWEB_LOG_ERROR
+                    << "getInventoryLedData respHandler DBus error " << ec;
+                messages::internalError(sensorsAsyncResp->asyncResp->res);
+                return;
+            }
 
-                const std::string* state = std::get_if<std::string>(&ledState);
-                if (state != nullptr)
+            const std::string* state = std::get_if<std::string>(&ledState);
+            if (state != nullptr)
+            {
+                BMCWEB_LOG_DEBUG << "Led state: " << *state;
+                // Find inventory item with this LED object path
+                InventoryItem* inventoryItem =
+                    findInventoryItemForLed(*inventoryItems, ledPath);
+                if (inventoryItem != nullptr)
                 {
-                    BMCWEB_LOG_DEBUG << "Led state: " << *state;
-                    // Find inventory item with this LED object path
-                    InventoryItem* inventoryItem =
-                        findInventoryItemForLed(*inventoryItems, ledPath);
-                    if (inventoryItem != nullptr)
+                    // Store LED state in InventoryItem
+                    if (boost::ends_with(*state, "On"))
                     {
-                        // Store LED state in InventoryItem
-                        if (boost::ends_with(*state, "On"))
-                        {
-                            inventoryItem->ledState = LedState::ON;
-                        }
-                        else if (boost::ends_with(*state, "Blink"))
-                        {
-                            inventoryItem->ledState = LedState::BLINK;
-                        }
-                        else if (boost::ends_with(*state, "Off"))
-                        {
-                            inventoryItem->ledState = LedState::OFF;
-                        }
-                        else
-                        {
-                            inventoryItem->ledState = LedState::UNKNOWN;
-                        }
+                        inventoryItem->ledState = LedState::ON;
+                    }
+                    else if (boost::ends_with(*state, "Blink"))
+                    {
+                        inventoryItem->ledState = LedState::BLINK;
+                    }
+                    else if (boost::ends_with(*state, "Off"))
+                    {
+                        inventoryItem->ledState = LedState::OFF;
+                    }
+                    else
+                    {
+                        inventoryItem->ledState = LedState::UNKNOWN;
                     }
                 }
-                else
-                {
-                    BMCWEB_LOG_DEBUG << "Failed to find State data for LED: "
-                                     << ledPath;
-                }
+            }
+            else
+            {
+                BMCWEB_LOG_DEBUG << "Failed to find State data for LED: "
+                                 << ledPath;
+            }
 
-                // Recurse to get LED data from next connection
-                getInventoryLedData(sensorsAsyncResp, inventoryItems,
-                                    ledConnections, std::move(callback),
-                                    ledConnectionsIndex + 1);
+            // Recurse to get LED data from next connection
+            getInventoryLedData(sensorsAsyncResp, inventoryItems,
+                                ledConnections, std::move(callback),
+                                ledConnectionsIndex + 1);
 
-                BMCWEB_LOG_DEBUG << "getInventoryLedData respHandler exit";
-            };
+            BMCWEB_LOG_DEBUG << "getInventoryLedData respHandler exit";
+        };
 
         // Get the State property for the current LED
         crow::connections::systemBus->async_method_call(
@@ -2213,7 +2213,8 @@ void getPowerSupplyAttributesData(
     auto respHandler = [sensorsAsyncResp, inventoryItems,
                         callback{std::move(callback)}](
                            const boost::system::error_code ec,
-                           const std::variant<uint32_t>& deratingFactor) {
+                           const dbus::utility::DbusVariantType&
+                               deratingFactor) {
         BMCWEB_LOG_DEBUG << "getPowerSupplyAttributesData respHandler enter";
         if (ec)
         {
@@ -2936,7 +2937,7 @@ inline void setSensorsOverride(
                         item.second, item.first,
                         "org.freedesktop.DBus.Properties", "Set",
                         "xyz.openbmc_project.Sensor.Value", "Value",
-                        std::variant<double>(iterator->second.first));
+                        dbus::utility::DbusVariantType(iterator->second.first));
                 }
             };
         // Get object with connection for the given sensor name

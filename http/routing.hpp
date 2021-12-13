@@ -9,6 +9,7 @@
 #include "sessions.hpp"
 #include "utility.hpp"
 #include "websocket.hpp"
+#include "dbus_utility.hpp"
 
 #include <async_resp.hpp>
 #include <boost/container/flat_map.hpp>
@@ -1306,11 +1307,10 @@ class Router
         }
 
         crow::connections::systemBus->async_method_call(
-            [&req, asyncResp, &rules, ruleIndex, found](
-                const boost::system::error_code ec,
-                std::map<std::string, std::variant<bool, std::string,
-                                                   std::vector<std::string>>>
-                    userInfo) {
+            [&req, asyncResp, &rules, ruleIndex,
+             found](const boost::system::error_code ec,
+                    const std::map<std::string, dbus::utility::DbusVariantType>&
+                        userInfo) {
                 if (ec)
                 {
                     BMCWEB_LOG_ERROR << "GetUserInfo failed...";
@@ -1335,7 +1335,7 @@ class Router
                                      << " userRole = " << *userRolePtr;
                 }
 
-                bool* remoteUserPtr = nullptr;
+                const bool* remoteUserPtr = nullptr;
                 auto remoteUserIter = userInfo.find("RemoteUser");
                 if (remoteUserIter != userInfo.end())
                 {
@@ -1354,7 +1354,7 @@ class Router
                 bool passwordExpired = false; // default for remote user
                 if (!remoteUser)
                 {
-                    bool* passwordExpiredPtr = nullptr;
+                    const bool* passwordExpiredPtr = nullptr;
                     auto passwordExpiredIter =
                         userInfo.find("UserPasswordExpired");
                     if (passwordExpiredIter != userInfo.end())

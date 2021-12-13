@@ -39,7 +39,7 @@ inline void
     BMCWEB_LOG_DEBUG << "Get led groups";
     crow::connections::systemBus->async_method_call(
         [aResp](const boost::system::error_code ec,
-                const std::variant<bool> asserted) {
+                const dbus::utility::DbusVariantType asserted) {
             // Some systems may not have enclosure_identify_blink object so
             // proceed to get enclosure_identify state.
             if (!ec)
@@ -60,7 +60,7 @@ inline void
             }
             crow::connections::systemBus->async_method_call(
                 [aResp](const boost::system::error_code ec2,
-                        const std::variant<bool> asserted2) {
+                        const dbus::utility::DbusVariantType asserted2) {
                     if (!ec2)
                     {
                         const bool* ledOn = std::get_if<bool>(&asserted2);
@@ -151,13 +151,13 @@ inline void
                 "/xyz/openbmc_project/led/groups/enclosure_identify",
                 "org.freedesktop.DBus.Properties", "Set",
                 "xyz.openbmc_project.Led.Group", "Asserted",
-                std::variant<bool>(ledOn));
+                dbus::utility::DbusVariantType(ledOn));
         },
         "xyz.openbmc_project.LED.GroupManager",
         "/xyz/openbmc_project/led/groups/enclosure_identify_blink",
         "org.freedesktop.DBus.Properties", "Set",
         "xyz.openbmc_project.Led.Group", "Asserted",
-        std::variant<bool>(ledBlinkng));
+        dbus::utility::DbusVariantType(ledBlinkng));
 }
 
 /**
@@ -173,7 +173,7 @@ inline void
     BMCWEB_LOG_DEBUG << "Get LocationIndicatorActive";
     crow::connections::systemBus->async_method_call(
         [aResp](const boost::system::error_code ec,
-                const std::variant<bool> asserted) {
+                const dbus::utility::DbusVariantType asserted) {
             // Some systems may not have enclosure_identify_blink object so
             // proceed to get enclosure_identify state.
             if (!ec)
@@ -194,7 +194,7 @@ inline void
             }
             crow::connections::systemBus->async_method_call(
                 [aResp](const boost::system::error_code ec2,
-                        const std::variant<bool> asserted2) {
+                        const dbus::utility::DbusVariantType asserted2) {
                     if (!ec2)
                     {
                         const bool* ledOn = std::get_if<bool>(&asserted2);
@@ -264,13 +264,13 @@ inline void
                     "/xyz/openbmc_project/led/groups/enclosure_identify",
                     "org.freedesktop.DBus.Properties", "Set",
                     "xyz.openbmc_project.Led.Group", "Asserted",
-                    std::variant<bool>(ledState));
+                    dbus::utility::DbusVariantType(ledState));
             }
         },
         "xyz.openbmc_project.LED.GroupManager",
         "/xyz/openbmc_project/led/groups/enclosure_identify_blink",
         "org.freedesktop.DBus.Properties", "Set",
         "xyz.openbmc_project.Led.Group", "Asserted",
-        std::variant<bool>(ledState));
+        dbus::utility::DbusVariantType(ledState));
 }
 } // namespace redfish
