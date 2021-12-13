@@ -16,6 +16,7 @@
 #pragma once
 
 #include <app.hpp>
+#include <dbus_utility.hpp>
 #include <registries/privilege_registry.hpp>
 
 #include <variant>
@@ -114,9 +115,8 @@ inline void requestRoutesRoleCollection(App& app)
                     {"Description", "BMC User Roles"}};
 
                 crow::connections::systemBus->async_method_call(
-                    [asyncResp](
-                        const boost::system::error_code ec,
-                        const std::variant<std::vector<std::string>>& resp) {
+                    [asyncResp](const boost::system::error_code ec,
+                                const dbus::utility::DbusVariantType& resp) {
                         if (ec)
                         {
                             messages::internalError(asyncResp->res);

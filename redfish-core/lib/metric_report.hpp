@@ -4,6 +4,7 @@
 #include "utils/telemetry_utils.hpp"
 
 #include <app.hpp>
+#include <dbus_utility.hpp>
 #include <registries/privilege_registry.hpp>
 
 namespace redfish
@@ -34,7 +35,7 @@ inline nlohmann::json toMetricValues(const Readings& readings)
 }
 
 inline bool fillReport(nlohmann::json& json, const std::string& id,
-                       const std::variant<TimestampReadings>& var)
+                       const dbus::utility::DbusVariantType& var)
 {
     json["@odata.type"] = "#MetricReport.v1_3_0.MetricReport";
     json["@odata.id"] = telemetry::metricReportUri + std::string("/") + id;
@@ -107,8 +108,7 @@ inline void requestRoutesMetricReport(App& app)
                         crow::connections::systemBus->async_method_call(
                             [asyncResp,
                              id](const boost::system::error_code ec,
-                                 const std::variant<
-                                     telemetry::TimestampReadings>& ret) {
+                                 const dbus::utility::DbusVariantType& ret) {
                                 if (ec)
                                 {
                                     BMCWEB_LOG_ERROR
