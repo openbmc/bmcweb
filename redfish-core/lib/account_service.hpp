@@ -23,8 +23,6 @@
 #include <registries/privilege_registry.hpp>
 #include <utils/json_utils.hpp>
 
-#include <variant>
-
 namespace redfish
 {
 
@@ -68,10 +66,9 @@ struct LDAPConfigData
     std::vector<std::pair<std::string, LDAPRoleMapData>> groupRoleList;
 };
 
-using DbusVariantType = std::variant<bool, int32_t, std::string>;
-
 using DbusInterfaceType = boost::container::flat_map<
-    std::string, boost::container::flat_map<std::string, DbusVariantType>>;
+    std::string,
+    boost::container::flat_map<std::string, dbus::utility::DbusVariantType>>;
 
 using ManagedObjectType =
     std::vector<std::pair<sdbusplus::message::object_path, DbusInterfaceType>>;
@@ -295,7 +292,8 @@ inline void handleRoleMapPatch(
                         propertyInterface, "Set",
                         "xyz.openbmc_project.User.PrivilegeMapperEntry",
                         "GroupName",
-                        std::variant<std::string>(std::move(*remoteGroup)));
+                        dbus::utility::DbusVariantType(
+                            std::move(*remoteGroup)));
                 }
 
                 // If "LocalRole" info is provided
@@ -319,7 +317,7 @@ inline void handleRoleMapPatch(
                         propertyInterface, "Set",
                         "xyz.openbmc_project.User.PrivilegeMapperEntry",
                         "Privilege",
-                        std::variant<std::string>(
+                        dbus::utility::DbusVariantType(
                             getPrivilegeFromRoleId(std::move(*localRole))));
                 }
             }
@@ -665,7 +663,7 @@ inline void handleServiceAddressPatch(
         },
         ldapDbusService, ldapConfigObject, propertyInterface, "Set",
         ldapConfigInterface, "LDAPServerURI",
-        std::variant<std::string>(serviceAddressList.front()));
+        dbus::utility::DbusVariantType(serviceAddressList.front()));
 }
 /**
  * @brief updates the LDAP Bind DN and updates the
@@ -696,7 +694,8 @@ inline void
             BMCWEB_LOG_DEBUG << "Updated the username";
         },
         ldapDbusService, ldapConfigObject, propertyInterface, "Set",
-        ldapConfigInterface, "LDAPBindDN", std::variant<std::string>(username));
+        ldapConfigInterface, "LDAPBindDN",
+        dbus::utility::DbusVariantType(username));
 }
 
 /**
@@ -728,7 +727,7 @@ inline void
         },
         ldapDbusService, ldapConfigObject, propertyInterface, "Set",
         ldapConfigInterface, "LDAPBindDNPassword",
-        std::variant<std::string>(password));
+        dbus::utility::DbusVariantType(password));
 }
 
 /**
@@ -771,7 +770,7 @@ inline void
         },
         ldapDbusService, ldapConfigObject, propertyInterface, "Set",
         ldapConfigInterface, "LDAPBaseDN",
-        std::variant<std::string>(baseDNList.front()));
+        dbus::utility::DbusVariantType(baseDNList.front()));
 }
 /**
  * @brief updates the LDAP user name attribute and updates the
@@ -807,7 +806,7 @@ inline void
         },
         ldapDbusService, ldapConfigObject, propertyInterface, "Set",
         ldapConfigInterface, "UserNameAttribute",
-        std::variant<std::string>(userNameAttribute));
+        dbus::utility::DbusVariantType(userNameAttribute));
 }
 /**
  * @brief updates the LDAP group attribute and updates the
@@ -843,7 +842,7 @@ inline void handleGroupNameAttrPatch(
         },
         ldapDbusService, ldapConfigObject, propertyInterface, "Set",
         ldapConfigInterface, "GroupNameAttribute",
-        std::variant<std::string>(groupsAttribute));
+        dbus::utility::DbusVariantType(groupsAttribute));
 }
 /**
  * @brief updates the LDAP service enable and updates the
@@ -874,7 +873,8 @@ inline void handleServiceEnablePatch(
             BMCWEB_LOG_DEBUG << "Updated Service enable = " << serviceEnabled;
         },
         ldapDbusService, ldapConfigObject, propertyInterface, "Set",
-        ldapEnableInterface, "Enabled", std::variant<bool>(serviceEnabled));
+        ldapEnableInterface, "Enabled",
+        dbus::utility::DbusVariantType(serviceEnabled));
 }
 
 inline void
@@ -1197,7 +1197,7 @@ inline void updateUserProperties(std::shared_ptr<bmcweb::AsyncResp> asyncResp,
                     "xyz.openbmc_project.User.Manager", dbusObjectPath.c_str(),
                     "org.freedesktop.DBus.Properties", "Set",
                     "xyz.openbmc_project.User.Attributes", "UserEnabled",
-                    std::variant<bool>{*enabled});
+                    dbus::utility::DbusVariantType{*enabled});
             }
 
             if (roleId)
@@ -1227,7 +1227,7 @@ inline void updateUserProperties(std::shared_ptr<bmcweb::AsyncResp> asyncResp,
                     "xyz.openbmc_project.User.Manager", dbusObjectPath.c_str(),
                     "org.freedesktop.DBus.Properties", "Set",
                     "xyz.openbmc_project.User.Attributes", "UserPrivilege",
-                    std::variant<std::string>{priv});
+                    dbus::utility::DbusVariantType{priv});
             }
 
             if (locked)
@@ -1256,7 +1256,8 @@ inline void updateUserProperties(std::shared_ptr<bmcweb::AsyncResp> asyncResp,
                     "xyz.openbmc_project.User.Manager", dbusObjectPath.c_str(),
                     "org.freedesktop.DBus.Properties", "Set",
                     "xyz.openbmc_project.User.Attributes",
-                    "UserLockedForFailedAttempt", std::variant<bool>{*locked});
+                    "UserLockedForFailedAttempt",
+                    dbus::utility::DbusVariantType{*locked});
             }
         });
 }
@@ -1317,8 +1318,7 @@ inline void requestAccountServiceRoutes(App& app)
                 [asyncResp](
                     const boost::system::error_code ec,
                     const std::vector<
-                        std::pair<std::string,
-                                  std::variant<uint32_t, uint16_t, uint8_t>>>&
+                        std::pair<std::string, dbus::utility::DbusVariantType>>&
                         propertiesList) {
                     if (ec)
                     {
@@ -1328,9 +1328,8 @@ inline void requestAccountServiceRoutes(App& app)
                     BMCWEB_LOG_DEBUG << "Got " << propertiesList.size()
                                      << "properties for AccountService";
                     for (const std::pair<std::string,
-                                         std::variant<uint32_t, uint16_t,
-                                                      uint8_t>>& property :
-                         propertiesList)
+                                         dbus::utility::DbusVariantType>&
+                             property : propertiesList)
                     {
                         if (property.first == "MinPasswordLength")
                         {
@@ -1466,7 +1465,7 @@ inline void requestAccountServiceRoutes(App& app)
                         "org.freedesktop.DBus.Properties", "Set",
                         "xyz.openbmc_project.User.AccountPolicy",
                         "AccountUnlockTimeout",
-                        std::variant<uint32_t>(*unlockTimeout));
+                        dbus::utility::DbusVariantType(*unlockTimeout));
                 }
                 if (lockoutThreshold)
                 {
@@ -1484,7 +1483,7 @@ inline void requestAccountServiceRoutes(App& app)
                         "org.freedesktop.DBus.Properties", "Set",
                         "xyz.openbmc_project.User.AccountPolicy",
                         "MaxLoginAttemptBeforeLockout",
-                        std::variant<uint16_t>(*lockoutThreshold));
+                        dbus::utility::DbusVariantType(*lockoutThreshold));
                 }
             });
 
@@ -1603,9 +1602,8 @@ inline void requestAccountServiceRoutes(App& app)
             // Reading AllGroups property
             crow::connections::systemBus->async_method_call(
                 [asyncResp, username, password{std::move(password)}, roleId,
-                 enabled](
-                    const boost::system::error_code ec,
-                    const std::variant<std::vector<std::string>>& allGroups) {
+                 enabled](const boost::system::error_code ec,
+                          const dbus::utility::DbusVariantType& allGroups) {
                     if (ec)
                     {
                         BMCWEB_LOG_DEBUG << "ERROR with async_method_call";

@@ -19,10 +19,9 @@
 
 #include <app.hpp>
 #include <boost/container/flat_map.hpp>
+#include <dbus_utility.hpp>
 #include <registries/privilege_registry.hpp>
 #include <utils/fw_utils.hpp>
-
-#include <variant>
 
 namespace redfish
 {
@@ -55,7 +54,7 @@ inline static void activateImage(const std::string& objPath,
         },
         service, objPath, "org.freedesktop.DBus.Properties", "Set",
         "xyz.openbmc_project.Software.Activation", "RequestedActivation",
-        std::variant<std::string>(
+        dbus::utility::DbusVariantType(
             "xyz.openbmc_project.Software.Activation.RequestedActivations.Active"));
 }
 
@@ -68,7 +67,7 @@ static void
 {
     std::vector<std::pair<
         std::string,
-        std::vector<std::pair<std::string, std::variant<std::string>>>>>
+        std::vector<std::pair<std::string, dbus::utility::DbusVariantType>>>>
         interfacesProperties;
 
     sdbusplus::message::object_path objPath;
@@ -135,7 +134,7 @@ static void
                                     std::string iface;
                                     boost::container::flat_map<
                                         std::string,
-                                        std::variant<std::string, uint8_t>>
+                                        dbus::utility::DbusVariantType>
                                         values;
 
                                     std::string index =
@@ -321,7 +320,8 @@ static void monitorForSoftwareAvailable(
         "arg0='xyz.openbmc_project.Logging.Entry'",
         [asyncResp, url](sdbusplus::message::message& m) {
             BMCWEB_LOG_DEBUG << "Error Match fired";
-            boost::container::flat_map<std::string, std::variant<std::string>>
+            boost::container::flat_map<std::string,
+                                       dbus::utility::DbusVariantType>
                 values;
             std::string objName;
             m.read(objName, values);
@@ -544,7 +544,7 @@ inline void requestRoutesUpdateService(App& app)
             // Get the current ApplyTime value
             crow::connections::systemBus->async_method_call(
                 [asyncResp](const boost::system::error_code ec,
-                            const std::variant<std::string>& applyTime) {
+                            const dbus::utility::DbusVariantType& applyTime) {
                     if (ec)
                     {
                         BMCWEB_LOG_DEBUG << "DBUS response error " << ec;
@@ -654,7 +654,7 @@ inline void requestRoutesUpdateService(App& app)
                             "org.freedesktop.DBus.Properties", "Set",
                             "xyz.openbmc_project.Software.ApplyTime",
                             "RequestedApplyTime",
-                            std::variant<std::string>{applyTimeNewVal});
+                            dbus::utility::DbusVariantType{applyTimeNewVal});
                     }
                 }
             }
@@ -825,18 +825,22 @@ inline void requestRoutesSoftwareInventory(App& app)
                                              obj.second[0].first);
 
                         crow::connections::systemBus->async_method_call(
-                            [asyncResp, swId](
-                                const boost::system::error_code errorCode,
-                                const boost::container::flat_map<
-                                    std::string, VariantType>& propertiesList) {
+                            [asyncResp,
+                             swId](const boost::system::error_code errorCode,
+                                   const boost::container::flat_map<
+                                       std::string,
+                                       dbus::utility::DbusVariantType>&
+                                       propertiesList) {
                                 if (errorCode)
                                 {
                                     messages::internalError(asyncResp->res);
                                     return;
                                 }
                                 boost::container::flat_map<
-                                    std::string, VariantType>::const_iterator
-                                    it = propertiesList.find("Purpose");
+                                    std::string,
+                                    dbus::utility::DbusVariantType>::
+                                    const_iterator it =
+                                        propertiesList.find("Purpose");
                                 if (it == propertiesList.end())
                                 {
                                     BMCWEB_LOG_DEBUG

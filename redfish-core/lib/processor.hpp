@@ -19,6 +19,7 @@
 
 #include <app.hpp>
 #include <boost/container/flat_map.hpp>
+#include <dbus_utility.hpp>
 #include <registries/privilege_registry.hpp>
 #include <sdbusplus/message/native_types.hpp>
 #include <sdbusplus/utility/dedup_variant.hpp>
@@ -59,9 +60,9 @@ inline void getProcessorUUID(std::shared_ptr<bmcweb::AsyncResp> aResp,
 {
     BMCWEB_LOG_DEBUG << "Get Processor UUID";
     crow::connections::systemBus->async_method_call(
-        [objPath,
-         aResp{std::move(aResp)}](const boost::system::error_code ec,
-                                  const std::variant<std::string>& property) {
+        [objPath, aResp{std::move(aResp)}](
+            const boost::system::error_code ec,
+            const dbus::utility::DbusVariantType& property) {
             if (ec)
             {
                 BMCWEB_LOG_DEBUG << "DBUS response error";
@@ -303,8 +304,7 @@ inline void getCpuAssetData(std::shared_ptr<bmcweb::AsyncResp> aResp,
         [objPath, aResp{std::move(aResp)}](
             const boost::system::error_code ec,
             const boost::container::flat_map<
-                std::string, std::variant<std::string, uint32_t, uint16_t,
-                                          bool>>& properties) {
+                std::string, dbus::utility::DbusVariantType>& properties) {
             if (ec)
             {
                 BMCWEB_LOG_DEBUG << "DBUS response error";
@@ -395,8 +395,7 @@ inline void getCpuRevisionData(std::shared_ptr<bmcweb::AsyncResp> aResp,
         [objPath, aResp{std::move(aResp)}](
             const boost::system::error_code ec,
             const boost::container::flat_map<
-                std::string, std::variant<std::string, uint32_t, uint16_t,
-                                          bool>>& properties) {
+                std::string, dbus::utility::DbusVariantType>& properties) {
             if (ec)
             {
                 BMCWEB_LOG_DEBUG << "DBUS response error";
@@ -432,8 +431,7 @@ inline void getAcceleratorDataByService(
         [acclrtrId, aResp{std::move(aResp)}](
             const boost::system::error_code ec,
             const boost::container::flat_map<
-                std::string, std::variant<std::string, uint32_t, uint16_t,
-                                          bool>>& properties) {
+                std::string, dbus::utility::DbusVariantType>& properties) {
             if (ec)
             {
                 BMCWEB_LOG_DEBUG << "DBUS response error";
@@ -486,10 +484,8 @@ using BaseSpeedPrioritySettingsProperty =
     std::vector<std::tuple<uint32_t, std::vector<uint32_t>>>;
 // uint32_t and size_t may or may not be the same type, requiring a dedup'd
 // variant
-using OperatingConfigProperties = std::vector<std::pair<
-    std::string,
-    sdbusplus::utility::dedup_variant_t<uint32_t, size_t, TurboProfileProperty,
-                                        BaseSpeedPrioritySettingsProperty>>>;
+using OperatingConfigProperties =
+    std::vector<std::pair<std::string, dbus::utility::DbusVariantType>>;
 
 /**
  * Fill out the HighSpeedCoreIDs in a Processor resource from the given
@@ -551,10 +547,8 @@ inline void getCpuConfigData(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
     crow::connections::systemBus->async_method_call(
         [aResp, cpuId, service](
             const boost::system::error_code ec,
-            const std::vector<
-                std::pair<std::string,
-                          std::variant<sdbusplus::message::object_path, bool>>>&
-                properties) {
+            const std::vector<std::pair<
+                std::string, dbus::utility::DbusVariantType>>& properties) {
             if (ec)
             {
                 BMCWEB_LOG_WARNING << "D-Bus error: " << ec << ", "
@@ -604,8 +598,7 @@ inline void getCpuConfigData(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
                     crow::connections::systemBus->async_method_call(
                         [aResp](
                             const boost::system::error_code ec,
-                            const std::variant<
-                                BaseSpeedPrioritySettingsProperty>& property) {
+                            const dbus::utility::DbusVariantType& property) {
                             if (ec)
                             {
                                 BMCWEB_LOG_WARNING
@@ -655,9 +648,9 @@ inline void getCpuLocationCode(std::shared_ptr<bmcweb::AsyncResp> aResp,
 {
     BMCWEB_LOG_DEBUG << "Get Cpu Location Data";
     crow::connections::systemBus->async_method_call(
-        [objPath,
-         aResp{std::move(aResp)}](const boost::system::error_code ec,
-                                  const std::variant<std::string>& property) {
+        [objPath, aResp{std::move(aResp)}](
+            const boost::system::error_code ec,
+            const dbus::utility::DbusVariantType& property) {
             if (ec)
             {
                 BMCWEB_LOG_DEBUG << "DBUS response error";
@@ -697,7 +690,7 @@ inline void getCpuUniqueId(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
     BMCWEB_LOG_DEBUG << "Get CPU UniqueIdentifier";
     crow::connections::systemBus->async_method_call(
         [aResp](boost::system::error_code ec,
-                const std::variant<std::string>& property) {
+                const dbus::utility::DbusVariantType& property) {
             const std::string* id = std::get_if<std::string>(&property);
             if (ec || id == nullptr)
             {
@@ -1090,8 +1083,7 @@ inline void patchAppliedOperatingConfig(
         },
         *controlService, cpuObjectPath, "org.freedesktop.DBus.Properties",
         "Set", "xyz.openbmc_project.Control.Processor.CurrentOperatingConfig",
-        "AppliedConfig",
-        std::variant<sdbusplus::message::object_path>(std::move(configPath)));
+        "AppliedConfig", dbus::utility::DbusVariantType(std::move(configPath)));
 }
 
 inline void requestRoutesOperatingConfigCollection(App& app)

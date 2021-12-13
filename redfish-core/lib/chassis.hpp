@@ -20,10 +20,9 @@
 
 #include <app.hpp>
 #include <boost/container/flat_map.hpp>
+#include <dbus_utility.hpp>
 #include <registries/privilege_registry.hpp>
 #include <utils/collection.hpp>
-
-#include <variant>
 
 namespace redfish
 {
@@ -40,7 +39,7 @@ inline void getChassisState(std::shared_ptr<bmcweb::AsyncResp> aResp)
     crow::connections::systemBus->async_method_call(
         [aResp{std::move(aResp)}](
             const boost::system::error_code ec,
-            const std::variant<std::string>& chassisState) {
+            const dbus::utility::DbusVariantType& chassisState) {
             if (ec)
             {
                 BMCWEB_LOG_DEBUG << "DBUS response error " << ec;
@@ -76,16 +75,14 @@ inline void getChassisState(std::shared_ptr<bmcweb::AsyncResp> aResp)
  * DBus types primitives for several generic DBus interfaces
  * TODO(Pawel) consider move this to separate file into boost::dbus
  */
-// Note, this is not a very useful Variant, but because it isn't used to get
-// values, it should be as simple as possible
-// TODO(ed) invent a nullvariant type
-using VariantType = std::variant<bool, std::string, uint64_t, uint32_t>;
 using ManagedObjectsType = std::vector<std::pair<
     sdbusplus::message::object_path,
-    std::vector<std::pair<std::string,
-                          std::vector<std::pair<std::string, VariantType>>>>>>;
+    std::vector<std::pair<
+        std::string,
+        std::vector<std::pair<std::string, dbus::utility::DbusVariantType>>>>>>;
 
-using PropertiesType = boost::container::flat_map<std::string, VariantType>;
+using PropertiesType =
+    boost::container::flat_map<std::string, dbus::utility::DbusVariantType>;
 
 inline void getIntrusionByService(std::shared_ptr<bmcweb::AsyncResp> aResp,
                                   const std::string& service,
@@ -95,7 +92,7 @@ inline void getIntrusionByService(std::shared_ptr<bmcweb::AsyncResp> aResp,
 
     crow::connections::systemBus->async_method_call(
         [aResp{std::move(aResp)}](const boost::system::error_code ec,
-                                  const std::variant<std::string>& value) {
+                                  const dbus::utility::DbusVariantType& value) {
             if (ec)
             {
                 // do not add err msg in redfish response, because this is not
@@ -186,7 +183,7 @@ inline void
 {
     crow::connections::systemBus->async_method_call(
         [asyncResp](const boost::system::error_code ec,
-                    const std::variant<std::string>& property) {
+                    const dbus::utility::DbusVariantType& property) {
             if (ec)
             {
                 BMCWEB_LOG_DEBUG << "DBUS response error for Location";
@@ -214,7 +211,7 @@ inline void getChassisUUID(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
 {
     crow::connections::systemBus->async_method_call(
         [asyncResp](const boost::system::error_code ec,
-                    const std::variant<std::string>& chassisUUID) {
+                    const dbus::utility::DbusVariantType& chassisUUID) {
             if (ec)
             {
                 BMCWEB_LOG_DEBUG << "DBUS response error for UUID";
@@ -282,9 +279,8 @@ inline void requestRoutesChassis(App& app)
                             std::make_shared<HealthPopulate>(asyncResp);
 
                         crow::connections::systemBus->async_method_call(
-                            [health](
-                                const boost::system::error_code ec2,
-                                std::variant<std::vector<std::string>>& resp) {
+                            [health](const boost::system::error_code ec2,
+                                     dbus::utility::DbusVariantType& resp) {
                                 if (ec2)
                                 {
                                     return; // no sensors = no failures
@@ -344,7 +340,8 @@ inline void requestRoutesChassis(App& app)
                             crow::connections::systemBus->async_method_call(
                                 [asyncResp, chassisId(std::string(chassisId))](
                                     const boost::system::error_code ec,
-                                    const std::variant<std::string>& property) {
+                                    const dbus::utility::DbusVariantType&
+                                        property) {
                                     if (ec)
                                     {
                                         BMCWEB_LOG_DEBUG
@@ -386,9 +383,12 @@ inline void requestRoutesChassis(App& app)
                             [asyncResp, chassisId(std::string(chassisId))](
                                 const boost::system::error_code /*ec2*/,
                                 const std::vector<
-                                    std::pair<std::string, VariantType>>&
+                                    std::pair<std::string,
+                                              dbus::utility::DbusVariantType>>&
                                     propertiesList) {
-                                for (const std::pair<std::string, VariantType>&
+                                for (const std::pair<
+                                         std::string,
+                                         dbus::utility::DbusVariantType>&
                                          property : propertiesList)
                                 {
                                     // Store DBus properties that are also
@@ -673,7 +673,7 @@ inline void
                 },
                 processName, objectPath, "org.freedesktop.DBus.Properties",
                 "Set", interfaceName, destProperty,
-                std::variant<std::string>{propertyValue});
+                dbus::utility::DbusVariantType{propertyValue});
         },
         busName, path, interface, method, "/", 0, interfaces);
 }
