@@ -671,7 +671,7 @@ inline void doMountVmLegacy(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     constexpr const size_t secretLimit = 1024;
 
     std::shared_ptr<SecurePipe> secretPipe;
-    std::variant<int, SecurePipe::unix_fd> unixFd = -1;
+    dbus::utility::DbusVariantType unixFd = -1;
 
     if (!userName.empty() || !password.empty())
     {

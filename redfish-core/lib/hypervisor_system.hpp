@@ -4,13 +4,13 @@
 #include <boost/container/flat_map.hpp>
 #include <boost/container/flat_set.hpp>
 #include <dbus_singleton.hpp>
+#include <dbus_utility.hpp>
 #include <error_messages.hpp>
 #include <registries/privilege_registry.hpp>
 #include <utils/json_utils.hpp>
 
 #include <optional>
 #include <utility>
-#include <variant>
 
 // TODO(ed) requestRoutesHypervisorSystems seems to have copy-pasted a
 // lot of code, and has a number of methods that have name conflicts with the
@@ -35,7 +35,7 @@ inline void getHypervisorState(const std::shared_ptr<bmcweb::AsyncResp>& aResp)
     BMCWEB_LOG_DEBUG << "Get hypervisor state information.";
     crow::connections::systemBus->async_method_call(
         [aResp](const boost::system::error_code ec,
-                const std::variant<std::string>& hostState) {
+                const dbus::utility::DbusVariantType& hostState) {
             if (ec)
             {
                 BMCWEB_LOG_DEBUG << "DBUS response error " << ec;
@@ -374,7 +374,7 @@ inline void
         "/xyz/openbmc_project/network/hypervisor/" + ethIfaceId + "/ipv4/addr0",
         "org.freedesktop.DBus.Properties", "Set",
         "xyz.openbmc_project.Network.IP", "Address",
-        std::variant<std::string>(ipv4Address));
+        dbus::utility::DbusVariantType(ipv4Address));
 }
 
 /**
@@ -406,7 +406,7 @@ inline void
         "/xyz/openbmc_project/network/hypervisor/" + ethIfaceId + "/ipv4/addr0",
         "org.freedesktop.DBus.Properties", "Set",
         "xyz.openbmc_project.Network.IP", "PrefixLength",
-        std::variant<uint8_t>(subnet));
+        dbus::utility::DbusVariantType(subnet));
 }
 
 /**
@@ -438,7 +438,7 @@ inline void
         "/xyz/openbmc_project/network/hypervisor",
         "org.freedesktop.DBus.Properties", "Set",
         "xyz.openbmc_project.Network.SystemConfiguration", "DefaultGateway",
-        std::variant<std::string>(gateway));
+        dbus::utility::DbusVariantType(gateway));
 }
 
 /**
@@ -540,7 +540,7 @@ inline void setDHCPEnabled(const std::string& ifaceId,
         "/xyz/openbmc_project/network/hypervisor/" + ifaceId,
         "org.freedesktop.DBus.Properties", "Set",
         "xyz.openbmc_project.Network.EthernetInterface", "DHCPEnabled",
-        std::variant<std::string>{dhcp});
+        dbus::utility::DbusVariantType{dhcp});
 
     // Set the IPv4 address origin to the DHCP / Static as per the new value
     // of the DHCPEnabled property
@@ -570,7 +570,7 @@ inline void setDHCPEnabled(const std::string& ifaceId,
         "/xyz/openbmc_project/network/hypervisor/" + ifaceId + "/ipv4/addr0",
         "org.freedesktop.DBus.Properties", "Set",
         "xyz.openbmc_project.Network.IP", "Origin",
-        std::variant<std::string>(origin));
+        dbus::utility::DbusVariantType(origin));
 }
 
 inline void handleHypervisorIPv4StaticPatch(
@@ -702,7 +702,7 @@ inline void
         "/xyz/openbmc_project/network/hypervisor",
         "org.freedesktop.DBus.Properties", "Set",
         "xyz.openbmc_project.Network.SystemConfiguration", "HostName",
-        std::variant<std::string>(hostName));
+        dbus::utility::DbusVariantType(hostName));
 }
 
 inline void
@@ -722,7 +722,7 @@ inline void
         "/xyz/openbmc_project/network/hypervisor/" + ifaceId + "/ipv4/addr0",
         "org.freedesktop.DBus.Properties", "Set",
         "xyz.openbmc_project.Object.Enable", "Enabled",
-        std::variant<bool>(isActive));
+        dbus::utility::DbusVariantType(isActive));
 }
 
 inline void requestRoutesHypervisorSystems(App& app)
@@ -738,8 +738,9 @@ inline void requestRoutesHypervisorSystems(App& app)
                 get)([](const crow::Request&,
                         const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
             crow::connections::systemBus->async_method_call(
-                [asyncResp](const boost::system::error_code ec,
-                            const std::variant<std::string>& /*hostName*/) {
+                [asyncResp](
+                    const boost::system::error_code ec,
+                    const dbus::utility::DbusVariantType& /*hostName*/) {
                     if (ec)
                     {
                         messages::resourceNotFound(asyncResp->res, "System",
@@ -1098,7 +1099,7 @@ inline void requestRoutesHypervisorSystems(App& app)
                     "/xyz/openbmc_project/state/hypervisor0",
                     "org.freedesktop.DBus.Properties", "Set",
                     "xyz.openbmc_project.State.Host", "RequestedHostTransition",
-                    std::variant<std::string>{std::move(command)});
+                    dbus::utility::DbusVariantType{std::move(command)});
             });
 }
 } // namespace redfish::hypervisor
