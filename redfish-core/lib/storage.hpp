@@ -19,6 +19,7 @@
 #include "openbmc_dbus_rest.hpp"
 
 #include <app.hpp>
+#include <dbus_utility.hpp>
 #include <registries/privilege_registry.hpp>
 
 namespace redfish
@@ -159,9 +160,9 @@ inline void requestRoutesStorage(App& app)
                         storageController["Status"]["State"] = "Enabled";
 
                         crow::connections::systemBus->async_method_call(
-                            [asyncResp,
-                             index](const boost::system::error_code ec2,
-                                    const std::variant<bool> present) {
+                            [asyncResp, index](
+                                const boost::system::error_code ec2,
+                                const dbus::utility::DbusVariantType present) {
                                 // this interface isn't necessary, only check it
                                 // if we get a good return
                                 if (ec2)
@@ -192,9 +193,9 @@ inline void requestRoutesStorage(App& app)
                         crow::connections::systemBus->async_method_call(
                             [asyncResp, index](
                                 const boost::system::error_code ec2,
-                                const std::vector<std::pair<
-                                    std::string,
-                                    std::variant<bool, std::string, uint64_t>>>&
+                                const std::vector<
+                                    std::pair<std::string,
+                                              dbus::utility::DbusVariantType>>&
                                     propertiesList) {
                                 if (ec2)
                                 {
@@ -203,9 +204,8 @@ inline void requestRoutesStorage(App& app)
                                 }
                                 for (const std::pair<
                                          std::string,
-                                         std::variant<bool, std::string,
-                                                      uint64_t>>& property :
-                                     propertiesList)
+                                         dbus::utility::DbusVariantType>&
+                                         property : propertiesList)
                                 {
                                     // Store DBus properties that are also
                                     // Redfish properties with same name and a
@@ -268,18 +268,16 @@ inline void getDriveAsset(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                           const std::string& path)
 {
     crow::connections::systemBus->async_method_call(
-        [asyncResp](
-            const boost::system::error_code ec,
-            const std::vector<std::pair<
-                std::string, std::variant<bool, std::string, uint64_t>>>&
-                propertiesList) {
+        [asyncResp](const boost::system::error_code ec,
+                    const std::vector<
+                        std::pair<std::string, dbus::utility::DbusVariantType>>&
+                        propertiesList) {
             if (ec)
             {
                 // this interface isn't necessary
                 return;
             }
-            for (const std::pair<std::string,
-                                 std::variant<bool, std::string, uint64_t>>&
+            for (const std::pair<std::string, dbus::utility::DbusVariantType>&
                      property : propertiesList)
             {
                 // Store DBus properties that are also
@@ -313,7 +311,7 @@ inline void getDrivePresent(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
 {
     crow::connections::systemBus->async_method_call(
         [asyncResp, path](const boost::system::error_code ec,
-                          const std::variant<bool> present) {
+                          const dbus::utility::DbusVariantType present) {
             // this interface isn't necessary, only check it if
             // we get a good return
             if (ec)
@@ -343,7 +341,7 @@ inline void getDriveState(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
 {
     crow::connections::systemBus->async_method_call(
         [asyncResp](const boost::system::error_code ec,
-                    const std::variant<bool> rebuilding) {
+                    const dbus::utility::DbusVariantType rebuilding) {
             // this interface isn't necessary, only check it
             // if we get a good return
             if (ec)
