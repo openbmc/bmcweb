@@ -21,6 +21,7 @@
 #include "../lib/chassis.hpp"
 #include "../lib/ethernet.hpp"
 #include "../lib/event_service.hpp"
+#include "../lib/external_storer.hpp"
 #include "../lib/hypervisor_system.hpp"
 #include "../lib/log_services.hpp"
 #include "../lib/managers.hpp"
@@ -206,6 +207,8 @@ class RedfishService
         requestRoutesMetricReportDefinition(app);
         requestRoutesMetricReportCollection(app);
         requestRoutesMetricReport(app);
+
+        requestRoutesExternalStorerCollection(app);
     }
 };
 
