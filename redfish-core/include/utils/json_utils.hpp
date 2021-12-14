@@ -397,14 +397,19 @@ bool readJson(nlohmann::json& jsonRequest, crow::Response& res, const char* key,
         return false;
     }
 
+    std::bitset<(sizeof...(in) + 1) / 2> handled(0);
     if (jsonRequest.empty())
     {
         BMCWEB_LOG_DEBUG << "Json value is empty";
-        messages::emptyJSON(res);
+
+        // Check all properties are optional or expected to be empty.
+        if (!details::handleMissing(handled, res, key, in...))
+        {
+            messages::emptyJSON(res);
+        }
         return false;
     }
 
-    std::bitset<(sizeof...(in) + 1) / 2> handled(0);
     for (const auto& item : jsonRequest.items())
     {
         result =
