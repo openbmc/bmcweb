@@ -383,6 +383,22 @@ bool handleMissing(std::bitset<Count>& handled, crow::Response& res,
     }
     return details::handleMissing<Index + 1, Count>(handled, res, in...) && ret;
 }
+
+bool handleEmpty(crow::Response&)
+{
+    return true;
+}
+
+template <typename ValueType, typename... UnpackTypes>
+bool handleEmpty(crow::Response& res, ValueType&, UnpackTypes&... in)
+{
+    if (!IsOptional<ValueType>::value)
+    {
+        messages::emptyJSON(res);
+        return false;
+    }
+    return details::handleEmpty(res, in...);
+}
 } // namespace details
 
 template <typename... UnpackTypes>
@@ -400,8 +416,9 @@ bool readJson(nlohmann::json& jsonRequest, crow::Response& res, const char* key,
     if (jsonRequest.empty())
     {
         BMCWEB_LOG_DEBUG << "Json value is empty";
-        messages::emptyJSON(res);
-        return false;
+
+        // Check if all requested properties are optional
+        return details::handleEmpty(res, in...);
     }
 
     std::bitset<(sizeof...(in) + 1) / 2> handled(0);
