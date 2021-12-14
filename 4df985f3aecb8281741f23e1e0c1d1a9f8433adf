@@ -22,6 +22,29 @@
       "revId": "4df985f3aecb8281741f23e1e0c1d1a9f8433adf",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "678ba765_e9d4cb07",
+        "filename": "redfish-core/include/utils/json_utils.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 390,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-12-14T19:36:49Z",
+      "side": 1,
+      "message": "If we\u0027re going to do this (which I\u0027m not convinced we should yet), I\u0027d much rather that we rely on some kind of intrinsic like \"all items are std::optional\" to determine this rather than giving an explicit option.  Take a look at how the missing parameters are handled for how this would work.  To be more concrete\n\nreadJson(res, \"foo\", std::string, true);\nis non-nonsensical, because you\u0027re declaring a required parameter, but allowing empty.  At interface level, this shouldn\u0027t be allowed.\n\nAlso, for the template unpacking to work, you shouldn\u0027t add allowEmpty in the middle of the request.",
+      "range": {
+        "startLine": 390,
+        "startChar": 19,
+        "endLine": 390,
+        "endChar": 29
+      },
+      "revId": "4df985f3aecb8281741f23e1e0c1d1a9f8433adf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
