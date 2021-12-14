@@ -191,6 +191,30 @@
     },
     {
       "key": {
+        "uuid": "f411bb51_ee9e29e0",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 46
+      },
+      "lineNbr": 852,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-12-14T18:58:04Z",
+      "side": 1,
+      "message": "If no xyz.openbmc_project.Inventory.Item.Cpu are found, we hit this? \n\nIf we don\u0027t find any xyz.openbmc_project.Inventory.Item.Cpu, don\u0027t we want to return \"resource not found\" for \n\"/redfish/v1/Systems/system/Processors/\u003cstr\u003e/SubProcessors/\u003cstr\u003e\"\nand \n\"/redfish/v1/Systems/system/Processors/\u003cstr\u003e/SubProcessors\" ?\n\nCould you test this?",
+      "parentUuid": "443b1770_bb96c797",
+      "range": {
+        "startLine": 852,
+        "startChar": 20,
+        "endLine": 852,
+        "endChar": 22
+      },
+      "revId": "5c6a5e412b9038ec5bf58e56b0b12a1c50c4239e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "f94a5a78_514102bc",
         "filename": "redfish-core/lib/processor.hpp",
         "patchSetId": 46
@@ -486,6 +510,30 @@
       "side": 1,
       "message": "Why? I am not following that does this have any effect or error?",
       "parentUuid": "080e98cb_a685d0cf",
+      "range": {
+        "startLine": 1035,
+        "startChar": 27,
+        "endLine": 1035,
+        "endChar": 31
+      },
+      "revId": "5c6a5e412b9038ec5bf58e56b0b12a1c50c4239e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e6e5454f_84a484ab",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 46
+      },
+      "lineNbr": 1035,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-12-14T18:58:04Z",
+      "side": 1,
+      "message": "for readability, verifying the code is correct, maintainability we try to avoid auto",
+      "parentUuid": "119bbef5_31697334",
       "range": {
         "startLine": 1035,
         "startChar": 27,
