@@ -387,7 +387,7 @@ bool handleMissing(std::bitset<Count>& handled, crow::Response& res,
 
 template <typename... UnpackTypes>
 bool readJson(nlohmann::json& jsonRequest, crow::Response& res, const char* key,
-              UnpackTypes&... in)
+              bool allowEmpty, UnpackTypes&... in)
 {
     bool result = true;
     if (!jsonRequest.is_object())
@@ -400,7 +400,10 @@ bool readJson(nlohmann::json& jsonRequest, crow::Response& res, const char* key,
     if (jsonRequest.empty())
     {
         BMCWEB_LOG_DEBUG << "Json value is empty";
-        messages::emptyJSON(res);
+        if (!allowEmpty)
+        {
+            messages::emptyJSON(res);
+        }
         return false;
     }
 
@@ -416,6 +419,20 @@ bool readJson(nlohmann::json& jsonRequest, crow::Response& res, const char* key,
     BMCWEB_LOG_DEBUG << "JSON result is: " << result;
 
     return details::handleMissing(handled, res, key, in...) && result;
+}
+
+template <typename... UnpackTypes>
+bool readJson(nlohmann::json& jsonRequest, crow::Response& res, const char* key,
+              UnpackTypes&... in)
+{
+    return readJson(jsonRequest, res, key, false, in);
+}
+
+template <typename... UnpackTypes>
+bool readJsonAllowEmpty(nlohmann::json& jsonRequest, crow::Response& res,
+                        const char* key, UnpackTypes&... in)
+{
+    return readJson(jsonRequest, res, key, true, in);
 }
 
 template <typename... UnpackTypes>
