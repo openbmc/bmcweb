@@ -20,6 +20,7 @@
 #include "led.hpp"
 #include "pcie.hpp"
 #include "redfish_util.hpp"
+#include "service_config_manager.hpp"
 
 #include <app.hpp>
 #include <boost/container/flat_map.hpp>
@@ -2652,6 +2653,55 @@ inline void setIdlePowerSaver(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
 }
 
 /**
+ * @brief Retrieves Serial console over SSH properties
+ *
+ * @param[in] aResp     Shared pointer for completing asynchronous calls.
+ *
+ * @return None.
+ */
+inline void getSerialConsoleSshStatus(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
+{
+    getPortStatusAndPath(
+        "obmc-console-ssh",
+        [asyncResp](const boost::system::error_code ec,
+                    const std::string& socketPath, bool isProtocolEnabled) {
+            // If the service is not installed, that is not an error
+            if (ec == boost::system::errc::no_such_process)
+            {
+                asyncResp->res.jsonValue["SerialConsole"]["SSH"]["Port"] =
+                    nlohmann::detail::value_t::null;
+                asyncResp->res
+                    .jsonValue["SerialConsole"]["SSH"]["ProtocolEnabled"] =
+                    false;
+                return;
+            }
+            if (ec)
+            {
+                messages::internalError(asyncResp->res);
+                return;
+            }
+            asyncResp->res
+                .jsonValue["SerialConsole"]["SSH"]["ProtocolEnabled"] =
+                isProtocolEnabled;
+            getPortNumber(
+                socketPath, [asyncResp](const boost::system::error_code ec,
+                                        int portNumber) {
+                    if (ec)
+                    {
+                        messages::internalError(asyncResp->res);
+                        return;
+                    }
+                    asyncResp->res.jsonValue["SerialConsole"]["SSH"]["Port"] =
+                        portNumber;
+                });
+        });
+    // https://github.com/openbmc/docs/blob/master/console.md
+    asyncResp->res.jsonValue["SerialConsole"]["SSH"]["HotKeySequenceDisplay"] =
+        "Press ~. to exit console";
+}
+
+/**
  * SystemsCollection derived class for delivering ComputerSystems Collection
  * Schema
  */
@@ -2912,13 +2962,6 @@ inline void requestRoutesSystems(App& app)
             asyncResp->res.jsonValue["SerialConsole"]["IPMI"] = {
                 {"ServiceEnabled", true},
             };
-            // TODO (Gunnar): Should look for obmc-console-ssh@2200.service
-            asyncResp->res.jsonValue["SerialConsole"]["SSH"] = {
-                {"ServiceEnabled", true},
-                {"Port", 2200},
-                // https://github.com/openbmc/docs/blob/master/console.md
-                {"HotKeySequenceDisplay", "Press ~. to exit console"},
-            };
 
 #ifdef BMCWEB_ENABLE_KVM
             // Fill in GraphicalConsole info
@@ -2978,7 +3021,9 @@ inline void requestRoutesSystems(App& app)
             getTrustedModuleRequiredToBoot(asyncResp);
             getPowerMode(asyncResp);
             getIdlePowerSaver(asyncResp);
+            getSerialConsoleSshStatus(asyncResp);
         });
+
     BMCWEB_ROUTE(app, "/redfish/v1/Systems/system/")
         .privileges(redfish::privileges::patchComputerSystem)
         .methods(boost::beast::http::verb::patch)(
@@ -2992,13 +3037,14 @@ inline void requestRoutesSystems(App& app)
                 std::optional<std::string> powerRestorePolicy;
                 std::optional<std::string> powerMode;
                 std::optional<nlohmann::json> ipsProps;
+                std::optional<nlohmann::json> serialConsole;
                 if (!json_util::readJson(
                         req, asyncResp->res, "IndicatorLED", indicatorLed,
                         "LocationIndicatorActive", locationIndicatorActive,
                         "Boot", bootProps, "WatchdogTimer", wdtTimerProps,
                         "PowerRestorePolicy", powerRestorePolicy, "AssetTag",
                         assetTag, "PowerMode", powerMode, "IdlePowerSaver",
-                        ipsProps))
+                        ipsProps, "SerialConsole", serialConsole))
                 {
                     return;
                 }
@@ -3107,6 +3153,41 @@ inline void requestRoutesSystems(App& app)
                     }
                     setIdlePowerSaver(asyncResp, ipsEnable, ipsEnterUtil,
                                       ipsEnterTime, ipsExitUtil, ipsExitTime);
+                }
+
+                if (serialConsole)
+                {
+                    std::optional<nlohmann::json> ssh;
+                    if (!json_util::readJson(*serialConsole, asyncResp->res,
+                                             "SSH", ssh))
+                    {
+                        return;
+                    }
+
+                    if (ssh)
+                    {
+                        std::optional<bool> sshProtocolEnabled;
+                        if (!json_util::readJson(*ssh, asyncResp->res,
+                                                 "ProtocolEnabled",
+                                                 sshProtocolEnabled))
+                        {
+                            return;
+                        }
+
+                        if (sshProtocolEnabled)
+                        {
+                            service::setEnabled(
+                                "obmc_2dconsole_2dssh", *sshProtocolEnabled,
+                                [asyncResp](
+                                    const boost::system::error_code ec) {
+                                    if (ec)
+                                    {
+                                        messages::internalError(asyncResp->res);
+                                        return;
+                                    }
+                                });
+                        }
+                    }
                 }
             });
 }
