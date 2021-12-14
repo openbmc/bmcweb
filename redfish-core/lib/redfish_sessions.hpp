@@ -147,9 +147,9 @@ inline void requestRoutesSession(App& app)
                 std::string password;
                 std::optional<nlohmann::json> oemObject;
                 std::string clientId;
-                if (!json_util::readJson(req, asyncResp->res, "UserName",
-                                         username, "Password", password, "Oem",
-                                         oemObject))
+                if (!json_util::readJsonPatch(req, asyncResp->res, "UserName",
+                                              username, "Password", password,
+                                              "Oem", oemObject))
                 {
                     return;
                 }
@@ -183,13 +183,13 @@ inline void requestRoutesSession(App& app)
                 if (oemObject)
                 {
                     std::optional<nlohmann::json> bmcOem;
-                    if (!json_util::readJson(*oemObject, asyncResp->res,
-                                             "OpenBMC", bmcOem))
+                    if (!json_util::readJsonPatch(*oemObject, asyncResp->res,
+                                                  "OpenBMC", bmcOem))
                     {
                         return;
                     }
-                    if (!json_util::readJson(*bmcOem, asyncResp->res,
-                                             "ClientID", clientId))
+                    if (!json_util::readJsonPatch(*bmcOem, asyncResp->res,
+                                                  "ClientID", clientId))
                     {
                         BMCWEB_LOG_ERROR << "Could not read ClientId";
                         return;
@@ -246,8 +246,8 @@ inline void requestRoutesSession(App& app)
             [](const crow::Request& req,
                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) -> void {
                 std::optional<int64_t> sessionTimeout;
-                if (!json_util::readJson(req, asyncResp->res, "SessionTimeout",
-                                         sessionTimeout))
+                if (!json_util::readJsonPatch(req, asyncResp->res,
+                                              "SessionTimeout", sessionTimeout))
                 {
                     return;
                 }

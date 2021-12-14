@@ -1267,9 +1267,9 @@ inline void requestRoutesProcessor(App& app)
                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                const std::string& processorId) {
                 std::optional<nlohmann::json> appliedConfigJson;
-                if (!json_util::readJson(req, asyncResp->res,
-                                         "AppliedOperatingConfig",
-                                         appliedConfigJson))
+                if (!json_util::readJsonPatch(req, asyncResp->res,
+                                              "AppliedOperatingConfig",
+                                              appliedConfigJson))
                 {
                     return;
                 }
@@ -1277,8 +1277,9 @@ inline void requestRoutesProcessor(App& app)
                 std::string appliedConfigUri;
                 if (appliedConfigJson)
                 {
-                    if (!json_util::readJson(*appliedConfigJson, asyncResp->res,
-                                             "@odata.id", appliedConfigUri))
+                    if (!json_util::readJsonPatch(*appliedConfigJson,
+                                                  asyncResp->res, "@odata.id",
+                                                  appliedConfigUri))
                     {
                         return;
                     }
