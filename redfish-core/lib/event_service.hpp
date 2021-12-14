@@ -99,7 +99,7 @@ inline void requestRoutesEventService(App& app)
                 std::optional<uint32_t> retryAttemps;
                 std::optional<uint32_t> retryInterval;
 
-                if (!json_util::readJson(
+                if (!json_util::readJsonPatch(
                         req, asyncResp->res, "ServiceEnabled", serviceEnabled,
                         "DeliveryRetryAttempts", retryAttemps,
                         "DeliveryRetryIntervalSeconds", retryInterval))
@@ -218,7 +218,7 @@ inline void requestRoutesEventDestinationCollection(App& app)
                 std::optional<std::vector<nlohmann::json>> headers;
                 std::optional<std::vector<nlohmann::json>> mrdJsonArray;
 
-                if (!json_util::readJson(
+                if (!json_util::readJsonPatch(
                         req, asyncResp->res, "Destination", destUrl, "Context",
                         context, "Protocol", protocol, "SubscriptionType",
                         subscriptionType, "EventFormatType", eventFormatType2,
@@ -580,9 +580,10 @@ inline void requestRoutesEventDestination(App& app)
                 std::optional<std::string> retryPolicy;
                 std::optional<std::vector<nlohmann::json>> headers;
 
-                if (!json_util::readJson(req, asyncResp->res, "Context",
-                                         context, "DeliveryRetryPolicy",
-                                         retryPolicy, "HttpHeaders", headers))
+                if (!json_util::readJsonPatch(req, asyncResp->res, "Context",
+                                              context, "DeliveryRetryPolicy",
+                                              retryPolicy, "HttpHeaders",
+                                              headers))
                 {
                     return;
                 }

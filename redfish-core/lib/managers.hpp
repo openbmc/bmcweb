@@ -118,8 +118,8 @@ inline void requestRoutesManagerResetAction(App& app)
 
                 std::string resetType;
 
-                if (!json_util::readJson(req, asyncResp->res, "ResetType",
-                                         resetType))
+                if (!json_util::readJsonAction(req, asyncResp->res, "ResetType",
+                                               resetType))
                 {
                     return;
                 }
@@ -174,8 +174,8 @@ inline void requestRoutesManagerResetToDefaultsAction(App& app)
 
                 std::string resetType;
 
-                if (!json_util::readJson(req, asyncResp->res,
-                                         "ResetToDefaultsType", resetType))
+                if (!json_util::readJsonAction(
+                        req, asyncResp->res, "ResetToDefaultsType", resetType))
                 {
                     BMCWEB_LOG_DEBUG << "Missing property ResetToDefaultsType.";
 
@@ -681,8 +681,8 @@ inline bool
     for (auto& odata : config)
     {
         std::string path;
-        if (!redfish::json_util::readJson(odata, response->res, "@odata.id",
-                                          path))
+        if (!redfish::json_util::readJsonPatch(odata, response->res,
+                                               "@odata.id", path))
         {
             return false;
         }
@@ -863,7 +863,7 @@ inline CreatePIDRet createPidInterface(
         std::optional<std::vector<std::string>> outputs;
         std::map<std::string, std::optional<double>> doubles;
         std::optional<std::string> setpointOffset;
-        if (!redfish::json_util::readJson(
+        if (!redfish::json_util::readJsonPatch(
                 it.value(), response->res, "Inputs", inputs, "Outputs", outputs,
                 "Zones", zones, "FFGainCoefficient",
                 doubles["FFGainCoefficient"], "FFOffCoefficient",
@@ -981,10 +981,10 @@ inline CreatePIDRet createPidInterface(
         std::optional<nlohmann::json> chassisContainer;
         std::optional<double> failSafePercent;
         std::optional<double> minThermalOutput;
-        if (!redfish::json_util::readJson(it.value(), response->res, "Chassis",
-                                          chassisContainer, "FailSafePercent",
-                                          failSafePercent, "MinThermalOutput",
-                                          minThermalOutput))
+        if (!redfish::json_util::readJsonPatch(
+                it.value(), response->res, "Chassis", chassisContainer,
+                "FailSafePercent", failSafePercent, "MinThermalOutput",
+                minThermalOutput))
         {
             BMCWEB_LOG_ERROR
                 << "Illegal Property "
@@ -997,8 +997,8 @@ inline CreatePIDRet createPidInterface(
         {
 
             std::string chassisId;
-            if (!redfish::json_util::readJson(*chassisContainer, response->res,
-                                              "@odata.id", chassisId))
+            if (!redfish::json_util::readJsonPatch(
+                    *chassisContainer, response->res, "@odata.id", chassisId))
             {
                 BMCWEB_LOG_ERROR
                     << "Illegal Property "
@@ -1035,7 +1035,7 @@ inline CreatePIDRet createPidInterface(
         std::optional<double> positiveHysteresis;
         std::optional<double> negativeHysteresis;
         std::optional<std::string> direction; // upper clipping curve vs lower
-        if (!redfish::json_util::readJson(
+        if (!redfish::json_util::readJsonPatch(
                 it.value(), response->res, "Zones", zones, "Steps", steps,
                 "Inputs", inputs, "PositiveHysteresis", positiveHysteresis,
                 "NegativeHysteresis", negativeHysteresis, "Direction",
@@ -1074,8 +1074,8 @@ inline CreatePIDRet createPidInterface(
                 double target;
                 double out;
 
-                if (!redfish::json_util::readJson(step, response->res, "Target",
-                                                  target, "Output", out))
+                if (!redfish::json_util::readJsonPatch(
+                        step, response->res, "Target", target, "Output", out))
                 {
                     BMCWEB_LOG_ERROR
                         << "Illegal Property "
@@ -1315,7 +1315,7 @@ struct SetPIDValues : std::enable_shared_from_this<SetPIDValues>
         std::optional<nlohmann::json> fanZones;
         std::optional<nlohmann::json> stepwiseControllers;
 
-        if (!redfish::json_util::readJson(
+        if (!redfish::json_util::readJsonPatch(
                 data, asyncResp->res, "PidControllers", pidControllers,
                 "FanControllers", fanControllers, "FanZones", fanZones,
                 "StepwiseControllers", stepwiseControllers, "Profile", profile))
@@ -2184,8 +2184,8 @@ inline void requestRoutesManager(App& app)
             std::optional<nlohmann::json> links;
             std::optional<std::string> datetime;
 
-            if (!json_util::readJson(req, asyncResp->res, "Oem", oem,
-                                     "DateTime", datetime, "Links", links))
+            if (!json_util::readJsonPatch(req, asyncResp->res, "Oem", oem,
+                                          "DateTime", datetime, "Links", links))
             {
                 return;
             }
@@ -2193,8 +2193,8 @@ inline void requestRoutesManager(App& app)
             if (oem)
             {
                 std::optional<nlohmann::json> openbmc;
-                if (!redfish::json_util::readJson(*oem, asyncResp->res,
-                                                  "OpenBmc", openbmc))
+                if (!redfish::json_util::readJsonPatch(*oem, asyncResp->res,
+                                                       "OpenBmc", openbmc))
                 {
                     BMCWEB_LOG_ERROR
                         << "Illegal Property "
@@ -2205,8 +2205,8 @@ inline void requestRoutesManager(App& app)
                 if (openbmc)
                 {
                     std::optional<nlohmann::json> fan;
-                    if (!redfish::json_util::readJson(*openbmc, asyncResp->res,
-                                                      "Fan", fan))
+                    if (!redfish::json_util::readJsonPatch(
+                            *openbmc, asyncResp->res, "Fan", fan))
                     {
                         BMCWEB_LOG_ERROR
                             << "Illegal Property "
@@ -2226,18 +2226,18 @@ inline void requestRoutesManager(App& app)
             if (links)
             {
                 std::optional<nlohmann::json> activeSoftwareImage;
-                if (!redfish::json_util::readJson(*links, asyncResp->res,
-                                                  "ActiveSoftwareImage",
-                                                  activeSoftwareImage))
+                if (!redfish::json_util::readJsonPatch(*links, asyncResp->res,
+                                                       "ActiveSoftwareImage",
+                                                       activeSoftwareImage))
                 {
                     return;
                 }
                 if (activeSoftwareImage)
                 {
                     std::optional<std::string> odataId;
-                    if (!json_util::readJson(*activeSoftwareImage,
-                                             asyncResp->res, "@odata.id",
-                                             odataId))
+                    if (!json_util::readJsonPatch(*activeSoftwareImage,
+                                                  asyncResp->res, "@odata.id",
+                                                  odataId))
                     {
                         return;
                     }
