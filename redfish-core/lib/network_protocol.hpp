@@ -407,9 +407,9 @@ inline void requestRoutesNetworkProtocol(App& app)
             std::optional<nlohmann::json> ipmi;
             std::optional<nlohmann::json> ssh;
 
-            if (!json_util::readJson(req, asyncResp->res, "NTP", ntp,
-                                     "HostName", newHostName, "IPMI", ipmi,
-                                     "SSH", ssh))
+            if (!json_util::readJsonPatch(req, asyncResp->res, "NTP", ntp,
+                                          "HostName", newHostName, "IPMI", ipmi,
+                                          "SSH", ssh))
             {
                 return;
             }
@@ -425,9 +425,9 @@ inline void requestRoutesNetworkProtocol(App& app)
             {
                 std::optional<std::vector<std::string>> ntpServers;
                 std::optional<bool> ntpEnabled;
-                if (!json_util::readJson(*ntp, asyncResp->res, "NTPServers",
-                                         ntpServers, "ProtocolEnabled",
-                                         ntpEnabled))
+                if (!json_util::readJsonPatch(*ntp, asyncResp->res,
+                                              "NTPServers", ntpServers,
+                                              "ProtocolEnabled", ntpEnabled))
                 {
                     return;
                 }
@@ -447,9 +447,9 @@ inline void requestRoutesNetworkProtocol(App& app)
             if (ipmi)
             {
                 std::optional<bool> ipmiProtocolEnabled;
-                if (!json_util::readJson(*ipmi, asyncResp->res,
-                                         "ProtocolEnabled",
-                                         ipmiProtocolEnabled))
+                if (!json_util::readJsonPatch(*ipmi, asyncResp->res,
+                                              "ProtocolEnabled",
+                                              ipmiProtocolEnabled))
                 {
                     return;
                 }
@@ -465,8 +465,9 @@ inline void requestRoutesNetworkProtocol(App& app)
             if (ssh)
             {
                 std::optional<bool> sshProtocolEnabled;
-                if (!json_util::readJson(*ssh, asyncResp->res,
-                                         "ProtocolEnabled", sshProtocolEnabled))
+                if (!json_util::readJsonPatch(*ssh, asyncResp->res,
+                                              "ProtocolEnabled",
+                                              sshProtocolEnabled))
                 {
                     return;
                 }
