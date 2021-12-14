@@ -252,9 +252,9 @@ inline void handleRoleMapPatch(
             // This is a copy, but it's required in this case because of how
             // readJson is structured
             nlohmann::json thisJsonCopy = thisJson;
-            if (!json_util::readJson(thisJsonCopy, asyncResp->res,
-                                     "RemoteGroup", remoteGroup, "LocalRole",
-                                     localRole))
+            if (!json_util::readJsonPatch(thisJsonCopy, asyncResp->res,
+                                          "RemoteGroup", remoteGroup,
+                                          "LocalRole", localRole))
             {
                 continue;
             }
@@ -564,9 +564,9 @@ inline void parseLDAPAuthenticationJson(
 {
     std::optional<std::string> authType;
 
-    if (!json_util::readJson(input, asyncResp->res, "AuthenticationType",
-                             authType, "Username", username, "Password",
-                             password))
+    if (!json_util::readJsonPatch(input, asyncResp->res, "AuthenticationType",
+                                  authType, "Username", username, "Password",
+                                  password))
     {
         return;
     }
@@ -599,8 +599,8 @@ inline void
 {
     std::optional<nlohmann::json> searchSettings;
 
-    if (!json_util::readJson(input, asyncResp->res, "SearchSettings",
-                             searchSettings))
+    if (!json_util::readJsonPatch(input, asyncResp->res, "SearchSettings",
+                                  searchSettings))
     {
         return;
     }
@@ -608,10 +608,10 @@ inline void
     {
         return;
     }
-    if (!json_util::readJson(*searchSettings, asyncResp->res,
-                             "BaseDistinguishedNames", baseDNList,
-                             "UsernameAttribute", userNameAttribute,
-                             "GroupsAttribute", groupsAttribute))
+    if (!json_util::readJsonPatch(*searchSettings, asyncResp->res,
+                                  "BaseDistinguishedNames", baseDNList,
+                                  "UsernameAttribute", userNameAttribute,
+                                  "GroupsAttribute", groupsAttribute))
     {
         return;
     }
@@ -880,9 +880,9 @@ inline void
     std::optional<bool> xToken;
     std::optional<bool> tls;
 
-    if (!json_util::readJson(input, asyncResp->res, "BasicAuth", basicAuth,
-                             "Cookie", cookie, "SessionToken", sessionToken,
-                             "XToken", xToken, "TLS", tls))
+    if (!json_util::readJsonPatch(input, asyncResp->res, "BasicAuth", basicAuth,
+                                  "Cookie", cookie, "SessionToken",
+                                  sessionToken, "XToken", xToken, "TLS", tls))
     {
         BMCWEB_LOG_ERROR << "Cannot read values from AuthMethod tag";
         return;
@@ -1002,11 +1002,11 @@ inline void handleLDAPPatch(nlohmann::json& input,
     std::optional<std::string> password;
     std::optional<std::vector<nlohmann::json>> remoteRoleMapData;
 
-    if (!json_util::readJson(input, asyncResp->res, "Authentication",
-                             authentication, "LDAPService", ldapService,
-                             "ServiceAddresses", serviceAddressList,
-                             "ServiceEnabled", serviceEnabled,
-                             "RemoteRoleMapping", remoteRoleMapData))
+    if (!json_util::readJsonPatch(input, asyncResp->res, "Authentication",
+                                  authentication, "LDAPService", ldapService,
+                                  "ServiceAddresses", serviceAddressList,
+                                  "ServiceEnabled", serviceEnabled,
+                                  "RemoteRoleMapping", remoteRoleMapData))
     {
         return;
     }
@@ -1389,7 +1389,7 @@ inline void requestAccountServiceRoutes(App& app)
                 std::optional<nlohmann::json> activeDirectoryObject;
                 std::optional<nlohmann::json> oemObject;
 
-                if (!json_util::readJson(
+                if (!json_util::readJsonPatch(
                         req, asyncResp->res, "AccountLockoutDuration",
                         unlockTimeout, "AccountLockoutThreshold",
                         lockoutThreshold, "MaxPasswordLength",
@@ -1433,13 +1433,14 @@ inline void requestAccountServiceRoutes(App& app)
 
                 if (std::optional<nlohmann::json> oemOpenBMCObject;
                     oemObject &&
-                    json_util::readJson(*oemObject, asyncResp->res, "OpenBMC",
-                                        oemOpenBMCObject))
+                    json_util::readJsonPatch(*oemObject, asyncResp->res,
+                                             "OpenBMC", oemOpenBMCObject))
                 {
                     if (std::optional<nlohmann::json> authMethodsObject;
                         oemOpenBMCObject &&
-                        json_util::readJson(*oemOpenBMCObject, asyncResp->res,
-                                            "AuthMethods", authMethodsObject))
+                        json_util::readJsonPatch(*oemOpenBMCObject,
+                                                 asyncResp->res, "AuthMethods",
+                                                 authMethodsObject))
                     {
                         if (authMethodsObject)
                         {
@@ -1578,9 +1579,9 @@ inline void requestAccountServiceRoutes(App& app)
             std::string password;
             std::optional<std::string> roleId("User");
             std::optional<bool> enabled = true;
-            if (!json_util::readJson(req, asyncResp->res, "UserName", username,
-                                     "Password", password, "RoleId", roleId,
-                                     "Enabled", enabled))
+            if (!json_util::readJsonPatch(req, asyncResp->res, "UserName",
+                                          username, "Password", password,
+                                          "RoleId", roleId, "Enabled", enabled))
             {
                 return;
             }
@@ -1866,10 +1867,10 @@ inline void requestAccountServiceRoutes(App& app)
                 if (userHasConfigureUsers)
                 {
                     // Users with ConfigureUsers can modify for all users
-                    if (!json_util::readJson(req, asyncResp->res, "UserName",
-                                             newUserName, "Password", password,
-                                             "RoleId", roleId, "Enabled",
-                                             enabled, "Locked", locked))
+                    if (!json_util::readJsonPatch(
+                            req, asyncResp->res, "UserName", newUserName,
+                            "Password", password, "RoleId", roleId, "Enabled",
+                            enabled, "Locked", locked))
                     {
                         return;
                     }
@@ -1883,8 +1884,8 @@ inline void requestAccountServiceRoutes(App& app)
                         return;
                     }
                     // ConfigureSelf accounts can only modify their password
-                    if (!json_util::readJson(req, asyncResp->res, "Password",
-                                             password))
+                    if (!json_util::readJsonPatch(req, asyncResp->res,
+                                                  "Password", password))
                     {
                         return;
                     }
