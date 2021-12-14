@@ -871,10 +871,10 @@ inline void requestRoutesHypervisorSystems(App& app)
             std::optional<nlohmann::json> dhcpv4;
             std::optional<bool> ipv4DHCPEnabled;
 
-            if (!json_util::readJson(req, asyncResp->res, "HostName", hostName,
-                                     "IPv4StaticAddresses", ipv4StaticAddresses,
-                                     "IPv4Addresses", ipv4Addresses, "DHCPv4",
-                                     dhcpv4))
+            if (!json_util::readJsonPatch(req, asyncResp->res, "HostName",
+                                          hostName, "IPv4StaticAddresses",
+                                          ipv4StaticAddresses, "IPv4Addresses",
+                                          ipv4Addresses, "DHCPv4", dhcpv4))
             {
                 return;
             }
@@ -1038,8 +1038,8 @@ inline void requestRoutesHypervisorSystems(App& app)
             [](const crow::Request& req,
                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
                 std::optional<std::string> resetType;
-                if (!json_util::readJson(req, asyncResp->res, "ResetType",
-                                         resetType))
+                if (!json_util::readJsonAction(req, asyncResp->res, "ResetType",
+                                               resetType))
                 {
                     // readJson adds appropriate error to response
                     return;

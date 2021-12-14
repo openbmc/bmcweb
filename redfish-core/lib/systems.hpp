@@ -2765,8 +2765,8 @@ inline void requestRoutesSystemActionsReset(App& app)
                 post)([](const crow::Request& req,
                          const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
             std::string resetType;
-            if (!json_util::readJson(req, asyncResp->res, "ResetType",
-                                     resetType))
+            if (!json_util::readJsonAction(req, asyncResp->res, "ResetType",
+                                           resetType))
             {
                 return;
             }
@@ -3020,7 +3020,7 @@ inline void requestRoutesSystems(App& app)
                 std::optional<std::string> powerRestorePolicy;
                 std::optional<std::string> powerMode;
                 std::optional<nlohmann::json> ipsProps;
-                if (!json_util::readJson(
+                if (!json_util::readJsonPatch(
                         req, asyncResp->res, "IndicatorLED", indicatorLed,
                         "LocationIndicatorActive", locationIndicatorActive,
                         "Boot", bootProps, "WatchdogTimer", wdtTimerProps,

@@ -353,6 +353,9 @@ bool readJsonValues(const std::string& key, nlohmann::json& jsonValue,
     bool ret = true;
     if (key != keyToCheck)
     {
+        // key is an element at root and should cause extra element error.
+        // If we are requesting elements that is under key like key/other,
+        // ignore the extra element error.
         ret =
             readJsonValues<Count, Index + 1>(
                 key, jsonValue, res, handled,
@@ -389,6 +392,7 @@ bool handleMissing(std::bitset<Count>& handled, crow::Response& res,
     // NOLINTNEXTLINE(cppcoreguidelines-pro-bounds-array-to-pointer-decay)
     return details::handleMissing<Index + 1, Count>(handled, res, in...) && ret;
 }
+
 } // namespace details
 
 template <typename... UnpackTypes>
@@ -400,13 +404,6 @@ bool readJson(nlohmann::json& jsonRequest, crow::Response& res, const char* key,
     {
         BMCWEB_LOG_DEBUG << "Json value is not an object";
         messages::unrecognizedRequestBody(res);
-        return false;
-    }
-
-    if (jsonRequest.empty())
-    {
-        BMCWEB_LOG_DEBUG << "Json value is empty";
-        messages::emptyJSON(res);
         return false;
     }
 
@@ -425,8 +422,8 @@ bool readJson(nlohmann::json& jsonRequest, crow::Response& res, const char* key,
 }
 
 template <typename... UnpackTypes>
-bool readJson(const crow::Request& req, crow::Response& res, const char* key,
-              UnpackTypes&... in)
+bool readJsonPatch(const crow::Request& req, crow::Response& res,
+                   const char* key, UnpackTypes&... in)
 {
     nlohmann::json jsonRequest;
     if (!json_util::processJsonFromRequest(res, req, jsonRequest))
@@ -434,6 +431,28 @@ bool readJson(const crow::Request& req, crow::Response& res, const char* key,
         BMCWEB_LOG_DEBUG << "Json value not readable";
         return false;
     }
+
+    if (jsonRequest.empty())
+    {
+        BMCWEB_LOG_DEBUG << "Json value is empty";
+        messages::emptyJSON(res);
+        return false;
+    }
+
+    return readJson(jsonRequest, res, key, in...);
+}
+
+template <typename... UnpackTypes>
+bool readJsonAction(const crow::Request& req, crow::Response& res,
+                    const char* key, UnpackTypes&... in)
+{
+    nlohmann::json jsonRequest;
+    if (!json_util::processJsonFromRequest(res, req, jsonRequest))
+    {
+        BMCWEB_LOG_DEBUG << "Json value not readable";
+        return false;
+    }
+
     return readJson(jsonRequest, res, key, in...);
 }
 
