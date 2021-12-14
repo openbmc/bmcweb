@@ -16,6 +16,24 @@
       "revId": "4029292b4db3449eb32067ae9d99503165577e43",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "150dccf8_a6caa50e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2021-12-14T23:00:17Z",
+      "side": 1,
+      "message": "Hello Gunnar, yes, I am running the Validator now. Will update \"TESTED\" with the result.\n\nMy QEMU environment doesn\u0027t have \"/Systems/system\" set up correctly, so I am getting an entire 500 for that URI last time.\n\nI also checked the DataTimeOffset in \"/Managers/bmc\" of my last validator report. \n\n\"\"\"\nDateTime\t1970-01-01T00:29:21Z\tdate\tYes\tPASS\nDateTimeLocalOffset\t      29:21Z\tstring\tYes\tPASS\n\"\"\"\n\nIs it supposed to give me fail?",
+      "parentUuid": "eb2b57eb_b9215e4b",
+      "revId": "4029292b4db3449eb32067ae9d99503165577e43",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
