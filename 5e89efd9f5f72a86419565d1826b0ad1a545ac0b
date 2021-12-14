@@ -46,6 +46,30 @@
       "revId": "5e89efd9f5f72a86419565d1826b0ad1a545ac0b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bf51b4ba_5a6ee85c",
+        "filename": "scripts/hostlogger_test.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1000404
+      },
+      "writtenOn": "2021-12-14T02:15:23Z",
+      "side": 1,
+      "message": "I test the script and this branch when I upload the script. Since the upload date is September, I think maybe the new python3 print syntax has been update during this months.\n\nSorry for missing this issue.",
+      "parentUuid": "62907387_f81ba80c",
+      "range": {
+        "startLine": 36,
+        "startChar": 0,
+        "endLine": 40,
+        "endChar": 16
+      },
+      "revId": "5e89efd9f5f72a86419565d1826b0ad1a545ac0b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
