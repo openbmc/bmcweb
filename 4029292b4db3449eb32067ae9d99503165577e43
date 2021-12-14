@@ -34,6 +34,24 @@
       "revId": "4029292b4db3449eb32067ae9d99503165577e43",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "847616a5_34aba433",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2021-12-14T23:33:45Z",
+      "side": 1,
+      "message": "Done.\n\nThis time I checked all results under /Managers/bmc. No errors.",
+      "parentUuid": "150dccf8_a6caa50e",
+      "revId": "4029292b4db3449eb32067ae9d99503165577e43",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
