@@ -335,7 +335,7 @@ class AddReport
             args.interval, readingParams);
     }
 
-    void insert(const boost::container::flat_map<std::string, std::string>& el)
+    void insert(const std::map<std::string, std::string>& el)
     {
         uriToDbus.insert(el.begin(), el.end());
     }
@@ -343,7 +343,7 @@ class AddReport
   private:
     const std::shared_ptr<bmcweb::AsyncResp> asyncResp;
     AddReportArgs args;
-    boost::container::flat_map<std::string, std::string> uriToDbus{};
+    std::map<std::string, std::string> uriToDbus{};
 };
 } // namespace telemetry
 
@@ -394,10 +394,9 @@ inline void requestRoutesMetricReportDefinitionCollection(App& app)
             {
                 retrieveUriToDbusMap(
                     chassis, sensorType,
-                    [asyncResp,
-                     addReportReq](const boost::beast::http::status status,
-                                   const boost::container::flat_map<
-                                       std::string, std::string>& uriToDbus) {
+                    [asyncResp, addReportReq](
+                        const boost::beast::http::status status,
+                        const std::map<std::string, std::string>& uriToDbus) {
                         if (status != boost::beast::http::status::ok)
                         {
                             BMCWEB_LOG_ERROR

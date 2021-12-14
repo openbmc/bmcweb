@@ -244,8 +244,7 @@ struct NbdProxyServer : std::enable_shared_from_this<NbdProxyServer>
     crow::websocket::Connection& connection;
 };
 
-static boost::container::flat_map<crow::websocket::Connection*,
-                                  std::shared_ptr<NbdProxyServer>>
+static std::map<crow::websocket::Connection*, std::shared_ptr<NbdProxyServer>>
     sessions;
 
 inline void requestRoutes(App& app)
@@ -258,8 +257,7 @@ inline void requestRoutes(App& app)
 
             auto getUserInfoHandler = [&conn, asyncResp](
                                           const boost::system::error_code ec,
-                                          boost::container::flat_map <
-                                              std::string,
+                                          std::map < std::string,
                                           dbus::utility::DbusVariantType >>
                                               userInfo) {
                 if (ec)

@@ -131,9 +131,8 @@ inline void
                             [aResp, swId, runningImage, fwVersionPurpose,
                              activeVersionPropName, populateLinkToImages](
                                 const boost::system::error_code ec3,
-                                const boost::container::flat_map<
-                                    std::string,
-                                    dbus::utility::DbusVariantType>&
+                                const std::map<std::string,
+                                               dbus::utility::DbusVariantType>&
                                     propertiesList) {
                                 if (ec3)
                                 {
@@ -149,9 +148,8 @@ inline void
                                 // s
                                 // "xyz.openbmc_project.Software.Version.VersionPurpose.Host"
 
-                                boost::container::flat_map<
-                                    std::string,
-                                    dbus::utility::DbusVariantType>::
+                                std::map<std::string,
+                                         dbus::utility::DbusVariantType>::
                                     const_iterator it =
                                         propertiesList.find("Purpose");
                                 if (it == propertiesList.end())
@@ -332,19 +330,19 @@ inline void getFwStatus(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     BMCWEB_LOG_DEBUG << "getFwStatus: swId " << *swId << " svc " << dbusSvc;
 
     crow::connections::systemBus->async_method_call(
-        [asyncResp, swId](
-            const boost::system::error_code errorCode,
-            const boost::container::flat_map<
-                std::string, dbus::utility::DbusVariantType>& propertiesList) {
+        [asyncResp,
+         swId](const boost::system::error_code errorCode,
+               const std::map<std::string, dbus::utility::DbusVariantType>&
+                   propertiesList) {
             if (errorCode)
             {
                 // not all fwtypes are updateable, this is ok
                 asyncResp->res.jsonValue["Status"]["State"] = "Enabled";
                 return;
             }
-            boost::container::flat_map<
-                std::string, dbus::utility::DbusVariantType>::const_iterator
-                it = propertiesList.find("Activation");
+            std::map<std::string,
+                     dbus::utility::DbusVariantType>::const_iterator it =
+                propertiesList.find("Activation");
             if (it == propertiesList.end())
             {
                 BMCWEB_LOG_DEBUG << "Can't find property \"Activation\"!";

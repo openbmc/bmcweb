@@ -106,11 +106,10 @@ inline void requestRoutesSystemPCIeDevice(App& app)
 
             {
                 auto getPCIeDeviceCallback =
-                    [asyncResp,
-                     device](const boost::system::error_code ec,
-                             boost::container::flat_map<
-                                 std::string, dbus::utility::DbusVariantType>&
-                                 pcieDevProperties) {
+                    [asyncResp, device](
+                        const boost::system::error_code ec,
+                        std::map<std::string, dbus::utility::DbusVariantType>&
+                            pcieDevProperties) {
                         if (ec)
                         {
                             BMCWEB_LOG_DEBUG
@@ -192,10 +191,9 @@ inline void requestRoutesSystemPCIeFunctionCollection(App& app)
                 auto getPCIeDeviceCallback = [asyncResp, device](
                                                  const boost::system::error_code
                                                      ec,
-                                                 boost::container::flat_map<
-                                                     std::string,
-                                                     dbus::utility::
-                                                         DbusVariantType>&
+                                                 std::map<std::string,
+                                                          dbus::utility::
+                                                              DbusVariantType>&
                                                      pcieDevProperties) {
                     if (ec)
                     {
@@ -265,8 +263,7 @@ inline void requestRoutesSystemPCIeFunction(App& app)
             auto getPCIeDeviceCallback =
                 [asyncResp, device, function](
                     const boost::system::error_code ec,
-                    boost::container::flat_map<std::string,
-                                               dbus::utility::DbusVariantType>&
+                    std::map<std::string, dbus::utility::DbusVariantType>&
                         pcieDevProperties) {
                     if (ec)
                     {

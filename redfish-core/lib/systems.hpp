@@ -1302,7 +1302,7 @@ inline void
                 return;
             }
 
-            const boost::container::flat_map<std::string, std::string> policyMaps = {
+            const std::map<std::string, std::string> policyMaps = {
                 {"xyz.openbmc_project.Control.Power.RestorePolicy.Policy.AlwaysOn",
                  "AlwaysOn"},
                 {"xyz.openbmc_project.Control.Power.RestorePolicy.Policy.AlwaysOff",
@@ -1907,7 +1907,7 @@ inline void
 {
     BMCWEB_LOG_DEBUG << "Set power restore policy.";
 
-    const boost::container::flat_map<std::string, std::string> policyMaps = {
+    const std::map<std::string, std::string> policyMaps = {
         {"AlwaysOn",
          "xyz.openbmc_project.Control.Power.RestorePolicy.Policy.AlwaysOn"},
         {"AlwaysOff",

@@ -150,14 +150,11 @@ class KvmSession
     bool doingWrite;
 };
 
-static boost::container::flat_map<crow::websocket::Connection*,
-                                  std::unique_ptr<KvmSession>>
+static std::map<crow::websocket::Connection*, std::unique_ptr<KvmSession>>
     sessions;
 
 inline void requestRoutes(App& app)
 {
-    sessions.reserve(maxSessions);
-
     BMCWEB_ROUTE(app, "/kvm/0")
         .privileges({{"ConfigureComponents", "ConfigureManager"}})
         .websocket()

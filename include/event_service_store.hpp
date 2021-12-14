@@ -244,7 +244,7 @@ struct EventServiceConfig
 class EventServiceStore
 {
   public:
-    boost::container::flat_map<std::string, std::shared_ptr<UserSubscription>>
+    std::map<std::string, std::shared_ptr<UserSubscription>>
         subscriptionsConfigMap;
     EventServiceConfig eventServiceConfig;
 

@@ -543,8 +543,7 @@ static void getCertificateProperties(
     const std::string& certId, const std::string& certURL,
     const std::string& name)
 {
-    using PropertiesMap =
-        boost::container::flat_map<std::string, dbus::utility::DbusVariantType>;
+    using PropertiesMap = std::map<std::string, dbus::utility::DbusVariantType>;
     BMCWEB_LOG_DEBUG << "getCertificateProperties Path=" << objectPath
                      << " certId=" << certId << " certURl=" << certURL;
     crow::connections::systemBus->async_method_call(

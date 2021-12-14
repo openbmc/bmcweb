@@ -83,8 +83,7 @@ using ManagedObjectsType = std::vector<std::pair<
         std::string,
         std::vector<std::pair<std::string, dbus::utility::DbusVariantType>>>>>>;
 
-using PropertiesType =
-    boost::container::flat_map<std::string, dbus::utility::DbusVariantType>;
+using PropertiesType = std::map<std::string, dbus::utility::DbusVariantType>;
 
 inline void getIntrusionByService(std::shared_ptr<bmcweb::AsyncResp> aResp,
                                   const std::string& service,

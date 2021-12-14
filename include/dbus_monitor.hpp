@@ -22,9 +22,7 @@ struct DbusWebsocketSession
     boost::container::flat_set<std::string> interfaces;
 };
 
-static boost::container::flat_map<crow::websocket::Connection*,
-                                  DbusWebsocketSession>
-    sessions;
+static std::map<crow::websocket::Connection*, DbusWebsocketSession> sessions;
 
 inline int onPropertyUpdate(sd_bus_message* m, void* userdata,
                             sd_bus_error* retError)

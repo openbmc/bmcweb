@@ -40,7 +40,7 @@ using ListOfSessionIds = std::vector<std::string>;
 class Lock
 {
     uint32_t transactionId;
-    boost::container::flat_map<uint32_t, LockRequests> lockTable;
+    std::map<uint32_t, LockRequests> lockTable;
 
   protected:
     /*

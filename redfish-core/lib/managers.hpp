@@ -741,8 +741,7 @@ inline CreatePIDRet createPidInterface(
     const std::shared_ptr<bmcweb::AsyncResp>& response, const std::string& type,
     const nlohmann::json::iterator& it, const std::string& path,
     const dbus::utility::ManagedObjectType& managedObj, bool createNewObject,
-    boost::container::flat_map<std::string, dbus::utility::DbusVariantType>&
-        output,
+    std::map<std::string, dbus::utility::DbusVariantType>& output,
     std::string& chassis, const std::string& profile)
 {
 
@@ -1178,11 +1177,10 @@ struct GetPIDValues : std::enable_shared_from_this<GetPIDValues>
                 const std::string& path = subtreeLocal[0].first;
                 const std::string& owner = subtreeLocal[0].second[0].first;
                 crow::connections::systemBus->async_method_call(
-                    [path, owner,
-                     self](const boost::system::error_code ec2,
-                           const boost::container::flat_map<
-                               std::string, dbus::utility::DbusVariantType>&
-                               resp) {
+                    [path, owner, self](
+                        const boost::system::error_code ec2,
+                        const std::map<std::string,
+                                       dbus::utility::DbusVariantType>& resp) {
                         if (ec2)
                         {
                             BMCWEB_LOG_ERROR
@@ -1251,7 +1249,7 @@ struct GetPIDValues : std::enable_shared_from_this<GetPIDValues>
             return;
         }
         // create map of <connection, path to objMgr>>
-        boost::container::flat_map<std::string, std::string> objectMgrPaths;
+        std::map<std::string, std::string> objectMgrPaths;
         boost::container::flat_set<std::string> calledConnections;
         for (const auto& pathGroup : subtree)
         {
@@ -1393,10 +1391,10 @@ struct SetPIDValues : std::enable_shared_from_this<SetPIDValues>
                 const std::string& path = subtree[0].first;
                 const std::string& owner = subtree[0].second[0].first;
                 crow::connections::systemBus->async_method_call(
-                    [self, path, owner](
-                        const boost::system::error_code ec2,
-                        const boost::container::flat_map<
-                            std::string, dbus::utility::DbusVariantType>& r) {
+                    [self, path,
+                     owner](const boost::system::error_code ec2,
+                            const std::map<std::string,
+                                           dbus::utility::DbusVariantType>& r) {
                         if (ec2)
                         {
                             BMCWEB_LOG_ERROR
@@ -1512,11 +1510,7 @@ struct SetPIDValues : std::enable_shared_from_this<SetPIDValues>
                                      return boost::algorithm::ends_with(
                                          obj.first.str, "/" + name);
                                  });
-                boost::container::flat_map<std::string,
-                                           dbus::utility::DbusVariantType>
-                    output;
-
-                output.reserve(16); // The pid interface length
+                std::map<std::string, dbus::utility::DbusVariantType> output;
 
                 // determines if we're patching entity-manager or
                 // creating a new object
