@@ -17,7 +17,6 @@
 #pragma once
 
 #include <boost/asio/strand.hpp>
-#include <boost/beast/core/span.hpp>
 #include <boost/beast/http/buffer_body.hpp>
 #include <boost/beast/http/message.hpp>
 #include <boost/beast/version.hpp>
