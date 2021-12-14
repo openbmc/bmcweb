@@ -22,6 +22,30 @@
       "revId": "5e89efd9f5f72a86419565d1826b0ad1a545ac0b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "62907387_f81ba80c",
+        "filename": "scripts/hostlogger_test.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2021-12-14T00:15:37Z",
+      "side": 1,
+      "message": "I did try the code and it worked. I didn\u0027t hit this error probably because never go into this branch.\n\nI didn\u0027t review the Python codes carefully though.",
+      "parentUuid": "c65532a7_c8092ec7",
+      "range": {
+        "startLine": 36,
+        "startChar": 0,
+        "endLine": 40,
+        "endChar": 16
+      },
+      "revId": "5e89efd9f5f72a86419565d1826b0ad1a545ac0b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
