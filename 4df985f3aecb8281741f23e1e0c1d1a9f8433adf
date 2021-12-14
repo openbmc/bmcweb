@@ -45,6 +45,30 @@
       "revId": "4df985f3aecb8281741f23e1e0c1d1a9f8433adf",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "38602cd0_fa3a2235",
+        "filename": "redfish-core/include/utils/json_utils.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 390,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2021-12-14T20:54:32Z",
+      "side": 1,
+      "message": "yeah, I am trying to compile it locally and this def not work.\n\nI\u0027ll see how to clean it up.\n\n----\n\nOk, sounds good. That make it easier to maintain it if we can detect if all options are optional. I\u0027ll take a look.",
+      "parentUuid": "678ba765_e9d4cb07",
+      "range": {
+        "startLine": 390,
+        "startChar": 19,
+        "endLine": 390,
+        "endChar": 29
+      },
+      "revId": "4df985f3aecb8281741f23e1e0c1d1a9f8433adf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
