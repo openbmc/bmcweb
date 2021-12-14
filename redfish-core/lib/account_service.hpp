@@ -1708,13 +1708,14 @@ inline void requestAccountServiceRoutes(App& app)
         .privileges(redfish::privileges::getManagerAccount)
         .methods(
             boost::beast::http::verb::
-                get)([&app](const crow::Request& req,
+                get)([&app]([[maybe_unused]] const crow::Request& req,
                             const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                             const std::string& accountName) -> void {
             if (!redfish::setUpRedfishRoute(app, req, asyncResp->res))
             {
                 return;
             }
+#ifndef BMCWEB_INSECURE_DISABLE_AUTHENTICATION
             if (req.session->username != accountName)
             {
                 // At this point we've determined that the user is trying to
@@ -1733,6 +1734,7 @@ inline void requestAccountServiceRoutes(App& app)
                     return;
                 }
             }
+#endif // BMCWEB_INSECURE_DISABLE_AUTHENTICATION
 
             crow::connections::systemBus->async_method_call(
                 [asyncResp,
@@ -1901,12 +1903,15 @@ inline void requestAccountServiceRoutes(App& app)
                 }
                 else
                 {
+#ifndef BMCWEB_INSECURE_DISABLE_AUTHENTICATION
                     // ConfigureSelf accounts can only modify their own account
                     if (username != req.session->username)
                     {
                         messages::insufficientPrivilege(asyncResp->res);
                         return;
                     }
+#endif // BMCWEB_INSECURE_DISABLE_AUTHENTICATION
+
                     // ConfigureSelf accounts can only modify their password
                     if (!json_util::readJsonPatch(req, asyncResp->res,
                                                   "Password", password))
