@@ -57,16 +57,16 @@ using DbusVariantType = sdbusplus::utility::dedup_variant_t<
 
 // clang-format on
 using DBusPropertiesMap =
-    boost::container::flat_map<std::string, DbusVariantType>;
+    std::map<std::string, DbusVariantType>;
 using DBusInteracesMap =
-    boost::container::flat_map<std::string, DBusPropertiesMap>;
+    std::map<std::string, DBusPropertiesMap>;
 using ManagedObjectType =
     std::vector<std::pair<sdbusplus::message::object_path, DBusInteracesMap>>;
 
 using ManagedItem = std::pair<
     sdbusplus::message::object_path,
-    boost::container::flat_map<
-        std::string, boost::container::flat_map<std::string, DbusVariantType>>>;
+    std::map<
+        std::string, std::map<std::string, DbusVariantType>>>;
 
 inline void escapePathForDbus(std::string& path)
 {

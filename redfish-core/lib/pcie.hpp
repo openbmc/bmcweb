@@ -108,7 +108,7 @@ inline void requestRoutesSystemPCIeDevice(App& app)
                 auto getPCIeDeviceCallback =
                     [asyncResp,
                      device](const boost::system::error_code ec,
-                             boost::container::flat_map<
+                             std::map<
                                  std::string, dbus::utility::DbusVariantType>&
                                  pcieDevProperties) {
                         if (ec)
@@ -192,7 +192,7 @@ inline void requestRoutesSystemPCIeFunctionCollection(App& app)
                 auto getPCIeDeviceCallback = [asyncResp, device](
                                                  const boost::system::error_code
                                                      ec,
-                                                 boost::container::flat_map<
+                                                 std::map<
                                                      std::string,
                                                      dbus::utility::
                                                          DbusVariantType>&
@@ -265,7 +265,7 @@ inline void requestRoutesSystemPCIeFunction(App& app)
             auto getPCIeDeviceCallback =
                 [asyncResp, device, function](
                     const boost::system::error_code ec,
-                    boost::container::flat_map<std::string,
+                    std::map<std::string,
                                                dbus::utility::DbusVariantType>&
                         pcieDevProperties) {
                     if (ec)

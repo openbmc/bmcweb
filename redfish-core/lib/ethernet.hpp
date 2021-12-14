@@ -36,12 +36,12 @@ namespace redfish
  * TODO(Pawel) consider move this to separate file into boost::dbus
  */
 using PropertiesMapType =
-    boost::container::flat_map<std::string, dbus::utility::DbusVariantType>;
+    std::map<std::string, dbus::utility::DbusVariantType>;
 
 using GetManagedObjects = std::vector<std::pair<
     sdbusplus::message::object_path,
     std::vector<std::pair<std::string,
-                          boost::container::flat_map<
+                          std::map<
                               std::string, dbus::utility::DbusVariantType>>>>>;
 
 enum class LinkType

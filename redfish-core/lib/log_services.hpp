@@ -104,11 +104,11 @@ static const Message* getMessage(const std::string_view& messageID)
 namespace fs = std::filesystem;
 
 using GetManagedPropertyType =
-    boost::container::flat_map<std::string, dbus::utility::DbusVariantType>;
+    std::map<std::string, dbus::utility::DbusVariantType>;
 
-using GetManagedObjectsType = boost::container::flat_map<
+using GetManagedObjectsType = std::map<
     sdbusplus::message::object_path,
-    boost::container::flat_map<std::string, GetManagedPropertyType>>;
+    std::map<std::string, GetManagedPropertyType>>;
 
 inline std::string translateSeverityDbusToRedfish(const std::string& s)
 {
@@ -3100,7 +3100,7 @@ inline void requestRoutesPostCodesClear(App& app)
 
 static void fillPostCodeEntry(
     const std::shared_ptr<bmcweb::AsyncResp>& aResp,
-    const boost::container::flat_map<
+    const std::map<
         uint64_t, std::tuple<uint64_t, std::vector<uint8_t>>>& postcode,
     const uint16_t bootIndex, const uint64_t codeIndex = 0,
     const uint64_t skip = 0, const uint64_t top = 0)
@@ -3113,7 +3113,7 @@ static void fillPostCodeEntry(
     nlohmann::json& logEntryArray = aResp->res.jsonValue["Members"];
 
     uint64_t firstCodeTimeUs = 0;
-    for (const std::pair<uint64_t, std::tuple<uint64_t, std::vector<uint8_t>>>&
+    for (const std::pair<const uint64_t, std::tuple<uint64_t, std::vector<uint8_t>>>&
              code : postcode)
     {
         currentCodeIndex++;
@@ -3231,7 +3231,7 @@ static void getPostCodeForEntry(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
     crow::connections::systemBus->async_method_call(
         [aResp, bootIndex,
          codeIndex](const boost::system::error_code ec,
-                    const boost::container::flat_map<
+                    const std::map<
                         uint64_t, std::tuple<uint64_t, std::vector<uint8_t>>>&
                         postcode) {
             if (ec)
@@ -3267,7 +3267,7 @@ static void getPostCodeForBoot(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
     crow::connections::systemBus->async_method_call(
         [aResp, bootIndex, bootCount, entryCount, skip,
          top](const boost::system::error_code ec,
-              const boost::container::flat_map<
+              const std::map<
                   uint64_t, std::tuple<uint64_t, std::vector<uint8_t>>>&
                   postcode) {
             if (ec)

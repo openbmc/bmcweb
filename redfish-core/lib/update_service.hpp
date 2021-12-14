@@ -134,7 +134,7 @@ static void
                                     }
 
                                     std::string iface;
-                                    boost::container::flat_map<
+                                    std::map<
                                         std::string,
                                         dbus::utility::DbusVariantType>
                                         values;
@@ -322,7 +322,7 @@ static void monitorForSoftwareAvailable(
         "arg0='xyz.openbmc_project.Logging.Entry'",
         [asyncResp, url](sdbusplus::message::message& m) {
             BMCWEB_LOG_DEBUG << "Error Match fired";
-            boost::container::flat_map<std::string,
+            std::map<std::string,
                                        dbus::utility::DbusVariantType>
                 values;
             std::string objName;
@@ -829,7 +829,7 @@ inline void requestRoutesSoftwareInventory(App& app)
                         crow::connections::systemBus->async_method_call(
                             [asyncResp,
                              swId](const boost::system::error_code errorCode,
-                                   const boost::container::flat_map<
+                                   const std::map<
                                        std::string,
                                        dbus::utility::DbusVariantType>&
                                        propertiesList) {
@@ -838,7 +838,7 @@ inline void requestRoutesSoftwareInventory(App& app)
                                     messages::internalError(asyncResp->res);
                                     return;
                                 }
-                                boost::container::flat_map<
+                                std::map<
                                     std::string,
                                     dbus::utility::DbusVariantType>::
                                     const_iterator it =

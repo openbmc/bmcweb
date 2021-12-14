@@ -29,9 +29,9 @@
 namespace redfish
 {
 
-using InterfacesProperties = boost::container::flat_map<
+using InterfacesProperties = std::map<
     std::string,
-    boost::container::flat_map<std::string, dbus::utility::DbusVariantType>>;
+    std::map<std::string, dbus::utility::DbusVariantType>>;
 
 // Map of service name to list of interfaces
 using MapperServiceMap =
@@ -303,7 +303,7 @@ inline void getCpuAssetData(std::shared_ptr<bmcweb::AsyncResp> aResp,
     crow::connections::systemBus->async_method_call(
         [objPath, aResp{std::move(aResp)}](
             const boost::system::error_code ec,
-            const boost::container::flat_map<
+            const std::map<
                 std::string, dbus::utility::DbusVariantType>& properties) {
             if (ec)
             {
@@ -394,7 +394,7 @@ inline void getCpuRevisionData(std::shared_ptr<bmcweb::AsyncResp> aResp,
     crow::connections::systemBus->async_method_call(
         [objPath, aResp{std::move(aResp)}](
             const boost::system::error_code ec,
-            const boost::container::flat_map<
+            const std::map<
                 std::string, dbus::utility::DbusVariantType>& properties) {
             if (ec)
             {
@@ -430,7 +430,7 @@ inline void getAcceleratorDataByService(
     crow::connections::systemBus->async_method_call(
         [acclrtrId, aResp{std::move(aResp)}](
             const boost::system::error_code ec,
-            const boost::container::flat_map<
+            const std::map<
                 std::string, dbus::utility::DbusVariantType>& properties) {
             if (ec)
             {

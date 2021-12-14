@@ -131,7 +131,7 @@ inline void
                             [aResp, swId, runningImage, fwVersionPurpose,
                              activeVersionPropName, populateLinkToImages](
                                 const boost::system::error_code ec3,
-                                const boost::container::flat_map<
+                                const std::map<
                                     std::string,
                                     dbus::utility::DbusVariantType>&
                                     propertiesList) {
@@ -149,7 +149,7 @@ inline void
                                 // s
                                 // "xyz.openbmc_project.Software.Version.VersionPurpose.Host"
 
-                                boost::container::flat_map<
+                                std::map<
                                     std::string,
                                     dbus::utility::DbusVariantType>::
                                     const_iterator it =
@@ -334,7 +334,7 @@ inline void getFwStatus(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     crow::connections::systemBus->async_method_call(
         [asyncResp, swId](
             const boost::system::error_code errorCode,
-            const boost::container::flat_map<
+            const std::map<
                 std::string, dbus::utility::DbusVariantType>& propertiesList) {
             if (errorCode)
             {
@@ -342,7 +342,7 @@ inline void getFwStatus(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                 asyncResp->res.jsonValue["Status"]["State"] = "Enabled";
                 return;
             }
-            boost::container::flat_map<
+            std::map<
                 std::string, dbus::utility::DbusVariantType>::const_iterator
                 it = propertiesList.find("Activation");
             if (it == propertiesList.end())

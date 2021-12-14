@@ -120,6 +120,7 @@ endif
 # -Wpedantic, -Wextra comes by default with warning level
 add_project_arguments(
   cxx.get_supported_arguments([
+  '-fno-psabi',
   '-Wcast-align',
   '-Wconversion',
   '-Wformat=2',

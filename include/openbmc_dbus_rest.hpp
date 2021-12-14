@@ -318,8 +318,8 @@ inline void findObjectManagerPathForEnumerate(
     crow::connections::systemBus->async_method_call(
         [transaction, objectName, connectionName](
             const boost::system::error_code ec,
-            const boost::container::flat_map<
-                std::string, boost::container::flat_map<
+            const std::map<
+                std::string, std::map<
                                  std::string, std::vector<std::string>>>&
                 objects) {
             if (ec)
@@ -380,7 +380,7 @@ inline void getObjectAndEnumerate(
 
             // Map indicating connection name, and the path where the object
             // manager exists
-            boost::container::flat_map<std::string, std::string> connections;
+            std::map<std::string, std::string> connections;
 
             for (const auto& object : *(transaction->subtree))
             {

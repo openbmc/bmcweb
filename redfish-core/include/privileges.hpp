@@ -241,7 +241,7 @@ inline const Privileges& getUserPrivileges(const std::string& userRole)
  * the ConfigureSelf privilege to operate only on your own account or
  * session.
  **/
-using OperationMap = boost::container::flat_map<boost::beast::http::verb,
+using OperationMap = std::map<boost::beast::http::verb,
                                                 std::vector<Privileges>>;
 
 /* @brief Checks if user is allowed to call an operation

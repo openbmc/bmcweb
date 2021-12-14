@@ -22,7 +22,7 @@ struct DbusWebsocketSession
     boost::container::flat_set<std::string> interfaces;
 };
 
-static boost::container::flat_map<crow::websocket::Connection*,
+static std::map<crow::websocket::Connection*,
                                   DbusWebsocketSession>
     sessions;
 

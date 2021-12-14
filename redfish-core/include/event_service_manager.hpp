@@ -579,7 +579,7 @@ class EventServiceManager
     size_t noOfEventLogSubscribers{0};
     size_t noOfMetricReportSubscribers{0};
     std::shared_ptr<sdbusplus::bus::match::match> matchTelemetryMonitor;
-    boost::container::flat_map<std::string, std::shared_ptr<Subscription>>
+    std::map<std::string, std::shared_ptr<Subscription>>
         subscriptionsMap;
 
     uint64_t eventId{1};

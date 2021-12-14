@@ -65,9 +65,9 @@ struct LDAPConfigData
     std::vector<std::pair<std::string, LDAPRoleMapData>> groupRoleList;
 };
 
-using DbusInterfaceType = boost::container::flat_map<
+using DbusInterfaceType = std::map<
     std::string,
-    boost::container::flat_map<std::string, dbus::utility::DbusVariantType>>;
+    std::map<std::string, dbus::utility::DbusVariantType>>;
 
 using ManagedObjectType =
     std::vector<std::pair<sdbusplus::message::object_path, DbusInterfaceType>>;
