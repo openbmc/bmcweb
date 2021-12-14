@@ -705,4 +705,7 @@ MigrationBackup/
 # Ionide (cross platform F# VS Code tools) working folder
 .ionide/
 
+# JetBrains CLion
+.idea/
+
 # End of https://www.toptal.com/developers/gitignore/api/osx,linux,windows,pycharm,intellij,visualstudio,visualstudiocode,eclipse,meson
