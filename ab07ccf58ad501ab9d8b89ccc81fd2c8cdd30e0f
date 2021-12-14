@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1ce61fa4_018b3f20",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-12-14T22:18:35Z",
+      "side": 1,
+      "message": "I mean I like this solution more than \n\n#ifndef BMCWEB_INSECURE_DISABLE_AUTHENTICATION\n            if (req.session-\u003eusername !\u003d accountName)\n            {\n                // At this point we\u0027ve determined that the user is trying to\n                // modify a user that isn\u0027t them.  We need to verify that they\n                // have permissions to modify other users, so re-run the auth\n                // check with the same permissions, minus ConfigureSelf.\n                Privileges effectiveUserPrivileges \u003d\n                    redfish::getUserPrivileges(req.userRole);\n                Privileges requiredPermissionsToChangeNonSelf \u003d {\n                    \"ConfigureUsers\", \"ConfigureManager\"};\n                if (!effectiveUserPrivileges.isSupersetOf(\n                        requiredPermissionsToChangeNonSelf))\n                {\n                    BMCWEB_LOG_DEBUG \u003c\u003c \"GET Account denied access\";\n                    messages::insufficientPrivilege(asyncResp-\u003eres);\n                    return;\n                }\n            }\n\n#endif // BMCWEB_INSECURE_DISABLE_AUTHENTICATION\n\nbut that is because we aren\u0027t using BMCWEB_INSECURE_DISABLE_AUTHENTICATION\n\nas long as you are okay with InsufficientPrivilege for the accounts",
+      "revId": "ab07ccf58ad501ab9d8b89ccc81fd2c8cdd30e0f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
