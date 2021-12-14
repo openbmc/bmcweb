@@ -133,9 +133,8 @@ static void
                                     }
 
                                     std::string iface;
-                                    boost::container::flat_map<
-                                        std::string,
-                                        dbus::utility::DbusVariantType>
+                                    std::map<std::string,
+                                             dbus::utility::DbusVariantType>
                                         values;
 
                                     std::string index =
@@ -834,20 +833,18 @@ inline void requestRoutesSoftwareInventory(App& app)
                                              obj.second[0].first);
 
                         crow::connections::systemBus->async_method_call(
-                            [asyncResp,
-                             swId](const boost::system::error_code errorCode,
-                                   const boost::container::flat_map<
-                                       std::string,
-                                       dbus::utility::DbusVariantType>&
-                                       propertiesList) {
+                            [asyncResp, swId](
+                                const boost::system::error_code errorCode,
+                                const std::map<std::string,
+                                               dbus::utility::DbusVariantType>&
+                                    propertiesList) {
                                 if (errorCode)
                                 {
                                     messages::internalError(asyncResp->res);
                                     return;
                                 }
-                                boost::container::flat_map<
-                                    std::string,
-                                    dbus::utility::DbusVariantType>::
+                                std::map<std::string,
+                                         dbus::utility::DbusVariantType>::
                                     const_iterator it =
                                         propertiesList.find("Purpose");
                                 if (it == propertiesList.end())

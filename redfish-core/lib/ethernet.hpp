@@ -34,8 +34,7 @@ namespace redfish
  * DBus types primitives for several generic DBus interfaces
  * TODO(Pawel) consider move this to separate file into boost::dbus
  */
-using PropertiesMapType =
-    boost::container::flat_map<std::string, dbus::utility::DbusVariantType>;
+using PropertiesMapType = std::map<std::string, dbus::utility::DbusVariantType>;
 
 enum class LinkType
 {

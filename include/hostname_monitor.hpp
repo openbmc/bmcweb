@@ -43,8 +43,7 @@ inline int onPropertyUpdate(sd_bus_message* m, void* /* userdata */,
 
     sdbusplus::message::message message(m);
     std::string iface;
-    boost::container::flat_map<std::string, dbus::utility::DbusVariantType>
-        changedProperties;
+    std::map<std::string, dbus::utility::DbusVariantType> changedProperties;
 
     message.read(iface, changedProperties);
     auto it = changedProperties.find("HostName");

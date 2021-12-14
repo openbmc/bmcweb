@@ -28,8 +28,7 @@
 namespace redfish
 {
 
-using DimmProperties =
-    boost::container::flat_map<std::string, dbus::utility::DbusVariantType>;
+using DimmProperties = std::map<std::string, dbus::utility::DbusVariantType>;
 
 inline std::string translateMemoryTypeToRedfish(const std::string& memoryType)
 {
@@ -742,8 +741,8 @@ inline void getDimmPartitionData(std::shared_ptr<bmcweb::AsyncResp> aResp,
     crow::connections::systemBus->async_method_call(
         [aResp{std::move(aResp)}](
             const boost::system::error_code ec,
-            const boost::container::flat_map<
-                std::string, dbus::utility::DbusVariantType>& properties) {
+            const std::map<std::string, dbus::utility::DbusVariantType>&
+                properties) {
             if (ec)
             {
                 BMCWEB_LOG_DEBUG << "DBUS response error";
@@ -825,9 +824,8 @@ inline void getDimmData(std::shared_ptr<bmcweb::AsyncResp> aResp,
     crow::connections::systemBus->async_method_call(
         [dimmId, aResp{std::move(aResp)}](
             const boost::system::error_code ec,
-            const boost::container::flat_map<
-                std::string, boost::container::flat_map<
-                                 std::string, std::vector<std::string>>>&
+            const std::map<std::string,
+                           std::map<std::string, std::vector<std::string>>>&
                 subtree) {
             if (ec)
             {

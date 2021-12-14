@@ -32,9 +32,9 @@
 namespace redfish
 {
 
-using InterfacesProperties = boost::container::flat_map<
-    std::string,
-    boost::container::flat_map<std::string, dbus::utility::DbusVariantType>>;
+using InterfacesProperties =
+    std::map<std::string,
+             std::map<std::string, dbus::utility::DbusVariantType>>;
 
 // Interfaces which imply a D-Bus object represents a Processor
 constexpr std::array<const char*, 2> processorInterfaces = {
@@ -287,8 +287,8 @@ inline void getCpuAssetData(std::shared_ptr<bmcweb::AsyncResp> aResp,
     crow::connections::systemBus->async_method_call(
         [objPath, aResp{std::move(aResp)}](
             const boost::system::error_code ec,
-            const boost::container::flat_map<
-                std::string, dbus::utility::DbusVariantType>& properties) {
+            const std::map<std::string, dbus::utility::DbusVariantType>&
+                properties) {
             if (ec)
             {
                 BMCWEB_LOG_DEBUG << "DBUS response error";
@@ -378,8 +378,8 @@ inline void getCpuRevisionData(std::shared_ptr<bmcweb::AsyncResp> aResp,
     crow::connections::systemBus->async_method_call(
         [objPath, aResp{std::move(aResp)}](
             const boost::system::error_code ec,
-            const boost::container::flat_map<
-                std::string, dbus::utility::DbusVariantType>& properties) {
+            const std::map<std::string, dbus::utility::DbusVariantType>&
+                properties) {
             if (ec)
             {
                 BMCWEB_LOG_DEBUG << "DBUS response error";
@@ -414,8 +414,8 @@ inline void getAcceleratorDataByService(
     crow::connections::systemBus->async_method_call(
         [acclrtrId, aResp{std::move(aResp)}](
             const boost::system::error_code ec,
-            const boost::container::flat_map<
-                std::string, dbus::utility::DbusVariantType>& properties) {
+            const std::map<std::string, dbus::utility::DbusVariantType>&
+                properties) {
             if (ec)
             {
                 BMCWEB_LOG_DEBUG << "DBUS response error";
