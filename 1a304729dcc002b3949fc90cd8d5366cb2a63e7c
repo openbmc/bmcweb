@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3cb80367_233997c0",
+        "filename": "include/multipart_parser.hpp",
+        "patchSetId": 57
+      },
+      "lineNbr": 336,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2021-12-14T08:36:52Z",
+      "side": 1,
+      "message": "nit: This can be now changed to enum class.",
+      "range": {
+        "startLine": 336,
+        "startChar": 4,
+        "endLine": 336,
+        "endChar": 17
+      },
+      "revId": "1a304729dcc002b3949fc90cd8d5366cb2a63e7c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
