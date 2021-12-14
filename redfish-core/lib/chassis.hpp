@@ -461,7 +461,7 @@ inline void requestRoutesChassis(App& app)
                 return;
             }
 
-            if (!json_util::readJson(
+            if (!json_util::readJsonPatch(
                     req, asyncResp->res, "LocationIndicatorActive",
                     locationIndicatorActive, "IndicatorLED", indicatorLed))
             {
@@ -654,8 +654,8 @@ inline void requestRoutesChassisResetAction(App& app)
 
                 std::string resetType;
 
-                if (!json_util::readJson(req, asyncResp->res, "ResetType",
-                                         resetType))
+                if (!json_util::readJsonAction(req, asyncResp->res, "ResetType",
+                                               resetType))
                 {
                     return;
                 }

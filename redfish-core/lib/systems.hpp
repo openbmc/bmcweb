@@ -2765,8 +2765,8 @@ inline void requestRoutesSystemActionsReset(App& app)
                 post)([](const crow::Request& req,
                          const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
             std::string resetType;
-            if (!json_util::readJson(req, asyncResp->res, "ResetType",
-                                     resetType))
+            if (!json_util::readJsonAction(req, asyncResp->res, "ResetType",
+                                           resetType))
             {
                 return;
             }
@@ -3020,7 +3020,7 @@ inline void requestRoutesSystems(App& app)
                 std::optional<std::string> powerRestorePolicy;
                 std::optional<std::string> powerMode;
                 std::optional<nlohmann::json> ipsProps;
-                if (!json_util::readJson(
+                if (!json_util::readJsonPatch(
                         req, asyncResp->res, "IndicatorLED", indicatorLed,
                         "LocationIndicatorActive", locationIndicatorActive,
                         "Boot", bootProps, "WatchdogTimer", wdtTimerProps,
@@ -3043,9 +3043,9 @@ inline void requestRoutesSystems(App& app)
                     std::optional<bool> wdtEnable;
                     std::optional<std::string> wdtTimeOutAction;
 
-                    if (!json_util::readJson(*wdtTimerProps, asyncResp->res,
-                                             "FunctionEnabled", wdtEnable,
-                                             "TimeoutAction", wdtTimeOutAction))
+                    if (!json_util::readJsonPatch(
+                            *wdtTimerProps, asyncResp->res, "FunctionEnabled",
+                            wdtEnable, "TimeoutAction", wdtTimeOutAction))
                     {
                         return;
                     }
@@ -3060,7 +3060,7 @@ inline void requestRoutesSystems(App& app)
                     std::optional<std::string> automaticRetryConfig;
                     std::optional<bool> trustedModuleRequiredToBoot;
 
-                    if (!json_util::readJson(
+                    if (!json_util::readJsonPatch(
                             *bootProps, asyncResp->res,
                             "BootSourceOverrideTarget", bootSource,
                             "BootSourceOverrideMode", bootType,
@@ -3124,7 +3124,7 @@ inline void requestRoutesSystems(App& app)
                     std::optional<uint8_t> ipsExitUtil;
                     std::optional<uint64_t> ipsExitTime;
 
-                    if (!json_util::readJson(
+                    if (!json_util::readJsonPatch(
                             *ipsProps, asyncResp->res, "Enabled", ipsEnable,
                             "EnterUtilizationPercent", ipsEnterUtil,
                             "EnterDwellTimeSeconds", ipsEnterTime,
