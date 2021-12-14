@@ -408,9 +408,9 @@ inline void requestRoutesNetworkProtocol(App& app)
             std::optional<nlohmann::json> ipmi;
             std::optional<nlohmann::json> ssh;
 
-            if (!json_util::readJson(req, asyncResp->res, "NTP", ntp,
-                                     "HostName", newHostName, "IPMI", ipmi,
-                                     "SSH", ssh))
+            if (!json_util::readJsonPatch(req, asyncResp->res, "NTP", ntp,
+                                          "HostName", newHostName, "IPMI", ipmi,
+                                          "SSH", ssh))
             {
                 return;
             }

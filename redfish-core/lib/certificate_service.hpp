@@ -119,8 +119,9 @@ inline std::string getCertificateFromReqBody(
     std::string certificate;
     std::optional<std::string> certificateType = "PEM";
 
-    if (!json_util::readJson(reqJson, asyncResp->res, "CertificateString",
-                             certificate, "CertificateType", certificateType))
+    if (!json_util::readJsonPatch(req, asyncResp->res, "CertificateString",
+                                  certificate, "CertificateType",
+                                  certificateType))
     {
         BMCWEB_LOG_ERROR << "Required parameters are missing";
         messages::internalError(asyncResp->res);
@@ -272,7 +273,7 @@ inline void requestRoutesCertificateActionGenerateCSR(App& app)
                 std::vector<std::string>();
             std::optional<std::string> optSurname = "";
             std::optional<std::string> optUnstructuredName = "";
-            if (!json_util::readJson(
+            if (!json_util::readJsonAction(
                     req, asyncResp->res, "City", city, "CommonName", commonName,
                     "ContactPerson", optContactPerson, "Country", country,
                     "Organization", organization, "OrganizationalUnit",
@@ -683,10 +684,10 @@ inline void requestRoutesCertificateActionsReplaceCertificate(App& app)
             nlohmann::json certificateUri;
             std::optional<std::string> certificateType = "PEM";
 
-            if (!json_util::readJson(req, asyncResp->res, "CertificateString",
-                                     certificate, "CertificateUri",
-                                     certificateUri, "CertificateType",
-                                     certificateType))
+            if (!json_util::readJsonAction(req, asyncResp->res,
+                                           "CertificateString", certificate,
+                                           "CertificateUri", certificateUri,
+                                           "CertificateType", certificateType))
             {
                 BMCWEB_LOG_ERROR << "Required parameters are missing";
                 messages::internalError(asyncResp->res);

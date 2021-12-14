@@ -147,9 +147,9 @@ inline void requestRoutesSession(App& app)
                 std::string password;
                 std::optional<nlohmann::json> oemObject;
                 std::string clientId;
-                if (!json_util::readJson(req, asyncResp->res, "UserName",
-                                         username, "Password", password, "Oem",
-                                         oemObject))
+                if (!json_util::readJsonPatch(req, asyncResp->res, "UserName",
+                                              username, "Password", password,
+                                              "Oem", oemObject))
                 {
                     return;
                 }
@@ -246,8 +246,8 @@ inline void requestRoutesSession(App& app)
             [](const crow::Request& req,
                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) -> void {
                 std::optional<int64_t> sessionTimeout;
-                if (!json_util::readJson(req, asyncResp->res, "SessionTimeout",
-                                         sessionTimeout))
+                if (!json_util::readJsonPatch(req, asyncResp->res,
+                                              "SessionTimeout", sessionTimeout))
                 {
                     return;
                 }

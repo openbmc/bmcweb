@@ -323,9 +323,9 @@ inline void requestRoutesPower(App& app)
                 std::optional<std::vector<nlohmann::json>> voltageCollections;
                 std::optional<std::vector<nlohmann::json>> powerCtlCollections;
 
-                if (!json_util::readJson(req, sensorAsyncResp->asyncResp->res,
-                                         "PowerControl", powerCtlCollections,
-                                         "Voltages", voltageCollections))
+                if (!json_util::readJsonPatch(
+                        req, sensorAsyncResp->asyncResp->res, "PowerControl",
+                        powerCtlCollections, "Voltages", voltageCollections))
                 {
                     return;
                 }
