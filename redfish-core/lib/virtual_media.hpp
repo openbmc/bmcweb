@@ -807,7 +807,7 @@ inline void requestNBDVirtualMediaRoutes(App& app)
 
                 // Read obligatory parameters (url of
                 // image)
-                if (!json_util::readJson(
+                if (!json_util::readJsonAction(
                         req, asyncResp->res, "Image", actionParams.imageUrl,
                         "WriteProtected", actionParams.writeProtected,
                         "UserName", actionParams.userName, "Password",

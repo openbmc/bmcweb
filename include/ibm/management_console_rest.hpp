@@ -371,8 +371,8 @@ inline void
 {
     std::string broadcastMsg;
 
-    if (!redfish::json_util::readJson(req, asyncResp->res, "Message",
-                                      broadcastMsg))
+    if (!redfish::json_util::readJsonPatch(req, asyncResp->res, "Message",
+                                           broadcastMsg))
     {
         BMCWEB_LOG_DEBUG << "Not a Valid JSON";
         asyncResp->res.result(boost::beast::http::status::bad_request);
@@ -423,9 +423,9 @@ inline void
         SegmentFlags segInfo;
         std::vector<nlohmann::json> segmentFlags;
 
-        if (!redfish::json_util::readJson(element, asyncResp->res, "LockType",
-                                          lockType, "ResourceID", resourceId,
-                                          "SegmentFlags", segmentFlags))
+        if (!redfish::json_util::readJsonAction(
+                element, asyncResp->res, "LockType", lockType, "ResourceID",
+                resourceId, "SegmentFlags", segmentFlags))
         {
             BMCWEB_LOG_DEBUG << "Not a Valid JSON";
             asyncResp->res.result(boost::beast::http::status::bad_request);
@@ -441,9 +441,9 @@ inline void
             std::string lockFlags;
             uint32_t segmentLength;
 
-            if (!redfish::json_util::readJson(e, asyncResp->res, "LockFlag",
-                                              lockFlags, "SegmentLength",
-                                              segmentLength))
+            if (!redfish::json_util::readJsonAction(
+                    e, asyncResp->res, "LockFlag", lockFlags, "SegmentLength",
+                    segmentLength))
             {
                 asyncResp->res.result(boost::beast::http::status::bad_request);
                 return;
@@ -753,8 +753,8 @@ inline void requestRoutes(App& app)
             [](const crow::Request& req,
                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
                 std::vector<nlohmann::json> body;
-                if (!redfish::json_util::readJson(req, asyncResp->res,
-                                                  "Request", body))
+                if (!redfish::json_util::readJsonAction(req, asyncResp->res,
+                                                        "Request", body))
                 {
                     BMCWEB_LOG_DEBUG << "Not a Valid JSON";
                     asyncResp->res.result(
@@ -771,9 +771,9 @@ inline void requestRoutes(App& app)
                 std::string type;
                 std::vector<uint32_t> listTransactionIds;
 
-                if (!redfish::json_util::readJson(req, asyncResp->res, "Type",
-                                                  type, "TransactionIDs",
-                                                  listTransactionIds))
+                if (!redfish::json_util::readJsonPatch(
+                        req, asyncResp->res, "Type", type, "TransactionIDs",
+                        listTransactionIds))
                 {
                     asyncResp->res.result(
                         boost::beast::http::status::bad_request);
@@ -802,8 +802,8 @@ inline void requestRoutes(App& app)
                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
                 ListOfSessionIds listSessionIds;
 
-                if (!redfish::json_util::readJson(req, asyncResp->res,
-                                                  "SessionIDs", listSessionIds))
+                if (!redfish::json_util::readJsonPatch(
+                        req, asyncResp->res, "SessionIDs", listSessionIds))
                 {
                     asyncResp->res.result(
                         boost::beast::http::status::bad_request);

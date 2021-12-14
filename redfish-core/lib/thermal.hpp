@@ -71,9 +71,9 @@ inline void requestRoutesThermal(App& app)
                     asyncResp, chassisName, thermalPaths->second,
                     sensors::node::thermal);
 
-                if (!json_util::readJson(req, sensorsAsyncResp->asyncResp->res,
-                                         "Temperatures", temperatureCollections,
-                                         "Fans", fanCollections))
+                if (!json_util::readJsonPatch(
+                        req, sensorsAsyncResp->asyncResp->res, "Temperatures",
+                        temperatureCollections, "Fans", fanCollections))
                 {
                     return;
                 }
