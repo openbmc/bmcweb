@@ -22,6 +22,30 @@
       "revId": "4b9b4c48547ac583a4785580a051f83f0182e995",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "94bee3f7_a5bc4d48",
+        "filename": "redfish-core/include/utils/json_utils.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 409,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2021-12-14T22:08:17Z",
+      "side": 1,
+      "message": "Maybe we don\u0027t need this? and just have whoever that is reading optional property not use `readJson`?\n\nSo they have full control of what it does?",
+      "parentUuid": "58b30a97_61f3f3b6",
+      "range": {
+        "startLine": 400,
+        "startChar": 3,
+        "endLine": 409,
+        "endChar": 9
+      },
+      "revId": "4b9b4c48547ac583a4785580a051f83f0182e995",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
