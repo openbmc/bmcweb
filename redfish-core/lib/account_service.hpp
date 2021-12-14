@@ -1685,7 +1685,7 @@ inline void requestAccountServiceRoutes(App& app)
                 get)([](const crow::Request& req,
                         const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                         const std::string& accountName) -> void {
-            if (req.session->username != accountName)
+            if (req.session && req.session->username != accountName)
             {
                 // At this point we've determined that the user is trying to
                 // modify a user that isn't them.  We need to verify that they
@@ -1868,7 +1868,7 @@ inline void requestAccountServiceRoutes(App& app)
                 else
                 {
                     // ConfigureSelf accounts can only modify their own account
-                    if (username != req.session->username)
+                    if (req.session && username != req.session->username)
                     {
                         messages::insufficientPrivilege(asyncResp->res);
                         return;
