@@ -29,11 +29,15 @@
 #include <sdbusplus/asio/property.hpp>
 #include <utils/fw_utils.hpp>
 #include <utils/json_utils.hpp>
+#include <utils/service_utils.hpp>
 
 #include <variant>
 
 namespace redfish
 {
+
+static constexpr const char* serialConsoleSshServiceName =
+    "obmc_2dconsole_2dssh";
 
 /**
  * @brief Updates the Functional State of DIMMs
@@ -2643,6 +2647,27 @@ inline void setIdlePowerSaver(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
 }
 
 /**
+ * @brief Retrieves Serial console over SSH properties
+ *
+ * @param[in] aResp     Shared pointer for completing asynchronous calls.
+ *
+ * @return None.
+ */
+inline void getSerialConsoleSshStatus(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
+{
+    service_util::getEnabled(
+        asyncResp, serialConsoleSshServiceName,
+        nlohmann::json::json_pointer("/SerialConsole/SSH/ServiceEnabled"));
+    service_util::getPortNumber(
+        asyncResp, serialConsoleSshServiceName,
+        nlohmann::json::json_pointer("/SerialConsole/SSH/Port"));
+    // https://github.com/openbmc/docs/blob/master/console.md
+    asyncResp->res.jsonValue["SerialConsole"]["SSH"]["HotKeySequenceDisplay"] =
+        "Press ~. to exit console";
+}
+
+/**
  * SystemsCollection derived class for delivering ComputerSystems Collection
  * Schema
  */
@@ -2916,13 +2941,6 @@ inline void requestRoutesSystems(App& app)
             asyncResp->res.jsonValue["SerialConsole"]["IPMI"] = {
                 {"ServiceEnabled", true},
             };
-            // TODO (Gunnar): Should look for obmc-console-ssh@2200.service
-            asyncResp->res.jsonValue["SerialConsole"]["SSH"] = {
-                {"ServiceEnabled", true},
-                {"Port", 2200},
-                // https://github.com/openbmc/docs/blob/master/console.md
-                {"HotKeySequenceDisplay", "Press ~. to exit console"},
-            };
 
 #ifdef BMCWEB_ENABLE_KVM
             // Fill in GraphicalConsole info
@@ -2982,7 +3000,9 @@ inline void requestRoutesSystems(App& app)
             getTrustedModuleRequiredToBoot(asyncResp);
             getPowerMode(asyncResp);
             getIdlePowerSaver(asyncResp);
+            getSerialConsoleSshStatus(asyncResp);
         });
+
     BMCWEB_ROUTE(app, "/redfish/v1/Systems/system/")
         .privileges(redfish::privileges::patchComputerSystem)
         .methods(boost::beast::http::verb::patch)(
@@ -3000,13 +3020,14 @@ inline void requestRoutesSystems(App& app)
                 std::optional<std::string> powerRestorePolicy;
                 std::optional<std::string> powerMode;
                 std::optional<nlohmann::json> ipsProps;
+                std::optional<nlohmann::json> serialConsole;
                 if (!json_util::readJsonPatch(
                         req, asyncResp->res, "IndicatorLED", indicatorLed,
                         "LocationIndicatorActive", locationIndicatorActive,
                         "Boot", bootProps, "WatchdogTimer", wdtTimerProps,
                         "PowerRestorePolicy", powerRestorePolicy, "AssetTag",
                         assetTag, "PowerMode", powerMode, "IdlePowerSaver",
-                        ipsProps))
+                        ipsProps, "SerialConsole", serialConsole))
                 {
                     return;
                 }
@@ -3115,6 +3136,42 @@ inline void requestRoutesSystems(App& app)
                     }
                     setIdlePowerSaver(asyncResp, ipsEnable, ipsEnterUtil,
                                       ipsEnterTime, ipsExitUtil, ipsExitTime);
+                }
+
+                if (serialConsole)
+                {
+                    std::optional<nlohmann::json> ssh;
+                    if (!json_util::readJson(*serialConsole, asyncResp->res,
+                                             "SSH", ssh))
+                    {
+                        return;
+                    }
+
+                    if (ssh)
+                    {
+                        std::optional<bool> sshServiceEnabled;
+                        std::optional<uint16_t> sshPortNumber;
+                        if (!json_util::readJson(
+                                *ssh, asyncResp->res, "ServiceEnabled",
+                                sshServiceEnabled, "Port", sshPortNumber))
+                        {
+                            return;
+                        }
+
+                        if (sshServiceEnabled)
+                        {
+                            service_util::setEnabled(
+                                asyncResp, serialConsoleSshServiceName,
+                                *sshServiceEnabled);
+                        }
+
+                        if (sshPortNumber)
+                        {
+                            service_util::setPortNumber(
+                                asyncResp, serialConsoleSshServiceName,
+                                *sshPortNumber);
+                        }
+                    }
                 }
             });
 }
