@@ -37,11 +37,10 @@ using GetSubTreeType = std::vector<
     std::pair<std::string,
               std::vector<std::pair<std::string, std::vector<std::string>>>>>;
 
-using ManagedObjectsVectorType = std::vector<std::pair<
-    sdbusplus::message::object_path,
-    boost::container::flat_map<
-        std::string, boost::container::flat_map<
-                         std::string, dbus::utility::DbusVariantType>>>>;
+using ManagedObjectsVectorType = std::vector<
+    std::pair<sdbusplus::message::object_path,
+              std::map<std::string,
+                       std::map<std::string, dbus::utility::DbusVariantType>>>>;
 
 namespace sensors
 {
@@ -55,28 +54,27 @@ static constexpr std::string_view thermal = "Thermal";
 namespace dbus
 {
 
-static const boost::container::flat_map<std::string_view,
-                                        std::vector<const char*>>
-    paths = {{node::power,
-              {"/xyz/openbmc_project/sensors/voltage",
-               "/xyz/openbmc_project/sensors/power"}},
-             {node::sensors,
-              {"/xyz/openbmc_project/sensors/power",
-               "/xyz/openbmc_project/sensors/current",
-               "/xyz/openbmc_project/sensors/airflow",
+static const std::map<std::string_view, std::vector<const char*>> paths = {
+    {node::power,
+     {"/xyz/openbmc_project/sensors/voltage",
+      "/xyz/openbmc_project/sensors/power"}},
+    {node::sensors,
+     {"/xyz/openbmc_project/sensors/power",
+      "/xyz/openbmc_project/sensors/current",
+      "/xyz/openbmc_project/sensors/airflow",
 #ifdef BMCWEB_NEW_POWERSUBSYSTEM_THERMALSUBSYSTEM
-               "/xyz/openbmc_project/sensors/voltage",
-               "/xyz/openbmc_project/sensors/fan_tach",
-               "/xyz/openbmc_project/sensors/temperature",
-               "/xyz/openbmc_project/sensors/fan_pwm",
-               "/xyz/openbmc_project/sensors/altitude",
-               "/xyz/openbmc_project/sensors/energy",
+      "/xyz/openbmc_project/sensors/voltage",
+      "/xyz/openbmc_project/sensors/fan_tach",
+      "/xyz/openbmc_project/sensors/temperature",
+      "/xyz/openbmc_project/sensors/fan_pwm",
+      "/xyz/openbmc_project/sensors/altitude",
+      "/xyz/openbmc_project/sensors/energy",
 #endif
-               "/xyz/openbmc_project/sensors/utilization"}},
-             {node::thermal,
-              {"/xyz/openbmc_project/sensors/fan_tach",
-               "/xyz/openbmc_project/sensors/temperature",
-               "/xyz/openbmc_project/sensors/fan_pwm"}}};
+      "/xyz/openbmc_project/sensors/utilization"}},
+    {node::thermal,
+     {"/xyz/openbmc_project/sensors/fan_tach",
+      "/xyz/openbmc_project/sensors/temperature",
+      "/xyz/openbmc_project/sensors/fan_pwm"}}};
 } // namespace dbus
 
 inline const char* toReadingType(const std::string& sensorType)
@@ -171,7 +169,7 @@ class SensorsAsyncResp
   public:
     using DataCompleteCb = std::function<void(
         const boost::beast::http::status status,
-        const boost::container::flat_map<std::string, std::string>& uriToDbus)>;
+        const std::map<std::string, std::string>& uriToDbus)>;
 
     struct SensorData
     {
@@ -214,7 +212,7 @@ class SensorsAsyncResp
 
         if (dataComplete && metadata)
         {
-            boost::container::flat_map<std::string, std::string> map;
+            std::map<std::string, std::string> map;
             if (asyncResp->res.result() == boost::beast::http::status::ok)
             {
                 for (auto& sensor : *metadata)
@@ -640,7 +638,7 @@ void getChassis(const std::shared_ptr<SensorsAsyncResp>& sensorsAsyncResp,
  *
  * The callback must have the following signature:
  *   @code
- *   callback(std::shared_ptr<boost::container::flat_map<std::string,
+ *   callback(std::shared_ptr<std::map<std::string,
  *                std::string>> objectMgrPaths)
  *   @endcode
  *
@@ -670,9 +668,8 @@ void getObjectManagerPaths(
         }
 
         // Loop over returned object paths
-        std::shared_ptr<boost::container::flat_map<std::string, std::string>>
-            objectMgrPaths = std::make_shared<
-                boost::container::flat_map<std::string, std::string>>();
+        std::shared_ptr<std::map<std::string, std::string>> objectMgrPaths =
+            std::make_shared<std::map<std::string, std::string>>();
         for (const std::pair<
                  std::string,
                  std::vector<std::pair<std::string, std::vector<std::string>>>>&
@@ -1167,9 +1164,9 @@ inline void populateFanRedundancy(
                         crow::connections::systemBus->async_method_call(
                             [path, sensorsAsyncResp](
                                 const boost::system::error_code& err,
-                                const boost::container::flat_map<
-                                    std::string,
-                                    dbus::utility::DbusVariantType>& ret) {
+                                const std::map<std::string,
+                                               dbus::utility::DbusVariantType>&
+                                    ret) {
                                 if (err)
                                 {
                                     return; // don't have to have this
@@ -1586,8 +1583,7 @@ static void getInventoryItemsData(
     std::shared_ptr<SensorsAsyncResp> sensorsAsyncResp,
     std::shared_ptr<std::vector<InventoryItem>> inventoryItems,
     std::shared_ptr<boost::container::flat_set<std::string>> invConnections,
-    std::shared_ptr<boost::container::flat_map<std::string, std::string>>
-        objectMgrPaths,
+    std::shared_ptr<std::map<std::string, std::string>> objectMgrPaths,
     Callback&& callback, size_t invConnectionsIndex = 0)
 {
     BMCWEB_LOG_DEBUG << "getInventoryItemsData enter";
@@ -1774,8 +1770,7 @@ template <typename Callback>
 static void getInventoryItemAssociations(
     const std::shared_ptr<SensorsAsyncResp>& sensorsAsyncResp,
     const std::shared_ptr<boost::container::flat_set<std::string>>& sensorNames,
-    const std::shared_ptr<boost::container::flat_map<std::string, std::string>>&
-        objectMgrPaths,
+    const std::shared_ptr<std::map<std::string, std::string>>& objectMgrPaths,
     Callback&& callback)
 {
     BMCWEB_LOG_DEBUG << "getInventoryItemAssociations enter";
@@ -1941,8 +1936,7 @@ template <typename Callback>
 void getInventoryLedData(
     std::shared_ptr<SensorsAsyncResp> sensorsAsyncResp,
     std::shared_ptr<std::vector<InventoryItem>> inventoryItems,
-    std::shared_ptr<boost::container::flat_map<std::string, std::string>>
-        ledConnections,
+    std::shared_ptr<std::map<std::string, std::string>> ledConnections,
     Callback&& callback, size_t ledConnectionsIndex = 0)
 {
     BMCWEB_LOG_DEBUG << "getInventoryLedData enter";
@@ -1954,7 +1948,6 @@ void getInventoryLedData(
         BMCWEB_LOG_DEBUG << "getInventoryLedData exit";
         return;
     }
-
     // Get inventory item data from current connection
     auto it = ledConnections->nth(ledConnectionsIndex);
     if (it != ledConnections->end())
@@ -2067,9 +2060,8 @@ void getInventoryLeds(
         }
 
         // Build map of LED object paths to connections
-        std::shared_ptr<boost::container::flat_map<std::string, std::string>>
-            ledConnections = std::make_shared<
-                boost::container::flat_map<std::string, std::string>>();
+        std::shared_ptr<std::map<std::string, std::string>> ledConnections =
+            std::make_shared<std::map<std::string, std::string>>();
 
         // Loop through objects from GetSubTree
         for (const std::pair<
@@ -2130,13 +2122,12 @@ template <typename Callback>
 void getPowerSupplyAttributesData(
     const std::shared_ptr<SensorsAsyncResp>& sensorsAsyncResp,
     std::shared_ptr<std::vector<InventoryItem>> inventoryItems,
-    const boost::container::flat_map<std::string, std::string>&
-        psAttributesConnections,
+    const std::map<std::string, std::string>& psAttributesConnections,
     Callback&& callback)
 {
     BMCWEB_LOG_DEBUG << "getPowerSupplyAttributesData enter";
-
-    if (psAttributesConnections.empty())
+    auto it = psAttributesConnections.begin();
+    if (it == psAttributesConnections.end())
     {
         BMCWEB_LOG_DEBUG << "Can't find PowerSupplyAttributes, no connections!";
         callback(inventoryItems);
@@ -2144,8 +2135,6 @@ void getPowerSupplyAttributesData(
     }
 
     // Assuming just one connection (service) for now
-    auto it = psAttributesConnections.nth(0);
-
     const std::string& psAttributesPath = (*it).first;
     const std::string& psAttributesConnection = (*it).second;
 
@@ -2253,8 +2242,7 @@ void getPowerSupplyAttributes(
         // Currently we only support 1 power supply attribute, use this for
         // all the power supplies. Build map of object path to connection.
         // Assume just 1 connection and 1 path for now.
-        boost::container::flat_map<std::string, std::string>
-            psAttributesConnections;
+        std::map<std::string, std::string> psAttributesConnections;
 
         if (subtree[0].first.empty() || subtree[0].second.empty())
         {
@@ -2318,8 +2306,7 @@ template <typename Callback>
 static void getInventoryItems(
     std::shared_ptr<SensorsAsyncResp> sensorsAsyncResp,
     const std::shared_ptr<boost::container::flat_set<std::string>> sensorNames,
-    std::shared_ptr<boost::container::flat_map<std::string, std::string>>
-        objectMgrPaths,
+    std::shared_ptr<std::map<std::string, std::string>> objectMgrPaths,
     Callback&& callback)
 {
     BMCWEB_LOG_DEBUG << "getInventoryItems enter";
@@ -2465,8 +2452,7 @@ inline void getSensorData(
     const std::shared_ptr<SensorsAsyncResp>& sensorsAsyncResp,
     const std::shared_ptr<boost::container::flat_set<std::string>>& sensorNames,
     const boost::container::flat_set<std::string>& connections,
-    const std::shared_ptr<boost::container::flat_map<std::string, std::string>>&
-        objectMgrPaths,
+    const std::shared_ptr<std::map<std::string, std::string>>& objectMgrPaths,
     const std::shared_ptr<std::vector<InventoryItem>>& inventoryItems)
 {
     BMCWEB_LOG_DEBUG << "getSensorData enter";
@@ -2654,9 +2640,9 @@ inline void processSensorList(
             const boost::container::flat_set<std::string>& connections) {
             BMCWEB_LOG_DEBUG << "getConnectionCb enter";
             auto getObjectManagerPathsCb =
-                [sensorsAsyncResp, sensorNames,
-                 connections](const std::shared_ptr<boost::container::flat_map<
-                                  std::string, std::string>>& objectMgrPaths) {
+                [sensorsAsyncResp, sensorNames, connections](
+                    const std::shared_ptr<std::map<std::string, std::string>>&
+                        objectMgrPaths) {
                     BMCWEB_LOG_DEBUG << "getObjectManagerPathsCb enter";
                     auto getInventoryItemsCb =
                         [sensorsAsyncResp, sensorNames, connections,
@@ -2912,11 +2898,11 @@ inline void retrieveUriToDbusMap(const std::string& chassis,
 
     auto res = std::make_shared<crow::Response>();
     auto asyncResp = std::make_shared<bmcweb::AsyncResp>(*res);
-    auto callback =
-        [res, asyncResp, mapCompleteCb{std::move(mapComplete)}](
-            const boost::beast::http::status status,
-            const boost::container::flat_map<std::string, std::string>&
-                uriToDbus) { mapCompleteCb(status, uriToDbus); };
+    auto callback = [res, asyncResp, mapCompleteCb{std::move(mapComplete)}](
+                        const boost::beast::http::status status,
+                        const std::map<std::string, std::string>& uriToDbus) {
+        mapCompleteCb(status, uriToDbus);
+    };
 
     auto resp = std::make_shared<SensorsAsyncResp>(
         asyncResp, chassis, pathIt->second, node, std::move(callback));

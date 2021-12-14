@@ -1,7 +1,6 @@
 #pragma once
 #include <app.hpp>
 #include <async_resp.hpp>
-#include <boost/container/flat_map.hpp>
 #include <boost/container/flat_set.hpp>
 #include <dbus_singleton.hpp>
 #include <openbmc_dbus_rest.hpp>
@@ -9,6 +8,7 @@
 #include <sdbusplus/message/types.hpp>
 #include <websocket.hpp>
 
+#include <unordered_map>
 #include <variant>
 
 namespace crow
@@ -24,8 +24,7 @@ struct DbusWebsocketSession
         interfaces;
 };
 
-static boost::container::flat_map<crow::websocket::Connection*,
-                                  DbusWebsocketSession>
+static std::unordered_map<crow::websocket::Connection*, DbusWebsocketSession>
     sessions;
 
 inline int onPropertyUpdate(sd_bus_message* m, void* userdata,
