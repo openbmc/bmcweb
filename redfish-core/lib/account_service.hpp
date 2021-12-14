@@ -1708,11 +1708,24 @@ inline void requestAccountServiceRoutes(App& app)
         .privileges(redfish::privileges::getManagerAccount)
         .methods(
             boost::beast::http::verb::
-                get)([&app](const crow::Request& req,
+                get)([&app]([[maybe_unused]] const crow::Request& req,
                             const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                             const std::string& accountName) -> void {
             if (!redfish::setUpRedfishRoute(app, req, asyncResp->res))
             {
+                return;
+            }
+#ifdef BMCWEB_INSECURE_DISABLE_AUTHENTICATION
+            // If authentication is disabled, there are no user accounts
+            messages::resourceNotFound(asyncResp->res,
+                                       "#ManagerAccount.v1_4_0.ManagerAccount",
+                                       accountName);
+            return;
+
+#endif // BMCWEB_INSECURE_DISABLE_AUTHENTICATION
+            if (req.session == nullptr)
+            {
+                messages::internalError(asyncResp->res);
                 return;
             }
             if (req.session->username != accountName)
@@ -1877,11 +1890,25 @@ inline void requestAccountServiceRoutes(App& app)
                 {
                     return;
                 }
+#ifdef BMCWEB_INSECURE_DISABLE_AUTHENTICATION
+                // If authentication is disabled, there are no user accounts
+                messages::resourceNotFound(
+                    asyncResp->res, "#ManagerAccount.v1_4_0.ManagerAccount",
+                    username);
+                return;
+
+#endif // BMCWEB_INSECURE_DISABLE_AUTHENTICATION
                 std::optional<std::string> newUserName;
                 std::optional<std::string> password;
                 std::optional<bool> enabled;
                 std::optional<std::string> roleId;
                 std::optional<bool> locked;
+
+                if (req.session == nullptr)
+                {
+                    messages::internalError(asyncResp->res);
+                    return;
+                }
 
                 Privileges effectiveUserPrivileges =
                     redfish::getUserPrivileges(req.userRole);
@@ -1907,6 +1934,7 @@ inline void requestAccountServiceRoutes(App& app)
                         messages::insufficientPrivilege(asyncResp->res);
                         return;
                     }
+
                     // ConfigureSelf accounts can only modify their password
                     if (!json_util::readJsonPatch(req, asyncResp->res,
                                                   "Password", password))
@@ -1958,6 +1986,15 @@ inline void requestAccountServiceRoutes(App& app)
                 {
                     return;
                 }
+
+#ifdef BMCWEB_INSECURE_DISABLE_AUTHENTICATION
+                // If authentication is disabled, there are no user accounts
+                messages::resourceNotFound(
+                    asyncResp->res, "#ManagerAccount.v1_4_0.ManagerAccount",
+                    username);
+                return;
+
+#endif // BMCWEB_INSECURE_DISABLE_AUTHENTICATION
                 sdbusplus::message::object_path tempObjPath(rootUserDbusPath);
                 tempObjPath /= username;
                 const std::string userPath(tempObjPath);
