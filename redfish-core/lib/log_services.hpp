@@ -795,7 +795,7 @@ inline void createDump(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     std::optional<std::string> diagnosticDataType;
     std::optional<std::string> oemDiagnosticDataType;
 
-    if (!redfish::json_util::readJson(
+    if (!redfish::json_util::readJsonAction(
             req, asyncResp->res, "DiagnosticDataType", diagnosticDataType,
             "OEMDiagnosticDataType", oemDiagnosticDataType))
     {
@@ -1652,8 +1652,8 @@ inline void requestRoutesDBusEventLogEntry(App& app)
                const std::string& entryId) {
                 std::optional<bool> resolved;
 
-                if (!json_util::readJson(req, asyncResp->res, "Resolved",
-                                         resolved))
+                if (!json_util::readJsonPatch(req, asyncResp->res, "Resolved",
+                                              resolved))
                 {
                     return;
                 }
@@ -2880,7 +2880,7 @@ inline void requestRoutesCrashdumpCollect(App& app)
                          const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
             std::string diagnosticDataType;
             std::string oemDiagnosticDataType;
-            if (!redfish::json_util::readJson(
+            if (!redfish::json_util::readJsonAction(
                     req, asyncResp->res, "DiagnosticDataType",
                     diagnosticDataType, "OEMDiagnosticDataType",
                     oemDiagnosticDataType))
