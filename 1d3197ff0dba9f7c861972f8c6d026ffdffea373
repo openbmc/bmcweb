@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "98e71b19_a782ff35",
+        "filename": ".gitignore",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-12-14T16:09:00Z",
+      "side": 1,
+      "message": "Did you want to change this to: \nhttps://www.toptal.com/developers/gitignore/api/osx,linux,meson,windows,pycharm,eclipse,intellij,visualstudio,visualstudiocode,clion\n?",
+      "revId": "1d3197ff0dba9f7c861972f8c6d026ffdffea373",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f915f72d_8110d43c",
+        "filename": ".gitignore",
+        "patchSetId": 1
+      },
+      "lineNbr": 708,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-12-14T16:09:00Z",
+      "side": 1,
+      "message": "When I added https://www.toptal.com/developers/gitignore/api/osx,linux,meson,windows,pycharm,eclipse,intellij,visualstudio,visualstudiocode,clion\n\nI got: \n\n# JetBrains Rider\n.idea/\n*.sln.iml",
+      "revId": "1d3197ff0dba9f7c861972f8c6d026ffdffea373",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
