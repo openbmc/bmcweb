@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "eb2b57eb_b9215e4b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-12-14T22:12:54Z",
+      "side": 1,
+      "message": "Validator passes?\nHow did the validator not catch this in https://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/49188 ?",
+      "revId": "4029292b4db3449eb32067ae9d99503165577e43",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
