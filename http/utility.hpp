@@ -584,7 +584,7 @@ inline std::string getDateTime(boost::posix_time::seconds secondsSinceEpoch)
     boost::posix_time::ptime epoch(boost::gregorian::date(1970, 1, 1));
     boost::posix_time::ptime time = epoch + secondsSinceEpoch;
     // append zero offset to the end according to the Redfish spec for Date-Time
-    return boost::posix_time::to_iso_extended_string(time) + 'Z';
+    return boost::posix_time::to_iso_extended_string(time) + "+00:00";
 }
 
 inline std::string getDateTimeUint(uint64_t secondsSinceEpoch)
