@@ -836,7 +836,7 @@ inline void createDump(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
         if (*diagnosticDataType != "Manager")
         {
             BMCWEB_LOG_ERROR
-                << "Wrong parameter value passed for 'DiagnosticDataType'";
+                << "Wrong parameter value passed for 'DiagnosticDataType!'";
             messages::invalidObject(asyncResp->res,
                                     "BMC Dump creation parameters");
             return;
