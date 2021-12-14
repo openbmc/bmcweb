@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0b485294_b59b1c10",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 40
+      },
+      "lineNbr": 641,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2021-12-14T22:37:32Z",
+      "side": 1,
+      "message": "this is not ready yet. Need to fix the other changes first. This is for multiple Stroage.",
+      "range": {
+        "startLine": 640,
+        "startChar": 3,
+        "endLine": 641,
+        "endChar": 41
+      },
+      "revId": "0f5c7840187c07f9598e42ba05bab894a197f898",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
