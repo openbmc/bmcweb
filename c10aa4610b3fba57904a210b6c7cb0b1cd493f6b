@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "0497f26f_ff0f651c",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 34
+      },
+      "lineNbr": 553,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2021-12-14T22:36:59Z",
+      "side": 1,
+      "message": "So we need like a property in https://github.com/openbmc/phosphor-dbus-interfaces/blob/master/yaml/xyz/openbmc_project/Inventory/Item/Drive.interface.yaml to indicate that it is resetable?",
+      "parentUuid": "4610133e_3367a2f9",
+      "range": {
+        "startLine": 547,
+        "startChar": 0,
+        "endLine": 553,
+        "endChar": 74
+      },
+      "revId": "c10aa4610b3fba57904a210b6c7cb0b1cd493f6b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "941c7e71_9d93922a",
         "filename": "redfish-core/lib/storage.hpp",
         "patchSetId": 34
@@ -36,6 +60,30 @@
       "writtenOn": "2021-09-22T18:05:15Z",
       "side": 1,
       "message": "This isn\u0027t the interface name you searched for on line 638.  There is no guarantee that a drive supports the transition interface, especially when you didn\u0027t search for it explicitly in the mapper.  In theory, it could also be hosted by another object.",
+      "range": {
+        "startLine": 613,
+        "startChar": 0,
+        "endLine": 614,
+        "endChar": 71
+      },
+      "revId": "c10aa4610b3fba57904a210b6c7cb0b1cd493f6b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1a8b4aec_f4287055",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 34
+      },
+      "lineNbr": 614,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2021-12-14T22:36:59Z",
+      "side": 1,
+      "message": "https://github.com/openbmc/phosphor-dbus-interfaces/blob/master/yaml/xyz/openbmc_project/State/Drive.interface.yaml\n\nThe Transition is the `State.Drive` and the `State.Drive.Transition` is one of the property for RequestedDriveTransition.\n\nThe actions supported is checked in `requestDriveResetAction`.",
+      "parentUuid": "941c7e71_9d93922a",
       "range": {
         "startLine": 613,
         "startChar": 0,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "a185ec1e_6a280427",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 34
+      },
+      "lineNbr": 657,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2021-12-14T22:36:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0892d6bc_60b30a38",
+      "range": {
+        "startLine": 657,
+        "startChar": 32,
+        "endLine": 657,
+        "endChar": 35
+      },
+      "revId": "c10aa4610b3fba57904a210b6c7cb0b1cd493f6b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d6448ad0_6b8b874f",
         "filename": "redfish-core/lib/storage.hpp",
         "patchSetId": 34
@@ -94,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "004eac0d_049fdc94",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 34
+      },
+      "lineNbr": 693,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2021-12-14T22:36:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d6448ad0_6b8b874f",
+      "range": {
+        "startLine": 693,
+        "startChar": 0,
+        "endLine": 693,
+        "endChar": 72
+      },
+      "revId": "c10aa4610b3fba57904a210b6c7cb0b1cd493f6b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "89cd74d4_3dd940ac",
         "filename": "redfish-core/lib/storage.hpp",
         "patchSetId": 34
@@ -105,6 +201,30 @@
       "writtenOn": "2021-09-22T18:05:15Z",
       "side": 1,
       "message": "Drives that don\u0027t support reset aren\u0027t an internal error. most drives won\u0027t be directly resettable.\n\nAlso, if no drives exist in the system this will give 500 instead of 404.  Please test that and improve this error handling.",
+      "range": {
+        "startLine": 738,
+        "startChar": 0,
+        "endLine": 738,
+        "endChar": 68
+      },
+      "revId": "c10aa4610b3fba57904a210b6c7cb0b1cd493f6b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1976cf37_59128a5d",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 34
+      },
+      "lineNbr": 738,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2021-12-14T22:36:59Z",
+      "side": 1,
+      "message": "My thinking is that only drive that exist will get expose this URI. Maybe that is not correct. Let me take a closer look.",
+      "parentUuid": "89cd74d4_3dd940ac",
       "range": {
         "startLine": 738,
         "startChar": 0,
