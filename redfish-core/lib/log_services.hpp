@@ -542,6 +542,10 @@ inline void
     {
         dumpPath = "/redfish/v1/Managers/bmc/LogServices/Dump/Entries/";
     }
+    else if (dumpType == "FaultLog")
+    {
+        dumpPath = "/redfish/v1/Managers/faultlog/LogServices/Dump/Entries/";
+    }
     else if (dumpType == "System")
     {
         dumpPath = "/redfish/v1/Systems/system/LogServices/Dump/Entries/";
@@ -670,6 +674,15 @@ inline void
                         "/redfish/v1/Managers/bmc/LogServices/Dump/Entries/" +
                         entryID + "/attachment";
                 }
+                else if (dumpType == "FaultLog")
+                {
+                    asyncResp->res.jsonValue["DiagnosticDataType"] = "OEM"; //?
+                    asyncResp->res.jsonValue["OEMDiagnosticDataType"] =
+                        "FaultLog"; //?
+                    asyncResp->res.jsonValue["AdditionalDataURI"] =
+                        "/redfish/v1/Systems/system/LogServices/Dump/Entries/" +
+                        entryID + "/attachment";
+                }
                 else if (dumpType == "System")
                 {
                     asyncResp->res.jsonValue["DiagnosticDataType"] = "OEM";
@@ -706,7 +719,7 @@ inline void deleteDumpEntry(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                 return;
             }
             BMCWEB_LOG_ERROR << "Dump (DBus) doDelete respHandler got error "
-                             << ec;
+                             << ec << " entryID=" << entryID;
             messages::internalError(asyncResp->res);
             return;
         }
@@ -781,6 +794,10 @@ inline void createDump(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     {
         dumpPath = "/redfish/v1/Managers/bmc/LogServices/Dump/Entries/";
     }
+    else if (dumpType == "FaultLog")
+    {
+        dumpPath = "/redfish/v1/Managers/faultlog/LogServices/Dump/Entries/";
+    }
     else if (dumpType == "System")
     {
         dumpPath = "/redfish/v1/Systems/system/LogServices/Dump/Entries/";
@@ -823,7 +840,7 @@ inline void createDump(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
             return;
         }
     }
-    else if (dumpType == "BMC")
+    else if (dumpType == "BMC" || dumpType == "FaultLog")
     {
         if (!diagnosticDataType)
         {
@@ -836,32 +853,112 @@ inline void createDump(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
         if (*diagnosticDataType != "Manager")
         {
             BMCWEB_LOG_ERROR
-                << "Wrong parameter value passed for 'DiagnosticDataType'";
+                << "Wrong parameter value passed for 'DiagnosticDataType!'";
             messages::invalidObject(asyncResp->res,
                                     "BMC Dump creation parameters");
             return;
         }
-    }
 
-    crow::connections::systemBus->async_method_call(
-        [asyncResp, payload(task::Payload(req)), dumpPath,
-         dumpType](const boost::system::error_code ec,
-                   const uint32_t& dumpId) mutable {
-            if (ec)
+        BMCWEB_LOG_DEBUG << "log_services.hpp createDump: " << "/xyz/openbmc_project/dump/" +
+            std::string(boost::algorithm::to_lower_copy(dumpType));
+
+        if (dumpType == "BMC")
+        {
+
+            //using DumpCreateParams = std::map<std::string, std::variant<std::string, uint64_t>>;
+            std::map<std::string, std::variant<std::string, uint64_t>> myEmptyMap;
+
+            if (myEmptyMap.empty())
             {
-                BMCWEB_LOG_ERROR << "CreateDump resp_handler got error " << ec;
-                messages::internalError(asyncResp->res);
-                return;
+                BMCWEB_LOG_DEBUG << "myEmptyMap is empty";
             }
-            BMCWEB_LOG_DEBUG << "Dump Created. Id: " << dumpId;
+            else
+            {
+                BMCWEB_LOG_DEBUG << "myEmptyMap isn't empty";
+            }
 
-            createDumpTaskCallback(std::move(payload), asyncResp, dumpId,
-                                   dumpPath, dumpType);
-        },
-        "xyz.openbmc_project.Dump.Manager",
-        "/xyz/openbmc_project/dump/" +
-            std::string(boost::algorithm::to_lower_copy(dumpType)),
-        "xyz.openbmc_project.Dump.Create", "CreateDump");
+            crow::connections::systemBus->async_method_call(
+                [asyncResp, payload(task::Payload(req))/*, dumpPath, dumpType*/](const boost::system::error_code ec,
+                                                    /*const uint32_t& dumpId*/ sdbusplus::message::object_path objPath) mutable {
+                    if (ec)
+                    {
+                        BMCWEB_LOG_ERROR << "CreateDump resp_handler got error " << ec;
+                        messages::internalError(asyncResp->res);
+                        return;
+                    }
+
+                    BMCWEB_LOG_DEBUG << "CreateDump end " << objPath.str;
+
+                    messages::success(asyncResp->res);
+
+                    /*BMCWEB_LOG_DEBUG << "Dump Created. Id: " << dumpId;
+
+                    createDumpTaskCallback(std::move(payload), asyncResp, dumpId, dumpPath, dumpType);*/
+                },
+                "xyz.openbmc_project.Dump.Manager",
+                "/xyz/openbmc_project/dump/" +
+                    std::string(boost::algorithm::to_lower_copy(dumpType)),
+                "xyz.openbmc_project.Dump.Create", "CreateDump", myEmptyMap);
+        }
+        else if (dumpType == "FaultLog")
+        {
+            //using DumpCreateParams = std::map<std::string, std::variant<std::string, uint64_t>>;
+            std::map<std::string, std::variant<std::string, uint64_t>> myEmptyMap;
+
+            if (myEmptyMap.empty())
+            {
+                BMCWEB_LOG_DEBUG << "myEmptyMap is empty";
+            }
+            else
+            {
+                BMCWEB_LOG_DEBUG << "myEmptyMap isn't empty";
+            }
+
+            crow::connections::systemBus->async_method_call(
+                [asyncResp, payload(task::Payload(req))/*, dumpPath, dumpType*/](const boost::system::error_code ec,
+                                                    /*const uint32_t& dumpId*/ sdbusplus::message::object_path objPath) {
+                    if (ec)
+                    {
+                        BMCWEB_LOG_ERROR << "CreateDump resp_handler got error " << ec;
+                        messages::internalError(asyncResp->res);
+                        return;
+                    }
+
+                    BMCWEB_LOG_DEBUG << "CreateDump end " << objPath.str;
+
+                    messages::success(asyncResp->res);
+
+                    /*BMCWEB_LOG_DEBUG << "Dump Created. Id: " << dumpId;
+
+                    createDumpTaskCallback(std::move(payload), asyncResp, dumpId, dumpPath, dumpType);*/
+                },
+                "xyz.openbmc_project.Dump.Manager",
+                "/xyz/openbmc_project/dump/" +
+                    std::string(boost::algorithm::to_lower_copy(dumpType)),
+                "xyz.openbmc_project.Dump.Create", "CreateDump", myEmptyMap);
+            /*
+            uint32_t arg1 = 1;
+            uint64_t arg2 = 2;
+
+            crow::connections::systemBus->async_method_call(
+                [asyncResp](const boost::system::error_code ec) {
+                    if (ec)
+                    {
+                        BMCWEB_LOG_ERROR << "Notify resp_handler got error " << ec;
+                        messages::internalError(asyncResp->res);
+                        return;
+                    }
+                    BMCWEB_LOG_DEBUG << "Notify success";
+                    messages::success(asyncResp->res);
+                },
+                "xyz.openbmc_project.Dump.Manager",
+                "/xyz/openbmc_project/dump/" +
+                    std::string(boost::algorithm::to_lower_copy(dumpType)),
+                "xyz.openbmc_project.Dump.NewDump", "Notify", arg1, arg2);
+            */
+
+        }
+    }
 }
 
 inline void clearDump(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
@@ -883,6 +980,7 @@ inline void clearDump(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
             for (const std::string& path : subTreePaths)
             {
                 sdbusplus::message::object_path objPath(path);
+                
                 std::string logID = objPath.filename();
                 if (logID.empty())
                 {
