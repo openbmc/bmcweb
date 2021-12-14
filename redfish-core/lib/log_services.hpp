@@ -542,6 +542,10 @@ inline void
     {
         dumpPath = "/redfish/v1/Managers/bmc/LogServices/Dump/Entries/";
     }
+    else if (dumpType == "FaultLog")
+    {
+        dumpPath = "/redfish/v1/Managers/faultlog/LogServices/Dump/Entries/";
+    }
     else if (dumpType == "System")
     {
         dumpPath = "/redfish/v1/Systems/system/LogServices/Dump/Entries/";
@@ -670,6 +674,15 @@ inline void
                         "/redfish/v1/Managers/bmc/LogServices/Dump/Entries/" +
                         entryID + "/attachment";
                 }
+                else if (dumpType == "FaultLog")
+                {
+                    asyncResp->res.jsonValue["DiagnosticDataType"] = "OEM"; //?
+                    asyncResp->res.jsonValue["OEMDiagnosticDataType"] =
+                        "FaultLog"; //?
+                    asyncResp->res.jsonValue["AdditionalDataURI"] =
+                        "/redfish/v1/Systems/system/LogServices/Dump/Entries/" +
+                        entryID + "/attachment";
+                }
                 else if (dumpType == "System")
                 {
                     asyncResp->res.jsonValue["DiagnosticDataType"] = "OEM";
@@ -706,7 +719,7 @@ inline void deleteDumpEntry(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                 return;
             }
             BMCWEB_LOG_ERROR << "Dump (DBus) doDelete respHandler got error "
-                             << ec;
+                             << ec << " entryID=" << entryID;
             messages::internalError(asyncResp->res);
             return;
         }
@@ -781,6 +794,10 @@ inline void createDump(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     {
         dumpPath = "/redfish/v1/Managers/bmc/LogServices/Dump/Entries/";
     }
+    else if (dumpType == "FaultLog")
+    {
+        dumpPath = "/redfish/v1/Managers/faultlog/LogServices/Dump/Entries/";
+    }
     else if (dumpType == "System")
     {
         dumpPath = "/redfish/v1/Systems/system/LogServices/Dump/Entries/";
@@ -823,7 +840,7 @@ inline void createDump(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
             return;
         }
     }
-    else if (dumpType == "BMC")
+    else if (dumpType == "BMC" || dumpType == "FaultLog")
     {
         if (!diagnosticDataType)
         {
@@ -836,7 +853,7 @@ inline void createDump(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
         if (*diagnosticDataType != "Manager")
         {
             BMCWEB_LOG_ERROR
-                << "Wrong parameter value passed for 'DiagnosticDataType'";
+                << "Wrong parameter value passed for 'DiagnosticDataType!'";
             messages::invalidObject(asyncResp->res,
                                     "BMC Dump creation parameters");
             return;
