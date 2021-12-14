@@ -1404,9 +1404,9 @@ inline void handleIPv4StaticPatch(
             std::optional<std::string> subnetMask;
             std::optional<std::string> gateway;
 
-            if (!json_util::readJson(thisJson, asyncResp->res, "Address",
-                                     address, "SubnetMask", subnetMask,
-                                     "Gateway", gateway))
+            if (!json_util::readJsonPatch(thisJson, asyncResp->res, "Address",
+                                          address, "SubnetMask", subnetMask,
+                                          "Gateway", gateway))
             {
                 messages::propertyValueFormatError(
                     asyncResp->res,
@@ -1599,8 +1599,9 @@ inline void handleIPv6StaticAddressesPatch(
             std::optional<std::string> address;
             std::optional<uint8_t> prefixLength;
             nlohmann::json thisJsonCopy = thisJson;
-            if (!json_util::readJson(thisJsonCopy, asyncResp->res, "Address",
-                                     address, "PrefixLength", prefixLength))
+            if (!json_util::readJsonPatch(thisJsonCopy, asyncResp->res,
+                                          "Address", address, "PrefixLength",
+                                          prefixLength))
             {
                 messages::propertyValueFormatError(
                     asyncResp->res,
@@ -1968,7 +1969,7 @@ inline void requestEthernetInterfacesRoutes(App& app)
                 DHCPParameters v4dhcpParms;
                 DHCPParameters v6dhcpParms;
 
-                if (!json_util::readJson(
+                if (!json_util::readJsonPatch(
                         req, asyncResp->res, "HostName", hostname, "FQDN", fqdn,
                         "IPv4StaticAddresses", ipv4StaticAddresses,
                         "MACAddress", macAddress, "StaticNameServers",
@@ -1982,7 +1983,7 @@ inline void requestEthernetInterfacesRoutes(App& app)
                 }
                 if (dhcpv4)
                 {
-                    if (!json_util::readJson(
+                    if (!json_util::readJsonPatch(
                             *dhcpv4, asyncResp->res, "DHCPEnabled",
                             v4dhcpParms.dhcpv4Enabled, "UseDNSServers",
                             v4dhcpParms.useDNSServers, "UseNTPServers",
@@ -1995,7 +1996,7 @@ inline void requestEthernetInterfacesRoutes(App& app)
 
                 if (dhcpv6)
                 {
-                    if (!json_util::readJson(
+                    if (!json_util::readJsonPatch(
                             *dhcpv6, asyncResp->res, "OperatingMode",
                             v6dhcpParms.dhcpv6OperatingMode, "UseDNSServers",
                             v6dhcpParms.useDNSServers, "UseNTPServers",
@@ -2166,8 +2167,8 @@ inline void requestEthernetInterfacesRoutes(App& app)
                 bool vlanEnable = false;
                 uint32_t vlanId = 0;
 
-                if (!json_util::readJson(req, asyncResp->res, "VLANEnable",
-                                         vlanEnable, "VLANId", vlanId))
+                if (!json_util::readJsonPatch(req, asyncResp->res, "VLANEnable",
+                                              vlanEnable, "VLANId", vlanId))
                 {
                     return;
                 }
@@ -2353,8 +2354,8 @@ inline void requestEthernetInterfacesRoutes(App& app)
                const std::string& rootInterfaceName) {
                 bool vlanEnable = false;
                 uint32_t vlanId = 0;
-                if (!json_util::readJson(req, asyncResp->res, "VLANId", vlanId,
-                                         "VLANEnable", vlanEnable))
+                if (!json_util::readJsonPatch(req, asyncResp->res, "VLANId",
+                                              vlanId, "VLANEnable", vlanEnable))
                 {
                     return;
                 }

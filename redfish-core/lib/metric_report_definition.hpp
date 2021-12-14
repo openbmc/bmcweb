@@ -142,10 +142,10 @@ inline bool getUserParameters(crow::Response& res, const crow::Request& req,
     std::vector<nlohmann::json> metrics;
     std::vector<std::string> reportActions;
     std::optional<nlohmann::json> schedule;
-    if (!json_util::readJson(req, res, "Id", args.name, "Metrics", metrics,
-                             "MetricReportDefinitionType", args.reportingType,
-                             "ReportActions", reportActions, "Schedule",
-                             schedule))
+    if (!json_util::readJsonPatch(req, res, "Id", args.name, "Metrics", metrics,
+                                  "MetricReportDefinitionType",
+                                  args.reportingType, "ReportActions",
+                                  reportActions, "Schedule", schedule))
     {
         return false;
     }
@@ -183,8 +183,8 @@ inline bool getUserParameters(crow::Response& res, const crow::Request& req,
         }
 
         std::string durationStr;
-        if (!json_util::readJson(*schedule, res, "RecurrenceInterval",
-                                 durationStr))
+        if (!json_util::readJsonPatch(*schedule, res, "RecurrenceInterval",
+                                      durationStr))
         {
             return false;
         }
@@ -205,8 +205,8 @@ inline bool getUserParameters(crow::Response& res, const crow::Request& req,
     {
         std::string id;
         std::vector<std::string> uris;
-        if (!json_util::readJson(m, res, "MetricId", id, "MetricProperties",
-                                 uris))
+        if (!json_util::readJsonPatch(m, res, "MetricId", id,
+                                      "MetricProperties", uris))
         {
             return false;
         }
