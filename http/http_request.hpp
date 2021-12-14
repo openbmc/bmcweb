@@ -26,7 +26,7 @@ struct Request
 
     bool isSecure{false};
 
-    const std::string& body;
+    std::string& body;
 
     boost::asio::io_context* ioService{};
     boost::asio::ip::address ipAddress{};

@@ -1964,7 +1964,7 @@ inline void requestEthernetInterfacesRoutes(App& app)
                 DHCPParameters v4dhcpParms;
                 DHCPParameters v6dhcpParms;
 
-                if (!json_util::readJson(
+                if (!json_util::readJsonPatch(
                         req, asyncResp->res, "HostName", hostname, "FQDN", fqdn,
                         "IPv4StaticAddresses", ipv4StaticAddresses,
                         "MACAddress", macAddress, "StaticNameServers",
@@ -2163,8 +2163,8 @@ inline void requestEthernetInterfacesRoutes(App& app)
                 bool vlanEnable = false;
                 uint32_t vlanId = 0;
 
-                if (!json_util::readJson(req, asyncResp->res, "VLANEnable",
-                                         vlanEnable, "VLANId", vlanId))
+                if (!json_util::readJsonPatch(req, asyncResp->res, "VLANEnable",
+                                              vlanEnable, "VLANId", vlanId))
                 {
                     return;
                 }
@@ -2350,8 +2350,8 @@ inline void requestEthernetInterfacesRoutes(App& app)
                const std::string& rootInterfaceName) {
                 bool vlanEnable = false;
                 uint32_t vlanId = 0;
-                if (!json_util::readJson(req, asyncResp->res, "VLANId", vlanId,
-                                         "VLANEnable", vlanEnable))
+                if (!json_util::readJsonPatch(req, asyncResp->res, "VLANId",
+                                              vlanId, "VLANEnable", vlanEnable))
                 {
                     return;
                 }

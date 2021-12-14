@@ -421,8 +421,9 @@ inline void requestRoutesUpdateServiceActionsSimpleUpdate(App& app)
             // 1) TransferProtocol:TFTP ImageURI:1.1.1.1/myfile.bin
             // 2) ImageURI:tftp://1.1.1.1/myfile.bin
 
-            if (!json_util::readJson(req, asyncResp->res, "TransferProtocol",
-                                     transferProtocol, "ImageURI", imageURI))
+            if (!json_util::readJsonAction(req, asyncResp->res,
+                                           "TransferProtocol", transferProtocol,
+                                           "ImageURI", imageURI))
             {
                 BMCWEB_LOG_DEBUG
                     << "Missing TransferProtocol or ImageURI parameter";
@@ -599,8 +600,8 @@ inline void requestRoutesUpdateService(App& app)
             BMCWEB_LOG_DEBUG << "doPatch...";
 
             std::optional<nlohmann::json> pushUriOptions;
-            if (!json_util::readJson(req, asyncResp->res, "HttpPushUriOptions",
-                                     pushUriOptions))
+            if (!json_util::readJsonPatch(req, asyncResp->res,
+                                          "HttpPushUriOptions", pushUriOptions))
             {
                 return;
             }

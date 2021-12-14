@@ -143,10 +143,10 @@ inline bool getUserParameters(crow::Response& res, const crow::Request& req,
     std::vector<nlohmann::json> metrics;
     std::vector<std::string> reportActions;
     std::optional<nlohmann::json> schedule;
-    if (!json_util::readJson(req, res, "Id", args.name, "Metrics", metrics,
-                             "MetricReportDefinitionType", args.reportingType,
-                             "ReportActions", reportActions, "Schedule",
-                             schedule))
+    if (!json_util::readJsonPatch(req, res, "Id", args.name, "Metrics", metrics,
+                                  "MetricReportDefinitionType",
+                                  args.reportingType, "ReportActions",
+                                  reportActions, "Schedule", schedule))
     {
         return false;
     }

@@ -1389,7 +1389,7 @@ inline void requestAccountServiceRoutes(App& app)
                 std::optional<nlohmann::json> activeDirectoryObject;
                 std::optional<nlohmann::json> oemObject;
 
-                if (!json_util::readJson(
+                if (!json_util::readJsonPatch(
                         req, asyncResp->res, "AccountLockoutDuration",
                         unlockTimeout, "AccountLockoutThreshold",
                         lockoutThreshold, "MaxPasswordLength",
@@ -1578,9 +1578,9 @@ inline void requestAccountServiceRoutes(App& app)
             std::string password;
             std::optional<std::string> roleId("User");
             std::optional<bool> enabled = true;
-            if (!json_util::readJson(req, asyncResp->res, "UserName", username,
-                                     "Password", password, "RoleId", roleId,
-                                     "Enabled", enabled))
+            if (!json_util::readJsonPatch(req, asyncResp->res, "UserName",
+                                          username, "Password", password,
+                                          "RoleId", roleId, "Enabled", enabled))
             {
                 return;
             }
@@ -1866,10 +1866,10 @@ inline void requestAccountServiceRoutes(App& app)
                 if (userHasConfigureUsers)
                 {
                     // Users with ConfigureUsers can modify for all users
-                    if (!json_util::readJson(req, asyncResp->res, "UserName",
-                                             newUserName, "Password", password,
-                                             "RoleId", roleId, "Enabled",
-                                             enabled, "Locked", locked))
+                    if (!json_util::readJsonPatch(
+                            req, asyncResp->res, "UserName", newUserName,
+                            "Password", password, "RoleId", roleId, "Enabled",
+                            enabled, "Locked", locked))
                     {
                         return;
                     }
@@ -1883,8 +1883,8 @@ inline void requestAccountServiceRoutes(App& app)
                         return;
                     }
                     // ConfigureSelf accounts can only modify their password
-                    if (!json_util::readJson(req, asyncResp->res, "Password",
-                                             password))
+                    if (!json_util::readJsonPatch(req, asyncResp->res,
+                                                  "Password", password))
                     {
                         return;
                     }
