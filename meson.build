@@ -380,6 +380,7 @@ srcfiles_unittest = [
   'include/ut/human_sort_test.cpp',
   'redfish-core/ut/configfile_test.cpp',
   'redfish-core/ut/hex_utils_test.cpp',
+  'redfish-core/ut/json_utils_test.cpp',
   'redfish-core/ut/lock_test.cpp',
   'redfish-core/ut/privileges_test.cpp',
   'redfish-core/ut/stl_utils_test.cpp',

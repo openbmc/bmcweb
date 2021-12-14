@@ -50,8 +50,8 @@ inline void setPowerCapOverride(
         auto& item = powerControlCollections[0];
 
         std::optional<nlohmann::json> powerLimit;
-        if (!json_util::readJson(item, sensorsAsyncResp->asyncResp->res,
-                                 "PowerLimit", powerLimit))
+        if (!json_util::readJsonPatch(item, sensorsAsyncResp->asyncResp->res,
+                                      "PowerLimit", powerLimit))
         {
             return;
         }
@@ -60,8 +60,9 @@ inline void setPowerCapOverride(
             return;
         }
         std::optional<uint32_t> value;
-        if (!json_util::readJson(*powerLimit, sensorsAsyncResp->asyncResp->res,
-                                 "LimitInWatts", value))
+        if (!json_util::readJsonPatch(*powerLimit,
+                                      sensorsAsyncResp->asyncResp->res,
+                                      "LimitInWatts", value))
         {
             return;
         }
@@ -322,9 +323,9 @@ inline void requestRoutesPower(App& app)
                 std::optional<std::vector<nlohmann::json>> voltageCollections;
                 std::optional<std::vector<nlohmann::json>> powerCtlCollections;
 
-                if (!json_util::readJson(req, sensorAsyncResp->asyncResp->res,
-                                         "PowerControl", powerCtlCollections,
-                                         "Voltages", voltageCollections))
+                if (!json_util::readJsonPatch(
+                        req, sensorAsyncResp->asyncResp->res, "PowerControl",
+                        powerCtlCollections, "Voltages", voltageCollections))
                 {
                     return;
                 }

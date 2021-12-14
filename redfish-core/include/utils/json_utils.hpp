@@ -21,6 +21,7 @@
 #include <nlohmann/json.hpp>
 
 #include <bitset>
+#include <iostream>
 
 namespace redfish
 {
@@ -383,27 +384,12 @@ bool handleMissing(std::bitset<Count>& handled, crow::Response& res,
     }
     return details::handleMissing<Index + 1, Count>(handled, res, in...) && ret;
 }
-} // namespace details
 
 template <typename... UnpackTypes>
 bool readJson(nlohmann::json& jsonRequest, crow::Response& res, const char* key,
               UnpackTypes&... in)
 {
     bool result = true;
-    if (!jsonRequest.is_object())
-    {
-        BMCWEB_LOG_DEBUG << "Json value is not an object";
-        messages::unrecognizedRequestBody(res);
-        return false;
-    }
-
-    if (jsonRequest.empty())
-    {
-        BMCWEB_LOG_DEBUG << "Json value is empty";
-        messages::emptyJSON(res);
-        return false;
-    }
-
     std::bitset<(sizeof...(in) + 1) / 2> handled(0);
     for (const auto& item : jsonRequest.items())
     {
@@ -418,9 +404,32 @@ bool readJson(nlohmann::json& jsonRequest, crow::Response& res, const char* key,
     return details::handleMissing(handled, res, key, in...) && result;
 }
 
+} // namespace details
+
 template <typename... UnpackTypes>
-bool readJson(const crow::Request& req, crow::Response& res, const char* key,
-              UnpackTypes&... in)
+bool readJsonPatch(nlohmann::json& jsonRequest, crow::Response& res,
+                   const char* key, UnpackTypes&... in)
+{
+    if (!jsonRequest.is_object())
+    {
+        BMCWEB_LOG_DEBUG << "Json value is not an object";
+        messages::unrecognizedRequestBody(res);
+        return false;
+    }
+
+    if (jsonRequest.empty())
+    {
+        BMCWEB_LOG_DEBUG << "Json value is empty";
+        messages::emptyJSON(res);
+        return false;
+    }
+
+    return details::readJson(jsonRequest, res, key, in...);
+}
+
+template <typename... UnpackTypes>
+bool readJsonPatch(const crow::Request& req, crow::Response& res,
+                   const char* key, UnpackTypes&... in)
 {
     nlohmann::json jsonRequest;
     if (!json_util::processJsonFromRequest(res, req, jsonRequest))
@@ -428,7 +437,41 @@ bool readJson(const crow::Request& req, crow::Response& res, const char* key,
         BMCWEB_LOG_DEBUG << "Json value not readable";
         return false;
     }
-    return readJson(jsonRequest, res, key, in...);
+    return readJsonPatch(jsonRequest, res, key, in...);
+}
+
+template <typename... UnpackTypes>
+bool readJsonAction(nlohmann::json& jsonRequest, crow::Response& res,
+                    const char* key, UnpackTypes&... in)
+{
+    if (!jsonRequest.is_object())
+    {
+        BMCWEB_LOG_DEBUG << "Json value is not an object";
+        messages::unrecognizedRequestBody(res);
+        return false;
+    }
+
+    if (jsonRequest.empty())
+    {
+        BMCWEB_LOG_DEBUG << "Json value is empty";
+        return true;
+    }
+
+    details::readJson(jsonRequest, res, key, in...);
+    return true;
+}
+
+template <typename... UnpackTypes>
+bool readJsonAction(const crow::Request& req, crow::Response& res,
+                    const char* key, UnpackTypes&... in)
+{
+    nlohmann::json jsonRequest;
+    if (!json_util::processJsonFromRequest(res, req, jsonRequest))
+    {
+        BMCWEB_LOG_DEBUG << "Json value not readable";
+        return false;
+    }
+    return readJsonAction(jsonRequest, res, key, in...);
 }
 
 template <typename Type>
