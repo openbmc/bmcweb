@@ -1750,7 +1750,7 @@ void actionNotSupported(crow::Response& res, const std::string& arg1)
  * See header file for more information
  * @endinternal
  */
-nlohmann::json invalidIndex(const int& arg1)
+nlohmann::json invalidIndex(const int64_t& arg1)
 {
     return nlohmann::json{
         {"@odata.type", "#Message.v1_1_1.Message"},
@@ -1763,7 +1763,7 @@ nlohmann::json invalidIndex(const int& arg1)
                        "bounds of the array."}};
 }
 
-void invalidIndex(crow::Response& res, const int& arg1)
+void invalidIndex(crow::Response& res, const int64_t& arg1)
 {
     res.result(boost::beast::http::status::bad_request);
     addMessageToErrorJson(res.jsonValue, invalidIndex(arg1));
