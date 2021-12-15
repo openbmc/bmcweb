@@ -785,9 +785,9 @@ void actionNotSupported(crow::Response& res, const std::string& arg1);
  * @param[in] arg1 Parameter of message that will replace %1 in its body.
  *
  * @returns Message InvalidIndex formatted to JSON */
-nlohmann::json invalidIndex(const int& arg1);
+nlohmann::json invalidIndex(int64_t arg1);
 
-void invalidIndex(crow::Response& res, const int& arg1);
+void invalidIndex(crow::Response& res, int64_t arg1);
 
 /**
  * @brief Formats EmptyJSON message into JSON
