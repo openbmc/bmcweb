@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c3b02095_bd4b4394",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 30
+      },
+      "lineNbr": 439,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2021-12-15T22:41:52Z",
+      "side": 1,
+      "message": "decode id -\u003e Name.\n\nId is\nwarhog_1\nwarhog_2\nwarhog_3\n\nWant all of them to be \nName\u003dWarthog\n\nPrettyName is suppose to be unique.\n\n---\n\nMaybe just strip the number\n\n\"_\\d+\"\n\nfor Name.",
+      "range": {
+        "startLine": 439,
+        "startChar": 32,
+        "endLine": 439,
+        "endChar": 77
+      },
+      "revId": "68adc1117a9e24ae247ae9fbafe82fd9fbde6c60",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
