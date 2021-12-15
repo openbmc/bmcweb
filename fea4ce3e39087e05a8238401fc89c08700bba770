@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "43560e8a_ef33c294",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-12-15T22:05:11Z",
+      "side": 1,
+      "message": "the default on nlohmann is null, not int64.",
+      "range": {
+        "startLine": 14,
+        "startChar": 9,
+        "endLine": 14,
+        "endChar": 16
+      },
+      "revId": "fea4ce3e39087e05a8238401fc89c08700bba770",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "006fadbd_1ab7bc7c",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 211,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-12-15T22:05:11Z",
+      "side": 1,
+      "message": "coreCountVal is an unsigned int16, which I would expect in this code to change the nlohmann object to a uint64_t.  Is that not the case?",
+      "range": {
+        "startLine": 211,
+        "startChar": 29,
+        "endLine": 211,
+        "endChar": 41
+      },
+      "revId": "fea4ce3e39087e05a8238401fc89c08700bba770",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5e0fb83f_5d71314e",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 217,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-12-15T22:05:11Z",
+      "side": 1,
+      "message": "I pointed this out in the first patch, which I\u0027m regretting a little bit not following up on, because clearly this caused a bug.\n\nLets write the code like this:\n\nif (coreCount.is_null()){\n    coreCount \u003d 0U;\n}\nuint64_t* coreCountPtr \u003d coreCount.get_ptr\u003cuint64_t*\u003e();\nif (coreCountPtr \u003d\u003d nullptr)\n{\n      internalError();\n}\n\n*coreCountPtr +\u003d *coreCountVal;\n\n\n\nThat way, we\u0027re not taking a special case path for the single core case, and it\u0027s very obvious (via the internal error) if something goes wrong.\n\nAlso, I\u0027ve left things as unsigned, because the existing interface is unsigned, so I\u0027d like to keep aligned on that.\n\nDoes the above work for you?",
+      "revId": "fea4ce3e39087e05a8238401fc89c08700bba770",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
