@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d59b6a88_baae491a",
+        "filename": "http/utility.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 587,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-12-15T19:10:53Z",
+      "side": 1,
+      "message": "I don\u0027t really like that we\u0027re hardcoding the timezone here, but I guess it\u0027s no worse than it was.",
+      "range": {
+        "startLine": 587,
+        "startChar": 62,
+        "endLine": 587,
+        "endChar": 68
+      },
+      "revId": "25fd68145b2c60afbf548d714793cf427d5cf2fc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
