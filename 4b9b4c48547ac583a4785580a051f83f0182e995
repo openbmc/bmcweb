@@ -166,6 +166,30 @@
       "revId": "4b9b4c48547ac583a4785580a051f83f0182e995",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "74dc45ea_0e8ed9e9",
+        "filename": "redfish-core/include/utils/json_utils.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 409,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-12-15T19:36:02Z",
+      "side": 1,
+      "message": "\u003e Not sure if IsVector is what we want. PTAL\n\n\nok, lets start with behavior\n\nreadJson(...., \"Foo\", std::vector\u003cnlohmann::json\u003e)\n\nShould allow empty objects on the sub object, but not on the root object.\n\nreadJson(...., \"Foo\", int64_t)\n\nShould not allow empty objects.  From my perspective, that means we need to use IsVector to determine if we\u0027re in a vector subobject, or not.\n\n\n\n\u003eI have it setup so that if you are requesting only optional properties and the json is empty then you don\u0027t get the error.\n\nThat\u0027s incorrect.  PATCH with an empty payload is nonsensical, and is the reason this error exists.\n\nPATCH with an empty SUB-object, is fine.\n\nPATCH {}  \u003c--- Should be an error\n\nPATCH {\"IpAddresses\": [{}]\"} \u003c--- should not be an error.",
+      "parentUuid": "ae53df09_2e82cefa",
+      "range": {
+        "startLine": 400,
+        "startChar": 3,
+        "endLine": 409,
+        "endChar": 9
+      },
+      "revId": "4b9b4c48547ac583a4785580a051f83f0182e995",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
