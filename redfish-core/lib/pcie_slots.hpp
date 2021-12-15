@@ -8,6 +8,44 @@
 namespace redfish
 {
 
+inline void
+    getPCIeSlotHealth(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                      const std::string& connectionName,
+                      const std::string& path, nlohmann::json& jsonInput)
+{
+    BMCWEB_LOG_DEBUG << "Get PCIeSlot health";
+
+    nlohmann::json& jsonIn = jsonInput["Status"];
+
+    // Set the default Status
+    jsonIn["Health"] = "OK";
+    jsonIn["State"] = "Enabled";
+
+    crow::connections::systemBus->async_method_call(
+        [asyncResp, &jsonIn](const boost::system::error_code ec,
+                             const std::variant<bool> health) {
+            if (ec)
+            {
+                BMCWEB_LOG_ERROR << "Can't get PCIeSlot health!";
+                messages::internalError(asyncResp->res);
+                return;
+            }
+
+            const bool* value = std::get_if<bool>(&health);
+            if (value == nullptr)
+            {
+                messages::internalError(asyncResp->res);
+                return;
+            }
+            if (*value == false)
+            {
+                jsonIn["Health"] = "Critical";
+            }
+        },
+        connectionName, path, "org.freedesktop.DBus.Properties", "Get",
+        "xyz.openbmc_project.State.Decorator.OperationalStatus", "Functional");
+}
+
 inline std::string analysisGeneration(const std::string& pcieType)
 {
     if (pcieType ==
@@ -180,7 +218,7 @@ inline void getPCIeSlots(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                         }
 
                         crow::connections::systemBus->async_method_call(
-                            [asyncResp](
+                            [asyncResp, pcieSlotPath, connectionName](
                                 const boost::system::error_code ec,
                                 const std::vector<std::pair<
                                     std::string,
@@ -199,6 +237,8 @@ inline void getPCIeSlots(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                                 tempArray.push_back({});
                                 nlohmann::json& propertyData = tempArray.back();
 
+                                getPCIeSlotHealth(asyncResp, connectionName,
+                                                  pcieSlotPath, propertyData);
                                 for (const auto& property : propertiesList)
                                 {
                                     const std::string& propertyName =
