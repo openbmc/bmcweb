@@ -39,6 +39,30 @@
       "revId": "ab07ccf58ad501ab9d8b89ccc81fd2c8cdd30e0f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f5846141_d3f88f9c",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1871,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-12-15T21:31:28Z",
+      "side": 1,
+      "message": "The check on 1688 is in a totally different scope than this code.  This check looks right to me.",
+      "parentUuid": "762ba4db_45991b85",
+      "range": {
+        "startLine": 1871,
+        "startChar": 28,
+        "endLine": 1871,
+        "endChar": 35
+      },
+      "revId": "ab07ccf58ad501ab9d8b89ccc81fd2c8cdd30e0f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
