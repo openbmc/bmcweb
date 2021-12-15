@@ -204,11 +204,11 @@ inline void getProcessorProperties(
 
             nlohmann::json& coreCount =
                 aResp->res.jsonValue["ProcessorSummary"]["CoreCount"];
-            uint64_t* coreCountPtr = coreCount.get_ptr<uint64_t*>();
+            int64_t* coreCountPtr = coreCount.get_ptr<int64_t*>();
 
             if (coreCountPtr == nullptr)
             {
-                coreCount = 0;
+                coreCount = *coreCountVal;
             }
             else
             {
