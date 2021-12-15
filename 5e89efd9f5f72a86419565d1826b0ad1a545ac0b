@@ -70,6 +70,30 @@
       "revId": "5e89efd9f5f72a86419565d1826b0ad1a545ac0b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f25a0a5c_a46f7d88",
+        "filename": "scripts/hostlogger_test.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2021-12-15T19:24:21Z",
+      "side": 1,
+      "message": "\u003e Since the upload date is September, I think maybe the new python3 print syntax has been update during this months.\n\nPython 3 was first released in 2008.  I don\u0027t think that is the case.\n\nClearly what happened was one of two things:\n\n1. You originally wrote this with `/usr/bin/env python`, which defaults to Python2 on most systems.\n2. You added additional logging and never re-ran the script in its final form.",
+      "parentUuid": "bf51b4ba_5a6ee85c",
+      "range": {
+        "startLine": 36,
+        "startChar": 0,
+        "endLine": 40,
+        "endChar": 16
+      },
+      "revId": "5e89efd9f5f72a86419565d1826b0ad1a545ac0b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
