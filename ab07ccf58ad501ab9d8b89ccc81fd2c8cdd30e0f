@@ -63,6 +63,30 @@
       "revId": "ab07ccf58ad501ab9d8b89ccc81fd2c8cdd30e0f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c3d6c985_d2195e43",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1871,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2021-12-15T21:41:33Z",
+      "side": 1,
+      "message": "yeah, you are correct. NVM, totally missed that there are many lines collapsed.",
+      "parentUuid": "f5846141_d3f88f9c",
+      "range": {
+        "startLine": 1871,
+        "startChar": 28,
+        "endLine": 1871,
+        "endChar": 35
+      },
+      "revId": "ab07ccf58ad501ab9d8b89ccc81fd2c8cdd30e0f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
