@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "54b11db4_b3cdf1cf",
+        "filename": ".gitignore",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-12-15T17:13:11Z",
+      "side": 1,
+      "message": "I suspect most of the diffs are just changes that have been made since this was originally checked in.  Ideally, please just do all the updates and it\u0027ll be fine.  If you don\u0027t want to do that, that\u0027s fine, but at a minimum I\u0027d like to keep the clion section the same as what the tool generates, as gunnar asked for.",
+      "parentUuid": "3bed80ce_10898240",
+      "revId": "1d3197ff0dba9f7c861972f8c6d026ffdffea373",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "f915f72d_8110d43c",
         "filename": ".gitignore",
         "patchSetId": 1
@@ -69,6 +87,24 @@
       "revId": "1d3197ff0dba9f7c861972f8c6d026ffdffea373",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a4517995_96ef0d14",
+        "filename": ".gitignore",
+        "patchSetId": 1
+      },
+      "lineNbr": 708,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-12-15T17:13:11Z",
+      "side": 1,
+      "message": "\u003e I don\u0027t want to add new things blindly to the gitignore file\n\nThat\u0027s fine, I\u0027ll take responsibility if it causes an issue.  Keeping this file similar to the source generator is desirable for exactly the reasons you\u0027ve found (ie, there are large diffs).",
+      "parentUuid": "51e3ddfe_b03648a4",
+      "revId": "1d3197ff0dba9f7c861972f8c6d026ffdffea373",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
