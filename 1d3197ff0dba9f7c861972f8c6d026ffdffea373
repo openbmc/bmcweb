@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "3bed80ce_10898240",
+        "filename": ".gitignore",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000520
+      },
+      "writtenOn": "2021-12-15T11:41:59Z",
+      "side": 1,
+      "message": "That\u0027s a good idea, didn\u0027t know about that site. I tried it, but there was a huge amount of difference between what\u0027s in this gitignore file now, and what\u0027s in the output of the website. I wanted to minimize changes.",
+      "parentUuid": "98e71b19_a782ff35",
+      "revId": "1d3197ff0dba9f7c861972f8c6d026ffdffea373",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f915f72d_8110d43c",
         "filename": ".gitignore",
         "patchSetId": 1
@@ -33,6 +51,24 @@
       "revId": "1d3197ff0dba9f7c861972f8c6d026ffdffea373",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "51e3ddfe_b03648a4",
+        "filename": ".gitignore",
+        "patchSetId": 1
+      },
+      "lineNbr": 708,
+      "author": {
+        "id": 1000520
+      },
+      "writtenOn": "2021-12-15T11:41:59Z",
+      "side": 1,
+      "message": "Interesting. I\u0027ve never seen a *.sln.iml file appear. I don\u0027t want to add new things blindly to the gitignore file, because then it might cause something to be missed that shouldn\u0027t be missed.",
+      "parentUuid": "f915f72d_8110d43c",
+      "revId": "1d3197ff0dba9f7c861972f8c6d026ffdffea373",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
