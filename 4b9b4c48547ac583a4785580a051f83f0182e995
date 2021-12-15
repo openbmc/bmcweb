@@ -46,6 +46,30 @@
       "revId": "4b9b4c48547ac583a4785580a051f83f0182e995",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "442ee5bc_99c33410",
+        "filename": "redfish-core/include/utils/json_utils.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 409,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-12-15T01:28:41Z",
+      "side": 1,
+      "message": "Lets start with why, then we can go to what. Assuming that chicago is asking the same question, it\u0027s about unpacking std::vector\u003cnlohmann\u003e, which I agree, should allow optionals, and looks like an oversight.  We probably need to special case the vector case.",
+      "parentUuid": "94bee3f7_a5bc4d48",
+      "range": {
+        "startLine": 400,
+        "startChar": 3,
+        "endLine": 409,
+        "endChar": 9
+      },
+      "revId": "4b9b4c48547ac583a4785580a051f83f0182e995",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
