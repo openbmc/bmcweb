@@ -18,7 +18,9 @@
 #include <sdbusplus/message.hpp>
 
 #include <filesystem>
+#include <optional>
 #include <regex>
+#include <string>
 
 namespace dbus
 {
@@ -97,6 +99,27 @@ inline void checkDbusPathExists(const std::string& path, Callback&& callback)
         "/xyz/openbmc_project/object_mapper",
         "xyz.openbmc_project.ObjectMapper", "GetObject", path,
         std::array<std::string, 0>());
+}
+
+/**
+ * @brief Get the Resource Name from the Resource Id
+ *
+ * @param[in] id - Resource id from the dbus path. path.filename()
+ *
+ * @return the resource name after removing "_\d+"
+ */
+inline std::string getResourceName(const std::string& id)
+{
+    size_t index = id.find_last_of('_');
+    for (size_t i = index + 1; i < id.size(); ++i)
+    {
+        if (std::isdigit(id[i]) == 0)
+        {
+            return id;
+        }
+    }
+
+    return (index == std::string::npos) ? id : id.substr(0, index);
 }
 
 } // namespace utility
