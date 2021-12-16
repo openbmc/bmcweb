@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "0591b379_858548ba",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-12-16T17:47:08Z",
+      "side": 1,
+      "message": "There are cases where we intentionally use flat_map because of its ordering guarantees, so unordered_map wouldn\u0027t be a drop in replacement, and would need a lot more thought put into the patch, but could be a replacement for some.  I suspect unordered_map has a negative effect on binary size, but that\u0027s just a guess.\n\nIn terms of algorithmic complexity, this stuff is hard to gauge, because the in-practice performance differs.  We originally (over) used flat_map because of a belief and measurements that it caused less memory fragmentation, and for systems without a lot of extra ram, it \"mattered\".  Also, given the abysmal memory bandwidth and tiny cache size on the aspeed 2400, pulling fewer cold memory pages to do this kind of thing seemed to help.\n\n\u003eIteration:\n\u003e map - O(n lg n)\n\nnit: Map is O(n) for iteration, isn\u0027t it? (writes down in interview notes 😊).\n\n\n\u003e But if it is for example 2% slower across walking the complete tree or any commonly used request is 5% slower, I don\u0027t think it is worth it because there is several other things we can do to reduce size.\n\nAgreed, although a 2% difference is going to be tough to measure given the noise in measuring such things.  I will fully admit, I haven\u0027t done anything other than compile this at this point, so agreed, more testing is needed.",
+      "parentUuid": "2f4484d7_9cd57574",
+      "range": {
+        "startLine": 15,
+        "startChar": 20,
+        "endLine": 17,
+        "endChar": 24
+      },
+      "revId": "327d90d96a32c03578c4c1103f4c94f328d8e596",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "8ee24af0_2dc765ad",
         "filename": "include/dbus_monitor.hpp",
         "patchSetId": 2
