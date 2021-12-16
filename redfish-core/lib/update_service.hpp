@@ -922,7 +922,8 @@ inline void requestRoutesSoftwareInventory(App& app)
                     }
                     asyncResp->res.jsonValue["@odata.type"] =
                         "#SoftwareInventory.v1_1_0.SoftwareInventory";
-                    asyncResp->res.jsonValue["Name"] = "Software Inventory";
+                    asyncResp->res.jsonValue["Name"] =
+                        dbus::utility::getResourceName(*swId);
                     asyncResp->res.jsonValue["Status"]["HealthRollup"] = "OK";
 
                     asyncResp->res.jsonValue["Updateable"] = false;
