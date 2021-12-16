@@ -208,6 +208,30 @@
     },
     {
       "key": {
+        "uuid": "43132ff3_124fd5a1",
+        "filename": "include/nbd_proxy.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 261,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-12-16T18:00:21Z",
+      "side": 1,
+      "message": "OH, I see, I broke it in a previous commit in the series when I swapped in the common variant type.",
+      "parentUuid": "acbeb3a9_7a9c697b",
+      "range": {
+        "startLine": 260,
+        "startChar": 0,
+        "endLine": 261,
+        "endChar": 75
+      },
+      "revId": "327d90d96a32c03578c4c1103f4c94f328d8e596",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "95836595_1b84ff2a",
         "filename": "redfish-core/include/privileges.hpp",
         "patchSetId": 2
