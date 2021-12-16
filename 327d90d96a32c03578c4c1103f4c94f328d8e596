@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "7d25e65d_26eb44ec",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2021-12-16T17:56:53Z",
+      "side": 1,
+      "message": "\u003e nit: Map is O(n) for iteration, isn\u0027t it? (writes down in interview notes 😊).\n\nYes, I think you\u0027re right.  I was too simple in my algorithmic analysis I did in my head.\n\nA single iteration step can take up to O(lg n) steps because you can have to go all the way up the tree and back down another leg.  So I did a simple O(n nodes * lg n traversals) in my head.\n\nSince the number of edges scales with n, and you have to traverse every edge exactly twice, the amortized analysis of iteration is still O(n) on map even if individual iteration steps are not O(1).",
+      "parentUuid": "0591b379_858548ba",
+      "range": {
+        "startLine": 15,
+        "startChar": 20,
+        "endLine": 17,
+        "endChar": 24
+      },
+      "revId": "327d90d96a32c03578c4c1103f4c94f328d8e596",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "8ee24af0_2dc765ad",
         "filename": "include/dbus_monitor.hpp",
         "patchSetId": 2
