@@ -19,6 +19,7 @@
 
 #include <app.hpp>
 #include <boost/container/flat_map.hpp>
+#include <dbus_utility.hpp>
 #include <registries/privilege_registry.hpp>
 #include <sdbusplus/message/native_types.hpp>
 #include <sdbusplus/utility/dedup_variant.hpp>
@@ -236,7 +237,8 @@ inline void getCpuDataByService(std::shared_ptr<bmcweb::AsyncResp> aResp,
                 return;
             }
             aResp->res.jsonValue["Id"] = cpuId;
-            aResp->res.jsonValue["Name"] = "Processor";
+            aResp->res.jsonValue["Name"] =
+                dbus::utility::getResourceName(cpuId);
             aResp->res.jsonValue["ProcessorType"] = "CPU";
 
             bool slotPresent = false;
@@ -440,7 +442,8 @@ inline void getAcceleratorDataByService(
                 messages::internalError(aResp->res);
                 return;
             }
-            aResp->res.jsonValue["Id"] = acclrtrId;
+            aResp->res.jsonValue["Id"] =
+                dbus::utility::getResourceName(acclrtrId);
             aResp->res.jsonValue["Name"] = "Processor";
             const bool* accPresent = nullptr;
             const bool* accFunctional = nullptr;
