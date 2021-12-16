@@ -33,6 +33,7 @@ constexpr const char* ldapConfigObjectName =
 constexpr const char* adConfigObject =
     "/xyz/openbmc_project/user/ldap/active_directory";
 
+constexpr const char* rootUserDbusPath = "/xyz/openbmc_project/user/";
 constexpr const char* ldapRootObject = "/xyz/openbmc_project/user/ldap";
 constexpr const char* ldapDbusService = "xyz.openbmc_project.Ldap.Config";
 constexpr const char* ldapConfigInterface =
@@ -1139,8 +1140,9 @@ inline void updateUserProperties(std::shared_ptr<bmcweb::AsyncResp> asyncResp,
                                  std::optional<std::string> roleId,
                                  std::optional<bool> locked)
 {
-    std::string dbusObjectPath = "/xyz/openbmc_project/user/" + username;
-    dbus::utility::escapePathForDbus(dbusObjectPath);
+    sdbusplus::message::object_path tempObjPath(rootUserDbusPath);
+    tempObjPath /= username;
+    std::string dbusObjectPath(tempObjPath);
 
     dbus::utility::checkDbusPathExists(
         dbusObjectPath,
@@ -1638,6 +1640,11 @@ inline void requestAccountServiceRoutes(App& app)
                                 // created, but the password set
                                 // failed.Something is wrong, so delete the user
                                 // that we've already created
+                                sdbusplus::message::object_path tempObjPath(
+                                    rootUserDbusPath);
+                                tempObjPath /= username;
+                                const std::string userPath(tempObjPath);
+
                                 crow::connections::systemBus->async_method_call(
                                     [asyncResp, password](
                                         const boost::system::error_code ec3) {
@@ -1654,7 +1661,7 @@ inline void requestAccountServiceRoutes(App& app)
                                             "Password");
                                     },
                                     "xyz.openbmc_project.User.Manager",
-                                    "/xyz/openbmc_project/user/" + username,
+                                    userPath,
                                     "xyz.openbmc_project.Object.Delete",
                                     "Delete");
 
@@ -1712,16 +1719,14 @@ inline void requestAccountServiceRoutes(App& app)
                         messages::internalError(asyncResp->res);
                         return;
                     }
-                    auto userIt = users.begin();
+                    auto userIt = std::find_if(
+                        users.begin(), users.end(),
+                        [accountName](
+                            const std::pair<sdbusplus::message::object_path,
+                                            DbusInterfaceType>& user) {
+                            return !accountName.compare(user.first.filename());
+                        });
 
-                    for (; userIt != users.end(); userIt++)
-                    {
-                        if (boost::ends_with(userIt->first.str,
-                                             "/" + accountName))
-                        {
-                            break;
-                        }
-                    }
                     if (userIt == users.end())
                     {
                         messages::resourceNotFound(
@@ -1920,8 +1925,9 @@ inline void requestAccountServiceRoutes(App& app)
             [](const crow::Request& /*req*/,
                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                const std::string& username) -> void {
-                const std::string userPath =
-                    "/xyz/openbmc_project/user/" + username;
+                sdbusplus::message::object_path tempObjPath(rootUserDbusPath);
+                tempObjPath /= username;
+                const std::string userPath(tempObjPath);
 
                 crow::connections::systemBus->async_method_call(
                     [asyncResp, username](const boost::system::error_code ec) {
