@@ -96,6 +96,30 @@
     },
     {
       "key": {
+        "uuid": "53c1fd1d_7a0bd8ee",
+        "filename": "include/dbus_monitor.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-12-16T17:56:13Z",
+      "side": 1,
+      "message": "Agreed.",
+      "parentUuid": "8ee24af0_2dc765ad",
+      "range": {
+        "startLine": 25,
+        "startChar": 7,
+        "endLine": 25,
+        "endChar": 15
+      },
+      "revId": "327d90d96a32c03578c4c1103f4c94f328d8e596",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "0d3e9e4a_b1e34a5e",
         "filename": "include/ibm/locks.hpp",
         "patchSetId": 2
@@ -136,6 +160,30 @@
     },
     {
       "key": {
+        "uuid": "acbeb3a9_7a9c697b",
+        "filename": "include/nbd_proxy.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 261,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-12-16T17:56:13Z",
+      "side": 1,
+      "message": "cute..... yeah, this is the virtual media implementation that got checked in without a backend, and the option is currently commented out in the meson_options so it\u0027s not that surprising it doesn\u0027t compile.  (will fix shortly).",
+      "parentUuid": "ec7d0766_ddd5cd43",
+      "range": {
+        "startLine": 260,
+        "startChar": 0,
+        "endLine": 261,
+        "endChar": 75
+      },
+      "revId": "327d90d96a32c03578c4c1103f4c94f328d8e596",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "95836595_1b84ff2a",
         "filename": "redfish-core/include/privileges.hpp",
         "patchSetId": 2
@@ -147,6 +195,30 @@
       "writtenOn": "2021-12-16T16:56:21Z",
       "side": 1,
       "message": "It is possible that verb doesn\u0027t have a std::hash and can\u0027t fit in an unordered_map.",
+      "range": {
+        "startLine": 245,
+        "startChar": 13,
+        "endLine": 245,
+        "endChar": 37
+      },
+      "revId": "327d90d96a32c03578c4c1103f4c94f328d8e596",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b87249db_d82c5f70",
+        "filename": "redfish-core/include/privileges.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 245,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-12-16T17:56:13Z",
+      "side": 1,
+      "message": "boost::beast::http::verb is just an instance of enum class, which I think gets a std::hash by default?",
+      "parentUuid": "95836595_1b84ff2a",
       "range": {
         "startLine": 245,
         "startChar": 13,
@@ -176,6 +248,24 @@
     },
     {
       "key": {
+        "uuid": "40fcb189_1736977d",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-12-16T17:56:13Z",
+      "side": 1,
+      "message": "GetManagedObjects is a horrifying call to do.  If it didn\u0027t literally triple the performance of some of the endpoints, I would never advocate using it.\n\nIn the previous patches in the series I\u0027m starting to get all of these at least using common types so that we can start to consolidate them and hopefully apply some sanity to some of them.",
+      "parentUuid": "9fdf3c14_7712b2fd",
+      "revId": "327d90d96a32c03578c4c1103f4c94f328d8e596",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c53c46ed_46ab8eb7",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 2
@@ -187,6 +277,30 @@
       "writtenOn": "2021-12-16T16:56:21Z",
       "side": 1,
       "message": "Order shouldn\u0027t matter on this one.  But ... didn\u0027t it matter??  I\u0027m surprised that the post codes went into a map because the order in time is more important than the postcode value.  Unless the \"key\" here is some time stamp?",
+      "range": {
+        "startLine": 3103,
+        "startChar": 4,
+        "endLine": 3103,
+        "endChar": 28
+      },
+      "revId": "327d90d96a32c03578c4c1103f4c94f328d8e596",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "226bb8d7_8d6f82dd",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 3103,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-12-16T17:56:13Z",
+      "side": 1,
+      "message": "Yes, the key here is the timestamp.  This sturucture is coming from the method \"GetPostCodesWithTimeStamp\"",
+      "parentUuid": "c53c46ed_46ab8eb7",
       "range": {
         "startLine": 3103,
         "startChar": 4,
