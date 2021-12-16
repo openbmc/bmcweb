@@ -156,7 +156,8 @@ inline void requestRoutesStorage(App& app)
                         storageController["@odata.id"] =
                             "/redfish/v1/Systems/system/Storage/1#/StorageControllers/" +
                             std::to_string(index);
-                        storageController["Name"] = id;
+                        storageController["Name"] =
+                            dbus::utility::getResourceName(id);
                         storageController["MemberId"] = id;
                         storageController["Status"]["State"] = "Enabled";
 
@@ -393,7 +394,8 @@ inline void requestRoutesDrive(App& app)
                     asyncResp->res.jsonValue["@odata.id"] =
                         "/redfish/v1/Systems/system/Storage/1/Drives/" +
                         driveId;
-                    asyncResp->res.jsonValue["Name"] = driveId;
+                    asyncResp->res.jsonValue["Name"] =
+                        dbus::utility::getResourceName(driveId);
                     asyncResp->res.jsonValue["Id"] = driveId;
 
                     if (connectionNames.size() != 1)
