@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "86e9f644_4c57b518",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1001003
+      },
+      "writtenOn": "2021-12-16T01:24:40Z",
+      "side": 1,
+      "message": "\u003e #ifndef BMCWEB_INSECURE_DISABLE_AUTHENTICATION\n\u003e             if (req.session-\u003eusername !\u003d accountName)\n\u003e             {\n\u003e                 // At this point we\u0027ve determined that the user is trying to\n\u003e                 // modify a user that isn\u0027t them.  We need to verify that they\n\u003e                 // have permissions to modify other users, so re-run the auth\n\u003e                 // check with the same permissions, minus ConfigureSelf.\n\u003e                 Privileges effectiveUserPrivileges \u003d\n\u003e                     redfish::getUserPrivileges(req.userRole);\n\u003e                 Privileges requiredPermissionsToChangeNonSelf \u003d {\n\u003e                     \"ConfigureUsers\", \"ConfigureManager\"};\n\u003e                 if (!effectiveUserPrivileges.isSupersetOf(\n\u003e                         requiredPermissionsToChangeNonSelf))\n\u003e                 {\n\u003e                     BMCWEB_LOG_DEBUG \u003c\u003c \"GET Account denied access\";\n\u003e                     messages::insufficientPrivilege(asyncResp-\u003eres);\n\u003e                     return;\n\u003e                 }\n\u003e             }\n\u003e \n\u003e #endif // BMCWEB_INSECURE_DISABLE_AUTHENTICATION\n\nIf used this change, it cause req [-Werror\u003dunused-parameter],\nUnless `req` is added [[maybe_unused]], such like:\n...\nget)([]([[maybe_unused]]const crow::Request\u0026 req,\n        const std::shared_ptr\u003cbmcweb::AsyncResp\u003e\u0026 asyncResp,\n...",
+      "parentUuid": "1ce61fa4_018b3f20",
+      "revId": "ab07ccf58ad501ab9d8b89ccc81fd2c8cdd30e0f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "762ba4db_45991b85",
         "filename": "redfish-core/lib/account_service.hpp",
         "patchSetId": 1
