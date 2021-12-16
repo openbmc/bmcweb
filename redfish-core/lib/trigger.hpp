@@ -364,8 +364,9 @@ inline bool parseMetricProperties(crow::Response& res, Context& ctx)
     return true;
 }
 
-inline bool parsePostTriggerParams(crow::Response& res,
-                                   const crow::Request& req, Context& ctx)
+inline bool parseTriggerParams(crow::Response& res, const crow::Request& req,
+                               Context& ctx,
+                               std::optional<std::string_view>& forcedId)
 {
     std::optional<std::string> id;
     std::optional<std::string> name;
@@ -385,7 +386,13 @@ inline bool parsePostTriggerParams(crow::Response& res,
         return false;
     }
 
-    ctx.dbusArgs.id = id.value_or("");
+    if (id && forcedId && *id != *forcedId)
+    {
+        messages::propertyValueNotInList(res, *id, "Id");
+        return false;
+    }
+
+    ctx.dbusArgs.id = id.value_or(std::string(forcedId.value_or("")));
     ctx.dbusArgs.name = name.value_or("");
 
     if (metricType)
@@ -442,25 +449,25 @@ inline bool parsePostTriggerParams(crow::Response& res,
 }
 
 inline void createTrigger(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                          Context& ctx)
+                          const std::shared_ptr<Context>& ctx)
 {
     crow::connections::systemBus->async_method_call(
-        [aResp = asyncResp, id = ctx.dbusArgs.id](
-            const boost::system::error_code ec, const std::string& dbusPath) {
+        [asyncResp, ctx](const boost::system::error_code ec,
+                         const std::string& dbusPath) {
             if (ec == boost::system::errc::file_exists)
             {
-                messages::resourceAlreadyExists(aResp->res, "Trigger", "Id",
-                                                id);
+                messages::resourceAlreadyExists(asyncResp->res, "Trigger", "Id",
+                                                ctx->dbusArgs.id);
                 return;
             }
             if (ec == boost::system::errc::too_many_files_open)
             {
-                messages::createLimitReachedForResource(aResp->res);
+                messages::createLimitReachedForResource(asyncResp->res);
                 return;
             }
             if (ec)
             {
-                messages::internalError(aResp->res);
+                messages::internalError(asyncResp->res);
                 BMCWEB_LOG_ERROR << "respHandler DBus error " << ec;
                 return;
             }
@@ -469,27 +476,109 @@ inline void createTrigger(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                 getTriggerIdFromDbusPath(dbusPath);
             if (!triggerId)
             {
-                messages::internalError(aResp->res);
+                messages::internalError(asyncResp->res);
                 BMCWEB_LOG_ERROR << "Unknown data returned by "
                                     "AddTrigger DBus method";
                 return;
             }
 
-            messages::created(aResp->res);
-            aResp->res.addHeader("Location",
-                                 triggerUri + std::string("/") + *triggerId);
+            messages::created(asyncResp->res);
+            asyncResp->res.addHeader("Location", triggerUri + std::string("/") +
+                                                     *triggerId);
         },
         service, "/xyz/openbmc_project/Telemetry/Triggers",
         "xyz.openbmc_project.Telemetry.TriggerManager", "AddTrigger",
-        "TelemetryService/" + ctx.dbusArgs.id, ctx.dbusArgs.name,
-        ctx.dbusArgs.actions, ctx.dbusArgs.sensors, ctx.dbusArgs.reportNames,
-        ctx.dbusArgs.thresholds);
+        "TelemetryService/" + ctx->dbusArgs.id, ctx->dbusArgs.name,
+        ctx->dbusArgs.actions, ctx->dbusArgs.sensors, ctx->dbusArgs.reportNames,
+        ctx->dbusArgs.thresholds);
+}
+
+inline void replaceTrigger(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                           const std::shared_ptr<Context>& ctx)
+{
+    const std::string triggerPath =
+        telemetry::getDbusTriggerPath(ctx->dbusArgs.id);
+
+    crow::connections::systemBus->async_method_call(
+        [asyncResp, ctx](const boost::system::error_code ec) {
+            if (ec && ec.value() != EBADR)
+            {
+                BMCWEB_LOG_ERROR << "respHandler DBus error " << ec;
+                messages::internalError(asyncResp->res);
+                return;
+            }
+            createTrigger(asyncResp, ctx);
+        },
+        telemetry::service, triggerPath, "xyz.openbmc_project.Object.Delete",
+        "Delete");
+}
+
+inline void parseAndCreateTrigger(
+    const crow::Request& req,
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    std::optional<std::string_view> id,
+    std::function<void(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                       const std::shared_ptr<Context>& ctx)>
+        addTriggerCallback)
+{
+    const auto ctx = std::make_shared<telemetry::add_trigger::Context>();
+    if (!parseTriggerParams(asyncResp->res, req, *ctx, id))
+    {
+        return;
+    }
+
+    if (!ctx->parsedInfo.metricProperties ||
+        ctx->parsedInfo.metricProperties->empty())
+    {
+        addTriggerCallback(asyncResp, ctx);
+        return;
+    }
+
+    boost::container::flat_set<std::pair<std::string, std::string>>
+        chassisSensors;
+    if (!getChassisSensorNode(asyncResp, *ctx->parsedInfo.metricProperties,
+                              chassisSensors))
+    {
+        return;
+    }
+
+    const auto finalizer = std::make_shared<utils::Finalizer>(
+        [asyncResp, ctx, addTriggerCallback] {
+            if (!parseMetricProperties(asyncResp->res, *ctx))
+            {
+                return;
+            }
+            addTriggerCallback(asyncResp, ctx);
+        });
+
+    for (const auto& [chassis, sensorType] : chassisSensors)
+    {
+        retrieveUriToDbusMap(
+            chassis, sensorType,
+            [asyncResp, ctx, finalizer](
+                const boost::beast::http::status status,
+                const boost::container::flat_map<std::string, std::string>&
+                    uriToDbus) {
+                if (status == boost::beast::http::status::ok)
+                {
+                    ctx->uriToDbusMerged.insert(uriToDbus.begin(),
+                                                uriToDbus.end());
+                }
+            });
+    }
 }
 
 } // namespace add_trigger
 
 namespace get_trigger
 {
+
+enum class GetResult
+{
+    Success,
+    NotFound,
+    InternalError,
+};
 
 inline std::optional<std::string>
     getRedfishFromDbusAction(const std::string& dbusAction)
@@ -726,7 +815,250 @@ inline bool fillTrigger(
     return true;
 }
 
+template <typename CallbackType>
+inline void getPropertiesJson(const std::string& id, CallbackType&& callback)
+{
+    crow::connections::systemBus->async_method_call(
+        [id,
+         callback](const boost::system::error_code ec,
+                   const std::vector<std::pair<
+                       std::string, telemetry::TriggerGetParamsVariant>>& ret) {
+            GetResult result = GetResult::Success;
+            if (ec.value() == EBADR ||
+                ec == boost::system::errc::host_unreachable)
+            {
+                result = GetResult::NotFound;
+            }
+            else if (ec)
+            {
+                BMCWEB_LOG_ERROR << "respHandler DBus error " << ec;
+                result = GetResult::InternalError;
+            }
+
+            nlohmann::json propertiesJson;
+            if (result == GetResult::Success &&
+                !telemetry::get_trigger::fillTrigger(propertiesJson, id, ret))
+            {
+                result = GetResult::InternalError;
+            }
+
+            callback(result, propertiesJson);
+        },
+        telemetry::service, telemetry::getDbusTriggerPath(id),
+        "org.freedesktop.DBus.Properties", "GetAll",
+        telemetry::triggerInterface);
+}
+
 } // namespace get_trigger
+
+namespace patch_trigger
+{
+
+inline void handleNamePatch(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                            const std::string& dbusPath,
+                            const std::string& oldVal,
+                            const std::string& newVal)
+{
+    if (oldVal == newVal)
+    {
+        return;
+    }
+    crow::connections::systemBus->async_method_call(
+        [asyncResp, newVal](const boost::system::error_code ec) {
+            if (ec)
+            {
+                BMCWEB_LOG_DEBUG << "Error updating Name property";
+                messages::internalError(asyncResp->res);
+                return;
+            }
+        },
+        service, dbusPath, "org.freedesktop.DBus.Properties", "Set",
+        triggerInterface, "Name", std::variant<std::string>(newVal));
+}
+
+inline bool parseDiscreteTriggersPatch(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    std::vector<nlohmann::json>& oldDiscreteTriggers,
+    std::vector<nlohmann::json> discreteTriggersPatch,
+    std::vector<DiscreteThresholdParams>& parsedParams)
+{
+    parsedParams.reserve(static_cast<size_t>(std::count_if(
+        discreteTriggersPatch.begin(), discreteTriggersPatch.end(),
+        [](nlohmann::json& json) { return !json.is_null(); })));
+
+    for (size_t idx = 0; idx < discreteTriggersPatch.size(); idx++)
+    {
+        nlohmann::json& newThresholdInfo = discreteTriggersPatch.at(idx);
+        if (newThresholdInfo.is_null())
+        {
+            continue;
+        }
+
+        nlohmann::json mergedThresholdInfo;
+        if (idx < oldDiscreteTriggers.size())
+        {
+            nlohmann::json& oldThresholdInfo = oldDiscreteTriggers.at(idx);
+            std::string oldName;
+            if (!json_util::getValueFromJsonObject(oldThresholdInfo, "Name",
+                                                   oldName))
+            {
+                messages::internalError(asyncResp->res);
+                return false;
+            }
+            oldThresholdInfo.merge_patch(newThresholdInfo);
+            oldThresholdInfo["Name"] = oldName;
+            mergedThresholdInfo = std::move(oldThresholdInfo);
+        }
+        else
+        {
+            if (newThresholdInfo.empty())
+            {
+                messages::propertyValueIncorrect(
+                    asyncResp->res, "DiscreteTriggers/" + std::to_string(idx),
+                    newThresholdInfo.dump());
+                return false;
+            }
+            mergedThresholdInfo = std::move(newThresholdInfo);
+        }
+
+        std::optional<std::string> name;
+        std::string value;
+        std::string dwellTimeStr;
+        std::string severity;
+
+        if (!json_util::readJson(mergedThresholdInfo, asyncResp->res, "Name",
+                                 name, "Value", value, "DwellTime",
+                                 dwellTimeStr, "Severity", severity))
+        {
+            return false;
+        }
+
+        std::optional<std::chrono::milliseconds> dwellTime =
+            time_utils::fromDurationString(dwellTimeStr);
+        if (!dwellTime)
+        {
+            messages::propertyValueIncorrect(asyncResp->res, "DwellTime",
+                                             dwellTimeStr);
+            return false;
+        }
+
+        parsedParams.emplace_back(name.value_or(""), severity,
+                                  static_cast<uint64_t>(dwellTime->count()),
+                                  value);
+    }
+    return true;
+}
+
+inline void
+    handleTresholdsPatch(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                         const std::string& dbusPath,
+                         const TriggerThresholdParams& newVal)
+{
+    crow::connections::systemBus->async_method_call(
+        [asyncResp, newVal](const boost::system::error_code ec) {
+            if (ec)
+            {
+                BMCWEB_LOG_DEBUG << "Error updating Tresholds property";
+                messages::internalError(asyncResp->res);
+                return;
+            }
+        },
+        service, dbusPath, "org.freedesktop.DBus.Properties", "Set",
+        triggerInterface, "Thresholds",
+        std::variant<TriggerThresholdParams>(newVal));
+}
+
+inline void
+    parseAndPatchTrigger(const crow::Request& req,
+                         const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                         const std::string& id)
+{
+    std::optional<std::string> name;
+    std::optional<std::string> metricType;
+    std::optional<std::vector<std::string>> triggerActions;
+    std::optional<std::string> discreteTriggerCondition;
+    std::optional<std::vector<nlohmann::json>> discreteTriggers;
+    std::optional<nlohmann::json> numericThresholds;
+    std::optional<std::vector<std::string>> metricProperties;
+    std::optional<nlohmann::json> links;
+    if (!json_util::readJson(
+            req, asyncResp->res, "Name", name, "MetricType", metricType,
+            "TriggerActions", triggerActions, "DiscreteTriggerCondition",
+            discreteTriggerCondition, "DiscreteTriggers", discreteTriggers,
+            "NumericThresholds", numericThresholds, "MetricProperties",
+            metricProperties, "Links", links))
+    {
+        return;
+    }
+
+    if (numericThresholds && discreteTriggers)
+    {
+        messages::mutualExclusiveProperties(asyncResp->res, "NumericThresholds",
+                                            "DiscreteTriggers");
+        return;
+    }
+
+    telemetry::get_trigger::getPropertiesJson(
+        id, [asyncResp, id, name, discreteTriggers, numericThresholds,
+             metricProperties, links](telemetry::get_trigger::GetResult result,
+                                      nlohmann::json& propertiesJson) {
+            if (result == telemetry::get_trigger::GetResult::NotFound)
+            {
+                messages::resourceNotFound(asyncResp->res, "Triggers", id);
+                return;
+            }
+            if (result == telemetry::get_trigger::GetResult::InternalError)
+            {
+                messages::internalError(asyncResp->res);
+                return;
+            }
+
+            TriggerThresholdParams tresholds;
+
+            if (discreteTriggers)
+            {
+                if (propertiesJson.find("NumericThresholds") !=
+                    propertiesJson.end())
+                {
+                    messages::propertyValueConflict(asyncResp->res,
+                                                    "DiscreteTriggers",
+                                                    "NumericThresholds");
+                    return;
+                }
+                std::vector<nlohmann::json> oldDiscreteTriggers;
+                if (!json_util::getValueFromJsonObject(propertiesJson,
+                                                       "DiscreteTriggers",
+                                                       oldDiscreteTriggers))
+                {
+                    messages::internalError(asyncResp->res);
+                    return;
+                }
+                tresholds = std::vector<DiscreteThresholdParams>();
+                std::vector<DiscreteThresholdParams>& resultThresholds =
+                    std::get<std::vector<DiscreteThresholdParams>>(tresholds);
+                if (!parseDiscreteTriggersPatch(asyncResp, oldDiscreteTriggers,
+                                                *discreteTriggers,
+                                                resultThresholds))
+                {
+                    return;
+                }
+            }
+
+            const std::string triggerDbusPath = getDbusTriggerPath(id);
+            if (name)
+            {
+                handleNamePatch(asyncResp, triggerDbusPath,
+                                propertiesJson["Name"], *name);
+            }
+
+            if (discreteTriggers || numericThresholds)
+            {
+                handleTresholdsPatch(asyncResp, triggerDbusPath, tresholds);
+            }
+        });
+}
+
+} // namespace patch_trigger
 
 } // namespace telemetry
 
@@ -754,55 +1086,9 @@ inline void requestRoutesTriggerCollection(App& app)
         .methods(boost::beast::http::verb::post)(
             [](const crow::Request& req,
                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
-                const auto ctx =
-                    std::make_shared<telemetry::add_trigger::Context>();
-                if (!telemetry::add_trigger::parsePostTriggerParams(
-                        asyncResp->res, req, *ctx))
-                {
-                    return;
-                }
-
-                if (!ctx->parsedInfo.metricProperties ||
-                    ctx->parsedInfo.metricProperties->empty())
-                {
-                    telemetry::add_trigger::createTrigger(asyncResp, *ctx);
-                    return;
-                }
-
-                boost::container::flat_set<std::pair<std::string, std::string>>
-                    chassisSensors;
-                if (!telemetry::getChassisSensorNode(
-                        asyncResp, *ctx->parsedInfo.metricProperties,
-                        chassisSensors))
-                {
-                    return;
-                }
-
-                const auto finalizer =
-                    std::make_shared<utils::Finalizer>([asyncResp, ctx] {
-                        if (!telemetry::add_trigger::parseMetricProperties(
-                                asyncResp->res, *ctx))
-                        {
-                            return;
-                        }
-                        telemetry::add_trigger::createTrigger(asyncResp, *ctx);
-                    });
-
-                for (const auto& [chassis, sensorType] : chassisSensors)
-                {
-                    retrieveUriToDbusMap(
-                        chassis, sensorType,
-                        [asyncResp, ctx,
-                         finalizer](const boost::beast::http::status status,
-                                    const boost::container::flat_map<
-                                        std::string, std::string>& uriToDbus) {
-                            if (status == boost::beast::http::status::ok)
-                            {
-                                ctx->uriToDbusMerged.insert(uriToDbus.begin(),
-                                                            uriToDbus.end());
-                            }
-                        });
-                }
+                telemetry::add_trigger::parseAndCreateTrigger(
+                    req, asyncResp, std::nullopt,
+                    telemetry::add_trigger::createTrigger);
             });
 }
 
@@ -814,35 +1100,26 @@ inline void requestRoutesTrigger(App& app)
             [](const crow::Request&,
                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                const std::string& id) {
-                crow::connections::systemBus->async_method_call(
-                    [asyncResp,
-                     id](const boost::system::error_code ec,
-                         const std::vector<std::pair<
-                             std::string, telemetry::TriggerGetParamsVariant>>&
-                             ret) {
-                        if (ec.value() == EBADR ||
-                            ec == boost::system::errc::host_unreachable)
+                telemetry::get_trigger::getPropertiesJson(
+                    id,
+                    [asyncResp, id](telemetry::get_trigger::GetResult result,
+                                    nlohmann::json& propertiesJson) {
+                        if (result ==
+                            telemetry::get_trigger::GetResult::NotFound)
                         {
                             messages::resourceNotFound(asyncResp->res,
                                                        "Triggers", id);
                             return;
                         }
-                        if (ec)
+                        if (result ==
+                            telemetry::get_trigger::GetResult::InternalError)
                         {
-                            BMCWEB_LOG_ERROR << "respHandler DBus error " << ec;
                             messages::internalError(asyncResp->res);
                             return;
                         }
 
-                        if (!telemetry::get_trigger::fillTrigger(
-                                asyncResp->res.jsonValue, id, ret))
-                        {
-                            messages::internalError(asyncResp->res);
-                        }
-                    },
-                    telemetry::service, telemetry::getDbusTriggerPath(id),
-                    "org.freedesktop.DBus.Properties", "GetAll",
-                    telemetry::triggerInterface);
+                        asyncResp->res.jsonValue = propertiesJson;
+                    });
             });
 
     BMCWEB_ROUTE(app, "/redfish/v1/TelemetryService/Triggers/<str>/")
@@ -875,6 +1152,26 @@ inline void requestRoutesTrigger(App& app)
                     },
                     telemetry::service, triggerPath,
                     "xyz.openbmc_project.Object.Delete", "Delete");
+            });
+
+    BMCWEB_ROUTE(app, "/redfish/v1/TelemetryService/Triggers/<str>/")
+        .privileges(redfish::privileges::putTriggers)
+        .methods(boost::beast::http::verb::put)(
+            [](const crow::Request& req,
+               const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+               const std::string& id) {
+                telemetry::add_trigger::parseAndCreateTrigger(
+                    req, asyncResp, id, telemetry::add_trigger::replaceTrigger);
+            });
+
+    BMCWEB_ROUTE(app, "/redfish/v1/TelemetryService/Triggers/<str>/")
+        .privileges(redfish::privileges::patchTriggers)
+        .methods(boost::beast::http::verb::patch)(
+            [](const crow::Request& req,
+               const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+               const std::string& id) {
+                telemetry::patch_trigger::parseAndPatchTrigger(req, asyncResp,
+                                                               id);
             });
 }
 
