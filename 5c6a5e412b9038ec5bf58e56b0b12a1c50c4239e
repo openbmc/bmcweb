@@ -215,6 +215,30 @@
     },
     {
       "key": {
+        "uuid": "24d40f56_0303ee75",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 46
+      },
+      "lineNbr": 852,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-12-16T13:16:18Z",
+      "side": 1,
+      "message": "\u003e If no xyz.openbmc_project.Inventory.Item.Cpu are found, we hit this? \n\nNo, we will hit L: 837.\n\n\u003e \n\u003e If we don\u0027t find any xyz.openbmc_project.Inventory.Item.Cpu, don\u0027t we want to return \"resource not found\" for \n\nYes, we will return \"resource not found\", please check L:1004\n\n\u003e \"/redfish/v1/Systems/system/Processors/\u003cstr\u003e/SubProcessors/\u003cstr\u003e\"\n\u003e and \n\u003e \"/redfish/v1/Systems/system/Processors/\u003cstr\u003e/SubProcessors\" ?\n\u003e \n\u003e Could you test this?",
+      "parentUuid": "f411bb51_ee9e29e0",
+      "range": {
+        "startLine": 852,
+        "startChar": 20,
+        "endLine": 852,
+        "endChar": 22
+      },
+      "revId": "5c6a5e412b9038ec5bf58e56b0b12a1c50c4239e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "f94a5a78_514102bc",
         "filename": "redfish-core/lib/processor.hpp",
         "patchSetId": 46
@@ -534,6 +558,30 @@
       "side": 1,
       "message": "for readability, verifying the code is correct, maintainability we try to avoid auto",
       "parentUuid": "119bbef5_31697334",
+      "range": {
+        "startLine": 1035,
+        "startChar": 27,
+        "endLine": 1035,
+        "endChar": 31
+      },
+      "revId": "5c6a5e412b9038ec5bf58e56b0b12a1c50c4239e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "02c6a496_5c9eb20a",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 46
+      },
+      "lineNbr": 1035,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2021-12-16T13:16:18Z",
+      "side": 1,
+      "message": "hmm... Okay, I will update it",
+      "parentUuid": "e6e5454f_84a484ab",
       "range": {
         "startLine": 1035,
         "startChar": 27,
