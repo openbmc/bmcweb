@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "73c42a7e_18ec2706",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-12-16T16:05:01Z",
+      "side": 1,
+      "message": "I think we need a measurement on this before I am ready to support this. \nIf it is no measurable difference, then I am good here. \nBut if it is for example 2% slower across walking the complete tree or any commonly used request is 5% slower, I don\u0027t think it is worth it because there is several other things we can do to reduce size.",
+      "range": {
+        "startLine": 15,
+        "startChar": 20,
+        "endLine": 17,
+        "endChar": 24
+      },
+      "revId": "327d90d96a32c03578c4c1103f4c94f328d8e596",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
