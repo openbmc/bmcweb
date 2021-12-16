@@ -34,3 +34,16 @@ TEST(DbusUtility, getNthStringFromPathBadTest)
     EXPECT_EQ(result, "3rd?");
     EXPECT_FALSE(dbus::utility::getNthStringFromPath(path, -1, result));
 }
+
+TEST(DbusUtility, getResourceName)
+{
+    EXPECT_EQ(dbus::utility::getResourceName("hello_world"), "hello_world");
+    EXPECT_EQ(dbus::utility::getResourceName("hello_world_123c"),
+              "hello_world_123c");
+    EXPECT_EQ(dbus::utility::getResourceName("hello_world_1a23"),
+              "hello_world_1a23");
+    EXPECT_EQ(dbus::utility::getResourceName("hello_world_"), "hello_world_");
+    EXPECT_EQ(dbus::utility::getResourceName("hello_world_123"), "hello_world");
+    EXPECT_EQ(dbus::utility::getResourceName("456_123"), "456");
+    EXPECT_EQ(dbus::utility::getResourceName("_123"), "");
+}
