@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "914e8ca7_937ae80f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-12-16T18:08:32Z",
+      "side": 1,
+      "message": "Please answer why this is necessary in your commit message.  What action are you trying to accomplish that you can\u0027t with this enabled?",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 50
+      },
+      "revId": "d9f18e77227b86c31a60a2703ef4f7f77e59bc5b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
