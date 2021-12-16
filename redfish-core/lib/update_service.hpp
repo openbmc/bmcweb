@@ -19,6 +19,7 @@
 
 #include <app.hpp>
 #include <boost/container/flat_map.hpp>
+#include <dbus_utility.hpp>
 #include <registries/privilege_registry.hpp>
 #include <utils/fw_utils.hpp>
 
@@ -923,7 +924,8 @@ inline void requestRoutesSoftwareInventory(App& app)
                     }
                     asyncResp->res.jsonValue["@odata.type"] =
                         "#SoftwareInventory.v1_1_0.SoftwareInventory";
-                    asyncResp->res.jsonValue["Name"] = "Software Inventory";
+                    asyncResp->res.jsonValue["Name"] =
+                        dbus::utility::getResourceName(*swId);
                     asyncResp->res.jsonValue["Status"]["HealthRollup"] = "OK";
 
                     asyncResp->res.jsonValue["Updateable"] = false;
