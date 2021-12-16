@@ -24,6 +24,7 @@
 #include <regex>
 #include <string>
 #include <tuple>
+#include <string_view>
 #include <variant>
 #include <vector>
 
@@ -136,5 +137,33 @@ inline void checkDbusPathExists(const std::string& path, Callback&& callback)
         std::array<std::string, 0>());
 }
 
+/**
+ * @brief Get the Resource Name from the Resource Id
+ *
+ * @param[in] id - Resource id from the dbus path. path.filename()
+ *
+ * @return the resource name after removing "_\d+"
+ */
+inline std::string getResourceName(std::string_view id)
+{
+    std::string_view output = id;
+    while (output.rbegin() != output.rend() &&
+           (std::isdigit(*output.rbegin()) != 0))
+    {
+        output.remove_suffix(1);
+    }
+    if (output.rbegin() != output.rend() && *output.rbegin() == '_' &&
+        output.size() != id.size())
+    {
+        output.remove_suffix(1);
+    }
+    // The id is not in the expected format. Reset to original id.
+    else
+    {
+        return std::string{id};
+    }
+
+    return std::string{output};
+}
 } // namespace utility
 } // namespace dbus
