@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "a809f75b_2a6e5cbb",
+        "filename": "http/routing.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 1357,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-12-16T23:46:08Z",
+      "side": 1,
+      "message": "No, they\u0027re related to the variant change.  This new variant type now enforces const correctness, so you can\u0027t call get_if\u003cbool\u003e(\u003cconst variant\u003e) anymore, which was already non-nonsensical, but the old variant type somehow collapsed far enough that the compiler was ok with it.\n\nI can mention this in the commit message.",
+      "parentUuid": "ea2fd938_0efe6b1b",
+      "revId": "260ae38ee4b15b3efd28036a1f262bde5c436e8a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "81992f9f_aa734c6b",
         "filename": "redfish-core/include/event_service_manager.hpp",
         "patchSetId": 8
