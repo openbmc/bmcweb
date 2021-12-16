@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "78541355_2b26d9e9",
+        "filename": "src/webassets_test.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-12-16T21:38:00Z",
+      "side": 0,
+      "message": "Any way we can test any part of static hosting..? \nJust thinking out loud here",
+      "revId": "6fbdbcabc3ae43dc372459c6c5ae4d53657267f5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
