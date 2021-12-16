@@ -46,6 +46,30 @@
       "revId": "68adc1117a9e24ae247ae9fbafe82fd9fbde6c60",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "75031b95_7e7b067b",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 30
+      },
+      "lineNbr": 439,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-12-16T00:32:51Z",
+      "side": 1,
+      "message": "Yep.  Looking at the mockups for this stuff (specifically the bladed server mockup), it looks like all the nodes follow the pattern of \"ID\" contains the index, \"Name\" does not.  Lets do that.",
+      "parentUuid": "e2a2af6a_e5af8b0d",
+      "range": {
+        "startLine": 439,
+        "startChar": 32,
+        "endLine": 439,
+        "endChar": 77
+      },
+      "revId": "68adc1117a9e24ae247ae9fbafe82fd9fbde6c60",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
