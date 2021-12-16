@@ -55,6 +55,24 @@
     },
     {
       "key": {
+        "uuid": "fe8ec643_5108cd14",
+        "filename": ".gitignore",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000520
+      },
+      "writtenOn": "2021-12-16T02:37:59Z",
+      "side": 1,
+      "message": "OK, I\u0027ll just update the entire file to exactly what the website generates.",
+      "parentUuid": "54b11db4_b3cdf1cf",
+      "revId": "1d3197ff0dba9f7c861972f8c6d026ffdffea373",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f915f72d_8110d43c",
         "filename": ".gitignore",
         "patchSetId": 1
@@ -105,6 +123,24 @@
       "revId": "1d3197ff0dba9f7c861972f8c6d026ffdffea373",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f0444c05_20018cb5",
+        "filename": ".gitignore",
+        "patchSetId": 1
+      },
+      "lineNbr": 708,
+      "author": {
+        "id": 1000520
+      },
+      "writtenOn": "2021-12-16T02:37:59Z",
+      "side": 1,
+      "message": "OK, agreed.",
+      "parentUuid": "a4517995_96ef0d14",
+      "revId": "1d3197ff0dba9f7c861972f8c6d026ffdffea373",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
