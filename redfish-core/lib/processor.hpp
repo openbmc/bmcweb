@@ -218,7 +218,7 @@ inline void getCpuDataByService(std::shared_ptr<bmcweb::AsyncResp> aResp,
             return;
         }
         aResp->res.jsonValue["Id"] = cpuId;
-        aResp->res.jsonValue["Name"] = "Processor";
+        aResp->res.jsonValue["Name"] = dbus::utility::getResourceName(cpuId);
         aResp->res.jsonValue["ProcessorType"] = "CPU";
 
         bool slotPresent = false;
@@ -417,7 +417,8 @@ inline void getAcceleratorDataByService(
             return;
         }
         aResp->res.jsonValue["Id"] = acclrtrId;
-        aResp->res.jsonValue["Name"] = "Processor";
+        aResp->res.jsonValue["Name"] =
+            dbus::utility::getResourceName(acclrtrId);
         const bool* accPresent = nullptr;
         const bool* accFunctional = nullptr;
 

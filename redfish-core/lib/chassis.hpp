@@ -383,7 +383,8 @@ inline void requestRoutesChassis(App& app)
                             asyncResp->res.jsonValue[propertyName] = *value;
                         }
                     }
-                    asyncResp->res.jsonValue["Name"] = chassisId;
+                    asyncResp->res.jsonValue["Name"] =
+                        dbus::utility::getResourceName(chassisId);
                     asyncResp->res.jsonValue["Id"] = chassisId;
 #ifdef BMCWEB_ALLOW_DEPRECATED_POWER_THERMAL
                     asyncResp->res.jsonValue["Thermal"]["@odata.id"] =
