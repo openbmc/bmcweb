@@ -19,6 +19,7 @@
 
 #include <filesystem>
 #include <regex>
+#include <string_view>
 
 namespace dbus
 {
@@ -99,5 +100,26 @@ inline void checkDbusPathExists(const std::string& path, Callback&& callback)
         std::array<std::string, 0>());
 }
 
+/**
+ * @brief Get the Resource Name from the Resource Id
+ *
+ * @param[in] id - Resource id from the dbus path. path.filename()
+ *
+ * @return the resource name after removing "_\d+"
+ */
+inline std::string getResourceName(std::string_view id)
+{
+    size_t initialSize = id.size();
+    while (id.rbegin() != id.rend() && std::isdigit(*id.rbegin()))
+    {
+        id.remove_suffix(1);
+    }
+    if (id.rbegin() != id.rend() && *id.rbegin() == '_' &&
+        id.size() != initialSize)
+    {
+        id.remove_suffix(1);
+    }
+    return std::string(id.data(), id.data() + id.size());
+}
 } // namespace utility
 } // namespace dbus
