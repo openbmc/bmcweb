@@ -22,6 +22,156 @@
       "revId": "327d90d96a32c03578c4c1103f4c94f328d8e596",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2f4484d7_9cd57574",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2021-12-16T16:56:21Z",
+      "side": 1,
+      "message": "Have we looked at using unordered_map as well?  I\u0027m all for moving away from Boost stuff.\n\nThe algorithmic complexity of the 3 are:\n\nLookup:\n- unordered_map - O(1)\n- flat_map - O(lg n), but no pointers.\n- map - O(lg n), but pointers.\n\nIteration:\n- unordered_map - ~O(n)   (*)\n- flat_map - O(n)\n- map - O(n lg n)\n\n\nUnordered_map is certainly different in how iteration works.  If we\u0027re expecting an ordered and/or consistent iteration we should stay away from it.\n\n(*) due to possible collisions and the Birthday Problem, depending on the map size unordered_map is bigger than O(n).  For small maps I think it trends towards O(n sqrt n).  And yes, I know that saying \"for small maps ... O(n sqrt n)\" makes no sense anyhow because Big-O is about asymptotic behavior, but hopefully it makes sense in this context.",
+      "parentUuid": "73c42a7e_18ec2706",
+      "range": {
+        "startLine": 15,
+        "startChar": 20,
+        "endLine": 17,
+        "endChar": 24
+      },
+      "revId": "327d90d96a32c03578c4c1103f4c94f328d8e596",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8ee24af0_2dc765ad",
+        "filename": "include/dbus_monitor.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2021-12-16T16:56:21Z",
+      "side": 1,
+      "message": "This is one where std::unordered_map is probably better than map and the algorithm certainly doesn\u0027t care.",
+      "range": {
+        "startLine": 25,
+        "startChar": 7,
+        "endLine": 25,
+        "endChar": 15
+      },
+      "revId": "327d90d96a32c03578c4c1103f4c94f328d8e596",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0d3e9e4a_b1e34a5e",
+        "filename": "include/ibm/locks.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2021-12-16T16:56:21Z",
+      "side": 1,
+      "message": "Order likely doesn\u0027t matter.",
+      "revId": "327d90d96a32c03578c4c1103f4c94f328d8e596",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ec7d0766_ddd5cd43",
+        "filename": "include/nbd_proxy.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 261,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2021-12-16T16:56:21Z",
+      "side": 1,
+      "message": "I was confused why the linter was so confused, but it doesn\u0027t even look like this code compiles (nor does the existing code).",
+      "range": {
+        "startLine": 260,
+        "startChar": 0,
+        "endLine": 261,
+        "endChar": 75
+      },
+      "revId": "327d90d96a32c03578c4c1103f4c94f328d8e596",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "95836595_1b84ff2a",
+        "filename": "redfish-core/include/privileges.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 245,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2021-12-16T16:56:21Z",
+      "side": 1,
+      "message": "It is possible that verb doesn\u0027t have a std::hash and can\u0027t fit in an unordered_map.",
+      "range": {
+        "startLine": 245,
+        "startChar": 13,
+        "endLine": 245,
+        "endChar": 37
+      },
+      "revId": "327d90d96a32c03578c4c1103f4c94f328d8e596",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9fdf3c14_7712b2fd",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2021-12-16T16:56:21Z",
+      "side": 1,
+      "message": "This is a pretty awesome type. 😞",
+      "revId": "327d90d96a32c03578c4c1103f4c94f328d8e596",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c53c46ed_46ab8eb7",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 3103,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2021-12-16T16:56:21Z",
+      "side": 1,
+      "message": "Order shouldn\u0027t matter on this one.  But ... didn\u0027t it matter??  I\u0027m surprised that the post codes went into a map because the order in time is more important than the postcode value.  Unless the \"key\" here is some time stamp?",
+      "range": {
+        "startLine": 3103,
+        "startChar": 4,
+        "endLine": 3103,
+        "endChar": 28
+      },
+      "revId": "327d90d96a32c03578c4c1103f4c94f328d8e596",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
