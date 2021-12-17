@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f31c305c_833a5ade",
+        "filename": "redfish-core/include/registries/openbmc_message_registry.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 516,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-12-17T00:54:39Z",
+      "side": 1,
+      "message": "\"Notification\" on this enum is redundant, and implies the delivery of this message, which might not be a notification.  Same thing with \"Event\" in the previous definition.  We are in the EventLog, all of these are \"Events\".   Lets be consistent and leave it off.",
+      "range": {
+        "startLine": 516,
+        "startChar": 27,
+        "endLine": 516,
+        "endChar": 39
+      },
+      "revId": "0bd8f6f7134cd587bf481dc6266169a2f1853dcb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a5e7ba5f_d66ddf36",
+        "filename": "redfish-core/include/registries/openbmc_message_registry.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 519,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-12-17T00:54:39Z",
+      "side": 1,
+      "message": "This is not how these messages are generally formatted.  Once the parameter is filled in, the message should read like a normal sentence.\n\n\"Firmware resiliency has failed for device %d\"\n\nWould be an example of how to structure this.  Generally the individual parameters are a single word, not a whole log message in-themselves.  I suspect that these need broken out into a few more message types for your use case, but I don\u0027t really know all the types of messages these might have, so I can only speculate.\n\n\nFor example, if I wanted to match on a firmware failing to read, in Redfish I should be able to do that without looking at the message string itself.",
+      "range": {
+        "startLine": 519,
+        "startChar": 13,
+        "endLine": 519,
+        "endChar": 49
+      },
+      "revId": "0bd8f6f7134cd587bf481dc6266169a2f1853dcb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
