@@ -96,6 +96,24 @@
     },
     {
       "key": {
+        "uuid": "13744566_9b9a6945",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1455,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-12-17T20:47:00Z",
+      "side": 1,
+      "message": "Check for validity right before the dereference, no need to set internal error to do that.",
+      "parentUuid": "a3d60727_0e93b048",
+      "revId": "455075cc4b7350ed0682c70f29142ed7dd95cc0b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "3ca0ebb4_426729a0",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 3

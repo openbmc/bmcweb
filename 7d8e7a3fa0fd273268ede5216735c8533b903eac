@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "257edfb0_45573758",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-12-17T20:47:00Z",
+      "side": 1,
+      "message": "Isn\u0027t this breaking the redfish spec?  The registry is supposed to be usable by services that don\u0027t want to/aren\u0027t able to parse text results from a system.  Allowing to override the message registry removes this ability, and in this case largely just seems like a trapdoor to defeat the type safety of the message registry.\n\nI suspect your path here is to add new specific message types for your various resolution strings.",
+      "range": {
+        "startLine": 10,
+        "startChar": 37,
+        "endLine": 13,
+        "endChar": 0
+      },
+      "revId": "7d8e7a3fa0fd273268ede5216735c8533b903eac",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fe9b6381_aaaf5692",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-12-17T20:47:00Z",
+      "side": 1,
+      "message": "Message is supposed to be human readable, this is not.\n\nAlso, we should not be exposing openbmc specific internal interfaces out to a spec-defined interface, as it removes our ability to modify the internal interfaces later, and essentially makes the internal interfaces external interfaces.",
+      "range": {
+        "startLine": 36,
+        "startChar": 18,
+        "endLine": 36,
+        "endChar": 57
+      },
+      "revId": "7d8e7a3fa0fd273268ede5216735c8533b903eac",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6d99c615_c67ab25a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-12-17T20:47:00Z",
+      "side": 1,
+      "message": "This is in no way how this should be formatted, and seems to be embedding yet another message within the Resolution field, which is not how the resolution field works.  Resolution should be human readable, and match the registry.  If you need extra fields, embed them in your message with message args.",
+      "range": {
+        "startLine": 39,
+        "startChar": 21,
+        "endLine": 40,
+        "endChar": 50
+      },
+      "revId": "7d8e7a3fa0fd273268ede5216735c8533b903eac",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
