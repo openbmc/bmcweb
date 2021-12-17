@@ -70,6 +70,30 @@
       "revId": "d9f18e77227b86c31a60a2703ef4f7f77e59bc5b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1568fc16_5278987b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-12-17T00:58:44Z",
+      "side": 1,
+      "message": "to repeat (with different emphasis)\n\n\"Please answer why this is necessary IN YOUR COMMIT MESSAGE\"\n\n\nThe above explanation seems reasonable, just put it in the right place, along with your tested statement.",
+      "parentUuid": "025d028b_b35aa5a0",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 50
+      },
+      "revId": "d9f18e77227b86c31a60a2703ef4f7f77e59bc5b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
