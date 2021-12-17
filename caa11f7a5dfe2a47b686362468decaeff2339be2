@@ -16,6 +16,24 @@
       "revId": "caa11f7a5dfe2a47b686362468decaeff2339be2",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1599bc1e_b02f6021",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 13
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-12-17T19:54:35Z",
+      "side": 1,
+      "message": "Whoops, yeah, I should\u0027ve seen that one coming.\n\nI\u0027ve wondered before if we should just generate a header file kinda like privilegeRegistry.hpp that just has the latest strings for all the latest versions of each schema, that we can reference in places.  That way, we\u0027re always exporting the \"newest\" one, so people don\u0027t fall into that trap.",
+      "parentUuid": "0212ac0a_ff7ee04c",
+      "revId": "caa11f7a5dfe2a47b686362468decaeff2339be2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
