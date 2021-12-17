@@ -36,6 +36,52 @@
     },
     {
       "key": {
+        "uuid": "c2afe4c3_dc5b59b4",
+        "filename": "redfish-core/lib/message_registries.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-12-17T17:46:02Z",
+      "side": 1,
+      "message": "Please follow the pattern that exists for this, and put this in its own file, instead of inlining it here.",
+      "range": {
+        "startLine": 93,
+        "startChar": 0,
+        "endLine": 103,
+        "endChar": 10
+      },
+      "revId": "00f36fa6881128a78129babf8bdf51eae4b97447",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "af092787_3e2eb299",
+        "filename": "redfish-core/lib/message_registries.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-12-17T17:46:02Z",
+      "side": 1,
+      "message": "A majority of these fields are identical between the branches.  Please separate only the things that are different.  In fact, looking at it, I don\u0027t even see why these two are different, with the exception of URI, which looks like it could be made the same.",
+      "range": {
+        "startLine": 116,
+        "startChar": 0,
+        "endLine": 133,
+        "endChar": 5
+      },
+      "revId": "00f36fa6881128a78129babf8bdf51eae4b97447",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "30e7ab72_266ac34e",
         "filename": "static/redfish/v1/$metadata/index.xml",
         "patchSetId": 2
@@ -47,6 +93,87 @@
       "writtenOn": "2021-12-17T17:29:51Z",
       "side": 1,
       "message": "Did you edit this directly? Please don\u0027t. Please run update_schemas",
+      "revId": "00f36fa6881128a78129babf8bdf51eae4b97447",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8f478aa1_41417107",
+        "filename": "static/redfish/v1/$metadata/index.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 1666,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-12-17T17:46:02Z",
+      "side": 1,
+      "message": "+1",
+      "parentUuid": "30e7ab72_266ac34e",
+      "revId": "00f36fa6881128a78129babf8bdf51eae4b97447",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "53ab7161_9a1732b6",
+        "filename": "static/redfish/v1/JsonSchemas/PrivilegeRegistry/index.json",
+        "patchSetId": 2
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-12-17T17:46:02Z",
+      "side": 1,
+      "message": "Same here.",
+      "range": {
+        "startLine": 21,
+        "startChar": 1,
+        "endLine": 21,
+        "endChar": 2
+      },
+      "revId": "00f36fa6881128a78129babf8bdf51eae4b97447",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d64d3a31_b4f6f3b7",
+        "filename": "static/redfish/v1/JsonSchemas/index.json",
+        "patchSetId": 2
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-12-17T17:46:02Z",
+      "side": 1,
+      "message": "Had you run the script, you wouldn\u0027t have whitespace issues like this.",
+      "range": {
+        "startLine": 113,
+        "startChar": 6,
+        "endLine": 113,
+        "endChar": 10
+      },
+      "revId": "00f36fa6881128a78129babf8bdf51eae4b97447",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "00a39c85_3ae0020a",
+        "filename": "static/redfish/v1/Registries/PrivilegeRegistry/Redfish_1.1.0_PrivilegeRegistry.json",
+        "patchSetId": 2
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-12-17T17:46:02Z",
+      "side": 1,
+      "message": "This looks like you removed all pretty formatting from the upstream one?  We should keep the pretty printing, or completely remove it.  The half-measure done here doesn\u0027t really help anyone.\n\nUsing the script would fix that.\n\nAlso, this structure is already available in the form of \nbmcweb/redfish-core/include/registries/privilege_registry.hpp\n\n\nIs there a way to avoid duplicating all this information between that file and this one, similar to what we did with the event registries?",
       "revId": "00f36fa6881128a78129babf8bdf51eae4b97447",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
