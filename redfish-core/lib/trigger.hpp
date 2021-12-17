@@ -871,7 +871,7 @@ inline bool fillTrigger(
                 << "Property TriggerActions is invalid in Trigger: " << id;
             return false;
         }
-        json["TriggerActions"] = *triggerActions;
+        json["TriggerActions"] = *redfishTriggerActions;
     }
 
     if (reports != nullptr)

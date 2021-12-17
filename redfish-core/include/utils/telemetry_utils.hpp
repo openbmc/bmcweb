@@ -20,14 +20,14 @@ namespace telemetry
 constexpr const char* service = "xyz.openbmc_project.Telemetry";
 constexpr const char* reportInterface = "xyz.openbmc_project.Telemetry.Report";
 
-inline std::string getDbusReportPath(const std::string& id)
+inline std::string getDbusReportPath(std::string_view id)
 {
     sdbusplus::message::object_path reportsPath(
         "/xyz/openbmc_project/Telemetry/Reports/TelemetryService");
     return {reportsPath / id};
 }
 
-inline std::string getDbusTriggerPath(const std::string& id)
+inline std::string getDbusTriggerPath(std::string_view id)
 {
     sdbusplus::message::object_path triggersPath(
         "/xyz/openbmc_project/Telemetry/Triggers/TelemetryService");
@@ -56,26 +56,27 @@ inline std::optional<std::string>
 
 struct IncorrectMetricProperty
 {
-    std::string uri;
+    std::string metricProperty;
     size_t index;
 };
 
 inline std::optional<IncorrectMetricProperty> getChassisSensorNode(
-    std::span<const std::string> uris,
+    std::span<const std::string> metricProperties,
     boost::container::flat_set<std::pair<std::string, std::string>>& matched)
 {
-    size_t uriIdx = 0;
-    for (const std::string& uri : uris)
+    size_t propertyIdx = 0;
+    for (const std::string& metricProperty : metricProperties)
     {
         boost::urls::result<boost::urls::url_view> parsed =
-            boost::urls::parse_relative_ref(uri);
+            boost::urls::parse_relative_ref(metricProperty);
 
         if (!parsed)
         {
             BMCWEB_LOG_ERROR << "Failed to get chassis and sensor Node "
                                 "from "
-                             << uri;
-            return std::make_optional<IncorrectMetricProperty>({uri, uriIdx});
+                             << metricProperty;
+            return std::make_optional<IncorrectMetricProperty>(
+                {metricProperty, propertyIdx});
         }
 
         std::string chassis;
@@ -85,7 +86,7 @@ inline std::optional<IncorrectMetricProperty> getChassisSensorNode(
                                            std::ref(chassis), std::ref(node)))
         {
             matched.emplace(std::move(chassis), std::move(node));
-            uriIdx++;
+            propertyIdx++;
             continue;
         }
 
@@ -98,14 +99,15 @@ inline std::optional<IncorrectMetricProperty> getChassisSensorNode(
                                            std::ref(ignoredSenorId)))
         {
             matched.emplace(std::move(chassis), "Sensors");
-            uriIdx++;
+            propertyIdx++;
             continue;
         }
 
         BMCWEB_LOG_ERROR << "Failed to get chassis and sensor Node "
                             "from "
-                         << uri;
-        return std::make_optional<IncorrectMetricProperty>({uri, uriIdx});
+                         << metricProperty;
+        return std::make_optional<IncorrectMetricProperty>(
+            {metricProperty, propertyIdx});
     }
 
     return std::nullopt;
