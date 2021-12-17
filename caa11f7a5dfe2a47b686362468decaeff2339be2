@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0212ac0a_ff7ee04c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 13
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-12-17T18:45:35Z",
+      "side": 1,
+      "message": "If you have a SparePartNumber this introduces a validator error. :( \nNeed to bump the schema. I will do that. \nERROR - SparePartNumber not defined in schema Chassis.v1_14_0 (check version, spelling and casing)\n\nI guess we never asked for the validator to be ran. \n\n               \"SparePartNumber\": {\n                    \"description\": \"The spare part number of the chassis.\",\n                    \"longDescription\": \"This property shall contain the spare part number of the chassis.\",\n                    \"readonly\": true,\n                    \"type\": [\n                        \"string\",\n                        \"null\"\n                    ],\n                    \"versionAdded\": \"v1_16_0\"\n                },",
+      "revId": "caa11f7a5dfe2a47b686362468decaeff2339be2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
