@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "92c47fc3_368a24d1",
+        "filename": "include/dbus_utility.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2021-12-17T00:40:58Z",
+      "side": 1,
+      "message": "remove_suffix only affect the size.\n\nDoing \n```\nreturn id;\n```\n\nreturns the full data.",
+      "range": {
+        "startLine": 117,
+        "startChar": 0,
+        "endLine": 122,
+        "endChar": 52
+      },
+      "revId": "916f8494a1a09f441192b12d389921725ac57a8c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
