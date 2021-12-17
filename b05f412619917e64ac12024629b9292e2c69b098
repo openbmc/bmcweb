@@ -22,6 +22,30 @@
       "revId": "b05f412619917e64ac12024629b9292e2c69b098",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1fedeedb_c6ddb215",
+        "filename": "redfish-core/lib/service_config_manager.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1001252
+      },
+      "writtenOn": "2021-12-17T03:37:44Z",
+      "side": 1,
+      "message": "I think the starts_with here won\u0027t cause mismatch, the starts_with here is used to match service with multiple instances, which service name is in serviceName@attribute format. In this case, serviceName@ is passed to this function. For services doesn\u0027t have multiple instances, the full serviceName is passed.\n\nThis is the existing implementation, I just moved to a new file for using this function across multiple files. Previously this function is at https://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/49684/1/redfish-core/lib/network_protocol.hpp",
+      "parentUuid": "a08e2500_9aec2ec3",
+      "range": {
+        "startLine": 31,
+        "startChar": 38,
+        "endLine": 31,
+        "endChar": 49
+      },
+      "revId": "b05f412619917e64ac12024629b9292e2c69b098",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
