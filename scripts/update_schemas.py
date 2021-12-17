@@ -18,6 +18,8 @@ include_list = [
     'Assembly',
     'AttributeRegistry',
     'Bios',
+    'Cable',
+    'CableCollection',
     'Certificate',
     'CertificateCollection',
     'CertificateLocations',
