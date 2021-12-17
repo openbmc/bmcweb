@@ -34,17 +34,18 @@ inline void handleMessageRegistryFileCollectionGet(
     // because it has a duplicate entry for members
 
     asyncResp->res.jsonValue = {
-        {"@odata.type",
-         "#MessageRegistryFileCollection.MessageRegistryFileCollection"},
+        {"@odata.type", "#MessageRegistryFileCollection."
+                        "MessageRegistryFileCollection"},
         {"@odata.id", "/redfish/v1/Registries"},
         {"Name", "MessageRegistryFile Collection"},
         {"Description", "Collection of MessageRegistryFiles"},
-        {"Members@odata.count", 4},
+        {"Members@odata.count", 5},
         {"Members",
          {{{"@odata.id", "/redfish/v1/Registries/Base"}},
           {{"@odata.id", "/redfish/v1/Registries/TaskEvent"}},
           {{"@odata.id", "/redfish/v1/Registries/ResourceEvent"}},
-          {{"@odata.id", "/redfish/v1/Registries/OpenBMC"}}}}};
+          {{"@odata.id", "/redfish/v1/Registries/OpenBMC"}},
+          {{"@odata.id", "/redfish/v1/Registries/PrivilegeRegistry"}}}}};
 }
 
 inline void requestRoutesMessageRegistryFileCollection(App& app)
@@ -63,6 +64,7 @@ inline void handleMessageRoutesMessageRegistryFileGet(
     const std::string& registry)
 {
     const message_registries::Header* header;
+    redfish::message_registries::Header privilege_header = {};
     std::string dmtf = "DMTF ";
     const char* url = nullptr;
 
@@ -86,6 +88,23 @@ inline void handleMessageRoutesMessageRegistryFileGet(
         header = &message_registries::resource_event::header;
         url = message_registries::resource_event::url;
     }
+    else if (registry == "PrivilegeRegistry")
+    {
+        privilege_header = {
+            "Copyright 2014-2021 DMTF. All rights reserved.",
+            "#MessageRegistry.v1_4_0.MessageRegistry",
+            "Redfish_1.1.0_PrivilegeRegistry",
+            "Privilege Registry",
+            "en",
+            "This registry defines the Privileges for Redfish Resources",
+            "PrivilegeRegistry",
+            "1.1.0",
+            "DMTF",
+        };
+        header = &privilege_header;
+        dmtf.clear();
+    }
+
     else
     {
         messages::resourceNotFound(
@@ -94,20 +113,42 @@ inline void handleMessageRoutesMessageRegistryFileGet(
         return;
     }
 
-    asyncResp->res.jsonValue = {
-        {"@odata.id", "/redfish/v1/Registries/" + registry},
-        {"@odata.type", "#MessageRegistryFile.v1_1_0.MessageRegistryFile"},
-        {"Name", registry + " Message Registry File"},
-        {"Description", dmtf + registry + " Message Registry File Location"},
-        {"Id", header->registryPrefix},
-        {"Registry", header->id},
-        {"Languages", {"en"}},
-        {"Languages@odata.count", 1},
-        {"Location",
-         {{{"Language", "en"},
-           {"Uri", "/redfish/v1/Registries/" + registry + "/" + registry}}}},
-        {"Location@odata.count", 1}};
-
+    if (registry == "PrivilegeRegistry")
+    {
+        asyncResp->res.jsonValue = {
+            {"@odata.id", "/redfish/v1/Registries/" + registry},
+            {"@odata.type", "#MessageRegistryFile.v1_1_0.MessageRegistryFile"},
+            {"Name", registry + " Message Registry File"},
+            {"Description",
+             dmtf + registry + " Message Registry File Location"},
+            {"Id", header->registryPrefix},
+            {"Registry", header->id},
+            {"Languages", {"en"}},
+            {"Languages@odata.count", 1},
+            {"Location",
+             {{{"Language", "en"},
+               {"Uri", "/redfish/v1/Registries/" + registry +
+                           "/Redfish_1.1.0_PrivilegeRegistry.json"}}}},
+            {"Location@odata.count", 1}};
+    }
+    else
+    {
+        asyncResp->res.jsonValue = {
+            {"@odata.id", "/redfish/v1/Registries/" + registry},
+            {"@odata.type", "#MessageRegistryFile.v1_1_0.MessageRegistryFile"},
+            {"Name", registry + " Message Registry File"},
+            {"Description",
+             dmtf + registry + " Message Registry File Location"},
+            {"Id", header->registryPrefix},
+            {"Registry", header->id},
+            {"Languages", {"en"}},
+            {"Languages@odata.count", 1},
+            {"Location",
+             {{{"Language", "en"},
+               {"Uri",
+                "/redfish/v1/Registries/" + registry + "/" + registry}}}},
+            {"Location@odata.count", 1}};
+    }
     if (url != nullptr)
     {
         asyncResp->res.jsonValue["Location"][0]["PublicationUri"] = url;

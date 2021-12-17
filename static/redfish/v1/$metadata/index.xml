@@ -1650,6 +1650,20 @@
         <edmx:Include Namespace="Privileges.v1_0_4"/>
         <edmx:Include Namespace="Privileges.v1_0_5"/>
     </edmx:Reference>
+    <edmx:Reference Uri="/redfish/v1/schema/PrivilegeRegistry_v1.xml">
+        <edmx:Include Namespace="PrivilegeRegistry"/>
+	<edmx:Include Namespace="PrivilegeRegistry.v1_0_0"/>
+	<edmx:Include Namespace="PrivilegeRegistry.v1_0_1"/>
+	<edmx:Include Namespace="PrivilegeRegistry.v1_0_2"/>
+	<edmx:Include Namespace="PrivilegeRegistry.v1_0_3"/>
+	<edmx:Include Namespace="PrivilegeRegistry.v1_0_4"/>
+	<edmx:Include Namespace="PrivilegeRegistry.v1_0_5"/>
+	<edmx:Include Namespace="PrivilegeRegistry.v1_1_0"/>
+	<edmx:Include Namespace="PrivilegeRegistry.v1_1_1"/>
+	<edmx:Include Namespace="PrivilegeRegistry.v1_1_2"/>
+	<edmx:Include Namespace="PrivilegeRegistry.v1_1_3"/>
+	<edmx:Include Namespace="PrivilegeRegistry.v1_1_4"/>
+    </edmx:Reference>    
     <edmx:Reference Uri="/redfish/v1/schema/Processor_v1.xml">
         <edmx:Include Namespace="Processor"/>
         <edmx:Include Namespace="Processor.v1_0_0"/>
