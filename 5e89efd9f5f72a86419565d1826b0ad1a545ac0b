@@ -94,6 +94,30 @@
       "revId": "5e89efd9f5f72a86419565d1826b0ad1a545ac0b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4e0d8cce_063a2be3",
+        "filename": "scripts/hostlogger_test.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1000404
+      },
+      "writtenOn": "2021-12-17T08:22:52Z",
+      "side": 1,
+      "message": "Understood, perhaps I used Python2 to test the script at that time but I didn\u0027t notice. Next time I will pay more attention when I push the new PR. Thank you for pointing out the problem.",
+      "parentUuid": "f25a0a5c_a46f7d88",
+      "range": {
+        "startLine": 36,
+        "startChar": 0,
+        "endLine": 40,
+        "endChar": 16
+      },
+      "revId": "5e89efd9f5f72a86419565d1826b0ad1a545ac0b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
