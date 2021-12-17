@@ -143,6 +143,30 @@
     },
     {
       "key": {
+        "uuid": "266cf8c5_381e4692",
+        "filename": "redfish-core/lib/trigger.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 196,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-12-17T17:49:32Z",
+      "side": 1,
+      "message": "Great, sounds good to me.",
+      "parentUuid": "09072966_0a4cb149",
+      "range": {
+        "startLine": 196,
+        "startChar": 56,
+        "endLine": 196,
+        "endChar": 79
+      },
+      "revId": "f6bf2403670fd25ba41125cea5e0edae5ebd5c5a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "85fbd35d_912de3ef",
         "filename": "redfish-core/lib/trigger.hpp",
         "patchSetId": 8
@@ -178,6 +202,30 @@
       "side": 1,
       "message": "As stated in DMTF (https://redfish.dmtf.org/schemas/v1/Triggers.v1_2_0.json) the DiscreteTriggers shall be present when DiscreteTriggerCondition is \u0027Specified\u0027, when DiscreteTriggers is empty then we assume that DiscreteTriggerCondition represents \u0027Changed\u0027.\n\nThis behavior is reflected just like this in Telemetry Service - in there if at least one discrete threshold is defined for the Trigger then appropriate actions are executed exactly when value from related metric meets given threshold condition (\u0027Specified\u0027 state), on the other hand when no discrete thresholds are defined for the Trigger appropriate actions are executed every time when value from related metric is changed (\u0027Changed\u0027 state).\n\nTherefore at this point checking discreteTriggers against being empty is sufficient to deduce state of DiscreteTriggerCondition.",
       "parentUuid": "85fbd35d_912de3ef",
+      "range": {
+        "startLine": 226,
+        "startChar": 0,
+        "endLine": 226,
+        "endChar": 64
+      },
+      "revId": "f6bf2403670fd25ba41125cea5e0edae5ebd5c5a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d36f1afc_7471eda0",
+        "filename": "redfish-core/lib/trigger.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 226,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-12-17T17:49:32Z",
+      "side": 1,
+      "message": "ACK.  Explanation seems reasonable,",
+      "parentUuid": "7f6a9842_d248f8e8",
       "range": {
         "startLine": 226,
         "startChar": 0,

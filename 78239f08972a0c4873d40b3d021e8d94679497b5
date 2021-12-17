@@ -109,6 +109,24 @@
     },
     {
       "key": {
+        "uuid": "97d0e4a6_17ef7672",
+        "filename": "redfish-core/lib/trigger.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-12-17T17:49:32Z",
+      "side": 1,
+      "message": "I like to see new patterns that consolidate code, while not having an impact on binary size (or improving it).\n\nSpecifically in this case, I want to make sure that:\n1. When new parameters are added to an interface, we can support both the new and old interfaces for a period of time.\n2. the binary size and performance are identical to as if this code were written out naively.\n3. The code is readable by someone not familiar with the inner workings of dbus.\n4. bmcweb is as consistent as we can make it, such that when people look for examples while writing new code, they find good, consistent uses of the dbus bindings.\n5. We\u0027re not doing things inefficiently on dbus (ie, calling Get 4 times instead of GetAll once).\n\n\nSo long as getAllProperties meets those, I\u0027m happy to have it, I just don\u0027t like seeing it mixed in with a new handler, as it doesn\u0027t prove that it\u0027s capable of #1, hard to measure #2, and could cause problems with #3 if not followed through.  Changing an existing handler to use this new pattern is better because:\n\nWe can use a non-trivial handler (ie one that already has to support #1)\nWe can directly measure the binary impact when using it.\nWe can directly compare new code, with old code, including error handling, which helper functions might ignore/abstract away.",
+      "parentUuid": "ae6291ec_64ecd7f9",
+      "revId": "78239f08972a0c4873d40b3d021e8d94679497b5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "9ffdad41_c92415cd",
         "filename": "redfish-core/lib/trigger.hpp",
         "patchSetId": 5
