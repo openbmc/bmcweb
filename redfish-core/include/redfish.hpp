@@ -17,6 +17,7 @@
 
 #include "../lib/account_service.hpp"
 #include "../lib/bios.hpp"
+#include "../lib/cable.hpp"
 #include "../lib/certificate_service.hpp"
 #include "../lib/chassis.hpp"
 #include "../lib/ethernet.hpp"
@@ -86,6 +87,8 @@ class RedfishService
         requestRoutesStorageCollection(app);
         requestRoutesStorage(app);
         requestRoutesDrive(app);
+        requestRoutesCable(app);
+        requestRoutesCableCollection(app);
 #ifdef BMCWEB_INSECURE_ENABLE_REDFISH_FW_TFTP_UPDATE
         requestRoutesUpdateServiceActionsSimpleUpdate(app);
 #endif
