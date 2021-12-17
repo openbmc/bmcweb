@@ -29,7 +29,8 @@ inline void
 {
 
     std::string uuid = persistent_data::getConfig().systemUuid;
-    asyncResp->res.jsonValue["@odata.type"] = "#ServiceRoot.v1_5_0.ServiceRoot";
+    asyncResp->res.jsonValue["@odata.type"] =
+        "#ServiceRoot.v1_11_0.ServiceRoot";
     asyncResp->res.jsonValue["@odata.id"] = "/redfish/v1";
     asyncResp->res.jsonValue["Id"] = "RootService";
     asyncResp->res.jsonValue["Name"] = "Root Service";
@@ -62,6 +63,7 @@ inline void
         {"@odata.id", "/redfish/v1/EventService"}};
     asyncResp->res.jsonValue["TelemetryService"] = {
         {"@odata.id", "/redfish/v1/TelemetryService"}};
+    asyncResp->res.jsonValue["Cables"] = {{"@odata.id", "/redfish/v1/Cables"}};
 }
 
 inline void requestRoutesServiceRoot(App& app)
