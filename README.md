@@ -2,7 +2,6 @@
 
 This component attempts to be a "do everything" embedded webserver for openbmc.
 
-
 ## Capabilities ##
 At this time, the webserver implements a few interfaces:
 + Authentication middleware that supports cookie and token based authentication, as well as CSRF prevention backed by linux PAM authentication credentials.
