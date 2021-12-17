@@ -1,0 +1,28 @@
+{
+    "$id": "http://redfish.dmtf.org/schemas/v1/PrivilegeRegistry.json",
+    "$ref": "#/definitions/PrivilegeRegistry",
+    "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
+    "copyright": "Copyright 2014-2021 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "definitions": {
+        "PrivilegeRegistry": {
+            "anyOf": [
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/idRef"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/PrivilegeRegistry.v1_0_5.json#/definitions/PrivilegeRegistry"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/PrivilegeRegistry.v1_1_4.json#/definitions/PrivilegeRegistry"
+                }
+            ],
+            "deletable": false,
+            "description": "The PrivilegeRegistry schema describes the operation-to-privilege mappings.",
+            "insertable": false,
+            "longDescription": "This Resource contains operation-to-privilege mappings.",
+            "updatable": false
+        }
+    },
+    "owningEntity": "DMTF",
+    "title": "#PrivilegeRegistry.PrivilegeRegistry"
+}
