@@ -25,28 +25,29 @@ inline std::string getDbusTriggerPath(const std::string& id)
     return {triggersPath / id};
 }
 
-struct IncorrectMetricUri
+struct IncorrectMetricProperty
 {
-    std::string uri;
+    std::string metricProperty;
     size_t index;
 };
 
-inline std::optional<IncorrectMetricUri> getChassisSensorNode(
-    const std::vector<std::string>& uris,
+inline std::optional<IncorrectMetricProperty> getChassisSensorNode(
+    const std::vector<std::string>& metricProperties,
     boost::container::flat_set<std::pair<std::string, std::string>>& matched)
 {
     size_t uriIdx = 0;
-    for (const std::string& uri : uris)
+    for (const std::string& metricProperty : metricProperties)
     {
         boost::urls::result<boost::urls::url_view> parsed =
-            boost::urls::parse_relative_ref(uri);
+            boost::urls::parse_relative_ref(metricProperty);
 
         if (!parsed)
         {
             BMCWEB_LOG_ERROR << "Failed to get chassis and sensor Node "
                                 "from "
-                             << uri;
-            return std::make_optional<IncorrectMetricUri>({uri, uriIdx});
+                             << metricProperty;
+            return std::make_optional<IncorrectMetricProperty>(
+                {metricProperty, uriIdx});
         }
 
         std::string chassis;
@@ -75,8 +76,9 @@ inline std::optional<IncorrectMetricUri> getChassisSensorNode(
 
         BMCWEB_LOG_ERROR << "Failed to get chassis and sensor Node "
                             "from "
-                         << uri;
-        return std::make_optional<IncorrectMetricUri>({uri, uriIdx});
+                         << metricProperty;
+        return std::make_optional<IncorrectMetricProperty>(
+            {metricProperty, uriIdx});
     }
     return std::nullopt;
 }
