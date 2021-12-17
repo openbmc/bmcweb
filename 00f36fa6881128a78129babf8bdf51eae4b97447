@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8dc89b91_5d7fa9ad",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-12-17T17:29:51Z",
+      "side": 1,
+      "message": "Can you explain a bit more why we want this?\nCurrently, we take this Registry and generate privilege_registry.hpp and we use that for our privileges\nhttps://github.com/openbmc/bmcweb/commit/ed3982131dcef2b499da36e674d2d21b2289ef29",
+      "revId": "00f36fa6881128a78129babf8bdf51eae4b97447",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bb99f375_e5fc48f9",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-12-17T17:29:51Z",
+      "side": 1,
+      "message": "Can you use your fullname here? \n\nFrom https://github.com/openbmc/docs/blob/master/CONTRIBUTING.md#formatting-commit-messages\n\nAll commit messages must include a \"Signed-off-by\" line, which indicates that you the contributor have agreed to the Developer Certificate of Origin (see below). This line must include the full name you commonly use, often a given name and a family name or surname. (ok: Sam Samuelsson, Robert A. Heinlein; not ok: xXthorXx, Sam, RAH)",
+      "revId": "00f36fa6881128a78129babf8bdf51eae4b97447",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "30e7ab72_266ac34e",
+        "filename": "static/redfish/v1/$metadata/index.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 1666,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-12-17T17:29:51Z",
+      "side": 1,
+      "message": "Did you edit this directly? Please don\u0027t. Please run update_schemas",
+      "revId": "00f36fa6881128a78129babf8bdf51eae4b97447",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
