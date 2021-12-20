@@ -468,7 +468,7 @@ inline void requestRoutesCertificateActionGenerateCSR(App& app)
                     }
                 });
             crow::connections::systemBus->async_method_call(
-                [asyncResp](const boost::system::error_code& ec,
+                [asyncResp](const boost::system::error_code ec,
                             const std::string&) {
                     if (ec)
                     {

@@ -183,7 +183,7 @@ struct HealthPopulate : std::enable_shared_from_this<HealthPopulate>
         std::shared_ptr<HealthPopulate> self = shared_from_this();
         crow::connections::systemBus->async_method_call(
             [self](const boost::system::error_code ec,
-                   std::vector<std::string>& resp) {
+                   const std::vector<std::string>& resp) {
                 if (ec || resp.size() != 1)
                 {
                     // no global item, or too many
@@ -203,11 +203,12 @@ struct HealthPopulate : std::enable_shared_from_this<HealthPopulate>
         std::shared_ptr<HealthPopulate> self = shared_from_this();
         crow::connections::systemBus->async_method_call(
             [self](const boost::system::error_code ec,
-                   dbus::utility::ManagedObjectType& resp) {
+                   const dbus::utility::ManagedObjectType& resp) {
                 if (ec)
                 {
                     return;
                 }
+                dbus::utility::ManagedObjectType copy = resp;
                 for (auto it = resp.begin(); it != resp.end();)
                 {
                     if (boost::ends_with(it->first.str, "critical") ||
@@ -216,9 +217,9 @@ struct HealthPopulate : std::enable_shared_from_this<HealthPopulate>
                         it++;
                         continue;
                     }
-                    it = resp.erase(it);
+                    it = copy.erase(it);
                 }
-                self->statuses = std::move(resp);
+                self->statuses = std::move(copy);
             },
             "xyz.openbmc_project.ObjectMapper", "/",
             "org.freedesktop.DBus.ObjectManager", "GetManagedObjects");

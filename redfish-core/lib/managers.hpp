@@ -1366,7 +1366,7 @@ struct SetPIDValues : std::enable_shared_from_this<SetPIDValues>
         // interface gets more traction
         crow::connections::systemBus->async_method_call(
             [self](const boost::system::error_code ec,
-                   dbus::utility::ManagedObjectType& mObj) {
+                   const dbus::utility::ManagedObjectType& mObj) {
                 if (ec)
                 {
                     BMCWEB_LOG_ERROR << "Error communicating to Entity Manager";
@@ -1743,7 +1743,7 @@ inline void
 
     crow::connections::systemBus->async_method_call(
         [aResp](const boost::system::error_code ec,
-                dbus::utility::DbusVariantType& lastResetTime) {
+                const dbus::utility::DbusVariantType& lastResetTime) {
             if (ec)
             {
                 BMCWEB_LOG_DEBUG << "D-BUS response error " << ec;
