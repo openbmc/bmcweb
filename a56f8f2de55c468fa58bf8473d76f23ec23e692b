@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2e194136_ca0935e2",
+        "filename": "include/dbus_utility.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2021-12-20T08:28:20Z",
+      "side": 1,
+      "message": "DbusVariantType is missing std::monostate. Variant is always initialized to first type on list. This can result it false information. Incase of getting empty variant (which is for example variant initialized to std::monostate) user will get variant with std::vector\u003cstd::tuple\u003cstd::string, std::string, std::string\u003e\u003e",
+      "range": {
+        "startLine": 31,
+        "startChar": 24,
+        "endLine": 31,
+        "endChar": 58
+      },
+      "revId": "a56f8f2de55c468fa58bf8473d76f23ec23e692b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
