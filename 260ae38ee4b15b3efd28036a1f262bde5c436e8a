@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "43e5ea08_6f00fdf0",
+        "filename": "http/routing.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 1357,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-12-20T17:19:45Z",
+      "side": 1,
+      "message": "nvm, I broke this out on its own ahead of the series.  Seems liek that\u0027s easier.",
+      "parentUuid": "a809f75b_2a6e5cbb",
+      "revId": "260ae38ee4b15b3efd28036a1f262bde5c436e8a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "81992f9f_aa734c6b",
         "filename": "redfish-core/include/event_service_manager.hpp",
         "patchSetId": 8
