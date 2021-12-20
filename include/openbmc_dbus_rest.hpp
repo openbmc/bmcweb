@@ -1611,7 +1611,7 @@ inline void handleList(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
 {
     crow::connections::systemBus->async_method_call(
         [asyncResp](const boost::system::error_code ec,
-                    std::vector<std::string>& objectPaths) {
+                    const std::vector<std::string>& objectPaths) {
             if (ec)
             {
                 setErrorResponse(asyncResp->res,
@@ -1622,7 +1622,7 @@ inline void handleList(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
             {
                 asyncResp->res.jsonValue = {{"status", "ok"},
                                             {"message", "200 OK"},
-                                            {"data", std::move(objectPaths)}};
+                                            {"data", objectPaths}};
             }
         },
         "xyz.openbmc_project.ObjectMapper",
@@ -1642,12 +1642,12 @@ inline void handleEnumerate(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
 
     crow::connections::systemBus->async_method_call(
         [objectPath, asyncResp](const boost::system::error_code ec,
-                                GetSubTreeType& objectNames) {
+                                const GetSubTreeType& objectNames) {
             auto transaction = std::make_shared<InProgressEnumerateData>(
                 objectPath, asyncResp);
 
             transaction->subtree =
-                std::make_shared<GetSubTreeType>(std::move(objectNames));
+                std::make_shared<GetSubTreeType>(objectNames);
 
             if (ec)
             {
