@@ -165,7 +165,11 @@ inline void getPropertiesForEnumerate(
                     [&propertyJson](auto&& val) {
                         if constexpr (std::is_same_v<
                                           std::decay_t<decltype(val)>,
-                                          sdbusplus::message::unix_fd>)
+                                          std::monostate>)
+                        {}
+                        else if constexpr (std::is_same_v<
+                                               std::decay_t<decltype(val)>,
+                                               sdbusplus::message::unix_fd>)
                         {
                             propertyJson = val.fd;
                         }
@@ -277,7 +281,12 @@ inline void getManagedObjectsForEnumerate(
                                 objectJson[property.first];
                             std::visit(
                                 [&propertyJson](auto&& val) {
-                                    if constexpr (
+                                    if constexpr (std::is_same_v<
+                                                      std::decay_t<
+                                                          decltype(val)>,
+                                                      std::monostate>)
+                                    {}
+                                    else if constexpr (
                                         std::is_same_v<
                                             std::decay_t<decltype(val)>,
                                             sdbusplus::message::unix_fd>)
