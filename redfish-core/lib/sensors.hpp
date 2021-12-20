@@ -721,13 +721,10 @@ inline std::string getState(const InventoryItem* inventoryItem)
  * be nullptr if no associated inventory item was found.
  * @return Health value for sensor.
  */
-inline std::string getHealth(
-    nlohmann::json& sensorJson,
-    const boost::container::flat_map<
-        std::string, boost::container::flat_map<
-                         std::string, dbus::utility::DbusVariantType>>&
-        interfacesDict,
-    const InventoryItem* inventoryItem)
+inline std::string
+    getHealth(nlohmann::json& sensorJson,
+              const dbus::utility::DBusInteracesMap& interfacesDict,
+              const InventoryItem* inventoryItem)
 {
     // Get current health value (if any) in the sensor JSON object.  Some JSON
     // objects contain multiple sensors (such as PowerSupplies).  We want to set
@@ -755,36 +752,26 @@ inline std::string getHealth(
     }
 
     // Check if sensor has critical threshold alarm
-    auto criticalThresholdIt =
-        interfacesDict.find("xyz.openbmc_project.Sensor.Threshold.Critical");
-    if (criticalThresholdIt != interfacesDict.end())
+
+    for (auto& [interface, values] : interfacesDict)
     {
-        auto thresholdHighIt =
-            criticalThresholdIt->second.find("CriticalAlarmHigh");
-        auto thresholdLowIt =
-            criticalThresholdIt->second.find("CriticalAlarmLow");
-        if (thresholdHighIt != criticalThresholdIt->second.end())
+        if (interface == "xyz.openbmc_project.Sensor.Threshold.Critical")
         {
-            const bool* asserted = std::get_if<bool>(&thresholdHighIt->second);
-            if (asserted == nullptr)
+            for (auto& [valueName, value] : values)
             {
-                BMCWEB_LOG_ERROR << "Illegal sensor threshold";
-            }
-            else if (*asserted)
-            {
-                return "Critical";
-            }
-        }
-        if (thresholdLowIt != criticalThresholdIt->second.end())
-        {
-            const bool* asserted = std::get_if<bool>(&thresholdLowIt->second);
-            if (asserted == nullptr)
-            {
-                BMCWEB_LOG_ERROR << "Illegal sensor threshold";
-            }
-            else if (*asserted)
-            {
-                return "Critical";
+                if (valueName == "CriticalAlarmHigh" ||
+                    valueName == "CriticalAlarmLow")
+                {
+                    const bool* asserted = std::get_if<bool>(&value);
+                    if (asserted == nullptr)
+                    {
+                        BMCWEB_LOG_ERROR << "Illegal sensor threshold";
+                    }
+                    else if (*asserted)
+                    {
+                        return "Critical";
+                    }
+                }
             }
         }
     }
@@ -803,36 +790,25 @@ inline std::string getHealth(
     }
 
     // Check if sensor has warning threshold alarm
-    auto warningThresholdIt =
-        interfacesDict.find("xyz.openbmc_project.Sensor.Threshold.Warning");
-    if (warningThresholdIt != interfacesDict.end())
+    for (auto& [interface, values] : interfacesDict)
     {
-        auto thresholdHighIt =
-            warningThresholdIt->second.find("WarningAlarmHigh");
-        auto thresholdLowIt =
-            warningThresholdIt->second.find("WarningAlarmLow");
-        if (thresholdHighIt != warningThresholdIt->second.end())
+        if (interface == "xyz.openbmc_project.Sensor.Threshold.Warning")
         {
-            const bool* asserted = std::get_if<bool>(&thresholdHighIt->second);
-            if (asserted == nullptr)
+            for (auto& [valueName, value] : values)
             {
-                BMCWEB_LOG_ERROR << "Illegal sensor threshold";
-            }
-            else if (*asserted)
-            {
-                return "Warning";
-            }
-        }
-        if (thresholdLowIt != warningThresholdIt->second.end())
-        {
-            const bool* asserted = std::get_if<bool>(&thresholdLowIt->second);
-            if (asserted == nullptr)
-            {
-                BMCWEB_LOG_ERROR << "Illegal sensor threshold";
-            }
-            else if (*asserted)
-            {
-                return "Warning";
+                if (valueName == "WarningAlarmHigh" ||
+                    valueName == "WarningAlarmLow")
+                {
+                    const bool* asserted = std::get_if<bool>(&value);
+                    if (asserted == nullptr)
+                    {
+                        BMCWEB_LOG_ERROR << "Illegal sensor threshold";
+                    }
+                    else if (*asserted)
+                    {
+                        return "wARNING";
+                    }
+                }
             }
         }
     }
@@ -877,31 +853,26 @@ inline void setLedState(nlohmann::json& sensorJson,
 inline void objectInterfacesToJson(
     const std::string& sensorName, const std::string& sensorType,
     const std::shared_ptr<SensorsAsyncResp>& sensorsAsyncResp,
-    const boost::container::flat_map<
-        std::string, boost::container::flat_map<
-                         std::string, dbus::utility::DbusVariantType>>&
-        interfacesDict,
+    const dbus::utility::DBusInteracesMap& interfacesDict,
     nlohmann::json& sensorJson, InventoryItem* inventoryItem)
 {
-    // We need a value interface before we can do anything with it
-    auto valueIt = interfacesDict.find("xyz.openbmc_project.Sensor.Value");
-    if (valueIt == interfacesDict.end())
-    {
-        BMCWEB_LOG_ERROR << "Sensor doesn't have a value interface";
-        return;
-    }
-
     // Assume values exist as is (10^0 == 1) if no scale exists
     int64_t scaleMultiplier = 0;
-
-    auto scaleIt = valueIt->second.find("Scale");
-    // If a scale exists, pull value as int64, and use the scaling.
-    if (scaleIt != valueIt->second.end())
+    for (auto& [interface, values] : interfacesDict)
     {
-        const int64_t* int64Value = std::get_if<int64_t>(&scaleIt->second);
-        if (int64Value != nullptr)
+        if (interface == "xyz.openbmc_project.Sensor.Value")
         {
-            scaleMultiplier = *int64Value;
+            for (auto& [valueName, value] : values)
+            {
+                if (valueName == "Scale")
+                {
+                    const int64_t* int64Value = std::get_if<int64_t>(&value);
+                    if (int64Value != nullptr)
+                    {
+                        scaleMultiplier = *int64Value;
+                    }
+                }
+            }
         }
     }
 
@@ -1079,14 +1050,18 @@ inline void objectInterfacesToJson(
     for (const std::tuple<const char*, const char*,
                           nlohmann::json::json_pointer>& p : properties)
     {
-        auto interfaceProperties = interfacesDict.find(std::get<0>(p));
-        if (interfaceProperties != interfacesDict.end())
+        for (auto& [interface, values] : interfacesDict)
         {
-            auto thisValueIt = interfaceProperties->second.find(std::get<1>(p));
-            if (thisValueIt != interfaceProperties->second.end())
+            if (interface != std::get<0>(p))
             {
-                const dbus::utility::DbusVariantType& valueVariant =
-                    thisValueIt->second;
+                continue;
+            }
+            for (auto& [valueName, valueVariant] : values)
+            {
+                if (valueName != std::get<1>(p))
+                {
+                    continue;
+                }
 
                 // The property we want to set may be nested json, so use
                 // a json_pointer for easy indexing into the json structure.
@@ -1480,97 +1455,90 @@ inline void addInventoryItem(
  */
 inline void storeInventoryItemData(
     InventoryItem& inventoryItem,
-    const boost::container::flat_map<
-        std::string, boost::container::flat_map<
-                         std::string, dbus::utility::DbusVariantType>>&
-        interfacesDict)
+    const dbus::utility::DBusInteracesMap& interfacesDict)
 {
     // Get properties from Inventory.Item interface
-    auto interfaceIt =
-        interfacesDict.find("xyz.openbmc_project.Inventory.Item");
-    if (interfaceIt != interfacesDict.end())
+
+    for (auto& [interface, values] : interfacesDict)
     {
-        auto propertyIt = interfaceIt->second.find("Present");
-        if (propertyIt != interfaceIt->second.end())
+        if (interface == "xyz.openbmc_project.Inventory.Item")
         {
-            const bool* value = std::get_if<bool>(&propertyIt->second);
-            if (value != nullptr)
+            for (auto& [name, dbusValue] : values)
             {
-                inventoryItem.isPresent = *value;
+                if (name == "Present")
+                {
+                    const bool* value = std::get_if<bool>(&dbusValue);
+                    if (value != nullptr)
+                    {
+                        inventoryItem.isPresent = *value;
+                    }
+                }
             }
         }
-    }
+        // Check if Inventory.Item.PowerSupply interface is present
 
-    // Check if Inventory.Item.PowerSupply interface is present
-    interfaceIt =
-        interfacesDict.find("xyz.openbmc_project.Inventory.Item.PowerSupply");
-    if (interfaceIt != interfacesDict.end())
-    {
-        inventoryItem.isPowerSupply = true;
-    }
-
-    // Get properties from Inventory.Decorator.Asset interface
-    interfaceIt =
-        interfacesDict.find("xyz.openbmc_project.Inventory.Decorator.Asset");
-    if (interfaceIt != interfacesDict.end())
-    {
-        auto propertyIt = interfaceIt->second.find("Manufacturer");
-        if (propertyIt != interfaceIt->second.end())
+        if (interface == "xyz.openbmc_project.Inventory.Item.PowerSupply")
         {
-            const std::string* value =
-                std::get_if<std::string>(&propertyIt->second);
-            if (value != nullptr)
+            inventoryItem.isPowerSupply = true;
+        }
+
+        // Get properties from Inventory.Decorator.Asset interface
+        if (interface == "xyz.openbmc_project.Inventory.Decorator.Asset")
+        {
+            for (auto& [name, dbusValue] : values)
             {
-                inventoryItem.manufacturer = *value;
+                if (name == "Manufacturer")
+                {
+                    const std::string* value =
+                        std::get_if<std::string>(&dbusValue);
+                    if (value != nullptr)
+                    {
+                        inventoryItem.manufacturer = *value;
+                    }
+                }
+                if (name == "Model")
+                {
+                    const std::string* value =
+                        std::get_if<std::string>(&dbusValue);
+                    if (value != nullptr)
+                    {
+                        inventoryItem.model = *value;
+                    }
+                }
+                if (name == "SerialNumber")
+                {
+                    const std::string* value =
+                        std::get_if<std::string>(&dbusValue);
+                    if (value != nullptr)
+                    {
+                        inventoryItem.serialNumber = *value;
+                    }
+                }
+                if (name == "PartNumber")
+                {
+                    const std::string* value =
+                        std::get_if<std::string>(&dbusValue);
+                    if (value != nullptr)
+                    {
+                        inventoryItem.partNumber = *value;
+                    }
+                }
             }
         }
 
-        propertyIt = interfaceIt->second.find("Model");
-        if (propertyIt != interfaceIt->second.end())
+        if (interface ==
+            "xyz.openbmc_project.State.Decorator.OperationalStatus")
         {
-            const std::string* value =
-                std::get_if<std::string>(&propertyIt->second);
-            if (value != nullptr)
+            for (auto& [name, dbusValue] : values)
             {
-                inventoryItem.model = *value;
-            }
-        }
-
-        propertyIt = interfaceIt->second.find("PartNumber");
-        if (propertyIt != interfaceIt->second.end())
-        {
-            const std::string* value =
-                std::get_if<std::string>(&propertyIt->second);
-            if (value != nullptr)
-            {
-                inventoryItem.partNumber = *value;
-            }
-        }
-
-        propertyIt = interfaceIt->second.find("SerialNumber");
-        if (propertyIt != interfaceIt->second.end())
-        {
-            const std::string* value =
-                std::get_if<std::string>(&propertyIt->second);
-            if (value != nullptr)
-            {
-                inventoryItem.serialNumber = *value;
-            }
-        }
-    }
-
-    // Get properties from State.Decorator.OperationalStatus interface
-    interfaceIt = interfacesDict.find(
-        "xyz.openbmc_project.State.Decorator.OperationalStatus");
-    if (interfaceIt != interfacesDict.end())
-    {
-        auto propertyIt = interfaceIt->second.find("Functional");
-        if (propertyIt != interfaceIt->second.end())
-        {
-            const bool* value = std::get_if<bool>(&propertyIt->second);
-            if (value != nullptr)
-            {
-                inventoryItem.isFunctional = *value;
+                if (name == "Functional")
+                {
+                    const bool* value = std::get_if<bool>(&dbusValue);
+                    if (value != nullptr)
+                    {
+                        inventoryItem.isFunctional = *value;
+                    }
+                }
             }
         }
     }
@@ -1637,7 +1605,7 @@ static void getInventoryItemsData(
                             objectMgrPaths, callback{std::move(callback)},
                             invConnectionsIndex](
                                const boost::system::error_code ec,
-                               ManagedObjectsVectorType& resp) {
+                               dbus::utility::ManagedObjectType& resp) {
             BMCWEB_LOG_DEBUG << "getInventoryItemsData respHandler enter";
             if (ec)
             {
@@ -1828,10 +1796,6 @@ static void getInventoryItemAssociations(
         {
             const std::string& objPath =
                 static_cast<const std::string&>(objDictEntry.first);
-            const boost::container::flat_map<
-                std::string, boost::container::flat_map<
-                                 std::string, dbus::utility::DbusVariantType>>&
-                interfacesDict = objDictEntry.second;
 
             // If path is inventory association for one of the specified sensors
             for (const std::string& sensorName : *sensorNames)
@@ -1841,24 +1805,28 @@ static void getInventoryItemAssociations(
                 if (objPath == sensorAssocPath)
                 {
                     // Get Association interface for object path
-                    auto assocIt =
-                        interfacesDict.find("xyz.openbmc_project.Association");
-                    if (assocIt != interfacesDict.end())
+                    for (const auto& [interface, values] : objDictEntry.second)
                     {
-                        // Get inventory item from end point
-                        auto endpointsIt = assocIt->second.find("endpoints");
-                        if (endpointsIt != assocIt->second.end())
+                        if (interface == "xyz.openbmc_project.Association")
                         {
-                            const std::vector<std::string>* endpoints =
-                                std::get_if<std::vector<std::string>>(
-                                    &endpointsIt->second);
-                            if ((endpoints != nullptr) && !endpoints->empty())
+                            for (const auto& [valueName, value] : values)
                             {
-                                // Add inventory item to vector
-                                const std::string& invItemPath =
-                                    endpoints->front();
-                                addInventoryItem(inventoryItems, invItemPath,
-                                                 sensorName);
+                                if (valueName == "endpoints")
+                                {
+                                    const std::vector<std::string>* endpoints =
+                                        std::get_if<std::vector<std::string>>(
+                                            &value);
+                                    if ((endpoints != nullptr) &&
+                                        !endpoints->empty())
+                                    {
+                                        // Add inventory item to vector
+                                        const std::string& invItemPath =
+                                            endpoints->front();
+                                        addInventoryItem(inventoryItems,
+                                                         invItemPath,
+                                                         sensorName);
+                                    }
+                                }
                             }
                         }
                     }
@@ -1875,10 +1843,6 @@ static void getInventoryItemAssociations(
         {
             const std::string& objPath =
                 static_cast<const std::string&>(objDictEntry.first);
-            const boost::container::flat_map<
-                std::string, boost::container::flat_map<
-                                 std::string, dbus::utility::DbusVariantType>>&
-                interfacesDict = objDictEntry.second;
 
             for (InventoryItem& inventoryItem : *inventoryItems)
             {
@@ -1886,26 +1850,31 @@ static void getInventoryItemAssociations(
                 inventoryAssocPath += "/leds";
                 if (objPath == inventoryAssocPath)
                 {
-                    // Get Association interface for object path
-                    auto assocIt =
-                        interfacesDict.find("xyz.openbmc_project.Association");
-                    if (assocIt != interfacesDict.end())
+                    for (const auto& [interface, values] : objDictEntry.second)
                     {
-                        // Get inventory item from end point
-                        auto endpointsIt = assocIt->second.find("endpoints");
-                        if (endpointsIt != assocIt->second.end())
+                        if (interface == "xyz.openbmc_project.Association")
                         {
-                            const std::vector<std::string>* endpoints =
-                                std::get_if<std::vector<std::string>>(
-                                    &endpointsIt->second);
-                            if ((endpoints != nullptr) && !endpoints->empty())
+                            for (const auto& [valueName, value] : values)
                             {
-                                // Store LED path in inventory item
-                                const std::string& ledPath = endpoints->front();
-                                inventoryItem.ledObjectPath = ledPath;
+                                if (valueName == "endpoints")
+                                {
+                                    const std::vector<std::string>* endpoints =
+                                        std::get_if<std::vector<std::string>>(
+                                            &value);
+                                    if ((endpoints != nullptr) &&
+                                        !endpoints->empty())
+                                    {
+                                        // Add inventory item to vector
+                                        // Store LED path in inventory item
+                                        const std::string& ledPath =
+                                            endpoints->front();
+                                        inventoryItem.ledObjectPath = ledPath;
+                                    }
+                                }
                             }
                         }
                     }
+
                     break;
                 }
             }
@@ -2496,7 +2465,7 @@ inline void getSensorData(
         auto getManagedObjectsCb = [sensorsAsyncResp, sensorNames,
                                     inventoryItems](
                                        const boost::system::error_code ec,
-                                       ManagedObjectsVectorType& resp) {
+                                       dbus::utility::ManagedObjectType& resp) {
             BMCWEB_LOG_DEBUG << "getManagedObjectsCb enter";
             if (ec)
             {

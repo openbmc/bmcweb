@@ -18,6 +18,7 @@
 #include <sdbusplus/message.hpp>
 #include <sdbusplus/utility/dedup_variant.hpp>
 
+#include <vector>
 #include <filesystem>
 #include <regex>
 
@@ -56,10 +57,8 @@ using DbusVariantType = sdbusplus::utility::dedup_variant_t<
  >;
 
 // clang-format on
-using DBusPropertiesMap =
-    boost::container::flat_map<std::string, DbusVariantType>;
-using DBusInteracesMap =
-    boost::container::flat_map<std::string, DBusPropertiesMap>;
+using DBusPropertiesMap = std::vector<std::pair<std::string, DbusVariantType>>;
+using DBusInteracesMap = std::vector<std::pair<std::string, DBusPropertiesMap>>;
 using ManagedObjectType =
     std::vector<std::pair<sdbusplus::message::object_path, DBusInteracesMap>>;
 
