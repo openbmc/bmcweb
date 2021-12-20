@@ -71,9 +71,6 @@ using DbusInterfaceType = boost::container::flat_map<
     std::string,
     boost::container::flat_map<std::string, dbus::utility::DbusVariantType>>;
 
-using ManagedObjectType =
-    std::vector<std::pair<sdbusplus::message::object_path, DbusInterfaceType>>;
-
 using GetObjectType =
     std::vector<std::pair<std::string, std::vector<std::string>>>;
 
@@ -406,8 +403,9 @@ inline void getLDAPConfigData(const std::string& ldapType,
             }
             std::string service = resp.begin()->first;
             crow::connections::systemBus->async_method_call(
-                [callback, ldapType](const boost::system::error_code errorCode,
-                                     const ManagedObjectType& ldapObjects) {
+                [callback, ldapType](
+                    const boost::system::error_code errorCode,
+                    const dbus::utility::ManagedObjectType& ldapObjects) {
                     LDAPConfigData confData{};
                     if (errorCode)
                     {
@@ -1511,7 +1509,7 @@ inline void requestAccountServiceRoutes(App& app)
                 crow::connections::systemBus->async_method_call(
                     [asyncResp, thisUser, effectiveUserPrivileges](
                         const boost::system::error_code ec,
-                        const ManagedObjectType& users) {
+                        const dbus::utility::ManagedObjectType& users) {
                         if (ec)
                         {
                             messages::internalError(asyncResp->res);
@@ -1708,18 +1706,19 @@ inline void requestAccountServiceRoutes(App& app)
             }
 
             crow::connections::systemBus->async_method_call(
-                [asyncResp, accountName](const boost::system::error_code ec,
-                                         const ManagedObjectType& users) {
+                [asyncResp,
+                 accountName](const boost::system::error_code ec,
+                              const dbus::utility::ManagedObjectType& users) {
                     if (ec)
                     {
                         messages::internalError(asyncResp->res);
                         return;
                     }
-                    auto userIt = std::find_if(
+                    const auto userIt = std::find_if(
                         users.begin(), users.end(),
                         [accountName](
                             const std::pair<sdbusplus::message::object_path,
-                                            DbusInterfaceType>& user) {
+                                            dbus::utility::DBusInteracesMap>& user) {
                             return !accountName.compare(user.first.filename());
                         });
 

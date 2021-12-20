@@ -331,65 +331,66 @@ static void monitorForSoftwareAvailable(
             {
                 if (interface.first == "xyz.openbmc_project.Logging.Entry")
                 {
-                    BMCWEB_LOG_DEBUG << "Error Match fired";
-                    const dbus::utility::DBusPropertiesMap& values =
-                        interface.second;
-                    auto find = values.find("Message");
-                    if (find == values.end())
+                    for (const std::pair<std::string,
+                                         dbus::utility::DbusVariantType>&
+                             value : interface.second)
                     {
-                        return;
-                    }
-                    const std::string* type =
-                        std::get_if<std::string>(&(find->second));
-                    if (type == nullptr)
-                    {
-                        // if this was our message, timeout will cover it
-                        return;
-                    }
-                    fwAvailableTimer = nullptr;
-                    if (*type ==
-                        "xyz.openbmc_project.Software.Image.Error.UnTarFailure")
-                    {
-                        redfish::messages::invalidUpload(asyncResp->res, url,
-                                                         "Invalid archive");
-                    }
-                    else if (*type ==
-                             "xyz.openbmc_project.Software.Image.Error."
-                             "ManifestFileFailure")
-                    {
-                        redfish::messages::invalidUpload(asyncResp->res, url,
-                                                         "Invalid manifest");
-                    }
-                    else if (
-                        *type ==
-                        "xyz.openbmc_project.Software.Image.Error.ImageFailure")
-                    {
-                        redfish::messages::invalidUpload(
-                            asyncResp->res, url, "Invalid image format");
-                    }
-                    else if (
-                        *type ==
-                        "xyz.openbmc_project.Software.Version.Error.AlreadyExists")
-                    {
-                        redfish::messages::invalidUpload(
-                            asyncResp->res, url,
-                            "Image version already exists");
+                        if (value.first != "Message")
+                        {
+                            continue;
+                        }
+                        const std::string* type =
+                            std::get_if<std::string>(&value.second);
+                        if (type == nullptr)
+                        {
+                            // if this was our message, timeout will cover it
+                            return;
+                        }
+                        fwAvailableTimer = nullptr;
+                        if (*type ==
+                            "xyz.openbmc_project.Software.Image.Error.UnTarFailure")
+                        {
+                            redfish::messages::invalidUpload(
+                                asyncResp->res, url, "Invalid archive");
+                        }
+                        else if (*type ==
+                                 "xyz.openbmc_project.Software.Image.Error."
+                                 "ManifestFileFailure")
+                        {
+                            redfish::messages::invalidUpload(
+                                asyncResp->res, url, "Invalid manifest");
+                        }
+                        else if (
+                            *type ==
+                            "xyz.openbmc_project.Software.Image.Error.ImageFailure")
+                        {
+                            redfish::messages::invalidUpload(
+                                asyncResp->res, url, "Invalid image format");
+                        }
+                        else if (
+                            *type ==
+                            "xyz.openbmc_project.Software.Version.Error.AlreadyExists")
+                        {
+                            redfish::messages::invalidUpload(
+                                asyncResp->res, url,
+                                "Image version already exists");
 
-                        redfish::messages::resourceAlreadyExists(
-                            asyncResp->res,
-                            "UpdateService.v1_5_0.UpdateService", "Version",
-                            "uploaded version");
-                    }
-                    else if (
-                        *type ==
-                        "xyz.openbmc_project.Software.Image.Error.BusyFailure")
-                    {
-                        redfish::messages::resourceExhaustion(asyncResp->res,
-                                                              url);
-                    }
-                    else
-                    {
-                        redfish::messages::internalError(asyncResp->res);
+                            redfish::messages::resourceAlreadyExists(
+                                asyncResp->res,
+                                "UpdateService.v1_5_0.UpdateService", "Version",
+                                "uploaded version");
+                        }
+                        else if (
+                            *type ==
+                            "xyz.openbmc_project.Software.Image.Error.BusyFailure")
+                        {
+                            redfish::messages::resourceExhaustion(
+                                asyncResp->res, url);
+                        }
+                        else
+                        {
+                            redfish::messages::internalError(asyncResp->res);
+                        }
                     }
                 }
             }
