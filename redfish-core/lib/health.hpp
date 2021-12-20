@@ -84,41 +84,43 @@ struct HealthPopulate : std::enable_shared_from_this<HealthPopulate>
                 }
                 if (!isChild)
                 {
-                    auto assocIt =
-                        interfaces.find("xyz.openbmc_project.Association");
-                    if (assocIt == interfaces.end())
+                    for (const auto& [interface, association] : interfaces)
                     {
-                        continue;
-                    }
-                    auto endpointsIt = assocIt->second.find("endpoints");
-                    if (endpointsIt == assocIt->second.end())
-                    {
-                        BMCWEB_LOG_ERROR << "Illegal association at "
-                                         << path.str;
-                        continue;
-                    }
-                    const std::vector<std::string>* endpoints =
-                        std::get_if<std::vector<std::string>>(
-                            &endpointsIt->second);
-                    if (endpoints == nullptr)
-                    {
-                        BMCWEB_LOG_ERROR << "Illegal association at "
-                                         << path.str;
-                        continue;
-                    }
-                    bool containsChild = false;
-                    for (const std::string& endpoint : *endpoints)
-                    {
-                        if (std::find(inventory.begin(), inventory.end(),
-                                      endpoint) != inventory.end())
+                        if (interface != "xyz.openbmc_project.Association")
                         {
-                            containsChild = true;
-                            break;
+                            continue;
                         }
-                    }
-                    if (!containsChild)
-                    {
-                        continue;
+                        for (const auto& [name, value] : association)
+                        {
+                            if (name != "endpoints")
+                            {
+                                continue;
+                            }
+
+                            const std::vector<std::string>* endpoints =
+                                std::get_if<std::vector<std::string>>(&value);
+                            if (endpoints == nullptr)
+                            {
+                                BMCWEB_LOG_ERROR << "Illegal association at "
+                                                 << path.str;
+                                continue;
+                            }
+                            bool containsChild = false;
+                            for (const std::string& endpoint : *endpoints)
+                            {
+                                if (std::find(inventory.begin(),
+                                              inventory.end(),
+                                              endpoint) != inventory.end())
+                                {
+                                    containsChild = true;
+                                    break;
+                                }
+                            }
+                            if (!containsChild)
+                            {
+                                continue;
+                            }
+                        }
                     }
                 }
             }

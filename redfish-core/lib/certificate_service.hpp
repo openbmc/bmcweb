@@ -840,7 +840,7 @@ inline void requestRoutesHTTPSCertificateCollection(App& app)
 
             crow::connections::systemBus->async_method_call(
                 [asyncResp](const boost::system::error_code ec,
-                            const ManagedObjectType& certs) {
+                            const dbus::utility::ManagedObjectType& certs) {
                     if (ec)
                     {
                         BMCWEB_LOG_ERROR << "DBUS response error: " << ec;
@@ -942,7 +942,7 @@ inline void
                      << " Path=" << path << " service= " << service;
     crow::connections::systemBus->async_method_call(
         [asyncResp, certURL](const boost::system::error_code ec,
-                             const ManagedObjectType& certs) {
+                             const dbus::utility::ManagedObjectType& certs) {
             if (ec)
             {
                 BMCWEB_LOG_WARNING
@@ -1026,7 +1026,7 @@ inline void requestRoutesLDAPCertificateCollection(App& app)
 
             crow::connections::systemBus->async_method_call(
                 [asyncResp](const boost::system::error_code ec,
-                            const ManagedObjectType& certs) {
+                            const dbus::utility::ManagedObjectType& certs) {
                     nlohmann::json& members =
                         asyncResp->res.jsonValue["Members"];
                     nlohmann::json& count =
@@ -1160,7 +1160,7 @@ inline void requestRoutesTrustStoreCertificateCollection(App& app)
 
             crow::connections::systemBus->async_method_call(
                 [asyncResp](const boost::system::error_code ec,
-                            const ManagedObjectType& certs) {
+                            const dbus::utility::ManagedObjectType& certs) {
                     if (ec)
                     {
                         BMCWEB_LOG_ERROR << "DBUS response error: " << ec;

@@ -314,52 +314,60 @@ inline void
                     {
                         continue;
                     }
-                    auto findName = intfPair.second.find("Name");
-                    if (findName == intfPair.second.end())
-                    {
-                        BMCWEB_LOG_ERROR << "Pid Field missing Name";
-                        messages::internalError(asyncResp->res);
-                        return;
-                    }
 
-                    const std::string* namePtr =
-                        std::get_if<std::string>(&findName->second);
-                    if (namePtr == nullptr)
-                    {
-                        BMCWEB_LOG_ERROR << "Pid Name Field illegal";
-                        messages::internalError(asyncResp->res);
-                        return;
-                    }
-                    std::string name = *namePtr;
-                    dbus::utility::escapePathForDbus(name);
+                    std::string name;
 
-                    auto findProfiles = intfPair.second.find("Profiles");
-                    if (findProfiles != intfPair.second.end())
+                    for (const std::pair<std::string,
+                                         dbus::utility::DbusVariantType>&
+                             propPair : intfPair.second)
                     {
-                        const std::vector<std::string>* profiles =
-                            std::get_if<std::vector<std::string>>(
-                                &findProfiles->second);
-                        if (profiles == nullptr)
+                        if (propPair.first == "Name")
                         {
-                            BMCWEB_LOG_ERROR << "Pid Profiles Field illegal";
-                            messages::internalError(asyncResp->res);
-                            return;
+                            const std::string* namePtr =
+                                std::get_if<std::string>(&propPair.second);
+                            if (namePtr == nullptr)
+                            {
+                                BMCWEB_LOG_ERROR << "Pid Name Field illegal";
+                                messages::internalError(asyncResp->res);
+                                return;
+                            }
+                            std::string name = *namePtr;
+                            dbus::utility::escapePathForDbus(name);
                         }
-                        if (std::find(profiles->begin(), profiles->end(),
-                                      currentProfile) == profiles->end())
+                        else if (propPair.first == "Profiles")
                         {
-                            BMCWEB_LOG_INFO
-                                << name << " not supported in current profile";
-                            continue;
+                            const std::vector<std::string>* profiles =
+                                std::get_if<std::vector<std::string>>(
+                                    &propPair.second);
+                            if (profiles == nullptr)
+                            {
+                                BMCWEB_LOG_ERROR
+                                    << "Pid Profiles Field illegal";
+                                messages::internalError(asyncResp->res);
+                                return;
+                            }
+                            if (std::find(profiles->begin(), profiles->end(),
+                                          currentProfile) == profiles->end())
+                            {
+                                BMCWEB_LOG_INFO
+                                    << name
+                                    << " not supported in current profile";
+                                continue;
+                            }
                         }
                     }
                     nlohmann::json* config = nullptr;
-
                     const std::string* classPtr = nullptr;
-                    auto findClass = intfPair.second.find("Class");
-                    if (findClass != intfPair.second.end())
+
+                    for (const std::pair<std::string,
+                                         dbus::utility::DbusVariantType>&
+                             propPair : intfPair.second)
                     {
-                        classPtr = std::get_if<std::string>(&findClass->second);
+                        if (intfPair.first == "Class")
+                        {
+                            classPtr =
+                                std::get_if<std::string>(&propPair.second);
+                        }
                     }
 
                     if (intfPair.first == pidZoneConfigurationIface)
@@ -705,7 +713,7 @@ inline bool
     return true;
 }
 
-inline const dbus::utility::ManagedItem*
+inline const dbus::utility::ManagedObjectType::value_type*
     findChassis(const dbus::utility::ManagedObjectType& managedObj,
                 const std::string& value, std::string& chassis)
 {
@@ -785,7 +793,7 @@ inline CreatePIDRet createPidInterface(
         return CreatePIDRet::del;
     }
 
-    const dbus::utility::ManagedItem* managedItem = nullptr;
+    const dbus::utility::ManagedObjectType::value_type* managedItem = nullptr;
     if (!createNewObject)
     {
         // if we aren't creating a new object, we should be able to find it on
@@ -818,33 +826,46 @@ inline CreatePIDRet createPidInterface(
             {
                 interface = pidConfigurationIface;
             }
-            auto findConfig = managedItem->second.find(interface);
-            if (findConfig == managedItem->second.end())
+            bool ifaceFound = false;
+            for (const auto& iface : managedItem->second)
+            {
+                if (iface.first == interface)
+                {
+                    ifaceFound = true;
+                    for (const auto& prop : iface.second)
+                    {
+                        if (prop.first == "Profiles")
+                        {
+                            const std::vector<std::string>* curProfiles =
+                                std::get_if<std::vector<std::string>>(
+                                    &(prop.second));
+                            if (curProfiles == nullptr)
+                            {
+                                BMCWEB_LOG_ERROR
+                                    << "Illegal profiles in managed object";
+                                messages::internalError(response->res);
+                                return CreatePIDRet::fail;
+                            }
+                            if (std::find(curProfiles->begin(),
+                                          curProfiles->end(),
+                                          profile) == curProfiles->end())
+                            {
+                                std::vector<std::string> newProfiles =
+                                    *curProfiles;
+                                newProfiles.push_back(profile);
+                                output["Profiles"] = newProfiles;
+                            }
+                        }
+                    }
+                }
+            }
+
+            if (!ifaceFound)
             {
                 BMCWEB_LOG_ERROR
                     << "Failed to find interface in managed object";
                 messages::internalError(response->res);
                 return CreatePIDRet::fail;
-            }
-            auto findProfiles = findConfig->second.find("Profiles");
-            if (findProfiles != findConfig->second.end())
-            {
-                const std::vector<std::string>* curProfiles =
-                    std::get_if<std::vector<std::string>>(
-                        &(findProfiles->second));
-                if (curProfiles == nullptr)
-                {
-                    BMCWEB_LOG_ERROR << "Illegal profiles in managed object";
-                    messages::internalError(response->res);
-                    return CreatePIDRet::fail;
-                }
-                if (std::find(curProfiles->begin(), curProfiles->end(),
-                              profile) == curProfiles->end())
-                {
-                    std::vector<std::string> newProfiles = *curProfiles;
-                    newProfiles.push_back(profile);
-                    output["Profiles"] = newProfiles;
-                }
             }
         }
     }
@@ -1524,6 +1545,7 @@ struct SetPIDValues : std::enable_shared_from_this<SetPIDValues>
                 BMCWEB_LOG_DEBUG << "Found = " << !createNewObject;
 
                 std::string iface;
+                /*
                 if (type == "PidControllers" || type == "FanControllers")
                 {
                     iface = pidConfigurationIface;
@@ -1554,7 +1576,7 @@ struct SetPIDValues : std::enable_shared_from_this<SetPIDValues>
                     {
                         createNewObject = true;
                     }
-                }
+                }*/
 
                 if (createNewObject && it.value() == nullptr)
                 {
@@ -1782,8 +1804,9 @@ inline void
 
     // Make sure the image is valid before setting priority
     crow::connections::systemBus->async_method_call(
-        [aResp, firmwareId, runningFirmwareTarget](
-            const boost::system::error_code ec, ManagedObjectType& subtree) {
+        [aResp, firmwareId,
+         runningFirmwareTarget](const boost::system::error_code ec,
+                                dbus::utility::ManagedObjectType& subtree) {
             if (ec)
             {
                 BMCWEB_LOG_DEBUG << "D-Bus response error getting objects.";
