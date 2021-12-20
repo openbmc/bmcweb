@@ -48,6 +48,30 @@
     },
     {
       "key": {
+        "uuid": "996412f7_b96ce7ca",
+        "filename": "redfish-core/include/event_service_manager.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 1317,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2021-12-20T08:25:41Z",
+      "side": 1,
+      "message": "Please ignore this comment. Type is added in on one the reviews in chain.",
+      "parentUuid": "dbf154b9_f114df54",
+      "range": {
+        "startLine": 1317,
+        "startChar": 42,
+        "endLine": 1317,
+        "endChar": 73
+      },
+      "revId": "13152e939d7ddec6375b0752a78e2e42431144dc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3d86f537_fb0cc8f3",
         "filename": "redfish-core/lib/metric_report_definition.hpp",
         "patchSetId": 9
@@ -68,6 +92,30 @@
       "revId": "13152e939d7ddec6375b0752a78e2e42431144dc",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2d5d5f21_720cdc42",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2021-12-20T08:25:41Z",
+      "side": 1,
+      "message": "Please ignore this comment. Type is added in on one the reviews in chain.",
+      "parentUuid": "3d86f537_fb0cc8f3",
+      "range": {
+        "startLine": 27,
+        "startChar": 60,
+        "endLine": 27,
+        "endChar": 75
+      },
+      "revId": "13152e939d7ddec6375b0752a78e2e42431144dc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -94,6 +142,30 @@
     },
     {
       "key": {
+        "uuid": "585ee79f_b96c6564",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 488,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2021-12-20T08:25:41Z",
+      "side": 1,
+      "message": "Please ignore this comment. Type is added in on one the reviews in chain.",
+      "parentUuid": "f7a96a4e_736c80dc",
+      "range": {
+        "startLine": 488,
+        "startChar": 54,
+        "endLine": 488,
+        "endChar": 69
+      },
+      "revId": "13152e939d7ddec6375b0752a78e2e42431144dc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "737c8aef_ca9fee62",
         "filename": "redfish-core/lib/processor.hpp",
         "patchSetId": 9
@@ -117,6 +189,30 @@
     },
     {
       "key": {
+        "uuid": "3373b1df_401701ad",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 551,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2021-12-20T08:25:41Z",
+      "side": 1,
+      "message": "Please ignore this comment. Type is added in on one the reviews in chain.",
+      "parentUuid": "737c8aef_ca9fee62",
+      "range": {
+        "startLine": 551,
+        "startChar": 44,
+        "endLine": 551,
+        "endChar": 59
+      },
+      "revId": "13152e939d7ddec6375b0752a78e2e42431144dc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "662c82be_a77ca1b7",
         "filename": "redfish-core/lib/redfish_util.hpp",
         "patchSetId": 9
@@ -137,6 +233,30 @@
       "revId": "13152e939d7ddec6375b0752a78e2e42431144dc",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a86b3593_80441b75",
+        "filename": "redfish-core/lib/redfish_util.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 176,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2021-12-20T08:25:41Z",
+      "side": 1,
+      "message": "Please ignore this comment. Type is added in on one the reviews in chain.",
+      "parentUuid": "662c82be_a77ca1b7",
+      "range": {
+        "startLine": 176,
+        "startChar": 33,
+        "endLine": 176,
+        "endChar": 48
+      },
+      "revId": "13152e939d7ddec6375b0752a78e2e42431144dc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
