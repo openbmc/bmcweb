@@ -120,6 +120,30 @@
     },
     {
       "key": {
+        "uuid": "abcef07b_acfd8063",
+        "filename": "redfish-core/include/event_service_manager.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 1317,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-12-20T17:14:57Z",
+      "side": 1,
+      "message": "Just to note, if the types were actually missing, any std::get_if or std::get code would fail to compile.",
+      "parentUuid": "996412f7_b96ce7ca",
+      "range": {
+        "startLine": 1317,
+        "startChar": 42,
+        "endLine": 1317,
+        "endChar": 73
+      },
+      "revId": "13152e939d7ddec6375b0752a78e2e42431144dc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3d86f537_fb0cc8f3",
         "filename": "redfish-core/lib/metric_report_definition.hpp",
         "patchSetId": 9
