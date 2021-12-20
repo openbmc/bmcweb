@@ -150,7 +150,8 @@ inline void
 }
 
 inline bool extractHypervisorInterfaceData(
-    const std::string& ethIfaceId, const GetManagedObjects& dbusData,
+    const std::string& ethIfaceId,
+    const dbus::utility::ManagedObjectType& dbusData,
     EthernetInterfaceData& ethData,
     boost::container::flat_set<IPv4AddressData>& ipv4Config)
 {
@@ -316,9 +317,9 @@ void getHypervisorIfaceData(const std::string& ethIfaceId,
                             CallbackFunc&& callback)
 {
     crow::connections::systemBus->async_method_call(
-        [ethIfaceId{std::string{ethIfaceId}},
-         callback{std::move(callback)}](const boost::system::error_code error,
-                                        const GetManagedObjects& resp) {
+        [ethIfaceId{std::string{ethIfaceId}}, callback{std::move(callback)}](
+            const boost::system::error_code error,
+            const dbus::utility::ManagedObjectType& resp) {
             EthernetInterfaceData ethData{};
             boost::container::flat_set<IPv4AddressData> ipv4Data;
             if (error)
