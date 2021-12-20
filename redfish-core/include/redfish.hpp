@@ -19,6 +19,7 @@
 #include "../lib/bios.hpp"
 #include "../lib/certificate_service.hpp"
 #include "../lib/chassis.hpp"
+#include "../lib/environment_metrics.hpp"
 #include "../lib/ethernet.hpp"
 #include "../lib/event_service.hpp"
 #include "../lib/hypervisor_system.hpp"
@@ -143,6 +144,7 @@ class RedfishService
         requestRoutesOperatingConfig(app);
         requestRoutesMemoryCollection(app);
         requestRoutesMemory(app);
+        requestRoutesMemoryEnvironmentMetrics(app);
 
         requestRoutesSystemsCollection(app);
         requestRoutesSystems(app);
