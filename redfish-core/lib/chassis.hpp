@@ -282,12 +282,12 @@ inline void requestRoutesChassis(App& app)
 
                         crow::connections::systemBus->async_method_call(
                             [health](const boost::system::error_code ec2,
-                                     dbus::utility::DbusVariantType& resp) {
+                                     const dbus::utility::DbusVariantType& resp) {
                                 if (ec2)
                                 {
                                     return; // no sensors = no failures
                                 }
-                                std::vector<std::string>* data =
+                                const std::vector<std::string>* data =
                                     std::get_if<std::vector<std::string>>(
                                         &resp);
                                 if (data == nullptr)

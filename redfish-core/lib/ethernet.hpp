@@ -1684,7 +1684,7 @@ inline void parseInterfaceData(
 
     crow::connections::systemBus->async_method_call(
         [health](const boost::system::error_code ec,
-                 std::vector<std::string>& resp) {
+                 const std::vector<std::string>& resp) {
             if (ec)
             {
                 return;

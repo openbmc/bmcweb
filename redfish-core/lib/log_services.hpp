@@ -1363,7 +1363,7 @@ inline void requestRoutesDBusEventLogEntryCollection(App& app)
             // Make call to Logging Service to find all log entry objects
             crow::connections::systemBus->async_method_call(
                 [asyncResp](const boost::system::error_code ec,
-                            dbus::utility::ManagedObjectType& resp) {
+                            const dbus::utility::ManagedObjectType& resp) {
                     if (ec)
                     {
                         // TODO Handle for specific error code
@@ -1378,12 +1378,12 @@ inline void requestRoutesDBusEventLogEntryCollection(App& app)
                     entriesArray = nlohmann::json::array();
                     for (auto& objectPath : resp)
                     {
-                        uint32_t* id = nullptr;
+                        const uint32_t* id = nullptr;
                         std::time_t timestamp{};
                         std::time_t updateTimestamp{};
-                        std::string* severity = nullptr;
-                        std::string* message = nullptr;
-                        std::string* filePath = nullptr;
+                        const std::string* severity = nullptr;
+                        const std::string* message = nullptr;
+                        const std::string* filePath = nullptr;
                         bool resolved = false;
                         for (auto& interfaceMap : objectPath.second)
                         {
@@ -1434,7 +1434,7 @@ inline void requestRoutesDBusEventLogEntryCollection(App& app)
                                     }
                                     else if (propertyMap.first == "Resolved")
                                     {
-                                        bool* resolveptr = std::get_if<bool>(
+                                        const bool* resolveptr = std::get_if<bool>(
                                             &propertyMap.second);
                                         if (resolveptr == nullptr)
                                         {
@@ -1528,7 +1528,7 @@ inline void requestRoutesDBusEventLogEntry(App& app)
                 // Make call to Logging Service to find all log entry objects
                 crow::connections::systemBus->async_method_call(
                     [asyncResp, entryID](const boost::system::error_code ec,
-                                         GetManagedPropertyType& resp) {
+                                         const GetManagedPropertyType& resp) {
                         if (ec.value() == EBADR)
                         {
                             messages::resourceNotFound(
@@ -1543,12 +1543,12 @@ inline void requestRoutesDBusEventLogEntry(App& app)
                             messages::internalError(asyncResp->res);
                             return;
                         }
-                        uint32_t* id = nullptr;
+                        const uint32_t* id = nullptr;
                         std::time_t timestamp{};
                         std::time_t updateTimestamp{};
-                        std::string* severity = nullptr;
-                        std::string* message = nullptr;
-                        std::string* filePath = nullptr;
+                        const std::string* severity = nullptr;
+                        const std::string* message = nullptr;
+                        const std::string* filePath = nullptr;
                         bool resolved = false;
 
                         for (auto& propertyMap : resp)
@@ -1590,7 +1590,7 @@ inline void requestRoutesDBusEventLogEntry(App& app)
                             }
                             else if (propertyMap.first == "Resolved")
                             {
-                                bool* resolveptr =
+                                const bool* resolveptr =
                                     std::get_if<bool>(&propertyMap.second);
                                 if (resolveptr == nullptr)
                                 {

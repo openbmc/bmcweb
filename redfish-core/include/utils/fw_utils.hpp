@@ -386,7 +386,7 @@ inline void
 {
     crow::connections::systemBus->async_method_call(
         [asyncResp, fwId](const boost::system::error_code ec,
-                          dbus::utility::DbusVariantType& resp) {
+                          const dbus::utility::DbusVariantType& resp) {
             if (ec)
             {
                 BMCWEB_LOG_DEBUG << " error_code = " << ec
