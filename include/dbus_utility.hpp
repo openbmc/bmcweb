@@ -29,6 +29,7 @@ namespace utility
 
 // clang-format off
 using DbusVariantType = sdbusplus::utility::dedup_variant_t<
+    std::monostate,
     std::vector<std::tuple<std::string, std::string, std::string>>,
     std::vector<std::string>,
     std::vector<double>,
