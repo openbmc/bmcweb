@@ -37,10 +37,9 @@ std::string getHostName();
 const static std::array<std::pair<std::string, std::string>, 3> protocolToDBus{
     {{"SSH", "dropbear"}, {"HTTPS", "bmcweb"}, {"IPMI", "phosphor-ipmi-net"}}};
 
-inline void
-    extractNTPServersAndDomainNamesData(const GetManagedObjects& dbusData,
-                                        std::vector<std::string>& ntpData,
-                                        std::vector<std::string>& dnData)
+inline void extractNTPServersAndDomainNamesData(
+    const dbus::utility::ManagedObjectType& dbusData,
+    std::vector<std::string>& ntpData, std::vector<std::string>& dnData)
 {
     for (const auto& obj : dbusData)
     {
@@ -85,7 +84,7 @@ void getEthernetIfaceData(CallbackFunc&& callback)
     crow::connections::systemBus->async_method_call(
         [callback{std::move(callback)}](
             const boost::system::error_code errorCode,
-            const GetManagedObjects& dbusData) {
+            const dbus::utility::ManagedObjectType& dbusData) {
             std::vector<std::string> ntpServers;
             std::vector<std::string> domainNames;
 
