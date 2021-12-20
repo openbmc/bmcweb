@@ -22,6 +22,30 @@
       "revId": "a56f8f2de55c468fa58bf8473d76f23ec23e692b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4b156d41_26e7d13a",
+        "filename": "include/dbus_utility.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-12-20T17:14:01Z",
+      "side": 1,
+      "message": "std::monostate is somewhat unrelated, so I opened a separate review where we can talk about it:\nhttps://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/49835\n\nI think this patchset can move forward, and we can use the above review to talk about std::monostate.",
+      "parentUuid": "2e194136_ca0935e2",
+      "range": {
+        "startLine": 31,
+        "startChar": 24,
+        "endLine": 31,
+        "endChar": 58
+      },
+      "revId": "a56f8f2de55c468fa58bf8473d76f23ec23e692b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
