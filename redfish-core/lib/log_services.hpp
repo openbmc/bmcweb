@@ -106,10 +106,6 @@ namespace fs = std::filesystem;
 using GetManagedPropertyType =
     boost::container::flat_map<std::string, dbus::utility::DbusVariantType>;
 
-using GetManagedObjectsType = boost::container::flat_map<
-    sdbusplus::message::object_path,
-    boost::container::flat_map<std::string, GetManagedPropertyType>>;
-
 inline std::string translateSeverityDbusToRedfish(const std::string& s)
 {
     if ((s == "xyz.openbmc_project.Logging.Entry.Level.Alert") ||
@@ -396,8 +392,9 @@ inline void
     }
 
     crow::connections::systemBus->async_method_call(
-        [asyncResp, dumpPath, dumpType](const boost::system::error_code ec,
-                                        GetManagedObjectsType& resp) {
+        [asyncResp, dumpPath,
+         dumpType](const boost::system::error_code ec,
+                   dbus::utility::ManagedObjectType& resp) {
             if (ec)
             {
                 BMCWEB_LOG_ERROR << "DumpEntry resp_handler got error " << ec;
@@ -554,8 +551,9 @@ inline void
     }
 
     crow::connections::systemBus->async_method_call(
-        [asyncResp, entryID, dumpPath, dumpType](
-            const boost::system::error_code ec, GetManagedObjectsType& resp) {
+        [asyncResp, entryID, dumpPath,
+         dumpType](const boost::system::error_code ec,
+                   dbus::utility::ManagedObjectType& resp) {
             if (ec)
             {
                 BMCWEB_LOG_ERROR << "DumpEntry resp_handler got error " << ec;
@@ -1365,7 +1363,7 @@ inline void requestRoutesDBusEventLogEntryCollection(App& app)
             // Make call to Logging Service to find all log entry objects
             crow::connections::systemBus->async_method_call(
                 [asyncResp](const boost::system::error_code ec,
-                            GetManagedObjectsType& resp) {
+                            dbus::utility::ManagedObjectType& resp) {
                     if (ec)
                     {
                         // TODO Handle for specific error code
