@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "529a1994_66342607",
+        "filename": "http/routing.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 1312,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2021-12-20T08:28:52Z",
+      "side": 1,
+      "message": "Moved this comment to other review present in this relation chain.",
+      "parentUuid": "b8b292b7_39ae887f",
+      "range": {
+        "startLine": 1312,
+        "startChar": 63,
+        "endLine": 1312,
+        "endChar": 78
+      },
+      "revId": "13152e939d7ddec6375b0752a78e2e42431144dc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "dbf154b9_f114df54",
         "filename": "redfish-core/include/event_service_manager.hpp",
         "patchSetId": 9
