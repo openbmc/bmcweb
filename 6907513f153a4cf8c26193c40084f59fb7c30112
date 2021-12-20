@@ -48,6 +48,30 @@
     },
     {
       "key": {
+        "uuid": "daca6e21_276468e1",
+        "filename": "redfish-core/lib/hypervisor_system.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 452,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2021-12-20T07:45:28Z",
+      "side": 1,
+      "message": "same as below",
+      "parentUuid": "95a4d63c_b0f1a141",
+      "range": {
+        "startLine": 452,
+        "startChar": 27,
+        "endLine": 452,
+        "endChar": 54
+      },
+      "revId": "6907513f153a4cf8c26193c40084f59fb7c30112",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e4b7e4eb_cf761320",
         "filename": "redfish-core/lib/hypervisor_system.hpp",
         "patchSetId": 12
@@ -59,6 +83,30 @@
       "writtenOn": "2021-11-09T13:02:07Z",
       "side": 1,
       "message": "nit: This should be an enum to make it clear in places where it is used.\n\nAlso simple types like int,double,float,bool,enum should be passed via copy instead of reference there is more room for optimization when you pass something equal or smaller than sizeof(size_t).",
+      "range": {
+        "startLine": 480,
+        "startChar": 56,
+        "endLine": 480,
+        "endChar": 76
+      },
+      "revId": "6907513f153a4cf8c26193c40084f59fb7c30112",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "68c23cff_4676e62f",
+        "filename": "redfish-core/lib/hypervisor_system.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 480,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2021-12-20T07:45:28Z",
+      "side": 1,
+      "message": "\u003eAlso simple types like int,double,float,bool,enum should be passed via copy instead of reference there is more room for optimization when you pass something equal or smaller than sizeof(size_t).\n\nDone\n\nI havent changed it to enum - I have followed like how it is being used in other places of the code.",
+      "parentUuid": "e4b7e4eb_cf761320",
       "range": {
         "startLine": 480,
         "startChar": 56,
@@ -94,6 +142,30 @@
     },
     {
       "key": {
+        "uuid": "9f61be90_f0e0168b",
+        "filename": "redfish-core/lib/hypervisor_system.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 595,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2021-12-20T07:45:28Z",
+      "side": 1,
+      "message": "This is setting the enabled property of this interface to false (which means disabled). This will be set to true by the pldm once this ip address is consumed by the hypervisor.\n\nSo whenever a user configures a new ip, the enabled property will be defaulted to false, and will be set to true by pldm.",
+      "parentUuid": "04eba70e_09839e74",
+      "range": {
+        "startLine": 594,
+        "startChar": 33,
+        "endLine": 595,
+        "endChar": 28
+      },
+      "revId": "6907513f153a4cf8c26193c40084f59fb7c30112",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "11eaf910_e9f44d9d",
         "filename": "redfish-core/lib/hypervisor_system.hpp",
         "patchSetId": 12
@@ -114,6 +186,30 @@
       "revId": "6907513f153a4cf8c26193c40084f59fb7c30112",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cddd8e62_61769f79",
+        "filename": "redfish-core/lib/hypervisor_system.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 597,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2021-12-20T07:45:28Z",
+      "side": 1,
+      "message": "\u003e what does this false stands for.\n\nsame as above^^^",
+      "parentUuid": "11eaf910_e9f44d9d",
+      "range": {
+        "startLine": 597,
+        "startChar": 41,
+        "endLine": 597,
+        "endChar": 46
+      },
+      "revId": "6907513f153a4cf8c26193c40084f59fb7c30112",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
