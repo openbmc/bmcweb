@@ -1308,8 +1308,9 @@ class Router
         crow::connections::systemBus->async_method_call(
             [&req, asyncResp, &rules, ruleIndex, found](
                 const boost::system::error_code ec,
-                std::map<std::string, std::variant<bool, std::string,
-                                                   std::vector<std::string>>>
+                const std::map<
+                    std::string,
+                    std::variant<bool, std::string, std::vector<std::string>>>&
                     userInfo) {
                 if (ec)
                 {
@@ -1335,7 +1336,7 @@ class Router
                                      << " userRole = " << *userRolePtr;
                 }
 
-                bool* remoteUserPtr = nullptr;
+                const bool* remoteUserPtr = nullptr;
                 auto remoteUserIter = userInfo.find("RemoteUser");
                 if (remoteUserIter != userInfo.end())
                 {
@@ -1354,7 +1355,7 @@ class Router
                 bool passwordExpired = false; // default for remote user
                 if (!remoteUser)
                 {
-                    bool* passwordExpiredPtr = nullptr;
+                    const bool* passwordExpiredPtr = nullptr;
                     auto passwordExpiredIter =
                         userInfo.find("UserPasswordExpired");
                     if (passwordExpiredIter != userInfo.end())
