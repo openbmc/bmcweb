@@ -19,12 +19,9 @@
 #include <boost/container/flat_map.hpp>
 #include <boost/process/async_pipe.hpp>
 #include <boost/type_traits/has_dereference.hpp>
-#include <utils/json_utils.hpp>
-// for GetObjectType and ManagedObjectType
-
-#include <account_service.hpp>
 #include <boost/url/url_view.hpp>
 #include <registries/privilege_registry.hpp>
+#include <utils/json_utils.hpp>
 
 namespace redfish
 {
@@ -57,71 +54,36 @@ inline std::string getTransferProtocolTypeFromUri(const std::string& imageUri)
  * @brief Read all known properties from VM object interfaces
  */
 inline void
-    vmParseInterfaceObject(const DbusInterfaceType& interface,
+    vmParseInterfaceObject(const dbus::utility::DBusInteracesMap& interface,
                            const std::shared_ptr<bmcweb::AsyncResp>& aResp)
 {
-    const auto mountPointIface =
-        interface.find("xyz.openbmc_project.VirtualMedia.MountPoint");
-    if (mountPointIface == interface.cend())
+    for (const auto& [interface, values] : interface)
     {
-        BMCWEB_LOG_DEBUG << "Interface MountPoint not found";
-        return;
-    }
-
-    const auto processIface =
-        interface.find("xyz.openbmc_project.VirtualMedia.Process");
-    if (processIface == interface.cend())
-    {
-        BMCWEB_LOG_DEBUG << "Interface Process not found";
-        return;
-    }
-
-    const auto endpointIdProperty = mountPointIface->second.find("EndpointId");
-    if (endpointIdProperty == mountPointIface->second.cend())
-    {
-        BMCWEB_LOG_DEBUG << "Property EndpointId not found";
-        return;
-    }
-
-    const auto activeProperty = processIface->second.find("Active");
-    if (activeProperty == processIface->second.cend())
-    {
-        BMCWEB_LOG_DEBUG << "Property Active not found";
-        return;
-    }
-
-    const bool* activeValue = std::get_if<bool>(&activeProperty->second);
-    if (!activeValue)
-    {
-        BMCWEB_LOG_DEBUG << "Value Active not found";
-        return;
-    }
-
-    const std::string* endpointIdValue =
-        std::get_if<std::string>(&endpointIdProperty->second);
-    if (endpointIdValue)
-    {
-        if (!endpointIdValue->empty())
+        if (interface == "xyz.openbmc_project.VirtualMedia.MountPoint")
         {
-            // Proxy mode
-            aResp->res.jsonValue["Oem"]["OpenBMC"]["WebSocketEndpoint"] =
-                *endpointIdValue;
-            aResp->res.jsonValue["TransferProtocolType"] = "OEM";
-            aResp->res.jsonValue["Inserted"] = *activeValue;
-            if (*activeValue == true)
+            for (const auto& [property, value] : values)
             {
-                aResp->res.jsonValue["ConnectedVia"] = "Applet";
-            }
-        }
-        else
-        {
-            // Legacy mode
-            for (const auto& property : mountPointIface->second)
-            {
-                if (property.first == "ImageURL")
+                if (property == "EndpointId")
+                {
+                    const std::string* endpointIdValue =
+                        std::get_if<std::string>(&value);
+                    if (endpointIdValue == nullptr)
+                    {
+                        continue;
+                    }
+                    if (!endpointIdValue->empty())
+                    {
+                        // Proxy mode
+                        aResp->res
+                            .jsonValue["Oem"]["OpenBMC"]["WebSocketEndpoint"] =
+                            *endpointIdValue;
+                        aResp->res.jsonValue["TransferProtocolType"] = "OEM";
+                    }
+                }
+                if (property == "ImageURL")
                 {
                     const std::string* imageUrlValue =
-                        std::get_if<std::string>(&property.second);
+                        std::get_if<std::string>(&value);
                     if (imageUrlValue && !imageUrlValue->empty())
                     {
                         std::filesystem::path filePath = *imageUrlValue;
@@ -138,24 +100,40 @@ inline void
                         }
 
                         aResp->res.jsonValue["Image"] = *imageUrlValue;
-                        aResp->res.jsonValue["Inserted"] = *activeValue;
                         aResp->res.jsonValue["TransferProtocolType"] =
                             getTransferProtocolTypeFromUri(*imageUrlValue);
 
-                        if (*activeValue == true)
-                        {
-                            aResp->res.jsonValue["ConnectedVia"] = "URI";
-                        }
+                        aResp->res.jsonValue["ConnectedVia"] = "URI";
                     }
                 }
-                else if (property.first == "WriteProtected")
+                if (property == "WriteProtected")
                 {
-                    const bool* writeProtectedValue =
-                        std::get_if<bool>(&property.second);
+                    const bool* writeProtectedValue = std::get_if<bool>(&value);
                     if (writeProtectedValue)
                     {
                         aResp->res.jsonValue["WriteProtected"] =
                             *writeProtectedValue;
+                    }
+                }
+            }
+        }
+        if (interface == "xyz.openbmc_project.VirtualMedia.Process")
+        {
+            for (const auto& [property, value] : values)
+            {
+                if (property == "Active")
+                {
+                    const bool* activeValue = std::get_if<bool>(&value);
+                    if (!activeValue)
+                    {
+                        BMCWEB_LOG_DEBUG << "Value Active not found";
+                        return;
+                    }
+                    aResp->res.jsonValue["Inserted"] = *activeValue;
+
+                    if (*activeValue == true)
+                    {
+                        aResp->res.jsonValue["ConnectedVia"] = "Applet";
                     }
                 }
             }
@@ -198,8 +176,9 @@ inline void getVmResourceList(std::shared_ptr<bmcweb::AsyncResp> aResp,
 {
     BMCWEB_LOG_DEBUG << "Get available Virtual Media resources.";
     crow::connections::systemBus->async_method_call(
-        [name, aResp{std::move(aResp)}](const boost::system::error_code ec,
-                                        ManagedObjectType& subtree) {
+        [name,
+         aResp{std::move(aResp)}](const boost::system::error_code ec,
+                                  dbus::utility::ManagedObjectType& subtree) {
             if (ec)
             {
                 BMCWEB_LOG_DEBUG << "DBUS response error";
@@ -242,7 +221,7 @@ inline void getVmData(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
 
     crow::connections::systemBus->async_method_call(
         [resName, name, aResp](const boost::system::error_code ec,
-                               ManagedObjectType& subtree) {
+                               dbus::utility::ManagedObjectType& subtree) {
             if (ec)
             {
                 BMCWEB_LOG_DEBUG << "DBUS response error";
@@ -849,7 +828,8 @@ inline void requestNBDVirtualMediaRoutes(App& app)
                         crow::connections::systemBus->async_method_call(
                             [service, resName, actionParams,
                              asyncResp](const boost::system::error_code ec,
-                                        ManagedObjectType& subtree) mutable {
+                                        dbus::utility::ManagedObjectType&
+                                            subtree) mutable {
                                 if (ec)
                                 {
                                     BMCWEB_LOG_DEBUG << "DBUS response error";
@@ -955,7 +935,7 @@ inline void requestNBDVirtualMediaRoutes(App& app)
                         crow::connections::systemBus->async_method_call(
                             [resName, service, asyncResp{asyncResp}](
                                 const boost::system::error_code ec,
-                                ManagedObjectType& subtree) {
+                                dbus::utility::ManagedObjectType& subtree) {
                                 if (ec)
                                 {
                                     BMCWEB_LOG_DEBUG << "DBUS response error";
