@@ -30,19 +30,6 @@
 namespace redfish
 {
 
-/**
- * DBus types primitives for several generic DBus interfaces
- * TODO(Pawel) consider move this to separate file into boost::dbus
- */
-using PropertiesMapType =
-    boost::container::flat_map<std::string, dbus::utility::DbusVariantType>;
-
-using GetManagedObjects = std::vector<std::pair<
-    sdbusplus::message::object_path,
-    std::vector<std::pair<std::string,
-                          boost::container::flat_map<
-                              std::string, dbus::utility::DbusVariantType>>>>>;
-
 enum class LinkType
 {
     Local,
@@ -196,9 +183,10 @@ inline std::string
     return "";
 }
 
-inline bool extractEthernetInterfaceData(const std::string& ethifaceId,
-                                         GetManagedObjects& dbusData,
-                                         EthernetInterfaceData& ethData)
+inline bool
+    extractEthernetInterfaceData(const std::string& ethifaceId,
+                                 dbus::utility::ManagedObjectType& dbusData,
+                                 EthernetInterfaceData& ethData)
 {
     bool idFound = false;
     for (auto& objpath : dbusData)
@@ -432,7 +420,7 @@ inline bool extractEthernetInterfaceData(const std::string& ethifaceId,
 // Helper function that extracts data for single ethernet ipv6 address
 inline void
     extractIPV6Data(const std::string& ethifaceId,
-                    const GetManagedObjects& dbusData,
+                    const dbus::utility::ManagedObjectType& dbusData,
                     boost::container::flat_set<IPv6AddressData>& ipv6Config)
 {
     const std::string ipv6PathStart =
@@ -510,7 +498,7 @@ inline void
 // Helper function that extracts data for single ethernet ipv4 address
 inline void
     extractIPData(const std::string& ethifaceId,
-                  const GetManagedObjects& dbusData,
+                  const dbus::utility::ManagedObjectType& dbusData,
                   boost::container::flat_set<IPv4AddressData>& ipv4Config)
 {
     const std::string ipv4PathStart =
@@ -938,7 +926,7 @@ void getEthernetIfaceData(const std::string& ethifaceId,
     crow::connections::systemBus->async_method_call(
         [ethifaceId{std::string{ethifaceId}}, callback{std::move(callback)}](
             const boost::system::error_code errorCode,
-            GetManagedObjects& resp) {
+            dbus::utility::ManagedObjectType& resp) {
             EthernetInterfaceData ethData{};
             boost::container::flat_set<IPv4AddressData> ipv4Data;
             boost::container::flat_set<IPv6AddressData> ipv6Data;
@@ -989,7 +977,7 @@ void getEthernetIfaceList(CallbackFunc&& callback)
     crow::connections::systemBus->async_method_call(
         [callback{std::move(callback)}](
             const boost::system::error_code errorCode,
-            GetManagedObjects& resp) {
+            dbus::utility::ManagedObjectType& resp) {
             // Callback requires vector<string> to retrieve all available
             // ethernet interfaces
             boost::container::flat_set<std::string> ifaceList;
