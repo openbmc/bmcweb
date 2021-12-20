@@ -25,6 +25,7 @@
 #include "../lib/log_services.hpp"
 #include "../lib/managers.hpp"
 #include "../lib/memory.hpp"
+#include "../lib/environment_metrics.hpp"
 #include "../lib/message_registries.hpp"
 #include "../lib/metric_report.hpp"
 #include "../lib/metric_report_definition.hpp"
@@ -143,6 +144,7 @@ class RedfishService
         requestRoutesOperatingConfig(app);
         requestRoutesMemoryCollection(app);
         requestRoutesMemory(app);
+        requestRoutesMemoryEnvironmentMetrics(app);
 
         requestRoutesSystemsCollection(app);
         requestRoutesSystems(app);
