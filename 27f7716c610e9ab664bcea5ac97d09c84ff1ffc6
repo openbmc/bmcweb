@@ -1,0 +1,84 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "50fa3c50_b0744df3",
+        "filename": "redfish-core/include/utils/json_utils.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 411,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-12-20T00:59:02Z",
+      "side": 1,
+      "message": "isn\u0027t this going to set one emptyJSON message per non-optional key?  That doesn\u0027t seem right.  I suspect the old logic was more correct.",
+      "revId": "27f7716c610e9ab664bcea5ac97d09c84ff1ffc6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8723b409_faceb28b",
+        "filename": "redfish-core/include/utils/json_utils.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 440,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-12-20T00:59:02Z",
+      "side": 1,
+      "message": "Looks like this is missing setting messages::emptyJSON?",
+      "range": {
+        "startLine": 435,
+        "startChar": 0,
+        "endLine": 440,
+        "endChar": 5
+      },
+      "revId": "27f7716c610e9ab664bcea5ac97d09c84ff1ffc6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "617c9975_5ab2f41e",
+        "filename": "redfish-core/include/utils/json_utils.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 442,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-12-20T00:59:02Z",
+      "side": 1,
+      "message": "One thing to point out is that this doesn\u0027t fix the behavior with something like\n\nreadJson(..... \"key\", std::vector\u003cnlohmann::json\u003e j)\n\nwhich should not set an emptyJson message if it hits the sub-key within the list and its empty.",
+      "revId": "27f7716c610e9ab664bcea5ac97d09c84ff1ffc6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4fdcb220_1accca88",
+        "filename": "redfish-core/include/utils/json_utils.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 474,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-12-20T00:59:02Z",
+      "side": 1,
+      "message": "Isn\u0027t this wrong?  readJsonAction should simply allow empty payloads in all cases.  If parameters are required and not provided, there are more specific error messages we\u0027ll produce.",
+      "range": {
+        "startLine": 473,
+        "startChar": 0,
+        "endLine": 474,
+        "endChar": 48
+      },
+      "revId": "27f7716c610e9ab664bcea5ac97d09c84ff1ffc6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
