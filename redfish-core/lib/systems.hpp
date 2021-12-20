@@ -1159,7 +1159,7 @@ inline void getLastResetTime(const std::shared_ptr<bmcweb::AsyncResp>& aResp)
 
     crow::connections::systemBus->async_method_call(
         [aResp](const boost::system::error_code ec,
-                dbus::utility::DbusVariantType& lastResetTime) {
+                const dbus::utility::DbusVariantType& lastResetTime) {
             if (ec)
             {
                 BMCWEB_LOG_DEBUG << "D-BUS response error " << ec;
@@ -1201,7 +1201,7 @@ inline void getAutomaticRetry(const std::shared_ptr<bmcweb::AsyncResp>& aResp)
 
     crow::connections::systemBus->async_method_call(
         [aResp](const boost::system::error_code ec,
-                dbus::utility::DbusVariantType& autoRebootEnabled) {
+                const dbus::utility::DbusVariantType& autoRebootEnabled) {
             if (ec)
             {
                 BMCWEB_LOG_DEBUG << "D-BUS response error " << ec;
@@ -1226,7 +1226,7 @@ inline void getAutomaticRetry(const std::shared_ptr<bmcweb::AsyncResp>& aResp)
                 // attempts are left
                 crow::connections::systemBus->async_method_call(
                     [aResp](const boost::system::error_code ec2,
-                            dbus::utility::DbusVariantType&
+                            const dbus::utility::DbusVariantType&
                                 autoRebootAttemptsLeft) {
                         if (ec2)
                         {
@@ -1295,7 +1295,7 @@ inline void
 
     crow::connections::systemBus->async_method_call(
         [aResp](const boost::system::error_code ec,
-                dbus::utility::DbusVariantType& policy) {
+                const dbus::utility::DbusVariantType& policy) {
             if (ec)
             {
                 BMCWEB_LOG_DEBUG << "DBUS response error " << ec;
@@ -1395,7 +1395,7 @@ inline void getTrustedModuleRequiredToBoot(
             // Valid TPM Enable object found, now reading the current value
             crow::connections::systemBus->async_method_call(
                 [aResp](const boost::system::error_code ec,
-                        dbus::utility::DbusVariantType& tpmRequired) {
+                        const dbus::utility::DbusVariantType& tpmRequired) {
                     if (ec)
                     {
                         BMCWEB_LOG_DEBUG
@@ -2346,7 +2346,7 @@ inline void
     BMCWEB_LOG_DEBUG << "Get host watchodg";
     crow::connections::systemBus->async_method_call(
         [aResp](const boost::system::error_code ec,
-                PropertiesType& properties) {
+                const PropertiesType& properties) {
             if (ec)
             {
                 // watchdog service is stopped
@@ -2477,7 +2477,7 @@ using ipsPropertiesType =
  * @return true if successful
  */
 inline bool parseIpsProperties(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
-                               ipsPropertiesType& properties)
+                               const ipsPropertiesType& properties)
 {
     for (const auto& property : properties)
     {
@@ -2611,7 +2611,7 @@ inline void getIdlePowerSaver(const std::shared_ptr<bmcweb::AsyncResp>& aResp)
             // Valid IdlePowerSaver object found, now read the current values
             crow::connections::systemBus->async_method_call(
                 [aResp](const boost::system::error_code ec,
-                        ipsPropertiesType& properties) {
+                        const ipsPropertiesType& properties) {
                     if (ec)
                     {
                         BMCWEB_LOG_ERROR
@@ -3096,7 +3096,7 @@ inline void requestRoutesSystems(App& app)
             auto health = std::make_shared<HealthPopulate>(asyncResp);
             crow::connections::systemBus->async_method_call(
                 [health](const boost::system::error_code ec,
-                         std::vector<std::string>& resp) {
+                        const  std::vector<std::string>& resp) {
                     if (ec)
                     {
                         // no inventory

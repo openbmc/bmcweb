@@ -689,7 +689,7 @@ inline void getCpuUniqueId(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
 {
     BMCWEB_LOG_DEBUG << "Get CPU UniqueIdentifier";
     crow::connections::systemBus->async_method_call(
-        [aResp](boost::system::error_code ec,
+        [aResp](const boost::system::error_code ec,
                 const dbus::utility::DbusVariantType& property) {
             const std::string* id = std::get_if<std::string>(&property);
             if (ec || id == nullptr)
@@ -856,7 +856,7 @@ inline void
                            const std::string& objPath)
 {
     crow::connections::systemBus->async_method_call(
-        [aResp](boost::system::error_code ec,
+        [aResp](const boost::system::error_code ec,
                 const OperatingConfigProperties& properties) {
             if (ec)
             {
@@ -1077,8 +1077,8 @@ inline void patchAppliedOperatingConfig(
 
     // Set the property, with handler to check error responses
     crow::connections::systemBus->async_method_call(
-        [resp, appliedConfigUri](boost::system::error_code ec,
-                                 sdbusplus::message::message& msg) {
+        [resp, appliedConfigUri](const boost::system::error_code ec,
+                                 const sdbusplus::message::message& msg) {
             handleAppliedConfigResponse(resp, appliedConfigUri, ec, msg);
         },
         *controlService, cpuObjectPath, "org.freedesktop.DBus.Properties",
