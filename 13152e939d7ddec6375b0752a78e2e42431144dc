@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b8b292b7_39ae887f",
+        "filename": "http/routing.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 1312,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2021-12-20T08:21:32Z",
+      "side": 1,
+      "message": "DbusVariantType is missing std::monostate. Variant is always initialized to first type on list. This can result it false information. Incase of getting empty variant (which is for example variant initialized to std::monostate) user will get variant with std::vector\u003cstd::tuple\u003cstd::string, std::string, std::string\u003e\u003e",
+      "range": {
+        "startLine": 1312,
+        "startChar": 63,
+        "endLine": 1312,
+        "endChar": 78
+      },
+      "revId": "13152e939d7ddec6375b0752a78e2e42431144dc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dbf154b9_f114df54",
+        "filename": "redfish-core/include/event_service_manager.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 1317,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2021-12-20T08:21:32Z",
+      "side": 1,
+      "message": "DbusVariantType doesn\u0027t contain TimestampReadings which are:\nstd::tuple\u003cuint64_t, std::vector\u003cstd::tuple\u003cstd::string, std::string, double, uint64_t\u003e\u003e\u003e",
+      "range": {
+        "startLine": 1317,
+        "startChar": 42,
+        "endLine": 1317,
+        "endChar": 73
+      },
+      "revId": "13152e939d7ddec6375b0752a78e2e42431144dc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3d86f537_fb0cc8f3",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2021-12-20T08:21:32Z",
+      "side": 1,
+      "message": "DbusVariantType doesn\u0027t contain ReadingParameters which is std::vector\u003cstd::tuple\u003csdbusplus::message::object_path, std::string,\n                           std::string, std::string\u003e\u003e",
+      "range": {
+        "startLine": 27,
+        "startChar": 60,
+        "endLine": 27,
+        "endChar": 75
+      },
+      "revId": "13152e939d7ddec6375b0752a78e2e42431144dc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f7a96a4e_736c80dc",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 488,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2021-12-20T08:21:32Z",
+      "side": 1,
+      "message": "Common variant is missing TurboProfileProperty and BaseSpeedPrioritySettingsProperty:\n\nTurboProfileProperty \u003d std::vector\u003cstd::tuple\u003cuint32_t, size_t\u003e\u003e\nBaseSpeedPrioritySettingsProperty  \u003d  std::vector\u003cstd::tuple\u003cuint32_t, std::vector\u003cuint32_t\u003e\u003e\u003e",
+      "range": {
+        "startLine": 488,
+        "startChar": 54,
+        "endLine": 488,
+        "endChar": 69
+      },
+      "revId": "13152e939d7ddec6375b0752a78e2e42431144dc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "737c8aef_ca9fee62",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 551,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2021-12-20T08:21:32Z",
+      "side": 1,
+      "message": "Common variant is missing sdbusplus::message::object_path",
+      "range": {
+        "startLine": 551,
+        "startChar": 44,
+        "endLine": 551,
+        "endChar": 59
+      },
+      "revId": "13152e939d7ddec6375b0752a78e2e42431144dc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "662c82be_a77ca1b7",
+        "filename": "redfish-core/lib/redfish_util.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 176,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2021-12-20T08:21:32Z",
+      "side": 1,
+      "message": "Common variant is missing vector\u003cstd::tuple\u003cstd::string, std::string\u003e\u003e",
+      "range": {
+        "startLine": 176,
+        "startChar": 33,
+        "endLine": 176,
+        "endChar": 48
+      },
+      "revId": "13152e939d7ddec6375b0752a78e2e42431144dc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
