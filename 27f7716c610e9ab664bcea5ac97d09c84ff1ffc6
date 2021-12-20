@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "943fa759_1c8a036a",
+        "filename": "redfish-core/include/utils/json_utils.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 411,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2021-12-20T06:14:55Z",
+      "side": 1,
+      "message": "This will go through all of the requested properties and return false + empty Json message once  if it find a property is not optional.\n\nSo this will only set one emptyJSON message.\n\n```\ndetails::handleEmpty(res, val) \u0026\u0026 details::handleEmpty(res, in...)\n```\n\nOnce `details::handleEmpty(res, val)` is false, `details::handleEmpty(res, in...)` will not be called.",
+      "parentUuid": "50fa3c50_b0744df3",
+      "revId": "27f7716c610e9ab664bcea5ac97d09c84ff1ffc6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "8723b409_faceb28b",
         "filename": "redfish-core/include/utils/json_utils.hpp",
         "patchSetId": 13
@@ -42,6 +60,30 @@
     },
     {
       "key": {
+        "uuid": "56c91d62_6d0e3774",
+        "filename": "redfish-core/include/utils/json_utils.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 440,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2021-12-20T06:14:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8723b409_faceb28b",
+      "range": {
+        "startLine": 435,
+        "startChar": 0,
+        "endLine": 440,
+        "endChar": 5
+      },
+      "revId": "27f7716c610e9ab664bcea5ac97d09c84ff1ffc6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "617c9975_5ab2f41e",
         "filename": "redfish-core/include/utils/json_utils.hpp",
         "patchSetId": 13
@@ -59,6 +101,24 @@
     },
     {
       "key": {
+        "uuid": "6d603cbe_0021db6a",
+        "filename": "redfish-core/include/utils/json_utils.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 442,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2021-12-20T06:14:55Z",
+      "side": 1,
+      "message": "Do you mean that if the Json is empty and that the requested property is a vector, then it shouldn\u0027t error out?",
+      "parentUuid": "617c9975_5ab2f41e",
+      "revId": "27f7716c610e9ab664bcea5ac97d09c84ff1ffc6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "4fdcb220_1accca88",
         "filename": "redfish-core/include/utils/json_utils.hpp",
         "patchSetId": 13
@@ -70,6 +130,30 @@
       "writtenOn": "2021-12-20T00:59:02Z",
       "side": 1,
       "message": "Isn\u0027t this wrong?  readJsonAction should simply allow empty payloads in all cases.  If parameters are required and not provided, there are more specific error messages we\u0027ll produce.",
+      "range": {
+        "startLine": 473,
+        "startChar": 0,
+        "endLine": 474,
+        "endChar": 48
+      },
+      "revId": "27f7716c610e9ab664bcea5ac97d09c84ff1ffc6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "66d3d3c3_dbaf413b",
+        "filename": "redfish-core/include/utils/json_utils.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 474,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2021-12-20T06:14:55Z",
+      "side": 1,
+      "message": "ah, ok. Then I guess we don\u0027t need to do handleEmpty at all.\n\nWe will let the caller handle the errors.",
+      "parentUuid": "4fdcb220_1accca88",
       "range": {
         "startLine": 473,
         "startChar": 0,
