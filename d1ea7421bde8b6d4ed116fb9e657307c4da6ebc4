@@ -22,6 +22,30 @@
       "revId": "d1ea7421bde8b6d4ed116fb9e657307c4da6ebc4",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dd9f8f0c_d80b27fe",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-12-21T17:16:55Z",
+      "side": 1,
+      "message": "\u003e I will give you example how it works right now.\n\u003e \n\u003e https://gerrit.openbmc-project.xyz/c/openbmc/sdbusplus/+/49875/2\n\u003e \n\u003e Please notice that when dbus interface contains a type that is not present in variant there is no error and variant is initialized to first type in list which can lead to some problems.\n\nIf that\u0027s true then the \"no error\" part sounds like a bug in sdbusplus.  It\u0027s possible error propagation doesn\u0027t work when the variant to unpack is in a container?\n\n\u003e \n\u003e Considering that bmcweb will switch to common variant this risk will only apply to place in code which uses property with same type as first type in variant.\n\nAssuming we don\u0027t fix the aforementioned bug.\n\n\u003e \n\u003e I just want to have common understanding of this problem. Once we are on same page and in your opinion risk is too small then I will be fine with doing nothing.",
+      "parentUuid": "f5ec69db_c29ebb0b",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 27
+      },
+      "revId": "d1ea7421bde8b6d4ed116fb9e657307c4da6ebc4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
