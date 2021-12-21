@@ -16,6 +16,24 @@
       "revId": "767242b50353df6a845960a3230686476a499ba5",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d08458f8_5bed03a2",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 36
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2021-12-21T21:23:38Z",
+      "side": 1,
+      "message": "Done. Just did a Redfish Validator tests. Passed since it only changed Name.\n\nAlso added some example.",
+      "parentUuid": "ce8ac5f1_e0957a5f",
+      "revId": "767242b50353df6a845960a3230686476a499ba5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
