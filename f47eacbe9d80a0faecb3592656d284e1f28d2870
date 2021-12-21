@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c6a80e51_a9dfed0f",
+        "filename": "include/nbd_proxy.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-12-21T02:21:58Z",
+      "side": 1,
+      "message": "Remove here too?",
+      "revId": "f47eacbe9d80a0faecb3592656d284e1f28d2870",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ff2f0c55_14bde055",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-12-21T02:21:58Z",
+      "side": 1,
+      "message": "Remove?",
+      "revId": "f47eacbe9d80a0faecb3592656d284e1f28d2870",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2b996635_bc517835",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-12-21T02:21:58Z",
+      "side": 1,
+      "message": "Remove?",
+      "revId": "f47eacbe9d80a0faecb3592656d284e1f28d2870",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d4f458fd_44208ee6",
+        "filename": "redfish-core/lib/led.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-12-21T02:21:58Z",
+      "side": 1,
+      "message": "Remove?",
+      "revId": "f47eacbe9d80a0faecb3592656d284e1f28d2870",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
