@@ -57,6 +57,50 @@ inline std::optional<std::string>
     return std::nullopt;
 }
 
+inline bool
+    updateStringCollection(crow::Response& res,
+                           const std::string& collectionName,
+                           const std::vector<std::string>& originalCollection,
+                           std::vector<nlohmann::json> patchData,
+                           std::vector<std::string>& resultCollection)
+{
+    size_t idx = 0;
+
+    resultCollection.reserve(static_cast<size_t>(
+        std::count_if(patchData.begin(), patchData.end(),
+                      [](nlohmann::json& json) { return !json.is_null(); })));
+
+    for (nlohmann::json& newVal : patchData)
+    {
+        if (newVal.is_null())
+        {
+            continue;
+        }
+
+        if (newVal.is_object() && newVal.empty())
+        {
+            if (idx >= originalCollection.size())
+            {
+                messages::propertyValueIncorrect(
+                    res, collectionName + "/" + std::to_string(idx),
+                    newVal.dump());
+                return false;
+            }
+            resultCollection.emplace_back(originalCollection.at(idx));
+        }
+
+        if (std::string* stringVal = newVal.get_ptr<std::string*>();
+            stringVal != nullptr)
+        {
+            resultCollection.emplace_back(*stringVal);
+        }
+        messages::propertyValueTypeError(
+            res, newVal.dump(), collectionName + "/" + std::to_string(idx));
+        return false;
+    }
+    return true;
+}
+
 inline bool getChassisSensorNode(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::vector<std::string>& uris,
