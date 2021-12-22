@@ -70,6 +70,30 @@
       "revId": "60c922dfacd5d1aeec8789e03edc91b47f4a6661",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7bf735de_2310e585",
+        "filename": "redfish-core/include/registries/openbmc_message_registry.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 1000566
+      },
+      "writtenOn": "2021-12-22T06:50:30Z",
+      "side": 0,
+      "message": "Yes, In the latest patch set, we are not removing existing entries.",
+      "parentUuid": "ad514b6f_54cd5659",
+      "range": {
+        "startLine": 153,
+        "startChar": 0,
+        "endLine": 164,
+        "endChar": 20
+      },
+      "revId": "60c922dfacd5d1aeec8789e03edc91b47f4a6661",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
