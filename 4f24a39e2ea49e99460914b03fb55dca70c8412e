@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "31362e5d_6cb1a1bf",
+        "filename": "redfish-core/lib/telemetry_service.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-12-22T21:44:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7990506f_686072f7",
+      "revId": "4f24a39e2ea49e99460914b03fb55dca70c8412e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c65a7670_f8c3ac5d",
         "filename": "redfish-core/lib/update_service.hpp",
         "patchSetId": 12
@@ -33,6 +51,24 @@
       "revId": "4f24a39e2ea49e99460914b03fb55dca70c8412e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "748e695d_42c9af3d",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-12-22T21:44:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c65a7670_f8c3ac5d",
+      "revId": "4f24a39e2ea49e99460914b03fb55dca70c8412e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
