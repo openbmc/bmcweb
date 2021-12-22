@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1284f227_5cfea1f2",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 61
+      },
+      "lineNbr": 794,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-12-22T01:00:03Z",
+      "side": 1,
+      "message": "Please split this method up into appropriate methods.  it\u0027s currently almost 100 lines of code, and goes 8-9 scopes deep in places.",
+      "revId": "e7eac4dd0c9acced5f7930fc2f1c258bf40f51ca",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "588d9e03_56d6a3ab",
+        "filename": "redfish-core/src/utils/json_utils.cpp",
+        "patchSetId": 61
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-12-22T01:00:03Z",
+      "side": 1,
+      "message": "std::string_view please.",
+      "range": {
+        "startLine": 24,
+        "startChar": 52,
+        "endLine": 24,
+        "endChar": 63
+      },
+      "revId": "e7eac4dd0c9acced5f7930fc2f1c258bf40f51ca",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
