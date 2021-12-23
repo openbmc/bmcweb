@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b2194130_15c831ca",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-12-23T23:44:12Z",
+      "side": 1,
+      "message": "I see \n\n\"Id\":view details \"Blade1\",\n\"Name\":view details \"Blade\",\n\n\nbut I still don\u0027t understand the purpose here..\nIn this mockup, they seem to remove the digits from the id but why do we need to?",
+      "revId": "81b8dc9b906e9ab9f90ece3586fe99c3a4245645",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
