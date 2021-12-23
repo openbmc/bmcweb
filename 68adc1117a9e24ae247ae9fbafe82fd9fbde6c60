@@ -94,6 +94,30 @@
       "revId": "68adc1117a9e24ae247ae9fbafe82fd9fbde6c60",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2ceb3663_d1f7a140",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 30
+      },
+      "lineNbr": 439,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-12-23T23:42:31Z",
+      "side": 1,
+      "message": "\u003e Yep.  Looking at the mockups for this stuff (specifically the bladed server mockup), it looks like all the nodes follow the pattern of \"ID\" contains the index, \"Name\" does not.  Lets do that.\n\nDo we have anything in the spec ? Or just the mockup ?\n\nWhy did we move away from using PrettyName? \nI thought that was the point of PrettyName, a human readable name",
+      "parentUuid": "fe9a7da4_889bc9b2",
+      "range": {
+        "startLine": 439,
+        "startChar": 32,
+        "endLine": 439,
+        "endChar": 77
+      },
+      "revId": "68adc1117a9e24ae247ae9fbafe82fd9fbde6c60",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
