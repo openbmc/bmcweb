@@ -16,6 +16,24 @@
       "revId": "81b8dc9b906e9ab9f90ece3586fe99c3a4245645",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "849c02c1_aaf216fc",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-12-24T00:48:26Z",
+      "side": 1,
+      "message": "Because if we have two of the same \"thing\" you need to be able to tell that they\u0027re the same via the Name.  Ie, Drive 1 and Drive 2 should both be of name \"Drive\" so that users can use Name to match up on the device type, and not have to rely on odata.id.\n\nI also think that we should be prefixing all of these with OBMC or something similar (ie OBMC Drive) so that users can differentiate common terms like \"drive\" from their equivalents on say, an ilo system, but that\u0027s a much bigger change.",
+      "parentUuid": "b2194130_15c831ca",
+      "revId": "81b8dc9b906e9ab9f90ece3586fe99c3a4245645",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
