@@ -142,6 +142,30 @@
       "revId": "68adc1117a9e24ae247ae9fbafe82fd9fbde6c60",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "65261d77_7fdca12f",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 30
+      },
+      "lineNbr": 439,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-12-24T00:59:55Z",
+      "side": 1,
+      "message": "Entity-manager and bmcweb have never implemented PrettyName which is supposed to be a user facing name, and generally should include a unique identifier (ie, you shouldn\u0027t have two drives with PrettyName \"Drive\").  Redfish Name field is different than pretty name in that it\u0027s not really meant to be user facing as an identifier of an instance, more that it\u0027s an identifier of a class of resource, and can be used in an API context to determine which entry in the collection you need.\n\nThis patchset came about because clients were trying to determine the \"Name\" of a given thing, and basically were hardcoding in this same logic to strip the _\u003cnumber\u003e from the end to determine the \"Name\" of the device, which they shouldn\u0027t have to do given the redfish spec.\n\n\nFrom reading the redfish spec, \"Name\" is intended to be the name of the device, and not unique.  MemberId, is supposed to be unique, as is Id.\n\nInterestingly, I think we\u0027re in violation of the spec on member ID, \n\"For services supporting Redfish v1.6 or higher, this value shall contain the zero-based array index.\"\n\nWe probably need to look at that field next.",
+      "parentUuid": "5aad04a6_bc4e110f",
+      "range": {
+        "startLine": 439,
+        "startChar": 32,
+        "endLine": 439,
+        "endChar": 77
+      },
+      "revId": "68adc1117a9e24ae247ae9fbafe82fd9fbde6c60",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
