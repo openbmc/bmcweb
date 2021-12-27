@@ -118,6 +118,30 @@
       "revId": "2c134f69615bef86af325b87debb86f8d5697dd6",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5188640b_1d58004d",
+        "filename": "redfish-core/lib/redfish_sessions.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 266,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2021-12-27T05:44:06Z",
+      "side": 1,
+      "message": "Agree. But this will be a considerable effort in re-designing things.\n\nWhat do you think should be the short-term solution for this from the security point of view? \n\nAny 3rd party No-Access user can create many and many login sessions and exhaust the bmc without logging out. Logout logic checks for the user access, and a No-Access user can not perform logout.",
+      "parentUuid": "b9d6a4e3_f051f770",
+      "range": {
+        "startLine": 199,
+        "startChar": 0,
+        "endLine": 266,
+        "endChar": 37
+      },
+      "revId": "2c134f69615bef86af325b87debb86f8d5697dd6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
