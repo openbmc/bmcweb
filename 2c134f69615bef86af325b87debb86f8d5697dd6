@@ -142,6 +142,30 @@
       "revId": "2c134f69615bef86af325b87debb86f8d5697dd6",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dd212429_b81a129c",
+        "filename": "redfish-core/lib/redfish_sessions.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 266,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-12-27T05:47:59Z",
+      "side": 1,
+      "message": "\u003e Agree. But this will be a considerable effort in re-designing things.\n\n\u003e \n\u003e What do you think should be the short-term solution for this from the security point of view? \n\u003e \n\nMake sure that phosphor-user-manager properly disables (in linux) no-access users as it should.  bmcweb already checks to see if users are disabled, so if phosphor-user-manager isn\u0027t disabling users set to no-access, then clearly something needs fixed there.\n\n\u003e Any 3rd party No-Access user can create many and many login sessions and exhaust the bmc without logging out. Logout logic checks for the user access, and a No-Access user can not perform logout.\n\n\nNo-access users should  ot be given a session at all.",
+      "parentUuid": "5188640b_1d58004d",
+      "range": {
+        "startLine": 199,
+        "startChar": 0,
+        "endLine": 266,
+        "endChar": 37
+      },
+      "revId": "2c134f69615bef86af325b87debb86f8d5697dd6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
