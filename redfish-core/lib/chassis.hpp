@@ -17,6 +17,7 @@
 
 #include "health.hpp"
 #include "led.hpp"
+#include "multi_storage_helper.hpp"
 
 #include <app.hpp>
 #include <boost/container/flat_map.hpp>
@@ -337,7 +338,8 @@ inline void requestRoutesChassis(App& app)
                         }
 
                         crow::connections::systemBus->async_method_call(
-                            [asyncResp, chassisId(std::string(chassisId))](
+                            [asyncResp, chassisId(std::string(chassisId)),
+                             path](
                                 const boost::system::error_code /*ec2*/,
                                 const std::vector<
                                     std::pair<std::string,
@@ -411,6 +413,11 @@ inline void requestRoutesChassis(App& app)
                                     {{{"@odata.id",
                                        "/redfish/v1/Managers/bmc"}}};
                                 getChassisState(asyncResp);
+                                getChassisResources(
+                                    asyncResp, path, "Storage",
+                                    "/redfish/v1/Systems/system/Storage/",
+                                    {"xyz.openbmc_project."
+                                     "Inventory.Item.Storage"});
                             },
                             connectionName, path,
                             "org.freedesktop.DBus.Properties", "GetAll",
