@@ -1,6 +1,7 @@
 {
   "comments": [
     {
+      "unresolved": true,
       "key": {
         "uuid": "f5ff2ccb_91799a83",
         "filename": "redfish-core/lib/redfish_sessions.hpp",
@@ -20,10 +21,10 @@
         "endChar": 37
       },
       "revId": "2c134f69615bef86af325b87debb86f8d5697dd6",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "defd93cc_2e6f064c",
         "filename": "redfish-core/lib/redfish_sessions.hpp",
@@ -44,10 +45,10 @@
         "endChar": 37
       },
       "revId": "2c134f69615bef86af325b87debb86f8d5697dd6",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "52c11756_2e642cdb",
         "filename": "redfish-core/lib/redfish_sessions.hpp",
@@ -68,10 +69,10 @@
         "endChar": 37
       },
       "revId": "2c134f69615bef86af325b87debb86f8d5697dd6",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "3767fd46_b02f1381",
         "filename": "redfish-core/lib/redfish_sessions.hpp",
@@ -92,10 +93,10 @@
         "endChar": 37
       },
       "revId": "2c134f69615bef86af325b87debb86f8d5697dd6",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "b9d6a4e3_f051f770",
         "filename": "redfish-core/lib/redfish_sessions.hpp",
@@ -116,10 +117,10 @@
         "endChar": 37
       },
       "revId": "2c134f69615bef86af325b87debb86f8d5697dd6",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "5188640b_1d58004d",
         "filename": "redfish-core/lib/redfish_sessions.hpp",
@@ -140,10 +141,10 @@
         "endChar": 37
       },
       "revId": "2c134f69615bef86af325b87debb86f8d5697dd6",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "dd212429_b81a129c",
         "filename": "redfish-core/lib/redfish_sessions.hpp",
@@ -164,10 +165,10 @@
         "endChar": 37
       },
       "revId": "2c134f69615bef86af325b87debb86f8d5697dd6",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "641a9cb8_c6cf0db9",
         "filename": "redfish-core/lib/redfish_sessions.hpp",
@@ -188,8 +189,31 @@
         "endChar": 37
       },
       "revId": "2c134f69615bef86af325b87debb86f8d5697dd6",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "39e41322_33d927fb",
+        "filename": "redfish-core/lib/redfish_sessions.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 266,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-12-28T21:53:03Z",
+      "side": 1,
+      "message": "Please see the reply on this thread that contains the text \"this is the check to determine if a user is allowed to log in\"  I\u0027ve already pointed you to the code.",
+      "parentUuid": "641a9cb8_c6cf0db9",
+      "range": {
+        "startLine": 199,
+        "startChar": 0,
+        "endLine": 266,
+        "endChar": 37
+      },
+      "revId": "2c134f69615bef86af325b87debb86f8d5697dd6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
