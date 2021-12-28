@@ -676,7 +676,7 @@ class Connection :
 
         std::chrono::seconds timeout(15);
         // allow slow uploads for logged in users
-        bool loggedIn = req && req->session;
+        bool loggedIn = userSession != nullptr;
         if (loggedIn)
         {
             timeout = std::chrono::seconds(60);
