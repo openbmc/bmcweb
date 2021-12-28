@@ -166,6 +166,30 @@
       "revId": "2c134f69615bef86af325b87debb86f8d5697dd6",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "641a9cb8_c6cf0db9",
+        "filename": "redfish-core/lib/redfish_sessions.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 266,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2021-12-28T09:47:37Z",
+      "side": 1,
+      "message": "\u003e bmcweb already checks to see if users are disabled\n\nCan you please point me to the bmcweb code which checks if the users are disabled at the phosphor-user-manager while creating the session?",
+      "parentUuid": "dd212429_b81a129c",
+      "range": {
+        "startLine": 199,
+        "startChar": 0,
+        "endLine": 266,
+        "endChar": 37
+      },
+      "revId": "2c134f69615bef86af325b87debb86f8d5697dd6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
