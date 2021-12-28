@@ -17,6 +17,7 @@
 
 #include "health.hpp"
 #include "led.hpp"
+#include "multi_storage_helper.hpp"
 
 #include <app.hpp>
 #include <dbus_utility.hpp>
@@ -316,10 +317,10 @@ inline void requestRoutesChassis(App& app)
                         }
 
                         crow::connections::systemBus->async_method_call(
-                            [asyncResp, chassisId(std::string(chassisId))](
-                                const boost::system::error_code /*ec2*/,
-                                const dbus::utility::DBusPropertiesMap&
-                                    propertiesList) {
+                            [asyncResp, chassisId(std::string(chassisId)),
+                             path](const boost::system::error_code /*ec2*/,
+                                   const dbus::utility::DBusPropertiesMap&
+                                       propertiesList) {
                                 for (const std::pair<
                                          std::string,
                                          dbus::utility::DbusVariantType>&
@@ -398,6 +399,9 @@ inline void requestRoutesChassis(App& app)
                                 asyncResp->res.jsonValue["Links"]["ManagedBy"] =
                                     std::move(managedBy);
                                 getChassisState(asyncResp);
+                                getChassisResources(
+                                    asyncResp, path + "/storage", "Storage",
+                                    "/redfish/v1/Storage/");
                             },
                             connectionName, path,
                             "org.freedesktop.DBus.Properties", "GetAll",
