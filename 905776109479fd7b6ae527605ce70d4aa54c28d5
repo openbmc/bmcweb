@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5956a550_05cdff94",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 3841,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2021-12-29T08:58:11Z",
+      "side": 1,
+      "message": "Use getProperty\u003cstdbusplus::message::object_path\u003e instead.\n\nYou can use https://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/44019 as reference.",
+      "range": {
+        "startLine": 3837,
+        "startChar": 12,
+        "endLine": 3841,
+        "endChar": 76
+      },
+      "revId": "905776109479fd7b6ae527605ce70d4aa54c28d5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f87a3156_23fc6256",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 3873,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2021-12-29T08:58:11Z",
+      "side": 1,
+      "message": "nit: take a look at https://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/49839/3/include/dbus_utility.hpp\n\nonce it\u0027s merged you will have to update this type to use one from dbus_utility.hpp",
+      "range": {
+        "startLine": 3871,
+        "startChar": 35,
+        "endLine": 3873,
+        "endChar": 46
+      },
+      "revId": "905776109479fd7b6ae527605ce70d4aa54c28d5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
