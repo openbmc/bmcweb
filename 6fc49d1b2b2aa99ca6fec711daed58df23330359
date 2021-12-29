@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2718cb0b_80127cb1",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2021-12-29T09:13:13Z",
+      "side": 1,
+      "message": "Use getProperty\u003cstd::vector\u003cstd::string\u003e\u003e instead.\n\nYou can use https://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/44019 for reference.",
+      "range": {
+        "startLine": 153,
+        "startChar": 4,
+        "endLine": 156,
+        "endChar": 78
+      },
+      "revId": "6fc49d1b2b2aa99ca6fec711daed58df23330359",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4877c8ff_9fad5309",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 193,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2021-12-29T09:13:13Z",
+      "side": 1,
+      "message": "Use getProperty\u003cstd::vector\u003cstd::string\u003e\u003e instead.\n\nYou can use https://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/44019 for reference.",
+      "range": {
+        "startLine": 191,
+        "startChar": 4,
+        "endLine": 193,
+        "endChar": 78
+      },
+      "revId": "6fc49d1b2b2aa99ca6fec711daed58df23330359",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
