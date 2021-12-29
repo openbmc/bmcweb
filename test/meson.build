@@ -43,6 +43,7 @@ srcfiles_unittest = files(
     'redfish-core/include/utils/hex_utils_test.cpp',
     'redfish-core/include/utils/ip_utils_test.cpp',
     'redfish-core/include/utils/json_utils_test.cpp',
+    'redfish-core/include/utils/location_utils_test.cpp',
     'redfish-core/include/utils/query_param_test.cpp',
     'redfish-core/include/utils/sensor_utils_test.cpp',
     'redfish-core/include/utils/stl_utils_test.cpp',
