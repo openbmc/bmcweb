@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c3de8ad3_a609ace8",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2021-12-29T08:35:09Z",
+      "side": 1,
+      "message": "This can be replaced with DBusInteracesMap",
+      "range": {
+        "startLine": 70,
+        "startChar": 0,
+        "endLine": 72,
+        "endChar": 77
+      },
+      "revId": "9538d95bdba2e180cac9008a092de978933e78ab",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3441a4a2_b300d3c5",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2021-12-29T08:35:09Z",
+      "side": 1,
+      "message": "This can be replaced with DBusPropertiesMap",
+      "range": {
+        "startLine": 37,
+        "startChar": 0,
+        "endLine": 39,
+        "endChar": 0
+      },
+      "revId": "9538d95bdba2e180cac9008a092de978933e78ab",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6c4228fd_5e0d5ffe",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2021-12-29T08:35:09Z",
+      "side": 1,
+      "message": "This can be replaced with types from dbus_utility.hpp",
+      "range": {
+        "startLine": 35,
+        "startChar": 0,
+        "endLine": 45,
+        "endChar": 58
+      },
+      "revId": "9538d95bdba2e180cac9008a092de978933e78ab",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fa3a839b_3e45fa5f",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2021-12-29T08:35:09Z",
+      "side": 1,
+      "message": "This can be replaced with types from dbus_utility.hpp",
+      "revId": "9538d95bdba2e180cac9008a092de978933e78ab",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
