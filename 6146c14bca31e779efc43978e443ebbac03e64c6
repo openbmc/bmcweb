@@ -1,6 +1,7 @@
 {
   "comments": [
     {
+      "unresolved": true,
       "key": {
         "uuid": "82e23469_3f85cb34",
         "filename": "redfish-core/lib/chassis.hpp",
@@ -14,10 +15,10 @@
       "side": 1,
       "message": "Why was this changed to ERROR trace? General rule I\u0027ve been pushing for is if we\u0027re not returning an error to the client, lets not trace to the ERROR buffer. This may just be a rebase issue.",
       "revId": "6146c14bca31e779efc43978e443ebbac03e64c6",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "34b3955c_59407dec",
         "filename": "redfish-core/lib/chassis.hpp",
@@ -32,10 +33,10 @@
       "message": "oh. I thought I changed it on accident after rebase and changed it manually. Apparently it was good before.\n\nI have reverted it.",
       "parentUuid": "82e23469_3f85cb34",
       "revId": "6146c14bca31e779efc43978e443ebbac03e64c6",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "183061bd_29f2f93d",
         "filename": "redfish-core/lib/chassis.hpp",
@@ -49,10 +50,10 @@
       "side": 1,
       "message": "If we go with the default \"RackMount\" then don\u0027t we need to add the Actions?",
       "revId": "6146c14bca31e779efc43978e443ebbac03e64c6",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "c31a8f23_61e15cf9",
         "filename": "redfish-core/lib/chassis.hpp",
@@ -67,10 +68,28 @@
       "message": "this is actually wrong. I was debugging it and it should be also add the action.\n\nIt is indicated by chassisType \u003d\u003d nullopt",
       "parentUuid": "183061bd_29f2f93d",
       "revId": "6146c14bca31e779efc43978e443ebbac03e64c6",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "ae1557a3_b54f907d",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 34
+      },
+      "lineNbr": 237,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2021-12-29T08:45:54Z",
+      "side": 1,
+      "message": "This one check if chassisType \u003d\u003d nullopt or if is equals to RackMount/StandAlone, then it will add the Action. Otherwise, no action.\n\nSo the default RckMount will also add the Action.",
+      "parentUuid": "c31a8f23_61e15cf9",
+      "revId": "6146c14bca31e779efc43978e443ebbac03e64c6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
       "key": {
         "uuid": "18c563df_398075ca",
         "filename": "redfish-core/lib/chassis.hpp",
@@ -90,10 +109,10 @@
         "endChar": 32
       },
       "revId": "6146c14bca31e779efc43978e443ebbac03e64c6",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "ee09e9c1_ef2c9b56",
         "filename": "redfish-core/lib/chassis.hpp",
@@ -114,10 +133,10 @@
         "endChar": 32
       },
       "revId": "6146c14bca31e779efc43978e443ebbac03e64c6",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "11c032ee_53978d0f",
         "filename": "redfish-core/lib/chassis.hpp",
@@ -131,8 +150,25 @@
       "side": 1,
       "message": "Is all this code really needed? The code above ensures we don\u0027t return this action unless it\u0027s supported. If we do need a check, can\u0027t we just reuse the logic above vs. writing all this new code?",
       "revId": "6146c14bca31e779efc43978e443ebbac03e64c6",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6d750153_b12facb0",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 34
+      },
+      "lineNbr": 798,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2021-12-29T08:45:54Z",
+      "side": 1,
+      "message": "Do you mean the one in `requestRoutesChassis()`?\n\nThis function is used in requestRoutesChassisResetActionInfo and requestRoutesChassisResetAction. I\u0027ll see if I can clean this up more.",
+      "parentUuid": "11c032ee_53978d0f",
+      "revId": "6146c14bca31e779efc43978e443ebbac03e64c6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }

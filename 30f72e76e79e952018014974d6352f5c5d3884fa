@@ -1,6 +1,7 @@
 {
   "comments": [
     {
+      "unresolved": true,
       "key": {
         "uuid": "c5945f04_21dd076e",
         "filename": "redfish-core/lib/chassis.hpp",
@@ -20,10 +21,34 @@
         "endChar": 26
       },
       "revId": "30f72e76e79e952018014974d6352f5c5d3884fa",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4ab2437f_0b2f01f8",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 36
+      },
+      "lineNbr": 230,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2021-12-29T08:45:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c5945f04_21dd076e",
+      "range": {
+        "startLine": 230,
+        "startChar": 12,
+        "endLine": 230,
+        "endChar": 26
+      },
+      "revId": "30f72e76e79e952018014974d6352f5c5d3884fa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
       "key": {
         "uuid": "6f0e1527_f058fc4a",
         "filename": "redfish-core/lib/chassis.hpp",
@@ -43,10 +68,34 @@
         "endChar": 5
       },
       "revId": "30f72e76e79e952018014974d6352f5c5d3884fa",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "be70d0d7_397093e5",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 36
+      },
+      "lineNbr": 240,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2021-12-29T08:45:54Z",
+      "side": 1,
+      "message": "Right now it is assuming that RackMount and StandAlone does reset. Also default which is Rackmount.",
+      "parentUuid": "6f0e1527_f058fc4a",
+      "range": {
+        "startLine": 233,
+        "startChar": 0,
+        "endLine": 240,
+        "endChar": 5
+      },
+      "revId": "30f72e76e79e952018014974d6352f5c5d3884fa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
       "key": {
         "uuid": "3720d6ab_c2b173af",
         "filename": "redfish-core/lib/chassis.hpp",
@@ -66,10 +115,10 @@
         "endChar": 38
       },
       "revId": "30f72e76e79e952018014974d6352f5c5d3884fa",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "846b2215_32fdf07f",
         "filename": "redfish-core/lib/chassis.hpp",
@@ -83,10 +132,28 @@
       "side": 1,
       "message": "This general pattern of \"check interfaces, then call set\" is generally not how we do things like this.  Generally we take a pattern of attempting to do the set directly, and returning the correct errors.  I think some of the conflict is that you\u0027re making a distinction based on type in bmcweb code, which is kind of business logic.  bmcweb should be as close to a dumb dbus-\u003eredfish converter as is possible, so we should be relying on whether or not the objects implement the interfaces we need.",
       "revId": "30f72e76e79e952018014974d6352f5c5d3884fa",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "b0be8c90_ace0eaaf",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 36
+      },
+      "lineNbr": 795,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2021-12-29T08:45:54Z",
+      "side": 1,
+      "message": "ok, let me clean this up a bit more.",
+      "parentUuid": "846b2215_32fdf07f",
+      "revId": "30f72e76e79e952018014974d6352f5c5d3884fa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
       "key": {
         "uuid": "be113e8c_530f35be",
         "filename": "redfish-core/lib/chassis.hpp",
@@ -106,10 +173,10 @@
         "endChar": 54
       },
       "revId": "30f72e76e79e952018014974d6352f5c5d3884fa",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "60d8b326_9c3b8234",
         "filename": "redfish-core/lib/chassis.hpp",
@@ -130,10 +197,10 @@
         "endChar": 54
       },
       "revId": "30f72e76e79e952018014974d6352f5c5d3884fa",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "581307bd_f3fe494e",
         "filename": "redfish-core/lib/chassis.hpp",
@@ -154,10 +221,34 @@
         "endChar": 54
       },
       "revId": "30f72e76e79e952018014974d6352f5c5d3884fa",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "05cebb94_03cebf1b",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 36
+      },
+      "lineNbr": 806,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2021-12-29T08:45:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "581307bd_f3fe494e",
+      "range": {
+        "startLine": 806,
+        "startChar": 12,
+        "endLine": 806,
+        "endChar": 54
+      },
+      "revId": "30f72e76e79e952018014974d6352f5c5d3884fa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
       "key": {
         "uuid": "21f0284a_d02364ba",
         "filename": "redfish-core/lib/chassis.hpp",
@@ -177,8 +268,31 @@
         "endChar": 24
       },
       "revId": "30f72e76e79e952018014974d6352f5c5d3884fa",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "45b5c80f_db99e821",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 36
+      },
+      "lineNbr": 883,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2021-12-29T08:45:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "21f0284a_d02364ba",
+      "range": {
+        "startLine": 883,
+        "startChar": 21,
+        "endLine": 883,
+        "endChar": 24
+      },
+      "revId": "30f72e76e79e952018014974d6352f5c5d3884fa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
