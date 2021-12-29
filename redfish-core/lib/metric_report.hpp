@@ -28,7 +28,8 @@ inline nlohmann::json toMetricValues(const Readings& readings)
             {"MetricId", id},
             {"MetricProperty", metadata},
             {"MetricValue", std::to_string(sensorValue)},
-            {"Timestamp", crow::utility::getDateTimeUint(timestamp)},
+            {"Timestamp",
+             crow::utility::getDateTime(std::chrono::milliseconds(timestamp))},
         });
     }
 
@@ -46,7 +47,8 @@ inline bool fillReport(nlohmann::json& json, const std::string& id,
         telemetry::metricReportDefinitionUri + std::string("/") + id;
 
     const auto& [timestamp, readings] = timestampReadings;
-    json["Timestamp"] = crow::utility::getDateTimeUint(timestamp);
+    json["Timestamp"] =
+        crow::utility::getDateTime(std::chrono::milliseconds(timestamp));
     json["MetricValues"] = toMetricValues(readings);
     return true;
 }

@@ -579,9 +579,12 @@ inline bool base64Decode(const std::string_view input, std::string& output)
  *
  * @return Date Time in the ISO extended format
  */
-inline std::string getDateTime(boost::posix_time::seconds secondsSinceEpoch)
+inline std::string getDateTime(std::chrono::milliseconds timeSinceEpoch)
 {
     boost::posix_time::ptime epoch(boost::gregorian::date(1970, 1, 1));
+    boost::posix_time::seconds secondsSinceEpoch = boost::posix_time::seconds(
+        std::chrono::duration_cast<std::chrono::seconds>(timeSinceEpoch)
+            .count());
     boost::posix_time::ptime time = epoch + secondsSinceEpoch;
     // append zero offset to the end according to the Redfish spec for Date-Time
     return boost::posix_time::to_iso_extended_string(time) + "+00:00";
@@ -589,12 +592,12 @@ inline std::string getDateTime(boost::posix_time::seconds secondsSinceEpoch)
 
 inline std::string getDateTimeUint(uint64_t secondsSinceEpoch)
 {
-    return getDateTime(boost::posix_time::seconds(secondsSinceEpoch));
+    return getDateTime(std::chrono::seconds(secondsSinceEpoch));
 }
 
 inline std::string getDateTimeStdtime(std::time_t secondsSinceEpoch)
 {
-    return getDateTime(boost::posix_time::seconds(secondsSinceEpoch));
+    return getDateTime(std::chrono::seconds(secondsSinceEpoch));
 }
 
 /**
