@@ -767,6 +767,86 @@ inline static void
     }
 }
 
+inline void
+    getSoftwareVersion(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                       std::string_view service, const std::string& path,
+                       const std::string& swId)
+{
+    crow::connections::systemBus->async_method_call(
+        [asyncResp, swId](
+            const boost::system::error_code errorCode,
+            const boost::container::flat_map<
+                std::string, dbus::utility::DbusVariantType>& propertiesList) {
+            if (errorCode)
+            {
+                messages::internalError(asyncResp->res);
+                return;
+            }
+            boost::container::flat_map<
+                std::string, dbus::utility::DbusVariantType>::const_iterator
+                it = propertiesList.find("Purpose");
+            if (it == propertiesList.end())
+            {
+                BMCWEB_LOG_DEBUG << "Can't find property \"Purpose\"!";
+                messages::propertyMissing(asyncResp->res, "Purpose");
+                return;
+            }
+            const std::string* swInvPurpose =
+                std::get_if<std::string>(&it->second);
+            if (swInvPurpose == nullptr)
+            {
+                BMCWEB_LOG_DEBUG << "wrong types for property\"Purpose\"!";
+                messages::propertyValueTypeError(asyncResp->res, "", "Purpose");
+                return;
+            }
+
+            BMCWEB_LOG_DEBUG << "swInvPurpose = " << *swInvPurpose;
+            it = propertiesList.find("Version");
+            if (it == propertiesList.end())
+            {
+                BMCWEB_LOG_DEBUG << "Can't find property \"Version\"!";
+                messages::propertyMissing(asyncResp->res, "Version");
+                return;
+            }
+
+            BMCWEB_LOG_DEBUG << "Version found!";
+
+            const std::string* version = std::get_if<std::string>(&it->second);
+
+            if (version == nullptr)
+            {
+                BMCWEB_LOG_DEBUG << "Can't find property \"Version\"!";
+
+                messages::propertyValueTypeError(asyncResp->res, "", "Version");
+                return;
+            }
+            asyncResp->res.jsonValue["Version"] = *version;
+            asyncResp->res.jsonValue["Id"] = swId;
+
+            // swInvPurpose is of format:
+            // xyz.openbmc_project.Software.Version.VersionPurpose.ABC
+            // Translate this to "ABC image"
+            size_t endDesc = swInvPurpose->rfind('.');
+            if (endDesc == std::string::npos)
+            {
+                messages::internalError(asyncResp->res);
+                return;
+            }
+            endDesc++;
+            if (endDesc >= swInvPurpose->size())
+            {
+                messages::internalError(asyncResp->res);
+                return;
+            }
+
+            std::string formatDesc = swInvPurpose->substr(endDesc);
+            asyncResp->res.jsonValue["Description"] = formatDesc + " image";
+            getRelatedItems(asyncResp, *swInvPurpose);
+        },
+        service.data(), path, "org.freedesktop.DBus.Properties", "GetAll",
+        "xyz.openbmc_project.Software.Version");
+}
+
 inline void requestRoutesSoftwareInventory(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/UpdateService/FirmwareInventory/<str>/")
@@ -805,7 +885,8 @@ inline void requestRoutesSoftwareInventory(App& app)
                                  std::string, std::vector<std::string>>>>& obj :
                          subtree)
                     {
-                        if (boost::ends_with(obj.first, *swId) != true)
+                        if (sdbusplus::message::object_path(obj.first)
+                                .filename() != *swId)
                         {
                             continue;
                         }
@@ -815,100 +896,26 @@ inline void requestRoutesSoftwareInventory(App& app)
                             continue;
                         }
 
-                        found = true;
-                        fw_util::getFwStatus(asyncResp, swId,
-                                             obj.second[0].first);
-
-                        crow::connections::systemBus->async_method_call(
-                            [asyncResp,
-                             swId](const boost::system::error_code errorCode,
-                                   const boost::container::flat_map<
-                                       std::string,
-                                       dbus::utility::DbusVariantType>&
-                                       propertiesList) {
-                                if (errorCode)
+                        for (const auto& [serviceName, interfaceList] :
+                             obj.second)
+                        {
+                            for (const std::string& interface : interfaceList)
+                            {
+                                if (interface ==
+                                    "xyz.openbmc_project.Software.Version")
                                 {
-                                    messages::internalError(asyncResp->res);
-                                    return;
+                                    found = true;
+                                    getSoftwareVersion(asyncResp, serviceName,
+                                                       obj.first, *swId);
                                 }
-                                boost::container::flat_map<
-                                    std::string,
-                                    dbus::utility::DbusVariantType>::
-                                    const_iterator it =
-                                        propertiesList.find("Purpose");
-                                if (it == propertiesList.end())
+                                if (interface ==
+                                    "xyz.openbmc_project.Software.Activation")
                                 {
-                                    BMCWEB_LOG_DEBUG
-                                        << "Can't find property \"Purpose\"!";
-                                    messages::propertyMissing(asyncResp->res,
-                                                              "Purpose");
-                                    return;
+                                    fw_util::getFwStatus(asyncResp, swId,
+                                                         serviceName);
                                 }
-                                const std::string* swInvPurpose =
-                                    std::get_if<std::string>(&it->second);
-                                if (swInvPurpose == nullptr)
-                                {
-                                    BMCWEB_LOG_DEBUG
-                                        << "wrong types for property\"Purpose\"!";
-                                    messages::propertyValueTypeError(
-                                        asyncResp->res, "", "Purpose");
-                                    return;
-                                }
-
-                                BMCWEB_LOG_DEBUG << "swInvPurpose = "
-                                                 << *swInvPurpose;
-                                it = propertiesList.find("Version");
-                                if (it == propertiesList.end())
-                                {
-                                    BMCWEB_LOG_DEBUG
-                                        << "Can't find property \"Version\"!";
-                                    messages::propertyMissing(asyncResp->res,
-                                                              "Version");
-                                    return;
-                                }
-
-                                BMCWEB_LOG_DEBUG << "Version found!";
-
-                                const std::string* version =
-                                    std::get_if<std::string>(&it->second);
-
-                                if (version == nullptr)
-                                {
-                                    BMCWEB_LOG_DEBUG
-                                        << "Can't find property \"Version\"!";
-
-                                    messages::propertyValueTypeError(
-                                        asyncResp->res, "", "Version");
-                                    return;
-                                }
-                                asyncResp->res.jsonValue["Version"] = *version;
-                                asyncResp->res.jsonValue["Id"] = *swId;
-
-                                // swInvPurpose is of format:
-                                // xyz.openbmc_project.Software.Version.VersionPurpose.ABC
-                                // Translate this to "ABC image"
-                                size_t endDesc = swInvPurpose->rfind('.');
-                                if (endDesc == std::string::npos)
-                                {
-                                    messages::internalError(asyncResp->res);
-                                    return;
-                                }
-                                endDesc++;
-                                if (endDesc >= swInvPurpose->size())
-                                {
-                                    messages::internalError(asyncResp->res);
-                                    return;
-                                }
-
-                                std::string formatDesc =
-                                    swInvPurpose->substr(endDesc);
-                                asyncResp->res.jsonValue["Description"] =
-                                    formatDesc + " image";
-                                getRelatedItems(asyncResp, *swInvPurpose);
-                            },
-                            obj.second[0].first, obj.first,
-                            "org.freedesktop.DBus.Properties", "GetAll",
-                            "xyz.openbmc_project.Software.Version");
+                            }
+                        }
                     }
                     if (!found)
                     {
@@ -932,7 +939,8 @@ inline void requestRoutesSoftwareInventory(App& app)
                 "/xyz/openbmc_project/object_mapper",
                 "xyz.openbmc_project.ObjectMapper", "GetSubTree", "/",
                 static_cast<int32_t>(0),
-                std::array<const char*, 1>{
+                std::array<const char*, 2>{
+                    "xyz.openbmc_project.Software.Activation",
                     "xyz.openbmc_project.Software.Version"});
         });
 }
