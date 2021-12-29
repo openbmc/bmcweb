@@ -46,6 +46,30 @@
       },
       "revId": "916f8494a1a09f441192b12d389921725ac57a8c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "893b60ea_934ccc40",
+        "filename": "include/dbus_utility.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2021-12-29T17:49:12Z",
+      "side": 1,
+      "message": "it will fail in this case.\n\n```\n[ RUN      ] DbusUtility.getResourceName\n../include/ut/dbus_utility_test.cpp:43: Failure\nExpected equality of these values:\n  dbus::utility::getResourceName(\"hello_world_1a23\")\n    Which is: \"hello_world_1a\"\n  \"hello_world_1a23\"\n[  FAILED  ] DbusUtility.getResourceName (0 ms)\n[----------] 3 tests from DbusUtility (0 ms total)\n```\n\n---\n\nI have refactored it to basically have another string_view  to of the id.",
+      "parentUuid": "4ed5323a_b200908c",
+      "range": {
+        "startLine": 117,
+        "startChar": 0,
+        "endLine": 122,
+        "endChar": 52
+      },
+      "revId": "916f8494a1a09f441192b12d389921725ac57a8c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
