@@ -572,29 +572,35 @@ inline bool base64Decode(const std::string_view input, std::string& output)
     return true;
 }
 
-/**
- * Method returns Date Time information in the ISO extended format
- *
- * @param[in] timestamp in second since the Epoch; it can be negative
- *
- * @return Date Time in the ISO extended format
- */
-inline std::string getDateTime(boost::posix_time::seconds secondsSinceEpoch)
+namespace details
+{
+inline std::string getDateTime(boost::posix_time::milliseconds timeSinceEpoch)
 {
     boost::posix_time::ptime epoch(boost::gregorian::date(1970, 1, 1));
-    boost::posix_time::ptime time = epoch + secondsSinceEpoch;
+    boost::posix_time::ptime time = epoch + timeSinceEpoch;
     // append zero offset to the end according to the Redfish spec for Date-Time
     return boost::posix_time::to_iso_extended_string(time) + "+00:00";
 }
+} // namespace details
 
 inline std::string getDateTimeUint(uint64_t secondsSinceEpoch)
 {
-    return getDateTime(boost::posix_time::seconds(secondsSinceEpoch));
+    boost::posix_time::seconds boostSeconds(secondsSinceEpoch);
+    return details::getDateTime(
+        boost::posix_time::milliseconds(boostSeconds.total_milliseconds()));
+}
+
+inline std::string getDateTimeUintMs(uint64_t millisSecondsSinceEpoch)
+{
+    return details::getDateTime(
+        boost::posix_time::milliseconds(millisSecondsSinceEpoch));
 }
 
 inline std::string getDateTimeStdtime(std::time_t secondsSinceEpoch)
 {
-    return getDateTime(boost::posix_time::seconds(secondsSinceEpoch));
+    boost::posix_time::ptime time =
+        boost::posix_time::from_time_t(secondsSinceEpoch);
+    return boost::posix_time::to_iso_extended_string(time) + "+00:00";
 }
 
 /**
