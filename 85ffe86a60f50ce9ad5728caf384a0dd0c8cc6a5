@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8dd56a49_a95a0267",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001252
+      },
+      "writtenOn": "2021-12-31T07:43:54Z",
+      "side": 1,
+      "message": "Sorry, Patch 1 contains unwanted changes, please ignore it.",
+      "revId": "85ffe86a60f50ce9ad5728caf384a0dd0c8cc6a5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
