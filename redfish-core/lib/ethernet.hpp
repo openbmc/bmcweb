@@ -104,7 +104,7 @@ struct EthernetInterfaceData
     std::string default_gateway;
     std::string ipv6_default_gateway;
     std::string mac_address;
-    std::vector<std::uint32_t> vlan_id;
+    std::optional<uint32_t> vlan_id;
     std::vector<std::string> nameServers;
     std::vector<std::string> staticNameServers;
     std::vector<std::string> domainnames;
@@ -233,7 +233,7 @@ inline bool extractEthernetInterfaceData(const std::string& ethifaceId,
                                 std::get_if<uint32_t>(&propertyPair.second);
                             if (id != nullptr)
                             {
-                                ethData.vlan_id.push_back(*id);
+                                ethData.vlan_id = *id;
                             }
                         }
                     }
@@ -1365,7 +1365,7 @@ inline void handleIPv4StaticPatch(
     // match it to the first JSON element in the IPv4StaticAddresses array.
     // Match each subsequent JSON element to the next static IP programmed
     // into the NIC.
-    boost::container::flat_set<IPv4AddressData>::const_iterator niciPentry =
+    boost::container::flat_set<IPv4AddressData>::const_iterator nicIpEntry =
         getNextStaticIpEntry(ipv4Data.cbegin(), ipv4Data.cend());
 
     for (nlohmann::json& thisJson : input)
@@ -1412,9 +1412,9 @@ inline void handleIPv4StaticPatch(
                     errorInEntry = true;
                 }
             }
-            else if (niciPentry != ipv4Data.cend())
+            else if (nicIpEntry != ipv4Data.cend())
             {
-                addr = &(niciPentry->address);
+                addr = &(nicIpEntry->address);
             }
             else
             {
@@ -1433,13 +1433,13 @@ inline void handleIPv4StaticPatch(
                     errorInEntry = true;
                 }
             }
-            else if (niciPentry != ipv4Data.cend())
+            else if (nicIpEntry != ipv4Data.cend())
             {
-                if (!ipv4VerifyIpAndGetBitcount(niciPentry->netmask,
+                if (!ipv4VerifyIpAndGetBitcount(nicIpEntry->netmask,
                                                 &prefixLength))
                 {
                     messages::propertyValueFormatError(
-                        asyncResp->res, niciPentry->netmask,
+                        asyncResp->res, nicIpEntry->netmask,
                         pathString + "/SubnetMask");
                     errorInEntry = true;
                 }
@@ -1464,9 +1464,9 @@ inline void handleIPv4StaticPatch(
                     errorInEntry = true;
                 }
             }
-            else if (niciPentry != ipv4Data.cend())
+            else if (nicIpEntry != ipv4Data.cend())
             {
-                gw = &niciPentry->gateway;
+                gw = &nicIpEntry->gateway;
             }
             else
             {
@@ -1480,12 +1480,12 @@ inline void handleIPv4StaticPatch(
                 return;
             }
 
-            if (niciPentry != ipv4Data.cend())
+            if (nicIpEntry != ipv4Data.cend())
             {
-                deleteAndCreateIPv4(ifaceId, niciPentry->id, prefixLength, *gw,
+                deleteAndCreateIPv4(ifaceId, nicIpEntry->id, prefixLength, *gw,
                                     *addr, asyncResp);
-                niciPentry =
-                    getNextStaticIpEntry(++niciPentry, ipv4Data.cend());
+                nicIpEntry =
+                    getNextStaticIpEntry(++nicIpEntry, ipv4Data.cend());
             }
             else
             {
@@ -1496,7 +1496,7 @@ inline void handleIPv4StaticPatch(
         }
         else
         {
-            if (niciPentry == ipv4Data.cend())
+            if (nicIpEntry == ipv4Data.cend())
             {
                 // Requesting a DELETE/DO NOT MODIFY action for an item
                 // that isn't present on the eth(n) interface. Input JSON is
@@ -1516,12 +1516,12 @@ inline void handleIPv4StaticPatch(
 
             if (thisJson.is_null())
             {
-                deleteIPv4(ifaceId, niciPentry->id, asyncResp);
+                deleteIPv4(ifaceId, nicIpEntry->id, asyncResp);
             }
-            if (niciPentry != ipv4Data.cend())
+            if (nicIpEntry != ipv4Data.cend())
             {
-                niciPentry =
-                    getNextStaticIpEntry(++niciPentry, ipv4Data.cend());
+                nicIpEntry =
+                    getNextStaticIpEntry(++nicIpEntry, ipv4Data.cend());
             }
             entryIdx++;
         }
@@ -1562,7 +1562,7 @@ inline void handleIPv6StaticAddressesPatch(
         return;
     }
     size_t entryIdx = 1;
-    boost::container::flat_set<IPv6AddressData>::const_iterator niciPentry =
+    boost::container::flat_set<IPv6AddressData>::const_iterator nicIpEntry =
         getNextStaticIpEntry(ipv6Data.cbegin(), ipv6Data.cend());
     for (const nlohmann::json& thisJson : input)
     {
@@ -1596,9 +1596,9 @@ inline void handleIPv6StaticAddressesPatch(
             {
                 addr = &(*address);
             }
-            else if (niciPentry != ipv6Data.end())
+            else if (nicIpEntry != ipv6Data.end())
             {
-                addr = &(niciPentry->address);
+                addr = &(nicIpEntry->address);
             }
             else
             {
@@ -1611,9 +1611,9 @@ inline void handleIPv6StaticAddressesPatch(
             {
                 prefix = *prefixLength;
             }
-            else if (niciPentry != ipv6Data.end())
+            else if (nicIpEntry != ipv6Data.end())
             {
-                prefix = niciPentry->prefixLength;
+                prefix = nicIpEntry->prefixLength;
             }
             else
             {
@@ -1622,12 +1622,12 @@ inline void handleIPv6StaticAddressesPatch(
                 return;
             }
 
-            if (niciPentry != ipv6Data.end())
+            if (nicIpEntry != ipv6Data.end())
             {
-                deleteAndCreateIPv6(ifaceId, niciPentry->id, prefix, *addr,
+                deleteAndCreateIPv6(ifaceId, nicIpEntry->id, prefix, *addr,
                                     asyncResp);
-                niciPentry =
-                    getNextStaticIpEntry(++niciPentry, ipv6Data.cend());
+                nicIpEntry =
+                    getNextStaticIpEntry(++nicIpEntry, ipv6Data.cend());
             }
             else
             {
@@ -1637,7 +1637,7 @@ inline void handleIPv6StaticAddressesPatch(
         }
         else
         {
-            if (niciPentry == ipv6Data.end())
+            if (nicIpEntry == ipv6Data.end())
             {
                 // Requesting a DELETE/DO NOT MODIFY action for an item
                 // that isn't present on the eth(n) interface. Input JSON is
@@ -1657,12 +1657,12 @@ inline void handleIPv6StaticAddressesPatch(
 
             if (thisJson.is_null())
             {
-                deleteIPv6(ifaceId, niciPentry->id, asyncResp);
+                deleteIPv6(ifaceId, nicIpEntry->id, asyncResp);
             }
-            if (niciPentry != ipv6Data.cend())
+            if (nicIpEntry != ipv6Data.cend())
             {
-                niciPentry =
-                    getNextStaticIpEntry(++niciPentry, ipv6Data.cend());
+                nicIpEntry =
+                    getNextStaticIpEntry(++nicIpEntry, ipv6Data.cend());
             }
             entryIdx++;
         }
@@ -1748,6 +1748,17 @@ inline void parseInterfaceData(
     jsonResponse["VLANs"] = {
         {"@odata.id",
          "/redfish/v1/Managers/bmc/EthernetInterfaces/" + ifaceId + "/VLANs"}};
+
+    if (ethData.vlan_id.has_value())
+    {
+        jsonResponse["EthernetInterfaceType"] = "Virtual";
+        jsonResponse["VLAN"]["VLANEnable"] = true;
+        jsonResponse["VLAN"]["VLANId"] = ethData.vlan_id.value();
+    }
+    else
+    {
+        jsonResponse["EthernetInterfaceType"] = "Physical";
+    }
 
     jsonResponse["NameServers"] = ethData.nameServers;
     jsonResponse["StaticNameServers"] = ethData.staticNameServers;
@@ -1838,52 +1849,47 @@ inline void requestEthernetInterfacesRoutes(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/Managers/bmc/EthernetInterfaces/")
         .privileges(redfish::privileges::getEthernetInterfaceCollection)
-        .methods(
-            boost::beast::http::verb::
-                get)([](const crow::Request&,
-                        const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
-            asyncResp->res.jsonValue["@odata.type"] =
-                "#EthernetInterfaceCollection.EthernetInterfaceCollection";
-            asyncResp->res.jsonValue["@odata.id"] =
-                "/redfish/v1/Managers/bmc/EthernetInterfaces";
-            asyncResp->res.jsonValue["Name"] =
-                "Ethernet Network Interface Collection";
-            asyncResp->res.jsonValue["Description"] =
-                "Collection of EthernetInterfaces for this Manager";
+        .methods(boost::beast::http::verb::get)(
+            [](const crow::Request&,
+               const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
+                asyncResp->res.jsonValue["@odata.type"] =
+                    "#EthernetInterfaceCollection.EthernetInterfaceCollection";
+                asyncResp->res.jsonValue["@odata.id"] =
+                    "/redfish/v1/Managers/bmc/EthernetInterfaces";
+                asyncResp->res.jsonValue["Name"] =
+                    "Ethernet Network Interface Collection";
+                asyncResp->res.jsonValue["Description"] =
+                    "Collection of EthernetInterfaces for this Manager";
 
-            // Get eth interface list, and call the below callback for JSON
-            // preparation
-            getEthernetIfaceList([asyncResp](const bool& success,
-                                             const boost::container::flat_set<
-                                                 std::string>& ifaceList) {
-                if (!success)
-                {
-                    messages::internalError(asyncResp->res);
-                    return;
-                }
+                // Get eth interface list, and call the below callback for JSON
+                // preparation
+                getEthernetIfaceList([asyncResp](
+                                         const bool& success,
+                                         const boost::container::flat_set<
+                                             std::string>& ifaceList) {
+                    if (!success)
+                    {
+                        messages::internalError(asyncResp->res);
+                        return;
+                    }
 
-                nlohmann::json& ifaceArray =
-                    asyncResp->res.jsonValue["Members"];
-                ifaceArray = nlohmann::json::array();
-                std::string tag = "_";
-                for (const std::string& ifaceItem : ifaceList)
-                {
-                    std::size_t found = ifaceItem.find(tag);
-                    if (found == std::string::npos)
+                    nlohmann::json& ifaceArray =
+                        asyncResp->res.jsonValue["Members"];
+                    ifaceArray = nlohmann::json::array();
+                    for (const std::string& ifaceItem : ifaceList)
                     {
                         ifaceArray.push_back(
                             {{"@odata.id",
                               "/redfish/v1/Managers/bmc/EthernetInterfaces/" +
                                   ifaceItem}});
                     }
-                }
 
-                asyncResp->res.jsonValue["Members@odata.count"] =
-                    ifaceArray.size();
-                asyncResp->res.jsonValue["@odata.id"] =
-                    "/redfish/v1/Managers/bmc/EthernetInterfaces";
+                    asyncResp->res.jsonValue["Members@odata.count"] =
+                        ifaceArray.size();
+                    asyncResp->res.jsonValue["@odata.id"] =
+                        "/redfish/v1/Managers/bmc/EthernetInterfaces";
+                });
             });
-        });
 
     BMCWEB_ROUTE(app, "/redfish/v1/Managers/bmc/EthernetInterfaces/<str>/")
         .privileges(redfish::privileges::getEthernetInterface)
