@@ -1365,7 +1365,7 @@ inline void handleIPv4StaticPatch(
     // match it to the first JSON element in the IPv4StaticAddresses array.
     // Match each subsequent JSON element to the next static IP programmed
     // into the NIC.
-    boost::container::flat_set<IPv4AddressData>::const_iterator niciPentry =
+    boost::container::flat_set<IPv4AddressData>::const_iterator nicIpEntry =
         getNextStaticIpEntry(ipv4Data.cbegin(), ipv4Data.cend());
 
     for (nlohmann::json& thisJson : input)
@@ -1412,9 +1412,9 @@ inline void handleIPv4StaticPatch(
                     errorInEntry = true;
                 }
             }
-            else if (niciPentry != ipv4Data.cend())
+            else if (nicIpEntry != ipv4Data.cend())
             {
-                addr = &(niciPentry->address);
+                addr = &(nicIpEntry->address);
             }
             else
             {
@@ -1433,13 +1433,13 @@ inline void handleIPv4StaticPatch(
                     errorInEntry = true;
                 }
             }
-            else if (niciPentry != ipv4Data.cend())
+            else if (nicIpEntry != ipv4Data.cend())
             {
-                if (!ipv4VerifyIpAndGetBitcount(niciPentry->netmask,
+                if (!ipv4VerifyIpAndGetBitcount(nicIpEntry->netmask,
                                                 &prefixLength))
                 {
                     messages::propertyValueFormatError(
-                        asyncResp->res, niciPentry->netmask,
+                        asyncResp->res, nicIpEntry->netmask,
                         pathString + "/SubnetMask");
                     errorInEntry = true;
                 }
@@ -1464,9 +1464,9 @@ inline void handleIPv4StaticPatch(
                     errorInEntry = true;
                 }
             }
-            else if (niciPentry != ipv4Data.cend())
+            else if (nicIpEntry != ipv4Data.cend())
             {
-                gw = &niciPentry->gateway;
+                gw = &nicIpEntry->gateway;
             }
             else
             {
@@ -1480,12 +1480,12 @@ inline void handleIPv4StaticPatch(
                 return;
             }
 
-            if (niciPentry != ipv4Data.cend())
+            if (nicIpEntry != ipv4Data.cend())
             {
-                deleteAndCreateIPv4(ifaceId, niciPentry->id, prefixLength, *gw,
+                deleteAndCreateIPv4(ifaceId, nicIpEntry->id, prefixLength, *gw,
                                     *addr, asyncResp);
-                niciPentry =
-                    getNextStaticIpEntry(++niciPentry, ipv4Data.cend());
+                nicIpEntry =
+                    getNextStaticIpEntry(++nicIpEntry, ipv4Data.cend());
             }
             else
             {
@@ -1496,7 +1496,7 @@ inline void handleIPv4StaticPatch(
         }
         else
         {
-            if (niciPentry == ipv4Data.cend())
+            if (nicIpEntry == ipv4Data.cend())
             {
                 // Requesting a DELETE/DO NOT MODIFY action for an item
                 // that isn't present on the eth(n) interface. Input JSON is
@@ -1516,12 +1516,12 @@ inline void handleIPv4StaticPatch(
 
             if (thisJson.is_null())
             {
-                deleteIPv4(ifaceId, niciPentry->id, asyncResp);
+                deleteIPv4(ifaceId, nicIpEntry->id, asyncResp);
             }
-            if (niciPentry != ipv4Data.cend())
+            if (nicIpEntry != ipv4Data.cend())
             {
-                niciPentry =
-                    getNextStaticIpEntry(++niciPentry, ipv4Data.cend());
+                nicIpEntry =
+                    getNextStaticIpEntry(++nicIpEntry, ipv4Data.cend());
             }
             entryIdx++;
         }
@@ -1562,7 +1562,7 @@ inline void handleIPv6StaticAddressesPatch(
         return;
     }
     size_t entryIdx = 1;
-    boost::container::flat_set<IPv6AddressData>::const_iterator niciPentry =
+    boost::container::flat_set<IPv6AddressData>::const_iterator nicIpEntry =
         getNextStaticIpEntry(ipv6Data.cbegin(), ipv6Data.cend());
     for (const nlohmann::json& thisJson : input)
     {
@@ -1596,9 +1596,9 @@ inline void handleIPv6StaticAddressesPatch(
             {
                 addr = &(*address);
             }
-            else if (niciPentry != ipv6Data.end())
+            else if (nicIpEntry != ipv6Data.end())
             {
-                addr = &(niciPentry->address);
+                addr = &(nicIpEntry->address);
             }
             else
             {
@@ -1611,9 +1611,9 @@ inline void handleIPv6StaticAddressesPatch(
             {
                 prefix = *prefixLength;
             }
-            else if (niciPentry != ipv6Data.end())
+            else if (nicIpEntry != ipv6Data.end())
             {
-                prefix = niciPentry->prefixLength;
+                prefix = nicIpEntry->prefixLength;
             }
             else
             {
@@ -1622,12 +1622,12 @@ inline void handleIPv6StaticAddressesPatch(
                 return;
             }
 
-            if (niciPentry != ipv6Data.end())
+            if (nicIpEntry != ipv6Data.end())
             {
-                deleteAndCreateIPv6(ifaceId, niciPentry->id, prefix, *addr,
+                deleteAndCreateIPv6(ifaceId, nicIpEntry->id, prefix, *addr,
                                     asyncResp);
-                niciPentry =
-                    getNextStaticIpEntry(++niciPentry, ipv6Data.cend());
+                nicIpEntry =
+                    getNextStaticIpEntry(++nicIpEntry, ipv6Data.cend());
             }
             else
             {
@@ -1637,7 +1637,7 @@ inline void handleIPv6StaticAddressesPatch(
         }
         else
         {
-            if (niciPentry == ipv6Data.end())
+            if (nicIpEntry == ipv6Data.end())
             {
                 // Requesting a DELETE/DO NOT MODIFY action for an item
                 // that isn't present on the eth(n) interface. Input JSON is
@@ -1657,12 +1657,12 @@ inline void handleIPv6StaticAddressesPatch(
 
             if (thisJson.is_null())
             {
-                deleteIPv6(ifaceId, niciPentry->id, asyncResp);
+                deleteIPv6(ifaceId, nicIpEntry->id, asyncResp);
             }
-            if (niciPentry != ipv6Data.cend())
+            if (nicIpEntry != ipv6Data.cend())
             {
-                niciPentry =
-                    getNextStaticIpEntry(++niciPentry, ipv6Data.cend());
+                nicIpEntry =
+                    getNextStaticIpEntry(++nicIpEntry, ipv6Data.cend());
             }
             entryIdx++;
         }
