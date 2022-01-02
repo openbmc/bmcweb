@@ -45,6 +45,30 @@
       },
       "revId": "cfe9685d6f6072e21efda342e4c5009bdfb5c1ca",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4b9dbd22_c6e9439a",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 40
+      },
+      "lineNbr": 973,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2022-01-02T19:36:45Z",
+      "side": 1,
+      "message": "um, maybe not an issue. I can\u0027t reproduce this issue anymore.\n\nWill reopen if I am able to reproduce it later.",
+      "parentUuid": "11e5f9d1_6c381d16",
+      "range": {
+        "startLine": 970,
+        "startChar": 16,
+        "endLine": 973,
+        "endChar": 62
+      },
+      "revId": "cfe9685d6f6072e21efda342e4c5009bdfb5c1ca",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
