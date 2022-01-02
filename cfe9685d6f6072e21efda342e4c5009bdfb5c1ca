@@ -69,6 +69,30 @@
       },
       "revId": "cfe9685d6f6072e21efda342e4c5009bdfb5c1ca",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "49ca1209_181a5083",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 40
+      },
+      "lineNbr": 973,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2022-01-02T19:42:09Z",
+      "side": 1,
+      "message": "oh. I missed a comma after `\"xyz.openbmc_project.Software.Activation\"`. Make sense.",
+      "parentUuid": "4b9dbd22_c6e9439a",
+      "range": {
+        "startLine": 970,
+        "startChar": 16,
+        "endLine": 973,
+        "endChar": 62
+      },
+      "revId": "cfe9685d6f6072e21efda342e4c5009bdfb5c1ca",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
