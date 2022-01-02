@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3bb64347_186fa655",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 40
+      },
+      "lineNbr": 968,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2022-01-02T09:32:36Z",
+      "side": 1,
+      "message": "Should be `/xyz/openbmc_project/software` to match the collection.",
+      "range": {
+        "startLine": 968,
+        "startChar": 66,
+        "endLine": 968,
+        "endChar": 70
+      },
+      "revId": "cfe9685d6f6072e21efda342e4c5009bdfb5c1ca",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "11e5f9d1_6c381d16",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 40
+      },
+      "lineNbr": 973,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2022-01-02T09:32:36Z",
+      "side": 1,
+      "message": "It seems like with this it will only get the dbus path that has `xyz.openbmc_project.Software.Settings`. I\u0027ll have to see why that is the case. I thought it is dbus object with any of the interfaces gets added.\n\nWith busctl it will return dbus object that has any of the interfaces, but this helper function doesn\u0027t and return the one that only has `xyz.openbmc_project.Software.Settings`. Maybe sdbusplus issues?",
+      "range": {
+        "startLine": 970,
+        "startChar": 16,
+        "endLine": 973,
+        "endChar": 62
+      },
+      "revId": "cfe9685d6f6072e21efda342e4c5009bdfb5c1ca",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
