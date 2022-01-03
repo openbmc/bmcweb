@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c42a555a_a08e4274",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 333,
+      "author": {
+        "id": 1001049
+      },
+      "writtenOn": "2022-01-03T06:44:54Z",
+      "side": 1,
+      "message": "Will der be multiple \"xyz.openbmc_project.Logging.Entry\" in interfacesProperties??\n\nIf not, remove the for loop, use .find to get the interface. \n\nThis might also make the diff more readable.",
+      "range": {
+        "startLine": 333,
+        "startChar": 39,
+        "endLine": 333,
+        "endChar": 74
+      },
+      "revId": "60cd4362d3762a03668016a3d83182a8d1b1e012",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
