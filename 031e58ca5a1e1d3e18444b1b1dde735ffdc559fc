@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "88c04946_35cd4f50",
+        "filename": "redfish-core/include/utils/location_utils.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2022-01-03T10:38:01Z",
+      "side": 1,
+      "message": "Using string_view doesn\u0027t bring us benefits.\n\nIn case of string_view:\n- If you pass const char* it is neutral, std::string will be created in line 69 and passed as const\u0026.\n- If you pass const std::string\u0026 it will be converted to string_view then new std::string will be created and passed as const\u0026.\n\nIn case of const std::string\u0026, object will be created only when parameter is const char*, in case of passing std::string we can avoid one copy operation.",
+      "range": {
+        "startLine": 64,
+        "startChar": 20,
+        "endLine": 64,
+        "endChar": 36
+      },
+      "revId": "031e58ca5a1e1d3e18444b1b1dde735ffdc559fc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "21e4b64a_388c74a5",
+        "filename": "redfish-core/include/utils/location_utils.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2022-01-03T10:38:01Z",
+      "side": 1,
+      "message": "For me default values are values I can skip and I will get correct result. In this case I guess that if you decide to skip this parameter and use default in all cases there will be redfish validator errors because response will be put into wrong place in json structure.\n\nIn my opinion this one should not be defaulted.",
+      "range": {
+        "startLine": 65,
+        "startChar": 20,
+        "endLine": 66,
+        "endChar": 48
+      },
+      "revId": "031e58ca5a1e1d3e18444b1b1dde735ffdc559fc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "025e8b62_49bc36e8",
+        "filename": "redfish-core/ut/location_utils_test.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2022-01-03T10:38:01Z",
+      "side": 1,
+      "message": "You are derefencing optional before checking if there is any value.\n\nstd::optional has operator \u003d\u003d which works like this:\n\ntemplate \u003cclass T\u003e\nbool operator(const std::optional\u003cT\u003e\u0026 optional, const T\u0026 value) {\n  if (optional) {\n    return *optional \u003d\u003d value;\n  }\n  return false;\n}\n\nhttps://en.cppreference.com/w/cpp/utility/optional/operator_cmp",
+      "range": {
+        "startLine": 10,
+        "startChar": 3,
+        "endLine": 14,
+        "endChar": 20
+      },
+      "revId": "031e58ca5a1e1d3e18444b1b1dde735ffdc559fc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
