@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9d2b7fbd_ee60173d",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-01-03T17:58:54Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "c3de8ad3_a609ace8",
+      "range": {
+        "startLine": 70,
+        "startChar": 0,
+        "endLine": 72,
+        "endChar": 77
+      },
+      "revId": "9538d95bdba2e180cac9008a092de978933e78ab",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3441a4a2_b300d3c5",
@@ -37,6 +61,30 @@
       "writtenOn": "2021-12-29T08:35:09Z",
       "side": 1,
       "message": "This can be replaced with DBusPropertiesMap",
+      "range": {
+        "startLine": 37,
+        "startChar": 0,
+        "endLine": 39,
+        "endChar": 0
+      },
+      "revId": "9538d95bdba2e180cac9008a092de978933e78ab",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "55d8d84a_9858d262",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-01-03T17:58:54Z",
+      "side": 1,
+      "message": "Agreed, it could be, but considering this isn\u0027t the ManagedObjectsType, it\u0027s not really part of this commit.\n\nAlso, this map isn\u0027t used anymore, and can be removed entirely.",
+      "parentUuid": "3441a4a2_b300d3c5",
       "range": {
         "startLine": 37,
         "startChar": 0,
@@ -72,6 +120,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "4e13dbb8_f0c7dd1b",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-01-03T17:58:54Z",
+      "side": 1,
+      "message": "Agreed, they can be, but considering these aren\u0027t GetManagedObjects calls, they don\u0027t really have anything to do with this patchset.",
+      "parentUuid": "6c4228fd_5e0d5ffe",
+      "range": {
+        "startLine": 35,
+        "startChar": 0,
+        "endLine": 45,
+        "endChar": 58
+      },
+      "revId": "9538d95bdba2e180cac9008a092de978933e78ab",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "fa3a839b_3e45fa5f",
         "filename": "redfish-core/lib/sensors.hpp",
         "patchSetId": 3
@@ -89,6 +161,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "bda62a72_8fb01b61",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-01-03T17:58:54Z",
+      "side": 1,
+      "message": "Agreed, but again, this patchset is handling GetManagedObjects calls, not GetSubTree calls.",
+      "parentUuid": "fa3a839b_3e45fa5f",
+      "revId": "9538d95bdba2e180cac9008a092de978933e78ab",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "4463eb3c_bbb1dc2c",
         "filename": "redfish-core/lib/virtual_media.hpp",
         "patchSetId": 3
@@ -100,6 +190,30 @@
       "writtenOn": "2021-12-29T08:52:14Z",
       "side": 1,
       "message": "Not needed anymore. This one has been added just for DBus object definitions.",
+      "range": {
+        "startLine": 23,
+        "startChar": 0,
+        "endLine": 25,
+        "endChar": 30
+      },
+      "revId": "9538d95bdba2e180cac9008a092de978933e78ab",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5fd9e515_0188d1c3",
+        "filename": "redfish-core/lib/virtual_media.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-01-03T17:58:54Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "4463eb3c_bbb1dc2c",
       "range": {
         "startLine": 23,
         "startChar": 0,
