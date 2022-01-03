@@ -1,6 +1,7 @@
 {
   "comments": [
     {
+      "unresolved": true,
       "key": {
         "uuid": "c7f26ddf_3fb3b16d",
         "filename": "/COMMIT_MSG",
@@ -14,10 +15,10 @@
       "side": 1,
       "message": "How did you find these?",
       "revId": "24a03c7435a19cf7c19af4c00792c831990e5384",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "0a308adb_6bc76ad4",
         "filename": "/COMMIT_MSG",
@@ -32,8 +33,25 @@
       "message": "Just greped for async_method_call, and looked through by hand unfortunately.  It would be nice if we could tighten the restrictions a little in sdbusplus, but that\u0027s a task for another day.",
       "parentUuid": "c7f26ddf_3fb3b16d",
       "revId": "24a03c7435a19cf7c19af4c00792c831990e5384",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "01ab15e4_4c7f8838",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-01-03T22:05:49Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "0a308adb_6bc76ad4",
+      "revId": "24a03c7435a19cf7c19af4c00792c831990e5384",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
