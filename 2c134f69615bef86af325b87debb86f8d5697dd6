@@ -1,6 +1,40 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c12febe4_49bbd5d0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000235
+      },
+      "writtenOn": "2022-01-04T16:06:35Z",
+      "side": 1,
+      "message": "I think BMCWeb should check if the user trying to log in has the \"Login\" privilege.",
+      "revId": "2c134f69615bef86af325b87debb86f8d5697dd6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d587922e_841cd079",
+        "filename": "redfish-core/lib/redfish_sessions.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 230,
+      "author": {
+        "id": 1000235
+      },
+      "writtenOn": "2022-01-04T16:06:35Z",
+      "side": 1,
+      "message": "Per my proposed design (see notes below), this line of code should be changed to:\nUse the user\u0027s role to retrieve the set of Privileges, then check if the \"Login\" privelege is present.   If so then proceed, otherwise error out with \"accessDenied\".",
+      "revId": "2c134f69615bef86af325b87debb86f8d5697dd6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f5ff2ccb_91799a83",
@@ -206,6 +240,30 @@
       "side": 1,
       "message": "Please see the reply on this thread that contains the text \"this is the check to determine if a user is allowed to log in\"  I\u0027ve already pointed you to the code.",
       "parentUuid": "641a9cb8_c6cf0db9",
+      "range": {
+        "startLine": 199,
+        "startChar": 0,
+        "endLine": 266,
+        "endChar": 37
+      },
+      "revId": "2c134f69615bef86af325b87debb86f8d5697dd6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3c349de6_c3e838a6",
+        "filename": "redfish-core/lib/redfish_sessions.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 266,
+      "author": {
+        "id": 1000235
+      },
+      "writtenOn": "2022-01-04T16:06:35Z",
+      "side": 1,
+      "message": "I see two alternate ways to solve this issue.\n\n1. Change the phosphor-user-manager to disable users who have the \"no access\" role.  In this way, Linux PAM account management checks will determine the user should not be allowed to login  because their account is disabled.  As I mentioned in https://github.com/openbmc/bmcweb/issues/227 I still don\u0027t understand the purpose for the NoAccess role. Is it okay for such users to be \"disabled\".  That doesn\u0027t feel like the right solution to me.\n\n2. Change BMCWeb to add a \"Login\" privilege check as part of its authentication process.  Specifically the proposed design is: if authentication succeeds, then BMCWeb knows the user\u0027s role and can retrieve the user\u0027s Redfish privileges, and check if the user has the \"Login\" privilege.  This solution feels right to me, and I think it is what Sunitha is proposing.",
+      "parentUuid": "39e41322_33d927fb",
       "range": {
         "startLine": 199,
         "startChar": 0,
