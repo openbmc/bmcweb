@@ -164,6 +164,30 @@
       },
       "revId": "7d8e7a3fa0fd273268ede5216735c8533b903eac",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8b6011ba_02763bac",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-01-04T19:33:52Z",
+      "side": 1,
+      "message": "Yeah in a Redfish meeting, we (Matt and I) explained we might have \"multiple resolutions\" and Redfish said, it is a free form string meant to be read by a human so if you truly have multiple \"how to resolve the situation that caused the log entry\" then it is appropriate they are all in there. \n\nThat said, not sure what is going on with the \\n in here, also this is a pretty standard Redfish property so this seems like a bad example since it is very company specific.. Can we just use a generic, better example for the Resolution string \"Check manager network.\", \"Replace failing Dimm.\", etc ?",
+      "parentUuid": "3ec064ae_5eb1a677",
+      "range": {
+        "startLine": 39,
+        "startChar": 21,
+        "endLine": 40,
+        "endChar": 50
+      },
+      "revId": "7d8e7a3fa0fd273268ede5216735c8533b903eac",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
