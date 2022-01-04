@@ -52,6 +52,23 @@
       "parentUuid": "6db69787_c8f793a6",
       "revId": "91359f9d36f16e5d887a40227d2b0af17da618e4",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6c9206be_e7f07298",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-01-04T21:05:01Z",
+      "side": 1,
+      "message": "Quick merging due to this being a simple change and master being broken. We can discuss further later if need. ",
+      "revId": "91359f9d36f16e5d887a40227d2b0af17da618e4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
