@@ -22,6 +22,30 @@
       },
       "revId": "019c43fd2f623c065e9100474372c7ce387b6dc0",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7d8aa352_78a500d7",
+        "filename": "include/dbus_utility.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2022-01-04T18:45:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a9eead9b_326f6993",
+      "range": {
+        "startLine": 150,
+        "startChar": 8,
+        "endLine": 150,
+        "endChar": 20
+      },
+      "revId": "019c43fd2f623c065e9100474372c7ce387b6dc0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
