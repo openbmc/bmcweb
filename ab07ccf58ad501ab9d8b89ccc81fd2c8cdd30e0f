@@ -56,6 +56,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "68315836_4223814e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-01-04T19:57:27Z",
+      "side": 1,
+      "message": "[[maybe_unused]] is better between the two.",
+      "parentUuid": "022e5fc1_e2780fe8",
+      "revId": "ab07ccf58ad501ab9d8b89ccc81fd2c8cdd30e0f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "762ba4db_45991b85",
         "filename": "redfish-core/lib/account_service.hpp",
         "patchSetId": 1
