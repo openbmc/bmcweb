@@ -1,6 +1,7 @@
 {
   "comments": [
     {
+      "unresolved": true,
       "key": {
         "uuid": "0212ac0a_ff7ee04c",
         "filename": "/COMMIT_MSG",
@@ -14,10 +15,10 @@
       "side": 1,
       "message": "If you have a SparePartNumber this introduces a validator error. :( \nNeed to bump the schema. I will do that. \nERROR - SparePartNumber not defined in schema Chassis.v1_14_0 (check version, spelling and casing)\n\nI guess we never asked for the validator to be ran. \n\n               \"SparePartNumber\": {\n                    \"description\": \"The spare part number of the chassis.\",\n                    \"longDescription\": \"This property shall contain the spare part number of the chassis.\",\n                    \"readonly\": true,\n                    \"type\": [\n                        \"string\",\n                        \"null\"\n                    ],\n                    \"versionAdded\": \"v1_16_0\"\n                },",
       "revId": "caa11f7a5dfe2a47b686362468decaeff2339be2",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "1599bc1e_b02f6021",
         "filename": "/COMMIT_MSG",
@@ -32,8 +33,25 @@
       "message": "Whoops, yeah, I should\u0027ve seen that one coming.\n\nI\u0027ve wondered before if we should just generate a header file kinda like privilegeRegistry.hpp that just has the latest strings for all the latest versions of each schema, that we can reference in places.  That way, we\u0027re always exporting the \"newest\" one, so people don\u0027t fall into that trap.",
       "parentUuid": "0212ac0a_ff7ee04c",
       "revId": "caa11f7a5dfe2a47b686362468decaeff2339be2",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "401b2680_b954cd62",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 13
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-01-04T18:53:56Z",
+      "side": 1,
+      "message": "The guidance to \"only bump the schema version if you need to\" came from Redfish. \nThat\u0027s why we have been doing this. \nI think their thinking was \"e.g. if the client looks at the chassis schema version and sees it is before the new powersubsystem/thermalsubsystem (e.g. Chassis.v1_14_0.) they know for sure the new powersubsystem/thermalsubsystem schemas aren\u0027t supported. If they look and see it is Chassis.v1_15_0 or later, the client could then look to see the PowerSubsystem property is there.\"\n\n                \"PowerSubsystem\": {\n                    \"$ref\": \"http://redfish.dmtf.org/schemas/v1/PowerSubsystem.json#/definitions/PowerSubsystem\",\n                    \"description\": \"The link to the power subsystem properties for this chassis.\",\n                    \"longDescription\": \"This property shall contain a link to a resource of type PowerSubsystem that represents the power subsystem information for this chassis.\",\n                    \"readonly\": true,\n                    \"versionAdded\": \"v1_15_0\"\n                },\n\n\nI also think Redfish was saying when a Redfish implementation moves to a new schema version, they should do it with intention, look at any new properties, etc, see if they should deprecate anything, etc.\nThis guidance is from more traditional Redfish implementations who would be releasing specific schemas versions as a release to customers.\nThis guidance is also 2 years old so we can definitely go back to Redfish.",
+      "parentUuid": "1599bc1e_b02f6021",
+      "revId": "caa11f7a5dfe2a47b686362468decaeff2339be2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
