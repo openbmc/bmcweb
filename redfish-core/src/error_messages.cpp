@@ -13,8 +13,12 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 */
+#include "http_response.hpp"
+
+#include <boost/beast/http/status.hpp>
 #include <error_messages.hpp>
 #include <logging.hpp>
+#include <nlohmann/json.hpp>
 
 namespace redfish
 {
