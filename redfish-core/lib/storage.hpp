@@ -25,6 +25,31 @@
 
 namespace redfish
 {
+
+inline bool assignDriveAsset(
+    nlohmann::json& jsonData,
+    const std::vector<std::pair<std::string, dbus::utility::DbusVariantType>>&
+        properties)
+{
+    std::optional<std::string> partNumber, serialNumber, manufacturer, model;
+
+    std::optional<std::string> badProperty = sdbusplus::unpackPropertiesNoThrow(
+        properties, "PartNumber", partNumber, "SerialNumber", serialNumber,
+        "Manufacturer", manufacturer, "Model", model);
+
+    if (badProperty)
+    {
+        return false;
+    }
+
+    json_util::assignIf(jsonData, "PartNumber", partNumber);
+    json_util::assignIf(jsonData, "SerialNumber", serialNumber);
+    json_util::assignIf(jsonData, "Manufacturer", manufacturer);
+    json_util::assignIf(jsonData, "Model", model);
+
+    return true;
+}
+
 inline void requestRoutesStorageCollection(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/Systems/system/Storage/")
@@ -181,7 +206,9 @@ inline void requestRoutesStorage(App& app)
                                 }
                             });
 
-                        crow::connections::systemBus->async_method_call(
+                        sdbusplus::asio::getAllProperties(
+                            *crow::connections::systemBus, connectionName, path,
+                            "xyz.openbmc_project.Inventory.Decorator.Asset",
                             [asyncResp, index](
                                 const boost::system::error_code ec2,
                                 const std::vector<
@@ -193,42 +220,17 @@ inline void requestRoutesStorage(App& app)
                                     // this interface isn't necessary
                                     return;
                                 }
-                                for (const std::pair<
-                                         std::string,
-                                         dbus::utility::DbusVariantType>&
-                                         property : propertiesList)
+
+                                nlohmann::json& object =
+                                    asyncResp->res
+                                        .jsonValue["StorageControllers"][index];
+
+                                if (!assignDriveAsset(object, propertiesList))
                                 {
-                                    // Store DBus properties that are also
-                                    // Redfish properties with same name and a
-                                    // string value
-                                    const std::string& propertyName =
-                                        property.first;
-                                    nlohmann::json& object =
-                                        asyncResp->res
-                                            .jsonValue["StorageControllers"]
-                                                      [index];
-                                    if ((propertyName == "PartNumber") ||
-                                        (propertyName == "SerialNumber") ||
-                                        (propertyName == "Manufacturer") ||
-                                        (propertyName == "Model"))
-                                    {
-                                        const std::string* value =
-                                            std::get_if<std::string>(
-                                                &property.second);
-                                        if (value == nullptr)
-                                        {
-                                            // illegal property
-                                            messages::internalError(
-                                                asyncResp->res);
-                                            return;
-                                        }
-                                        object[propertyName] = *value;
-                                    }
+                                    messages::internalError(asyncResp->res);
+                                    return;
                                 }
-                            },
-                            connectionName, path,
-                            "org.freedesktop.DBus.Properties", "GetAll",
-                            "xyz.openbmc_project.Inventory.Decorator.Asset");
+                            });
                     }
 
                     // this is done after we know the json array will no longer
@@ -268,28 +270,11 @@ inline void getDriveAsset(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                 // this interface isn't necessary
                 return;
             }
-            for (const std::pair<std::string, dbus::utility::DbusVariantType>&
-                     property : propertiesList)
+
+            if (!assignDriveAsset(asyncResp->res.jsonValue, propertiesList))
             {
-                // Store DBus properties that are also
-                // Redfish properties with same name and a
-                // string value
-                const std::string& propertyName = property.first;
-                if ((propertyName == "PartNumber") ||
-                    (propertyName == "SerialNumber") ||
-                    (propertyName == "Manufacturer") ||
-                    (propertyName == "Model"))
-                {
-                    const std::string* value =
-                        std::get_if<std::string>(&property.second);
-                    if (value == nullptr)
-                    {
-                        // illegal property
-                        messages::internalError(asyncResp->res);
-                        return;
-                    }
-                    asyncResp->res.jsonValue[propertyName] = *value;
-                }
+                messages::internalError(asyncResp->res);
+                return;
             }
         },
         connectionName, path, "org.freedesktop.DBus.Properties", "GetAll",
@@ -305,7 +290,7 @@ inline void getDrivePresent(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
         "xyz.openbmc_project.Inventory.Item", "Present",
         [asyncResp, path](const boost::system::error_code ec,
                           const bool enabled) {
-            // this interface isn't necessary, only check it if
+            // this interface isn't necessary, only check it if:
             // we get a good return
             if (ec)
             {

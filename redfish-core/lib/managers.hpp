@@ -23,6 +23,8 @@
 #include <boost/date_time.hpp>
 #include <dbus_utility.hpp>
 #include <registries/privilege_registry.hpp>
+#include <sdbusplus/asio/property.hpp>
+#include <sdbusplus/unpack_properties.hpp>
 #include <utils/fw_utils.hpp>
 #include <utils/systemd_utils.hpp>
 
@@ -1177,7 +1179,9 @@ struct GetPIDValues : std::enable_shared_from_this<GetPIDValues>
 
                 const std::string& path = subtreeLocal[0].first;
                 const std::string& owner = subtreeLocal[0].second[0].first;
-                crow::connections::systemBus->async_method_call(
+                sdbusplus::asio::getAllProperties(
+                    *crow::connections::systemBus, owner, path,
+                    thermalModeIface,
                     [path, owner,
                      self](const boost::system::error_code ec2,
                            const boost::container::flat_map<
@@ -1191,40 +1195,16 @@ struct GetPIDValues : std::enable_shared_from_this<GetPIDValues>
                             messages::internalError(self->asyncResp->res);
                             return;
                         }
-                        const std::string* current = nullptr;
-                        const std::vector<std::string>* supported = nullptr;
-                        for (auto& [key, value] : resp)
-                        {
-                            if (key == "Current")
-                            {
-                                current = std::get_if<std::string>(&value);
-                                if (current == nullptr)
-                                {
-                                    BMCWEB_LOG_ERROR
-                                        << "GetPIDValues: thermal mode iface invalid "
-                                        << path;
-                                    messages::internalError(
-                                        self->asyncResp->res);
-                                    return;
-                                }
-                            }
-                            if (key == "Supported")
-                            {
-                                supported =
-                                    std::get_if<std::vector<std::string>>(
-                                        &value);
-                                if (supported == nullptr)
-                                {
-                                    BMCWEB_LOG_ERROR
-                                        << "GetPIDValues: thermal mode iface invalid"
-                                        << path;
-                                    messages::internalError(
-                                        self->asyncResp->res);
-                                    return;
-                                }
-                            }
-                        }
-                        if (current == nullptr || supported == nullptr)
+
+                        std::string current;
+                        std::vector<std::string> supported;
+
+                        std::optional<std::string> badProperty =
+                            sdbusplus::unpackPropertiesNoThrow(
+                                resp, "Current", current, "Supported",
+                                supported);
+
+                        if (badProperty)
                         {
                             BMCWEB_LOG_ERROR
                                 << "GetPIDValues: thermal mode iface invalid "
@@ -1232,11 +1212,10 @@ struct GetPIDValues : std::enable_shared_from_this<GetPIDValues>
                             messages::internalError(self->asyncResp->res);
                             return;
                         }
-                        self->currentProfile = *current;
-                        self->supportedProfiles = *supported;
-                    },
-                    owner, path, "org.freedesktop.DBus.Properties", "GetAll",
-                    thermalModeIface);
+
+                        self->currentProfile = current;
+                        self->supportedProfiles = supported;
+                    });
             },
             "xyz.openbmc_project.ObjectMapper",
             "/xyz/openbmc_project/object_mapper",
@@ -1392,7 +1371,9 @@ struct SetPIDValues : std::enable_shared_from_this<SetPIDValues>
 
                 const std::string& path = subtree[0].first;
                 const std::string& owner = subtree[0].second[0].first;
-                crow::connections::systemBus->async_method_call(
+                sdbusplus::asio::getAllProperties(
+                    *crow::connections::systemBus, owner, path,
+                    thermalModeIface,
                     [self, path, owner](
                         const boost::system::error_code ec2,
                         const boost::container::flat_map<
@@ -1405,40 +1386,14 @@ struct SetPIDValues : std::enable_shared_from_this<SetPIDValues>
                             messages::internalError(self->asyncResp->res);
                             return;
                         }
-                        const std::string* current = nullptr;
-                        const std::vector<std::string>* supported = nullptr;
-                        for (auto& [key, value] : r)
-                        {
-                            if (key == "Current")
-                            {
-                                current = std::get_if<std::string>(&value);
-                                if (current == nullptr)
-                                {
-                                    BMCWEB_LOG_ERROR
-                                        << "SetPIDValues: thermal mode iface invalid "
-                                        << path;
-                                    messages::internalError(
-                                        self->asyncResp->res);
-                                    return;
-                                }
-                            }
-                            if (key == "Supported")
-                            {
-                                supported =
-                                    std::get_if<std::vector<std::string>>(
-                                        &value);
-                                if (supported == nullptr)
-                                {
-                                    BMCWEB_LOG_ERROR
-                                        << "SetPIDValues: thermal mode iface invalid"
-                                        << path;
-                                    messages::internalError(
-                                        self->asyncResp->res);
-                                    return;
-                                }
-                            }
-                        }
-                        if (current == nullptr || supported == nullptr)
+                        std::string current;
+                        std::vector<std::string> supported;
+
+                        std::optional<std::string> badProperty =
+                            sdbusplus::unpackPropertiesNoThrow(
+                                r, "Current", current, "Supported", supported);
+
+                        if (badProperty)
                         {
                             BMCWEB_LOG_ERROR
                                 << "SetPIDValues: thermal mode iface invalid "
@@ -1446,13 +1401,12 @@ struct SetPIDValues : std::enable_shared_from_this<SetPIDValues>
                             messages::internalError(self->asyncResp->res);
                             return;
                         }
-                        self->currentProfile = *current;
-                        self->supportedProfiles = *supported;
+
+                        self->currentProfile = current;
+                        self->supportedProfiles = supported;
                         self->profileConnection = owner;
                         self->profilePath = path;
-                    },
-                    owner, path, "org.freedesktop.DBus.Properties", "GetAll",
-                    thermalModeIface);
+                    });
             },
             "xyz.openbmc_project.ObjectMapper",
             "/xyz/openbmc_project/object_mapper",
@@ -2085,7 +2039,10 @@ inline void requestRoutesManager(App& app)
                         if (interfaceName ==
                             "xyz.openbmc_project.Inventory.Decorator.Asset")
                         {
-                            crow::connections::systemBus->async_method_call(
+                            sdbusplus::asio::getAllProperties(
+                                *crow::connections::systemBus, connectionName,
+                                path,
+                                "xyz.openbmc_project.Inventory.Decorator.Asset",
                                 [asyncResp](
                                     const boost::system::error_code ec,
                                     const std::vector<std::pair<
@@ -2127,10 +2084,7 @@ inline void requestRoutesManager(App& app)
                                                 *value;
                                         }
                                     }
-                                },
-                                connectionName, path,
-                                "org.freedesktop.DBus.Properties", "GetAll",
-                                "xyz.openbmc_project.Inventory.Decorator.Asset");
+                                });
                         }
                         else if (
                             interfaceName ==
