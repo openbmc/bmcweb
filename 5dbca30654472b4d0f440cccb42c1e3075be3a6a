@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "adfbe1ec_3c0108ab",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000520
+      },
+      "writtenOn": "2022-01-04T09:03:14Z",
+      "side": 1,
+      "message": "Added PUT and DELETE methods. Query parameters for GET are the only feature still missing.\n",
+      "revId": "5dbca30654472b4d0f440cccb42c1e3075be3a6a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
