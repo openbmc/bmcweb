@@ -19,6 +19,8 @@
 #include <nlohmann/json.hpp>
 #include <source_location.hpp>
 
+#include <string>
+
 namespace redfish
 {
 
