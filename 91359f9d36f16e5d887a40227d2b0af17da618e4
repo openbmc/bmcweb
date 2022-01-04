@@ -34,6 +34,24 @@
       "parentUuid": "f41de0df_daec71ad",
       "revId": "91359f9d36f16e5d887a40227d2b0af17da618e4",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3bd6dd60_89dd2732",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-01-04T20:59:54Z",
+      "side": 1,
+      "message": "Ah, that makes sense.  It make it through because of the ifdef, then we upgraded openssl and boom.  Oh well, at least it\u0027s an easy fix.",
+      "parentUuid": "6db69787_c8f793a6",
+      "revId": "91359f9d36f16e5d887a40227d2b0af17da618e4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
