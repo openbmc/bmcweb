@@ -144,15 +144,15 @@ inline bool verifyOpensslKeyCert(const std::string& filepath)
                 }
             }
 #else
-            EVP_PKEY_CTX* pkey_ctx =
+            EVP_PKEY_CTX* pkeyCtx =
                 EVP_PKEY_CTX_new_from_pkey(nullptr, pkey, nullptr);
 
-            if (!pkey_ctx)
+            if (!pkeyCtx)
             {
-                std::cerr << "Unable to allocate pkey_ctx " << ERR_get_error()
+                std::cerr << "Unable to allocate pkeyCtx " << ERR_get_error()
                           << "\n";
             }
-            else if (EVP_PKEY_check(pkey_ctx) == 1)
+            else if (EVP_PKEY_check(pkeyCtx) == 1)
             {
                 privateKeyValid = true;
             }
@@ -186,7 +186,7 @@ inline bool verifyOpensslKeyCert(const std::string& filepath)
             }
 
 #if (OPENSSL_VERSION_NUMBER > 0x30000000L)
-            EVP_PKEY_CTX_free(pkey_ctx);
+            EVP_PKEY_CTX_free(pkeyCtx);
 #endif
             EVP_PKEY_free(pkey);
         }
