@@ -188,6 +188,30 @@
       },
       "revId": "7d8e7a3fa0fd273268ede5216735c8533b903eac",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a1c2ac09_384a2d77",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-01-04T19:56:43Z",
+      "side": 1,
+      "message": "\u003e Yeah in a Redfish meeting, we (Matt and I) explained we might have \"multiple resolutions\" and Redfish said, it is a free form string meant to be read by a human so if you truly have multiple \"how to resolve the situation that caused the log entry\" then it is appropriate they are all in there. \n\nYes, it\u0027s a freeform string, but that doesn\u0027t mean it doesn\u0027t need to have a message registry entry for each element, or can contain variable data that doesn\u0027t match the MessageId entry.  That\u0027s different than what I\u0027m pointing out here.\n\n\u003e \n\u003e That said, not sure what is going on with the \\n in here, also this is a pretty standard Redfish property so this seems like a bad example since it is very company specific.. Can we just use a generic, better example for the Resolution string \"Check manager network.\", \"Replace failing Dimm.\", etc ?\n\n+1",
+      "parentUuid": "8b6011ba_02763bac",
+      "range": {
+        "startLine": 39,
+        "startChar": 21,
+        "endLine": 40,
+        "endChar": 50
+      },
+      "revId": "7d8e7a3fa0fd273268ede5216735c8533b903eac",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
