@@ -444,5 +444,26 @@ bool getValueFromJsonObject(nlohmann::json& jsonData, const std::string& key,
 
     return details::unpackValue(*it, key, value);
 }
+
+template <typename Type>
+void assignIf(nlohmann::json& jsonData, const std::string& key, Type& value)
+{
+    if constexpr (std::is_pointer_v<Type>)
+    {
+        jsonData[key] = *value;
+    }
+    else if constexpr (details::IsOptional<Type>::value)
+    {
+        if (value)
+        {
+            assignIf(jsonData, key, *value);
+        }
+    }
+    else
+    {
+        jsonData[key] = value;
+    }
+}
+
 } // namespace json_util
 } // namespace redfish

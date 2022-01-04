@@ -43,31 +43,15 @@ inline void fillReportDefinition(
     const ReadingParameters* readingParams = nullptr;
     const std::string* reportingType = nullptr;
     const uint64_t* interval = nullptr;
-    for (const auto& [key, var] : ret)
-    {
-        if (key == "EmitsReadingsUpdate")
-        {
-            emitsReadingsUpdate = std::get_if<bool>(&var);
-        }
-        else if (key == "LogToMetricReportsCollection")
-        {
-            logToMetricReportsCollection = std::get_if<bool>(&var);
-        }
-        else if (key == "ReadingParameters")
-        {
-            readingParams = std::get_if<ReadingParameters>(&var);
-        }
-        else if (key == "ReportingType")
-        {
-            reportingType = std::get_if<std::string>(&var);
-        }
-        else if (key == "Interval")
-        {
-            interval = std::get_if<uint64_t>(&var);
-        }
-    }
-    if (!emitsReadingsUpdate || !logToMetricReportsCollection ||
-        !readingParams || !reportingType || !interval)
+
+    std::optional<sdbusplus::UnpackError> error =
+        sdbusplus::unpackPropertiesNoThrow(
+            ret, "EmitsReadingsUpdate", emitsReadingsUpdate,
+            "LogToMetricReportsCollection", logToMetricReportsCollection,
+            "ReadingParameters", readingParams, "ReportingType", reportingType,
+            "Interval", interval);
+
+    if (error)
     {
         BMCWEB_LOG_ERROR << "Property type mismatch or property is missing";
         messages::internalError(asyncResp->res);
@@ -420,7 +404,10 @@ inline void requestRoutesMetricReportDefinition(App& app)
             [](const crow::Request&,
                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                const std::string& id) {
-                crow::connections::systemBus->async_method_call(
+                sdbusplus::asio::getAllProperties(
+                    *crow::connections::systemBus, telemetry::service,
+                    telemetry::getDbusReportPath(id),
+                    telemetry::reportInterface,
                     [asyncResp,
                      id](const boost::system::error_code ec,
                          const std::vector<std::pair<
@@ -441,10 +428,7 @@ inline void requestRoutesMetricReportDefinition(App& app)
                         }
 
                         telemetry::fillReportDefinition(asyncResp, id, ret);
-                    },
-                    telemetry::service, telemetry::getDbusReportPath(id),
-                    "org.freedesktop.DBus.Properties", "GetAll",
-                    telemetry::reportInterface);
+                    });
             });
     BMCWEB_ROUTE(app,
                  "/redfish/v1/TelemetryService/MetricReportDefinitions/<str>/")

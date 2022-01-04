@@ -140,302 +140,154 @@ inline std::string translateMemoryTypeToRedfish(const std::string& memoryType)
     return "";
 }
 
-inline void dimmPropToHex(
-    const std::shared_ptr<bmcweb::AsyncResp>& aResp, const char* key,
-    const std::pair<std::string, dbus::utility::DbusVariantType>& property)
+inline void dimmPropToHex(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
+                          const char* key,
+                          const std::optional<const uint16_t*> value)
 {
-    const uint16_t* value = std::get_if<uint16_t>(&property.second);
-    if (value == nullptr)
+    if (value)
     {
-        messages::internalError(aResp->res);
-        BMCWEB_LOG_DEBUG << "Invalid property type for " << property.first;
-        return;
+        aResp->res.jsonValue[key] = "0x" + intToHexString(**value);
     }
+}
 
-    aResp->res.jsonValue[key] = "0x" + intToHexString(*value);
+inline void kibPropToMib(nlohmann::json& jsonData, const char* key,
+                         const std::optional<const uint64_t*> value)
+{
+    if (value)
+    {
+        jsonData[key] = (**value) >> 10;
+    }
+}
+
+template <typename T>
+inline void assignSecurityCapabilitiesProp(
+    const std::shared_ptr<bmcweb::AsyncResp>& aResp, const char* key,
+    const std::optional<const T*> value)
+{
+    if (value)
+    {
+        aResp->res.jsonValue["SecurityCapabilities"][key] = **value;
+    }
 }
 
 inline void getPersistentMemoryProperties(
     const std::shared_ptr<bmcweb::AsyncResp>& aResp,
     const DimmProperties& properties)
 {
-    for (const auto& property : properties)
+    std::optional<const uint16_t*> moduleManufacturerID, moduleProductID,
+        subsystemVendorID, subsystemDeviceID;
+    std::optional<const uint64_t*> volatileRegionSizeLimitInKiB,
+        pmRegionSizeLimitInKiB, volatileSizeInKiB, pmSizeInKiB, cacheSizeInKB,
+        voltaileRegionMaxSizeInKib, pmRegionMaxSizeInKiB,
+        allocationIncrementInKiB, allocationAlignmentInKiB, maxPassphraseCount,
+        passphraseLockLimit, volatileRegionNumberLimit, pmRegionNumberLimit,
+        spareDeviceCount;
+    std::optional<const bool*> configurationLockCapable, dataLockCapable,
+        passphraseCapable, isRankSpareEnabled, configurationLocked;
+    std::optional<const uint32_t*> maxAveragePowerLimitmW;
+    std::optional<const std::string*> allowedMemoryModes, memoryMedia;
+
+    std::optional<sdbusplus::UnpackError> error =
+        sdbusplus::unpackPropertiesNoThrow(
+            properties, "ModuleManufacturerID", moduleManufacturerID,
+            "ModuleProductID", moduleProductID, "SubsystemVendorID",
+            subsystemVendorID, "SubsystemDeviceID", subsystemDeviceID,
+            "VolatileRegionSizeLimitInKiB", volatileRegionSizeLimitInKiB,
+            "PmRegionSizeLimitInKiB", pmRegionSizeLimitInKiB,
+            "VolatileSizeInKiB", volatileSizeInKiB, "PmSizeInKiB", pmSizeInKiB,
+            "CacheSizeInKB", cacheSizeInKB, "VoltaileRegionMaxSizeInKib",
+            voltaileRegionMaxSizeInKib, "PmRegionMaxSizeInKiB",
+            pmRegionMaxSizeInKiB, "AllocationIncrementInKiB",
+            allocationIncrementInKiB, "AllocationAlignmentInKiB",
+            allocationAlignmentInKiB, "VolatileRegionNumberLimit",
+            volatileRegionNumberLimit, "PmRegionNumberLimit",
+            pmRegionNumberLimit, "SpareDeviceCount", spareDeviceCount,
+            "IsRankSpareEnabled", isRankSpareEnabled, "MaxAveragePowerLimitmW",
+            maxAveragePowerLimitmW, "ConfigurationLocked", configurationLocked,
+            "AllowedMemoryModes", allowedMemoryModes, "MemoryMedia",
+            memoryMedia, "ConfigurationLockCapable", configurationLockCapable,
+            "DataLockCapable", dataLockCapable, "PassphraseCapable",
+            passphraseCapable, "MaxPassphraseCount", maxPassphraseCount,
+            "PassphraseLockLimit", passphraseLockLimit);
+
+    if (error)
     {
-        if (property.first == "ModuleManufacturerID")
-        {
-            dimmPropToHex(aResp, "ModuleManufacturerID", property);
-        }
-        else if (property.first == "ModuleProductID")
-        {
-            dimmPropToHex(aResp, "ModuleProductID", property);
-        }
-        else if (property.first == "SubsystemVendorID")
-        {
-            dimmPropToHex(aResp, "MemorySubsystemControllerManufacturerID",
-                          property);
-        }
-        else if (property.first == "SubsystemDeviceID")
-        {
-            dimmPropToHex(aResp, "MemorySubsystemControllerProductID",
-                          property);
-        }
-        else if (property.first == "VolatileRegionSizeLimitInKiB")
-        {
-            const uint64_t* value = std::get_if<uint64_t>(&property.second);
+        BMCWEB_LOG_DEBUG << "Invalid property type at index " << error->index;
+        messages::internalError(aResp->res);
+        return;
+    }
 
-            if (value == nullptr)
-            {
-                messages::internalError(aResp->res);
-                BMCWEB_LOG_DEBUG
-                    << "Invalid property type for VolatileRegionSizeLimitKiB";
-                return;
-            }
-            aResp->res.jsonValue["VolatileRegionSizeLimitMiB"] = (*value) >> 10;
-        }
-        else if (property.first == "PmRegionSizeLimitInKiB")
-        {
-            const uint64_t* value = std::get_if<uint64_t>(&property.second);
+    dimmPropToHex(aResp, "ModuleManufacturerID", moduleManufacturerID);
+    dimmPropToHex(aResp, "ModuleProductID", moduleManufacturerID);
+    dimmPropToHex(aResp, "SubsystemVendorID", moduleManufacturerID);
+    dimmPropToHex(aResp, "SubsystemDeviceID", moduleManufacturerID);
 
-            if (value == nullptr)
-            {
-                messages::internalError(aResp->res);
-                BMCWEB_LOG_DEBUG
-                    << "Invalid property type for PmRegioSizeLimitKiB";
-                return;
-            }
-            aResp->res.jsonValue["PersistentRegionSizeLimitMiB"] =
-                (*value) >> 10;
-        }
-        else if (property.first == "VolatileSizeInKiB")
-        {
-            const uint64_t* value = std::get_if<uint64_t>(&property.second);
+    kibPropToMib(aResp->res.jsonValue, "VolatileRegionSizeLimitMiB",
+                 volatileRegionSizeLimitInKiB);
+    kibPropToMib(aResp->res.jsonValue, "PmRegionSizeLimitMiB",
+                 pmRegionSizeLimitInKiB);
+    kibPropToMib(aResp->res.jsonValue, "VolatileSizeMiB", volatileSizeInKiB);
+    kibPropToMib(aResp->res.jsonValue, "PmSizeMiB", pmSizeInKiB);
+    kibPropToMib(aResp->res.jsonValue, "CacheSizeInKB", cacheSizeInKB);
+    kibPropToMib(aResp->res.jsonValue, "VoltaileRegionMaxSizeInKib",
+                 voltaileRegionMaxSizeInKib);
+    kibPropToMib(aResp->res.jsonValue, "PmRegionMaxSizeMiB",
+                 pmRegionMaxSizeInKiB);
+    kibPropToMib(aResp->res.jsonValue, "AllocationIncrementMiB",
+                 allocationIncrementInKiB);
+    kibPropToMib(aResp->res.jsonValue, "AllocationAlignmentMiB",
+                 allocationAlignmentInKiB);
 
-            if (value == nullptr)
-            {
-                messages::internalError(aResp->res);
-                BMCWEB_LOG_DEBUG
-                    << "Invalid property type for VolatileSizeInKiB";
-                return;
-            }
-            aResp->res.jsonValue["VolatileSizeMiB"] = (*value) >> 10;
-        }
-        else if (property.first == "PmSizeInKiB")
-        {
-            const uint64_t* value = std::get_if<uint64_t>(&property.second);
-            if (value == nullptr)
-            {
-                messages::internalError(aResp->res);
-                BMCWEB_LOG_DEBUG << "Invalid property type for PmSizeInKiB";
-                return;
-            }
-            aResp->res.jsonValue["NonVolatileSizeMiB"] = (*value) >> 10;
-        }
-        else if (property.first == "CacheSizeInKB")
-        {
-            const uint64_t* value = std::get_if<uint64_t>(&property.second);
-            if (value == nullptr)
-            {
-                messages::internalError(aResp->res);
-                BMCWEB_LOG_DEBUG << "Invalid property type for CacheSizeInKB";
-                return;
-            }
-            aResp->res.jsonValue["CacheSizeMiB"] = (*value >> 10);
-        }
+    json_util::assignIf(aResp->res.jsonValue, "IsRankSpareEnabled",
+                        isRankSpareEnabled);
+    json_util::assignIf(aResp->res.jsonValue, "MaxTDPMilliWatts",
+                        maxAveragePowerLimitmW);
+    json_util::assignIf(aResp->res.jsonValue, "VolatileRegionNumberLimit",
+                        volatileRegionNumberLimit);
+    json_util::assignIf(aResp->res.jsonValue, "PersistentRegionNumberLimit",
+                        pmRegionNumberLimit);
+    json_util::assignIf(aResp->res.jsonValue, "SpareDeviceCount",
+                        spareDeviceCount);
+    json_util::assignIf(aResp->res.jsonValue, "ConfigurationLocked",
+                        configurationLocked);
 
-        else if (property.first == "VoltaileRegionMaxSizeInKib")
-        {
-            const uint64_t* value = std::get_if<uint64_t>(&property.second);
+    assignSecurityCapabilitiesProp(aResp, "ConfigurationLockCapable",
+                                   configurationLockCapable);
+    assignSecurityCapabilitiesProp(aResp, "DataLockCapable", dataLockCapable);
+    assignSecurityCapabilitiesProp(aResp, "PassphraseCapable",
+                                   passphraseCapable);
+    assignSecurityCapabilitiesProp(aResp, "MaxPassphraseCount",
+                                   maxPassphraseCount);
+    assignSecurityCapabilitiesProp(aResp, "PassphraseLockLimit",
+                                   passphraseLockLimit);
 
-            if (value == nullptr)
-            {
-                messages::internalError(aResp->res);
-                BMCWEB_LOG_DEBUG
-                    << "Invalid property type for VolatileRegionMaxSizeInKib";
-                return;
-            }
-            aResp->res.jsonValue["VolatileRegionSizeMaxMiB"] = (*value) >> 10;
-        }
-        else if (property.first == "PmRegionMaxSizeInKiB")
-        {
-            const uint64_t* value = std::get_if<uint64_t>(&property.second);
+    if (allowedMemoryModes)
+    {
+        constexpr const std::array<const char*, 3> values{"Volatile", "PMEM",
+                                                          "Block"};
 
-            if (value == nullptr)
-            {
-                messages::internalError(aResp->res);
-                BMCWEB_LOG_DEBUG
-                    << "Invalid property type for PmRegionMaxSizeInKiB";
-                return;
-            }
-            aResp->res.jsonValue["PersistentRegionSizeMaxMiB"] = (*value) >> 10;
-        }
-        else if (property.first == "AllocationIncrementInKiB")
+        for (const char* v : values)
         {
-            const uint64_t* value = std::get_if<uint64_t>(&property.second);
+            if (boost::ends_with(**allowedMemoryModes, v))
+            {
+                aResp->res.jsonValue["OperatingMemoryModes "] = v;
+                break;
+            }
+        }
+    }
 
-            if (value == nullptr)
-            {
-                messages::internalError(aResp->res);
-                BMCWEB_LOG_DEBUG
-                    << "Invalid property type for AllocationIncrementInKiB";
-                return;
-            }
-            aResp->res.jsonValue["AllocationIncrementMiB"] = (*value) >> 10;
-        }
-        else if (property.first == "AllocationAlignmentInKiB")
-        {
-            const uint64_t* value = std::get_if<uint64_t>(&property.second);
+    if (memoryMedia)
+    {
+        constexpr const std::array<const char*, 3> values{"DRAM", "NAND",
+                                                          "Intel3DXPoint"};
 
-            if (value == nullptr)
-            {
-                messages::internalError(aResp->res);
-                BMCWEB_LOG_DEBUG
-                    << "Invalid property type for AllocationAlignmentInKiB";
-                return;
-            }
-            aResp->res.jsonValue["AllocationAlignmentMiB"] = (*value) >> 10;
-        }
-        else if (property.first == "VolatileRegionNumberLimit")
+        for (const char* v : values)
         {
-            const uint64_t* value = std::get_if<uint64_t>(&property.second);
-            if (value == nullptr)
+            if (boost::ends_with(**memoryMedia, v))
             {
-                messages::internalError(aResp->res);
-                return;
+                aResp->res.jsonValue["MemoryMedia"] = v;
+                break;
             }
-            aResp->res.jsonValue["VolatileRegionNumberLimit"] = *value;
-        }
-        else if (property.first == "PmRegionNumberLimit")
-        {
-            const uint64_t* value = std::get_if<uint64_t>(&property.second);
-            if (value == nullptr)
-            {
-                messages::internalError(aResp->res);
-                return;
-            }
-            aResp->res.jsonValue["PersistentRegionNumberLimit"] = *value;
-        }
-        else if (property.first == "SpareDeviceCount")
-        {
-            const uint64_t* value = std::get_if<uint64_t>(&property.second);
-            if (value == nullptr)
-            {
-                messages::internalError(aResp->res);
-                return;
-            }
-            aResp->res.jsonValue["SpareDeviceCount"] = *value;
-        }
-        else if (property.first == "IsSpareDeviceInUse")
-        {
-            const bool* value = std::get_if<bool>(&property.second);
-            if (value == nullptr)
-            {
-                messages::internalError(aResp->res);
-                return;
-            }
-            aResp->res.jsonValue["IsSpareDeviceEnabled"] = *value;
-        }
-        else if (property.first == "IsRankSpareEnabled")
-        {
-            const bool* value = std::get_if<bool>(&property.second);
-            if (value == nullptr)
-            {
-                messages::internalError(aResp->res);
-                return;
-            }
-            aResp->res.jsonValue["IsRankSpareEnabled"] = *value;
-        }
-        else if (property.first == "MaxAveragePowerLimitmW")
-        {
-            const auto* value =
-                std::get_if<std::vector<uint32_t>>(&property.second);
-            if (value == nullptr)
-            {
-                messages::internalError(aResp->res);
-                BMCWEB_LOG_DEBUG
-                    << "Invalid property type for MaxAveragePowerLimitmW";
-                return;
-            }
-            aResp->res.jsonValue["MaxTDPMilliWatts"] = *value;
-        }
-        else if (property.first == "ConfigurationLocked")
-        {
-            const bool* value = std::get_if<bool>(&property.second);
-            if (value == nullptr)
-            {
-                messages::internalError(aResp->res);
-                return;
-            }
-            aResp->res.jsonValue["ConfigurationLocked"] = *value;
-        }
-        else if (property.first == "AllowedMemoryModes")
-        {
-            const std::string* value =
-                std::get_if<std::string>(&property.second);
-            if (value == nullptr)
-            {
-                messages::internalError(aResp->res);
-                BMCWEB_LOG_DEBUG << "Invalid property type for FormFactor";
-                return;
-            }
-            constexpr const std::array<const char*, 3> values{"Volatile",
-                                                              "PMEM", "Block"};
-
-            for (const char* v : values)
-            {
-                if (boost::ends_with(*value, v))
-                {
-                    aResp->res.jsonValue["OperatingMemoryModes "] = v;
-                    break;
-                }
-            }
-        }
-        else if (property.first == "MemoryMedia")
-        {
-            const std::string* value =
-                std::get_if<std::string>(&property.second);
-            if (value == nullptr)
-            {
-                messages::internalError(aResp->res);
-                BMCWEB_LOG_DEBUG << "Invalid property type for MemoryMedia";
-                return;
-            }
-            constexpr const std::array<const char*, 3> values{"DRAM", "NAND",
-                                                              "Intel3DXPoint"};
-
-            for (const char* v : values)
-            {
-                if (boost::ends_with(*value, v))
-                {
-                    aResp->res.jsonValue["MemoryMedia"] = v;
-                    break;
-                }
-            }
-        }
-        // PersistantMemory.SecurityCapabilites interface
-        else if (property.first == "ConfigurationLockCapable" ||
-                 property.first == "DataLockCapable" ||
-                 property.first == "PassphraseCapable")
-        {
-            const bool* value = std::get_if<bool>(&property.second);
-            if (value == nullptr)
-            {
-                messages::internalError(aResp->res);
-                return;
-            }
-            aResp->res.jsonValue["SecurityCapabilities"][property.first] =
-                *value;
-        }
-        else if (property.first == "MaxPassphraseCount" ||
-                 property.first == "PassphraseLockLimit")
-        {
-            const uint64_t* value = std::get_if<uint64_t>(&property.second);
-            if (value == nullptr)
-            {
-                messages::internalError(aResp->res);
-                return;
-            }
-            aResp->res.jsonValue["SecurityCapabilities"][property.first] =
-                *value;
         }
     }
 }
@@ -450,7 +302,8 @@ inline void getDimmDataByService(std::shared_ptr<bmcweb::AsyncResp> aResp,
     health->populate();
 
     BMCWEB_LOG_DEBUG << "Get available system components.";
-    crow::connections::systemBus->async_method_call(
+    sdbusplus::asio::getAllProperties(
+        *crow::connections::systemBus, service, objPath, "",
         [dimmId, aResp{std::move(aResp)}](const boost::system::error_code ec,
                                           const DimmProperties& properties) {
             if (ec)
@@ -463,283 +316,177 @@ inline void getDimmDataByService(std::shared_ptr<bmcweb::AsyncResp> aResp,
             aResp->res.jsonValue["Id"] = dimmId;
             aResp->res.jsonValue["Name"] = "DIMM Slot";
 
-            const auto memorySizeProperty = properties.find("MemorySizeInKB");
-            if (memorySizeProperty != properties.end())
+            uint32_t memorySize = 0;
+            std::optional<const uint16_t*> dataWidth;
+            std::optional<const uint16_t*> revisionCode;
+            std::optional<const bool*> present;
+            std::optional<const uint16_t*> totalWidth;
+            std::optional<const std::string*> ecc;
+            std::optional<const std::string*> formFactor;
+            std::optional<const std::vector<uint16_t>*> allowedSpeedMt;
+            std::optional<const uint8_t*> memoryAttributes;
+            std::optional<const uint16_t*> memoryConfiguredSpeedInMhz;
+            std::optional<const std::string*> memoryType;
+            std::optional<const std::string*> locationCode;
+            std::optional<const std::string*> channel, memoryController, slot,
+                socket, partNumber, serialNumber, manufacturer, sparePartNumber,
+                model;
+
+            auto assignMemoryLocationIf =
+                [&aResp](const std::string& key,
+                         const std::optional<const std::string*>& value) {
+                    if (value)
+                    {
+                        aResp->res.jsonValue["MemoryLocation"][key] = **value;
+                    }
+                };
+
+            std::optional<sdbusplus::UnpackError> error =
+                sdbusplus::unpackPropertiesNoThrow(
+                    properties, "MemorySizeInKB", memorySize, "MemoryDataWidth",
+                    dataWidth, "PartNumber", partNumber, "SerialNumber",
+                    serialNumber, "Manufacturer", manufacturer, "RevisionCode",
+                    revisionCode, "Present", present, "MemoryTotalWidth",
+                    totalWidth, "ECC", ecc, "FormFactor", formFactor,
+                    "AllowedSpeedsMT", allowedSpeedMt, "MemoryAttributes",
+                    memoryAttributes, "MemoryConfiguredSpeedInMhz",
+                    memoryConfiguredSpeedInMhz, "MemoryType", memoryType,
+                    "Channel", channel, "MemoryController", memoryController,
+                    "Slot", slot, "Socket", socket, "SparePartNumber",
+                    sparePartNumber, "Model", model, "LocationCode",
+                    locationCode);
+
+            if (error)
             {
-                const uint32_t* memorySize =
-                    std::get_if<uint32_t>(&memorySizeProperty->second);
-                if (memorySize == nullptr)
-                {
-                    // Important property not in desired type
-                    messages::internalError(aResp->res);
-                    return;
-                }
-                aResp->res.jsonValue["CapacityMiB"] = (*memorySize >> 10);
+                BMCWEB_LOG_DEBUG << "Invalid property type at index "
+                                 << error->index;
+                messages::internalError(aResp->res);
+                return;
             }
+
+            aResp->res.jsonValue["CapacityMiB"] = memorySize >> 10;
             aResp->res.jsonValue["Status"]["State"] = "Enabled";
             aResp->res.jsonValue["Status"]["Health"] = "OK";
 
-            for (const auto& property : properties)
+            assignMemoryLocationIf("Channel", channel);
+            assignMemoryLocationIf("MemoryController", memoryController);
+            assignMemoryLocationIf("Slot", slot);
+            assignMemoryLocationIf("Socket", socket);
+
+            json_util::assignIf(aResp->res.jsonValue, "PartNumber", partNumber);
+            json_util::assignIf(aResp->res.jsonValue, "SerialNumber",
+                                serialNumber);
+            json_util::assignIf(aResp->res.jsonValue, "Manufacturer",
+                                manufacturer);
+            json_util::assignIf(aResp->res.jsonValue, "SparePartNumber",
+                                sparePartNumber);
+            json_util::assignIf(aResp->res.jsonValue, "Model", model);
+            json_util::assignIf(aResp->res.jsonValue, "DataWidthBits",
+                                dataWidth);
+            json_util::assignIf(aResp->res.jsonValue, "BusWidthBits",
+                                totalWidth);
+            json_util::assignIf(aResp->res.jsonValue, "OperatingSpeedMhz",
+                                memoryConfiguredSpeedInMhz);
+
+            if (revisionCode)
             {
-                if (property.first == "MemoryDataWidth")
-                {
-                    const uint16_t* value =
-                        std::get_if<uint16_t>(&property.second);
-                    if (value == nullptr)
-                    {
-                        continue;
-                    }
-                    aResp->res.jsonValue["DataWidthBits"] = *value;
-                }
-                else if (property.first == "PartNumber")
-                {
-                    const std::string* value =
-                        std::get_if<std::string>(&property.second);
-                    if (value == nullptr)
-                    {
-                        continue;
-                    }
-                    aResp->res.jsonValue["PartNumber"] = *value;
-                }
-                else if (property.first == "SerialNumber")
-                {
-                    const std::string* value =
-                        std::get_if<std::string>(&property.second);
-                    if (value == nullptr)
-                    {
-                        continue;
-                    }
-                    aResp->res.jsonValue["SerialNumber"] = *value;
-                }
-                else if (property.first == "Manufacturer")
-                {
-                    const std::string* value =
-                        std::get_if<std::string>(&property.second);
-                    if (value == nullptr)
-                    {
-                        continue;
-                    }
-                    aResp->res.jsonValue["Manufacturer"] = *value;
-                }
-                else if (property.first == "RevisionCode")
-                {
-                    const uint16_t* value =
-                        std::get_if<uint16_t>(&property.second);
+                aResp->res.jsonValue["FirmwareRevision"] =
+                    std::to_string(**revisionCode);
+            }
 
-                    if (value == nullptr)
-                    {
-                        messages::internalError(aResp->res);
-                        BMCWEB_LOG_DEBUG
-                            << "Invalid property type for RevisionCode";
-                        return;
-                    }
-                    aResp->res.jsonValue["FirmwareRevision"] =
-                        std::to_string(*value);
-                }
-                else if (property.first == "Present")
-                {
-                    const bool* value = std::get_if<bool>(&property.second);
-                    if (value == nullptr)
-                    {
-                        messages::internalError(aResp->res);
-                        BMCWEB_LOG_DEBUG
-                            << "Invalid property type for Dimm Presence";
-                        return;
-                    }
-                    if (*value == false)
-                    {
-                        aResp->res.jsonValue["Status"]["State"] = "Absent";
-                    }
-                }
-                else if (property.first == "MemoryTotalWidth")
-                {
-                    const uint16_t* value =
-                        std::get_if<uint16_t>(&property.second);
-                    if (value == nullptr)
-                    {
-                        continue;
-                    }
-                    aResp->res.jsonValue["BusWidthBits"] = *value;
-                }
-                else if (property.first == "ECC")
-                {
-                    const std::string* value =
-                        std::get_if<std::string>(&property.second);
-                    if (value == nullptr)
-                    {
-                        messages::internalError(aResp->res);
-                        BMCWEB_LOG_DEBUG << "Invalid property type for ECC";
-                        return;
-                    }
-                    constexpr const std::array<const char*, 4> values{
-                        "NoECC", "SingleBitECC", "MultiBitECC",
-                        "AddressParity"};
+            if (present && **present == false)
+            {
+                aResp->res.jsonValue["Status"]["State"] = "Absent";
+            }
 
-                    for (const char* v : values)
-                    {
-                        if (boost::ends_with(*value, v))
-                        {
-                            aResp->res.jsonValue["ErrorCorrection"] = v;
-                            break;
-                        }
-                    }
-                }
-                else if (property.first == "FormFactor")
-                {
-                    const std::string* value =
-                        std::get_if<std::string>(&property.second);
-                    if (value == nullptr)
-                    {
-                        messages::internalError(aResp->res);
-                        BMCWEB_LOG_DEBUG
-                            << "Invalid property type for FormFactor";
-                        return;
-                    }
-                    constexpr const std::array<const char*, 11> values{
-                        "RDIMM",        "UDIMM",        "SO_DIMM",
-                        "LRDIMM",       "Mini_RDIMM",   "Mini_UDIMM",
-                        "SO_RDIMM_72b", "SO_UDIMM_72b", "SO_DIMM_16b",
-                        "SO_DIMM_32b",  "Die"};
+            if (ecc)
+            {
+                constexpr const std::array<const char*, 4> values{
+                    "NoECC", "SingleBitECC", "MultiBitECC", "AddressParity"};
 
-                    for (const char* v : values)
-                    {
-                        if (boost::ends_with(*value, v))
-                        {
-                            aResp->res.jsonValue["BaseModuleType"] = v;
-                            break;
-                        }
-                    }
-                }
-                else if (property.first == "AllowedSpeedsMT")
+                for (const char* v : values)
                 {
-                    const std::vector<uint16_t>* value =
-                        std::get_if<std::vector<uint16_t>>(&property.second);
-                    if (value == nullptr)
+                    if (boost::ends_with(**ecc, v))
                     {
-                        continue;
+                        aResp->res.jsonValue["ErrorCorrection"] = v;
+                        break;
                     }
-                    nlohmann::json& jValue =
-                        aResp->res.jsonValue["AllowedSpeedsMHz"];
-                    jValue = nlohmann::json::array();
-                    for (uint16_t subVal : *value)
-                    {
-                        jValue.push_back(subVal);
-                    }
-                }
-                else if (property.first == "MemoryAttributes")
-                {
-                    const uint8_t* value =
-                        std::get_if<uint8_t>(&property.second);
-
-                    if (value == nullptr)
-                    {
-                        messages::internalError(aResp->res);
-                        BMCWEB_LOG_DEBUG
-                            << "Invalid property type for MemoryAttributes";
-                        return;
-                    }
-                    aResp->res.jsonValue["RankCount"] =
-                        static_cast<uint64_t>(*value);
-                }
-                else if (property.first == "MemoryConfiguredSpeedInMhz")
-                {
-                    const uint16_t* value =
-                        std::get_if<uint16_t>(&property.second);
-                    if (value == nullptr)
-                    {
-                        continue;
-                    }
-                    aResp->res.jsonValue["OperatingSpeedMhz"] = *value;
-                }
-                else if (property.first == "MemoryType")
-                {
-                    const auto* value =
-                        std::get_if<std::string>(&property.second);
-                    if (value != nullptr)
-                    {
-                        std::string memoryDeviceType =
-                            translateMemoryTypeToRedfish(*value);
-                        // Values like "Unknown" or "Other" will return empty
-                        // so just leave off
-                        if (!memoryDeviceType.empty())
-                        {
-                            aResp->res.jsonValue["MemoryDeviceType"] =
-                                memoryDeviceType;
-                        }
-                        if (value->find("DDR") != std::string::npos)
-                        {
-                            aResp->res.jsonValue["MemoryType"] = "DRAM";
-                        }
-                        else if (boost::ends_with(*value, "Logical"))
-                        {
-                            aResp->res.jsonValue["MemoryType"] = "IntelOptane";
-                        }
-                    }
-                }
-                // memory location interface
-                else if (property.first == "Channel" ||
-                         property.first == "MemoryController" ||
-                         property.first == "Slot" || property.first == "Socket")
-                {
-                    const std::string* value =
-                        std::get_if<std::string>(&property.second);
-                    if (value == nullptr)
-                    {
-                        messages::internalError(aResp->res);
-                        return;
-                    }
-                    aResp->res.jsonValue["MemoryLocation"][property.first] =
-                        *value;
-                }
-                else if (property.first == "SparePartNumber")
-                {
-                    const std::string* value =
-                        std::get_if<std::string>(&property.second);
-                    if (value == nullptr)
-                    {
-                        messages::internalError(aResp->res);
-                        return;
-                    }
-                    aResp->res.jsonValue["SparePartNumber"] = *value;
-                }
-                else if (property.first == "Model")
-                {
-                    const std::string* value =
-                        std::get_if<std::string>(&property.second);
-                    if (value == nullptr)
-                    {
-                        messages::internalError(aResp->res);
-                        return;
-                    }
-                    aResp->res.jsonValue["Model"] = *value;
-                }
-                else if (property.first == "LocationCode")
-                {
-                    const std::string* value =
-                        std::get_if<std::string>(&property.second);
-                    if (value == nullptr)
-                    {
-                        messages::internalError(aResp->res);
-                        return;
-                    }
-                    aResp->res
-                        .jsonValue["Location"]["PartLocation"]["ServiceLabel"] =
-                        *value;
-                }
-                else
-                {
-                    getPersistentMemoryProperties(aResp, properties);
                 }
             }
-        },
-        service, objPath, "org.freedesktop.DBus.Properties", "GetAll", "");
+
+            if (formFactor)
+            {
+                constexpr const std::array<const char*, 11> values{
+                    "RDIMM",        "UDIMM",        "SO_DIMM",
+                    "LRDIMM",       "Mini_RDIMM",   "Mini_UDIMM",
+                    "SO_RDIMM_72b", "SO_UDIMM_72b", "SO_DIMM_16b",
+                    "SO_DIMM_32b",  "Die"};
+
+                for (const char* v : values)
+                {
+                    if (boost::ends_with(**formFactor, v))
+                    {
+                        aResp->res.jsonValue["BaseModuleType"] = v;
+                        break;
+                    }
+                }
+            }
+
+            if (allowedSpeedMt)
+            {
+                nlohmann::json& jValue =
+                    aResp->res.jsonValue["AllowedSpeedsMHz"];
+                jValue = nlohmann::json::array();
+                for (uint16_t subVal : **allowedSpeedMt)
+                {
+                    jValue.push_back(subVal);
+                }
+            }
+
+            if (memoryAttributes)
+            {
+                aResp->res.jsonValue["RankCount"] =
+                    static_cast<uint64_t>(**memoryAttributes);
+            }
+
+            if (memoryType)
+            {
+                std::string memoryDeviceType =
+                    translateMemoryTypeToRedfish(**memoryType);
+                // Values like "Unknown" or "Other" will return empty
+                // so just leave off
+                if (!memoryDeviceType.empty())
+                {
+                    aResp->res.jsonValue["MemoryDeviceType"] = memoryDeviceType;
+                }
+                if ((*memoryType)->find("DDR") != std::string::npos)
+                {
+                    aResp->res.jsonValue["MemoryType"] = "DRAM";
+                }
+                else if (boost::ends_with(**memoryType, "Logical"))
+                {
+                    aResp->res.jsonValue["MemoryType"] = "IntelOptane";
+                }
+            }
+
+            if (locationCode)
+            {
+                aResp->res
+                    .jsonValue["Location"]["PartLocation"]["ServiceLabel"] =
+                    **locationCode;
+            }
+
+            getPersistentMemoryProperties(aResp, properties);
+        });
 }
 
 inline void getDimmPartitionData(std::shared_ptr<bmcweb::AsyncResp> aResp,
                                  const std::string& service,
                                  const std::string& path)
 {
-    crow::connections::systemBus->async_method_call(
+    sdbusplus::asio::getAllProperties(
+        *crow::connections::systemBus, service, path,
+        "xyz.openbmc_project.Inventory.Item.PersistentMemory.Partition",
         [aResp{std::move(aResp)}](
             const boost::system::error_code ec,
             const boost::container::flat_map<
@@ -752,70 +499,35 @@ inline void getDimmPartitionData(std::shared_ptr<bmcweb::AsyncResp> aResp,
                 return;
             }
 
+            std::optional<const std::string*> memoryClassification, partitionId;
+            std::optional<const uint64_t*> offsetInKiB, sizeInKiB;
+            std::optional<const bool*> passphraseState;
+
+            std::optional<sdbusplus::UnpackError> error =
+                sdbusplus::unpackPropertiesNoThrow(
+                    properties, "MemoryClassification", memoryClassification,
+                    "OffsetInKiB", offsetInKiB, "PartitionId", partitionId,
+                    "PassphraseState", passphraseState, "SizeInKiB", sizeInKiB);
+
+            if (error)
+            {
+                messages::internalError(aResp->res);
+                return;
+            }
+
             nlohmann::json& partition =
                 aResp->res.jsonValue["Regions"].emplace_back(
                     nlohmann::json::object());
-            for (const auto& [key, val] : properties)
-            {
-                if (key == "MemoryClassification")
-                {
-                    const std::string* value = std::get_if<std::string>(&val);
-                    if (value == nullptr)
-                    {
-                        messages::internalError(aResp->res);
-                        return;
-                    }
-                    partition[key] = *value;
-                }
-                else if (key == "OffsetInKiB")
-                {
-                    const uint64_t* value = std::get_if<uint64_t>(&val);
-                    if (value == nullptr)
-                    {
-                        messages::internalError(aResp->res);
-                        return;
-                    }
 
-                    partition["OffsetMiB"] = (*value >> 10);
-                }
-                else if (key == "PartitionId")
-                {
-                    const std::string* value = std::get_if<std::string>(&val);
-                    if (value == nullptr)
-                    {
-                        messages::internalError(aResp->res);
-                        return;
-                    }
-                    partition["RegionId"] = *value;
-                }
+            json_util::assignIf(partition, "MemoryClassification",
+                                memoryClassification);
+            json_util::assignIf(partition, "RegionId", partitionId);
+            json_util::assignIf(partition, "PassphraseEnabled",
+                                passphraseState);
 
-                else if (key == "PassphraseState")
-                {
-                    const bool* value = std::get_if<bool>(&val);
-                    if (value == nullptr)
-                    {
-                        messages::internalError(aResp->res);
-                        return;
-                    }
-                    partition["PassphraseEnabled"] = *value;
-                }
-                else if (key == "SizeInKiB")
-                {
-                    const uint64_t* value = std::get_if<uint64_t>(&val);
-                    if (value == nullptr)
-                    {
-                        messages::internalError(aResp->res);
-                        BMCWEB_LOG_DEBUG
-                            << "Invalid property type for SizeInKiB";
-                        return;
-                    }
-                    partition["SizeMiB"] = (*value >> 10);
-                }
-            }
-        },
-
-        service, path, "org.freedesktop.DBus.Properties", "GetAll",
-        "xyz.openbmc_project.Inventory.Item.PersistentMemory.Partition");
+            kibPropToMib(partition, "OffsetMiB", offsetInKiB);
+            kibPropToMib(partition, "SizeInKiB", sizeInKiB);
+        });
 }
 
 inline void getDimmData(std::shared_ptr<bmcweb::AsyncResp> aResp,
