@@ -116,6 +116,30 @@
       },
       "revId": "7d8e7a3fa0fd273268ede5216735c8533b903eac",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1fb353da_5c737d28",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-01-04T18:00:48Z",
+      "side": 1,
+      "message": "Can you point me to that conversation?  It doesn\u0027t seem in line with the redfish spec, but it\u0027s quite possible I\u0027m wrong.",
+      "parentUuid": "217ce037_62f286bc",
+      "range": {
+        "startLine": 39,
+        "startChar": 21,
+        "endLine": 40,
+        "endChar": 50
+      },
+      "revId": "7d8e7a3fa0fd273268ede5216735c8533b903eac",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
