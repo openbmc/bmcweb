@@ -137,7 +137,7 @@ inline std::optional<nlohmann::json>
     return std::make_optional(thresholds);
 }
 
-nlohmann::json
+inline nlohmann::json
     getMetricReportDefinitions(const std::vector<std::string>& reportNames)
 {
     nlohmann::json reports = nlohmann::json::array();
