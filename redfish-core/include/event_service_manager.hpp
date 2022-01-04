@@ -500,7 +500,7 @@ class Subscription : public persistent_data::UserSubscription
     }
 #endif
 
-    void filterAndSendReports(const std::string& id,
+    void filterAndSendReports(const std::string& reportId,
                               const telemetry::TimestampReadings& var)
     {
         std::string mrdUri = telemetry::metricReportDefinitionUri + ("/" + id);
@@ -517,11 +517,11 @@ class Subscription : public persistent_data::UserSubscription
         }
 
         nlohmann::json msg;
-        if (!telemetry::fillReport(msg, id, var))
+        if (!telemetry::fillReport(msg, reportId, var))
         {
             BMCWEB_LOG_ERROR << "Failed to fill the MetricReport for DBus "
                                 "Report with id "
-                             << id;
+                             << reportId;
             return;
         }
 
