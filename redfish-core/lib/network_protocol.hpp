@@ -448,10 +448,11 @@ inline void requestRoutesNetworkProtocol(App& app)
             std::optional<nlohmann::json> ntp;
             std::optional<nlohmann::json> ipmi;
             std::optional<nlohmann::json> ssh;
+            std::optional<nlohmann::json> https;
 
             if (!json_util::readJson(req, asyncResp->res, "NTP", ntp,
                                      "HostName", newHostName, "IPMI", ipmi,
-                                     "SSH", ssh))
+                                     "SSH", ssh, "HTTPS", https))
             {
                 return;
             }
@@ -534,6 +535,24 @@ inline void requestRoutesNetworkProtocol(App& app)
                 {
                     handlePort(*sshPort, asyncResp,
                                "/xyz/openbmc_project/control/service/dropbear");
+                }
+            }
+
+            if (https)
+            {
+                // Not allow disabling bmcweb as there may be no way to enable
+                // it again
+                std::optional<uint16_t> httpsPort;
+                if (!json_util::readJson(*https, asyncResp->res, "Port",
+                                         httpsPort))
+                {
+                    return;
+                }
+
+                if (httpsPort)
+                {
+                    handlePort(*httpsPort, asyncResp,
+                               "/xyz/openbmc_project/control/service/bmcweb");
                 }
             }
         });
