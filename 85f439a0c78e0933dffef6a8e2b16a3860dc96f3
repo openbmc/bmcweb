@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "53eb675a_882ca0fa",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-01-05T19:41:51Z",
+      "side": 1,
+      "message": "CI needs to pass. Looks like it needs clang-format run. \nBut looks good to me ",
+      "revId": "85f439a0c78e0933dffef6a8e2b16a3860dc96f3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "95a7aa67_1be38d34",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1879,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-01-05T19:41:51Z",
+      "side": 1,
+      "message": "?",
+      "range": {
+        "startLine": 1879,
+        "startChar": 9,
+        "endLine": 1879,
+        "endChar": 10
+      },
+      "revId": "85f439a0c78e0933dffef6a8e2b16a3860dc96f3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
