@@ -71,6 +71,45 @@ void setEnabled(const std::string& serviceName, const bool enabled,
         "org.freedesktop.DBus.ObjectManager", "GetManagedObjects");
 }
 
+template <typename CallbackFunc>
+void setPortNumber(const std::string& serviceName, const uint16_t portNumber,
+                   CallbackFunc&& callback)
+{
+    crow::connections::systemBus->async_method_call(
+        [serviceName, portNumber,
+         callback](const boost::system::error_code ec,
+                   const dbus::utility::ManagedObjectType& objects) {
+            if (ec)
+            {
+                callback(ec);
+                return;
+            }
+
+            for (const auto& object : objects)
+            {
+                if (matchService(object.first, serviceName))
+                {
+                    crow::connections::systemBus->async_method_call(
+                        [callback](const boost::system::error_code ec2) {
+                            if (ec2)
+                            {
+                                callback(ec2);
+                                return;
+                            }
+                        },
+                        "xyz.openbmc_project.Control.Service.Manager",
+                        object.first.str, "org.freedesktop.DBus.Properties",
+                        "Set",
+                        "xyz.openbmc_project.Control.Service.SocketAttributes",
+                        "Port", dbus::utility::DbusVariantType{portNumber});
+                }
+            }
+        },
+        "xyz.openbmc_project.Control.Service.Manager",
+        "/xyz/openbmc_project/control/service",
+        "org.freedesktop.DBus.ObjectManager", "GetManagedObjects");
+}
+
 } // namespace service_config
 
 } // namespace redfish
