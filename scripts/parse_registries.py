@@ -142,7 +142,7 @@ def get_variable_name_for_privilege_set(privilege_list):
 
 def make_privilege_registry():
     path, json_file, type_name, url = \
-        make_getter('Redfish_1.1.0_PrivilegeRegistry.json',
+        make_getter('Redfish_1.2.0_PrivilegeRegistry.json',
                     'privilege_registry.hpp', 'privilege')
     with open(path, 'w') as registry:
         registry.write("#pragma once\n")
