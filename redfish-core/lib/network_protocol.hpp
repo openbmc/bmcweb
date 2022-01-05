@@ -333,10 +333,11 @@ inline void requestRoutesNetworkProtocol(App& app)
                 std::optional<nlohmann::json> ntp;
                 std::optional<nlohmann::json> ipmi;
                 std::optional<nlohmann::json> ssh;
+                std::optional<nlohmann::json> https;
 
                 if (!json_util::readJsonPatch(req, asyncResp->res, "NTP", ntp,
                                               "HostName", newHostName, "IPMI",
-                                              ipmi, "SSH", ssh))
+                                              ipmi, "SSH", ssh, "HTTPS", https))
                 {
                     return;
                 }
@@ -416,6 +417,25 @@ inline void requestRoutesNetworkProtocol(App& app)
                     {
                         service_util::setPortNumber(asyncResp, sshServiceName,
                                                     *sshPortNumber);
+                    }
+                }
+
+                if (https)
+                {
+                    // Disabling bmcweb is not allowed to prevent DoS attack,
+                    // and users should not be able to disable ther interface
+                    // they're currently using by design.
+                    std::optional<uint16_t> httpsPortNumber;
+                    if (!json_util::readJson(*https, asyncResp->res, "Port",
+                                             httpsPortNumber))
+                    {
+                        return;
+                    }
+
+                    if (httpsPortNumber)
+                    {
+                        service_util::setPortNumber(asyncResp, httpsServiceName,
+                                                    *httpsPortNumber);
                     }
                 }
             });
