@@ -16,6 +16,75 @@
       "message": "For the \"port number is null when service disabled\" issue, it can be solved by calling service-config-manager to get the service info instead of calling systemd\n\nPros:\n* Can get port number when service disabled\n* Setting service enable/port will reflect immediately on redfish\n\nCons:\n* It represents the configured status, not real status. e.g. Disabling service via systemctl will not \nmake redfish to show ServiceEnabled\u003d\u003dfalse unless service-config-manager restarts.\n",
       "revId": "fbb69054b2e63a1bd5ebaad3b961e46948a1639b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "37226e8c_b88b602e",
+        "filename": "redfish-core/lib/network_protocol.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 374,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-01-05T17:27:22Z",
+      "side": 1,
+      "message": "This error called out by name in COMMON_ERRORS.md.  Please read and understand that document.",
+      "range": {
+        "startLine": 374,
+        "startChar": 20,
+        "endLine": 374,
+        "endChar": 49
+      },
+      "revId": "fbb69054b2e63a1bd5ebaad3b961e46948a1639b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "34159ac1_2ee0e709",
+        "filename": "redfish-core/lib/network_protocol.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 384,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-01-05T17:27:22Z",
+      "side": 1,
+      "message": "nullptr dereference.",
+      "range": {
+        "startLine": 384,
+        "startChar": 43,
+        "endLine": 384,
+        "endChar": 46
+      },
+      "revId": "fbb69054b2e63a1bd5ebaad3b961e46948a1639b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9a300346_7b05f1e6",
+        "filename": "redfish-core/lib/network_protocol.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 393,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-01-05T17:27:22Z",
+      "side": 1,
+      "message": "I suspect this should\u0027ve been GetObject?  Also, given that we\u0027re calling out a service that should only ever have one implementation, do we even need to call to the mapper?  Can we call service manager directly?",
+      "range": {
+        "startLine": 393,
+        "startChar": 45,
+        "endLine": 393,
+        "endChar": 55
+      },
+      "revId": "fbb69054b2e63a1bd5ebaad3b961e46948a1639b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
