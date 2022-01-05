@@ -16,6 +16,41 @@
       "message": "How does this patchset relate to https://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/49684?\n\nThey have merge conflicts on one another and they\u0027re editing the same code, both by the same author.  Based on how you pushed this, it\u0027s not clear what you intended here in terms of getting this merged",
       "revId": "4cc1da56f614bd3cf7e307592099235aabbf7591",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "487f3e40_8e0d4739",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001252
+      },
+      "writtenOn": "2022-01-05T18:14:06Z",
+      "side": 1,
+      "message": "\u003e Patch Set 1:\n\u003e \n\u003e (1 comment)\n\u003e \n\u003e \u003e Patch Set 1:\n\u003e \u003e \n\u003e \u003e Requires below two commands to be merged first\n\u003e \u003e https://gerrit.openbmc-project.xyz/c/openbmc/service-config-manager/+/49676\n\u003e \u003e https://gerrit.openbmc-project.xyz/c/openbmc/service-config-manager/+/49546\n\u003e \u003e \n\u003e \n\u003e Please put these in the commit message\n\u003e \n\u003e \u003e And I\u0027ve got one question, the service info is now read by directly calling systemd dbus interface, shall we call service-config-manager instead?\n\u003e \n\u003e I don\u0027t really think that\u0027s neccesary.  I like that we\u0027re calling systemd directly, and I\u0027m not sure what calling service-config-manager would do for us.  Can you expand on why this would be better?\n\n",
+      "revId": "4cc1da56f614bd3cf7e307592099235aabbf7591",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "63bb01b6_31814b84",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001252
+      },
+      "writtenOn": "2022-01-05T18:14:06Z",
+      "side": 1,
+      "message": "The linked patch depends on service-config-manager patches, it has been half a month since the patches are submitted, but no one review it yet. I tried sending mail, also got no reply. I think it would take longer time for them to be reviewed. So I submitted my two changes in parallel, once one of them is merged, I will rebase the other one on it.",
+      "parentUuid": "01d6ff72_fa09804b",
+      "revId": "4cc1da56f614bd3cf7e307592099235aabbf7591",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
