@@ -374,9 +374,10 @@ inline void requestRoutesNetworkProtocol(App& app)
                 if (ipmi)
                 {
                     std::optional<bool> ipmiProtocolEnabled;
-                    if (!json_util::readJson(*ipmi, asyncResp->res,
-                                             "ProtocolEnabled",
-                                             ipmiProtocolEnabled))
+                    std::optional<uint16_t> ipmiPortNumber;
+                    if (!json_util::readJson(
+                            *ipmi, asyncResp->res, "ProtocolEnabled",
+                            ipmiProtocolEnabled, "Port", ipmiPortNumber))
                     {
                         return;
                     }
@@ -386,14 +387,21 @@ inline void requestRoutesNetworkProtocol(App& app)
                         service_util::setEnabled(asyncResp, ipmiServiceName,
                                                  *ipmiProtocolEnabled);
                     }
+
+                    if (ipmiPortNumber)
+                    {
+                        service_util::setPortNumber(asyncResp, ipmiServiceName,
+                                                    *ipmiPortNumber);
+                    }
                 }
 
                 if (ssh)
                 {
                     std::optional<bool> sshProtocolEnabled;
-                    if (!json_util::readJson(*ssh, asyncResp->res,
-                                             "ProtocolEnabled",
-                                             sshProtocolEnabled))
+                    std::optional<uint16_t> sshPortNumber;
+                    if (!json_util::readJson(
+                            *ssh, asyncResp->res, "ProtocolEnabled",
+                            sshProtocolEnabled, "Port", sshPortNumber))
                     {
                         return;
                     }
@@ -402,6 +410,12 @@ inline void requestRoutesNetworkProtocol(App& app)
                     {
                         service_util::setEnabled(asyncResp, sshServiceName,
                                                  *sshProtocolEnabled);
+                    }
+
+                    if (sshPortNumber)
+                    {
+                        service_util::setPortNumber(asyncResp, sshServiceName,
+                                                    *sshPortNumber);
                     }
                 }
             });
