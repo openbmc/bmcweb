@@ -216,5 +216,44 @@ void setEnabled(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
         "org.freedesktop.DBus.ObjectManager", "GetManagedObjects");
 }
 
+void setPortNumber(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                   const std::string& serviceName, const uint16_t portNumber)
+{
+    crow::connections::systemBus->async_method_call(
+        [asyncResp, serviceName,
+         portNumber](const boost::system::error_code ec,
+                     const dbus::utility::ManagedObjectType& objects) {
+        if (ec)
+        {
+            messages::internalError(asyncResp->res);
+            return;
+        }
+
+        bool serviceFound = false;
+        for (const auto& [path, _] : objects)
+        {
+            if (matchService(path, serviceName))
+            {
+                serviceFound = true;
+                setProperty(
+                    asyncResp, path,
+                    "xyz.openbmc_project.Control.Service.SocketAttributes",
+                    "Port", portNumber);
+            }
+        }
+
+        // The Redfish property will not be populated in if service is not
+        // found, return PropertyUnknown for PATCH request
+        if (!serviceFound)
+        {
+            messages::propertyUnknown(asyncResp->res, "Port");
+            return;
+        }
+        },
+        "xyz.openbmc_project.Control.Service.Manager",
+        "/xyz/openbmc_project/control/service",
+        "org.freedesktop.DBus.ObjectManager", "GetManagedObjects");
+}
+
 } // namespace service_util
 } // namespace redfish
