@@ -365,9 +365,10 @@ inline void requestRoutesNetworkProtocol(App& app)
                 if (ipmi)
                 {
                     std::optional<bool> ipmiProtocolEnabled;
-                    if (!json_util::readJson(*ipmi, asyncResp->res,
-                                             "ProtocolEnabled",
-                                             ipmiProtocolEnabled))
+                    std::optional<uint16_t> ipmiPortNumber;
+                    if (!json_util::readJson(
+                            *ipmi, asyncResp->res, "ProtocolEnabled",
+                            ipmiProtocolEnabled, "Port", ipmiPortNumber))
                     {
                         return;
                     }
@@ -378,14 +379,22 @@ inline void requestRoutesNetworkProtocol(App& app)
                                                  "phosphor_2dipmi_2dnet",
                                                  *ipmiProtocolEnabled);
                     }
+
+                    if (ipmiPortNumber)
+                    {
+                        service_util::setPortNumber(asyncResp,
+                                                    "phosphor_2dipmi_2dnet",
+                                                    *ipmiPortNumber);
+                    }
                 }
 
                 if (ssh)
                 {
                     std::optional<bool> sshProtocolEnabled;
-                    if (!json_util::readJson(*ssh, asyncResp->res,
-                                             "ProtocolEnabled",
-                                             sshProtocolEnabled))
+                    std::optional<uint16_t> sshPortNumber;
+                    if (!json_util::readJson(
+                            *ssh, asyncResp->res, "ProtocolEnabled",
+                            sshProtocolEnabled, "Port", sshPortNumber))
                     {
                         return;
                     }
@@ -394,6 +403,12 @@ inline void requestRoutesNetworkProtocol(App& app)
                     {
                         service_util::setEnabled(asyncResp, "dropbear",
                                                  *sshProtocolEnabled);
+                    }
+
+                    if (sshPortNumber)
+                    {
+                        service_util::setPortNumber(asyncResp, "dropbear",
+                                                    *sshPortNumber);
                     }
                 }
             });
