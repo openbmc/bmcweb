@@ -391,9 +391,10 @@ inline void requestRoutesNetworkProtocol(App& app)
                 if (ipmi)
                 {
                     std::optional<bool> ipmiProtocolEnabled;
-                    if (!json_util::readJson(*ipmi, asyncResp->res,
-                                             "ProtocolEnabled",
-                                             ipmiProtocolEnabled))
+                    std::optional<uint16_t> ipmiPortNumber;
+                    if (!json_util::readJson(
+                            *ipmi, asyncResp->res, "ProtocolEnabled",
+                            ipmiProtocolEnabled, "Port", ipmiPortNumber))
                     {
                         return;
                     }
@@ -409,14 +410,27 @@ inline void requestRoutesNetworkProtocol(App& app)
                                 }
                             });
                     }
+
+                    if (ipmiPortNumber)
+                    {
+                        service_config::setPortNumber(
+                            "phosphor_2dipmi_2dnet", *ipmiPortNumber,
+                            [asyncResp](const boost::system::error_code ec) {
+                                if (ec)
+                                {
+                                    messages::internalError(asyncResp->res);
+                                }
+                            });
+                    }
                 }
 
                 if (ssh)
                 {
                     std::optional<bool> sshProtocolEnabled;
-                    if (!json_util::readJson(*ssh, asyncResp->res,
-                                             "ProtocolEnabled",
-                                             sshProtocolEnabled))
+                    std::optional<uint16_t> sshPortNumber;
+                    if (!json_util::readJson(
+                            *ssh, asyncResp->res, "ProtocolEnabled",
+                            sshProtocolEnabled, "Port", sshPortNumber))
                     {
                         return;
                     }
@@ -425,6 +439,18 @@ inline void requestRoutesNetworkProtocol(App& app)
                     {
                         service_config::setEnabled(
                             "dropbear", *sshProtocolEnabled,
+                            [asyncResp](const boost::system::error_code ec) {
+                                if (ec)
+                                {
+                                    messages::internalError(asyncResp->res);
+                                }
+                            });
+                    }
+
+                    if (sshPortNumber)
+                    {
+                        service_config::setPortNumber(
+                            "dropbear", *sshPortNumber,
                             [asyncResp](const boost::system::error_code ec) {
                                 if (ec)
                                 {
