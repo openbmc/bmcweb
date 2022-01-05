@@ -397,7 +397,9 @@ inline void requestRoutesNetworkProtocol(App& app)
         std::optional<std::vector<nlohmann::json>> ntpServerObjects;
         std::optional<bool> ntpEnabled;
         std::optional<bool> ipmiEnabled;
+        std::optional<uint16_t> ipmiPort;
         std::optional<bool> sshEnabled;
+        std::optional<uint16_t> sshPort;
 
         // clang-format off
         if (!json_util::readJsonPatch(
@@ -406,7 +408,9 @@ inline void requestRoutesNetworkProtocol(App& app)
                 "NTP/NTPServers", ntpServerObjects,
                 "NTP/ProtocolEnabled", ntpEnabled,
                 "IPMI/ProtocolEnabled", ipmiEnabled,
-                "SSH/ProtocolEnabled", sshEnabled))
+                "IPMI/Port", ipmiPort,
+                "SSH/ProtocolEnabled", sshEnabled,
+                "SSH/Port", sshPort))
         {
             return;
         }
@@ -444,10 +448,18 @@ inline void requestRoutesNetworkProtocol(App& app)
         {
             service_util::setEnabled(asyncResp, ipmiServiceName, *ipmiEnabled);
         }
+        if (ipmiPort)
+        {
+            service_util::setPortNumber(asyncResp, ipmiServiceName, *ipmiPort);
+        }
 
         if (sshEnabled)
         {
             service_util::setEnabled(asyncResp, sshServiceName, *sshEnabled);
+        }
+        if (sshPort)
+        {
+            service_util::setPortNumber(asyncResp, sshServiceName, *sshPort);
         }
         });
 
