@@ -95,6 +95,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "26653a50_28f2fec9",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-01-05T22:58:47Z",
+      "side": 1,
+      "message": "Actually, this isn\u0027t used at all in the codebase anymore it looks like.  I\u0027ve now removed it.\n\nDone.",
+      "parentUuid": "55d8d84a_9858d262",
+      "range": {
+        "startLine": 37,
+        "startChar": 0,
+        "endLine": 39,
+        "endChar": 0
+      },
+      "revId": "9538d95bdba2e180cac9008a092de978933e78ab",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6c4228fd_5e0d5ffe",
@@ -214,6 +238,30 @@
       "side": 1,
       "message": "Ack",
       "parentUuid": "4463eb3c_bbb1dc2c",
+      "range": {
+        "startLine": 23,
+        "startChar": 0,
+        "endLine": 25,
+        "endChar": 30
+      },
+      "revId": "9538d95bdba2e180cac9008a092de978933e78ab",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3d4aa15b_17f494ff",
+        "filename": "redfish-core/lib/virtual_media.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-01-05T22:58:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5fd9e515_0188d1c3",
       "range": {
         "startLine": 23,
         "startChar": 0,
