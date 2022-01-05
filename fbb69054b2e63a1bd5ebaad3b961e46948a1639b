@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6b9f7c55_1a75ae7d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001252
+      },
+      "writtenOn": "2022-01-05T14:22:28Z",
+      "side": 1,
+      "message": "For the \"port number is null when service disabled\" issue, it can be solved by calling service-config-manager to get the service info instead of calling systemd\n\nPros:\n* Can get port number when service disabled\n* Setting service enable/port will reflect immediately on redfish\n\nCons:\n* It represents the configured status, not real status. e.g. Disabling service via systemctl will not \nmake redfish to show ServiceEnabled\u003d\u003dfalse unless service-config-manager restarts.\n",
+      "revId": "fbb69054b2e63a1bd5ebaad3b961e46948a1639b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
