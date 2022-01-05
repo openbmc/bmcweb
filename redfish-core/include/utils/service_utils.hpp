@@ -193,5 +193,45 @@ void setEnabled(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
             "xyz.openbmc_project.Control.Service.Attributes"});
 }
 
+void setPortNumber(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                   const std::string& serviceName, const uint16_t portNumber)
+{
+    crow::connections::systemBus->async_method_call(
+        [asyncResp, serviceName,
+         portNumber](const boost::system::error_code ec,
+                     const crow::openbmc_mapper::GetSubTreeType& subtree) {
+            if (ec)
+            {
+                messages::internalError(asyncResp->res);
+                return;
+            }
+
+            for (const auto& entry : subtree)
+            {
+                if (matchService(entry.first, serviceName))
+                {
+                    crow::connections::systemBus->async_method_call(
+                        [asyncResp](const boost::system::error_code ec2) {
+                            if (ec2)
+                            {
+                                messages::internalError(asyncResp->res);
+                                return;
+                            }
+                        },
+                        entry.second.front().first, entry.first,
+                        "org.freedesktop.DBus.Properties", "Set",
+                        "xyz.openbmc_project.Control.Service.SocketAttributes",
+                        "Port", dbus::utility::DbusVariantType{portNumber});
+                }
+            }
+        },
+        "xyz.openbmc_project.ObjectMapper",
+        "/xyz/openbmc_project/object_mapper",
+        "xyz.openbmc_project.ObjectMapper", "GetSubTree",
+        "/xyz/openbmc_project/control/service", 0,
+        std::array<const char*, 1>{
+            "xyz.openbmc_project.Control.Service.SocketAttributes"});
+}
+
 } // namespace service_util
 } // namespace redfish
