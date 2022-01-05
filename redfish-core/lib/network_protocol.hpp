@@ -324,10 +324,11 @@ inline void requestRoutesNetworkProtocol(App& app)
                 std::optional<nlohmann::json> ntp;
                 std::optional<nlohmann::json> ipmi;
                 std::optional<nlohmann::json> ssh;
+                std::optional<nlohmann::json> https;
 
                 if (!json_util::readJsonPatch(req, asyncResp->res, "NTP", ntp,
                                               "HostName", newHostName, "IPMI",
-                                              ipmi, "SSH", ssh))
+                                              ipmi, "SSH", ssh, "HTTPS", https))
                 {
                     return;
                 }
@@ -409,6 +410,30 @@ inline void requestRoutesNetworkProtocol(App& app)
                     {
                         service_util::setPortNumber(asyncResp, "dropbear",
                                                     *sshPortNumber);
+                    }
+                }
+
+                if (https)
+                {
+                    std::optional<bool> httpsProtocolEnabled;
+                    std::optional<uint16_t> httpsPortNumber;
+                    if (!json_util::readJson(
+                            *https, asyncResp->res, "ProtocolEnabled",
+                            httpsProtocolEnabled, "Port", httpsPortNumber))
+                    {
+                        return;
+                    }
+
+                    if (httpsProtocolEnabled)
+                    {
+                        service_util::setEnabled(asyncResp, "bmcweb",
+                                                 *httpsProtocolEnabled);
+                    }
+
+                    if (httpsPortNumber)
+                    {
+                        service_util::setPortNumber(asyncResp, "bmcweb",
+                                                    *httpsPortNumber);
                     }
                 }
             });
