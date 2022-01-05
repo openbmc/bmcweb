@@ -355,6 +355,47 @@ inline void
             "xyz.openbmc_project.Control.Service.Attributes"});
 }
 
+inline void handlePort(const uint16_t port,
+                       const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                       const std::string_view netBasePath)
+{
+    crow::connections::systemBus->async_method_call(
+        [port, asyncResp,
+         netBasePath](const boost::system::error_code ec,
+                      const crow::openbmc_mapper::GetSubTreeType& subtree) {
+            if (ec)
+            {
+                messages::internalError(asyncResp->res);
+                return;
+            }
+
+            for (const auto& entry : subtree)
+            {
+                if (boost::algorithm::starts_with(entry.first, netBasePath))
+                {
+                    crow::connections::systemBus->async_method_call(
+                        [asyncResp](const boost::system::error_code ec2) {
+                            if (ec2)
+                            {
+                                messages::internalError(asyncResp->res);
+                                return;
+                            }
+                        },
+                        entry.second.begin()->first, entry.first,
+                        "org.freedesktop.DBus.Properties", "Set",
+                        "xyz.openbmc_project.Control.Service.SocketAttributes",
+                        "Port", dbus::utility::DbusVariantType{port});
+                }
+            }
+        },
+        "xyz.openbmc_project.ObjectMapper",
+        "/xyz/openbmc_project/object_mapper",
+        "xyz.openbmc_project.ObjectMapper", "GetSubTree",
+        "/xyz/openbmc_project/control/service", 0,
+        std::array<const char*, 1>{
+            "xyz.openbmc_project.Control.Service.SocketAttributes"});
+}
+
 inline std::string getHostName()
 {
     std::string hostName;
@@ -448,9 +489,10 @@ inline void requestRoutesNetworkProtocol(App& app)
             if (ipmi)
             {
                 std::optional<bool> ipmiProtocolEnabled;
+                std::optional<uint16_t> ipmiPort;
                 if (!json_util::readJson(*ipmi, asyncResp->res,
-                                         "ProtocolEnabled",
-                                         ipmiProtocolEnabled))
+                                         "ProtocolEnabled", ipmiProtocolEnabled,
+                                         "Port", ipmiPort))
                 {
                     return;
                 }
@@ -461,13 +503,22 @@ inline void requestRoutesNetworkProtocol(App& app)
                         *ipmiProtocolEnabled, asyncResp,
                         "/xyz/openbmc_project/control/service/phosphor_2dipmi_2dnet_40");
                 }
+
+                if (ipmiPort)
+                {
+                    handlePort(
+                        *ipmiPort, asyncResp,
+                        "/xyz/openbmc_project/control/service/phosphor_2dipmi_2dnet_40");
+                }
             }
 
             if (ssh)
             {
                 std::optional<bool> sshProtocolEnabled;
+                std::optional<uint16_t> sshPort;
                 if (!json_util::readJson(*ssh, asyncResp->res,
-                                         "ProtocolEnabled", sshProtocolEnabled))
+                                         "ProtocolEnabled", sshProtocolEnabled,
+                                         "Port", sshPort))
                 {
                     return;
                 }
@@ -477,6 +528,12 @@ inline void requestRoutesNetworkProtocol(App& app)
                     handleProtocolEnabled(
                         *sshProtocolEnabled, asyncResp,
                         "/xyz/openbmc_project/control/service/dropbear");
+                }
+
+                if (sshPort)
+                {
+                    handlePort(*sshPort, asyncResp,
+                               "/xyz/openbmc_project/control/service/dropbear");
                 }
             }
         });
