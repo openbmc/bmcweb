@@ -33,6 +33,466 @@
       "message": "I had some comments from a while back.  Might not apply to latest patchset.",
       "revId": "5dbca30654472b4d0f440cccb42c1e3075be3a6a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "355694b6_bb78f6b2",
+        "filename": "redfish-core/lib/external_storer.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-01-05T20:48:49Z",
+      "side": 1,
+      "message": "This is explicitly called out in COMMON_ERRORS.md why we don\u0027t \"minimize duplication\"",
+      "range": {
+        "startLine": 23,
+        "startChar": 3,
+        "endLine": 23,
+        "endChar": 65
+      },
+      "revId": "5dbca30654472b4d0f440cccb42c1e3075be3a6a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1b3feec6_06d78e59",
+        "filename": "redfish-core/lib/external_storer.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-01-05T20:48:49Z",
+      "side": 1,
+      "message": "Definitely not the right values, but I get this is WIP.",
+      "range": {
+        "startLine": 24,
+        "startChar": 30,
+        "endLine": 24,
+        "endChar": 35
+      },
+      "revId": "5dbca30654472b4d0f440cccb42c1e3075be3a6a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f9a63897_1c4a010c",
+        "filename": "redfish-core/lib/external_storer_instance.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-01-05T20:48:49Z",
+      "side": 1,
+      "message": "Lets add limits in another patch.",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 31
+      },
+      "revId": "5dbca30654472b4d0f440cccb42c1e3075be3a6a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9e6b3683_b17500e9",
+        "filename": "redfish-core/lib/external_storer_instance.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-01-05T20:48:49Z",
+      "side": 1,
+      "message": "Please just inline this.",
+      "range": {
+        "startLine": 24,
+        "startChar": 6,
+        "endLine": 24,
+        "endChar": 12
+      },
+      "revId": "5dbca30654472b4d0f440cccb42c1e3075be3a6a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "92182ce2_7fba86d9",
+        "filename": "redfish-core/lib/external_storer_instance.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-01-05T20:48:49Z",
+      "side": 1,
+      "message": "Maybe a better class name here?  \"Instance\" isn\u0027t very descriptive.",
+      "range": {
+        "startLine": 30,
+        "startChar": 6,
+        "endLine": 30,
+        "endChar": 14
+      },
+      "revId": "5dbca30654472b4d0f440cccb42c1e3075be3a6a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "26ded74c_7ed671f2",
+        "filename": "redfish-core/lib/external_storer_instance.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-01-05T20:48:49Z",
+      "side": 1,
+      "message": "no need to explicitly construct things with no arguments.",
+      "range": {
+        "startLine": 34,
+        "startChar": 16,
+        "endLine": 34,
+        "endChar": 22
+      },
+      "revId": "5dbca30654472b4d0f440cccb42c1e3075be3a6a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d4ee3553_e4ac2a41",
+        "filename": "redfish-core/lib/external_storer_instance.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-01-05T20:48:49Z",
+      "side": 1,
+      "message": "These are pretty important todos.  As written, this won\u0027t really have the intended behavior (ie, type and all fields are provided by user).",
+      "range": {
+        "startLine": 46,
+        "startChar": 0,
+        "endLine": 52,
+        "endChar": 78
+      },
+      "revId": "5dbca30654472b4d0f440cccb42c1e3075be3a6a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "16b4b57f_fbf6591b",
+        "filename": "redfish-core/lib/external_storer_instance.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-01-05T20:48:49Z",
+      "side": 1,
+      "message": "This makes the assumption that all resources are collections, which doesn\u0027t seem right to me.",
+      "range": {
+        "startLine": 56,
+        "startChar": 8,
+        "endLine": 56,
+        "endChar": 70
+      },
+      "revId": "5dbca30654472b4d0f440cccb42c1e3075be3a6a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9b8cc932_e8036ba2",
+        "filename": "redfish-core/lib/external_storer_instance.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-01-05T20:48:49Z",
+      "side": 1,
+      "message": "This is just iterating all entries?  Doesn\u0027t there need to be some matching on URL?",
+      "range": {
+        "startLine": 58,
+        "startChar": 33,
+        "endLine": 58,
+        "endChar": 40
+      },
+      "revId": "5dbca30654472b4d0f440cccb42c1e3075be3a6a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9f2c1253_dfc9239d",
+        "filename": "redfish-core/lib/external_storer_instance.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-01-05T20:48:49Z",
+      "side": 1,
+      "message": "Remove.  Expand is handled at a higher level, and wouldn\u0027t be storer specific.",
+      "range": {
+        "startLine": 60,
+        "startChar": 0,
+        "endLine": 60,
+        "endChar": 46
+      },
+      "revId": "5dbca30654472b4d0f440cccb42c1e3075be3a6a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d71a2e14_e8263141",
+        "filename": "redfish-core/lib/external_storer_instance.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-01-05T20:48:49Z",
+      "side": 1,
+      "message": "Again, not all resources are collections.",
+      "range": {
+        "startLine": 65,
+        "startChar": 8,
+        "endLine": 65,
+        "endChar": 68
+      },
+      "revId": "5dbca30654472b4d0f440cccb42c1e3075be3a6a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e38867d1_6ee4a8a2",
+        "filename": "redfish-core/lib/external_storer_instance.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 249,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-01-05T20:48:49Z",
+      "side": 1,
+      "message": "Lets add round trip parsing in another patchset to keep this patchset simple.",
+      "range": {
+        "startLine": 249,
+        "startChar": 0,
+        "endLine": 249,
+        "endChar": 68
+      },
+      "revId": "5dbca30654472b4d0f440cccb42c1e3075be3a6a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cd9a4197_d368a768",
+        "filename": "redfish-core/lib/external_storer_instance.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 259,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-01-05T20:48:49Z",
+      "side": 1,
+      "message": "This is expclicitly called out in COMMON_ERRORS.md.  Please read and understand that doc and do as it asks.",
+      "range": {
+        "startLine": 254,
+        "startChar": 0,
+        "endLine": 259,
+        "endChar": 9
+      },
+      "revId": "5dbca30654472b4d0f440cccb42c1e3075be3a6a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "33fd3c08_743e81f1",
+        "filename": "redfish-core/lib/external_storer_instance.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 261,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-01-05T20:48:49Z",
+      "side": 1,
+      "message": "Empty dictionary might be valid.",
+      "range": {
+        "startLine": 261,
+        "startChar": 11,
+        "endLine": 261,
+        "endChar": 55
+      },
+      "revId": "5dbca30654472b4d0f440cccb42c1e3075be3a6a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "919d538e_9d4056b1",
+        "filename": "redfish-core/lib/external_storer_instance.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 262,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-01-05T20:48:49Z",
+      "side": 1,
+      "message": "You probably want is_object() here.  this will return a valid value if the user writes an array.",
+      "range": {
+        "startLine": 262,
+        "startChar": 0,
+        "endLine": 262,
+        "endChar": 45
+      },
+      "revId": "5dbca30654472b4d0f440cccb42c1e3075be3a6a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a8177d55_0ff11559",
+        "filename": "redfish-core/lib/external_storer_instance.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 293,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-01-05T20:48:49Z",
+      "side": 1,
+      "message": "This makes the assumption that all collections are sequenced by numbers, which isn\u0027t true.",
+      "range": {
+        "startLine": 293,
+        "startChar": 25,
+        "endLine": 293,
+        "endChar": 31
+      },
+      "revId": "5dbca30654472b4d0f440cccb42c1e3075be3a6a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fe003017_321618a6",
+        "filename": "redfish-core/lib/external_storer_instance.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 295,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-01-05T20:48:49Z",
+      "side": 1,
+      "message": "String copy.",
+      "range": {
+        "startLine": 295,
+        "startChar": 0,
+        "endLine": 295,
+        "endChar": 28
+      },
+      "revId": "5dbca30654472b4d0f440cccb42c1e3075be3a6a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f8584bba_cb49577c",
+        "filename": "redfish-core/lib/external_storer_instance.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 304,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-01-05T20:48:49Z",
+      "side": 1,
+      "message": "Seems odd we would need to special case this at this level.  Should we validate the input earlier?",
+      "range": {
+        "startLine": 304,
+        "startChar": 11,
+        "endLine": 304,
+        "endChar": 56
+      },
+      "revId": "5dbca30654472b4d0f440cccb42c1e3075be3a6a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8ad48462_b2f9239f",
+        "filename": "redfish-core/lib/external_storer_instance.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 340,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-01-05T20:48:49Z",
+      "side": 1,
+      "message": "lets worry about oldest invalidation in a future patch to keep this patchset simple.  Getting storage correct will be difficult enough without adding everything in a single patch.",
+      "range": {
+        "startLine": 329,
+        "startChar": 0,
+        "endLine": 340,
+        "endChar": 5
+      },
+      "revId": "5dbca30654472b4d0f440cccb42c1e3075be3a6a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "50fdbfcb_861e13c3",
+        "filename": "redfish-core/lib/external_storer_instance.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 361,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-01-05T20:48:49Z",
+      "side": 1,
+      "message": "no need for mutexes in single threaded code.",
+      "range": {
+        "startLine": 361,
+        "startChar": 0,
+        "endLine": 361,
+        "endChar": 20
+      },
+      "revId": "5dbca30654472b4d0f440cccb42c1e3075be3a6a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
