@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "01d6ff72_fa09804b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-01-05T17:39:08Z",
+      "side": 1,
+      "message": "How does this patchset relate to https://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/49684?\n\nThey have merge conflicts on one another and they\u0027re editing the same code, both by the same author.  Based on how you pushed this, it\u0027s not clear what you intended here in terms of getting this merged",
+      "revId": "4cc1da56f614bd3cf7e307592099235aabbf7591",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
