@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "667bd1f8_519b114f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-01-05T19:39:43Z",
+      "side": 1,
+      "message": "This is a pretty trivial change for something that\u0027s already broken, I\u0027m ok with this level of testing in this particular case.",
+      "range": {
+        "startLine": 28,
+        "startChar": 8,
+        "endLine": 28,
+        "endChar": 22
+      },
+      "revId": "5ac5a2f4881c83d453fa517f8f1ebe49593939a3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
