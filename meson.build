@@ -397,6 +397,7 @@ srcfiles_unittest = [
   'redfish-core/ut/lock_test.cpp',
   'redfish-core/ut/privileges_test.cpp',
   'redfish-core/ut/registries_test.cpp',
+  'redfish-core/ut/service_utils_test.cpp',
   'redfish-core/ut/stl_utils_test.cpp',
   'redfish-core/ut/time_utils_test.cpp',
   'src/crow_getroutes_test.cpp',
