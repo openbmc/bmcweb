@@ -1480,7 +1480,7 @@ struct SetPIDValues : std::enable_shared_from_this<SetPIDValues>
             "xyz.openbmc_project.ObjectMapper", "GetSubTree", "/", 0,
             std::array<const char*, 1>{thermalModeIface});
     }
-    ~SetPIDValues()
+    void pidSetDone()
     {
         if (asyncResp->res.result() != boost::beast::http::status::ok)
         {
@@ -1683,6 +1683,19 @@ struct SetPIDValues : std::enable_shared_from_this<SetPIDValues>
             }
         }
     }
+
+    ~SetPIDValues()
+    {
+        try
+        {
+            pidSetDone();
+        }
+        catch (...)
+        {
+            BMCWEB_LOG_CRITICAL << "pidSetDone threw exception";
+        }
+    }
+
     std::shared_ptr<bmcweb::AsyncResp> asyncResp;
     std::vector<std::pair<std::string, std::optional<nlohmann::json>>>
         configuration;
