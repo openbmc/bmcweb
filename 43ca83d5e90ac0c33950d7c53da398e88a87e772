@@ -45,6 +45,121 @@
       },
       "revId": "43ca83d5e90ac0c33950d7c53da398e88a87e772",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d0e522d6_7b8dc969",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 322,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-01-06T16:35:44Z",
+      "side": 1,
+      "message": "We shouldn\u0027t ever be writing a value, then erasing it.  I\u0027m not even sure what that accomplishes.",
+      "range": {
+        "startLine": 319,
+        "startChar": 0,
+        "endLine": 322,
+        "endChar": 21
+      },
+      "revId": "43ca83d5e90ac0c33950d7c53da398e88a87e772",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ade76dfe_12e69bfc",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 335,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-01-06T16:35:44Z",
+      "side": 1,
+      "message": "Technically this should be setting internal error, as we\u0027ve failed our dbus interface gaurantees.",
+      "range": {
+        "startLine": 332,
+        "startChar": 0,
+        "endLine": 335,
+        "endChar": 21
+      },
+      "revId": "43ca83d5e90ac0c33950d7c53da398e88a87e772",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "535ac80e_df4ecddc",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 363,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-01-06T16:35:44Z",
+      "side": 1,
+      "message": "Same here.  This should be internal error, and should never be setting, then removing a field.",
+      "range": {
+        "startLine": 360,
+        "startChar": 0,
+        "endLine": 363,
+        "endChar": 21
+      },
+      "revId": "43ca83d5e90ac0c33950d7c53da398e88a87e772",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8b7cda5e_978f1134",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 377,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-01-06T16:35:44Z",
+      "side": 1,
+      "message": "Again, same here.",
+      "range": {
+        "startLine": 374,
+        "startChar": 0,
+        "endLine": 377,
+        "endChar": 21
+      },
+      "revId": "43ca83d5e90ac0c33950d7c53da398e88a87e772",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "651d1548_c374fcdf",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 392,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-01-06T16:35:44Z",
+      "side": 1,
+      "message": "This is the one case where the code is closer to correct, but we still shouldn\u0027t ever erase a property.  If sparePartNumber !\u003d nullptr , then we should still be setting internalError.  If *sparePartNumber is empty, then we should omit setting the property.",
+      "range": {
+        "startLine": 389,
+        "startChar": 0,
+        "endLine": 392,
+        "endChar": 21
+      },
+      "revId": "43ca83d5e90ac0c33950d7c53da398e88a87e772",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
