@@ -16,6 +16,24 @@
       "message": "Formatting ;) \n\nbut change looks good overall. \n\n\nFormatting code under /var/lib/jenkins-slave/workspace/ci-repository/openbmc/bmcweb/\nRunning the json validator on the repo using the global config \u003e \neslint /var/lib/jenkins-slave/workspace/ci-repository/openbmc/bmcweb --no-eslintrc -c /var/lib/jenkins-slave/workspace/ci-repository/openbmc/eslint-global-config.json                --ext .json --resolve-plugins-relative-to /usr/local/lib/node_modules               --no-error-on-unmatched-pattern\ndiff --git a/include/dbus_utility.hpp b/include/dbus_utility.hpp\nindex 6fc71df..d0df39f 100644\n--- a/include/dbus_utility.hpp\n+++ b/include/dbus_utility.hpp\n@@ -18,9 +18,9 @@\n #include \u003csdbusplus/message.hpp\u003e\n #include \u003csdbusplus/utility/dedup_variant.hpp\u003e\n \n-#include \u003cvector\u003e\n #include \u003cfilesystem\u003e\n #include \u003cregex\u003e\n+#include \u003cvector\u003e",
       "revId": "fc2310f6716a578e255ee20d1ef3337e21589510",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b99487ae_4d499124",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-01-06T22:38:02Z",
+      "side": 1,
+      "message": "Doh",
+      "parentUuid": "21aa9184_55657bb3",
+      "revId": "fc2310f6716a578e255ee20d1ef3337e21589510",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
