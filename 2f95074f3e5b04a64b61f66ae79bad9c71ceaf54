@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7af71040_b50b6b3c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-01-06T22:12:53Z",
+      "side": 1,
+      "message": "Is xyz.openbmc_project.Control.Service.Manager  used by everyone in the community ? Should we call it directly ?\nI know we do a few applications but for most, we first do a ObjectMapper call.",
+      "range": {
+        "startLine": 11,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 60
+      },
+      "revId": "2f95074f3e5b04a64b61f66ae79bad9c71ceaf54",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a9c50ab5_321f4022",
+        "filename": "redfish-core/lib/service_config_manager.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-01-06T22:12:53Z",
+      "side": 1,
+      "message": "Should this be a util ?",
+      "revId": "2f95074f3e5b04a64b61f66ae79bad9c71ceaf54",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a3209b66_7fbb5af2",
+        "filename": "redfish-core/lib/service_config_manager.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-01-06T22:12:53Z",
+      "side": 1,
+      "message": "What if you use a different application ? \nBefore we didn\u0027t have this hardcoded.",
+      "revId": "2f95074f3e5b04a64b61f66ae79bad9c71ceaf54",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
