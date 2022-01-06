@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c1fddd1d_914e9f48",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-01-06T16:32:40Z",
+      "side": 1,
+      "message": "in the Asset interface, Model and Manufacturer fields are not optional, so if they\u0027re being set to empty string, that\u0027s a dbus API break.  The fact that it causes a redfish validator failure is secondary.",
+      "range": {
+        "startLine": 10,
+        "startChar": 17,
+        "endLine": 10,
+        "endChar": 50
+      },
+      "revId": "43ca83d5e90ac0c33950d7c53da398e88a87e772",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "021e7e17_99918a83",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-01-06T16:32:40Z",
+      "side": 1,
+      "message": "This doesn\u0027t seem like the right fix.  I\u0027m not really understanding the issue though;  Do you have devices that expose an asset interface, but leave manufacturer blank?  That\u0027s a bug on the producing daemon.\n\nYes, SparePartNumber should be optional, which we can encode.",
+      "range": {
+        "startLine": 11,
+        "startChar": 0,
+        "endLine": 13,
+        "endChar": 0
+      },
+      "revId": "43ca83d5e90ac0c33950d7c53da398e88a87e772",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
