@@ -2699,61 +2699,45 @@ inline void requestRoutesCrashdumpEntryCollection(App& app)
             boost::beast::http::verb::
                 get)([](const crow::Request&,
                         const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
-            // Collections don't include the static data added by SubRoute
-            // because it has a duplicate entry for members
-            auto getLogEntriesCallback = [asyncResp](
-                                             const boost::system::error_code ec,
-                                             const std::vector<std::string>&
-                                                 resp) {
-                if (ec)
-                {
-                    if (ec.value() !=
-                        boost::system::errc::no_such_file_or_directory)
-                    {
-                        BMCWEB_LOG_DEBUG << "failed to get entries ec: "
-                                         << ec.message();
-                        messages::internalError(asyncResp->res);
-                        return;
-                    }
-                }
-                asyncResp->res.jsonValue["@odata.type"] =
-                    "#LogEntryCollection.LogEntryCollection";
-                asyncResp->res.jsonValue["@odata.id"] =
-                    "/redfish/v1/Systems/system/LogServices/Crashdump/Entries";
-                asyncResp->res.jsonValue["Name"] = "Open BMC Crashdump Entries";
-                asyncResp->res.jsonValue["Description"] =
-                    "Collection of Crashdump Entries";
-                nlohmann::json& logEntryArray =
-                    asyncResp->res.jsonValue["Members"];
-                logEntryArray = nlohmann::json::array();
-                std::vector<std::string> logIDs;
-                // Get the list of log entries and build up an empty array big
-                // enough to hold them
-                for (const std::string& objpath : resp)
-                {
-                    // Get the log ID
-                    std::size_t lastPos = objpath.rfind('/');
-                    if (lastPos == std::string::npos)
-                    {
-                        continue;
-                    }
-                    logIDs.emplace_back(objpath.substr(lastPos + 1));
-
-                    // Add a space for the log entry to the array
-                    logEntryArray.push_back({});
-                }
-                // Now go through and set up async calls to fill in the entries
-                size_t index = 0;
-                for (const std::string& logID : logIDs)
-                {
-                    // Add the log entry to the array
-                    logCrashdumpEntry(asyncResp, logID, logEntryArray[index++]);
-                }
-                asyncResp->res.jsonValue["Members@odata.count"] =
-                    logEntryArray.size();
-            };
             crow::connections::systemBus->async_method_call(
-                std::move(getLogEntriesCallback),
+                [asyncResp](const boost::system::error_code ec,
+                            const std::vector<std::string>& resp) {
+                    if (ec)
+                    {
+                        if (ec.value() !=
+                            boost::system::errc::no_such_file_or_directory)
+                        {
+                            BMCWEB_LOG_DEBUG << "failed to get entries ec: "
+                                             << ec.message();
+                            messages::internalError(asyncResp->res);
+                            return;
+                        }
+                    }
+                    asyncResp->res.jsonValue["@odata.type"] =
+                        "#LogEntryCollection.LogEntryCollection";
+                    asyncResp->res.jsonValue["@odata.id"] =
+                        "/redfish/v1/Systems/system/LogServices/Crashdump/Entries";
+                    asyncResp->res.jsonValue["Name"] =
+                        "Open BMC Crashdump Entries";
+                    asyncResp->res.jsonValue["Description"] =
+                        "Collection of Crashdump Entries";
+                    asyncResp->res.jsonValue["Members"] =
+                        nlohmann::json::array();
+
+                    for (const std::string& path : resp)
+                    {
+                        const sdbusplus::message::object_path objPath(path);
+                        // Get the log ID
+                        std::string logID = objPath.filename();
+                        if (logID.empty())
+                        {
+                            continue;
+                        }
+                        // Add the log entry to the array
+                        logCrashdumpEntry(asyncResp, logID,
+                                          asyncResp->res.jsonValue["Members"]);
+                    }
+                },
                 "xyz.openbmc_project.ObjectMapper",
                 "/xyz/openbmc_project/object_mapper",
                 "xyz.openbmc_project.ObjectMapper", "GetSubTreePaths", "", 0,
