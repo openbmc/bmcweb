@@ -145,8 +145,8 @@ class KvmSession
 
     crow::websocket::Connection& conn;
     boost::asio::ip::tcp::socket hostSocket;
-    boost::beast::flat_static_buffer<1024U * 50U> outputBuffer;
-    boost::beast::flat_static_buffer<1024U> inputBuffer;
+    boost::beast::flat_static_buffer<1024UL * 50UL> outputBuffer;
+    boost::beast::flat_static_buffer<1024UL> inputBuffer;
     bool doingWrite;
 };
 
