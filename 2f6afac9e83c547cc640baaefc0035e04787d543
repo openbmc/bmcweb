@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "665f819b_fbe691bd",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 225,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-01-06T22:04:52Z",
+      "side": 1,
+      "message": "I guess if we ever add Model this would more than just CoreCount.. I guess I am fine with the name then. getCoreCount getProcessorSummaryCoreCount would be better for today",
+      "range": {
+        "startLine": 225,
+        "startChar": 12,
+        "endLine": 225,
+        "endChar": 34
+      },
+      "revId": "2f6afac9e83c547cc640baaefc0035e04787d543",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9570760a_98678503",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 228,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-01-06T22:04:52Z",
+      "side": 1,
+      "message": "This should probably look for more than just Item.Cpu because a Redfish Processor is broader than just a CPU. Oh well a change another day.",
+      "revId": "2f6afac9e83c547cc640baaefc0035e04787d543",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
