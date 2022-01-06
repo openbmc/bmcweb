@@ -18,7 +18,8 @@ namespace time_utils
 namespace details
 {
 
-using Days = std::chrono::duration<long long, std::ratio<24 * 60 * 60>>;
+constexpr intmax_t dayInSeconds = static_cast<intmax_t>(24 * 60 * 60);
+using Days = std::chrono::duration<long long, std::ratio<dayInSeconds>>;
 
 inline void leftZeroPadding(std::string& str, const std::size_t padding)
 {
