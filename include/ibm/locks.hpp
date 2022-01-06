@@ -39,7 +39,7 @@ using ListOfSessionIds = std::vector<std::string>;
 
 class Lock
 {
-    uint32_t transactionId;
+    uint32_t transactionId = 0;
     boost::container::flat_map<uint32_t, LockRequests> lockTable;
 
   protected:
@@ -429,7 +429,7 @@ inline bool Lock::isValidLockRequest(const LockRequest& refLockRecord)
 inline Rc Lock::isConflictWithTable(const LockRequests& refLockRequestStructure)
 {
 
-    uint32_t transactionId;
+    uint32_t transactionId = 0;
 
     if (lockTable.empty())
     {

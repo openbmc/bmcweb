@@ -682,87 +682,6 @@ inline std::string dbusToRfBootMode(const std::string& dbusMode)
 }
 
 /**
- * @brief Translates boot progress DBUS property value to redfish.
- *
- * @param[in] dbusBootProgress    The boot progress in DBUS speak.
- *
- * @return Returns as a string, the boot progress in Redfish terms. If
- *         translation cannot be done, returns "None".
- */
-inline std::string dbusToRfBootProgress(const std::string& dbusBootProgress)
-{
-    // Now convert the D-Bus BootProgress to the appropriate Redfish
-    // enum
-    std::string rfBpLastState = "None";
-    if (dbusBootProgress == "xyz.openbmc_project.State.Boot.Progress."
-                            "ProgressStages.Unspecified")
-    {
-        rfBpLastState = "None";
-    }
-    else if (dbusBootProgress ==
-             "xyz.openbmc_project.State.Boot.Progress.ProgressStages."
-             "PrimaryProcInit")
-    {
-        rfBpLastState = "PrimaryProcessorInitializationStarted";
-    }
-    else if (dbusBootProgress ==
-             "xyz.openbmc_project.State.Boot.Progress.ProgressStages."
-             "BusInit")
-    {
-        rfBpLastState = "BusInitializationStarted";
-    }
-    else if (dbusBootProgress ==
-             "xyz.openbmc_project.State.Boot.Progress.ProgressStages."
-             "MemoryInit")
-    {
-        rfBpLastState = "MemoryInitializationStarted";
-    }
-    else if (dbusBootProgress ==
-             "xyz.openbmc_project.State.Boot.Progress.ProgressStages."
-             "SecondaryProcInit")
-    {
-        rfBpLastState = "SecondaryProcessorInitializationStarted";
-    }
-    else if (dbusBootProgress ==
-             "xyz.openbmc_project.State.Boot.Progress.ProgressStages."
-             "PCIInit")
-    {
-        rfBpLastState = "PCIResourceConfigStarted";
-    }
-    else if (dbusBootProgress ==
-             "xyz.openbmc_project.State.Boot.Progress.ProgressStages."
-             "SystemSetup")
-    {
-        rfBpLastState = "SetupEntered";
-    }
-    else if (dbusBootProgress ==
-             "xyz.openbmc_project.State.Boot.Progress.ProgressStages."
-             "SystemInitComplete")
-    {
-        rfBpLastState = "SystemHardwareInitializationComplete";
-    }
-    else if (dbusBootProgress ==
-             "xyz.openbmc_project.State.Boot.Progress.ProgressStages."
-             "OSStart")
-    {
-        rfBpLastState = "OSBootStarted";
-    }
-    else if (dbusBootProgress ==
-             "xyz.openbmc_project.State.Boot.Progress.ProgressStages."
-             "OSRunning")
-    {
-        rfBpLastState = "OSRunning";
-    }
-    else
-    {
-        BMCWEB_LOG_DEBUG << "Unsupported D-Bus BootProgress "
-                         << dbusBootProgress;
-        // Just return the default
-    }
-    return rfBpLastState;
-}
-
-/**
  * @brief Translates boot source from Redfish to the DBus boot paths.
  *
  * @param[in] rfSource    The boot source in Redfish.
@@ -844,8 +763,70 @@ inline void getBootProgress(const std::shared_ptr<bmcweb::AsyncResp>& aResp)
 
             BMCWEB_LOG_DEBUG << "Boot Progress: " << bootProgressStr;
 
-            aResp->res.jsonValue["BootProgress"]["LastState"] =
-                dbusToRfBootProgress(bootProgressStr);
+            // Now convert the D-Bus BootProgress to the appropriate Redfish
+            // enum
+            std::string rfBpLastState = "None";
+            if (bootProgressStr ==
+                "xyz.openbmc_project.State.Boot.Progress.ProgressStages.Unspecified")
+            {
+                rfBpLastState = "None";
+            }
+            else if (
+                bootProgressStr ==
+                "xyz.openbmc_project.State.Boot.Progress.ProgressStages.PrimaryProcInit")
+            {
+                rfBpLastState = "PrimaryProcessorInitializationStarted";
+            }
+            else if (
+                bootProgressStr ==
+                "xyz.openbmc_project.State.Boot.Progress.ProgressStages.BusInit")
+            {
+                rfBpLastState = "BusInitializationStarted";
+            }
+            else if (
+                bootProgressStr ==
+                "xyz.openbmc_project.State.Boot.Progress.ProgressStages.MemoryInit")
+            {
+                rfBpLastState = "MemoryInitializationStarted";
+            }
+            else if (
+                bootProgressStr ==
+                "xyz.openbmc_project.State.Boot.Progress.ProgressStages.SecondaryProcInit")
+            {
+                rfBpLastState = "SecondaryProcessorInitializationStarted";
+            }
+            else if (
+                bootProgressStr ==
+                "xyz.openbmc_project.State.Boot.Progress.ProgressStages.PCIInit")
+            {
+                rfBpLastState = "PCIResourceConfigStarted";
+            }
+            else if (
+                bootProgressStr ==
+                "xyz.openbmc_project.State.Boot.Progress.ProgressStages.SystemInitComplete")
+            {
+                rfBpLastState = "SystemHardwareInitializationComplete";
+            }
+            else if (
+                bootProgressStr ==
+                "xyz.openbmc_project.State.Boot.Progress.ProgressStages.OSStart")
+            {
+                rfBpLastState = "OSBootStarted";
+            }
+            else if (
+                bootProgressStr ==
+                "xyz.openbmc_project.State.Boot.Progress.ProgressStages.OSRunning")
+            {
+                rfBpLastState = "OSRunning";
+            }
+            else
+            {
+                BMCWEB_LOG_DEBUG << "Unsupported D-Bus BootProgress "
+                                 << bootProgressStr;
+                // Just return the default
+            }
+
+            aResp->res.jsonValue["BootProgress"]["LastState"] = rfBpLastState;
         });
 }
 
@@ -1135,7 +1116,7 @@ inline void getAutomaticRetry(const std::shared_ptr<bmcweb::AsyncResp>& aResp)
                     "xyz.openbmc_project.Control.Boot.RebootAttempts",
                     "AttemptsLeft",
                     [aResp](const boost::system::error_code ec2,
-                            const uint32_t autoRebootAttemptsLeft) {
+                            uint32_t autoRebootAttemptsLeft) {
                         if (ec2)
                         {
                             BMCWEB_LOG_DEBUG << "D-BUS response error " << ec2;
@@ -1728,7 +1709,7 @@ inline void setAutomaticRetry(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
     BMCWEB_LOG_DEBUG << "Set Automatic Retry.";
 
     // OpenBMC only supports "Disabled" and "RetryAttempts".
-    bool autoRebootEnabled;
+    bool autoRebootEnabled = false;
 
     if (automaticRetryConfig == "Disabled")
     {
@@ -1824,8 +1805,7 @@ inline void getProvisioningStatus(std::shared_ptr<bmcweb::AsyncResp> aResp)
     BMCWEB_LOG_DEBUG << "Get OEM information.";
     crow::connections::systemBus->async_method_call(
         [aResp](const boost::system::error_code ec,
-                const std::vector<
-                    std::pair<std::string, dbus::utility::DbusVariantType>>&
+                const std::vector<std::pair<std::string, VariantType>>&
                     propertiesList) {
             nlohmann::json& oemPFR =
                 aResp->res.jsonValue["Oem"]["OpenBmc"]["FirmwareProvisioning"];
@@ -1843,8 +1823,8 @@ inline void getProvisioningStatus(std::shared_ptr<bmcweb::AsyncResp> aResp)
 
             const bool* provState = nullptr;
             const bool* lockState = nullptr;
-            for (const std::pair<std::string, dbus::utility::DbusVariantType>&
-                     property : propertiesList)
+            for (const std::pair<std::string, VariantType>& property :
+                 propertiesList)
             {
                 if (property.first == "UfmProvisioned")
                 {
@@ -2208,7 +2188,7 @@ inline void
     BMCWEB_LOG_DEBUG << "Get host watchodg";
     crow::connections::systemBus->async_method_call(
         [aResp](const boost::system::error_code ec,
-                const PropertiesType& properties) {
+                PropertiesType& properties) {
             if (ec)
             {
                 // watchdog service is stopped
@@ -2765,7 +2745,7 @@ inline void requestRoutesSystemActionsReset(App& app)
 
             // Get the command and host vs. chassis
             std::string command;
-            bool hostCommand;
+            bool hostCommand = true;
             if ((resetType == "On") || (resetType == "ForceOn"))
             {
                 command = "xyz.openbmc_project.State.Host.Transition.On";
@@ -2957,14 +2937,14 @@ inline void requestRoutesSystems(App& app)
             auto health = std::make_shared<HealthPopulate>(asyncResp);
             crow::connections::systemBus->async_method_call(
                 [health](const boost::system::error_code ec,
-                         const std::vector<std::string>& resp) {
+                         std::vector<std::string>& resp) {
                     if (ec)
                     {
                         // no inventory
                         return;
                     }
 
-                    health->inventory = resp;
+                    health->inventory = std::move(resp);
                 },
                 "xyz.openbmc_project.ObjectMapper",
                 "/xyz/openbmc_project/object_mapper",
