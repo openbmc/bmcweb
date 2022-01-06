@@ -1824,7 +1824,8 @@ inline void getProvisioningStatus(std::shared_ptr<bmcweb::AsyncResp> aResp)
     BMCWEB_LOG_DEBUG << "Get OEM information.";
     crow::connections::systemBus->async_method_call(
         [aResp](const boost::system::error_code ec,
-                const std::vector<std::pair<std::string, VariantType>>&
+                const std::vector<
+                    std::pair<std::string, dbus::utility::DbusVariantType>>&
                     propertiesList) {
             nlohmann::json& oemPFR =
                 aResp->res.jsonValue["Oem"]["OpenBmc"]["FirmwareProvisioning"];
@@ -1842,8 +1843,8 @@ inline void getProvisioningStatus(std::shared_ptr<bmcweb::AsyncResp> aResp)
 
             const bool* provState = nullptr;
             const bool* lockState = nullptr;
-            for (const std::pair<std::string, VariantType>& property :
-                 propertiesList)
+            for (const std::pair<std::string, dbus::utility::DbusVariantType>&
+                     property : propertiesList)
             {
                 if (property.first == "UfmProvisioned")
                 {
