@@ -931,7 +931,8 @@ void getEthernetIfaceData(const std::string& ethifaceId,
                           CallbackFunc&& callback)
 {
     crow::connections::systemBus->async_method_call(
-        [ethifaceId{std::string{ethifaceId}}, callback{std::move(callback)}](
+        [ethifaceId{std::string{ethifaceId}},
+         callback{std::forward<CallbackFunc>(callback)}](
             const boost::system::error_code errorCode,
             dbus::utility::ManagedObjectType& resp) {
             EthernetInterfaceData ethData{};
@@ -982,7 +983,7 @@ template <typename CallbackFunc>
 void getEthernetIfaceList(CallbackFunc&& callback)
 {
     crow::connections::systemBus->async_method_call(
-        [callback{std::move(callback)}](
+        [callback{std::forward<CallbackFunc>(callback)}](
             const boost::system::error_code errorCode,
             dbus::utility::ManagedObjectType& resp) {
             // Callback requires vector<string> to retrieve all available

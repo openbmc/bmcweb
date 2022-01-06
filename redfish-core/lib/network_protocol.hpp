@@ -82,7 +82,7 @@ template <typename CallbackFunc>
 void getEthernetIfaceData(CallbackFunc&& callback)
 {
     crow::connections::systemBus->async_method_call(
-        [callback{std::move(callback)}](
+        [callback{std::forward<CallbackFunc>(callback)}](
             const boost::system::error_code errorCode,
             const dbus::utility::ManagedObjectType& dbusData) {
             std::vector<std::string> ntpServers;
