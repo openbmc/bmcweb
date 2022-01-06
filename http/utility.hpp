@@ -425,7 +425,7 @@ inline std::string base64encode(const std::string_view data)
     size_t i = 0;
     while (i < size)
     {
-        size_t keyIndex;
+        size_t keyIndex = 0;
 
         keyIndex = static_cast<size_t>(data[i] & 0xFC) >> 2;
         *it++ = key[keyIndex];
@@ -513,10 +513,10 @@ inline bool base64Decode(const std::string_view input, std::string& output)
 
     for (size_t i = 0; i < inputLength; i++)
     {
-        char base64code0;
-        char base64code1;
+        char base64code0 = 0;
+        char base64code1 = 0;
         char base64code2 = 0; // initialized to 0 to suppress warnings
-        char base64code3;
+        char base64code3 = 0;
 
         base64code0 = getCodeValue(input[i]);
         if (base64code0 == nop)
