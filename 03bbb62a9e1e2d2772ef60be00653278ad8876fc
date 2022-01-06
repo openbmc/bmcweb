@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "03ad59be_0f140f36",
+        "filename": "redfish-core/lib/hypervisor_system.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 386,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2022-01-06T07:41:47Z",
+      "side": 1,
+      "message": "All systems will not be sending push style events.",
+      "range": {
+        "startLine": 386,
+        "startChar": 12,
+        "endLine": 386,
+        "endChar": 65
+      },
+      "revId": "03bbb62a9e1e2d2772ef60be00653278ad8876fc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
