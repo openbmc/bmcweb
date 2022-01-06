@@ -47,7 +47,7 @@ class App
     template <typename Adaptor>
     void handleUpgrade(const Request& req, Response& res, Adaptor&& adaptor)
     {
-        router.handleUpgrade(req, res, std::move(adaptor));
+        router.handleUpgrade(req, res, std::forward<Adaptor>(adaptor));
     }
 
     void handle(Request& req,
