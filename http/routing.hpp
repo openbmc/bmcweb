@@ -805,7 +805,7 @@ class Trie
             char c = reqUrl[pos];
             if ((c >= '0' && c <= '9') || c == '+' || c == '-')
             {
-                char* eptr;
+                char* eptr = nullptr;
                 errno = 0;
                 long long int value =
                     std::strtoll(reqUrl.data() + pos, &eptr, 10);
@@ -828,7 +828,7 @@ class Trie
             char c = reqUrl[pos];
             if ((c >= '0' && c <= '9') || c == '+')
             {
-                char* eptr;
+                char* eptr = nullptr;
                 errno = 0;
                 unsigned long long int value =
                     std::strtoull(reqUrl.data() + pos, &eptr, 10);
@@ -851,7 +851,7 @@ class Trie
             char c = reqUrl[pos];
             if ((c >= '0' && c <= '9') || c == '+' || c == '-' || c == '.')
             {
-                char* eptr;
+                char* eptr = nullptr;
                 errno = 0;
                 double value = std::strtod(reqUrl.data() + pos, &eptr);
                 if (errno != ERANGE && eptr != reqUrl.data() + pos)
