@@ -227,7 +227,15 @@ struct InProgressEnumerateData
 
     ~InProgressEnumerateData()
     {
-        findRemainingObjectsForEnumerate(objectPath, subtree, asyncResp);
+        try
+        {
+            findRemainingObjectsForEnumerate(objectPath, subtree, asyncResp);
+        }
+        catch (...)
+        {
+            BMCWEB_LOG_CRITICAL
+                << "findRemainingObjectsForEnumerate threw exception";
+        }
     }
 
     const std::string objectPath;

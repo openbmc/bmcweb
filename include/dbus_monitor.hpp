@@ -19,7 +19,9 @@ namespace dbus_monitor
 struct DbusWebsocketSession
 {
     std::vector<std::unique_ptr<sdbusplus::bus::match::match>> matches;
-    boost::container::flat_set<std::string> interfaces;
+    boost::container::flat_set<std::string, std::less<>,
+                               std::vector<std::string>>
+        interfaces;
 };
 
 static boost::container::flat_map<crow::websocket::Connection*,
@@ -110,14 +112,19 @@ inline void requestRoutes(App& app)
         .onopen([&](crow::websocket::Connection& conn,
                     const std::shared_ptr<bmcweb::AsyncResp>&) {
             BMCWEB_LOG_DEBUG << "Connection " << &conn << " opened";
-            sessions[&conn] = DbusWebsocketSession();
+            sessions.try_emplace(&conn);
         })
         .onclose([&](crow::websocket::Connection& conn, const std::string&) {
             sessions.erase(&conn);
         })
         .onmessage([&](crow::websocket::Connection& conn,
                        const std::string& data, bool) {
-            DbusWebsocketSession& thisSession = sessions[&conn];
+            const auto sessionPair = sessions.find(&conn);
+            if (sessionPair == sessions.end())
+            {
+                conn.close("Internal error");
+            }
+            DbusWebsocketSession& thisSession = sessionPair->second;
             BMCWEB_LOG_DEBUG << "Connection " << &conn << " received " << data;
             nlohmann::json j = nlohmann::json::parse(data, nullptr, false);
             if (j.is_discarded())
