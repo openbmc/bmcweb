@@ -2909,53 +2909,58 @@ inline void requestRoutesCrashdumpCollect(App& app)
                 return;
             }
 
-            auto collectCrashdumpCallback = [asyncResp,
-                                             payload(task::Payload(req))](
-                                                const boost::system::error_code
-                                                    ec,
-                                                const std::string&) mutable {
-                if (ec)
-                {
-                    if (ec.value() ==
-                        boost::system::errc::operation_not_supported)
+            std::shared_ptr<std::string> taskMatchStr =
+                std::make_shared<std::string>(std::string());
+            auto collectCrashdumpCallback =
+                [asyncResp, payload(task::Payload(req)),
+                 taskMatchStr](const boost::system::error_code ec,
+                               const std::string&) mutable {
+                    if (ec)
                     {
-                        messages::resourceInStandby(asyncResp->res);
-                    }
-                    else if (ec.value() ==
-                             boost::system::errc::device_or_resource_busy)
-                    {
-                        messages::serviceTemporarilyUnavailable(asyncResp->res,
-                                                                "60");
-                    }
-                    else
-                    {
-                        messages::internalError(asyncResp->res);
-                    }
-                    return;
-                }
-                std::shared_ptr<task::TaskData> task = task::TaskData::createTask(
-                    [](boost::system::error_code err,
-                       sdbusplus::message::message&,
-                       const std::shared_ptr<task::TaskData>& taskData) {
-                        if (!err)
+                        if (ec.value() ==
+                            boost::system::errc::operation_not_supported)
                         {
-                            taskData->messages.emplace_back(
-                                messages::taskCompletedOK(
-                                    std::to_string(taskData->index)));
-                            taskData->state = "Completed";
+                            messages::resourceInStandby(asyncResp->res);
                         }
-                        return task::completed;
-                    },
-                    "type='signal',interface='org.freedesktop.DBus."
-                    "Properties',"
-                    "member='PropertiesChanged',arg0namespace='com.intel.crashdump'");
-                task->startTimer(std::chrono::minutes(5));
-                task->populateResp(asyncResp->res);
-                task->payload.emplace(std::move(payload));
-            };
+                        else if (ec.value() ==
+                                 boost::system::errc::device_or_resource_busy)
+                        {
+                            messages::serviceTemporarilyUnavailable(
+                                asyncResp->res, "60");
+                        }
+                        else
+                        {
+                            messages::internalError(asyncResp->res);
+                        }
+                        return;
+                    }
+                    std::shared_ptr<task::TaskData> task =
+                        task::TaskData::createTask(
+                            [](boost::system::error_code err,
+                               sdbusplus::message::message&,
+                               const std::shared_ptr<task::TaskData>&
+                                   taskData) {
+                                if (!err)
+                                {
+                                    taskData->messages.emplace_back(
+                                        messages::taskCompletedOK(
+                                            std::to_string(taskData->index)));
+                                    taskData->state = "Completed";
+                                }
+                                return task::completed;
+                            },
+                            *taskMatchStr);
+
+                    task->startTimer(std::chrono::minutes(5));
+                    task->populateResp(asyncResp->res);
+                    task->payload.emplace(std::move(payload));
+                };
 
             if (oemDiagnosticDataType == "OnDemand")
             {
+                *taskMatchStr = "type='signal',interface='org.freedesktop.DBus."
+                                "Properties',member='PropertiesChanged',"
+                                "arg0namespace='com.intel.crashdump'";
                 crow::connections::systemBus->async_method_call(
                     std::move(collectCrashdumpCallback), crashdumpObject,
                     crashdumpPath, crashdumpOnDemandInterface,
@@ -2963,6 +2968,9 @@ inline void requestRoutesCrashdumpCollect(App& app)
             }
             else if (oemDiagnosticDataType == "Telemetry")
             {
+                *taskMatchStr = "type='signal',interface='org.freedesktop.DBus."
+                                "Properties',member='PropertiesChanged',"
+                                "arg0namespace='com.intel.crashdump'";
                 crow::connections::systemBus->async_method_call(
                     std::move(collectCrashdumpCallback), crashdumpObject,
                     crashdumpPath, crashdumpTelemetryInterface,
