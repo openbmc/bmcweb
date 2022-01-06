@@ -1071,8 +1071,8 @@ inline CreatePIDRet createPidInterface(
             std::vector<double> outputs;
             for (auto& step : *steps)
             {
-                double target;
-                double out;
+                double target = 0.0;
+                double out = 0.0;
 
                 if (!redfish::json_util::readJson(step, response->res, "Target",
                                                   target, "Output", out))

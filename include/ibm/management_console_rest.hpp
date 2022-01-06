@@ -418,7 +418,7 @@ inline void
     for (auto& element : body)
     {
         std::string lockType;
-        uint64_t resourceId;
+        uint64_t resourceId = 0;
 
         SegmentFlags segInfo;
         std::vector<nlohmann::json> segmentFlags;
@@ -439,7 +439,7 @@ inline void
         for (auto& e : segmentFlags)
         {
             std::string lockFlags;
-            uint32_t segmentLength;
+            uint32_t segmentLength  = 0;
 
             if (!redfish::json_util::readJson(e, asyncResp->res, "LockFlag",
                                               lockFlags, "SegmentLength",

@@ -256,8 +256,7 @@ inline void generateSslCertificate(const std::string& filepath,
     {
         std::cerr << "Generating x509 Certificate\n";
         // Use this code to directly generate a certificate
-        X509* x509;
-        x509 = X509_new();
+        X509* x509 = X509_new();
         if (x509 != nullptr)
         {
             // get a random number from the RNG for the certificate serial
@@ -280,8 +279,7 @@ inline void generateSslCertificate(const std::string& filepath,
             X509_set_pubkey(x509, pPrivKey);
 
             // get the subject name
-            X509_NAME* name;
-            name = X509_get_subject_name(x509);
+            X509_NAME* name = X509_get_subject_name(x509);
 
             X509_NAME_add_entry_by_txt(
                 name, "C", MBSTRING_ASC,

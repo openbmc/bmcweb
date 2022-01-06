@@ -43,7 +43,7 @@ bool fromDurationItem(std::string_view& fmt, const char postfix,
         return false;
     }
 
-    const char* end;
+    const char* end = nullptr;
     std::chrono::milliseconds::rep ticks = 0;
     if constexpr (std::is_same_v<FromTime, std::chrono::milliseconds>)
     {
