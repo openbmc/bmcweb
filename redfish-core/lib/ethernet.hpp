@@ -640,9 +640,9 @@ inline bool ipv4VerifyIpAndGetBitcount(const std::string& ip,
         *bits = 0;
     }
 
-    char* endPtr;
+    char* endPtr = nullptr;
     long previousValue = 255;
-    bool firstZeroInByteHit;
+    bool firstZeroInByteHit = false;
     for (const std::string& byte : bytesInMask)
     {
         if (byte.empty())
@@ -1586,8 +1586,8 @@ inline void handleIPv6StaticAddressesPatch(
                 return;
             }
 
-            const std::string* addr;
-            uint8_t prefix;
+            const std::string* addr = nullptr;
+            uint8_t prefix = 0;
 
             // Find the address and prefixLength values. Any values that are
             // not explicitly provided are assumed to be unmodified from the

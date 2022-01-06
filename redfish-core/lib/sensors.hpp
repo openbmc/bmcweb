@@ -2789,10 +2789,10 @@ inline void setSensorsOverride(
     BMCWEB_LOG_INFO << "setSensorsOverride for subNode"
                     << sensorAsyncResp->chassisSubNode << "\n";
 
-    const char* propertyValueName;
+    const char* propertyValueName = nullptr;
     std::unordered_map<std::string, std::pair<double, std::string>> overrideMap;
     std::string memberId;
-    double value;
+    double value = 0.0;
     for (auto& collectionItems : allCollections)
     {
         if (collectionItems.first == "Temperatures")

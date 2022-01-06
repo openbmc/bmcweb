@@ -1104,7 +1104,7 @@ inline int readStructFromMessage(const std::string& typeCode,
 inline int readVariantFromMessage(sdbusplus::message::message& m,
                                   nlohmann::json& data)
 {
-    const char* containerType;
+    const char* containerType = nullptr;
     int r = sd_bus_message_peek_type(m.get(), nullptr, &containerType);
     if (r < 0)
     {
