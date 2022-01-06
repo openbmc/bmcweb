@@ -41,6 +41,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "26b3df2e_81c02d7a",
+        "filename": "redfish-core/lib/network_protocol.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 374,
+      "author": {
+        "id": 1001252
+      },
+      "writtenOn": "2022-01-06T17:13:46Z",
+      "side": 1,
+      "message": "This is copied from existing code, I submitted another patch (https://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/50164) to fix it in current code. This patch will be rebased on it.",
+      "parentUuid": "37226e8c_b88b602e",
+      "range": {
+        "startLine": 374,
+        "startChar": 20,
+        "endLine": 374,
+        "endChar": 49
+      },
+      "revId": "fbb69054b2e63a1bd5ebaad3b961e46948a1639b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "34159ac1_2ee0e709",
@@ -64,6 +88,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "779bdf3e_8b8ef24b",
+        "filename": "redfish-core/lib/network_protocol.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 384,
+      "author": {
+        "id": 1001252
+      },
+      "writtenOn": "2022-01-06T17:13:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "34159ac1_2ee0e709",
+      "range": {
+        "startLine": 384,
+        "startChar": 43,
+        "endLine": 384,
+        "endChar": 46
+      },
+      "revId": "fbb69054b2e63a1bd5ebaad3b961e46948a1639b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9a300346_7b05f1e6",
@@ -77,6 +125,30 @@
       "writtenOn": "2022-01-05T17:27:22Z",
       "side": 1,
       "message": "I suspect this should\u0027ve been GetObject?  Also, given that we\u0027re calling out a service that should only ever have one implementation, do we even need to call to the mapper?  Can we call service manager directly?",
+      "range": {
+        "startLine": 393,
+        "startChar": 45,
+        "endLine": 393,
+        "endChar": 55
+      },
+      "revId": "fbb69054b2e63a1bd5ebaad3b961e46948a1639b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6a2a0d29_9adb441e",
+        "filename": "redfish-core/lib/network_protocol.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 393,
+      "author": {
+        "id": 1001252
+      },
+      "writtenOn": "2022-01-06T17:13:46Z",
+      "side": 1,
+      "message": "I agree with this, I replaced the ObjectMapper with calling GetManagedObjects of service-config-manager",
+      "parentUuid": "9a300346_7b05f1e6",
       "range": {
         "startLine": 393,
         "startChar": 45,
