@@ -327,9 +327,9 @@ void dumpInteger(std::string& out, NumberType number)
 
     const bool isNegative = std::is_same<NumberType, int64_t>::value &&
                             !(number >= 0); // see issue #755
-    uint64_t absValue;
+    uint64_t absValue = 0;
 
-    unsigned int nChars;
+    unsigned int nChars = 0;
 
     if (isNegative)
     {

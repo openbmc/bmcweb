@@ -62,7 +62,7 @@ inline void handleMessageRoutesMessageRegistryFileGet(
     const crow::Request&, const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& registry)
 {
-    const message_registries::Header* header;
+    const message_registries::Header* header = nullptr;
     std::string dmtf = "DMTF ";
     const char* url = nullptr;
 
@@ -127,7 +127,7 @@ inline void handleMessageRegistryGet(
     const std::string& registry, const std::string& registryMatch)
 
 {
-    const message_registries::Header* header;
+    const message_registries::Header* header = nullptr;
     std::vector<const message_registries::MessageEntry*> registryEntries;
     if (registry == "Base")
     {

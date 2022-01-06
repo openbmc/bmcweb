@@ -73,7 +73,7 @@ class Resolver
                         handler(ec, endpointList);
                         return;
                     }
-                    uint16_t portNum;
+                    uint16_t portNum = 0;
                     auto it = std::from_chars(
                         port.data(), port.data() + port.size(), portNum);
                     if (it.ec != std::errc())

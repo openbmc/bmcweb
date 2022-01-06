@@ -1728,7 +1728,7 @@ inline void setAutomaticRetry(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
     BMCWEB_LOG_DEBUG << "Set Automatic Retry.";
 
     // OpenBMC only supports "Disabled" and "RetryAttempts".
-    bool autoRebootEnabled;
+    bool autoRebootEnabled = true;
 
     if (automaticRetryConfig == "Disabled")
     {
@@ -2765,7 +2765,7 @@ inline void requestRoutesSystemActionsReset(App& app)
 
             // Get the command and host vs. chassis
             std::string command;
-            bool hostCommand;
+            bool hostCommand = true;
             if ((resetType == "On") || (resetType == "ForceOn"))
             {
                 command = "xyz.openbmc_project.State.Host.Transition.On";
