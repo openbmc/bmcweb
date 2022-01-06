@@ -18,6 +18,23 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d6aa1a02_cfb8134d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000235
+      },
+      "writtenOn": "2022-01-06T19:01:54Z",
+      "side": 1,
+      "message": "Regardless of if we have disabled user accounts, I think BMCWeb login operations should be enhanced so they only allow the login operation to succeed if the user trying to login has the Redfish Login privilege.",
+      "revId": "2c134f69615bef86af325b87debb86f8d5697dd6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d587922e_841cd079",
@@ -288,6 +305,30 @@
       "side": 1,
       "message": "I never understood the difference in use case between \"no access\" and \"disabled\".  They seem like synonyms.  #1 would be my preference here, as it keeps business logic out of bmcweb, and ensures that all portions of the system work without having to encode specific role logic in every single user facing daemon.",
       "parentUuid": "3c349de6_c3e838a6",
+      "range": {
+        "startLine": 199,
+        "startChar": 0,
+        "endLine": 266,
+        "endChar": 37
+      },
+      "revId": "2c134f69615bef86af325b87debb86f8d5697dd6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c84bd2ac_2214fd0a",
+        "filename": "redfish-core/lib/redfish_sessions.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 266,
+      "author": {
+        "id": 1000235
+      },
+      "writtenOn": "2022-01-06T19:01:54Z",
+      "side": 1,
+      "message": "I don\u0027t fully understand the use case for either a no-access account or a disabled account, and my efforts to answer that question are not yet successful.  IMHO, we should get that answer before proceeding with a fix.  Otherwise:\n1. What is the point of having a disabled account?  What is it used for?\n2. For an enabled account which has the no-access role, I believe BMCWeb should handle it in the same way as any other role.  Specifically, after a successful authentication, I believe PAM account management checks should succeed, and the user\u0027s privileges should be retrieved.  In this case the privileges will be the empty set.  The login operations should then fail.  \u003c-- That is what I proposed in my comment above.  Specifically, the login operation(s) should ensure the user trying to login has the Redfish Login privilege.",
+      "parentUuid": "ef24b25b_aaeb9fd3",
       "range": {
         "startLine": 199,
         "startChar": 0,
