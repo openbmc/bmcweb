@@ -113,8 +113,9 @@ inline void checkDbusPathExists(const std::string& path, Callback&& callback)
         std::vector<std::pair<std::string, std::vector<std::string>>>;
 
     crow::connections::systemBus->async_method_call(
-        [callback{std::move(callback)}](const boost::system::error_code ec,
-                                        const GetObjectType& objectNames) {
+        [callback{std::forward<Callback>(callback)}](
+            const boost::system::error_code ec,
+            const GetObjectType& objectNames) {
             callback(!ec && objectNames.size() != 0);
         },
         "xyz.openbmc_project.ObjectMapper",

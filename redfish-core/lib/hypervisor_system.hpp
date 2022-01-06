@@ -317,8 +317,9 @@ void getHypervisorIfaceData(const std::string& ethIfaceId,
 {
     crow::connections::systemBus->async_method_call(
         [ethIfaceId{std::string{ethIfaceId}},
-         callback{std::move(callback)}](const boost::system::error_code error,
-                                        const GetManagedObjects& resp) {
+         callback{std::forward<CallbackFunc>(callback)}](
+            const boost::system::error_code error,
+            const GetManagedObjects& resp) {
             EthernetInterfaceData ethData{};
             boost::container::flat_set<IPv4AddressData> ipv4Data;
             if (error)

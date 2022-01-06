@@ -327,7 +327,8 @@ void getObjectsWithConnection(
         "xyz.openbmc_project.Sensor.Value"};
 
     // Response handler for parsing objects subtree
-    auto respHandler = [callback{std::move(callback)}, sensorsAsyncResp,
+    auto respHandler = [callback{std::forward<Callback>(callback)},
+                        sensorsAsyncResp,
                         sensorNames](const boost::system::error_code ec,
                                      const GetSubTreeType& subtree) {
         BMCWEB_LOG_DEBUG << "getObjectsWithConnection resp_handler enter";
@@ -466,7 +467,7 @@ void getValidChassisPath(const std::shared_ptr<SensorsAsyncResp>& asyncResp,
         "xyz.openbmc_project.Inventory.Item.Chassis"};
 
     auto respHandler =
-        [callback{std::move(callback)},
+        [callback{std::forward<Callback>(callback)},
          asyncResp](const boost::system::error_code ec,
                     const std::vector<std::string>& chassisPaths) mutable {
             BMCWEB_LOG_DEBUG << "getValidChassisPath respHandler enter";
@@ -520,7 +521,8 @@ void getChassis(const std::shared_ptr<SensorsAsyncResp>& sensorsAsyncResp,
     const std::array<const char*, 2> interfaces = {
         "xyz.openbmc_project.Inventory.Item.Board",
         "xyz.openbmc_project.Inventory.Item.Chassis"};
-    auto respHandler = [callback{std::move(callback)}, sensorsAsyncResp](
+    auto respHandler = [callback{std::forward<Callback>(callback)},
+                        sensorsAsyncResp](
                            const boost::system::error_code ec,
                            const std::vector<std::string>& chassisPaths) {
         BMCWEB_LOG_DEBUG << "getChassis respHandler enter";
@@ -596,7 +598,8 @@ void getChassis(const std::shared_ptr<SensorsAsyncResp>& sensorsAsyncResp,
         sdbusplus::asio::getProperty<std::vector<std::string>>(
             *crow::connections::systemBus, "xyz.openbmc_project.ObjectMapper",
             sensorPath, "xyz.openbmc_project.Association", "endpoints",
-            [sensorsAsyncResp, callback{std::move(callback)}](
+            [sensorsAsyncResp,
+             callback{std::forward<const Callback>(callback)}](
                 const boost::system::error_code& e,
                 const std::vector<std::string>& nodeSensorList) {
                 if (e)
@@ -653,7 +656,7 @@ void getObjectManagerPaths(
         "org.freedesktop.DBus.ObjectManager"};
 
     // Response handler for GetSubTree DBus method
-    auto respHandler = [callback{std::move(callback)},
+    auto respHandler = [callback{std::forward<Callback>(callback)},
                         sensorsAsyncResp](const boost::system::error_code ec,
                                           const GetSubTreeType& subtree) {
         BMCWEB_LOG_DEBUG << "getObjectManagerPaths respHandler enter";
@@ -1634,7 +1637,8 @@ static void getInventoryItemsData(
 
         // Response handler for GetManagedObjects
         auto respHandler = [sensorsAsyncResp, inventoryItems, invConnections,
-                            objectMgrPaths, callback{std::move(callback)},
+                            objectMgrPaths,
+                            callback{std::forward<Callback>(callback)},
                             invConnectionsIndex](
                                const boost::system::error_code ec,
                                ManagedObjectsVectorType& resp) {
@@ -1723,7 +1727,8 @@ static void getInventoryItemsConnections(
         "xyz.openbmc_project.State.Decorator.OperationalStatus"};
 
     // Response handler for parsing output from GetSubTree
-    auto respHandler = [callback{std::move(callback)}, sensorsAsyncResp,
+    auto respHandler = [callback{std::forward<Callback>(callback)},
+                        sensorsAsyncResp,
                         inventoryItems](const boost::system::error_code ec,
                                         const GetSubTreeType& subtree) {
         BMCWEB_LOG_DEBUG << "getInventoryItemsConnections respHandler enter";
@@ -1805,7 +1810,8 @@ static void getInventoryItemAssociations(
     BMCWEB_LOG_DEBUG << "getInventoryItemAssociations enter";
 
     // Response handler for GetManagedObjects
-    auto respHandler = [callback{std::move(callback)}, sensorsAsyncResp,
+    auto respHandler = [callback{std::forward<Callback>(callback)},
+                        sensorsAsyncResp,
                         sensorNames](const boost::system::error_code ec,
                                      dbus::utility::ManagedObjectType& resp) {
         BMCWEB_LOG_DEBUG << "getInventoryItemAssociations respHandler enter";
@@ -1986,7 +1992,7 @@ void getInventoryLedData(
         // Response handler for Get State property
         auto respHandler =
             [sensorsAsyncResp, inventoryItems, ledConnections, ledPath,
-             callback{std::move(callback)}, ledConnectionsIndex](
+             callback{std::forward<Callback>(callback)}, ledConnectionsIndex](
                 const boost::system::error_code ec, const std::string& state) {
                 BMCWEB_LOG_DEBUG << "getInventoryLedData respHandler enter";
                 if (ec)
@@ -2075,7 +2081,8 @@ void getInventoryLeds(
         "xyz.openbmc_project.Led.Physical"};
 
     // Response handler for parsing output from GetSubTree
-    auto respHandler = [callback{std::move(callback)}, sensorsAsyncResp,
+    auto respHandler = [callback{std::forward<Callback>(callback)},
+                        sensorsAsyncResp,
                         inventoryItems](const boost::system::error_code ec,
                                         const GetSubTreeType& subtree) {
         BMCWEB_LOG_DEBUG << "getInventoryLeds respHandler enter";
@@ -2172,7 +2179,7 @@ void getPowerSupplyAttributesData(
 
     // Response handler for Get DeratingFactor property
     auto respHandler = [sensorsAsyncResp, inventoryItems,
-                        callback{std::move(callback)}](
+                        callback{std::forward<Callback>(callback)}](
                            const boost::system::error_code ec,
                            const uint32_t value) {
         BMCWEB_LOG_DEBUG << "getPowerSupplyAttributesData respHandler enter";
@@ -2252,7 +2259,8 @@ void getPowerSupplyAttributes(
         "xyz.openbmc_project.Control.PowerSupplyAttributes"};
 
     // Response handler for parsing output from GetSubTree
-    auto respHandler = [callback{std::move(callback)}, sensorsAsyncResp,
+    auto respHandler = [callback{std::forward<Callback>(callback)},
+                        sensorsAsyncResp,
                         inventoryItems](const boost::system::error_code ec,
                                         const GetSubTreeType& subtree) {
         BMCWEB_LOG_DEBUG << "getPowerSupplyAttributes respHandler enter";
@@ -2344,12 +2352,13 @@ static void getInventoryItems(
 {
     BMCWEB_LOG_DEBUG << "getInventoryItems enter";
     auto getInventoryItemAssociationsCb =
-        [sensorsAsyncResp, objectMgrPaths, callback{std::move(callback)}](
+        [sensorsAsyncResp, objectMgrPaths,
+         callback{std::forward<Callback>(callback)}](
             std::shared_ptr<std::vector<InventoryItem>> inventoryItems) {
             BMCWEB_LOG_DEBUG << "getInventoryItemAssociationsCb enter";
             auto getInventoryItemsConnectionsCb =
                 [sensorsAsyncResp, inventoryItems, objectMgrPaths,
-                 callback{std::move(callback)}](
+                 callback{std::forward<const Callback>(callback)}](
                     std::shared_ptr<boost::container::flat_set<std::string>>
                         invConnections) {
                     BMCWEB_LOG_DEBUG << "getInventoryItemsConnectionsCb enter";
