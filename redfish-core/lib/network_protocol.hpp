@@ -24,6 +24,7 @@
 #include <registries/privilege_registry.hpp>
 #include <sdbusplus/asio/property.hpp>
 #include <utils/json_utils.hpp>
+#include <utils/service_utils.hpp>
 #include <utils/stl_utils.hpp>
 
 #include <optional>
@@ -34,6 +35,9 @@ namespace redfish
 void getNTPProtocolEnabled(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp);
 std::string getHostName();
 
+static constexpr const char* sshServiceName = "dropbear";
+static constexpr const char* httpsServiceName = "bmcweb";
+static constexpr const char* ipmiServiceName = "phosphor_2dipmi_2dnet";
 const static std::array<std::pair<std::string, std::string>, 3> protocolToDBus{
     {{"SSH", "dropbear"}, {"HTTPS", "bmcweb"}, {"IPMI", "phosphor-ipmi-net"}}};
 
@@ -298,63 +302,6 @@ inline void
             "xyz.openbmc_project.Network.EthernetInterface"});
 }
 
-inline void
-    handleProtocolEnabled(const bool protocolEnabled,
-                          const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                          const std::string_view netBasePath)
-{
-    crow::connections::systemBus->async_method_call(
-        [protocolEnabled, asyncResp,
-         netBasePath](const boost::system::error_code ec,
-                      const dbus::utility::MapperGetSubTreeResponse& subtree) {
-            if (ec)
-            {
-                messages::internalError(asyncResp->res);
-                return;
-            }
-
-            for (const auto& entry : subtree)
-            {
-                if (boost::algorithm::starts_with(entry.first, netBasePath))
-                {
-                    crow::connections::systemBus->async_method_call(
-                        [asyncResp](const boost::system::error_code ec2) {
-                            if (ec2)
-                            {
-                                messages::internalError(asyncResp->res);
-                                return;
-                            }
-                        },
-                        entry.second.begin()->first, entry.first,
-                        "org.freedesktop.DBus.Properties", "Set",
-                        "xyz.openbmc_project.Control.Service.Attributes",
-                        "Running",
-                        dbus::utility::DbusVariantType{protocolEnabled});
-
-                    crow::connections::systemBus->async_method_call(
-                        [asyncResp](const boost::system::error_code ec2) {
-                            if (ec2)
-                            {
-                                messages::internalError(asyncResp->res);
-                                return;
-                            }
-                        },
-                        entry.second.begin()->first, entry.first,
-                        "org.freedesktop.DBus.Properties", "Set",
-                        "xyz.openbmc_project.Control.Service.Attributes",
-                        "Enabled",
-                        dbus::utility::DbusVariantType{protocolEnabled});
-                }
-            }
-        },
-        "xyz.openbmc_project.ObjectMapper",
-        "/xyz/openbmc_project/object_mapper",
-        "xyz.openbmc_project.ObjectMapper", "GetSubTree",
-        "/xyz/openbmc_project/control/service", 0,
-        std::array<const char*, 1>{
-            "xyz.openbmc_project.Control.Service.Attributes"});
-}
-
 inline std::string getHostName()
 {
     std::string hostName;
@@ -399,87 +346,85 @@ inline void requestRoutesNetworkProtocol(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/Managers/bmc/NetworkProtocol/")
         .privileges(redfish::privileges::patchManagerNetworkProtocol)
-        .methods(
-            boost::beast::http::verb::
-                patch)([](const crow::Request& req,
-                          const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
-            std::optional<std::string> newHostName;
-            std::optional<nlohmann::json> ntp;
-            std::optional<nlohmann::json> ipmi;
-            std::optional<nlohmann::json> ssh;
+        .methods(boost::beast::http::verb::patch)(
+            [](const crow::Request& req,
+               const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
+                std::optional<std::string> newHostName;
+                std::optional<nlohmann::json> ntp;
+                std::optional<nlohmann::json> ipmi;
+                std::optional<nlohmann::json> ssh;
 
-            if (!json_util::readJsonPatch(req, asyncResp->res, "NTP", ntp,
-                                          "HostName", newHostName, "IPMI", ipmi,
-                                          "SSH", ssh))
-            {
-                return;
-            }
-
-            asyncResp->res.result(boost::beast::http::status::no_content);
-            if (newHostName)
-            {
-                messages::propertyNotWritable(asyncResp->res, "HostName");
-                return;
-            }
-
-            if (ntp)
-            {
-                std::optional<std::vector<std::string>> ntpServers;
-                std::optional<bool> ntpEnabled;
-                if (!json_util::readJson(*ntp, asyncResp->res, "NTPServers",
-                                         ntpServers, "ProtocolEnabled",
-                                         ntpEnabled))
+                if (!json_util::readJsonPatch(req, asyncResp->res, "NTP", ntp,
+                                              "HostName", newHostName, "IPMI",
+                                              ipmi, "SSH", ssh))
                 {
                     return;
                 }
 
-                if (ntpEnabled)
+                asyncResp->res.result(boost::beast::http::status::no_content);
+                if (newHostName)
                 {
-                    handleNTPProtocolEnabled(*ntpEnabled, asyncResp);
-                }
-
-                if (ntpServers)
-                {
-                    stl_utils::removeDuplicate(*ntpServers);
-                    handleNTPServersPatch(asyncResp, *ntpServers);
-                }
-            }
-
-            if (ipmi)
-            {
-                std::optional<bool> ipmiProtocolEnabled;
-                if (!json_util::readJson(*ipmi, asyncResp->res,
-                                         "ProtocolEnabled",
-                                         ipmiProtocolEnabled))
-                {
+                    messages::propertyNotWritable(asyncResp->res, "HostName");
                     return;
                 }
 
-                if (ipmiProtocolEnabled)
+                if (ntp)
                 {
-                    handleProtocolEnabled(
-                        *ipmiProtocolEnabled, asyncResp,
-                        "/xyz/openbmc_project/control/service/phosphor_2dipmi_2dnet_40");
-                }
-            }
+                    std::optional<std::vector<std::string>> ntpServers;
+                    std::optional<bool> ntpEnabled;
+                    if (!json_util::readJson(*ntp, asyncResp->res, "NTPServers",
+                                             ntpServers, "ProtocolEnabled",
+                                             ntpEnabled))
+                    {
+                        return;
+                    }
 
-            if (ssh)
-            {
-                std::optional<bool> sshProtocolEnabled;
-                if (!json_util::readJson(*ssh, asyncResp->res,
-                                         "ProtocolEnabled", sshProtocolEnabled))
-                {
-                    return;
+                    if (ntpEnabled)
+                    {
+                        handleNTPProtocolEnabled(*ntpEnabled, asyncResp);
+                    }
+
+                    if (ntpServers)
+                    {
+                        stl_utils::removeDuplicate(*ntpServers);
+                        handleNTPServersPatch(asyncResp, *ntpServers);
+                    }
                 }
 
-                if (sshProtocolEnabled)
+                if (ipmi)
                 {
-                    handleProtocolEnabled(
-                        *sshProtocolEnabled, asyncResp,
-                        "/xyz/openbmc_project/control/service/dropbear");
+                    std::optional<bool> ipmiProtocolEnabled;
+                    if (!json_util::readJson(*ipmi, asyncResp->res,
+                                             "ProtocolEnabled",
+                                             ipmiProtocolEnabled))
+                    {
+                        return;
+                    }
+
+                    if (ipmiProtocolEnabled)
+                    {
+                        service_util::setEnabled(asyncResp, ipmiServiceName,
+                                                 *ipmiProtocolEnabled);
+                    }
                 }
-            }
-        });
+
+                if (ssh)
+                {
+                    std::optional<bool> sshProtocolEnabled;
+                    if (!json_util::readJson(*ssh, asyncResp->res,
+                                             "ProtocolEnabled",
+                                             sshProtocolEnabled))
+                    {
+                        return;
+                    }
+
+                    if (sshProtocolEnabled)
+                    {
+                        service_util::setEnabled(asyncResp, sshServiceName,
+                                                 *sshProtocolEnabled);
+                    }
+                }
+            });
 
     BMCWEB_ROUTE(app, "/redfish/v1/Managers/bmc/NetworkProtocol/")
         .privileges(redfish::privileges::getManagerNetworkProtocol)
