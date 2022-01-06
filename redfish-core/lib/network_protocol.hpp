@@ -25,6 +25,7 @@
 #include <registries/privilege_registry.hpp>
 #include <sdbusplus/asio/property.hpp>
 #include <utils/json_utils.hpp>
+#include <utils/service_utils.hpp>
 #include <utils/stl_utils.hpp>
 
 #include <optional>
@@ -299,61 +300,6 @@ inline void
             "xyz.openbmc_project.Network.EthernetInterface"});
 }
 
-inline void
-    handleProtocolEnabled(const bool protocolEnabled,
-                          const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                          const std::string& netBasePath)
-{
-    crow::connections::systemBus->async_method_call(
-        [protocolEnabled, asyncResp,
-         netBasePath](const boost::system::error_code ec,
-                      const dbus::utility::MapperGetSubTreeResponse& subtree) {
-        if (ec)
-        {
-            messages::internalError(asyncResp->res);
-            return;
-        }
-
-        for (const auto& entry : subtree)
-        {
-            if (boost::algorithm::starts_with(entry.first, netBasePath))
-            {
-                crow::connections::systemBus->async_method_call(
-                    [asyncResp](const boost::system::error_code ec2) {
-                    if (ec2)
-                    {
-                        messages::internalError(asyncResp->res);
-                        return;
-                    }
-                    },
-                    entry.second.begin()->first, entry.first,
-                    "org.freedesktop.DBus.Properties", "Set",
-                    "xyz.openbmc_project.Control.Service.Attributes", "Running",
-                    dbus::utility::DbusVariantType{protocolEnabled});
-
-                crow::connections::systemBus->async_method_call(
-                    [asyncResp](const boost::system::error_code ec2) {
-                    if (ec2)
-                    {
-                        messages::internalError(asyncResp->res);
-                        return;
-                    }
-                    },
-                    entry.second.begin()->first, entry.first,
-                    "org.freedesktop.DBus.Properties", "Set",
-                    "xyz.openbmc_project.Control.Service.Attributes", "Enabled",
-                    dbus::utility::DbusVariantType{protocolEnabled});
-            }
-        }
-        },
-        "xyz.openbmc_project.ObjectMapper",
-        "/xyz/openbmc_project/object_mapper",
-        "xyz.openbmc_project.ObjectMapper", "GetSubTree",
-        "/xyz/openbmc_project/control/service", 0,
-        std::array<const char*, 1>{
-            "xyz.openbmc_project.Control.Service.Attributes"});
-}
-
 inline std::string getHostName()
 {
     std::string hostName;
@@ -391,14 +337,6 @@ inline void
             asyncResp->res.jsonValue["NTP"]["ProtocolEnabled"] = false;
         }
         });
-}
-
-inline std::string encodeServiceObjectPath(const std::string& serviceName)
-{
-    sdbusplus::message::object_path objPath(
-        "/xyz/openbmc_project/control/service");
-    objPath /= serviceName;
-    return objPath.str;
 }
 
 inline void requestRoutesNetworkProtocol(App& app)
@@ -450,15 +388,12 @@ inline void requestRoutesNetworkProtocol(App& app)
 
         if (ipmiEnabled)
         {
-            handleProtocolEnabled(
-                *ipmiEnabled, asyncResp,
-                encodeServiceObjectPath(std::string(ipmiServiceName) + '@'));
+            service_util::setEnabled(asyncResp, ipmiServiceName, *ipmiEnabled);
         }
 
         if (sshEnabled)
         {
-            handleProtocolEnabled(*sshEnabled, asyncResp,
-                                  encodeServiceObjectPath(sshServiceName));
+            service_util::setEnabled(asyncResp, sshServiceName, *sshEnabled);
         }
         });
 
