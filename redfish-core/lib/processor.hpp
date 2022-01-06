@@ -316,6 +316,10 @@ inline void getCpuAssetData(std::shared_ptr<bmcweb::AsyncResp> aResp,
                     {
                         aResp->res.jsonValue["SerialNumber"] = *sn;
                     }
+                    else
+                    {
+                        aResp->res.jsonValue.erase("SerialNumber");
+                    }
                 }
                 else if (property.first == "Model")
                 {
@@ -325,13 +329,17 @@ inline void getCpuAssetData(std::shared_ptr<bmcweb::AsyncResp> aResp,
                     {
                         aResp->res.jsonValue["Model"] = *model;
                     }
+                    else
+                    {
+                        aResp->res.jsonValue["Model"] = "";
+                    }
                 }
                 else if (property.first == "Manufacturer")
                 {
 
                     const std::string* mfg =
                         std::get_if<std::string>(&property.second);
-                    if (mfg != nullptr)
+                    if (mfg != nullptr && !mfg->empty())
                     {
                         aResp->res.jsonValue["Manufacturer"] = *mfg;
 
@@ -349,30 +357,39 @@ inline void getCpuAssetData(std::shared_ptr<bmcweb::AsyncResp> aResp,
                             aResp->res.jsonValue["InstructionSet"] = "PowerISA";
                         }
                     }
+                    else
+                    {
+                        aResp->res.jsonValue.erase("Manufacturer");
+                    }
                 }
                 else if (property.first == "PartNumber")
                 {
                     const std::string* partNumber =
                         std::get_if<std::string>(&property.second);
 
-                    if (partNumber == nullptr)
+                    if (partNumber != nullptr && !partNumber->empty())
                     {
-                        messages::internalError(aResp->res);
-                        return;
+                        aResp->res.jsonValue["PartNumber"] = *partNumber;
                     }
-                    aResp->res.jsonValue["PartNumber"] = *partNumber;
+                    else
+                    {
+                        aResp->res.jsonValue.erase("PartNumber");
+                    }
                 }
                 else if (property.first == "SparePartNumber")
                 {
                     const std::string* sparePartNumber =
                         std::get_if<std::string>(&property.second);
 
-                    if (sparePartNumber == nullptr)
+                    if (sparePartNumber != nullptr && !sparePartNumber->empty())
                     {
-                        messages::internalError(aResp->res);
-                        return;
+                        aResp->res.jsonValue["SparePartNumber"] =
+                            *sparePartNumber;
                     }
-                    aResp->res.jsonValue["SparePartNumber"] = *sparePartNumber;
+                    else
+                    {
+                        aResp->res.jsonValue.erase("SparePartNumber");
+                    }
                 }
             }
         },
