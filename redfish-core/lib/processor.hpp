@@ -331,7 +331,7 @@ inline void getCpuAssetData(std::shared_ptr<bmcweb::AsyncResp> aResp,
 
                     const std::string* mfg =
                         std::get_if<std::string>(&property.second);
-                    if (mfg != nullptr)
+                    if (mfg != nullptr && !mfg->empty())
                     {
                         aResp->res.jsonValue["Manufacturer"] = *mfg;
 
@@ -360,7 +360,11 @@ inline void getCpuAssetData(std::shared_ptr<bmcweb::AsyncResp> aResp,
                         messages::internalError(aResp->res);
                         return;
                     }
-                    aResp->res.jsonValue["PartNumber"] = *partNumber;
+
+                    if (!partNumber->empty())
+                    {
+                        aResp->res.jsonValue["PartNumber"] = *partNumber;
+                    }
                 }
                 else if (property.first == "SparePartNumber")
                 {
@@ -372,7 +376,12 @@ inline void getCpuAssetData(std::shared_ptr<bmcweb::AsyncResp> aResp,
                         messages::internalError(aResp->res);
                         return;
                     }
-                    aResp->res.jsonValue["SparePartNumber"] = *sparePartNumber;
+
+                    if (!sparePartNumber->empty())
+                    {
+                        aResp->res.jsonValue["SparePartNumber"] =
+                            *sparePartNumber;
+                    }
                 }
             }
         },
