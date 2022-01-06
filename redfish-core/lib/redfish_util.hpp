@@ -94,9 +94,9 @@ void getPortStatusAndPath(const std::string& serviceName,
                           CallbackFunc&& callback)
 {
     crow::connections::systemBus->async_method_call(
-        [serviceName,
-         callback{std::move(callback)}](const boost::system::error_code ec,
-                                        const std::vector<UnitStruct>& r) {
+        [serviceName, callback{std::forward<CallbackFunc>(callback)}](
+            const boost::system::error_code ec,
+            const std::vector<UnitStruct>& r) {
             if (ec)
             {
                 BMCWEB_LOG_ERROR << ec;
@@ -174,7 +174,7 @@ void getPortNumber(const std::string& socketPath, CallbackFunc&& callback)
         std::vector<std::tuple<std::string, std::string>>>(
         *crow::connections::systemBus, "org.freedesktop.systemd1", socketPath,
         "org.freedesktop.systemd1.Socket", "Listen",
-        [callback{std::move(callback)}](
+        [callback{std::forward<CallbackFunc>(callback)}](
             const boost::system::error_code ec,
             const std::vector<std::tuple<std::string, std::string>>& resp) {
             if (ec)

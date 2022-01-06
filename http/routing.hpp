@@ -208,7 +208,7 @@ struct Wrapped
                 const Request&>::value,
             int>::type = 0)
     {
-        handler = [f = std::move(f)](
+        handler = [f = std::forward<Func>(f)](
                       const Request&,
                       const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                       Args... args) { asyncResp->res.result(f(args...)); };
@@ -565,7 +565,7 @@ class TaggedRule :
             "types: "
             "string, int, crow::response, nlohmann::json");
 
-        handler = [f = std::move(f)](
+        handler = [f = std::forward<Func>(f)](
                       const Request&,
                       const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                       Args... args) { asyncResp->res.result(f(args...)); };
@@ -591,7 +591,7 @@ class TaggedRule :
             "types: "
             "string, int, crow::response,nlohmann::json");
 
-        handler = [f = std::move(f)](
+        handler = [f = std::forward<Func>(f)](
                       const crow::Request& req,
                       const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                       Args... args) { asyncResp->res.result(f(req, args...)); };
@@ -624,7 +624,7 @@ class TaggedRule :
             "return "
             "type");
 
-        handler = std::move(f);
+        handler = std::forward<Func>(f);
     }
 
     template <typename Func>
@@ -1201,7 +1201,8 @@ class Router
         // any uncaught exceptions become 500s
         try
         {
-            rules[ruleIndex]->handleUpgrade(req, res, std::move(adaptor));
+            rules[ruleIndex]->handleUpgrade(req, res,
+                                            std::forward<Adaptor>(adaptor));
         }
         catch (const std::exception& e)
         {
