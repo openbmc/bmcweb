@@ -501,6 +501,7 @@ inline bool
 template <typename T>
 static void secureCleanup(T& value)
 {
+    // NOLINTNEXTLINE(cppcoreguidelines-pro-type-const-cast)
     auto raw = const_cast<typename T::value_type*>(value.data());
     explicit_bzero(raw, value.size() * sizeof(*raw));
 }
