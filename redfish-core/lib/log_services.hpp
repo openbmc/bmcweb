@@ -136,8 +136,10 @@ inline static int getJournalMetadata(sd_journal* journal,
     size_t length = 0;
     int ret = 0;
     // Get the metadata from the requested field of the journal entry
-    ret = sd_journal_get_data(journal, field.data(),
-                              reinterpret_cast<const void**>(&data), &length);
+    // NOLINTNEXTLINE(cppcoreguidelines-pro-type-reinterpret-cast)
+    const void** dataVoid = reinterpret_cast<const void**>(&data);
+
+    ret = sd_journal_get_data(journal, field.data(), dataVoid, &length);
     if (ret < 0)
     {
         return ret;
@@ -3462,18 +3464,17 @@ inline void requestRoutesPostCodesEntryAdditionalData(App& app)
                             return;
                         }
 
-                        auto& [tID, code] = postcodes[value];
-                        if (code.empty())
+                        auto& [tID, c] = postcodes[value];
+                        if (c.empty())
                         {
                             BMCWEB_LOG_INFO << "No found post code data";
                             messages::resourceNotFound(asyncResp->res,
                                                        "LogEntry", postCodeID);
                             return;
                         }
-
-                        std::string_view strData(
-                            reinterpret_cast<const char*>(code.data()),
-                            code.size());
+                        // NOLINTNEXTLINE(cppcoreguidelines-pro-type-reinterpret-cast)
+                        const char* d = reinterpret_cast<const char*>(c.data());
+                        std::string_view strData(d, c.size());
 
                         asyncResp->res.addHeader("Content-Type",
                                                  "application/octet-stream");
