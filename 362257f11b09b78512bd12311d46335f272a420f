@@ -22,6 +22,30 @@
       },
       "revId": "362257f11b09b78512bd12311d46335f272a420f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "512af40c_14903ae1",
+        "filename": "redfish-core/include/utils/time_utils.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-01-07T21:57:51Z",
+      "side": 1,
+      "message": "Seems reasonable.  Fixed.",
+      "parentUuid": "e652c6b8_ab5c998b",
+      "range": {
+        "startLine": 21,
+        "startChar": 19,
+        "endLine": 21,
+        "endChar": 31
+      },
+      "revId": "362257f11b09b78512bd12311d46335f272a420f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
