@@ -207,4 +207,6 @@ class GzFileReader
     ~GzFileReader() = default;
     GzFileReader(const GzFileReader&) = delete;
     GzFileReader& operator=(const GzFileReader&) = delete;
+    GzFileReader(GzFileReader&&) = delete;
+    GzFileReader& operator=(GzFileReader&&) = delete;
 };
