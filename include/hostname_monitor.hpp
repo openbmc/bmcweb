@@ -16,7 +16,7 @@ static std::unique_ptr<sdbusplus::bus::match::match> hostnameSignalMonitor;
 inline void installCertificate(const std::filesystem::path& certPath)
 {
     crow::connections::systemBus->async_method_call(
-        [certPath](boost::system::error_code ec) {
+        [certPath](const boost::system::error_code ec) {
             if (ec)
             {
                 BMCWEB_LOG_ERROR << "Replace Certificate Fail..";
