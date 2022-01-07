@@ -227,6 +227,11 @@ class SensorsAsyncResp
         }
     }
 
+    SensorsAsyncResp(const SensorsAsyncResp&) = delete;
+    SensorsAsyncResp(SensorsAsyncResp&&) = delete;
+    SensorsAsyncResp& operator=(const SensorsAsyncResp&) = delete;
+    SensorsAsyncResp& operator=(SensorsAsyncResp&&) = delete;
+
     void addMetadata(const nlohmann::json& sensorObject,
                      const std::string& valueKey, const std::string& dbusPath)
     {

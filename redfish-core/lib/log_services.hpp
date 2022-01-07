@@ -140,8 +140,10 @@ inline static int getJournalMetadata(sd_journal* journal,
     size_t length = 0;
     int ret = 0;
     // Get the metadata from the requested field of the journal entry
-    ret = sd_journal_get_data(journal, field.data(),
-                              reinterpret_cast<const void**>(&data), &length);
+    // NOLINTNEXTLINE(cppcoreguidelines-pro-type-reinterpret-cast)
+    const void** dataVoid = reinterpret_cast<const void**>(&data);
+
+    ret = sd_journal_get_data(journal, field.data(), dataVoid, &length);
     if (ret < 0)
     {
         return ret;
@@ -2008,8 +2010,11 @@ inline void requestRoutesSystemHostLoggerLogEntry(App& app)
                 const std::string& targetID = param;
 
                 uint64_t idInt = 0;
-                auto [ptr, ec] = std::from_chars(
-                    targetID.data(), targetID.data() + targetID.size(), idInt);
+
+                // NOLINTNEXTLINE(cppcoreguidelines-pro-bounds-pointer-arithmetic)
+                const char* end = targetID.data() + targetID.size();
+
+                auto [ptr, ec] = std::from_chars(targetID.data(), end, idInt);
                 if (ec == std::errc::invalid_argument)
                 {
                     messages::resourceMissingAtURI(asyncResp->res, targetID);
@@ -2852,16 +2857,9 @@ inline void requestRoutesCrashdumpFile(App& app)
                             return;
                         }
                         ifs.seekg(0, std::ios::beg);
-
-                        auto crashData = std::make_unique<char[]>(
-                            static_cast<unsigned int>(fileSize));
-
-                        ifs.read(crashData.get(), static_cast<int>(fileSize));
-
-                        // The cast to std::string is intentional in order to
-                        // use the assign() that applies move mechanics
-                        asyncResp->res.body().assign(
-                            static_cast<std::string>(crashData.get()));
+                        size_t sFileSize = static_cast<size_t>(fileSize);
+                        asyncResp->res.body().resize(sFileSize, '\0');
+                        ifs.read(asyncResp->res.body().data(), fileSize);
 
                         // Configure this to be a file download when accessed
                         // from a browser
@@ -3388,7 +3386,9 @@ inline static bool parsePostCode(const std::string& postCodeID,
         return false;
     }
 
+    // NOLINTNEXTLINE(cppcoreguidelines-pro-bounds-pointer-arithmetic)
     const char* start = split[0].data() + 1;
+    // NOLINTNEXTLINE(cppcoreguidelines-pro-bounds-pointer-arithmetic)
     const char* end = split[0].data() + split[0].size();
     auto [ptrIndex, ecIndex] = std::from_chars(start, end, index);
 
@@ -3398,6 +3398,8 @@ inline static bool parsePostCode(const std::string& postCodeID,
     }
 
     start = split[1].data();
+
+    // NOLINTNEXTLINE(cppcoreguidelines-pro-bounds-pointer-arithmetic)
     end = split[1].data() + split[1].size();
     auto [ptrValue, ecValue] = std::from_chars(start, end, currentValue);
     if (ptrValue != end || ecValue != std::errc())
@@ -3463,18 +3465,17 @@ inline void requestRoutesPostCodesEntryAdditionalData(App& app)
                             return;
                         }
 
-                        auto& [tID, code] = postcodes[value];
-                        if (code.empty())
+                        auto& [tID, c] = postcodes[value];
+                        if (c.empty())
                         {
                             BMCWEB_LOG_INFO << "No found post code data";
                             messages::resourceNotFound(asyncResp->res,
                                                        "LogEntry", postCodeID);
                             return;
                         }
-
-                        std::string_view strData(
-                            reinterpret_cast<const char*>(code.data()),
-                            code.size());
+                        // NOLINTNEXTLINE(cppcoreguidelines-pro-type-reinterpret-cast)
+                        const char* d = reinterpret_cast<const char*>(c.data());
+                        std::string_view strData(d, c.size());
 
                         asyncResp->res.addHeader("Content-Type",
                                                  "application/octet-stream");
