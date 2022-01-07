@@ -16,6 +16,7 @@
 #include <string>
 #include <utility>
 
+// NOLINTNEXTLINE(cppcoreguidelines-macro-usage)
 #define BMCWEB_ROUTE(app, url)                                                 \
     app.template route<crow::black_magic::getParameterTag(url)>(url)
 
