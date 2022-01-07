@@ -530,7 +530,9 @@ inline bool Lock::isConflictRequest(const LockRequests& refLockRequestStructure)
 inline bool Lock::checkByte(uint64_t resourceId1, uint64_t resourceId2,
                             uint32_t position)
 {
+    // NOLINTNEXTLINE(cppcoreguidelines-pro-type-reinterpret-cast)
     uint8_t* p = reinterpret_cast<uint8_t*>(&resourceId1);
+    // NOLINTNEXTLINE(cppcoreguidelines-pro-type-reinterpret-cast)
     uint8_t* q = reinterpret_cast<uint8_t*>(&resourceId2);
 
     BMCWEB_LOG_DEBUG << "Comparing bytes " << std::to_string(p[position]) << ","

@@ -281,15 +281,20 @@ inline void generateSslCertificate(const std::string& filepath,
             // get the subject name
             X509_NAME* name = X509_get_subject_name(x509);
 
-            X509_NAME_add_entry_by_txt(
-                name, "C", MBSTRING_ASC,
-                reinterpret_cast<const unsigned char*>("US"), -1, -1, 0);
-            X509_NAME_add_entry_by_txt(
-                name, "O", MBSTRING_ASC,
-                reinterpret_cast<const unsigned char*>("OpenBMC"), -1, -1, 0);
-            X509_NAME_add_entry_by_txt(
-                name, "CN", MBSTRING_ASC,
-                reinterpret_cast<const unsigned char*>(cn.c_str()), -1, -1, 0);
+            using x509String = const unsigned char;
+            // NOLINTNEXTLINE(cppcoreguidelines-pro-type-reinterpret-cast)
+            x509String* country = reinterpret_cast<x509String*>("US");
+            // NOLINTNEXTLINE(cppcoreguidelines-pro-type-reinterpret-cast)
+            x509String* company = reinterpret_cast<x509String*>("OpenBMC");
+            // NOLINTNEXTLINE(cppcoreguidelines-pro-type-reinterpret-cast)
+            x509String* cnStr = reinterpret_cast<x509String*>(cn.c_str());
+
+            X509_NAME_add_entry_by_txt(name, "C", MBSTRING_ASC, country, -1, -1,
+                                       0);
+            X509_NAME_add_entry_by_txt(name, "O", MBSTRING_ASC, company, -1, -1,
+                                       0);
+            X509_NAME_add_entry_by_txt(name, "CN", MBSTRING_ASC, cnStr, -1, -1,
+                                       0);
             // set the CSR options
             X509_set_issuer_name(x509, name);
 

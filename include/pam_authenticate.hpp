@@ -32,6 +32,7 @@ inline int pamFunctionConversation(int numMsg, const struct pam_message** msg,
         /* Assume PAM is only prompting for the password as hidden input */
         /* Allocate memory only when PAM_PROMPT_ECHO_OFF is encounterred */
 
+        // NOLINTNEXTLINE(cppcoreguidelines-pro-type-reinterpret-cast)
         char* appPass = reinterpret_cast<char*>(appdataPtr);
         size_t appPassSize = std::strlen(appPass);
 
@@ -39,8 +40,14 @@ inline int pamFunctionConversation(int numMsg, const struct pam_message** msg,
         {
             return PAM_CONV_ERR;
         }
+        // IDeally we'd like to avoid using malloc here, but because we're
+        // passing off ownership of this to a C application, there aren't a lot
+        // of sane ways to avoid it.
 
-        char* pass = reinterpret_cast<char*>(malloc(appPassSize + 1));
+        // NOLINTNEXTLINE(cppcoreguidelines-no-malloc)'
+        void* passPtr = malloc(appPassSize + 1);
+        // NOLINTNEXTLINE(cppcoreguidelines-pro-type-reinterpret-cast)
+        char* pass = reinterpret_cast<char*>(passPtr);
         if (pass == nullptr)
         {
             return PAM_BUF_ERR;
@@ -48,15 +55,17 @@ inline int pamFunctionConversation(int numMsg, const struct pam_message** msg,
 
         std::strncpy(pass, appPass, appPassSize + 1);
 
-        void* ptr =
-            calloc(static_cast<size_t>(numMsg), sizeof(struct pam_response));
+        size_t numMsgSize = static_cast<size_t>(numMsg);
+        void* ptr = calloc(numMsgSize, sizeof(struct pam_response));
         if (ptr == nullptr)
         {
             free(pass);
             return PAM_BUF_ERR;
         }
 
+        // NOLINTNEXTLINE(cppcoreguidelines-pro-type-reinterpret-cast)
         *resp = reinterpret_cast<pam_response*>(ptr);
+
         resp[i]->resp = pass;
 
         return PAM_SUCCESS;
