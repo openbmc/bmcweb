@@ -353,9 +353,12 @@ bool readJsonValues(const std::string& key, nlohmann::json& jsonValue,
     bool ret = true;
     if (key != keyToCheck)
     {
-        ret = readJsonValues<Count, Index + 1>(key, jsonValue, res, handled,
-                                               in...) &&
-              ret;
+        ret =
+            readJsonValues<Count, Index + 1>(
+                key, jsonValue, res, handled,
+                // NOLINTNEXTLINE(cppcoreguidelines-pro-bounds-array-to-pointer-decay)
+                in...) &&
+            ret;
         return ret;
     }
 
@@ -381,6 +384,8 @@ bool handleMissing(std::bitset<Count>& handled, crow::Response& res,
         ret = false;
         messages::propertyMissing(res, key);
     }
+
+    // NOLINTNEXTLINE(cppcoreguidelines-pro-bounds-array-to-pointer-decay)
     return details::handleMissing<Index + 1, Count>(handled, res, in...) && ret;
 }
 } // namespace details
