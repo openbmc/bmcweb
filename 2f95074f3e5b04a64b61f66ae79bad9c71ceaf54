@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b760d45e_e9eca856",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1001252
+      },
+      "writtenOn": "2022-01-07T06:08:54Z",
+      "side": 1,
+      "message": "I\u0027m not sure whether it is used by everyone in community, but service-config-manager is the only implementation so far for managing service enable/disable and its port. Ed also suggests to call the service directly instead of objectmapper, https://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/50135",
+      "parentUuid": "7af71040_b50b6b3c",
+      "range": {
+        "startLine": 11,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 60
+      },
+      "revId": "2f95074f3e5b04a64b61f66ae79bad9c71ceaf54",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a9c50ab5_321f4022",
         "filename": "redfish-core/lib/service_config_manager.hpp",
         "patchSetId": 2
@@ -37,6 +61,24 @@
       "writtenOn": "2022-01-06T22:12:53Z",
       "side": 1,
       "message": "Should this be a util ?",
+      "revId": "2f95074f3e5b04a64b61f66ae79bad9c71ceaf54",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2cd09b39_d4036720",
+        "filename": "redfish-core/lib/service_config_manager.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001252
+      },
+      "writtenOn": "2022-01-07T06:08:54Z",
+      "side": 1,
+      "message": "It can be a util, but I think it\u0027s more like a wrapper of service-config-manager service, so I put it in a new file with a new namespace.",
+      "parentUuid": "a9c50ab5_321f4022",
       "revId": "2f95074f3e5b04a64b61f66ae79bad9c71ceaf54",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
