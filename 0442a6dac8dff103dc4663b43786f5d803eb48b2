@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "99205194_d9950816",
+        "filename": "include/openbmc_dbus_rest.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 234,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-01-07T16:55:42Z",
+      "side": 1,
+      "message": "We don\u0027t want to log the exception ?\n\nE.g. \nhttps://github.com/openbmc/bmcweb/blob/168e20c1306e3e689907ba43e14ea679e2328611/http/routing.hpp#L1208\n\nI guess that would require a 2nd catch ?\n\n        catch (const std::exception\u0026 e)\n        {\n            BMCWEB_LOG_ERROR \u003c\u003c \"An uncaught exception occurred: \" \u003c\u003c e.what();\n            return;\n        }\n        catch (...)\n        {\n            BMCWEB_LOG_ERROR\n                \u003c\u003c \"An uncaught exception occurred. The type was unknown \"\n                   \"so no information was available.\";\n            return;\n        }",
+      "revId": "0442a6dac8dff103dc4663b43786f5d803eb48b2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
