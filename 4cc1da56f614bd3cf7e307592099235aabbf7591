@@ -68,6 +68,40 @@
       "message": "Will be rebased on https://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/50164 later",
       "revId": "4cc1da56f614bd3cf7e307592099235aabbf7591",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "442869a7_582ecb0e",
+        "filename": "redfish-core/lib/service_config_manager.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-01-07T00:28:12Z",
+      "side": 1,
+      "message": "Why call this service config manager? \nWhy is this specific to https://github.com/openbmc/service-config-manager?\n\nShould this be a util instead?",
+      "revId": "4cc1da56f614bd3cf7e307592099235aabbf7591",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8650a3b9_2ba77054",
+        "filename": "redfish-core/lib/service_config_manager.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-01-07T00:28:12Z",
+      "side": 1,
+      "message": "Aren\u0027t you assuming more of the path then you should?\nIs it documented somewhere, these are all under control/service?",
+      "revId": "4cc1da56f614bd3cf7e307592099235aabbf7591",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
