@@ -44,6 +44,11 @@ class App
         this->stop();
     }
 
+    App(const App&) = delete;
+    App(App&&) = delete;
+    App& operator=(const App&) = delete;
+    App& operator=(const App&&) = delete;
+
     template <typename Adaptor>
     void handleUpgrade(const Request& req, Response& res, Adaptor&& adaptor)
     {

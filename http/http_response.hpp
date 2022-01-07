@@ -39,6 +39,10 @@ struct Response
     Response() : stringResponse(response_type{})
     {}
 
+    ~Response() = default;
+
+    Response(const Response&) = delete;
+    Response(Response&&) = delete;
     Response& operator=(const Response& r) = delete;
 
     Response& operator=(Response&& r) noexcept

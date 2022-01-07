@@ -62,6 +62,11 @@ class Logger
         }
     }
 
+    Logger(const Logger&) = delete;
+    Logger(Logger&&) = delete;
+    Logger& operator=(const Logger&) = delete;
+    Logger& operator=(const Logger&&) = delete;
+
     //
     template <typename T>
     Logger& operator<<([[maybe_unused]] T const& value)
