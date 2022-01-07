@@ -80,6 +80,7 @@ class Resolver
                     }
                     uint16_t portNum = 0;
                     auto it = std::from_chars(
+                        // NOLINTNEXTLINE(cppcoreguidelines-pro-bounds-pointer-arithmetic)
                         port.data(), port.data() + port.size(), portNum);
                     if (it.ec != std::errc())
                     {
