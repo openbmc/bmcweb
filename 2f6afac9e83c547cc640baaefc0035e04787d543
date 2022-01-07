@@ -48,6 +48,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6df7722a_43c9bf1c",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 225,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-01-07T17:21:52Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "460d15a2_e1951bf0",
+      "range": {
+        "startLine": 225,
+        "startChar": 12,
+        "endLine": 225,
+        "endChar": 34
+      },
+      "revId": "2f6afac9e83c547cc640baaefc0035e04787d543",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9570760a_98678503",
@@ -79,6 +103,24 @@
       "side": 1,
       "message": "Oh I did not know that. Still learning what Processor means to Redfish and to HW I guess.",
       "parentUuid": "9570760a_98678503",
+      "revId": "2f6afac9e83c547cc640baaefc0035e04787d543",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3bf60473_cc41c028",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 228,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-01-07T17:21:52Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "2dfbb695_6b79af1c",
       "revId": "2f6afac9e83c547cc640baaefc0035e04787d543",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
