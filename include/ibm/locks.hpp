@@ -128,6 +128,14 @@ class Lock
 
   public:
     /*
+     * Explicitly deleted copy and move constructors
+     */
+    Lock(const Lock&) = delete;
+    Lock(Lock&&) = delete;
+    Lock& operator=(const Lock&) = delete;
+    Lock& operator=(Lock&&) = delete;
+
+    /*
      * This function implements the logic for acquiring a lock on a
      * resource if the incoming request is legitimate without any
      * conflicting requirements & without any conflicting requirement
