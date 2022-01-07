@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e2051980_d67ad187",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-01-07T18:10:22Z",
+      "side": 1,
+      "message": "Plan is we will slowly fix these?",
+      "revId": "ca03007bc0107e4d65543a832ed0abed1d885045",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e386ef2f_39a872ec",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-01-07T18:10:22Z",
+      "side": 1,
+      "message": "Do you want to do Sanity test on the top one, make sure something didn\u0027t break? E.g. run the validator",
+      "revId": "ca03007bc0107e4d65543a832ed0abed1d885045",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
