@@ -89,6 +89,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "91e6c342_7baa0e97",
+        "filename": "redfish-core/lib/service_config_manager.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001252
+      },
+      "writtenOn": "2022-01-07T06:54:06Z",
+      "side": 1,
+      "message": "Moved this change to https://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/50164 I\u0027ve answered it there.",
+      "parentUuid": "442869a7_582ecb0e",
+      "revId": "4cc1da56f614bd3cf7e307592099235aabbf7591",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "8650a3b9_2ba77054",
         "filename": "redfish-core/lib/service_config_manager.hpp",
         "patchSetId": 3
@@ -100,6 +118,24 @@
       "writtenOn": "2022-01-07T00:28:12Z",
       "side": 1,
       "message": "Aren\u0027t you assuming more of the path then you should?\nIs it documented somewhere, these are all under control/service?",
+      "revId": "4cc1da56f614bd3cf7e307592099235aabbf7591",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "305d537b_c6bf9054",
+        "filename": "redfish-core/lib/service_config_manager.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1001252
+      },
+      "writtenOn": "2022-01-07T06:54:06Z",
+      "side": 1,
+      "message": "Services which can be configured by service-config-manager is under /xyz/openbmc_project/control/service. Documented at https://github.com/openbmc/phosphor-dbus-interfaces/tree/master/yaml/xyz/openbmc_project/Control/Service",
+      "parentUuid": "8650a3b9_2ba77054",
       "revId": "4cc1da56f614bd3cf7e307592099235aabbf7591",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
