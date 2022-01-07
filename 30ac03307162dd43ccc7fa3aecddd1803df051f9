@@ -34,6 +34,24 @@
       "parentUuid": "16729dd8_bba9eeb8",
       "revId": "30ac03307162dd43ccc7fa3aecddd1803df051f9",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bc183a2f_ddb7396a",
+        "filename": "redfish-core/include/event_service_manager.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1193,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-01-07T18:12:04Z",
+      "side": 1,
+      "message": "Ack. I am assuming clang-format is the one who did it, not it was this way and clang-format didn\u0027t fix.",
+      "parentUuid": "b61b5113_aa7db371",
+      "revId": "30ac03307162dd43ccc7fa3aecddd1803df051f9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
