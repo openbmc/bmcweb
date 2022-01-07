@@ -46,7 +46,7 @@ struct UserSession
     std::string clientId;
     std::string clientIp;
     std::chrono::time_point<std::chrono::steady_clock> lastUpdated;
-    PersistenceType persistence;
+    PersistenceType persistence{PersistenceType::TIMEOUT};
     bool cookieAuth = false;
     bool isConfigureSelfOnly = false;
 
@@ -404,6 +404,9 @@ class SessionStore
 
     SessionStore(const SessionStore&) = delete;
     SessionStore& operator=(const SessionStore&) = delete;
+    SessionStore(SessionStore&&) = delete;
+    SessionStore& operator=(const SessionStore&&) = delete;
+    ~SessionStore() = default;
 
     std::unordered_map<std::string, std::shared_ptr<UserSession>,
                        std::hash<std::string>,

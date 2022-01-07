@@ -32,6 +32,11 @@ class Handler : public std::enable_shared_from_this<Handler>
 
     ~Handler() = default;
 
+    Handler(const Handler&) = delete;
+    Handler(Handler&&) = delete;
+    Handler& operator=(const Handler&) = delete;
+    Handler& operator=(Handler&&) = delete;
+
     void doClose()
     {
         // boost::process::child::terminate uses SIGKILL, need to send SIGTERM

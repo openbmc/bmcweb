@@ -20,6 +20,11 @@ class Resolver
 
     ~Resolver() = default;
 
+    Resolver(const Resolver&) = delete;
+    Resolver(Resolver&&) = delete;
+    Resolver& operator=(const Resolver&) = delete;
+    Resolver& operator=(Resolver&&) = delete;
+
     template <typename ResolveHandler>
     void asyncResolve(const std::string& host, const std::string& port,
                       ResolveHandler&& handler)
@@ -75,6 +80,7 @@ class Resolver
                     }
                     uint16_t portNum = 0;
                     auto it = std::from_chars(
+                        // NOLINTNEXTLINE(cppcoreguidelines-pro-bounds-pointer-arithmetic)
                         port.data(), port.data() + port.size(), portNum);
                     if (it.ec != std::errc())
                     {
