@@ -16,6 +16,24 @@
       "message": "We don\u0027t want to log the exception ?\n\nE.g. \nhttps://github.com/openbmc/bmcweb/blob/168e20c1306e3e689907ba43e14ea679e2328611/http/routing.hpp#L1208\n\nI guess that would require a 2nd catch ?\n\n        catch (const std::exception\u0026 e)\n        {\n            BMCWEB_LOG_ERROR \u003c\u003c \"An uncaught exception occurred: \" \u003c\u003c e.what();\n            return;\n        }\n        catch (...)\n        {\n            BMCWEB_LOG_ERROR\n                \u003c\u003c \"An uncaught exception occurred. The type was unknown \"\n                   \"so no information was available.\";\n            return;\n        }",
       "revId": "0442a6dac8dff103dc4663b43786f5d803eb48b2",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9f965723_4cecda7c",
+        "filename": "include/openbmc_dbus_rest.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 234,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-01-07T19:23:39Z",
+      "side": 1,
+      "message": "Considering that by design we shouldn\u0027t be throwing exceptions at this level at all, I didn\u0027t apply a lot of effort to it.  There\u0027s some subtleties around this, I think the real fix here is to make sure this patch can\u0027t throw at all, but finding the spot that\u0027s possible to throw is difficult, and has subtleties (apparently boost::vector can throw on construction, std::vector can\u0027t).  If it\u0027s really important that this gets changed, I can, but it doesn\u0027t seem that important to the overall goal, and I\u0027d rather leave it as-is.",
+      "parentUuid": "99205194_d9950816",
+      "revId": "0442a6dac8dff103dc4663b43786f5d803eb48b2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
