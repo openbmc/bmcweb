@@ -404,6 +404,9 @@ class SessionStore
 
     SessionStore(const SessionStore&) = delete;
     SessionStore& operator=(const SessionStore&) = delete;
+    SessionStore(SessionStore&&) = delete;
+    SessionStore& operator=(const SessionStore&&) = delete;
+    ~SessionStore() = default;
 
     std::unordered_map<std::string, std::shared_ptr<UserSession>,
                        std::hash<std::string>,

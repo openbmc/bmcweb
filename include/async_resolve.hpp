@@ -20,6 +20,11 @@ class Resolver
 
     ~Resolver() = default;
 
+    Resolver(const Resolver&) = delete;
+    Resolver(Resolver&&) = delete;
+    Resolver& operator=(const Resolver&) = delete;
+    Resolver& operator=(Resolver&&) = delete;
+
     template <typename ResolveHandler>
     void asyncResolve(const std::string& host, const std::string& port,
                       ResolveHandler&& handler)
