@@ -81,6 +81,11 @@ class Connection :
                          << connectionCount;
     }
 
+    Connection(const Connection&) = delete;
+    Connection(Connection&&) = delete;
+    Connection& operator=(const Connection&) = delete;
+    Connection& operator=(Connection&&) = delete;
+
     void prepareMutualTls()
     {
         std::error_code error;
@@ -93,9 +98,11 @@ class Connection :
         {
             adaptor.set_verify_mode(boost::asio::ssl::verify_peer);
             std::string id = "bmcweb";
+
+            // NOLINTNEXTLINE(cppcoreguidelines-pro-type-reinterpret-cast)
+            auto* idC = reinterpret_cast<const unsigned char*>(id.c_str());
             int ret = SSL_set_session_id_context(
-                adaptor.native_handle(),
-                reinterpret_cast<const unsigned char*>(id.c_str()),
+                adaptor.native_handle(), idC,
                 static_cast<unsigned int>(id.length()));
             if (ret == 0)
             {
@@ -175,11 +182,13 @@ class Connection :
 
             for (int i = 0; i < usage->length; i++)
             {
-                if (KU_DIGITAL_SIGNATURE & usage->data[i])
+                // NOLINTNEXTLINE(cppcoreguidelines-pro-bounds-pointer-arithmetic)
+                unsigned char usageChar = usage->data[i];
+                if (KU_DIGITAL_SIGNATURE & usageChar)
                 {
                     isKeyUsageDigitalSignature = true;
                 }
-                if (KU_KEY_AGREEMENT & usage->data[i])
+                if (KU_KEY_AGREEMENT & usageChar)
                 {
                     isKeyUsageKeyAgreement = true;
                 }
@@ -210,8 +219,9 @@ class Connection :
             bool isExKeyUsageClientAuth = false;
             for (int i = 0; i < sk_ASN1_OBJECT_num(extUsage); i++)
             {
-                if (NID_client_auth ==
-                    OBJ_obj2nid(sk_ASN1_OBJECT_value(extUsage, i)))
+                // NOLINTNEXTLINE(cppcoreguidelines-pro-type-cstyle-cast)
+                int nid = OBJ_obj2nid(sk_ASN1_OBJECT_value(extUsage, i));
+                if (NID_client_auth == nid)
                 {
                     isExKeyUsageClientAuth = true;
                     break;

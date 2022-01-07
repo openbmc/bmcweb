@@ -439,7 +439,7 @@ inline void
         for (auto& e : segmentFlags)
         {
             std::string lockFlags;
-            uint32_t segmentLength  = 0;
+            uint32_t segmentLength = 0;
 
             if (!redfish::json_util::readJson(e, asyncResp->res, "LockFlag",
                                               lockFlags, "SegmentLength",

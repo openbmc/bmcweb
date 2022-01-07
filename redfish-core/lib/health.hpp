@@ -40,6 +40,11 @@ struct HealthPopulate : std::enable_shared_from_this<HealthPopulate>
         jsonStatus(status)
     {}
 
+    HealthPopulate(const HealthPopulate&) = delete;
+    HealthPopulate(HealthPopulate&&) = delete;
+    HealthPopulate& operator=(const HealthPopulate&) = delete;
+    HealthPopulate& operator=(const HealthPopulate&&) = delete;
+
     ~HealthPopulate()
     {
         nlohmann::json& health = jsonStatus["Health"];

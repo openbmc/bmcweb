@@ -2852,16 +2852,9 @@ inline void requestRoutesCrashdumpFile(App& app)
                             return;
                         }
                         ifs.seekg(0, std::ios::beg);
-
-                        auto crashData = std::make_unique<char[]>(
-                            static_cast<unsigned int>(fileSize));
-
-                        ifs.read(crashData.get(), static_cast<int>(fileSize));
-
-                        // The cast to std::string is intentional in order to
-                        // use the assign() that applies move mechanics
-                        asyncResp->res.body().assign(
-                            static_cast<std::string>(crashData.get()));
+                        size_t sFileSize = static_cast<size_t>(fileSize);
+                        asyncResp->res.body().resize(sFileSize, '\0');
+                        ifs.read(asyncResp->res.body().data(), fileSize);
 
                         // Configure this to be a file download when accessed
                         // from a browser

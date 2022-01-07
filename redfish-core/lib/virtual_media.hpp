@@ -518,6 +518,7 @@ inline bool
 template <typename T>
 static void secureCleanup(T& value)
 {
+    // NOLINTNEXTLINE(cppcoreguidelines-pro-type-const-cast)
     auto raw = const_cast<typename T::value_type*>(value.data());
     explicit_bzero(raw, value.size() * sizeof(*raw));
 }
@@ -548,6 +549,8 @@ class Credentials
     Credentials() = delete;
     Credentials(const Credentials&) = delete;
     Credentials& operator=(const Credentials&) = delete;
+    Credentials(Credentials&&) = delete;
+    Credentials& operator=(Credentials&&) = delete;
 
   private:
     std::string userBuf;
@@ -622,6 +625,11 @@ class Pipe
         // Named pipe needs to be explicitly removed
         impl.close();
     }
+
+    Pipe(const Pipe&) = delete;
+    Pipe(Pipe&&) = delete;
+    Pipe& operator=(const Pipe&) = delete;
+    Pipe& operator=(Pipe&&) = delete;
 
     unix_fd fd()
     {
