@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cb16a775_48957409",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 24
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000500
+      },
+      "writtenOn": "2022-01-07T23:20:11Z",
+      "side": 1,
+      "message": "On the question of setting up Association in an Entity-Manager-based system:\n\nAccording to discussion on Discord, one solution is to add a BMC to a board .JSON file:\n\nstwcx — 12/30/2021\nI suppose that entirely depends on how you lay out your system data.  If the BMC is on the mainboard, then I would expect it to be in the board JSON.  If the BMC is on a card (such as a DC-SCM) I would expect the card to have its own EEPROM and you should define a JSON for that card.\n\nAlatar — 01/05/2022\nIs it work with adding \"xyz.openbmc_project.Invntory.Item.Bmc\" interface to board object? If this solves your issue, the it\u0027s fine without separate object.\n\nWith the above method (BMC in board JSON), the Board DBus object will have the BMC interface, as follows (Probe set to \"TRUE\" for testing in QEMU):\n\n  {\n    \"Name\": \"SUPER_BOARD\",\n    \"Probe\": \"TRUE\",\n    \"Type\": \"Board\",\n    \"xyz.openbmc_project.Inventory.Item.Bmc\": {},\n    \"xyz.openbmc_project.Inventory.Decorator.Asset\": {},\n    \"xyz.openbmc_project.Inventory.Connector.Slot\": {},\n    ...\n  }\n\nWhen picked up by Entity-Manager, the following object is created:\n\n  # busctl introspect xyz.openbmc_project.EntityManager /xyz/openbmc_project/inventory/system/board/SUPER_BOARD\n\n  xyz.openbmc_project.Inventory.Connector.Slot      interface -         -            -\n  xyz.openbmc_project.Inventory.Decorator.Asset     interface -         -            -\n  xyz.openbmc_project.Inventory.Decorator.FruDevice interface -         -            -\n  xyz.openbmc_project.Inventory.Decorator.Ipmi      interface -         -            -\n  xyz.openbmc_project.Inventory.Item.Bmc            interface -         -            -\n  xyz.openbmc_project.Inventory.Item.Board          interface -         -            -\n\nThis allows phosphor-health-monitor to create Associations which will be used by this change to find the utilization sensors. From the perspective of one utilization sensor:\n\n  # busctl get-property xyz.openbmc_project.HealthMon /xyz/openbmc_project/sensors/utilization/CPU_Kernel xyz.openbmc_project.Association.Definitions Associations\n  a(sss) 1 \"bmc\" \"bmc_diagnostic_data\" \"/xyz/openbmc_project/inventory/system/board/SUPER_BOARD\"\n\nFrom the perspective of the Board (this is the output of \"step 3\" in this change)\n\n  # busctl get-property xyz.openbmc_project.ObjectMapper /xyz/openbmc_project/inventory/system/board/SUPER_BOARD/bmc_diagnostic_data xyz.openbmc_project.Association endpoints\nas 19 \"/xyz/openbmc_project/sensors/utilization/CPU\" \"/xyz/openbmc_project/sensors/utilization/CPU_Kernel\" \"/xyz/openbmc_project/sensors/utilization/CPU_User\" \n\"/xyz/openbmc_project/sensors/utilization/Storage_RW\" ... \"/xyz/openbmc_project/i2cstats/i2c_14\"\n\n\nThis change can work with both the setup mentioned above (BMC inventory interfaces and Board/Chassis interfaces in a same DBus object.) or having the BMC as a separate .json config file.",
+      "revId": "82db8b0c64aa7ec78f6957beb66c6d2079b2c66e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
