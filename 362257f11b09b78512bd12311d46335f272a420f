@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e652c6b8_ab5c998b",
+        "filename": "redfish-core/include/utils/time_utils.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-01-07T17:02:07Z",
+      "side": 1,
+      "message": "super nitpick and this is fine and I understand it but I have seen other code in OpenBMC do this same thing and I always seen it called dayInSeconds or dayToSeconds or secondsPerDay (I don\u0027t that one as much).\n\nIf you think it might be slightly easier to read if it matched, feel free to change, if not I am 100% good. \n\nE.g. \n\nhttps://github.com/openbmc/phosphor-user-manager/blob/b01e2fe760eb04ae9d0d13716a127056949e2601/user_mgr.cpp#L768\n\n\nhttps://github.com/openbmc/phosphor-certificate-manager/blob/cfb5802a8016b79bdcceee950492780b4193550a/certificate.cpp#L563",
+      "range": {
+        "startLine": 21,
+        "startChar": 19,
+        "endLine": 21,
+        "endChar": 31
+      },
+      "revId": "362257f11b09b78512bd12311d46335f272a420f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
