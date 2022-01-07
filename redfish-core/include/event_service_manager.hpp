@@ -564,9 +564,9 @@ class Subscription : public persistent_data::UserSubscription
 class EventServiceManager
 {
   private:
-    bool serviceEnabled;
-    uint32_t retryAttempts;
-    uint32_t retryTimeoutInterval;
+    bool serviceEnabled = false;
+    uint32_t retryAttempts = 0;
+    uint32_t retryTimeoutInterval = 0;
 
     EventServiceManager()
     {
@@ -1189,7 +1189,8 @@ class EventServiceManager
                 std::size_t index = 0;
                 while ((index + iEventSize) <= bytesTransferred)
                 {
-                    struct inotify_event event;
+                    struct inotify_event event
+                    {};
                     std::memcpy(&event, &readBuffer[index], iEventSize);
                     if (event.wd == dirWatchDesc)
                     {
