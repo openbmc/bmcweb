@@ -16,6 +16,24 @@
       "message": "const auto* ?\nWant the auto?",
       "revId": "a932a0a46c1d7359bd2c4f9c3a6275faec19b4d1",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "af116826_b27845e2",
+        "filename": "http/http_connection.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-01-07T18:11:45Z",
+      "side": 1,
+      "message": "This one was subtle.  Because of the limitations in clang-tidy, NOLINTNEXTLINE means it literally has to be on the next line in source, not the next semantic line.  When I added the const unsigned char* to the left, it caused the reinterpret_cast to move to the next line, which caused the checks to now fail because the \"next\" line wasn\u0027t the one with the issue.\n\nGiven how long the typename is, moving to auto seemed like the best compromise between the dumb gymnastics to make the check pass, and still leaves the type obviously in the call site, which is really the intent of avoiding auto.\n\nWith that said, if you have other ideas on how we could do this better, I\u0027m all ears.  This one frustrated me for a bit.",
+      "parentUuid": "99d52cc0_5256f31c",
+      "revId": "a932a0a46c1d7359bd2c4f9c3a6275faec19b4d1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
