@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "47d3ba93_7fd6ffa7",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-01-07T18:14:59Z",
+      "side": 1,
+      "message": "Ideally yes, for about 50% of them where we should\u0027ve used a more modern type (std::array for most cases).  There is some cases where we\u0027re dropping into C libraries, and it really can\u0027t be avoided.  My intent is to add this to my quarterly cleanup routines to grep for NOLINT and see if I can solve one or two per month, with the goal of having none (although that\u0027s unlikely we\u0027ll fix them all).",
+      "parentUuid": "e2051980_d67ad187",
+      "revId": "ca03007bc0107e4d65543a832ed0abed1d885045",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e386ef2f_39a872ec",
         "filename": "/COMMIT_MSG",
         "patchSetId": 1
@@ -31,6 +49,24 @@
       "writtenOn": "2022-01-07T18:10:22Z",
       "side": 1,
       "message": "Do you want to do Sanity test on the top one, make sure something didn\u0027t break? E.g. run the validator",
+      "revId": "ca03007bc0107e4d65543a832ed0abed1d885045",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "23a4dbea_d6966ad4",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-01-07T18:14:59Z",
+      "side": 1,
+      "message": "Yep, that was my plan.  I\u0027ll document in the commit message for the top repo once it\u0027s done.",
+      "parentUuid": "e386ef2f_39a872ec",
       "revId": "ca03007bc0107e4d65543a832ed0abed1d885045",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
