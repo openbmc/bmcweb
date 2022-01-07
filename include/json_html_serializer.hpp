@@ -353,6 +353,7 @@ void dumpInteger(std::string& out, NumberType number)
 
     // jump to the end to generate the string from backward
     // so we later avoid reversing the result
+    // NOLINTNEXTLINE(cppcoreguidelines-pro-bounds-pointer-arithmetic)
     bufferPtr += nChars;
 
     // Fast int2ascii implementation inspired by "Fastware" talk by Andrei
@@ -384,6 +385,8 @@ inline void dumpfloat(std::string& out, double number,
 {
     std::array<char, 64> numberbuffer{{}};
     char* begin = numberbuffer.data();
+
+    // NOLINTNEXTLINE(cppcoreguidelines-pro-bounds-pointer-arithmetic)
     ::nlohmann::detail::to_chars(begin, begin + numberbuffer.size(), number);
 
     out += begin;

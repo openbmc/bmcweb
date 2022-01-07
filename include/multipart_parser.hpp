@@ -79,6 +79,7 @@ class MultipartParser
 
         for (size_t i = 0; i < len; i++)
         {
+            // NOLINTNEXTLINE(cppcoreguidelines-pro-bounds-pointer-arithmetic)
             char c = buffer[i];
             switch (state)
             {
@@ -139,6 +140,8 @@ class MultipartParser
                         {
                             return ParserError::ERROR_EMPTY_HEADER;
                         }
+
+                        // NOLINTNEXTLINE(cppcoreguidelines-pro-bounds-pointer-arithmetic)
                         currentHeaderName.append(buffer + headerFieldMark,
                                                  i - headerFieldMark);
                         state = State::HEADER_VALUE_START;
@@ -161,6 +164,7 @@ class MultipartParser
                 case State::HEADER_VALUE:
                     if (c == cr)
                     {
+                        // NOLINTNEXTLINE(cppcoreguidelines-pro-bounds-pointer-arithmetic)
                         std::string_view value(buffer + headerValueMark,
                                                i - headerValueMark);
                         mime_fields.rbegin()->fields.set(currentHeaderName,
@@ -190,6 +194,8 @@ class MultipartParser
                     if (index == 0)
                     {
                         skipNonBoundary(buffer, len, boundary.size() - 1, i);
+
+                        // NOLINTNEXTLINE(cppcoreguidelines-pro-bounds-pointer-arithmetic)
                         c = buffer[i];
                     }
                     processPartData(prevIndex, index, buffer, i, c, state);
@@ -229,6 +235,7 @@ class MultipartParser
         // boyer-moore derived algorithm to safely skip non-boundary data
         while (i + boundary.size() <= len)
         {
+            // NOLINTNEXTLINE(cppcoreguidelines-pro-bounds-pointer-arithmetic)
             if (isBoundaryChar(buffer[i + boundaryEnd]))
             {
                 break;
@@ -248,8 +255,11 @@ class MultipartParser
             {
                 if (index == 0)
                 {
-                    mime_fields.rbegin()->content += std::string_view(
-                        buffer + partDataMark, i - partDataMark);
+                    // NOLINTNEXTLINE(cppcoreguidelines-pro-bounds-pointer-arithmetic)
+                    const char* start = buffer + partDataMark;
+                    size_t size = i - partDataMark;
+                    mime_fields.rbegin()->content +=
+                        std::string_view(start, size);
                 }
                 index++;
             }
