@@ -52,6 +52,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5157a043_4e2ce7d4",
+        "filename": "redfish-core/lib/redfish_sessions.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 230,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2022-01-07T10:10:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d587922e_841cd079",
+      "revId": "2c134f69615bef86af325b87debb86f8d5697dd6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f5ff2ccb_91799a83",
@@ -329,6 +347,30 @@
       "side": 1,
       "message": "I don\u0027t fully understand the use case for either a no-access account or a disabled account, and my efforts to answer that question are not yet successful.  IMHO, we should get that answer before proceeding with a fix.  Otherwise:\n1. What is the point of having a disabled account?  What is it used for?\n2. For an enabled account which has the no-access role, I believe BMCWeb should handle it in the same way as any other role.  Specifically, after a successful authentication, I believe PAM account management checks should succeed, and the user\u0027s privileges should be retrieved.  In this case the privileges will be the empty set.  The login operations should then fail.  \u003c-- That is what I proposed in my comment above.  Specifically, the login operation(s) should ensure the user trying to login has the Redfish Login privilege.",
       "parentUuid": "ef24b25b_aaeb9fd3",
+      "range": {
+        "startLine": 199,
+        "startChar": 0,
+        "endLine": 266,
+        "endChar": 37
+      },
+      "revId": "2c134f69615bef86af325b87debb86f8d5697dd6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2e20334c_2c9636c6",
+        "filename": "redfish-core/lib/redfish_sessions.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 266,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2022-01-07T10:10:18Z",
+      "side": 1,
+      "message": "Did changes as per the #2 approach. The first approach can be a long term solution, and need community help in getting that design implemented.",
+      "parentUuid": "c84bd2ac_2214fd0a",
       "range": {
         "startLine": 199,
         "startChar": 0,
