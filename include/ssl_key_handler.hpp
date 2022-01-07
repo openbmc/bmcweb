@@ -232,6 +232,8 @@ inline int addExt(X509* cert, int nid, const char* value)
     X509_EXTENSION* ex = nullptr;
     X509V3_CTX ctx{};
     X509V3_set_ctx(&ctx, cert, cert, nullptr, nullptr, 0);
+
+    // NOLINTNEXTLINE(cppcoreguidelines-pro-type-const-cast)
     ex = X509V3_EXT_conf_nid(nullptr, &ctx, nid, const_cast<char*>(value));
     if (!ex)
     {
