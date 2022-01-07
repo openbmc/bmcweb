@@ -86,8 +86,11 @@ inline int pamAuthenticateUser(const std::string_view username,
 {
     std::string userStr(username);
     std::string passStr(password);
-    const struct pam_conv localConversation = {
-        pamFunctionConversation, const_cast<char*>(passStr.c_str())};
+
+    // NOLINTNEXTLINE(cppcoreguidelines-pro-type-const-cast)
+    char* passStrNoConst = const_cast<char*>(passStr.c_str());
+    const struct pam_conv localConversation = {pamFunctionConversation,
+                                               passStrNoConst};
     pam_handle_t* localAuthHandle = nullptr; // this gets set by pam_start
 
     int retval = pam_start("webserver", userStr.c_str(), &localConversation,
@@ -119,8 +122,10 @@ inline int pamAuthenticateUser(const std::string_view username,
 inline int pamUpdatePassword(const std::string& username,
                              const std::string& password)
 {
-    const struct pam_conv localConversation = {
-        pamFunctionConversation, const_cast<char*>(password.c_str())};
+    // NOLINTNEXTLINE(cppcoreguidelines-pro-type-const-cast)
+    char* passStrNoConst = const_cast<char*>(password.c_str());
+    const struct pam_conv localConversation = {pamFunctionConversation,
+                                               passStrNoConst};
     pam_handle_t* localAuthHandle = nullptr; // this gets set by pam_start
 
     int retval = pam_start("webserver", username.c_str(), &localConversation,
