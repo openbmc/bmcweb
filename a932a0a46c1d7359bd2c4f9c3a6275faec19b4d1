@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "99d52cc0_5256f31c",
+        "filename": "http/http_connection.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-01-07T18:05:19Z",
+      "side": 1,
+      "message": "const auto* ?\nWant the auto?",
+      "revId": "a932a0a46c1d7359bd2c4f9c3a6275faec19b4d1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
