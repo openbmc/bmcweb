@@ -74,6 +74,10 @@ class Logger
         if (level >= getCurrentLogLevel())
         {
 #ifdef BMCWEB_ENABLE_LOGGING
+            // Somewhere in the code we're implicitly casting an array to a
+            // pointer in logging code.  It's non-trivial to find, so disable
+            // the check here for now
+            // NOLINTNEXTLINE(cppcoreguidelines-pro-bounds-array-to-pointer-decay)
             stringstream << value;
 #endif
         }
