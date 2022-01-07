@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "460d15a2_e1951bf0",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 225,
+      "author": {
+        "id": 1001083
+      },
+      "writtenOn": "2022-01-07T13:23:59Z",
+      "side": 1,
+      "message": "When I kept it as is, I was thinking about future capability, otherwise I would change the dbus GetAll call to just a call for CoreCount and be done with searching all the properties.",
+      "parentUuid": "665f819b_fbe691bd",
+      "range": {
+        "startLine": 225,
+        "startChar": 12,
+        "endLine": 225,
+        "endChar": 34
+      },
+      "revId": "2f6afac9e83c547cc640baaefc0035e04787d543",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "9570760a_98678503",
         "filename": "redfish-core/lib/systems.hpp",
         "patchSetId": 3
@@ -37,6 +61,24 @@
       "writtenOn": "2022-01-06T22:04:52Z",
       "side": 1,
       "message": "This should probably look for more than just Item.Cpu because a Redfish Processor is broader than just a CPU. Oh well a change another day.",
+      "revId": "2f6afac9e83c547cc640baaefc0035e04787d543",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2dfbb695_6b79af1c",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 228,
+      "author": {
+        "id": 1001083
+      },
+      "writtenOn": "2022-01-07T13:23:59Z",
+      "side": 1,
+      "message": "Oh I did not know that. Still learning what Processor means to Redfish and to HW I guess.",
+      "parentUuid": "9570760a_98678503",
       "revId": "2f6afac9e83c547cc640baaefc0035e04787d543",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
