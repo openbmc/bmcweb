@@ -335,6 +335,11 @@ class AddReport
             args.interval, readingParams);
     }
 
+    AddReport(const AddReport&) = delete;
+    AddReport(AddReport&&) = delete;
+    AddReport& operator=(const AddReport&) = delete;
+    AddReport& operator=(AddReport&&) = delete;
+
     void insert(const boost::container::flat_map<std::string, std::string>& el)
     {
         uriToDbus.insert(el.begin(), el.end());

@@ -1296,6 +1296,11 @@ struct GetPIDValues : std::enable_shared_from_this<GetPIDValues>
         }
     }
 
+    GetPIDValues(const GetPIDValues&) = delete;
+    GetPIDValues(GetPIDValues&&) = delete;
+    GetPIDValues& operator=(const GetPIDValues&) = delete;
+    GetPIDValues& operator=(GetPIDValues&&) = delete;
+
     std::vector<std::string> supportedProfiles;
     std::string currentProfile;
     crow::openbmc_mapper::GetSubTreeType subtree;
@@ -1332,6 +1337,12 @@ struct SetPIDValues : std::enable_shared_from_this<SetPIDValues>
         configuration.emplace_back("StepwiseControllers",
                                    std::move(stepwiseControllers));
     }
+
+    SetPIDValues(const SetPIDValues&) = delete;
+    SetPIDValues(SetPIDValues&&) = delete;
+    SetPIDValues& operator=(const SetPIDValues&) = delete;
+    SetPIDValues& operator=(SetPIDValues&&) = delete;
+
     void run()
     {
         if (asyncResp->res.result() != boost::beast::http::status::ok)

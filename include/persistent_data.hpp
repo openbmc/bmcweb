@@ -43,6 +43,11 @@ class ConfigFile
         }
     }
 
+    ConfigFile(const ConfigFile&) = delete;
+    ConfigFile(ConfigFile&&) = delete;
+    ConfigFile& operator=(const ConfigFile&) = delete;
+    ConfigFile& operator=(ConfigFile&&) = delete;
+
     // TODO(ed) this should really use protobuf, or some other serialization
     // library, but adding another dependency is somewhat outside the scope of
     // this application for the moment

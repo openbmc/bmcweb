@@ -128,6 +128,14 @@ class Lock
 
   public:
     /*
+     * Explicitly deleted copy and move constructors
+     */
+    Lock(const Lock&) = delete;
+    Lock(Lock&&) = delete;
+    Lock& operator=(const Lock&) = delete;
+    Lock& operator=(Lock&&) = delete;
+
+    /*
      * This function implements the logic for acquiring a lock on a
      * resource if the incoming request is legitimate without any
      * conflicting requirements & without any conflicting requirement
@@ -522,12 +530,19 @@ inline bool Lock::isConflictRequest(const LockRequests& refLockRequestStructure)
 inline bool Lock::checkByte(uint64_t resourceId1, uint64_t resourceId2,
                             uint32_t position)
 {
+    // NOLINTNEXTLINE(cppcoreguidelines-pro-type-reinterpret-cast)
     uint8_t* p = reinterpret_cast<uint8_t*>(&resourceId1);
+    // NOLINTNEXTLINE(cppcoreguidelines-pro-type-reinterpret-cast)
     uint8_t* q = reinterpret_cast<uint8_t*>(&resourceId2);
 
-    BMCWEB_LOG_DEBUG << "Comparing bytes " << std::to_string(p[position]) << ","
-                     << std::to_string(q[position]);
-    if (p[position] != q[position])
+    // NOLINTNEXTLINE(cppcoreguidelines-pro-bounds-pointer-arithmetic)
+    uint8_t pPosition = p[position];
+    // NOLINTNEXTLINE(cppcoreguidelines-pro-bounds-pointer-arithmetic)
+    uint8_t qPosition = q[position];
+
+    BMCWEB_LOG_DEBUG << "Comparing bytes " << std::to_string(pPosition) << ","
+                     << std::to_string(qPosition);
+    if (pPosition != qPosition)
     {
         return false;
     }

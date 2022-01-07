@@ -17,6 +17,8 @@ class AsyncResp
 
     AsyncResp(const AsyncResp&) = delete;
     AsyncResp(AsyncResp&&) = delete;
+    AsyncResp& operator=(const AsyncResp&) = delete;
+    AsyncResp& operator=(AsyncResp&&) = delete;
 
     ~AsyncResp()
     {

@@ -24,6 +24,7 @@ inline int pamFunctionConversation(int numMsg, const struct pam_message** msg,
     for (int i = 0; i < numMsg; ++i)
     {
         /* Ignore all PAM messages except prompting for hidden input */
+        // NOLINTNEXTLINE(cppcoreguidelines-pro-bounds-pointer-arithmetic)
         if (msg[i]->msg_style != PAM_PROMPT_ECHO_OFF)
         {
             continue;
@@ -32,6 +33,7 @@ inline int pamFunctionConversation(int numMsg, const struct pam_message** msg,
         /* Assume PAM is only prompting for the password as hidden input */
         /* Allocate memory only when PAM_PROMPT_ECHO_OFF is encounterred */
 
+        // NOLINTNEXTLINE(cppcoreguidelines-pro-type-reinterpret-cast)
         char* appPass = reinterpret_cast<char*>(appdataPtr);
         size_t appPassSize = std::strlen(appPass);
 
@@ -39,8 +41,14 @@ inline int pamFunctionConversation(int numMsg, const struct pam_message** msg,
         {
             return PAM_CONV_ERR;
         }
+        // IDeally we'd like to avoid using malloc here, but because we're
+        // passing off ownership of this to a C application, there aren't a lot
+        // of sane ways to avoid it.
 
-        char* pass = reinterpret_cast<char*>(malloc(appPassSize + 1));
+        // NOLINTNEXTLINE(cppcoreguidelines-no-malloc)'
+        void* passPtr = malloc(appPassSize + 1);
+        // NOLINTNEXTLINE(cppcoreguidelines-pro-type-reinterpret-cast)
+        char* pass = reinterpret_cast<char*>(passPtr);
         if (pass == nullptr)
         {
             return PAM_BUF_ERR;
@@ -48,15 +56,20 @@ inline int pamFunctionConversation(int numMsg, const struct pam_message** msg,
 
         std::strncpy(pass, appPass, appPassSize + 1);
 
-        void* ptr =
-            calloc(static_cast<size_t>(numMsg), sizeof(struct pam_response));
+        size_t numMsgSize = static_cast<size_t>(numMsg);
+        // NOLINTNEXTLINE(cppcoreguidelines-no-malloc)
+        void* ptr = calloc(numMsgSize, sizeof(struct pam_response));
         if (ptr == nullptr)
         {
+            // NOLINTNEXTLINE(cppcoreguidelines-no-malloc)
             free(pass);
             return PAM_BUF_ERR;
         }
 
+        // NOLINTNEXTLINE(cppcoreguidelines-pro-type-reinterpret-cast)
         *resp = reinterpret_cast<pam_response*>(ptr);
+
+        // NOLINTNEXTLINE(cppcoreguidelines-pro-bounds-pointer-arithmetic)
         resp[i]->resp = pass;
 
         return PAM_SUCCESS;
@@ -75,8 +88,11 @@ inline int pamAuthenticateUser(const std::string_view username,
 {
     std::string userStr(username);
     std::string passStr(password);
-    const struct pam_conv localConversation = {
-        pamFunctionConversation, const_cast<char*>(passStr.c_str())};
+
+    // NOLINTNEXTLINE(cppcoreguidelines-pro-type-const-cast)
+    char* passStrNoConst = const_cast<char*>(passStr.c_str());
+    const struct pam_conv localConversation = {pamFunctionConversation,
+                                               passStrNoConst};
     pam_handle_t* localAuthHandle = nullptr; // this gets set by pam_start
 
     int retval = pam_start("webserver", userStr.c_str(), &localConversation,
@@ -108,8 +124,10 @@ inline int pamAuthenticateUser(const std::string_view username,
 inline int pamUpdatePassword(const std::string& username,
                              const std::string& password)
 {
-    const struct pam_conv localConversation = {
-        pamFunctionConversation, const_cast<char*>(password.c_str())};
+    // NOLINTNEXTLINE(cppcoreguidelines-pro-type-const-cast)
+    char* passStrNoConst = const_cast<char*>(password.c_str());
+    const struct pam_conv localConversation = {pamFunctionConversation,
+                                               passStrNoConst};
     pam_handle_t* localAuthHandle = nullptr; // this gets set by pam_start
 
     int retval = pam_start("webserver", username.c_str(), &localConversation,

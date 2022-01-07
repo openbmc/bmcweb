@@ -103,6 +103,7 @@ inline int onPropertyUpdate(sd_bus_message* m, void* /* userdata */,
         X509_get_ext_d2i(cert, NID_netscape_comment, nullptr, nullptr));
     if (asn1)
     {
+        // NOLINTNEXTLINE(cppcoreguidelines-pro-type-reinterpret-cast)
         std::string_view comment(reinterpret_cast<const char*>(asn1->data),
                                  static_cast<size_t>(asn1->length));
         BMCWEB_LOG_DEBUG << "x509Comment: " << comment;

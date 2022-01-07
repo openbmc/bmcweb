@@ -161,14 +161,16 @@ inline void dumpEscaped(std::string& out, const std::string& str)
                         {
                             if (codePoint <= 0xFFFF)
                             {
-                                (std::snprintf)(
-                                    stringBuffer.data() + bytes, 7, "\\u%04x",
-                                    static_cast<uint16_t>(codePoint));
+                                // NOLINTNEXTLINE(cppcoreguidelines-pro-type-vararg)
+                                std::snprintf(stringBuffer.data() + bytes, 7,
+                                              "\\u%04x",
+                                              static_cast<uint16_t>(codePoint));
                                 bytes += 6;
                             }
                             else
                             {
-                                (std::snprintf)(
+                                // NOLINTNEXTLINE(cppcoreguidelines-pro-type-vararg)
+                                std::snprintf(
                                     stringBuffer.data() + bytes, 13,
                                     "\\u%04x\\u%04x",
                                     static_cast<uint16_t>(0xD7C0 +
@@ -353,6 +355,7 @@ void dumpInteger(std::string& out, NumberType number)
 
     // jump to the end to generate the string from backward
     // so we later avoid reversing the result
+    // NOLINTNEXTLINE(cppcoreguidelines-pro-bounds-pointer-arithmetic)
     bufferPtr += nChars;
 
     // Fast int2ascii implementation inspired by "Fastware" talk by Andrei
@@ -384,6 +387,8 @@ inline void dumpfloat(std::string& out, double number,
 {
     std::array<char, 64> numberbuffer{{}};
     char* begin = numberbuffer.data();
+
+    // NOLINTNEXTLINE(cppcoreguidelines-pro-bounds-pointer-arithmetic)
     ::nlohmann::detail::to_chars(begin, begin + numberbuffer.size(), number);
 
     out += begin;
@@ -397,6 +402,7 @@ inline void dumpfloat(std::string& out, double number,
     static constexpr auto d = std::numeric_limits<double>::max_digits10;
 
     // the actual conversion
+    // NOLINTNEXTLINE(cppcoreguidelines-pro-type-vararg)
     std::ptrdiff_t len = std::snprintf(numberbuffer.data(), numberbuffer.size(),
                                        "%.*g", d, number);
 
