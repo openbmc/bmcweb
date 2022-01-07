@@ -16,6 +16,24 @@
       "message": "What is up with this formatting?",
       "revId": "30ac03307162dd43ccc7fa3aecddd1803df051f9",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b61b5113_aa7db371",
+        "filename": "redfish-core/include/event_service_manager.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1193,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-01-07T17:56:25Z",
+      "side": 1,
+      "message": "I do as clang-format commands......  Why it\u0027s like that? I have no idea.",
+      "parentUuid": "16729dd8_bba9eeb8",
+      "revId": "30ac03307162dd43ccc7fa3aecddd1803df051f9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
