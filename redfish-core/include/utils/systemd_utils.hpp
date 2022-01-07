@@ -39,7 +39,7 @@ inline std::string getUuid()
 
     if (sd_id128_get_machine_app_specific(appId, &machineId) == 0)
     {
-        std::array<char, SD_ID128_STRING_MAX> str;
+        std::array<char, SD_ID128_STRING_MAX> str{};
         ret = sd_id128_to_string(machineId, str.data());
         ret.insert(8, 1, '-');
         ret.insert(13, 1, '-');
