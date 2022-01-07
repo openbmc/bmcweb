@@ -52,6 +52,24 @@
       "parentUuid": "b61b5113_aa7db371",
       "revId": "30ac03307162dd43ccc7fa3aecddd1803df051f9",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f3c8d10a_6a3aafae",
+        "filename": "redfish-core/include/event_service_manager.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1193,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-01-07T19:27:44Z",
+      "side": 1,
+      "message": "Correct.  I suspect because it uses the struct keyword to declare it, clang-format is getting confused.",
+      "parentUuid": "bc183a2f_ddb7396a",
+      "revId": "30ac03307162dd43ccc7fa3aecddd1803df051f9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
