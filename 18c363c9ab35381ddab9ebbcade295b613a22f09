@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "63f2e898_7c973ebd",
+        "filename": ".clang-tidy",
+        "patchSetId": 1
+      },
+      "lineNbr": 205,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-01-07T17:04:23Z",
+      "side": 1,
+      "message": "Still can\u0027t turn this on?\n\nhttps://github.com/openbmc/bmcweb/commit/b00dcc27587267e18d3abdee82f1ed7b39744d02\n\nI assume not..",
+      "revId": "18c363c9ab35381ddab9ebbcade295b613a22f09",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
