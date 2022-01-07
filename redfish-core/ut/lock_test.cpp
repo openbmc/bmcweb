@@ -58,6 +58,11 @@ class LockTest : public ::testing::Test
     }
 
     ~LockTest() override = default;
+
+    LockTest(const LockTest&) = delete;
+    LockTest(LockTest&&) = delete;
+    LockTest& operator=(const LockTest&) = delete;
+    LockTest& operator=(const LockTest&&) = delete;
 };
 
 class MockLock : public crow::ibm_mc_lock::Lock

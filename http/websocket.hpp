@@ -29,6 +29,11 @@ struct Connection : std::enable_shared_from_this<Connection>
         req(reqIn.req), userName{std::move(user)}, userdataPtr(nullptr)
     {}
 
+    Connection(const Connection&) = delete;
+    Connection(Connection&&) = delete;
+    Connection& operator=(const Connection&) = delete;
+    Connection& operator=(const Connection&&) = delete;
+
     virtual void sendBinary(const std::string_view msg) = 0;
     virtual void sendBinary(std::string&& msg) = 0;
     virtual void sendText(const std::string_view msg) = 0;

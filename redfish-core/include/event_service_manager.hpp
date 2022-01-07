@@ -588,6 +588,7 @@ class EventServiceManager
     EventServiceManager& operator=(const EventServiceManager&) = delete;
     EventServiceManager(EventServiceManager&&) = delete;
     EventServiceManager& operator=(EventServiceManager&&) = delete;
+    ~EventServiceManager() = default;
 
     static EventServiceManager& getInstance()
     {
