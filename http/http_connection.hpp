@@ -182,11 +182,13 @@ class Connection :
 
             for (int i = 0; i < usage->length; i++)
             {
-                if (KU_DIGITAL_SIGNATURE & usage->data[i])
+                // NOLINTNEXTLINE(cppcoreguidelines-pro-bounds-pointer-arithmetic)
+                unsigned char usageChar = usage->data[i];
+                if (KU_DIGITAL_SIGNATURE & usageChar)
                 {
                     isKeyUsageDigitalSignature = true;
                 }
-                if (KU_KEY_AGREEMENT & usage->data[i])
+                if (KU_KEY_AGREEMENT & usageChar)
                 {
                     isKeyUsageKeyAgreement = true;
                 }

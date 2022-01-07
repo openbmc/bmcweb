@@ -2009,8 +2009,11 @@ inline void requestRoutesSystemHostLoggerLogEntry(App& app)
                 const std::string& targetID = param;
 
                 uint64_t idInt = 0;
-                auto [ptr, ec] = std::from_chars(
-                    targetID.data(), targetID.data() + targetID.size(), idInt);
+
+                // NOLINTNEXTLINE(cppcoreguidelines-pro-bounds-pointer-arithmetic)
+                const char* end = targetID.data() + targetID.size();
+
+                auto [ptr, ec] = std::from_chars(targetID.data(), end, idInt);
                 if (ec == std::errc::invalid_argument)
                 {
                     messages::resourceMissingAtURI(asyncResp->res, targetID);
@@ -3389,7 +3392,9 @@ inline static bool parsePostCode(const std::string& postCodeID,
         return false;
     }
 
+    // NOLINTNEXTLINE(cppcoreguidelines-pro-bounds-pointer-arithmetic)
     const char* start = split[0].data() + 1;
+    // NOLINTNEXTLINE(cppcoreguidelines-pro-bounds-pointer-arithmetic)
     const char* end = split[0].data() + split[0].size();
     auto [ptrIndex, ecIndex] = std::from_chars(start, end, index);
 
@@ -3399,6 +3404,8 @@ inline static bool parsePostCode(const std::string& postCodeID,
     }
 
     start = split[1].data();
+
+    // NOLINTNEXTLINE(cppcoreguidelines-pro-bounds-pointer-arithmetic)
     end = split[1].data() + split[1].size();
     auto [ptrValue, ecValue] = std::from_chars(start, end, currentValue);
     if (ptrValue != end || ecValue != std::errc())
