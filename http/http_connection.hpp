@@ -219,8 +219,9 @@ class Connection :
             bool isExKeyUsageClientAuth = false;
             for (int i = 0; i < sk_ASN1_OBJECT_num(extUsage); i++)
             {
-                if (NID_client_auth ==
-                    OBJ_obj2nid(sk_ASN1_OBJECT_value(extUsage, i)))
+                // NOLINTNEXTLINE(cppcoreguidelines-pro-type-cstyle-cast)
+                int nid = OBJ_obj2nid(sk_ASN1_OBJECT_value(extUsage, i));
+                if (NID_client_auth == nid)
                 {
                     isExKeyUsageClientAuth = true;
                     break;
