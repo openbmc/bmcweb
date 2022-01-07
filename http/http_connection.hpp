@@ -81,6 +81,11 @@ class Connection :
                          << connectionCount;
     }
 
+    Connection(const Connection&) = delete;
+    Connection(Connection&&) = delete;
+    Connection& operator=(const Connection&) = delete;
+    Connection& operator=(Connection&&) = delete;
+
     void prepareMutualTls()
     {
         std::error_code error;

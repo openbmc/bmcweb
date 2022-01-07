@@ -238,6 +238,11 @@ struct InProgressEnumerateData
         }
     }
 
+    InProgressEnumerateData(const InProgressEnumerateData&) = delete;
+    InProgressEnumerateData(InProgressEnumerateData&&) = delete;
+    InProgressEnumerateData& operator=(const InProgressEnumerateData&) = delete;
+    InProgressEnumerateData& operator=(InProgressEnumerateData&&) = delete;
+
     const std::string objectPath;
     std::shared_ptr<GetSubTreeType> subtree;
     std::shared_ptr<bmcweb::AsyncResp> asyncResp;
@@ -484,6 +489,10 @@ struct InProgressActionData
 
         res.end();
     }
+    InProgressActionData(const InProgressActionData&) = delete;
+    InProgressActionData(InProgressActionData&&) = delete;
+    InProgressActionData& operator=(const InProgressActionData&) = delete;
+    InProgressActionData& operator=(InProgressActionData&&) = delete;
 
     void setErrorStatus(const std::string& desc)
     {
@@ -1804,6 +1813,11 @@ struct AsyncPutRequest
                              forbiddenMsg, forbiddenPropDesc);
         }
     }
+
+    AsyncPutRequest(const AsyncPutRequest&) = delete;
+    AsyncPutRequest(AsyncPutRequest&&) = delete;
+    AsyncPutRequest& operator=(const AsyncPutRequest&) = delete;
+    AsyncPutRequest& operator=(AsyncPutRequest&&) = delete;
 
     void setErrorStatus(const std::string& desc)
     {
