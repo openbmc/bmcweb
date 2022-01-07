@@ -337,10 +337,10 @@ class MultipartParser
     static constexpr char hyphen = '-';
     static constexpr char colon = ':';
 
-    std::array<bool, 256> boundaryIndex;
+    std::array<bool, 256> boundaryIndex{};
     std::string lookbehind;
-    State state;
-    Boundary flags;
+    State state{State::START};
+    Boundary flags{Boundary::NON_BOUNDARY};
     size_t index = 0;
     size_t partDataMark = 0;
     size_t headerFieldMark = 0;
