@@ -24,6 +24,7 @@ inline int pamFunctionConversation(int numMsg, const struct pam_message** msg,
     for (int i = 0; i < numMsg; ++i)
     {
         /* Ignore all PAM messages except prompting for hidden input */
+        // NOLINTNEXTLINE(cppcoreguidelines-pro-bounds-pointer-arithmetic)
         if (msg[i]->msg_style != PAM_PROMPT_ECHO_OFF)
         {
             continue;
@@ -66,6 +67,7 @@ inline int pamFunctionConversation(int numMsg, const struct pam_message** msg,
         // NOLINTNEXTLINE(cppcoreguidelines-pro-type-reinterpret-cast)
         *resp = reinterpret_cast<pam_response*>(ptr);
 
+        // NOLINTNEXTLINE(cppcoreguidelines-pro-bounds-pointer-arithmetic)
         resp[i]->resp = pass;
 
         return PAM_SUCCESS;
