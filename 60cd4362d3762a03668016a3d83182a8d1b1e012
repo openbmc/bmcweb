@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e21b6689_f0917f1e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000566
+      },
+      "writtenOn": "2022-01-07T11:59:31Z",
+      "side": 1,
+      "message": "Thank You for pointing out. Abandoning this change.",
+      "parentUuid": "35f6d399_145fe215",
+      "revId": "60cd4362d3762a03668016a3d83182a8d1b1e012",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c42a555a_a08e4274",
         "filename": "redfish-core/lib/update_service.hpp",
         "patchSetId": 1
