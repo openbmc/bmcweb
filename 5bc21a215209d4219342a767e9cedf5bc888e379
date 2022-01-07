@@ -1,6 +1,7 @@
 {
   "comments": [
     {
+      "unresolved": true,
       "key": {
         "uuid": "66a79d92_c6c2dc48",
         "filename": "/COMMIT_MSG",
@@ -14,10 +15,10 @@
       "side": 1,
       "message": "Cool. Neat to see! \nCan we document the association names somewhere? \nDo we need to get https://gerrit.openbmc-project.xyz/c/openbmc/docs/+/41468 in first? Then add to it ?",
       "revId": "5bc21a215209d4219342a767e9cedf5bc888e379",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "54166d65_8eb4b528",
         "filename": "/COMMIT_MSG",
@@ -32,10 +33,10 @@
       "message": "I have design doc for Dbus inventory association in EM. It will add  [containedby, contains] association for Redfish Chassis resource https://gerrit.openbmc-project.xyz/c/openbmc/entity-manager/+/43958",
       "parentUuid": "66a79d92_c6c2dc48",
       "revId": "5bc21a215209d4219342a767e9cedf5bc888e379",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "89d5bf4c_9b57ae70",
         "filename": "/COMMIT_MSG",
@@ -50,10 +51,10 @@
       "message": "I think this document should be in the docs repo. I kind of think the doc should go in first before this change.",
       "parentUuid": "54166d65_8eb4b528",
       "revId": "5bc21a215209d4219342a767e9cedf5bc888e379",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "c6d525d2_549aface",
         "filename": "/COMMIT_MSG",
@@ -68,10 +69,10 @@
       "message": "I will put this doc in openbmc/docs. This change looks up the association endpoints. Shall not have dependencies on the doc. When there is no such associations, the change does nothing.",
       "parentUuid": "89d5bf4c_9b57ae70",
       "revId": "5bc21a215209d4219342a767e9cedf5bc888e379",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "78eaffde_7d3bb0be",
         "filename": "/COMMIT_MSG",
@@ -86,10 +87,10 @@
       "message": "Note, a similar document is https://gerrit.openbmc-project.xyz/c/openbmc/docs/+/41468 \nI also have seen these inventory inventory \"links\" many other places in bmcweb",
       "parentUuid": "c6d525d2_549aface",
       "revId": "5bc21a215209d4219342a767e9cedf5bc888e379",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "82cd3b9e_2eab1246",
         "filename": "/COMMIT_MSG",
@@ -104,10 +105,10 @@
       "message": "\u003e I will put this doc in openbmc/docs. This change looks up the association endpoints. Shall not have dependencies on the doc. \n\nI disagree. I think we need to get these documented first. At least up for review.",
       "parentUuid": "78eaffde_7d3bb0be",
       "revId": "5bc21a215209d4219342a767e9cedf5bc888e379",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "b3909e8c_8ed06e0f",
         "filename": "/COMMIT_MSG",
@@ -122,10 +123,10 @@
       "message": "Agree with Gunnar, there\u0027s not a hard dependency, but this can\u0027t merge until we at least have the docs changes in review.",
       "parentUuid": "82cd3b9e_2eab1246",
       "revId": "5bc21a215209d4219342a767e9cedf5bc888e379",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "2980b90c_48ef68ed",
         "filename": "/COMMIT_MSG",
@@ -140,10 +141,28 @@
       "message": "https://gerrit.openbmc-project.xyz/c/openbmc/phosphor-dbus-interfaces/+/46806\n\nDocument the association forward and reverse name there.",
       "parentUuid": "b3909e8c_8ed06e0f",
       "revId": "5bc21a215209d4219342a767e9cedf5bc888e379",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1be0cbbd_d1d6dee9",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-01-07T00:35:57Z",
+      "side": 1,
+      "message": "Before this moves forward, I want to see the documentation move forward. Patrick left a comment. \n\nCan you also add this documentation to the commit msg?",
+      "parentUuid": "2980b90c_48ef68ed",
+      "revId": "5bc21a215209d4219342a767e9cedf5bc888e379",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
       "key": {
         "uuid": "7343cd07_575ea02f",
         "filename": "/COMMIT_MSG",
@@ -157,10 +176,10 @@
       "side": 1,
       "message": "nit: please put a Tested: header here.",
       "revId": "5bc21a215209d4219342a767e9cedf5bc888e379",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "3b0f23af_d1d5be8c",
         "filename": "/COMMIT_MSG",
@@ -175,10 +194,10 @@
       "message": "Done",
       "parentUuid": "7343cd07_575ea02f",
       "revId": "5bc21a215209d4219342a767e9cedf5bc888e379",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "156938eb_99098ede",
         "filename": "/COMMIT_MSG",
@@ -198,10 +217,10 @@
         "endChar": 14
       },
       "revId": "5bc21a215209d4219342a767e9cedf5bc888e379",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "98fa6623_999a0169",
         "filename": "/COMMIT_MSG",
@@ -222,10 +241,10 @@
         "endChar": 14
       },
       "revId": "5bc21a215209d4219342a767e9cedf5bc888e379",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "0b3aebc7_f7281266",
         "filename": "/COMMIT_MSG",
@@ -246,10 +265,10 @@
         "endChar": 14
       },
       "revId": "5bc21a215209d4219342a767e9cedf5bc888e379",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "b968f4e1_bac83f24",
         "filename": "/COMMIT_MSG",
@@ -270,10 +289,10 @@
         "endChar": 14
       },
       "revId": "5bc21a215209d4219342a767e9cedf5bc888e379",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "4b6ada61_5e7535c3",
         "filename": "redfish-core/lib/chassis.hpp",
@@ -293,10 +312,10 @@
         "endChar": 75
       },
       "revId": "5bc21a215209d4219342a767e9cedf5bc888e379",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "09f5a28f_4e453caf",
         "filename": "redfish-core/lib/chassis.hpp",
@@ -317,10 +336,10 @@
         "endChar": 75
       },
       "revId": "5bc21a215209d4219342a767e9cedf5bc888e379",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "f3e76e63_ca4aa52c",
         "filename": "redfish-core/lib/chassis.hpp",
@@ -340,10 +359,10 @@
         "endChar": 72
       },
       "revId": "5bc21a215209d4219342a767e9cedf5bc888e379",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "fc1c7813_17e067bb",
         "filename": "redfish-core/lib/chassis.hpp",
@@ -363,10 +382,10 @@
         "endChar": 52
       },
       "revId": "5bc21a215209d4219342a767e9cedf5bc888e379",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "c7b2c729_9e97bfc6",
         "filename": "redfish-core/lib/chassis.hpp",
@@ -387,10 +406,10 @@
         "endChar": 52
       },
       "revId": "5bc21a215209d4219342a767e9cedf5bc888e379",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "c623439d_07a35594",
         "filename": "redfish-core/lib/chassis.hpp",
@@ -411,10 +430,10 @@
         "endChar": 72
       },
       "revId": "5bc21a215209d4219342a767e9cedf5bc888e379",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "2900b33a_e106290d",
         "filename": "redfish-core/lib/chassis.hpp",
@@ -434,10 +453,10 @@
         "endChar": 51
       },
       "revId": "5bc21a215209d4219342a767e9cedf5bc888e379",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "997a5aba_010899d9",
         "filename": "redfish-core/lib/chassis.hpp",
@@ -457,10 +476,10 @@
         "endChar": 73
       },
       "revId": "5bc21a215209d4219342a767e9cedf5bc888e379",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "f8cc39ba_ff9d7ab8",
         "filename": "redfish-core/lib/chassis.hpp",
@@ -481,10 +500,10 @@
         "endChar": 73
       },
       "revId": "5bc21a215209d4219342a767e9cedf5bc888e379",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "31e6b1c8_40ff1ee8",
         "filename": "redfish-core/lib/chassis.hpp",
@@ -505,10 +524,10 @@
         "endChar": 51
       },
       "revId": "5bc21a215209d4219342a767e9cedf5bc888e379",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "4ae53f4f_115a0950",
         "filename": "redfish-core/lib/chassis.hpp",
@@ -528,10 +547,10 @@
         "endChar": 36
       },
       "revId": "5bc21a215209d4219342a767e9cedf5bc888e379",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "60d9b88b_79e17c06",
         "filename": "redfish-core/lib/chassis.hpp",
@@ -552,10 +571,10 @@
         "endChar": 36
       },
       "revId": "5bc21a215209d4219342a767e9cedf5bc888e379",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "b0fce69a_d0c435f6",
         "filename": "redfish-core/lib/chassis.hpp",
@@ -575,10 +594,10 @@
         "endChar": 47
       },
       "revId": "5bc21a215209d4219342a767e9cedf5bc888e379",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "e4311962_c3680cf7",
         "filename": "redfish-core/lib/chassis.hpp",
@@ -599,10 +618,10 @@
         "endChar": 47
       },
       "revId": "5bc21a215209d4219342a767e9cedf5bc888e379",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "cae641bd_5bda0409",
         "filename": "redfish-core/lib/chassis.hpp",
@@ -622,10 +641,10 @@
         "endChar": 44
       },
       "revId": "5bc21a215209d4219342a767e9cedf5bc888e379",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "91a3a3ff_f1ed39c3",
         "filename": "redfish-core/lib/chassis.hpp",
@@ -646,10 +665,10 @@
         "endChar": 44
       },
       "revId": "5bc21a215209d4219342a767e9cedf5bc888e379",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "001616bd_058ff565",
         "filename": "redfish-core/lib/chassis.hpp",
@@ -669,10 +688,10 @@
         "endChar": 41
       },
       "revId": "5bc21a215209d4219342a767e9cedf5bc888e379",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "433442f6_cdaebd53",
         "filename": "redfish-core/lib/chassis.hpp",
@@ -693,10 +712,10 @@
         "endChar": 41
       },
       "revId": "5bc21a215209d4219342a767e9cedf5bc888e379",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "914af565_60f14925",
         "filename": "redfish-core/lib/chassis.hpp",
@@ -716,10 +735,10 @@
         "endChar": 67
       },
       "revId": "5bc21a215209d4219342a767e9cedf5bc888e379",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "91b066ac_ff49c2f4",
         "filename": "redfish-core/lib/chassis.hpp",
@@ -740,8 +759,7 @@
         "endChar": 67
       },
       "revId": "5bc21a215209d4219342a767e9cedf5bc888e379",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
