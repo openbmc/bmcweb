@@ -223,8 +223,9 @@ inline void getVmData(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
     BMCWEB_LOG_DEBUG << "Get Virtual Media resource data.";
 
     crow::connections::systemBus->async_method_call(
-        [resName, name, aResp](const boost::system::error_code ec,
-                               dbus::utility::ManagedObjectType& subtree) {
+        [resName, name,
+         aResp](const boost::system::error_code ec,
+                const dbus::utility::ManagedObjectType& subtree) {
             if (ec)
             {
                 BMCWEB_LOG_DEBUG << "DBUS response error";
@@ -232,7 +233,7 @@ inline void getVmData(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
                 return;
             }
 
-            for (auto& item : subtree)
+            for (const auto& item : subtree)
             {
                 std::string thispath = item.first.filename();
                 if (thispath.empty())

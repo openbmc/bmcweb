@@ -1135,7 +1135,7 @@ inline void getAutomaticRetry(const std::shared_ptr<bmcweb::AsyncResp>& aResp)
                     "xyz.openbmc_project.Control.Boot.RebootAttempts",
                     "AttemptsLeft",
                     [aResp](const boost::system::error_code ec2,
-                            uint32_t autoRebootAttemptsLeft) {
+                            const uint32_t autoRebootAttemptsLeft) {
                         if (ec2)
                         {
                             BMCWEB_LOG_DEBUG << "D-BUS response error " << ec2;
@@ -2207,7 +2207,7 @@ inline void
     BMCWEB_LOG_DEBUG << "Get host watchodg";
     crow::connections::systemBus->async_method_call(
         [aResp](const boost::system::error_code ec,
-                PropertiesType& properties) {
+                const PropertiesType& properties) {
             if (ec)
             {
                 // watchdog service is stopped
@@ -2956,14 +2956,14 @@ inline void requestRoutesSystems(App& app)
             auto health = std::make_shared<HealthPopulate>(asyncResp);
             crow::connections::systemBus->async_method_call(
                 [health](const boost::system::error_code ec,
-                         std::vector<std::string>& resp) {
+                         const std::vector<std::string>& resp) {
                     if (ec)
                     {
                         // no inventory
                         return;
                     }
 
-                    health->inventory = std::move(resp);
+                    health->inventory = resp;
                 },
                 "xyz.openbmc_project.ObjectMapper",
                 "/xyz/openbmc_project/object_mapper",
