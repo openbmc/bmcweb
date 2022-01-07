@@ -105,18 +105,31 @@ class Logger
 };
 } // namespace crow
 
+// The logging functions currently use macros.  Now that we have c++20, ideally
+// they'd use source_location with fixed functions, but for the moment, disable
+// the check.
+
+// NOLINTNEXTLINE(cppcoreguidelines-macro-usage)
 #define BMCWEB_LOG_CRITICAL                                                    \
     if (crow::Logger::getCurrentLogLevel() <= crow::LogLevel::Critical)        \
     crow::Logger("CRITICAL", __FILE__, __LINE__, crow::LogLevel::Critical)
+
+// NOLINTNEXTLINE(cppcoreguidelines-macro-usage)
 #define BMCWEB_LOG_ERROR                                                       \
     if (crow::Logger::getCurrentLogLevel() <= crow::LogLevel::Error)           \
     crow::Logger("ERROR", __FILE__, __LINE__, crow::LogLevel::Error)
+
+// NOLINTNEXTLINE(cppcoreguidelines-macro-usage)
 #define BMCWEB_LOG_WARNING                                                     \
     if (crow::Logger::getCurrentLogLevel() <= crow::LogLevel::Warning)         \
     crow::Logger("WARNING", __FILE__, __LINE__, crow::LogLevel::Warning)
+
+// NOLINTNEXTLINE(cppcoreguidelines-macro-usage)
 #define BMCWEB_LOG_INFO                                                        \
     if (crow::Logger::getCurrentLogLevel() <= crow::LogLevel::Info)            \
     crow::Logger("INFO", __FILE__, __LINE__, crow::LogLevel::Info)
+
+// NOLINTNEXTLINE(cppcoreguidelines-macro-usage)
 #define BMCWEB_LOG_DEBUG                                                       \
     if (crow::Logger::getCurrentLogLevel() <= crow::LogLevel::Debug)           \
     crow::Logger("DEBUG", __FILE__, __LINE__, crow::LogLevel::Debug)
