@@ -548,6 +548,8 @@ class Credentials
     Credentials() = delete;
     Credentials(const Credentials&) = delete;
     Credentials& operator=(const Credentials&) = delete;
+    Credentials(Credentials&&) = delete;
+    Credentials& operator=(Credentials&&) = delete;
 
   private:
     std::string userBuf;
@@ -622,6 +624,11 @@ class Pipe
         // Named pipe needs to be explicitly removed
         impl.close();
     }
+
+    Pipe(const Pipe&) = delete;
+    Pipe(Pipe&&) = delete;
+    Pipe& operator=(const Pipe&) = delete;
+    Pipe& operator=(Pipe&&) = delete;
 
     unix_fd fd()
     {
