@@ -35,6 +35,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5e5049ac_45f860e8",
+        "filename": "include/google/google_service_root.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1001021
+      },
+      "writtenOn": "2022-01-08T01:51:32Z",
+      "side": 1,
+      "message": "Not sure if \"ConfigureComponents\" or \"ConfigureManager\" are required. Client must be root on machine though, so probably \"Login\" is sufficient.",
+      "parentUuid": "c315baab_f94c1e51",
+      "revId": "37ba9c6c62baa0fe497ee1ed887df09af6d2f0e6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4417e861_4c065a83",
@@ -48,6 +66,24 @@
       "writtenOn": "2022-01-07T00:16:24Z",
       "side": 1,
       "message": "If you are following Redfish here, the actions are typically.. \n\u003cschema\u003e.\u003caction name\u003e\n\nE.g.\nManager.ResetToDefaults",
+      "revId": "37ba9c6c62baa0fe497ee1ed887df09af6d2f0e6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d9cd284e_42172c7a",
+        "filename": "include/google/google_service_root.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1001021
+      },
+      "writtenOn": "2022-01-08T01:51:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4417e861_4c065a83",
       "revId": "37ba9c6c62baa0fe497ee1ed887df09af6d2f0e6",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -75,6 +111,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "142c33a5_32f6f8e6",
+        "filename": "include/google/google_service_root.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1001021
+      },
+      "writtenOn": "2022-01-08T01:51:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f5611675_87a268e0",
+      "range": {
+        "startLine": 68,
+        "startChar": 47,
+        "endLine": 68,
+        "endChar": 48
+      },
+      "revId": "37ba9c6c62baa0fe497ee1ed887df09af6d2f0e6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b992769b_1677400f",
@@ -88,6 +148,24 @@
       "writtenOn": "2022-01-07T00:16:24Z",
       "side": 1,
       "message": "I have not seen a \"readJson\" before. \nI have seen Description here: https://github.com/openbmc/bmcweb/blob/565c0911faea72128a3a8c4b8b5ec3094756d82e/include/ibm/management_console_rest.hpp#L125\n\nBut is this even needed?",
+      "revId": "37ba9c6c62baa0fe497ee1ed887df09af6d2f0e6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9226d45f_28c7c286",
+        "filename": "include/google/google_service_root.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1001021
+      },
+      "writtenOn": "2022-01-08T01:51:32Z",
+      "side": 1,
+      "message": "I guess I can live without it.",
+      "parentUuid": "b992769b_1677400f",
       "revId": "37ba9c6c62baa0fe497ee1ed887df09af6d2f0e6",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -109,6 +187,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6f9aec5e_d0c473cf",
+        "filename": "include/google/google_service_root.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1001021
+      },
+      "writtenOn": "2022-01-08T01:51:32Z",
+      "side": 1,
+      "message": "I see... I guess logging is enough.",
+      "parentUuid": "946bbb65_e493afb7",
+      "revId": "37ba9c6c62baa0fe497ee1ed887df09af6d2f0e6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ee33bdb7_b093c728",
@@ -122,6 +218,24 @@
       "writtenOn": "2022-01-07T00:16:24Z",
       "side": 1,
       "message": "Why do you need this? \nIt is an action, if it is successful just return 200 / 204?\n\nif you do need to return a response, you could define it like Redfish does \n\nhttps://github.com/openbmc/bmcweb/blob/9a128eb3fc3008f802974360e98de6495ed1a66b/static/redfish/v1/JsonSchemas/CertificateService/CertificateService.json#L115",
+      "revId": "37ba9c6c62baa0fe497ee1ed887df09af6d2f0e6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "73888749_a178ebc7",
+        "filename": "include/google/google_service_root.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1001021
+      },
+      "writtenOn": "2022-01-08T01:51:32Z",
+      "side": 1,
+      "message": "Some SendCommands will return measurements. So we need a return value for some cases.",
+      "parentUuid": "ee33bdb7_b093c728",
       "revId": "37ba9c6c62baa0fe497ee1ed887df09af6d2f0e6",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -143,6 +257,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "26697359_1c398faa",
+        "filename": "static/google/v1/schema/RootOfTrust_v1.xml",
+        "patchSetId": 3
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1001021
+      },
+      "writtenOn": "2022-01-08T01:51:32Z",
+      "side": 1,
+      "message": "Fixed. I misunderstood how that works.\n\nIn regards to naming, I don\u0027t like \"RequestBytes\" I couldn\u0027t think of something more specific. SendCommand is supposed to take commands in bytes format and forward it to a RoT device. Commands could range from commands that get some measurements, to commands that alter the state of RoT.",
+      "parentUuid": "8ccf39dd_03e8349f",
+      "revId": "37ba9c6c62baa0fe497ee1ed887df09af6d2f0e6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6cbdc27b_14a537fa",
@@ -156,6 +288,24 @@
       "writtenOn": "2022-01-07T00:16:24Z",
       "side": 1,
       "message": "Aren\u0027t you calling the parameter something else? I see \"requestBytes\", reqBytes)) in the google_service_root.hpp\n\nCould add a description, required parameter, etc. \nE.g. \nhttps://github.com/openbmc/bmcweb/blob/10f270b41dee295f90dccac091883b94b82dd0d9/static/redfish/v1/JsonSchemas/Bios/Bios.json#L172\n\nhttps://github.com/openbmc/bmcweb/blob/master/static/redfish/v1/schema/Bios_v1.xml#L75",
+      "revId": "37ba9c6c62baa0fe497ee1ed887df09af6d2f0e6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c3b72bfc_a9cf2165",
+        "filename": "static/google/v1/schema/RootOfTrust_v1.xml",
+        "patchSetId": 3
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1001021
+      },
+      "writtenOn": "2022-01-08T01:51:32Z",
+      "side": 1,
+      "message": "Wonderful. Thanks.",
+      "parentUuid": "6cbdc27b_14a537fa",
       "revId": "37ba9c6c62baa0fe497ee1ed887df09af6d2f0e6",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
