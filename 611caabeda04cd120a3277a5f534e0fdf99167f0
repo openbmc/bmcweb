@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "95505dca_f1dabf7e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-01-09T02:23:29Z",
+      "side": 1,
+      "message": "Left a comment but I am fine with this direction ",
+      "revId": "611caabeda04cd120a3277a5f534e0fdf99167f0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "79a375be_97b431af",
+        "filename": "include/json_html_serializer.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-01-09T02:23:29Z",
+      "side": 1,
+      "message": "We don\u0027t just want to change these?",
+      "revId": "611caabeda04cd120a3277a5f534e0fdf99167f0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
