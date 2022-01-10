@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9991d229_18d44e22",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-01-10T19:08:45Z",
+      "side": 1,
+      "message": "Shouldn\u0027t break anything here with Crashdump, if anyone is worried could test. \nIt is defaulted to disabled,\nhttps://github.com/openbmc/bmcweb/blob/47c9e106e0057dd70133d50e928e48cbc68e709a/meson_options.txt#L18\nMaybe give a couple days in case anyone wants to test?",
+      "revId": "3ba466584e439ee568e298f0c20463a9bf1fce2f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
