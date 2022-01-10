@@ -34,6 +34,24 @@
       "parentUuid": "63f2e898_7c973ebd",
       "revId": "18c363c9ab35381ddab9ebbcade295b613a22f09",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d98e495a_c4e4bbb1",
+        "filename": ".clang-tidy",
+        "patchSetId": 1
+      },
+      "lineNbr": 205,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-01-10T20:47:58Z",
+      "side": 1,
+      "message": "Now I remember, we have some constexpr functions that are recursive, but given they\u0027re constexpr, the recursion doesn\u0027t actually hurt us an in terms of runtime safety, given that if we messed it up, we would crash at compile time, and I wasn\u0027t sure how to ignore those errors, and it wasn\u0027t worth the effort to port them to being non-recursive for constexpr.",
+      "parentUuid": "bf2f6c49_f94e5267",
+      "revId": "18c363c9ab35381ddab9ebbcade295b613a22f09",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
