@@ -34,6 +34,24 @@
       "parentUuid": "99d52cc0_5256f31c",
       "revId": "a932a0a46c1d7359bd2c4f9c3a6275faec19b4d1",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0bfb01fc_92bbc0d7",
+        "filename": "http/http_connection.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-01-10T19:09:16Z",
+      "side": 1,
+      "message": "\u003e  Because of the limitations in clang-tidy, NOLINTNEXTLINE means it literally has to be on the next line in source, not the next semantic line. \n\nThis is annoying.\n\n\u003e With that said, if you have other ideas on how we could do this better, I\u0027m all ears.\n\nNah. Could do something like \n\n\"// NOLINT\" \non both lines or \n\"// NOLINTNEXTLINE(cppcoreguidelines-pro-type-reinterpret-cast)\" before both ? \nbut that is messy\n\nI am good as is.",
+      "parentUuid": "af116826_b27845e2",
+      "revId": "a932a0a46c1d7359bd2c4f9c3a6275faec19b4d1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
