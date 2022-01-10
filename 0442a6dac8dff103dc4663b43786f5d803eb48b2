@@ -34,6 +34,24 @@
       "parentUuid": "99205194_d9950816",
       "revId": "0442a6dac8dff103dc4663b43786f5d803eb48b2",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ebf571f8_98d6ba8b",
+        "filename": "include/openbmc_dbus_rest.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 234,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-01-10T17:50:41Z",
+      "side": 1,
+      "message": "Ack, I guess I would slightly prefer logging the exception even though by design this shouldn\u0027t be throwing, if it did, having the exception would be quicker to debug. That said, I am good here.",
+      "parentUuid": "9f965723_4cecda7c",
+      "revId": "0442a6dac8dff103dc4663b43786f5d803eb48b2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
