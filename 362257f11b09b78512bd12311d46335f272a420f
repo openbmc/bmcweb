@@ -46,6 +46,30 @@
       },
       "revId": "362257f11b09b78512bd12311d46335f272a420f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c42111fa_f44ef903",
+        "filename": "redfish-core/include/utils/time_utils.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-01-10T17:46:18Z",
+      "side": 1,
+      "message": "This changed back in patchset 3, but as mentioned above, I am fine either way.",
+      "parentUuid": "512af40c_14903ae1",
+      "range": {
+        "startLine": 21,
+        "startChar": 19,
+        "endLine": 21,
+        "endChar": 31
+      },
+      "revId": "362257f11b09b78512bd12311d46335f272a420f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
