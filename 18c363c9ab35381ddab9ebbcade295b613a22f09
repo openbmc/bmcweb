@@ -52,6 +52,24 @@
       "parentUuid": "bf2f6c49_f94e5267",
       "revId": "18c363c9ab35381ddab9ebbcade295b613a22f09",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "da827c31_56da89c4",
+        "filename": ".clang-tidy",
+        "patchSetId": 1
+      },
+      "lineNbr": 205,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-01-10T21:02:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d98e495a_c4e4bbb1",
+      "revId": "18c363c9ab35381ddab9ebbcade295b613a22f09",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
