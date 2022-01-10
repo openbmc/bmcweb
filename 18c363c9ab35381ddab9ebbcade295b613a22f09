@@ -16,6 +16,24 @@
       "message": "Still can\u0027t turn this on?\n\nhttps://github.com/openbmc/bmcweb/commit/b00dcc27587267e18d3abdee82f1ed7b39744d02\n\nI assume not..",
       "revId": "18c363c9ab35381ddab9ebbcade295b613a22f09",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bf2f6c49_f94e5267",
+        "filename": ".clang-tidy",
+        "patchSetId": 1
+      },
+      "lineNbr": 205,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-01-10T18:31:18Z",
+      "side": 1,
+      "message": "didn\u0027t even try.  I don\u0027t even remember what the issue is.",
+      "parentUuid": "63f2e898_7c973ebd",
+      "revId": "18c363c9ab35381ddab9ebbcade295b613a22f09",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
