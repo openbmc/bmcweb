@@ -427,6 +427,30 @@
       },
       "revId": "2c134f69615bef86af325b87debb86f8d5697dd6",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a8252d2a_785f35b0",
+        "filename": "redfish-core/lib/redfish_sessions.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 266,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-01-10T14:16:54Z",
+      "side": 1,
+      "message": "#1 from above would be my preference. \n\n\u003e Did changes as per the #2 approach. The first approach can be a long term solution, and need community help in getting that design implemented.\n\n\u003e Yes - needed since the current design is to contain the check at bmcweb. The design #2\n\nOkay, I still don\u0027t understand why this patch is still needed.? You mentioned this is the current design but sounds like we are in agreement on moving forward with #1? You want this as a short term solution? why? How is this a bad enough bug to merit that?",
+      "parentUuid": "e31beb1b_8edab515",
+      "range": {
+        "startLine": 199,
+        "startChar": 0,
+        "endLine": 266,
+        "endChar": 37
+      },
+      "revId": "2c134f69615bef86af325b87debb86f8d5697dd6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
