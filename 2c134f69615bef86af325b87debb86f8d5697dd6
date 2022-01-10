@@ -451,6 +451,30 @@
       },
       "revId": "2c134f69615bef86af325b87debb86f8d5697dd6",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6c631316_2a5c785f",
+        "filename": "redfish-core/lib/redfish_sessions.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 266,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2022-01-10T14:27:28Z",
+      "side": 1,
+      "message": "At the routing.hpp ; bmcweb relays on the user-manager dbus calls to see if the user at the incoming request is authorized or not using the same logic which i have implemented in this commit. \n\nI am doing this - because, while creating the session, there is no authorization check for the user at the currently available pam library authentication mechanism. As mentioned in the previous discussions, the authentication is with pam library and authorization is with the user-manager app(dbus)\n\nThe #1 solution needs an agreement with the phosphor-user-manager maintainers and a bit more re-design of the authorization checks. This needs more analysis and time. I am not an expert in that areas. Thus i would like to go ahead with this #2, until we have that #1 concluded. We already have this similar check at routing.hpp - so its not a new thing at bmcweb.\n\nI think this commit and the routing.hpp can be re-visited together when the user-manager has the required changes to disable the no-access user and link the pam module to the same.",
+      "parentUuid": "a8252d2a_785f35b0",
+      "range": {
+        "startLine": 199,
+        "startChar": 0,
+        "endLine": 266,
+        "endChar": 37
+      },
+      "revId": "2c134f69615bef86af325b87debb86f8d5697dd6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
