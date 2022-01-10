@@ -97,6 +97,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "30856e33_c9c4bd5a",
+        "filename": "http/utility.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 582,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-01-10T17:30:32Z",
+      "side": 1,
+      "message": "\u003e Reason was that std::chrono is more flexible.\n\nI\u0027d rather we just have explicit overloads for each type then.  I also think that\u0027s better, as you\u0027ll never implicitly convert a boost::posix_time_milliseconds to boost::posix_time::seconds on accident, and for the millisecond case, ideally it should be generating a different string (with milliseconds precision).",
+      "parentUuid": "9f92d2f2_b86e979f",
+      "range": {
+        "startLine": 582,
+        "startChar": 31,
+        "endLine": 582,
+        "endChar": 56
+      },
+      "revId": "b419c7eac25e73fec60342581ac86b1425901a1e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "26624dd1_e7d1e910",
         "filename": "http/utility.hpp",
         "patchSetId": 1
@@ -132,6 +156,30 @@
       "side": 1,
       "message": "As a first step I wanted to round all results to seconds. As a second step I wanted to start discussion whatever we want to increase timestamp precession in bmcweb (either whole or some parts).\n\nSo there are two questions:\n\nShould whole bmcweb use timestamp with milliseconds precission?\nIf not should telemetry service use timestamp with milliseconds precission or round all timestamps to seconds?",
       "parentUuid": "26624dd1_e7d1e910",
+      "range": {
+        "startLine": 585,
+        "startChar": 0,
+        "endLine": 587,
+        "endChar": 22
+      },
+      "revId": "b419c7eac25e73fec60342581ac86b1425901a1e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fa1c1baf_8728cf06",
+        "filename": "http/utility.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 587,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-01-10T17:30:32Z",
+      "side": 1,
+      "message": "\u003e As a first step I wanted to round all results to seconds. As a second step I wanted to start discussion whatever we want to increase timestamp precession in bmcweb (either whole or some parts).\n\u003e \n\u003e So there are two questions:\n\u003e \n\u003e Should whole bmcweb use timestamp with milliseconds precission?\n\nYes, For the APIs that support milliseconds precision, yes.\n\n\u003e If not should telemetry service use timestamp with milliseconds precission or round all timestamps to seconds?\n\nNo.",
+      "parentUuid": "fd2a6b85_6cab680e",
       "range": {
         "startLine": 585,
         "startChar": 0,
