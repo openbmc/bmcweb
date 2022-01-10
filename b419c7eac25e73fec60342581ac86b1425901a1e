@@ -49,6 +49,54 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "223650dd_9ada7a17",
+        "filename": "http/utility.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 582,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2022-01-10T09:28:37Z",
+      "side": 1,
+      "message": "Sure I will rename it.",
+      "parentUuid": "417bba15_b7ac059b",
+      "range": {
+        "startLine": 582,
+        "startChar": 19,
+        "endLine": 582,
+        "endChar": 30
+      },
+      "revId": "b419c7eac25e73fec60342581ac86b1425901a1e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9f92d2f2_b86e979f",
+        "filename": "http/utility.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 582,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2022-01-10T09:28:37Z",
+      "side": 1,
+      "message": "Reason was that std::chrono is more flexible.\n\n#include \u003cboost/date_time.hpp\u003e\n#include \u003cchrono\u003e\n\nvoid testBoost(boost::posix_time::milliseconds ms) {\n\n}\n\nvoid testChrono(std::chrono::milliseconds ms) {\n\n}\n\nint main() {\n    testBoost(boost::posix_time::milliseconds(10));\n    testBoost(boost::posix_time::seconds(10)); // does not compile\n\n    testChrono(std::chrono::milliseconds(10));\n    testChrono(std::chrono::seconds(10));\n\n    return 0;\n}",
+      "parentUuid": "7f061aa9_6bea8e52",
+      "range": {
+        "startLine": 582,
+        "startChar": 31,
+        "endLine": 582,
+        "endChar": 56
+      },
+      "revId": "b419c7eac25e73fec60342581ac86b1425901a1e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "26624dd1_e7d1e910",
         "filename": "http/utility.hpp",
         "patchSetId": 1
@@ -60,6 +108,30 @@
       "writtenOn": "2022-01-06T17:08:20Z",
       "side": 1,
       "message": "This is going to round all the results into a second duration, which almost definitely isn\u0027t what you want.",
+      "range": {
+        "startLine": 585,
+        "startChar": 0,
+        "endLine": 587,
+        "endChar": 22
+      },
+      "revId": "b419c7eac25e73fec60342581ac86b1425901a1e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fd2a6b85_6cab680e",
+        "filename": "http/utility.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 587,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2022-01-10T09:28:37Z",
+      "side": 1,
+      "message": "As a first step I wanted to round all results to seconds. As a second step I wanted to start discussion whatever we want to increase timestamp precession in bmcweb (either whole or some parts).\n\nSo there are two questions:\n\nShould whole bmcweb use timestamp with milliseconds precission?\nIf not should telemetry service use timestamp with milliseconds precission or round all timestamps to seconds?",
+      "parentUuid": "26624dd1_e7d1e910",
       "range": {
         "startLine": 585,
         "startChar": 0,
