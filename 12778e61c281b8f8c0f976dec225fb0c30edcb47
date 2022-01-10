@@ -18,6 +18,23 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "abafc609_9bfb7c64",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-01-10T16:58:05Z",
+      "side": 1,
+      "message": "Straightforward, looks correct, and ran the scripts.  As always, happy to discuss, but I\u0027m merging this quickly to get it off the list, and I can\u0027t see anyone taking issue with anything here",
+      "revId": "12778e61c281b8f8c0f976dec225fb0c30edcb47",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "903e1342_57222ec2",
@@ -31,6 +48,24 @@
       "writtenOn": "2022-01-10T16:54:47Z",
       "side": 1,
       "message": "We don\u0027t use these so good here.",
+      "revId": "12778e61c281b8f8c0f976dec225fb0c30edcb47",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9514328e_5cd01d88",
+        "filename": "redfish-core/include/registries/privilege_registry.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1387,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-01-10T16:58:05Z",
+      "side": 1,
+      "message": "Although this has me wondering what the hell a \"RouteSet\" is.....",
+      "parentUuid": "903e1342_57222ec2",
       "revId": "12778e61c281b8f8c0f976dec225fb0c30edcb47",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
