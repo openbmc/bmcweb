@@ -70,6 +70,24 @@
       "parentUuid": "d98e495a_c4e4bbb1",
       "revId": "18c363c9ab35381ddab9ebbcade295b613a22f09",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b8ec77fd_0bf4b403",
+        "filename": ".clang-tidy",
+        "patchSetId": 1
+      },
+      "lineNbr": 205,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-01-11T19:28:16Z",
+      "side": 1,
+      "message": "Ack.",
+      "parentUuid": "da827c31_56da89c4",
+      "revId": "18c363c9ab35381ddab9ebbcade295b613a22f09",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
