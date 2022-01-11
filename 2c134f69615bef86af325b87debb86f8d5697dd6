@@ -517,6 +517,30 @@
       },
       "revId": "2c134f69615bef86af325b87debb86f8d5697dd6",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ec44b94e_8815d6f9",
+        "filename": "redfish-core/lib/redfish_sessions.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 266,
+      "author": {
+        "id": 1000022
+      },
+      "writtenOn": "2022-01-11T09:41:35Z",
+      "side": 1,
+      "message": "Priv-Noaccess is coming from IPMI world where user is enabled but no-access, Richard can explain more here.\n\nFollowing commits which were used to add the code related to the priv-noaccess in user-manager and bmcweb.\n \nhttps://github.com/openbmc/bmcweb/commit/e9e6d240ab85e515f8d264e39b47a75043b73374\nhttps://github.com/openbmc/phosphor-user-manager/commit/7c6e7cffaf061aabfe5489ef52442e2f7cbd0fb7\n\n\nEarlier in phosphor-user-manager priv-noaccess was not there and If user has been created with IPMI interface with no privileges that was creating issues for the Redfish where user exists but it\u0027s privileges not exist in Redfish All privileges property.\n\nHence the above two commits were added to support the priv-noaccess.",
+      "parentUuid": "24ab6efc_d8eeb231",
+      "range": {
+        "startLine": 199,
+        "startChar": 0,
+        "endLine": 266,
+        "endChar": 37
+      },
+      "revId": "2c134f69615bef86af325b87debb86f8d5697dd6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
