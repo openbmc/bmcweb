@@ -263,6 +263,24 @@
       "message": "This needs bumped to 1_11. How did this pass the Redfish Validator ?\n\nFrom https://redfish.dmtf.org/schemas/v1/ServiceRoot.v1_12_0.json \n\n              \"Cables\": {\n                    \"$ref\": \"http://redfish.dmtf.org/schemas/v1/CableCollection.json#/definitions/CableCollection\",\n                    \"description\": \"The link to a collection of cables.\",\n                    \"longDescription\": \"This property shall contain a link to a resource collection of type CableCollection.\",\n                    \"readonly\": true,\n                    \"versionAdded\": \"v1_11_0\"\n                },",
       "revId": "c50c1e087a7813ac7896fadcc8f646f0bb78b39c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b5eefbb2_7a2d089d",
+        "filename": "redfish-core/lib/service_root.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-01-11T20:31:28Z",
+      "side": 1,
+      "message": "+1",
+      "parentUuid": "4dbc46b0_8066adef",
+      "revId": "c50c1e087a7813ac7896fadcc8f646f0bb78b39c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
