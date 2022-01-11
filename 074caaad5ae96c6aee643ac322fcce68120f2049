@@ -56,6 +56,41 @@
       "message": "Still need to add a version bump",
       "revId": "074caaad5ae96c6aee643ac322fcce68120f2049",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b2689047_c0acd967",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-01-11T22:29:52Z",
+      "side": 1,
+      "message": "\u003e Patch Set 5:\n\u003e \n\u003e (2 comments)\n\u003e \n\u003e \u003e Patch Set 1:\n\u003e \u003e \n\u003e \u003e We\u0027re making major changes.  Please obey the redfish versioning rules.\n\u003e \n\u003e This comment seems to have been ignored.\n\n3rd request.",
+      "revId": "074caaad5ae96c6aee643ac322fcce68120f2049",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "73ee09e2_de2a55f2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-01-11T22:29:52Z",
+      "side": 1,
+      "message": "Please address the existing comments.  Having to come back to this to see comments that haven\u0027t been addressed or even replied to wastes precious maintainer time.  I\u0027ve pointed out a versioning comment that has been ignored on two subsequent patches.  This is the same issue that Jonathan has pointed out in his last comment.",
+      "parentUuid": "203016d7_0b7ae880",
+      "revId": "074caaad5ae96c6aee643ac322fcce68120f2049",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
