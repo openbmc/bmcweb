@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b7b6600f_4171b70b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1001084
+      },
+      "writtenOn": "2022-01-11T23:52:26Z",
+      "side": 1,
+      "message": "Yes, that is surprising for me too. I didn\u0027t make that up 😊\nI tried again just to make sure:\n$ curl -k -X GET https://{bmc}:18080/redfish/v1/Cables/dp0_cable0\n{\n  \"@odata.id\": \"/redfish/v1/Cables/dp0_cable0\",\n  \"@odata.type\": \"#Cable.v1_0_0.Cable\",\n  \"CableType\": \"\",\n  \"Id\": \"dp0_cable0\",\n  \"LengthMeters\": null,\n  \"Name\": \"dp0_cable0\"\n}",
+      "parentUuid": "ae7a28b8_9d9eb417",
+      "range": {
+        "startLine": 49,
+        "startChar": 0,
+        "endLine": 49,
+        "endChar": 23
+      },
+      "revId": "c50c1e087a7813ac7896fadcc8f646f0bb78b39c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e594c4de_59ae9768",
         "filename": "/COMMIT_MSG",
         "patchSetId": 1
@@ -89,6 +113,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "7f10b146_da77498a",
+        "filename": "redfish-core/lib/cable.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1001084
+      },
+      "writtenOn": "2022-01-11T23:52:26Z",
+      "side": 1,
+      "message": "Here are the two .hpp files that showed-up with typedefs for MapperServiceMap and MapperGetSubTreeResponse/GetSubTreeResponse:\nhttps://grok.openbmc.org/xref/openbmc/pldm/common/utils.hpp?r\u003d872f0f69#151\nhttps://grok.openbmc.org/xref/openbmc/bmcweb/redfish-core/lib/processor.hpp?r\u003d914e2d5d#40\n\nAre you suggesting one of these to include or we have common typedefs somewhere which we can use?\n\nIf they are defined somewhere, I would appreciate if you can point it out...\n\nFor CableProperties I will see if a common one can be used as well.",
+      "parentUuid": "6204bdf2_aaebe591",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 75
+      },
+      "revId": "c50c1e087a7813ac7896fadcc8f646f0bb78b39c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "fa2f6482_23e56cc0",
         "filename": "redfish-core/lib/cable.hpp",
         "patchSetId": 1
@@ -100,6 +148,30 @@
       "writtenOn": "2022-01-11T19:43:36Z",
       "side": 1,
       "message": "Nit, please prefer to return early.\n\nif (interface !\u003d ..){\n   continue;\n}\n\nAs it saves a scope.",
+      "range": {
+        "startLine": 37,
+        "startChar": 9,
+        "endLine": 38,
+        "endChar": 13
+      },
+      "revId": "c50c1e087a7813ac7896fadcc8f646f0bb78b39c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bdc5e976_7ce3fc93",
+        "filename": "redfish-core/lib/cable.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1001084
+      },
+      "writtenOn": "2022-01-11T23:52:26Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "fa2f6482_23e56cc0",
       "range": {
         "startLine": 37,
         "startChar": 9,
@@ -135,6 +207,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c7aa7364_eef9e622",
+        "filename": "redfish-core/lib/cable.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1001084
+      },
+      "writtenOn": "2022-01-11T23:52:26Z",
+      "side": 1,
+      "message": "# busctl introspect xyz.openbmc_project.Inventory.Manager /xyz/openbmc_project/inventory/cables/dp0_cable0\nNAME                                     TYPE      SIGNATURE RESULT/VALUE FLAGS\n...\nxyz.openbmc_project.Inventory.Item.Cable interface -         -            -\n.CableTypeDescription                    property  s         \"\"           emits-change writable\n.Length                                  property  d         nan          emits-change writable",
+      "parentUuid": "7de3cbf2_4c8c93c2",
+      "range": {
+        "startLine": 65,
+        "startChar": 46,
+        "endLine": 65,
+        "endChar": 57
+      },
+      "revId": "c50c1e087a7813ac7896fadcc8f646f0bb78b39c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "dc548ba8_d238524a",
         "filename": "redfish-core/lib/cable.hpp",
         "patchSetId": 1
@@ -146,6 +242,30 @@
       "writtenOn": "2022-01-11T19:43:36Z",
       "side": 1,
       "message": "Please put this in its own method, and inline the remaining lambda.  WE\u0027re already too many scopes deep here, as you can see from the significant line wrapping.",
+      "range": {
+        "startLine": 42,
+        "startChar": 0,
+        "endLine": 73,
+        "endChar": 34
+      },
+      "revId": "c50c1e087a7813ac7896fadcc8f646f0bb78b39c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e39d4700_35690267",
+        "filename": "redfish-core/lib/cable.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1001084
+      },
+      "writtenOn": "2022-01-11T23:52:26Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "dc548ba8_d238524a",
       "range": {
         "startLine": 42,
         "startChar": 0,
@@ -169,6 +289,30 @@
       "writtenOn": "2022-01-11T19:43:36Z",
       "side": 1,
       "message": "This is directly called out by name in COMMON_ERRORS.md.  Please read and understand all of those.  in this case, you should be using sdbusplus::message::object_path::filename()",
+      "range": {
+        "startLine": 118,
+        "startChar": 40,
+        "endLine": 118,
+        "endChar": 49
+      },
+      "revId": "c50c1e087a7813ac7896fadcc8f646f0bb78b39c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dc996078_ab8cf6db",
+        "filename": "redfish-core/lib/cable.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 1001084
+      },
+      "writtenOn": "2022-01-11T23:52:26Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "059b72d8_6b230319",
       "range": {
         "startLine": 118,
         "startChar": 40,
@@ -204,6 +348,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "2566b234_6988a3d7",
+        "filename": "redfish-core/lib/cable.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 1001084
+      },
+      "writtenOn": "2022-01-11T23:52:26Z",
+      "side": 1,
+      "message": "I thought it skips searching path entries early if the map happens to be empty. Will remove as it won\u0027t hurt...",
+      "parentUuid": "92cdbfcd_50301433",
+      "range": {
+        "startLine": 118,
+        "startChar": 76,
+        "endLine": 119,
+        "endChar": 50
+      },
+      "revId": "c50c1e087a7813ac7896fadcc8f646f0bb78b39c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "25bc7639_9f2db150",
         "filename": "redfish-core/lib/cable.hpp",
         "patchSetId": 1
@@ -227,6 +395,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "6da02fca_f8cbe593",
+        "filename": "redfish-core/lib/cable.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 1001084
+      },
+      "writtenOn": "2022-01-11T23:52:26Z",
+      "side": 1,
+      "message": "Any suggestion? \nMy initial thinking was to have some hardcoded string like \"Cable Id\" Or we can make it as \u0027\"Cable id \" + cableId\u0027",
+      "parentUuid": "25bc7639_9f2db150",
+      "range": {
+        "startLine": 129,
+        "startChar": 0,
+        "endLine": 129,
+        "endChar": 71
+      },
+      "revId": "c50c1e087a7813ac7896fadcc8f646f0bb78b39c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "891cd679_ead53990",
         "filename": "redfish-core/lib/cable.hpp",
         "patchSetId": 1
@@ -238,6 +430,30 @@
       "writtenOn": "2022-01-11T19:43:36Z",
       "side": 1,
       "message": "Please use the appropriate helper from collection_util for this.  You\u0027ve essentially duplicated the code from getCollectionMembers, while not handling some corner cases.",
+      "range": {
+        "startLine": 153,
+        "startChar": 0,
+        "endLine": 202,
+        "endChar": 69
+      },
+      "revId": "c50c1e087a7813ac7896fadcc8f646f0bb78b39c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f5b7f4b1_8f1889e0",
+        "filename": "redfish-core/lib/cable.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 202,
+      "author": {
+        "id": 1001084
+      },
+      "writtenOn": "2022-01-11T23:52:26Z",
+      "side": 1,
+      "message": "Thanks for the pointer. Will attempt use the helper method.",
+      "parentUuid": "891cd679_ead53990",
       "range": {
         "startLine": 153,
         "startChar": 0,
@@ -279,6 +495,24 @@
       "side": 1,
       "message": "+1",
       "parentUuid": "4dbc46b0_8066adef",
+      "revId": "c50c1e087a7813ac7896fadcc8f646f0bb78b39c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "babacc57_e47055a9",
+        "filename": "redfish-core/lib/service_root.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1001084
+      },
+      "writtenOn": "2022-01-11T23:52:26Z",
+      "side": 1,
+      "message": "Hmmm. I didn\u0027t see validator failing for this one but will bump up the version...",
+      "parentUuid": "b5eefbb2_7a2d089d",
       "revId": "c50c1e087a7813ac7896fadcc8f646f0bb78b39c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
