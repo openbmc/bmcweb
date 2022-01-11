@@ -1,0 +1,251 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ae7a28b8_9d9eb417",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-01-11T19:43:36Z",
+      "side": 1,
+      "message": "I\u0027m not seeing how this result is even possible in the code you wrote.  Are you sure you tested this patchset?  I see nowhere that it\u0027s possible to set LengthMeters to null, and even if there were, it would be incorrect.",
+      "range": {
+        "startLine": 49,
+        "startChar": 0,
+        "endLine": 49,
+        "endChar": 23
+      },
+      "revId": "c50c1e087a7813ac7896fadcc8f646f0bb78b39c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e594c4de_59ae9768",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-01-11T19:43:36Z",
+      "side": 1,
+      "message": "Please test the validator on a system that actually has a cable present.  Testing an empty collection only runs ~10% of the code in your patch.",
+      "range": {
+        "startLine": 78,
+        "startChar": 0,
+        "endLine": 87,
+        "endChar": 0
+      },
+      "revId": "c50c1e087a7813ac7896fadcc8f646f0bb78b39c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "83387fea_cd7d6678",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-01-11T19:43:36Z",
+      "side": 1,
+      "message": "Thanks for the patch!  Looking forward to the fixes.",
+      "revId": "c50c1e087a7813ac7896fadcc8f646f0bb78b39c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6204bdf2_aaebe591",
+        "filename": "redfish-core/lib/cable.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-01-11T19:43:36Z",
+      "side": 1,
+      "message": "Please don\u0027t reinvent these typedefs.  Please reuse what exists already.  We do this because it significantly deduplicates our templated code.",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 75
+      },
+      "revId": "c50c1e087a7813ac7896fadcc8f646f0bb78b39c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fa2f6482_23e56cc0",
+        "filename": "redfish-core/lib/cable.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-01-11T19:43:36Z",
+      "side": 1,
+      "message": "Nit, please prefer to return early.\n\nif (interface !\u003d ..){\n   continue;\n}\n\nAs it saves a scope.",
+      "range": {
+        "startLine": 37,
+        "startChar": 9,
+        "endLine": 38,
+        "endChar": 13
+      },
+      "revId": "c50c1e087a7813ac7896fadcc8f646f0bb78b39c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7de3cbf2_4c8c93c2",
+        "filename": "redfish-core/lib/cable.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-01-11T19:43:36Z",
+      "side": 1,
+      "message": "What does the dbus interfaces say about handling when this Length is unavailable.  That needs handled explicitly in your code.",
+      "range": {
+        "startLine": 65,
+        "startChar": 46,
+        "endLine": 65,
+        "endChar": 57
+      },
+      "revId": "c50c1e087a7813ac7896fadcc8f646f0bb78b39c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dc548ba8_d238524a",
+        "filename": "redfish-core/lib/cable.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-01-11T19:43:36Z",
+      "side": 1,
+      "message": "Please put this in its own method, and inline the remaining lambda.  WE\u0027re already too many scopes deep here, as you can see from the significant line wrapping.",
+      "range": {
+        "startLine": 42,
+        "startChar": 0,
+        "endLine": 73,
+        "endChar": 34
+      },
+      "revId": "c50c1e087a7813ac7896fadcc8f646f0bb78b39c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "059b72d8_6b230319",
+        "filename": "redfish-core/lib/cable.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-01-11T19:43:36Z",
+      "side": 1,
+      "message": "This is directly called out by name in COMMON_ERRORS.md.  Please read and understand all of those.  in this case, you should be using sdbusplus::message::object_path::filename()",
+      "range": {
+        "startLine": 118,
+        "startChar": 40,
+        "endLine": 118,
+        "endChar": 49
+      },
+      "revId": "c50c1e087a7813ac7896fadcc8f646f0bb78b39c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "92cdbfcd_50301433",
+        "filename": "redfish-core/lib/cable.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-01-11T19:43:36Z",
+      "side": 1,
+      "message": "Why are you checking against serviceMap.empty()?  That doesn\u0027t seem neccesary?",
+      "range": {
+        "startLine": 118,
+        "startChar": 76,
+        "endLine": 119,
+        "endChar": 50
+      },
+      "revId": "c50c1e087a7813ac7896fadcc8f646f0bb78b39c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "25bc7639_9f2db150",
+        "filename": "redfish-core/lib/cable.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-01-11T19:43:36Z",
+      "side": 1,
+      "message": "?  I suspect name and Id should not be the same here.",
+      "range": {
+        "startLine": 129,
+        "startChar": 0,
+        "endLine": 129,
+        "endChar": 71
+      },
+      "revId": "c50c1e087a7813ac7896fadcc8f646f0bb78b39c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "891cd679_ead53990",
+        "filename": "redfish-core/lib/cable.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 202,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-01-11T19:43:36Z",
+      "side": 1,
+      "message": "Please use the appropriate helper from collection_util for this.  You\u0027ve essentially duplicated the code from getCollectionMembers, while not handling some corner cases.",
+      "range": {
+        "startLine": 153,
+        "startChar": 0,
+        "endLine": 202,
+        "endChar": 69
+      },
+      "revId": "c50c1e087a7813ac7896fadcc8f646f0bb78b39c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
