@@ -214,8 +214,9 @@ struct HealthPopulate : std::enable_shared_from_this<HealthPopulate>
                 {
                     return;
                 }
-                dbus::utility::ManagedObjectType copy = resp;
-                for (auto it = resp.begin(); it != resp.end();)
+                self->statuses = resp;
+                for (auto it = self->statuses.begin();
+                     it != self->statuses.end();)
                 {
                     if (boost::ends_with(it->first.str, "critical") ||
                         boost::ends_with(it->first.str, "warning"))
@@ -223,9 +224,8 @@ struct HealthPopulate : std::enable_shared_from_this<HealthPopulate>
                         it++;
                         continue;
                     }
-                    it = copy.erase(it);
+                    it = self->statuses.erase(it);
                 }
-                self->statuses = std::move(copy);
             },
             "xyz.openbmc_project.ObjectMapper", "/",
             "org.freedesktop.DBus.ObjectManager", "GetManagedObjects");
