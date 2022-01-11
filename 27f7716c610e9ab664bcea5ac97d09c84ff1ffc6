@@ -138,6 +138,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "8157d254_9624f815",
+        "filename": "redfish-core/include/utils/json_utils.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 442,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2022-01-11T23:41:29Z",
+      "side": 1,
+      "message": "So do we expect\n```\nnlohmann::json json\nreadJsonPatch(\"ipAddress\", j)\n```\n\nto pass? I think it does already?\n\nOr are we thinking of fetching the subelement directly. like\n\n```\nnlohmann::json json\nreadJsonPatch(\"ipAddress/0\", j)\n```\n?\n\nAnyway, I added some unit tests so we can be more sure what what\u0027s happening.",
+      "parentUuid": "d6334f4f_a91f6ecd",
+      "revId": "27f7716c610e9ab664bcea5ac97d09c84ff1ffc6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "4fdcb220_1accca88",
         "filename": "redfish-core/include/utils/json_utils.hpp",
         "patchSetId": 13
@@ -197,6 +215,30 @@
       "side": 1,
       "message": "it\u0027s not on the caller, but it\u0027s on the readJsonValue call.",
       "parentUuid": "66d3d3c3_dbaf413b",
+      "range": {
+        "startLine": 473,
+        "startChar": 0,
+        "endLine": 474,
+        "endChar": 48
+      },
+      "revId": "27f7716c610e9ab664bcea5ac97d09c84ff1ffc6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d51a5fe9_420b8537",
+        "filename": "redfish-core/include/utils/json_utils.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 474,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2022-01-11T23:41:29Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "eba3958f_6793b4ba",
       "range": {
         "startLine": 473,
         "startChar": 0,
