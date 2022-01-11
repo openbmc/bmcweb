@@ -577,6 +577,8 @@ inline bool base64Decode(const std::string_view input, std::string& output)
 
 namespace details
 {
+constexpr uint64_t maxMilliSeconds = 253402300799999;
+constexpr uint64_t maxSeconds = 253402300799;
 inline std::string getDateTime(boost::posix_time::milliseconds timeSinceEpoch)
 {
     boost::posix_time::ptime epoch(boost::gregorian::date(1970, 1, 1));
@@ -586,23 +588,33 @@ inline std::string getDateTime(boost::posix_time::milliseconds timeSinceEpoch)
 }
 } // namespace details
 
+// Returns the formatted date time string.
+// Note that the maximum supported date is 9999-12-31T23:59:59+00:00, if
+// the given |secondsSinceEpoch| is too large, we return the maximum supported
+// date. This behavior is to avoid exceptions throwed by Boost.
 inline std::string getDateTimeUint(uint64_t secondsSinceEpoch)
 {
-    boost::posix_time::seconds boostSeconds(secondsSinceEpoch);
+
+    boost::posix_time::seconds boostSeconds(
+        std::min(secondsSinceEpoch, details::maxSeconds));
     return details::getDateTime(
         boost::posix_time::milliseconds(boostSeconds.total_milliseconds()));
 }
 
-inline std::string getDateTimeUintMs(uint64_t millisSecondsSinceEpoch)
+// Returns the formatted date time string.
+// Note that the maximum supported date is 9999-12-31T23:59:59.999+00:00, if
+// the given |millisSecondsSinceEpoch| is too large, we return the maximum
+// supported date.
+inline std::string getDateTimeUintMs(uint64_t milliSecondsSinceEpoch)
 {
-    return details::getDateTime(
-        boost::posix_time::milliseconds(millisSecondsSinceEpoch));
+    return details::getDateTime(boost::posix_time::milliseconds(
+        std::min(details::maxMilliSeconds, milliSecondsSinceEpoch)));
 }
 
 inline std::string getDateTimeStdtime(std::time_t secondsSinceEpoch)
 {
-    boost::posix_time::ptime time =
-        boost::posix_time::from_time_t(secondsSinceEpoch);
+    boost::posix_time::ptime time = boost::posix_time::from_time_t(
+        std::min(secondsSinceEpoch, std::time_t{details::maxSeconds}));
     return boost::posix_time::to_iso_extended_string(time) + "+00:00";
 }
 
