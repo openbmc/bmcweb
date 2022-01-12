@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "8e7fbca4_d3cfc7df",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000004
+      },
+      "writtenOn": "2022-01-12T18:43:57Z",
+      "side": 1,
+      "message": "The \"After\" will only take affect if that service happens to be started on the particular system. It doesn\u0027t require the service be present (i.e. the Wants/Requires). But...bmcweb has a lot of dependencies. Do we add them all? We definitely hit an issue related to this specific dependency on our p10bmc system (client was trying to connect before user-manager was available and client ended up reporting an error). What\u0027s the right answer for our clients to handle this scenario if we can\u0027t guarantee authentication will work?",
+      "parentUuid": "5ace342d_22a65b68",
+      "range": {
+        "startLine": 10,
+        "startChar": 26,
+        "endLine": 13,
+        "endChar": 0
+      },
+      "revId": "5aae27367fa9cf03b50c4ac039bb0cab241f5b68",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "c4999708_886fe488",
