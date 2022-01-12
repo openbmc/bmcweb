@@ -1,0 +1,182 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "320aaa9d_95297710",
+        "filename": "redfish-core/ut/json_utils_test.cpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-01-12T19:30:58Z",
+      "side": 1,
+      "message": "nit.  This can be uint64_t.  nlohmann is upcasting it to uint64_t anyway.\n\nAlso, I\u0027m pretty sure you can omit the std::vector part entirely and have it rely on brace initialization to build the array.",
+      "range": {
+        "startLine": 16,
+        "startChar": 57,
+        "endLine": 16,
+        "endChar": 64
+      },
+      "revId": "7d14a2446899b83fbfde3f2bed6253d4a8d901e0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d1908d9a_d74ea032",
+        "filename": "redfish-core/ut/json_utils_test.cpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-01-12T19:30:58Z",
+      "side": 1,
+      "message": "We should also have an EXPECT on the result of res.code() to make sure we are or aren\u0027t setting the right error messages on the response.\n\nSomething like\n\nEXPECT_EQ(res.result(), 200);\nEXPECT_TRUE(res.jsonValue.empty());\n\n\nMost of your tests need EXPECT statements for these.",
+      "revId": "7d14a2446899b83fbfde3f2bed6253d4a8d901e0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "211faa7a_cf915969",
+        "filename": "redfish-core/ut/json_utils_test.cpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-01-12T19:30:58Z",
+      "side": 1,
+      "message": "nit, please use explicit sized types.  sizeof(int) changes between 64 bit and 32 bit, and nlohmann uses int64_t in both architectures, so that\u0027s probably what we should use here.",
+      "range": {
+        "startLine": 33,
+        "startChar": 4,
+        "endLine": 33,
+        "endChar": 7
+      },
+      "revId": "7d14a2446899b83fbfde3f2bed6253d4a8d901e0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b914a10c_9354362b",
+        "filename": "redfish-core/ut/json_utils_test.cpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-01-12T19:30:58Z",
+      "side": 1,
+      "message": "nit, declare each on their own line please.",
+      "range": {
+        "startLine": 34,
+        "startChar": 20,
+        "endLine": 34,
+        "endChar": 26
+      },
+      "revId": "7d14a2446899b83fbfde3f2bed6253d4a8d901e0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "212d4725_9e64a518",
+        "filename": "redfish-core/ut/json_utils_test.cpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-01-12T19:30:58Z",
+      "side": 1,
+      "message": "nit on test naming, This expect isn\u0027t really a missing element test, this is an extra element test.",
+      "range": {
+        "startLine": 36,
+        "startChar": 0,
+        "endLine": 36,
+        "endChar": 70
+      },
+      "revId": "7d14a2446899b83fbfde3f2bed6253d4a8d901e0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0cac29a7_cf761800",
+        "filename": "redfish-core/ut/json_utils_test.cpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-01-12T19:30:58Z",
+      "side": 1,
+      "message": "This should fail for a wrong type, not a missing parameter.  Should this be a different test?",
+      "range": {
+        "startLine": 37,
+        "startChar": 0,
+        "endLine": 37,
+        "endChar": 67
+      },
+      "revId": "7d14a2446899b83fbfde3f2bed6253d4a8d901e0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "01f38b8d_b663a17d",
+        "filename": "redfish-core/ut/json_utils_test.cpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-01-12T19:30:58Z",
+      "side": 1,
+      "message": "That\u0027s super cool syntax.  I didn\u0027t know that existed.",
+      "range": {
+        "startLine": 47,
+        "startChar": 0,
+        "endLine": 51,
+        "endChar": 12
+      },
+      "revId": "7d14a2446899b83fbfde3f2bed6253d4a8d901e0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f23ed18a_358c9fe0",
+        "filename": "redfish-core/ut/json_utils_test.cpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-01-12T19:30:58Z",
+      "side": 1,
+      "message": "For arrays, that seems hard because we don\u0027t have any fixed-size arrays in redfish. \n With that said  I\u0027d really like to see us be able to access sub-object elements directly with something like\n\nreadJson(...., \"Foo/Bar\", foobar)\n\nWhich would save a lot of repeated readJson calls for objects like\n\n\n{\"Foo\": {\"Bar\": \"value\"}}",
+      "range": {
+        "startLine": 56,
+        "startChar": 4,
+        "endLine": 56,
+        "endChar": 64
+      },
+      "revId": "7d14a2446899b83fbfde3f2bed6253d4a8d901e0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
