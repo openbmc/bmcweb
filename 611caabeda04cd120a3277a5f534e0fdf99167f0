@@ -51,6 +51,24 @@
       "parentUuid": "79a375be_97b431af",
       "revId": "611caabeda04cd120a3277a5f534e0fdf99167f0",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "51e915d4_c0501932",
+        "filename": "include/json_html_serializer.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-01-12T14:18:18Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "e4a35250_f87dd7ec",
+      "revId": "611caabeda04cd120a3277a5f534e0fdf99167f0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
