@@ -156,6 +156,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a1aa0f00_659c69d1",
+        "filename": "redfish-core/include/utils/json_utils.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 442,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-01-12T19:13:42Z",
+      "side": 1,
+      "message": "for PATCH {\"IpAddresses\":[{}, {}]}\n\nstd::vector\u003cnlohmann::json\u003e j;\nreadJsonPatch(\"ipAddress/0\", j)\n\n\nShould succeed without an error.",
+      "parentUuid": "8157d254_9624f815",
+      "revId": "27f7716c610e9ab664bcea5ac97d09c84ff1ffc6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "4fdcb220_1accca88",
         "filename": "redfish-core/include/utils/json_utils.hpp",
         "patchSetId": 13
