@@ -2856,9 +2856,11 @@ inline void requestRoutesCrashdumpFile(App& app)
                             return;
                         }
                         ifs.seekg(0, std::ios::beg);
+                        std::streamsize streamFileSize =
+                            static_cast<std::streamsize>(fileSize);
                         size_t sFileSize = static_cast<size_t>(fileSize);
                         asyncResp->res.body().resize(sFileSize, '\0');
-                        ifs.read(asyncResp->res.body().data(), fileSize);
+                        ifs.read(asyncResp->res.body().data(), streamFileSize);
 
                         // Configure this to be a file download when accessed
                         // from a browser
