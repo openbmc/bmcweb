@@ -1,6 +1,29 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "5ace342d_22a65b68",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-01-12T17:46:48Z",
+      "side": 1,
+      "message": "This was not always the case, and prior to the LDAP patches, only required PAM, which doesn\u0027t have this race condition.  It\u0027s not clear that all systems actually need this dependency, so I\u0027m a little worried we\u0027re adding things unnecessarily.  This also puts openbmc-specific services in the core, which prevents bmcweb from being used by other projects, like openrmc.",
+      "range": {
+        "startLine": 10,
+        "startChar": 26,
+        "endLine": 13,
+        "endChar": 0
+      },
+      "revId": "5aae27367fa9cf03b50c4ac039bb0cab241f5b68",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "c4999708_886fe488",
