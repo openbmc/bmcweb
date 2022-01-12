@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c4999708_886fe488",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000235
+      },
+      "writtenOn": "2022-01-12T03:14:48Z",
+      "side": 1,
+      "message": "Seems okay to me.\nAnd I wonder if other services should also depend on the user manager service.",
+      "revId": "5aae27367fa9cf03b50c4ac039bb0cab241f5b68",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
