@@ -1912,6 +1912,63 @@ inline void setDateTime(std::shared_ptr<bmcweb::AsyncResp> aResp,
     }
 }
 
+inline void getBMCState(const std::shared_ptr<bmcweb::AsyncResp>& aResp)
+{
+    crow::connections::systemBus->async_method_call(
+        [aResp](const boost::system::error_code ec,
+                const std::variant<std::string>& bmcState) {
+            if (ec)
+            {
+                BMCWEB_LOG_ERROR << "DBUS response error " << ec;
+                messages::internalError(aResp->res);
+                return;
+            }
+
+            const std::string* state = std::get_if<std::string>(&bmcState);
+            if (!state)
+            {
+                messages::internalError(aResp->res);
+                return;
+            }
+            if (*state == "xyz.openbmc_project.State.BMC.BMCState.Ready")
+            {
+                aResp->res.jsonValue["PowerState"] = "On";
+                aResp->res.jsonValue["Status"]["State"] = "Enabled";
+                aResp->res.jsonValue["Status"]["Health"] = "OK";
+            }
+            else if (*state == "xyz.openbmc_project.State.BMC.BMCState."
+                               "Quiesced")
+            {
+                aResp->res.jsonValue["PowerState"] = "On";
+                aResp->res.jsonValue["Status"]["State"] = "Quiesced";
+                aResp->res.jsonValue["Status"]["Health"] = "Critical";
+            }
+            else if (*state == "xyz.openbmc_project.State.BMC.BMCState."
+                               "NotReady")
+            {
+                aResp->res.jsonValue["PowerState"] = "Starting";
+                aResp->res.jsonValue["Status"]["State"] = "Disabled";
+                aResp->res.jsonValue["Status"]["Health"] = "OK";
+            }
+            else if (*state == "xyz.openbmc_project.State.BMC.BMCState."
+                               "UpdateInProgress")
+            {
+                aResp->res.jsonValue["PowerState"] = "PoweringOn";
+                aResp->res.jsonValue["Status"]["State"] = "Updating";
+                aResp->res.jsonValue["Status"]["Health"] = "OK";
+            }
+            else
+            {
+                aResp->res.jsonValue["PowerState"] = "Off";
+                aResp->res.jsonValue["Status"]["State"] = "Disabled";
+                aResp->res.jsonValue["Status"]["Health"] = "OK";
+            }
+        },
+        "xyz.openbmc_project.State.BMC", "/xyz/openbmc_project/state/bmc0",
+        "org.freedesktop.DBus.Properties", "Get",
+        "xyz.openbmc_project.State.BMC", "CurrentBMCState");
+}
+
 inline void requestRoutesManager(App& app)
 {
     std::string uuid = persistent_data::getConfig().systemUuid;
@@ -1929,9 +1986,7 @@ inline void requestRoutesManager(App& app)
             asyncResp->res.jsonValue["Name"] = "OpenBmc Manager";
             asyncResp->res.jsonValue["Description"] =
                 "Baseboard Management Controller";
-            asyncResp->res.jsonValue["PowerState"] = "On";
-            asyncResp->res.jsonValue["Status"] = {{"State", "Enabled"},
-                                                  {"Health", "OK"}};
+            getBMCState(asyncResp);
             asyncResp->res.jsonValue["ManagerType"] = "BMC";
             asyncResp->res.jsonValue["UUID"] = systemd_utils::getUuid();
             asyncResp->res.jsonValue["ServiceEntryPointUUID"] = uuid;
