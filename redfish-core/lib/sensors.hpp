@@ -814,7 +814,7 @@ inline std::string
                     }
                     else if (*asserted)
                     {
-                        return "wARNING";
+                        return "Warning";
                     }
                 }
             }
