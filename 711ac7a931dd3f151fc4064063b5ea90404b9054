@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f2772931_23eb7d50",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 809,
+      "author": {
+        "id": 1000004
+      },
+      "writtenOn": "2022-01-12T20:14:48Z",
+      "side": 1,
+      "message": "Any reason this was misspelled? Recently saw a CI Redfish validator failure due to this:\n\nERROR - Health: Value wARNING Enum not found in [\u0027OK\u0027, \u0027Warning\u0027, \u0027Critical\u0027]",
+      "range": {
+        "startLine": 809,
+        "startChar": 32,
+        "endLine": 809,
+        "endChar": 39
+      },
+      "revId": "711ac7a931dd3f151fc4064063b5ea90404b9054",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
