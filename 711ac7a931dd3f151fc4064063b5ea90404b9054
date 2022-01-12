@@ -22,6 +22,30 @@
       },
       "revId": "711ac7a931dd3f151fc4064063b5ea90404b9054",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "378d5319_338f231d",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 809,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-01-12T20:40:09Z",
+      "side": 1,
+      "message": "That looks like clang-format lost it\u0027s mind?  Or I drank too much coffee that day and blacked that out?  This seems easy to fix.  New patchset:\n\nhttps://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/50342",
+      "parentUuid": "f2772931_23eb7d50",
+      "range": {
+        "startLine": 809,
+        "startChar": 32,
+        "endLine": 809,
+        "endChar": 39
+      },
+      "revId": "711ac7a931dd3f151fc4064063b5ea90404b9054",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
