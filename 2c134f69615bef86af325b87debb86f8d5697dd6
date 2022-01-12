@@ -589,6 +589,30 @@
       },
       "revId": "2c134f69615bef86af325b87debb86f8d5697dd6",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a7177276_e768ee3d",
+        "filename": "redfish-core/lib/redfish_sessions.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 266,
+      "author": {
+        "id": 1000022
+      },
+      "writtenOn": "2022-01-12T06:37:33Z",
+      "side": 1,
+      "message": "\u003e Ratan, can you be more specific?  section 6.8 of IPMI shows Callback, User, Operator, and Administrator privilege level.  There is no \"no access\" privilege that I\u0027m seeing. Can you please point to where in the spec you\u0027re looking?\n\nI will let Richard to reply on the same, whether the IPMI callback is mapped to priv-noaccess.\n\n\u003e Earlier in phosphor-user-manager priv-noaccess was not there and If user has been created with IPMI interface with no privileges that was creating issues for the Redfish where user exists but it\u0027s privileges not exist in Redfish All privileges property.\n\nI\u0027m not understanding why that would be an issue.  A user that has no role should be given no privileges.  This change arguably caused the bug that Sunitha is trying to fix in this patch.\n\n\nOn Redfish, User exist but with no privilege. Are you saying that is/was not an issue wrt Redfish?\n\n\u003e I\u0027m still of the opinion that this is a phosphor-user-manager bug.  NoAccess users should not be able to pass a PAM authentication check, which is checking for whether they have access.  Ratan, can you please speak to that point?\n\nWhat is the phopshor-user-manager bug here? Pam authentication is not going through phosphor-user-manager.\n\nAre you saying that we should introduce a new pam module which should check for the role of the user and allow the pam module(pam_unix.so) to be proceed further if the role is !\u003d no access.\n\nCurrently following is the pam configuration file for the bmcweb(supplied by the bmcweb)\n\nhttps://github.com/openbmc/bmcweb/blob/master/pam-webserver\n\n#%PAM-1.0\n\nauth     include  common-auth\n# skip redfish group check for non-local user (ldap)\nauth     [success\u003dok perm_denied\u003d1 default\u003dignore] pam_localuser.so\nauth     required pam_succeed_if.so user ingroup redfish\naccount  include  common-account\npassword include  common-password\n\nAs per the above configuration file we are not adding any custom pam module here.\n\nAre you proposing that we should introduce a new pam module and all the callers pam configuration file will add that module in their configuration so during pam_authentication check it will fail for those users which have the no access role.",
+      "parentUuid": "761c6f63_f7eec939",
+      "range": {
+        "startLine": 199,
+        "startChar": 0,
+        "endLine": 266,
+        "endChar": 37
+      },
+      "revId": "2c134f69615bef86af325b87debb86f8d5697dd6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
