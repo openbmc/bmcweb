@@ -565,6 +565,30 @@
       },
       "revId": "2c134f69615bef86af325b87debb86f8d5697dd6",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "761c6f63_f7eec939",
+        "filename": "redfish-core/lib/redfish_sessions.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 266,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-01-12T03:11:06Z",
+      "side": 1,
+      "message": "Ratan, can you be more specific?  section 6.8 of IPMI shows Callback, User, Operator, and Administrator privilege level.  There is no \"no access\" privilege that I\u0027m seeing. Can you please point to where in the spec you\u0027re looking?\n\n\n\n\u003e Earlier in phosphor-user-manager priv-noaccess was not there and If user has been created with IPMI interface with no privileges that was creating issues for the Redfish where user exists but it\u0027s privileges not exist in Redfish All privileges property.\n\nI\u0027m not understanding why that would be an issue.  A user that has no role should be given no privileges.  This change arguably caused the bug that Sunitha is trying to fix in this patch.\n\n\nI\u0027m still of the opinion that this is a phosphor-user-manager bug.  NoAccess users should not be able to pass a PAM authentication check, which is checking for whether they have access.  Ratan, can you please speak to that point?",
+      "parentUuid": "a4a8825c_0af2907d",
+      "range": {
+        "startLine": 199,
+        "startChar": 0,
+        "endLine": 266,
+        "endChar": 37
+      },
+      "revId": "2c134f69615bef86af325b87debb86f8d5697dd6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
