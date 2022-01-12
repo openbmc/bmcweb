@@ -2846,21 +2846,10 @@ inline void requestRoutesCrashdumpFile(App& app)
                                                            fileName);
                             return;
                         }
-                        std::ifstream ifs(dbusFilepath, std::ios::in |
-                                                            std::ios::binary |
-                                                            std::ios::ate);
-                        std::ifstream::pos_type fileSize = ifs.tellg();
-                        if (fileSize < 0)
-                        {
-                            messages::generalError(asyncResp->res);
-                            return;
-                        }
-                        ifs.seekg(0, std::ios::beg);
-                        std::streamsize streamFileSize =
-                            static_cast<std::streamsize>(fileSize);
-                        size_t sFileSize = static_cast<size_t>(fileSize);
-                        asyncResp->res.body().resize(sFileSize, '\0');
-                        ifs.read(asyncResp->res.body().data(), streamFileSize);
+                        std::ifstream ifs(dbusFilepath,
+                                          std::ios::in | std::ios::binary);
+                        asyncResp->res.body() = std::string(
+                            std::istreambuf_iterator<char>{ifs}, {});
 
                         // Configure this to be a file download when accessed
                         // from a browser
