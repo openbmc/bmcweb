@@ -46,6 +46,30 @@
       },
       "revId": "ef84edd1416bb3558672e02a9930049956412952",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "23fc4d51_a97c4ffb",
+        "filename": "http/ut/utility_test.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2022-01-12T10:47:29Z",
+      "side": 1,
+      "message": "How about using std::min(253402300799, value) in code. Instead of overflow exception we end up with 9999-12-31T23:59:59+00:00 which should be obvious information that something is wrong. Same thing can be done for getDateTimeUintMs.",
+      "parentUuid": "74295965_2b375f95",
+      "range": {
+        "startLine": 92,
+        "startChar": 4,
+        "endLine": 92,
+        "endChar": 46
+      },
+      "revId": "ef84edd1416bb3558672e02a9930049956412952",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
