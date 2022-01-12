@@ -613,6 +613,30 @@
       },
       "revId": "2c134f69615bef86af325b87debb86f8d5697dd6",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "64796002_c99fae83",
+        "filename": "redfish-core/lib/redfish_sessions.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 266,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-01-12T20:32:29Z",
+      "side": 1,
+      "message": "\u003e \u003e Ratan, can you be more specific?  section 6.8 of IPMI shows Callback, User, Operator, and Administrator privilege level.  There is no \"no access\" privilege that I\u0027m seeing. Can you please point to where in the spec you\u0027re looking?\n\u003e \n\u003e I will let Richard to reply on the same, whether the IPMI callback is mapped to priv-noaccess.\n\nLooking forward to him jumping on this thread.\n\n\u003e \n\u003e \u003e Earlier in phosphor-user-manager priv-noaccess was not there and If user has been created with IPMI interface with no privileges that was creating issues for the Redfish where user exists but it\u0027s privileges not exist in Redfish All privileges property.\n\u003e \n\u003e I\u0027m not understanding why that would be an issue.  A user that has no role should be given no privileges.  This change arguably caused the bug that Sunitha is trying to fix in this patch.\n\nThe problem becomes that a user is given no privileges, but is still able to log in, which causes a bug where they\u0027re not able to log out, because they have no privileges.  IMO, NoAccess users should not be allowed to log in at all.\n\n\u003e \n\u003e \n\u003e On Redfish, User exist but with no privilege. Are you saying that is/was not an issue wrt Redfish?\n\nI\u0027m saying this was an issue that was created when the \"NoAccess\" privilege level was added, outside of what the defaults in redfish promote.\n\n\u003e \n\u003e \u003e I\u0027m still of the opinion that this is a phosphor-user-manager bug.  NoAccess users should not be able to pass a PAM authentication check, which is checking for whether they have access.  Ratan, can you please speak to that point?\n\u003e \n\u003e What is the phopshor-user-manager bug here? Pam authentication is not going through phosphor-user-manager.\n\nNo, but it\u0027s going through the user database, which phosphor-user-manager controls.  The bug is that phosphor-user-manager is not disabling NoAccess users accounts, so they can still log in.\n\n\u003e \n\u003e Are you saying that we should introduce a new pam module which should check for the role of the user and allow the pam module(pam_unix.so) to be proceed further if the role is !\u003d no access.\n\nNo.  The users account should be disabled or locked in linux.\n\n\u003e \n\u003e Currently following is the pam configuration file for the bmcweb(supplied by the bmcweb)\n\u003e \n\u003e https://github.com/openbmc/bmcweb/blob/master/pam-webserver\n\u003e \n\u003e #%PAM-1.0\n\u003e \n\u003e auth     include  common-auth\n\u003e # skip redfish group check for non-local user (ldap)\n\u003e auth     [success\u003dok perm_denied\u003d1 default\u003dignore] pam_localuser.so\n\u003e auth     required pam_succeed_if.so user ingroup redfish\n\u003e account  include  common-account\n\u003e password include  common-password\n\u003e \n\u003e As per the above configuration file we are not adding any custom pam module here.\n\u003e \n\ncommon-account and common-password (which are included above) are provided by the greater project, and provide custom pam modules, including some from phosphor-user-manager.  See the meta-phosphor layer for more details on them.  With that said, this file only gets invoked for pam_authenticate, not for checking the health of the user account that I posted earlier in this thread.\n\n\u003e Are you proposing that we should introduce a new pam module and all the callers pam configuration file will add that module in their configuration so during pam_authentication check it will fail for those users which have the no access role.\n\nNo, I\u0027m proposing that users that are given a \"NoAccess\" role should be disabled, such that the pam health check that I linked above fails.  This should just require phosphor-user-manager to properly adjust the users enabled-ness.",
+      "parentUuid": "a7177276_e768ee3d",
+      "range": {
+        "startLine": 199,
+        "startChar": 0,
+        "endLine": 266,
+        "endChar": 37
+      },
+      "revId": "2c134f69615bef86af325b87debb86f8d5697dd6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
