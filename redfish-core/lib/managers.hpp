@@ -1939,6 +1939,58 @@ inline void setDateTime(std::shared_ptr<bmcweb::AsyncResp> aResp,
     }
 }
 
+inline void getBMCState(const std::shared_ptr<bmcweb::AsyncResp>& aResp)
+{
+    sdbusplus::asio::getProperty<std::string>(
+        *crow::connections::systemBus, "xyz.openbmc_project.State.BMC",
+        "/xyz/openbmc_project/state/bmc0",
+        "org.freedesktop.DBus.Properties",
+        "xyz.openbmc_project.State.BMC", "CurrentBMCState",
+        [aResp](const boost::system::error_code ec,
+                const std::string& bmcState) {
+        if (ec)
+        {
+            BMCWEB_LOG_DEBUG << "DBUS response error for "
+                                "Location";
+            messages::internalError(aResp->res);
+            return;
+        }
+
+        if (bmcState == "xyz.openbmc_project.State.BMC.BMCState.Ready")
+        {
+            aResp->res.jsonValue["PowerState"] = "On";
+            aResp->res.jsonValue["Status"]["State"] = "Enabled";
+            aResp->res.jsonValue["Status"]["Health"] = "OK";
+        }
+        else if (bmcState == "xyz.openbmc_project.State.BMC.BMCState."
+                             "Quiesced")
+        {
+            aResp->res.jsonValue["PowerState"] = "On";
+            aResp->res.jsonValue["Status"]["State"] = "Quiesced";
+            aResp->res.jsonValue["Status"]["Health"] = "Critical";
+        }
+        else if (bmcState == "xyz.openbmc_project.State.BMC.BMCState."
+                             "NotReady")
+        {
+            aResp->res.jsonValue["PowerState"] = "On";
+            aResp->res.jsonValue["Status"]["State"] = "Starting";
+            aResp->res.jsonValue["Status"]["Health"] = "OK";
+        }
+        else if (bmcState == "xyz.openbmc_project.State.BMC.BMCState."
+                             "UpdateInProgress")
+        {
+            aResp->res.jsonValue["PowerState"] = "On";
+            aResp->res.jsonValue["Status"]["State"] = "Updating";
+            aResp->res.jsonValue["Status"]["Health"] = "OK";
+        }
+        else
+        {
+            BMCWEB_LOG_ERROR << "Unsupported D-Bus CurrentBMCState "
+                             << bmcState;
+            messages::internalError(aResp->res);
+        });
+}
+
 inline void requestRoutesManager(App& app)
 {
     std::string uuid = persistent_data::getConfig().systemUuid;
@@ -1958,10 +2010,7 @@ inline void requestRoutesManager(App& app)
         asyncResp->res.jsonValue["Name"] = "OpenBmc Manager";
         asyncResp->res.jsonValue["Description"] =
             "Baseboard Management Controller";
-        asyncResp->res.jsonValue["PowerState"] = "On";
-        asyncResp->res.jsonValue["Status"]["State"] = "Enabled";
-        asyncResp->res.jsonValue["Status"]["Health"] = "OK";
-
+        getBMCState(asyncResp);
         asyncResp->res.jsonValue["ManagerType"] = "BMC";
         asyncResp->res.jsonValue["UUID"] = systemd_utils::getUuid();
         asyncResp->res.jsonValue["ServiceEntryPointUUID"] = uuid;
@@ -2069,30 +2118,6 @@ inline void requestRoutesManager(App& app)
             aRsp->res.jsonValue["Links"]["ManagerInChassis"]["@odata.id"] =
                 "/redfish/v1/Chassis/" + chassisId;
         });
-
-        static bool started = false;
-
-        if (!started)
-        {
-            sdbusplus::asio::getProperty<double>(
-                *crow::connections::systemBus, "org.freedesktop.systemd1",
-                "/org/freedesktop/systemd1", "org.freedesktop.systemd1.Manager",
-                "Progress",
-                [asyncResp](const boost::system::error_code ec,
-                            const double& val) {
-                if (ec)
-                {
-                    BMCWEB_LOG_ERROR << "Error while getting progress";
-                    messages::internalError(asyncResp->res);
-                    return;
-                }
-                if (val < 1.0)
-                {
-                    asyncResp->res.jsonValue["Status"]["State"] = "Starting";
-                    started = true;
-                }
-                });
-        }
 
         crow::connections::systemBus->async_method_call(
             [asyncResp](
