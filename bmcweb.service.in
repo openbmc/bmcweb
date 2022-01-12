@@ -3,6 +3,7 @@ Description=Start bmcweb server
 
 Wants=network.target
 After=network.target
+After=xyz.openbmc_project.User.Manager.service
 
 [Service]
 ExecReload=kill -s HUP $MAINPID

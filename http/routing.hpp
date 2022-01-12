@@ -1313,7 +1313,9 @@ class Router
                         userInfo) {
                 if (ec)
                 {
-                    BMCWEB_LOG_ERROR << "GetUserInfo failed...";
+                    BMCWEB_LOG_ERROR << "GetUserInfo failed for user: "
+                                     << req.session->username
+                                     << " sessionId: " << req.session->uniqueId;
                     asyncResp->res.result(
                         boost::beast::http::status::internal_server_error);
                     return;
