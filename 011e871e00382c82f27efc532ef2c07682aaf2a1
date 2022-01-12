@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "63ef1630_a4a816f0",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1956,
+      "author": {
+        "id": 1000004
+      },
+      "writtenOn": "2022-01-12T17:17:03Z",
+      "side": 1,
+      "message": "This feels more \"Enabled\" to me but I\u0027m not super strong on that.",
+      "revId": "011e871e00382c82f27efc532ef2c07682aaf2a1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1760b6f0_48337994",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1967,
+      "author": {
+        "id": 1000004
+      },
+      "writtenOn": "2022-01-12T17:17:03Z",
+      "side": 1,
+      "message": "We probably want to add this to the bmcweb service file:\nAfter\u003dxyz.openbmc_project.State.BMC",
+      "revId": "011e871e00382c82f27efc532ef2c07682aaf2a1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
