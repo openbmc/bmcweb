@@ -661,6 +661,30 @@
       },
       "revId": "2c134f69615bef86af325b87debb86f8d5697dd6",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "59e324bb_ac69a459",
+        "filename": "redfish-core/lib/redfish_sessions.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 266,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-01-13T20:52:05Z",
+      "side": 1,
+      "message": "\u003e \u003e The problem becomes that a user is given no privileges, but is still able to log in, which causes a bug where they\u0027re not able to log out, because they have no privileges.  IMO, NoAccess users should not be allowed to log in at all.\n\u003e \n\u003e Why do we need such user which is not having any privilege, Why to create a user that all?\n\nI asked this question earlier when I asked why NoAccess is distinct from disabled.  There is an enterprise case for disabling someones access temporarily, given that user passwords are hashed on the device, you generally can\u0027t destroy and create a user losslessly, so instead there\u0027s a way to disable a given user for a period of time without destroying their credentials.\n\n\u003e If somebody is creating a user with no privilege and user manager makes that user disable that doesn\u0027t make sense(it is of no use), Instead of we should not allow that user to be created.\n\nThat would be fine too if we just want to disallow NoAccess users from existing.\n\n\u003e \n\u003e But seems we need to understand from the IPMI perspective too, why do we need such user?\n\n+1",
+      "parentUuid": "e4659b81_6ff809ef",
+      "range": {
+        "startLine": 199,
+        "startChar": 0,
+        "endLine": 266,
+        "endChar": 37
+      },
+      "revId": "2c134f69615bef86af325b87debb86f8d5697dd6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
