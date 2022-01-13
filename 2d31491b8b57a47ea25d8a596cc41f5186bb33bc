@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "17c0cfbe_cbb4b568",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-01-13T00:01:57Z",
+      "side": 1,
+      "message": "I like this better than my patch.  Anyone else you want to review this before it merges?",
+      "revId": "2d31491b8b57a47ea25d8a596cc41f5186bb33bc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
