@@ -50,6 +50,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ca695852_0274593d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1001084
+      },
+      "writtenOn": "2022-01-13T22:09:23Z",
+      "side": 1,
+      "message": "ok - dbus interface shows \"nan\" for cable length. \n\nSkipping \"LengthMeters\" property for now if the cable length is NaN.\n\nAlternatively, we could set it to 0 or -1 if it is OK.\n\nKeeping this open for discussion.\nMy vote is to skip if the property is NaN!",
+      "parentUuid": "b7b6600f_4171b70b",
+      "range": {
+        "startLine": 49,
+        "startChar": 0,
+        "endLine": 49,
+        "endChar": 23
+      },
+      "revId": "c50c1e087a7813ac7896fadcc8f646f0bb78b39c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e594c4de_59ae9768",
         "filename": "/COMMIT_MSG",
         "patchSetId": 1
@@ -61,6 +85,30 @@
       "writtenOn": "2022-01-11T19:43:36Z",
       "side": 1,
       "message": "Please test the validator on a system that actually has a cable present.  Testing an empty collection only runs ~10% of the code in your patch.",
+      "range": {
+        "startLine": 78,
+        "startChar": 0,
+        "endLine": 87,
+        "endChar": 0
+      },
+      "revId": "c50c1e087a7813ac7896fadcc8f646f0bb78b39c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8e6929a7_17e23e46",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1001084
+      },
+      "writtenOn": "2022-01-13T22:09:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e594c4de_59ae9768",
       "range": {
         "startLine": 78,
         "startChar": 0,
@@ -125,6 +173,30 @@
       "side": 1,
       "message": "Here are the two .hpp files that showed-up with typedefs for MapperServiceMap and MapperGetSubTreeResponse/GetSubTreeResponse:\nhttps://grok.openbmc.org/xref/openbmc/pldm/common/utils.hpp?r\u003d872f0f69#151\nhttps://grok.openbmc.org/xref/openbmc/bmcweb/redfish-core/lib/processor.hpp?r\u003d914e2d5d#40\n\nAre you suggesting one of these to include or we have common typedefs somewhere which we can use?\n\nIf they are defined somewhere, I would appreciate if you can point it out...\n\nFor CableProperties I will see if a common one can be used as well.",
       "parentUuid": "6204bdf2_aaebe591",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 75
+      },
+      "revId": "c50c1e087a7813ac7896fadcc8f646f0bb78b39c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9d829a79_a084c279",
+        "filename": "redfish-core/lib/cable.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1001084
+      },
+      "writtenOn": "2022-01-13T22:09:23Z",
+      "side": 1,
+      "message": "Not sure how to proceed on this one as I don\u0027t know where the commonly used typedefs are. I prefer to leave it this way for now until I know we can reuse the existing ones. \n\nI can replace these with actual types wherever these typedefs are used in cable.hpp if that is preferred.",
+      "parentUuid": "7f10b146_da77498a",
       "range": {
         "startLine": 7,
         "startChar": 0,
@@ -370,6 +442,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "305159c1_5455a08f",
+        "filename": "redfish-core/lib/cable.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 1001084
+      },
+      "writtenOn": "2022-01-13T22:09:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2566b234_6988a3d7",
+      "range": {
+        "startLine": 118,
+        "startChar": 76,
+        "endLine": 119,
+        "endChar": 50
+      },
+      "revId": "c50c1e087a7813ac7896fadcc8f646f0bb78b39c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "25bc7639_9f2db150",
@@ -419,6 +515,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "150509b0_96e85c73",
+        "filename": "redfish-core/lib/cable.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 1001084
+      },
+      "writtenOn": "2022-01-13T22:09:23Z",
+      "side": 1,
+      "message": "Set Name to \"Cable Properties\".\n\nI\u0027m open to change the Name if any other value/string is preferred",
+      "parentUuid": "6da02fca_f8cbe593",
+      "range": {
+        "startLine": 129,
+        "startChar": 0,
+        "endLine": 129,
+        "endChar": 71
+      },
+      "revId": "c50c1e087a7813ac7896fadcc8f646f0bb78b39c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "891cd679_ead53990",
         "filename": "redfish-core/lib/cable.hpp",
         "patchSetId": 1
@@ -454,6 +574,30 @@
       "side": 1,
       "message": "Thanks for the pointer. Will attempt use the helper method.",
       "parentUuid": "891cd679_ead53990",
+      "range": {
+        "startLine": 153,
+        "startChar": 0,
+        "endLine": 202,
+        "endChar": 69
+      },
+      "revId": "c50c1e087a7813ac7896fadcc8f646f0bb78b39c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7518d140_0af4a153",
+        "filename": "redfish-core/lib/cable.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 202,
+      "author": {
+        "id": 1001084
+      },
+      "writtenOn": "2022-01-13T22:09:23Z",
+      "side": 1,
+      "message": "This is a cool helper method!",
+      "parentUuid": "f5b7f4b1_8f1889e0",
       "range": {
         "startLine": 153,
         "startChar": 0,
@@ -513,6 +657,24 @@
       "side": 1,
       "message": "Hmmm. I didn\u0027t see validator failing for this one but will bump up the version...",
       "parentUuid": "b5eefbb2_7a2d089d",
+      "revId": "c50c1e087a7813ac7896fadcc8f646f0bb78b39c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "787efe46_5818abe6",
+        "filename": "redfish-core/lib/service_root.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1001084
+      },
+      "writtenOn": "2022-01-13T22:09:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "babacc57_e47055a9",
       "revId": "c50c1e087a7813ac7896fadcc8f646f0bb78b39c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
