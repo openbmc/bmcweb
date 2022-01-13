@@ -637,6 +637,30 @@
       },
       "revId": "2c134f69615bef86af325b87debb86f8d5697dd6",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e4659b81_6ff809ef",
+        "filename": "redfish-core/lib/redfish_sessions.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 266,
+      "author": {
+        "id": 1000022
+      },
+      "writtenOn": "2022-01-13T09:55:15Z",
+      "side": 1,
+      "message": "\u003e The problem becomes that a user is given no privileges, but is still able to log in, which causes a bug where they\u0027re not able to log out, because they have no privileges.  IMO, NoAccess users should not be allowed to log in at all.\n\nWhy do we need such user which is not having any privilege, Why to create a user that all?\nIf somebody is creating a user with no privilege and user manager makes that user disable that doesn\u0027t make sense(it is of no use), Instead of we should not allow that user to be created.\n\nBut seems we need to understand from the IPMI perspective too, why do we need such user?",
+      "parentUuid": "64796002_c99fae83",
+      "range": {
+        "startLine": 199,
+        "startChar": 0,
+        "endLine": 266,
+        "endChar": 37
+      },
+      "revId": "2c134f69615bef86af325b87debb86f8d5697dd6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
