@@ -1,6 +1,7 @@
 {
   "comments": [
     {
+      "unresolved": true,
       "key": {
         "uuid": "66099540_d4a6b860",
         "filename": "/COMMIT_MSG",
@@ -14,10 +15,10 @@
       "side": 1,
       "message": "Please update your tests to actually set up an SNMP server, and catch the messages going through it.  I suspect there\u0027s more work to do here to be able to properlly subscribe to SNMP events the way redfish intends, but lets get documented how you expect it to work, and go from there.\n\n\nAlso, please add a BMC reboot to your testing.  the SNMP objects should persist.",
       "revId": "45f363fd51a6cd4bba5f00b60dbd31e8fc8f1bab",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "326440b2_4de63e94",
         "filename": "/COMMIT_MSG",
@@ -32,10 +33,10 @@
       "message": "Hi @Ed Tanous, I feel that we think differently. \nWhat I want to do is use the Redfish to set/get/delete the IP and port of SNMP trap. So I need creat/delete the client by call Dbus.\n \nWhat do you think of this? Thanks",
       "parentUuid": "66099540_d4a6b860",
       "revId": "45f363fd51a6cd4bba5f00b60dbd31e8fc8f1bab",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "0340ccb0_9dc97653",
         "filename": "/COMMIT_MSG",
@@ -50,10 +51,10 @@
       "message": "This is the function we had on the phosphor-webui.\nhttps://github.com/openbmc/phosphor-snmp is the repo. \nIt is only SNMP traps.\n\nAfter setting IP address and Port on a Witherspoon running the phoshor-webui, https://github.com/openbmc/phosphor-webui/blob/0c4aceb775cbb461d10e03888f0ab90e5a619dc7/app/common/services/api-utils.js#L238\n\n busctl introspect xyz.openbmc_project.Network.SNMP /xyz/openbmc_project/network/snmp/manager/1 xyz.openbmc_project.Network.Client | cat\nNAME                               TYPE      SIGNATURE RESULT/VALUE    FLAGS\n.Address                           property  s         \"192.168.31.31\" emits-change writable\n.Port                              property  q         161             emits-change writable\n\nThis has been tested so as long as Address and Port are being set on D-Bus, this will work.",
       "parentUuid": "326440b2_4de63e94",
       "revId": "45f363fd51a6cd4bba5f00b60dbd31e8fc8f1bab",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "ce806505_05493cbc",
         "filename": "/COMMIT_MSG",
@@ -68,10 +69,10 @@
       "message": "\u003e This is the function we had on the phosphor-webui.\n\u003e https://github.com/openbmc/phosphor-snmp is the repo. \n\u003e It is only SNMP traps.\n\nI see in the redfish changes to add SNMP, there\u0027s specific MIBs that redfish has as examples.  I\u0027m far from an expert in SNMP, but I suspect that redfish defined a specific set of guidelines for how SNMP servers should act when created through event service.\n\n\u003e \n\u003e After setting IP address and Port on a Witherspoon running the phoshor-webui, https://github.com/openbmc/phosphor-webui/blob/0c4aceb775cbb461d10e03888f0ab90e5a619dc7/app/common/services/api-utils.js#L238\n\u003e \n\u003e  busctl introspect xyz.openbmc_project.Network.SNMP /xyz/openbmc_project/network/snmp/manager/1 xyz.openbmc_project.Network.Client | cat\n\u003e NAME                               TYPE      SIGNATURE RESULT/VALUE    FLAGS\n\u003e .Address                           property  s         \"192.168.31.31\" emits-change writable\n\u003e .Port                              property  q         161             emits-change writable\n\u003e \n\u003e This has been tested so as long as Address and Port are being set on D-Bus, this will work.\n\nCan you point me at the tests that were run that ensured that?  I\u0027m really asking for the submitter to do an end-to-end test, because this is the user API, and that\u0027s what users would expect to work when using this API.\n\nI\u0027ll fully admit, I\u0027m not fully read up on this discussion, but I find it really hard to believe that redfish defined an event service type, but didn\u0027t define \"here\u0027s what SNMP redfish events should look like in SNMP\" which we almost certainly don\u0027t follow today.\n\n\nPS, a lot of these details should go in the commit message, if they really have been considered and dealt with or discounted.",
       "parentUuid": "0340ccb0_9dc97653",
       "revId": "45f363fd51a6cd4bba5f00b60dbd31e8fc8f1bab",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "0746129d_1d124edc",
         "filename": "/COMMIT_MSG",
@@ -86,10 +87,28 @@
       "message": "Ed, this is just to enable the trap configuration, SNMP event format will be followed as https://tools.ietf.org/html/rfc3418.\n\nRedfish is not defining the format for SNMP trap.\n\nI agree that we can ask for how it is being tested..Just giving the process how it can be tested..\n\n\u003d\u003e Run the snmp trap opensoure listener(snmptrapd) on any machine\n\u003d\u003e configure the SNMP trap listener details here through this API.\n\u003d\u003e Create some error logs on the system.\n\u003d\u003e You should get the trap on the snmp trapd.",
       "parentUuid": "ce806505_05493cbc",
       "revId": "45f363fd51a6cd4bba5f00b60dbd31e8fc8f1bab",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f301eb06_23fdbe3b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 10
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1000400
+      },
+      "writtenOn": "2022-01-14T06:12:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0746129d_1d124edc",
+      "revId": "45f363fd51a6cd4bba5f00b60dbd31e8fc8f1bab",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
       "key": {
         "uuid": "4f20a711_08ca141f",
         "filename": "redfish-core/lib/event_service.hpp",
@@ -109,10 +128,10 @@
         "endChar": 25
       },
       "revId": "45f363fd51a6cd4bba5f00b60dbd31e8fc8f1bab",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "3e9d2a10_4181ee79",
         "filename": "redfish-core/lib/event_service.hpp",
@@ -133,10 +152,34 @@
         "endChar": 25
       },
       "revId": "45f363fd51a6cd4bba5f00b60dbd31e8fc8f1bab",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b8da675e_ea6d1a3d",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 235,
+      "author": {
+        "id": 1000400
+      },
+      "writtenOn": "2022-01-14T06:12:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3e9d2a10_4181ee79",
+      "range": {
+        "startLine": 235,
+        "startChar": 0,
+        "endLine": 235,
+        "endChar": 25
+      },
+      "revId": "45f363fd51a6cd4bba5f00b60dbd31e8fc8f1bab",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
       "key": {
         "uuid": "39318079_552009df",
         "filename": "redfish-core/lib/event_service.hpp",
@@ -156,10 +199,10 @@
         "endChar": 42
       },
       "revId": "45f363fd51a6cd4bba5f00b60dbd31e8fc8f1bab",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "3ea38059_9ce47560",
         "filename": "redfish-core/lib/event_service.hpp",
@@ -180,10 +223,34 @@
         "endChar": 42
       },
       "revId": "45f363fd51a6cd4bba5f00b60dbd31e8fc8f1bab",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8e4dab2a_5086df4f",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 274,
+      "author": {
+        "id": 1000400
+      },
+      "writtenOn": "2022-01-14T06:12:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3ea38059_9ce47560",
+      "range": {
+        "startLine": 272,
+        "startChar": 0,
+        "endLine": 274,
+        "endChar": 42
+      },
+      "revId": "45f363fd51a6cd4bba5f00b60dbd31e8fc8f1bab",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
       "key": {
         "uuid": "89d07d23_142da74a",
         "filename": "redfish-core/lib/event_service.hpp",
@@ -203,10 +270,10 @@
         "endChar": 9
       },
       "revId": "45f363fd51a6cd4bba5f00b60dbd31e8fc8f1bab",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "0f8ba9f7_e3e37941",
         "filename": "redfish-core/lib/event_service.hpp",
@@ -227,10 +294,10 @@
         "endChar": 9
       },
       "revId": "45f363fd51a6cd4bba5f00b60dbd31e8fc8f1bab",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "4e058743_d0714d94",
         "filename": "redfish-core/lib/event_service.hpp",
@@ -250,10 +317,10 @@
         "endChar": 37
       },
       "revId": "45f363fd51a6cd4bba5f00b60dbd31e8fc8f1bab",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "a13dfe43_2a9f9086",
         "filename": "redfish-core/lib/event_service.hpp",
@@ -274,10 +341,10 @@
         "endChar": 37
       },
       "revId": "45f363fd51a6cd4bba5f00b60dbd31e8fc8f1bab",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "e09d6192_99747db2",
         "filename": "redfish-core/lib/event_service.hpp",
@@ -297,10 +364,10 @@
         "endChar": 69
       },
       "revId": "45f363fd51a6cd4bba5f00b60dbd31e8fc8f1bab",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "527c8038_30e26e9d",
         "filename": "redfish-core/lib/event_service.hpp",
@@ -321,10 +388,10 @@
         "endChar": 69
       },
       "revId": "45f363fd51a6cd4bba5f00b60dbd31e8fc8f1bab",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "80e28ef4_03adab94",
         "filename": "redfish-core/lib/event_service.hpp",
@@ -344,10 +411,10 @@
         "endChar": 52
       },
       "revId": "45f363fd51a6cd4bba5f00b60dbd31e8fc8f1bab",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "f5c749e5_c1758986",
         "filename": "redfish-core/lib/event_service.hpp",
@@ -368,10 +435,34 @@
         "endChar": 52
       },
       "revId": "45f363fd51a6cd4bba5f00b60dbd31e8fc8f1bab",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d2449508_d9408603",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 493,
+      "author": {
+        "id": 1000400
+      },
+      "writtenOn": "2022-01-14T06:12:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f5c749e5_c1758986",
+      "range": {
+        "startLine": 493,
+        "startChar": 0,
+        "endLine": 493,
+        "endChar": 52
+      },
+      "revId": "45f363fd51a6cd4bba5f00b60dbd31e8fc8f1bab",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
       "key": {
         "uuid": "10a5c69e_5778d0a3",
         "filename": "redfish-core/lib/event_service.hpp",
@@ -391,10 +482,10 @@
         "endChar": 58
       },
       "revId": "45f363fd51a6cd4bba5f00b60dbd31e8fc8f1bab",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "f98dce0f_4e92d025",
         "filename": "redfish-core/lib/event_service.hpp",
@@ -415,10 +506,10 @@
         "endChar": 58
       },
       "revId": "45f363fd51a6cd4bba5f00b60dbd31e8fc8f1bab",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "4c39cef6_c5dc8ff5",
         "filename": "redfish-core/lib/event_service.hpp",
@@ -438,10 +529,10 @@
         "endChar": 0
       },
       "revId": "45f363fd51a6cd4bba5f00b60dbd31e8fc8f1bab",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "ce935f23_bd4de0d1",
         "filename": "redfish-core/lib/event_service.hpp",
@@ -462,10 +553,10 @@
         "endChar": 0
       },
       "revId": "45f363fd51a6cd4bba5f00b60dbd31e8fc8f1bab",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "703f64db_d291cf84",
         "filename": "redfish-core/lib/event_service.hpp",
@@ -479,10 +570,10 @@
       "side": 1,
       "message": "Pretty sure you want a return here.  You don\u0027t want to delete the SNMP thing and also try to delete the eventservice instance.",
       "revId": "45f363fd51a6cd4bba5f00b60dbd31e8fc8f1bab",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "aa9d18c4_4545c27d",
         "filename": "redfish-core/lib/event_service.hpp",
@@ -497,8 +588,25 @@
       "message": "Here is to delete the SNMP Client on DBUS: /xyz/openbmc_project/network/snmp/manager. When we delete it, phosphor-snmp can not use this address to send traps",
       "parentUuid": "703f64db_d291cf84",
       "revId": "45f363fd51a6cd4bba5f00b60dbd31e8fc8f1bab",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "68349858_80de3223",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 692,
+      "author": {
+        "id": 1000400
+      },
+      "writtenOn": "2022-01-14T06:12:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "aa9d18c4_4545c27d",
+      "revId": "45f363fd51a6cd4bba5f00b60dbd31e8fc8f1bab",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }

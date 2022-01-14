@@ -1,6 +1,7 @@
 {
   "comments": [
     {
+      "unresolved": true,
       "key": {
         "uuid": "5016ffa3_fb6311d3",
         "filename": "redfish-core/lib/event_service.hpp",
@@ -20,10 +21,10 @@
         "endChar": 59
       },
       "revId": "00fae3bbe56265a1eb36e87f354a6b10005c1361",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "7fc4fce5_519058ae",
         "filename": "redfish-core/lib/event_service.hpp",
@@ -44,10 +45,34 @@
         "endChar": 59
       },
       "revId": "00fae3bbe56265a1eb36e87f354a6b10005c1361",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "944c17e9_93d08515",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1000400
+      },
+      "writtenOn": "2022-01-14T06:12:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7fc4fce5_519058ae",
+      "range": {
+        "startLine": 55,
+        "startChar": 0,
+        "endLine": 57,
+        "endChar": 59
+      },
+      "revId": "00fae3bbe56265a1eb36e87f354a6b10005c1361",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
       "key": {
         "uuid": "a8d8485a_91b51f8d",
         "filename": "redfish-core/lib/event_service.hpp",
@@ -67,10 +92,10 @@
         "endChar": 56
       },
       "revId": "00fae3bbe56265a1eb36e87f354a6b10005c1361",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "1e6ea6a1_166792c6",
         "filename": "redfish-core/lib/event_service.hpp",
@@ -91,10 +116,10 @@
         "endChar": 56
       },
       "revId": "00fae3bbe56265a1eb36e87f354a6b10005c1361",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "220e2b8d_cea8cb5f",
         "filename": "redfish-core/lib/event_service.hpp",
@@ -108,10 +133,10 @@
       "side": 1,
       "message": "This is still too many scopes deep.  You\u0027ve done a good job splitting this code up sofar, I think one more round of simplification and we\u0027ll be there.",
       "revId": "00fae3bbe56265a1eb36e87f354a6b10005c1361",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "5938685d_36918d5e",
         "filename": "redfish-core/lib/event_service.hpp",
@@ -126,10 +151,10 @@
       "message": "Done",
       "parentUuid": "220e2b8d_cea8cb5f",
       "revId": "00fae3bbe56265a1eb36e87f354a6b10005c1361",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "948addb6_36fc4f54",
         "filename": "redfish-core/lib/event_service.hpp",
@@ -143,10 +168,10 @@
       "side": 1,
       "message": "Need to check if address or port were not populated.",
       "revId": "00fae3bbe56265a1eb36e87f354a6b10005c1361",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "822cfade_769b98ad",
         "filename": "redfish-core/lib/event_service.hpp",
@@ -161,10 +186,10 @@
       "message": "Done",
       "parentUuid": "948addb6_36fc4f54",
       "revId": "00fae3bbe56265a1eb36e87f354a6b10005c1361",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "f9ba09ef_498c0ce6",
         "filename": "redfish-core/lib/event_service.hpp",
@@ -184,10 +209,10 @@
         "endChar": 47
       },
       "revId": "00fae3bbe56265a1eb36e87f354a6b10005c1361",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "61fed8c5_520fd261",
         "filename": "redfish-core/lib/event_service.hpp",
@@ -208,10 +233,34 @@
         "endChar": 47
       },
       "revId": "00fae3bbe56265a1eb36e87f354a6b10005c1361",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6bbce410_f4c40bcd",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 745,
+      "author": {
+        "id": 1000400
+      },
+      "writtenOn": "2022-01-14T06:12:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "61fed8c5_520fd261",
+      "range": {
+        "startLine": 745,
+        "startChar": 43,
+        "endLine": 745,
+        "endChar": 47
+      },
+      "revId": "00fae3bbe56265a1eb36e87f354a6b10005c1361",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
       "key": {
         "uuid": "dd0a78ba_23dfb458",
         "filename": "redfish-core/lib/event_service.hpp",
@@ -231,10 +280,10 @@
         "endChar": 38
       },
       "revId": "00fae3bbe56265a1eb36e87f354a6b10005c1361",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "07571845_fc099a84",
         "filename": "redfish-core/lib/event_service.hpp",
@@ -255,8 +304,31 @@
         "endChar": 38
       },
       "revId": "00fae3bbe56265a1eb36e87f354a6b10005c1361",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dcd7c4bd_c183bd80",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 866,
+      "author": {
+        "id": 1000400
+      },
+      "writtenOn": "2022-01-14T06:12:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "07571845_fc099a84",
+      "range": {
+        "startLine": 866,
+        "startChar": 30,
+        "endLine": 866,
+        "endChar": 38
+      },
+      "revId": "00fae3bbe56265a1eb36e87f354a6b10005c1361",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }

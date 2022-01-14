@@ -1,6 +1,7 @@
 {
   "comments": [
     {
+      "unresolved": true,
       "key": {
         "uuid": "9407982f_e9c9ef31",
         "filename": "/COMMIT_MSG",
@@ -14,10 +15,10 @@
       "side": 1,
       "message": "Pulled this down and tested this, I see the following validator error: \n\n*** /redfish/v1/EventService/Subscriptions/snmp2\n\t Type (#EventDestination.v1_7_0.EventDestination), GET SUCCESS (time: 0.089218)\nContext: Mandatory prop does not exist\n\t  FAIL...\n\n*** /redfish/v1/EventService/Subscriptions/snmp3\n\t Type (#EventDestination.v1_7_0.EventDestination), GET SUCCESS (time: 0.086898)\nContext: Mandatory prop does not exist\n\t  FAIL...\n\n*** /redfish/v1/EventService/Subscriptions/snmp1\n\t Type (#EventDestination.v1_7_0.EventDestination), GET SUCCESS (time: 0.087168)\nContext: Mandatory prop does not exist\n\t  FAIL...",
       "revId": "d9fcf1981da286ae258a7af92dd403d60a732985",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "e8f5ef3f_91808c4a",
         "filename": "/COMMIT_MSG",
@@ -32,10 +33,10 @@
       "message": "Done. \nEventServiceManager has no ownership of the snmp subscription, and we don\u0027t need Context in D-Bus snmp client. So set the context to “”.",
       "parentUuid": "9407982f_e9c9ef31",
       "revId": "d9fcf1981da286ae258a7af92dd403d60a732985",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "f6cf3eed_5dfa103e",
         "filename": "/COMMIT_MSG",
@@ -50,10 +51,10 @@
       "message": "How did your testing miss this?  Is there a bug we need to file against the service validator?",
       "parentUuid": "e8f5ef3f_91808c4a",
       "revId": "d9fcf1981da286ae258a7af92dd403d60a732985",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "3cc32b9a_ff3acb27",
         "filename": "/COMMIT_MSG",
@@ -68,10 +69,10 @@
       "message": "It\u0027s my mistake.\nWhen I use validator, I didn\u0027t manually add the SNMP client，so it won\u0027t report an error.\nOriginally, I thought validator would automatically use the doPatch command to add some data. But it didn\u0027t. It only tests the GET method. I know now.",
       "parentUuid": "f6cf3eed_5dfa103e",
       "revId": "d9fcf1981da286ae258a7af92dd403d60a732985",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "775d5c16_aadcfd1c",
         "filename": "/COMMIT_MSG",
@@ -86,8 +87,25 @@
       "message": "Just to follow up, Context is a required property. \nThe validator is correct here. \nhttps://redfish.dmtf.org/schemas/v1/EventDestination.v1_10_1.json\n            \"required\": [\n                \"Context\",\n                \"@odata.id\",\n                \"@odata.type\",\n                \"Id\",\n                \"Name\",\n                \"SubscriptionType\"\n            ],",
       "parentUuid": "3cc32b9a_ff3acb27",
       "revId": "d9fcf1981da286ae258a7af92dd403d60a732985",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5b90f6ff_a044abff",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 21
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1000400
+      },
+      "writtenOn": "2022-01-14T06:12:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "775d5c16_aadcfd1c",
+      "revId": "d9fcf1981da286ae258a7af92dd403d60a732985",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
