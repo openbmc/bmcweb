@@ -122,6 +122,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ccbca4bb_6f7885f2",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-01-14T23:46:07Z",
+      "side": 1,
+      "message": "Right...... and cables of unknown length should omit the properties in Redfish.  So write your code such that it handles NAN properly.",
+      "parentUuid": "5def2b5b_8575cefe",
+      "range": {
+        "startLine": 49,
+        "startChar": 0,
+        "endLine": 49,
+        "endChar": 23
+      },
+      "revId": "c50c1e087a7813ac7896fadcc8f646f0bb78b39c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e594c4de_59ae9768",
         "filename": "/COMMIT_MSG",
         "patchSetId": 1
@@ -305,6 +329,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ff2a09c8_5416448c",
+        "filename": "redfish-core/lib/cable.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-01-14T23:46:07Z",
+      "side": 1,
+      "message": "Sure, then please move at least one of the existing uses to the new typedef.",
+      "parentUuid": "b8cb570a_0efc75d6",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 75
+      },
+      "revId": "c50c1e087a7813ac7896fadcc8f646f0bb78b39c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "fa2f6482_23e56cc0",
         "filename": "redfish-core/lib/cable.hpp",
         "patchSetId": 1
@@ -435,6 +483,30 @@
       "side": 1,
       "message": "I used isnan() in patchset2, and it returned true. The default length is NaN as per Cable.interface.yaml file.\n\nWill use isfinite instead of isnan and ignore the parameter. Thanks!",
       "parentUuid": "d6cf98ba_1d51366c",
+      "range": {
+        "startLine": 65,
+        "startChar": 46,
+        "endLine": 65,
+        "endChar": 57
+      },
+      "revId": "c50c1e087a7813ac7896fadcc8f646f0bb78b39c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c867f480_47abbbd3",
+        "filename": "redfish-core/lib/cable.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-01-14T23:46:07Z",
+      "side": 1,
+      "message": "std::is_finite is what we should be using, considering there\u0027s more that double can represent that isn\u0027t finite.",
+      "parentUuid": "df33975d_564679c6",
       "range": {
         "startLine": 65,
         "startChar": 46,
@@ -903,6 +975,24 @@
       "side": 1,
       "message": "It was my bad, validator in fact fails when 1_5_0 is used. I must have run the validator before adding \u0027Cables\u0027 entry in the service_root. With version bump validator passed.",
       "parentUuid": "36e4de8a_1421d1df",
+      "revId": "c50c1e087a7813ac7896fadcc8f646f0bb78b39c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "121df950_83883ec9",
+        "filename": "redfish-core/lib/service_root.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-01-14T23:46:07Z",
+      "side": 1,
+      "message": "In the future... please test the patches you push, or if you can\u0027t or don\u0027t want to, explicitly mention that in the commit message.",
+      "parentUuid": "9153f335_76a8b4a4",
       "revId": "c50c1e087a7813ac7896fadcc8f646f0bb78b39c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
