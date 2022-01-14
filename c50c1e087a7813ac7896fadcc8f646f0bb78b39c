@@ -74,6 +74,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f517c8f2_17cd095b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-01-14T17:24:07Z",
+      "side": 1,
+      "message": "\u003e My vote is to skip if the property is NaN!\n\nThis isn\u0027t a matter of voting.  It\u0027s a matter of what phosphor-dbus-interfaces says.  If it doesn\u0027t say anything, it needs to, and we can \"vote\" on the review to add that behavior.",
+      "parentUuid": "ca695852_0274593d",
+      "range": {
+        "startLine": 49,
+        "startChar": 0,
+        "endLine": 49,
+        "endChar": 23
+      },
+      "revId": "c50c1e087a7813ac7896fadcc8f646f0bb78b39c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e594c4de_59ae9768",
         "filename": "/COMMIT_MSG",
         "patchSetId": 1
@@ -209,6 +233,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "548b06b5_4adca613",
+        "filename": "redfish-core/lib/cable.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-01-14T17:24:07Z",
+      "side": 1,
+      "message": "The typedefs in your second link would work just fine.  One thing we\u0027re finding is that duplicating the typedefs for the same command duplicates a lot of template code.  Ideally the typedefs in processor should be moved into dbus_utility.",
+      "parentUuid": "9d829a79_a084c279",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 75
+      },
+      "revId": "c50c1e087a7813ac7896fadcc8f646f0bb78b39c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "fa2f6482_23e56cc0",
         "filename": "redfish-core/lib/cable.hpp",
         "patchSetId": 1
@@ -291,6 +339,30 @@
       "side": 1,
       "message": "# busctl introspect xyz.openbmc_project.Inventory.Manager /xyz/openbmc_project/inventory/cables/dp0_cable0\nNAME                                     TYPE      SIGNATURE RESULT/VALUE FLAGS\n...\nxyz.openbmc_project.Inventory.Item.Cable interface -         -            -\n.CableTypeDescription                    property  s         \"\"           emits-change writable\n.Length                                  property  d         nan          emits-change writable",
       "parentUuid": "7de3cbf2_4c8c93c2",
+      "range": {
+        "startLine": 65,
+        "startChar": 46,
+        "endLine": 65,
+        "endChar": 57
+      },
+      "revId": "c50c1e087a7813ac7896fadcc8f646f0bb78b39c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d6cf98ba_1d51366c",
+        "filename": "redfish-core/lib/cable.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-01-14T17:24:07Z",
+      "side": 1,
+      "message": "not what I asked.  Phosphor-dbus-interfaces will have some statement about what to do when the data isn\u0027t available.  we need to handle that.  From the above it sounds like it might be NAN?  If so, we should be using is_finite to ignore the parameter when it\u0027s not set.",
+      "parentUuid": "c7aa7364_eef9e622",
       "range": {
         "startLine": 65,
         "startChar": 46,
@@ -539,6 +611,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "46412453_5cca8c60",
+        "filename": "redfish-core/lib/cable.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-01-14T17:24:07Z",
+      "side": 1,
+      "message": "I need to do more research here.  I forget the rules on how Name is used.",
+      "parentUuid": "150509b0_96e85c73",
+      "range": {
+        "startLine": 129,
+        "startChar": 0,
+        "endLine": 129,
+        "endChar": 71
+      },
+      "revId": "c50c1e087a7813ac7896fadcc8f646f0bb78b39c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "891cd679_ead53990",
         "filename": "redfish-core/lib/cable.hpp",
         "patchSetId": 1
@@ -598,6 +694,30 @@
       "side": 1,
       "message": "This is a cool helper method!",
       "parentUuid": "f5b7f4b1_8f1889e0",
+      "range": {
+        "startLine": 153,
+        "startChar": 0,
+        "endLine": 202,
+        "endChar": 69
+      },
+      "revId": "c50c1e087a7813ac7896fadcc8f646f0bb78b39c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cb1c583e_b7453ed4",
+        "filename": "redfish-core/lib/cable.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 202,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-01-14T17:24:07Z",
+      "side": 1,
+      "message": "That\u0027s why we wrote it 😊",
+      "parentUuid": "7518d140_0af4a153",
       "range": {
         "startLine": 153,
         "startChar": 0,
@@ -675,6 +795,24 @@
       "side": 1,
       "message": "Done",
       "parentUuid": "babacc57_e47055a9",
+      "revId": "c50c1e087a7813ac7896fadcc8f646f0bb78b39c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "36e4de8a_1421d1df",
+        "filename": "redfish-core/lib/service_root.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-01-14T17:24:07Z",
+      "side": 1,
+      "message": "Please go back and understand why you\u0027re not seeing a validator failure for this.  Either the validator is broken, or something else is going on that we\u0027ll need to understand.",
+      "parentUuid": "787efe46_5818abe6",
       "revId": "c50c1e087a7813ac7896fadcc8f646f0bb78b39c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
