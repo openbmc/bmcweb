@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2172b125_44e23ff7",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2022-01-14T13:48:36Z",
+      "side": 1,
+      "message": "Use sbudplus::getProperty instead",
+      "range": {
+        "startLine": 197,
+        "startChar": 28,
+        "endLine": 201,
+        "endChar": 43
+      },
+      "revId": "118ff823beda4ed858b08f83463bbf355698f6c8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2a4ed811_b5b3b0b2",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 212,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2022-01-14T13:48:36Z",
+      "side": 1,
+      "message": "Possible throw from .at, please use methods that doesn\u0027t throw like .find.",
+      "range": {
+        "startLine": 212,
+        "startChar": 53,
+        "endLine": 212,
+        "endChar": 56
+      },
+      "revId": "118ff823beda4ed858b08f83463bbf355698f6c8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
