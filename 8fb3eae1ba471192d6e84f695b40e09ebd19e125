@@ -1,0 +1,297 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2ea9c3f2_94f57d99",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-01-14T23:35:02Z",
+      "side": 1,
+      "message": "This patchset is definitely coming along!",
+      "revId": "8fb3eae1ba471192d6e84f695b40e09ebd19e125",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a249eb24_c08bef39",
+        "filename": "redfish-core/include/utils/json_utils.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 448,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-01-14T23:35:02Z",
+      "side": 1,
+      "message": "Rather than making this a template, can we just explicitly call out the 6 types we need?\n\nuint64_t, int64_t, string, and pointer/optional equivalents, right?\n\nThat\u0027s going to prevent int16_t* from getting a different template expansion than int64_t*, which could be using the same code.",
+      "range": {
+        "startLine": 448,
+        "startChar": 0,
+        "endLine": 448,
+        "endChar": 24
+      },
+      "revId": "8fb3eae1ba471192d6e84f695b40e09ebd19e125",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "09533f95_16cf4a30",
+        "filename": "redfish-core/include/utils/json_utils.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 449,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-01-14T23:35:02Z",
+      "side": 1,
+      "message": "this helper has been proposed before.  The problem for me as a maintainer is that people use it blindly, and completely ignore the schema requirements for optionality and error codes.  As is, even when they\u0027re writing the code by hand, they still ignore the requiredness of parameters.  If a Redfish-schema required parameter isn\u0027t present, the request should 500.  Helper functions like this don\u0027t account for that.  I could maybe see it if there were also a counterpart like \"assignIfOrError\" so it explicitly made users select which one they had to use, and we had a common way for handling with error, and without error, but as written, I don\u0027t think this gets us there.\n\nFor example, I\u0027m pretty sure the std::is_pointer_v should be setting internal error, right?",
+      "range": {
+        "startLine": 449,
+        "startChar": 0,
+        "endLine": 449,
+        "endChar": 76
+      },
+      "revId": "8fb3eae1ba471192d6e84f695b40e09ebd19e125",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "87cae3a5_cc0621af",
+        "filename": "redfish-core/include/utils/json_utils.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 453,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-01-14T23:35:02Z",
+      "side": 1,
+      "message": "nullptr dereference.  Pointer types aren\u0027t guaranteed to be filled.  FWIW, in my first reading of this, this template code is complex enough that I didn\u0027t catch that.  We need to refactor similar to the previous comment to make it more obvious when this is done wrong.",
+      "range": {
+        "startLine": 453,
+        "startChar": 25,
+        "endLine": 453,
+        "endChar": 30
+      },
+      "revId": "8fb3eae1ba471192d6e84f695b40e09ebd19e125",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "93753866_78f8a707",
+        "filename": "redfish-core/lib/certificate_service.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 615,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-01-14T23:35:02Z",
+      "side": 1,
+      "message": "This is an example of the error I talked about above.  CertificateString is required in the Certificate interface, so if we don\u0027t get it, it should be an error.  Admittedly, we handle that poorly in the lefthand side code by just setting it to empty string, which passes the validator but is arguably wrong, but still more correct than this new code.",
+      "range": {
+        "startLine": 615,
+        "startChar": 0,
+        "endLine": 615,
+        "endChar": 78
+      },
+      "revId": "8fb3eae1ba471192d6e84f695b40e09ebd19e125",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b61b72fc_212da39f",
+        "filename": "redfish-core/lib/certificate_service.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 622,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-01-14T23:35:02Z",
+      "side": 1,
+      "message": "Possible nullptr dereference.  Per the rules, we need to be checking pointers for validity in the scope in which they\u0027re dereferenced.",
+      "range": {
+        "startLine": 622,
+        "startChar": 48,
+        "endLine": 622,
+        "endChar": 50
+      },
+      "revId": "8fb3eae1ba471192d6e84f695b40e09ebd19e125",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3b6cf478_1ffc2374",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-01-14T23:35:02Z",
+      "side": 1,
+      "message": "Nit, and not a problem with your patch, but this function doesn\u0027t need to take ownership of the Response, so it shouldn\u0027t be passed by shared_ptr, but by Response\u0026",
+      "range": {
+        "startLine": 143,
+        "startChar": 32,
+        "endLine": 143,
+        "endChar": 48
+      },
+      "revId": "8fb3eae1ba471192d6e84f695b40e09ebd19e125",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e72067c7_6ad37751",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-01-14T23:35:02Z",
+      "side": 1,
+      "message": "I\u0027d really rather this function do less, it looks like it\u0027s doing double duty for both setting a key, and converting kb to MB.\n\nAlso, isn\u0027t this technically bytes to MB?",
+      "range": {
+        "startLine": 153,
+        "startChar": 12,
+        "endLine": 153,
+        "endChar": 24
+      },
+      "revId": "8fb3eae1ba471192d6e84f695b40e09ebd19e125",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e1df6e22_78544c7b",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-01-14T23:35:02Z",
+      "side": 1,
+      "message": "This is the same issue as the first nit.  This function doesn\u0027t take ownership, so we shouldn\u0027t be passing by shared_ptr.  use Response\u0026 directly.",
+      "range": {
+        "startLine": 164,
+        "startChar": 10,
+        "endLine": 164,
+        "endChar": 51
+      },
+      "revId": "8fb3eae1ba471192d6e84f695b40e09ebd19e125",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eed3c1d0_059c6afc",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-01-14T23:35:02Z",
+      "side": 1,
+      "message": "Looks like this patch got mixed up with a some other refactoring and cleanup?",
+      "range": {
+        "startLine": 143,
+        "startChar": 0,
+        "endLine": 171,
+        "endChar": 1
+      },
+      "revId": "8fb3eae1ba471192d6e84f695b40e09ebd19e125",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "03af81c0_c4b83405",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-01-14T23:35:02Z",
+      "side": 1,
+      "message": "Generally we avoid declaring multiple variables of the same type on the same line, as it makes this code a lot harder to read.",
+      "range": {
+        "startLine": 177,
+        "startChar": 0,
+        "endLine": 178,
+        "endChar": 45
+      },
+      "revId": "8fb3eae1ba471192d6e84f695b40e09ebd19e125",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7af2ce46_07252129",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 216,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-01-14T23:35:02Z",
+      "side": 1,
+      "message": "Do we need to be printing more specifics here of which property failed to be read out?",
+      "range": {
+        "startLine": 215,
+        "startChar": 0,
+        "endLine": 216,
+        "endChar": 44
+      },
+      "revId": "8fb3eae1ba471192d6e84f695b40e09ebd19e125",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "93fd42c0_21ec3949",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 297,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-01-14T23:35:02Z",
+      "side": 1,
+      "message": "Looks like you didn\u0027t intend to add this?",
+      "range": {
+        "startLine": 297,
+        "startChar": 63,
+        "endLine": 297,
+        "endChar": 64
+      },
+      "revId": "8fb3eae1ba471192d6e84f695b40e09ebd19e125",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
