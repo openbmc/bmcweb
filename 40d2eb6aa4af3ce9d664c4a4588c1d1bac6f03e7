@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "dbff57f3_a8d08a4d",
+        "filename": "redfish-core/include/registries/privilege_registry.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1000520
+      },
+      "writtenOn": "2022-01-14T00:56:53Z",
+      "side": 1,
+      "message": "How are privileges generated, then? I\u0027m not sure how to add it otherwise. This is example code, regardless.",
+      "parentUuid": "66a5d0e5_72474c88",
+      "range": {
+        "startLine": 2,
+        "startChar": 0,
+        "endLine": 2,
+        "endChar": 61
+      },
+      "revId": "40d2eb6aa4af3ce9d664c4a4588c1d1bac6f03e7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "32e77fad_015c3b25",
         "filename": "redfish-core/lib/external_storer.hpp",
         "patchSetId": 2
@@ -49,6 +73,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "77db822b_862b8c48",
+        "filename": "redfish-core/lib/external_storer.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1000520
+      },
+      "writtenOn": "2022-01-14T00:56:53Z",
+      "side": 1,
+      "message": "OK, will consider changing it to constexpr string, if the compiler lets me.",
+      "parentUuid": "32e77fad_015c3b25",
+      "range": {
+        "startLine": 20,
+        "startChar": 0,
+        "endLine": 20,
+        "endChar": 64
+      },
+      "revId": "40d2eb6aa4af3ce9d664c4a4588c1d1bac6f03e7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "9c484e1e_ce57d9b1",
         "filename": "redfish-core/lib/service_root.hpp",
         "patchSetId": 2
@@ -60,6 +108,30 @@
       "writtenOn": "2022-01-05T19:03:31Z",
       "side": 1,
       "message": "This isn\u0027t in the Redfish schema, and will fail the validator.  Please follow the redfish spec.",
+      "range": {
+        "startLine": 66,
+        "startChar": 30,
+        "endLine": 66,
+        "endChar": 45
+      },
+      "revId": "40d2eb6aa4af3ce9d664c4a4588c1d1bac6f03e7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "222d6760_c78dca10",
+        "filename": "redfish-core/lib/service_root.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1000520
+      },
+      "writtenOn": "2022-01-14T00:56:53Z",
+      "side": 1,
+      "message": "It seems to be following the model of other services. Not sure what is being done wrong here.",
+      "parentUuid": "9c484e1e_ce57d9b1",
       "range": {
         "startLine": 66,
         "startChar": 30,
