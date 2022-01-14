@@ -60,6 +60,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e47c28ce_65331839",
+        "filename": "redfish-core/lib/external_storer.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1000520
+      },
+      "writtenOn": "2022-01-14T01:13:58Z",
+      "side": 1,
+      "message": "Hmm, I missed that. Will have to re-read it.",
+      "parentUuid": "355694b6_bb78f6b2",
+      "range": {
+        "startLine": 23,
+        "startChar": 3,
+        "endLine": 23,
+        "endChar": 65
+      },
+      "revId": "5dbca30654472b4d0f440cccb42c1e3075be3a6a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "1b3feec6_06d78e59",
         "filename": "redfish-core/lib/external_storer.hpp",
         "patchSetId": 3
@@ -71,6 +95,30 @@
       "writtenOn": "2022-01-05T20:48:49Z",
       "side": 1,
       "message": "Definitely not the right values, but I get this is WIP.",
+      "range": {
+        "startLine": 24,
+        "startChar": 30,
+        "endLine": 24,
+        "endChar": 35
+      },
+      "revId": "5dbca30654472b4d0f440cccb42c1e3075be3a6a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "21645862_e2ecee68",
+        "filename": "redfish-core/lib/external_storer.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1000520
+      },
+      "writtenOn": "2022-01-14T01:13:58Z",
+      "side": 1,
+      "message": "OK, thanks. I made the names obviously example values.",
+      "parentUuid": "1b3feec6_06d78e59",
       "range": {
         "startLine": 24,
         "startChar": 30,
@@ -106,6 +154,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "45aa78cc_6ecc39be",
+        "filename": "redfish-core/lib/external_storer_instance.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000520
+      },
+      "writtenOn": "2022-01-14T01:13:58Z",
+      "side": 1,
+      "message": "I need these variables for use during storage size calculation, though.",
+      "parentUuid": "f9a63897_1c4a010c",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 31
+      },
+      "revId": "5dbca30654472b4d0f440cccb42c1e3075be3a6a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "9e6b3683_b17500e9",
         "filename": "redfish-core/lib/external_storer_instance.hpp",
         "patchSetId": 3
@@ -117,6 +189,30 @@
       "writtenOn": "2022-01-05T20:48:49Z",
       "side": 1,
       "message": "Please just inline this.",
+      "range": {
+        "startLine": 24,
+        "startChar": 6,
+        "endLine": 24,
+        "endChar": 12
+      },
+      "revId": "5dbca30654472b4d0f440cccb42c1e3075be3a6a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "be9842cd_d5fe68f6",
+        "filename": "redfish-core/lib/external_storer_instance.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1000520
+      },
+      "writtenOn": "2022-01-14T01:13:58Z",
+      "side": 1,
+      "message": "Hmm, not sure what you mean. Please give an example?",
+      "parentUuid": "9e6b3683_b17500e9",
       "range": {
         "startLine": 24,
         "startChar": 6,
@@ -152,6 +248,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "7f2483fb_acdb93c0",
+        "filename": "redfish-core/lib/external_storer_instance.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1000520
+      },
+      "writtenOn": "2022-01-14T01:13:58Z",
+      "side": 1,
+      "message": "It\u0027s in the namespace ExternalStorer, so the class name is ExternalStorer::Instance which seems descriptive enough in full.",
+      "parentUuid": "92182ce2_7fba86d9",
+      "range": {
+        "startLine": 30,
+        "startChar": 6,
+        "endLine": 30,
+        "endChar": 14
+      },
+      "revId": "5dbca30654472b4d0f440cccb42c1e3075be3a6a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "26ded74c_7ed671f2",
         "filename": "redfish-core/lib/external_storer_instance.hpp",
         "patchSetId": 3
@@ -163,6 +283,30 @@
       "writtenOn": "2022-01-05T20:48:49Z",
       "side": 1,
       "message": "no need to explicitly construct things with no arguments.",
+      "range": {
+        "startLine": 34,
+        "startChar": 16,
+        "endLine": 34,
+        "endChar": 22
+      },
+      "revId": "5dbca30654472b4d0f440cccb42c1e3075be3a6a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a1deecd4_43a5ad5c",
+        "filename": "redfish-core/lib/external_storer_instance.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1000520
+      },
+      "writtenOn": "2022-01-14T01:13:58Z",
+      "side": 1,
+      "message": "I like doing that anyway, for cleanliness, and to make sure it\u0027s constructed in proper order.",
+      "parentUuid": "26ded74c_7ed671f2",
       "range": {
         "startLine": 34,
         "startChar": 16,
@@ -198,6 +342,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "2144e55e_b0a8b112",
+        "filename": "redfish-core/lib/external_storer_instance.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1000520
+      },
+      "writtenOn": "2022-01-14T01:13:58Z",
+      "side": 1,
+      "message": "Yep, it\u0027s an example here, and they will be filled out later. Where should the values for these fields come from, if not hardcoded?",
+      "parentUuid": "d4ee3553_e4ac2a41",
+      "range": {
+        "startLine": 46,
+        "startChar": 0,
+        "endLine": 52,
+        "endChar": 78
+      },
+      "revId": "5dbca30654472b4d0f440cccb42c1e3075be3a6a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "16b4b57f_fbf6591b",
         "filename": "redfish-core/lib/external_storer_instance.hpp",
         "patchSetId": 3
@@ -209,6 +377,30 @@
       "writtenOn": "2022-01-05T20:48:49Z",
       "side": 1,
       "message": "This makes the assumption that all resources are collections, which doesn\u0027t seem right to me.",
+      "range": {
+        "startLine": 56,
+        "startChar": 8,
+        "endLine": 56,
+        "endChar": 70
+      },
+      "revId": "5dbca30654472b4d0f440cccb42c1e3075be3a6a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5ea93357_967d0501",
+        "filename": "redfish-core/lib/external_storer_instance.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1000520
+      },
+      "writtenOn": "2022-01-14T01:13:58Z",
+      "side": 1,
+      "message": "What else would it be? By definition, an ExternalStorer instance uses a Redfish Collection type to hold all of its entries.",
+      "parentUuid": "16b4b57f_fbf6591b",
       "range": {
         "startLine": 56,
         "startChar": 8,
@@ -244,6 +436,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "db17605c_c8050862",
+        "filename": "redfish-core/lib/external_storer_instance.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1000520
+      },
+      "writtenOn": "2022-01-14T01:13:58Z",
+      "side": 1,
+      "message": "Yes, that would be added later. A subset of entries would be returned, when query parameters are implemented, and the user uses query parameters.",
+      "parentUuid": "9b8cc932_e8036ba2",
+      "range": {
+        "startLine": 58,
+        "startChar": 33,
+        "endLine": 58,
+        "endChar": 40
+      },
+      "revId": "5dbca30654472b4d0f440cccb42c1e3075be3a6a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "9f2c1253_dfc9239d",
         "filename": "redfish-core/lib/external_storer_instance.hpp",
         "patchSetId": 3
@@ -255,6 +471,30 @@
       "writtenOn": "2022-01-05T20:48:49Z",
       "side": 1,
       "message": "Remove.  Expand is handled at a higher level, and wouldn\u0027t be storer specific.",
+      "range": {
+        "startLine": 60,
+        "startChar": 0,
+        "endLine": 60,
+        "endChar": 46
+      },
+      "revId": "5dbca30654472b4d0f440cccb42c1e3075be3a6a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "99af17f8_9ee62feb",
+        "filename": "redfish-core/lib/external_storer_instance.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1000520
+      },
+      "writtenOn": "2022-01-14T01:13:58Z",
+      "side": 1,
+      "message": "It would need to be honored here, though, as the code here needs to know to include all the other fields here, or just the \"@odata.id\" field.",
+      "parentUuid": "9f2c1253_dfc9239d",
       "range": {
         "startLine": 60,
         "startChar": 0,
@@ -290,6 +530,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a2154304_50843152",
+        "filename": "redfish-core/lib/external_storer_instance.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1000520
+      },
+      "writtenOn": "2022-01-14T01:13:58Z",
+      "side": 1,
+      "message": "Hmm, again I\u0027m not sure how a resource would not be a collection. Uploading arbitrary standalone content seems beyond the scope of ExternalStorer, which is designed to let the user upload content and have that content become a member of a collection.",
+      "parentUuid": "d71a2e14_e8263141",
+      "range": {
+        "startLine": 65,
+        "startChar": 8,
+        "endLine": 65,
+        "endChar": 68
+      },
+      "revId": "5dbca30654472b4d0f440cccb42c1e3075be3a6a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e38867d1_6ee4a8a2",
         "filename": "redfish-core/lib/external_storer_instance.hpp",
         "patchSetId": 3
@@ -301,6 +565,30 @@
       "writtenOn": "2022-01-05T20:48:49Z",
       "side": 1,
       "message": "Lets add round trip parsing in another patchset to keep this patchset simple.",
+      "range": {
+        "startLine": 249,
+        "startChar": 0,
+        "endLine": 249,
+        "endChar": 68
+      },
+      "revId": "5dbca30654472b4d0f440cccb42c1e3075be3a6a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "180f53e5_a7e7c9a3",
+        "filename": "redfish-core/lib/external_storer_instance.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 249,
+      "author": {
+        "id": 1000520
+      },
+      "writtenOn": "2022-01-14T01:13:58Z",
+      "side": 1,
+      "message": "I still need to know the size of it. Is there a way in nlohmann::json to get the size? I\u0027m using the size of the dumped string as a proxy for the size of the internal JSON object here.",
+      "parentUuid": "e38867d1_6ee4a8a2",
       "range": {
         "startLine": 249,
         "startChar": 0,
@@ -336,6 +624,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b86e9aec_897d6b9a",
+        "filename": "redfish-core/lib/external_storer_instance.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 259,
+      "author": {
+        "id": 1000520
+      },
+      "writtenOn": "2022-01-14T01:13:58Z",
+      "side": 1,
+      "message": "Unfortunately, I couldn\u0027t find a way to do the dump() without an exception, as that seems a limitation in the nlohmann library there\u0027s no way to call it in a non-throwing way (as there is for some other commands).",
+      "parentUuid": "cd9a4197_d368a768",
+      "range": {
+        "startLine": 254,
+        "startChar": 0,
+        "endLine": 259,
+        "endChar": 9
+      },
+      "revId": "5dbca30654472b4d0f440cccb42c1e3075be3a6a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "33fd3c08_743e81f1",
         "filename": "redfish-core/lib/external_storer_instance.hpp",
         "patchSetId": 3
@@ -347,6 +659,30 @@
       "writtenOn": "2022-01-05T20:48:49Z",
       "side": 1,
       "message": "Empty dictionary might be valid.",
+      "range": {
+        "startLine": 261,
+        "startChar": 11,
+        "endLine": 261,
+        "endChar": 55
+      },
+      "revId": "5dbca30654472b4d0f440cccb42c1e3075be3a6a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7c32ef4e_05d4e18c",
+        "filename": "redfish-core/lib/external_storer_instance.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 261,
+      "author": {
+        "id": 1000520
+      },
+      "writtenOn": "2022-01-14T01:13:58Z",
+      "side": 1,
+      "message": "Hmm, what\u0027s a use case for allowing an empty dictionary? Seems like an error to me.",
+      "parentUuid": "33fd3c08_743e81f1",
       "range": {
         "startLine": 261,
         "startChar": 11,
@@ -382,6 +718,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e4caed96_13c26917",
+        "filename": "redfish-core/lib/external_storer_instance.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 262,
+      "author": {
+        "id": 1000520
+      },
+      "writtenOn": "2022-01-14T01:13:58Z",
+      "side": 1,
+      "message": "I thought we were only allowing a JSON dictionary. See the design document. If user wants to upload an arbitrary type, they can wrap it in a dictionary, right?",
+      "parentUuid": "919d538e_9d4056b1",
+      "range": {
+        "startLine": 262,
+        "startChar": 0,
+        "endLine": 262,
+        "endChar": 45
+      },
+      "revId": "5dbca30654472b4d0f440cccb42c1e3075be3a6a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a8177d55_0ff11559",
         "filename": "redfish-core/lib/external_storer_instance.hpp",
         "patchSetId": 3
@@ -393,6 +753,30 @@
       "writtenOn": "2022-01-05T20:48:49Z",
       "side": 1,
       "message": "This makes the assumption that all collections are sequenced by numbers, which isn\u0027t true.",
+      "range": {
+        "startLine": 293,
+        "startChar": 25,
+        "endLine": 293,
+        "endChar": 31
+      },
+      "revId": "5dbca30654472b4d0f440cccb42c1e3075be3a6a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "65974450_4ce8b0ea",
+        "filename": "redfish-core/lib/external_storer_instance.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 293,
+      "author": {
+        "id": 1000520
+      },
+      "writtenOn": "2022-01-14T01:13:58Z",
+      "side": 1,
+      "message": "How else would they be sequenced by? Please provide some detail to as to how this would work. Would they be alphabetical strings?",
+      "parentUuid": "a8177d55_0ff11559",
       "range": {
         "startLine": 293,
         "startChar": 25,
@@ -428,6 +812,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "3275781f_f060edd8",
+        "filename": "redfish-core/lib/external_storer_instance.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 295,
+      "author": {
+        "id": 1000520
+      },
+      "writtenOn": "2022-01-14T01:13:58Z",
+      "side": 1,
+      "message": "Good catch, will do construction instead.",
+      "parentUuid": "fe003017_321618a6",
+      "range": {
+        "startLine": 295,
+        "startChar": 0,
+        "endLine": 295,
+        "endChar": 28
+      },
+      "revId": "5dbca30654472b4d0f440cccb42c1e3075be3a6a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f8584bba_cb49577c",
         "filename": "redfish-core/lib/external_storer_instance.hpp",
         "patchSetId": 3
@@ -439,6 +847,30 @@
       "writtenOn": "2022-01-05T20:48:49Z",
       "side": 1,
       "message": "Seems odd we would need to special case this at this level.  Should we validate the input earlier?",
+      "range": {
+        "startLine": 304,
+        "startChar": 11,
+        "endLine": 304,
+        "endChar": 56
+      },
+      "revId": "5dbca30654472b4d0f440cccb42c1e3075be3a6a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7bfbc890_8c14f6af",
+        "filename": "redfish-core/lib/external_storer_instance.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 304,
+      "author": {
+        "id": 1000520
+      },
+      "writtenOn": "2022-01-14T01:13:58Z",
+      "side": 1,
+      "message": "BmcWeb seems strange in that it wants trailing suffix \"/\" on the URL. I tried not adding this check, but then it would be wrong in some situations. I could try to do without it, but it obfuscates code elsewhere.",
+      "parentUuid": "f8584bba_cb49577c",
       "range": {
         "startLine": 304,
         "startChar": 11,
@@ -474,6 +906,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "592afb80_51887809",
+        "filename": "redfish-core/lib/external_storer_instance.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 340,
+      "author": {
+        "id": 1000520
+      },
+      "writtenOn": "2022-01-14T01:13:58Z",
+      "side": 1,
+      "message": "Hmm, without oldest invalidation, the user will quickly run the BMC out of memory.",
+      "parentUuid": "8ad48462_b2f9239f",
+      "range": {
+        "startLine": 329,
+        "startChar": 0,
+        "endLine": 340,
+        "endChar": 5
+      },
+      "revId": "5dbca30654472b4d0f440cccb42c1e3075be3a6a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "50fdbfcb_861e13c3",
         "filename": "redfish-core/lib/external_storer_instance.hpp",
         "patchSetId": 3
@@ -485,6 +941,30 @@
       "writtenOn": "2022-01-05T20:48:49Z",
       "side": 1,
       "message": "no need for mutexes in single threaded code.",
+      "range": {
+        "startLine": 361,
+        "startChar": 0,
+        "endLine": 361,
+        "endChar": 20
+      },
+      "revId": "5dbca30654472b4d0f440cccb42c1e3075be3a6a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "60ed195d_f69958e5",
+        "filename": "redfish-core/lib/external_storer_instance.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 361,
+      "author": {
+        "id": 1000520
+      },
+      "writtenOn": "2022-01-14T01:13:58Z",
+      "side": 1,
+      "message": "I still wanted the code to be correct (Jun Yao also mentioned the need for locking).",
+      "parentUuid": "50fdbfcb_861e13c3",
       "range": {
         "startLine": 361,
         "startChar": 0,
