@@ -43,6 +43,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d8c481f4_f672ea5b",
+        "filename": "redfish-core/include/utils/json_utils.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 448,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2022-01-17T08:19:16Z",
+      "side": 1,
+      "message": "Sure I can do that.",
+      "parentUuid": "a249eb24_c08bef39",
+      "range": {
+        "startLine": 448,
+        "startChar": 0,
+        "endLine": 448,
+        "endChar": 24
+      },
+      "revId": "8fb3eae1ba471192d6e84f695b40e09ebd19e125",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "09533f95_16cf4a30",
         "filename": "redfish-core/include/utils/json_utils.hpp",
         "patchSetId": 2
@@ -54,6 +78,30 @@
       "writtenOn": "2022-01-14T23:35:02Z",
       "side": 1,
       "message": "this helper has been proposed before.  The problem for me as a maintainer is that people use it blindly, and completely ignore the schema requirements for optionality and error codes.  As is, even when they\u0027re writing the code by hand, they still ignore the requiredness of parameters.  If a Redfish-schema required parameter isn\u0027t present, the request should 500.  Helper functions like this don\u0027t account for that.  I could maybe see it if there were also a counterpart like \"assignIfOrError\" so it explicitly made users select which one they had to use, and we had a common way for handling with error, and without error, but as written, I don\u0027t think this gets us there.\n\nFor example, I\u0027m pretty sure the std::is_pointer_v should be setting internal error, right?",
+      "range": {
+        "startLine": 449,
+        "startChar": 0,
+        "endLine": 449,
+        "endChar": 76
+      },
+      "revId": "8fb3eae1ba471192d6e84f695b40e09ebd19e125",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "15058c63_8ad68273",
+        "filename": "redfish-core/include/utils/json_utils.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 449,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2022-01-17T08:19:16Z",
+      "side": 1,
+      "message": "This helper should be used together with unpackPropertiesNoThrow.\nunpackPropertiesNoThrow have some guarantees. If there is no error all pointers are set and valid. Optional can be empty, if optional\u003cconst T*\u003e is filled it contains valid pointer.",
+      "parentUuid": "09533f95_16cf4a30",
       "range": {
         "startLine": 449,
         "startChar": 0,
@@ -89,6 +137,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "212a6d7b_47c78908",
+        "filename": "redfish-core/include/utils/json_utils.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 453,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2022-01-17T08:19:16Z",
+      "side": 1,
+      "message": "If used together with unpackPropertiesNoThrow pointers are guaranteed to be filled. I guess using this function can be confusing in case of pointers. I can split it and name it \u0027assign\u0027 to indicate that pointer needs to be valid.",
+      "parentUuid": "87cae3a5_cc0621af",
+      "range": {
+        "startLine": 453,
+        "startChar": 25,
+        "endLine": 453,
+        "endChar": 30
+      },
+      "revId": "8fb3eae1ba471192d6e84f695b40e09ebd19e125",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "93753866_78f8a707",
         "filename": "redfish-core/lib/certificate_service.hpp",
         "patchSetId": 2
@@ -100,6 +172,30 @@
       "writtenOn": "2022-01-14T23:35:02Z",
       "side": 1,
       "message": "This is an example of the error I talked about above.  CertificateString is required in the Certificate interface, so if we don\u0027t get it, it should be an error.  Admittedly, we handle that poorly in the lefthand side code by just setting it to empty string, which passes the validator but is arguably wrong, but still more correct than this new code.",
+      "range": {
+        "startLine": 615,
+        "startChar": 0,
+        "endLine": 615,
+        "endChar": 78
+      },
+      "revId": "8fb3eae1ba471192d6e84f695b40e09ebd19e125",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9b3c46ea_0e980d35",
+        "filename": "redfish-core/lib/certificate_service.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 615,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2022-01-17T08:19:16Z",
+      "side": 1,
+      "message": "I just changed it to have same behavior. If this field is required then in line 596 it should be changed from optional\u003cconst std::string*\u003e to const std::string* then it is guaranteed that if unpackPropertiesNoThrow doesn\u0027t return error pointer is set.",
+      "parentUuid": "93753866_78f8a707",
       "range": {
         "startLine": 615,
         "startChar": 0,
@@ -135,6 +231,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "db032bf9_a2edbbec",
+        "filename": "redfish-core/lib/certificate_service.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 622,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2022-01-17T08:19:16Z",
+      "side": 1,
+      "message": "It is guaranteed by unpackPropertiesNoThrow that it wont return nullptr in optional if no error is returned.",
+      "parentUuid": "b61b72fc_212da39f",
+      "range": {
+        "startLine": 622,
+        "startChar": 48,
+        "endLine": 622,
+        "endChar": 50
+      },
+      "revId": "8fb3eae1ba471192d6e84f695b40e09ebd19e125",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "3b6cf478_1ffc2374",
         "filename": "redfish-core/lib/memory.hpp",
         "patchSetId": 2
@@ -158,6 +278,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "3adbb075_66019bed",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2022-01-17T08:19:16Z",
+      "side": 1,
+      "message": "I will fix it.",
+      "parentUuid": "3b6cf478_1ffc2374",
+      "range": {
+        "startLine": 143,
+        "startChar": 32,
+        "endLine": 143,
+        "endChar": 48
+      },
+      "revId": "8fb3eae1ba471192d6e84f695b40e09ebd19e125",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e72067c7_6ad37751",
         "filename": "redfish-core/lib/memory.hpp",
         "patchSetId": 2
@@ -169,6 +313,30 @@
       "writtenOn": "2022-01-14T23:35:02Z",
       "side": 1,
       "message": "I\u0027d really rather this function do less, it looks like it\u0027s doing double duty for both setting a key, and converting kb to MB.\n\nAlso, isn\u0027t this technically bytes to MB?",
+      "range": {
+        "startLine": 153,
+        "startChar": 12,
+        "endLine": 153,
+        "endChar": 24
+      },
+      "revId": "8fb3eae1ba471192d6e84f695b40e09ebd19e125",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "33a5481d_9a026705",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2022-01-17T08:19:16Z",
+      "side": 1,
+      "message": "I just assumed that if dbus property is named AllocationIncrementInKiB and redfish schema is AllocationIncrementMiB.\n\nI googled \u0027convert 1024 kib to mib\u0027 it seems to be correct unless I\u0027m mistaking something.",
+      "parentUuid": "e72067c7_6ad37751",
       "range": {
         "startLine": 153,
         "startChar": 12,
@@ -227,6 +395,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "dd29afca_fdf7b4fd",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2022-01-17T08:19:16Z",
+      "side": 1,
+      "message": "I can revert it back to how it was. I did this because this was small change that helped with this patch set (I needed to write less code).",
+      "parentUuid": "eed3c1d0_059c6afc",
+      "range": {
+        "startLine": 143,
+        "startChar": 0,
+        "endLine": 171,
+        "endChar": 1
+      },
+      "revId": "8fb3eae1ba471192d6e84f695b40e09ebd19e125",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "03af81c0_c4b83405",
         "filename": "redfish-core/lib/memory.hpp",
         "patchSetId": 2
@@ -238,6 +430,30 @@
       "writtenOn": "2022-01-14T23:35:02Z",
       "side": 1,
       "message": "Generally we avoid declaring multiple variables of the same type on the same line, as it makes this code a lot harder to read.",
+      "range": {
+        "startLine": 177,
+        "startChar": 0,
+        "endLine": 178,
+        "endChar": 45
+      },
+      "revId": "8fb3eae1ba471192d6e84f695b40e09ebd19e125",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "09ba369a_187d44be",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2022-01-17T08:19:16Z",
+      "side": 1,
+      "message": "I will fix it in final version.",
+      "parentUuid": "03af81c0_c4b83405",
       "range": {
         "startLine": 177,
         "startChar": 0,
@@ -273,6 +489,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "701137fd_95311cc9",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 216,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2022-01-17T08:19:16Z",
+      "side": 1,
+      "message": "It\u0027s something that you suggested. To return index instead of std::string to decrease binary size. If you have suggestion how to print property name instead of index of property that failed without impact on binary size I can do that,",
+      "parentUuid": "7af2ce46_07252129",
+      "range": {
+        "startLine": 215,
+        "startChar": 0,
+        "endLine": 216,
+        "endChar": 44
+      },
+      "revId": "8fb3eae1ba471192d6e84f695b40e09ebd19e125",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "93fd42c0_21ec3949",
         "filename": "redfish-core/lib/storage.hpp",
         "patchSetId": 2
@@ -284,6 +524,30 @@
       "writtenOn": "2022-01-14T23:35:02Z",
       "side": 1,
       "message": "Looks like you didn\u0027t intend to add this?",
+      "range": {
+        "startLine": 297,
+        "startChar": 63,
+        "endLine": 297,
+        "endChar": 64
+      },
+      "revId": "8fb3eae1ba471192d6e84f695b40e09ebd19e125",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "04593f19_5c0d2ad6",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 297,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2022-01-17T08:19:16Z",
+      "side": 1,
+      "message": "Yes, I don\u0027t know how this happened.",
+      "parentUuid": "93fd42c0_21ec3949",
       "range": {
         "startLine": 297,
         "startChar": 63,
