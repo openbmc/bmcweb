@@ -1,0 +1,22 @@
+{
+    "@odata.context": "/redfish/v1/$metadata#JsonSchemaFile.JsonSchemaFile",
+    "@odata.id": "/redfish/v1/JsonSchemas/PhysicalContext",
+    "@odata.type": "#JsonSchemaFile.v1_0_2.JsonSchemaFile",
+    "Name": "PhysicalContext Schema File",
+    "Schema": "#PhysicalContext.PhysicalContext",
+    "Description": "PhysicalContext Schema File Location",
+    "Id": "PhysicalContext",
+    "Languages": [
+        "en"
+    ],
+    "Languages@odata.count": 1,
+    "Location": [
+        {
+            "Language": "en",
+            "PublicationUri": "http://redfish.dmtf.org/schemas/v1/PhysicalContext.json",
+            "Uri": "/redfish/v1/JsonSchemas/PhysicalContext/PhysicalContext.json"
+        }
+    ],
+    "Location@odata.count": 1
+}
+

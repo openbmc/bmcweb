@@ -1568,6 +1568,9 @@
     <edmx:Reference Uri="/redfish/v1/schema/PCIeFunctionCollection_v1.xml">
         <edmx:Include Namespace="PCIeFunctionCollection"/>
     </edmx:Reference>
+    <edmx:Reference Uri="/redfish/v1/schema/PhysicalContext_v1.xml">
+        <edmx:Include Namespace="PhysicalContext"/>
+    </edmx:Reference>
     <edmx:Reference Uri="/redfish/v1/schema/Power_v1.xml">
         <edmx:Include Namespace="Power"/>
         <edmx:Include Namespace="Power.v1_0_0"/>
