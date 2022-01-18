@@ -157,6 +157,9 @@
         <edmx:Include Namespace="AttributeRegistry.v1_3_5"/>
         <edmx:Include Namespace="AttributeRegistry.v1_3_6"/>
     </edmx:Reference>
+    <edmx:Reference Uri="/redfish/v1/schema/PhysicalContext_v1.xml">
+        <edmx:Include Namespace="PhysicalContext"/>
+    </edmx:Reference>
     <edmx:Reference Uri="/redfish/v1/schema/Bios_v1.xml">
         <edmx:Include Namespace="Bios"/>
         <edmx:Include Namespace="Bios.v1_0_0"/>
