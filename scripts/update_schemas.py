@@ -65,6 +65,7 @@ include_list = [
     'PCIeDeviceCollection',
     'PCIeFunction',
     'PCIeFunctionCollection',
+    'PhysicalContext',
     'Power',
     'Privileges',  # Used in Role
     'Processor',
