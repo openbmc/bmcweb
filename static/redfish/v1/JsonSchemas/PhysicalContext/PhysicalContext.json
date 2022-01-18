@@ -1,0 +1,62 @@
+{
+    "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema.v1_3_0.json",
+    "copyright": "Copyright 2014-2017 Distributed Management Task Force, Inc. (DMTF). For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "definitions": {
+        "PhysicalContext": {
+            "deprecated": "This definition has been moved to the unversioned namespace so that external references can pick up changes over time.",
+            "enum": [
+                "Room",
+                "Intake",
+                "Exhaust",
+                "Front",
+                "Back",
+                "Upper",
+                "Lower",
+                "CPU",
+                "GPU",
+                "Backplane",
+                "SystemBoard",
+                "PowerSupply",
+                "VoltageRegulator",
+                "StorageDevice",
+                "NetworkingDevice",
+                "ComputeBay",
+                "StorageBay",
+                "NetworkBay",
+                "ExpansionBay",
+                "PowerSupplyBay",
+                "Memory",
+                "Chassis",
+                "Fan"
+            ],
+            "enumDescriptions": {
+                "Back": "The back of the chassis.",
+                "Backplane": "A backplane within the chassis.",
+                "CPU": "A Processor (CPU).",
+                "Chassis": "The entire chassis.",
+                "ComputeBay": "Within a compute bay.",
+                "Exhaust": "The exhaust point of the chassis.",
+                "ExpansionBay": "Within an expansion bay.",
+                "Fan": "A fan.",
+                "Front": "The front of the chassis.",
+                "GPU": "A Graphics Processor (GPU).",
+                "Intake": "The intake point of the chassis.",
+                "Lower": "The lower portion of the chassis.",
+                "Memory": "A memory device.",
+                "NetworkBay": "Within a networking bay.",
+                "NetworkingDevice": "A networking device.",
+                "PowerSupply": "A power supply.",
+                "PowerSupplyBay": "Within a power supply bay.",
+                "Room": "The room.",
+                "StorageBay": "Within a storage bay.",
+                "StorageDevice": "A storage device.",
+                "SystemBoard": "The system board (PCB).",
+                "Upper": "The upper portion of the chassis.",
+                "VoltageRegulator": "A voltage regulator device."
+            },
+            "type": "string"
+        }
+    },
+    "title": "#PhysicalContext.v1_3_0"
+}
+
