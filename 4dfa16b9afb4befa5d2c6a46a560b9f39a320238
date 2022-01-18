@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f90986ce_9c0c314d",
+        "filename": "static/redfish/v1/$metadata/index.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-01-18T06:26:12Z",
+      "side": 1,
+      "message": "Did you edit this file by hand?  Please use the scripts for doing this.",
+      "range": {
+        "startLine": 160,
+        "startChar": 0,
+        "endLine": 162,
+        "endChar": 21
+      },
+      "revId": "4dfa16b9afb4befa5d2c6a46a560b9f39a320238",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
