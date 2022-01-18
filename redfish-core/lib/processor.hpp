@@ -36,14 +36,6 @@ using InterfacesProperties = boost::container::flat_map<
     std::string,
     boost::container::flat_map<std::string, dbus::utility::DbusVariantType>>;
 
-// Map of service name to list of interfaces
-using MapperServiceMap =
-    std::vector<std::pair<std::string, std::vector<std::string>>>;
-
-// Map of object paths to MapperServiceMaps
-using MapperGetSubTreeResponse =
-    std::vector<std::pair<std::string, MapperServiceMap>>;
-
 // Interfaces which imply a D-Bus object represents a Processor
 constexpr std::array<const char*, 2> processorInterfaces = {
     "xyz.openbmc_project.Inventory.Item.Cpu",
@@ -704,7 +696,7 @@ inline void getProcessorObject(const std::shared_ptr<bmcweb::AsyncResp>& resp,
     crow::connections::systemBus->async_method_call(
         [resp, processorId, handler = std::forward<Handler>(handler)](
             boost::system::error_code ec,
-            const MapperGetSubTreeResponse& subtree) mutable {
+            const dbus::utility::MapperGetSubTreeResponse& subtree) mutable {
             if (ec)
             {
                 BMCWEB_LOG_DEBUG << "DBUS response error: " << ec;
@@ -768,7 +760,7 @@ inline void getProcessorObject(const std::shared_ptr<bmcweb::AsyncResp>& resp,
 inline void getProcessorData(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
                              const std::string& processorId,
                              const std::string& objectPath,
-                             const MapperServiceMap& serviceMap)
+                             const dbus::utility::MapperServiceMap& serviceMap)
 {
     for (const auto& [serviceName, interfaceList] : serviceMap)
     {
@@ -1008,7 +1000,8 @@ inline void
 inline void patchAppliedOperatingConfig(
     const std::shared_ptr<bmcweb::AsyncResp>& resp,
     const std::string& processorId, const std::string& appliedConfigUri,
-    const std::string& cpuObjectPath, const MapperServiceMap& serviceMap)
+    const std::string& cpuObjectPath,
+    const dbus::utility::MapperServiceMap& serviceMap)
 {
     // Check that the property even exists by checking for the interface
     const std::string* controlService = nullptr;
@@ -1137,9 +1130,9 @@ inline void requestRoutesOperatingConfig(App& app)
             // Ask for all objects implementing OperatingConfig so we can search
             // for one with a matching name
             crow::connections::systemBus->async_method_call(
-                [asyncResp, cpuName, configName,
-                 reqUrl{req.url}](boost::system::error_code ec,
-                                  const MapperGetSubTreeResponse& subtree) {
+                [asyncResp, cpuName, configName, reqUrl{req.url}](
+                    boost::system::error_code ec,
+                    const dbus::utility::MapperGetSubTreeResponse& subtree) {
                     if (ec)
                     {
                         BMCWEB_LOG_WARNING << "D-Bus error: " << ec << ", "
@@ -1258,7 +1251,7 @@ inline void requestRoutesProcessor(App& app)
                             const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                             const std::string& processorId,
                             const std::string& objectPath,
-                            const MapperServiceMap& serviceMap) {
+                            const dbus::utility::MapperServiceMap& serviceMap) {
                             patchAppliedOperatingConfig(asyncResp, processorId,
                                                         appliedConfigUri,
                                                         objectPath, serviceMap);

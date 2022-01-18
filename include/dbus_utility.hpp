@@ -66,6 +66,14 @@ using ManagedItem = std::pair<
     boost::container::flat_map<
         std::string, boost::container::flat_map<std::string, DbusVariantType>>>;
 
+// Map of service name to list of interfaces
+using MapperServiceMap =
+    std::vector<std::pair<std::string, std::vector<std::string>>>;
+
+// Map of object paths to MapperServiceMaps
+using MapperGetSubTreeResponse =
+    std::vector<std::pair<std::string, MapperServiceMap>>;
+
 inline void escapePathForDbus(std::string& path)
 {
     const std::regex reg("[^A-Za-z0-9_/]");
