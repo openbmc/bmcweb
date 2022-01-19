@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "437d1053_3af45505",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2022-01-19T10:22:24Z",
+      "side": 1,
+      "message": "bmc state supports other states as well\nhttps://github.com/openbmc/phosphor-dbus-interfaces/blob/master/yaml/xyz/openbmc_project/State/BMC.interface.yaml#L46\n\nthis commit represents all other possible states by reading state manager",
+      "parentUuid": "71193b88_aa7a0b4b",
+      "range": {
+        "startLine": 11,
+        "startChar": 0,
+        "endLine": 13,
+        "endChar": 57
+      },
+      "revId": "011e871e00382c82f27efc532ef2c07682aaf2a1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "4a3fb8a4_0fe3346e",
         "filename": "/COMMIT_MSG",
         "patchSetId": 3
@@ -37,6 +61,30 @@
       "writtenOn": "2022-01-12T17:48:08Z",
       "side": 1,
       "message": "More details needed here.",
+      "range": {
+        "startLine": 16,
+        "startChar": 0,
+        "endLine": 16,
+        "endChar": 53
+      },
+      "revId": "011e871e00382c82f27efc532ef2c07682aaf2a1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dc10c972_5e429e0e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2022-01-19T10:22:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4a3fb8a4_0fe3346e",
       "range": {
         "startLine": 16,
         "startChar": 0,
@@ -66,6 +114,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "beedb1dd_fe712d02",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1956,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2022-01-19T10:22:24Z",
+      "side": 1,
+      "message": "there is no Enabled enum.\n\ncan we can set as  \"On\"",
+      "parentUuid": "63ef1630_a4a816f0",
+      "revId": "011e871e00382c82f27efc532ef2c07682aaf2a1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "1760b6f0_48337994",
         "filename": "redfish-core/lib/managers.hpp",
         "patchSetId": 3
@@ -77,6 +143,24 @@
       "writtenOn": "2022-01-12T17:17:03Z",
       "side": 1,
       "message": "We probably want to add this to the bmcweb service file:\nAfter\u003dxyz.openbmc_project.State.BMC",
+      "revId": "011e871e00382c82f27efc532ef2c07682aaf2a1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f01647fb_9b0cb80a",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1967,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2022-01-19T10:22:24Z",
+      "side": 1,
+      "message": "ok, I think its not needed if state manager starts first before bmcweb?",
+      "parentUuid": "1760b6f0_48337994",
       "revId": "011e871e00382c82f27efc532ef2c07682aaf2a1",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
