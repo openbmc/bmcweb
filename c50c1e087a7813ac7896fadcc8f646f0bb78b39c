@@ -351,6 +351,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0e77eeac_b3d58e88",
+        "filename": "redfish-core/lib/cable.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1001084
+      },
+      "writtenOn": "2022-01-19T00:35:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ff2a09c8_5416448c",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 75
+      },
+      "revId": "c50c1e087a7813ac7896fadcc8f646f0bb78b39c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fa2f6482_23e56cc0",
@@ -507,6 +531,30 @@
       "side": 1,
       "message": "std::is_finite is what we should be using, considering there\u0027s more that double can represent that isn\u0027t finite.",
       "parentUuid": "df33975d_564679c6",
+      "range": {
+        "startLine": 65,
+        "startChar": 46,
+        "endLine": 65,
+        "endChar": 57
+      },
+      "revId": "c50c1e087a7813ac7896fadcc8f646f0bb78b39c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a6bba4eb_9a4d8956",
+        "filename": "redfish-core/lib/cable.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1001084
+      },
+      "writtenOn": "2022-01-19T00:35:17Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "c867f480_47abbbd3",
       "range": {
         "startLine": 65,
         "startChar": 46,
@@ -767,6 +815,30 @@
       "side": 1,
       "message": "I need to do more research here.  I forget the rules on how Name is used.",
       "parentUuid": "150509b0_96e85c73",
+      "range": {
+        "startLine": 129,
+        "startChar": 0,
+        "endLine": 129,
+        "endChar": 71
+      },
+      "revId": "c50c1e087a7813ac7896fadcc8f646f0bb78b39c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fd02ae5c_6f828da8",
+        "filename": "redfish-core/lib/cable.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 1001084
+      },
+      "writtenOn": "2022-01-19T00:35:17Z",
+      "side": 1,
+      "message": "Keeping it as \"Cable Properties\" for now. Will change if needed.",
+      "parentUuid": "46412453_5cca8c60",
       "range": {
         "startLine": 129,
         "startChar": 0,
