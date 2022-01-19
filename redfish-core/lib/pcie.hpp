@@ -312,7 +312,7 @@ inline void requestRoutesSystemPCIeFunctionCollection(App& app)
                                       std::to_string(functionNum)}});
                         }
                     }
-                    asyncResp->res.jsonValue["PCIeFunctions@odata.count"] =
+                    asyncResp->res.jsonValue["Members@odata.count"] =
                         pcieFunctionList.size();
                 };
                 std::string escapedPath = std::string(pciePath) + "/" + device;
