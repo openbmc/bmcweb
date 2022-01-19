@@ -1,6 +1,7 @@
 {
   "comments": [
     {
+      "unresolved": true,
       "key": {
         "uuid": "421385f0_d5fd9f7d",
         "filename": "redfish-core/lib/ethernet.hpp",
@@ -20,8 +21,31 @@
         "endChar": 23
       },
       "revId": "f09cb3b41dc82090d415ff8c9cff0b7d7b8bd8fe",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4873eaa7_760820b9",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1066,
+      "author": {
+        "id": 1000579
+      },
+      "writtenOn": "2022-01-19T05:49:47Z",
+      "side": 1,
+      "message": "Ok Done now.",
+      "parentUuid": "421385f0_d5fd9f7d",
+      "range": {
+        "startLine": 1065,
+        "startChar": 0,
+        "endLine": 1066,
+        "endChar": 23
+      },
+      "revId": "f09cb3b41dc82090d415ff8c9cff0b7d7b8bd8fe",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }

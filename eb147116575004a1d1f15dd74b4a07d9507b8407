@@ -1,6 +1,7 @@
 {
   "comments": [
     {
+      "unresolved": true,
       "key": {
         "uuid": "239c3e76_43d38c5d",
         "filename": "/COMMIT_MSG",
@@ -20,10 +21,10 @@
         "endChar": 0
       },
       "revId": "eb147116575004a1d1f15dd74b4a07d9507b8407",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "3f887610_024a671a",
         "filename": "/COMMIT_MSG",
@@ -44,10 +45,10 @@
         "endChar": 0
       },
       "revId": "eb147116575004a1d1f15dd74b4a07d9507b8407",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "54a2fd75_f0e9ffd8",
         "filename": "redfish-core/lib/ethernet.hpp",
@@ -67,10 +68,10 @@
         "endChar": 64
       },
       "revId": "eb147116575004a1d1f15dd74b4a07d9507b8407",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "50e675c0_5aca9314",
         "filename": "redfish-core/lib/ethernet.hpp",
@@ -91,10 +92,10 @@
         "endChar": 64
       },
       "revId": "eb147116575004a1d1f15dd74b4a07d9507b8407",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "30003d98_39f79765",
         "filename": "redfish-core/lib/ethernet.hpp",
@@ -114,10 +115,10 @@
         "endChar": 43
       },
       "revId": "eb147116575004a1d1f15dd74b4a07d9507b8407",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "739ccd80_15a90dcf",
         "filename": "redfish-core/lib/ethernet.hpp",
@@ -138,10 +139,10 @@
         "endChar": 43
       },
       "revId": "eb147116575004a1d1f15dd74b4a07d9507b8407",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "95b2424f_a6fbb7a8",
         "filename": "redfish-core/lib/ethernet.hpp",
@@ -161,10 +162,10 @@
         "endChar": 49
       },
       "revId": "eb147116575004a1d1f15dd74b4a07d9507b8407",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "7d1dcb36_40886e85",
         "filename": "redfish-core/lib/ethernet.hpp",
@@ -185,10 +186,10 @@
         "endChar": 49
       },
       "revId": "eb147116575004a1d1f15dd74b4a07d9507b8407",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "9b12b70b_093b689c",
         "filename": "redfish-core/lib/ethernet.hpp",
@@ -209,8 +210,31 @@
         "endChar": 49
       },
       "revId": "eb147116575004a1d1f15dd74b4a07d9507b8407",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "eb5a15ee_7180de0b",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1080,
+      "author": {
+        "id": 1000579
+      },
+      "writtenOn": "2022-01-19T05:49:47Z",
+      "side": 1,
+      "message": "Please check now.",
+      "parentUuid": "9b12b70b_093b689c",
+      "range": {
+        "startLine": 1080,
+        "startChar": 8,
+        "endLine": 1080,
+        "endChar": 49
+      },
+      "revId": "eb147116575004a1d1f15dd74b4a07d9507b8407",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
