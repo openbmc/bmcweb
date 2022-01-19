@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c0210d10_b2c27eaa",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 776,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-01-19T18:13:10Z",
+      "side": 1,
+      "message": "I think we could do something to not duplicate this line. \nE.g. \n\n        nlohmann::json\u0026 relatedItem \u003d aResp-\u003eres.jsonValue[\"RelatedItem\"];\n    if (purpose \u003d\u003d fw_util::bmcPurpose)\n    {\n        relatedItem.push_back({{\"@odata.id\", \"/redfish/v1/Managers/bmc\"}});\n    }\n    else if (purpose \u003d\u003d fw_util::biosPurpose)\n    {\n        relatedItem.push_back(\n            {{\"@odata.id\", \"/redfish/v1/Systems/system/Bios\"}});\n    }\n    else\n    {\n        BMCWEB_LOG_ERROR \u003c\u003c \"Unsupported software purpose \" \u003c\u003c purpose;\n    }\n        aResp-\u003eres.jsonValue[\"RelatedItem@odata.count\"] \u003d relatedItem.size();\n\nOh well, I guess the advantage here is this isn\u0027t a Redfish property if your purpose is other than BMC/Host. \nWhich we do have other purposes https://github.com/openbmc/phosphor-dbus-interfaces/blob/master/yaml/xyz/openbmc_project/Software/Version.interface.yaml#L41\n\nI think we need some Redfish enhancements to support like a \"PSU\" firmware image so this could be part of that (you would not be able to just hardcode /redfish/v1/Chassis/chassis/... like we do with BMC and Bios)",
+      "revId": "2677fdb2a2266a7a3e6486064cfbe9d56733cb29",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
