@@ -50,6 +50,24 @@
       "message": "Can we just do \"Cable\"? \nAdding \"Properties\" doesnt make a lot of sense.\nIn the Redfish mock they do have the schema name as the Name at times. E.g. from https://redfish.dmtf.org/redfish/mockups/v1/1100 \n\n\"\"Name\": \"Manager\",\" for redfish » v1 » Managers » BMC",
       "revId": "1ab49f85fa6b48725e406fb602cd115ad2859c4c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "89082d15_ec049b80",
+        "filename": "redfish-core/lib/cable.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 1001084
+      },
+      "writtenOn": "2022-01-19T18:59:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0b4d5e56_04414848",
+      "revId": "1ab49f85fa6b48725e406fb602cd115ad2859c4c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
