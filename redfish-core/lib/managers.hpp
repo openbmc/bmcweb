@@ -16,6 +16,7 @@
 #pragma once
 
 #include "health.hpp"
+#include "led.hpp"
 #include "redfish_util.hpp"
 
 #include <app.hpp>
@@ -33,6 +34,69 @@
 
 namespace redfish
 {
+
+// Map of service name to list of interfaces
+using MapperServiceMap =
+    std::vector<std::pair<std::string, std::vector<std::string>>>;
+
+// Map of object paths to MapperServiceMaps
+using MapperGetSubTreeResponse =
+    std::vector<std::pair<std::string, MapperServiceMap>>;
+
+/**
+ * Set the locationIndicatorActive.
+ *
+ * @param[in,out]   aResp                       Async HTTP response.
+ * @param[in]       locationIndicatorActive     Value of the property
+ */
+inline void setLocationIndicatorActiveState(
+    const std::shared_ptr<bmcweb::AsyncResp>& aResp,
+    bool locationIndicatorActive)
+{
+    BMCWEB_LOG_DEBUG << "Get available manager resources.";
+
+    // GetSubTree on all interfaces which provide info about a Manager
+    crow::connections::systemBus->async_method_call(
+        [aResp, locationIndicatorActive](
+            boost::system::error_code ec,
+            const MapperGetSubTreeResponse& subtree) mutable {
+            if (ec)
+            {
+                BMCWEB_LOG_DEBUG << "DBUS response error: " << ec;
+                messages::internalError(aResp->res);
+                return;
+            }
+
+            if (subtree.size() == 0)
+            {
+                messages::internalError(aResp->res);
+                return;
+            }
+            // Assume only 1 bmc D-Bus object
+            // Throw an error if there is more than 1
+            if (subtree.size() > 1)
+            {
+                BMCWEB_LOG_DEBUG << "Found more than 1 bmc D-Bus object!";
+                messages::internalError(aResp->res);
+                return;
+            }
+
+            if (subtree[0].first.empty())
+            {
+                BMCWEB_LOG_DEBUG << "Error getting bmc D-Bus object!";
+                messages::internalError(aResp->res);
+                return;
+            }
+
+            setLocationIndicatorActive(aResp, subtree[0].first,
+                                       locationIndicatorActive);
+        },
+        "xyz.openbmc_project.ObjectMapper",
+        "/xyz/openbmc_project/object_mapper",
+        "xyz.openbmc_project.ObjectMapper", "GetSubTree",
+        "/xyz/openbmc_project/inventory", 0,
+        std::array<const char*, 1>{"xyz.openbmc_project.Inventory.Item.Bmc"});
+}
 
 /**
  * Function reboots the BMC.
@@ -2165,6 +2229,11 @@ inline void requestRoutesManager(App& app)
                         {
                             getLocation(asyncResp, connectionName, path);
                         }
+                        else if (interfaceName ==
+                                 "xyz.openbmc_project.Association.Definitions")
+                        {
+                            getLocationIndicatorActive(asyncResp, path);
+                        }
                     }
                 },
                 "xyz.openbmc_project.ObjectMapper",
@@ -2184,9 +2253,12 @@ inline void requestRoutesManager(App& app)
             std::optional<nlohmann::json> oem;
             std::optional<nlohmann::json> links;
             std::optional<std::string> datetime;
+            std::optional<bool> locationIndicatorActive;
 
             if (!json_util::readJson(req, asyncResp->res, "Oem", oem,
-                                     "DateTime", datetime, "Links", links))
+                                     "DateTime", datetime, "Links", links,
+                                     "LocationIndicatorActive",
+                                     locationIndicatorActive))
             {
                 return;
             }
@@ -2252,6 +2324,11 @@ inline void requestRoutesManager(App& app)
             if (datetime)
             {
                 setDateTime(asyncResp, std::move(*datetime));
+            }
+            if (locationIndicatorActive)
+            {
+                setLocationIndicatorActiveState(asyncResp,
+                                                *locationIndicatorActive);
             }
         });
 }
