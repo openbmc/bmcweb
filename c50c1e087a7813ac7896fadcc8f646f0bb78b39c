@@ -144,6 +144,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "da8606b7_3d8567ec",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1001084
+      },
+      "writtenOn": "2022-01-19T19:03:31Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "ccbca4bb_6f7885f2",
+      "range": {
+        "startLine": 49,
+        "startChar": 0,
+        "endLine": 49,
+        "endChar": 23
+      },
+      "revId": "c50c1e087a7813ac7896fadcc8f646f0bb78b39c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e594c4de_59ae9768",
@@ -849,6 +873,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "668b7c75_fc02bb05",
+        "filename": "redfish-core/lib/cable.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 1001084
+      },
+      "writtenOn": "2022-01-19T19:03:31Z",
+      "side": 1,
+      "message": "Changed to \"Cable\" per Gunner\u0027s comment...",
+      "parentUuid": "fd02ae5c_6f828da8",
+      "range": {
+        "startLine": 129,
+        "startChar": 0,
+        "endLine": 129,
+        "endChar": 71
+      },
+      "revId": "c50c1e087a7813ac7896fadcc8f646f0bb78b39c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "891cd679_ead53990",
@@ -1065,6 +1113,24 @@
       "side": 1,
       "message": "In the future... please test the patches you push, or if you can\u0027t or don\u0027t want to, explicitly mention that in the commit message.",
       "parentUuid": "9153f335_76a8b4a4",
+      "revId": "c50c1e087a7813ac7896fadcc8f646f0bb78b39c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8fd53c0a_94d0b990",
+        "filename": "redfish-core/lib/service_root.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1001084
+      },
+      "writtenOn": "2022-01-19T19:03:31Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "121df950_83883ec9",
       "revId": "c50c1e087a7813ac7896fadcc8f646f0bb78b39c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
