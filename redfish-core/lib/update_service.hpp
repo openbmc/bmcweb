@@ -773,7 +773,7 @@ inline static void
         nlohmann::json& relatedItem = aResp->res.jsonValue["RelatedItem"];
         relatedItem.push_back(
             {{"@odata.id", "/redfish/v1/Systems/system/Bios"}});
-        aResp->res.jsonValue["Members@odata.count"] = relatedItem.size();
+        aResp->res.jsonValue["RelatedItem@odata.count"] = relatedItem.size();
     }
     else
     {
