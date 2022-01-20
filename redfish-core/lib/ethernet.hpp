@@ -80,11 +80,17 @@ struct IPv6AddressData
 };
 /**
  * Structure for keeping basic single Ethernet Interface information
- * available from DBus
+ * available from DBus and Ethernet statistics
  */
 struct EthernetInterfaceData
 {
     uint32_t speed;
+    uint32_t rxBytes;
+    uint32_t rxPackets;
+    uint32_t rxDropped;
+    uint32_t txBytes;
+    uint32_t txPackets;
+    uint32_t txDropped;
     bool auto_neg;
     bool DNSEnabled;
     bool NTPEnabled;
@@ -188,6 +194,53 @@ inline std::string
         return "SLAAC";
     }
     return "";
+}
+
+/**
+ * @brief Get the ethernet statistics property information from given absolute
+ * path
+ *
+ * @param[in] statPropertyPath     The path of ethernet statistics property
+ * @param[io] statPropertyValue    Response value of ethernet statistics
+ * property
+ *
+ * @return true in case of success, false otherwise
+ */
+inline bool getEthernetStatisticsInfo(const std::string& statPropertyPath,
+                                      uint32_t& statPropertyValue)
+{
+    std::ifstream statStream(statPropertyPath);
+    if (!statStream.is_open())
+    {
+        return false;
+    }
+    size_t lineCount = 0;
+    std::string statProperty;
+    std::string statPropertyStr;
+    while (std::getline(statStream, statPropertyStr))
+    {
+        lineCount++;
+        // Should only contain one line in file
+        if (lineCount > 2)
+        {
+            return false;
+        }
+        statProperty = statPropertyStr;
+    }
+    // NOLINTNEXTLINE(cppcoreguidelines-pro-bounds-pointer-arithmetic)
+    const char* end = statProperty.data() + statProperty.size();
+
+    auto [ptr, ec] =
+        std::from_chars(statProperty.data(), end, statPropertyValue);
+    if (ec == std::errc::invalid_argument)
+    {
+        return false;
+    }
+    if (ec == std::errc::result_out_of_range)
+    {
+        return false;
+    }
+    return true;
 }
 
 inline bool
@@ -351,6 +404,64 @@ inline bool
                             }
                         }
                     }
+                    std::string ethStatPath =
+                        "/sys/class/net/" + ethifaceId + "/statistics/";
+                    uint32_t statPropertyValue = 0;
+                    std::string statPropertyPath;
+
+                    // Get rx_bytes
+                    statPropertyPath = ethStatPath + "rx_bytes";
+                    if (!getEthernetStatisticsInfo(statPropertyPath,
+                                                   statPropertyValue))
+                    {
+                        continue;
+                    }
+                    ethData.rxBytes = statPropertyValue;
+
+                    // Get rx_dropped
+                    statPropertyPath = ethStatPath + "rx_dropped";
+                    if (!getEthernetStatisticsInfo(statPropertyPath,
+                                                   statPropertyValue))
+                    {
+                        continue;
+                    }
+                    ethData.rxDropped = statPropertyValue;
+
+                    // Get rx_packets
+                    statPropertyPath = ethStatPath + "rx_packets";
+                    if (!getEthernetStatisticsInfo(statPropertyPath,
+                                                   statPropertyValue))
+                    {
+                        continue;
+                    }
+                    ethData.rxPackets = statPropertyValue;
+
+                    // Get tx_bytes
+                    statPropertyPath = ethStatPath + "tx_bytes";
+                    if (!getEthernetStatisticsInfo(statPropertyPath,
+                                                   statPropertyValue))
+                    {
+                        continue;
+                    }
+                    ethData.txBytes = statPropertyValue;
+
+                    // Get tx_dropped
+                    statPropertyPath = ethStatPath + "tx_dropped";
+                    if (!getEthernetStatisticsInfo(statPropertyPath,
+                                                   statPropertyValue))
+                    {
+                        continue;
+                    }
+                    ethData.txDropped = statPropertyValue;
+
+                    // Get tx_packets
+                    statPropertyPath = ethStatPath + "tx_packets";
+                    if (!getEthernetStatisticsInfo(statPropertyPath,
+                                                   statPropertyValue))
+                    {
+                        continue;
+                    }
+                    ethData.txPackets = statPropertyValue;
                 }
             }
 
@@ -1802,6 +1913,14 @@ inline void parseInterfaceData(
                  {"PrefixLength", ipv6Config.prefixLength}});
         }
     }
+    // OEM field for Ethernet statistics properties
+    nlohmann::json& ethOemArray = jsonResponse["Oem"]["Statistics"];
+    ethOemArray.push_back({{"RxBytes", ethData.rxBytes},
+                           {"RxDropped", ethData.rxDropped},
+                           {"RxPackets", ethData.rxPackets},
+                           {"TxBytes", ethData.txBytes},
+                           {"TxDropped", ethData.txDropped},
+                           {"TxPackets", ethData.txPackets}});
 }
 
 inline void parseInterfaceData(nlohmann::json& jsonResponse,
