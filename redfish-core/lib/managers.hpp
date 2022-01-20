@@ -363,7 +363,7 @@ inline void
                                          dbus::utility::DbusVariantType>&
                              propPair : intfPair.second)
                     {
-                        if (intfPair.first == "Class")
+                        if (propPair.first == "Class")
                         {
                             classPtr =
                                 std::get_if<std::string>(&propPair.second);
