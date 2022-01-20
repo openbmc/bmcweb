@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "69223dee_40594490",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-01-20T21:48:49Z",
+      "side": 1,
+      "message": "Couple minor things, then this looks good to go.",
+      "revId": "2b39aa4befb660507da460c3a2922f5bfb87dad9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ac5e83e3_48d79ea8",
+        "filename": "redfish-core/lib/cable.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-01-20T21:48:49Z",
+      "side": 1,
+      "message": "This should capture by Response\u0026, because we don\u0027t need the actual error",
+      "range": {
+        "startLine": 14,
+        "startChar": 30,
+        "endLine": 14,
+        "endChar": 65
+      },
+      "revId": "2b39aa4befb660507da460c3a2922f5bfb87dad9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "78886367_273df455",
+        "filename": "redfish-core/lib/cable.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-01-20T21:48:49Z",
+      "side": 1,
+      "message": "This needs to go outside the loop.",
+      "range": {
+        "startLine": 20,
+        "startChar": 0,
+        "endLine": 26,
+        "endChar": 0
+      },
+      "revId": "2b39aa4befb660507da460c3a2922f5bfb87dad9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "46f3e8dc_297dfe45",
+        "filename": "redfish-core/lib/cable.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-01-20T21:48:49Z",
+      "side": 1,
+      "message": "continue?",
+      "range": {
+        "startLine": 51,
+        "startChar": 0,
+        "endLine": 51,
+        "endChar": 27
+      },
+      "revId": "2b39aa4befb660507da460c3a2922f5bfb87dad9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
