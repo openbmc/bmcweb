@@ -16,6 +16,125 @@
       "message": "Ping",
       "revId": "6aab5b36b53fe923004e0251d7fc49f87a8bfec9",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "167fdd78_99646dd6",
+        "filename": "include/google/google_service_root.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-01-21T20:50:19Z",
+      "side": 1,
+      "message": "I would think you would want a link to the RootOfTrust from here..",
+      "revId": "6aab5b36b53fe923004e0251d7fc49f87a8bfec9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d908fe33_9688eb84",
+        "filename": "include/google/google_service_root.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-01-21T20:50:19Z",
+      "side": 1,
+      "message": "GoogleRootOfTrust? Follow the other types? e.g. GoogleChassis",
+      "revId": "6aab5b36b53fe923004e0251d7fc49f87a8bfec9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a0f9dc5e_bb006208",
+        "filename": "include/google/google_service_root.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-01-21T20:50:19Z",
+      "side": 1,
+      "message": "Redfish would probably come up with a better parameter name here, something describing what the actual data is.\nE.g. RootOfTrustCommand, Command, (don\u0027t have anything good but hopefully you get my point).  You can ignore.",
+      "revId": "6aab5b36b53fe923004e0251d7fc49f87a8bfec9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bd2fbc10_d8d90ec3",
+        "filename": "include/google/google_service_root.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-01-21T20:50:19Z",
+      "side": 1,
+      "message": "There is a ActionParameterMissing https://redfish.dmtf.org/registries/Base.1.12.0.json \n\n\"Indicates that the action requested was missing a parameter that is required to process the action.\"\n\nDon\u0027t you want a check for if RequestBytes is missing / empty and throw something similar to that back?",
+      "revId": "6aab5b36b53fe923004e0251d7fc49f87a8bfec9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1080da10_ccb7880e",
+        "filename": "include/google/google_service_root.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-01-21T20:50:19Z",
+      "side": 1,
+      "message": "Any checking to make sure the format is good, etc? \nI don\u0027t see SendHostCommand out in https://github.com/openbmc/phosphor-dbus-interfaces/search?q\u003dSendHostCommand\ndoes it throw back like a bad request or anything?",
+      "revId": "6aab5b36b53fe923004e0251d7fc49f87a8bfec9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dca89b98_861039a9",
+        "filename": "static/google/v1/schema/RootOfTrust_v1.xml",
+        "patchSetId": 4
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-01-21T20:50:19Z",
+      "side": 1,
+      "message": "Do you want a requiredParameter here? \nhttps://github.com/openbmc/bmcweb/blob/b7ff344535c42af074c60bfb272ef66a2ba157b4/static/redfish/v1/JsonSchemas/Memory/Memory.json#L92",
+      "revId": "6aab5b36b53fe923004e0251d7fc49f87a8bfec9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d3c3e8f5_8d2ad2a7",
+        "filename": "static/google/v1/schema/RootOfTrust_v1.xml",
+        "patchSetId": 4
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-01-21T20:50:19Z",
+      "side": 1,
+      "message": "You could add a bit more here about the format. E.g. \n\"The string should be space delimited, hexadecimal ...\"",
+      "revId": "6aab5b36b53fe923004e0251d7fc49f87a8bfec9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
