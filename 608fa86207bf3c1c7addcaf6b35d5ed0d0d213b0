@@ -16,6 +16,24 @@
       "message": "OEM properties must have the `@odata.type` field.\nPlease, refer to the https://www.dmtf.org/sites/default/files/standards/documents/DSP0266_1.8.0.pdf \"9.7.2. OEM property naming\"",
       "revId": "608fa86207bf3c1c7addcaf6b35d5ed0d0d213b0",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "69f345fa_62a0ddf1",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1917,
+      "author": {
+        "id": 1000404
+      },
+      "writtenOn": "2022-01-21T08:45:36Z",
+      "side": 1,
+      "message": "Thanks for the information! Things like I need to write the OEM specification for EthernetInterface. e.g. #OemEthernetInterface.v1_0_0.EthernetInterface\n\nDo you have any suggestion about how to add the specification?",
+      "parentUuid": "b23b9e97_86d7d38f",
+      "revId": "608fa86207bf3c1c7addcaf6b35d5ed0d0d213b0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
