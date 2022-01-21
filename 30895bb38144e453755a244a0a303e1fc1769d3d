@@ -73,6 +73,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "71a548ce_46376732",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000936
+      },
+      "writtenOn": "2022-01-21T20:48:34Z",
+      "side": 1,
+      "message": "Guess I should change the phosphor-user-manager patch to emit InvalidArgument for that case?",
+      "parentUuid": "453d03d6_fcb988de",
+      "revId": "30895bb38144e453755a244a0a303e1fc1769d3d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "2103a153_024071e1",
         "filename": "redfish-core/lib/account_service.hpp",
         "patchSetId": 1
