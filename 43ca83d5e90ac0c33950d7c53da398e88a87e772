@@ -118,6 +118,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c52baa5b_5af774d7",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 322,
+      "author": {
+        "id": 1001317
+      },
+      "writtenOn": "2022-01-21T17:41:41Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "169853fd_d17f2ca3",
+      "range": {
+        "startLine": 319,
+        "startChar": 0,
+        "endLine": 322,
+        "endChar": 21
+      },
+      "revId": "43ca83d5e90ac0c33950d7c53da398e88a87e772",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ade76dfe_12e69bfc",
@@ -212,6 +236,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5ad18aca_c261147b",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 363,
+      "author": {
+        "id": 1001317
+      },
+      "writtenOn": "2022-01-21T17:41:41Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "0688d349_92390727",
+      "range": {
+        "startLine": 360,
+        "startChar": 0,
+        "endLine": 363,
+        "endChar": 21
+      },
+      "revId": "43ca83d5e90ac0c33950d7c53da398e88a87e772",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8b7cda5e_978f1134",
@@ -296,6 +344,30 @@
       "side": 1,
       "message": "Ack",
       "parentUuid": "651d1548_c374fcdf",
+      "range": {
+        "startLine": 389,
+        "startChar": 0,
+        "endLine": 392,
+        "endChar": 21
+      },
+      "revId": "43ca83d5e90ac0c33950d7c53da398e88a87e772",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1b0eb937_0758e279",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 392,
+      "author": {
+        "id": 1001317
+      },
+      "writtenOn": "2022-01-21T17:41:41Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "5bc6a6e2_2573bae5",
       "range": {
         "startLine": 389,
         "startChar": 0,
