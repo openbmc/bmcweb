@@ -1387,7 +1387,7 @@ inline void requestAccountServiceRoutes(App& app)
                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) -> void {
                 std::optional<uint32_t> unlockTimeout;
                 std::optional<uint16_t> lockoutThreshold;
-                std::optional<uint16_t> minPasswordLength;
+                std::optional<uint8_t> minPasswordLength;
                 std::optional<uint16_t> maxPasswordLength;
                 std::optional<nlohmann::json> ldapObject;
                 std::optional<nlohmann::json> activeDirectoryObject;
@@ -1407,8 +1407,21 @@ inline void requestAccountServiceRoutes(App& app)
 
                 if (minPasswordLength)
                 {
-                    messages::propertyNotWritable(asyncResp->res,
-                                                  "MinPasswordLength");
+                    crow::connections::systemBus->async_method_call(
+                        [asyncResp](const boost::system::error_code ec) {
+                            if (ec)
+                            {
+                                messages::internalError(asyncResp->res);
+                                return;
+                            }
+                            messages::success(asyncResp->res);
+                        },
+                        "xyz.openbmc_project.User.Manager",
+                        "/xyz/openbmc_project/user",
+                        "org.freedesktop.DBus.Properties", "Set",
+                        "xyz.openbmc_project.User.AccountPolicy",
+                        "MinPasswordLength",
+                        dbus::utility::DbusVariantType(*minPasswordLength));
                 }
 
                 if (maxPasswordLength)
