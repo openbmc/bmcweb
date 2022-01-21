@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "556f87e5_292c0939",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-01-21T20:16:44Z",
+      "side": 1,
+      "message": "I don\u0027t get how this isn\u0027t the same as https://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/38044",
+      "revId": "19cd8d20616dc2fd2f0c300fed6239403facde77",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
