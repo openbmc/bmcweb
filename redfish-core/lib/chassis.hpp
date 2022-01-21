@@ -72,7 +72,7 @@ inline std::optional<std::string>
  *
  * @param[in] aResp - Shared pointer for completing asynchronous calls.
  * @param[in] chassisId - Name of the chassis being worked with.
- * @param[in] callback - Callback function 
+ * @param[in] callback - Callback function
  *
  * @return None.
  */
@@ -83,7 +83,8 @@ inline void getChassisState(
                              const std::optional<std::string>&)>& callback)
 {
     crow::connections::systemBus->async_method_call(
-        [asyncResp, chassisId, callback](const boost::system::error_code ec,
+        [asyncResp, chassisId,
+         callback](const boost::system::error_code ec,
                    const std::variant<std::string>& property) {
             if (ec)
             {
@@ -105,7 +106,7 @@ inline void getChassisState(
  *
  * @param[in] aResp - Shared pointer for completing asynchronous calls.
  * @param[in] chassisId - Name of the chassis being worked with.
- * @param[in] callback - Callback function 
+ * @param[in] callback - Callback function
  *
  * @return None.
  */
@@ -390,10 +391,9 @@ inline void requestRoutesChassis(App& app)
                                 });
                         }
 
-
                         crow::connections::systemBus->async_method_call(
                             [asyncResp, connectionName, path,
-                                chassisId(std::string(chassisId))](
+                             chassisId(std::string(chassisId))](
                                 const boost::system::error_code ec,
                                 const std::variant<bool>& property) {
                                 if (ec)
@@ -404,7 +404,8 @@ inline void requestRoutesChassis(App& app)
                                     return;
                                 }
 
-                                getPowerState(asyncResp, chassisId,
+                                getPowerState(
+                                    asyncResp, chassisId,
                                     [asyncResp, chassisId](
                                         const boost::system::error_code ec,
                                         const std::optional<std::string>&
@@ -416,8 +417,8 @@ inline void requestRoutesChassis(App& app)
                                         }
                                         if (chassisPowerState)
                                         {
-                                            asyncResp->res.jsonValue
-                                                ["PowerState"] =
+                                            asyncResp->res
+                                                .jsonValue["PowerState"] =
                                                 *chassisPowerState;
                                         }
                                     });
@@ -426,33 +427,39 @@ inline void requestRoutesChassis(App& app)
                                     std::get_if<bool>(&property);
                                 if (present == nullptr)
                                 {
-                                    BMCWEB_LOG_DEBUG
-                                        << "Null value returned "
-                                           "for Chassis present";
+                                    BMCWEB_LOG_DEBUG << "Null value returned "
+                                                        "for Chassis present";
                                     messages::internalError(asyncResp->res);
                                     return;
                                 }
 
-                                if (*present) {
-                                    getChassisState(asyncResp, chassisId,
+                                if (*present)
+                                {
+                                    getChassisState(
+                                        asyncResp, chassisId,
                                         [asyncResp, chassisId](
-                                        const boost::system::error_code ec,
-                                        const std::optional<std::string>&
-                                            chassisState) {
-                                        if (ec)
-                                        {
-                                            messages::internalError(
-                                                asyncResp->res);
-                                        }
-                                        if (chassisState)
-                                        {
-                                            asyncResp->res.jsonValue["Status"]
-                                            ["State"] = *chassisState;
-                                        }
-                                    });
-                                } else {
-                                    asyncResp->res.jsonValue["Status"]["State"]
-                                        = "Absent";
+                                            const boost::system::error_code ec,
+                                            const std::optional<std::string>&
+                                                chassisState) {
+                                            if (ec)
+                                            {
+                                                messages::internalError(
+                                                    asyncResp->res);
+                                            }
+                                            if (chassisState)
+                                            {
+                                                asyncResp->res
+                                                    .jsonValue["Status"]
+                                                              ["State"] =
+                                                    *chassisState;
+                                            }
+                                        });
+                                }
+                                else
+                                {
+                                    asyncResp->res
+                                        .jsonValue["Status"]["State"] =
+                                        "Absent";
                                 }
                             },
                             connectionName, path,
