@@ -28,44 +28,111 @@
 namespace redfish
 {
 
+inline std::optional<std::string>
+    getChassisStateProperty(const std::variant<std::string>& chassisState)
+{
+    const std::string* value = std::get_if<std::string>(&chassisState);
+    if (!value)
+    {
+        return std::nullopt;
+    }
+    if (*value == "xyz.openbmc_project.State.Chassis.PowerState.On")
+    {
+        return "Enabled";
+    }
+    if (*value == "xyz.openbmc_project.State.Chassis.PowerState.Off")
+    {
+        return "StandbyOffline";
+    }
+
+    return std::nullopt;
+}
+
+inline std::optional<std::string>
+    getPowerStateProperty(const std::variant<std::string>& chassisState)
+{
+    const std::string* value = std::get_if<std::string>(&chassisState);
+    if (!value)
+    {
+        return std::nullopt;
+    }
+    if (*value == "xyz.openbmc_project.State.Chassis.PowerState.On")
+    {
+        return "On";
+    }
+    if (*value == "xyz.openbmc_project.State.Chassis.PowerState.Off")
+    {
+        return "Off";
+    }
+
+    return std::nullopt;
+}
+
 /**
- * @brief Retrieves chassis state properties over dbus
+ * @brief Retrieves chassis state over dbus
  *
  * @param[in] aResp - Shared pointer for completing asynchronous calls.
+ * @param[in] chassisId - Name of the chassis being worked with.
+ * @param[in] callback - Callback function 
  *
  * @return None.
  */
-inline void getChassisState(std::shared_ptr<bmcweb::AsyncResp> aResp)
+inline void getChassisState(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& chassisId,
+    const std::function<void(const boost::system::error_code ec,
+                             const std::optional<std::string>&)>& callback)
 {
-    // crow::connections::systemBus->async_method_call(
-    sdbusplus::asio::getProperty<std::string>(
-        *crow::connections::systemBus, "xyz.openbmc_project.State.Chassis",
-        "/xyz/openbmc_project/state/chassis0",
-        "xyz.openbmc_project.State.Chassis", "CurrentPowerState",
-        [aResp{std::move(aResp)}](const boost::system::error_code ec,
-                                  const std::string& chassisState) {
+    crow::connections::systemBus->async_method_call(
+        [asyncResp, chassisId, callback](const boost::system::error_code ec,
+                   const std::variant<std::string>& property) {
             if (ec)
             {
-                BMCWEB_LOG_DEBUG << "DBUS response error " << ec;
-                messages::internalError(aResp->res);
+                BMCWEB_LOG_ERROR << "Chassis: DBUS response error for Chassis";
+                callback(ec, std::nullopt);
                 return;
             }
 
-            BMCWEB_LOG_DEBUG << "Chassis state: " << chassisState;
-            // Verify Chassis State
-            if (chassisState ==
-                "xyz.openbmc_project.State.Chassis.PowerState.On")
+            callback(ec, getChassisStateProperty(property));
+        },
+        "xyz.openbmc_project.State.Chassis",
+        "/xyz/openbmc_project/state/chassis0",
+        "org.freedesktop.DBus.Properties", "Get",
+        "xyz.openbmc_project.State.Chassis", "CurrentPowerState");
+}
+
+/**
+ * @brief Retrieves chassis power state over dbus
+ *
+ * @param[in] aResp - Shared pointer for completing asynchronous calls.
+ * @param[in] chassisId - Name of the chassis being worked with.
+ * @param[in] callback - Callback function 
+ *
+ * @return None.
+ */
+inline void getPowerState(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& chassisId,
+    const std::function<void(const boost::system::error_code ec,
+                             const std::optional<std::string>&)>& callback)
+{
+    crow::connections::systemBus->async_method_call(
+        [asyncResp, chassisId,
+         callback](const boost::system::error_code ec,
+                   const std::variant<std::string>& property) {
+            if (ec)
             {
-                aResp->res.jsonValue["PowerState"] = "On";
-                aResp->res.jsonValue["Status"]["State"] = "Enabled";
+                BMCWEB_LOG_ERROR << "Chassis: DBUS response error for Chassis";
+                callback(ec, std::nullopt);
+                return;
             }
-            else if (chassisState ==
-                     "xyz.openbmc_project.State.Chassis.PowerState.Off")
-            {
-                aResp->res.jsonValue["PowerState"] = "Off";
-                aResp->res.jsonValue["Status"]["State"] = "StandbyOffline";
-            }
-        });
+
+            callback(ec, getPowerStateProperty(property));
+        },
+        "xyz.openbmc_project.State.Chassis",
+        "/xyz/openbmc_project/state/chassis0",
+        "org.freedesktop.DBus.Properties", "Get",
+        "xyz.openbmc_project.State.Chassis", "CurrentPowerState");
 }
 
 /**
@@ -324,6 +391,75 @@ inline void requestRoutesChassis(App& app)
                                 });
                         }
 
+                        crow::connections::systemBus->async_method_call(
+                            [asyncResp, connectionName, path,
+                                chassisId(std::string(chassisId))](
+                                const boost::system::error_code ec,
+                                const std::variant<bool>& property) {
+                                if (ec)
+                                {
+                                    BMCWEB_LOG_DEBUG
+                                        << "DBus response error for Present";
+                                    messages::internalError(asyncResp->res);
+                                    return;
+                                }
+
+                                getPowerState(asyncResp, chassisId,
+                                    [asyncResp, chassisId](
+                                        const boost::system::error_code ec,
+                                        const std::optional<std::string>&
+                                            chassisPowerState) {
+                                        if (ec)
+                                        {
+                                            messages::internalError(
+                                                asyncResp->res);
+                                        }
+                                        if (chassisPowerState)
+                                        {
+                                            asyncResp->res.jsonValue
+                                                ["PowerState"] =
+                                                *chassisPowerState;
+                                        }
+                                        
+                                    });
+
+                                const bool* present =
+                                    std::get_if<bool>(&property);
+                                if (present == nullptr)
+                                {
+                                    BMCWEB_LOG_DEBUG
+                                        << "Null value returned "
+                                           "for Chassis present";
+                                    messages::internalError(asyncResp->res);
+                                    return;
+                                }
+
+                                if (*present) {
+                                    getChassisState(asyncResp, chassisId,
+                                        [asyncResp, chassisId](
+                                        const boost::system::error_code ec,
+                                        const std::optional<std::string>&
+                                            chassisState) {
+                                        if (ec)
+                                        {
+                                            messages::internalError(
+                                                asyncResp->res);
+                                        }
+                                        if (chassisState)
+                                        {
+                                            asyncResp->res.jsonValue["Status"]
+                                            ["State"] = *chassisState;
+                                        }
+                                    });
+                                } else {
+                                    asyncResp->res.jsonValue["Status"]["State"]
+                                        = "Absent";
+                                }
+                            },
+                            connectionName, path,
+                            "org.freedesktop.DBus.Properties", "Get",
+                            "xyz.openbmc_project.Inventory.Item", "Present");
+
                         for (const char* interface : hasIndicatorLed)
                         {
                             if (std::find(interfaces2.begin(),
@@ -399,10 +535,6 @@ inline void requestRoutesChassis(App& app)
                                 asyncResp->res.jsonValue["Sensors"] = {
                                     {"@odata.id", "/redfish/v1/Chassis/" +
                                                       chassisId + "/Sensors"}};
-                                asyncResp->res.jsonValue["Status"] = {
-                                    {"State", "Enabled"},
-                                };
-
                                 asyncResp->res
                                     .jsonValue["Links"]["ComputerSystems"] = {
                                     {{"@odata.id",
@@ -410,7 +542,6 @@ inline void requestRoutesChassis(App& app)
                                 asyncResp->res.jsonValue["Links"]["ManagedBy"] =
                                     {{{"@odata.id",
                                        "/redfish/v1/Managers/bmc"}}};
-                                getChassisState(asyncResp);
                             },
                             connectionName, path,
                             "org.freedesktop.DBus.Properties", "GetAll",
