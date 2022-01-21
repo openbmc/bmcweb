@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1b772188_609763b3",
+        "filename": "redfish-core/ut/json_utils_test.cpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2022-01-21T10:59:30Z",
+      "side": 1,
+      "message": "Done.\n\nI don\u0027t think removing std::vector\u003cuint64_t\u003e works. It just think it is another json. not sure.",
+      "parentUuid": "320aaa9d_95297710",
+      "range": {
+        "startLine": 16,
+        "startChar": 57,
+        "endLine": 16,
+        "endChar": 64
+      },
+      "revId": "7d14a2446899b83fbfde3f2bed6253d4a8d901e0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d1908d9a_d74ea032",
@@ -43,6 +67,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "28333e5b_8e971aa3",
+        "filename": "redfish-core/ut/json_utils_test.cpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2022-01-21T10:59:30Z",
+      "side": 1,
+      "message": "testing it right now and it seems like it is failing on readAction which is not expected.\n\nfixing that now.",
+      "parentUuid": "d1908d9a_d74ea032",
+      "revId": "7d14a2446899b83fbfde3f2bed6253d4a8d901e0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "211faa7a_cf915969",
         "filename": "redfish-core/ut/json_utils_test.cpp",
         "patchSetId": 16
@@ -54,6 +96,30 @@
       "writtenOn": "2022-01-12T19:30:58Z",
       "side": 1,
       "message": "nit, please use explicit sized types.  sizeof(int) changes between 64 bit and 32 bit, and nlohmann uses int64_t in both architectures, so that\u0027s probably what we should use here.",
+      "range": {
+        "startLine": 33,
+        "startChar": 4,
+        "endLine": 33,
+        "endChar": 7
+      },
+      "revId": "7d14a2446899b83fbfde3f2bed6253d4a8d901e0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "33096989_b5437f65",
+        "filename": "redfish-core/ut/json_utils_test.cpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2022-01-21T10:59:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "211faa7a_cf915969",
       "range": {
         "startLine": 33,
         "startChar": 4,
@@ -87,6 +153,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5fa09532_01c19f3a",
+        "filename": "redfish-core/ut/json_utils_test.cpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2022-01-21T10:59:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b914a10c_9354362b",
+      "range": {
+        "startLine": 34,
+        "startChar": 20,
+        "endLine": 34,
+        "endChar": 26
+      },
+      "revId": "7d14a2446899b83fbfde3f2bed6253d4a8d901e0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "212d4725_9e64a518",
@@ -100,6 +190,30 @@
       "writtenOn": "2022-01-12T19:30:58Z",
       "side": 1,
       "message": "nit on test naming, This expect isn\u0027t really a missing element test, this is an extra element test.",
+      "range": {
+        "startLine": 36,
+        "startChar": 0,
+        "endLine": 36,
+        "endChar": 70
+      },
+      "revId": "7d14a2446899b83fbfde3f2bed6253d4a8d901e0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "02a28794_ae7c78ee",
+        "filename": "redfish-core/ut/json_utils_test.cpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2022-01-21T10:59:30Z",
+      "side": 1,
+      "message": "ah, right. Seems like I grouped a bunch of different failure cases into one. I\u0027ll split them out.",
+      "parentUuid": "212d4725_9e64a518",
       "range": {
         "startLine": 36,
         "startChar": 0,
@@ -133,6 +247,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "32ccb938_0d4c18f7",
+        "filename": "redfish-core/ut/json_utils_test.cpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2022-01-21T10:59:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0cac29a7_cf761800",
+      "range": {
+        "startLine": 37,
+        "startChar": 0,
+        "endLine": 37,
+        "endChar": 67
+      },
+      "revId": "7d14a2446899b83fbfde3f2bed6253d4a8d901e0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "01f38b8d_b663a17d",
@@ -146,6 +284,30 @@
       "writtenOn": "2022-01-12T19:30:58Z",
       "side": 1,
       "message": "That\u0027s super cool syntax.  I didn\u0027t know that existed.",
+      "range": {
+        "startLine": 47,
+        "startChar": 0,
+        "endLine": 51,
+        "endChar": 12
+      },
+      "revId": "7d14a2446899b83fbfde3f2bed6253d4a8d901e0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3ec22908_117ea018",
+        "filename": "redfish-core/ut/json_utils_test.cpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2022-01-21T10:59:30Z",
+      "side": 1,
+      "message": "yep, documented in https://github.com/nlohmann/json#tofrom-strings",
+      "parentUuid": "01f38b8d_b663a17d",
       "range": {
         "startLine": 47,
         "startChar": 0,
