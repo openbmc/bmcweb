@@ -91,6 +91,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "51aab902_fd6120e4",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-01-21T22:47:20Z",
+      "side": 1,
+      "message": "\u003e Please tell me what kind of testing results you want from me.\n\nI will answer your question with another question.  How do you know that this code works and is bug free?  That question should be answered by your commit message in the Tested section.  Generally, yes, it involves some amount of playing with the API to ensure that it functions as designed.\n\n\u003e I\u0027ve just sent a patch so that it wouldn\u0027t silently ignore the requests to set it too low: https://gerrit.openbmc-project.xyz/c/openbmc/phosphor-user-manager/+/50589 ,\n\nYou should mention this in your commit message.",
+      "parentUuid": "71a548ce_46376732",
+      "revId": "30895bb38144e453755a244a0a303e1fc1769d3d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "2103a153_024071e1",
         "filename": "redfish-core/lib/account_service.hpp",
         "patchSetId": 1
@@ -120,6 +138,24 @@
       "side": 1,
       "message": "Yes. Do I need to send this as a separate commit with an explanatory commit message?",
       "parentUuid": "2103a153_024071e1",
+      "revId": "30895bb38144e453755a244a0a303e1fc1769d3d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cd68713e_e8e17745",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1392,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-01-21T22:47:20Z",
+      "side": 1,
+      "message": "No, considering this is just taking it back to the documented interface, I think a comment on the review is fine.",
+      "parentUuid": "ffbb018b_2e665c7a",
       "revId": "30895bb38144e453755a244a0a303e1fc1769d3d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
