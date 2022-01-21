@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f85aeb18_81066f22",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000936
+      },
+      "writtenOn": "2022-01-21T20:43:25Z",
+      "side": 1,
+      "message": "OK, I\u0027ll mention that it\u0027s not readonly in the official schema in the next version.",
+      "parentUuid": "0ae370fc_6eec5641",
+      "revId": "30895bb38144e453755a244a0a303e1fc1769d3d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "0ba941a5_d114d35a",
         "filename": "/COMMIT_MSG",
         "patchSetId": 1
@@ -37,6 +55,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "453d03d6_fcb988de",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000936
+      },
+      "writtenOn": "2022-01-21T20:43:25Z",
+      "side": 1,
+      "message": "Please tell me what kind of testing results you want from me. Am I supposed to run Validator for a change like that? Or would showing a curl command and saying \"it worked\" be good enough?\n\nThe limit is enforced by phosphor-user-manager (hardcoded to 8), and I\u0027ve just sent a patch so that it wouldn\u0027t silently ignore the requests to set it too low: https://gerrit.openbmc-project.xyz/c/openbmc/phosphor-user-manager/+/50589 , with that I\u0027m getting InternalError if I go below 8.",
+      "parentUuid": "0ba941a5_d114d35a",
+      "revId": "30895bb38144e453755a244a0a303e1fc1769d3d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "2103a153_024071e1",
         "filename": "redfish-core/lib/account_service.hpp",
         "patchSetId": 1
@@ -48,6 +84,24 @@
       "writtenOn": "2022-01-21T20:23:21Z",
       "side": 1,
       "message": "https://github.com/openbmc/phosphor-dbus-interfaces/blob/08baf48ad5f15774d393fbbf4e9479a0ef3e82d0/yaml/xyz/openbmc_project/User/AccountPolicy.interface.yaml#L24 \nI guess that is why this changed",
+      "revId": "30895bb38144e453755a244a0a303e1fc1769d3d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ffbb018b_2e665c7a",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1392,
+      "author": {
+        "id": 1000936
+      },
+      "writtenOn": "2022-01-21T20:43:25Z",
+      "side": 1,
+      "message": "Yes. Do I need to send this as a separate commit with an explanatory commit message?",
+      "parentUuid": "2103a153_024071e1",
       "revId": "30895bb38144e453755a244a0a303e1fc1769d3d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
