@@ -52,6 +52,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "86ba82e5_37e8d445",
+        "filename": "include/google/google_service_root.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1001021
+      },
+      "writtenOn": "2022-01-22T01:11:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "167fdd78_99646dd6",
+      "revId": "6aab5b36b53fe923004e0251d7fc49f87a8bfec9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d908fe33_9688eb84",
@@ -65,6 +83,24 @@
       "writtenOn": "2022-01-21T20:50:19Z",
       "side": 1,
       "message": "GoogleRootOfTrust? Follow the other types? e.g. GoogleChassis",
+      "revId": "6aab5b36b53fe923004e0251d7fc49f87a8bfec9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8eb8ef6e_d7e81014",
+        "filename": "include/google/google_service_root.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1001021
+      },
+      "writtenOn": "2022-01-22T01:11:01Z",
+      "side": 1,
+      "message": "I think we ought to change GoogleRootOfTrust and others since it is a stutter with \u0027google/v1\u0027. Will keep it RootOfTrust here.",
+      "parentUuid": "d908fe33_9688eb84",
       "revId": "6aab5b36b53fe923004e0251d7fc49f87a8bfec9",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -86,6 +122,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "81593223_4a839a52",
+        "filename": "include/google/google_service_root.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1001021
+      },
+      "writtenOn": "2022-01-22T01:11:01Z",
+      "side": 1,
+      "message": "Great advice. Command sounds straightforward. From the definition, we can know it accepts bytes.",
+      "parentUuid": "a0f9dc5e_bb006208",
+      "revId": "6aab5b36b53fe923004e0251d7fc49f87a8bfec9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bd2fbc10_d8d90ec3",
@@ -99,6 +153,24 @@
       "writtenOn": "2022-01-21T20:50:19Z",
       "side": 1,
       "message": "There is a ActionParameterMissing https://redfish.dmtf.org/registries/Base.1.12.0.json \n\n\"Indicates that the action requested was missing a parameter that is required to process the action.\"\n\nDon\u0027t you want a check for if RequestBytes is missing / empty and throw something similar to that back?",
+      "revId": "6aab5b36b53fe923004e0251d7fc49f87a8bfec9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "18aca985_14996793",
+        "filename": "include/google/google_service_root.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1001021
+      },
+      "writtenOn": "2022-01-22T01:11:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bd2fbc10_d8d90ec3",
       "revId": "6aab5b36b53fe923004e0251d7fc49f87a8bfec9",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -120,6 +192,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "dc50bba8_94c58a76",
+        "filename": "include/google/google_service_root.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 1001021
+      },
+      "writtenOn": "2022-01-22T01:11:01Z",
+      "side": 1,
+      "message": "This is still internal at Google. But in the process of upstreaming. Errors are reported in ResponseBytes.",
+      "parentUuid": "1080da10_ccb7880e",
+      "revId": "6aab5b36b53fe923004e0251d7fc49f87a8bfec9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "dca89b98_861039a9",
@@ -137,6 +227,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "bcaf115e_95d897e1",
+        "filename": "static/google/v1/schema/RootOfTrust_v1.xml",
+        "patchSetId": 4
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1001021
+      },
+      "writtenOn": "2022-01-22T01:11:01Z",
+      "side": 1,
+      "message": "Does \"Nullable\u003d\u0027false\u0027\" make it required?",
+      "parentUuid": "dca89b98_861039a9",
+      "revId": "6aab5b36b53fe923004e0251d7fc49f87a8bfec9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d3c3e8f5_8d2ad2a7",
@@ -150,6 +258,24 @@
       "writtenOn": "2022-01-21T20:50:19Z",
       "side": 1,
       "message": "You could add a bit more here about the format. E.g. \n\"The string should be space delimited, hexadecimal ...\"",
+      "revId": "6aab5b36b53fe923004e0251d7fc49f87a8bfec9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e75d1fef_2a91c436",
+        "filename": "static/google/v1/schema/RootOfTrust_v1.xml",
+        "patchSetId": 4
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1001021
+      },
+      "writtenOn": "2022-01-22T01:11:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d3c3e8f5_8d2ad2a7",
       "revId": "6aab5b36b53fe923004e0251d7fc49f87a8bfec9",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
