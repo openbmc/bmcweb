@@ -127,6 +127,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "3aa48641_5121c211",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-01-24T19:22:26Z",
+      "side": 1,
+      "message": "\u003e \u003e \u003e Please tell me what kind of testing results you want from me.\n\u003e \u003e \n\u003e \u003e I will answer your question with another question.  How do you know that this code works and is bug free?\n\u003e \n\u003e Now this brings an interesting twist to the topic because /my/ answer would indeed differ fundamentally.\n\u003e \n\u003e When seeing a patch like that I would assume (as that is /usually/ the case) that the contributor has performed at least basic smoke testing confirming the code works as intended, so that goes without saying.\n\nRelying on assumptions is error prone.  Explicitly stating things saves time in the long run, and helps other people to replicate your results.  They should be seen as a form of documentation.\n\n\u003e An exception to that would be noted by commit message having something like \"RFC only: this breaks this and that for reasons unknown, please help me figure it out\" or \"Compile-tested only\" or \"Tested on X; should work the same on Y and Z for /reasons/\".\n\nIt would be nice if we could make that assumption on OpenBMC, and maybe that\u0027s how it works on other projects, but a significant portion of committers don\u0027t appropriately test their patches, and lead to regressions as a result, which takes away maintainer time from reviewing patches and getting them on master, which hurts the projects velocity overall.  This is why the tested statement rule exists, and helps to spread the testing load out.  If bmcweb/redfish had a more extensively used testing harness, and code was required to come with unit tests, this rule would likely be moot, but as it stands today, it saves time for the overall project in not chasing down regressions.\n\n\u003e \n\u003e I can also imagine how adding basic testing results not only clutters the commit log with trivialities but might lure the reviewers onto the wrong thought train (following the potentially erroneous author\u0027s logic) and I guess you know how hard it is to stop and look around properly when you\u0027re already going via a bad path.\n\nOn the opposite note from this, it\u0027s quite useful at times, as it can make very apparent that the level of testing wasn\u0027t quite enough, or needs to run other things.  For example, on this commit, running the service validator is kind of useless, because it only does GETs and you\u0027ve made modifications to PATCH, so if that was the only thing listed as being tested, it\u0027s relatively easy to ask for more.  Those kind of things are much easier to point out in a tested statement than in code.\n\n\u003e \n\u003e I understand you have good reasons to roll it differently, just wanted to note that it\u0027s not necessarily based on assumptions valid and natural for all free software developers.\n\n\nI\u0027m happy to continue to have this discussion, but not in the context of this patchset.  It looks like you\u0027ve added a tested statement, so that\u0027s good.  I will try to re-review this patchset soon.",
+      "parentUuid": "d94cdda9_6a15fc7b",
+      "revId": "30895bb38144e453755a244a0a303e1fc1769d3d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "2103a153_024071e1",
         "filename": "redfish-core/lib/account_service.hpp",
         "patchSetId": 1
