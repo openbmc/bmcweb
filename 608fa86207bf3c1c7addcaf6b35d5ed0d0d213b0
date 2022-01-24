@@ -52,6 +52,24 @@
       "parentUuid": "69f345fa_62a0ddf1",
       "revId": "608fa86207bf3c1c7addcaf6b35d5ed0d0d213b0",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "db9d5266_eebc3eae",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1917,
+      "author": {
+        "id": 1000404
+      },
+      "writtenOn": "2022-01-24T02:35:07Z",
+      "side": 1,
+      "message": "Thank you for the detail information, it help me a lot! Once I finish the schema I will upload it soon.",
+      "parentUuid": "819d771e_8a09a764",
+      "revId": "608fa86207bf3c1c7addcaf6b35d5ed0d0d213b0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
