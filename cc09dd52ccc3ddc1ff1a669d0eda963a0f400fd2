@@ -1,6 +1,7 @@
 {
   "comments": [
     {
+      "unresolved": true,
       "key": {
         "uuid": "032d02b5_0c9a4ded",
         "filename": "/COMMIT_MSG",
@@ -20,10 +21,10 @@
         "endChar": 11
       },
       "revId": "cc09dd52ccc3ddc1ff1a669d0eda963a0f400fd2",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "44d6be9c_5c318ce3",
         "filename": "/COMMIT_MSG",
@@ -44,10 +45,10 @@
         "endChar": 11
       },
       "revId": "cc09dd52ccc3ddc1ff1a669d0eda963a0f400fd2",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "34f3d48c_56e81d72",
         "filename": "/COMMIT_MSG",
@@ -68,10 +69,10 @@
         "endChar": 11
       },
       "revId": "cc09dd52ccc3ddc1ff1a669d0eda963a0f400fd2",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "f1c8aa33_c622e190",
         "filename": "/COMMIT_MSG",
@@ -91,10 +92,10 @@
         "endChar": 66
       },
       "revId": "cc09dd52ccc3ddc1ff1a669d0eda963a0f400fd2",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "a5e7a660_e0041fa6",
         "filename": "/COMMIT_MSG",
@@ -115,10 +116,34 @@
         "endChar": 66
       },
       "revId": "cc09dd52ccc3ddc1ff1a669d0eda963a0f400fd2",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "777cf23a_f7741b4c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1001099
+      },
+      "writtenOn": "2022-01-24T20:08:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a5e7a660_e0041fa6",
+      "range": {
+        "startLine": 13,
+        "startChar": 60,
+        "endLine": 13,
+        "endChar": 66
+      },
+      "revId": "cc09dd52ccc3ddc1ff1a669d0eda963a0f400fd2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
       "key": {
         "uuid": "34ef5110_7074d6cc",
         "filename": "/COMMIT_MSG",
@@ -132,10 +157,10 @@
       "side": 1,
       "message": "Remove one of these",
       "revId": "cc09dd52ccc3ddc1ff1a669d0eda963a0f400fd2",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "fa001704_6acff387",
         "filename": "/COMMIT_MSG",
@@ -150,10 +175,10 @@
       "message": "Done",
       "parentUuid": "34ef5110_7074d6cc",
       "revId": "cc09dd52ccc3ddc1ff1a669d0eda963a0f400fd2",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "3af2ce70_2a28b098",
         "filename": "meson.build",
@@ -173,10 +198,10 @@
         "endChar": 5
       },
       "revId": "cc09dd52ccc3ddc1ff1a669d0eda963a0f400fd2",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "81aa7be2_e29a4c0a",
         "filename": "meson.build",
@@ -197,8 +222,7 @@
         "endChar": 5
       },
       "revId": "cc09dd52ccc3ddc1ff1a669d0eda963a0f400fd2",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
