@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dfd2f53a_2f455b8a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-01-24T20:10:41Z",
+      "side": 1,
+      "message": "I realize that this is a WIP, but it seems like it would fit within the newly added DiagnosticData schemas within upstream Redfish, which are intended for exactly this kind of information.  It seems odd we would have these in OEM schemas.\n\nPlease also read and understand https://github.com/openbmc/bmcweb/blob/master/OEM_SCHEMAS.md\n\nSo there are no surprises when this goes out for actual review.",
+      "range": {
+        "startLine": 39,
+        "startChar": 0,
+        "endLine": 44,
+        "endChar": 28
+      },
+      "revId": "72492569b945efec2cb16d3d75cd3bcbd49f9aec",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
