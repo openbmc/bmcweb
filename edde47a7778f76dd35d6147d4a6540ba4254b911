@@ -1,6 +1,7 @@
 {
   "comments": [
     {
+      "unresolved": true,
       "key": {
         "uuid": "a3988604_de66baa3",
         "filename": "/COMMIT_MSG",
@@ -20,10 +21,10 @@
         "endChar": 29
       },
       "revId": "edde47a7778f76dd35d6147d4a6540ba4254b911",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "25481db8_7bac4496",
         "filename": "/COMMIT_MSG",
@@ -44,10 +45,10 @@
         "endChar": 29
       },
       "revId": "edde47a7778f76dd35d6147d4a6540ba4254b911",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "92b691f8_fd1c1ab0",
         "filename": "/COMMIT_MSG",
@@ -68,10 +69,10 @@
         "endChar": 29
       },
       "revId": "edde47a7778f76dd35d6147d4a6540ba4254b911",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "1c8c3de9_9f8727d3",
         "filename": "/COMMIT_MSG",
@@ -92,10 +93,10 @@
         "endChar": 29
       },
       "revId": "edde47a7778f76dd35d6147d4a6540ba4254b911",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "3c52a8db_27b09e99",
         "filename": "/COMMIT_MSG",
@@ -116,10 +117,10 @@
         "endChar": 29
       },
       "revId": "edde47a7778f76dd35d6147d4a6540ba4254b911",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "2b8957f6_17d51f42",
         "filename": "redfish-core/lib/assembly.hpp",
@@ -133,8 +134,25 @@
       "side": 1,
       "message": "nit : Instead using magic number (7) ,can we use enumeration of it for readability of code ..?",
       "revId": "edde47a7778f76dd35d6147d4a6540ba4254b911",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "59850cba_a1c5001d",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 204,
+      "author": {
+        "id": 1001099
+      },
+      "writtenOn": "2022-01-24T15:49:38Z",
+      "side": 1,
+      "message": "In async_method_call, for dbus API, we need to pass an array to retrieve data.\n\nSO I think here I need to use that number 7. \n\nSorry to say, can you give me an example?",
+      "parentUuid": "2b8957f6_17d51f42",
+      "revId": "edde47a7778f76dd35d6147d4a6540ba4254b911",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
