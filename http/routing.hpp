@@ -673,9 +673,10 @@ class Trie
 
         bool isSimpleNode() const
         {
-            return !ruleIndex && std::all_of(std::begin(paramChildrens),
-                                             std::end(paramChildrens),
-                                             [](size_t x) { return !x; });
+            return ruleIndex > 0 &&
+                   std::all_of(std::begin(paramChildrens),
+                               std::end(paramChildrens),
+                               [](size_t x) { return x == 0U; });
         }
     };
 
@@ -801,14 +802,14 @@ class Trie
 
         auto updateFound =
             [&found, &matchParams](std::pair<unsigned, RoutingParams>& ret) {
-                if (ret.first && (!found || found > ret.first))
+                if (ret.first != 0U && (found == 0U || found > ret.first))
                 {
                     found = ret.first;
                     matchParams = std::move(ret.second);
                 }
             };
 
-        if (node->paramChildrens[static_cast<size_t>(ParamType::INT)])
+        if (node->paramChildrens[static_cast<size_t>(ParamType::INT)] != 0U)
         {
             char c = reqUrl[pos];
             if ((c >= '0' && c <= '9') || c == '+' || c == '-')
@@ -831,7 +832,7 @@ class Trie
             }
         }
 
-        if (node->paramChildrens[static_cast<size_t>(ParamType::UINT)])
+        if (node->paramChildrens[static_cast<size_t>(ParamType::UINT)] != 0U)
         {
             char c = reqUrl[pos];
             if ((c >= '0' && c <= '9') || c == '+')
@@ -854,7 +855,7 @@ class Trie
             }
         }
 
-        if (node->paramChildrens[static_cast<size_t>(ParamType::DOUBLE)])
+        if (node->paramChildrens[static_cast<size_t>(ParamType::DOUBLE)] != 0U)
         {
             char c = reqUrl[pos];
             if ((c >= '0' && c <= '9') || c == '+' || c == '-' || c == '.')
@@ -876,7 +877,7 @@ class Trie
             }
         }
 
-        if (node->paramChildrens[static_cast<size_t>(ParamType::STRING)])
+        if (node->paramChildrens[static_cast<size_t>(ParamType::STRING)] != 0U)
         {
             size_t epos = pos;
             for (; epos < reqUrl.size(); epos++)
@@ -901,7 +902,7 @@ class Trie
             }
         }
 
-        if (node->paramChildrens[static_cast<size_t>(ParamType::PATH)])
+        if (node->paramChildrens[static_cast<size_t>(ParamType::PATH)] != 0U)
         {
             size_t epos = reqUrl.size();
 
@@ -960,7 +961,7 @@ class Trie
                     if (url.compare(i, x.second.size(), x.second) == 0)
                     {
                         size_t index = static_cast<size_t>(x.first);
-                        if (!nodes[idx].paramChildrens[index])
+                        if (nodes[idx].paramChildrens[index] == 0U)
                         {
                             unsigned newNodeIdx = newNode();
                             nodes[idx].paramChildrens[index] = newNodeIdx;
@@ -976,7 +977,7 @@ class Trie
             else
             {
                 std::string piece(&c, 1);
-                if (!nodes[idx].children.count(piece))
+                if (nodes[idx].children.count(piece) == 0U)
                 {
                     unsigned newNodeIdx = newNode();
                     nodes[idx].children.emplace(piece, newNodeIdx);
@@ -984,7 +985,7 @@ class Trie
                 idx = nodes[idx].children[piece];
             }
         }
-        if (nodes[idx].ruleIndex)
+        if (nodes[idx].ruleIndex != 0U)
         {
             throw std::runtime_error("handler already exists for " + url);
         }
@@ -996,7 +997,7 @@ class Trie
     {
         for (size_t i = 0; i < static_cast<size_t>(ParamType::MAX); i++)
         {
-            if (n->paramChildrens[i])
+            if (n->paramChildrens[i] != 0U)
             {
                 BMCWEB_LOG_DEBUG << std::string(
                     2U * level, ' ') /*<< "("<<n->paramChildrens[i]<<") "*/;
@@ -1097,7 +1098,7 @@ class Router
         for (size_t method = 0, methodBit = 1; method < maxHttpVerbCount;
              method++, methodBit <<= 1)
         {
-            if (ruleObject->methodsBitfield & methodBit)
+            if ((ruleObject->methodsBitfield & methodBit) > 0U)
             {
                 perMethods[method].rules.emplace_back(ruleObject);
                 perMethods[method].trie.add(
@@ -1153,7 +1154,7 @@ class Router
 
         const std::pair<unsigned, RoutingParams>& found = trie.find(req.url);
         unsigned ruleIndex = found.first;
-        if (!ruleIndex)
+        if (ruleIndex == 0U)
         {
             BMCWEB_LOG_DEBUG << "Cannot match rules " << req.url;
             res.result(boost::beast::http::status::not_found);
@@ -1246,7 +1247,7 @@ class Router
 
         unsigned ruleIndex = found.first;
 
-        if (!ruleIndex)
+        if (ruleIndex == 0U)
         {
             // Check to see if this url exists at any verb
             for (const PerMethod& p : perMethods)

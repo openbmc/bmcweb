@@ -1146,7 +1146,7 @@ inline void updateUserProperties(std::shared_ptr<bmcweb::AsyncResp> asyncResp,
         [dbusObjectPath, username, password(std::move(password)),
          roleId(std::move(roleId)), enabled, locked,
          asyncResp{std::move(asyncResp)}](int rc) {
-            if (!rc)
+            if (rc <= 0)
             {
                 messages::resourceNotFound(
                     asyncResp->res, "#ManagerAccount.v1_4_0.ManagerAccount",
@@ -1718,7 +1718,8 @@ inline void requestAccountServiceRoutes(App& app)
                             const std::pair<sdbusplus::message::object_path,
                                             dbus::utility::DBusInteracesMap>&
                                 user) {
-                            return !accountName.compare(user.first.filename());
+                            return accountName.compare(user.first.filename()) ==
+                                   0;
                         });
 
                     if (userIt == users.end())
