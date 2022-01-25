@@ -325,7 +325,7 @@ void dumpInteger(std::string& out, NumberType number)
     }
 
     // use a pointer to fill the buffer
-    auto bufferPtr = begin(numberbuffer);
+    auto* bufferPtr = begin(numberbuffer);
 
     const bool isNegative = std::is_same<NumberType, int64_t>::value &&
                             !(number >= 0); // see issue #755
@@ -364,18 +364,23 @@ void dumpInteger(std::string& out, NumberType number)
     {
         const auto digitsIndex = static_cast<unsigned>((absValue % 100));
         absValue /= 100;
+        // NOLINTNEXTLINE(cppcoreguidelines-pro-bounds-pointer-arithmetic)
         *(--bufferPtr) = digitsTo99[digitsIndex][1];
+        // NOLINTNEXTLINE(cppcoreguidelines-pro-bounds-pointer-arithmetic)
         *(--bufferPtr) = digitsTo99[digitsIndex][0];
     }
 
     if (absValue >= 10)
     {
         const auto digitsIndex = static_cast<unsigned>(absValue);
+        // NOLINTNEXTLINE(cppcoreguidelines-pro-bounds-pointer-arithmetic)
         *(--bufferPtr) = digitsTo99[digitsIndex][1];
+        // NOLINTNEXTLINE(cppcoreguidelines-pro-bounds-pointer-arithmetic)
         *(--bufferPtr) = digitsTo99[digitsIndex][0];
     }
     else
     {
+        // NOLINTNEXTLINE(cppcoreguidelines-pro-bounds-pointer-arithmetic)
         *(--bufferPtr) = static_cast<char>('0' + absValue);
     }
 
@@ -418,7 +423,7 @@ inline void dumpfloat(std::string& out, double number,
         return;
     }
 
-    const auto end =
+    const std::array<char, 64>::iterator end =
         std::remove(numberbuffer.begin(), numberbuffer.begin() + len, ',');
     std::fill(end, numberbuffer.end(), '\0');
 
