@@ -200,6 +200,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ea7a98c5_ba0bbb75",
+        "filename": "redfish-core/lib/external_storer_instance.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000520
+      },
+      "writtenOn": "2022-01-25T20:48:11Z",
+      "side": 1,
+      "message": "OK, will defer the \"purge oldest to keep memory under predefined limit\" feature, until a subsequent patch.",
+      "parentUuid": "d44e5a6a_6606956d",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 31
+      },
+      "revId": "5dbca30654472b4d0f440cccb42c1e3075be3a6a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9e6b3683_b17500e9",
@@ -261,6 +285,30 @@
       "side": 1,
       "message": "There\u0027s no need for a using definition, just put int64_t in the places you need it.",
       "parentUuid": "be9842cd_d5fe68f6",
+      "range": {
+        "startLine": 24,
+        "startChar": 6,
+        "endLine": 24,
+        "endChar": 12
+      },
+      "revId": "5dbca30654472b4d0f440cccb42c1e3075be3a6a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "69cd45f5_92d3af77",
+        "filename": "redfish-core/lib/external_storer_instance.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1000520
+      },
+      "writtenOn": "2022-01-25T20:48:11Z",
+      "side": 1,
+      "message": "Hmm, for type safety, and ease of making future changes, I\u0027d much rather wrap sequence number in a \"using\" typedef, instead of just having it be a bare integer. That will help catch bugs, make it easier to audit for correct semantic usage, and also make it easier to have it become a class if it needs to be in the future (for doing sequence number arithmetic and such).",
+      "parentUuid": "f515f663_ee14269c",
       "range": {
         "startLine": 24,
         "startChar": 6,
@@ -389,6 +437,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c52149e8_25d8439c",
+        "filename": "redfish-core/lib/external_storer_instance.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1000520
+      },
+      "writtenOn": "2022-01-25T20:48:11Z",
+      "side": 1,
+      "message": "I couldn\u0027t find this in the C++ guidelines. Have a link to it? I can remove the empty/default initializers if desired.",
+      "parentUuid": "ab380018_f852595e",
+      "range": {
+        "startLine": 34,
+        "startChar": 16,
+        "endLine": 34,
+        "endChar": 22
+      },
+      "revId": "5dbca30654472b4d0f440cccb42c1e3075be3a6a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d4ee3553_e4ac2a41",
@@ -460,6 +532,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8cc66d33_7e649b56",
+        "filename": "redfish-core/lib/external_storer_instance.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1000520
+      },
+      "writtenOn": "2022-01-25T20:48:11Z",
+      "side": 1,
+      "message": "These are only example values. In production code, these values will either come from the user (if it\u0027s a user-created ExternalStorer subdirectory), or these values will be hardcoded to better match the appropriate schema for their location.",
+      "parentUuid": "a91567b4_542000f2",
+      "range": {
+        "startLine": 46,
+        "startChar": 0,
+        "endLine": 52,
+        "endChar": 78
+      },
+      "revId": "5dbca30654472b4d0f440cccb42c1e3075be3a6a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "16b4b57f_fbf6591b",
@@ -521,6 +617,30 @@
       "side": 1,
       "message": "\u003e What else would it be?\n\nResources, Complex object types, or any of the subsidaries beneath those classes of object.",
       "parentUuid": "5ea93357_967d0501",
+      "range": {
+        "startLine": 56,
+        "startChar": 8,
+        "endLine": 56,
+        "endChar": 70
+      },
+      "revId": "5dbca30654472b4d0f440cccb42c1e3075be3a6a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "814ebdd9_88e95543",
+        "filename": "redfish-core/lib/external_storer_instance.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1000520
+      },
+      "writtenOn": "2022-01-25T20:48:11Z",
+      "side": 1,
+      "message": "Hmm, will have to talk about this more. I\u0027m not quite sure what you mean. I thought we were adding ExternalStorer instances to pre-existing Collection usages in Redfish, to avoid breaking existing schemas?",
+      "parentUuid": "695d3c2a_cf4ca54f",
       "range": {
         "startLine": 56,
         "startChar": 8,
@@ -649,6 +769,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1d7f981f_3369518b",
+        "filename": "redfish-core/lib/external_storer_instance.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1000520
+      },
+      "writtenOn": "2022-01-25T20:48:11Z",
+      "side": 1,
+      "message": "OK, I will change the TODO comment to mention that $expand handling will be added at a higher level, sometime in the future.",
+      "parentUuid": "260530c5_87436a16",
+      "range": {
+        "startLine": 60,
+        "startChar": 0,
+        "endLine": 60,
+        "endChar": 46
+      },
+      "revId": "5dbca30654472b4d0f440cccb42c1e3075be3a6a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d71a2e14_e8263141",
@@ -710,6 +854,30 @@
       "side": 1,
       "message": "\u003e Hmm, again I\u0027m not sure how a resource would not be a collection.\n\nIn CSDL, Resource and collection are different types.\n\n\u003e Uploading arbitrary standalone content seems beyond the scope of ExternalStorer, which is designed to let the user upload content and have that content become a member of a collection.\n\nI think we clarified this in person.  Let me know if this is still in question.",
       "parentUuid": "a2154304_50843152",
+      "range": {
+        "startLine": 65,
+        "startChar": 8,
+        "endLine": 65,
+        "endChar": 68
+      },
+      "revId": "5dbca30654472b4d0f440cccb42c1e3075be3a6a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dda9357e_c08ced88",
+        "filename": "redfish-core/lib/external_storer_instance.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1000520
+      },
+      "writtenOn": "2022-01-25T20:48:11Z",
+      "side": 1,
+      "message": "I\u0027m still confused here, maybe we should talk about it more. What\u0027s CSDL? I still am under the assumption that ExternalStorer works on JSON dictionaries, letting the user read and write them, exposing each of them as members of a Redfish Collection.",
+      "parentUuid": "56be5b2e_8a55487f",
       "range": {
         "startLine": 65,
         "startChar": 8,
@@ -791,6 +959,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6f5eccbf_e64ee88b",
+        "filename": "redfish-core/lib/external_storer_instance.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 249,
+      "author": {
+        "id": 1000520
+      },
+      "writtenOn": "2022-01-25T20:48:11Z",
+      "side": 1,
+      "message": "OK, will defer the \"purge oldest to keep memory under predefined limit\" feature, until a subsequent patch.\n\nI still want to know if there\u0027s a way in nlohmann::json to get the total size, in bytes, taken by a JSON object. I\u0027m using size() of the dumped string as a proxy here, which is incorrect, but all I could find to work with.",
+      "parentUuid": "0fbdcd20_8a4965bc",
+      "range": {
+        "startLine": 249,
+        "startChar": 0,
+        "endLine": 249,
+        "endChar": 68
+      },
+      "revId": "5dbca30654472b4d0f440cccb42c1e3075be3a6a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cd9a4197_d368a768",
@@ -852,6 +1044,30 @@
       "side": 1,
       "message": "There are several examples in the codebase of how to do this, and this one is called out by name in common_errors.",
       "parentUuid": "b86e9aec_897d6b9a",
+      "range": {
+        "startLine": 254,
+        "startChar": 0,
+        "endLine": 259,
+        "endChar": 9
+      },
+      "revId": "5dbca30654472b4d0f440cccb42c1e3075be3a6a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "874c5b09_00773fa1",
+        "filename": "redfish-core/lib/external_storer_instance.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 259,
+      "author": {
+        "id": 1000520
+      },
+      "writtenOn": "2022-01-25T20:48:11Z",
+      "side": 1,
+      "message": "I don\u0027t think dump() has a non-throwing alternative, unfortunately. If you can find one, let me know. I\u0027m using a minimal try/catch block here that doesn\u0027t permit the exception to escape the block. This should minimize the blast radius of any throwing.",
+      "parentUuid": "be8f0962_47cd42f7",
       "range": {
         "startLine": 254,
         "startChar": 0,
@@ -933,6 +1149,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6b0c5f6f_5cfe9fad",
+        "filename": "redfish-core/lib/external_storer_instance.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 261,
+      "author": {
+        "id": 1000520
+      },
+      "writtenOn": "2022-01-25T20:48:11Z",
+      "side": 1,
+      "message": "OK, I will allow empty objects.",
+      "parentUuid": "a455d821_bb18c1e9",
+      "range": {
+        "startLine": 261,
+        "startChar": 11,
+        "endLine": 261,
+        "endChar": 55
+      },
+      "revId": "5dbca30654472b4d0f440cccb42c1e3075be3a6a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "919d538e_9d4056b1",
@@ -1004,6 +1244,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "500b5811_82ad4c1b",
+        "filename": "redfish-core/lib/external_storer_instance.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 262,
+      "author": {
+        "id": 1000520
+      },
+      "writtenOn": "2022-01-25T20:48:11Z",
+      "side": 1,
+      "message": "OK, will check it. The intention is to make sure the user is passing in a JSON dictionary, and not any other kind of JSON data type.\n\nIn \"all endpoints return an object\", for \"object\" do you mean \"JSON dictionary\", or do you mean something else?",
+      "parentUuid": "935f2815_70d28316",
+      "range": {
+        "startLine": 262,
+        "startChar": 0,
+        "endLine": 262,
+        "endChar": 45
+      },
+      "revId": "5dbca30654472b4d0f440cccb42c1e3075be3a6a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a8177d55_0ff11559",
@@ -1065,6 +1329,30 @@
       "side": 1,
       "message": "\u003e How else would they be sequenced by? Please provide some detail to as to how this would work. Would they be alphabetical strings?\n\nThey wouldn\u0027t be sequenced at all generally.",
       "parentUuid": "65974450_4ce8b0ea",
+      "range": {
+        "startLine": 293,
+        "startChar": 25,
+        "endLine": 293,
+        "endChar": 31
+      },
+      "revId": "5dbca30654472b4d0f440cccb42c1e3075be3a6a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3b953847_ce1df488",
+        "filename": "redfish-core/lib/external_storer_instance.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 293,
+      "author": {
+        "id": 1000520
+      },
+      "writtenOn": "2022-01-25T20:48:11Z",
+      "side": 1,
+      "message": "I have proposed a new feature for storing unsequenced data. I called it \"Mailbox Mode\", and it is addressed by string ID, not by numeric ID. Would this meet your needs?",
+      "parentUuid": "c90c0b7d_86df2d46",
       "range": {
         "startLine": 293,
         "startChar": 25,
@@ -1193,6 +1481,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c6d5fc9a_38f5270b",
+        "filename": "redfish-core/lib/external_storer_instance.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 304,
+      "author": {
+        "id": 1000520
+      },
+      "writtenOn": "2022-01-25T20:48:11Z",
+      "side": 1,
+      "message": "The goal is that the user\u0027s usage of the trailing slash would be optional.\n\nI removed this block of code, that auto-added the slash when necessary. In doing so, it made the URL acceptance much more brittle. It broke that goal.",
+      "parentUuid": "d0d5ab1b_d7db078e",
+      "range": {
+        "startLine": 304,
+        "startChar": 11,
+        "endLine": 304,
+        "endChar": 56
+      },
+      "revId": "5dbca30654472b4d0f440cccb42c1e3075be3a6a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8ad48462_b2f9239f",
@@ -1264,6 +1576,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8cd51c75_028d9d3e",
+        "filename": "redfish-core/lib/external_storer_instance.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 340,
+      "author": {
+        "id": 1000520
+      },
+      "writtenOn": "2022-01-25T20:48:11Z",
+      "side": 1,
+      "message": "OK, will defer the \"purge oldest to keep memory under predefined limit\" feature, until a subsequent patch.",
+      "parentUuid": "a9e5523d_2ed212b4",
+      "range": {
+        "startLine": 329,
+        "startChar": 0,
+        "endLine": 340,
+        "endChar": 5
+      },
+      "revId": "5dbca30654472b4d0f440cccb42c1e3075be3a6a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "50fdbfcb_861e13c3",
@@ -1325,6 +1661,30 @@
       "side": 1,
       "message": "The code is correct without mutexes, given it\u0027s only being called from a single threaded context.  If bmcweb starts supporting multi-threading, that will be much biggger task than any individual subsystem, so for the moment, lets remove it.  Jun is incorrect that mutexes are needed here.  There is only 1 thread.",
       "parentUuid": "60ed195d_f69958e5",
+      "range": {
+        "startLine": 361,
+        "startChar": 0,
+        "endLine": 361,
+        "endChar": 20
+      },
+      "revId": "5dbca30654472b4d0f440cccb42c1e3075be3a6a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e830c843_4bff5b45",
+        "filename": "redfish-core/lib/external_storer_instance.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 361,
+      "author": {
+        "id": 1000520
+      },
+      "writtenOn": "2022-01-25T20:48:11Z",
+      "side": 1,
+      "message": "OK, sounds reasonable, I will remove locking, under the assumption that BmcWeb is only single-threaded and will remain that way for some time.",
+      "parentUuid": "1a5a81e1_9926e8b3",
       "range": {
         "startLine": 361,
         "startChar": 0,
