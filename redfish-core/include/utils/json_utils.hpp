@@ -335,8 +335,8 @@ bool unpackValue(nlohmann::json& jsonValue, const std::string& key, Type& value)
 }
 
 template <size_t Count, size_t Index>
-bool readJsonValues(const std::string& key, nlohmann::json&,
-                    crow::Response& res, std::bitset<Count>&)
+bool readJsonValues(const std::string& key, nlohmann::json& /*jsonValue*/,
+                    crow::Response& res, std::bitset<Count>& /*handled*/)
 {
     BMCWEB_LOG_DEBUG << "Unable to find variable for key" << key;
     messages::propertyUnknown(res, key);
@@ -368,7 +368,7 @@ bool readJsonValues(const std::string& key, nlohmann::json& jsonValue,
 }
 
 template <size_t Index = 0, size_t Count>
-bool handleMissing(std::bitset<Count>&, crow::Response&)
+bool handleMissing(std::bitset<Count>& /*handled*/, crow::Response& /*res*/)
 {
     return true;
 }
@@ -376,7 +376,8 @@ bool handleMissing(std::bitset<Count>&, crow::Response&)
 template <size_t Index = 0, size_t Count, typename ValueType,
           typename... UnpackTypes>
 bool handleMissing(std::bitset<Count>& handled, crow::Response& res,
-                   const char* key, ValueType&, UnpackTypes&... in)
+                   const char* key, ValueType& /*unusedValue*/,
+                   UnpackTypes&... in)
 {
     bool ret = true;
     if (!handled.test(Index) && !IsOptional<ValueType>::value)
