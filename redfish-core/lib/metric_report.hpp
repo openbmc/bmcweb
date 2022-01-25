@@ -22,7 +22,7 @@ inline nlohmann::json toMetricValues(const Readings& readings)
 {
     nlohmann::json metricValues = nlohmann::json::array_t();
 
-    for (auto& [id, metadata, sensorValue, timestamp] : readings)
+    for (const auto& [id, metadata, sensorValue, timestamp] : readings)
     {
         metricValues.push_back({
             {"MetricId", id},

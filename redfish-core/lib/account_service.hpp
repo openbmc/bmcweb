@@ -185,7 +185,7 @@ inline void parseLDAPConfigData(nlohmann::json& jsonResponse,
 
     nlohmann::json& roleMapArray = jsonResponse[ldapType]["RemoteRoleMapping"];
     roleMapArray = nlohmann::json::array();
-    for (auto& obj : confData.groupRoleList)
+    for (const auto& obj : confData.groupRoleList)
     {
         BMCWEB_LOG_DEBUG << "Pushing the data groupName="
                          << obj.second.groupName << "\n";
@@ -1526,7 +1526,7 @@ inline void requestAccountServiceRoutes(App& app)
                             asyncResp->res.jsonValue["Members"];
                         memberArray = nlohmann::json::array();
 
-                        for (auto& userpath : users)
+                        for (const auto& userpath : users)
                         {
                             std::string user = userpath.first.filename();
                             if (user.empty())

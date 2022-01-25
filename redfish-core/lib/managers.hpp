@@ -1214,7 +1214,7 @@ struct GetPIDValues : std::enable_shared_from_this<GetPIDValues>
                         }
                         const std::string* current = nullptr;
                         const std::vector<std::string>* supported = nullptr;
-                        for (auto& [key, value] : resp)
+                        for (const auto& [key, value] : resp)
                         {
                             if (key == "Current")
                             {
@@ -1439,7 +1439,7 @@ struct SetPIDValues : std::enable_shared_from_this<SetPIDValues>
                         }
                         const std::string* current = nullptr;
                         const std::vector<std::string>* supported = nullptr;
-                        for (auto& [key, value] : r)
+                        for (const auto& [key, value] : r)
                         {
                             if (key == "Current")
                             {

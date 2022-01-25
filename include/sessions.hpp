@@ -353,7 +353,7 @@ class SessionStore
         return authMethodsConfig;
     }
 
-    bool needsWrite()
+    bool needsWrite() const
     {
         return needWrite;
     }

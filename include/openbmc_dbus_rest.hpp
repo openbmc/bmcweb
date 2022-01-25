@@ -2232,7 +2232,7 @@ inline void requestRoutes(App& app)
                 }
                 std::filesystem::directory_iterator files(loc);
 
-                for (auto& file : files)
+                for (const auto& file : files)
                 {
                     std::ifstream readFile(file.path());
                     if (!readFile.good())

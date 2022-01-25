@@ -48,7 +48,7 @@ struct RoutingParams
             std::cerr << i << ", ";
         }
         std::cerr << std::endl;
-        for (auto& i : stringParams)
+        for (const std::string& i : stringParams)
         {
             std::cerr << i << ", ";
         }
