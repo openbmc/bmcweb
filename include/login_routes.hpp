@@ -253,7 +253,6 @@ inline void requestRoutes(App& app)
                     persistent_data::SessionStore::getInstance().removeSession(
                         session);
                 }
-                return;
             });
 }
 } // namespace login_routes
