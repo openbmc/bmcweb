@@ -305,7 +305,7 @@ inline bool isMethodAllowedWithPrivileges(const boost::beast::http::verb method,
  */
 inline bool isMethodAllowedForUser(const boost::beast::http::verb method,
                                    const OperationMap& operationMap,
-                                   const std::string&)
+                                   const std::string& /*unused*/)
 {
     // TODO: load user privileges from configuration as soon as its available
     // now we are granting all privileges to everyone.
