@@ -55,7 +55,7 @@ inline void
         aResp->res.jsonValue["MemorySummary"]["Status"]["State"];
     if (prevMemSummary == "Disabled")
     {
-        if (isDimmFunctional == true)
+        if (isDimmFunctional)
         {
             aResp->res.jsonValue["MemorySummary"]["Status"]["State"] =
                 "Enabled";
@@ -114,7 +114,7 @@ inline void
     // Functional.
     if (prevProcState == "Disabled")
     {
-        if (isCpuFunctional == true)
+        if (isCpuFunctional)
         {
             aResp->res.jsonValue["ProcessorSummary"]["Status"]["State"] =
                 "Enabled";
@@ -1129,7 +1129,7 @@ inline void getAutomaticRetry(const std::shared_ptr<bmcweb::AsyncResp>& aResp)
             }
 
             BMCWEB_LOG_DEBUG << "Auto Reboot: " << autoRebootEnabled;
-            if (autoRebootEnabled == true)
+            if (autoRebootEnabled)
             {
                 aResp->res.jsonValue["Boot"]["AutomaticRetryConfig"] =
                     "RetryAttempts";
@@ -2490,7 +2490,7 @@ inline void getIdlePowerSaver(const std::shared_ptr<bmcweb::AsyncResp>& aResp)
                         return;
                     }
 
-                    if (parseIpsProperties(aResp, properties) == false)
+                    if (!parseIpsProperties(aResp, properties))
                     {
                         messages::internalError(aResp->res);
                         return;

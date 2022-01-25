@@ -77,7 +77,7 @@ class ConnectionImpl : public Connection
         std::function<void(Connection&, const std::string&)> closeHandler,
         std::function<void(Connection&)> errorHandler) :
         Connection(reqIn, reqIn.session->username),
-        ws(std::move(adaptorIn)), inString(), inBuffer(inString, 131088),
+        ws(std::move(adaptorIn)), inBuffer(inString, 131088),
         openHandler(std::move(openHandler)),
         messageHandler(std::move(messageHandler)),
         closeHandler(std::move(closeHandler)),

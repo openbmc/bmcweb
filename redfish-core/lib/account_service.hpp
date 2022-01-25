@@ -1191,7 +1191,7 @@ inline void updateUserProperties(std::shared_ptr<bmcweb::AsyncResp> asyncResp,
                         messages::success(asyncResp->res);
                         return;
                     },
-                    "xyz.openbmc_project.User.Manager", dbusObjectPath.c_str(),
+                    "xyz.openbmc_project.User.Manager", dbusObjectPath,
                     "org.freedesktop.DBus.Properties", "Set",
                     "xyz.openbmc_project.User.Attributes", "UserEnabled",
                     dbus::utility::DbusVariantType{*enabled});
@@ -1221,7 +1221,7 @@ inline void updateUserProperties(std::shared_ptr<bmcweb::AsyncResp> asyncResp,
                         }
                         messages::success(asyncResp->res);
                     },
-                    "xyz.openbmc_project.User.Manager", dbusObjectPath.c_str(),
+                    "xyz.openbmc_project.User.Manager", dbusObjectPath,
                     "org.freedesktop.DBus.Properties", "Set",
                     "xyz.openbmc_project.User.Attributes", "UserPrivilege",
                     dbus::utility::DbusVariantType{priv});
@@ -1250,7 +1250,7 @@ inline void updateUserProperties(std::shared_ptr<bmcweb::AsyncResp> asyncResp,
                         messages::success(asyncResp->res);
                         return;
                     },
-                    "xyz.openbmc_project.User.Manager", dbusObjectPath.c_str(),
+                    "xyz.openbmc_project.User.Manager", dbusObjectPath,
                     "org.freedesktop.DBus.Properties", "Set",
                     "xyz.openbmc_project.User.Attributes",
                     "UserLockedForFailedAttempt",
