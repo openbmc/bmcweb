@@ -134,7 +134,7 @@ inline void
                     }
                     aResp->res.jsonValue["Inserted"] = *activeValue;
 
-                    if (*activeValue == true)
+                    if (*activeValue)
                     {
                         aResp->res.jsonValue["ConnectedVia"] = "Applet";
                     }
@@ -402,7 +402,7 @@ inline bool
     }
 
     // optional param inserted must be true
-    if ((inserted != std::nullopt) && (*inserted != true))
+    if ((inserted != std::nullopt) && !*inserted)
     {
         BMCWEB_LOG_ERROR
             << "Request action optional parameter Inserted must be true.";
@@ -816,7 +816,7 @@ inline void requestNBDVirtualMediaRoutes(App& app)
                     actionParams.inserted, actionParams.transferMethod,
                     actionParams.transferProtocolType);
 
-                if (paramsValid == false)
+                if (!paramsValid)
                 {
                     return;
                 }

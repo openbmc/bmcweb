@@ -681,7 +681,7 @@ inline void
                         entryID + "/attachment";
                 }
             }
-            if (foundDumpEntry == false)
+            if (!foundDumpEntry)
             {
                 BMCWEB_LOG_ERROR << "Can't find Dump Entry";
                 messages::internalError(asyncResp->res);
