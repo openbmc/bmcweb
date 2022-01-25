@@ -2355,7 +2355,7 @@ inline void requestEthernetInterfacesRoutes(App& app)
                     return;
                 }
                 // Need both vlanId and vlanEnable to service this request
-                if (vlanId == 0u)
+                if (vlanId == 0U)
                 {
                     messages::propertyMissing(asyncResp->res, "VLANId");
                 }

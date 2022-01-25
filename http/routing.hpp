@@ -688,7 +688,7 @@ class Trie
     {
         for (size_t x : node->paramChildrens)
         {
-            if (x == 0u)
+            if (x == 0U)
             {
                 continue;
             }
