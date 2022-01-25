@@ -16,6 +16,24 @@
       "message": "Hello there\n\nwhen I was rebasing from master I found some of your change affecting CI pipeline and that failed build process can you please fix this.",
       "revId": "e019368bfae1a93e6f5d4468f1356e022cbdc744",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3716b6d5_8d3b9cbe",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 14
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001099
+      },
+      "writtenOn": "2022-01-25T16:27:53Z",
+      "side": 1,
+      "message": "My change \nhttps://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/45938",
+      "parentUuid": "67c210ed_588f00f3",
+      "revId": "e019368bfae1a93e6f5d4468f1356e022cbdc744",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
