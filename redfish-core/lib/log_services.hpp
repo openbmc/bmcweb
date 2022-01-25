@@ -65,7 +65,7 @@ static const Message*
     std::span<const MessageEntry>::iterator messageIt = std::find_if(
         registry.begin(), registry.end(),
         [&messageKey](const MessageEntry& messageEntry) {
-            return !std::strcmp(messageEntry.first, messageKey.c_str());
+            return std::strcmp(messageEntry.first, messageKey.c_str()) == 0;
         });
     if (messageIt != registry.end())
     {

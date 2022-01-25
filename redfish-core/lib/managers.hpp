@@ -500,7 +500,7 @@ inline void
                                 {
                                     values = ptr;
                                 }
-                                if (keys && values)
+                                if (keys != nullptr && values != nullptr)
                                 {
                                     if (keys->size() != values->size())
                                     {
@@ -913,7 +913,7 @@ inline CreatePIDRet createPidInterface(
                 return CreatePIDRet::fail;
             }
             if (chassis.empty() &&
-                !findChassis(managedObj, zonesStr[0], chassis))
+                findChassis(managedObj, zonesStr[0], chassis) == nullptr)
             {
                 BMCWEB_LOG_ERROR << "Failed to get chassis from config patch";
                 messages::invalidObject(response->res, it.key());
@@ -1078,7 +1078,7 @@ inline CreatePIDRet createPidInterface(
                 return CreatePIDRet::fail;
             }
             if (chassis.empty() &&
-                !findChassis(managedObj, zonesStrs[0], chassis))
+                findChassis(managedObj, zonesStrs[0], chassis) == nullptr)
             {
                 BMCWEB_LOG_ERROR << "Failed to get chassis from config patch";
                 messages::invalidObject(response->res, it.key());
