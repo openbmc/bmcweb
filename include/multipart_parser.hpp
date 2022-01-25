@@ -219,7 +219,7 @@ class MultipartParser
         }
     }
 
-    char lower(char c) const
+    static char lower(char c)
     {
         return static_cast<char>(c | 0x20);
     }

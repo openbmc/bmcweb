@@ -427,8 +427,7 @@ inline void requestRoutesEventDestinationCollection(App& app)
                                     registry.begin(), registry.end(),
                                     [&id](const redfish::message_registries::
                                               MessageEntry& messageEntry) {
-                                        return id.compare(messageEntry.first) ==
-                                               0;
+                                        return id == messageEntry.first;
                                     }))
                             {
                                 validId = true;
