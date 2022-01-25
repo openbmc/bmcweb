@@ -120,7 +120,7 @@ void getPortStatusAndPath(const std::string& serviceName,
 
                 // is unitsName end with ".socket"
                 std::string unitNameEnd = unitName.substr(lastCharPos);
-                if (unitNameEnd.compare(".socket") != 0)
+                if (unitNameEnd != ".socket")
                 {
                     continue;
                 }
