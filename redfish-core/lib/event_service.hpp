@@ -354,7 +354,7 @@ inline void requestRoutesEventDestinationCollection(App& app)
                             if (value == nullptr)
                             {
                                 messages::propertyValueFormatError(
-                                    asyncResp->res, item.value().dump(2, true),
+                                    asyncResp->res, item.value().dump(2, 1),
                                     "HttpHeaders/" + item.key());
                                 return;
                             }
@@ -427,7 +427,8 @@ inline void requestRoutesEventDestinationCollection(App& app)
                                     registry.begin(), registry.end(),
                                     [&id](const redfish::message_registries::
                                               MessageEntry& messageEntry) {
-                                        return !id.compare(messageEntry.first);
+                                        return id.compare(messageEntry.first) ==
+                                               0;
                                     }))
                             {
                                 validId = true;

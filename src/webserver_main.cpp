@@ -40,7 +40,7 @@ inline void setupSocket(crow::App& app)
     {
         BMCWEB_LOG_INFO << "attempting systemd socket activation";
         if (sd_is_socket_inet(SD_LISTEN_FDS_START, AF_UNSPEC, SOCK_STREAM, 1,
-                              0))
+                              0) != 0)
         {
             BMCWEB_LOG_INFO << "Starting webserver on socket handle "
                             << SD_LISTEN_FDS_START;
@@ -113,7 +113,7 @@ int run()
     crow::google_api::requestRoutes(app);
 #endif
 
-    if (bmcwebInsecureDisableXssPrevention)
+    if (bmcwebInsecureDisableXssPrevention != 0)
     {
         cors_preflight::requestRoutes(app);
     }
@@ -128,7 +128,7 @@ int run()
 
 #ifndef BMCWEB_ENABLE_REDFISH_DBUS_LOG_ENTRIES
     int rc = redfish::EventServiceManager::startEventLogMonitor(*io);
-    if (rc)
+    if (rc != 0)
     {
         BMCWEB_LOG_ERROR << "Redfish event handler setup failed...";
         return rc;
