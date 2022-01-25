@@ -35,7 +35,7 @@ inline void installCertificate(const std::filesystem::path& certPath)
 inline int onPropertyUpdate(sd_bus_message* m, void* /* userdata */,
                             sd_bus_error* retError)
 {
-    if (retError == nullptr || sd_bus_error_is_set(retError))
+    if (retError == nullptr || sd_bus_error_is_set(retError) != 0U)
     {
         BMCWEB_LOG_ERROR << "Got sdbus error on match";
         return 0;
@@ -101,7 +101,7 @@ inline int onPropertyUpdate(sd_bus_message* m, void* /* userdata */,
 
     ASN1_IA5STRING* asn1 = static_cast<ASN1_IA5STRING*>(
         X509_get_ext_d2i(cert, NID_netscape_comment, nullptr, nullptr));
-    if (asn1)
+    if (asn1 != nullptr)
     {
         // NOLINTNEXTLINE(cppcoreguidelines-pro-type-reinterpret-cast)
         std::string_view comment(reinterpret_cast<const char*>(asn1->data),

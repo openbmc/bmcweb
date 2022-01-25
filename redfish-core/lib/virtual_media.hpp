@@ -112,7 +112,7 @@ inline void
                 if (property == "WriteProtected")
                 {
                     const bool* writeProtectedValue = std::get_if<bool>(&value);
-                    if (writeProtectedValue)
+                    if (writeProtectedValue != nullptr)
                     {
                         aResp->res.jsonValue["WriteProtected"] =
                             *writeProtectedValue;
@@ -127,7 +127,7 @@ inline void
                 if (property == "Active")
                 {
                     const bool* activeValue = std::get_if<bool>(&value);
-                    if (!activeValue)
+                    if (activeValue == nullptr)
                     {
                         BMCWEB_LOG_DEBUG << "Value Active not found";
                         return;
@@ -580,7 +580,7 @@ class CredentialsProvider
     SecureBuffer pack(FormatterFunc formatter)
     {
         SecureBuffer packed{new Buffer{}};
-        if (formatter)
+        if (formatter != nullptr)
         {
             formatter(credentials.user(), credentials.password(), *packed);
         }

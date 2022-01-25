@@ -172,8 +172,8 @@ inline void requestRoutesPower(App& app)
 
                     std::string interfaceChassisName =
                         chassis.substr(lastPos + 1, len);
-                    if (!interfaceChassisName.compare(
-                            sensorAsyncResp->chassisId))
+                    if (interfaceChassisName.compare(
+                            sensorAsyncResp->chassisId) == 0)
                     {
                         found = true;
                         break;
@@ -231,17 +231,17 @@ inline void requestRoutesPower(App& app)
                                              dbus::utility::DbusVariantType>&
                                  property : properties)
                         {
-                            if (!property.first.compare("Scale"))
+                            if (property.first.compare("Scale") == 0)
                             {
                                 const int64_t* i =
                                     std::get_if<int64_t>(&property.second);
 
-                                if (i)
+                                if (i != nullptr)
                                 {
                                     scale = *i;
                                 }
                             }
-                            else if (!property.first.compare("PowerCap"))
+                            else if (property.first.compare("PowerCap") == 0)
                             {
                                 const double* d =
                                     std::get_if<double>(&property.second);
@@ -250,25 +250,26 @@ inline void requestRoutesPower(App& app)
                                 const uint32_t* u =
                                     std::get_if<uint32_t>(&property.second);
 
-                                if (d)
+                                if (d != nullptr)
                                 {
                                     powerCap = *d;
                                 }
-                                else if (i)
+                                else if (i != nullptr)
                                 {
                                     powerCap = static_cast<double>(*i);
                                 }
-                                else if (u)
+                                else if (u != nullptr)
                                 {
                                     powerCap = *u;
                                 }
                             }
-                            else if (!property.first.compare("PowerCapEnable"))
+                            else if (property.first.compare("PowerCapEnable") ==
+                                     0)
                             {
                                 const bool* b =
                                     std::get_if<bool>(&property.second);
 
-                                if (b)
+                                if (b != nullptr)
                                 {
                                     enabled = *b;
                                 }
