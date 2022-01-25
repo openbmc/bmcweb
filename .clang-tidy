@@ -286,7 +286,8 @@ readability-redundant-smartptr-get,
 readability-redundant-string-cstr,
 readability-redundant-string-init,
 readability-static-accessed-through-instance,
-readability-identifier-naming'
+readability-identifier-naming,
+readability-uppercase-literal-suffix'
 
 WarningsAsErrors: '*'
 HeaderFilterRegex: '.*'
