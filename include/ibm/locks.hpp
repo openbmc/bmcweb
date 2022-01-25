@@ -245,7 +245,7 @@ inline RcAcquireLock Lock::acquireLock(const LockRequests& lockRequestStructure)
 
     // validate the lock request
 
-    for (auto& lockRecord : lockRequestStructure)
+    for (const auto& lockRecord : lockRequestStructure)
     {
         bool status = isValidLockRequest(lockRecord);
         if (!status)

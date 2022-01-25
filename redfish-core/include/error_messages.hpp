@@ -91,7 +91,7 @@ void actionParameterValueFormatError(crow::Response& res,
  * @returns Message InternalError formatted to JSON */
 nlohmann::json internalError();
 
-void internalError(crow::Response& res, const bmcweb::source_location location =
+void internalError(crow::Response& res, bmcweb::source_location location =
                                             bmcweb::source_location::current());
 
 /**

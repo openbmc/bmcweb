@@ -34,11 +34,11 @@ struct Connection : std::enable_shared_from_this<Connection>
     Connection& operator=(const Connection&) = delete;
     Connection& operator=(const Connection&&) = delete;
 
-    virtual void sendBinary(const std::string_view msg) = 0;
+    virtual void sendBinary(std::string_view msg) = 0;
     virtual void sendBinary(std::string&& msg) = 0;
-    virtual void sendText(const std::string_view msg) = 0;
+    virtual void sendText(std::string_view msg) = 0;
     virtual void sendText(std::string&& msg) = 0;
-    virtual void close(const std::string_view msg = "quit") = 0;
+    virtual void close(std::string_view msg = "quit") = 0;
     virtual boost::asio::io_context& getIoContext() = 0;
     virtual ~Connection() = default;
 

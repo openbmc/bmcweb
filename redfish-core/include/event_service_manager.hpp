@@ -555,7 +555,7 @@ class Subscription : public persistent_data::UserSubscription
         }
     }
 
-    uint64_t getEventSeqNum()
+    uint64_t getEventSeqNum() const
     {
         return eventSeqNum;
     }
@@ -751,7 +751,7 @@ class EventServiceManager
         }
     }
 
-    void updateSubscriptionData()
+    void updateSubscriptionData() const
     {
         persistent_data::EventServiceStore::getInstance()
             .eventServiceConfig.enabled = serviceEnabled;
