@@ -95,7 +95,7 @@ static const Message*
     std::span<const MessageEntry>::iterator messageIt =
         std::find_if(registry.begin(), registry.end(),
                      [&messageKey](const MessageEntry& messageEntry) {
-                         return messageKey.compare(messageEntry.first) == 0;
+                         return messageKey == messageEntry.first;
                      });
     if (messageIt != registry.end())
     {
@@ -664,7 +664,7 @@ class EventServiceManager
         }
     }
 
-    void loadOldBehavior()
+    static void loadOldBehavior()
     {
         std::ifstream eventConfigFile(eventServiceFile);
         if (!eventConfigFile.good())
@@ -922,11 +922,7 @@ class EventServiceManager
     bool isSubscriptionExist(const std::string& id)
     {
         auto obj = subscriptionsMap.find(id);
-        if (obj == subscriptionsMap.end())
-        {
-            return false;
-        }
-        return true;
+        return obj != subscriptionsMap.end();
     }
 
     void deleteSubscription(const std::string& id)
@@ -1313,7 +1309,7 @@ class EventServiceManager
     }
 
 #endif
-    void getReadingsForReport(sdbusplus::message::message& msg)
+    static void getReadingsForReport(sdbusplus::message::message& msg)
     {
         sdbusplus::message::object_path path(msg.get_path());
         std::string id = path.filename();
@@ -1393,9 +1389,9 @@ class EventServiceManager
             });
     }
 
-    bool validateAndSplitUrl(const std::string& destUrl, std::string& urlProto,
-                             std::string& host, std::string& port,
-                             std::string& path)
+    static bool validateAndSplitUrl(const std::string& destUrl,
+                                    std::string& urlProto, std::string& host,
+                                    std::string& port, std::string& path)
     {
         // Validate URL using regex expression
         // Format: <protocol>://<host>:<port>/<path>
