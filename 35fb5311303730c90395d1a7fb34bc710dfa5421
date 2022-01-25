@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fbee221b_73a85ddd",
+        "filename": "include/human_sort.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-01-25T03:05:08Z",
+      "side": 0,
+      "message": "This secondary loop was removed, which is why the whole diff shows everything beneath it changed.",
+      "range": {
+        "startLine": 33,
+        "startChar": 0,
+        "endLine": 34,
+        "endChar": 13
+      },
+      "revId": "35fb5311303730c90395d1a7fb34bc710dfa5421",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
