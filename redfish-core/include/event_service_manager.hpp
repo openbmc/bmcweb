@@ -95,7 +95,7 @@ static const Message*
     std::span<const MessageEntry>::iterator messageIt =
         std::find_if(registry.begin(), registry.end(),
                      [&messageKey](const MessageEntry& messageEntry) {
-                         return !messageKey.compare(messageEntry.first);
+                         return messageKey == messageEntry.first;
                      });
     if (messageIt != registry.end())
     {
@@ -660,10 +660,9 @@ class EventServiceManager
             subValue->updateRetryConfig(retryAttempts, retryTimeoutInterval);
             subValue->updateRetryPolicy();
         }
-        return;
     }
 
-    void loadOldBehavior()
+    static void loadOldBehavior()
     {
         std::ifstream eventConfigFile(eventServiceFile);
         if (!eventConfigFile.good())
@@ -707,7 +706,7 @@ class EventServiceManager
                     std::string id;
 
                     int retry = 3;
-                    while (retry)
+                    while (retry != 0)
                     {
                         id = std::to_string(dist(gen));
                         if (gen.error())
@@ -920,12 +919,7 @@ class EventServiceManager
 
     bool isSubscriptionExist(const std::string& id)
     {
-        auto obj = subscriptionsMap.find(id);
-        if (obj == subscriptionsMap.end())
-        {
-            return false;
-        }
-        return true;
+        return subscriptionsMap.find(id) != subscriptionsMap.end();
     }
 
     void deleteSubscription(const std::string& id)
@@ -1303,7 +1297,7 @@ class EventServiceManager
     }
 
 #endif
-    void getReadingsForReport(sdbusplus::message::message& msg)
+    static void getReadingsForReport(sdbusplus::message::message& msg)
     {
         sdbusplus::message::object_path path(msg.get_path());
         std::string id = path.filename();
@@ -1339,7 +1333,7 @@ class EventServiceManager
         for (const auto& it :
              EventServiceManager::getInstance().subscriptionsMap)
         {
-            Subscription& entry = *it.second.get();
+            Subscription& entry = *it.second;
             if (entry.eventFormatType == metricReportFormatType)
             {
                 entry.filterAndSendReports(id, *readings);
@@ -1383,9 +1377,9 @@ class EventServiceManager
             });
     }
 
-    bool validateAndSplitUrl(const std::string& destUrl, std::string& urlProto,
-                             std::string& host, std::string& port,
-                             std::string& path)
+    static bool validateAndSplitUrl(const std::string& destUrl,
+                                    std::string& urlProto, std::string& host,
+                                    std::string& port, std::string& path)
     {
         // Validate URL using regex expression
         // Format: <protocol>://<host>:<port>/<path>

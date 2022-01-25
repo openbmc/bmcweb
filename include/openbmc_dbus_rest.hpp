@@ -656,16 +656,16 @@ inline int convertJsonToDbus(sd_bus_message* m, const std::string& argType,
         else if (argCode == "b")
         {
             // lots of ways bool could be represented here.  Try them all
-            int boolInt = false;
+            int boolInt = 0;
             if (intValue != nullptr)
             {
                 if (*intValue == 1)
                 {
-                    boolInt = true;
+                    boolInt = 1;
                 }
                 else if (*intValue == 0)
                 {
-                    boolInt = false;
+                    boolInt = 0;
                 }
                 else
                 {
@@ -1025,7 +1025,7 @@ inline int readArrayFromMessage(const std::string& typeCode,
 
     while (true)
     {
-        r = sd_bus_message_at_end(m.get(), false);
+        r = sd_bus_message_at_end(m.get(), 0);
         if (r < 0)
         {
             BMCWEB_LOG_ERROR << "sd_bus_message_at_end failed";

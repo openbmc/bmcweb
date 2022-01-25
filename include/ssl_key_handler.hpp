@@ -210,7 +210,7 @@ inline X509* loadCert(const std::string& filePath)
         return nullptr;
     }
 
-    if (!PEM_read_bio_X509(certFileBio, &cert, nullptr, nullptr))
+    if (PEM_read_bio_X509(certFileBio, &cert, nullptr, nullptr) == nullptr)
     {
         BMCWEB_LOG_ERROR << "Error occured during PEM_read_bio_X509 call, "
                          << "FILE= " << filePath;

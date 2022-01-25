@@ -965,7 +965,7 @@ inline void objectInterfacesToJson(
         std::string sensorNameLower =
             boost::algorithm::to_lower_copy(sensorName);
 
-        if (!sensorName.compare("total_power"))
+        if (sensorName == "total_power")
         {
             sensorJson["@odata.type"] = "#Power.v1_0_0.PowerControl";
             // Put multiple "sensors" into a single PowerControl, so have
@@ -2167,7 +2167,7 @@ void getPowerSupplyAttributesData(
         // Store value in Power Supply Inventory Items
         for (InventoryItem& inventoryItem : *inventoryItems)
         {
-            if (inventoryItem.isPowerSupply == true)
+            if (inventoryItem.isPowerSupply)
             {
                 inventoryItem.powerSupplyEfficiencyPercent =
                     static_cast<int>(value);
@@ -2551,7 +2551,7 @@ inline void getSensorData(
                     }
                     else if (sensorType == "power")
                     {
-                        if (!sensorName.compare("total_power"))
+                        if (sensorName == "total_power")
                         {
                             fieldName = "PowerControl";
                         }

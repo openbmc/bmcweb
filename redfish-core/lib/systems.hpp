@@ -77,12 +77,11 @@ inline void
 {
     BMCWEB_LOG_DEBUG << "Cpu Present: " << isCpuPresent;
 
-    if (isCpuPresent == true)
+    if (isCpuPresent)
     {
         nlohmann::json& procCount =
             aResp->res.jsonValue["ProcessorSummary"]["Count"];
-        auto procCountPtr =
-            procCount.get_ptr<nlohmann::json::number_integer_t*>();
+        auto* procCountPtr = procCount.get_ptr<int64_t*>();
         if (procCountPtr != nullptr)
         {
             // shouldn't be possible to be nullptr

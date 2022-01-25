@@ -685,7 +685,7 @@ inline bool ipv4VerifyIpAndGetBitcount(const std::string& ip,
             // Count bits
             for (long bitIdx = 7; bitIdx >= 0; bitIdx--)
             {
-                if (value & (1L << bitIdx))
+                if ((value & (1L << bitIdx)) > 0)
                 {
                     if (firstZeroInByteHit)
                     {
@@ -2103,7 +2103,6 @@ inline void requestEthernetInterfacesRoutes(App& app)
     BMCWEB_ROUTE(
         app, "/redfish/v1/Managers/bmc/EthernetInterfaces/<str>/VLANs/<str>/")
         .privileges(redfish::privileges::getVLanNetworkInterface)
-
         .methods(boost::beast::http::verb::get)(
             [](const crow::Request& /* req */,
                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
@@ -2353,15 +2352,6 @@ inline void requestEthernetInterfacesRoutes(App& app)
                                          "VLANEnable", vlanEnable))
                 {
                     return;
-                }
-                // Need both vlanId and vlanEnable to service this request
-                if (!vlanId)
-                {
-                    messages::propertyMissing(asyncResp->res, "VLANId");
-                }
-                if (!vlanEnable)
-                {
-                    messages::propertyMissing(asyncResp->res, "VLANEnable");
                 }
                 if (static_cast<bool>(vlanId) ^ vlanEnable)
                 {

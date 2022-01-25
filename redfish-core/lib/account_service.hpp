@@ -1718,7 +1718,7 @@ inline void requestAccountServiceRoutes(App& app)
                             const std::pair<sdbusplus::message::object_path,
                                             dbus::utility::DBusInteracesMap>&
                                 user) {
-                            return !accountName.compare(user.first.filename());
+                            return accountName != user.first.filename();
                         });
 
                     if (userIt == users.end())
