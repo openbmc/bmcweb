@@ -1,5 +1,6 @@
 #pragma once
 
+#include <charconv>
 #include <string_view>
 
 namespace details
@@ -12,73 +13,67 @@ inline bool simpleIsDigit(const char c)
     return c >= '0' && c <= '9';
 }
 
+enum class ModeType
+{
+    STRING,
+    NUMBER
+};
+
 } // namespace details
 
 inline int alphanumComp(const std::string_view left,
                         const std::string_view right)
 {
-    enum class ModeType
-    {
-        STRING,
-        NUMBER
-    } mode = ModeType::STRING;
 
     std::string_view::const_iterator l = left.begin();
     std::string_view::const_iterator r = right.begin();
 
+    details::ModeType mode = details::ModeType::STRING;
+
     while (l != left.end() && r != right.end())
     {
-        if (mode == ModeType::STRING)
+        if (mode == details::ModeType::STRING)
         {
-            while (l != left.end() && r != right.end())
+            // check if this are digit characters
+            const bool lDigit = details::simpleIsDigit(*l);
+            const bool rDigit = details::simpleIsDigit(*r);
+            // if both characters are digits, we continue in NUMBER mode
+            if (lDigit && rDigit)
             {
-                // check if this are digit characters
-                const bool lDigit = details::simpleIsDigit(*l);
-                const bool rDigit = details::simpleIsDigit(*r);
-                // if both characters are digits, we continue in NUMBER mode
-                if (lDigit && rDigit)
-                {
-                    mode = ModeType::NUMBER;
-                    break;
-                }
-                // if only the left character is a digit, we have a result
-                if (lDigit)
-                {
-                    return -1;
-                } // if only the right character is a digit, we have a result
-                if (rDigit)
-                {
-                    return +1;
-                }
-                // compute the difference of both characters
-                const int diff = *l - *r;
-                // if they differ we have a result
-                if (diff != 0)
-                {
-                    return diff;
-                }
-                // otherwise process the next characters
-                l++;
-                r++;
+                mode = details::ModeType::NUMBER;
+                continue;
             }
+            // if only the left character is a digit, we have a result
+            if (lDigit)
+            {
+                return -1;
+            } // if only the right character is a digit, we have a result
+            if (rDigit)
+            {
+                return +1;
+            }
+            // compute the difference of both characters
+            const int diff = *l - *r;
+            // if they differ we have a result
+            if (diff != 0)
+            {
+                return diff;
+            }
+            // otherwise process the next characters
+            l++;
+            r++;
         }
         else // mode==NUMBER
         {
             // get the left number
             int lInt = 0;
-            while (l != left.end() && details::simpleIsDigit(*l))
-            {
-                lInt = lInt * 10 + static_cast<int>(*l) - '0';
-                ++l;
-            }
+            auto fc = std::from_chars(&(*l), &(*left.end()), lInt);
+            l += std::distance(l, fc.ptr);
 
             // get the right number
             int rInt = 0;
-            while (r != right.end() && details::simpleIsDigit(*r))
-            {
-                rInt = rInt * 10 + static_cast<int>(*r) - '0';
-                ++r;
-            }
+            fc = std::from_chars(&(*r), &(*right.end()), rInt);
+            r += std::distance(r, fc.ptr);
 
             // if the difference is not equal to zero, we have a comparison
             // result
@@ -89,7 +84,7 @@ inline int alphanumComp(const std::string_view left,
             }
 
             // otherwise we process the next substring in STRING mode
-            mode = ModeType::STRING;
+            mode = details::ModeType::STRING;
         }
     }
     if (r == right.end() && l == left.end())
