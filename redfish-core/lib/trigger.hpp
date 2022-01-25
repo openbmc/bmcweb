@@ -80,7 +80,7 @@ inline std::optional<nlohmann::json>
     const std::vector<DiscreteThresholdParams>* discreteParams =
         std::get_if<std::vector<DiscreteThresholdParams>>(&thresholdParams);
 
-    if (!discreteParams)
+    if (discreteParams == nullptr)
     {
         return std::nullopt;
     }
@@ -113,7 +113,7 @@ inline std::optional<nlohmann::json>
     const std::vector<NumericThresholdParams>* numericParams =
         std::get_if<std::vector<NumericThresholdParams>>(&thresholdParams);
 
-    if (!numericParams)
+    if (numericParams == nullptr)
     {
         return std::nullopt;
     }
@@ -204,7 +204,8 @@ inline bool fillTrigger(
         }
     }
 
-    if (!name || !discrete || !sensors || !reports || !actions || !thresholds)
+    if (name == nullptr || discrete == nullptr || sensors == nullptr ||
+        reports == nullptr || actions == nullptr || thresholds == nullptr)
     {
         BMCWEB_LOG_ERROR
             << "Property type mismatch or property is missing in Trigger: "

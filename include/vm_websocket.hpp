@@ -42,7 +42,7 @@ class Handler : public std::enable_shared_from_this<Handler>
         // boost::process::child::terminate uses SIGKILL, need to send SIGTERM
         // to allow the proxy to stop nbd-client and the USB device gadget.
         int rc = kill(proxy.id(), SIGTERM);
-        if (rc)
+        if (rc != 0)
         {
             return;
         }
