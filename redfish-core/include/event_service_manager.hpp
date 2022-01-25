@@ -660,8 +660,7 @@ class EventServiceManager
             subValue->updateRetryConfig(retryAttempts, retryTimeoutInterval);
             subValue->updateRetryPolicy();
         }
-        return;
-    }
+           }
 
     void loadOldBehavior()
     {
@@ -1064,8 +1063,6 @@ class EventServiceManager
         // Control would be here when Redfish file is created.
         // Reset File Position as new file is created
         redfishLogFilePosition = 0;
-
-        return;
     }
 
     void cacheRedfishLogFile()

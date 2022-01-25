@@ -1853,11 +1853,7 @@ inline void parseInterfaceData(nlohmann::json& jsonResponse,
 
 inline bool verifyNames(const std::string& parent, const std::string& iface)
 {
-    if (!boost::starts_with(iface, parent + "_"))
-    {
-        return false;
-    }
-    return true;
+    return boost::starts_with(iface, parent + "_");
 }
 
 inline void requestEthernetInterfacesRoutes(App& app)
