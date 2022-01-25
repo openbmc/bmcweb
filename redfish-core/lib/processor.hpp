@@ -201,8 +201,6 @@ inline void getCpuDataByInterface(
             }
         }
     }
-
-    return;
 }
 
 inline void getCpuDataByService(std::shared_ptr<bmcweb::AsyncResp> aResp,
