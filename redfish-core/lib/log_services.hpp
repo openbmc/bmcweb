@@ -318,7 +318,7 @@ inline static bool
     std::string_view tsStr(entryID);
 
     auto underscorePos = tsStr.find('_');
-    if (underscorePos != tsStr.npos)
+    if (underscorePos != std::string_view::npos)
     {
         // Timestamp has an index
         tsStr.remove_suffix(tsStr.size() - underscorePos);

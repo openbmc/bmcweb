@@ -285,6 +285,7 @@ readability-redundant-preprocessor,
 readability-redundant-smartptr-get,
 readability-redundant-string-cstr,
 readability-redundant-string-init,
+readability-static-accessed-through-instance,
 readability-identifier-naming'
 
 WarningsAsErrors: '*'
