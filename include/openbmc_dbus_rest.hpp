@@ -2047,7 +2047,7 @@ inline void handleDBusUrl(const crow::Request& req,
     std::string destProperty;
     const char* attrSeperator = "/attr/";
     size_t attrPosition = objectPath.find(attrSeperator);
-    if (attrPosition != objectPath.npos)
+    if (attrPosition != std::string::npos)
     {
         destProperty = objectPath.substr(attrPosition + strlen(attrSeperator),
                                          objectPath.length());
@@ -2058,7 +2058,7 @@ inline void handleDBusUrl(const crow::Request& req,
     {
         constexpr const char* actionSeperator = "/action/";
         size_t actionPosition = objectPath.find(actionSeperator);
-        if (actionPosition != objectPath.npos)
+        if (actionPosition != std::string::npos)
         {
             std::string postProperty =
                 objectPath.substr((actionPosition + strlen(actionSeperator)),
