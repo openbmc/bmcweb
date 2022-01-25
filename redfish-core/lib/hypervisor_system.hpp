@@ -541,7 +541,7 @@ inline void setDHCPEnabled(const std::string& ifaceId,
     // Set the IPv4 address origin to the DHCP / Static as per the new value
     // of the DHCPEnabled property
     std::string origin;
-    if (ipv4DHCPEnabled == false)
+    if (!ipv4DHCPEnabled)
     {
         origin = "xyz.openbmc_project.Network.IP.AddressOrigin.Static";
     }

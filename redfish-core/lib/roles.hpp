@@ -81,7 +81,7 @@ inline void requestRoutesRoles(App& app)
                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                const std::string& roleId) {
                 nlohmann::json privArray = nlohmann::json::array();
-                if (false == getAssignedPrivFromRole(roleId, privArray))
+                if (!getAssignedPrivFromRole(roleId, privArray))
                 {
                     messages::resourceNotFound(asyncResp->res, "Role", roleId);
 
