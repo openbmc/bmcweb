@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2e7065dd_8ecbfaba",
+        "filename": "http/ut/utility_test.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-01-25T02:44:13Z",
+      "side": 1,
+      "message": "We don\u0027t need a comment for \"no exception\".  This is the default.",
+      "range": {
+        "startLine": 94,
+        "startChar": 7,
+        "endLine": 94,
+        "endChar": 25
+      },
+      "revId": "f3d91e4c3f9c69f2c4ab799d0610c8afc1c7f38c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6cef4ad5_a4371a23",
+        "filename": "http/utility.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 590,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-01-25T02:44:13Z",
+      "side": 1,
+      "message": "Is this exposed through boost somewhere that we can rely on it without a magic number?",
+      "range": {
+        "startLine": 590,
+        "startChar": 44,
+        "endLine": 590,
+        "endChar": 68
+      },
+      "revId": "f3d91e4c3f9c69f2c4ab799d0610c8afc1c7f38c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e2a67b59_9503831a",
+        "filename": "http/utility.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 596,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-01-25T02:44:13Z",
+      "side": 1,
+      "message": "Is there a version of this constructor that doesn\u0027t throw?",
+      "range": {
+        "startLine": 596,
+        "startChar": 31,
+        "endLine": 596,
+        "endChar": 43
+      },
+      "revId": "f3d91e4c3f9c69f2c4ab799d0610c8afc1c7f38c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d9448e5f_02ce388e",
+        "filename": "http/utility.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 615,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-01-25T02:44:13Z",
+      "side": 1,
+      "message": "This magic number is repeated 3 times in this patch.  Lets avoid that if we can, but at the very least, we should only declare it once.",
+      "range": {
+        "startLine": 615,
+        "startChar": 0,
+        "endLine": 615,
+        "endChar": 52
+      },
+      "revId": "f3d91e4c3f9c69f2c4ab799d0610c8afc1c7f38c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
