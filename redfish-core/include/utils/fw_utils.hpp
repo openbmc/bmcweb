@@ -253,8 +253,6 @@ inline void
                 std::array<const char*, 1>{
                     "xyz.openbmc_project.Software.Version"});
         });
-
-    return;
 }
 
 /**
@@ -405,8 +403,6 @@ inline void
                 return;
             }
         });
-
-    return;
 }
 
 } // namespace fw_util
