@@ -544,12 +544,7 @@ inline bool Lock::checkByte(uint64_t resourceId1, uint64_t resourceId2,
 
     BMCWEB_LOG_DEBUG << "Comparing bytes " << std::to_string(pPosition) << ","
                      << std::to_string(qPosition);
-    if (pPosition != qPosition)
-    {
-        return false;
-    }
-
-    return true;
+    return pPosition == qPosition;
 }
 
 inline bool Lock::isConflictRecord(const LockRequest& refLockRecord1,

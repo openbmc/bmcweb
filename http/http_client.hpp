@@ -309,7 +309,6 @@ class HttpClient : public std::enable_shared_from_this<HttpClient>
                 // Lets close connection and start from resolve.
                 self->doClose();
             });
-        return;
     }
 
     void handleConnState()
@@ -407,8 +406,6 @@ class HttpClient : public std::enable_shared_from_this<HttpClient>
         {
             BMCWEB_LOG_ERROR << "Request queue is full. So ignoring data.";
         }
-
-        return;
     }
 
     void setRetryConfig(const uint32_t retryAttempts,
