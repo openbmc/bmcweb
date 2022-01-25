@@ -41,10 +41,10 @@ inline uint8_t decode(uint8_t& state, uint32_t& codePoint,
     const uint8_t type = utf8d[byte];
 
     codePoint = (state != utf8Accept)
-                    ? (byte & 0x3fu) | (codePoint << 6)
+                    ? (byte & 0x3fU) | (codePoint << 6)
                     : static_cast<uint32_t>(0xff >> type) & (byte);
 
-    state = utf8d[256u + state * 16u + type];
+    state = utf8d[256U + state * 16U + type];
     return state;
 }
 
@@ -284,7 +284,7 @@ inline unsigned int countDigits(uint64_t number) noexcept
         {
             return nDigits + 3;
         }
-        number = number / 10000u;
+        number = number / 10000U;
         nDigits += 4;
     }
 }
