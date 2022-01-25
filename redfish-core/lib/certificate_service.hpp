@@ -154,7 +154,7 @@ class CertificateFile
                                             'e', 'r', 't', 's', '.', 'X',
                                             'X', 'X', 'X', 'X', 'X', '\0'};
         char* tempDirectory = mkdtemp(dirTemplate.data());
-        if (tempDirectory)
+        if (tempDirectory != nullptr)
         {
             certDirectory = tempDirectory;
             certificateFile = certDirectory / "cert.pem";
@@ -596,7 +596,7 @@ static void getCertificateProperties(
                     asyncResp->res.jsonValue["CertificateString"] = "";
                     const std::string* value =
                         std::get_if<std::string>(&property.second);
-                    if (value)
+                    if (value != nullptr)
                     {
                         asyncResp->res.jsonValue["CertificateString"] = *value;
                     }
@@ -608,7 +608,7 @@ static void getCertificateProperties(
                     keyUsage = nlohmann::json::array();
                     const std::vector<std::string>* value =
                         std::get_if<std::vector<std::string>>(&property.second);
-                    if (value)
+                    if (value != nullptr)
                     {
                         for (const std::string& usage : *value)
                         {
@@ -620,7 +620,7 @@ static void getCertificateProperties(
                 {
                     const std::string* value =
                         std::get_if<std::string>(&property.second);
-                    if (value)
+                    if (value != nullptr)
                     {
                         updateCertIssuerOrSubject(
                             asyncResp->res.jsonValue["Issuer"], *value);
@@ -630,7 +630,7 @@ static void getCertificateProperties(
                 {
                     const std::string* value =
                         std::get_if<std::string>(&property.second);
-                    if (value)
+                    if (value != nullptr)
                     {
                         updateCertIssuerOrSubject(
                             asyncResp->res.jsonValue["Subject"], *value);
@@ -640,7 +640,7 @@ static void getCertificateProperties(
                 {
                     const uint64_t* value =
                         std::get_if<uint64_t>(&property.second);
-                    if (value)
+                    if (value != nullptr)
                     {
                         asyncResp->res.jsonValue["ValidNotAfter"] =
                             crow::utility::getDateTimeUint(*value);
@@ -650,7 +650,7 @@ static void getCertificateProperties(
                 {
                     const uint64_t* value =
                         std::get_if<uint64_t>(&property.second);
-                    if (value)
+                    if (value != nullptr)
                     {
                         asyncResp->res.jsonValue["ValidNotBefore"] =
                             crow::utility::getDateTimeUint(*value);
