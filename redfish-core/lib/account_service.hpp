@@ -1146,7 +1146,7 @@ inline void updateUserProperties(std::shared_ptr<bmcweb::AsyncResp> asyncResp,
         [dbusObjectPath, username, password(std::move(password)),
          roleId(std::move(roleId)), enabled, locked,
          asyncResp{std::move(asyncResp)}](int rc) {
-            if (!rc)
+            if (rc <= 0)
             {
                 messages::resourceNotFound(
                     asyncResp->res, "#ManagerAccount.v1_4_0.ManagerAccount",

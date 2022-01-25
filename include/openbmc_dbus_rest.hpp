@@ -1483,7 +1483,7 @@ inline void findActionOnInterface(
                                         transaction->methodFailed = true;
                                         const sd_bus_error* e = m2.get_error();
 
-                                        if (e)
+                                        if (e != nullptr)
                                         {
                                             setErrorResponse(
                                                 transaction->res,
@@ -1995,6 +1995,19 @@ inline void handlePut(const crow::Request& req,
                                                     {
                                                         const sd_bus_error* e =
                                                             m2.get_error();
+                                                        const char* name =
+                                                            ec.category()
+                                                                .name();
+                                                        std::string message =
+                                                            ec.message();
+                                                        if (e == nullptr)
+                                                        {
+                                                            name = e->name;
+                                                            message =
+                                                                std::string(
+                                                                    e->message);
+                                                        }
+
                                                         setErrorResponse(
                                                             transaction
                                                                 ->asyncResp
@@ -2002,11 +2015,7 @@ inline void handlePut(const crow::Request& req,
                                                             boost::beast::http::
                                                                 status::
                                                                     forbidden,
-                                                            (e) ? e->name
-                                                                : ec.category()
-                                                                      .name(),
-                                                            (e) ? e->message
-                                                                : ec.message());
+                                                            name, message);
                                                     }
                                                     else
                                                     {
