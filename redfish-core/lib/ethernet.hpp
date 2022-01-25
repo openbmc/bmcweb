@@ -450,7 +450,7 @@ inline void
         // Check if proper pattern for object path appears
         if (boost::starts_with(objpath.first.str, ipv6PathStart))
         {
-            for (auto& interface : objpath.second)
+            for (const auto& interface : objpath.second)
             {
                 if (interface.first == "xyz.openbmc_project.Network.IP")
                 {
@@ -463,7 +463,7 @@ inline void
                     IPv6AddressData& ipv6Address = *it.first;
                     ipv6Address.id =
                         objpath.first.str.substr(ipv6PathStart.size());
-                    for (auto& property : interface.second)
+                    for (const auto& property : interface.second)
                     {
                         if (property.first == "Address")
                         {
@@ -528,7 +528,7 @@ inline void
         // Check if proper pattern for object path appears
         if (boost::starts_with(objpath.first.str, ipv4PathStart))
         {
-            for (auto& interface : objpath.second)
+            for (const auto& interface : objpath.second)
             {
                 if (interface.first == "xyz.openbmc_project.Network.IP")
                 {
@@ -541,7 +541,7 @@ inline void
                     IPv4AddressData& ipv4Address = *it.first;
                     ipv4Address.id =
                         objpath.first.str.substr(ipv4PathStart.size());
-                    for (auto& property : interface.second)
+                    for (const auto& property : interface.second)
                     {
                         if (property.first == "Address")
                         {
@@ -685,7 +685,7 @@ inline bool ipv4VerifyIpAndGetBitcount(const std::string& ip,
             // Count bits
             for (long bitIdx = 7; bitIdx >= 0; bitIdx--)
             {
-                if (value & (1L << bitIdx))
+                if ((value & (1L << bitIdx)) > 0)
                 {
                     if (firstZeroInByteHit)
                     {
@@ -1782,7 +1782,7 @@ inline void parseInterfaceData(
     nlohmann::json& ipv4StaticArray = jsonResponse["IPv4StaticAddresses"];
     ipv4Array = nlohmann::json::array();
     ipv4StaticArray = nlohmann::json::array();
-    for (auto& ipv4Config : ipv4Data)
+    for (const auto& ipv4Config : ipv4Data)
     {
 
         std::string gatewayStr = ipv4Config.gateway;
@@ -1819,7 +1819,7 @@ inline void parseInterfaceData(
     nlohmann::json& ipv6AddrPolicyTable =
         jsonResponse["IPv6AddressPolicyTable"];
     ipv6AddrPolicyTable = nlohmann::json::array();
-    for (auto& ipv6Config : ipv6Data)
+    for (const auto& ipv6Config : ipv6Data)
     {
         ipv6Array.push_back({{"Address", ipv6Config.address},
                              {"PrefixLength", ipv6Config.prefixLength},
@@ -1853,11 +1853,7 @@ inline void parseInterfaceData(nlohmann::json& jsonResponse,
 
 inline bool verifyNames(const std::string& parent, const std::string& iface)
 {
-    if (!boost::starts_with(iface, parent + "_"))
-    {
-        return false;
-    }
-    return true;
+    return boost::starts_with(iface, parent + "_");
 }
 
 inline void requestEthernetInterfacesRoutes(App& app)
@@ -2107,7 +2103,6 @@ inline void requestEthernetInterfacesRoutes(App& app)
     BMCWEB_ROUTE(
         app, "/redfish/v1/Managers/bmc/EthernetInterfaces/<str>/VLANs/<str>/")
         .privileges(redfish::privileges::getVLanNetworkInterface)
-
         .methods(boost::beast::http::verb::get)(
             [](const crow::Request& /* req */,
                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
@@ -2130,7 +2125,7 @@ inline void requestEthernetInterfacesRoutes(App& app)
                         const EthernetInterfaceData& ethData,
                         const boost::container::flat_set<IPv4AddressData>&,
                         const boost::container::flat_set<IPv6AddressData>&) {
-                        if (success && ethData.vlan_id.size() != 0)
+                        if (success && !ethData.vlan_id.empty())
                         {
                             parseInterfaceData(asyncResp->res.jsonValue,
                                                parentIfaceId, ifaceId, ethData);
@@ -2192,7 +2187,7 @@ inline void requestEthernetInterfacesRoutes(App& app)
                                     }
                                 };
 
-                            if (vlanEnable == true)
+                            if (vlanEnable)
                             {
                                 crow::connections::systemBus->async_method_call(
                                     std::move(callback),
@@ -2357,15 +2352,6 @@ inline void requestEthernetInterfacesRoutes(App& app)
                                          "VLANEnable", vlanEnable))
                 {
                     return;
-                }
-                // Need both vlanId and vlanEnable to service this request
-                if (!vlanId)
-                {
-                    messages::propertyMissing(asyncResp->res, "VLANId");
-                }
-                if (!vlanEnable)
-                {
-                    messages::propertyMissing(asyncResp->res, "VLANEnable");
                 }
                 if (static_cast<bool>(vlanId) ^ vlanEnable)
                 {

@@ -31,7 +31,7 @@ static boost::container::flat_map<crow::websocket::Connection*,
 inline int onPropertyUpdate(sd_bus_message* m, void* userdata,
                             sd_bus_error* retError)
 {
-    if (retError == nullptr || sd_bus_error_is_set(retError))
+    if (retError == nullptr || sd_bus_error_is_set(retError) != 0)
     {
         BMCWEB_LOG_ERROR << "Got sdbus error on match";
         return 0;
@@ -200,7 +200,7 @@ inline void requestRoutes(App& app)
                      "member='PropertiesChanged'");
                 // If interfaces weren't specified, add a single match for all
                 // interfaces
-                if (thisSession.interfaces.size() == 0)
+                if (thisSession.interfaces.empty())
                 {
                     BMCWEB_LOG_DEBUG << "Creating match "
                                      << propertiesMatchString;

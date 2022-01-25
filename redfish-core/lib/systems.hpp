@@ -55,7 +55,7 @@ inline void
         aResp->res.jsonValue["MemorySummary"]["Status"]["State"];
     if (prevMemSummary == "Disabled")
     {
-        if (isDimmFunctional == true)
+        if (isDimmFunctional)
         {
             aResp->res.jsonValue["MemorySummary"]["Status"]["State"] =
                 "Enabled";
@@ -77,12 +77,11 @@ inline void
 {
     BMCWEB_LOG_DEBUG << "Cpu Present: " << isCpuPresent;
 
-    if (isCpuPresent == true)
+    if (isCpuPresent)
     {
         nlohmann::json& procCount =
             aResp->res.jsonValue["ProcessorSummary"]["Count"];
-        auto procCountPtr =
-            procCount.get_ptr<nlohmann::json::number_integer_t*>();
+        auto* procCountPtr = procCount.get_ptr<int64_t*>();
         if (procCountPtr != nullptr)
         {
             // shouldn't be possible to be nullptr
@@ -114,7 +113,7 @@ inline void
     // Functional.
     if (prevProcState == "Disabled")
     {
-        if (isCpuFunctional == true)
+        if (isCpuFunctional)
         {
             aResp->res.jsonValue["ProcessorSummary"]["Status"]["State"] =
                 "Enabled";
@@ -176,7 +175,7 @@ inline void getProcessorProperties(
             const uint16_t* coreCountVal =
                 std::get_if<uint16_t>(&property.second);
 
-            if (!coreCountVal)
+            if (coreCountVal == nullptr)
             {
                 messages::internalError(aResp->res);
                 return;
@@ -267,7 +266,7 @@ inline void
                 const std::vector<
                     std::pair<std::string, std::vector<std::string>>>&
                     connectionNames = object.second;
-                if (connectionNames.size() < 1)
+                if (connectionNames.empty())
                 {
                     continue;
                 }
@@ -311,7 +310,7 @@ inline void
                                                      << properties.size()
                                                      << " Dimm properties.";
 
-                                    if (properties.size() > 0)
+                                    if (!properties.empty())
                                     {
                                         for (const std::pair<
                                                  std::string,
@@ -1122,7 +1121,7 @@ inline void getAutomaticRetry(const std::shared_ptr<bmcweb::AsyncResp>& aResp)
             }
 
             BMCWEB_LOG_DEBUG << "Auto Reboot: " << autoRebootEnabled;
-            if (autoRebootEnabled == true)
+            if (autoRebootEnabled)
             {
                 aResp->res.jsonValue["Boot"]["AutomaticRetryConfig"] =
                     "RetryAttempts";
@@ -1241,7 +1240,7 @@ inline void getTrustedModuleRequiredToBoot(
                 // error occurs
                 return;
             }
-            if (subtree.size() == 0)
+            if (subtree.empty())
             {
                 // As noted above, this is an optional interface so just return
                 // if there is no instance found
@@ -1332,7 +1331,7 @@ inline void setTrustedModuleRequiredToBoot(
                 messages::internalError(aResp->res);
                 return;
             }
-            if (subtree.size() == 0)
+            if (subtree.empty())
             {
                 messages::propertyValueNotInList(aResp->res, "ComputerSystem",
                                                  "TrustedModuleRequiredToBoot");
@@ -1567,7 +1566,8 @@ inline void setBootModeOrSource(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
     // Source target specified
     BMCWEB_LOG_DEBUG << "Boot source: " << *bootSource;
     // Figure out which DBUS interface and property to use
-    if (assignBootParameters(aResp, *bootSource, bootSourceStr, bootModeStr))
+    if (assignBootParameters(aResp, *bootSource, bootSourceStr, bootModeStr) !=
+        0)
     {
         BMCWEB_LOG_DEBUG
             << "Invalid property value for BootSourceOverrideTarget: "
@@ -1661,7 +1661,7 @@ inline void setAssetTag(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
                 messages::internalError(aResp->res);
                 return;
             }
-            if (subtree.size() == 0)
+            if (subtree.empty())
             {
                 BMCWEB_LOG_DEBUG << "Can't find system D-Bus object!";
                 messages::internalError(aResp->res);
@@ -2231,7 +2231,7 @@ inline void
                 {
                     const bool* state = std::get_if<bool>(&property.second);
 
-                    if (!state)
+                    if (state == nullptr)
                     {
                         messages::internalError(aResp->res);
                         return;
@@ -2243,7 +2243,7 @@ inline void
                 {
                     const std::string* s =
                         std::get_if<std::string>(&property.second);
-                    if (!s)
+                    if (s == nullptr)
                     {
                         messages::internalError(aResp->res);
                         return;
@@ -2346,7 +2346,7 @@ inline bool parseIpsProperties(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
         if (property.first == "Enabled")
         {
             const bool* state = std::get_if<bool>(&property.second);
-            if (!state)
+            if (state == nullptr)
             {
                 return false;
             }
@@ -2355,7 +2355,7 @@ inline bool parseIpsProperties(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
         else if (property.first == "EnterUtilizationPercent")
         {
             const uint8_t* util = std::get_if<uint8_t>(&property.second);
-            if (!util)
+            if (util == nullptr)
             {
                 return false;
             }
@@ -2366,7 +2366,7 @@ inline bool parseIpsProperties(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
             // Convert Dbus time from milliseconds to seconds
             const uint64_t* timeMilliseconds =
                 std::get_if<uint64_t>(&property.second);
-            if (!timeMilliseconds)
+            if (timeMilliseconds == nullptr)
             {
                 return false;
             }
@@ -2379,7 +2379,7 @@ inline bool parseIpsProperties(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
         else if (property.first == "ExitUtilizationPercent")
         {
             const uint8_t* util = std::get_if<uint8_t>(&property.second);
-            if (!util)
+            if (util == nullptr)
             {
                 return false;
             }
@@ -2390,7 +2390,7 @@ inline bool parseIpsProperties(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
             // Convert Dbus time from milliseconds to seconds
             const uint64_t* timeMilliseconds =
                 std::get_if<uint64_t>(&property.second);
-            if (!timeMilliseconds)
+            if (timeMilliseconds == nullptr)
             {
                 return false;
             }
@@ -2483,7 +2483,7 @@ inline void getIdlePowerSaver(const std::shared_ptr<bmcweb::AsyncResp>& aResp)
                         return;
                     }
 
-                    if (parseIpsProperties(aResp, properties) == false)
+                    if (!parseIpsProperties(aResp, properties))
                     {
                         messages::internalError(aResp->res);
                         return;

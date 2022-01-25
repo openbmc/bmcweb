@@ -95,7 +95,7 @@ static const Message*
     std::span<const MessageEntry>::iterator messageIt =
         std::find_if(registry.begin(), registry.end(),
                      [&messageKey](const MessageEntry& messageEntry) {
-                         return !messageKey.compare(messageEntry.first);
+                         return messageKey == messageEntry.first;
                      });
     if (messageIt != registry.end())
     {
@@ -183,7 +183,7 @@ inline int getEventLogParams(const std::string& logEntry,
     boost::split(logEntryFields, entry, boost::is_any_of(","),
                  boost::token_compress_on);
     // We need at least a MessageId to be valid
-    if (logEntryFields.size() < 1)
+    if (logEntryFields.empty())
     {
         return -EINVAL;
     }
@@ -451,7 +451,7 @@ class Subscription : public persistent_data::UserSubscription
 
             // If registryPrefixes list is empty, don't filter events
             // send everything.
-            if (registryPrefixes.size())
+            if (!registryPrefixes.empty())
             {
                 auto obj = std::find(registryPrefixes.begin(),
                                      registryPrefixes.end(), registryName);
@@ -463,7 +463,7 @@ class Subscription : public persistent_data::UserSubscription
 
             // If registryMsgIds list is empty, don't filter events
             // send everything.
-            if (registryMsgIds.size())
+            if (!registryMsgIds.empty())
             {
                 auto obj = std::find(registryMsgIds.begin(),
                                      registryMsgIds.end(), messageKey);
@@ -484,7 +484,7 @@ class Subscription : public persistent_data::UserSubscription
             }
         }
 
-        if (logEntryArray.size() < 1)
+        if (logEntryArray.empty())
         {
             BMCWEB_LOG_DEBUG << "No log entries available to be transferred.";
             return;
@@ -506,7 +506,7 @@ class Subscription : public persistent_data::UserSubscription
         std::string mrdUri = telemetry::metricReportDefinitionUri + ("/" + id);
 
         // Empty list means no filter. Send everything.
-        if (metricReportDefinitions.size())
+        if (!metricReportDefinitions.empty())
         {
             if (std::find(metricReportDefinitions.begin(),
                           metricReportDefinitions.end(),
@@ -546,7 +546,7 @@ class Subscription : public persistent_data::UserSubscription
         }
     }
 
-    uint64_t getEventSeqNum()
+    uint64_t getEventSeqNum() const
     {
         return eventSeqNum;
     }
@@ -660,10 +660,9 @@ class EventServiceManager
             subValue->updateRetryConfig(retryAttempts, retryTimeoutInterval);
             subValue->updateRetryPolicy();
         }
-        return;
     }
 
-    void loadOldBehavior()
+    static void loadOldBehavior()
     {
         std::ifstream eventConfigFile(eventServiceFile);
         if (!eventConfigFile.good())
@@ -707,7 +706,7 @@ class EventServiceManager
                     std::string id;
 
                     int retry = 3;
-                    while (retry)
+                    while (retry != 0)
                     {
                         id = std::to_string(dist(gen));
                         if (gen.error())
@@ -743,7 +742,7 @@ class EventServiceManager
         }
     }
 
-    void updateSubscriptionData()
+    void updateSubscriptionData() const
     {
         persistent_data::EventServiceStore::getInstance()
             .eventServiceConfig.enabled = serviceEnabled;
@@ -763,7 +762,7 @@ class EventServiceManager
         if (serviceEnabled != cfg.enabled)
         {
             serviceEnabled = cfg.enabled;
-            if (serviceEnabled && noOfMetricReportSubscribers)
+            if (serviceEnabled && noOfMetricReportSubscribers != 0U)
             {
                 registerMetricReportSignal();
             }
@@ -826,7 +825,7 @@ class EventServiceManager
         if (noOfMetricReportSubscribers != metricReportSubCount)
         {
             noOfMetricReportSubscribers = metricReportSubCount;
-            if (noOfMetricReportSubscribers)
+            if (noOfMetricReportSubscribers != 0U)
             {
                 registerMetricReportSignal();
             }
@@ -859,7 +858,7 @@ class EventServiceManager
         std::string id;
 
         int retry = 3;
-        while (retry)
+        while (retry != 0)
         {
             id = std::to_string(dist(gen));
             if (gen.error())
@@ -920,12 +919,7 @@ class EventServiceManager
 
     bool isSubscriptionExist(const std::string& id)
     {
-        auto obj = subscriptionsMap.find(id);
-        if (obj == subscriptionsMap.end())
-        {
-            return false;
-        }
-        return true;
+        return subscriptionsMap.find(id) != subscriptionsMap.end();
     }
 
     void deleteSubscription(const std::string& id)
@@ -1008,7 +1002,7 @@ class EventServiceManager
             // Search the resourceTypes list for the subscription.
             // If resourceTypes list is empty, don't filter events
             // send everything.
-            if (entry->resourceTypes.size())
+            if (!entry->resourceTypes.empty())
             {
                 for (const auto& resource : entry->resourceTypes)
                 {
@@ -1064,8 +1058,6 @@ class EventServiceManager
         // Control would be here when Redfish file is created.
         // Reset File Position as new file is created
         redfishLogFilePosition = 0;
-
-        return;
     }
 
     void cacheRedfishLogFile()
@@ -1114,7 +1106,7 @@ class EventServiceManager
                 continue;
             }
 
-            if (!serviceEnabled || !noOfEventLogSubscribers)
+            if (!serviceEnabled || noOfEventLogSubscribers == 0)
             {
                 // If Service is not enabled, no need to compute
                 // the remaining items below.
@@ -1145,7 +1137,7 @@ class EventServiceManager
                                       messageKey, messageArgs);
         }
 
-        if (!serviceEnabled || !noOfEventLogSubscribers)
+        if (!serviceEnabled || noOfEventLogSubscribers == 0)
         {
             BMCWEB_LOG_DEBUG << "EventService disabled or no Subscriptions.";
             return;
@@ -1305,7 +1297,7 @@ class EventServiceManager
     }
 
 #endif
-    void getReadingsForReport(sdbusplus::message::message& msg)
+    static void getReadingsForReport(sdbusplus::message::message& msg)
     {
         sdbusplus::message::object_path path(msg.get_path());
         std::string id = path.filename();
@@ -1332,7 +1324,7 @@ class EventServiceManager
 
         const telemetry::TimestampReadings* readings =
             std::get_if<telemetry::TimestampReadings>(&found->second);
-        if (!readings)
+        if (readings == nullptr)
         {
             BMCWEB_LOG_INFO << "Failed to get Readings from Report properties";
             return;
@@ -1341,7 +1333,7 @@ class EventServiceManager
         for (const auto& it :
              EventServiceManager::getInstance().subscriptionsMap)
         {
-            Subscription& entry = *it.second.get();
+            Subscription& entry = *it.second;
             if (entry.eventFormatType == metricReportFormatType)
             {
                 entry.filterAndSendReports(id, *readings);
@@ -1385,7 +1377,7 @@ class EventServiceManager
             });
     }
 
-    bool validateAndSplitUrl(const std::string& destUrl, std::string& urlProto,
+   static bool validateAndSplitUrl(const std::string& destUrl, std::string& urlProto,
                              std::string& host, std::string& port,
                              std::string& path)
     {

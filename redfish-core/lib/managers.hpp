@@ -500,7 +500,7 @@ inline void
                                 {
                                     values = ptr;
                                 }
-                                if (keys && values)
+                                if (keys != nullptr && values != nullptr)
                                 {
                                     if (keys->size() != values->size())
                                     {
@@ -807,7 +807,7 @@ inline CreatePIDRet createPidInterface(
         }
     }
 
-    if (profile.size() &&
+    if (!profile.empty() &&
         (type == "PidControllers" || type == "FanControllers" ||
          type == "StepwiseControllers"))
     {
@@ -913,7 +913,7 @@ inline CreatePIDRet createPidInterface(
                 return CreatePIDRet::fail;
             }
             if (chassis.empty() &&
-                !findChassis(managedObj, zonesStr[0], chassis))
+                findChassis(managedObj, zonesStr[0], chassis) == nullptr)
             {
                 BMCWEB_LOG_ERROR << "Failed to get chassis from config patch";
                 messages::invalidObject(response->res, it.key());
@@ -1078,7 +1078,7 @@ inline CreatePIDRet createPidInterface(
                 return CreatePIDRet::fail;
             }
             if (chassis.empty() &&
-                !findChassis(managedObj, zonesStrs[0], chassis))
+                findChassis(managedObj, zonesStrs[0], chassis) == nullptr)
             {
                 BMCWEB_LOG_ERROR << "Failed to get chassis from config patch";
                 messages::invalidObject(response->res, it.key());
@@ -1214,7 +1214,7 @@ struct GetPIDValues : std::enable_shared_from_this<GetPIDValues>
                         }
                         const std::string* current = nullptr;
                         const std::vector<std::string>* supported = nullptr;
-                        for (auto& [key, value] : resp)
+                        for (const auto& [key, value] : resp)
                         {
                             if (key == "Current")
                             {
@@ -1439,7 +1439,7 @@ struct SetPIDValues : std::enable_shared_from_this<SetPIDValues>
                         }
                         const std::string* current = nullptr;
                         const std::vector<std::string>* supported = nullptr;
-                        for (auto& [key, value] : r)
+                        for (const auto& [key, value] : r)
                         {
                             if (key == "Current")
                             {
@@ -1821,7 +1821,7 @@ inline void
                 return;
             }
 
-            if (subtree.size() == 0)
+            if (subtree.empty())
             {
                 BMCWEB_LOG_DEBUG << "Can't find image!";
                 messages::internalError(aResp->res);
@@ -2099,7 +2099,7 @@ inline void requestRoutesManager(App& app)
                             << "D-Bus response error on GetSubTree " << ec;
                         return;
                     }
-                    if (subtree.size() == 0)
+                    if (subtree.empty())
                     {
                         BMCWEB_LOG_DEBUG << "Can't find bmc D-Bus object!";
                         return;

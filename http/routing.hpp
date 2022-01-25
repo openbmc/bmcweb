@@ -49,26 +49,26 @@ class BaseRule
         return {};
     }
 
-    virtual void handle(const Request&,
+    virtual void handle(const Request& /*req*/,
                         const std::shared_ptr<bmcweb::AsyncResp>&,
                         const RoutingParams&) = 0;
-    virtual void handleUpgrade(const Request&, Response& res,
-                               boost::asio::ip::tcp::socket&&)
+    virtual void handleUpgrade(const Request& /*req*/, Response& res,
+                               boost::asio::ip::tcp::socket&& /*adaptor*/)
     {
         res.result(boost::beast::http::status::not_found);
         res.end();
     }
 #ifdef BMCWEB_ENABLE_SSL
     virtual void
-        handleUpgrade(const Request&, Response& res,
-                      boost::beast::ssl_stream<boost::asio::ip::tcp::socket>&&)
+        handleUpgrade(const Request& /*req*/, Response& res,
+                      boost::beast::ssl_stream<boost::asio::ip::tcp::socket>&&  /*adaptor*/)
     {
         res.result(boost::beast::http::status::not_found);
         res.end();
     }
 #endif
 
-    size_t getMethods()
+    size_t getMethods() const
     {
         return methodsBitfield;
     }
@@ -211,7 +211,7 @@ struct Wrapped
             !std::is_same<
                 typename std::tuple_element<0, std::tuple<Args..., void>>::type,
                 const Request&>::value,
-            int>::type = 0)
+            int>::type /*enable*/ = 0)
     {
         handler = [f = std::forward<Func>(f)](
                       const Request&,
@@ -245,7 +245,7 @@ struct Wrapped
                 !std::is_same<typename std::tuple_element<
                                   1, std::tuple<Args..., void, void>>::type,
                               const std::shared_ptr<bmcweb::AsyncResp>&>::value,
-            int>::type = 0)
+            int>::type /*enable*/ = 0)
     {
         handler = ReqHandlerWrapper<Args...>(std::move(f));
         /*handler = (
@@ -266,7 +266,7 @@ struct Wrapped
                 std::is_same<typename std::tuple_element<
                                  1, std::tuple<Args..., void, void>>::type,
                              const std::shared_ptr<bmcweb::AsyncResp>&>::value,
-            int>::type = 0)
+            int>::type /*enable*/ = 0)
     {
         handler = std::move(f);
     }
@@ -275,7 +275,7 @@ struct Wrapped
     struct HandlerTypeHelper
     {
         using type = std::function<void(
-            const crow::Request&, const std::shared_ptr<bmcweb::AsyncResp>&,
+            const crow::Request& /*req*/, const std::shared_ptr<bmcweb::AsyncResp>&,
             Args...)>;
         using args_type =
             black_magic::S<typename black_magic::PromoteT<Args>...>;
@@ -285,7 +285,7 @@ struct Wrapped
     struct HandlerTypeHelper<const Request&, Args...>
     {
         using type = std::function<void(
-            const crow::Request&, const std::shared_ptr<bmcweb::AsyncResp>&,
+            const crow::Request& /*req*/, const std::shared_ptr<bmcweb::AsyncResp>&,
             Args...)>;
         using args_type =
             black_magic::S<typename black_magic::PromoteT<Args>...>;
@@ -296,7 +296,7 @@ struct Wrapped
                              const std::shared_ptr<bmcweb::AsyncResp>&, Args...>
     {
         using type = std::function<void(
-            const crow::Request&, const std::shared_ptr<bmcweb::AsyncResp>&,
+            const crow::Request& /*req*/, const std::shared_ptr<bmcweb::AsyncResp>&,
             Args...)>;
         using args_type =
             black_magic::S<typename black_magic::PromoteT<Args>...>;
@@ -330,14 +330,14 @@ class WebSocketRule : public BaseRule
     void validate() override
     {}
 
-    void handle(const Request&,
+    void handle(const Request& /*req*/,
                 const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                const RoutingParams&) override
+                const RoutingParams& /*params*/) override
     {
         asyncResp->res.result(boost::beast::http::status::not_found);
     }
 
-    void handleUpgrade(const Request& req, Response&,
+    void handleUpgrade(const Request& req, Response& /*res*/,
                        boost::asio::ip::tcp::socket&& adaptor) override
     {
         std::shared_ptr<
@@ -349,7 +349,7 @@ class WebSocketRule : public BaseRule
         myConnection->start();
     }
 #ifdef BMCWEB_ENABLE_SSL
-    void handleUpgrade(const Request& req, Response&,
+    void handleUpgrade(const Request& req, Response& /*res*/,
                        boost::beast::ssl_stream<boost::asio::ip::tcp::socket>&&
                            adaptor) override
     {
@@ -499,7 +499,7 @@ class DynamicRule : public BaseRule, public RuleParameterTraits<DynamicRule>
     std::function<void(const Request&,
                        const std::shared_ptr<bmcweb::AsyncResp>&,
                        const RoutingParams&)>
-        wrap(Func f, std::integer_sequence<unsigned, Indices...>)
+        wrap(Func f, std::integer_sequence<unsigned, Indices...> /*is*/)
     {
         using function_t = crow::utility::function_traits<Func>;
 
@@ -670,9 +670,9 @@ class Trie
 
         bool isSimpleNode() const
         {
-            return !ruleIndex && std::all_of(std::begin(paramChildrens),
+            return ruleIndex > 0 && std::all_of(std::begin(paramChildrens),
                                              std::end(paramChildrens),
-                                             [](size_t x) { return !x; });
+                                             [](size_t x) { return x == 0U; });
         }
     };
 
@@ -684,7 +684,7 @@ class Trie
     {
         for (size_t x : node->paramChildrens)
         {
-            if (!x)
+            if (x == 0U)
             {
                 continue;
             }
@@ -798,14 +798,14 @@ class Trie
 
         auto updateFound =
             [&found, &matchParams](std::pair<unsigned, RoutingParams>& ret) {
-                if (ret.first && (!found || found > ret.first))
+                if (ret.first != 0U && (found == 0U || found > ret.first))
                 {
                     found = ret.first;
                     matchParams = std::move(ret.second);
                 }
             };
 
-        if (node->paramChildrens[static_cast<size_t>(ParamType::INT)])
+        if (node->paramChildrens[static_cast<size_t>(ParamType::INT)] != 0U)
         {
             char c = reqUrl[pos];
             if ((c >= '0' && c <= '9') || c == '+' || c == '-')
@@ -828,7 +828,7 @@ class Trie
             }
         }
 
-        if (node->paramChildrens[static_cast<size_t>(ParamType::UINT)])
+        if (node->paramChildrens[static_cast<size_t>(ParamType::UINT)] != 0U)
         {
             char c = reqUrl[pos];
             if ((c >= '0' && c <= '9') || c == '+')
@@ -851,7 +851,7 @@ class Trie
             }
         }
 
-        if (node->paramChildrens[static_cast<size_t>(ParamType::DOUBLE)])
+        if (node->paramChildrens[static_cast<size_t>(ParamType::DOUBLE)] != 0U)
         {
             char c = reqUrl[pos];
             if ((c >= '0' && c <= '9') || c == '+' || c == '-' || c == '.')
@@ -873,7 +873,7 @@ class Trie
             }
         }
 
-        if (node->paramChildrens[static_cast<size_t>(ParamType::STRING)])
+        if (node->paramChildrens[static_cast<size_t>(ParamType::STRING)] != 0U)
         {
             size_t epos = pos;
             for (; epos < reqUrl.size(); epos++)
@@ -898,7 +898,7 @@ class Trie
             }
         }
 
-        if (node->paramChildrens[static_cast<size_t>(ParamType::PATH)])
+        if (node->paramChildrens[static_cast<size_t>(ParamType::PATH)] != 0U)
         {
             size_t epos = reqUrl.size();
 
@@ -957,7 +957,7 @@ class Trie
                     if (url.compare(i, x.second.size(), x.second) == 0)
                     {
                         size_t index = static_cast<size_t>(x.first);
-                        if (!nodes[idx].paramChildrens[index])
+                        if (nodes[idx].paramChildrens[index] == 0U)
                         {
                             unsigned newNodeIdx = newNode();
                             nodes[idx].paramChildrens[index] = newNodeIdx;
@@ -973,7 +973,7 @@ class Trie
             else
             {
                 std::string piece(&c, 1);
-                if (!nodes[idx].children.count(piece))
+                if (nodes[idx].children.count(piece) == 0U)
                 {
                     unsigned newNodeIdx = newNode();
                     nodes[idx].children.emplace(piece, newNodeIdx);
@@ -981,7 +981,7 @@ class Trie
                 idx = nodes[idx].children[piece];
             }
         }
-        if (nodes[idx].ruleIndex)
+        if (nodes[idx].ruleIndex != 0U)
         {
             throw std::runtime_error("handler already exists for " + url);
         }
@@ -993,7 +993,7 @@ class Trie
     {
         for (size_t i = 0; i < static_cast<size_t>(ParamType::MAX); i++)
         {
-            if (n->paramChildrens[i])
+            if (n->paramChildrens[i] != 0U)
             {
                 BMCWEB_LOG_DEBUG << std::string(
                     2U * level, ' ') /*<< "("<<n->paramChildrens[i]<<") "*/;
@@ -1094,7 +1094,7 @@ class Router
         for (size_t method = 0, methodBit = 1; method < maxHttpVerbCount;
              method++, methodBit <<= 1)
         {
-            if (ruleObject->methodsBitfield & methodBit)
+            if ((ruleObject->methodsBitfield & methodBit) > 0U)
             {
                 perMethods[method].rules.emplace_back(ruleObject);
                 perMethods[method].trie.add(
@@ -1150,7 +1150,7 @@ class Router
 
         const std::pair<unsigned, RoutingParams>& found = trie.find(req.url);
         unsigned ruleIndex = found.first;
-        if (!ruleIndex)
+        if (ruleIndex == 0U)
         {
             BMCWEB_LOG_DEBUG << "Cannot match rules " << req.url;
             res.result(boost::beast::http::status::not_found);
@@ -1243,7 +1243,7 @@ class Router
 
         unsigned ruleIndex = found.first;
 
-        if (!ruleIndex)
+        if (ruleIndex == 0U)
         {
             // Check to see if this url exists at any verb
             for (const PerMethod& p : perMethods)

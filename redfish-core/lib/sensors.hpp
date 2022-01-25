@@ -284,11 +284,7 @@ enum class LedState
 class InventoryItem
 {
   public:
-    InventoryItem(const std::string& objPath) :
-        objectPath(objPath), name(), isPresent(true), isFunctional(true),
-        isPowerSupply(false), powerSupplyEfficiencyPercent(-1), manufacturer(),
-        model(), partNumber(), serialNumber(), sensors(), ledObjectPath(""),
-        ledState(LedState::UNKNOWN)
+    InventoryItem(const std::string& objPath) : objectPath(objPath)
     {
         // Set inventory item name to last node of object path
         sdbusplus::message::object_path path(objectPath);
@@ -301,17 +297,17 @@ class InventoryItem
 
     std::string objectPath;
     std::string name;
-    bool isPresent;
-    bool isFunctional;
-    bool isPowerSupply;
-    int powerSupplyEfficiencyPercent;
+    bool isPresent = true;
+    bool isFunctional = true;
+    bool isPowerSupply = false;
+    int powerSupplyEfficiencyPercent = -1;
     std::string manufacturer;
     std::string model;
     std::string partNumber;
     std::string serialNumber;
     std::set<std::string> sensors;
     std::string ledObjectPath;
-    LedState ledState;
+    LedState ledState = LedState::UNKNOWN;
 };
 
 /**
@@ -761,11 +757,11 @@ inline std::string
 
     // Check if sensor has critical threshold alarm
 
-    for (auto& [interface, values] : interfacesDict)
+    for (const auto& [interface, values] : interfacesDict)
     {
         if (interface == "xyz.openbmc_project.Sensor.Threshold.Critical")
         {
-            for (auto& [valueName, value] : values)
+            for (const auto& [valueName, value] : values)
             {
                 if (valueName == "CriticalAlarmHigh" ||
                     valueName == "CriticalAlarmLow")
@@ -798,11 +794,11 @@ inline std::string
     }
 
     // Check if sensor has warning threshold alarm
-    for (auto& [interface, values] : interfacesDict)
+    for (const auto& [interface, values] : interfacesDict)
     {
         if (interface == "xyz.openbmc_project.Sensor.Threshold.Warning")
         {
-            for (auto& [valueName, value] : values)
+            for (const auto& [valueName, value] : values)
             {
                 if (valueName == "WarningAlarmHigh" ||
                     valueName == "WarningAlarmLow")
@@ -866,11 +862,11 @@ inline void objectInterfacesToJson(
 {
     // Assume values exist as is (10^0 == 1) if no scale exists
     int64_t scaleMultiplier = 0;
-    for (auto& [interface, values] : interfacesDict)
+    for (const auto& [interface, values] : interfacesDict)
     {
         if (interface == "xyz.openbmc_project.Sensor.Value")
         {
-            for (auto& [valueName, value] : values)
+            for (const auto& [valueName, value] : values)
             {
                 if (valueName == "Scale")
                 {
@@ -969,7 +965,7 @@ inline void objectInterfacesToJson(
         std::string sensorNameLower =
             boost::algorithm::to_lower_copy(sensorName);
 
-        if (!sensorName.compare("total_power"))
+        if (sensorName == "total_power")
         {
             sensorJson["@odata.type"] = "#Power.v1_0_0.PowerControl";
             // Put multiple "sensors" into a single PowerControl, so have
@@ -1058,13 +1054,13 @@ inline void objectInterfacesToJson(
     for (const std::tuple<const char*, const char*,
                           nlohmann::json::json_pointer>& p : properties)
     {
-        for (auto& [interface, values] : interfacesDict)
+        for (const auto& [interface, values] : interfacesDict)
         {
             if (interface != std::get<0>(p))
             {
                 continue;
             }
-            for (auto& [valueName, valueVariant] : values)
+            for (const auto& [valueName, valueVariant] : values)
             {
                 if (valueName != std::get<1>(p))
                 {
@@ -1194,13 +1190,15 @@ inline void populateFanRedundancy(
                                     return;
                                 }
 
-                                auto allowedFailures = std::get_if<uint8_t>(
-                                    &(findFailures->second));
-                                auto collection =
+                                const uint8_t* allowedFailures =
+                                    std::get_if<uint8_t>(
+                                        &(findFailures->second));
+                                const std::vector<std::string>* collection =
                                     std::get_if<std::vector<std::string>>(
                                         &(findCollection->second));
-                                auto status = std::get_if<std::string>(
-                                    &(findStatus->second));
+                                const std::string* status =
+                                    std::get_if<std::string>(
+                                        &(findStatus->second));
 
                                 if (allowedFailures == nullptr ||
                                     collection == nullptr || status == nullptr)
@@ -1277,9 +1275,9 @@ inline void populateFanRedundancy(
                                 }
 
                                 size_t minNumNeeded =
-                                    collection->size() > 0
-                                        ? collection->size() - *allowedFailures
-                                        : 0;
+                                    collection->empty()
+                                        ? 0
+                                        : collection->size() - *allowedFailures;
                                 nlohmann::json& jResp =
                                     sensorsAsyncResp->asyncResp->res
                                         .jsonValue["Redundancy"];
@@ -1467,11 +1465,11 @@ inline void storeInventoryItemData(
 {
     // Get properties from Inventory.Item interface
 
-    for (auto& [interface, values] : interfacesDict)
+    for (const auto& [interface, values] : interfacesDict)
     {
         if (interface == "xyz.openbmc_project.Inventory.Item")
         {
-            for (auto& [name, dbusValue] : values)
+            for (const auto& [name, dbusValue] : values)
             {
                 if (name == "Present")
                 {
@@ -1493,7 +1491,7 @@ inline void storeInventoryItemData(
         // Get properties from Inventory.Decorator.Asset interface
         if (interface == "xyz.openbmc_project.Inventory.Decorator.Asset")
         {
-            for (auto& [name, dbusValue] : values)
+            for (const auto& [name, dbusValue] : values)
             {
                 if (name == "Manufacturer")
                 {
@@ -1537,7 +1535,7 @@ inline void storeInventoryItemData(
         if (interface ==
             "xyz.openbmc_project.State.Decorator.OperationalStatus")
         {
-            for (auto& [name, dbusValue] : values)
+            for (const auto& [name, dbusValue] : values)
             {
                 if (name == "Functional")
                 {
@@ -2169,7 +2167,7 @@ void getPowerSupplyAttributesData(
         // Store value in Power Supply Inventory Items
         for (InventoryItem& inventoryItem : *inventoryItems)
         {
-            if (inventoryItem.isPowerSupply == true)
+            if (inventoryItem.isPowerSupply)
             {
                 inventoryItem.powerSupplyEfficiencyPercent =
                     static_cast<int>(value);
@@ -2245,7 +2243,7 @@ void getPowerSupplyAttributes(
                 << "getPowerSupplyAttributes respHandler DBus error " << ec;
             return;
         }
-        if (subtree.size() == 0)
+        if (subtree.empty())
         {
             BMCWEB_LOG_DEBUG << "Can't find Power Supply Attributes!";
             callback(inventoryItems);
@@ -2553,7 +2551,7 @@ inline void getSensorData(
                     }
                     else if (sensorType == "power")
                     {
-                        if (!sensorName.compare("total_power"))
+                        if (sensorName == "total_power")
                         {
                             fieldName = "PowerControl";
                         }

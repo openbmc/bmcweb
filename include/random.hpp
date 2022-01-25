@@ -29,7 +29,7 @@ struct OpenSSLGenerator
         return std::numeric_limits<uint8_t>::min();
     }
 
-    bool error()
+    bool error() const
     {
         return err;
     }
