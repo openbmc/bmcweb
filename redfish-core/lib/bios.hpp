@@ -9,7 +9,7 @@ namespace redfish
  * BiosService class supports handle get method for bios.
  */
 inline void
-    handleBiosServiceGet(const crow::Request&,
+    handleBiosServiceGet(const crow::Request& /*req*/,
                          const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
     asyncResp->res.jsonValue["@odata.id"] = "/redfish/v1/Systems/system/Bios";
@@ -39,7 +39,7 @@ inline void requestRoutesBiosService(App& app)
  * Analyzes POST body message before sends Reset request data to D-Bus.
  */
 inline void
-    handleBiosResetPost(const crow::Request&,
+    handleBiosResetPost(const crow::Request& /*req*/,
                         const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
     crow::connections::systemBus->async_method_call(

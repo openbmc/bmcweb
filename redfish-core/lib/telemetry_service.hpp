@@ -10,7 +10,8 @@ namespace redfish
 {
 
 inline void handleTelemetryServiceGet(
-    const crow::Request&, const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
+    const crow::Request& /*req*/,
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
     asyncResp->res.jsonValue["@odata.type"] =
         "#TelemetryService.v1_2_1.TelemetryService";

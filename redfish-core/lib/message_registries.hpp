@@ -28,7 +28,8 @@ namespace redfish
 {
 
 inline void handleMessageRegistryFileCollectionGet(
-    const crow::Request&, const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
+    const crow::Request& /*req*/,
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
     // Collections don't include the static data added by SubRoute
     // because it has a duplicate entry for members
@@ -59,7 +60,8 @@ inline void requestRoutesMessageRegistryFileCollection(App& app)
 }
 
 inline void handleMessageRoutesMessageRegistryFileGet(
-    const crow::Request&, const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const crow::Request& /*req*/,
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& registry)
 {
     const message_registries::Header* header = nullptr;
@@ -123,7 +125,8 @@ inline void requestRoutesMessageRegistryFile(App& app)
 }
 
 inline void handleMessageRegistryGet(
-    const crow::Request&, const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const crow::Request& /*req*/,
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& registry, const std::string& registryMatch)
 
 {
