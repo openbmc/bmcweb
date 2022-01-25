@@ -952,7 +952,7 @@ inline void
             }
             nlohmann::json& links =
                 asyncResp->res.jsonValue["Links"]["Certificates"];
-            for (auto& cert : certs)
+            for (const auto& cert : certs)
             {
                 long id = getIDFromURL(cert.first.str);
                 if (id >= 0)

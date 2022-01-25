@@ -68,7 +68,7 @@ class BaseRule
     }
 #endif
 
-    size_t getMethods()
+    size_t getMethods() const
     {
         return methodsBitfield;
     }

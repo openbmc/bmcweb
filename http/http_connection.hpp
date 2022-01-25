@@ -99,8 +99,9 @@ class Connection :
             adaptor.set_verify_mode(boost::asio::ssl::verify_peer);
             std::string id = "bmcweb";
 
+            const char* cStr = id.c_str();
             // NOLINTNEXTLINE(cppcoreguidelines-pro-type-reinterpret-cast)
-            auto* idC = reinterpret_cast<const unsigned char*>(id.c_str());
+            const auto* idC = reinterpret_cast<const unsigned char*>(cStr);
             int ret = SSL_set_session_id_context(
                 adaptor.native_handle(), idC,
                 static_cast<unsigned int>(id.length()));
