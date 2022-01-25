@@ -989,7 +989,7 @@ class EventServiceManager
     void sendEvent(const nlohmann::json& eventMessageIn,
                    const std::string& origin, const std::string& resType)
     {
-        if (!serviceEnabled || (noOfEventLogSubscribers == 0u))
+        if (!serviceEnabled || (noOfEventLogSubscribers == 0U))
         {
             BMCWEB_LOG_DEBUG << "EventService disabled or no Subscriptions.";
             return;
