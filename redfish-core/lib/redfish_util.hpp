@@ -62,7 +62,7 @@ void getMainChassisId(std::shared_ptr<bmcweb::AsyncResp> asyncResp,
                 BMCWEB_LOG_ERROR << ec;
                 return;
             }
-            if (subtree.size() == 0)
+            if (subtree.empty())
             {
                 BMCWEB_LOG_DEBUG << "Can't find chassis!";
                 return;
@@ -183,7 +183,7 @@ void getPortNumber(const std::string& socketPath, CallbackFunc&& callback)
                 callback(ec, 0);
                 return;
             }
-            if (resp.size() < 1)
+            if (resp.empty())
             {
                 // Network Protocol Listen Response Elements is empty
                 boost::system::error_code ec1 =

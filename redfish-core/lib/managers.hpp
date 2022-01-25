@@ -807,7 +807,7 @@ inline CreatePIDRet createPidInterface(
         }
     }
 
-    if (profile.size() &&
+    if (!profile.empty() &&
         (type == "PidControllers" || type == "FanControllers" ||
          type == "StepwiseControllers"))
     {
@@ -1821,7 +1821,7 @@ inline void
                 return;
             }
 
-            if (subtree.size() == 0)
+            if (subtree.empty())
             {
                 BMCWEB_LOG_DEBUG << "Can't find image!";
                 messages::internalError(aResp->res);
@@ -2099,7 +2099,7 @@ inline void requestRoutesManager(App& app)
                             << "D-Bus response error on GetSubTree " << ec;
                         return;
                     }
-                    if (subtree.size() == 0)
+                    if (subtree.empty())
                     {
                         BMCWEB_LOG_DEBUG << "Can't find bmc D-Bus object!";
                         return;

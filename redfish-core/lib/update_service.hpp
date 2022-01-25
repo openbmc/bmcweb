@@ -824,7 +824,7 @@ inline void requestRoutesSoftwareInventory(App& app)
                             continue;
                         }
 
-                        if (obj.second.size() < 1)
+                        if (obj.second.empty())
                         {
                             continue;
                         }

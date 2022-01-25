@@ -55,7 +55,7 @@ inline void
                 return;
             }
 
-            if (functionalFw.size() == 0)
+            if (functionalFw.empty())
             {
                 // Could keep going and try to populate SoftwareImages but
                 // something is seriously wrong, so just fail

@@ -232,7 +232,7 @@ inline void requestRoutesEventDestinationCollection(App& app)
 
                 if (regPrefixes && msgIds)
                 {
-                    if (regPrefixes->size() && msgIds->size())
+                    if (!regPrefixes->empty() && !msgIds->empty())
                     {
                         messages::mutualExclusiveProperties(
                             asyncResp->res, "RegistryPrefixes", "MessageIds");

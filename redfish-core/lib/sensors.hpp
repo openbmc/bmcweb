@@ -1277,9 +1277,9 @@ inline void populateFanRedundancy(
                                 }
 
                                 size_t minNumNeeded =
-                                    collection->size() > 0
-                                        ? collection->size() - *allowedFailures
-                                        : 0;
+                                    collection->empty()
+                                        ? 0
+                                        : collection->size() - *allowedFailures;
                                 nlohmann::json& jResp =
                                     sensorsAsyncResp->asyncResp->res
                                         .jsonValue["Redundancy"];
@@ -2245,7 +2245,7 @@ void getPowerSupplyAttributes(
                 << "getPowerSupplyAttributes respHandler DBus error " << ec;
             return;
         }
-        if (subtree.size() == 0)
+        if (subtree.empty())
         {
             BMCWEB_LOG_DEBUG << "Can't find Power Supply Attributes!";
             callback(inventoryItems);

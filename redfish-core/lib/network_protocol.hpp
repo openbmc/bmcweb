@@ -141,10 +141,10 @@ inline void getNetworkData(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
             return;
         }
         asyncResp->res.jsonValue["NTP"]["NTPServers"] = ntpServers;
-        if (hostName.empty() == false)
+        if (!hostName.empty())
         {
             std::string fqdn = hostName;
-            if (domainNames.empty() == false)
+            if (!domainNames.empty())
             {
                 fqdn += ".";
                 fqdn += domainNames[0];

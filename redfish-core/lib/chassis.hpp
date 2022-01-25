@@ -270,7 +270,7 @@ inline void requestRoutesChassis(App& app)
 
                         health->populate();
 
-                        if (connectionNames.size() < 1)
+                        if (connectionNames.empty())
                         {
                             BMCWEB_LOG_ERROR << "Got 0 Connection names";
                             continue;
@@ -375,7 +375,7 @@ inline void requestRoutesChassis(App& app)
                                         // so skip if it is empty
                                         if (propertyName == "SparePartNumber")
                                         {
-                                            if (*value == "")
+                                            if (value->empty())
                                             {
                                                 continue;
                                             }
@@ -514,7 +514,7 @@ inline void requestRoutesChassis(App& app)
                             continue;
                         }
 
-                        if (connectionNames.size() < 1)
+                        if (connectionNames.empty())
                         {
                             BMCWEB_LOG_ERROR << "Got 0 Connection names";
                             continue;
