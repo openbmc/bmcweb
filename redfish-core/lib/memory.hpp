@@ -546,7 +546,7 @@ inline void getDimmDataByService(std::shared_ptr<bmcweb::AsyncResp> aResp,
                             << "Invalid property type for Dimm Presence";
                         return;
                     }
-                    if (*value == false)
+                    if (!*value)
                     {
                         aResp->res.jsonValue["Status"]["State"] = "Absent";
                     }

@@ -2044,7 +2044,7 @@ inline void handleDBusUrl(const crow::Request& req,
 
     // If accessing a single attribute, fill in and update objectPath,
     // otherwise leave destProperty blank
-    std::string destProperty = "";
+    std::string destProperty;
     const char* attrSeperator = "/attr/";
     size_t attrPosition = objectPath.find(attrSeperator);
     if (attrPosition != objectPath.npos)

@@ -261,7 +261,7 @@ class Connection :
                 return true;
             }
             sslUser.resize(lastChar);
-            std::string unsupportedClientId = "";
+            std::string unsupportedClientId;
             sessionIsFromTransport = true;
             userSession = persistent_data::SessionStore::getInstance()
                               .generateUserSession(
@@ -725,7 +725,6 @@ class Connection :
         BMCWEB_LOG_DEBUG << this << " timer started";
     }
 
-  private:
     Adaptor adaptor;
     Handler* handler;
     // Making this a std::optional allows it to be efficiently destroyed and
