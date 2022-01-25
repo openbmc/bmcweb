@@ -1356,7 +1356,7 @@ class EventServiceManager
         for (const auto& it :
              EventServiceManager::getInstance().subscriptionsMap)
         {
-            Subscription& entry = *it.second.get();
+            Subscription& entry = *it.second;
             if (entry.eventFormatType == metricReportFormatType)
             {
                 entry.filterAndSendReports(id, *readings);

@@ -2188,7 +2188,7 @@ inline void requestEthernetInterfacesRoutes(App& app)
                                     }
                                 };
 
-                            if (vlanEnable == true)
+                            if (vlanEnable)
                             {
                                 crow::connections::systemBus->async_method_call(
                                     std::move(callback),
