@@ -40,7 +40,7 @@ inline bool validateCertificate(X509* const cert)
 {
     // Create an empty X509_STORE structure for certificate validation.
     X509_STORE* x509Store = X509_STORE_new();
-    if (!x509Store)
+    if (x509Store == nullptr)
     {
         BMCWEB_LOG_ERROR << "Error occurred during X509_STORE_new call";
         return false;
@@ -48,7 +48,7 @@ inline bool validateCertificate(X509* const cert)
 
     // Load Certificate file into the X509 structure.
     X509_STORE_CTX* storeCtx = X509_STORE_CTX_new();
-    if (!storeCtx)
+    if (storeCtx == nullptr)
     {
         BMCWEB_LOG_ERROR << "Error occurred during X509_STORE_CTX_new call";
         X509_STORE_free(x509Store);
@@ -147,7 +147,7 @@ inline bool verifyOpensslKeyCert(const std::string& filepath)
             EVP_PKEY_CTX* pkeyCtx =
                 EVP_PKEY_CTX_new_from_pkey(nullptr, pkey, nullptr);
 
-            if (!pkeyCtx)
+            if (pkeyCtx == nullptr)
             {
                 std::cerr << "Unable to allocate pkeyCtx " << ERR_get_error()
                           << "\n";
@@ -198,7 +198,7 @@ inline bool verifyOpensslKeyCert(const std::string& filepath)
 inline X509* loadCert(const std::string& filePath)
 {
     BIO* certFileBio = BIO_new_file(filePath.c_str(), "rb");
-    if (!certFileBio)
+    if (certFileBio == nullptr)
     {
         BMCWEB_LOG_ERROR << "Error occured during BIO_new_file call, "
                          << "FILE= " << filePath;
@@ -206,7 +206,7 @@ inline X509* loadCert(const std::string& filePath)
     }
 
     X509* cert = X509_new();
-    if (!cert)
+    if (cert == nullptr)
     {
         BMCWEB_LOG_ERROR << "Error occured during X509_new call, "
                          << ERR_get_error();
@@ -214,7 +214,7 @@ inline X509* loadCert(const std::string& filePath)
         return nullptr;
     }
 
-    if (!PEM_read_bio_X509(certFileBio, &cert, nullptr, nullptr))
+    if (PEM_read_bio_X509(certFileBio, &cert, nullptr, nullptr) == nullptr)
     {
         BMCWEB_LOG_ERROR << "Error occured during PEM_read_bio_X509 call, "
                          << "FILE= " << filePath;
@@ -235,7 +235,7 @@ inline int addExt(X509* cert, int nid, const char* value)
 
     // NOLINTNEXTLINE(cppcoreguidelines-pro-type-const-cast)
     ex = X509V3_EXT_conf_nid(nullptr, &ctx, nid, const_cast<char*>(value));
-    if (!ex)
+    if (ex == nullptr)
     {
         BMCWEB_LOG_ERROR << "Error: In X509V3_EXT_conf_nidn: " << value;
         return -1;

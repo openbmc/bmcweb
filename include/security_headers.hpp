@@ -25,7 +25,7 @@ inline void addSecurityHeaders(const crow::Request& req [[maybe_unused]],
                                       "mode=block");
     res.addHeader("X-Content-Type-Options", "nosniff");
 
-    if (!bmcwebInsecureDisableXssPrevention)
+    if (bmcwebInsecureDisableXssPrevention == 0)
     {
         res.addHeader("Content-Security-Policy", "default-src 'none'; "
                                                  "img-src 'self' data:; "

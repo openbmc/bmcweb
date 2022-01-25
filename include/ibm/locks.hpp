@@ -279,7 +279,7 @@ inline void Lock::releaseLock(const ListOfTransactionIds& refRids)
 {
     for (const auto& id : refRids)
     {
-        if (lockTable.erase(id))
+        if (lockTable.erase(id) != 0U)
         {
             BMCWEB_LOG_DEBUG << "Removing the locks with transaction ID : "
                              << id;
