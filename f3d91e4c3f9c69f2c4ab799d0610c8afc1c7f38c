@@ -97,6 +97,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "13ac6ccd_74b7e3a4",
+        "filename": "http/utility.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 590,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-01-25T17:30:57Z",
+      "side": 1,
+      "message": "Can we at least clean this up so it\u0027s a magic number that matches the max string?  I\u0027m still not quite sure how we know this is correct.  How do we know it\u0027s not 253402300798?  That answer should be obvious from the code.",
+      "parentUuid": "9ad79653_ea12e3e4",
+      "range": {
+        "startLine": 590,
+        "startChar": 44,
+        "endLine": 590,
+        "endChar": 68
+      },
+      "revId": "f3d91e4c3f9c69f2c4ab799d0610c8afc1c7f38c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e2a67b59_9503831a",
         "filename": "http/utility.hpp",
         "patchSetId": 6
@@ -179,6 +203,30 @@
       "side": 1,
       "message": "maxMilliSeconds and maxSeconds are different though. Done, declared them in the internal scope.",
       "parentUuid": "d9448e5f_02ce388e",
+      "range": {
+        "startLine": 615,
+        "startChar": 0,
+        "endLine": 615,
+        "endChar": 52
+      },
+      "revId": "f3d91e4c3f9c69f2c4ab799d0610c8afc1c7f38c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "975830c2_69b3f68c",
+        "filename": "http/utility.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 615,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-01-25T17:30:57Z",
+      "side": 1,
+      "message": "They\u0027re the same plus a couple digits.",
+      "parentUuid": "0fdb14a0_d8f65bbb",
       "range": {
         "startLine": 615,
         "startChar": 0,
