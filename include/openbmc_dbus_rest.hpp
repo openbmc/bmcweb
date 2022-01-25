@@ -656,16 +656,16 @@ inline int convertJsonToDbus(sd_bus_message* m, const std::string& argType,
         else if (argCode == "b")
         {
             // lots of ways bool could be represented here.  Try them all
-            int boolInt = false;
+            int boolInt = 0;
             if (intValue != nullptr)
             {
                 if (*intValue == 1)
                 {
-                    boolInt = true;
+                    boolInt = 1;
                 }
                 else if (*intValue == 0)
                 {
-                    boolInt = false;
+                    boolInt = 0;
                 }
                 else
                 {
@@ -1025,7 +1025,7 @@ inline int readArrayFromMessage(const std::string& typeCode,
 
     while (true)
     {
-        r = sd_bus_message_at_end(m.get(), false);
+        r = sd_bus_message_at_end(m.get(), 0);
         if (r < 0)
         {
             BMCWEB_LOG_ERROR << "sd_bus_message_at_end failed";
@@ -1483,7 +1483,7 @@ inline void findActionOnInterface(
                                         transaction->methodFailed = true;
                                         const sd_bus_error* e = m2.get_error();
 
-                                        if (e)
+                                        if (e != nullptr)
                                         {
                                             setErrorResponse(
                                                 transaction->res,
@@ -2002,10 +2002,12 @@ inline void handlePut(const crow::Request& req,
                                                             boost::beast::http::
                                                                 status::
                                                                     forbidden,
-                                                            (e) ? e->name
+                                                            (e) != nullptr
+                                                                ? e->name
                                                                 : ec.category()
                                                                       .name(),
-                                                            (e) ? e->message
+                                                            (e) != nullptr
+                                                                ? e->message
                                                                 : ec.message());
                                                     }
                                                     else
