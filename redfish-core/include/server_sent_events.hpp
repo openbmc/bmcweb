@@ -248,8 +248,6 @@ class ServerSentEvents : public std::enable_shared_from_this<ServerSentEvents>
                 break;
             }
         }
-
-        return;
     }
 
   public:
