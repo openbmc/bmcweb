@@ -24,7 +24,7 @@ namespace redfish
 {
 
 inline void
-    handleServiceRootGet(const crow::Request&,
+    handleServiceRootGet(const crow::Request& /*req*/,
                          const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
 

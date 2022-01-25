@@ -88,7 +88,7 @@ inline std::string getRoleIdFromPrivilege(std::string_view role)
     {
         return "Operator";
     }
-    if ((role == "") || (role == "priv-noaccess"))
+    if (role.empty() || (role == "priv-noaccess"))
     {
         return "NoAccess";
     }
@@ -108,7 +108,7 @@ inline std::string getPrivilegeFromRoleId(std::string_view role)
     {
         return "priv-operator";
     }
-    if ((role == "NoAccess") || (role == ""))
+    if ((role == "NoAccess") || (role.empty()))
     {
         return "priv-noaccess";
     }
@@ -158,8 +158,6 @@ inline void userErrorMessageHandler(
     {
         messages::internalError(asyncResp->res);
     }
-
-    return;
 }
 
 inline void parseLDAPConfigData(nlohmann::json& jsonResponse,
@@ -187,7 +185,7 @@ inline void parseLDAPConfigData(nlohmann::json& jsonResponse,
 
     nlohmann::json& roleMapArray = jsonResponse[ldapType]["RemoteRoleMapping"];
     roleMapArray = nlohmann::json::array();
-    for (auto& obj : confData.groupRoleList)
+    for (const auto& obj : confData.groupRoleList)
     {
         BMCWEB_LOG_DEBUG << "Pushing the data groupName="
                          << obj.second.groupName << "\n";
@@ -1029,7 +1027,7 @@ inline void handleLDAPPatch(nlohmann::json& input,
     }
     if (serviceAddressList)
     {
-        if ((*serviceAddressList).size() == 0)
+        if (serviceAddressList->empty())
         {
             messages::propertyValueNotInList(asyncResp->res, "[]",
                                              "ServiceAddress");
@@ -1038,7 +1036,7 @@ inline void handleLDAPPatch(nlohmann::json& input,
     }
     if (baseDNList)
     {
-        if ((*baseDNList).size() == 0)
+        if (baseDNList->empty())
         {
             messages::propertyValueNotInList(asyncResp->res, "[]",
                                              "BaseDistinguishedNames");
@@ -1148,7 +1146,7 @@ inline void updateUserProperties(std::shared_ptr<bmcweb::AsyncResp> asyncResp,
         [dbusObjectPath, username, password(std::move(password)),
          roleId(std::move(roleId)), enabled, locked,
          asyncResp{std::move(asyncResp)}](int rc) {
-            if (!rc)
+            if (rc <= 0)
             {
                 messages::resourceNotFound(
                     asyncResp->res, "#ManagerAccount.v1_4_0.ManagerAccount",
@@ -1193,7 +1191,7 @@ inline void updateUserProperties(std::shared_ptr<bmcweb::AsyncResp> asyncResp,
                         messages::success(asyncResp->res);
                         return;
                     },
-                    "xyz.openbmc_project.User.Manager", dbusObjectPath.c_str(),
+                    "xyz.openbmc_project.User.Manager", dbusObjectPath,
                     "org.freedesktop.DBus.Properties", "Set",
                     "xyz.openbmc_project.User.Attributes", "UserEnabled",
                     dbus::utility::DbusVariantType{*enabled});
@@ -1223,7 +1221,7 @@ inline void updateUserProperties(std::shared_ptr<bmcweb::AsyncResp> asyncResp,
                         }
                         messages::success(asyncResp->res);
                     },
-                    "xyz.openbmc_project.User.Manager", dbusObjectPath.c_str(),
+                    "xyz.openbmc_project.User.Manager", dbusObjectPath,
                     "org.freedesktop.DBus.Properties", "Set",
                     "xyz.openbmc_project.User.Attributes", "UserPrivilege",
                     dbus::utility::DbusVariantType{priv});
@@ -1252,7 +1250,7 @@ inline void updateUserProperties(std::shared_ptr<bmcweb::AsyncResp> asyncResp,
                         messages::success(asyncResp->res);
                         return;
                     },
-                    "xyz.openbmc_project.User.Manager", dbusObjectPath.c_str(),
+                    "xyz.openbmc_project.User.Manager", dbusObjectPath,
                     "org.freedesktop.DBus.Properties", "Set",
                     "xyz.openbmc_project.User.Attributes",
                     "UserLockedForFailedAttempt",
@@ -1528,7 +1526,7 @@ inline void requestAccountServiceRoutes(App& app)
                             asyncResp->res.jsonValue["Members"];
                         memberArray = nlohmann::json::array();
 
-                        for (auto& userpath : users)
+                        for (const auto& userpath : users)
                         {
                             std::string user = userpath.first.filename();
                             if (user.empty())
@@ -1720,7 +1718,7 @@ inline void requestAccountServiceRoutes(App& app)
                             const std::pair<sdbusplus::message::object_path,
                                             dbus::utility::DBusInteracesMap>&
                                 user) {
-                            return !accountName.compare(user.first.filename());
+                            return accountName != user.first.filename();
                         });
 
                     if (userIt == users.end())

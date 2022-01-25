@@ -66,8 +66,8 @@ inline void fillReportDefinition(
             interval = std::get_if<uint64_t>(&var);
         }
     }
-    if (!emitsReadingsUpdate || !logToMetricReportsCollection ||
-        !readingParams || !reportingType || !interval)
+    if (emitsReadingsUpdate == nullptr || logToMetricReportsCollection == nullptr ||
+        readingParams == nullptr || reportingType  == nullptr|| interval == nullptr)
     {
         BMCWEB_LOG_ERROR << "Property type mismatch or property is missing";
         messages::internalError(asyncResp->res);
@@ -86,7 +86,7 @@ inline void fillReportDefinition(
     }
 
     nlohmann::json metrics = nlohmann::json::array();
-    for (auto& [sensorPath, operationType, id, metadata] : *readingParams)
+    for (const auto& [sensorPath, operationType, id, metadata] : *readingParams)
     {
         metrics.push_back({
             {"MetricId", id},

@@ -41,10 +41,10 @@ inline uint8_t decode(uint8_t& state, uint32_t& codePoint,
     const uint8_t type = utf8d[byte];
 
     codePoint = (state != utf8Accept)
-                    ? (byte & 0x3fu) | (codePoint << 6)
+                    ? (byte & 0x3fU) | (codePoint << 6)
                     : static_cast<uint32_t>(0xff >> type) & (byte);
 
-    state = utf8d[256u + state * 16u + type];
+    state = utf8d[256U + state * 16U + type];
     return state;
 }
 
@@ -284,7 +284,7 @@ inline unsigned int countDigits(uint64_t number) noexcept
         {
             return nDigits + 3;
         }
-        number = number / 10000u;
+        number = number / 10000U;
         nDigits += 4;
     }
 }
@@ -325,7 +325,7 @@ void dumpInteger(std::string& out, NumberType number)
     }
 
     // use a pointer to fill the buffer
-    auto bufferPtr = begin(numberbuffer);
+    auto* bufferPtr = begin(numberbuffer);
 
     const bool isNegative = std::is_same<NumberType, int64_t>::value &&
                             !(number >= 0); // see issue #755
@@ -364,18 +364,23 @@ void dumpInteger(std::string& out, NumberType number)
     {
         const auto digitsIndex = static_cast<unsigned>((absValue % 100));
         absValue /= 100;
+        // NOLINTNEXTLINE(cppcoreguidelines-pro-bounds-pointer-arithmetic)
         *(--bufferPtr) = digitsTo99[digitsIndex][1];
+        // NOLINTNEXTLINE(cppcoreguidelines-pro-bounds-pointer-arithmetic)
         *(--bufferPtr) = digitsTo99[digitsIndex][0];
     }
 
     if (absValue >= 10)
     {
         const auto digitsIndex = static_cast<unsigned>(absValue);
+        // NOLINTNEXTLINE(cppcoreguidelines-pro-bounds-pointer-arithmetic)
         *(--bufferPtr) = digitsTo99[digitsIndex][1];
+        // NOLINTNEXTLINE(cppcoreguidelines-pro-bounds-pointer-arithmetic)
         *(--bufferPtr) = digitsTo99[digitsIndex][0];
     }
     else
     {
+        // NOLINTNEXTLINE(cppcoreguidelines-pro-bounds-pointer-arithmetic)
         *(--bufferPtr) = static_cast<char>('0' + absValue);
     }
 
@@ -418,7 +423,7 @@ inline void dumpfloat(std::string& out, double number,
         return;
     }
 
-    const auto end =
+    const std::array<char, 64>::iterator end =
         std::remove(numberbuffer.begin(), numberbuffer.begin() + len, ',');
     std::fill(end, numberbuffer.end(), '\0');
 

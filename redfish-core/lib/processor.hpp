@@ -92,7 +92,7 @@ inline void getCpuDataByInterface(
                     messages::internalError(aResp->res);
                     return;
                 }
-                if (*cpuPresent == false)
+                if (!*cpuPresent)
                 {
                     // Slot is not populated
                     aResp->res.jsonValue["Status"]["State"] = "Absent";
@@ -106,7 +106,7 @@ inline void getCpuDataByInterface(
                     messages::internalError(aResp->res);
                     return;
                 }
-                if (*cpuFunctional == false)
+                if (!*cpuFunctional)
                 {
                     aResp->res.jsonValue["Status"]["Health"] = "Critical";
                 }
@@ -201,8 +201,6 @@ inline void getCpuDataByInterface(
             }
         }
     }
-
-    return;
 }
 
 inline void getCpuDataByService(std::shared_ptr<bmcweb::AsyncResp> aResp,
@@ -250,7 +248,7 @@ inline void getCpuDataByService(std::shared_ptr<bmcweb::AsyncResp> aResp,
                                         std::get_if<bool>(&property.second);
                                     if (present != nullptr)
                                     {
-                                        if (*present == true)
+                                        if (*present)
                                         {
                                             slotPresent = true;
                                             totalCores++;
@@ -444,12 +442,12 @@ inline void getAcceleratorDataByService(
             std::string state = "Enabled";
             std::string health = "OK";
 
-            if (accPresent != nullptr && *accPresent == false)
+            if (accPresent != nullptr && !*accPresent)
             {
                 state = "Absent";
             }
 
-            if ((accFunctional != nullptr) && (*accFunctional == false))
+            if ((accFunctional != nullptr) && !*accFunctional)
             {
                 if (state == "Enabled")
                 {

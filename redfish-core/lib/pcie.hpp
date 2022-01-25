@@ -217,7 +217,7 @@ inline void requestRoutesSystemPCIeDevice(App& app)
                                 messages::internalError(asyncResp->res);
                                 return;
                             }
-                            if (*generationInUse == "")
+                            if (generationInUse->empty())
                             {
                                 // unknown, no need to handle
                                 return;
@@ -303,7 +303,7 @@ inline void requestRoutesSystemPCIeFunctionCollection(App& app)
                             "DeviceId";
                         std::string* property = std::get_if<std::string>(
                             &pcieDevProperties[devIDProperty]);
-                        if (property && !property->empty())
+                        if (property != nullptr && !property->empty())
                         {
                             pcieFunctionList.push_back(
                                 {{"@odata.id",
@@ -365,7 +365,7 @@ inline void requestRoutesSystemPCIeFunction(App& app)
                         "Function" + function + "DeviceId";
                     if (std::string* property = std::get_if<std::string>(
                             &pcieDevProperties[devIDProperty]);
-                        property && property->empty())
+                        property != nullptr && property->empty())
                     {
                         messages::resourceNotFound(asyncResp->res,
                                                    "PCIeFunction", function);

@@ -263,7 +263,7 @@ static void monitorForSoftwareAvailable(
     int timeoutTimeSeconds = 10)
 {
     // Only allow one FW update at a time
-    if (fwUpdateInProgress != false)
+    if (fwUpdateInProgress)
     {
         if (asyncResp)
         {
@@ -723,7 +723,7 @@ inline void requestRoutesSoftwareInventoryCollection(App& app)
                         nlohmann::json::array();
                     asyncResp->res.jsonValue["Members@odata.count"] = 0;
 
-                    for (auto& obj : subtree)
+                    for (const auto& obj : subtree)
                     {
                         sdbusplus::message::object_path path(obj.first);
                         std::string swId = path.filename();
@@ -819,12 +819,12 @@ inline void requestRoutesSoftwareInventory(App& app)
                                  std::string, std::vector<std::string>>>>& obj :
                          subtree)
                     {
-                        if (boost::ends_with(obj.first, *swId) != true)
+                        if (!boost::ends_with(obj.first, *swId))
                         {
                             continue;
                         }
 
-                        if (obj.second.size() < 1)
+                        if (obj.second.empty())
                         {
                             continue;
                         }

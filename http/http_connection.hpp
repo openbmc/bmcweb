@@ -99,8 +99,9 @@ class Connection :
             adaptor.set_verify_mode(boost::asio::ssl::verify_peer);
             std::string id = "bmcweb";
 
+            const char* cStr = id.c_str();
             // NOLINTNEXTLINE(cppcoreguidelines-pro-type-reinterpret-cast)
-            auto* idC = reinterpret_cast<const unsigned char*>(id.c_str());
+            const auto* idC = reinterpret_cast<const unsigned char*>(cStr);
             int ret = SSL_set_session_id_context(
                 adaptor.native_handle(), idC,
                 static_cast<unsigned int>(id.length()));
@@ -260,7 +261,7 @@ class Connection :
                 return true;
             }
             sslUser.resize(lastChar);
-            std::string unsupportedClientId = "";
+            std::string unsupportedClientId;
             sessionIsFromTransport = true;
             userSession = persistent_data::SessionStore::getInstance()
                               .generateUserSession(
@@ -724,7 +725,6 @@ class Connection :
         BMCWEB_LOG_DEBUG << this << " timer started";
     }
 
-  private:
     Adaptor adaptor;
     Handler* handler;
     // Making this a std::optional allows it to be efficiently destroyed and

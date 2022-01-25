@@ -87,7 +87,7 @@ inline void
                 {
                     const std::string* imageUrlValue =
                         std::get_if<std::string>(&value);
-                    if (imageUrlValue && !imageUrlValue->empty())
+                    if (imageUrlValue != nullptr && !imageUrlValue->empty())
                     {
                         std::filesystem::path filePath = *imageUrlValue;
                         if (!filePath.has_filename())
@@ -112,7 +112,7 @@ inline void
                 if (property == "WriteProtected")
                 {
                     const bool* writeProtectedValue = std::get_if<bool>(&value);
-                    if (writeProtectedValue)
+                    if (writeProtectedValue != nullptr)
                     {
                         aResp->res.jsonValue["WriteProtected"] =
                             *writeProtectedValue;
@@ -127,14 +127,14 @@ inline void
                 if (property == "Active")
                 {
                     const bool* activeValue = std::get_if<bool>(&value);
-                    if (!activeValue)
+                    if (activeValue == nullptr)
                     {
                         BMCWEB_LOG_DEBUG << "Value Active not found";
                         return;
                     }
                     aResp->res.jsonValue["Inserted"] = *activeValue;
 
-                    if (*activeValue == true)
+                    if (*activeValue)
                     {
                         aResp->res.jsonValue["ConnectedVia"] = "Applet";
                     }
@@ -402,7 +402,7 @@ inline bool
     }
 
     // optional param inserted must be true
-    if ((inserted != std::nullopt) && (*inserted != true))
+    if ((inserted != std::nullopt) && !*inserted)
     {
         BMCWEB_LOG_ERROR
             << "Request action optional parameter Inserted must be true.";
@@ -580,7 +580,7 @@ class CredentialsProvider
     SecureBuffer pack(FormatterFunc formatter)
     {
         SecureBuffer packed{new Buffer{}};
-        if (formatter)
+        if (formatter != nullptr)
         {
             formatter(credentials.user(), credentials.password(), *packed);
         }
@@ -816,7 +816,7 @@ inline void requestNBDVirtualMediaRoutes(App& app)
                     actionParams.inserted, actionParams.transferMethod,
                     actionParams.transferProtocolType);
 
-                if (paramsValid == false)
+                if (!paramsValid)
                 {
                     return;
                 }

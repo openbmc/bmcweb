@@ -142,7 +142,7 @@ class App
 
     std::vector<const std::string*> getRoutes()
     {
-        const std::string root("");
+        const std::string root;
         return router.getRoutes(root);
     }
     std::vector<const std::string*> getRoutes(const std::string& parent)
