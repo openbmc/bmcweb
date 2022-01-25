@@ -169,6 +169,54 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ff1d31bd_04ca75f2",
+        "filename": "http/utility.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 590,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-01-25T22:52:24Z",
+      "side": 1,
+      "message": "\u003e It\u0027s covered in the unit test.\n\n253402300798 isn\u0027t explicitly covered by a unit test.\n\n\n\u003e It is not obvious to get the number from \"9999-12-31T23:59:59\" since it involves leap year seconds.\n\nRight, so how was that number determined, given how non trivial it is?  It looks like the explicit point is that we can\u0027t go beyond year 9999.  Is there a way we could code against that instead?  Maybe we\u0027d be better off picking a date closer so that it\u0027s more obvious, like yeah 2200?",
+      "parentUuid": "8c67f430_3962e7ab",
+      "range": {
+        "startLine": 590,
+        "startChar": 44,
+        "endLine": 590,
+        "endChar": 68
+      },
+      "revId": "f3d91e4c3f9c69f2c4ab799d0610c8afc1c7f38c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f7907803_0e98a81e",
+        "filename": "http/utility.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 590,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-01-25T22:52:24Z",
+      "side": 1,
+      "message": "Yes, we shouldn\u0027t have magic numbers in the code, and needing it kind of implies that we\u0027re using the wrong api.  Did you get a chance to look and see if boost::chrono has a better solution for this?",
+      "parentUuid": "8c67f430_3962e7ab",
+      "range": {
+        "startLine": 590,
+        "startChar": 44,
+        "endLine": 590,
+        "endChar": 68
+      },
+      "revId": "f3d91e4c3f9c69f2c4ab799d0610c8afc1c7f38c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e2a67b59_9503831a",
         "filename": "http/utility.hpp",
         "patchSetId": 6
