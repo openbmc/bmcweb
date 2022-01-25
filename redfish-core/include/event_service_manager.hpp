@@ -1064,8 +1064,6 @@ class EventServiceManager
         // Control would be here when Redfish file is created.
         // Reset File Position as new file is created
         redfishLogFilePosition = 0;
-
-        return;
     }
 
     void cacheRedfishLogFile()

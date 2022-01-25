@@ -158,8 +158,6 @@ inline void userErrorMessageHandler(
     {
         messages::internalError(asyncResp->res);
     }
-
-    return;
 }
 
 inline void parseLDAPConfigData(nlohmann::json& jsonResponse,

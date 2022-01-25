@@ -104,12 +104,7 @@ inline bool getNthStringFromPath(const std::string& path, int index,
             }
         }
     }
-    if (count < index)
-    {
-        return false;
-    }
-
-    return true;
+    return count >= index;
 }
 
 template <typename Callback>
