@@ -22,6 +22,30 @@
       },
       "revId": "72492569b945efec2cb16d3d75cd3bcbd49f9aec",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "06a70656_cea2b734",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1000404
+      },
+      "writtenOn": "2022-01-25T08:22:13Z",
+      "side": 1,
+      "message": "Sure, I agree DiagnosticData model might be more suitable for this data. I will contact with Redfish forum and try to let the properties become the standard without OEM.\n\nThe OEM schema doc helps a lot when I implemented this feature. Hope we can define the data as the standard properties.",
+      "parentUuid": "dfd2f53a_2f455b8a",
+      "range": {
+        "startLine": 39,
+        "startChar": 0,
+        "endLine": 44,
+        "endChar": 28
+      },
+      "revId": "72492569b945efec2cb16d3d75cd3bcbd49f9aec",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
