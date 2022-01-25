@@ -49,19 +49,19 @@ class BaseRule
         return {};
     }
 
-    virtual void handle(const Request&,
+    virtual void handle(const Request& /*req*/,
                         const std::shared_ptr<bmcweb::AsyncResp>&,
                         const RoutingParams&) = 0;
-    virtual void handleUpgrade(const Request&, Response& res,
-                               boost::asio::ip::tcp::socket&&)
+    virtual void handleUpgrade(const Request& /*req*/, Response& res,
+                               boost::asio::ip::tcp::socket&& /*adaptor*/)
     {
         res.result(boost::beast::http::status::not_found);
         res.end();
     }
 #ifdef BMCWEB_ENABLE_SSL
-    virtual void
-        handleUpgrade(const Request&, Response& res,
-                      boost::beast::ssl_stream<boost::asio::ip::tcp::socket>&&)
+    virtual void handleUpgrade(
+        const Request& /*req*/, Response& res,
+        boost::beast::ssl_stream<boost::asio::ip::tcp::socket>&& /*adaptor*/)
     {
         res.result(boost::beast::http::status::not_found);
         res.end();
@@ -211,7 +211,8 @@ struct Wrapped
             !std::is_same<
                 typename std::tuple_element<0, std::tuple<Args..., void>>::type,
                 const Request&>::value,
-            int>::type = 0)
+            int>::type /*enable*/
+        = 0)
     {
         handler = [f = std::forward<Func>(f)](
                       const Request&,
@@ -245,7 +246,8 @@ struct Wrapped
                 !std::is_same<typename std::tuple_element<
                                   1, std::tuple<Args..., void, void>>::type,
                               const std::shared_ptr<bmcweb::AsyncResp>&>::value,
-            int>::type = 0)
+            int>::type /*enable*/
+        = 0)
     {
         handler = ReqHandlerWrapper<Args...>(std::move(f));
         /*handler = (
@@ -266,7 +268,8 @@ struct Wrapped
                 std::is_same<typename std::tuple_element<
                                  1, std::tuple<Args..., void, void>>::type,
                              const std::shared_ptr<bmcweb::AsyncResp>&>::value,
-            int>::type = 0)
+            int>::type /*enable*/
+        = 0)
     {
         handler = std::move(f);
     }
@@ -275,8 +278,8 @@ struct Wrapped
     struct HandlerTypeHelper
     {
         using type = std::function<void(
-            const crow::Request&, const std::shared_ptr<bmcweb::AsyncResp>&,
-            Args...)>;
+            const crow::Request& /*req*/,
+            const std::shared_ptr<bmcweb::AsyncResp>&, Args...)>;
         using args_type =
             black_magic::S<typename black_magic::PromoteT<Args>...>;
     };
@@ -285,8 +288,8 @@ struct Wrapped
     struct HandlerTypeHelper<const Request&, Args...>
     {
         using type = std::function<void(
-            const crow::Request&, const std::shared_ptr<bmcweb::AsyncResp>&,
-            Args...)>;
+            const crow::Request& /*req*/,
+            const std::shared_ptr<bmcweb::AsyncResp>&, Args...)>;
         using args_type =
             black_magic::S<typename black_magic::PromoteT<Args>...>;
     };
@@ -296,8 +299,8 @@ struct Wrapped
                              const std::shared_ptr<bmcweb::AsyncResp>&, Args...>
     {
         using type = std::function<void(
-            const crow::Request&, const std::shared_ptr<bmcweb::AsyncResp>&,
-            Args...)>;
+            const crow::Request& /*req*/,
+            const std::shared_ptr<bmcweb::AsyncResp>&, Args...)>;
         using args_type =
             black_magic::S<typename black_magic::PromoteT<Args>...>;
     };
@@ -330,14 +333,14 @@ class WebSocketRule : public BaseRule
     void validate() override
     {}
 
-    void handle(const Request&,
+    void handle(const Request& /*req*/,
                 const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                const RoutingParams&) override
+                const RoutingParams& /*params*/) override
     {
         asyncResp->res.result(boost::beast::http::status::not_found);
     }
 
-    void handleUpgrade(const Request& req, Response&,
+    void handleUpgrade(const Request& req, Response& /*res*/,
                        boost::asio::ip::tcp::socket&& adaptor) override
     {
         std::shared_ptr<
@@ -349,7 +352,7 @@ class WebSocketRule : public BaseRule
         myConnection->start();
     }
 #ifdef BMCWEB_ENABLE_SSL
-    void handleUpgrade(const Request& req, Response&,
+    void handleUpgrade(const Request& req, Response& /*res*/,
                        boost::beast::ssl_stream<boost::asio::ip::tcp::socket>&&
                            adaptor) override
     {
@@ -499,7 +502,7 @@ class DynamicRule : public BaseRule, public RuleParameterTraits<DynamicRule>
     std::function<void(const Request&,
                        const std::shared_ptr<bmcweb::AsyncResp>&,
                        const RoutingParams&)>
-        wrap(Func f, std::integer_sequence<unsigned, Indices...>)
+        wrap(Func f, std::integer_sequence<unsigned, Indices...> /*is*/)
     {
         using function_t = crow::utility::function_traits<Func>;
 
