@@ -685,7 +685,7 @@ inline bool ipv4VerifyIpAndGetBitcount(const std::string& ip,
             // Count bits
             for (long bitIdx = 7; bitIdx >= 0; bitIdx--)
             {
-                if (value & (1L << bitIdx))
+                if ((value & (1L << bitIdx)) != 0)
                 {
                     if (firstZeroInByteHit)
                     {
@@ -2355,7 +2355,7 @@ inline void requestEthernetInterfacesRoutes(App& app)
                     return;
                 }
                 // Need both vlanId and vlanEnable to service this request
-                if (!vlanId)
+                if (vlanId == 0u)
                 {
                     messages::propertyMissing(asyncResp->res, "VLANId");
                 }

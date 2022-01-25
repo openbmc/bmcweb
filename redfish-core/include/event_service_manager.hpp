@@ -95,7 +95,7 @@ static const Message*
     std::span<const MessageEntry>::iterator messageIt =
         std::find_if(registry.begin(), registry.end(),
                      [&messageKey](const MessageEntry& messageEntry) {
-                         return !messageKey.compare(messageEntry.first);
+                         return messageKey.compare(messageEntry.first) == 0;
                      });
     if (messageIt != registry.end())
     {
@@ -706,7 +706,7 @@ class EventServiceManager
                     std::string id;
 
                     int retry = 3;
-                    while (retry)
+                    while (retry != 0)
                     {
                         id = std::to_string(dist(gen));
                         if (gen.error())
@@ -762,7 +762,7 @@ class EventServiceManager
         if (serviceEnabled != cfg.enabled)
         {
             serviceEnabled = cfg.enabled;
-            if (serviceEnabled && noOfMetricReportSubscribers)
+            if (serviceEnabled && (noOfMetricReportSubscribers != 0u))
             {
                 registerMetricReportSignal();
             }
@@ -825,7 +825,7 @@ class EventServiceManager
         if (noOfMetricReportSubscribers != metricReportSubCount)
         {
             noOfMetricReportSubscribers = metricReportSubCount;
-            if (noOfMetricReportSubscribers)
+            if (noOfMetricReportSubscribers != 0u)
             {
                 registerMetricReportSignal();
             }
@@ -858,7 +858,7 @@ class EventServiceManager
         std::string id;
 
         int retry = 3;
-        while (retry)
+        while (retry != 0)
         {
             id = std::to_string(dist(gen));
             if (gen.error())
@@ -1111,7 +1111,7 @@ class EventServiceManager
                 continue;
             }
 
-            if (!serviceEnabled || !noOfEventLogSubscribers)
+            if (!serviceEnabled || (noOfEventLogSubscribers == 0u))
             {
                 // If Service is not enabled, no need to compute
                 // the remaining items below.
@@ -1142,7 +1142,7 @@ class EventServiceManager
                                       messageKey, messageArgs);
         }
 
-        if (!serviceEnabled || !noOfEventLogSubscribers)
+        if (!serviceEnabled || (noOfEventLogSubscribers == 0u))
         {
             BMCWEB_LOG_DEBUG << "EventService disabled or no Subscriptions.";
             return;
@@ -1329,7 +1329,7 @@ class EventServiceManager
 
         const telemetry::TimestampReadings* readings =
             std::get_if<telemetry::TimestampReadings>(&found->second);
-        if (!readings)
+        if (readings == nullptr)
         {
             BMCWEB_LOG_INFO << "Failed to get Readings from Report properties";
             return;

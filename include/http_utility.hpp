@@ -53,7 +53,7 @@ inline std::string urlEncode(const std::string_view value)
     for (const char c : value)
     {
         // Keep alphanumeric and other accepted characters intact
-        if (isalnum(c) || c == '-' || c == '_' || c == '.' || c == '~')
+        if ((isalnum(c) != 0) || c == '-' || c == '_' || c == '.' || c == '~')
         {
             escaped << c;
             continue;

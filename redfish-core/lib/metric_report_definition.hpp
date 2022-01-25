@@ -66,8 +66,10 @@ inline void fillReportDefinition(
             interval = std::get_if<uint64_t>(&var);
         }
     }
-    if (!emitsReadingsUpdate || !logToMetricReportsCollection ||
-        !readingParams || !reportingType || !interval)
+    if ((emitsReadingsUpdate == nullptr) ||
+        (logToMetricReportsCollection == nullptr) ||
+        (readingParams == nullptr) || (reportingType == nullptr) ||
+        (interval == nullptr))
     {
         BMCWEB_LOG_ERROR << "Property type mismatch or property is missing";
         messages::internalError(asyncResp->res);

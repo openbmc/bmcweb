@@ -176,7 +176,7 @@ inline void getProcessorProperties(
             const uint16_t* coreCountVal =
                 std::get_if<uint16_t>(&property.second);
 
-            if (!coreCountVal)
+            if (coreCountVal == nullptr)
             {
                 messages::internalError(aResp->res);
                 return;
@@ -1567,7 +1567,8 @@ inline void setBootModeOrSource(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
     // Source target specified
     BMCWEB_LOG_DEBUG << "Boot source: " << *bootSource;
     // Figure out which DBUS interface and property to use
-    if (assignBootParameters(aResp, *bootSource, bootSourceStr, bootModeStr))
+    if (assignBootParameters(aResp, *bootSource, bootSourceStr, bootModeStr) !=
+        0)
     {
         BMCWEB_LOG_DEBUG
             << "Invalid property value for BootSourceOverrideTarget: "
@@ -2231,7 +2232,7 @@ inline void
                 {
                     const bool* state = std::get_if<bool>(&property.second);
 
-                    if (!state)
+                    if (state == nullptr)
                     {
                         messages::internalError(aResp->res);
                         return;
@@ -2243,7 +2244,7 @@ inline void
                 {
                     const std::string* s =
                         std::get_if<std::string>(&property.second);
-                    if (!s)
+                    if (s == nullptr)
                     {
                         messages::internalError(aResp->res);
                         return;
@@ -2346,7 +2347,7 @@ inline bool parseIpsProperties(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
         if (property.first == "Enabled")
         {
             const bool* state = std::get_if<bool>(&property.second);
-            if (!state)
+            if (state == nullptr)
             {
                 return false;
             }
@@ -2355,7 +2356,7 @@ inline bool parseIpsProperties(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
         else if (property.first == "EnterUtilizationPercent")
         {
             const uint8_t* util = std::get_if<uint8_t>(&property.second);
-            if (!util)
+            if (util == nullptr)
             {
                 return false;
             }
@@ -2366,7 +2367,7 @@ inline bool parseIpsProperties(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
             // Convert Dbus time from milliseconds to seconds
             const uint64_t* timeMilliseconds =
                 std::get_if<uint64_t>(&property.second);
-            if (!timeMilliseconds)
+            if (timeMilliseconds == nullptr)
             {
                 return false;
             }
@@ -2379,7 +2380,7 @@ inline bool parseIpsProperties(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
         else if (property.first == "ExitUtilizationPercent")
         {
             const uint8_t* util = std::get_if<uint8_t>(&property.second);
-            if (!util)
+            if (util == nullptr)
             {
                 return false;
             }
@@ -2390,7 +2391,7 @@ inline bool parseIpsProperties(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
             // Convert Dbus time from milliseconds to seconds
             const uint64_t* timeMilliseconds =
                 std::get_if<uint64_t>(&property.second);
-            if (!timeMilliseconds)
+            if (timeMilliseconds == nullptr)
             {
                 return false;
             }

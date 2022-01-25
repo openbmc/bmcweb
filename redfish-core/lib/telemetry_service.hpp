@@ -58,7 +58,7 @@ inline void handleTelemetryServiceGet(
                     minInterval = std::get_if<uint64_t>(&var);
                 }
             }
-            if (!maxReports || !minInterval)
+            if ((maxReports == nullptr) || (minInterval == nullptr))
             {
                 BMCWEB_LOG_ERROR
                     << "Property type mismatch or property is missing";
