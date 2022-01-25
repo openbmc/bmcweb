@@ -55,7 +55,7 @@ inline void
                 return;
             }
 
-            if (functionalFw.size() == 0)
+            if (functionalFw.empty())
             {
                 // Could keep going and try to populate SoftwareImages but
                 // something is seriously wrong, so just fail
@@ -68,7 +68,7 @@ inline void
             // example functionalFw:
             // v as 2 "/xyz/openbmc_project/software/ace821ef"
             //        "/xyz/openbmc_project/software/230fb078"
-            for (auto& fw : functionalFw)
+            for (const auto& fw : functionalFw)
             {
                 sdbusplus::message::object_path path(fw);
                 std::string leaf = path.filename();
@@ -253,8 +253,6 @@ inline void
                 std::array<const char*, 1>{
                     "xyz.openbmc_project.Software.Version"});
         });
-
-    return;
 }
 
 /**
@@ -405,8 +403,6 @@ inline void
                 return;
             }
         });
-
-    return;
 }
 
 } // namespace fw_util

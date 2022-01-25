@@ -26,7 +26,8 @@ class Logger
     static std::string timestamp()
     {
         std::string date;
-        date.resize(32, '\0');
+        constexpr size_t maxDateSize = 32;
+        date.resize(maxDateSize, '\0');
         time_t t = time(nullptr);
 
         tm myTm{};

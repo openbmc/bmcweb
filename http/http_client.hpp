@@ -93,7 +93,7 @@ class HttpClient : public std::enable_shared_from_this<HttpClient>
                 const boost::beast::error_code ec,
                 const std::vector<boost::asio::ip::tcp::endpoint>&
                     endpointList) {
-                if (ec || (endpointList.size() == 0))
+                if (ec || (endpointList.empty()))
                 {
                     BMCWEB_LOG_ERROR << "Resolve failed: " << ec.message();
                     self->state = ConnState::resolveFailed;
@@ -309,7 +309,6 @@ class HttpClient : public std::enable_shared_from_this<HttpClient>
                 // Lets close connection and start from resolve.
                 self->doClose();
             });
-        return;
     }
 
     void handleConnState()
@@ -407,8 +406,6 @@ class HttpClient : public std::enable_shared_from_this<HttpClient>
         {
             BMCWEB_LOG_ERROR << "Request queue is full. So ignoring data.";
         }
-
-        return;
     }
 
     void setRetryConfig(const uint32_t retryAttempts,

@@ -185,7 +185,7 @@ inline void requestRoutes(App& app)
                 }
                 else
                 {
-                    std::string unsupportedClientId = "";
+                    std::string unsupportedClientId;
                     auto session =
                         persistent_data::SessionStore::getInstance()
                             .generateUserSession(
@@ -242,7 +242,8 @@ inline void requestRoutes(App& app)
         .methods(boost::beast::http::verb::post)(
             [](const crow::Request& req,
                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
-                auto& session = req.session;
+                const std::shared_ptr<persistent_data::UserSession>& session =
+                    req.session;
                 if (session != nullptr)
                 {
                     asyncResp->res.jsonValue = {
@@ -253,7 +254,6 @@ inline void requestRoutes(App& app)
                     persistent_data::SessionStore::getInstance().removeSession(
                         session);
                 }
-                return;
             });
 }
 } // namespace login_routes

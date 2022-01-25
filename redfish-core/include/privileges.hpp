@@ -260,7 +260,7 @@ inline bool isOperationAllowedWithPrivileges(
     {
         return true;
     }
-    for (auto& requiredPrivileges : operationPrivilegesRequired)
+    for (const auto& requiredPrivileges : operationPrivilegesRequired)
     {
         BMCWEB_LOG_DEBUG << "Checking operation privileges...";
         if (userPrivileges.isSupersetOf(requiredPrivileges))
@@ -292,27 +292,6 @@ inline bool isMethodAllowedWithPrivileges(const boost::beast::http::verb method,
     }
 
     return isOperationAllowedWithPrivileges(it->second, userPrivileges);
-}
-
-/**
- * @brief Checks if a user is allowed to call an HTTP method
- *
- * @param[in] method       HTTP method
- * @param[in] user         Username
- *
- * @return                 True if method allowed, false otherwise
- *
- */
-inline bool isMethodAllowedForUser(const boost::beast::http::verb method,
-                                   const OperationMap& operationMap,
-                                   const std::string&)
-{
-    // TODO: load user privileges from configuration as soon as its available
-    // now we are granting all privileges to everyone.
-    Privileges userPrivileges{"Login", "ConfigureManager", "ConfigureSelf",
-                              "ConfigureUsers", "ConfigureComponents"};
-
-    return isMethodAllowedWithPrivileges(method, operationMap, userPrivileges);
 }
 
 } // namespace redfish

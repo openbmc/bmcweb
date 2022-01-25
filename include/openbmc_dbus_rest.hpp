@@ -656,16 +656,16 @@ inline int convertJsonToDbus(sd_bus_message* m, const std::string& argType,
         else if (argCode == "b")
         {
             // lots of ways bool could be represented here.  Try them all
-            int boolInt = false;
+            int boolInt = 0;
             if (intValue != nullptr)
             {
                 if (*intValue == 1)
                 {
-                    boolInt = true;
+                    boolInt = 1;
                 }
                 else if (*intValue == 0)
                 {
-                    boolInt = false;
+                    boolInt = 0;
                 }
                 else
                 {
@@ -1025,7 +1025,7 @@ inline int readArrayFromMessage(const std::string& typeCode,
 
     while (true)
     {
-        r = sd_bus_message_at_end(m.get(), false);
+        r = sd_bus_message_at_end(m.get(), 0);
         if (r < 0)
         {
             BMCWEB_LOG_ERROR << "sd_bus_message_at_end failed";
@@ -1483,7 +1483,7 @@ inline void findActionOnInterface(
                                         transaction->methodFailed = true;
                                         const sd_bus_error* e = m2.get_error();
 
-                                        if (e)
+                                        if (e != nullptr)
                                         {
                                             setErrorResponse(
                                                 transaction->res,
@@ -1562,7 +1562,7 @@ inline void handleAction(const crow::Request& req,
             const boost::system::error_code ec,
             const std::vector<std::pair<std::string, std::vector<std::string>>>&
                 interfaceNames) {
-            if (ec || interfaceNames.size() <= 0)
+            if (ec || interfaceNames.empty())
             {
                 BMCWEB_LOG_ERROR << "Can't find object";
                 setErrorResponse(transaction->res,
@@ -1596,7 +1596,7 @@ inline void handleDelete(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
             const boost::system::error_code ec,
             const std::vector<std::pair<std::string, std::vector<std::string>>>&
                 interfaceNames) {
-            if (ec || interfaceNames.size() <= 0)
+            if (ec || interfaceNames.empty())
             {
                 BMCWEB_LOG_ERROR << "Can't find object";
                 setErrorResponse(asyncResp->res,
@@ -1701,7 +1701,7 @@ inline void handleGet(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     crow::connections::systemBus->async_method_call(
         [asyncResp, path, propertyName](const boost::system::error_code ec,
                                         const GetObjectType& objectNames) {
-            if (ec || objectNames.size() <= 0)
+            if (ec || objectNames.empty())
             {
                 setErrorResponse(asyncResp->res,
                                  boost::beast::http::status::not_found,
@@ -1718,7 +1718,7 @@ inline void handleGet(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                 const std::vector<std::string>& interfaceNames =
                     connection.second;
 
-                if (interfaceNames.size() <= 0)
+                if (interfaceNames.empty())
                 {
                     setErrorResponse(asyncResp->res,
                                      boost::beast::http::status::not_found,
@@ -1875,7 +1875,7 @@ inline void handlePut(const crow::Request& req,
     crow::connections::systemBus->async_method_call(
         [transaction](const boost::system::error_code ec2,
                       const GetObjectType& objectNames) {
-            if (!ec2 && objectNames.size() <= 0)
+            if (!ec2 && objectNames.empty())
             {
                 setErrorResponse(transaction->asyncResp->res,
                                  boost::beast::http::status::not_found,
@@ -1995,6 +1995,19 @@ inline void handlePut(const crow::Request& req,
                                                     {
                                                         const sd_bus_error* e =
                                                             m2.get_error();
+                                                        const char* name =
+                                                            ec.category()
+                                                                .name();
+                                                        std::string message =
+                                                            ec.message();
+                                                        if (e == nullptr)
+                                                        {
+                                                            name = e->name;
+                                                            message =
+                                                                std::string(
+                                                                    e->message);
+                                                        }
+
                                                         setErrorResponse(
                                                             transaction
                                                                 ->asyncResp
@@ -2002,11 +2015,7 @@ inline void handlePut(const crow::Request& req,
                                                             boost::beast::http::
                                                                 status::
                                                                     forbidden,
-                                                            (e) ? e->name
-                                                                : ec.category()
-                                                                      .name(),
-                                                            (e) ? e->message
-                                                                : ec.message());
+                                                            name, message);
                                                     }
                                                     else
                                                     {
@@ -2044,10 +2053,10 @@ inline void handleDBusUrl(const crow::Request& req,
 
     // If accessing a single attribute, fill in and update objectPath,
     // otherwise leave destProperty blank
-    std::string destProperty = "";
+    std::string destProperty;
     const char* attrSeperator = "/attr/";
     size_t attrPosition = objectPath.find(attrSeperator);
-    if (attrPosition != objectPath.npos)
+    if (attrPosition != std::string::npos)
     {
         destProperty = objectPath.substr(attrPosition + strlen(attrSeperator),
                                          objectPath.length());
@@ -2058,7 +2067,7 @@ inline void handleDBusUrl(const crow::Request& req,
     {
         constexpr const char* actionSeperator = "/action/";
         size_t actionPosition = objectPath.find(actionSeperator);
-        if (actionPosition != objectPath.npos)
+        if (actionPosition != std::string::npos)
         {
             std::string postProperty =
                 objectPath.substr((actionPosition + strlen(actionSeperator)),
@@ -2232,7 +2241,7 @@ inline void requestRoutes(App& app)
                 }
                 std::filesystem::directory_iterator files(loc);
 
-                for (auto& file : files)
+                for (const auto& file : files)
                 {
                     std::ifstream readFile(file.path());
                     if (!readFile.good())

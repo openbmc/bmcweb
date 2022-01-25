@@ -120,7 +120,7 @@ inline void
                 return;
             }
 
-            if (objInfo.size() == 0)
+            if (objInfo.empty())
             {
                 // As noted above, this is an optional interface so just return
                 // if there is no instance found
@@ -208,7 +208,7 @@ inline bool extractHypervisorInterfaceData(
                 IPv4AddressData& ipv4Address = *it.first;
                 if (ifacePair.first == "xyz.openbmc_project.Object.Enable")
                 {
-                    for (auto& property : ifacePair.second)
+                    for (const auto& property : ifacePair.second)
                     {
                         if (property.first == "Enabled")
                         {
@@ -224,7 +224,7 @@ inline bool extractHypervisorInterfaceData(
                 }
                 if (ifacePair.first == "xyz.openbmc_project.Network.IP")
                 {
-                    for (auto& property : ifacePair.second)
+                    for (const auto& property : ifacePair.second)
                     {
                         if (property.first == "Address")
                         {
@@ -497,7 +497,7 @@ inline void parseInterfaceData(
     nlohmann::json& ipv4StaticArray = jsonResponse["IPv4StaticAddresses"];
     ipv4Array = nlohmann::json::array();
     ipv4StaticArray = nlohmann::json::array();
-    for (auto& ipv4Config : ipv4Data)
+    for (const auto& ipv4Config : ipv4Data)
     {
         if (ipv4Config.isActive)
         {
@@ -541,7 +541,7 @@ inline void setDHCPEnabled(const std::string& ifaceId,
     // Set the IPv4 address origin to the DHCP / Static as per the new value
     // of the DHCPEnabled property
     std::string origin;
-    if (ipv4DHCPEnabled == false)
+    if (!ipv4DHCPEnabled)
     {
         origin = "xyz.openbmc_project.Network.IP.AddressOrigin.Static";
     }

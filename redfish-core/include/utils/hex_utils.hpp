@@ -15,7 +15,8 @@ inline std::string intToHexString(IntegerType value,
     size_t bitIndex = (digits - 1) * 4;
     for (size_t digitIndex = 0; digitIndex < digits; digitIndex++)
     {
-        rc[digitIndex] = digitsArray[(value >> bitIndex) & 0x0f];
+        static constexpr int lowerNibble = 0x0f;
+        rc[digitIndex] = digitsArray[(value >> bitIndex) & lowerNibble];
         bitIndex -= 4;
     }
     return rc;

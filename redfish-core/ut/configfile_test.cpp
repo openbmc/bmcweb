@@ -49,7 +49,7 @@ TEST(ConfigFileTest, FileNameNull)
 {
     crow::Response res;
 
-    const std::string fileName = "";
+    const std::string fileName;
     EXPECT_FALSE(isValidConfigFileName(fileName, res));
 }
 TEST(ConfigFileTest, FileNameSlash)

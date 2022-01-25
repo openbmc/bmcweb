@@ -13,7 +13,7 @@ class GzFileReader
                     std::vector<std::string>& logEntries, size_t& logCount)
     {
         gzFile logStream = gzopen(filename.c_str(), "r");
-        if (!logStream)
+        if (logStream == nullptr)
         {
             BMCWEB_LOG_ERROR << "Can't open gz file: " << filename << '\n';
             return false;
@@ -38,7 +38,7 @@ class GzFileReader
     std::string lastDelimiter;
     size_t totalFilesSize = 0;
 
-    void printErrorMessage(gzFile logStream)
+    static void printErrorMessage(gzFile logStream)
     {
         int errNum = 0;
         const char* errMsg = gzerror(logStream, &errNum);
@@ -71,7 +71,7 @@ class GzFileReader
                 BMCWEB_LOG_ERROR << "Error occurs during parsing host log.\n";
                 return false;
             }
-        } while (!gzeof(logStream));
+        } while (gzeof(logStream) != 1);
 
         return true;
     }

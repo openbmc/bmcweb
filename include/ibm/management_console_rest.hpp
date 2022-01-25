@@ -85,7 +85,7 @@ inline void handleFilePut(const crow::Request& req,
         return;
     }
     std::uintmax_t saveAreaDirSize = 0;
-    for (auto& it : iter)
+    for (const auto& it : iter)
     {
         if (!std::filesystem::is_directory(it, ec))
         {
@@ -257,7 +257,6 @@ inline void
     asyncResp->res.jsonValue["Actions"]["#IBMConfigFiles.DeleteAll"] = {
         {"target",
          "/ibm/v1/Host/ConfigFiles/Actions/IBMConfigFiles.DeleteAll"}};
-    return;
 }
 
 inline void
@@ -280,7 +279,6 @@ inline void
                              << ec;
         }
     }
-    return;
 }
 
 inline void
@@ -297,7 +295,6 @@ inline void
         {"target", "/ibm/v1/HMC/LockService/Actions/LockService.ReleaseLock"}};
     asyncResp->res.jsonValue["Actions"]["#LockService.GetLockList"] = {
         {"target", "/ibm/v1/HMC/LockService/Actions/LockService.GetLockList"}};
-    return;
 }
 
 inline void handleFileGet(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
@@ -330,7 +327,6 @@ inline void handleFileGet(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     fileData = {std::istreambuf_iterator<char>(readfile),
                 std::istreambuf_iterator<char>()};
     asyncResp->res.jsonValue["Data"] = fileData;
-    return;
 }
 
 inline void
@@ -362,7 +358,6 @@ inline void
         asyncResp->res.result(boost::beast::http::status::not_found);
         asyncResp->res.jsonValue["Description"] = resourceNotFoundMsg;
     }
-    return;
 }
 
 inline void
@@ -385,7 +380,6 @@ inline void
         return;
     }
     redfish::EventServiceManager::getInstance().sendBroadcastMsg(broadcastMsg);
-    return;
 }
 
 inline void handleFileUrl(const crow::Request& req,
@@ -518,7 +512,8 @@ inline void
         asyncResp->res.result(boost::beast::http::status::conflict);
         auto var =
             std::get<std::pair<uint32_t, LockRequest>>(conflictStatus.second);
-        nlohmann::json returnJson, segments;
+        nlohmann::json returnJson;
+        nlohmann::json segments;
         nlohmann::json myarray = nlohmann::json::array();
         returnJson["TransactionID"] = var.first;
         returnJson["SessionID"] = std::get<0>(var.second);
@@ -545,7 +540,6 @@ inline void
 {
     crow::ibm_mc_lock::Lock::getInstance().releaseLock(req.session->uniqueId);
     asyncResp->res.result(boost::beast::http::status::ok);
-    return;
 }
 
 inline void
@@ -586,7 +580,8 @@ inline void
     asyncResp->res.result(boost::beast::http::status::unauthorized);
 
     auto var = statusRelease.second;
-    nlohmann::json returnJson, segments;
+    nlohmann::json returnJson;
+    nlohmann::json segments;
     nlohmann::json myArray = nlohmann::json::array();
     returnJson["TransactionID"] = var.first;
     returnJson["SessionID"] = std::get<0>(var.second);
@@ -603,7 +598,6 @@ inline void
 
     returnJson["SegmentFlags"] = myArray;
     asyncResp->res.jsonValue["Record"] = returnJson;
-    return;
 }
 
 inline void
