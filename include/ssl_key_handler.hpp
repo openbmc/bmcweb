@@ -25,15 +25,11 @@ static EVP_PKEY* createEcKey();
 // Trust chain related errors.`
 inline bool isTrustChainError(int errnum)
 {
-    if ((errnum == X509_V_ERR_DEPTH_ZERO_SELF_SIGNED_CERT) ||
-        (errnum == X509_V_ERR_SELF_SIGNED_CERT_IN_CHAIN) ||
-        (errnum == X509_V_ERR_UNABLE_TO_GET_ISSUER_CERT_LOCALLY) ||
-        (errnum == X509_V_ERR_CERT_UNTRUSTED) ||
-        (errnum == X509_V_ERR_UNABLE_TO_VERIFY_LEAF_SIGNATURE))
-    {
-        return true;
-    }
-    return false;
+    return (errnum == X509_V_ERR_DEPTH_ZERO_SELF_SIGNED_CERT) ||
+           (errnum == X509_V_ERR_SELF_SIGNED_CERT_IN_CHAIN) ||
+           (errnum == X509_V_ERR_UNABLE_TO_GET_ISSUER_CERT_LOCALLY) ||
+           (errnum == X509_V_ERR_CERT_UNTRUSTED) ||
+           (errnum == X509_V_ERR_UNABLE_TO_VERIFY_LEAF_SIGNATURE);
 }
 
 inline bool validateCertificate(X509* const cert)
