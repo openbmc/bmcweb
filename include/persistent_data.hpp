@@ -289,7 +289,7 @@ class ConfigFile
         persistentFile << data;
     }
 
-    std::string systemUuid{""};
+    std::string systemUuid;
 };
 
 inline ConfigFile& getConfig()

@@ -263,7 +263,7 @@ static void monitorForSoftwareAvailable(
     int timeoutTimeSeconds = 10)
 {
     // Only allow one FW update at a time
-    if (fwUpdateInProgress != false)
+    if (fwUpdateInProgress)
     {
         if (asyncResp)
         {
@@ -819,7 +819,7 @@ inline void requestRoutesSoftwareInventory(App& app)
                                  std::string, std::vector<std::string>>>>& obj :
                          subtree)
                     {
-                        if (boost::ends_with(obj.first, *swId) != true)
+                        if (!boost::ends_with(obj.first, *swId))
                         {
                             continue;
                         }

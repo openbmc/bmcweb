@@ -512,7 +512,8 @@ inline void
         asyncResp->res.result(boost::beast::http::status::conflict);
         auto var =
             std::get<std::pair<uint32_t, LockRequest>>(conflictStatus.second);
-        nlohmann::json returnJson, segments;
+        nlohmann::json returnJson;
+        nlohmann::json segments;
         nlohmann::json myarray = nlohmann::json::array();
         returnJson["TransactionID"] = var.first;
         returnJson["SessionID"] = std::get<0>(var.second);
@@ -579,7 +580,8 @@ inline void
     asyncResp->res.result(boost::beast::http::status::unauthorized);
 
     auto var = statusRelease.second;
-    nlohmann::json returnJson, segments;
+    nlohmann::json returnJson;
+    nlohmann::json segments;
     nlohmann::json myArray = nlohmann::json::array();
     returnJson["TransactionID"] = var.first;
     returnJson["SessionID"] = std::get<0>(var.second);
