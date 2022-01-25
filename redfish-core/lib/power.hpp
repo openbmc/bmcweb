@@ -172,8 +172,7 @@ inline void requestRoutesPower(App& app)
 
                     std::string interfaceChassisName =
                         chassis.substr(lastPos + 1, len);
-                    if (interfaceChassisName.compare(
-                            sensorAsyncResp->chassisId) == 0)
+                    if (interfaceChassisName == sensorAsyncResp->chassisId)
                     {
                         found = true;
                         break;
@@ -231,7 +230,7 @@ inline void requestRoutesPower(App& app)
                                              dbus::utility::DbusVariantType>&
                                  property : properties)
                         {
-                            if (property.first.compare("Scale") == 0)
+                            if (property.first == "Scale")
                             {
                                 const int64_t* i =
                                     std::get_if<int64_t>(&property.second);
@@ -241,7 +240,7 @@ inline void requestRoutesPower(App& app)
                                     scale = *i;
                                 }
                             }
-                            else if (property.first.compare("PowerCap") == 0)
+                            else if (property.first == "PowerCap")
                             {
                                 const double* d =
                                     std::get_if<double>(&property.second);
@@ -263,8 +262,7 @@ inline void requestRoutesPower(App& app)
                                     powerCap = *u;
                                 }
                             }
-                            else if (property.first.compare("PowerCapEnable") ==
-                                     0)
+                            else if (property.first == "PowerCapEnable")
                             {
                                 const bool* b =
                                     std::get_if<bool>(&property.second);
