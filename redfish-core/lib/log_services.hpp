@@ -434,7 +434,7 @@ inline void
                         {
                             if (propertyMap.first == "Status")
                             {
-                                auto status = std::get_if<std::string>(
+                                const auto* status = std::get_if<std::string>(
                                     &propertyMap.second);
                                 if (status == nullptr)
                                 {
@@ -453,7 +453,7 @@ inline void
                         {
                             if (propertyMap.first == "Size")
                             {
-                                auto sizePtr =
+                                const auto* sizePtr =
                                     std::get_if<uint64_t>(&propertyMap.second);
                                 if (sizePtr == nullptr)
                                 {
@@ -988,7 +988,7 @@ inline void requestRoutesSystemLogServiceCollection(App& app)
                             return;
                         }
 
-                        for (auto& pathStr : subtreePath)
+                        for (const auto& pathStr : subtreePath)
                         {
                             if (pathStr.find("PostCode") != std::string::npos)
                             {
