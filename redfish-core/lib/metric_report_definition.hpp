@@ -86,7 +86,7 @@ inline void fillReportDefinition(
     }
 
     nlohmann::json metrics = nlohmann::json::array();
-    for (auto& [sensorPath, operationType, id, metadata] : *readingParams)
+    for (const auto& [sensorPath, operationType, id, metadata] : *readingParams)
     {
         metrics.push_back({
             {"MetricId", id},
