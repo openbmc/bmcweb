@@ -85,7 +85,7 @@ inline void handleFilePut(const crow::Request& req,
         return;
     }
     std::uintmax_t saveAreaDirSize = 0;
-    for (auto& it : iter)
+    for (const auto& it : iter)
     {
         if (!std::filesystem::is_directory(it, ec))
         {
