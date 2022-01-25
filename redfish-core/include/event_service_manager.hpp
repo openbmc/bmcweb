@@ -95,7 +95,7 @@ static const Message*
     std::span<const MessageEntry>::iterator messageIt =
         std::find_if(registry.begin(), registry.end(),
                      [&messageKey](const MessageEntry& messageEntry) {
-                         return messageKey.compare(messageEntry.first) == 0;
+                         return messageKey == messageEntry.first;
                      });
     if (messageIt != registry.end())
     {
@@ -922,11 +922,7 @@ class EventServiceManager
     bool isSubscriptionExist(const std::string& id)
     {
         auto obj = subscriptionsMap.find(id);
-        if (obj == subscriptionsMap.end())
-        {
-            return false;
-        }
-        return true;
+        return obj != subscriptionsMap.end();
     }
 
     void deleteSubscription(const std::string& id)

@@ -242,7 +242,7 @@ inline void requestRoutes(App& app)
         .methods(boost::beast::http::verb::post)(
             [](const crow::Request& req,
                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
-                auto& session = req.session;
+                const auto& session = req.session;
                 if (session != nullptr)
                 {
                     asyncResp->res.jsonValue = {
