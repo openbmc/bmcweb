@@ -430,7 +430,7 @@ inline bool readJsonHelper(nlohmann::json& jsonRequest, crow::Response& res,
                 result = details::unpackValue<nlohmann::json>(item.value(), key,
                                                               res, j) &&
                          result;
-                if (result == false)
+                if (!result)
                 {
                     return result;
                 }
@@ -475,7 +475,7 @@ inline bool readJsonHelper(nlohmann::json& jsonRequest, crow::Response& res,
 
     for (PerUnpack& perUnpack : toUnpack)
     {
-        if (perUnpack.complete == false)
+        if (!perUnpack.complete)
         {
             bool isOptional = std::visit(
                 [](auto&& val) {
