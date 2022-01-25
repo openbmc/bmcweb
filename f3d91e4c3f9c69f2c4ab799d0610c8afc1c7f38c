@@ -121,6 +121,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "47796193_c44927fa",
+        "filename": "http/utility.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 590,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-01-25T20:24:20Z",
+      "side": 1,
+      "message": "It\u0027s covered in the unit test.\n\n```\n    EXPECT_EQ(getDateTimeUintMs(std::numeric_limits\u003cuint64_t\u003e::max()),\n              \"9999-12-31T23:59:59.999000+00:00\");\n    EXPECT_EQ(getDateTimeUint(std::numeric_limits\u003cuint64_t\u003e::max()),\n              \"9999-12-31T23:59:59+00:00\");\n```",
+      "parentUuid": "13ac6ccd_74b7e3a4",
+      "range": {
+        "startLine": 590,
+        "startChar": 44,
+        "endLine": 590,
+        "endChar": 68
+      },
+      "revId": "f3d91e4c3f9c69f2c4ab799d0610c8afc1c7f38c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e2a67b59_9503831a",
         "filename": "http/utility.hpp",
         "patchSetId": 6
