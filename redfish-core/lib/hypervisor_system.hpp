@@ -120,7 +120,7 @@ inline void
                 return;
             }
 
-            if (objInfo.size() == 0)
+            if (objInfo.empty())
             {
                 // As noted above, this is an optional interface so just return
                 // if there is no instance found

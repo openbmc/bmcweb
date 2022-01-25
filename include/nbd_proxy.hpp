@@ -193,7 +193,7 @@ struct NbdProxyServer : std::enable_shared_from_this<NbdProxyServer>
             return;
         }
 
-        if (ws2uxBuf.size() == 0)
+        if (ws2uxBuf.empty())
         {
             BMCWEB_LOG_ERROR << "No data to write to UNIX socket";
             return;

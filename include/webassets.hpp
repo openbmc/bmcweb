@@ -102,8 +102,7 @@ inline void requestRoutes(App& app)
             if (boost::starts_with(webpath.filename().string(), "index."))
             {
                 webpath = webpath.parent_path();
-                if (webpath.string().size() == 0 ||
-                    webpath.string().back() != '/')
+                if (webpath.string().empty() || webpath.string().back() != '/')
                 {
                     // insert the non-directory version of this path
                     webroutes::routes.insert(webpath);

@@ -183,7 +183,7 @@ inline int getEventLogParams(const std::string& logEntry,
     boost::split(logEntryFields, entry, boost::is_any_of(","),
                  boost::token_compress_on);
     // We need at least a MessageId to be valid
-    if (logEntryFields.size() < 1)
+    if (logEntryFields.empty())
     {
         return -EINVAL;
     }
@@ -451,7 +451,7 @@ class Subscription : public persistent_data::UserSubscription
 
             // If registryPrefixes list is empty, don't filter events
             // send everything.
-            if (registryPrefixes.size())
+            if (!registryPrefixes.empty())
             {
                 auto obj = std::find(registryPrefixes.begin(),
                                      registryPrefixes.end(), registryName);
@@ -463,7 +463,7 @@ class Subscription : public persistent_data::UserSubscription
 
             // If registryMsgIds list is empty, don't filter events
             // send everything.
-            if (registryMsgIds.size())
+            if (!registryMsgIds.empty())
             {
                 auto obj = std::find(registryMsgIds.begin(),
                                      registryMsgIds.end(), messageKey);
@@ -484,7 +484,7 @@ class Subscription : public persistent_data::UserSubscription
             }
         }
 
-        if (logEntryArray.size() < 1)
+        if (logEntryArray.empty())
         {
             BMCWEB_LOG_DEBUG << "No log entries available to be transferred.";
             return;
@@ -506,7 +506,7 @@ class Subscription : public persistent_data::UserSubscription
         std::string mrdUri = telemetry::metricReportDefinitionUri + ("/" + id);
 
         // Empty list means no filter. Send everything.
-        if (metricReportDefinitions.size())
+        if (!metricReportDefinitions.empty())
         {
             if (std::find(metricReportDefinitions.begin(),
                           metricReportDefinitions.end(),
@@ -1008,7 +1008,7 @@ class EventServiceManager
             // Search the resourceTypes list for the subscription.
             // If resourceTypes list is empty, don't filter events
             // send everything.
-            if (entry->resourceTypes.size())
+            if (!entry->resourceTypes.empty())
             {
                 for (const auto& resource : entry->resourceTypes)
                 {

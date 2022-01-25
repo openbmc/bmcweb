@@ -87,7 +87,7 @@ inline void
                 {
                     const std::string* imageUrlValue =
                         std::get_if<std::string>(&value);
-                    if (imageUrlValue && !imageUrlValue->empty())
+                    if (imageUrlValue != nullptr && !imageUrlValue->empty())
                     {
                         std::filesystem::path filePath = *imageUrlValue;
                         if (!filePath.has_filename())

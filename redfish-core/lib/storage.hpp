@@ -113,7 +113,7 @@ inline void requestRoutesStorage(App& app)
                 [asyncResp,
                  health](const boost::system::error_code ec,
                          const crow::openbmc_mapper::GetSubTreeType& subtree) {
-                    if (ec || !subtree.size())
+                    if (ec || subtree.empty())
                     {
                         // doesn't have to be there
                         return;

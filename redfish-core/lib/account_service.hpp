@@ -88,7 +88,7 @@ inline std::string getRoleIdFromPrivilege(std::string_view role)
     {
         return "Operator";
     }
-    if ((role == "") || (role == "priv-noaccess"))
+    if (role.empty() || (role == "priv-noaccess"))
     {
         return "NoAccess";
     }
@@ -108,7 +108,7 @@ inline std::string getPrivilegeFromRoleId(std::string_view role)
     {
         return "priv-operator";
     }
-    if ((role == "NoAccess") || (role == ""))
+    if ((role == "NoAccess") || (role.empty()))
     {
         return "priv-noaccess";
     }
@@ -1029,7 +1029,7 @@ inline void handleLDAPPatch(nlohmann::json& input,
     }
     if (serviceAddressList)
     {
-        if ((*serviceAddressList).size() == 0)
+        if (serviceAddressList->empty())
         {
             messages::propertyValueNotInList(asyncResp->res, "[]",
                                              "ServiceAddress");
@@ -1038,7 +1038,7 @@ inline void handleLDAPPatch(nlohmann::json& input,
     }
     if (baseDNList)
     {
-        if ((*baseDNList).size() == 0)
+        if (baseDNList->empty())
         {
             messages::propertyValueNotInList(asyncResp->res, "[]",
                                              "BaseDistinguishedNames");

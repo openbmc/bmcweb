@@ -293,7 +293,7 @@ inline void requestRoutesCertificateActionGenerateCSR(App& app)
             // password, which will likely cause bmcweb to crash on startup
             // if this is not set on a post so not allowing the user to set
             // value
-            if (*optChallengePassword != "")
+            if (!optChallengePassword->empty())
             {
                 messages::actionParameterNotSupported(
                     asyncResp->res, "GenerateCSR", "ChallengePassword");
@@ -355,7 +355,7 @@ inline void requestRoutesCertificateActionGenerateCSR(App& app)
                     certURI,
                     "/redfish/v1/Managers/bmc/NetworkProtocol/HTTPS/Certificates"))
             {
-                if (optKeyUsage->size() == 0)
+                if (optKeyUsage->empty())
                 {
                     optKeyUsage->push_back("ServerAuthentication");
                 }
@@ -379,7 +379,7 @@ inline void requestRoutesCertificateActionGenerateCSR(App& app)
                          certURI,
                          "/redfish/v1/AccountService/LDAP/Certificates"))
             {
-                if (optKeyUsage->size() == 0)
+                if (optKeyUsage->empty())
                 {
                     optKeyUsage->push_back("ClientAuthentication");
                 }

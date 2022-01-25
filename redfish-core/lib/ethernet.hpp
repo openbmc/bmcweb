@@ -2130,7 +2130,7 @@ inline void requestEthernetInterfacesRoutes(App& app)
                         const EthernetInterfaceData& ethData,
                         const boost::container::flat_set<IPv4AddressData>&,
                         const boost::container::flat_set<IPv6AddressData>&) {
-                        if (success && ethData.vlan_id.size() != 0)
+                        if (success && !ethData.vlan_id.empty())
                         {
                             parseInterfaceData(asyncResp->res.jsonValue,
                                                parentIfaceId, ifaceId, ethData);

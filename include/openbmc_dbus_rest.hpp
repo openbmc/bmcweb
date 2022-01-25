@@ -1562,7 +1562,7 @@ inline void handleAction(const crow::Request& req,
             const boost::system::error_code ec,
             const std::vector<std::pair<std::string, std::vector<std::string>>>&
                 interfaceNames) {
-            if (ec || interfaceNames.size() <= 0)
+            if (ec || interfaceNames.empty())
             {
                 BMCWEB_LOG_ERROR << "Can't find object";
                 setErrorResponse(transaction->res,
@@ -1596,7 +1596,7 @@ inline void handleDelete(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
             const boost::system::error_code ec,
             const std::vector<std::pair<std::string, std::vector<std::string>>>&
                 interfaceNames) {
-            if (ec || interfaceNames.size() <= 0)
+            if (ec || interfaceNames.empty())
             {
                 BMCWEB_LOG_ERROR << "Can't find object";
                 setErrorResponse(asyncResp->res,
@@ -1701,7 +1701,7 @@ inline void handleGet(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     crow::connections::systemBus->async_method_call(
         [asyncResp, path, propertyName](const boost::system::error_code ec,
                                         const GetObjectType& objectNames) {
-            if (ec || objectNames.size() <= 0)
+            if (ec || objectNames.empty())
             {
                 setErrorResponse(asyncResp->res,
                                  boost::beast::http::status::not_found,
@@ -1718,7 +1718,7 @@ inline void handleGet(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                 const std::vector<std::string>& interfaceNames =
                     connection.second;
 
-                if (interfaceNames.size() <= 0)
+                if (interfaceNames.empty())
                 {
                     setErrorResponse(asyncResp->res,
                                      boost::beast::http::status::not_found,
@@ -1875,7 +1875,7 @@ inline void handlePut(const crow::Request& req,
     crow::connections::systemBus->async_method_call(
         [transaction](const boost::system::error_code ec2,
                       const GetObjectType& objectNames) {
-            if (!ec2 && objectNames.size() <= 0)
+            if (!ec2 && objectNames.empty())
             {
                 setErrorResponse(transaction->asyncResp->res,
                                  boost::beast::http::status::not_found,

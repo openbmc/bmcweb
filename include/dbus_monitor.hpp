@@ -200,7 +200,7 @@ inline void requestRoutes(App& app)
                      "member='PropertiesChanged'");
                 // If interfaces weren't specified, add a single match for all
                 // interfaces
-                if (thisSession.interfaces.size() == 0)
+                if (thisSession.interfaces.empty())
                 {
                     BMCWEB_LOG_DEBUG << "Creating match "
                                      << propertiesMatchString;

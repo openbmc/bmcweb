@@ -299,7 +299,7 @@ inline void Lock::releaseLock(const std::string& sessionId)
         auto it = lockTable.begin();
         while (it != lockTable.end())
         {
-            if (it->second.size() != 0)
+            if (!it->second.empty())
             {
                 // Check if session id of this entry matches with session id
                 // given

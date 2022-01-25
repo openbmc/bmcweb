@@ -1115,7 +1115,7 @@ static int fillEventLogEntryJson(const std::string& logEntryID,
     boost::split(logEntryFields, entry, boost::is_any_of(","),
                  boost::token_compress_on);
     // We need at least a MessageId to be valid
-    if (logEntryFields.size() < 1)
+    if (logEntryFields.empty())
     {
         return 1;
     }
@@ -1971,12 +1971,12 @@ inline void requestRoutesSystemHostLoggerCollection(App& app)
             }
             // If vector is empty, that means skip value larger than total
             // log count
-            if (logEntries.size() == 0)
+            if (logEntries.empty())
             {
                 asyncResp->res.jsonValue["Members@odata.count"] = logCount;
                 return;
             }
-            if (logEntries.size() > 0)
+            if (!logEntries.empty())
             {
                 for (size_t i = 0; i < logEntries.size(); i++)
                 {

@@ -267,7 +267,7 @@ inline void
                 const std::vector<
                     std::pair<std::string, std::vector<std::string>>>&
                     connectionNames = object.second;
-                if (connectionNames.size() < 1)
+                if (connectionNames.empty())
                 {
                     continue;
                 }
@@ -311,7 +311,7 @@ inline void
                                                      << properties.size()
                                                      << " Dimm properties.";
 
-                                    if (properties.size() > 0)
+                                    if (!properties.empty())
                                     {
                                         for (const std::pair<
                                                  std::string,
@@ -1241,7 +1241,7 @@ inline void getTrustedModuleRequiredToBoot(
                 // error occurs
                 return;
             }
-            if (subtree.size() == 0)
+            if (subtree.empty())
             {
                 // As noted above, this is an optional interface so just return
                 // if there is no instance found
@@ -1332,7 +1332,7 @@ inline void setTrustedModuleRequiredToBoot(
                 messages::internalError(aResp->res);
                 return;
             }
-            if (subtree.size() == 0)
+            if (subtree.empty())
             {
                 messages::propertyValueNotInList(aResp->res, "ComputerSystem",
                                                  "TrustedModuleRequiredToBoot");
@@ -1661,7 +1661,7 @@ inline void setAssetTag(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
                 messages::internalError(aResp->res);
                 return;
             }
-            if (subtree.size() == 0)
+            if (subtree.empty())
             {
                 BMCWEB_LOG_DEBUG << "Can't find system D-Bus object!";
                 messages::internalError(aResp->res);
