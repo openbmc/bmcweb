@@ -208,7 +208,7 @@ inline bool extractHypervisorInterfaceData(
                 IPv4AddressData& ipv4Address = *it.first;
                 if (ifacePair.first == "xyz.openbmc_project.Object.Enable")
                 {
-                    for (auto& property : ifacePair.second)
+                    for (const auto& property : ifacePair.second)
                     {
                         if (property.first == "Enabled")
                         {
@@ -224,7 +224,7 @@ inline bool extractHypervisorInterfaceData(
                 }
                 if (ifacePair.first == "xyz.openbmc_project.Network.IP")
                 {
-                    for (auto& property : ifacePair.second)
+                    for (const auto& property : ifacePair.second)
                     {
                         if (property.first == "Address")
                         {
@@ -497,7 +497,7 @@ inline void parseInterfaceData(
     nlohmann::json& ipv4StaticArray = jsonResponse["IPv4StaticAddresses"];
     ipv4Array = nlohmann::json::array();
     ipv4StaticArray = nlohmann::json::array();
-    for (auto& ipv4Config : ipv4Data)
+    for (const auto& ipv4Config : ipv4Data)
     {
         if (ipv4Config.isActive)
         {

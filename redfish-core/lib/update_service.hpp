@@ -723,7 +723,7 @@ inline void requestRoutesSoftwareInventoryCollection(App& app)
                         nlohmann::json::array();
                     asyncResp->res.jsonValue["Members@odata.count"] = 0;
 
-                    for (auto& obj : subtree)
+                    for (const auto& obj : subtree)
                     {
                         sdbusplus::message::object_path path(obj.first);
                         std::string swId = path.filename();

@@ -68,7 +68,7 @@ inline void
             // example functionalFw:
             // v as 2 "/xyz/openbmc_project/software/ace821ef"
             //        "/xyz/openbmc_project/software/230fb078"
-            for (auto& fw : functionalFw)
+            for (const auto& fw : functionalFw)
             {
                 sdbusplus::message::object_path path(fw);
                 std::string leaf = path.filename();

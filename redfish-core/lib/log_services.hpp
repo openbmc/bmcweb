@@ -433,7 +433,7 @@ inline void
                     if (interfaceMap.first ==
                         "xyz.openbmc_project.Common.Progress")
                     {
-                        for (auto& propertyMap : interfaceMap.second)
+                        for (const auto& propertyMap : interfaceMap.second)
                         {
                             if (propertyMap.first == "Status")
                             {
@@ -472,7 +472,7 @@ inline void
                              "xyz.openbmc_project.Time.EpochTime")
                     {
 
-                        for (auto& propertyMap : interfaceMap.second)
+                        for (const auto& propertyMap : interfaceMap.second)
                         {
                             if (propertyMap.first == "Elapsed")
                             {
@@ -569,7 +569,7 @@ inline void
                 std::string(boost::algorithm::to_lower_copy(dumpType)) +
                 "/entry/";
 
-            for (auto& objectPath : resp)
+            for (const auto& objectPath : resp)
             {
                 if (objectPath.first.str != dumpEntryPath + entryID)
                 {
@@ -581,17 +581,18 @@ inline void
                 uint64_t size = 0;
                 std::string dumpStatus;
 
-                for (auto& interfaceMap : objectPath.second)
+                for (const auto& interfaceMap : objectPath.second)
                 {
                     if (interfaceMap.first ==
                         "xyz.openbmc_project.Common.Progress")
                     {
-                        for (auto& propertyMap : interfaceMap.second)
+                        for (const auto& propertyMap : interfaceMap.second)
                         {
                             if (propertyMap.first == "Status")
                             {
-                                auto status = std::get_if<std::string>(
-                                    &propertyMap.second);
+                                const std::string* status =
+                                    std::get_if<std::string>(
+                                        &propertyMap.second);
                                 if (status == nullptr)
                                 {
                                     messages::internalError(asyncResp->res);
@@ -604,11 +605,11 @@ inline void
                     else if (interfaceMap.first ==
                              "xyz.openbmc_project.Dump.Entry")
                     {
-                        for (auto& propertyMap : interfaceMap.second)
+                        for (const auto& propertyMap : interfaceMap.second)
                         {
                             if (propertyMap.first == "Size")
                             {
-                                auto sizePtr =
+                                const uint64_t* sizePtr =
                                     std::get_if<uint64_t>(&propertyMap.second);
                                 if (sizePtr == nullptr)
                                 {
@@ -623,7 +624,7 @@ inline void
                     else if (interfaceMap.first ==
                              "xyz.openbmc_project.Time.EpochTime")
                     {
-                        for (auto& propertyMap : interfaceMap.second)
+                        for (const auto& propertyMap : interfaceMap.second)
                         {
                             if (propertyMap.first == "Elapsed")
                             {
@@ -1378,7 +1379,7 @@ inline void requestRoutesDBusEventLogEntryCollection(App& app)
                     nlohmann::json& entriesArray =
                         asyncResp->res.jsonValue["Members"];
                     entriesArray = nlohmann::json::array();
-                    for (auto& objectPath : resp)
+                    for (const auto& objectPath : resp)
                     {
                         const uint32_t* id = nullptr;
                         std::time_t timestamp{};
@@ -1387,12 +1388,13 @@ inline void requestRoutesDBusEventLogEntryCollection(App& app)
                         const std::string* message = nullptr;
                         const std::string* filePath = nullptr;
                         bool resolved = false;
-                        for (auto& interfaceMap : objectPath.second)
+                        for (const auto& interfaceMap : objectPath.second)
                         {
                             if (interfaceMap.first ==
                                 "xyz.openbmc_project.Logging.Entry")
                             {
-                                for (auto& propertyMap : interfaceMap.second)
+                                for (const auto& propertyMap :
+                                     interfaceMap.second)
                                 {
                                     if (propertyMap.first == "Id")
                                     {
@@ -1458,7 +1460,8 @@ inline void requestRoutesDBusEventLogEntryCollection(App& app)
                             else if (interfaceMap.first ==
                                      "xyz.openbmc_project.Common.FilePath")
                             {
-                                for (auto& propertyMap : interfaceMap.second)
+                                for (const auto& propertyMap :
+                                     interfaceMap.second)
                                 {
                                     if (propertyMap.first == "Path")
                                     {
@@ -1554,7 +1557,7 @@ inline void requestRoutesDBusEventLogEntry(App& app)
                         const std::string* filePath = nullptr;
                         bool resolved = false;
 
-                        for (auto& propertyMap : resp)
+                        for (const auto& propertyMap : resp)
                         {
                             if (propertyMap.first == "Id")
                             {
@@ -3451,7 +3454,7 @@ inline void requestRoutesPostCodesEntryAdditionalData(App& app)
                             return;
                         }
 
-                        auto& [tID, c] = postcodes[value];
+                        const auto& [tID, c] = postcodes[value];
                         if (c.empty())
                         {
                             BMCWEB_LOG_INFO << "No found post code data";

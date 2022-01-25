@@ -260,7 +260,7 @@ inline bool isOperationAllowedWithPrivileges(
     {
         return true;
     }
-    for (auto& requiredPrivileges : operationPrivilegesRequired)
+    for (const auto& requiredPrivileges : operationPrivilegesRequired)
     {
         BMCWEB_LOG_DEBUG << "Checking operation privileges...";
         if (userPrivileges.isSupersetOf(requiredPrivileges))

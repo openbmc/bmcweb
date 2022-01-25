@@ -450,7 +450,7 @@ inline void
         // Check if proper pattern for object path appears
         if (boost::starts_with(objpath.first.str, ipv6PathStart))
         {
-            for (auto& interface : objpath.second)
+            for (const auto& interface : objpath.second)
             {
                 if (interface.first == "xyz.openbmc_project.Network.IP")
                 {
@@ -463,7 +463,7 @@ inline void
                     IPv6AddressData& ipv6Address = *it.first;
                     ipv6Address.id =
                         objpath.first.str.substr(ipv6PathStart.size());
-                    for (auto& property : interface.second)
+                    for (const auto& property : interface.second)
                     {
                         if (property.first == "Address")
                         {
@@ -528,7 +528,7 @@ inline void
         // Check if proper pattern for object path appears
         if (boost::starts_with(objpath.first.str, ipv4PathStart))
         {
-            for (auto& interface : objpath.second)
+            for (const auto& interface : objpath.second)
             {
                 if (interface.first == "xyz.openbmc_project.Network.IP")
                 {
@@ -541,7 +541,7 @@ inline void
                     IPv4AddressData& ipv4Address = *it.first;
                     ipv4Address.id =
                         objpath.first.str.substr(ipv4PathStart.size());
-                    for (auto& property : interface.second)
+                    for (const auto& property : interface.second)
                     {
                         if (property.first == "Address")
                         {
@@ -1782,7 +1782,7 @@ inline void parseInterfaceData(
     nlohmann::json& ipv4StaticArray = jsonResponse["IPv4StaticAddresses"];
     ipv4Array = nlohmann::json::array();
     ipv4StaticArray = nlohmann::json::array();
-    for (auto& ipv4Config : ipv4Data)
+    for (const auto& ipv4Config : ipv4Data)
     {
 
         std::string gatewayStr = ipv4Config.gateway;
@@ -1819,7 +1819,7 @@ inline void parseInterfaceData(
     nlohmann::json& ipv6AddrPolicyTable =
         jsonResponse["IPv6AddressPolicyTable"];
     ipv6AddrPolicyTable = nlohmann::json::array();
-    for (auto& ipv6Config : ipv6Data)
+    for (const auto& ipv6Config : ipv6Data)
     {
         ipv6Array.push_back({{"Address", ipv6Config.address},
                              {"PrefixLength", ipv6Config.prefixLength},

@@ -761,11 +761,11 @@ inline std::string
 
     // Check if sensor has critical threshold alarm
 
-    for (auto& [interface, values] : interfacesDict)
+    for (const auto& [interface, values] : interfacesDict)
     {
         if (interface == "xyz.openbmc_project.Sensor.Threshold.Critical")
         {
-            for (auto& [valueName, value] : values)
+            for (const auto& [valueName, value] : values)
             {
                 if (valueName == "CriticalAlarmHigh" ||
                     valueName == "CriticalAlarmLow")
@@ -798,11 +798,11 @@ inline std::string
     }
 
     // Check if sensor has warning threshold alarm
-    for (auto& [interface, values] : interfacesDict)
+    for (const auto& [interface, values] : interfacesDict)
     {
         if (interface == "xyz.openbmc_project.Sensor.Threshold.Warning")
         {
-            for (auto& [valueName, value] : values)
+            for (const auto& [valueName, value] : values)
             {
                 if (valueName == "WarningAlarmHigh" ||
                     valueName == "WarningAlarmLow")
@@ -866,11 +866,11 @@ inline void objectInterfacesToJson(
 {
     // Assume values exist as is (10^0 == 1) if no scale exists
     int64_t scaleMultiplier = 0;
-    for (auto& [interface, values] : interfacesDict)
+    for (const auto& [interface, values] : interfacesDict)
     {
         if (interface == "xyz.openbmc_project.Sensor.Value")
         {
-            for (auto& [valueName, value] : values)
+            for (const auto& [valueName, value] : values)
             {
                 if (valueName == "Scale")
                 {
@@ -1194,13 +1194,15 @@ inline void populateFanRedundancy(
                                     return;
                                 }
 
-                                auto allowedFailures = std::get_if<uint8_t>(
-                                    &(findFailures->second));
-                                auto collection =
+                                const uint8_t* allowedFailures =
+                                    std::get_if<uint8_t>(
+                                        &(findFailures->second));
+                                const std::vector<std::string>* collection =
                                     std::get_if<std::vector<std::string>>(
                                         &(findCollection->second));
-                                auto status = std::get_if<std::string>(
-                                    &(findStatus->second));
+                                const std::string* status =
+                                    std::get_if<std::string>(
+                                        &(findStatus->second));
 
                                 if (allowedFailures == nullptr ||
                                     collection == nullptr || status == nullptr)
@@ -1467,11 +1469,11 @@ inline void storeInventoryItemData(
 {
     // Get properties from Inventory.Item interface
 
-    for (auto& [interface, values] : interfacesDict)
+    for (const auto& [interface, values] : interfacesDict)
     {
         if (interface == "xyz.openbmc_project.Inventory.Item")
         {
-            for (auto& [name, dbusValue] : values)
+            for (const auto& [name, dbusValue] : values)
             {
                 if (name == "Present")
                 {
@@ -1493,7 +1495,7 @@ inline void storeInventoryItemData(
         // Get properties from Inventory.Decorator.Asset interface
         if (interface == "xyz.openbmc_project.Inventory.Decorator.Asset")
         {
-            for (auto& [name, dbusValue] : values)
+            for (const auto& [name, dbusValue] : values)
             {
                 if (name == "Manufacturer")
                 {
@@ -1537,7 +1539,7 @@ inline void storeInventoryItemData(
         if (interface ==
             "xyz.openbmc_project.State.Decorator.OperationalStatus")
         {
-            for (auto& [name, dbusValue] : values)
+            for (const auto& [name, dbusValue] : values)
             {
                 if (name == "Functional")
                 {
