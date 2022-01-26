@@ -34,6 +34,23 @@
       "parentUuid": "5dcab727_b79fb85b",
       "revId": "abddc0a8c309fdef5fb95b5e1ee69e1da2d3a164",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1e0e3704_be1f23ea",
+        "filename": "include/obmc_hypervisor.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-01-26T18:06:57Z",
+      "side": 1,
+      "message": "This whole file is copied and pasted from obmc_console.hpp, then the namespace changed.  Please don\u0027t duplicate code in this way;  Abstract it into common classes and methods, and invoke them with the appropriate arguments where required.",
+      "revId": "abddc0a8c309fdef5fb95b5e1ee69e1da2d3a164",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
