@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4c85c382_e6f9f3de",
+        "filename": "http/utility.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 619,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-01-26T20:50:20Z",
+      "side": 1,
+      "message": "Doesn\u0027t this overflow a time_t on 32 bit?  I suspect we just don\u0027t need this check on 32 bit, given that int32_max is still less than this check.",
+      "range": {
+        "startLine": 619,
+        "startChar": 28,
+        "endLine": 619,
+        "endChar": 52
+      },
+      "revId": "003769623a0cc9252cd181416e6d757b20a91172",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
