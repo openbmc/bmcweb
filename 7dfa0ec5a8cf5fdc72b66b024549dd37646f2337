@@ -16,6 +16,24 @@
       "message": "Shouldn\u0027t this be \"redfish::privileges::deleteMetricReportDefinition\"?",
       "revId": "7dfa0ec5a8cf5fdc72b66b024549dd37646f2337",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dcccc272_c637b3b6",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 961,
+      "author": {
+        "id": 1001148
+      },
+      "writtenOn": "2022-01-26T14:22:53Z",
+      "side": 1,
+      "message": "I had intentionally replaced single method privilege with the generic definition of  the privilegeSetConfigureManager (which underneath is a privilege of \u0027{{\"ConfigureManager\"}}\u0027). By this I can process three methods (put + patch + delete) in a single BMCWEB_ROUTE here (please see switch branching in the body of the ROUTE).",
+      "parentUuid": "b85cc3d0_825b8a41",
+      "revId": "7dfa0ec5a8cf5fdc72b66b024549dd37646f2337",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
