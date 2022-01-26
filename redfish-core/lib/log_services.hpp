@@ -1428,8 +1428,8 @@ inline void requestRoutesDBusEventLogEntryCollection(App& app)
                     for (auto& objectPath : resp)
                     {
                         const uint32_t* id = nullptr;
-                        std::time_t timestamp{};
-                        std::time_t updateTimestamp{};
+                        const uint64_t* timestamp = nullptr;
+                        const uint64_t* updateTimestamp = nullptr;
                         const std::string* severity = nullptr;
                         const std::string* message = nullptr;
                         const std::string* filePath = nullptr;
@@ -1448,28 +1448,14 @@ inline void requestRoutesDBusEventLogEntryCollection(App& app)
                                     }
                                     else if (propertyMap.first == "Timestamp")
                                     {
-                                        const uint64_t* millisTimeStamp =
-                                            std::get_if<uint64_t>(
-                                                &propertyMap.second);
-                                        if (millisTimeStamp != nullptr)
-                                        {
-                                            timestamp =
-                                                crow::utility::getTimestamp(
-                                                    *millisTimeStamp);
-                                        }
+                                        timestamp = std::get_if<uint64_t>(
+                                            &propertyMap.second);
                                     }
                                     else if (propertyMap.first ==
                                              "UpdateTimestamp")
                                     {
-                                        const uint64_t* millisTimeStamp =
-                                            std::get_if<uint64_t>(
-                                                &propertyMap.second);
-                                        if (millisTimeStamp != nullptr)
-                                        {
-                                            updateTimestamp =
-                                                crow::utility::getTimestamp(
-                                                    *millisTimeStamp);
-                                        }
+                                        updateTimestamp = std::get_if<uint64_t>(
+                                            &propertyMap.second);
                                     }
                                     else if (propertyMap.first == "Severity")
                                     {
@@ -1519,7 +1505,8 @@ inline void requestRoutesDBusEventLogEntryCollection(App& app)
                         // xyz.openbmc_project.Logging.Entry interface, ignore
                         // and continue.
                         if (id == nullptr || message == nullptr ||
-                            severity == nullptr)
+                            severity == nullptr || timestamp == nullptr ||
+                            updateTimestamp == nullptr)
                         {
                             continue;
                         }
@@ -1537,9 +1524,9 @@ inline void requestRoutesDBusEventLogEntryCollection(App& app)
                         thisEntry["Severity"] =
                             translateSeverityDbusToRedfish(*severity);
                         thisEntry["Created"] =
-                            crow::utility::getDateTimeStdtime(timestamp);
+                            crow::utility::getDateTimeUintMs(*timestamp);
                         thisEntry["Modified"] =
-                            crow::utility::getDateTimeStdtime(updateTimestamp);
+                            crow::utility::getDateTimeUintMs(*updateTimestamp);
                         if (filePath != nullptr)
                         {
                             thisEntry["AdditionalDataURI"] =
@@ -1594,8 +1581,8 @@ inline void requestRoutesDBusEventLogEntry(App& app)
                             return;
                         }
                         const uint32_t* id = nullptr;
-                        std::time_t timestamp{};
-                        std::time_t updateTimestamp{};
+                        const uint64_t* timestamp = nullptr;
+                        const uint64_t* updateTimestamp = nullptr;
                         const std::string* severity = nullptr;
                         const std::string* message = nullptr;
                         const std::string* filePath = nullptr;
@@ -1609,24 +1596,13 @@ inline void requestRoutesDBusEventLogEntry(App& app)
                             }
                             else if (propertyMap.first == "Timestamp")
                             {
-                                const uint64_t* millisTimeStamp =
+                                timestamp =
                                     std::get_if<uint64_t>(&propertyMap.second);
-                                if (millisTimeStamp != nullptr)
-                                {
-                                    timestamp = crow::utility::getTimestamp(
-                                        *millisTimeStamp);
-                                }
                             }
                             else if (propertyMap.first == "UpdateTimestamp")
                             {
-                                const uint64_t* millisTimeStamp =
+                                updateTimestamp =
                                     std::get_if<uint64_t>(&propertyMap.second);
-                                if (millisTimeStamp != nullptr)
-                                {
-                                    updateTimestamp =
-                                        crow::utility::getTimestamp(
-                                            *millisTimeStamp);
-                                }
                             }
                             else if (propertyMap.first == "Severity")
                             {
@@ -1656,7 +1632,8 @@ inline void requestRoutesDBusEventLogEntry(App& app)
                             }
                         }
                         if (id == nullptr || message == nullptr ||
-                            severity == nullptr)
+                            severity == nullptr || timestamp == nullptr ||
+                            updateTimestamp == nullptr)
                         {
                             messages::internalError(asyncResp->res);
                             return;
@@ -1675,9 +1652,9 @@ inline void requestRoutesDBusEventLogEntry(App& app)
                         asyncResp->res.jsonValue["Severity"] =
                             translateSeverityDbusToRedfish(*severity);
                         asyncResp->res.jsonValue["Created"] =
-                            crow::utility::getDateTimeStdtime(timestamp);
+                            crow::utility::getDateTimeUintMs(*timestamp);
                         asyncResp->res.jsonValue["Modified"] =
-                            crow::utility::getDateTimeStdtime(updateTimestamp);
+                            crow::utility::getDateTimeUintMs(*updateTimestamp);
                         if (filePath != nullptr)
                         {
                             asyncResp->res.jsonValue["AdditionalDataURI"] =
