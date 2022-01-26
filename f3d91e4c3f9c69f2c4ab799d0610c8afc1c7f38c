@@ -311,6 +311,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "05ad9a67_94846728",
+        "filename": "http/utility.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 590,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-01-26T18:43:22Z",
+      "side": 1,
+      "message": "Ack. Thanks!",
+      "parentUuid": "f69ed88d_eda2f0af",
+      "range": {
+        "startLine": 590,
+        "startChar": 44,
+        "endLine": 590,
+        "endChar": 68
+      },
+      "revId": "f3d91e4c3f9c69f2c4ab799d0610c8afc1c7f38c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e2a67b59_9503831a",
@@ -467,6 +491,30 @@
       "side": 1,
       "message": "You mean?\n\nconstexpr uint64_t maxSeconds \u003d 253402300799;\nconstexpr uint64_t maxMilliSeconds \u003d maxSeconds * 1000 + 999;",
       "parentUuid": "3fa777a3_76062b46",
+      "range": {
+        "startLine": 615,
+        "startChar": 0,
+        "endLine": 615,
+        "endChar": 52
+      },
+      "revId": "f3d91e4c3f9c69f2c4ab799d0610c8afc1c7f38c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "45b205c4_dec84604",
+        "filename": "http/utility.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 615,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-01-26T18:43:22Z",
+      "side": 1,
+      "message": "oh, yes. Typo, I meant maxSeconds * 1000 + 999",
+      "parentUuid": "1a7e2caa_6c56f54a",
       "range": {
         "startLine": 615,
         "startChar": 0,
