@@ -666,15 +666,5 @@ struct ConstantTimeCompare
     }
 };
 
-inline std::time_t getTimestamp(uint64_t millisTimeStamp)
-{
-    // Retrieve Created property with format:
-    // yyyy-mm-ddThh:mm:ss
-    std::chrono::milliseconds chronoTimeStamp(millisTimeStamp);
-    return std::chrono::duration_cast<std::chrono::duration<int>>(
-               chronoTimeStamp)
-        .count();
-}
-
 } // namespace utility
 } // namespace crow
