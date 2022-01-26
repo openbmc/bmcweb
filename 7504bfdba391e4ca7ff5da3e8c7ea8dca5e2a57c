@@ -58,6 +58,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "17738fb3_bcebbf43",
+        "filename": "include/ibm/locks.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-01-26T17:22:26Z",
+      "side": 1,
+      "message": "Agreed, I\u0027m not in love with single character variable names, but p is what\u0027s used on line 219, so we should be consistent.  There\u0027s a lot of stuff in this file that would be great to clean up at some point.",
+      "parentUuid": "0470fae2_435161da",
+      "range": {
+        "startLine": 161,
+        "startChar": 61,
+        "endLine": 161,
+        "endChar": 62
+      },
+      "revId": "7504bfdba391e4ca7ff5da3e8c7ea8dca5e2a57c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8d1c3b75_28da607a",
@@ -83,6 +107,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d06f124c_57262e54",
+        "filename": "include/ibm/locks.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-01-26T17:22:26Z",
+      "side": 1,
+      "message": "This is already called ids on line 220, we should be consistent.",
+      "parentUuid": "8d1c3b75_28da607a",
+      "range": {
+        "startLine": 162,
+        "startChar": 53,
+        "endLine": 162,
+        "endChar": 56
+      },
+      "revId": "7504bfdba391e4ca7ff5da3e8c7ea8dca5e2a57c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "1409fc76_b0a67541",
         "filename": "redfish-core/include/privileges.hpp",
         "patchSetId": 2
@@ -94,6 +142,24 @@
       "writtenOn": "2022-01-26T16:38:50Z",
       "side": 1,
       "message": "Can we remove? \n\nBut are we still using this function? \nGitHub search might have been wrong: https://github.com/openbmc/bmcweb/search?q\u003disMethodAllowedForUser",
+      "revId": "7504bfdba391e4ca7ff5da3e8c7ea8dca5e2a57c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9a7eaff6_caa628de",
+        "filename": "redfish-core/include/privileges.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 308,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-01-26T17:22:26Z",
+      "side": 1,
+      "message": "done",
+      "parentUuid": "1409fc76_b0a67541",
       "revId": "7504bfdba391e4ca7ff5da3e8c7ea8dca5e2a57c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
