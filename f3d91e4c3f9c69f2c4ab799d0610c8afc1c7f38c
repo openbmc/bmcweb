@@ -241,6 +241,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "dfb51aab_38334e51",
+        "filename": "http/utility.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 590,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-01-26T01:48:32Z",
+      "side": 1,
+      "message": "I looked into boost::chrono, in my understanding, it\u0027s a new time system, no related to ptime.\n\nThe documentation is bad. I have to look at BOOST test to see how to use their codes.\n\n```\ninline std::string getDateTimeUint(uint64_t secondsSinceEpoch)\n{\n    boost::chrono::duration\u003cboost::uint64_t\u003e boostSeconds(secondsSinceEpoch);\n    std::ostringstream out;\n\n    boost::chrono::time_point\u003cboost::chrono::system_clock\u003e tp(boostSeconds);\n    out \u003c\u003c boost::chrono::time_fmt(boost::chrono::timezone::utc, \"%Y-%m-%dT%H:%M:%S\") \u003c\u003c tp;\n    return out.str() + \"+00:00\";\n}\n\nTEST(Utility, GetDateTimeUint)\n{\n    EXPECT_EQ(getDateTimeUint(uint64_t{1638312095}),\n              \"2021-11-30T22:41:35+00:00\");\n    // some time in the future, beyond 2038\n    EXPECT_EQ(getDateTimeUint(uint64_t{41638312095}),\n              \"3289-06-18T21:48:15+00:00\");\n    // the maximum time we support\n    EXPECT_EQ(getDateTimeUint(uint64_t{253402300799}),\n              \"9999-12-31T23:59:59+00:00\");\n\n    // returns the maximum Redfish date\n    EXPECT_EQ(getDateTimeUint(std::numeric_limits\u003cuint64_t\u003e::max()),\n              \"9999-12-31T23:59:59+00:00\");\n\n    EXPECT_EQ(getDateTimeUint(std::numeric_limits\u003cuint64_t\u003e::min()),\n              \"1970-01-01T00:00:00+00:00\");\n}\n```\n\nThe above test failed with \n\n```\n[ RUN      ] Utility.GetDateTimeUint\n../http/ut/utility_test.cpp:88: Failure\nExpected equality of these values:\n  getDateTimeUint(uint64_t{41638312095})\n    Which is: \"2120-05-10T22:39:07+00:00\"\n  \"3289-06-18T21:48:15+00:00\"\n../http/ut/utility_test.cpp:91: Failure\nExpected equality of these values:\n  getDateTimeUint(uint64_t{253402300799})\n    Which is: \"1816-03-30T05:56:08+00:00\"\n  \"9999-12-31T23:59:59+00:00\"\n../http/ut/utility_test.cpp:95: Failure\nExpected equality of these values:\n  getDateTimeUint(std::numeric_limits\u003cuint64_t\u003e::max())\n    Which is: \"1969-12-31T23:59:59+00:00\"\n  \"9999-12-31T23:59:59+00:00\"\n[  FAILED  ] Utility.GetDateTimeUint (0 ms)\n```\nNothing makes sense.\n\nHow does duration_cast help here?",
+      "parentUuid": "1e223cfc_cd3143ba",
+      "range": {
+        "startLine": 590,
+        "startChar": 44,
+        "endLine": 590,
+        "endChar": 68
+      },
+      "revId": "f3d91e4c3f9c69f2c4ab799d0610c8afc1c7f38c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e2a67b59_9503831a",
         "filename": "http/utility.hpp",
         "patchSetId": 6
