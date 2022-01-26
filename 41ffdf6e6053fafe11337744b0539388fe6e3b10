@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e92bfb25_b87255b8",
+        "filename": "redfish-core/include/event_service_manager.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 186,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-01-26T16:33:52Z",
+      "side": 0,
+      "message": "we were all over the place with these checks.. \u003c\u003d 0, \u003c1, \u003d\u003d0, .size()",
+      "range": {
+        "startLine": 186,
+        "startChar": 30,
+        "endLine": 186,
+        "endChar": 33
+      },
+      "revId": "41ffdf6e6053fafe11337744b0539388fe6e3b10",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
