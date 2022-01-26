@@ -289,6 +289,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f69ed88d_eda2f0af",
+        "filename": "http/utility.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 590,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-01-26T17:54:12Z",
+      "side": 1,
+      "message": "Ok, hardcoded number is a mediocre answer, but I guess works.  Thanks for looking.",
+      "parentUuid": "8a1fbec1_fcc6186d",
+      "range": {
+        "startLine": 590,
+        "startChar": 44,
+        "endLine": 590,
+        "endChar": 68
+      },
+      "revId": "f3d91e4c3f9c69f2c4ab799d0610c8afc1c7f38c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e2a67b59_9503831a",
         "filename": "http/utility.hpp",
         "patchSetId": 6
@@ -419,6 +443,30 @@
       "side": 1,
       "message": "I can do \nconstexpr uint64_t maxSeconds \u003d 253402300799;\nconstexpr uint64_t maxMilliSeconds \u003d 253402300799 * 1000 + 999;\n\nif that helps a bit.",
       "parentUuid": "975830c2_69b3f68c",
+      "range": {
+        "startLine": 615,
+        "startChar": 0,
+        "endLine": 615,
+        "endChar": 52
+      },
+      "revId": "f3d91e4c3f9c69f2c4ab799d0610c8afc1c7f38c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1a7e2caa_6c56f54a",
+        "filename": "http/utility.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 615,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-01-26T17:54:12Z",
+      "side": 1,
+      "message": "You mean?\n\nconstexpr uint64_t maxSeconds \u003d 253402300799;\nconstexpr uint64_t maxMilliSeconds \u003d maxSeconds * 1000 + 999;",
+      "parentUuid": "3fa777a3_76062b46",
       "range": {
         "startLine": 615,
         "startChar": 0,
