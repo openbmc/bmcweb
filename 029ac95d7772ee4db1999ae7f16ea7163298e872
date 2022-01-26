@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "63661c93_03652d53",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1979,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-01-26T17:47:57Z",
+      "side": 1,
+      "message": "Yep",
+      "parentUuid": "b28dc623_914d8ba2",
+      "revId": "029ac95d7772ee4db1999ae7f16ea7163298e872",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "004db2d5_b584ca13",
         "filename": "redfish-core/lib/sensors.hpp",
         "patchSetId": 1
@@ -31,6 +49,24 @@
       "writtenOn": "2022-01-26T16:33:52Z",
       "side": 1,
       "message": "I think we said we try to avoid the ternary operator (?) ? so future enhancement here",
+      "revId": "029ac95d7772ee4db1999ae7f16ea7163298e872",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fa5fc34d_c80e7387",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1281,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-01-26T17:47:57Z",
+      "side": 1,
+      "message": "Agreed.",
+      "parentUuid": "004db2d5_b584ca13",
       "revId": "029ac95d7772ee4db1999ae7f16ea7163298e872",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
