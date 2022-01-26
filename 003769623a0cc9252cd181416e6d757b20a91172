@@ -22,6 +22,30 @@
       },
       "revId": "003769623a0cc9252cd181416e6d757b20a91172",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7d1b151d_73a07e7a",
+        "filename": "http/utility.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 619,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-01-26T20:53:01Z",
+      "side": 1,
+      "message": "in 32 bit system, (secondsSinceEpoch \u003e static_cast\u003cint64_t\u003e(details::maxSeconds)) will be false all the time.\n\n253402300799 \u003e  INT_MAX\n2147483647   \u003d\u003d INT_MAX",
+      "parentUuid": "4c85c382_e6f9f3de",
+      "range": {
+        "startLine": 619,
+        "startChar": 28,
+        "endLine": 619,
+        "endChar": 52
+      },
+      "revId": "003769623a0cc9252cd181416e6d757b20a91172",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
