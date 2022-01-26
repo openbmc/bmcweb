@@ -265,6 +265,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "8a1fbec1_fcc6186d",
+        "filename": "http/utility.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 590,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-01-26T01:56:08Z",
+      "side": 1,
+      "message": "\u003e Right, so how was that number determined, given how non trivial it is?  It looks like the explicit point is that we can\u0027t go beyond year 9999.  Is there a way we could code against that instead?  Maybe we\u0027d be better off picking a date closer so that it\u0027s more obvious, like yeah 2200?\n\nWe need year 9999, since our certificates can have such date. \n\n\u003e Is there a way we could code against that instead?\nI can just add a test case to ensure this number is correct by reference it directly. Otherwise, do you want to parse a time from the string \"9999-12-31T23:59:59+00:00\" and convert it into an integer?\n\nI don\u0027t think it worths it.\n\nThese numbers can be found in other places if we google it. Name a few,\n\nhttps://developers.google.com/protocol-buffers/docs/reference/java/com/google/protobuf/util/Timestamps.html#isValid-com.google.protobuf.Timestamp-\n\nhttps://docs.microsoft.com/en-us/dotnet/api/system.datetimeoffset.fromunixtimeseconds?view\u003dnet-6.0#exceptions",
+      "parentUuid": "dfb51aab_38334e51",
+      "range": {
+        "startLine": 590,
+        "startChar": 44,
+        "endLine": 590,
+        "endChar": 68
+      },
+      "revId": "f3d91e4c3f9c69f2c4ab799d0610c8afc1c7f38c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e2a67b59_9503831a",
         "filename": "http/utility.hpp",
         "patchSetId": 6
@@ -371,6 +395,30 @@
       "side": 1,
       "message": "They\u0027re the same plus a couple digits.",
       "parentUuid": "0fdb14a0_d8f65bbb",
+      "range": {
+        "startLine": 615,
+        "startChar": 0,
+        "endLine": 615,
+        "endChar": 52
+      },
+      "revId": "f3d91e4c3f9c69f2c4ab799d0610c8afc1c7f38c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3fa777a3_76062b46",
+        "filename": "http/utility.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 615,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-01-26T01:56:08Z",
+      "side": 1,
+      "message": "I can do \nconstexpr uint64_t maxSeconds \u003d 253402300799;\nconstexpr uint64_t maxMilliSeconds \u003d 253402300799 * 1000 + 999;\n\nif that helps a bit.",
+      "parentUuid": "975830c2_69b3f68c",
       "range": {
         "startLine": 615,
         "startChar": 0,
