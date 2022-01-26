@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ac52bc10_059bdae7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-01-26T16:47:14Z",
+      "side": 1,
+      "message": "I was initially kind of mixed on this rule here.. \nI know it is less code but not sure it is always more readable code \nThat said it does look to follow what I see in https://github.com/isocpp/CppCoreGuidelines/blob/master/CppCoreGuidelines.md and it will make for more consistent code so I am good. \n\nE.g. is \n    return count \u003e\u003d index;   \n\nas readable as\n\n    if (count \u003c index)\n    {\n        return false;\n    }\n    return true;\n\nIMO, no, but for the reasons above I am good here. ",
+      "revId": "7e2e5dd98150b9b8c401b55792759687505d70a9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
