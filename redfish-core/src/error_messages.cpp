@@ -492,6 +492,38 @@ void createFailedMissingReqProperties(crow::Response& res,
 
 /**
  * @internal
+ * @brief Formats PropertyValueError message into JSON for the specified
+ * property
+ *
+ * See header file for more information
+ * @endinternal
+ */
+nlohmann::json propertyValueError(const std::string& arg1)
+{
+    return nlohmann::json{
+        {"@odata.type", "#Message.v1_1_1.Message"},
+        {"MessageId", "Base.1.8.1.PropertyValueError"},
+        {"Message",
+         "The value provided for the property " + arg1 + " is not valid."},
+        {"MessageArgs", {arg1}},
+        {"MessageSeverity", "Warning"},
+        {"Resolution", "Correct the value for the property in the request body "
+                       "and resubmit the request if the operation failed."}};
+}
+
+void propertyValueError(crow::Response& res, const std::string& arg1)
+{
+    addMessageToJson(res.jsonValue, propertyValueError(arg1), arg1);
+}
+
+void allPropertiesValueError(crow::Response& res, const std::string& arg1)
+{
+    res.result(boost::beast::http::status::bad_request);
+    addMessageToRootJson(res.jsonValue, propertyValueError(arg1));
+}
+
+/**
+ * @internal
  * @brief Formats PropertyValueFormatError message into JSON for the specified
  * property
  *
