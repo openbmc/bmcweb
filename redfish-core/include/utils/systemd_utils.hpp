@@ -31,21 +31,32 @@ namespace systemd_utils
 
 inline std::string getUuid()
 {
-    std::string ret;
     // This ID needs to match the one in ipmid
     sd_id128_t appId{{0Xe0, 0Xe1, 0X73, 0X76, 0X64, 0X61, 0X47, 0Xda, 0Xa5,
                       0X0c, 0Xd0, 0Xcc, 0X64, 0X12, 0X45, 0X78}};
     sd_id128_t machineId{};
 
-    if (sd_id128_get_machine_app_specific(appId, &machineId) == 0)
+    int r = sd_id128_get_machine_app_specific(appId, &machineId);
+    if (r == -EOPNOTSUPP)
     {
-        std::array<char, SD_ID128_STRING_MAX> str{};
-        ret = sd_id128_to_string(machineId, str.data());
-        ret.insert(8, 1, '-');
-        ret.insert(13, 1, '-');
-        ret.insert(18, 1, '-');
-        ret.insert(23, 1, '-');
+        // X86 QEMU is missing some magic to support generating a UUID.  In this
+        // case, just ignore the failure and let it print as all 0s.  This
+        // prevents Redfish service validator failures on empty string not being
+        // allowed in UUID
     }
+    else if (r != 0)
+    {
+        BMCWEB_LOG_ERROR << "sd_id128_get_machine_app_specific returned: "
+                         << std::to_string(r);
+
+        return "";
+    }
+    std::array<char, SD_ID128_STRING_MAX> str{};
+    std::string ret = sd_id128_to_string(machineId, str.data());
+    ret.insert(8, 1, '-');
+    ret.insert(13, 1, '-');
+    ret.insert(18, 1, '-');
+    ret.insert(23, 1, '-');
 
     return ret;
 }
