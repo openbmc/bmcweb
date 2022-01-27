@@ -212,6 +212,19 @@ void createFailedMissingReqProperties(crow::Response& res,
                                       const std::string& arg1);
 
 /**
+ * @brief Formats PropertyValueError message into JSON
+ * Message body: "The value provided for the property <arg1> is not valid.
+ *
+ * @param[in] arg1 Parameter of message that will replace %1 in its body.
+ *
+ * @returns Message PropertyValueError formatted to JSON */
+nlohmann::json propertyValueError(const std::string& arg1);
+
+void propertyValueError(crow::Response& res, const std::string& arg1);
+
+void allPropertiesValueError(crow::Response& res, const std::string& arg1);
+
+/**
  * @brief Formats PropertyValueFormatError message into JSON
  * Message body: "The value <arg1> for the property <arg2> is of a different
  * format than the property can accept."
