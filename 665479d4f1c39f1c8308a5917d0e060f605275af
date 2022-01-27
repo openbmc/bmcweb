@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c89e441d_b59fb26b",
+        "filename": "http/utility.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 617,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2022-01-27T15:04:49Z",
+      "side": 1,
+      "message": "nit: additional static assert could be helpful in case someone in the future will change maxSeconds contant\nstatic_assert(numeric_limits\u003cint64_t\u003e::max() \u003e\u003d details::maxSeconds);",
+      "range": {
+        "startLine": 617,
+        "startChar": 49,
+        "endLine": 617,
+        "endChar": 68
+      },
+      "revId": "665479d4f1c39f1c8308a5917d0e060f605275af",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
