@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5f0fa43f_84ec4b55",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-01-27T20:08:42Z",
+      "side": 1,
+      "message": "wrap your commits 50/72 please",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 48
+      },
+      "revId": "2ba654120f549f8a8167c31ca4810a54e29a1046",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9828855d_20a29f1b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-01-27T20:08:42Z",
+      "side": 1,
+      "message": "tabs in your commit message.  Please fix all of them.",
+      "range": {
+        "startLine": 27,
+        "startChar": 0,
+        "endLine": 27,
+        "endChar": 3
+      },
+      "revId": "2ba654120f549f8a8167c31ca4810a54e29a1046",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c64b27cb_b22962ec",
+        "filename": "redfish-core/include/error_messages.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 225,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-01-27T20:08:42Z",
+      "side": 1,
+      "message": "Please add both overloads of this to be consistent with the other handlers.",
+      "range": {
+        "startLine": 214,
+        "startChar": 0,
+        "endLine": 225,
+        "endChar": 74
+      },
+      "revId": "2ba654120f549f8a8167c31ca4810a54e29a1046",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3cd59907_790e23c6",
+        "filename": "redfish-core/src/error_messages.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 524,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-01-27T20:08:42Z",
+      "side": 1,
+      "message": "It\u0027s not clear why these two messages differ. Please implement these to be consistent with the other overloads we have for these things.",
+      "range": {
+        "startLine": 513,
+        "startChar": 0,
+        "endLine": 524,
+        "endChar": 0
+      },
+      "revId": "2ba654120f549f8a8167c31ca4810a54e29a1046",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
