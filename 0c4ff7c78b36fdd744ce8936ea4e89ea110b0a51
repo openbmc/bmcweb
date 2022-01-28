@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "53171453_9cd596cc",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-01-28T19:48:12Z",
+      "side": 1,
+      "message": "Just put the original commit message.  \"revert revert\" is nonsensical.",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 16
+      },
+      "revId": "0c4ff7c78b36fdd744ce8936ea4e89ea110b0a51",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dcaa493b_aceb0270",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-01-28T19:48:12Z",
+      "side": 1,
+      "message": "Needs tested on a real system.",
+      "range": {
+        "startLine": 22,
+        "startChar": 3,
+        "endLine": 22,
+        "endChar": 16
+      },
+      "revId": "0c4ff7c78b36fdd744ce8936ea4e89ea110b0a51",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7e760094_3afa8197",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-01-28T19:48:12Z",
+      "side": 1,
+      "message": "Needs more testing than this.  Off the top of my head:\n\nError conditions\n404\nSSE\nredfish service validator\n500 errors\nIn connection.hpp errors",
+      "revId": "0c4ff7c78b36fdd744ce8936ea4e89ea110b0a51",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
