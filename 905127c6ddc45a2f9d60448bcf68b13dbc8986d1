@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2a0b208d_f994e3e7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000056
+      },
+      "writtenOn": "2022-01-31T08:04:27Z",
+      "side": 1,
+      "message": "Tested this on Nvidia platform - SELs are pulled out and relayed through Redfish. Code changes seem fine to me.",
+      "revId": "905127c6ddc45a2f9d60448bcf68b13dbc8986d1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
