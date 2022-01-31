@@ -336,11 +336,14 @@ bool unpackValue(nlohmann::json& jsonValue, const std::string& key, Type& value)
 
 template <size_t Count, size_t Index>
 bool readJsonValues(const std::string& key, nlohmann::json&,
-                    crow::Response& res, std::bitset<Count>&, bool allowMissing)
+                    crow::Response& res, std::bitset<Count>&, bool allowMissing,
+                    const std::string& prefix)
 {
     BMCWEB_LOG_DEBUG << "Unable to find variable for key" << key;
 
-    if (allowMissing)
+    // prefix is empty when the key is at the root level
+    // Only trigger extra element error on the root level.
+    if (allowMissing || !prefix.empty())
     {
         return true;
     }
@@ -353,18 +356,21 @@ template <size_t Count, size_t Index, typename ValueType,
           typename... UnpackTypes>
 bool readJsonValues(const std::string& key, nlohmann::json& jsonValue,
                     crow::Response& res, std::bitset<Count>& handled,
-                    bool allowMissing, const char* keyToCheck,
-                    ValueType& valueToFill, UnpackTypes&... in)
+                    bool allowMissing, const std::string& prefix,
+                    const char* keyToCheck, ValueType& valueToFill,
+                    UnpackTypes&... in)
 {
     bool ret = true;
-    if (key != keyToCheck)
+    std::string_view keyView(keyToCheck);
+    if (prefix + key != keyView)
     {
         // key is an element at root and should cause extra element error.
         // If we are requesting elements that is under key like key/other,
         // ignore the extra element error.
+        allowMissing |= prefix.empty() && keyView.starts_with(key);
         ret =
             readJsonValues<Count, Index + 1>(
-                key, jsonValue, res, handled, allowMissing,
+                key, jsonValue, res, handled, allowMissing, prefix,
                 // NOLINTNEXTLINE(cppcoreguidelines-pro-bounds-array-to-pointer-decay)
                 in...) &&
             ret;
@@ -398,13 +404,51 @@ bool handleMissing(std::bitset<Count>& handled, crow::Response& res,
     return details::handleMissing<Index + 1, Count>(handled, res, in...) && ret;
 }
 
+template <size_t Count, typename... UnpackTypes>
+bool parseJson(nlohmann::json& jsonRequest, crow::Response& res,
+               bool allowMissing, std::bitset<Count>& handled,
+               const std::string& prefix, const char* key, UnpackTypes&... in)
+{
+    bool result = true;
+    for (const auto& item : jsonRequest.items())
+    {
+        nlohmann::json& current = item.value();
+        result = details::readJsonValues<Count, 0, UnpackTypes...>(
+                     item.key(), current, res, handled, allowMissing, prefix,
+                     key, in...) &&
+                 result;
+
+        if (current.is_object() || current.is_array())
+        {
+            result = parseJson<Count, UnpackTypes...>(
+                         current, res, allowMissing, handled,
+                         prefix + item.key() + "/", key, in...) &&
+                     result;
+        }
+    }
+
+    return result;
+}
+
+template <typename... UnpackTypes>
+bool readJson(nlohmann::json& jsonRequest, crow::Response& res,
+              bool allowMissing, const char* key, UnpackTypes&... in)
+{
+    std::bitset<(sizeof...(in) + 1) / 2> handled(0);
+    bool result = parseJson<(sizeof...(in) + 1) / 2, UnpackTypes...>(
+        jsonRequest, res, allowMissing, handled, "", key, in...);
+
+    BMCWEB_LOG_DEBUG << "JSON result is: " << result;
+
+    return details::handleMissing(handled, res, key, in...) && result;
+}
+
 } // namespace details
 
 template <typename... UnpackTypes>
 bool readJsonPatch(nlohmann::json& jsonRequest, crow::Response& res,
                    const char* key, UnpackTypes&... in)
 {
-    bool result = true;
     if (!jsonRequest.is_object())
     {
         BMCWEB_LOG_DEBUG << "Json value is not an object";
@@ -419,18 +463,8 @@ bool readJsonPatch(nlohmann::json& jsonRequest, crow::Response& res,
         return false;
     }
 
-    std::bitset<(sizeof...(in) + 1) / 2> handled(0);
-    for (const auto& item : jsonRequest.items())
-    {
-        result =
-            details::readJsonValues<(sizeof...(in) + 1) / 2, 0, UnpackTypes...>(
-                item.key(), item.value(), res, handled, false, key, in...) &&
-            result;
-    }
-
-    BMCWEB_LOG_DEBUG << "JSON result is: " << result;
-
-    return details::handleMissing(handled, res, key, in...) && result;
+    return details::readJson(jsonRequest, res, /*allowMissing=*/false, key,
+                             in...);
 }
 
 template <typename... UnpackTypes>
@@ -450,7 +484,6 @@ template <typename... UnpackTypes>
 bool readJsonAction(nlohmann::json& jsonRequest, crow::Response& res,
                     const char* key, UnpackTypes&... in)
 {
-    bool result = true;
     if (!jsonRequest.is_object())
     {
         BMCWEB_LOG_DEBUG << "Json value is not an object";
@@ -464,18 +497,8 @@ bool readJsonAction(nlohmann::json& jsonRequest, crow::Response& res,
         return true;
     }
 
-    std::bitset<(sizeof...(in) + 1) / 2> handled(0);
-    for (const auto& item : jsonRequest.items())
-    {
-        result =
-            details::readJsonValues<(sizeof...(in) + 1) / 2, 0, UnpackTypes...>(
-                item.key(), item.value(), res, handled, true, key, in...) &&
-            result;
-    }
-
-    BMCWEB_LOG_DEBUG << "JSON result is: " << result;
-
-    return details::handleMissing(handled, res, key, in...) && result;
+    return details::readJson(jsonRequest, res, /*allowMissing=*/true, key,
+                             in...);
 }
 
 template <typename... UnpackTypes>
