@@ -1,6 +1,29 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "1722b198_2e7d0900",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-01-31T17:41:24Z",
+      "side": 1,
+      "message": "One sentence is rarely enough detail for a completely new service.  Most importantly, we already have 4-5 different logging mechanisms on the BMC.  How does this one differ?",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 34
+      },
+      "revId": "905127c6ddc45a2f9d60448bcf68b13dbc8986d1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "2a0b208d_f994e3e7",
