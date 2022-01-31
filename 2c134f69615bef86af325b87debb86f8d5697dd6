@@ -733,6 +733,30 @@
       },
       "revId": "2c134f69615bef86af325b87debb86f8d5697dd6",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "22fdb394_a2269aa6",
+        "filename": "redfish-core/lib/redfish_sessions.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 266,
+      "author": {
+        "id": 1000219
+      },
+      "writtenOn": "2022-01-31T14:30:29Z",
+      "side": 1,
+      "message": "I suppose those two commits should definitely be reverted, but I suspect there are more places where the support for no-access should be removed.\n\nI guess `phosphor-host-ipmi` also requires some reworking to make it properly handling the command like `ipmitool user priv \u003cuser-id\u003e 0xF [channel-id]`.\nAnd I see here two possible ways:\n - reject this request with the correct completion code. For example 0xC9 (Param is out of range).\n - rework the code to set the correct permissions for the current or specified IPMI channel without modifying the user\u0027s global role.\n \nLDAP users can still have no valid roles and this should be properly handled.\nAs one of the possible solutions is using `priv-user` instead of undefined role.\nBut most likely it would be more correct and securely to filter the such users at the PAM level, as it proposed Ed.",
+      "parentUuid": "a405b398_b6eb1948",
+      "range": {
+        "startLine": 199,
+        "startChar": 0,
+        "endLine": 266,
+        "endChar": 37
+      },
+      "revId": "2c134f69615bef86af325b87debb86f8d5697dd6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
