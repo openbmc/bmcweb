@@ -22,6 +22,30 @@
       },
       "revId": "0d066c9dd9fac3e2134736db11cdf8fd2eeb4d8e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d29edea2_e70f43ad",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000004
+      },
+      "writtenOn": "2022-01-31T23:06:12Z",
+      "side": 1,
+      "message": "ok, yeah, I was combining state and other functions together. i.e. if software level information is unavailable, don\u0027t provide a default, just don\u0027t provide anything. But it makes sense that state is something separate from that. I\u0027ll abandon this commit.",
+      "parentUuid": "719d06ca_1e586937",
+      "range": {
+        "startLine": 10,
+        "startChar": 49,
+        "endLine": 11,
+        "endChar": 42
+      },
+      "revId": "0d066c9dd9fac3e2134736db11cdf8fd2eeb4d8e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
