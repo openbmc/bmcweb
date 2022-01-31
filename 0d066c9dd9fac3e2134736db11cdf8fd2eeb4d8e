@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "719d06ca_1e586937",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-01-31T20:27:03Z",
+      "side": 1,
+      "message": "This is debatable, and definitely needs more prose in the commit message on how this patchset came to this conclusion.  Per the original design, most of bmcweb takes the opinion that any component that doesn\u0027t expose state is implicitly \"OK\", given that there\u0027s no interface exposed to allow the thing to \"fail\", which implies that there is no way for it to fail, and is always ok.  I\u0027m open to changing that, but it\u0027s a pretty significant change in policy, so I\u0027d like to see it discussed at a larger forum so that we can make a decision, and not have to unwind it later.",
+      "range": {
+        "startLine": 10,
+        "startChar": 49,
+        "endLine": 11,
+        "endChar": 42
+      },
+      "revId": "0d066c9dd9fac3e2134736db11cdf8fd2eeb4d8e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
