@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6d0b1045_a39ef086",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-01-31T20:22:13Z",
+      "side": 1,
+      "message": "Looks reasonable to me.",
+      "revId": "ce1b7e94709378fcae78f9b511b9b5adcbc96c72",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f4d8969b_48c09e5a",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 551,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-01-31T20:22:13Z",
+      "side": 1,
+      "message": "Eventually this needs to transition to using the mapper to support multi-host systems, but that day is not today.",
+      "range": {
+        "startLine": 551,
+        "startChar": 9,
+        "endLine": 551,
+        "endChar": 41
+      },
+      "revId": "ce1b7e94709378fcae78f9b511b9b5adcbc96c72",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
