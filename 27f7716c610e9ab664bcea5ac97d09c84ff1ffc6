@@ -192,6 +192,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "7eebdf29_70fca09d",
+        "filename": "redfish-core/include/utils/json_utils.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 442,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2022-01-31T23:40:23Z",
+      "side": 1,
+      "message": "split it into https://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/50809",
+      "parentUuid": "589f96b3_245ef846",
+      "revId": "27f7716c610e9ab664bcea5ac97d09c84ff1ffc6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "4fdcb220_1accca88",
         "filename": "redfish-core/include/utils/json_utils.hpp",
         "patchSetId": 13
