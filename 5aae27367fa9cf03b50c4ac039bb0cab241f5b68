@@ -96,6 +96,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "2bcc70b5_3bef91f2",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000235
+      },
+      "writtenOn": "2022-01-31T16:40:43Z",
+      "side": 1,
+      "message": "\u003e we should guarantee authentication works at all times\n\nI agree in principle and have questions about the design.\n\nThe authentication provided by Linux-PAM is immediately followed by getting the user\u0027s Redfish RoleId (Administrator, ReadOnly, etc.) which is provided solely by the phosphor user manager (xyz.openbmc_project.User.Manager) service.\n\nSo if the information provided by this service is not available, then BMCWeb\u0027s Redfish service will not know the authenticated user\u0027s role, so it cannot assign privileges which are needed for the authority checks.\n\nWhat should BMCWeb do in that case?  One of? (1) Return HTTP status 503 (Service Unavailable)?  (2) Check authority with secure defaults (that is, no privileges)?  (3) Other ideas?\nI\u0027m leaning toward status 503.  What are your thoughts?",
+      "parentUuid": "7d2639d4_5842a32e",
+      "range": {
+        "startLine": 10,
+        "startChar": 26,
+        "endLine": 13,
+        "endChar": 0
+      },
+      "revId": "5aae27367fa9cf03b50c4ac039bb0cab241f5b68",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "c4999708_886fe488",
