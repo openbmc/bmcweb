@@ -41,6 +41,7 @@ namespace json_util
  */
 bool processJsonFromRequest(crow::Response& res, const crow::Request& req,
                             nlohmann::json& reqJson);
+
 namespace details
 {
 
@@ -76,7 +77,7 @@ enum class UnpackErrorCode
 };
 
 template <typename ToType, typename FromType>
-bool checkRange(const FromType& from, const std::string& key)
+bool checkRange(const FromType& from, std::string_view key)
 {
     if (from > std::numeric_limits<ToType>::max())
     {
@@ -103,19 +104,19 @@ bool checkRange(const FromType& from, const std::string& key)
 }
 
 template <typename Type>
-UnpackErrorCode unpackValueWithErrorCode(nlohmann::json& jsonValue,
-                                         const std::string& key, Type& value)
+UnpackErrorCode unpackValueWithErrorCode(const nlohmann::json& jsonValue,
+                                         std::string_view key, Type& value)
 {
     UnpackErrorCode ret = UnpackErrorCode::success;
 
     if constexpr (std::is_floating_point_v<Type>)
     {
         double helper = 0;
-        double* jsonPtr = jsonValue.get_ptr<double*>();
+        const double* jsonPtr = jsonValue.get_ptr<const double*>();
 
         if (jsonPtr == nullptr)
         {
-            int64_t* intPtr = jsonValue.get_ptr<int64_t*>();
+            const int64_t* intPtr = jsonValue.get_ptr<const int64_t*>();
             if (intPtr != nullptr)
             {
                 helper = static_cast<double>(*intPtr);
@@ -135,7 +136,7 @@ UnpackErrorCode unpackValueWithErrorCode(nlohmann::json& jsonValue,
 
     else if constexpr (std::is_signed_v<Type>)
     {
-        int64_t* jsonPtr = jsonValue.get_ptr<int64_t*>();
+        const int64_t* jsonPtr = jsonValue.get_ptr<const int64_t*>();
         if (jsonPtr == nullptr)
         {
             return UnpackErrorCode::invalidType;
@@ -150,7 +151,7 @@ UnpackErrorCode unpackValueWithErrorCode(nlohmann::json& jsonValue,
     else if constexpr ((std::is_unsigned_v<Type>)&&(
                            !std::is_same_v<bool, Type>))
     {
-        uint64_t* jsonPtr = jsonValue.get_ptr<uint64_t*>();
+        const uint64_t* jsonPtr = jsonValue.get_ptr<const uint64_t*>();
         if (jsonPtr == nullptr)
         {
             return UnpackErrorCode::invalidType;
@@ -161,7 +162,6 @@ UnpackErrorCode unpackValueWithErrorCode(nlohmann::json& jsonValue,
         }
         value = static_cast<Type>(*jsonPtr);
     }
-
     else if constexpr (std::is_same_v<nlohmann::json, Type>)
     {
         // Must be a complex type.  Simple types (int string etc) should be
@@ -172,12 +172,11 @@ UnpackErrorCode unpackValueWithErrorCode(nlohmann::json& jsonValue,
             return UnpackErrorCode::invalidType;
         }
 
-        value = std::move(jsonValue);
+        value = jsonValue;
     }
-    else
+    else if constexpr (std::is_same_v<std::string, Type>)
     {
-        using JsonType = std::add_const_t<std::add_pointer_t<Type>>;
-        JsonType jsonPtr = jsonValue.get_ptr<JsonType>();
+        const std::string* jsonPtr = jsonValue.get_ptr<const std::string*>();
         if (jsonPtr == nullptr)
         {
             BMCWEB_LOG_DEBUG
@@ -185,13 +184,18 @@ UnpackErrorCode unpackValueWithErrorCode(nlohmann::json& jsonValue,
                 << " was incorrect type: " << jsonValue.type_name();
             return UnpackErrorCode::invalidType;
         }
-        value = std::move(*jsonPtr);
+
+        value = *jsonPtr;
+    }
+    else
+    {
+        return UnpackErrorCode::invalidType;
     }
     return ret;
 }
 
 template <typename Type>
-bool unpackValue(nlohmann::json& jsonValue, const std::string& key,
+bool unpackValue(const nlohmann::json& jsonValue, std::string_view key,
                  crow::Response& res, Type& value)
 {
     bool ret = true;
@@ -246,8 +250,10 @@ bool unpackValue(nlohmann::json& jsonValue, const std::string& key,
         for (const auto& val : jsonValue.items())
         {
             value.emplace_back();
+            using ContainedType = Type::value_type;
+            ContainedType& back = value.back();
             ret = unpackValue<typename Type::value_type>(val.value(), key, res,
-                                                         value.back()) &&
+                                                         back) &&
                   ret;
         }
     }
@@ -280,7 +286,7 @@ bool unpackValue(nlohmann::json& jsonValue, const std::string& key,
 }
 
 template <typename Type>
-bool unpackValue(nlohmann::json& jsonValue, const std::string& key, Type& value)
+bool unpackValue(nlohmann::json& jsonValue, std::string_view key, Type& value)
 {
     bool ret = true;
     if constexpr (IsOptional<Type>::value)
@@ -333,71 +339,66 @@ bool unpackValue(nlohmann::json& jsonValue, const std::string& key, Type& value)
 
     return ret;
 }
-
-template <size_t Count, size_t Index>
-bool readJsonValues(const std::string& key, nlohmann::json& /*jsonValue*/,
-                    crow::Response& res, std::bitset<Count>& /*handled*/)
-{
-    BMCWEB_LOG_DEBUG << "Unable to find variable for key" << key;
-    messages::propertyUnknown(res, key);
-    return false;
-}
-
-template <size_t Count, size_t Index, typename ValueType,
-          typename... UnpackTypes>
-bool readJsonValues(const std::string& key, nlohmann::json& jsonValue,
-                    crow::Response& res, std::bitset<Count>& handled,
-                    const char* keyToCheck, ValueType& valueToFill,
-                    UnpackTypes&... in)
-{
-    bool ret = true;
-    if (key != keyToCheck)
-    {
-        // key is an element at root and should cause extra element error.
-        // If we are requesting elements that is under key like key/other,
-        // ignore the extra element error.
-        ret =
-            readJsonValues<Count, Index + 1>(
-                key, jsonValue, res, handled,
-                // NOLINTNEXTLINE(cppcoreguidelines-pro-bounds-array-to-pointer-decay)
-                in...) &&
-            ret;
-        return ret;
-    }
-
-    handled.set(Index);
-
-    return unpackValue<ValueType>(jsonValue, key, res, valueToFill) && ret;
-}
-
-template <size_t Index = 0, size_t Count>
-bool handleMissing(std::bitset<Count>& /*handled*/, crow::Response& /*res*/)
-{
-    return true;
-}
-
-template <size_t Index = 0, size_t Count, typename ValueType,
-          typename... UnpackTypes>
-bool handleMissing(std::bitset<Count>& handled, crow::Response& res,
-                   const char* key, ValueType& /*unusedValue*/,
-                   UnpackTypes&... in)
-{
-    bool ret = true;
-    if (!handled.test(Index) && !IsOptional<ValueType>::value)
-    {
-        ret = false;
-        messages::propertyMissing(res, key);
-    }
-
-    // NOLINTNEXTLINE(cppcoreguidelines-pro-bounds-array-to-pointer-decay)
-    return details::handleMissing<Index + 1, Count>(handled, res, in...) && ret;
-}
-
 } // namespace details
+// clang-format off
+using UnpackVariant =
+std::variant<
+    uint8_t*,
+    uint16_t*,
+    int16_t*,
+    uint32_t*,
+    int32_t*,
+    uint64_t*,
+    int64_t*,
+    bool*,
+    double*,
+    std::string*,
+    nlohmann::json*,
+    std::vector<uint8_t>*,
+    std::vector<uint16_t>*,
+    std::vector<int16_t>*,
+    std::vector<uint32_t>*,
+    std::vector<int32_t>*,
+    std::vector<uint64_t>*,
+    std::vector<int64_t>*,
+    //std::vector<bool>*,
+    std::vector<double>*,
+    std::vector<std::string>*,
+    std::vector<nlohmann::json>*,
+    std::optional<uint8_t>*,
+    std::optional<uint16_t>*,
+    std::optional<int16_t>*,
+    std::optional<uint32_t>*,
+    std::optional<int32_t>*,
+    std::optional<uint64_t>*,
+    std::optional<int64_t>*,
+    std::optional<bool>*,
+    std::optional<double>*,
+    std::optional<std::string>*,
+    std::optional<nlohmann::json>*,
+    std::optional<std::vector<uint8_t>>*,
+    std::optional<std::vector<uint16_t>>*,
+    std::optional<std::vector<int16_t>>*,
+    std::optional<std::vector<uint32_t>>*,
+    std::optional<std::vector<int32_t>>*,
+    std::optional<std::vector<uint64_t>>*,
+    std::optional<std::vector<int64_t>>*,
+    //std::optional<std::vector<bool>>*,
+    std::optional<std::vector<double>>*,
+    std::optional<std::vector<std::string>>*,
+    std::optional<std::vector<nlohmann::json>>*
+>;
+// clang-format on
+struct PerUnpack
+{
+    std::string_view key;
+    UnpackVariant value;
+    bool complete = false;
+};
 
-template <typename... UnpackTypes>
-bool readJson(nlohmann::json& jsonRequest, crow::Response& res, const char* key,
-              UnpackTypes&... in)
+inline bool readJsonHelper(const nlohmann::json& jsonRequest,
+                           crow::Response& res,
+                           std::vector<PerUnpack>& toUnpack)
 {
     bool result = true;
     if (!jsonRequest.is_object())
@@ -406,24 +407,126 @@ bool readJson(nlohmann::json& jsonRequest, crow::Response& res, const char* key,
         messages::unrecognizedRequestBody(res);
         return false;
     }
-
-    std::bitset<(sizeof...(in) + 1) / 2> handled(0);
     for (const auto& item : jsonRequest.items())
     {
-        result =
-            details::readJsonValues<(sizeof...(in) + 1) / 2, 0, UnpackTypes...>(
-                item.key(), item.value(), res, handled, key, in...) &&
-            result;
+        size_t unpackIndex = 0;
+        for (; unpackIndex < toUnpack.size(); unpackIndex++)
+        {
+            PerUnpack& unpackSpec = toUnpack[unpackIndex];
+            std::string_view key = unpackSpec.key;
+            size_t keysplitIndex = key.find("/");
+            std::string_view leftover;
+            if (keysplitIndex != std::string_view::npos)
+            {
+                leftover = key.substr(keysplitIndex + 1);
+                key = key.substr(0, keysplitIndex);
+            }
+
+            if (key == item.key())
+            {
+                // Sublevel key
+                if (!leftover.empty())
+                {
+                    nlohmann::json j;
+                    result = details::unpackValue<nlohmann::json>(
+                                 item.value(), key, res, j) &&
+                             result;
+                    if (result == false)
+                    {
+                        return result;
+                    }
+
+                    std::vector<PerUnpack> nextLevel;
+                    for (PerUnpack& p : toUnpack)
+                    {
+                        size_t keysplitIndex2 = p.key.find("/");
+                        if (keysplitIndex2 == std::string_view::npos)
+                        {
+                            continue;
+                        }
+                        std::string_view thisLeftover =
+                            p.key.substr(keysplitIndex + 1);
+                        std::string_view thisKey =
+                            p.key.substr(0, keysplitIndex);
+                        if (thisKey == key)
+                        {
+                            nextLevel.push_back(
+                                {thisLeftover, p.value, p.complete});
+                            p.complete = true;
+                        }
+                    }
+
+                    result = readJsonHelper(j, res, nextLevel) && result;
+                    break;
+                }
+
+                result = std::visit(
+                             [&item, &unpackSpec, &res](auto&& val) {
+                                 using ContainedT = std::remove_pointer_t<
+                                     std::decay_t<decltype(val)>>;
+                                 return details::unpackValue<ContainedT>(
+                                     item.value(), unpackSpec.key, res, *val);
+                             },
+                             unpackSpec.value) &&
+                         result;
+
+                unpackSpec.complete = true;
+                break;
+            }
+        }
+
+        if (unpackIndex == toUnpack.size())
+        {
+            messages::propertyUnknown(res, item.key());
+            result = false;
+        }
     }
 
-    BMCWEB_LOG_DEBUG << "JSON result is: " << result;
+    for (PerUnpack& perUnpack : toUnpack)
+    {
+        if (perUnpack.complete == false)
+        {
+            bool isOptional = std::visit(
+                [](auto&& val) {
+                    using ContainedType =
+                        std::remove_pointer_t<std::decay_t<decltype(val)>>;
+                    return details::IsOptional<ContainedType>::value;
+                },
+                perUnpack.value);
+            if (isOptional)
+            {
+                continue;
+            }
+            messages::propertyMissing(res, perUnpack.key);
+            result = false;
+        }
+    }
+    return result;
+}
 
-    return details::handleMissing(handled, res, key, in...) && result;
+inline void packVariant(std::vector<PerUnpack>& /*toPack*/)
+{}
+
+template <typename FirstType, typename... UnpackTypes>
+void packVariant(std::vector<PerUnpack>& toPack, std::string_view key,
+                 FirstType& first, UnpackTypes&... in)
+{
+    toPack.emplace_back(key, &first, false);
+    packVariant(toPack, in...);
+}
+
+template <typename FirstType, typename... UnpackTypes>
+bool readJson(const nlohmann::json& jsonRequest, crow::Response& res,
+              std::string_view key, FirstType& first, UnpackTypes&... in)
+{
+    std::vector<PerUnpack> toUnpack;
+    packVariant(toUnpack, key, first, in...);
+    return readJsonHelper(jsonRequest, res, toUnpack);
 }
 
 template <typename... UnpackTypes>
 bool readJsonPatch(const crow::Request& req, crow::Response& res,
-                   const char* key, UnpackTypes&... in)
+                   std::string_view key, UnpackTypes&... in)
 {
     nlohmann::json jsonRequest;
     if (!json_util::processJsonFromRequest(res, req, jsonRequest))
@@ -456,18 +559,5 @@ bool readJsonAction(const crow::Request& req, crow::Response& res,
     return readJson(jsonRequest, res, key, in...);
 }
 
-template <typename Type>
-bool getValueFromJsonObject(nlohmann::json& jsonData, const std::string& key,
-                            Type& value)
-{
-    nlohmann::json::iterator it = jsonData.find(key);
-    if (it == jsonData.end())
-    {
-        BMCWEB_LOG_DEBUG << "Key " << key << " not exist";
-        return false;
-    }
-
-    return details::unpackValue(*it, key, value);
-}
 } // namespace json_util
 } // namespace redfish
