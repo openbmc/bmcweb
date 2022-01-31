@@ -102,6 +102,65 @@ TEST(readJson, JsonVector)
     EXPECT_TRUE(res.jsonValue.empty());
 }
 
+TEST(readJson, JsonSubElementValue)
+{
+    crow::Response res;
+    nlohmann::json jsonRequest = R"(
+        {
+            "json": {"integer": 42}
+        }
+    )"_json;
+
+    int integer = 0;
+    EXPECT_TRUE(readJson(jsonRequest, res, "json/integer", integer));
+    EXPECT_EQ(integer, 42);
+    EXPECT_EQ(res.result(), boost::beast::http::status::ok);
+    EXPECT_TRUE(res.jsonValue.empty());
+}
+
+TEST(readJson, JsonSubElementValueDepth2)
+{
+    crow::Response res;
+    nlohmann::json jsonRequest = R"(
+        {
+            "json": {
+                "json2": {"string": "foobar"}
+            }
+        }
+    )"_json;
+
+    std::string foobar;
+    EXPECT_TRUE(readJson(jsonRequest, res, "json/json2/string", foobar));
+    EXPECT_EQ(foobar, "foobar");
+    EXPECT_EQ(res.result(), boost::beast::http::status::ok);
+    EXPECT_TRUE(res.jsonValue.empty());
+}
+
+TEST(readJson, JsonSubElementValueMultiple)
+{
+    crow::Response res;
+    nlohmann::json jsonRequest = R"(
+        {
+            "json": {
+                "integer": 42,
+                "string": "foobar"
+            },
+            "string": "bazbar"
+        }
+    )"_json;
+
+    int integer = 0;
+    std::string foobar;
+    std::string bazbar;
+    EXPECT_TRUE(readJson(jsonRequest, res, "json/integer", integer,
+                         "json/string", foobar, "string", bazbar));
+    EXPECT_EQ(integer, 42);
+    EXPECT_EQ(foobar, "foobar");
+    EXPECT_EQ(bazbar, "bazbar");
+    EXPECT_EQ(res.result(), boost::beast::http::status::ok);
+    EXPECT_TRUE(res.jsonValue.empty());
+}
+
 TEST(readJson, ExtraElement)
 {
     crow::Response res;

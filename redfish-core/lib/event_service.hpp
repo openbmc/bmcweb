@@ -476,22 +476,14 @@ inline void requestRoutesEventDestinationCollection(App& app)
                     for (nlohmann::json& mrdObj : *mrdJsonArray)
                     {
                         std::string mrdUri;
-                        if (json_util::getValueFromJsonObject(
-                                mrdObj, "@odata.id", mrdUri))
+
+                        if (!json_util::readJson(mrdObj, asyncResp->res,
+                                                 "@odata.id", mrdUri))
+
                         {
-                            subValue->metricReportDefinitions.emplace_back(
-                                mrdUri);
-                        }
-                        else
-                        {
-                            messages::propertyValueFormatError(
-                                asyncResp->res,
-                                mrdObj.dump(
-                                    2, ' ', true,
-                                    nlohmann::json::error_handler_t::replace),
-                                "MetricReportDefinitions");
                             return;
                         }
+                        subValue->metricReportDefinitions.emplace_back(mrdUri);
                     }
                 }
 
