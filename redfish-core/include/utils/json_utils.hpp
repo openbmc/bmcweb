@@ -20,7 +20,7 @@
 #include <http_response.hpp>
 #include <nlohmann/json.hpp>
 
-#include <bitset>
+#include <span>
 
 namespace redfish
 {
@@ -76,7 +76,7 @@ enum class UnpackErrorCode
 };
 
 template <typename ToType, typename FromType>
-bool checkRange(const FromType& from, const std::string& key)
+bool checkRange(const FromType& from, std::string_view key)
 {
     if (from > std::numeric_limits<ToType>::max())
     {
@@ -104,7 +104,7 @@ bool checkRange(const FromType& from, const std::string& key)
 
 template <typename Type>
 UnpackErrorCode unpackValueWithErrorCode(nlohmann::json& jsonValue,
-                                         const std::string& key, Type& value)
+                                         std::string_view key, Type& value)
 {
     UnpackErrorCode ret = UnpackErrorCode::success;
 
@@ -191,7 +191,7 @@ UnpackErrorCode unpackValueWithErrorCode(nlohmann::json& jsonValue,
 }
 
 template <typename Type>
-bool unpackValue(nlohmann::json& jsonValue, const std::string& key,
+bool unpackValue(nlohmann::json& jsonValue, std::string_view key,
                  crow::Response& res, Type& value)
 {
     bool ret = true;
@@ -280,7 +280,7 @@ bool unpackValue(nlohmann::json& jsonValue, const std::string& key,
 }
 
 template <typename Type>
-bool unpackValue(nlohmann::json& jsonValue, const std::string& key, Type& value)
+bool unpackValue(nlohmann::json& jsonValue, std::string_view key, Type& value)
 {
     bool ret = true;
     if constexpr (IsOptional<Type>::value)
@@ -333,71 +333,66 @@ bool unpackValue(nlohmann::json& jsonValue, const std::string& key, Type& value)
 
     return ret;
 }
-
-template <size_t Count, size_t Index>
-bool readJsonValues(const std::string& key, nlohmann::json& /*jsonValue*/,
-                    crow::Response& res, std::bitset<Count>& /*handled*/)
-{
-    BMCWEB_LOG_DEBUG << "Unable to find variable for key" << key;
-    messages::propertyUnknown(res, key);
-    return false;
-}
-
-template <size_t Count, size_t Index, typename ValueType,
-          typename... UnpackTypes>
-bool readJsonValues(const std::string& key, nlohmann::json& jsonValue,
-                    crow::Response& res, std::bitset<Count>& handled,
-                    const char* keyToCheck, ValueType& valueToFill,
-                    UnpackTypes&... in)
-{
-    bool ret = true;
-    if (key != keyToCheck)
-    {
-        // key is an element at root and should cause extra element error.
-        // If we are requesting elements that is under key like key/other,
-        // ignore the extra element error.
-        ret =
-            readJsonValues<Count, Index + 1>(
-                key, jsonValue, res, handled,
-                // NOLINTNEXTLINE(cppcoreguidelines-pro-bounds-array-to-pointer-decay)
-                in...) &&
-            ret;
-        return ret;
-    }
-
-    handled.set(Index);
-
-    return unpackValue<ValueType>(jsonValue, key, res, valueToFill) && ret;
-}
-
-template <size_t Index = 0, size_t Count>
-bool handleMissing(std::bitset<Count>& /*handled*/, crow::Response& /*res*/)
-{
-    return true;
-}
-
-template <size_t Index = 0, size_t Count, typename ValueType,
-          typename... UnpackTypes>
-bool handleMissing(std::bitset<Count>& handled, crow::Response& res,
-                   const char* key, ValueType& /*unusedValue*/,
-                   UnpackTypes&... in)
-{
-    bool ret = true;
-    if (!handled.test(Index) && !IsOptional<ValueType>::value)
-    {
-        ret = false;
-        messages::propertyMissing(res, key);
-    }
-
-    // NOLINTNEXTLINE(cppcoreguidelines-pro-bounds-array-to-pointer-decay)
-    return details::handleMissing<Index + 1, Count>(handled, res, in...) && ret;
-}
-
 } // namespace details
 
-template <typename... UnpackTypes>
-bool readJson(nlohmann::json& jsonRequest, crow::Response& res, const char* key,
-              UnpackTypes&... in)
+// clang-format off
+using UnpackVariant = std::variant<
+    uint8_t*,
+    uint16_t*,
+    int16_t*,
+    uint32_t*,
+    int32_t*,
+    uint64_t*,
+    int64_t*,
+    bool*,
+    double*,
+    std::string*,
+    nlohmann::json*,
+    std::vector<uint8_t>*,
+    std::vector<uint16_t>*,
+    std::vector<int16_t>*,
+    std::vector<uint32_t>*,
+    std::vector<int32_t>*,
+    std::vector<uint64_t>*,
+    std::vector<int64_t>*,
+    //std::vector<bool>*,
+    std::vector<double>*,
+    std::vector<std::string>*,
+    std::vector<nlohmann::json>*,
+    std::optional<uint8_t>*,
+    std::optional<uint16_t>*,
+    std::optional<int16_t>*,
+    std::optional<uint32_t>*,
+    std::optional<int32_t>*,
+    std::optional<uint64_t>*,
+    std::optional<int64_t>*,
+    std::optional<bool>*,
+    std::optional<double>*,
+    std::optional<std::string>*,
+    std::optional<nlohmann::json>*,
+    std::optional<std::vector<uint8_t>>*,
+    std::optional<std::vector<uint16_t>>*,
+    std::optional<std::vector<int16_t>>*,
+    std::optional<std::vector<uint32_t>>*,
+    std::optional<std::vector<int32_t>>*,
+    std::optional<std::vector<uint64_t>>*,
+    std::optional<std::vector<int64_t>>*,
+    //std::optional<std::vector<bool>>*,
+    std::optional<std::vector<double>>*,
+    std::optional<std::vector<std::string>>*,
+    std::optional<std::vector<nlohmann::json>>*
+>;
+// clang-format on
+
+struct PerUnpack
+{
+    std::string_view key;
+    UnpackVariant value;
+    bool complete = false;
+};
+
+inline bool readJsonHelper(nlohmann::json& jsonRequest, crow::Response& res,
+                           std::span<PerUnpack> toUnpack)
 {
     bool result = true;
     if (!jsonRequest.is_object())
@@ -406,45 +401,162 @@ bool readJson(nlohmann::json& jsonRequest, crow::Response& res, const char* key,
         messages::unrecognizedRequestBody(res);
         return false;
     }
-
-    std::bitset<(sizeof...(in) + 1) / 2> handled(0);
-    for (const auto& item : jsonRequest.items())
+    for (auto& item : jsonRequest.items())
     {
-        result =
-            details::readJsonValues<(sizeof...(in) + 1) / 2, 0, UnpackTypes...>(
-                item.key(), item.value(), res, handled, key, in...) &&
-            result;
+        size_t unpackIndex = 0;
+        for (; unpackIndex < toUnpack.size(); unpackIndex++)
+        {
+            PerUnpack& unpackSpec = toUnpack[unpackIndex];
+            std::string_view key = unpackSpec.key;
+            size_t keysplitIndex = key.find('/');
+            std::string_view leftover;
+            if (keysplitIndex != std::string_view::npos)
+            {
+                leftover = key.substr(keysplitIndex + 1);
+                key = key.substr(0, keysplitIndex);
+            }
+
+            if (key != item.key() || unpackSpec.complete)
+            {
+                continue;
+            }
+
+            // Sublevel key
+            if (!leftover.empty())
+            {
+                // Include the slash in the key so we can compare later
+                key = unpackSpec.key.substr(0, keysplitIndex + 1);
+                nlohmann::json j;
+                result = details::unpackValue<nlohmann::json>(item.value(), key,
+                                                              res, j) &&
+                         result;
+                if (result == false)
+                {
+                    return result;
+                }
+
+                std::vector<PerUnpack> nextLevel;
+                for (PerUnpack& p : toUnpack)
+                {
+                    if (!p.key.starts_with(key))
+                    {
+                        continue;
+                    }
+                    std::string_view thisLeftover = p.key.substr(key.size());
+                    nextLevel.push_back({thisLeftover, p.value, false});
+                    p.complete = true;
+                }
+
+                result = readJsonHelper(j, res, nextLevel) && result;
+                break;
+            }
+
+            result =
+                std::visit(
+                    [&item, &unpackSpec, &res](auto&& val) {
+                        using ContainedT =
+                            std::remove_pointer_t<std::decay_t<decltype(val)>>;
+                        return details::unpackValue<ContainedT>(
+                            item.value(), unpackSpec.key, res, *val);
+                    },
+                    unpackSpec.value) &&
+                result;
+
+            unpackSpec.complete = true;
+            break;
+        }
+
+        if (unpackIndex == toUnpack.size())
+        {
+            messages::propertyUnknown(res, item.key());
+            result = false;
+        }
     }
 
-    BMCWEB_LOG_DEBUG << "JSON result is: " << result;
-
-    return details::handleMissing(handled, res, key, in...) && result;
+    for (PerUnpack& perUnpack : toUnpack)
+    {
+        if (perUnpack.complete == false)
+        {
+            bool isOptional = std::visit(
+                [](auto&& val) {
+                    using ContainedType =
+                        std::remove_pointer_t<std::decay_t<decltype(val)>>;
+                    return details::IsOptional<ContainedType>::value;
+                },
+                perUnpack.value);
+            if (isOptional)
+            {
+                continue;
+            }
+            messages::propertyMissing(res, perUnpack.key);
+            result = false;
+        }
+    }
+    return result;
 }
 
-template <typename... UnpackTypes>
-bool readJsonPatch(const crow::Request& req, crow::Response& res,
-                   const char* key, UnpackTypes&... in)
+inline void packVariant(std::span<PerUnpack> /*toPack*/)
+{}
+
+template <typename FirstType, typename... UnpackTypes>
+void packVariant(std::span<PerUnpack> toPack, std::string_view key,
+                 FirstType& first, UnpackTypes&&... in)
+{
+    if (toPack.empty())
+    {
+        return;
+    }
+    toPack[0].key = key;
+    toPack[0].value = &first;
+    // NOLINTNEXTLINE(cppcoreguidelines-pro-bounds-array-to-pointer-decay)
+    packVariant(toPack.subspan(1), std::forward<UnpackTypes&&>(in)...);
+}
+
+template <typename FirstType, typename... UnpackTypes>
+bool readJson(nlohmann::json& jsonRequest, crow::Response& res,
+              std::string_view key, FirstType&& first, UnpackTypes&&... in)
+{
+    const std::size_t n = sizeof...(UnpackTypes) + 2;
+    std::array<PerUnpack, n / 2> toUnpack2;
+    packVariant(toUnpack2, key, first, std::forward<UnpackTypes&&>(in)...);
+    return readJsonHelper(jsonRequest, res, toUnpack2);
+}
+
+inline std::optional<nlohmann::json>
+    readJsonPatchHelper(const crow::Request& req, crow::Response& res)
 {
     nlohmann::json jsonRequest;
     if (!json_util::processJsonFromRequest(res, req, jsonRequest))
     {
         BMCWEB_LOG_DEBUG << "Json value not readable";
-        return false;
+        return std::nullopt;
     }
 
     if (jsonRequest.empty())
     {
         BMCWEB_LOG_DEBUG << "Json value is empty";
         messages::emptyJSON(res);
+        return std::nullopt;
+    }
+    return {std::move(jsonRequest)};
+}
+
+template <typename... UnpackTypes>
+bool readJsonPatch(const crow::Request& req, crow::Response& res,
+                   std::string_view key, UnpackTypes&&... in)
+{
+    std::optional<nlohmann::json> jsonRequest = readJsonPatchHelper(req, res);
+    if (jsonRequest == std::nullopt)
+    {
         return false;
     }
 
-    return readJson(jsonRequest, res, key, in...);
+    return readJson(*jsonRequest, res, key, std::forward<UnpackTypes&&>(in)...);
 }
 
 template <typename... UnpackTypes>
 bool readJsonAction(const crow::Request& req, crow::Response& res,
-                    const char* key, UnpackTypes&... in)
+                    const char* key, UnpackTypes&&... in)
 {
     nlohmann::json jsonRequest;
     if (!json_util::processJsonFromRequest(res, req, jsonRequest))
@@ -452,22 +564,8 @@ bool readJsonAction(const crow::Request& req, crow::Response& res,
         BMCWEB_LOG_DEBUG << "Json value not readable";
         return false;
     }
-
-    return readJson(jsonRequest, res, key, in...);
+    return readJson(jsonRequest, res, key, std::forward<UnpackTypes&&>(in)...);
 }
 
-template <typename Type>
-bool getValueFromJsonObject(nlohmann::json& jsonData, const std::string& key,
-                            Type& value)
-{
-    nlohmann::json::iterator it = jsonData.find(key);
-    if (it == jsonData.end())
-    {
-        BMCWEB_LOG_DEBUG << "Key " << key << " not exist";
-        return false;
-    }
-
-    return details::unpackValue(*it, key, value);
-}
 } // namespace json_util
 } // namespace redfish
