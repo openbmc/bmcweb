@@ -52,6 +52,24 @@
       "parentUuid": "849c02c1_aaf216fc",
       "revId": "81b8dc9b906e9ab9f90ece3586fe99c3a4245645",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "05717079_52d2dc9b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2022-01-31T23:05:10Z",
+      "side": 1,
+      "message": "maybe some context in https://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/43967/41#message-0c9242a30e77998dce5fbed12dbef7b62046b903?",
+      "parentUuid": "261dba5e_7a54ea5b",
+      "revId": "81b8dc9b906e9ab9f90ece3586fe99c3a4245645",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
