@@ -2928,11 +2928,6 @@ inline void requestRoutesSystems(App& app)
             asyncResp->res.jsonValue["Links"]["ManagedBy"] = {
                 {{"@odata.id", "/redfish/v1/Managers/bmc"}}};
 
-            asyncResp->res.jsonValue["Status"] = {
-                {"Health", "OK"},
-                {"State", "Enabled"},
-            };
-
             // Fill in SerialConsole info
             asyncResp->res.jsonValue["SerialConsole"]["MaxConcurrentSessions"] =
                 15;
