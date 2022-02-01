@@ -1735,8 +1735,7 @@ inline void requestAccountServiceRoutes(App& app)
                          "#ManagerAccount.v1_4_0.ManagerAccount"},
                         {"Name", "User Account"},
                         {"Description", "User Account"},
-                        {"Password", nullptr},
-                        {"AccountTypes", {"Redfish"}}};
+                        {"Password", nullptr}};
 
                     for (const auto& interface : userIt->second)
                     {
@@ -1821,6 +1820,27 @@ inline void requestAccountServiceRoutes(App& app)
                                     asyncResp->res
                                         .jsonValue["PasswordChangeRequired"] =
                                         *userPasswordExpired;
+                                }
+                                else if (property.first == "UserGroups")
+                                {
+                                    const std::vector<std::string>* userGroups =
+                                        std::get_if<std::vector<std::string>>(
+                                            &property.second);
+                                    if (userGroups == nullptr)
+                                    {
+                                        BMCWEB_LOG_ERROR
+                                            << "userGroups wasn't a string vector";
+                                        messages::internalError(asyncResp->res);
+                                        return;
+                                    }
+                                    nlohmann::json& accountTypes =
+                                        asyncResp->res
+                                            .jsonValue["AccountTypes"];
+                                    accountTypes = nlohmann::json::array();
+                                    for (const auto& value : *userGroups)
+                                    {
+                                        accountTypes.push_back(value);
+                                    }
                                 }
                             }
                         }
