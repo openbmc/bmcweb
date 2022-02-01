@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "00ed339d_66e6c6c8",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-02-01T18:36:25Z",
+      "side": 1,
+      "message": "Not in the schema.  Please read and understand the redfish schema before submitting this again.  I see below that you haven\u0027t run the service validator, which would\u0027ve immediately caught this issue.  Please make sure your path is correct before you submit it again.",
+      "range": {
+        "startLine": 12,
+        "startChar": 0,
+        "endLine": 12,
+        "endChar": 62
+      },
+      "revId": "7190f3715525a23e5a5640446e1b9127208d5972",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
