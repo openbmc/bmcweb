@@ -21,15 +21,15 @@ namespace redfish::message_registries::openbmc
 const Header header = {
     "Copyright 2018 OpenBMC. All rights reserved.",
     "#MessageRegistry.v1_4_0.MessageRegistry",
-    "OpenBMC.0.2.0",
+    "OpenBMC.0.3.0",
     "OpenBMC Message Registry",
     "en",
     "This registry defines the base messages for OpenBMC.",
     "OpenBMC",
-    "0.2.0",
+    "0.3.0",
     "OpenBMC",
 };
-constexpr std::array<MessageEntry, 188> registry = {
+constexpr std::array<MessageEntry, 189> registry = {
     MessageEntry{
         "ADDDCCorrectable",
         {
@@ -307,6 +307,17 @@ constexpr std::array<MessageEntry, 188> registry = {
                      {},
                      "None.",
                  }},
+    MessageEntry{
+        "ComponentOverTemperature",
+        {
+            "Indicates that the specified CPU component over-temperature.",
+            "%1 Memory throttled due to over-temperature event.",
+            "Critical",
+            "Critical",
+            1,
+            {"string"},
+            "None.",
+        }},
     MessageEntry{"CPLDFirmwarePanicReason",
                  {
                      "Indicates the reason for CPLD firmware panic.",
