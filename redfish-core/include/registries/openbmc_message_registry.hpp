@@ -29,7 +29,7 @@ const Header header = {
     "0.2.0",
     "OpenBMC",
 };
-constexpr std::array<MessageEntry, 188> registry = {
+constexpr std::array<MessageEntry, 189> registry = {
     MessageEntry{
         "ADDDCCorrectable",
         {
@@ -1008,6 +1008,17 @@ constexpr std::array<MessageEntry, 188> registry = {
                      "Recovery via CPU Host reset or platform reset. If error "
                      "is persistent, deep-dive platform-level debugging is "
                      "required.",
+                 }},
+    MessageEntry{"Memhot",
+                 {
+                     "Indicates that the specified CPU memhot "
+                     "has been asserted.",
+                     "%1 Memhot.",
+                     "Critical",
+                     "Critical",
+                     1,
+                     {"number"},
+                     "None.",
                  }},
     MessageEntry{"MemoryECCCorrectable",
                  {
