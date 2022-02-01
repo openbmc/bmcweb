@@ -331,7 +331,7 @@ inline void
                                 messages::internalError(asyncResp->res);
                                 return;
                             }
-                            std::string name = *namePtr;
+                            name = *namePtr;
                             dbus::utility::escapePathForDbus(name);
                         }
                         else if (propPair.first == "Profiles")
