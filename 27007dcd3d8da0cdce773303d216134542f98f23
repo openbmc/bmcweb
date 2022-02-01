@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e491ea64_f2210f08",
+        "filename": "redfish-core/include/registries/openbmc_message_registry.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1012,
+      "author": {
+        "id": 1000276
+      },
+      "writtenOn": "2022-02-01T22:33:34Z",
+      "side": 1,
+      "message": "I don\u0027t know if memhot is a standard name or an Intel name.  Since it just indicates that memory is overheated and has started throttling, would this be better as something like \"MemoryOvertemperature\", \"MemoryOverheated\", \"MemoryThrottled\", etc.?",
+      "revId": "27007dcd3d8da0cdce773303d216134542f98f23",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b611107d_9d458e21",
+        "filename": "redfish-core/include/registries/openbmc_message_registry.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1016,
+      "author": {
+        "id": 1000276
+      },
+      "writtenOn": "2022-02-01T22:33:34Z",
+      "side": 1,
+      "message": "This is the actual message displayed to the user, so I think it could be a little more descriptive.  Something like \"Memhot signal asserted on %1.\"  Or depending on if the MessageId above changes \"%1 Memory throttled due to over-temperature event.\"?",
+      "revId": "27007dcd3d8da0cdce773303d216134542f98f23",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "759b74ef_e63eaa71",
+        "filename": "redfish-core/include/registries/openbmc_message_registry.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1020,
+      "author": {
+        "id": 1000276
+      },
+      "writtenOn": "2022-02-01T22:33:34Z",
+      "side": 1,
+      "message": "I would personally prefer a string here as it gives more flexibility in which types of devices can log the event.",
+      "revId": "27007dcd3d8da0cdce773303d216134542f98f23",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
