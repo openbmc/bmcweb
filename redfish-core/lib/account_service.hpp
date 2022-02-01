@@ -109,6 +109,58 @@ inline std::string getPrivilegeFromRoleId(std::string_view role)
     return "";
 }
 
+inline std::optional<std::vector<std::string>>
+    getAccountTypeFromUserGroup(std::string_view userGroup)
+{
+    if (userGroup == "redfish")
+    {
+        return {{"Redfish", "WebUI"}};
+    }
+    if (userGroup == "ipmi")
+    {
+        return {{"IPMI"}};
+    }
+    if (userGroup == "ssh")
+    {
+        return {{"HostConsole", "ManagerConsole"}};
+    }
+    return std::nullopt;
+}
+
+inline bool translateUserGroup(const std::vector<std::string>& userGroups,
+                               crow::Response& res)
+{
+    nlohmann::json& accountTypes = res.jsonValue["AccountTypes"];
+    accountTypes = nlohmann::json::array();
+    for (const auto& userGroup : userGroups)
+    {
+        if (auto accountType = getAccountTypeFromUserGroup(userGroup);
+            accountType)
+        {
+            for (const std::string& value : *accountType)
+            {
+                accountTypes.push_back(value);
+            }
+        }
+        else
+        {
+            // 'web' is one of the valid groups in the UserGroups property of
+            // the user account in the D-Bus object. This group is currently not
+            // doing anything, and is considered to be equivalent to 'redfish'.
+            // 'redfish' User group is mapped to 'Redfish'and 'WebUI'
+            // AccountTypes. Since 'getAccountTypeFromUserGroup' returns nullptr
+            // for 'web' group, we still need to handle other group entries in
+            // the UserGroups.
+            if (userGroup == "web")
+            {
+                continue;
+            }
+            return false;
+        }
+    }
+    return true;
+}
+
 inline void userErrorMessageHandler(
     const sd_bus_error* e, const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& newUser, const std::string& username)
@@ -1727,7 +1779,6 @@ inline void
         asyncResp->res.jsonValue["Name"] = "User Account";
         asyncResp->res.jsonValue["Description"] = "User Account";
         asyncResp->res.jsonValue["Password"] = nullptr;
-        asyncResp->res.jsonValue["AccountTypes"] = {"Redfish"};
 
         for (const auto& interface : userIt->second)
         {
@@ -1802,6 +1853,25 @@ inline void
                         }
                         asyncResp->res.jsonValue["PasswordChangeRequired"] =
                             *userPasswordExpired;
+                    }
+                    else if (property.first == "UserGroups")
+                    {
+                        const std::vector<std::string>* userGroups =
+                            std::get_if<std::vector<std::string>>(
+                                &property.second);
+                        if (userGroups == nullptr)
+                        {
+                            BMCWEB_LOG_ERROR
+                                << "userGroups wasn't a string vector";
+                            messages::internalError(asyncResp->res);
+                            return;
+                        }
+                        if (!translateUserGroup(*userGroups, asyncResp->res))
+                        {
+                            BMCWEB_LOG_ERROR << "userGroups mapping failed";
+                            messages::internalError(asyncResp->res);
+                            return;
+                        }
                     }
                 }
             }
