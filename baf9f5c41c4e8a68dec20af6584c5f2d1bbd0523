@@ -16,6 +16,24 @@
       "message": "Redfish service validator?",
       "revId": "baf9f5c41c4e8a68dec20af6584c5f2d1bbd0523",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "29926869_9b63cd5d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2022-02-01T21:56:30Z",
+      "side": 1,
+      "message": "seems like there are existing issue from before.",
+      "parentUuid": "3e28b36e_ddbf6342",
+      "revId": "baf9f5c41c4e8a68dec20af6584c5f2d1bbd0523",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
