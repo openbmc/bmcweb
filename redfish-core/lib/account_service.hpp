@@ -115,6 +115,58 @@ inline std::string getPrivilegeFromRoleId(std::string_view role)
     return "";
 }
 
+inline bool getAccountTypeFromUserGroup(std::string_view userGroup,
+                                        nlohmann::json& accountTypes)
+{
+    bool isFoundUserGroup = true;
+    if (userGroup == "redfish")
+    {
+        accountTypes.push_back("Redfish");
+    }
+    else if (userGroup == "ipmi")
+    {
+        accountTypes.push_back("IPMI");
+    }
+    else if (userGroup == "ssh")
+    {
+        accountTypes.push_back("HostConsole");
+        accountTypes.push_back("ManagerConsole");
+    }
+    else if (userGroup == "web")
+    {
+        accountTypes.push_back("WebUI");
+    }
+    else
+    {
+        isFoundUserGroup = false;
+    }
+
+    return isFoundUserGroup;
+}
+
+inline void translateUserGroup(const std::vector<std::string>* userGroups,
+                               crow::Response& res)
+{
+    if (userGroups == nullptr)
+    {
+        BMCWEB_LOG_ERROR << "userGroups wasn't a string vector";
+        messages::internalError(res);
+        return;
+    }
+    nlohmann::json& accountTypes = res.jsonValue["AccountTypes"];
+    accountTypes = nlohmann::json::array();
+    for (const auto& userGroup : *userGroups)
+    {
+        if (!getAccountTypeFromUserGroup(userGroup, accountTypes))
+        {
+            BMCWEB_LOG_ERROR << "mapped value not for this userGroup value : "
+                             << userGroup;
+            messages::internalError(res);
+            return;
+        }
+    }
+}
+
 inline void userErrorMessageHandler(
     const sd_bus_error* e, const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& newUser, const std::string& username)
@@ -1733,8 +1785,7 @@ inline void requestAccountServiceRoutes(App& app)
                          "#ManagerAccount.v1_4_0.ManagerAccount"},
                         {"Name", "User Account"},
                         {"Description", "User Account"},
-                        {"Password", nullptr},
-                        {"AccountTypes", {"Redfish"}}};
+                        {"Password", nullptr}};
 
                     for (const auto& interface : userIt->second)
                     {
@@ -1819,6 +1870,15 @@ inline void requestAccountServiceRoutes(App& app)
                                     asyncResp->res
                                         .jsonValue["PasswordChangeRequired"] =
                                         *userPasswordExpired;
+                                }
+                                else if (property.first == "UserGroups")
+                                {
+                                    const std::vector<std::string>* userGroups =
+                                        std::get_if<std::vector<std::string>>(
+                                            &property.second);
+
+                                    translateUserGroup(userGroups,
+                                                       asyncResp->res);
                                 }
                             }
                         }
