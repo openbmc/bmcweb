@@ -781,6 +781,30 @@
       },
       "revId": "2c134f69615bef86af325b87debb86f8d5697dd6",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "726ec191_7c0daf02",
+        "filename": "redfish-core/lib/redfish_sessions.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 266,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2022-02-02T05:11:44Z",
+      "side": 1,
+      "message": "Ed \u0026 Ratan, any thoughts ?",
+      "parentUuid": "322074ea_6779d8ab",
+      "range": {
+        "startLine": 199,
+        "startChar": 0,
+        "endLine": 266,
+        "endChar": 37
+      },
+      "revId": "2c134f69615bef86af325b87debb86f8d5697dd6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
