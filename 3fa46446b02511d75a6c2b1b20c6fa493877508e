@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f8bd738b_85f65282",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-02-02T20:10:28Z",
+      "side": 1,
+      "message": "Why not do something like #if (OPENSSL_VERSION_NUMBER \u003c 0x30000000L) ?\n\nhttps://github.com/openbmc/bmcweb/blob/fcc5aa66f2dca9f33c70df8dcd828ac4f31d7a92/include/ssl_key_handler.hpp#L112",
+      "revId": "3fa46446b02511d75a6c2b1b20c6fa493877508e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
