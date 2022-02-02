@@ -86,6 +86,24 @@
       "message": "I am okay with this although it does add milliseconds ",
       "revId": "c61ac8f5322b840edbe7d387d1b0b5170b03582a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4832511e_9853f581",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-02-02T21:25:15Z",
+      "side": 1,
+      "message": "The dbus API supports milliseconds, and considering that you can have multiple events in a single second, it seems reasonable and desired to have in the redfish API.",
+      "parentUuid": "af340c6f_47dc7526",
+      "revId": "c61ac8f5322b840edbe7d387d1b0b5170b03582a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
