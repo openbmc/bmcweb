@@ -34,8 +34,10 @@ inline bool requestPrefersHtml(std::string_view header)
 
 inline bool isOctetAccepted(std::string_view header)
 {
-    for (const std::string& encoding : parseAccept(header))
+    for (std::string& encoding : parseAccept(header))
     {
+        // ignore any q-factor weighting (;q=)
+        encoding = encoding.substr(0, encoding.find(";q="));
         if (encoding == "*/*" || encoding == "application/octet-stream")
         {
             return true;
