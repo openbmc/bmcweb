@@ -245,6 +245,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "68db37a8_7cd960d7",
+        "filename": "static/google/v1/schema/RootOfTrust_v1.xml",
+        "patchSetId": 4
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-02-02T19:26:51Z",
+      "side": 1,
+      "message": "I didn\u0027t think so. I thought \"requiredParameter\": true, did",
+      "parentUuid": "bcaf115e_95d897e1",
+      "revId": "6aab5b36b53fe923004e0251d7fc49f87a8bfec9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d3c3e8f5_8d2ad2a7",
