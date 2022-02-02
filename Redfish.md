@@ -111,6 +111,7 @@ Fields common to all schemas
 - Password
 - PasswordChangeRequired
 - RoleId
+- StrictAccountTypes
 - UserName
 
 ### /redfish/v1/AccountService/LDAP/Certificates/
