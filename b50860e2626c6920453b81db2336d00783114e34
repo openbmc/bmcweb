@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "84acc22b_d55ede50",
+        "filename": "include/http_utility.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-02-02T22:18:37Z",
+      "side": 1,
+      "message": "This is an example of COMMON_ERROR 12.  I suspect we should be using something like https://www.boost.org/doc/libs/1_78_0/libs/beast/doc/html/beast/ref/boost__beast__http__ext_list.html\n\nhere?  Which looks like it\u0027s purpose built for parsing accept headers.",
+      "range": {
+        "startLine": 40,
+        "startChar": 47,
+        "endLine": 40,
+        "endChar": 51
+      },
+      "revId": "b50860e2626c6920453b81db2336d00783114e34",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
