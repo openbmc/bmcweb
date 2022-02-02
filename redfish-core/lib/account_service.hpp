@@ -164,6 +164,140 @@ inline bool translateUserGroup(const std::vector<std::string>& userGroups,
     return true;
 }
 
+/**
+ * @brief Builds User Groups from the Account Types
+ *
+ * @param[in] asyncResp Async Response
+ * @param[in] accountTypes List of Account Types
+ * @param[out] userGroups List of User Groups mapped from Account Types
+ *
+ * @return true if Account Types mapped to User Groups, false otherwise.
+ */
+inline bool getUserGroupFromAccountType(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::vector<std::string>& accountTypes,
+    std::vector<std::string>& userGroups)
+{
+    // Need both Host and Manager Console Account Types to map to 'ssh' User
+    // Group
+    bool hostConsoleType = false;
+    bool managerConsoleType = false;
+
+    // Need both Redfish and WebUI Account Types to map to 'redfish' User Group
+    bool redfishType = false;
+    bool webUIType = false;
+
+    for (const auto& accountType : accountTypes)
+    {
+        if (accountType == "Redfish")
+        {
+            redfishType = true;
+        }
+        else if (accountType == "WebUI")
+        {
+            webUIType = true;
+        }
+        else if (accountType == "IPMI")
+        {
+            userGroups.emplace_back("ipmi");
+        }
+        else if ((accountType == "HostConsole"))
+        {
+            hostConsoleType = true;
+        }
+        else if (accountType == "ManagerConsole")
+        {
+            managerConsoleType = true;
+        }
+        else
+        {
+            // Invalid Account Type
+            messages::propertyValueNotInList(asyncResp->res, "AccountTypes",
+                                             accountType);
+            return false;
+        }
+    }
+
+    // Both Host and Manager Console Account Types are needed to PATCH
+    if ((hostConsoleType) ^ (managerConsoleType))
+    {
+        BMCWEB_LOG_ERROR
+            << "Missing HostConsole or ManagerConsole Account Type to set ssh User Group";
+        messages::strictAccountTypes(asyncResp->res, "AccountTypes");
+        return false;
+    }
+
+    if ((hostConsoleType) && (managerConsoleType))
+    {
+        userGroups.emplace_back("ssh");
+    }
+
+    // Both  Redfish and WebUI Account Types are needed to PATCH
+    if ((redfishType) ^ (webUIType))
+    {
+        BMCWEB_LOG_ERROR
+            << "Missing Redfish or WebUI Account Type to set redfish User Group";
+        messages::strictAccountTypes(asyncResp->res, "AccountTypes");
+        return false;
+    }
+
+    if ((redfishType) && (webUIType))
+    {
+        userGroups.emplace_back("redfish");
+    }
+
+    return true;
+}
+
+/**
+ * @brief Sets UserGroups property of the user based on the Account Types
+ *
+ * @param[in] accountTypes List of User Account Types
+ * @param[in] asyncResp Async Response
+ * @param[in] dbusObjectPath D-Bus Object Path
+ * @param[in] userSelf true if User is updating OWN Account Types
+ */
+inline void
+    patchAccountTypes(const std::vector<std::string>& accountTypes,
+                      const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                      const std::string& dbusObjectPath, bool userSelf)
+{
+    // Check if User is disabling own Redfish Account Type
+    if (userSelf &&
+        (accountTypes.cend() ==
+         std::find(accountTypes.cbegin(), accountTypes.cend(), "Redfish")))
+    {
+        BMCWEB_LOG_ERROR
+            << "User disabling OWN Redfish Account Type is not allowed";
+        messages::strictAccountTypes(asyncResp->res, "AccountTypes");
+        return;
+    }
+
+    std::vector<std::string> updatedUserGroups;
+    if (!getUserGroupFromAccountType(asyncResp, accountTypes,
+                                     updatedUserGroups))
+    {
+        // Problem in mapping Account Types to User Groups, Error already
+        // logged.
+        return;
+    }
+
+    crow::connections::systemBus->async_method_call(
+        [asyncResp](const boost::system::error_code ec) {
+        if (ec)
+        {
+            BMCWEB_LOG_ERROR << "D-Bus responses error: " << ec;
+            messages::internalError(asyncResp->res);
+            return;
+        }
+        messages::success(asyncResp->res);
+        },
+        "xyz.openbmc_project.User.Manager", dbusObjectPath,
+        "org.freedesktop.DBus.Properties", "Set",
+        "xyz.openbmc_project.User.Attributes", "UserGroups",
+        dbus::utility::DbusVariantType{updatedUserGroups});
+}
+
 inline void userErrorMessageHandler(
     const sd_bus_error* e, const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& newUser, const std::string& username)
@@ -1166,12 +1300,11 @@ inline void handleLDAPPatch(nlohmann::json& input,
         });
 }
 
-inline void updateUserProperties(std::shared_ptr<bmcweb::AsyncResp> asyncResp,
-                                 const std::string& username,
-                                 std::optional<std::string> password,
-                                 std::optional<bool> enabled,
-                                 std::optional<std::string> roleId,
-                                 std::optional<bool> locked)
+inline void updateUserProperties(
+    std::shared_ptr<bmcweb::AsyncResp> asyncResp, const std::string& username,
+    std::optional<std::string> password, std::optional<bool> enabled,
+    std::optional<std::string> roleId, std::optional<bool> locked,
+    std::optional<std::vector<std::string>> accountTypes, bool userSelf)
 {
     sdbusplus::message::object_path tempObjPath(rootUserDbusPath);
     tempObjPath /= username;
@@ -1181,6 +1314,7 @@ inline void updateUserProperties(std::shared_ptr<bmcweb::AsyncResp> asyncResp,
         dbusObjectPath,
         [dbusObjectPath, username, password(std::move(password)),
          roleId(std::move(roleId)), enabled, locked,
+         accountTypes(std::move(accountTypes)), userSelf,
          asyncResp{std::move(asyncResp)}](int rc) {
         if (rc <= 0)
         {
@@ -1293,6 +1427,12 @@ inline void updateUserProperties(std::shared_ptr<bmcweb::AsyncResp> asyncResp,
                 "xyz.openbmc_project.User.Attributes",
                 "UserLockedForFailedAttempt",
                 dbus::utility::DbusVariantType{*locked});
+        }
+
+        if (accountTypes)
+        {
+            patchAccountTypes(*accountTypes, asyncResp, dbusObjectPath,
+                              userSelf);
         }
         });
 }
@@ -1790,10 +1930,11 @@ inline void
         }
 
         asyncResp->res.jsonValue["@odata.type"] =
-            "#ManagerAccount.v1_4_0.ManagerAccount";
+            "#ManagerAccount.v1_7_0.ManagerAccount";
         asyncResp->res.jsonValue["Name"] = "User Account";
         asyncResp->res.jsonValue["Description"] = "User Account";
         asyncResp->res.jsonValue["Password"] = nullptr;
+        asyncResp->res.jsonValue["StrictAccountTypes"] = true;
 
         for (const auto& interface : userIt->second)
         {
@@ -1956,6 +2097,9 @@ inline void
     std::optional<bool> enabled;
     std::optional<std::string> roleId;
     std::optional<bool> locked;
+    std::optional<std::vector<std::string>> accountTypes;
+
+    bool userSelf = (username == req.session->username);
 
     if (req.session == nullptr)
     {
@@ -1971,10 +2115,10 @@ inline void
     if (userHasConfigureUsers)
     {
         // Users with ConfigureUsers can modify for all users
-        if (!json_util::readJsonPatch(req, asyncResp->res, "UserName",
-                                      newUserName, "Password", password,
-                                      "RoleId", roleId, "Enabled", enabled,
-                                      "Locked", locked))
+        if (!json_util::readJsonPatch(
+                req, asyncResp->res, "UserName", newUserName, "Password",
+                password, "RoleId", roleId, "Enabled", enabled, "Locked",
+                locked, "AccountTypes", accountTypes))
         {
             return;
         }
@@ -1982,7 +2126,7 @@ inline void
     else
     {
         // ConfigureSelf accounts can only modify their own account
-        if (username != req.session->username)
+        if (!userSelf)
         {
             messages::insufficientPrivilege(asyncResp->res);
             return;
@@ -2004,13 +2148,14 @@ inline void
     if (!newUserName || (newUserName.value() == username))
     {
         updateUserProperties(asyncResp, username, password, enabled, roleId,
-                             locked);
+                             locked, accountTypes, userSelf);
         return;
     }
     crow::connections::systemBus->async_method_call(
         [asyncResp, username, password(std::move(password)),
          roleId(std::move(roleId)), enabled, newUser{std::string(*newUserName)},
-         locked](const boost::system::error_code ec, sdbusplus::message_t& m) {
+         locked, userSelf, accountTypes(std::move(accountTypes))](
+            const boost::system::error_code ec, sdbusplus::message_t& m) {
         if (ec)
         {
             userErrorMessageHandler(m.get_error(), asyncResp, newUser,
@@ -2019,7 +2164,7 @@ inline void
         }
 
         updateUserProperties(asyncResp, newUser, password, enabled, roleId,
-                             locked);
+                             locked, accountTypes, userSelf);
         },
         "xyz.openbmc_project.User.Manager", "/xyz/openbmc_project/user",
         "xyz.openbmc_project.User.Manager", "RenameUser", username,
