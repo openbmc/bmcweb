@@ -27,6 +27,16 @@ TEST(IsOctetAccepted, ContainsOctetReturnsTrue)
     EXPECT_TRUE(isOctetAccepted("*/*, application/octet-stream"));
 }
 
+TEST(IsOctetAccepted, ContainsAnyMimeTypeReturnsTrue)
+{
+    EXPECT_TRUE(http_helpers::isOctetAccepted("text/html, */*"));
+}
+
+TEST(IsOctetAccepted, ContainsQFactorWeightingReturnsTrue)
+{    
+    EXPECT_TRUE(http_helpers::isOctetAccepted("text/html, */*;q=0.8"));
+}
+
 TEST(IsOctetAccepted, NoOctetReturnsFalse)
 {
     EXPECT_FALSE(isOctetAccepted("text/html, application/json"));
