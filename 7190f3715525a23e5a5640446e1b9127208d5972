@@ -22,6 +22,30 @@
       },
       "revId": "7190f3715525a23e5a5640446e1b9127208d5972",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4bd4d9c2_744cc084",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-02-02T20:12:23Z",
+      "side": 1,
+      "message": "+1. These need to be mapped.",
+      "parentUuid": "00ed339d_66e6c6c8",
+      "range": {
+        "startLine": 12,
+        "startChar": 0,
+        "endLine": 12,
+        "endChar": 62
+      },
+      "revId": "7190f3715525a23e5a5640446e1b9127208d5972",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
