@@ -90,6 +90,7 @@ inline std::string getRoleIdFromPrivilege(std::string_view role)
     }
     return "";
 }
+
 inline std::string getPrivilegeFromRoleId(std::string_view role)
 {
     if (role == "Administrator")
@@ -114,7 +115,9 @@ inline std::string getPrivilegeFromRoleId(std::string_view role)
 inline bool getAccountTypeFromUserGroup(std::string_view userGroup,
                                         nlohmann::json& accountTypes)
 {
+    // set false if userGroup values are not found in list, return error
     bool isFoundUserGroup = true;
+
     if (userGroup == "redfish")
     {
         accountTypes.push_back("Redfish");
@@ -141,6 +144,87 @@ inline bool getAccountTypeFromUserGroup(std::string_view userGroup,
     return isFoundUserGroup;
 }
 
+inline bool getUserGroupFromAccountType(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::optional<std::vector<std::string>>& accountTypes,
+    std::vector<std::string>& userGroup)
+{
+    // set false if AccountTypes values are not found in list, return error
+    bool isFoundAccountTypes = true;
+
+    bool isRedfish = false;
+    bool isIPMI = false;
+    bool isHostConsole = false;
+    bool isManagerConsole = false;
+    bool isWebUI = false;
+
+    for (const auto& accountType : *accountTypes)
+    {
+        if (accountType == "Redfish")
+        {
+            isRedfish = true;
+        }
+        else if (accountType == "IPMI")
+        {
+            isIPMI = true;
+        }
+        else if (accountType == "WebUI")
+        {
+            isWebUI = true;
+        }
+        else if ((accountType == "HostConsole"))
+        {
+            isHostConsole = true;
+        }
+        else if (accountType == "ManagerConsole")
+        {
+            isManagerConsole = true;
+        }
+        else
+        {
+            // set false if accountTypes not found and return
+            isFoundAccountTypes = false;
+            messages::propertyValueNotInList(asyncResp->res, "AccountTypes",
+                                             accountType);
+            return isFoundAccountTypes;
+        }
+    }
+
+    if ((isHostConsole) ^ (isManagerConsole))
+    {
+        BMCWEB_LOG_ERROR << "HostConsole or ManagerConsole, one of value is "
+                            "missing to set SSH property";
+        isFoundAccountTypes = false;
+        if (!isHostConsole)
+        {
+            messages::strictAccountTypes(asyncResp->res, "HostConsole");
+        }
+        if (!isManagerConsole)
+        {
+            messages::strictAccountTypes(asyncResp->res, "ManagerConsole");
+        }
+        return isFoundAccountTypes;
+    }
+    if (isRedfish)
+    {
+        userGroup.emplace_back("redfish");
+    }
+    if (isIPMI)
+    {
+        userGroup.emplace_back("ipmi");
+    }
+    if (isWebUI)
+    {
+        userGroup.emplace_back("web");
+    }
+    if ((isHostConsole) && (isManagerConsole))
+    {
+        userGroup.emplace_back("ssh");
+    }
+
+    return isFoundAccountTypes;
+}
+
 inline void translateUserGroup(const std::vector<std::string>* userGroups,
                                crow::Response& res)
 {
@@ -162,6 +246,49 @@ inline void translateUserGroup(const std::vector<std::string>* userGroups,
             return;
         }
     }
+}
+
+inline void translateAccountType(
+    const std::optional<std::vector<std::string>>& accountType,
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& dbusObjectPath, bool isUserItself)
+{
+    // user can not disable their own Redfish Property.
+    if (isUserItself)
+    {
+        if (auto it = std::find(accountType->cbegin(), accountType->cend(),
+                                "Redfish");
+            it == accountType->cend())
+        {
+            BMCWEB_LOG_ERROR
+                << "user can not disable their own Redfish Property";
+            messages::strictAccountTypes(asyncResp->res, "Redfish");
+            return;
+        }
+    }
+    // MAP userGroup with accountTypes value
+    std::vector<std::string> updatedUserGroup;
+    if (!getUserGroupFromAccountType(asyncResp, accountType, updatedUserGroup))
+    {
+        BMCWEB_LOG_ERROR << "accountType value unable to mapped";
+        return;
+    }
+
+    crow::connections::systemBus->async_method_call(
+        [asyncResp](const boost::system::error_code ec) {
+            if (ec)
+            {
+                BMCWEB_LOG_ERROR << "D-Bus responses error: " << ec;
+                messages::internalError(asyncResp->res);
+                return;
+            }
+            messages::success(asyncResp->res);
+            return;
+        },
+        "xyz.openbmc_project.User.Manager", dbusObjectPath,
+        "org.freedesktop.DBus.Properties", "Set",
+        "xyz.openbmc_project.User.Attributes", "UserGroups",
+        dbus::utility::DbusVariantType{updatedUserGroup});
 }
 
 inline void userErrorMessageHandler(
@@ -1179,12 +1306,11 @@ inline void handleLDAPPatch(nlohmann::json& input,
     });
 }
 
-inline void updateUserProperties(std::shared_ptr<bmcweb::AsyncResp> asyncResp,
-                                 const std::string& username,
-                                 std::optional<std::string> password,
-                                 std::optional<bool> enabled,
-                                 std::optional<std::string> roleId,
-                                 std::optional<bool> locked)
+inline void updateUserProperties(
+    std::shared_ptr<bmcweb::AsyncResp> asyncResp, const std::string& username,
+    std::optional<std::string> password, std::optional<bool> enabled,
+    std::optional<std::string> roleId, std::optional<bool> locked,
+    std::optional<std::vector<std::string>> accountType, bool isUserItself)
 {
     sdbusplus::message::object_path tempObjPath(rootUserDbusPath);
     tempObjPath /= username;
@@ -1194,6 +1320,7 @@ inline void updateUserProperties(std::shared_ptr<bmcweb::AsyncResp> asyncResp,
         dbusObjectPath,
         [dbusObjectPath, username, password(std::move(password)),
          roleId(std::move(roleId)), enabled, locked,
+         accountType(std::move(accountType)), isUserItself,
          asyncResp{std::move(asyncResp)}](int rc) {
             if (rc <= 0)
             {
@@ -1305,6 +1432,11 @@ inline void updateUserProperties(std::shared_ptr<bmcweb::AsyncResp> asyncResp,
                     "UserLockedForFailedAttempt",
                     dbus::utility::DbusVariantType{*locked});
             }
+            if (accountType)
+            {
+                translateAccountType(accountType, asyncResp, dbusObjectPath,
+                                     isUserItself);
+            }
         });
 }
 
@@ -1331,6 +1463,7 @@ inline void requestAccountServiceRoutes(App& app)
                 {"Description", "Account Service"},
                 {"ServiceEnabled", true},
                 {"MaxPasswordLength", 20},
+                {"StrictAccountTypes", true},
                 {"Accounts",
                  {{"@odata.id", "/redfish/v1/AccountService/Accounts"}}},
                 {"Roles", {{"@odata.id", "/redfish/v1/AccountService/Roles"}}},
@@ -1918,6 +2051,10 @@ inline void requestAccountServiceRoutes(App& app)
                 std::optional<bool> enabled;
                 std::optional<std::string> roleId;
                 std::optional<bool> locked;
+                std::optional<std::vector<std::string>> accountType;
+
+                bool isUserItself =
+                    (username == req.session->username ? true : false);
 
                 Privileges effectiveUserPrivileges =
                     redfish::getUserPrivileges(req.userRole);
@@ -1930,7 +2067,8 @@ inline void requestAccountServiceRoutes(App& app)
                     if (!json_util::readJsonPatch(
                             req, asyncResp->res, "UserName", newUserName,
                             "Password", password, "RoleId", roleId, "Enabled",
-                            enabled, "Locked", locked))
+                            enabled, "Locked", locked, "AccountTypes",
+                            accountType))
                     {
                         return;
                     }
@@ -1938,7 +2076,7 @@ inline void requestAccountServiceRoutes(App& app)
                 else
                 {
                     // ConfigureSelf accounts can only modify their own account
-                    if (username != req.session->username)
+                    if (!isUserItself)
                     {
                         messages::insufficientPrivilege(asyncResp->res);
                         return;
@@ -1959,15 +2097,17 @@ inline void requestAccountServiceRoutes(App& app)
                 if (!newUserName || (newUserName.value() == username))
                 {
                     updateUserProperties(asyncResp, username, password, enabled,
-                                         roleId, locked);
+                                         roleId, locked, accountType,
+                                         isUserItself);
                     return;
                 }
                 crow::connections::systemBus->async_method_call(
                     [asyncResp, username, password(std::move(password)),
                      roleId(std::move(roleId)), enabled,
-                     newUser{std::string(*newUserName)},
-                     locked](const boost::system::error_code ec,
-                             sdbusplus::message::message& m) {
+                     newUser{std::string(*newUserName)}, locked, isUserItself,
+                     accountType(std::move(accountType))](
+                        const boost::system::error_code ec,
+                        sdbusplus::message::message& m) {
                         if (ec)
                         {
                             userErrorMessageHandler(m.get_error(), asyncResp,
@@ -1976,7 +2116,8 @@ inline void requestAccountServiceRoutes(App& app)
                         }
 
                         updateUserProperties(asyncResp, newUser, password,
-                                             enabled, roleId, locked);
+                                             enabled, roleId, locked,
+                                             accountType, isUserItself);
                     },
                     "xyz.openbmc_project.User.Manager",
                     "/xyz/openbmc_project/user",
