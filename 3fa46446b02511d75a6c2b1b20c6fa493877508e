@@ -34,6 +34,24 @@
       "parentUuid": "f8bd738b_85f65282",
       "revId": "3fa46446b02511d75a6c2b1b20c6fa493877508e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ea716b7c_40cf03b3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-02-02T20:16:10Z",
+      "side": 1,
+      "message": "I added more detail to the commit message.  Let me know if that works for you.",
+      "parentUuid": "02b46b7e_e00a4bac",
+      "revId": "3fa46446b02511d75a6c2b1b20c6fa493877508e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
