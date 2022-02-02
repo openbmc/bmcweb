@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e5902b0e_e4b94d94",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-02-02T20:22:47Z",
+      "side": 1,
+      "message": "Feels like we are working around something that should be fixed there..",
+      "revId": "ad4b0f5c4765a745b8cf7fe5e6542b58f360ef15",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
