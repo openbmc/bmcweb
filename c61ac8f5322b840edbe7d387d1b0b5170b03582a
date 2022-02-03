@@ -104,6 +104,24 @@
       "parentUuid": "af340c6f_47dc7526",
       "revId": "c61ac8f5322b840edbe7d387d1b0b5170b03582a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "93a5b2b7_9685c531",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-02-03T21:33:16Z",
+      "side": 1,
+      "message": "Ack, I am fine with that",
+      "parentUuid": "4832511e_9853f581",
+      "revId": "c61ac8f5322b840edbe7d387d1b0b5170b03582a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
