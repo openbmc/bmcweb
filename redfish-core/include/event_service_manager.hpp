@@ -14,12 +14,6 @@
 // limitations under the License.
 */
 #pragma once
-#include "metric_report.hpp"
-#include "registries.hpp"
-#include "registries/base_message_registry.hpp"
-#include "registries/openbmc_message_registry.hpp"
-#include "registries/task_event_message_registry.hpp"
-
 #include <sys/inotify.h>
 
 #include <boost/asio/io_context.hpp>
@@ -28,10 +22,13 @@
 #include <error_messages.hpp>
 #include <event_service_store.hpp>
 #include <http_client.hpp>
+#include <metric_report.hpp>
 #include <persistent_data.hpp>
 #include <random.hpp>
 #include <server_sent_events.hpp>
+#include <utils/dbus_log_utils.hpp>
 #include <utils/json_utils.hpp>
+#include <utils/registry_utils.hpp>
 
 #include <cstdlib>
 #include <ctime>
@@ -51,27 +48,6 @@ static constexpr const char* metricReportFormatType = "MetricReport";
 static constexpr const char* eventServiceFile =
     "/var/lib/bmcweb/eventservice_config.json";
 
-namespace message_registries
-{
-inline std::span<const MessageEntry>
-    getRegistryFromPrefix(const std::string& registryName)
-{
-    if (task_event::header.registryPrefix == registryName)
-    {
-        return {task_event::registry};
-    }
-    if (openbmc::header.registryPrefix == registryName)
-    {
-        return {openbmc::registry};
-    }
-    if (base::header.registryPrefix == registryName)
-    {
-        return {base::registry};
-    }
-    return {openbmc::registry};
-}
-} // namespace message_registries
-
 #ifndef BMCWEB_ENABLE_REDFISH_DBUS_LOG_ENTRIES
 static std::optional<boost::asio::posix::stream_descriptor> inotifyConn;
 static constexpr const char* redfishEventLogDir = "/var/log";
@@ -88,22 +64,6 @@ using EventLogObjectsType =
 
 namespace message_registries
 {
-static const Message*
-    getMsgFromRegistry(const std::string& messageKey,
-                       const std::span<const MessageEntry>& registry)
-{
-    std::span<const MessageEntry>::iterator messageIt =
-        std::find_if(registry.begin(), registry.end(),
-                     [&messageKey](const MessageEntry& messageEntry) {
-                         return !messageKey.compare(messageEntry.first);
-                     });
-    if (messageIt != registry.end())
-    {
-        return &messageIt->second;
-    }
-
-    return nullptr;
-}
 
 static const Message* formatMessage(const std::string_view& messageID)
 {
@@ -121,7 +81,8 @@ static const Message* formatMessage(const std::string_view& messageID)
     std::string& messageKey = fields[3];
 
     // Find the right registry and check it for the MessageKey
-    return getMsgFromRegistry(messageKey, getRegistryFromPrefix(registryName));
+    return getMessageFromRegistry(messageKey,
+                                  getRegistryFromPrefix(registryName));
 }
 } // namespace message_registries
 
