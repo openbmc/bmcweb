@@ -1,6 +1,7 @@
 {
   "comments": [
     {
+      "unresolved": true,
       "key": {
         "uuid": "4073642d_863a41aa",
         "filename": "/COMMIT_MSG",
@@ -20,10 +21,10 @@
         "endChar": 6
       },
       "revId": "0b1a2f3b583e45c0d25e8e9c72235d620cae6c4d",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "3d8f46e4_b76c9faa",
         "filename": "/COMMIT_MSG",
@@ -44,10 +45,10 @@
         "endChar": 6
       },
       "revId": "0b1a2f3b583e45c0d25e8e9c72235d620cae6c4d",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "38c35b6c_8a56b275",
         "filename": "redfish-core/lib/manager_diagnostic_data.hpp",
@@ -61,10 +62,10 @@
       "side": 1,
       "message": "Missing #pragma once, per the coding standard.",
       "revId": "0b1a2f3b583e45c0d25e8e9c72235d620cae6c4d",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "a742e6ea_2ff21fb3",
         "filename": "redfish-core/lib/manager_diagnostic_data.hpp",
@@ -79,10 +80,10 @@
       "message": "Added #pragma once.",
       "parentUuid": "38c35b6c_8a56b275",
       "revId": "0b1a2f3b583e45c0d25e8e9c72235d620cae6c4d",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "60575e79_e2d9f0b0",
         "filename": "redfish-core/lib/manager_diagnostic_data.hpp",
@@ -96,10 +97,10 @@
       "side": 1,
       "message": "I don\u0027t see these used",
       "revId": "0b1a2f3b583e45c0d25e8e9c72235d620cae6c4d",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "48db25d6_ead9877c",
         "filename": "redfish-core/lib/manager_diagnostic_data.hpp",
@@ -114,10 +115,10 @@
       "message": "+1.  Also missing a bunch of includes for the use of objects below.  Please include the relevant headers for the things you use.",
       "parentUuid": "60575e79_e2d9f0b0",
       "revId": "0b1a2f3b583e45c0d25e8e9c72235d620cae6c4d",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "8ed2c116_b1fb1ca9",
         "filename": "redfish-core/lib/manager_diagnostic_data.hpp",
@@ -132,10 +133,28 @@
       "message": "Removed unused include files.",
       "parentUuid": "48db25d6_ead9877c",
       "revId": "0b1a2f3b583e45c0d25e8e9c72235d620cae6c4d",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4f496f19_335f80fe",
+        "filename": "redfish-core/lib/manager_diagnostic_data.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-02-03T20:13:24Z",
+      "side": 1,
+      "message": "You seem to have ignored my comment.  You use a number of resources below that you don\u0027t include headers for.   Please include what you use.",
+      "parentUuid": "8ed2c116_b1fb1ca9",
+      "revId": "0b1a2f3b583e45c0d25e8e9c72235d620cae6c4d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
       "key": {
         "uuid": "05c4028b_faf5c37e",
         "filename": "redfish-core/lib/manager_diagnostic_data.hpp",
@@ -149,10 +168,10 @@
       "side": 1,
       "message": "Where is this schema in Redfish?",
       "revId": "0b1a2f3b583e45c0d25e8e9c72235d620cae6c4d",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "bd9b62d8_7cb23bf3",
         "filename": "redfish-core/lib/manager_diagnostic_data.hpp",
@@ -167,8 +186,7 @@
       "message": "The schemas are still under discussion with DMTF: https://github.com/DMTF/Redfish/pull/4877\n\nThe work-in-progress Schema have been added to the latest version of the patch.\n\nThe schemas may still go through some minor changes (such as: change \"bytes\" to \"percent\", changing the names of certain properties, etc), but the overall structure should not change too much.",
       "parentUuid": "05c4028b_faf5c37e",
       "revId": "0b1a2f3b583e45c0d25e8e9c72235d620cae6c4d",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
