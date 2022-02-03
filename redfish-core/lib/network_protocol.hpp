@@ -249,6 +249,12 @@ inline void
         return;
     }
 
+    // Removing empty element
+    ntpServers.erase(
+        std::remove_if(ntpServers.begin(), ntpServers.end(),
+                       [](const std::string& s) { return s.empty(); }),
+        ntpServers.end());
+
     crow::connections::systemBus->async_method_call(
         [asyncResp,
          ntpServers](boost::system::error_code ec,
