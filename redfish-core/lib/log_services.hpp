@@ -18,9 +18,6 @@
 #include "gzfile.hpp"
 #include "http_utility.hpp"
 #include "human_sort.hpp"
-#include "registries.hpp"
-#include "registries/base_message_registry.hpp"
-#include "registries/openbmc_message_registry.hpp"
 #include "task.hpp"
 
 #include <systemd/sd-journal.h>
@@ -35,6 +32,8 @@
 #include <dbus_utility.hpp>
 #include <error_messages.hpp>
 #include <registries/privilege_registry.hpp>
+#include <utils/dbus_log_utils.hpp>
+#include <utils/registry_utils.hpp>
 
 #include <charconv>
 #include <filesystem>
@@ -56,77 +55,10 @@ constexpr char const* crashdumpOnDemandInterface =
 constexpr char const* crashdumpTelemetryInterface =
     "com.intel.crashdump.Telemetry";
 
-namespace registries
-{
-static const Message*
-    getMessageFromRegistry(const std::string& messageKey,
-                           const std::span<const MessageEntry> registry)
-{
-    std::span<const MessageEntry>::iterator messageIt = std::find_if(
-        registry.begin(), registry.end(),
-        [&messageKey](const MessageEntry& messageEntry) {
-            return std::strcmp(messageEntry.first, messageKey.c_str()) == 0;
-        });
-    if (messageIt != registry.end())
-    {
-        return &messageIt->second;
-    }
-
-    return nullptr;
-}
-
-static const Message* getMessage(const std::string_view& messageID)
-{
-    // Redfish MessageIds are in the form
-    // RegistryName.MajorVersion.MinorVersion.MessageKey, so parse it to find
-    // the right Message
-    std::vector<std::string> fields;
-    fields.reserve(4);
-    boost::split(fields, messageID, boost::is_any_of("."));
-    std::string& registryName = fields[0];
-    std::string& messageKey = fields[3];
-
-    // Find the right registry and check it for the MessageKey
-    if (std::string(base::header.registryPrefix) == registryName)
-    {
-        return getMessageFromRegistry(
-            messageKey, std::span<const MessageEntry>(base::registry));
-    }
-    if (std::string(openbmc::header.registryPrefix) == registryName)
-    {
-        return getMessageFromRegistry(
-            messageKey, std::span<const MessageEntry>(openbmc::registry));
-    }
-    return nullptr;
-}
-} // namespace registries
-
 namespace fs = std::filesystem;
 
 using GetManagedPropertyType =
     boost::container::flat_map<std::string, dbus::utility::DbusVariantType>;
-
-inline std::string translateSeverityDbusToRedfish(const std::string& s)
-{
-    if ((s == "xyz.openbmc_project.Logging.Entry.Level.Alert") ||
-        (s == "xyz.openbmc_project.Logging.Entry.Level.Critical") ||
-        (s == "xyz.openbmc_project.Logging.Entry.Level.Emergency") ||
-        (s == "xyz.openbmc_project.Logging.Entry.Level.Error"))
-    {
-        return "Critical";
-    }
-    if ((s == "xyz.openbmc_project.Logging.Entry.Level.Debug") ||
-        (s == "xyz.openbmc_project.Logging.Entry.Level.Informational") ||
-        (s == "xyz.openbmc_project.Logging.Entry.Level.Notice"))
-    {
-        return "OK";
-    }
-    if (s == "xyz.openbmc_project.Logging.Entry.Level.Warning")
-    {
-        return "Warning";
-    }
-    return "";
-}
 
 inline static int getJournalMetadata(sd_journal* journal,
                                      const std::string_view& field,
