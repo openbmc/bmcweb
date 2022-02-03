@@ -27,8 +27,8 @@ namespace redfish
 
 static constexpr const std::array<const char*, 2> supportedEvtFormatTypes = {
     eventFormatType, metricReportFormatType};
-static constexpr const std::array<const char*, 3> supportedRegPrefixes = {
-    "Base", "OpenBMC", "TaskEvent"};
+static constexpr const std::array<const char*, 4> supportedRegPrefixes = {
+    "Base", "OpenBMC", "TaskEvent", "ResourceEvent"};
 static constexpr const std::array<const char*, 3> supportedRetryPolicies = {
     "TerminateAfterRetries", "SuspendRetries", "RetryForever"};
 
@@ -46,47 +46,54 @@ inline void requestRoutesEventService(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/EventService/")
         .privileges(redfish::privileges::getEventService)
-        .methods(
-            boost::beast::http::verb::
-                get)([](const crow::Request&,
-                        const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
-            asyncResp->res.jsonValue = {
-                {"@odata.type", "#EventService.v1_5_0.EventService"},
-                {"Id", "EventService"},
-                {"Name", "Event Service"},
-                {"Subscriptions",
-                 {{"@odata.id", "/redfish/v1/EventService/Subscriptions"}}},
-                {"Actions",
-                 {{"#EventService.SubmitTestEvent",
-                   {{"target",
-                     "/redfish/v1/EventService/Actions/EventService.SubmitTestEvent"}}}}},
-                {"@odata.id", "/redfish/v1/EventService"}};
+        .methods(boost::beast::http::verb::get)(
+            [](const crow::Request&,
+               const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
+                asyncResp->res.jsonValue = {
+                    {"@odata.type", "#EventService.v1_7_2.EventService"},
+                    {"Id", "EventService"},
+                    {"Name", "Event Service"},
+                    {"Subscriptions",
+                     {{"@odata.id", "/redfish/v1/EventService/Subscriptions"}}},
+                    {"Actions",
+                     {{"#EventService.SubmitTestEvent",
+                       {{"target", "/redfish/v1/EventService/Actions/"
+                                   "EventService.SubmitTestEvent"}}}}},
+                    {"@odata.id", "/redfish/v1/EventService"}};
 
-            const persistent_data::EventServiceConfig eventServiceConfig =
-                persistent_data::EventServiceStore::getInstance()
-                    .getEventServiceConfig();
+                const persistent_data::EventServiceConfig eventServiceConfig =
+                    persistent_data::EventServiceStore::getInstance()
+                        .getEventServiceConfig();
 
-            asyncResp->res.jsonValue["Status"]["State"] =
-                (eventServiceConfig.enabled ? "Enabled" : "Disabled");
-            asyncResp->res.jsonValue["ServiceEnabled"] =
-                eventServiceConfig.enabled;
-            asyncResp->res.jsonValue["DeliveryRetryAttempts"] =
-                eventServiceConfig.retryAttempts;
-            asyncResp->res.jsonValue["DeliveryRetryIntervalSeconds"] =
-                eventServiceConfig.retryTimeoutInterval;
-            asyncResp->res.jsonValue["EventFormatTypes"] =
-                supportedEvtFormatTypes;
-            asyncResp->res.jsonValue["RegistryPrefixes"] = supportedRegPrefixes;
-            asyncResp->res.jsonValue["ResourceTypes"] = supportedResourceTypes;
+                asyncResp->res.jsonValue["Status"]["State"] =
+                    (eventServiceConfig.enabled ? "Enabled" : "Disabled");
+                asyncResp->res.jsonValue["ServiceEnabled"] =
+                    eventServiceConfig.enabled;
+                asyncResp->res.jsonValue["DeliveryRetryAttempts"] =
+                    eventServiceConfig.retryAttempts;
+                asyncResp->res.jsonValue["DeliveryRetryIntervalSeconds"] =
+                    eventServiceConfig.retryTimeoutInterval;
+                asyncResp->res.jsonValue["EventFormatTypes"] =
+                    supportedEvtFormatTypes;
+                asyncResp->res.jsonValue["RegistryPrefixes"] =
+                    supportedRegPrefixes;
+                asyncResp->res.jsonValue["ResourceTypes"] =
+                    supportedResourceTypes;
 
-            nlohmann::json supportedSSEFilters = {
-                {"EventFormatType", true},        {"MessageId", true},
-                {"MetricReportDefinition", true}, {"RegistryPrefix", true},
-                {"OriginResource", false},        {"ResourceType", false}};
+                nlohmann::json supportedSSEFilters = {
+                    {"EventFormatType", true},        {"MessageId", true},
+                    {"MetricReportDefinition", true}, {"RegistryPrefix", true},
+                    {"OriginResource", false},        {"ResourceType", false}};
 
-            asyncResp->res.jsonValue["SSEFilterPropertiesSupported"] =
-                supportedSSEFilters;
-        });
+                asyncResp->res.jsonValue["SSEFilterPropertiesSupported"] =
+                    supportedSSEFilters;
+                
+                asyncResp->res.jsonValue["SubordinateResourcesSupported"] =
+                    false;
+                asyncResp->res.jsonValue["IncludeOriginOfConditionSupported"] =
+                    true;
+                    
+            });
 
     BMCWEB_ROUTE(app, "/redfish/v1/EventService/")
         .privileges(redfish::privileges::patchEventService)
@@ -159,9 +166,91 @@ inline void requestRoutesSubmitTestEvent(App& app)
         app, "/redfish/v1/EventService/Actions/EventService.SubmitTestEvent/")
         .privileges(redfish::privileges::postEventService)
         .methods(boost::beast::http::verb::post)(
-            [](const crow::Request&,
+            [](const crow::Request& req,
                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
-                EventServiceManager::getInstance().sendTestEventLog();
+                std::string messageId;
+                std::optional<int64_t> eventGroupId;
+                std::optional<std::string> eventId;
+                std::optional<std::string> eventTimestamp;
+                std::optional<std::string> message;
+                std::optional<std::vector<std::string>> messageArgs;
+                std::optional<std::string> originOfCondition;
+                std::optional<std::string> severity;
+                // deprecated
+                std::optional<std::string> eventType;
+                (void)eventType;
+
+                if (!json_util::readJson(
+                        req, asyncResp->res,
+                        "MessageId", messageId,
+                        "EventGroupId", eventGroupId,
+                        "EventId", eventId,
+                        "EventTimestamp", eventTimestamp,
+                        "Message", message,
+                        "MessageArgs", messageArgs,
+                        "OriginOfCondition", originOfCondition,
+                        "Severity", severity,
+                        "EventType", eventType))
+                {
+                    return;
+                }
+                
+                if (!redfish::message_registries::isMessageIdValid(messageId))
+                {
+                    messages::propertyValueNotInList(asyncResp->res,
+                        messageId, "MessageId");
+                    return;
+                }
+
+                Event event(messageId);
+                if (eventGroupId)
+                {
+                    event.eventGroupId = *eventGroupId;
+                }
+                if (eventId)
+                {
+                    event.eventId = *eventId;
+                }
+                if (eventTimestamp)
+                {
+                    event.eventTimestamp = *eventTimestamp;
+                }
+                if (message)
+                {
+                    if (event.setCustomMsg(*message, *messageArgs) != 0)
+                    {
+                        BMCWEB_LOG_ERROR << "Invalid message or message "
+                            "arguments.";
+                        return;
+                    }
+                }
+                else if (messageArgs)
+                {
+                    if (event.setRegistryMsg(*messageArgs) != 0)
+                    {
+                        BMCWEB_LOG_ERROR << "Invalid message arguments.";
+                        return;
+                    }
+                }
+                else
+                {
+                    std::vector<std::string> noArgs = {};
+                    if (event.setRegistryMsg(noArgs) != 0)
+                    {
+                        BMCWEB_LOG_ERROR << "Invalid message arguments.";
+                        return;
+                    }
+                }
+
+                if (originOfCondition)
+                {
+                    event.originOfCondition = *originOfCondition;
+                }
+                if (severity)
+                {
+                    event.messageSeverity = *severity;
+                }
+                EventServiceManager::getInstance().sendEvent(event);
                 asyncResp->res.result(boost::beast::http::status::no_content);
             });
 }
@@ -217,15 +306,27 @@ inline void requestRoutesEventDestinationCollection(App& app)
                 std::optional<std::vector<std::string>> resTypes;
                 std::optional<std::vector<nlohmann::json>> headers;
                 std::optional<std::vector<nlohmann::json>> mrdJsonArray;
+                std::optional<std::vector<std::string>> originResources;
+                std::optional<bool> includeOriginOfCondition;
+                // deprecated
+                std::optional<std::vector<std::string>> eventTypes;
+                (void)eventTypes;
 
                 if (!json_util::readJson(
-                        req, asyncResp->res, "Destination", destUrl, "Context",
-                        context, "Protocol", protocol, "SubscriptionType",
-                        subscriptionType, "EventFormatType", eventFormatType2,
-                        "HttpHeaders", headers, "RegistryPrefixes", regPrefixes,
-                        "MessageIds", msgIds, "DeliveryRetryPolicy",
-                        retryPolicy, "MetricReportDefinitions", mrdJsonArray,
-                        "ResourceTypes", resTypes))
+                        req, asyncResp->res,
+                        "Destination", destUrl,
+                        "Context", context,
+                        "Protocol", protocol,
+                        "SubscriptionType", subscriptionType,
+                        "EventFormatType", eventFormatType2,
+                        "HttpHeaders", headers,
+                        "RegistryPrefixes", regPrefixes,
+                        "MessageIds", msgIds,
+                        "DeliveryRetryPolicy", retryPolicy,
+                        "MetricReportDefinitions", mrdJsonArray,
+                        "ResourceTypes", resTypes,
+                        "OriginResources", originResources,
+                        "EventTypes", eventTypes))
                 {
                     return;
                 }
@@ -248,9 +349,6 @@ inline void requestRoutesEventDestinationCollection(App& app)
                 // uri: Start with '/' and Exclude '#', ' '
                 //      Can include query params(ex: '/event?test=1')
                 // TODO: Need to validate hostname extensively(as per rfc)
-                const std::regex urlRegex(
-                    "(http|https)://([^/\\x20\\x3f\\x23\\x3a]+):?([0-9]*)(/"
-                    "([^\\x20\\x23\\x3f]*\\x3f?([^\\x20\\x23\\x3f])*)?)");
                 std::cmatch match;
                 if (!std::regex_match(destUrl.c_str(), match, urlRegex))
                 {
@@ -489,6 +587,33 @@ inline void requestRoutesEventDestinationCollection(App& app)
                     }
                 }
 
+                if (originResources)
+                {
+                    for (const std::string& it : *originResources)
+                    {
+                        // TODO Check for each origin resource.
+                        if (it.empty())
+                        {
+                            messages::propertyValueNotInList(asyncResp->res, it,
+                                                             "OriginResources");
+                            return;
+                        }
+                    }
+                    subValue->originResources = *originResources;
+                }
+
+                if (includeOriginOfCondition)
+                {
+                    subValue->includeOriginOfCondition = 
+                        *includeOriginOfCondition;
+                }
+                else
+                {
+                    subValue->includeOriginOfCondition = true;
+                }
+
+                subValue->subordinateResources = false;
+
                 std::string id =
                     EventServiceManager::getInstance().addSubscription(
                         subValue);
@@ -524,7 +649,7 @@ inline void requestRoutesEventDestination(App& app)
 
                 asyncResp->res.jsonValue = {
                     {"@odata.type",
-                     "#EventDestination.v1_7_0.EventDestination"},
+                     "#EventDestination.v1_11_0.EventDestination"},
                     {"Protocol", "Redfish"}};
                 asyncResp->res.jsonValue["@odata.id"] =
                     "/redfish/v1/EventService/Subscriptions/" + id;
@@ -543,11 +668,14 @@ inline void requestRoutesEventDestination(App& app)
                     subValue->registryPrefixes;
                 asyncResp->res.jsonValue["ResourceTypes"] =
                     subValue->resourceTypes;
-
                 asyncResp->res.jsonValue["MessageIds"] =
                     subValue->registryMsgIds;
                 asyncResp->res.jsonValue["DeliveryRetryPolicy"] =
                     subValue->retryPolicy;
+                asyncResp->res.jsonValue["OriginResources"] =
+                    subValue->originResources;
+                asyncResp->res.jsonValue["IncludeOriginOfCondition"] =
+                    subValue->includeOriginOfCondition;
 
                 std::vector<nlohmann::json> mrdJsonArray;
                 for (const auto& mdrUri : subValue->metricReportDefinitions)

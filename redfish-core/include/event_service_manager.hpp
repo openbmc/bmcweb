@@ -14,11 +14,9 @@
 // limitations under the License.
 */
 #pragma once
-#include "metric_report.hpp"
-#include "registries.hpp"
-#include "registries/base_message_registry.hpp"
-#include "registries/openbmc_message_registry.hpp"
-#include "registries/task_event_message_registry.hpp"
+#include <metric_report.hpp>
+#include <utils/registry_utils.hpp>
+#include <utils/dbus_log_utils.hpp>
 
 #include <sys/inotify.h>
 
@@ -42,6 +40,10 @@
 namespace redfish
 {
 
+const std::regex urlRegex(
+    "(http|https)://([^/\\x20\\x3f\\x23\\x3a]+):?([0-9]*)"
+    "((/[^\\x20\\x23\\x3f]*\\x3f?[^\\x20\\x23\\x3f]*)?)");
+
 using ReadingsObjType =
     std::vector<std::tuple<std::string, std::string, double, int32_t>>;
 
@@ -50,27 +52,6 @@ static constexpr const char* metricReportFormatType = "MetricReport";
 
 static constexpr const char* eventServiceFile =
     "/var/lib/bmcweb/eventservice_config.json";
-
-namespace message_registries
-{
-inline std::span<const MessageEntry>
-    getRegistryFromPrefix(const std::string& registryName)
-{
-    if (task_event::header.registryPrefix == registryName)
-    {
-        return {task_event::registry};
-    }
-    if (openbmc::header.registryPrefix == registryName)
-    {
-        return {openbmc::registry};
-    }
-    if (base::header.registryPrefix == registryName)
-    {
-        return {base::registry};
-    }
-    return {openbmc::registry};
-}
-} // namespace message_registries
 
 #ifndef BMCWEB_ENABLE_REDFISH_DBUS_LOG_ENTRIES
 static std::optional<boost::asio::posix::stream_descriptor> inotifyConn;
@@ -277,6 +258,191 @@ inline int formatEventLogEntry(const std::string& logEntryID,
 } // namespace event_log
 #endif
 
+enum redfish_bool
+{
+    REDFISH_BOOL_NA, // NOT APPLICABLE
+    REDFISH_BOOL_TRUE,
+    REDFISH_BOOL_FALSE
+};
+
+class Subscription;
+
+static const std::string eventVersion("v1_7_0");
+/*
+ * Structure for an event which is based on Event v1.7.0 in "Redfish Schema
+ * Supplement(DSP0268)".
+ */
+class Event
+{
+public:
+    //required properties
+    const std::string messageId;
+    //optional properties
+    std::vector<std::string> actions = {};
+    int64_t eventGroupId = -1;
+    std::string eventId = "";
+    std::string eventTimestamp = "";
+    std::string logEntry = "";
+    std::string memberId = "";
+    std::vector<std::string> messageArgs = {};
+    std::string message = "";
+    std::string messageSeverity = "";
+    std::string oem = "";
+    std::string originOfCondition = "";
+    redfish_bool specificEventExistsInGroup = REDFISH_BOOL_NA;
+
+    //derived properties
+    std::string registryPrefix;
+    std::string resourceType;
+private:
+    const message_registries::Message* registryMsg;
+
+public:
+    Event(const std::string& messageId)
+        : messageId(messageId)
+    {
+        this->registryPrefix = message_registries::getPrefix(messageId);
+        this->registryMsg = message_registries::getMessage(messageId);
+        if (this->registryMsg == nullptr)
+        {
+            BMCWEB_LOG_ERROR << "Message not found in registry with ID: " +
+                messageId;
+            throw std::runtime_error("Message not found in registry with ID: " +
+                messageId);
+        }
+
+        this->messageSeverity = this->registryMsg->messageSeverity;
+    }
+    
+    int setRegistryMsg(const std::vector<std::string>& messageArgs =
+        std::vector<std::string>{})
+    {
+        if (messageArgs.size() != this->registryMsg->numberOfArgs)
+        {
+            BMCWEB_LOG_ERROR << "Message argument number mismatched.";
+            return -1;
+        }
+
+        int i = 1;
+        std::string argStr;
+        
+        this->message = this->registryMsg->message;
+        // Fill the MessageArgs into the Message
+        for (const std::string& messageArg : messageArgs)
+        {
+            argStr = "%" + std::to_string(i++);
+            size_t argPos = this->message.find(argStr);
+            if (argPos != std::string::npos)
+            {
+                this->message.replace(argPos, argStr.length(), messageArg);
+            }
+        }
+        this->messageArgs = messageArgs;
+        return 0;
+    }
+
+    int setCustomMsg
+    (
+        const std::string& message,
+        const std::vector<std::string>& messageArgs = std::vector<std::string>{}
+    )
+    {
+        std::string msg = message;
+        int i = 1;
+        std::string argStr;
+        // Fill the MessageArgs into the Message
+        for (const std::string& messageArg : messageArgs)
+        {
+            argStr = "%" + std::to_string(i++);
+            size_t argPos = msg.find(argStr);
+            if (argPos != std::string::npos)
+            {
+                msg.replace(argPos, argStr.length(), messageArg);
+            }
+            else
+            {
+                BMCWEB_LOG_ERROR << "Too many MessageArgs.";
+                return -1;
+            }
+        }
+        argStr = "%" + std::to_string(i);
+        if (msg.find(argStr) != std::string::npos)
+        {
+            BMCWEB_LOG_ERROR << "Too few MessageArgs.";
+            return -2;
+        }
+
+        this->message = std::move(msg);
+        this->messageArgs = messageArgs;
+        return 0;
+    }
+
+    /*!
+     * @brief   Construct the json format for the event log entry.
+     * @param[out] eventLogEntry    The reference to the json event log entry.
+     * @return  Return 0 for success. Otherwise, return error codes.
+     */
+    int formatEventLogEntry
+    (
+        nlohmann::json& eventLogEntry,
+        bool includeOriginOfCondition=true
+    )
+    {
+        eventLogEntry["MessageId"] = this->messageId;
+        if (!this->actions.empty())
+        {
+            eventLogEntry["Actions"] = this->actions;
+        }
+        if (this->eventGroupId >= 0)
+        {
+            eventLogEntry["EventGroupId"] = this->eventGroupId;
+        }
+        if (!this->eventId.empty())
+        {
+            eventLogEntry["EventId"] = this->eventId;
+        }
+        if (!this->eventTimestamp.empty())
+        {
+            eventLogEntry["EventTimeStamp"] = this->eventTimestamp;
+        }
+        if (!this->logEntry.empty())
+        {
+            eventLogEntry["logEntry"] = nlohmann::json::object();
+            eventLogEntry["logEntry"]["@odata.id"] = this->logEntry;
+        }
+        if (!this->memberId.empty()) {
+            eventLogEntry["MemberId"] = this->memberId;
+        }
+        if (!this->messageArgs.empty())
+        {
+            eventLogEntry["MessageArgs"] = this->messageArgs;
+        }
+        if (!this->message.empty())
+        {
+            eventLogEntry["Message"] = this->message;
+        }
+        if (!this->messageSeverity.empty())
+        {
+            eventLogEntry["MessageSeverity"] = this->messageSeverity;
+        }
+        if (!this->oem.empty())
+        {
+            eventLogEntry["Oem"] = this->oem;
+        }
+        if (!this->originOfCondition.empty() && includeOriginOfCondition)
+        {   
+            eventLogEntry["OriginOfCondition"] = this->originOfCondition;
+        }
+        if (this->specificEventExistsInGroup != REDFISH_BOOL_NA)
+        {
+            eventLogEntry["SpecificEventExistsInGroup"] =
+                this->specificEventExistsInGroup == REDFISH_BOOL_FALSE ?
+                    false : true;
+        }
+        return 0; 
+    }
+};
+
 inline bool isFilterQuerySpecialChar(char c)
 {
     switch (c)
@@ -435,6 +601,109 @@ class Subscription : public persistent_data::UserSubscription
             msg.dump(2, ' ', true, nlohmann::json::error_handler_t::replace));
     }
 
+    /*!
+     * @brief   Send the event if this subscription does not filter it out.
+     * @param[in] event   The event to be sent.
+     * @return  Void
+     */
+    void sendEvent(Event& event)
+    {
+        // check if this event should be filtered out or not
+        auto filter = [this](Event &event)
+        {
+            if (this->eventFormatType != eventFormatType)
+            {
+                return false;
+            }
+            // If registryPrefixes list is empty, don't filter events
+            // send everything.
+            if (!this->registryPrefixes.empty())
+            {
+                auto obj = std::find(
+                    this->registryPrefixes.begin(),
+                    this->registryPrefixes.end(),
+                    event.registryPrefix
+                );
+
+                if (obj == this->registryPrefixes.end())
+                {
+                    return false;
+                }
+            }
+
+            // If registryMsgIds list is empty, don't filter events
+            // send everything.
+            if (!this->registryMsgIds.empty())
+            {
+                auto obj = std::find(
+                    this->registryMsgIds.begin(),
+                    this->registryMsgIds.end(),
+                    event.messageId
+                );
+
+                if (obj == this->registryMsgIds.end())
+                {
+                    return false;
+                }
+            }
+
+            if (this->subordinateResources)
+            {
+                // TODO Filtering on subordinate resources
+            }
+            else 
+            {
+                if (!this->originResources.empty() &&
+                    !event.originOfCondition.empty())
+                {
+                    auto obj = std::find(
+                        this->originResources.begin(),
+                        this->originResources.end(),
+                        event.originOfCondition
+                    );
+
+                    if (obj == this->originResources.end())
+                    {
+                        return false;
+                    }
+                }
+            }
+
+            if (!this->resourceTypes.empty() && !event.resourceType.empty())
+            {
+                // TODO ResourceType filtering
+            }
+
+            // TODO Other property filtering which current UserSubscription do
+            // not include
+
+            return true;
+        };
+        
+        if (filter(event))
+        {
+            nlohmann::json logEntry;
+
+            if (event.formatEventLogEntry(logEntry,
+                this->includeOriginOfCondition) != 0)
+            {
+                BMCWEB_LOG_ERROR << "Failed to format the event log entry";
+                return;
+            }
+
+            nlohmann::json msg = {
+                {"@odata.type", "#Event." + eventVersion + ".Event"},
+                {"Id", std::to_string(eventSeqNum)},
+                {"Name", "Event Log"},
+                {"Context", customText},
+                {"Events", logEntry}
+            };
+
+            this->sendEvent(msg.dump(2, ' ', true,
+                                     nlohmann::json::error_handler_t::replace));
+        }
+    }
+
 #ifndef BMCWEB_ENABLE_REDFISH_DBUS_LOG_ENTRIES
     void filterAndSendEventLogs(
         const std::vector<EventLogObjectsType>& eventRecords)
@@ -578,6 +847,7 @@ class EventServiceManager
     size_t noOfEventLogSubscribers{0};
     size_t noOfMetricReportSubscribers{0};
     std::shared_ptr<sdbusplus::bus::match::match> matchTelemetryMonitor;
+    std::shared_ptr<sdbusplus::bus::match::match> matchDbusLogging;
     boost::container::flat_map<std::string, std::shared_ptr<Subscription>>
         subscriptionsMap;
 
@@ -642,6 +912,10 @@ class EventServiceManager
             subValue->resourceTypes = newSub->resourceTypes;
             subValue->httpHeaders = newSub->httpHeaders;
             subValue->metricReportDefinitions = newSub->metricReportDefinitions;
+            subValue->originResources = newSub->originResources;
+            subValue->subordinateResources = newSub->subordinateResources;
+            subValue->includeOriginOfCondition =
+                newSub->includeOriginOfCondition;
 
             if (subValue->id.empty())
             {
@@ -660,6 +934,10 @@ class EventServiceManager
             subValue->updateRetryConfig(retryAttempts, retryTimeoutInterval);
             subValue->updateRetryPolicy();
         }
+
+#ifdef BMCWEB_ENABLE_REDFISH_DBUS_LOG_ENTRIES
+        registerDbusLoggingSignal();
+#endif
         return;
     }
 
@@ -771,6 +1049,15 @@ class EventServiceManager
             {
                 unregisterMetricReportSignal();
             }
+#ifdef BMCWEB_ENABLE_REDFISH_DBUS_LOG_ENTRIES
+            if (serviceEnabled)
+            {
+                registerDbusLoggingSignal();
+            }
+            else {
+                unregisterDbusLoggingSignal();
+            }
+#endif
             updateConfig = true;
         }
 
@@ -858,6 +1145,11 @@ class EventServiceManager
 
         std::string id;
 
+        if (isDestinationExist(subValue->destinationUrl))
+        {
+            return "";
+        }
+
         int retry = 3;
         while (retry)
         {
@@ -877,7 +1169,7 @@ class EventServiceManager
 
         if (retry <= 0)
         {
-            BMCWEB_LOG_ERROR << "Failed to generate random number";
+            BMCWEB_LOG_ERROR << "Failed to generate random number.";
             return "";
         }
 
@@ -895,6 +1187,9 @@ class EventServiceManager
         newSub->resourceTypes = subValue->resourceTypes;
         newSub->httpHeaders = subValue->httpHeaders;
         newSub->metricReportDefinitions = subValue->metricReportDefinitions;
+        newSub->originResources = subValue->originResources;
+        newSub->subordinateResources = subValue->subordinateResources;
+        newSub->includeOriginOfCondition = subValue->includeOriginOfCondition;
         persistent_data::EventServiceStore::getInstance()
             .subscriptionsConfigMap.emplace(newSub->id, newSub);
 
@@ -960,14 +1255,16 @@ class EventServiceManager
 
     bool isDestinationExist(const std::string& destUrl)
     {
+        BMCWEB_LOG_DEBUG << "New: " << destUrl;
         for (const auto& it : subscriptionsMap)
         {
             std::shared_ptr<Subscription> entry = it.second;
             if (entry->destinationUrl == destUrl)
             {
-                BMCWEB_LOG_ERROR << "Destination exist already" << destUrl;
+                BMCWEB_LOG_ERROR << "Destination exist already " << destUrl;
                 return true;
             }
+            BMCWEB_LOG_DEBUG << "Subscriber: " << entry->destinationUrl;
         }
         return false;
     }
@@ -1055,6 +1352,22 @@ class EventServiceManager
             entry->sendEvent(msgJson.dump(
                 2, ' ', true, nlohmann::json::error_handler_t::replace));
         }
+    }
+
+    /*!
+     * @brief   Send the event to all subscribers.
+     * @param[in] event   The event to be sent.
+     * @return  Void
+     */
+    void sendEvent(Event &event)
+    {
+        for (const auto& it : this->subscriptionsMap)
+        {
+            std::shared_ptr<Subscription> entry = it.second;
+
+            entry->sendEvent(event);
+        }
+        eventId++; // increament the eventId
     }
 
 #ifndef BMCWEB_ENABLE_REDFISH_DBUS_LOG_ENTRIES
@@ -1385,6 +1698,202 @@ class EventServiceManager
             });
     }
 
+#ifdef BMCWEB_ENABLE_REDFISH_DBUS_LOG_ENTRIES
+    void unregisterDbusLoggingSignal()
+    {
+        if (matchDbusLogging)
+        {
+            BMCWEB_LOG_DEBUG << "Dbus logging signal - Unregister.";
+            matchDbusLogging.reset();
+            matchDbusLogging = nullptr;
+        }
+    }
+
+    void registerDbusLoggingSignal()
+    {
+        if (!serviceEnabled || matchDbusLogging)
+        {
+            BMCWEB_LOG_DEBUG << "Not registering dbus logging signal.";
+            return;
+        }
+
+        BMCWEB_LOG_DEBUG << "Dbus logging signal - Register.";
+        std::string matchStr(
+            "type='signal', "
+            "member='InterfacesAdded', "
+            "path_namespace='/xyz/openbmc_project/logging'"
+        );
+
+        auto signalHandler = [this](sdbusplus::message::message& msg)
+        {
+            if (msg.get_type() != SD_BUS_MESSAGE_SIGNAL)
+            {
+                BMCWEB_LOG_ERROR << "Dbus logging signal error.";
+                return;
+            }
+
+            sdbusplus::message::object_path objPath;
+            std::map<
+                std::string, std::map<
+                    std::string, std::variant<
+                        std::string, uint32_t, uint64_t, bool,
+                        std::vector<std::string>
+                    >
+                >
+            > properties;
+
+            std::string messageId = "";
+            std::string eventId = "";
+            std::string severity = "";
+            std::string timestamp = "";
+            std::string message;
+            std::vector<std::string> messageArgs = {};
+
+            msg.read(objPath, properties);
+            for (auto const &[key, val] :
+                properties["xyz.openbmc_project.Logging.Entry"])
+            {
+                if (key == "AdditionalData")
+                {
+                    const std::vector<std::string> *additionalDataPtr;
+
+                    additionalDataPtr =
+                        std::get_if<std::vector<std::string>>(&val);
+                    if (additionalDataPtr != nullptr)
+                    {
+                        AdditionalData additional(*additionalDataPtr);
+                        if (additional.count("REDFISH_MESSAGE_ID") == 1)
+                        {
+                            messageId = additional["REDFISH_MESSAGE_ID"];
+                            if (!message_registries::isMessageIdValid(
+                                messageId))
+                            {
+                                BMCWEB_LOG_ERROR << "MessageId not in registry";
+                                return;
+                            }
+                            if (additional.count("REDFISH_MESSAGE_ARGS") == 1)
+                            {
+                                std::string argDelimiter = ", ";
+                                size_t cur = 0, delimPos;
+                                std::string arg;
+                                std::string args =
+                                    additional["REDFISH_MESSAGE_ARGS"];
+
+                                while ((delimPos = args.substr(
+                                        cur, args.length()).find(argDelimiter))
+                                    != std::string::npos)
+                                {
+                                    arg = args.substr(cur, cur + delimPos);
+                                    messageArgs.push_back(arg);
+                                    cur += delimPos + argDelimiter.length();
+                                }
+                                messageArgs.push_back(
+                                    args.substr(cur, args.length())
+                                );
+                            }
+                            else if (additional.count("REDFISH_MESSAGE_ARGS")
+                                > 0)
+                            {
+                                BMCWEB_LOG_ERROR << "Multiple "
+                                    "REDFISH_MESSAGE_ARGS in the Dbus "
+                                    "signal message.";
+                                return;
+                            }
+                        }
+                        else
+                        {
+                            BMCWEB_LOG_ERROR << "There should be exactly one "
+                                "MessageId in the Dbus signal message. Found "
+                                + std::to_string(
+                                    additional.count("REDFISH_MESSAGE_ID"))
+                                + ".";
+                            return;
+                        }
+                    }
+                    else
+                    {
+                        BMCWEB_LOG_ERROR << "Invalid type of AdditionalData "
+                            "property.";
+                        return;
+                    }
+                }
+                else if (key == "Id")
+                {
+                    const uint32_t *idPtr;
+
+                    idPtr = std::get_if<uint32_t>(&val);
+                    if (idPtr != nullptr)
+                    {
+                        eventId = std::to_string(*idPtr);
+                    }
+                    else
+                    {
+                        BMCWEB_LOG_ERROR << "Invalid type of ID property.";
+                        return;
+                    }
+                }
+                else if (key == "Severity")
+                {
+                    const std::string *severityPtr;
+
+                    severityPtr = std::get_if<std::string>(&val);
+                    if (severityPtr != nullptr)
+                    {
+                        severity = std::move(*severityPtr);
+                    }
+                    else
+                    {
+                        BMCWEB_LOG_ERROR << "Invalid type of Severity property.";
+                        return;
+                    }
+                }
+                else if (key == "Timestamp")
+                {
+                    const uint64_t *timestampPtr;
+
+                    timestampPtr = std::get_if<uint64_t>(&val);
+                    if (timestampPtr != nullptr)
+                    {
+                        timestamp = std::move(crow::utility::getDateTime(
+                            crow::utility::getTimestamp(*timestampPtr)));
+                    }
+                    else
+                    {
+                        BMCWEB_LOG_ERROR << "Invalid type of Timestamp "
+                            "property.";
+                        return;
+                    }
+                }
+                else {
+                    continue;
+                }
+            }
+            
+            if (messageId == "")
+            {
+                BMCWEB_LOG_ERROR << "Invalid Dbus log entry.";
+                return;
+            }
+            else
+            {
+                Event event(messageId);
+
+                event.eventId = eventId;
+                event.messageSeverity =
+                    translateSeverityDbusToRedfish(severity);
+                event.eventTimestamp = timestamp;
+                event.setRegistryMsg(messageArgs);
+                event.messageArgs = messageArgs;
+                sendEvent(event);
+            }
+        };
+
+        matchDbusLogging = std::make_shared<sdbusplus::bus::match::match>(
+            *crow::connections::systemBus, matchStr, signalHandler
+        );
+    }
+#endif
+
     bool validateAndSplitUrl(const std::string& destUrl, std::string& urlProto,
                              std::string& host, std::string& port,
                              std::string& path)
@@ -1392,9 +1901,6 @@ class EventServiceManager
         // Validate URL using regex expression
         // Format: <protocol>://<host>:<port>/<path>
         // protocol: http/https
-        const std::regex urlRegex(
-            "(http|https)://([^/\\x20\\x3f\\x23\\x3a]+):?([0-9]*)(/"
-            "([^\\x20\\x23\\x3f]*\\x3f?([^\\x20\\x23\\x3f])*)?)");
         std::cmatch match;
         if (!std::regex_match(destUrl.c_str(), match, urlRegex))
         {

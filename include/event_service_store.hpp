@@ -22,6 +22,9 @@ struct UserSubscription
     std::vector<std::string> resourceTypes;
     boost::beast::http::fields httpHeaders;
     std::vector<std::string> metricReportDefinitions;
+    std::vector<std::string> originResources;
+    bool subordinateResources = false;
+    bool includeOriginOfCondition = true;
 
     static std::shared_ptr<UserSubscription>
         fromJson(const nlohmann::json& j, const bool loadFromOldConfig = false)
@@ -172,6 +175,40 @@ struct UserSubscription
                     subvalue->metricReportDefinitions.emplace_back(*value);
                 }
             }
+            else if (element.key() == "OriginResources")
+            {
+                const auto& obj = element.value();
+                for (const auto& val : obj.items())
+                {
+                    const std::string* value =
+                        val.value().get_ptr<const std::string*>();
+                    if (value == nullptr)
+                    {
+                        continue;
+                    }
+                    subvalue->originResources.emplace_back(*value);
+                }
+            }
+            else if (element.key() == "SubordinateResources")
+            {
+                const bool* value =
+                    element.value().get_ptr<const bool*>();
+                if (value == nullptr)
+                {
+                    continue;
+                }
+                subvalue->subordinateResources = *value;
+            }
+            else if (element.key() == "IncludeOriginOfCondition")
+            {
+                const bool* value =
+                    element.value().get_ptr<const bool*>();
+                if (value == nullptr)
+                {
+                    continue;
+                }
+                subvalue->includeOriginOfCondition = *value;
+            }
             else
             {
                 BMCWEB_LOG_ERROR
@@ -193,6 +230,39 @@ struct UserSubscription
         }
 
         return subvalue;
+    }
+
+    nlohmann::json toJson()
+    {
+        nlohmann::json::object_t headers;
+        for (const boost::beast::http::fields::value_type& header :
+                this->httpHeaders)
+        {
+            // Note, these are technically copies because nlohmann doesn't
+            // support key lookup by std::string_view.  At least the
+            // following code can use move
+            // https://github.com/nlohmann/json/issues/1529
+            std::string name(header.name_string());
+            headers[std::move(name)] = header.value();
+        }
+
+        return nlohmann::json::object_t({
+            {"Id", this->id},
+            {"Context", this->customText},
+            {"DeliveryRetryPolicy", this->retryPolicy},
+            {"Destination", this->destinationUrl},
+            {"EventFormatType", this->eventFormatType},
+            {"HttpHeaders", std::move(headers)},
+            {"MessageIds", this->registryMsgIds},
+            {"Protocol", this->protocol},
+            {"RegistryPrefixes", this->registryPrefixes},
+            {"ResourceTypes", this->resourceTypes},
+            {"SubscriptionType", this->subscriptionType},
+            {"MetricReportDefinitions", this->metricReportDefinitions},
+            {"OriginResources", this->originResources},
+            {"SubordinateResources", this->subordinateResources},
+            {"IncludeOriginOfCondition", this->includeOriginOfCondition}
+        });
     }
 };
 
