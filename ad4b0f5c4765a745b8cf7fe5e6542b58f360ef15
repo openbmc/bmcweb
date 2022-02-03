@@ -16,6 +16,24 @@
       "message": "Feels like we are working around something that should be fixed there..",
       "revId": "ad4b0f5c4765a745b8cf7fe5e6542b58f360ef15",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "26ad4db1_cfbd319d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-02-03T22:13:57Z",
+      "side": 1,
+      "message": "I did dig into it for a couple hours, and couldn\u0027t determine why it\u0027s returning this for qemu.  In terms of behavior, I still think this is better, even if it\u0027s non ideal.  Returning an invalid redfish schema on a failure isn\u0027t very user-friendly.  If we figure out a correct fix for this, or if you have any ideas on how to fix this, this branch is pretty easy to remove.\n\nI\u0027m pretty sure this is something to do with systemd having efi include some \"randomness\" from EFI variables and qemu not having a fully compliant EFI bios is causing some weirdness that needs better systemd behavior.\n\nI don\u0027t think this can effect most \"real\" bmcs, so it doesn\u0027t seem worth it to spend a ton more time on, but I\u0027m open if you think we really should spend more time on it.",
+      "parentUuid": "e5902b0e_e4b94d94",
+      "revId": "ad4b0f5c4765a745b8cf7fe5e6542b58f360ef15",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
