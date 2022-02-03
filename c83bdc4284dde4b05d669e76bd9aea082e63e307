@@ -45,6 +45,29 @@
       },
       "revId": "c83bdc4284dde4b05d669e76bd9aea082e63e307",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cacdf842_15c833c1",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-02-03T17:05:44Z",
+      "side": 1,
+      "message": "Per crud semantics, if we HAD accepted the above PATCH payload, this should be returning NTPServers: [\"1.1.1.1\", \"\"], which again, is incorrect, and we shouldn\u0027t accept as valid input.",
+      "range": {
+        "startLine": 25,
+        "startChar": 0,
+        "endLine": 27,
+        "endChar": 5
+      },
+      "revId": "c83bdc4284dde4b05d669e76bd9aea082e63e307",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
