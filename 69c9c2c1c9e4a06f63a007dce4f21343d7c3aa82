@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9ce82a77_98fc1c2b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-02-03T20:52:19Z",
+      "side": 1,
+      "message": "The whole point of this was to make sure that these binary files were not directly downloadable by browsers, as it can lead to injection attacks (ie, if I hide a windows EXE in a log payload) and have the user execute this.\n\nThis is not to say that this patchset as written is doing the wrong thing, it just seems like it\u0027s trying to bypass that explicit design decision on this API, which makes me wonder if we implemented it wrong in the first place if a browser can even download these to a file.",
+      "range": {
+        "startLine": 17,
+        "startChar": 27,
+        "endLine": 17,
+        "endChar": 34
+      },
+      "revId": "69c9c2c1c9e4a06f63a007dce4f21343d7c3aa82",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a37086e0_d4390b8e",
+        "filename": "include/http_utility.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-02-03T20:52:19Z",
+      "side": 1,
+      "message": "if we use string view here we avoid a copy when we do the substr below (I think)?",
+      "range": {
+        "startLine": 37,
+        "startChar": 9,
+        "endLine": 37,
+        "endChar": 20
+      },
+      "revId": "69c9c2c1c9e4a06f63a007dce4f21343d7c3aa82",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1563b9be_d9f172fb",
+        "filename": "include/http_utility.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-02-03T20:52:19Z",
+      "side": 1,
+      "message": "Was about to comment this on the last patchset, but you already found it.",
+      "range": {
+        "startLine": 41,
+        "startChar": 0,
+        "endLine": 41,
+        "endChar": 43
+      },
+      "revId": "69c9c2c1c9e4a06f63a007dce4f21343d7c3aa82",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
