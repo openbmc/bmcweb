@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "aba321d6_f16718a0",
+        "filename": "redfish-core/include/registries/openbmc_message_registry.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1012,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-02-03T21:36:23Z",
+      "side": 1,
+      "message": "+1. All other memory messages spell out memory. E.g. MemoryParityNotKnown",
+      "parentUuid": "e491ea64_f2210f08",
+      "revId": "27007dcd3d8da0cdce773303d216134542f98f23",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b611107d_9d458e21",
         "filename": "redfish-core/include/registries/openbmc_message_registry.hpp",
         "patchSetId": 1
