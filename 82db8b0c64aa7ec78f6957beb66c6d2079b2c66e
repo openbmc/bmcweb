@@ -1,6 +1,29 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "07c77902_703eb589",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 24
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-02-03T20:07:50Z",
+      "side": 1,
+      "message": "Redfish service validator?",
+      "range": {
+        "startLine": 26,
+        "startChar": 0,
+        "endLine": 26,
+        "endChar": 6
+      },
+      "revId": "82db8b0c64aa7ec78f6957beb66c6d2079b2c66e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "cb16a775_48957409",
@@ -14,6 +37,253 @@
       "writtenOn": "2022-01-07T23:20:11Z",
       "side": 1,
       "message": "On the question of setting up Association in an Entity-Manager-based system:\n\nAccording to discussion on Discord, one solution is to add a BMC to a board .JSON file:\n\nstwcx — 12/30/2021\nI suppose that entirely depends on how you lay out your system data.  If the BMC is on the mainboard, then I would expect it to be in the board JSON.  If the BMC is on a card (such as a DC-SCM) I would expect the card to have its own EEPROM and you should define a JSON for that card.\n\nAlatar — 01/05/2022\nIs it work with adding \"xyz.openbmc_project.Invntory.Item.Bmc\" interface to board object? If this solves your issue, the it\u0027s fine without separate object.\n\nWith the above method (BMC in board JSON), the Board DBus object will have the BMC interface, as follows (Probe set to \"TRUE\" for testing in QEMU):\n\n  {\n    \"Name\": \"SUPER_BOARD\",\n    \"Probe\": \"TRUE\",\n    \"Type\": \"Board\",\n    \"xyz.openbmc_project.Inventory.Item.Bmc\": {},\n    \"xyz.openbmc_project.Inventory.Decorator.Asset\": {},\n    \"xyz.openbmc_project.Inventory.Connector.Slot\": {},\n    ...\n  }\n\nWhen picked up by Entity-Manager, the following object is created:\n\n  # busctl introspect xyz.openbmc_project.EntityManager /xyz/openbmc_project/inventory/system/board/SUPER_BOARD\n\n  xyz.openbmc_project.Inventory.Connector.Slot      interface -         -            -\n  xyz.openbmc_project.Inventory.Decorator.Asset     interface -         -            -\n  xyz.openbmc_project.Inventory.Decorator.FruDevice interface -         -            -\n  xyz.openbmc_project.Inventory.Decorator.Ipmi      interface -         -            -\n  xyz.openbmc_project.Inventory.Item.Bmc            interface -         -            -\n  xyz.openbmc_project.Inventory.Item.Board          interface -         -            -\n\nThis allows phosphor-health-monitor to create Associations which will be used by this change to find the utilization sensors. From the perspective of one utilization sensor:\n\n  # busctl get-property xyz.openbmc_project.HealthMon /xyz/openbmc_project/sensors/utilization/CPU_Kernel xyz.openbmc_project.Association.Definitions Associations\n  a(sss) 1 \"bmc\" \"bmc_diagnostic_data\" \"/xyz/openbmc_project/inventory/system/board/SUPER_BOARD\"\n\nFrom the perspective of the Board (this is the output of \"step 3\" in this change)\n\n  # busctl get-property xyz.openbmc_project.ObjectMapper /xyz/openbmc_project/inventory/system/board/SUPER_BOARD/bmc_diagnostic_data xyz.openbmc_project.Association endpoints\nas 19 \"/xyz/openbmc_project/sensors/utilization/CPU\" \"/xyz/openbmc_project/sensors/utilization/CPU_Kernel\" \"/xyz/openbmc_project/sensors/utilization/CPU_User\" \n\"/xyz/openbmc_project/sensors/utilization/Storage_RW\" ... \"/xyz/openbmc_project/i2cstats/i2c_14\"\n\n\nThis change can work with both the setup mentioned above (BMC inventory interfaces and Board/Chassis interfaces in a same DBus object.) or having the BMC as a separate .json config file.",
+      "revId": "82db8b0c64aa7ec78f6957beb66c6d2079b2c66e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f8466328_44c837ae",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 24
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-02-03T20:07:50Z",
+      "side": 1,
+      "message": "Looking a lot closer.  Still needs things mapped.",
+      "revId": "82db8b0c64aa7ec78f6957beb66c6d2079b2c66e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3e08fe55_48c25ecd",
+        "filename": "redfish-core/lib/manager_diagnostic_data.hpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-02-03T20:07:50Z",
+      "side": 1,
+      "message": "Please use the common variant types for these.  Don\u0027t invent your own.",
+      "range": {
+        "startLine": 12,
+        "startChar": 0,
+        "endLine": 25,
+        "endChar": 0
+      },
+      "revId": "82db8b0c64aa7ec78f6957beb66c6d2079b2c66e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "77f603dc_dc790d87",
+        "filename": "redfish-core/lib/manager_diagnostic_data.hpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-02-03T20:07:50Z",
+      "side": 1,
+      "message": "Please don\u0027t forward declare methods in an implementation file.  It implies that code needs to be moved around to be more organized, although in this case I suspect that they can just be removed.\n\nAlso, no need to call out \"step 1, 2\", ect.  They have no context in the code.",
+      "range": {
+        "startLine": 26,
+        "startChar": 0,
+        "endLine": 34,
+        "endChar": 0
+      },
+      "revId": "82db8b0c64aa7ec78f6957beb66c6d2079b2c66e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "97b55047_e48ea659",
+        "filename": "redfish-core/lib/manager_diagnostic_data.hpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-02-03T20:07:50Z",
+      "side": 1,
+      "message": "Can we assume this?  I don\u0027t think we can given that systems like yosemite exist, that have multiple bmcs.",
+      "range": {
+        "startLine": 64,
+        "startChar": 0,
+        "endLine": 64,
+        "endChar": 37
+      },
+      "revId": "82db8b0c64aa7ec78f6957beb66c6d2079b2c66e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "da640cda_26c7e994",
+        "filename": "redfish-core/lib/manager_diagnostic_data.hpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 249,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-02-03T20:07:50Z",
+      "side": 1,
+      "message": "Not clear what this means.",
+      "range": {
+        "startLine": 249,
+        "startChar": 44,
+        "endLine": 249,
+        "endChar": 57
+      },
+      "revId": "82db8b0c64aa7ec78f6957beb66c6d2079b2c66e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "39f2e31f_17e176c0",
+        "filename": "redfish-core/lib/manager_diagnostic_data.hpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 255,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-02-03T20:07:50Z",
+      "side": 1,
+      "message": "Common error #12.  Please read and understand COMMON_ERRORS.md",
+      "range": {
+        "startLine": 255,
+        "startChar": 0,
+        "endLine": 255,
+        "endChar": 74
+      },
+      "revId": "82db8b0c64aa7ec78f6957beb66c6d2079b2c66e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a4ac6735_015f7d93",
+        "filename": "redfish-core/lib/manager_diagnostic_data.hpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 257,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-02-03T20:07:50Z",
+      "side": 1,
+      "message": "this flow can be greatly simplified, considering there is no else case on the branch below, this variable doesn\u0027t seem like it\u0027s needed at all.",
+      "range": {
+        "startLine": 257,
+        "startChar": 0,
+        "endLine": 257,
+        "endChar": 34
+      },
+      "revId": "82db8b0c64aa7ec78f6957beb66c6d2079b2c66e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cfe7a2a9_b8332173",
+        "filename": "redfish-core/lib/manager_diagnostic_data.hpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 275,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-02-03T20:07:50Z",
+      "side": 1,
+      "message": "This was pointed out in previous patches.  This is relying on a specific named resource, which we can\u0027t gaurantee.  This is also an instance of common error 12.",
+      "range": {
+        "startLine": 274,
+        "startChar": 0,
+        "endLine": 275,
+        "endChar": 59
+      },
+      "revId": "82db8b0c64aa7ec78f6957beb66c6d2079b2c66e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "59a23472_bccb3b68",
+        "filename": "redfish-core/lib/manager_diagnostic_data.hpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 280,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-02-03T20:07:50Z",
+      "side": 1,
+      "message": "Same as above. This is common error 12, and this specific API is called out by name.",
+      "range": {
+        "startLine": 280,
+        "startChar": 40,
+        "endLine": 280,
+        "endChar": 49
+      },
+      "revId": "82db8b0c64aa7ec78f6957beb66c6d2079b2c66e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a5dd47eb_33c5d7d3",
+        "filename": "redfish-core/lib/manager_diagnostic_data.hpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 301,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-02-03T20:07:50Z",
+      "side": 1,
+      "message": "I thought in the current proposal these were autoexpand?",
+      "range": {
+        "startLine": 301,
+        "startChar": 48,
+        "endLine": 301,
+        "endChar": 69
+      },
+      "revId": "82db8b0c64aa7ec78f6957beb66c6d2079b2c66e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "973ad7cb_b6ecd579",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-02-03T20:07:50Z",
+      "side": 1,
+      "message": "?  This looks like a mistake, and is the only edit in this file?",
+      "range": {
+        "startLine": 38,
+        "startChar": 0,
+        "endLine": 42,
+        "endChar": 3
+      },
       "revId": "82db8b0c64aa7ec78f6957beb66c6d2079b2c66e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
