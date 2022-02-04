@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  LogEntry v1.10.0                                                    -->
+<!--# Redfish Schema:  LogEntry v1.11.0                                                    -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -1196,9 +1196,15 @@
         <Property Name="Resolution" Type="Edm.String" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="Used to provide suggestions on how to resolve the situation that caused the log entry."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the resolution of the log entry.  Services can replace the resolution defined in the message registry with a more specific resolution in a log entry."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the resolution of the log entry.  Services should replace the resolution defined in the message registry with a more specific resolution in a log entry."/>
         </Property>
       </EntityType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="LogEntry.v1_9_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update description for Resolution to recommend that an appropriate resolution is used."/>
+      <EntityType Name="LogEntry" BaseType="LogEntry.v1_9_0.LogEntry"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="LogEntry.v1_10_0">
@@ -1207,6 +1213,42 @@
       <Annotation Term="OData.Description" String="This version was created add `CPER` and `CPERSection` to LogDiagnosticDataTypes."/>
 
       <EntityType Name="LogEntry" BaseType="LogEntry.v1_9_0.LogEntry"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="LogEntry.v1_10_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update description for Resolution to recommend that an appropriate resolution is used."/>
+      <EntityType Name="LogEntry" BaseType="LogEntry.v1_10_0.LogEntry"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="LogEntry.v1_11_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2021.4"/>
+
+      <EntityType Name="LogEntry" BaseType="LogEntry.v1_10_1.LogEntry">
+        <Property Name="Originator" Type="Edm.String" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The source of the log entry."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the source of the log entry."/>
+        </Property>
+        <Property Name="OriginatorType" Type="LogEntry.v1_11_0.OriginatorTypes" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The type of originator data."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the type of originator data."/>
+        </Property>
+      </EntityType>
+
+      <EnumType Name="OriginatorTypes">
+        <Member Name="Client">
+          <Annotation Term="OData.Description" String="A client of the service created this log entry."/>
+        </Member>
+        <Member Name="Internal">
+          <Annotation Term="OData.Description" String="A process running on the service created this log entry."/>
+        </Member>
+        <Member Name="SupportingService">
+          <Annotation Term="OData.Description" String="A process not running on the service but running on a supporting service, such as RDE implementations, UEFI, or host processes, created this log entry."/>
+        </Member>
+      </EnumType>
     </Schema>
 
   </edmx:DataServices>

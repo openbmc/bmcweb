@@ -1,5 +1,5 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/ServiceRoot.v1_12_0.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/ServiceRoot.v1_13_0.json",
     "$ref": "#/definitions/ServiceRoot",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
     "copyright": "Copyright 2014-2021 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
@@ -270,6 +270,13 @@
                     "longDescription": "This property shall contain a link to a Resource Collection of type ChassisCollection.",
                     "readonly": true
                 },
+                "ComponentIntegrity": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/ComponentIntegrityCollection.json#/definitions/ComponentIntegrityCollection",
+                    "description": "The link to a collection of component integrity information.",
+                    "longDescription": "This property shall contain a link to a resource collection of type ComponentIntegrityCollection.",
+                    "readonly": true,
+                    "versionAdded": "v1_13_0"
+                },
                 "CompositionService": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/CompositionService.json#/definitions/CompositionService",
                     "description": "The link to the Composition Service.",
@@ -396,6 +403,13 @@
                     "readonly": true,
                     "type": "string"
                 },
+                "RegisteredClients": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/RegisteredClientCollection.json#/definitions/RegisteredClientCollection",
+                    "description": "The link to a collection of registered clients.",
+                    "longDescription": "This property shall contain a link to a resource collection of type RegisteredClientCollection.",
+                    "readonly": true,
+                    "versionAdded": "v1_13_0"
+                },
                 "Registries": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/MessageRegistryFileCollection.json#/definitions/MessageRegistryFileCollection",
                     "description": "The link to a collection of Registries.",
@@ -408,6 +422,13 @@
                     "longDescription": "This property shall contain a link to a Resource Collection of type ResourceBlockCollection.",
                     "readonly": true,
                     "versionAdded": "v1_5_0"
+                },
+                "ServiceConditions": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/ServiceConditions.json#/definitions/ServiceConditions",
+                    "description": "The link to the service conditions.",
+                    "longDescription": "This property shall contain a link to a resource of type ServiceConditions.",
+                    "readonly": true,
+                    "versionAdded": "v1_13_0"
                 },
                 "SessionService": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/SessionService.json#/definitions/SessionService",
@@ -497,6 +518,6 @@
         }
     },
     "owningEntity": "DMTF",
-    "release": "2021.3",
-    "title": "#ServiceRoot.v1_12_0.ServiceRoot"
+    "release": "2021.4",
+    "title": "#ServiceRoot.v1_13_0.ServiceRoot"
 }

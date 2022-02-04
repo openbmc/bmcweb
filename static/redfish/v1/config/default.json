@@ -1,0 +1,23 @@
+{
+  "Redfish": {
+    "CSDLDirectory": "schema",
+    "AdditionalSchemaDirs": [
+      "./mockups/public-oem-examples/Contoso.com"
+    ],
+    "CSDLFilePath": "{schema,mockups}/**/*.xml",
+    "MockupFilePath": "{mockups,registries}/**/*.json",
+    "JsonSchemaFilePath": "json-schema/**/*.json",
+    "ExternalOwnedSchemas": [
+      "Volume_v1.xml"
+    ],
+    "OpenAPIFilePath": "openapi/**/*.yaml",
+    "ExtraPluralAllowed": [
+      "PCIeErrors"
+    ],
+    "BypassVersionCheck": true,
+    "TableNumberingDocs": [
+      "Specification.md"
+    ],
+    "CopyrightStr": "Copyright 2014-2021 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright."
+  }
+}

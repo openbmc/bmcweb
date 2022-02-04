@@ -1,5 +1,5 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/Sensor.v1_4_0.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/Sensor.v1_5_0.json",
     "$ref": "#/definitions/Sensor",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
     "copyright": "Copyright 2014-2021 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
@@ -121,58 +121,66 @@
                 "Current",
                 "Frequency",
                 "Pressure",
+                "PressurekPa",
                 "LiquidLevel",
                 "Rotational",
                 "AirFlow",
                 "LiquidFlow",
                 "Barometric",
                 "Altitude",
-                "Percent"
+                "Percent",
+                "AbsoluteHumidity"
             ],
             "enumDescriptions": {
-                "AirFlow": "Airflow.",
-                "Altitude": "Altitude.",
-                "Barometric": "Barometric pressure.",
+                "AbsoluteHumidity": "Absolute humidity (g/cu m).",
+                "AirFlow": "Airflow (cu ft/min).",
+                "Altitude": "Altitude (m).",
+                "Barometric": "Barometric pressure (mm).",
                 "ChargeAh": "Charge (Ah).",
-                "Current": "Current.",
-                "EnergyJoules": "Energy (Joules).",
+                "Current": "Current (A).",
+                "EnergyJoules": "Energy (J).",
                 "EnergyWh": "Energy (Wh).",
                 "EnergykWh": "Energy (kWh).",
-                "Frequency": "Frequency.",
-                "Humidity": "Relative Humidity.",
-                "LiquidFlow": "Liquid flow.",
-                "LiquidLevel": "Liquid level.",
-                "Percent": "Percent.",
-                "Power": "Power.",
-                "Pressure": "Pressure.",
-                "Rotational": "Rotational.",
-                "Temperature": "Temperature.",
-                "Voltage": "Voltage (AC or DC)."
+                "Frequency": "Frequency (Hz).",
+                "Humidity": "Relative humidity (percent).",
+                "LiquidFlow": "Liquid flow (L/s).",
+                "LiquidLevel": "Liquid level (cm).",
+                "Percent": "Percent (%).",
+                "Power": "Power (W).",
+                "Pressure": "Pressure (Pa).",
+                "PressurekPa": "Pressure (kPa).",
+                "Rotational": "Rotational (RPM).",
+                "Temperature": "Temperature (C).",
+                "Voltage": "Voltage (VAC or VDC)."
             },
             "enumLongDescriptions": {
-                "AirFlow": "This value shall indicate a measurement of a volume of gas per unit of time that flows through a particular junction.  The ReadingUnits shall be `cft_i/min`.",
-                "Altitude": "This value shall indicate a measurement of altitude, in meter units, and the ReadingUnits value shall be `m`.",
-                "Barometric": "This value shall indicate a measurement of barometric pressure, in millimeters, of a mercury column, and the ReadingUnits value shall be `mm[Hg]`.",
-                "ChargeAh": "This value shall indicate the amount of charge of the monitored item.  If representing metered power consumption,  integral of real power over time, the value shall reflect the power consumption since the sensor metrics were last reset.  The value of the Reading property shall be in amp-hour units and the ReadingUnits value shall be `A.h`.",
-                "Current": "This value shall indicate a measurement of the root mean square (RMS) of instantaneous current calculated over an integer number of line cycles for a circuit.  Current is expressed in Amperes units and the ReadingUnits value shall be `A`.",
-                "EnergyJoules": "This value shall indicate the energy, integral of real power over time, of the monitored item.  If representing metered power consumption the value shall reflect the power consumption since the sensor metrics were last reset.  The value of the Reading property shall be in Joule units and the ReadingUnits value shall be `J`.  This value is used for device-level energy consumption measurements, while EnergykWh is used for large-scale consumption measurements.",
+                "AbsoluteHumidity": "This value shall indicate an absolute (volumetric) humidity measurement, in grams per cubic meter units, and the ReadingUnits value shall be `g/m3`.",
+                "AirFlow": "This value shall indicate a measurement of a volume of gas per unit of time, in cubic feet per minute units, that flows through a particular junction.  The ReadingUnits shall be `[ft_i]3/min`.",
+                "Altitude": "This value shall indicate a measurement of altitude, in meter units, defined as the elevation above sea level.  The ReadingUnits value shall be `m`.",
+                "Barometric": "This value shall indicate a measurement of barometric pressure, in millimeters of a mercury column, and the ReadingUnits value shall be `mm[Hg]`.",
+                "ChargeAh": "This value shall indicate the amount of charge of the monitored item.  If representing metered power consumption,  integral of real power over time, the value shall reflect the power consumption since the sensor metrics were last reset.  The value of the Reading property shall be in ampere-hour units and the ReadingUnits value shall be `A.h`.",
+                "Current": "This value shall indicate a measurement of the root mean square (RMS) of instantaneous current calculated over an integer number of line cycles for a circuit.  Current is expressed in ampere units and the ReadingUnits value shall be `A`.",
+                "EnergyJoules": "This value shall indicate the energy, integral of real power over time, of the monitored item.  If representing metered power consumption the value shall reflect the power consumption since the sensor metrics were last reset.  The value of the Reading property shall be in joule units and the ReadingUnits value shall be `J`.  This value is used for device-level energy consumption measurements, while EnergykWh is used for large-scale consumption measurements.",
                 "EnergyWh": "This value shall indicate the energy, integral of real power over time, of the monitored item.  If representing metered power consumption the value shall reflect the power consumption since the sensor metrics were last reset.  The value of the Reading property shall be in watt-hour units and the ReadingUnits value shall be `W.h`.  This value is used for device-level energy consumption measurements, while EnergykWh is used for large-scale consumption measurements.",
                 "EnergykWh": "This value shall indicate the energy, integral of real power over time, of the monitored item.  If representing metered power consumption the value shall reflect the power consumption since the sensor metrics were last reset.  The value of the Reading property shall be in kilowatt-hour units and the ReadingUnits value shall be `kW.h`.  This value is used for large-scale energy consumption measurements, while EnergyJoules and EnergyWh are used for device-level consumption measurements.",
-                "Frequency": "This value shall indicate a frequency measurement, in Hertz units, and the ReadingUnits value shall be `Hz`.",
+                "Frequency": "This value shall indicate a frequency measurement, in hertz units, and the ReadingUnits value shall be `Hz`.",
                 "Humidity": "This value shall indicate a relative humidity measurement, in percent units, and the ReadingUnits value shall be '%'.",
-                "LiquidFlow": "This value shall indicate a measurement of a volume of liquid per unit of time that flows through a particular junction.  The ReadingUnits shall be `L/s`.",
-                "LiquidLevel": "This value shall indicate a measurement of fluid height relative to a specified vertical datum and the ReadingUnits value shall be `cm`.",
+                "LiquidFlow": "This value shall indicate a measurement of a volume of liquid per unit of time, in liters per second units, that flows through a particular junction.  The ReadingUnits shall be `L/s`.",
+                "LiquidLevel": "This value shall indicate a measurement of fluid height, in centimeter units, relative to a specified vertical datum and the ReadingUnits value shall be `cm`.",
                 "Percent": "This value shall indicate a percentage measurement, in percent units, and the ReadingUnits value shall be `%`.",
-                "Power": "This value shall indicate the arithmetic mean of product terms of instantaneous voltage and current values measured over integer number of line cycles for a circuit, in Watt units, and the ReadingUnits value shall be 'W'.",
-                "Pressure": "This value shall indicate a measurement of force applied perpendicular to the surface of an object per unit area over which that force is distributed.  The ReadingUnits shall be `Pa`.",
-                "Rotational": "This value shall indicate a measurement of rotational frequency, in revolutions per minute unit, and the ReadingUnits value shall be `RPM`.",
+                "Power": "This value shall indicate the arithmetic mean of product terms of instantaneous voltage and current values measured over integer number of line cycles for a circuit, in watt units, and the ReadingUnits value shall be 'W'.",
+                "Pressure": "This value shall indicate a measurement of force, in pascal units, applied perpendicular to the surface of an object per unit area over which that force is distributed.  The ReadingUnits shall be `Pa`.",
+                "PressurekPa": "This value shall indicate a measurement of pressure, in kilopascal units, relative to atmospheric pressure.  The ReadingUnits value shall be `kPa`.",
+                "Rotational": "This value shall indicate a measurement of rotational frequency, in revolutions per minute unit, and the ReadingUnits value shall be either `{rev}/min`, which is preferred, or `RPM`, which is a deprecated value.",
                 "Temperature": "This value shall indicate a temperature measurement, in degrees Celsius units, and the ReadingUnits value shall be 'Cel'.",
-                "Voltage": "This value shall indicate a measurement of the root mean square (RMS) of instantaneous voltage calculated over an integer number of line cycles for a circuit.  Voltage is expressed in Volts units and the ReadingUnits value shall be `V`."
+                "Voltage": "This value shall indicate a measurement of the root mean square (RMS) of instantaneous voltage calculated over an integer number of line cycles for a circuit.  Voltage is expressed in volt units and the ReadingUnits value shall be `V`."
             },
             "enumVersionAdded": {
+                "AbsoluteHumidity": "v1_5_0",
                 "ChargeAh": "v1_4_0",
                 "EnergyWh": "v1_4_0",
-                "Percent": "v1_1_0"
+                "Percent": "v1_1_0",
+                "PressurekPa": "v1_5_0"
             },
             "type": "string"
         },
@@ -273,7 +281,7 @@
                     ]
                 },
                 "ApparentVA": {
-                    "description": "The product of voltage and current for an AC circuit, in Volt-Ampere units.",
+                    "description": "The product of voltage and current for an AC circuit, in volt-ampere units.",
                     "excerpt": "SensorPower,SensorPowerArray",
                     "longDescription": "This property shall contain the product of voltage (RMS) multiplied by current (RMS) for a circuit.  This property can appear in sensors of the Power ReadingType, and shall not appear in sensors of other ReadingType values.",
                     "readonly": true,
@@ -282,6 +290,18 @@
                         "null"
                     ],
                     "units": "V.A"
+                },
+                "ApparentkVAh": {
+                    "description": "Apparent energy (kVAh).",
+                    "excerpt": "SensorEnergykWh",
+                    "longDescription": "This property shall contain the apparent energy, in kilovolt-ampere-hour units, for an electrical energy measurement.  This property can appear in sensors with a ReadingType containing `EnergykWh`, and shall not appear in sensors with other ReadingType values.",
+                    "readonly": true,
+                    "type": [
+                        "number",
+                        "null"
+                    ],
+                    "units": "kV.A.h",
+                    "versionAdded": "v1_5_0"
                 },
                 "AverageReading": {
                     "description": "The average sensor value.",
@@ -489,6 +509,19 @@
                         "null"
                     ]
                 },
+                "PhaseAngleDegrees": {
+                    "description": "The phase angle (degrees) between the current and voltage waveforms.",
+                    "excerpt": "SensorPower,SensorPowerArray",
+                    "longDescription": "This property shall contain the phase angle, in degree units, between the current and voltage waveforms for an electrical measurement.  This property can appear in sensors with a ReadingType containing `Power`, and shall not appear in sensors with other ReadingType values.",
+                    "maximum": 90,
+                    "minimum": -90,
+                    "readonly": true,
+                    "type": [
+                        "number",
+                        "null"
+                    ],
+                    "versionAdded": "v1_5_0"
+                },
                 "PhysicalContext": {
                     "anyOf": [
                         {
@@ -520,9 +553,9 @@
                 "PowerFactor": {
                     "description": "The power factor for this sensor.",
                     "excerpt": "SensorPower,SensorPowerArray",
-                    "longDescription": "This property shall identify the quotient of real power (W) and apparent power (VA) for a circuit.  PowerFactor is expressed in unit-less 1/100ths.  This property can appear in sensors of the Power ReadingType, and shall not appear in sensors of other ReadingType values.",
+                    "longDescription": "This property shall identify the quotient of real power (W) and apparent power (VA) for a circuit.  PowerFactor is expressed in unit-less 1/100ths.  This property can appear in sensors containing a ReadingType value of `Power`, and shall not appear in sensors of other ReadingType values.",
                     "maximum": 1,
-                    "minimum": 0,
+                    "minimum": -1,
                     "readonly": true,
                     "type": [
                         "number",
@@ -548,6 +581,18 @@
                         "null"
                     ],
                     "units": "V.A"
+                },
+                "ReactivekVARh": {
+                    "description": "Reactive energy (kVARh).",
+                    "excerpt": "SensorEnergykWh",
+                    "longDescription": "This property shall contain the reactive energy, in kilovolt-ampere-hours (reactive) units, for an electrical energy measurement.  This property can appear in sensors with a ReadingType containing `EnergykWh`, and shall not appear in sensors with other ReadingType values.",
+                    "readonly": true,
+                    "type": [
+                        "number",
+                        "null"
+                    ],
+                    "units": "kV.A.h",
+                    "versionAdded": "v1_5_0"
                 },
                 "Reading": {
                     "description": "The sensor value.",
@@ -671,7 +716,7 @@
                         "number",
                         "null"
                     ],
-                    "units": "RPM",
+                    "units": "{rev}/min",
                     "versionAdded": "v1_2_0"
                 },
                 "Status": {
@@ -887,6 +932,18 @@
                 }
             },
             "properties": {
+                "ApparentkVAh": {
+                    "description": "Apparent energy (kVAh).",
+                    "excerpt": "SensorEnergykWh",
+                    "longDescription": "This property shall contain the apparent energy, in kilovolt-ampere-hour units, for an electrical energy measurement.  This property can appear in sensors with a ReadingType containing `EnergykWh`, and shall not appear in sensors with other ReadingType values.",
+                    "readonly": true,
+                    "type": [
+                        "number",
+                        "null"
+                    ],
+                    "units": "kV.A.h",
+                    "versionAdded": "v1_5_0"
+                },
                 "DataSourceUri": {
                     "description": "The link to the resource that provides the data for this sensor.",
                     "excerptCopyOnly": true,
@@ -908,6 +965,18 @@
                         "null"
                     ],
                     "versionAdded": "v1_1_0"
+                },
+                "ReactivekVARh": {
+                    "description": "Reactive energy (kVARh).",
+                    "excerpt": "SensorEnergykWh",
+                    "longDescription": "This property shall contain the reactive energy, in kilovolt-ampere-hours (reactive) units, for an electrical energy measurement.  This property can appear in sensors with a ReadingType containing `EnergykWh`, and shall not appear in sensors with other ReadingType values.",
+                    "readonly": true,
+                    "type": [
+                        "number",
+                        "null"
+                    ],
+                    "units": "kV.A.h",
+                    "versionAdded": "v1_5_0"
                 },
                 "Reading": {
                     "description": "The sensor value.",
@@ -1067,7 +1136,7 @@
                         "number",
                         "null"
                     ],
-                    "units": "RPM",
+                    "units": "{rev}/min",
                     "versionAdded": "v1_2_0"
                 }
             },
@@ -1123,7 +1192,7 @@
                         "number",
                         "null"
                     ],
-                    "units": "RPM",
+                    "units": "{rev}/min",
                     "versionAdded": "v1_2_0"
                 }
             },
@@ -1150,7 +1219,7 @@
             },
             "properties": {
                 "ApparentVA": {
-                    "description": "The product of voltage and current for an AC circuit, in Volt-Ampere units.",
+                    "description": "The product of voltage and current for an AC circuit, in volt-ampere units.",
                     "excerpt": "SensorPower,SensorPowerArray",
                     "longDescription": "This property shall contain the product of voltage (RMS) multiplied by current (RMS) for a circuit.  This property can appear in sensors of the Power ReadingType, and shall not appear in sensors of other ReadingType values.",
                     "readonly": true,
@@ -1170,6 +1239,19 @@
                         "string",
                         "null"
                     ]
+                },
+                "PhaseAngleDegrees": {
+                    "description": "The phase angle (degrees) between the current and voltage waveforms.",
+                    "excerpt": "SensorPower,SensorPowerArray",
+                    "longDescription": "This property shall contain the phase angle, in degree units, between the current and voltage waveforms for an electrical measurement.  This property can appear in sensors with a ReadingType containing `Power`, and shall not appear in sensors with other ReadingType values.",
+                    "maximum": 90,
+                    "minimum": -90,
+                    "readonly": true,
+                    "type": [
+                        "number",
+                        "null"
+                    ],
+                    "versionAdded": "v1_5_0"
                 },
                 "PhysicalContext": {
                     "anyOf": [
@@ -1202,9 +1284,9 @@
                 "PowerFactor": {
                     "description": "The power factor for this sensor.",
                     "excerpt": "SensorPower,SensorPowerArray",
-                    "longDescription": "This property shall identify the quotient of real power (W) and apparent power (VA) for a circuit.  PowerFactor is expressed in unit-less 1/100ths.  This property can appear in sensors of the Power ReadingType, and shall not appear in sensors of other ReadingType values.",
+                    "longDescription": "This property shall identify the quotient of real power (W) and apparent power (VA) for a circuit.  PowerFactor is expressed in unit-less 1/100ths.  This property can appear in sensors containing a ReadingType value of `Power`, and shall not appear in sensors of other ReadingType values.",
                     "maximum": 1,
-                    "minimum": 0,
+                    "minimum": -1,
                     "readonly": true,
                     "type": [
                         "number",
@@ -1256,7 +1338,7 @@
             },
             "properties": {
                 "ApparentVA": {
-                    "description": "The product of voltage and current for an AC circuit, in Volt-Ampere units.",
+                    "description": "The product of voltage and current for an AC circuit, in volt-ampere units.",
                     "excerpt": "SensorPower,SensorPowerArray",
                     "longDescription": "This property shall contain the product of voltage (RMS) multiplied by current (RMS) for a circuit.  This property can appear in sensors of the Power ReadingType, and shall not appear in sensors of other ReadingType values.",
                     "readonly": true,
@@ -1277,12 +1359,25 @@
                         "null"
                     ]
                 },
+                "PhaseAngleDegrees": {
+                    "description": "The phase angle (degrees) between the current and voltage waveforms.",
+                    "excerpt": "SensorPower,SensorPowerArray",
+                    "longDescription": "This property shall contain the phase angle, in degree units, between the current and voltage waveforms for an electrical measurement.  This property can appear in sensors with a ReadingType containing `Power`, and shall not appear in sensors with other ReadingType values.",
+                    "maximum": 90,
+                    "minimum": -90,
+                    "readonly": true,
+                    "type": [
+                        "number",
+                        "null"
+                    ],
+                    "versionAdded": "v1_5_0"
+                },
                 "PowerFactor": {
                     "description": "The power factor for this sensor.",
                     "excerpt": "SensorPower,SensorPowerArray",
-                    "longDescription": "This property shall identify the quotient of real power (W) and apparent power (VA) for a circuit.  PowerFactor is expressed in unit-less 1/100ths.  This property can appear in sensors of the Power ReadingType, and shall not appear in sensors of other ReadingType values.",
+                    "longDescription": "This property shall identify the quotient of real power (W) and apparent power (VA) for a circuit.  PowerFactor is expressed in unit-less 1/100ths.  This property can appear in sensors containing a ReadingType value of `Power`, and shall not appear in sensors of other ReadingType values.",
                     "maximum": 1,
-                    "minimum": 0,
+                    "minimum": -1,
                     "readonly": true,
                     "type": [
                         "number",
@@ -1529,6 +1624,6 @@
         }
     },
     "owningEntity": "DMTF",
-    "release": "2021.2",
-    "title": "#Sensor.v1_4_0.Sensor"
+    "release": "2021.4",
+    "title": "#Sensor.v1_5_0.Sensor"
 }
