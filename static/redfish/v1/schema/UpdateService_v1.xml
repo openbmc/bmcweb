@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  UpdateService v1.10.0                                               -->
+<!--# Redfish Schema:  UpdateService v1.11.0                                               -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -113,6 +113,18 @@
               <Record>
                 <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
                 <PropertyValue Property="Version" String="v1_4_0"/>
+              </Record>
+            </Collection>
+          </Annotation>
+        </Parameter>
+        <Parameter Name="ForceUpdate" Type="Edm.Boolean">
+          <Annotation Term="OData.Description" String="An indication of whether the service should bypass update policies when applying the provided image.  The default is `false`."/>
+          <Annotation Term="OData.LongDescription" String="This parameter shall indicate whether the service should bypass update policies when applying the provided image, such as allowing a component to be downgraded.  Services may contain update policies that are never bypassed, such as minimum version enforcement.  If the client does not provide this parameter, the service shall default this value to `false`."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="v1_11_0"/>
               </Record>
             </Collection>
           </Annotation>
@@ -545,6 +557,18 @@
           <Annotation Term="OData.Description" String="Apply after a reset but within an administrator-specified maintenance window."/>
           <Annotation Term="OData.LongDescription" String="This value shall indicate the HttpPushUri-provided software is applied during the maintenance window specified by the MaintenanceWindowStartTime and MaintenanceWindowDurationInSeconds properties, and if a reset occurs within the maintenance window."/>
         </Member>
+        <Member Name="OnStartUpdateRequest">
+          <Annotation Term="OData.Description" String="Apply when the StartUpdate action of the update service is invoked."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the HttpPushUri-provided software is applied when the StartUpdate action of the update service is invoked."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="v1_11_0"/>
+              </Record>
+            </Collection>
+          </Annotation>
+        </Member>
       </EnumType>
     </Schema>
 
@@ -646,7 +670,7 @@
         <Annotation Term="OData.Description" String="The update parameters used with MultipartHttpPushUri software update."/>
         <Annotation Term="OData.LongDescription" String="This type shall contain the update parameters when passing the update image when using the URI specified by the MultipartHttpPushUri property to push a software image."/>
         <Property Name="Targets" Type="Collection(Edm.String)">
-          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
           <Annotation Term="OData.Description" String="An array of URIs that indicate where to apply the update image."/>
           <Annotation Term="OData.LongDescription" String="This property shall contain zero or more URIs that indicate where to apply the update image when using the URI specified by the MultipartHttpPushUri property to push a software image.  These targets should correspond to software inventory instances or their related items.  If this property is not present or contains no targets, the service shall apply the software image to all applicable targets, as determined by the service."/>
           <Annotation Term="OData.IsURL"/>
@@ -762,16 +786,22 @@
         <Property Name="VerifyRemoteServerCertificate" Type="Edm.Boolean">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
           <Annotation Term="OData.Description" String="An indication of whether the service will verify the certificate of the server referenced by the ImageURI property in SimpleUpdate prior to sending the transfer request."/>
-          <Annotation Term="OData.LongDescription" String="This property shall indicate whether whether the service will verify the certificate of the server referenced by the ImageURI property in SimpleUpdate prior to sending the transfer request."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether whether the service will verify the certificate of the server referenced by the ImageURI property in SimpleUpdate prior to sending the transfer request.  If this property is not supported by the service, it shall be assumed to be `false`.  This property should default to `false` in order to maintain compatibility with older clients."/>
         </Property>
       </EntityType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="UpdateService.v1_9_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the behavior of VerifyRemoteServerCertificate when not supported or configured."/>
+      <EntityType Name="UpdateService" BaseType="UpdateService.v1_9_0.UpdateService"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="UpdateService.v1_10_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2021.2"/>
 
-      <EntityType Name="UpdateService" BaseType="UpdateService.v1_8_3.UpdateService">
+      <EntityType Name="UpdateService" BaseType="UpdateService.v1_9_1.UpdateService">
         <NavigationProperty Name="ClientCertificates" Type="CertificateCollection.CertificateCollection" ContainsTarget="true" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The link to a collection of client identity certificates provided to the server referenced by the ImageURI property in SimpleUpdate."/>
@@ -779,6 +809,36 @@
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
       </EntityType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="UpdateService.v1_10_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the behavior of VerifyRemoteServerCertificate when not supported or configured."/>
+      <EntityType Name="UpdateService" BaseType="UpdateService.v1_10_0.UpdateService"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="UpdateService.v1_11_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2021.4"/>
+      <Annotation Term="OData.Description" String="This version was created to add `OnStartUpdateRequest` to ApplyTime."/>
+
+      <EntityType Name="UpdateService" BaseType="UpdateService.v1_10_1.UpdateService"/>
+
+      <ComplexType Name="HttpPushUriOptions" BaseType="UpdateService.v1_4_0.HttpPushUriOptions">
+        <Property Name="ForceUpdate" Type="Edm.Boolean" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="An indication of whether the service should bypass update policies when applying the HttpPushUri-provided image."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether the service should bypass update policies when applying the HttpPushUri-provided image, such as allowing a component to be downgraded.  Services may contain update policies that are never bypassed, such as minimum version enforcement.  If this property is not present, it shall be assumed to be `false`."/>
+        </Property>
+      </ComplexType>
+
+      <ComplexType Name="UpdateParameters" BaseType="UpdateService.v1_8_0.UpdateParameters">
+        <Property Name="ForceUpdate" Type="Edm.Boolean" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="An indication of whether the service should bypass update policies when applying the provided image.  The default is `false`."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether the service should bypass update policies when applying the provided image, such as allowing a component to be downgraded.  Services may contain update policies that are never bypassed, such as minimum version enforcement.  If the client does not provide this parameter, the service shall default this value to `false`."/>
+        </Property>
+      </ComplexType>
     </Schema>
 
   </edmx:DataServices>

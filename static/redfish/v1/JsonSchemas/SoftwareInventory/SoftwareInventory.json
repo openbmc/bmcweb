@@ -1,5 +1,5 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/SoftwareInventory.v1_5_0.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/SoftwareInventory.v1_6_0.json",
     "$ref": "#/definitions/SoftwareInventory",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
     "copyright": "Copyright 2014-2021 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
@@ -188,9 +188,11 @@
                 },
                 "Measurement": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/SoftwareInventory.json#/definitions/MeasurementBlock",
+                    "deprecated": "This property has been deprecated in favor of the ComponentIntegrity resource.",
                     "description": "A DSP0274-defined measurement block.",
                     "longDescription": "This property shall contain a DSP0274-defined measurement block.",
-                    "versionAdded": "v1_4_0"
+                    "versionAdded": "v1_4_0",
+                    "versionDeprecated": "v1_6_0"
                 },
                 "Name": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Name",
@@ -289,6 +291,6 @@
         }
     },
     "owningEntity": "DMTF",
-    "release": "2021.2",
-    "title": "#SoftwareInventory.v1_5_0.SoftwareInventory"
+    "release": "2021.4",
+    "title": "#SoftwareInventory.v1_6_0.SoftwareInventory"
 }

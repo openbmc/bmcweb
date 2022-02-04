@@ -1,5 +1,5 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/PCIeDevice.v1_8_0.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/PCIeDevice.v1_9_0.json",
     "$ref": "#/definitions/PCIeDevice",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
     "copyright": "Copyright 2014-2021 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
@@ -42,6 +42,19 @@
                 "MultiFunction": "A multi-function PCIe device.",
                 "Simulated": "A PCIe device that is not currently physically present, but is being simulated by the PCIe infrastructure.",
                 "SingleFunction": "A single-function PCIe device."
+            },
+            "type": "string"
+        },
+        "LaneSplittingType": {
+            "enum": [
+                "None",
+                "Bridged",
+                "Bifurcated"
+            ],
+            "enumDescriptions": {
+                "Bifurcated": "The slot is bifurcated to split the lanes with associated devices.",
+                "Bridged": "The slot has a bridge to share the lanes with associated devices.",
+                "None": "The slot has no lane splitting."
             },
             "type": "string"
         },
@@ -291,6 +304,19 @@
                         "null"
                     ]
                 },
+                "Slot": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/Slot"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "Information about the slot for this PCIe device.",
+                    "longDescription": "This property shall contain information about the PCIe slot for this PCIe device.",
+                    "versionAdded": "v1_9_0"
+                },
                 "SparePartNumber": {
                     "description": "The spare part number of the PCIe device.",
                     "longDescription": "This property shall contain the spare part number of the PCIe device.",
@@ -508,9 +534,115 @@
                 }
             },
             "type": "object"
+        },
+        "Slot": {
+            "additionalProperties": false,
+            "description": "The PCIe slot associated with a PCIe device.",
+            "longDescription": "This object shall contain properties that describe the PCIe slot associated with a PCIe device.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "LaneSplitting": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/LaneSplittingType"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The lane splitting strategy used in the PCIe slot.",
+                    "longDescription": "This property shall contain lane splitting information of the associated PCIe slot.",
+                    "readonly": true,
+                    "versionAdded": "v1_9_0"
+                },
+                "Lanes": {
+                    "description": "The number of PCIe lanes supported by this slot.",
+                    "longDescription": "This property shall contain the maximum number of PCIe lanes supported by the slot.",
+                    "maximum": 32,
+                    "readonly": true,
+                    "type": [
+                        "integer",
+                        "null"
+                    ],
+                    "versionAdded": "v1_9_0"
+                },
+                "Location": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Location",
+                    "description": "The location of the PCIe slot.",
+                    "longDescription": "This property shall contain part location information, including a ServiceLabel property, of the associated PCIe slot.",
+                    "versionAdded": "v1_9_0"
+                },
+                "PCIeType": {
+                    "anyOf": [
+                        {
+                            "$ref": "http://redfish.dmtf.org/schemas/v1/PCIeDevice.json#/definitions/PCIeTypes"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The PCIe specification this slot supports.",
+                    "longDescription": "This property shall contain the maximum PCIe specification that this slot supports.",
+                    "readonly": true,
+                    "versionAdded": "v1_9_0"
+                },
+                "SlotType": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/SlotType"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The PCIe slot type.",
+                    "longDescription": "This property shall contain the PCIe slot type.",
+                    "readonly": true,
+                    "versionAdded": "v1_9_0"
+                }
+            },
+            "type": "object"
+        },
+        "SlotType": {
+            "enum": [
+                "FullLength",
+                "HalfLength",
+                "LowProfile",
+                "Mini",
+                "M2",
+                "OEM",
+                "OCP3Small",
+                "OCP3Large",
+                "U2"
+            ],
+            "enumDescriptions": {
+                "FullLength": "Full-Length PCIe slot.",
+                "HalfLength": "Half-Length PCIe slot.",
+                "LowProfile": "Low-Profile or Slim PCIe slot.",
+                "M2": "PCIe M.2 slot.",
+                "Mini": "Mini PCIe slot.",
+                "OCP3Large": "Open Compute Project 3.0 large form factor slot.",
+                "OCP3Small": "Open Compute Project 3.0 small form factor slot.",
+                "OEM": "An OEM-specific slot.",
+                "U2": "U.2 / SFF-8639 slot or bay."
+            },
+            "type": "string"
         }
     },
     "owningEntity": "DMTF",
-    "release": "2021.3",
-    "title": "#PCIeDevice.v1_8_0.PCIeDevice"
+    "release": "2021.4",
+    "title": "#PCIeDevice.v1_9_0.PCIeDevice"
 }

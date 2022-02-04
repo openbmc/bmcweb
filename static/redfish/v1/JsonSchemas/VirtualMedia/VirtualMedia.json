@@ -1,5 +1,5 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/VirtualMedia.v1_5_0.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/VirtualMedia.v1_5_1.json",
     "$ref": "#/definitions/VirtualMedia",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
     "copyright": "Copyright 2014-2021 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
@@ -413,7 +413,7 @@
                 },
                 "VerifyCertificate": {
                     "description": "An indication of whether the service will verify the certificate of the server referenced by the Image property prior to completing the remote media connection.",
-                    "longDescription": "This property shall indicate whether whether the service will verify the certificate of the server referenced by the Image property prior to completing the remote media connection.",
+                    "longDescription": "This property shall indicate whether whether the service will verify the certificate of the server referenced by the Image property prior to completing the remote media connection.  If this property is not supported by the service, it shall be assumed to be `false`.  This property should default to `false` in order to maintain compatibility with older clients.",
                     "readonly": false,
                     "type": [
                         "boolean",
@@ -442,5 +442,5 @@
     },
     "owningEntity": "DMTF",
     "release": "2021.2",
-    "title": "#VirtualMedia.v1_5_0.VirtualMedia"
+    "title": "#VirtualMedia.v1_5_1.VirtualMedia"
 }
