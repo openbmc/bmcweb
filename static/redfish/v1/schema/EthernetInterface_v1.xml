@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  EthernetInterface v1.7.0                                            -->
+<!--# Redfish Schema:  EthernetInterface v1.8.0                                            -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -652,7 +652,7 @@
         <Property Name="OperatingMode" Type="EthernetInterface.v1_4_0.DHCPv6OperatingMode">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
           <Annotation Term="OData.Description" String="Determines the DHCPv6 operating mode for this interface."/>
-          <Annotation Term="OData.LongDescription" String="This property shall control the operating mode of DHCPv6 on this interface.  DHCPv6 stateful mode configures addresses, and when it is enabled, stateless mode is also implicitly enabled."/>
+          <Annotation Term="OData.LongDescription" String="This property shall control the operating mode of DHCPv6 on this interface."/>
         </Property>
         <Property Name="UseDNSServers" Type="Edm.Boolean">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
@@ -661,8 +661,8 @@
         </Property>
         <Property Name="UseDomainName" Type="Edm.Boolean">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
-          <Annotation Term="OData.Description" String="An indication of whether the interface uses a domain name supplied through DHCP v6 stateless mode."/>
-          <Annotation Term="OData.LongDescription" String="This property shall indicate whether the interface uses a domain name supplied through DHCP v6 stateless mode."/>
+          <Annotation Term="OData.Description" String="An indication of whether this interface uses a DHCP v6-supplied domain name."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether the interface uses a DHCP v6-supplied domain name."/>
         </Property>
         <Property Name="UseNTPServers" Type="Edm.Boolean">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
@@ -679,15 +679,45 @@
       <EnumType Name="DHCPv6OperatingMode">
         <Member Name="Stateful">
           <Annotation Term="OData.Description" String="DHCPv6 stateful mode."/>
-          <Annotation Term="OData.LongDescription" String="DHCPv6 shall operate in stateful mode on this interface.  DHCPv6 stateful mode configures addresses, and when it is enabled, stateless mode is also implicitly enabled."/>
+          <Annotation Term="OData.LongDescription" String="DHCPv6 shall operate in stateful mode on this interface.  DHCPv6 stateful mode configures addresses, and when it is enabled, stateless mode is also implicitly enabled.  Services may replace this value with `Enabled`."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Deprecated"/>
+                <PropertyValue Property="Version" String="v1_8_0"/>
+                <PropertyValue Property="Description" String="This property has been deprecated in favor of `Enabled`.  The control between 'stateful' and 'stateless' is managed by the DHCP server and not the client."/>
+              </Record>
+            </Collection>
+          </Annotation>
         </Member>
         <Member Name="Stateless">
           <Annotation Term="OData.Description" String="DHCPv6 stateless mode."/>
-          <Annotation Term="OData.LongDescription" String="DHCPv6 shall operate in stateless mode on this interface.  DHCPv6 stateless mode allows configuring the interface using DHCP options but does not configure addresses.  It is always enabled by default whenever DHCPv6 Stateful mode is also enabled."/>
+          <Annotation Term="OData.LongDescription" String="DHCPv6 shall operate in stateless mode on this interface.  DHCPv6 stateless mode allows configuring the interface using DHCP options but does not configure addresses.  It is always enabled by default whenever DHCPv6 Stateful mode is also enabled.  Services may replace this value with `Enabled`."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Deprecated"/>
+                <PropertyValue Property="Version" String="v1_8_0"/>
+                <PropertyValue Property="Description" String="This property has been deprecated in favor of `Enabled`.  The control between 'stateful' and 'stateless' is managed by the DHCP server and not the client."/>
+              </Record>
+            </Collection>
+          </Annotation>
         </Member>
         <Member Name="Disabled">
           <Annotation Term="OData.Description" String="DHCPv6 is disabled."/>
           <Annotation Term="OData.LongDescription" String="DHCPv6 shall be disabled for this interface."/>
+        </Member>
+        <Member Name="Enabled">
+          <Annotation Term="OData.Description" String="DHCPv6 is enabled."/>
+          <Annotation Term="OData.LongDescription" String="DHCPv6 shall be enabled for this interface."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="v1_8_0"/>
+              </Record>
+            </Collection>
+          </Annotation>
         </Member>
       </EnumType>
 
@@ -892,6 +922,7 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2021.2"/>
       <Annotation Term="OData.Description" String="This version was created to deprecate several properties and add NetworkDeviceFunctions link collection."/>
+
       <EntityType Name="EthernetInterface" BaseType="EthernetInterface.v1_6_4.EthernetInterface"/>
 
       <ComplexType Name="Links" BaseType="EthernetInterface.v1_6_0.Links">
@@ -902,6 +933,14 @@
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
       </ComplexType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EthernetInterface.v1_8_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2021.2"/>
+      <Annotation Term="OData.Description" String="This version was created to deprecate the `Stateless` and `Stateful` values for DHCPv6 OperatingMode and add `Enabled` to DHCPv6 OperatingMode."/>
+
+      <EntityType Name="EthernetInterface" BaseType="EthernetInterface.v1_7_0.EthernetInterface"/>
     </Schema>
 
   </edmx:DataServices>
