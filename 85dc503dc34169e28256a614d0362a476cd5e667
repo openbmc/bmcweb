@@ -34,6 +34,24 @@
       "parentUuid": "f3212a11_63944110",
       "revId": "85dc503dc34169e28256a614d0362a476cd5e667",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2d4c1778_552f68d2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2022-02-04T04:03:57Z",
+      "side": 1,
+      "message": "go/obmcl/50919 has been created to upstream the hoth interface.",
+      "parentUuid": "1409e020_b1f4283f",
+      "revId": "85dc503dc34169e28256a614d0362a476cd5e667",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
