@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "969ce47b_2b000439",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-02-04T03:47:08Z",
+      "side": 1,
+      "message": "This isn\u0027t a full review.  Will review better once this is broken down and not a 1300 line patchset.\n\nYou\u0027ll need to talk to your nvidia rep to get added to the Nvidia CLA.  Also, while you\u0027re waiting for that, I\u0027d recommend running the CI tests from openbmc-build-scripts.  I see several issues that CI will immediately catch once you get on the list, and there\u0027s no sense in you waiting for CI that long.",
+      "revId": "e71b9217c9dc4db0abcefc4d1960a221b0f15df6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3830d7b7_adfe1b7f",
+        "filename": "include/event_service_store.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 239,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-02-04T03:47:08Z",
+      "side": 1,
+      "message": "this is a non-static class methods.  this-\u003e is not required anywhere in this method.",
+      "range": {
+        "startLine": 239,
+        "startChar": 16,
+        "endLine": 239,
+        "endChar": 22
+      },
+      "revId": "e71b9217c9dc4db0abcefc4d1960a221b0f15df6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3cb8dedf_b4da30a2",
+        "filename": "include/event_service_store.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 266,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-02-04T03:47:08Z",
+      "side": 1,
+      "message": "Please move code in a commit that\u0027s independent of adding a new feature.  Adding new code at the same time as a refactoring makes it hard to review.\n\nThis applies to many things in this review where you\u0027ve moved code around, I\u0027m only commenting once here to give you quick feedback to improve the next patchset.  Please split this up.",
+      "range": {
+        "startLine": 234,
+        "startChar": 0,
+        "endLine": 266,
+        "endChar": 5
+      },
+      "revId": "e71b9217c9dc4db0abcefc4d1960a221b0f15df6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
