@@ -125,6 +125,75 @@
       },
       "revId": "e71b9217c9dc4db0abcefc4d1960a221b0f15df6",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2d203be5_318a46f6",
+        "filename": "redfish-core/include/event_service_manager.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-02-04T03:54:39Z",
+      "side": 1,
+      "message": "I know you copied this from below, but we should never be using regex for this.  We have boost::url, which is a more accurate url parser than this regex, and what we should be using for any new code to verify correctness of URLs",
+      "range": {
+        "startLine": 43,
+        "startChar": 0,
+        "endLine": 45,
+        "endChar": 58
+      },
+      "revId": "e71b9217c9dc4db0abcefc4d1960a221b0f15df6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "aff0d29e_59feeddf",
+        "filename": "redfish-core/include/event_service_manager.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 268,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-02-04T03:54:39Z",
+      "side": 1,
+      "message": "Please don\u0027t forward declare classes like this;  Generally it implies that the code needs reorganized so that the header can be included directly.",
+      "range": {
+        "startLine": 268,
+        "startChar": 0,
+        "endLine": 268,
+        "endChar": 19
+      },
+      "revId": "e71b9217c9dc4db0abcefc4d1960a221b0f15df6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "77b77029_050fe014",
+        "filename": "redfish-core/include/event_service_manager.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 270,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-02-04T03:54:39Z",
+      "side": 1,
+      "message": "Please just inline this.  it\u0027s only referenced in once place, and as written, this will malloc on startup, which slows the bmcweb startup and requires more memory than keeping in in RODATA as a constant.",
+      "range": {
+        "startLine": 270,
+        "startChar": 0,
+        "endLine": 270,
+        "endChar": 48
+      },
+      "revId": "e71b9217c9dc4db0abcefc4d1960a221b0f15df6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
