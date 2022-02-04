@@ -194,6 +194,52 @@
       },
       "revId": "e71b9217c9dc4db0abcefc4d1960a221b0f15df6",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a4e5e6ea_aba1b7d1",
+        "filename": "redfish-core/include/event_service_manager.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 311,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-02-04T03:58:50Z",
+      "side": 1,
+      "message": "Please read and understand COMMON_ERRORS.md.  This is called out out as an antipattern.",
+      "range": {
+        "startLine": 310,
+        "startChar": 0,
+        "endLine": 311,
+        "endChar": 27
+      },
+      "revId": "e71b9217c9dc4db0abcefc4d1960a221b0f15df6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8b40028f_963ef9e8",
+        "filename": "redfish-core/include/event_service_manager.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 652,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-02-04T03:58:50Z",
+      "side": 1,
+      "message": "Lots of TODOs in this commit imply that this commit needs broken down better.  If subordinateResources isn\u0027t implemented, then this commit shouldn\u0027t be adding it.  Same thing with the other TODOs below.\n\nTODO is fine if there\u0027s a cleanup that we might do later, but we still implement the correct user-facing API.  As written, this feature is just missing, and will accept the parameter from the user, and do nothing with it, which is a problem.",
+      "range": {
+        "startLine": 652,
+        "startChar": 19,
+        "endLine": 652,
+        "endChar": 23
+      },
+      "revId": "e71b9217c9dc4db0abcefc4d1960a221b0f15df6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
