@@ -1,6 +1,7 @@
 {
   "comments": [
     {
+      "unresolved": true,
       "key": {
         "uuid": "766cb3d5_c52fdeb9",
         "filename": "redfish-core/include/event_service_manager.hpp",
@@ -14,10 +15,10 @@
       "side": 1,
       "message": "This would also block /redfish/v1/EventService/Actions/EventService.SubmitTestEvent/ correct? \nWhich I think makes sense.",
       "revId": "33eced6256d4001399deef00cfca65774516c5e6",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "e68034cf_f209dbb2",
         "filename": "redfish-core/include/event_service_manager.hpp",
@@ -32,10 +33,10 @@
       "message": "Although sure seems like in that case, /redfish/v1/EventService/Actions/EventService.SubmitTestEvent/ a message back would be more helpful to the client. \nI don\u0027t see anything obvious in https://redfish.dmtf.org/registries/Base.1.10.0.json \nA \"ActionNotSuportedAtThisTime\" \"ActionDisabled\" \"ActionEnablePropertyConflictError\"\n\nMy pick would be:\n\"ActionDisabled\" - Action disabled due to %1",
       "parentUuid": "766cb3d5_c52fdeb9",
       "revId": "33eced6256d4001399deef00cfca65774516c5e6",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "815097bc_b4be6b96",
         "filename": "redfish-core/include/event_service_manager.hpp",
@@ -50,10 +51,10 @@
       "message": "That\u0027s a really good point.  If we\u0027re rejecting a message, we should have a return code on this method.  The normal flow will ignore it, but we should probably give back at the very least the right error code for the test event case.",
       "parentUuid": "e68034cf_f209dbb2",
       "revId": "33eced6256d4001399deef00cfca65774516c5e6",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "c136119d_a06d52a2",
         "filename": "redfish-core/include/event_service_manager.hpp",
@@ -68,10 +69,10 @@
       "message": "Agree. @Gunnar - can you please help getting this Base Message Registry type for this scenario via DMTF?\nI can implement that registry once we have that in the schema as a separate commit.\n\nShould we wait for the DMTF to add it to the schema and then take this commit in ?",
       "parentUuid": "815097bc_b4be6b96",
       "revId": "33eced6256d4001399deef00cfca65774516c5e6",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "8c931f07_d4d558d4",
         "filename": "redfish-core/include/event_service_manager.hpp",
@@ -86,10 +87,10 @@
       "message": "\u003e Agree. @Gunnar - can you please help getting this Base Message Registry type for this scenario via DMTF?\n\u003e I can implement that registry once we have that in the schema as a separate commit.\n\u003e \n\u003e Should we wait for the DMTF to add it to the schema and then take this commit in ?\n\nI\u0027m ok with merging a sub-optimal message here, then updating if/when we get a better DMTF message, but there needs to be SOME message and an appropriate return code on the SendTestEvent action (also, that should be tested).",
       "parentUuid": "c136119d_a06d52a2",
       "revId": "33eced6256d4001399deef00cfca65774516c5e6",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "a26ace85_83163402",
         "filename": "redfish-core/include/event_service_manager.hpp",
@@ -104,10 +105,10 @@
       "message": "Ok. I will push a new patchset with the possible handling of return code at SendTestEvent",
       "parentUuid": "8c931f07_d4d558d4",
       "revId": "33eced6256d4001399deef00cfca65774516c5e6",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "fe5f8a89_d3647c75",
         "filename": "redfish-core/include/event_service_manager.hpp",
@@ -122,10 +123,10 @@
       "message": "Done",
       "parentUuid": "a26ace85_83163402",
       "revId": "33eced6256d4001399deef00cfca65774516c5e6",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "5859805e_500a5281",
         "filename": "redfish-core/include/event_service_manager.hpp",
@@ -140,10 +141,10 @@
       "message": "\u003e  can you please help getting this Base Message Registry type for this scenario via DMTF?\n\n4774 is the issue",
       "parentUuid": "fe5f8a89_d3647c75",
       "revId": "33eced6256d4001399deef00cfca65774516c5e6",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "5a53720a_485150e6",
         "filename": "redfish-core/include/event_service_manager.hpp",
@@ -158,10 +159,10 @@
       "message": "Redfish said use \"ServiceDisabled\" in this case. More discussion on issue 4774. \n\n\"ServiceDisabled\" is in the registry now and has been for a while.",
       "parentUuid": "5859805e_500a5281",
       "revId": "33eced6256d4001399deef00cfca65774516c5e6",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "6fcbeacb_1f19b411",
         "filename": "redfish-core/include/event_service_manager.hpp",
@@ -176,10 +177,10 @@
       "message": "Sure Gunnar. But this is not yet out under https://redfish.dmtf.org/registries\n\nrequests.exceptions.HTTPError: 404 Client Error: Not Found for url: https://redfish.dmtf.org/registries/Base.1.11.0.json",
       "parentUuid": "5a53720a_485150e6",
       "revId": "33eced6256d4001399deef00cfca65774516c5e6",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "46aa2a81_41d59a41",
         "filename": "redfish-core/include/event_service_manager.hpp",
@@ -194,8 +195,25 @@
       "message": "@Gunnar, what is the process by DMTF here ? when this https://redfish.dmtf.org/registries/Base.1.11.0.json to be available ?",
       "parentUuid": "6fcbeacb_1f19b411",
       "revId": "33eced6256d4001399deef00cfca65774516c5e6",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cc34f3c0_49ce7ba7",
+        "filename": "redfish-core/include/event_service_manager.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1056,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2022-02-04T07:32:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "46aa2a81_41d59a41",
+      "revId": "33eced6256d4001399deef00cfca65774516c5e6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
