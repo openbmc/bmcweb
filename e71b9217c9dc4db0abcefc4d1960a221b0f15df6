@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "9fa0e7ed_a85c1795",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1001257
+      },
+      "writtenOn": "2022-02-04T22:42:32Z",
+      "side": 1,
+      "message": "I\u0027ll shorten the tile within 50 chars, but for body I don\u0027t think I can cover all details within 72 chars. Does this apply to the length of each line? Also, where can I find the style guide?",
+      "parentUuid": "b751e976_a1a2b097",
+      "range": {
+        "startLine": 8,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 211
+      },
+      "revId": "e71b9217c9dc4db0abcefc4d1960a221b0f15df6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "18085f7a_d021197a",
         "filename": "/COMMIT_MSG",
         "patchSetId": 1
@@ -37,6 +61,30 @@
       "writtenOn": "2022-02-04T03:49:47Z",
       "side": 1,
       "message": "If you have to make a list like this, in general it implies that you should\u0027ve broken up your patchset.",
+      "range": {
+        "startLine": 10,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 0
+      },
+      "revId": "e71b9217c9dc4db0abcefc4d1960a221b0f15df6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "590c4052_af3859d3",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1001257
+      },
+      "writtenOn": "2022-02-04T22:42:32Z",
+      "side": 1,
+      "message": "Sorry, I\u0027m new to Gerrit. I think I\u0027m supposed to abandon this change and make another change with multiple commits to break up this patchset, right?",
+      "parentUuid": "18085f7a_d021197a",
       "range": {
         "startLine": 10,
         "startChar": 0,
@@ -77,6 +125,24 @@
       "writtenOn": "2022-02-04T03:47:08Z",
       "side": 1,
       "message": "This isn\u0027t a full review.  Will review better once this is broken down and not a 1300 line patchset.\n\nYou\u0027ll need to talk to your nvidia rep to get added to the Nvidia CLA.  Also, while you\u0027re waiting for that, I\u0027d recommend running the CI tests from openbmc-build-scripts.  I see several issues that CI will immediately catch once you get on the list, and there\u0027s no sense in you waiting for CI that long.",
+      "revId": "e71b9217c9dc4db0abcefc4d1960a221b0f15df6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b50c039e_b19a973d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001257
+      },
+      "writtenOn": "2022-02-04T22:42:32Z",
+      "side": 1,
+      "message": "I\u0027ve passed openbmc-build-scripts before I submitted this change. Let me know if you think there\u0027s any other issue.",
+      "parentUuid": "969ce47b_2b000439",
       "revId": "e71b9217c9dc4db0abcefc4d1960a221b0f15df6",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -186,6 +252,30 @@
       "writtenOn": "2022-02-04T03:54:39Z",
       "side": 1,
       "message": "Please just inline this.  it\u0027s only referenced in once place, and as written, this will malloc on startup, which slows the bmcweb startup and requires more memory than keeping in in RODATA as a constant.",
+      "range": {
+        "startLine": 270,
+        "startChar": 0,
+        "endLine": 270,
+        "endChar": 48
+      },
+      "revId": "e71b9217c9dc4db0abcefc4d1960a221b0f15df6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1107b232_119e2958",
+        "filename": "redfish-core/include/event_service_manager.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 270,
+      "author": {
+        "id": 1001257
+      },
+      "writtenOn": "2022-02-04T22:42:32Z",
+      "side": 1,
+      "message": "The reason why I want to make it this way is for better readability since the version string is actually used to construct @odata.type field which is pretty separate from this event class implementation in source codes. It might be pretty easy to miss updating that field if event class itself is updated. I think I can make it be char* string so that it can be put in RODATA by compiler.",
+      "parentUuid": "77b77029_050fe014",
       "range": {
         "startLine": 270,
         "startChar": 0,
