@@ -38,6 +38,8 @@
 
 namespace redfish
 {
+const std::regex urlRegex("(http|https)://([^/\\x20\\x3f\\x23\\x3a]+):?([0-9]*)"
+                          "((/[^\\x20\\x23\\x3f]*\\x3f?[^\\x20\\x23\\x3f]*)?)");
 
 using ReadingsObjType =
     std::vector<std::tuple<std::string, std::string, double, int32_t>>;
@@ -827,6 +829,11 @@ class EventServiceManager
 
         std::string id;
 
+        if (isDestinationExist(subValue->destinationUrl))
+        {
+            return "";
+        }
+
         int retry = 3;
         while (retry)
         {
@@ -934,7 +941,7 @@ class EventServiceManager
             std::shared_ptr<Subscription> entry = it.second;
             if (entry->destinationUrl == destUrl)
             {
-                BMCWEB_LOG_ERROR << "Destination exist already" << destUrl;
+                BMCWEB_LOG_ERROR << "Destination exists already " << destUrl;
                 return true;
             }
         }
@@ -1368,9 +1375,6 @@ class EventServiceManager
         // Validate URL using regex expression
         // Format: <protocol>://<host>:<port>/<path>
         // protocol: http/https
-        const std::regex urlRegex(
-            "(http|https)://([^/\\x20\\x3f\\x23\\x3a]+):?([0-9]*)(/"
-            "([^\\x20\\x23\\x3f]*\\x3f?([^\\x20\\x23\\x3f])*)?)");
         std::cmatch match;
         if (!std::regex_match(destUrl.c_str(), match, urlRegex))
         {
