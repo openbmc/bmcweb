@@ -4,7 +4,7 @@
   "@odata.type": "#JsonSchemaFileCollection.JsonSchemaFileCollection",
   "Name": "JsonSchemaFile Collection",
   "Description": "Collection of JsonSchemaFiles",
-  "Members@odata.count": 59,
+  "Members@odata.count": 61,
   "Members": [
     {
       "@odata.id": "/redfish/v1/JsonSchemas/AccountService"
@@ -73,6 +73,9 @@
       "@odata.id": "/redfish/v1/JsonSchemas/ManagerAccount"
     },
     {
+      "@odata.id": "/redfish/v1/JsonSchemas/ManagerDiagnosticData"
+    },
+    {
       "@odata.id": "/redfish/v1/JsonSchemas/ManagerNetworkProtocol"
     },
     {
@@ -104,6 +107,9 @@
     },
     {
       "@odata.id": "/redfish/v1/JsonSchemas/PCIeFunction"
+    },
+    {
+      "@odata.id": "/redfish/v1/JsonSchemas/PhysicalContext"
     },
     {
       "@odata.id": "/redfish/v1/JsonSchemas/Power"

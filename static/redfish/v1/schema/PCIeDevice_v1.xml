@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  PCIeDevice v1.8.0                                                   -->
+<!--# Redfish Schema:  PCIeDevice v1.9.0                                                   -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -525,6 +525,91 @@
           <Annotation Term="OData.LongDescription" String="This property shall contain the total number of NAKs issued on the PCIe link by the receiver.  A NAK is issued by the receiver when it detects that a TLP from this device was missed.  This could be because this device did not transmit it, or because the receiver could not properly decode the packet."/>
         </Property>
       </ComplexType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="PCIeDevice.v1_9_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2021.4"/>
+
+      <EntityType Name="PCIeDevice" BaseType="PCIeDevice.v1_8_0.PCIeDevice">
+        <Property Name="Slot" Type="PCIeDevice.v1_9_0.Slot">
+          <Annotation Term="OData.Description" String="Information about the slot for this PCIe device."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain information about the PCIe slot for this PCIe device."/>
+        </Property>
+      </EntityType>
+
+      <ComplexType Name="Slot">
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="OData.Description" String="The PCIe slot associated with a PCIe device."/>
+        <Annotation Term="OData.LongDescription" String="This object shall contain properties that describe the PCIe slot associated with a PCIe device."/>
+        <Property Name="PCIeType" Type="PCIeDevice.PCIeTypes">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The PCIe specification this slot supports."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the maximum PCIe specification that this slot supports."/>
+        </Property>
+        <Property Name="SlotType" Type="PCIeDevice.v1_9_0.SlotType">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The PCIe slot type."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the PCIe slot type."/>
+        </Property>
+        <Property Name="Lanes" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The number of PCIe lanes supported by this slot."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the maximum number of PCIe lanes supported by the slot."/>
+          <Annotation Term="Validation.Maximum" Int="32"/>
+        </Property>
+        <Property Name="Location" Type="Resource.Location" Nullable="false">
+          <Annotation Term="OData.Description" String="The location of the PCIe slot."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain part location information, including a ServiceLabel property, of the associated PCIe slot."/>
+        </Property>
+        <Property Name="LaneSplitting" Type="PCIeDevice.v1_9_0.LaneSplittingType">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The lane splitting strategy used in the PCIe slot."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain lane splitting information of the associated PCIe slot."/>
+        </Property>
+      </ComplexType>
+
+      <EnumType Name="SlotType">
+        <Member Name="FullLength">
+          <Annotation Term="OData.Description" String="Full-Length PCIe slot."/>
+        </Member>
+        <Member Name="HalfLength">
+          <Annotation Term="OData.Description" String="Half-Length PCIe slot."/>
+        </Member>
+        <Member Name="LowProfile">
+          <Annotation Term="OData.Description" String="Low-Profile or Slim PCIe slot."/>
+        </Member>
+        <Member Name="Mini">
+          <Annotation Term="OData.Description" String="Mini PCIe slot."/>
+        </Member>
+        <Member Name="M2">
+          <Annotation Term="OData.Description" String="PCIe M.2 slot."/>
+        </Member>
+        <Member Name="OEM">
+          <Annotation Term="OData.Description" String="An OEM-specific slot."/>
+        </Member>
+        <Member Name="OCP3Small">
+          <Annotation Term="OData.Description" String="Open Compute Project 3.0 small form factor slot."/>
+        </Member>
+        <Member Name="OCP3Large">
+          <Annotation Term="OData.Description" String="Open Compute Project 3.0 large form factor slot."/>
+        </Member>
+        <Member Name="U2">
+          <Annotation Term="OData.Description" String="U.2 / SFF-8639 slot or bay."/>
+        </Member>
+      </EnumType>
+
+      <EnumType Name="LaneSplittingType">
+        <Member Name="None">
+          <Annotation Term="OData.Description" String="The slot has no lane splitting."/>
+        </Member>
+        <Member Name="Bridged">
+          <Annotation Term="OData.Description" String="The slot has a bridge to share the lanes with associated devices."/>
+        </Member>
+        <Member Name="Bifurcated">
+          <Annotation Term="OData.Description" String="The slot is bifurcated to split the lanes with associated devices."/>
+        </Member>
+      </EnumType>
     </Schema>
 
   </edmx:DataServices>
