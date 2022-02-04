@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  SoftwareInventory v1.5.0                                            -->
+<!--# Redfish Schema:  SoftwareInventory v1.6.0                                            -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -248,6 +248,15 @@
         <Property Name="Measurement" Type="SoftwareInventory.MeasurementBlock" Nullable="false">
           <Annotation Term="OData.Description" String="A DSP0274-defined measurement block."/>
           <Annotation Term="OData.LongDescription" String="This property shall contain a DSP0274-defined measurement block."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Deprecated"/>
+                <PropertyValue Property="Version" String="v1_6_0"/>
+                <PropertyValue Property="Description" String="This property has been deprecated in favor of the ComponentIntegrity resource."/>
+              </Record>
+            </Collection>
+          </Annotation>
         </Property>
       </EntityType>
 
@@ -285,6 +294,14 @@
           <Annotation Term="OData.LongDescription" String="This property shall contain the value of DSP0274-defined Index field of the measurement block."/>
         </Property>
       </ComplexType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="SoftwareInventory.v1_6_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2021.4"/>
+      <Annotation Term="OData.Description" String="This version was created to deprecate Measurement in favor of measurement reporting in the ComponentIntegrity resource."/>
+
+      <EntityType Name="SoftwareInventory" BaseType="SoftwareInventory.v1_5_0.SoftwareInventory"/>
     </Schema>
 
   </edmx:DataServices>

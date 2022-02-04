@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  Sensor v1.4.0                                                       -->
+<!--# Redfish Schema:  Sensor v1.5.0                                                       -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -237,7 +237,7 @@
 
         <Property Name="ApparentVA" Type="Edm.Decimal">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="The product of voltage and current for an AC circuit, in Volt-Ampere units."/>
+          <Annotation Term="OData.Description" String="The product of voltage and current for an AC circuit, in volt-ampere units."/>
           <Annotation Term="OData.LongDescription" String="This property shall contain the product of voltage (RMS) multiplied by current (RMS) for a circuit.  This property can appear in sensors of the Power ReadingType, and shall not appear in sensors of other ReadingType values."/>
           <Annotation Term="Measures.Unit" String="V.A"/>
           <Annotation Term="Redfish.Excerpt" String="Power,PowerArray"/>
@@ -252,8 +252,8 @@
         <Property Name="PowerFactor" Type="Edm.Decimal">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The power factor for this sensor."/>
-          <Annotation Term="OData.LongDescription" String="This property shall identify the quotient of real power (W) and apparent power (VA) for a circuit.  PowerFactor is expressed in unit-less 1/100ths.  This property can appear in sensors of the Power ReadingType, and shall not appear in sensors of other ReadingType values."/>
-          <Annotation Term="Validation.Minimum" Int="0"/>
+          <Annotation Term="OData.LongDescription" String="This property shall identify the quotient of real power (W) and apparent power (VA) for a circuit.  PowerFactor is expressed in unit-less 1/100ths.  This property can appear in sensors containing a ReadingType value of `Power`, and shall not appear in sensors of other ReadingType values."/>
+          <Annotation Term="Validation.Minimum" Int="-1"/>
           <Annotation Term="Validation.Maximum" Int="1"/>
           <Annotation Term="Redfish.Excerpt" String="Power,PowerArray"/>
         </Property>
@@ -430,24 +430,24 @@
 
       <EnumType Name="ReadingType">
         <Member Name="Temperature">
-          <Annotation Term="OData.Description" String="Temperature."/>
+          <Annotation Term="OData.Description" String="Temperature (C)."/>
           <Annotation Term="OData.LongDescription" String="This value shall indicate a temperature measurement, in degrees Celsius units, and the ReadingUnits value shall be 'Cel'."/>
         </Member>
         <Member Name="Humidity">
-          <Annotation Term="OData.Description" String="Relative Humidity."/>
+          <Annotation Term="OData.Description" String="Relative humidity (percent)."/>
           <Annotation Term="OData.LongDescription" String="This value shall indicate a relative humidity measurement, in percent units, and the ReadingUnits value shall be '%'."/>
         </Member>
         <Member Name="Power">
-          <Annotation Term="OData.Description" String="Power."/>
-          <Annotation Term="OData.LongDescription" String="This value shall indicate the arithmetic mean of product terms of instantaneous voltage and current values measured over integer number of line cycles for a circuit, in Watt units, and the ReadingUnits value shall be 'W'."/>
+          <Annotation Term="OData.Description" String="Power (W)."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the arithmetic mean of product terms of instantaneous voltage and current values measured over integer number of line cycles for a circuit, in watt units, and the ReadingUnits value shall be 'W'."/>
         </Member>
         <Member Name="EnergykWh">
           <Annotation Term="OData.Description" String="Energy (kWh)."/>
           <Annotation Term="OData.LongDescription" String="This value shall indicate the energy, integral of real power over time, of the monitored item.  If representing metered power consumption the value shall reflect the power consumption since the sensor metrics were last reset.  The value of the Reading property shall be in kilowatt-hour units and the ReadingUnits value shall be `kW.h`.  This value is used for large-scale energy consumption measurements, while EnergyJoules and EnergyWh are used for device-level consumption measurements."/>
         </Member>
         <Member Name="EnergyJoules">
-          <Annotation Term="OData.Description" String="Energy (Joules)."/>
-          <Annotation Term="OData.LongDescription" String="This value shall indicate the energy, integral of real power over time, of the monitored item.  If representing metered power consumption the value shall reflect the power consumption since the sensor metrics were last reset.  The value of the Reading property shall be in Joule units and the ReadingUnits value shall be `J`.  This value is used for device-level energy consumption measurements, while EnergykWh is used for large-scale consumption measurements."/>
+          <Annotation Term="OData.Description" String="Energy (J)."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the energy, integral of real power over time, of the monitored item.  If representing metered power consumption the value shall reflect the power consumption since the sensor metrics were last reset.  The value of the Reading property shall be in joule units and the ReadingUnits value shall be `J`.  This value is used for device-level energy consumption measurements, while EnergykWh is used for large-scale consumption measurements."/>
         </Member>
         <Member Name="EnergyWh">
           <Annotation Term="OData.Description" String="Energy (Wh)."/>
@@ -463,7 +463,7 @@
         </Member>
         <Member Name="ChargeAh">
           <Annotation Term="OData.Description" String="Charge (Ah)."/>
-          <Annotation Term="OData.LongDescription" String="This value shall indicate the amount of charge of the monitored item.  If representing metered power consumption,  integral of real power over time, the value shall reflect the power consumption since the sensor metrics were last reset.  The value of the Reading property shall be in amp-hour units and the ReadingUnits value shall be `A.h`."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the amount of charge of the monitored item.  If representing metered power consumption,  integral of real power over time, the value shall reflect the power consumption since the sensor metrics were last reset.  The value of the Reading property shall be in ampere-hour units and the ReadingUnits value shall be `A.h`."/>
           <Annotation Term="Redfish.Revisions">
             <Collection>
               <Record>
@@ -474,53 +474,77 @@
           </Annotation>
         </Member>
         <Member Name="Voltage">
-          <Annotation Term="OData.Description" String="Voltage (AC or DC)."/>
-          <Annotation Term="OData.LongDescription" String="This value shall indicate a measurement of the root mean square (RMS) of instantaneous voltage calculated over an integer number of line cycles for a circuit.  Voltage is expressed in Volts units and the ReadingUnits value shall be `V`."/>
+          <Annotation Term="OData.Description" String="Voltage (VAC or VDC)."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate a measurement of the root mean square (RMS) of instantaneous voltage calculated over an integer number of line cycles for a circuit.  Voltage is expressed in volt units and the ReadingUnits value shall be `V`."/>
         </Member>
         <Member Name="Current">
-          <Annotation Term="OData.Description" String="Current."/>
-          <Annotation Term="OData.LongDescription" String="This value shall indicate a measurement of the root mean square (RMS) of instantaneous current calculated over an integer number of line cycles for a circuit.  Current is expressed in Amperes units and the ReadingUnits value shall be `A`."/>
+          <Annotation Term="OData.Description" String="Current (A)."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate a measurement of the root mean square (RMS) of instantaneous current calculated over an integer number of line cycles for a circuit.  Current is expressed in ampere units and the ReadingUnits value shall be `A`."/>
         </Member>
         <Member Name="Frequency">
-          <Annotation Term="OData.Description" String="Frequency."/>
-          <Annotation Term="OData.LongDescription" String="This value shall indicate a frequency measurement, in Hertz units, and the ReadingUnits value shall be `Hz`."/>
+          <Annotation Term="OData.Description" String="Frequency (Hz)."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate a frequency measurement, in hertz units, and the ReadingUnits value shall be `Hz`."/>
         </Member>
         <Member Name="Pressure">
-          <Annotation Term="OData.Description" String="Pressure."/>
-          <Annotation Term="OData.LongDescription" String="This value shall indicate a measurement of force applied perpendicular to the surface of an object per unit area over which that force is distributed.  The ReadingUnits shall be `Pa`."/>
+          <Annotation Term="OData.Description" String="Pressure (Pa)."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate a measurement of force, in pascal units, applied perpendicular to the surface of an object per unit area over which that force is distributed.  The ReadingUnits shall be `Pa`."/>
+        </Member>
+        <Member Name="PressurekPa">
+          <Annotation Term="OData.Description" String="Pressure (kPa)."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate a measurement of pressure, in kilopascal units, relative to atmospheric pressure.  The ReadingUnits value shall be `kPa`."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="v1_5_0"/>
+              </Record>
+            </Collection>
+          </Annotation>
         </Member>
         <Member Name="LiquidLevel">
-          <Annotation Term="OData.Description" String="Liquid level."/>
-          <Annotation Term="OData.LongDescription" String="This value shall indicate a measurement of fluid height relative to a specified vertical datum and the ReadingUnits value shall be `cm`."/>
+          <Annotation Term="OData.Description" String="Liquid level (cm)."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate a measurement of fluid height, in centimeter units, relative to a specified vertical datum and the ReadingUnits value shall be `cm`."/>
         </Member>
         <Member Name="Rotational">
-          <Annotation Term="OData.Description" String="Rotational."/>
-          <Annotation Term="OData.LongDescription" String="This value shall indicate a measurement of rotational frequency, in revolutions per minute unit, and the ReadingUnits value shall be `RPM`."/>
+          <Annotation Term="OData.Description" String="Rotational (RPM)."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate a measurement of rotational frequency, in revolutions per minute unit, and the ReadingUnits value shall be either `{rev}/min`, which is preferred, or `RPM`, which is a deprecated value."/>
         </Member>
         <Member Name="AirFlow">
-          <Annotation Term="OData.Description" String="Airflow."/>
-          <Annotation Term="OData.LongDescription" String="This value shall indicate a measurement of a volume of gas per unit of time that flows through a particular junction.  The ReadingUnits shall be `cft_i/min`."/>
+          <Annotation Term="OData.Description" String="Airflow (cu ft/min)."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate a measurement of a volume of gas per unit of time, in cubic feet per minute units, that flows through a particular junction.  The ReadingUnits shall be `[ft_i]3/min`."/>
         </Member>
         <Member Name="LiquidFlow">
-          <Annotation Term="OData.Description" String="Liquid flow."/>
-          <Annotation Term="OData.LongDescription" String="This value shall indicate a measurement of a volume of liquid per unit of time that flows through a particular junction.  The ReadingUnits shall be `L/s`."/>
+          <Annotation Term="OData.Description" String="Liquid flow (L/s)."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate a measurement of a volume of liquid per unit of time, in liters per second units, that flows through a particular junction.  The ReadingUnits shall be `L/s`."/>
         </Member>
         <Member Name="Barometric">
-          <Annotation Term="OData.Description" String="Barometric pressure."/>
-          <Annotation Term="OData.LongDescription" String="This value shall indicate a measurement of barometric pressure, in millimeters, of a mercury column, and the ReadingUnits value shall be `mm[Hg]`."/>
+          <Annotation Term="OData.Description" String="Barometric pressure (mm)."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate a measurement of barometric pressure, in millimeters of a mercury column, and the ReadingUnits value shall be `mm[Hg]`."/>
         </Member>
         <Member Name="Altitude">
-          <Annotation Term="OData.Description" String="Altitude."/>
-          <Annotation Term="OData.LongDescription" String="This value shall indicate a measurement of altitude, in meter units, and the ReadingUnits value shall be `m`."/>
+          <Annotation Term="OData.Description" String="Altitude (m)."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate a measurement of altitude, in meter units, defined as the elevation above sea level.  The ReadingUnits value shall be `m`."/>
         </Member>
         <Member Name="Percent">
-          <Annotation Term="OData.Description" String="Percent."/>
+          <Annotation Term="OData.Description" String="Percent (%)."/>
           <Annotation Term="OData.LongDescription" String="This value shall indicate a percentage measurement, in percent units, and the ReadingUnits value shall be `%`."/>
           <Annotation Term="Redfish.Revisions">
             <Collection>
               <Record>
                 <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
                 <PropertyValue Property="Version" String="v1_1_0"/>
+              </Record>
+            </Collection>
+          </Annotation>
+        </Member>
+        <Member Name="AbsoluteHumidity">
+          <Annotation Term="OData.Description" String="Absolute humidity (g/cu m)."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate an absolute (volumetric) humidity measurement, in grams per cubic meter units, and the ReadingUnits value shall be `g/m3`."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="v1_5_0"/>
               </Record>
             </Collection>
           </Annotation>
@@ -568,6 +592,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
       <EntityType Name="Sensor" BaseType="Sensor.v1_0_6.Sensor"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Sensor.v1_0_8">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to add units to ReadingType descriptions.  It was also created to update the units of AirFlow to remove the deprecated format and the units of SpeedRPM to use the available UCUM format.  It was also created to correct various typographical errors.  It was also created to correct the minimum value for PowerFactor."/>
+      <EntityType Name="Sensor" BaseType="Sensor.v1_0_7.Sensor"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Sensor.v1_1_0">
@@ -642,6 +672,12 @@
       <EntityType Name="Sensor" BaseType="Sensor.v1_1_2.Sensor"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Sensor.v1_1_4">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to add units to ReadingType descriptions.  It was also created to update the units of AirFlow to remove the deprecated format and the units of SpeedRPM to use the available UCUM format.  It was also created to correct various typographical errors.  It was also created to correct the minimum value for PowerFactor."/>
+      <EntityType Name="Sensor" BaseType="Sensor.v1_1_3.Sensor"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Sensor.v1_2_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2020.4"/>
@@ -658,7 +694,7 @@
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The rotational speed."/>
           <Annotation Term="OData.LongDescription" String="This property shall contain a reading of the rotational speed of the device in revolutions per minute (RPM) units."/>
-          <Annotation Term="Measures.Unit" String="RPM"/>
+          <Annotation Term="Measures.Unit" String="{rev}/min"/>
           <Annotation Term="Redfish.Excerpt" String="Fan,FanArray"/>
         </Property>
         <Property Name="DeviceName" Type="Edm.String">
@@ -696,6 +732,12 @@
       <EntityType Name="Sensor" BaseType="Sensor.v1_2_0.Sensor"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Sensor.v1_2_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to add units to ReadingType descriptions.  It was also created to update the units of AirFlow to remove the deprecated format and the units of SpeedRPM to use the available UCUM format.  It was also created to correct various typographical errors.  It was also created to correct the minimum value for PowerFactor."/>
+      <EntityType Name="Sensor" BaseType="Sensor.v1_2_1.Sensor"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Sensor.v1_3_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2021.1"/>
@@ -717,6 +759,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
       <EntityType Name="Sensor" BaseType="Sensor.v1_3_0.Sensor"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Sensor.v1_3_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to add units to ReadingType descriptions.  It was also created to update the units of AirFlow to remove the deprecated format and the units of SpeedRPM to use the available UCUM format.  It was also created to correct various typographical errors.  It was also created to correct the minimum value for PowerFactor."/>
+      <EntityType Name="Sensor" BaseType="Sensor.v1_3_1.Sensor"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Sensor.v1_4_0">
@@ -773,6 +821,43 @@
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
       </ComplexType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Sensor.v1_4_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to add units to ReadingType descriptions.  It was also created to update the units of AirFlow to remove the deprecated format and the units of SpeedRPM to use the available UCUM format.  It was also created to correct various typographical errors.  It was also created to correct the minimum value for PowerFactor."/>
+      <EntityType Name="Sensor" BaseType="Sensor.v1_4_0.Sensor"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Sensor.v1_5_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2021.4"/>
+      <Annotation Term="OData.Description" String="This version was created to add `AbsoluteHumidity` and `PressurekPa` to ReadingType."/>
+
+      <EntityType Name="Sensor" BaseType="Sensor.v1_4_1.Sensor">
+        <Property Name="ApparentkVAh" Type="Edm.Decimal">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="Apparent energy (kVAh)."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the apparent energy, in kilovolt-ampere-hour units, for an electrical energy measurement.  This property can appear in sensors with a ReadingType containing `EnergykWh`, and shall not appear in sensors with other ReadingType values."/>
+          <Annotation Term="Measures.Unit" String="kV.A.h"/>
+          <Annotation Term="Redfish.Excerpt" String="EnergykWh"/>
+        </Property>
+        <Property Name="ReactivekVARh" Type="Edm.Decimal">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="Reactive energy (kVARh)."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the reactive energy, in kilovolt-ampere-hours (reactive) units, for an electrical energy measurement.  This property can appear in sensors with a ReadingType containing `EnergykWh`, and shall not appear in sensors with other ReadingType values."/>
+          <Annotation Term="Measures.Unit" String="kV.A.h"/>
+          <Annotation Term="Redfish.Excerpt" String="EnergykWh"/>
+        </Property>
+        <Property Name="PhaseAngleDegrees" Type="Edm.Decimal">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The phase angle (degrees) between the current and voltage waveforms."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the phase angle, in degree units, between the current and voltage waveforms for an electrical measurement.  This property can appear in sensors with a ReadingType containing `Power`, and shall not appear in sensors with other ReadingType values."/>
+          <Annotation Term="Validation.Minimum" Int="-90"/>
+          <Annotation Term="Validation.Maximum" Int="90"/>
+          <Annotation Term="Redfish.Excerpt" String="Power,PowerArray"/>
+        </Property>
+      </EntityType>
     </Schema>
 
   </edmx:DataServices>

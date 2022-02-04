@@ -1,5 +1,5 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/UpdateService.v1_10_0.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/UpdateService.v1_11_0.json",
     "$ref": "#/definitions/UpdateService",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
     "copyright": "Copyright 2014-2021 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
@@ -42,19 +42,25 @@
                 "Immediate",
                 "OnReset",
                 "AtMaintenanceWindowStart",
-                "InMaintenanceWindowOnReset"
+                "InMaintenanceWindowOnReset",
+                "OnStartUpdateRequest"
             ],
             "enumDescriptions": {
                 "AtMaintenanceWindowStart": "Apply during an administrator-specified maintenance window.",
                 "Immediate": "Apply immediately.",
                 "InMaintenanceWindowOnReset": "Apply after a reset but within an administrator-specified maintenance window.",
-                "OnReset": "Apply on a reset."
+                "OnReset": "Apply on a reset.",
+                "OnStartUpdateRequest": "Apply when the StartUpdate action of the update service is invoked."
             },
             "enumLongDescriptions": {
                 "AtMaintenanceWindowStart": "This value shall indicate the HttpPushUri-provided software is applied during the maintenance window specified by the MaintenanceWindowStartTime and MaintenanceWindowDurationInSeconds properties.  A service may perform resets during this maintenance window.",
                 "Immediate": "This value shall indicate the HttpPushUri-provided software is applied immediately.",
                 "InMaintenanceWindowOnReset": "This value shall indicate the HttpPushUri-provided software is applied during the maintenance window specified by the MaintenanceWindowStartTime and MaintenanceWindowDurationInSeconds properties, and if a reset occurs within the maintenance window.",
-                "OnReset": "This value shall indicate the HttpPushUri-provided software is applied when the system or service is reset."
+                "OnReset": "This value shall indicate the HttpPushUri-provided software is applied when the system or service is reset.",
+                "OnStartUpdateRequest": "This value shall indicate the HttpPushUri-provided software is applied when the StartUpdate action of the update service is invoked."
+            },
+            "enumVersionAdded": {
+                "OnStartUpdateRequest": "v1_11_0"
             },
             "type": "string"
         },
@@ -123,6 +129,13 @@
                 }
             },
             "properties": {
+                "ForceUpdate": {
+                    "description": "An indication of whether the service should bypass update policies when applying the HttpPushUri-provided image.",
+                    "longDescription": "This property shall indicate whether the service should bypass update policies when applying the HttpPushUri-provided image, such as allowing a component to be downgraded.  Services may contain update policies that are never bypassed, such as minimum version enforcement.  If this property is not present, it shall be assumed to be `false`.",
+                    "readonly": false,
+                    "type": "boolean",
+                    "versionAdded": "v1_11_0"
+                },
                 "HttpPushUriApplyTime": {
                     "$ref": "#/definitions/HttpPushUriApplyTime",
                     "description": "The settings for when to apply HttpPushUri-provided firmware.",
@@ -158,6 +171,12 @@
             "description": "This action updates software components.",
             "longDescription": "This action shall update installed software components in a software image file located at an ImageURI parameter-specified URI.",
             "parameters": {
+                "ForceUpdate": {
+                    "description": "An indication of whether the service should bypass update policies when applying the provided image.  The default is `false`.",
+                    "longDescription": "This parameter shall indicate whether the service should bypass update policies when applying the provided image, such as allowing a component to be downgraded.  Services may contain update policies that are never bypassed, such as minimum version enforcement.  If the client does not provide this parameter, the service shall default this value to `false`.",
+                    "type": "boolean",
+                    "versionAdded": "v1_11_0"
+                },
                 "ImageURI": {
                     "description": "The URI of the software image to install.",
                     "longDescription": "This parameter shall contain an RFC3986-defined URI that links to a software image that the update service retrieves to install software in that image.  This URI should contain a scheme that describes the transfer protocol.  If the TransferProtocol parameter is absent or not supported, and a transfer protocol is not specified by a scheme contained within this URI, the service shall use HTTP to get the image.",
@@ -308,6 +327,13 @@
                 }
             },
             "properties": {
+                "ForceUpdate": {
+                    "description": "An indication of whether the service should bypass update policies when applying the provided image.  The default is `false`.",
+                    "longDescription": "This property shall indicate whether the service should bypass update policies when applying the provided image, such as allowing a component to be downgraded.  Services may contain update policies that are never bypassed, such as minimum version enforcement.  If the client does not provide this parameter, the service shall default this value to `false`.",
+                    "readonly": false,
+                    "type": "boolean",
+                    "versionAdded": "v1_11_0"
+                },
                 "Oem": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Oem",
                     "description": "The OEM extension property.",
@@ -324,7 +350,7 @@
                         ]
                     },
                     "longDescription": "This property shall contain zero or more URIs that indicate where to apply the update image when using the URI specified by the MultipartHttpPushUri property to push a software image.  These targets should correspond to software inventory instances or their related items.  If this property is not present or contains no targets, the service shall apply the software image to all applicable targets, as determined by the service.",
-                    "readonly": true,
+                    "readonly": false,
                     "type": "array",
                     "versionAdded": "v1_6_0"
                 }
@@ -500,7 +526,7 @@
                 },
                 "VerifyRemoteServerCertificate": {
                     "description": "An indication of whether the service will verify the certificate of the server referenced by the ImageURI property in SimpleUpdate prior to sending the transfer request.",
-                    "longDescription": "This property shall indicate whether whether the service will verify the certificate of the server referenced by the ImageURI property in SimpleUpdate prior to sending the transfer request.",
+                    "longDescription": "This property shall indicate whether whether the service will verify the certificate of the server referenced by the ImageURI property in SimpleUpdate prior to sending the transfer request.  If this property is not supported by the service, it shall be assumed to be `false`.  This property should default to `false` in order to maintain compatibility with older clients.",
                     "readonly": false,
                     "type": [
                         "boolean",
@@ -519,6 +545,6 @@
         }
     },
     "owningEntity": "DMTF",
-    "release": "2021.2",
-    "title": "#UpdateService.v1_10_0.UpdateService"
+    "release": "2021.4",
+    "title": "#UpdateService.v1_11_0.UpdateService"
 }
