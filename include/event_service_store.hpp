@@ -194,6 +194,34 @@ struct UserSubscription
 
         return subvalue;
     }
+
+    nlohmann::json toJson()
+    {
+        nlohmann::json::object_t headers;
+        for (const boost::beast::http::fields::value_type& header : httpHeaders)
+        {
+            // Note, these are technically copies because nlohmann doesn't
+            // support key lookup by std::string_view.  At least the
+            // following code can use move
+            // https://github.com/nlohmann/json/issues/1529
+            std::string name(header.name_string());
+            headers[std::move(name)] = header.value();
+        }
+
+        return nlohmann::json::object_t(
+            {{"Id", id},
+             {"Context", customText},
+             {"DeliveryRetryPolicy", retryPolicy},
+             {"Destination", destinationUrl},
+             {"EventFormatType", eventFormatType},
+             {"HttpHeaders", std::move(headers)},
+             {"MessageIds", registryMsgIds},
+             {"Protocol", protocol},
+             {"RegistryPrefixes", registryPrefixes},
+             {"ResourceTypes", resourceTypes},
+             {"SubscriptionType", subscriptionType},
+             {"MetricReportDefinitions", metricReportDefinitions}});
+    }
 };
 
 struct EventServiceConfig
