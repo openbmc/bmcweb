@@ -9,7 +9,7 @@ import json
 
 import xml.etree.ElementTree as ET
 
-VERSION = "DSP8010_2021.3"
+VERSION = "DSP8010_2021.4"
 
 # To use a new schema, add to list and rerun tool
 include_list = [
@@ -47,6 +47,7 @@ include_list = [
     'ManagerAccount',
     'ManagerAccountCollection',
     'ManagerCollection',
+    'ManagerDiagnosticData',
     'ManagerNetworkProtocol',
     'Memory',
     'MemoryCollection',
