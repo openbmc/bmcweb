@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  Cable v1.1.0                                                        -->
+<!--# Redfish Schema:  Cable v1.2.0                                                        -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -263,6 +263,28 @@
         <Member Name="QSFP">
           <Annotation Term="OData.Description" String="This cable connects to a QSFP connector."/>
         </Member>
+        <Member Name="CDFP">
+          <Annotation Term="OData.Description" String="This cable connects to a CDFP connector."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="v1_2_0"/>
+              </Record>
+            </Collection>
+          </Annotation>
+        </Member>
+        <Member Name="OSFP">
+          <Annotation Term="OData.Description" String="This cable connects to a OSFP connector."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="v1_2_0"/>
+              </Record>
+            </Collection>
+          </Annotation>
+        </Member>
       </EnumType>
 
       <EnumType Name="CableStatus">
@@ -361,6 +383,14 @@
           <Annotation Term="OData.LongDescription" String="This property shall contain a user-assigned label used to identify this resource.  If a value has not been assigned by a user, the value of this property shall be an empty string."/>
         </Property>
       </EntityType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Cable.v1_2_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2021.4"/>
+      <Annotation Term="OData.Description" String="This version was created to add `CDFP` and `OSFP` to ConnectorType."/>
+
+      <EntityType Name="Cable" BaseType="Cable.v1_1_0.Cable"/>
     </Schema>
 
   </edmx:DataServices>

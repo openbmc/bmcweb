@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  Resource v1.13.0                                                    -->
+<!--# Redfish Schema:  Resource v1.14.0                                                    -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -113,7 +113,7 @@
         </Property>
         <Property Name="Conditions" Type="Collection(Resource.Condition)">
           <Annotation Term="OData.Description" String="Conditions in this resource that require attention."/>
-          <Annotation Term="OData.LongDescription" String="This property shall represent the active conditions requiring attention in this or a related resource that affects the Health or HealthRollup of this resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall represent the active conditions requiring attention in this or a related resource that affects the Health or HealthRollup of this resource.  The service may roll up multiple conditions originating from a resource, using the `ConditionInRelatedResource` message from Base Message Registry."/>
           <Annotation Term="Redfish.Revisions">
             <Collection>
               <Record>
@@ -172,6 +172,19 @@
           <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource of type LogEntry that represents the log entry created for this condition."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
+        <Property Name="Resolution" Type="Edm.String" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="Suggestions on how to resolve the condition."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the resolution of the condition.  Services should replace the resolution defined in the message registry with a more specific resolution."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="v1_14_0"/>
+              </Record>
+            </Collection>
+          </Annotation>
+        </Property>
       </ComplexType>
 
       <EnumType Name="State">
@@ -626,6 +639,18 @@
               <Record>
                 <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
                 <PropertyValue Property="Version" String="v1_10_0"/>
+              </Record>
+            </Collection>
+          </Annotation>
+        </Member>
+        <Member Name="MACAddress">
+          <Annotation Term="OData.Description" String="The media access control address (MAC address)."/>
+          <Annotation Term="OData.LongDescription" String="This durable name shall be a media access control address (MAC address), which is a unique identifier assigned to a network interface controller (NIC) for use as a network address.  This value should not be used if a more specific type of identifier is available.  The DurableName property shall follow the pattern '^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})$', where the most significant octet is first."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="v1_14_0"/>
               </Record>
             </Collection>
           </Annotation>
@@ -1337,7 +1362,7 @@
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_6_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2017.3"/>
-      <Annotation Term="OData.Description" String="This version was created to add GPS Coordinated to Location and enumerations for DurableNameFormat for NVMe fabric extension."/>
+      <Annotation Term="OData.Description" String="This version was created to add GPS coordinates to Location and enumerations for DurableNameFormat for NVMe fabric extension."/>
 
       <ComplexType Name="Location" BaseType="Resource.v1_5_0.Location">
         <Property Name="Longitude" Type="Edm.Decimal" DefaultValue="0">
@@ -1355,7 +1380,7 @@
         <Property Name="AltitudeMeters" Type="Edm.Decimal" DefaultValue="0">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
           <Annotation Term="OData.Description" String="The altitude of the resource in meters."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the altitude of the resource in meters."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the altitude of the resource, in meters units, defined as the elevation above sea level."/>
           <Annotation Term="Measures.Unit" String="m"/>
         </Property>
       </ComplexType>
@@ -1404,6 +1429,11 @@
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_6_9">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct the description for LocationType within PartLocation.  It was also created to clarify the descriptions for Id, Name, Description, and MemberId to be consistent with usage in the specification."/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_6_10">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to enhance the description of AltitudeMeters."/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_7_0">
@@ -1495,6 +1525,11 @@
       <Annotation Term="OData.Description" String="This version was created to correct the description for LocationType within PartLocation.  It was also created to clarify the descriptions for Id, Name, Description, and MemberId to be consistent with usage in the specification."/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_7_9">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to enhance the description of AltitudeMeters."/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_8_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2018.3"/>
@@ -1541,6 +1576,11 @@
       <Annotation Term="OData.Description" String="This version was created to correct the description for LocationType within PartLocation.  It was also created to clarify the descriptions for Id, Name, Description, and MemberId to be consistent with usage in the specification."/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_8_9">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to enhance the description of AltitudeMeters."/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_9_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2019.4"/>
@@ -1577,6 +1617,11 @@
       <Annotation Term="OData.Description" String="This version was created to correct the description for LocationType within PartLocation.  It was also created to clarify the descriptions for Id, Name, Description, and MemberId to be consistent with usage in the specification."/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_9_7">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to enhance the description of AltitudeMeters."/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_10_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2020.3"/>
@@ -1598,6 +1643,11 @@
       <Annotation Term="OData.Description" String="This version was created to correct the description for LocationType within PartLocation.  It was also created to clarify the descriptions for Id, Name, Description, and MemberId to be consistent with usage in the specification."/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_10_4">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to enhance the description of AltitudeMeters."/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_11_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2020.4"/>
@@ -1614,6 +1664,11 @@
       <Annotation Term="OData.Description" String="This version was created to correct the description for LocationType within PartLocation.  It was also created to clarify the descriptions for Id, Name, Description, and MemberId to be consistent with usage in the specification."/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_11_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to enhance the description of AltitudeMeters.  It was also added to improve the description of Conditions."/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_12_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2021.1"/>
@@ -1625,10 +1680,26 @@
       <Annotation Term="OData.Description" String="This version was created to correct the description for LocationType within PartLocation.  It was also created to clarify the descriptions for Id, Name, Description, and MemberId to be consistent with usage in the specification."/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_12_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to enhance the description of AltitudeMeters.  It was also added to improve the description of Conditions."/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_13_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2021.2"/>
       <Annotation Term="OData.Description" String="This version was created to add `Embedded` to LocationType within PartLocation.  It was also to add the `Pause`, `Resume`, and `Suspend` enumerations to ResetType.  It was also created to add `Paused` to PowerState."/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_13_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to enhance the description of AltitudeMeters.  It was also added to improve the description of Conditions."/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_14_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2021.4"/>
+      <Annotation Term="OData.Description" String="This version was created to add Resolution to the Conditions property in Status.  It was also was created to add `MACAddress` to DurableNameFormat."/>
     </Schema>
 
   </edmx:DataServices>
