@@ -116,6 +116,30 @@
       },
       "revId": "c83bdc4284dde4b05d669e76bd9aea082e63e307",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3894ecbc_eb554c86",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-02-04T23:42:19Z",
+      "side": 1,
+      "message": "Yes, to be more precise, phosphor-time-manager should not accept a list with an empty property, and should be returning a reasonable return code when bmcweb tries to set it, so we can translate that error to redfish, and forward it back to the user.  We should not be doing empty string checks directly in bmcweb.",
+      "parentUuid": "092773c7_4c4f90f3",
+      "range": {
+        "startLine": 25,
+        "startChar": 0,
+        "endLine": 27,
+        "endChar": 5
+      },
+      "revId": "c83bdc4284dde4b05d669e76bd9aea082e63e307",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
