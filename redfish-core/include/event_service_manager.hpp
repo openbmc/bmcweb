@@ -606,6 +606,9 @@ class EventServiceManager
             subValue->resourceTypes = newSub->resourceTypes;
             subValue->httpHeaders = newSub->httpHeaders;
             subValue->metricReportDefinitions = newSub->metricReportDefinitions;
+            subValue->originResources = newSub->originResources;
+            subValue->includeOriginOfCondition =
+                newSub->includeOriginOfCondition;
 
             if (subValue->id.empty())
             {
@@ -863,6 +866,10 @@ class EventServiceManager
         newSub->resourceTypes = subValue->resourceTypes;
         newSub->httpHeaders = subValue->httpHeaders;
         newSub->metricReportDefinitions = subValue->metricReportDefinitions;
+        newSub->originResources = subValue->originResources;
+        newSub->includeOriginOfCondition = subValue->includeOriginOfCondition;
+        persistent_data::EventServiceStore::getInstance()
+            .subscriptionsConfigMap.emplace(newSub->id, newSub);
         persistent_data::EventServiceStore::getInstance()
             .subscriptionsConfigMap.emplace(newSub->id, newSub);
 

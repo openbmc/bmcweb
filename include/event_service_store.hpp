@@ -22,6 +22,8 @@ struct UserSubscription
     std::vector<std::string> resourceTypes;
     boost::beast::http::fields httpHeaders;
     std::vector<std::string> metricReportDefinitions;
+    std::vector<std::string> originResources;
+    bool includeOriginOfCondition = true;
 
     static std::shared_ptr<UserSubscription>
         fromJson(const nlohmann::json& j, const bool loadFromOldConfig = false)
@@ -172,6 +174,29 @@ struct UserSubscription
                     subvalue->metricReportDefinitions.emplace_back(*value);
                 }
             }
+            else if (element.key() == "OriginResources")
+            {
+                const auto& obj = element.value();
+                for (const auto& val : obj.items())
+                {
+                    const std::string* value =
+                        val.value().get_ptr<const std::string*>();
+                    if (value == nullptr)
+                    {
+                        continue;
+                    }
+                    subvalue->originResources.emplace_back(*value);
+                }
+            }
+            else if (element.key() == "IncludeOriginOfCondition")
+            {
+                const bool* value = element.value().get_ptr<const bool*>();
+                if (value == nullptr)
+                {
+                    continue;
+                }
+                subvalue->includeOriginOfCondition = *value;
+            }
             else
             {
                 BMCWEB_LOG_ERROR
@@ -220,7 +245,9 @@ struct UserSubscription
              {"RegistryPrefixes", registryPrefixes},
              {"ResourceTypes", resourceTypes},
              {"SubscriptionType", subscriptionType},
-             {"MetricReportDefinitions", metricReportDefinitions}});
+             {"MetricReportDefinitions", metricReportDefinitions},
+             {"OriginResources", originResources},
+             {"IncludeOriginOfCondition", includeOriginOfCondition}});
     }
 };
 
