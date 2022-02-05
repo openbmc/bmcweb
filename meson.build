@@ -78,6 +78,7 @@ feature_map = {
   'redfish-dbus-log'                            : '-DBMCWEB_ENABLE_REDFISH_DBUS_LOG_ENTRIES',
   'redfish-dump-log'                            : '-DBMCWEB_ENABLE_REDFISH_DUMP_LOG',
   'redfish-host-logger'                         : '-DBMCWEB_ENABLE_REDFISH_HOST_LOGGER',
+  'redfish-dbus-event'                          : '-DBMCWEB_ENABLE_REDFISH_DBUS_EVENT_PUSH',
   'redfish-new-powersubsystem-thermalsubsystem' : '-DBMCWEB_NEW_POWERSUBSYSTEM_THERMALSUBSYSTEM',
   'redfish-provisioning-feature'                : '-DBMCWEB_ENABLE_REDFISH_PROVISIONING_FEATURE',
   'redfish'                                     : '-DBMCWEB_ENABLE_REDFISH',
@@ -390,6 +391,7 @@ srcfiles_unittest = [
   'redfish-core/lib/ut/service_root_test.cpp',
   'redfish-core/ut/registry_utils_test.cpp',
   'redfish-core/ut/dbus_log_utils_test.cpp',
+  'redfish-core/ut/event_service_test.cpp',
 ]
 
 if(get_option('tests').enabled())
