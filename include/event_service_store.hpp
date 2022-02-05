@@ -258,7 +258,9 @@ struct UserSubscription
             {"RegistryPrefixes", registryPrefixes},
             {"ResourceTypes", resourceTypes},
             {"SubscriptionType", subscriptionType},
-            {"MetricReportDefinitions", metricReportDefinitions}
+            {"MetricReportDefinitions", metricReportDefinitions},
+            {"OriginResources", originResources},
+            {"IncludeOriginOfCondition", includeOriginOfCondition}
         });
     }
 };
