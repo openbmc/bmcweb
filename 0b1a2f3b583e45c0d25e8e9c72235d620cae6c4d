@@ -154,6 +154,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a1da3d8c_49493f4d",
+        "filename": "redfish-core/lib/manager_diagnostic_data.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1000500
+      },
+      "writtenOn": "2022-02-05T00:49:50Z",
+      "side": 1,
+      "message": "It seems bmcweb will still build even if I don\u0027t include any headers and remove all other handles from redfish.hpp, so I added the headers based on what appears in this file.\n\nList of symbols used and include files:\n\n- crow::App comes from \u003capp.hpp\u003e\n- BMCWEB_ROUTE comes from \u003capp.hpp\u003e\n- RuleParameterTraits::privileges comes from \u003crouting.hpp\u003e which is included by \u003capp.hpp\u003e\n- RuleParameterTraits::methods is same as above\n- boost::beast::http::verb::get comes from \u003cboost/beast/http/verb.hpp\u003e, which is included by \u003cprivileges.hpp\u003e, which is included by \u003capp.hpp\u003e\n- crow::Request comes from \u003chttp_request.hpp\u003e which is included by \u003capp.hpp\u003e\n- bmcweb::AsyncResp comes from \u003casync_resp.hpp\u003e which is included by \u003capp.hpp\u003e\n- jsonValue comes from \u003cnlohmann/json.hpp\u003e which is included by \u003chttp_request.hpp\u003e which is in turn included by \u003capp.hpp\u003e\n- And finally a std::string\n\nSo overall it seems I only need \u003capp.hpp\u003e and \u003cstring\u003e for this header file to be self-sufficient, due to the indirect includes that fan out from \u003capp.hpp\u003e.",
+      "parentUuid": "4f496f19_335f80fe",
+      "revId": "0b1a2f3b583e45c0d25e8e9c72235d620cae6c4d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "05c4028b_faf5c37e",
