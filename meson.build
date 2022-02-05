@@ -386,6 +386,7 @@ srcfiles_unittest = [
   'redfish-core/ut/time_utils_test.cpp',
   'redfish-core/ut/registry_utils_test.cpp',
   'redfish-core/ut/dbus_log_utils_test.cpp',
+  'redfish-core/ut/event_service_test.cpp',
 ]
 
 if(get_option('tests').enabled())
