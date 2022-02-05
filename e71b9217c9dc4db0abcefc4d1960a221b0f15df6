@@ -50,6 +50,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ebf0a93b_fb51312f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-02-05T17:19:45Z",
+      "side": 1,
+      "message": "72 characters refers to where to place line breaks.  I would hope that your commit message didn\u0027t fit in 72 characters.\n\nIf you use something like vim when committing this to git, it will auto wrap for you.",
+      "parentUuid": "9fa0e7ed_a85c1795",
+      "range": {
+        "startLine": 8,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 211
+      },
+      "revId": "e71b9217c9dc4db0abcefc4d1960a221b0f15df6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "18085f7a_d021197a",
         "filename": "/COMMIT_MSG",
         "patchSetId": 1
@@ -85,6 +109,30 @@
       "side": 1,
       "message": "Sorry, I\u0027m new to Gerrit. I think I\u0027m supposed to abandon this change and make another change with multiple commits to break up this patchset, right?",
       "parentUuid": "18085f7a_d021197a",
+      "range": {
+        "startLine": 10,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 0
+      },
+      "revId": "e71b9217c9dc4db0abcefc4d1960a221b0f15df6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a1d0f6d7_57ecbd16",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-02-05T17:19:45Z",
+      "side": 1,
+      "message": "Ideally no, you would continue to use this review as-is (by keeping the ChangeId in your commit message) so that the existing comments are tracked, then open up new reviews as you move things into independent commits.",
+      "parentUuid": "590c4052_af3859d3",
       "range": {
         "startLine": 10,
         "startChar": 0,
@@ -143,6 +191,24 @@
       "side": 1,
       "message": "I\u0027ve passed openbmc-build-scripts before I submitted this change. Let me know if you think there\u0027s any other issue.",
       "parentUuid": "969ce47b_2b000439",
+      "revId": "e71b9217c9dc4db0abcefc4d1960a221b0f15df6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "772a6702_de4efae9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-02-05T17:19:45Z",
+      "side": 1,
+      "message": "Can you please post your passing log?  There are lots of things  in this (like whitespace issues) that the build should\u0027ve easily caught, which makes me think something is broken if you did in fact run it.",
+      "parentUuid": "b50c039e_b19a973d",
       "revId": "e71b9217c9dc4db0abcefc4d1960a221b0f15df6",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -276,6 +342,30 @@
       "side": 1,
       "message": "The reason why I want to make it this way is for better readability since the version string is actually used to construct @odata.type field which is pretty separate from this event class implementation in source codes. It might be pretty easy to miss updating that field if event class itself is updated. I think I can make it be char* string so that it can be put in RODATA by compiler.",
       "parentUuid": "77b77029_050fe014",
+      "range": {
+        "startLine": 270,
+        "startChar": 0,
+        "endLine": 270,
+        "endChar": 48
+      },
+      "revId": "e71b9217c9dc4db0abcefc4d1960a221b0f15df6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f4ba0ae2_2c7bd85b",
+        "filename": "redfish-core/include/event_service_manager.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 270,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-02-05T17:19:45Z",
+      "side": 1,
+      "message": "The pattern we follow elsewhere is to just inline it if there is only a single use.  Please follow that pattern.",
+      "parentUuid": "1107b232_119e2958",
       "range": {
         "startLine": 270,
         "startChar": 0,
