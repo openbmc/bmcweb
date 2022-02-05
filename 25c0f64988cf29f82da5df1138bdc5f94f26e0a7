@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "49496ced_9f65903d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 25
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000500
+      },
+      "writtenOn": "2022-02-05T00:51:24Z",
+      "side": 1,
+      "message": "Addressed some of the issues; the following may take a bit longer to resolve:\n\n1. AutoExpand\n2. \"how to identify a BMC metric utility sensor without relying on the names of the DBus objects\"",
+      "revId": "25c0f64988cf29f82da5df1138bdc5f94f26e0a7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}

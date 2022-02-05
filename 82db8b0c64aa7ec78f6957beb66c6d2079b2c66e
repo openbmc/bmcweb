@@ -26,6 +26,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "0d9d708c_0ed64860",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 24
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1000500
+      },
+      "writtenOn": "2022-02-05T00:51:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "07c77902_703eb589",
+      "range": {
+        "startLine": 26,
+        "startChar": 0,
+        "endLine": 26,
+        "endChar": 6
+      },
+      "revId": "82db8b0c64aa7ec78f6957beb66c6d2079b2c66e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "cb16a775_48957409",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 24
@@ -81,6 +105,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a8d8bda8_b645d5e1",
+        "filename": "redfish-core/lib/manager_diagnostic_data.hpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1000500
+      },
+      "writtenOn": "2022-02-05T00:51:24Z",
+      "side": 1,
+      "message": "GetSubTreeType and GetObjectType are exactly the same as is used by a few other headers in bmcweb, for cleaning up those lines I tried to reuse ones from existing files:\n\n* GetSubTreeType is defined in openbmc_dbus_rest.hpp, sensors.hpp, managers.hpp. The latter two are an alias of the type in openbmc_dbus_rest.hpp. So I am including openbmc_dbus_rest.hpp.\n* GetObjectType is defined dbus_utility.hpp, openbmc_dbus_rest.hpp, account_service.hpp, certificate_service.hpp, and virtual_media.hpp. However: in dbus_utility.hpp and openbmc_dbus_rest.hpp the alias is local to a few functions. The rest are handler files that are unrelated to ManagerDiagnosticData. So I\u0027m not including them but rather repeat the GetObjectType alias in this file.\n* Replaced SensorVariantType with dbus::utility::DbusVariantType defined in dbus_utility.hpp.\n* Removed EndpointType aliase because it is basic enough.\n* Removed EndpointVariantType because by using sdbusplus::asio::getProperty similarly to 44019, the variant container is not needed.",
+      "parentUuid": "3e08fe55_48c25ecd",
+      "range": {
+        "startLine": 12,
+        "startChar": 0,
+        "endLine": 25,
+        "endChar": 0
+      },
+      "revId": "82db8b0c64aa7ec78f6957beb66c6d2079b2c66e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "77f603dc_dc790d87",
@@ -94,6 +142,30 @@
       "writtenOn": "2022-02-03T20:07:50Z",
       "side": 1,
       "message": "Please don\u0027t forward declare methods in an implementation file.  It implies that code needs to be moved around to be more organized, although in this case I suspect that they can just be removed.\n\nAlso, no need to call out \"step 1, 2\", ect.  They have no context in the code.",
+      "range": {
+        "startLine": 26,
+        "startChar": 0,
+        "endLine": 34,
+        "endChar": 0
+      },
+      "revId": "82db8b0c64aa7ec78f6957beb66c6d2079b2c66e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ea8b6721_e88a1582",
+        "filename": "redfish-core/lib/manager_diagnostic_data.hpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1000500
+      },
+      "writtenOn": "2022-02-05T00:51:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "77f603dc_dc790d87",
       "range": {
         "startLine": 26,
         "startChar": 0,
@@ -150,6 +222,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7006b1a0_d284225a",
+        "filename": "redfish-core/lib/manager_diagnostic_data.hpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 249,
+      "author": {
+        "id": 1000500
+      },
+      "writtenOn": "2022-02-05T00:51:24Z",
+      "side": 1,
+      "message": "Removed I2C stats, will address in a next change.",
+      "parentUuid": "da640cda_26c7e994",
+      "range": {
+        "startLine": 249,
+        "startChar": 44,
+        "endLine": 249,
+        "endChar": 57
+      },
+      "revId": "82db8b0c64aa7ec78f6957beb66c6d2079b2c66e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "39f2e31f_17e176c0",
@@ -173,6 +269,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "174b9b78_13326bc0",
+        "filename": "redfish-core/lib/manager_diagnostic_data.hpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 255,
+      "author": {
+        "id": 1000500
+      },
+      "writtenOn": "2022-02-05T00:51:24Z",
+      "side": 1,
+      "message": "Removed I2C stats.\nThis was intended to be ends_with.",
+      "parentUuid": "39f2e31f_17e176c0",
+      "range": {
+        "startLine": 255,
+        "startChar": 0,
+        "endLine": 255,
+        "endChar": 74
+      },
+      "revId": "82db8b0c64aa7ec78f6957beb66c6d2079b2c66e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a4ac6735_015f7d93",
@@ -186,6 +306,30 @@
       "writtenOn": "2022-02-03T20:07:50Z",
       "side": 1,
       "message": "this flow can be greatly simplified, considering there is no else case on the branch below, this variable doesn\u0027t seem like it\u0027s needed at all.",
+      "range": {
+        "startLine": 257,
+        "startChar": 0,
+        "endLine": 257,
+        "endChar": 34
+      },
+      "revId": "82db8b0c64aa7ec78f6957beb66c6d2079b2c66e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9a479a5a_8a173600",
+        "filename": "redfish-core/lib/manager_diagnostic_data.hpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 257,
+      "author": {
+        "id": 1000500
+      },
+      "writtenOn": "2022-02-05T00:51:24Z",
+      "side": 1,
+      "message": "Removed I2C stats from this change",
+      "parentUuid": "a4ac6735_015f7d93",
       "range": {
         "startLine": 257,
         "startChar": 0,
@@ -221,6 +365,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "440f86de_93180e61",
+        "filename": "redfish-core/lib/manager_diagnostic_data.hpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 275,
+      "author": {
+        "id": 1000500
+      },
+      "writtenOn": "2022-02-05T00:51:24Z",
+      "side": 1,
+      "message": "Added a check for \u0027/\u0027 for more precise checking. But the \"do not call by name\" is what I can resolve before a consensus on how to identify different BMC metrics is settled.",
+      "parentUuid": "cfe7a2a9_b8332173",
+      "range": {
+        "startLine": 274,
+        "startChar": 0,
+        "endLine": 275,
+        "endChar": 59
+      },
+      "revId": "82db8b0c64aa7ec78f6957beb66c6d2079b2c66e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "59a23472_bccb3b68",
         "filename": "redfish-core/lib/manager_diagnostic_data.hpp",
         "patchSetId": 24
@@ -232,6 +400,30 @@
       "writtenOn": "2022-02-03T20:07:50Z",
       "side": 1,
       "message": "Same as above. This is common error 12, and this specific API is called out by name.",
+      "range": {
+        "startLine": 280,
+        "startChar": 40,
+        "endLine": 280,
+        "endChar": 49
+      },
+      "revId": "82db8b0c64aa7ec78f6957beb66c6d2079b2c66e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "66aba38a_885d2b8c",
+        "filename": "redfish-core/lib/manager_diagnostic_data.hpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 280,
+      "author": {
+        "id": 1000500
+      },
+      "writtenOn": "2022-02-05T00:51:24Z",
+      "side": 1,
+      "message": "Same as above, the scope of how to identify different BMC metrics is beyond this change.",
+      "parentUuid": "59a23472_bccb3b68",
       "range": {
         "startLine": 280,
         "startChar": 40,
@@ -267,6 +459,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "08d28460_fff2030c",
+        "filename": "redfish-core/lib/manager_diagnostic_data.hpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 301,
+      "author": {
+        "id": 1000500
+      },
+      "writtenOn": "2022-02-05T00:51:24Z",
+      "side": 1,
+      "message": "Is there any record I can look into?",
+      "parentUuid": "a5dd47eb_33c5d7d3",
+      "range": {
+        "startLine": 301,
+        "startChar": 48,
+        "endLine": 301,
+        "endChar": 69
+      },
+      "revId": "82db8b0c64aa7ec78f6957beb66c6d2079b2c66e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "973ad7cb_b6ecd579",
         "filename": "redfish-core/lib/managers.hpp",
         "patchSetId": 24
@@ -278,6 +494,30 @@
       "writtenOn": "2022-02-03T20:07:50Z",
       "side": 1,
       "message": "?  This looks like a mistake, and is the only edit in this file?",
+      "range": {
+        "startLine": 38,
+        "startChar": 0,
+        "endLine": 42,
+        "endChar": 3
+      },
+      "revId": "82db8b0c64aa7ec78f6957beb66c6d2079b2c66e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c7afc88f_97c4e949",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1000500
+      },
+      "writtenOn": "2022-02-05T00:51:24Z",
+      "side": 1,
+      "message": "Removed.",
+      "parentUuid": "973ad7cb_b6ecd579",
       "range": {
         "startLine": 38,
         "startChar": 0,
