@@ -164,14 +164,103 @@ inline void requestRoutesSubmitTestEvent(App& app)
         app, "/redfish/v1/EventService/Actions/EventService.SubmitTestEvent/")
         .privileges(redfish::privileges::postEventService)
         .methods(boost::beast::http::verb::post)(
-            [](const crow::Request&,
+            [](const crow::Request& req,
                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
-                if (!EventServiceManager::getInstance().sendTestEventLog())
+                std::string messageId;
+                std::optional<int64_t> eventGroupId;
+                std::optional<std::string> eventId;
+                std::optional<std::string> eventTimestamp;
+                std::optional<std::string> message;
+                std::optional<std::vector<std::string>> messageArgs;
+                std::optional<std::string> originOfCondition;
+                std::optional<std::string> severity;
+                // deprecated
+                std::optional<std::string> eventType;
+                (void)eventType;
+
+                if (!json_util::readJson(
+                        req, asyncResp->res, "MessageId", messageId,
+                        "EventGroupId", eventGroupId, "EventId", eventId,
+                        "EventTimestamp", eventTimestamp, "Message", message,
+                        "MessageArgs", messageArgs, "OriginOfCondition",
+                        originOfCondition, "Severity", severity, "EventType",
+                        eventType))
+                {
+                    return;
+                }
+
+                if (!redfish::message_registries::isMessageIdValid(messageId))
+                {
+                    messages::propertyValueNotInList(asyncResp->res, messageId,
+                                                     "MessageId");
+                    return;
+                }
+
+                Event event(messageId);
+                if (eventGroupId)
+                {
+                    event.eventGroupId = *eventGroupId;
+                }
+                if (eventId)
+                {
+                    event.eventId = *eventId;
+                }
+                if (eventTimestamp)
+                {
+                    event.eventTimestamp = *eventTimestamp;
+                }
+                if (message)
+                {
+                    if (event.setCustomMsg(*message, *messageArgs) != 0)
+                    {
+                        BMCWEB_LOG_ERROR << "Invalid message or message "
+                                            "arguments.";
+                        messages::actionParameterValueError(
+                            asyncResp->res, "MessageArgs", "SubmitTestEvent");
+                        return;
+                    }
+                }
+                else if (messageArgs)
+                {
+                    if (event.setRegistryMsg(*messageArgs) != 0)
+                    {
+                        BMCWEB_LOG_ERROR << "Invalid message arguments.";
+                        messages::actionParameterValueError(
+                            asyncResp->res, "MessageArgs", "SubmitTestEvent");
+                        return;
+                    }
+                }
+                else
+                {
+                    std::vector<std::string> noArgs = {};
+                    if (event.setRegistryMsg(noArgs) != 0)
+                    {
+                        BMCWEB_LOG_ERROR << "Invalid message arguments.";
+                        messages::actionParameterValueError(
+                            asyncResp->res, "MessageArgs", "SubmitTestEvent");
+                        return;
+                    }
+                }
+
+                if (originOfCondition)
+                {
+                    event.originOfCondition = *originOfCondition;
+                }
+                if (severity)
+                {
+                    event.messageSeverity = *severity;
+                }
+
+                if (!persistent_data::EventServiceStore::getInstance()
+                         .getEventServiceConfig()
+                         .enabled)
                 {
                     messages::serviceDisabled(asyncResp->res,
                                               "/redfish/v1/EventService/");
                     return;
                 }
+
+                EventServiceManager::getInstance().sendEvent(event);
                 asyncResp->res.result(boost::beast::http::status::no_content);
             });
 }

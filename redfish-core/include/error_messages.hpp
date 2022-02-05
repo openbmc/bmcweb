@@ -968,6 +968,21 @@ nlohmann::json invalidUpload(std::string_view arg1, std::string_view arg2);
 void invalidUpload(crow::Response& res, std::string_view arg1,
                    std::string_view arg2);
 
+/**
+ * @brief Formats ActionParameterValueError message into JSON
+ * Message body: "The value for the parameter <arg1> in the action <arg2> is
+ * invalid."
+ *
+ * @param[in] arg1 Parameter of message that will replace %1 in its body.
+ * @param[in] arg2 Parameter of message that will replace %2 in its body.
+ *
+ * @returns Message actionParameterValueError formatted to JSON */
+nlohmann::json actionParameterValueError(const std::string& arg1,
+                                         const std::string& arg2);
+
+void actionParameterValueError(crow::Response& res, const std::string& arg1,
+                               const std::string& arg2);
+
 } // namespace messages
 
 } // namespace redfish

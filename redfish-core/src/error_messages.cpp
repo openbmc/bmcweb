@@ -305,6 +305,34 @@ void actionParameterUnknown(crow::Response& res, std::string_view arg1,
 
 /**
  * @internal
+ * @brief Formats ActionParameterValueError message into JSON
+ *
+ * See header file for more information
+ * @endinternal
+ */
+nlohmann::json actionParameterValueError(const std::string& arg1,
+                                         const std::string& arg2)
+{
+    return nlohmann::json{
+        {"@odata.type", "#Message.v1_1_1.Message"},
+        {"MessageId", "Base.1.8.1.ActionParameterValueError"},
+        {"Message", "The value for the parameter " + arg1 + " in the action " +
+                        arg2 + " is invalid."},
+        {"MessageArgs", {arg1, arg2}},
+        {"MessageSeverity", "Warning"},
+        {"Resolution", "Correct the invalid parameter and resubmit the "
+                       "request if the operation failed."}};
+}
+
+void actionParameterValueError(crow::Response& res, const std::string& arg1,
+                               const std::string& arg2)
+{
+    res.result(boost::beast::http::status::bad_request);
+    addMessageToErrorJson(res.jsonValue, actionParameterValueError(arg1, arg2));
+}
+
+/**
+ * @internal
  * @brief Formats ResourceCannotBeDeleted message into JSON
  *
  * See header file for more information
