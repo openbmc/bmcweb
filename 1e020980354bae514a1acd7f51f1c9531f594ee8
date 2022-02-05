@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "141dde9d_1d6dd59c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2022-02-05T21:45:29Z",
+      "side": 1,
+      "message": "This change (again).\nI am not sure the issue that triggered the revert has been resolved yet.\n(https://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/48880)",
+      "revId": "1e020980354bae514a1acd7f51f1c9531f594ee8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
