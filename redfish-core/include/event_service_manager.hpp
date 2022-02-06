@@ -223,7 +223,7 @@ inline void getRegistryAndMessageKey(const std::string& messageID,
 
 inline int formatEventLogEntry(const std::string& logEntryID,
                                const std::string& messageID,
-                               const std::vector<std::string>& messageArgs,
+                               const std::span<std::string_view> messageArgs,
                                std::string timestamp,
                                const std::string& customText,
                                nlohmann::json& logEntryJson)
@@ -240,17 +240,7 @@ inline int formatEventLogEntry(const std::string& logEntryID,
         severity = message->severity;
     }
 
-    // Fill the MessageArgs into the Message
-    int i = 0;
-    for (const std::string& messageArg : messageArgs)
-    {
-        std::string argStr = "%" + std::to_string(++i);
-        size_t argPos = msg.find(argStr);
-        if (argPos != std::string::npos)
-        {
-            msg.replace(argPos, argStr.length(), messageArg);
-        }
-    }
+    redfish::message_registries::fillMessageArgs(messageArgs, msg);
 
     // Get the Created time from the timestamp. The log timestamp is in
     // RFC3339 format which matches the Redfish format except for the
@@ -473,11 +463,17 @@ class Subscription : public persistent_data::UserSubscription
                 }
             }
 
+            std::vector<std::string_view> messageArgsView;
+            for (const std::string& str : messageArgs)
+            {
+                messageArgsView.push_back(str);
+            }
+
             logEntryArray.push_back({});
             nlohmann::json& bmcLogEntry = logEntryArray.back();
-            if (event_log::formatEventLogEntry(idStr, messageID, messageArgs,
-                                               timestamp, customText,
-                                               bmcLogEntry) != 0)
+            if (event_log::formatEventLogEntry(idStr, messageID,
+                                               messageArgsView, timestamp,
+                                               customText, bmcLogEntry) != 0)
             {
                 BMCWEB_LOG_DEBUG << "Read eventLog entry failed";
                 continue;
