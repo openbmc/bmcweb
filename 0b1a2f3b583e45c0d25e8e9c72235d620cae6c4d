@@ -174,6 +174,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "5b51e1c7_80f5f559",
+        "filename": "redfish-core/lib/manager_diagnostic_data.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-02-06T03:13:27Z",
+      "side": 1,
+      "message": "\u003e It seems bmcweb will still build even if I don\u0027t include any headers and remove all other handles from redfish.hpp,\n\nWhether or not it builds today is not the point.  When you don\u0027t include the headers you use, it leads to hard-to-debug issues later if the import order changes or the modules you rely on no longer include things you require.\n\n\u003e so I added the headers based on what appears in this file.\n\u003e \n\u003e List of symbols used and include files:\n\u003e \n\u003e - crow::App comes from \u003capp.hpp\u003e\n\u003e - BMCWEB_ROUTE comes from \u003capp.hpp\u003e\n\u003e - RuleParameterTraits::privileges comes from \u003crouting.hpp\u003e which is included by \u003capp.hpp\u003e\n\nThere is no usages of RuleParameterTraits in this file.  redfish::privileges is provided by privileges.hpp, which you neglect to include here.\n\n\u003e - RuleParameterTraits::methods is same as above\n\u003e - boost::beast::http::verb::get comes from \u003cboost/beast/http/verb.hpp\u003e, which is included by \u003cprivileges.hpp\u003e, which is included by \u003capp.hpp\u003e\n\nWhile technically incorrect, this is something we let slide, because it\u0027s part of the BMCWEB_ROUTE API, so including app.hpp is guaranteed to get you this define, and any change to internal logic would be a breaking API change, which we\u0027d have to fix anyway.\n\n\u003e - crow::Request comes from \u003chttp_request.hpp\u003e which is included by \u003capp.hpp\u003e\n\nYou should be explicitly including http_request.hpp.  This is what is meant by \"include what you use\"\n\n\u003e - bmcweb::AsyncResp comes from \u003casync_resp.hpp\u003e which is included by \u003capp.hpp\u003e\n\nsame, you should be including async_resp.hpp.\n\n\u003e - jsonValue comes from \u003cnlohmann/json.hpp\u003e which is included by \u003chttp_request.hpp\u003e which is in turn included by \u003capp.hpp\u003e\n\nWhich you also should be including.\n\n\u003e - And finally a std::string\n\u003e \n\u003e So overall it seems I only need \u003capp.hpp\u003e and \u003cstring\u003e for this header file to be self-sufficient, due to the indirect includes that fan out from \u003capp.hpp\u003e.\n\nThe whole point of this rule is that when you transiently #include things through other files, it puts a secondary dependency.  Lets say at some point in the future we refactored app.hpp to not directly rely on nlohmann::json (which would happen if we ever got a vitualized httpRequest object).  Now every file that has neglected to #include things would have to be updated.  This has concretely hit us in the past when trying to refactor, which is why we ask for this rule.",
+      "parentUuid": "a1da3d8c_49493f4d",
+      "revId": "0b1a2f3b583e45c0d25e8e9c72235d620cae6c4d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "05c4028b_faf5c37e",
         "filename": "redfish-core/lib/manager_diagnostic_data.hpp",
         "patchSetId": 3

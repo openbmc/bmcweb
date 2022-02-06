@@ -50,6 +50,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "fa5ed28e_e78bd115",
+        "filename": "redfish-core/lib/manager_diagnostic_data.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-02-06T03:13:27Z",
+      "side": 1,
+      "message": "privilege_registry.hpp is generated, which you seem to have ignored the comment for.  Please get the DMTF privilege registry updated with the things you need.",
+      "parentUuid": "020033d4_a6c565c9",
+      "range": {
+        "startLine": 9,
+        "startChar": 41,
+        "endLine": 9,
+        "endChar": 61
+      },
+      "revId": "cced69640aeb195877f79fd026a57fb792e5c3f6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f0b79fcc_0294996f",
         "filename": "redfish-core/lib/manager_diagnostic_data.hpp",
         "patchSetId": 7
@@ -132,6 +156,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "1b6f6290_1873a774",
+        "filename": "static/redfish/v1/$metadata/index.xml",
+        "patchSetId": 7
+      },
+      "lineNbr": 1171,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-02-06T03:13:27Z",
+      "side": 1,
+      "message": "👍",
+      "parentUuid": "6a847635_c42de4b5",
+      "range": {
+        "startLine": 1169,
+        "startChar": 0,
+        "endLine": 1171,
+        "endChar": 21
+      },
+      "revId": "cced69640aeb195877f79fd026a57fb792e5c3f6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c6c84658_0a7c2ddc",
         "filename": "static/redfish/v1/JsonSchemas/Manager/Manager.json",
         "patchSetId": 7
@@ -202,6 +250,30 @@
       "side": 1,
       "message": "Yes this file is directly copied from the upstream. Perhaps as a result of the text editor I was using. I can file a pull request to fix those whitespaces.",
       "parentUuid": "ba26101c_3533ff5d",
+      "range": {
+        "startLine": 175,
+        "startChar": 0,
+        "endLine": 175,
+        "endChar": 6
+      },
+      "revId": "cced69640aeb195877f79fd026a57fb792e5c3f6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "94908718_7f8beac1",
+        "filename": "static/redfish/v1/schema/ManagerDiagnosticData_v1.xml",
+        "patchSetId": 7
+      },
+      "lineNbr": 175,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-02-06T03:13:27Z",
+      "side": 1,
+      "message": "Please verify that the upstream ones have whitespace violations, then ideally push a patch to DMTF to fix them.  With that said, so long as the whitespace violations exactly match what is in DMTF, that\u0027s fine.  This is not the first time we\u0027ve had this issue.",
+      "parentUuid": "9b4dcb3b_e4d726c7",
       "range": {
         "startLine": 175,
         "startChar": 0,

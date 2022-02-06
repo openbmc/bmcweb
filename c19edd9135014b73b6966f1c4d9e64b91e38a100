@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fddd8ad8_6ce194a0",
+        "filename": "redfish-core/include/registries/privilege_registry.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-02-06T03:13:27Z",
+      "side": 1,
+      "message": "Please don\u0027t ignore this line.  It\u0027s here for a reason.",
+      "range": {
+        "startLine": 2,
+        "startChar": 0,
+        "endLine": 2,
+        "endChar": 61
+      },
+      "revId": "c19edd9135014b73b6966f1c4d9e64b91e38a100",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
