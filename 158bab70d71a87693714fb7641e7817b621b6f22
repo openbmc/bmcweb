@@ -1,6 +1,7 @@
 {
   "comments": [
     {
+      "unresolved": true,
       "key": {
         "uuid": "615bb8b6_cee90950",
         "filename": "redfish-core/include/event_service_manager.hpp",
@@ -20,10 +21,10 @@
         "endChar": 8
       },
       "revId": "158bab70d71a87693714fb7641e7817b621b6f22",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "8e0e5308_6521b53e",
         "filename": "redfish-core/include/event_service_manager.hpp",
@@ -44,10 +45,34 @@
         "endChar": 8
       },
       "revId": "158bab70d71a87693714fb7641e7817b621b6f22",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "f0cb6a9c_16b8c839",
+        "filename": "redfish-core/include/event_service_manager.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 1011,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-02-06T18:19:14Z",
+      "side": 1,
+      "message": "This comment seems to have been ignored in the latest patch.",
+      "parentUuid": "8e0e5308_6521b53e",
+      "range": {
+        "startLine": 1011,
+        "startChar": 4,
+        "endLine": 1011,
+        "endChar": 8
+      },
+      "revId": "158bab70d71a87693714fb7641e7817b621b6f22",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
       "key": {
         "uuid": "a7d59314_b2b800cc",
         "filename": "redfish-core/include/event_service_manager.hpp",
@@ -67,10 +92,10 @@
         "endChar": 18
       },
       "revId": "158bab70d71a87693714fb7641e7817b621b6f22",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "69bf8600_57e96c73",
         "filename": "redfish-core/include/event_service_manager.hpp",
@@ -91,10 +116,10 @@
         "endChar": 18
       },
       "revId": "158bab70d71a87693714fb7641e7817b621b6f22",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "0cdfef6e_be50a8cd",
         "filename": "redfish-core/lib/event_service.hpp",
@@ -114,10 +139,10 @@
         "endChar": 17
       },
       "revId": "158bab70d71a87693714fb7641e7817b621b6f22",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "782f5c53_970e8841",
         "filename": "redfish-core/lib/event_service.hpp",
@@ -138,8 +163,7 @@
         "endChar": 17
       },
       "revId": "158bab70d71a87693714fb7641e7817b621b6f22",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }

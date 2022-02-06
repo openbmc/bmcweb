@@ -1,6 +1,7 @@
 {
   "comments": [
     {
+      "unresolved": true,
       "key": {
         "uuid": "2b63dbbf_ce0d486d",
         "filename": "redfish-core/lib/event_service.hpp",
@@ -20,10 +21,10 @@
         "endChar": 51
       },
       "revId": "c1503ef80c659d8b27c7d68e244a43eeb29aff99",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "5c8b9792_abba10e8",
         "filename": "redfish-core/lib/event_service.hpp",
@@ -44,10 +45,10 @@
         "endChar": 51
       },
       "revId": "c1503ef80c659d8b27c7d68e244a43eeb29aff99",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "873897f7_dd848207",
         "filename": "redfish-core/lib/event_service.hpp",
@@ -68,10 +69,10 @@
         "endChar": 51
       },
       "revId": "c1503ef80c659d8b27c7d68e244a43eeb29aff99",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "80876767_df4ccb0e",
         "filename": "redfish-core/lib/event_service.hpp",
@@ -92,10 +93,10 @@
         "endChar": 51
       },
       "revId": "c1503ef80c659d8b27c7d68e244a43eeb29aff99",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "64bd3359_80837d92",
         "filename": "redfish-core/lib/event_service.hpp",
@@ -115,10 +116,10 @@
         "endChar": 17
       },
       "revId": "c1503ef80c659d8b27c7d68e244a43eeb29aff99",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "ea50d984_5ccdedc4",
         "filename": "redfish-core/lib/event_service.hpp",
@@ -139,10 +140,10 @@
         "endChar": 17
       },
       "revId": "c1503ef80c659d8b27c7d68e244a43eeb29aff99",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "c6e137df_74d02cc3",
         "filename": "redfish-core/lib/event_service.hpp",
@@ -163,10 +164,10 @@
         "endChar": 17
       },
       "revId": "c1503ef80c659d8b27c7d68e244a43eeb29aff99",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "6533e9c9_9e6f931b",
         "filename": "redfish-core/lib/event_service.hpp",
@@ -187,10 +188,10 @@
         "endChar": 17
       },
       "revId": "c1503ef80c659d8b27c7d68e244a43eeb29aff99",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "e606cf64_25ff2408",
         "filename": "redfish-core/lib/event_service.hpp",
@@ -211,8 +212,31 @@
         "endChar": 17
       },
       "revId": "c1503ef80c659d8b27c7d68e244a43eeb29aff99",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "20d1cfc5_8a339b21",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-02-06T18:19:14Z",
+      "side": 1,
+      "message": "Comment seems to be ignored in latest patch.",
+      "parentUuid": "e606cf64_25ff2408",
+      "range": {
+        "startLine": 163,
+        "startChar": 0,
+        "endLine": 174,
+        "endChar": 17
+      },
+      "revId": "c1503ef80c659d8b27c7d68e244a43eeb29aff99",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
