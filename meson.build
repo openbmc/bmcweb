@@ -384,7 +384,12 @@ srcfiles_unittest = [
   'redfish-core/ut/privileges_test.cpp',
   'redfish-core/ut/stl_utils_test.cpp',
   'redfish-core/ut/time_utils_test.cpp',
+  'redfish-core/lib/ut/telemetry_service_test.hpp',
 ]
+
+mockfile = [
+   'redfish-core/lib/ut/mock_sdbus.hpp',
+  ]
 
 if(get_option('tests').enabled())
     # generate the test executable
