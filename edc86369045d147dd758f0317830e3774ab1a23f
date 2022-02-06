@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8e560da8_a3b44c7a",
+        "filename": "static/redfish/v1/package-lock.json",
+        "patchSetId": 2
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-02-06T02:58:35Z",
+      "side": 1,
+      "message": "Pretty sure you didn\u0027t mean to check this in.",
+      "revId": "edc86369045d147dd758f0317830e3774ab1a23f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
