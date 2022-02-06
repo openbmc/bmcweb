@@ -74,6 +74,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "6f57d21f_461feff1",
+        "filename": "redfish-core/lib/manager_diagnostic_data.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000500
+      },
+      "writtenOn": "2022-02-06T08:03:32Z",
+      "side": 1,
+      "message": "Created pull request 5004.",
+      "parentUuid": "fa5ed28e_e78bd115",
+      "range": {
+        "startLine": 9,
+        "startChar": 41,
+        "endLine": 9,
+        "endChar": 61
+      },
+      "revId": "cced69640aeb195877f79fd026a57fb792e5c3f6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f0b79fcc_0294996f",
         "filename": "redfish-core/lib/manager_diagnostic_data.hpp",
         "patchSetId": 7
@@ -274,6 +298,30 @@
       "side": 1,
       "message": "Please verify that the upstream ones have whitespace violations, then ideally push a patch to DMTF to fix them.  With that said, so long as the whitespace violations exactly match what is in DMTF, that\u0027s fine.  This is not the first time we\u0027ve had this issue.",
       "parentUuid": "9b4dcb3b_e4d726c7",
+      "range": {
+        "startLine": 175,
+        "startChar": 0,
+        "endLine": 175,
+        "endChar": 6
+      },
+      "revId": "cced69640aeb195877f79fd026a57fb792e5c3f6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9182240c_8cee7086",
+        "filename": "static/redfish/v1/schema/ManagerDiagnosticData_v1.xml",
+        "patchSetId": 7
+      },
+      "lineNbr": 175,
+      "author": {
+        "id": 1000500
+      },
+      "writtenOn": "2022-02-06T08:03:32Z",
+      "side": 1,
+      "message": "Created pull request 5004.",
+      "parentUuid": "94908718_7f8beac1",
       "range": {
         "startLine": 175,
         "startChar": 0,
