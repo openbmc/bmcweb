@@ -192,6 +192,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "2212560c_5a6d18a9",
+        "filename": "redfish-core/lib/manager_diagnostic_data.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-02-06T03:20:33Z",
+      "side": 1,
+      "message": "Documentation from the google style guide.  See the part that starts with \"do not rely on transitive inclusions\"\n\nhttps://google.github.io/styleguide/cppguide.html#Include_What_You_Use",
+      "parentUuid": "5b51e1c7_80f5f559",
+      "revId": "0b1a2f3b583e45c0d25e8e9c72235d620cae6c4d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "05c4028b_faf5c37e",
         "filename": "redfish-core/lib/manager_diagnostic_data.hpp",
         "patchSetId": 3
