@@ -91,7 +91,9 @@ for file, json_dict, namespace, url in files:
         registry.write(
             "constexpr std::array<MessageEntry, {}> registry = {{".format(
                 len(json_dict["Messages"])))
-        for messageId, message in sorted(json_dict["Messages"].items()):
+
+        messages_sorted = sorted(json_dict["Messages"].items())
+        for messageId, message in messages_sorted:
             registry.write("MessageEntry{")
             registry.write("\"{}\",".format(messageId))
             registry.write("{")
@@ -108,7 +110,17 @@ for file, json_dict, namespace, url in files:
             registry.write("},")
             registry.write("\"{}\",".format(message["Resolution"]))
             registry.write("}},")
-        registry.write("};}\n")
+
+        registry.write("\n};")
+
+        registry.write("\n\nenum class Index {\n")
+        for index, (messageId, message) in enumerate(messages_sorted):
+            messageId = messageId[0].lower() + messageId[1:]
+            registry.write(
+                "{} = {},\n".format(messageId, index))
+        registry.write("};")
+        registry.write("}")
+
     clang_format(file)
 
 
@@ -141,9 +153,8 @@ def get_variable_name_for_privilege_set(privilege_list):
 
 
 def make_privilege_registry():
-    path, json_file, type_name, url = \
-        make_getter('Redfish_1.2.0_PrivilegeRegistry.json',
-                    'privilege_registry.hpp', 'privilege')
+    path, json_file, type_name, url = make_getter('Redfish_1.2.0_PrivilegeRegistry.json',
+                                                  'privilege_registry.hpp', 'privilege')
     with open(path, 'w') as registry:
         registry.write("#pragma once\n")
         registry.write(
