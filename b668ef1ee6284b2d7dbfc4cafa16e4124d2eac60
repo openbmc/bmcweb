@@ -52,6 +52,24 @@
       "parentUuid": "0ba669bc_639709e6",
       "revId": "b668ef1ee6284b2d7dbfc4cafa16e4124d2eac60",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "98cd26dd_6cd6520c",
+        "filename": "redfish-core/include/registries/privilege_registry.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 454,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-02-07T23:54:03Z",
+      "side": 0,
+      "message": "Also, considering that when I ran that script, the whole file reformatted as seen in this commit, it seems pretty likely that the committer never ran the script.  Teeks has been added to this review, so maybe they\u0027ll have some input on what happened.",
+      "parentUuid": "b989e562_84609447",
+      "revId": "b668ef1ee6284b2d7dbfc4cafa16e4124d2eac60",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
