@@ -14,6 +14,11 @@
 // limitations under the License.
 */
 #pragma once
+
+#include <span>
+#include <string_view>
+#include <string>
+
 namespace redfish::message_registries
 {
 struct Header
@@ -40,4 +45,21 @@ struct Message
     const char* resolution;
 };
 using MessageEntry = std::pair<const char*, const Message>;
+
+inline void fillMessageArgs(const std::span<const std::string_view> messageArgs,
+                            std::string& msg)
+{
+    int i = 0;
+    for (const std::string_view& messageArg : messageArgs)
+    {
+        std::string argStr = "%" + std::to_string(i + 1);
+        size_t argPos = msg.find(argStr);
+        if (argPos != std::string::npos)
+        {
+            msg.replace(argPos, argStr.length(), messageArg);
+        }
+        i++;
+    }
+}
+
 } // namespace redfish::message_registries
