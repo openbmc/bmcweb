@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "63165cee_b4a42d15",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 435,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-02-07T16:15:27Z",
+      "side": 1,
+      "message": "As a general rule, please don\u0027t overload methods with the same name using different parameters.  It makes searching harder.\n\nGoogle coding standard rule that goes into more detail.\nhttps://google.github.io/styleguide/cppguide.html#Function_Overloading",
+      "range": {
+        "startLine": 435,
+        "startChar": 5,
+        "endLine": 435,
+        "endChar": 19
+      },
+      "revId": "a465a6e7d657fa784a31e4e6d95493b10b003ff8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c5b7e9ca_90d92c97",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 2687,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-02-07T16:15:27Z",
+      "side": 1,
+      "message": "undefined behavior.  You\u0027re taking a reference to a temporary here in the default argument.",
+      "range": {
+        "startLine": 2687,
+        "startChar": 4,
+        "endLine": 2687,
+        "endChar": 38
+      },
+      "revId": "a465a6e7d657fa784a31e4e6d95493b10b003ff8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "030ff240_411df169",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 2688,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-02-07T16:15:27Z",
+      "side": 1,
+      "message": "If we\u0027re needing to make two calls through this code with different arguments, that somewhat implies that we got out call graph wrong, and we could promote the second loop up and avoid this \"do a second time with a default argument\" stuff.",
+      "revId": "a465a6e7d657fa784a31e4e6d95493b10b003ff8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
