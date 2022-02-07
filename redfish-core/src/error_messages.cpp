@@ -14,6 +14,7 @@
 // limitations under the License.
 */
 #include "http_response.hpp"
+#include "registries/base_message_registry.hpp"
 
 #include <boost/beast/http/status.hpp>
 #include <boost/url/url.hpp>
@@ -102,6 +103,36 @@ static void addMessageToJson(nlohmann::json& target,
     target[extendedInfo].push_back(message);
 }
 
+bool compareMessageEntryName(const redfish::message_registries::MessageEntry& r,
+                             const std::string_view l)
+{
+    return l == r.first;
+};
+
+nlohmann::json getLog(redfish::message_registries::base::Index name,
+                      std::span<const std::string_view> args)
+{
+    size_t index = static_cast<size_t>(name);
+    if (index >= redfish::message_registries::base::registry.size())
+    {
+        return {};
+    }
+    const redfish::message_registries::MessageEntry& entry =
+        redfish::message_registries::base::registry[index];
+    // Intentionally make a copy of the string, so we can append in the
+    // parameters.
+    std::string msg = entry.second.message;
+    redfish::message_registries::fillMessageArgs(args, msg);
+
+    return {{"@odata.type", "#Message.v1_1_1.Message"},
+            {"MessageId", redfish::message_registries::base::header.id +
+                              std::string(entry.first)},
+            {"Message", entry.second.message},
+            {"MessageArgs", nlohmann::json::array()},
+            {"MessageSeverity", entry.second.severity},
+            {"Resolution", entry.second.resolution}};
+}
+
 /**
  * @internal
  * @brief Formats ResourceInUse message into JSON
@@ -111,15 +142,7 @@ static void addMessageToJson(nlohmann::json& target,
  */
 nlohmann::json resourceInUse(void)
 {
-    return nlohmann::json{
-        {"@odata.type", "#Message.v1_1_1.Message"},
-        {"MessageId", "Base.1.8.1.ResourceInUse"},
-        {"Message", "The change to the requested resource failed because "
-                    "the resource is in use or in transition."},
-        {"MessageArgs", nlohmann::json::array()},
-        {"MessageSeverity", "Warning"},
-        {"Resolution", "Remove the condition and resubmit the request if "
-                       "the operation failed."}};
+    return getLog(redfish::message_registries::base::Index::resourceInUse, {});
 }
 
 void resourceInUse(crow::Response& res)
@@ -137,15 +160,7 @@ void resourceInUse(crow::Response& res)
  */
 nlohmann::json malformedJSON(void)
 {
-    return nlohmann::json{
-        {"@odata.type", "#Message.v1_1_1.Message"},
-        {"MessageId", "Base.1.8.1.MalformedJSON"},
-        {"Message", "The request body submitted was malformed JSON and "
-                    "could not be parsed by the receiving service."},
-        {"MessageArgs", nlohmann::json::array()},
-        {"MessageSeverity", "Critical"},
-        {"Resolution", "Ensure that the request body is valid JSON and "
-                       "resubmit the request."}};
+    return getLog(redfish::message_registries::base::Index::malformedJSON, {});
 }
 
 void malformedJSON(crow::Response& res)
@@ -163,15 +178,10 @@ void malformedJSON(crow::Response& res)
  */
 nlohmann::json resourceMissingAtURI(const boost::urls::url_view& arg1)
 {
-    std::string url(arg1.data(), arg1.size());
-    return nlohmann::json{
-        {"@odata.type", "#Message.v1_1_1.Message"},
-        {"MessageId", "Base.1.8.1.ResourceMissingAtURI"},
-        {"Message", "The resource at the URI " + url + " was not found."},
-        {"MessageArgs", {url}},
-        {"MessageSeverity", "Critical"},
-        {"Resolution", "Place a valid resource at the URI or correct the "
-                       "URI and resubmit the request."}};
+    std::array<std::string_view, 1> args{
+        std::string_view{arg1.data(), arg1.size()}};
+    return getLog(
+        redfish::message_registries::base::Index::resourceMissingAtURI, args);
 }
 
 void resourceMissingAtURI(crow::Response& res,
@@ -192,18 +202,10 @@ nlohmann::json actionParameterValueFormatError(const std::string& arg1,
                                                const std::string& arg2,
                                                const std::string& arg3)
 {
-    return nlohmann::json{
-        {"@odata.type", "#Message.v1_1_1.Message"},
-        {"MessageId", "Base.1.8.1.ActionParameterValueFormatError"},
-        {"Message",
-         "The value " + arg1 + " for the parameter " + arg2 +
-             " in the action " + arg3 +
-             " is of a different format than the parameter can accept."},
-        {"MessageArgs", {arg1, arg2, arg3}},
-        {"MessageSeverity", "Warning"},
-        {"Resolution",
-         "Correct the value for the parameter in the request body and "
-         "resubmit the request if the operation failed."}};
+    std::array<std::string_view, 3> args{arg1, arg2, arg3};
+    return getLog(redfish::message_registries::base::Index::
+                      actionParameterValueFormatError,
+                  args);
 }
 
 void actionParameterValueFormatError(crow::Response& res,
@@ -225,15 +227,9 @@ void actionParameterValueFormatError(crow::Response& res,
  */
 nlohmann::json internalError(void)
 {
-    return nlohmann::json{
-        {"@odata.type", "#Message.v1_1_1.Message"},
-        {"MessageId", "Base.1.8.1.InternalError"},
-        {"Message", "The request failed due to an internal service error.  "
-                    "The service is still operational."},
-        {"MessageArgs", nlohmann::json::array()},
-        {"MessageSeverity", "Critical"},
-        {"Resolution", "Resubmit the request.  If the problem persists, "
-                       "consider resetting the service."}};
+    return getLog(redfish::message_registries::base::Index::
+                      actionParameterValueFormatError,
+                  {});
 }
 
 void internalError(crow::Response& res, const bmcweb::source_location location)
@@ -254,15 +250,8 @@ void internalError(crow::Response& res, const bmcweb::source_location location)
  */
 nlohmann::json unrecognizedRequestBody(void)
 {
-    return nlohmann::json{
-        {"@odata.type", "#Message.v1_1_1.Message"},
-        {"MessageId", "Base.1.8.1.UnrecognizedRequestBody"},
-        {"Message", "The service detected a malformed request body that it "
-                    "was unable to interpret."},
-        {"MessageArgs", nlohmann::json::array()},
-        {"MessageSeverity", "Warning"},
-        {"Resolution", "Correct the request body and resubmit the request "
-                       "if it failed."}};
+    return getLog(
+        redfish::message_registries::base::Index::unrecognizedRequestBody, {});
 }
 
 void unrecognizedRequestBody(crow::Response& res)
@@ -281,17 +270,11 @@ void unrecognizedRequestBody(crow::Response& res)
 nlohmann::json resourceAtUriUnauthorized(const boost::urls::url_view& arg1,
                                          const std::string& arg2)
 {
-    std::string url(arg1.data(), arg1.size());
-    return nlohmann::json{
-        {"@odata.type", "#Message.v1_1_1.Message"},
-        {"MessageId", "Base.1.8.1.ResourceAtUriUnauthorized"},
-        {"Message", "While accessing the resource at " + url +
-                        ", the service received an authorization error " +
-                        arg2 + "."},
-        {"MessageArgs", {url, arg2}},
-        {"MessageSeverity", "Critical"},
-        {"Resolution", "Ensure that the appropriate access is provided for "
-                       "the service in order for it to access the URI."}};
+    std::array<std::string_view, 2> args{
+        std::string_view{arg1.data(), arg1.size()}, arg2};
+    return getLog(
+        redfish::message_registries::base::Index::resourceAtUriUnauthorized,
+        args);
 }
 
 void resourceAtUriUnauthorized(crow::Response& res,
@@ -312,16 +295,9 @@ void resourceAtUriUnauthorized(crow::Response& res,
 nlohmann::json actionParameterUnknown(const std::string& arg1,
                                       const std::string& arg2)
 {
-    return nlohmann::json{
-        {"@odata.type", "#Message.v1_1_1.Message"},
-        {"MessageId", "Base.1.8.1.ActionParameterUnknown"},
-        {"Message", "The action " + arg1 +
-                        " was submitted with the invalid parameter " + arg2 +
-                        "."},
-        {"MessageArgs", {arg1, arg2}},
-        {"MessageSeverity", "Warning"},
-        {"Resolution", "Correct the invalid parameter and resubmit the "
-                       "request if the operation failed."}};
+    std::array<std::string_view, 3> args{arg1, arg2};
+    return getLog(
+        redfish::message_registries::base::Index::actionParameterUnknown, args);
 }
 
 void actionParameterUnknown(crow::Response& res, const std::string& arg1,
@@ -340,14 +316,8 @@ void actionParameterUnknown(crow::Response& res, const std::string& arg1,
  */
 nlohmann::json resourceCannotBeDeleted(void)
 {
-    return nlohmann::json{
-        {"@odata.type", "#Message.v1_1_1.Message"},
-        {"MessageId", "Base.1.8.1.ResourceCannotBeDeleted"},
-        {"Message", "The delete request failed because the resource "
-                    "requested cannot be deleted."},
-        {"MessageArgs", nlohmann::json::array()},
-        {"MessageSeverity", "Critical"},
-        {"Resolution", "Do not attempt to delete a non-deletable resource."}};
+    return getLog(
+        redfish::message_registries::base::Index::resourceCannotBeDeleted, {});
 }
 
 void resourceCannotBeDeleted(crow::Response& res)
@@ -365,15 +335,9 @@ void resourceCannotBeDeleted(crow::Response& res)
  */
 nlohmann::json propertyDuplicate(const std::string& arg1)
 {
-    return nlohmann::json{
-        {"@odata.type", "#Message.v1_1_1.Message"},
-        {"MessageId", "Base.1.8.1.PropertyDuplicate"},
-        {"Message", "The property " + arg1 + " was duplicated in the request."},
-        {"MessageArgs", {arg1}},
-        {"MessageSeverity", "Warning"},
-        {"Resolution",
-         "Remove the duplicate property from the request body and resubmit "
-         "the request if the operation failed."}};
+    std::array<std::string_view, 1> args{arg1};
+    return getLog(redfish::message_registries::base::Index::propertyDuplicate,
+                  args);
 }
 
 void propertyDuplicate(crow::Response& res, const std::string& arg1)
@@ -391,15 +355,10 @@ void propertyDuplicate(crow::Response& res, const std::string& arg1)
  */
 nlohmann::json serviceTemporarilyUnavailable(const std::string& arg1)
 {
-    return nlohmann::json{
-        {"@odata.type", "#Message.v1_1_1.Message"},
-        {"MessageId", "Base.1.8.1.ServiceTemporarilyUnavailable"},
-        {"Message", "The service is temporarily unavailable.  Retry in " +
-                        arg1 + " seconds."},
-        {"MessageArgs", {arg1}},
-        {"MessageSeverity", "Critical"},
-        {"Resolution", "Wait for the indicated retry duration and retry "
-                       "the operation."}};
+    std::array<std::string_view, 1> args{arg1};
+    return getLog(
+        redfish::message_registries::base::Index::serviceTemporarilyUnavailable,
+        args);
 }
 
 void serviceTemporarilyUnavailable(crow::Response& res, const std::string& arg1)
@@ -420,16 +379,9 @@ nlohmann::json resourceAlreadyExists(const std::string& arg1,
                                      const std::string& arg2,
                                      const std::string& arg3)
 {
-    return nlohmann::json{
-        {"@odata.type", "#Message.v1_1_1.Message"},
-        {"MessageId", "Base.1.8.1.ResourceAlreadyExists"},
-        {"Message", "The requested resource of type " + arg1 +
-                        " with the property " + arg2 + " with the value " +
-                        arg3 + " already exists."},
-        {"MessageArgs", {arg1, arg2, arg3}},
-        {"MessageSeverity", "Critical"},
-        {"Resolution", "Do not repeat the create operation as the resource "
-                       "has already been created."}};
+    std::array<std::string_view, 3> args{arg1, arg2, arg3};
+    return getLog(
+        redfish::message_registries::base::Index::resourceAlreadyExists, args);
 }
 
 void resourceAlreadyExists(crow::Response& res, const std::string& arg1,
@@ -449,14 +401,9 @@ void resourceAlreadyExists(crow::Response& res, const std::string& arg1,
  */
 nlohmann::json accountForSessionNoLongerExists(void)
 {
-    return nlohmann::json{
-        {"@odata.type", "#Message.v1_1_1.Message"},
-        {"MessageId", "Base.1.8.1.AccountForSessionNoLongerExists"},
-        {"Message", "The account for the current session has been removed, "
-                    "thus the current session has been removed as well."},
-        {"MessageArgs", nlohmann::json::array()},
-        {"MessageSeverity", "OK"},
-        {"Resolution", "Attempt to connect with a valid account."}};
+    return getLog(redfish::message_registries::base::Index::
+                      accountForSessionNoLongerExists,
+                  {});
 }
 
 void accountForSessionNoLongerExists(crow::Response& res)
@@ -474,17 +421,10 @@ void accountForSessionNoLongerExists(crow::Response& res)
  */
 nlohmann::json createFailedMissingReqProperties(const std::string& arg1)
 {
-    return nlohmann::json{
-        {"@odata.type", "#Message.v1_1_1.Message"},
-        {"MessageId", "Base.1.8.1.CreateFailedMissingReqProperties"},
-        {"Message",
-         "The create operation failed because the required property " + arg1 +
-             " was missing from the request."},
-        {"MessageArgs", {arg1}},
-        {"MessageSeverity", "Critical"},
-        {"Resolution",
-         "Correct the body to include the required property with a valid "
-         "value and resubmit the request if the operation failed."}};
+    std::array<std::string_view, 2> args{arg1};
+    return getLog(redfish::message_registries::base::Index::
+                      createFailedMissingReqProperties,
+                  args);
 }
 
 void createFailedMissingReqProperties(crow::Response& res,
@@ -506,17 +446,10 @@ void createFailedMissingReqProperties(crow::Response& res,
 nlohmann::json propertyValueFormatError(const std::string& arg1,
                                         const std::string& arg2)
 {
-    return nlohmann::json{
-        {"@odata.type", "#Message.v1_1_1.Message"},
-        {"MessageId", "Base.1.8.1.PropertyValueFormatError"},
-        {"Message",
-         "The value " + arg1 + " for the property " + arg2 +
-             " is of a different format than the property can accept."},
-        {"MessageArgs", {arg1, arg2}},
-        {"MessageSeverity", "Warning"},
-        {"Resolution",
-         "Correct the value for the property in the request body and "
-         "resubmit the request if the operation failed."}};
+    std::array<std::string_view, 2> args{arg1, arg2};
+    return getLog(
+        redfish::message_registries::base::Index::propertyValueFormatError,
+        args);
 }
 
 void propertyValueFormatError(crow::Response& res, const std::string& arg1,
@@ -537,17 +470,9 @@ void propertyValueFormatError(crow::Response& res, const std::string& arg1,
 nlohmann::json propertyValueNotInList(const std::string& arg1,
                                       const std::string& arg2)
 {
-    return nlohmann::json{
-        {"@odata.type", "#Message.v1_1_1.Message"},
-        {"MessageId", "Base.1.8.1.PropertyValueNotInList"},
-        {"Message", "The value " + arg1 + " for the property " + arg2 +
-                        " is not in the list of acceptable values."},
-        {"MessageArgs", {arg1, arg2}},
-        {"MessageSeverity", "Warning"},
-        {"Resolution", "Choose a value from the enumeration list that "
-                       "the implementation "
-                       "can support and resubmit the request if the "
-                       "operation failed."}};
+    std::array<std::string_view, 2> args{arg1, arg2};
+    return getLog(
+        redfish::message_registries::base::Index::propertyValueNotInList, args);
 }
 
 void propertyValueNotInList(crow::Response& res, const std::string& arg1,
@@ -566,16 +491,11 @@ void propertyValueNotInList(crow::Response& res, const std::string& arg1,
  */
 nlohmann::json resourceAtUriInUnknownFormat(const boost::urls::url_view& arg1)
 {
-    std::string url(arg1.data(), arg1.size());
-    return nlohmann::json{
-        {"@odata.type", "#Message.v1_1_1.Message"},
-        {"MessageId", "Base.1.8.1.ResourceAtUriInUnknownFormat"},
-        {"Message", "The resource at " + url +
-                        " is in a format not recognized by the service."},
-        {"MessageArgs", {url}},
-        {"MessageSeverity", "Critical"},
-        {"Resolution", "Place an image or resource or file that is "
-                       "recognized by the service at the URI."}};
+    std::array<std::string_view, 1> args{
+        std::string_view{arg1.data(), arg1.size()}};
+    return getLog(
+        redfish::message_registries::base::Index::resourceAtUriInUnknownFormat,
+        args);
 }
 
 void resourceAtUriInUnknownFormat(crow::Response& res,
@@ -594,15 +514,9 @@ void resourceAtUriInUnknownFormat(crow::Response& res,
  */
 nlohmann::json serviceDisabled(const std::string& arg1)
 {
-    return nlohmann::json{
-        {"@odata.type", "#Message.v1_1_1.Message"},
-        {"MessageId", "Base.1.11.0.ServiceDisabled"},
-        {"Message", "The operation failed because the service at " + arg1 +
-                        " is disabled and cannot accept requests."},
-        {"MessageArgs", {arg1}},
-        {"MessageSeverity", "Warning"},
-        {"Resolution", "Enable the service and resubmit the request if the "
-                       "operation failed."}};
+    std::array<std::string_view, 1> args{arg1};
+    return getLog(redfish::message_registries::base::Index::serviceDisabled,
+                  args);
 }
 
 void serviceDisabled(crow::Response& res, const std::string& arg1)
@@ -620,16 +534,8 @@ void serviceDisabled(crow::Response& res, const std::string& arg1)
  */
 nlohmann::json serviceInUnknownState(void)
 {
-    return nlohmann::json{
-        {"@odata.type", "#Message.v1_1_1.Message"},
-        {"MessageId", "Base.1.8.1.ServiceInUnknownState"},
-        {"Message",
-         "The operation failed because the service is in an unknown state "
-         "and can no longer take incoming requests."},
-        {"MessageArgs", nlohmann::json::array()},
-        {"MessageSeverity", "Critical"},
-        {"Resolution", "Restart the service and resubmit the request if "
-                       "the operation failed."}};
+    return getLog(
+        redfish::message_registries::base::Index::serviceInUnknownState, {});
 }
 
 void serviceInUnknownState(crow::Response& res)
@@ -647,18 +553,9 @@ void serviceInUnknownState(crow::Response& res)
  */
 nlohmann::json eventSubscriptionLimitExceeded(void)
 {
-    return nlohmann::json{
-        {"@odata.type", "#Message.v1_1_1.Message"},
-        {"MessageId", "Base.1.8.1.EventSubscriptionLimitExceeded"},
-        {"Message",
-         "The event subscription failed due to the number of simultaneous "
-         "subscriptions exceeding the limit of the implementation."},
-        {"MessageArgs", nlohmann::json::array()},
-        {"MessageSeverity", "Critical"},
-        {"Resolution",
-         "Reduce the number of other subscriptions before trying to "
-         "establish the event subscription or increase the limit of "
-         "simultaneous subscriptions (if supported)."}};
+    return getLog(redfish::message_registries::base::Index::
+                      eventSubscriptionLimitExceeded,
+                  {});
 }
 
 void eventSubscriptionLimitExceeded(crow::Response& res)
@@ -677,16 +574,9 @@ void eventSubscriptionLimitExceeded(crow::Response& res)
 nlohmann::json actionParameterMissing(const std::string& arg1,
                                       const std::string& arg2)
 {
-    return nlohmann::json{
-        {"@odata.type", "#Message.v1_1_1.Message"},
-        {"MessageId", "Base.1.8.1.ActionParameterMissing"},
-        {"Message", "The action " + arg1 + " requires the parameter " + arg2 +
-                        " to be present in the request body."},
-        {"MessageArgs", {arg1, arg2}},
-        {"MessageSeverity", "Critical"},
-        {"Resolution",
-         "Supply the action with the required parameter in the request "
-         "body when the request is resubmitted."}};
+    std::array<std::string_view, 2> args{arg1, arg2};
+    return getLog(
+        redfish::message_registries::base::Index::actionParameterMissing, args);
 }
 
 void actionParameterMissing(crow::Response& res, const std::string& arg1,
@@ -705,15 +595,10 @@ void actionParameterMissing(crow::Response& res, const std::string& arg1,
  */
 nlohmann::json stringValueTooLong(const std::string& arg1, int arg2)
 {
-    return nlohmann::json{
-        {"@odata.type", "#Message.v1_1_1.Message"},
-        {"MessageId", "Base.1.8.1.StringValueTooLong"},
-        {"Message", "The string " + arg1 + " exceeds the length limit " +
-                        std::to_string(arg2) + "."},
-        {"MessageArgs", {arg1, std::to_string(arg2)}},
-        {"MessageSeverity", "Warning"},
-        {"Resolution",
-         "Resubmit the request with an appropriate string length."}};
+    std::string arg2String = std::to_string(arg2);
+    std::array<std::string_view, 2> args{arg1, arg2String};
+    return getLog(redfish::message_registries::base::Index::stringValueTooLong,
+                  args);
 }
 
 void stringValueTooLong(crow::Response& res, const std::string& arg1, int arg2)
@@ -731,13 +616,8 @@ void stringValueTooLong(crow::Response& res, const std::string& arg1, int arg2)
  */
 nlohmann::json sessionTerminated(void)
 {
-    return nlohmann::json{
-        {"@odata.type", "#Message.v1_1_1.Message"},
-        {"MessageId", "Base.1.8.1.SessionTerminated"},
-        {"Message", "The session was successfully terminated."},
-        {"MessageArgs", nlohmann::json::array()},
-        {"MessageSeverity", "OK"},
-        {"Resolution", "No resolution is required."}};
+    return getLog(redfish::message_registries::base::Index::sessionTerminated,
+                  {});
 }
 
 void sessionTerminated(crow::Response& res)
@@ -755,13 +635,8 @@ void sessionTerminated(crow::Response& res)
  */
 nlohmann::json subscriptionTerminated(void)
 {
-    return nlohmann::json{
-        {"@odata.type", "#Message.v1_1_1.Message"},
-        {"MessageId", "Base.1.8.1.SubscriptionTerminated"},
-        {"Message", "The event subscription has been terminated."},
-        {"MessageArgs", nlohmann::json::array()},
-        {"MessageSeverity", "OK"},
-        {"Resolution", "No resolution is required."}};
+    return getLog(
+        redfish::message_registries::base::Index::subscriptionTerminated, {});
 }
 
 void subscriptionTerminated(crow::Response& res)
@@ -780,17 +655,10 @@ void subscriptionTerminated(crow::Response& res)
 nlohmann::json resourceTypeIncompatible(const std::string& arg1,
                                         const std::string& arg2)
 {
-    return nlohmann::json{
-        {"@odata.type", "#Message.v1_1_1.Message"},
-        {"MessageId", "Base.1.8.1.ResourceTypeIncompatible"},
-        {"Message", "The @odata.type of the request body " + arg1 +
-                        " is incompatible with the @odata.type of the "
-                        "resource which is " +
-                        arg2 + "."},
-        {"MessageArgs", {arg1, arg2}},
-        {"MessageSeverity", "Critical"},
-        {"Resolution", "Resubmit the request with a payload compatible "
-                       "with the resource's schema."}};
+    std::array<std::string_view, 2> args{arg1, arg2};
+    return getLog(
+        redfish::message_registries::base::Index::resourceTypeIncompatible,
+        args);
 }
 
 void resourceTypeIncompatible(crow::Response& res, const std::string& arg1,
@@ -810,17 +678,10 @@ void resourceTypeIncompatible(crow::Response& res, const std::string& arg1,
 nlohmann::json resetRequired(const boost::urls::url_view& arg1,
                              const std::string& arg2)
 {
-    std::string url(arg1.data(), arg1.size());
-    return nlohmann::json{
-        {"@odata.type", "#Message.v1_1_1.Message"},
-        {"MessageId", "Base.1.8.1.ResetRequired"},
-        {"Message", "In order to complete the operation, a component reset is "
-                    "required with the Reset action URI '" +
-                        url + "' and ResetType '" + arg2 + "'."},
-        {"MessageArgs", {url, arg2}},
-        {"MessageSeverity", "Warning"},
-        {"Resolution",
-         "Perform the required Reset action on the specified component."}};
+    std::array<std::string_view, 2> args{
+        std::string_view(arg1.data(), arg1.size()), arg2};
+    return getLog(redfish::message_registries::base::Index::resetRequired,
+                  args);
 }
 
 void resetRequired(crow::Response& res, const boost::urls::url_view& arg1,
@@ -839,15 +700,9 @@ void resetRequired(crow::Response& res, const boost::urls::url_view& arg1,
  */
 nlohmann::json chassisPowerStateOnRequired(const std::string& arg1)
 {
-    return nlohmann::json{
-        {"@odata.type", "#Message.v1_1_1.Message"},
-        {"MessageId", "Base.1.8.1.ChassisPowerStateOnRequired"},
-        {"Message", "The Chassis with Id '" + arg1 +
-                        "' requires to be powered on to perform this request."},
-        {"MessageArgs", {arg1}},
-        {"MessageSeverity", "Warning"},
-        {"Resolution",
-         "Power on the specified Chassis and resubmit the request."}};
+    std::array<std::string_view, 1> args{arg1};
+    return getLog(redfish::message_registries::base::Index::resetRequired,
+                  args);
 }
 
 void chassisPowerStateOnRequired(crow::Response& res, const std::string& arg1)
@@ -865,16 +720,10 @@ void chassisPowerStateOnRequired(crow::Response& res, const std::string& arg1)
  */
 nlohmann::json chassisPowerStateOffRequired(const std::string& arg1)
 {
-    return nlohmann::json{
-        {"@odata.type", "#Message.v1_1_1.Message"},
-        {"MessageId", "Base.1.8.1.ChassisPowerStateOffRequired"},
-        {"Message",
-         "The Chassis with Id '" + arg1 +
-             "' requires to be powered off to perform this request."},
-        {"MessageArgs", {arg1}},
-        {"MessageSeverity", "Warning"},
-        {"Resolution",
-         "Power off the specified Chassis and resubmit the request."}};
+    std::array<std::string_view, 1> args{arg1};
+    return getLog(
+        redfish::message_registries::base::Index::chassisPowerStateOffRequired,
+        args);
 }
 
 void chassisPowerStateOffRequired(crow::Response& res, const std::string& arg1)
@@ -893,16 +742,9 @@ void chassisPowerStateOffRequired(crow::Response& res, const std::string& arg1)
 nlohmann::json propertyValueConflict(const std::string& arg1,
                                      const std::string& arg2)
 {
-    return nlohmann::json{
-        {"@odata.type", "#Message.v1_1_1.Message"},
-        {"MessageId", "Base.1.8.1.PropertyValueConflict"},
-        {"Message", "The property '" + arg1 +
-                        "' could not be written because its value would "
-                        "conflict with the value of the '" +
-                        arg2 + "' property."},
-        {"MessageArgs", {arg1, arg2}},
-        {"MessageSeverity", "Warning"},
-        {"Resolution", "No resolution is required."}};
+    std::array<std::string_view, 2> args{arg1, arg2};
+    return getLog(
+        redfish::message_registries::base::Index::propertyValueConflict, args);
 }
 
 void propertyValueConflict(crow::Response& res, const std::string& arg1,
@@ -922,16 +764,9 @@ void propertyValueConflict(crow::Response& res, const std::string& arg1,
 nlohmann::json propertyValueIncorrect(const std::string& arg1,
                                       const std::string& arg2)
 {
-    return nlohmann::json{
-        {"@odata.type", "#Message.v1_1_1.Message"},
-        {"MessageId", "Base.1.8.1.PropertyValueIncorrect"},
-        {"Message", "The property '" + arg1 +
-                        "' with the requested value of '" + arg2 +
-                        "' could not be written because the value does not "
-                        "meet the constraints of the implementation."},
-        {"MessageArgs", {arg1, arg2}},
-        {"MessageSeverity", "Warning"},
-        {"Resolution", "No resolution is required."}};
+    std::array<std::string_view, 2> args{arg1, arg2};
+    return getLog(
+        redfish::message_registries::base::Index::propertyValueIncorrect, args);
 }
 
 void propertyValueIncorrect(crow::Response& res, const std::string& arg1,
@@ -950,16 +785,12 @@ void propertyValueIncorrect(crow::Response& res, const std::string& arg1,
  */
 nlohmann::json resourceCreationConflict(const boost::urls::url_view& arg1)
 {
-    std::string url(arg1.data(), arg1.size());
-    return nlohmann::json{
-        {"@odata.type", "#Message.v1_1_1.Message"},
-        {"MessageId", "Base.1.8.1.ResourceCreationConflict"},
-        {"Message", "The resource could not be created.  The service has a "
-                    "resource at URI '" +
-                        url + "' that conflicts with the creation request."},
-        {"MessageArgs", {url}},
-        {"MessageSeverity", "Warning"},
-        {"Resolution", "No resolution is required."}};
+
+    std::array<std::string_view, 1> args{
+        std::string_view(arg1.data(), arg1.size())};
+    return getLog(
+        redfish::message_registries::base::Index::resourceCreationConflict,
+        args);
 }
 
 void resourceCreationConflict(crow::Response& res,
@@ -978,14 +809,8 @@ void resourceCreationConflict(crow::Response& res,
  */
 nlohmann::json maximumErrorsExceeded(void)
 {
-    return nlohmann::json{
-        {"@odata.type", "#Message.v1_1_1.Message"},
-        {"MessageId", "Base.1.8.1.MaximumErrorsExceeded"},
-        {"Message", "Too many errors have occurred to report them all."},
-        {"MessageArgs", nlohmann::json::array()},
-        {"MessageSeverity", "Critical"},
-        {"Resolution",
-         "Resolve other reported errors and retry the current operation."}};
+    return getLog(
+        redfish::message_registries::base::Index::maximumErrorsExceeded, {});
 }
 
 void maximumErrorsExceeded(crow::Response& res)
@@ -1003,14 +828,8 @@ void maximumErrorsExceeded(crow::Response& res)
  */
 nlohmann::json preconditionFailed(void)
 {
-    return nlohmann::json{
-        {"@odata.type", "#Message.v1_1_1.Message"},
-        {"MessageId", "Base.1.8.1.PreconditionFailed"},
-        {"Message", "The ETag supplied did not match the ETag required to "
-                    "change this resource."},
-        {"MessageArgs", nlohmann::json::array()},
-        {"MessageSeverity", "Critical"},
-        {"Resolution", "Try the operation again using the appropriate ETag."}};
+    return getLog(redfish::message_registries::base::Index::preconditionFailed,
+                  {});
 }
 
 void preconditionFailed(crow::Response& res)
@@ -1028,15 +847,8 @@ void preconditionFailed(crow::Response& res)
  */
 nlohmann::json preconditionRequired(void)
 {
-    return nlohmann::json{
-        {"@odata.type", "#Message.v1_1_1.Message"},
-        {"MessageId", "Base.1.8.1.PreconditionRequired"},
-        {"Message", "A precondition header or annotation is required to change "
-                    "this resource."},
-        {"MessageArgs", nlohmann::json::array()},
-        {"MessageSeverity", "Critical"},
-        {"Resolution", "Try the operation again using an If-Match or "
-                       "If-None-Match header and appropriate ETag."}};
+    return getLog(
+        redfish::message_registries::base::Index::preconditionRequired, {});
 }
 
 void preconditionRequired(crow::Response& res)
@@ -1054,16 +866,8 @@ void preconditionRequired(crow::Response& res)
  */
 nlohmann::json operationFailed(void)
 {
-    return nlohmann::json{
-        {"@odata.type", "#Message.v1_1_1.Message"},
-        {"MessageId", "Base.1.8.1.OperationFailed"},
-        {"Message",
-         "An error occurred internal to the service as part of the overall "
-         "request.  Partial results may have been returned."},
-        {"MessageArgs", nlohmann::json::array()},
-        {"MessageSeverity", "Warning"},
-        {"Resolution", "Resubmit the request.  If the problem persists, "
-                       "consider resetting the service or provider."}};
+    return getLog(redfish::message_registries::base::Index::operationFailed,
+                  {});
 }
 
 void operationFailed(crow::Response& res)
@@ -1081,15 +885,8 @@ void operationFailed(crow::Response& res)
  */
 nlohmann::json operationTimeout(void)
 {
-    return nlohmann::json{
-        {"@odata.type", "#Message.v1_1_1.Message"},
-        {"MessageId", "Base.1.8.1.OperationTimeout"},
-        {"Message", "A timeout internal to the service occured as part of the "
-                    "request.  Partial results may have been returned."},
-        {"MessageArgs", nlohmann::json::array()},
-        {"MessageSeverity", "Warning"},
-        {"Resolution", "Resubmit the request.  If the problem persists, "
-                       "consider resetting the service or provider."}};
+    return getLog(redfish::message_registries::base::Index::operationTimeout,
+                  {});
 }
 
 void operationTimeout(crow::Response& res)
@@ -1109,17 +906,9 @@ void operationTimeout(crow::Response& res)
 nlohmann::json propertyValueTypeError(const std::string& arg1,
                                       const std::string& arg2)
 {
-    return nlohmann::json{
-        {"@odata.type", "#Message.v1_1_1.Message"},
-        {"MessageId", "Base.1.8.1.PropertyValueTypeError"},
-        {"Message",
-         "The value " + arg1 + " for the property " + arg2 +
-             " is of a different type than the property can accept."},
-        {"MessageArgs", {arg1, arg2}},
-        {"MessageSeverity", "Warning"},
-        {"Resolution",
-         "Correct the value for the property in the request body and "
-         "resubmit the request if the operation failed."}};
+    std::array<std::string_view, 2> args{arg1, arg2};
+    return getLog(
+        redfish::message_registries::base::Index::propertyValueTypeError, args);
 }
 
 void propertyValueTypeError(crow::Response& res, const std::string& arg1,
@@ -1131,7 +920,7 @@ void propertyValueTypeError(crow::Response& res, const std::string& arg1,
 
 /**
  * @internal
- * @brief Formats ResourceNotFound message into JSON
+ * @brief Formats ResourceNotFound message into JSONd
  *
  * See header file for more information
  * @endinternal
@@ -1139,15 +928,9 @@ void propertyValueTypeError(crow::Response& res, const std::string& arg1,
 nlohmann::json resourceNotFound(const std::string& arg1,
                                 const std::string& arg2)
 {
-    return nlohmann::json{
-        {"@odata.type", "#Message.v1_1_1.Message"},
-        {"MessageId", "Base.1.8.1.ResourceNotFound"},
-        {"Message", "The requested resource of type " + arg1 + " named " +
-                        arg2 + " was not found."},
-        {"MessageArgs", {arg1, arg2}},
-        {"MessageSeverity", "Critical"},
-        {"Resolution",
-         "Provide a valid resource identifier and resubmit the request."}};
+    std::array<std::string_view, 2> args{arg1, arg2};
+    return getLog(redfish::message_registries::base::Index::resourceNotFound,
+                  args);
 }
 
 void resourceNotFound(crow::Response& res, const std::string& arg1,
@@ -1166,18 +949,12 @@ void resourceNotFound(crow::Response& res, const std::string& arg1,
  */
 nlohmann::json couldNotEstablishConnection(const boost::urls::url_view& arg1)
 {
-    std::string url(arg1.data(), arg1.size());
-    return nlohmann::json{
-        {"@odata.type", "#Message.v1_1_1.Message"},
-        {"MessageId", "Base.1.8.1.CouldNotEstablishConnection"},
-        {"Message",
-         "The service failed to establish a connection with the URI " + url +
-             "."},
-        {"MessageArgs", {url}},
-        {"MessageSeverity", "Critical"},
-        {"Resolution",
-         "Ensure that the URI contains a valid and reachable node name, "
-         "protocol information and other URI components."}};
+
+    std::array<std::string_view, 1> args{
+        std::string_view(arg1.data(), arg1.size())};
+    return getLog(
+        redfish::message_registries::base::Index::couldNotEstablishConnection,
+        args);
 }
 
 void couldNotEstablishConnection(crow::Response& res,
@@ -1197,16 +974,9 @@ void couldNotEstablishConnection(crow::Response& res,
  */
 nlohmann::json propertyNotWritable(const std::string& arg1)
 {
-    return nlohmann::json{
-        {"@odata.type", "#Message.v1_1_1.Message"},
-        {"MessageId", "Base.1.8.1.PropertyNotWritable"},
-        {"Message", "The property " + arg1 +
-                        " is a read only property and cannot be "
-                        "assigned a value."},
-        {"MessageArgs", {arg1}},
-        {"MessageSeverity", "Warning"},
-        {"Resolution", "Remove the property from the request body and "
-                       "resubmit the request if the operation failed."}};
+    std::array<std::string_view, 1> args{arg1};
+    return getLog(redfish::message_registries::base::Index::propertyNotWritable,
+                  args);
 }
 
 void propertyNotWritable(crow::Response& res, const std::string& arg1)
@@ -1225,17 +995,10 @@ void propertyNotWritable(crow::Response& res, const std::string& arg1)
 nlohmann::json queryParameterValueTypeError(const std::string& arg1,
                                             const std::string& arg2)
 {
-    return nlohmann::json{
-        {"@odata.type", "#Message.v1_1_1.Message"},
-        {"MessageId", "Base.1.8.1.QueryParameterValueTypeError"},
-        {"Message",
-         "The value " + arg1 + " for the query parameter " + arg2 +
-             " is of a different type than the parameter can accept."},
-        {"MessageArgs", {arg1, arg2}},
-        {"MessageSeverity", "Warning"},
-        {"Resolution",
-         "Correct the value for the query parameter in the request and "
-         "resubmit the request if the operation failed."}};
+    std::array<std::string_view, 2> args{arg1, arg2};
+    return getLog(
+        redfish::message_registries::base::Index::queryParameterValueTypeError,
+        args);
 }
 
 void queryParameterValueTypeError(crow::Response& res, const std::string& arg1,
@@ -1255,15 +1018,8 @@ void queryParameterValueTypeError(crow::Response& res, const std::string& arg1,
  */
 nlohmann::json serviceShuttingDown(void)
 {
-    return nlohmann::json{
-        {"@odata.type", "#Message.v1_1_1.Message"},
-        {"MessageId", "Base.1.8.1.ServiceShuttingDown"},
-        {"Message", "The operation failed because the service is shutting "
-                    "down and can no longer take incoming requests."},
-        {"MessageArgs", nlohmann::json::array()},
-        {"MessageSeverity", "Critical"},
-        {"Resolution", "When the service becomes available, resubmit the "
-                       "request if the operation failed."}};
+    return getLog(redfish::message_registries::base::Index::serviceShuttingDown,
+                  {});
 }
 
 void serviceShuttingDown(crow::Response& res)
@@ -1282,18 +1038,10 @@ void serviceShuttingDown(crow::Response& res)
 nlohmann::json actionParameterDuplicate(const std::string& arg1,
                                         const std::string& arg2)
 {
-    return nlohmann::json{
-        {"@odata.type", "#Message.v1_1_1.Message"},
-        {"MessageId", "Base.1.8.1.ActionParameterDuplicate"},
-        {"Message",
-         "The action " + arg1 +
-             " was submitted with more than one value for the parameter " +
-             arg2 + "."},
-        {"MessageArgs", {arg1, arg2}},
-        {"MessageSeverity", "Warning"},
-        {"Resolution",
-         "Resubmit the action with only one instance of the parameter in "
-         "the request body if the operation failed."}};
+    std::array<std::string_view, 2> args{arg1, arg2};
+    return getLog(
+        redfish::message_registries::base::Index::actionParameterDuplicate,
+        args);
 }
 
 void actionParameterDuplicate(crow::Response& res, const std::string& arg1,
@@ -1313,15 +1061,10 @@ void actionParameterDuplicate(crow::Response& res, const std::string& arg1,
 nlohmann::json actionParameterNotSupported(const std::string& arg1,
                                            const std::string& arg2)
 {
-    return nlohmann::json{
-        {"@odata.type", "#Message.v1_1_1.Message"},
-        {"MessageId", "Base.1.8.1.ActionParameterNotSupported"},
-        {"Message", "The parameter " + arg1 + " for the action " + arg2 +
-                        " is not supported on the target resource."},
-        {"MessageArgs", {arg1, arg2}},
-        {"MessageSeverity", "Warning"},
-        {"Resolution", "Remove the parameter supplied and resubmit the "
-                       "request if the operation failed."}};
+    std::array<std::string_view, 2> args{arg1, arg2};
+    return getLog(
+        redfish::message_registries::base::Index::actionParameterNotSupported,
+        args);
 }
 
 void actionParameterNotSupported(crow::Response& res, const std::string& arg1,
@@ -1342,16 +1085,11 @@ void actionParameterNotSupported(crow::Response& res, const std::string& arg1,
 nlohmann::json sourceDoesNotSupportProtocol(const boost::urls::url_view& arg1,
                                             const std::string& arg2)
 {
-    std::string url(arg1.data(), arg1.size());
-    return nlohmann::json{
-        {"@odata.type", "#Message.v1_1_1.Message"},
-        {"MessageId", "Base.1.8.1.SourceDoesNotSupportProtocol"},
-        {"Message", "The other end of the connection at " + url +
-                        " does not support the specified protocol " + arg2 +
-                        "."},
-        {"MessageArgs", {url, arg2}},
-        {"MessageSeverity", "Critical"},
-        {"Resolution", "Change protocols or URIs. "}};
+    std::array<std::string_view, 2> args{
+        std::string_view(arg1.data(), arg1.size()), arg2};
+    return getLog(
+        redfish::message_registries::base::Index::sourceDoesNotSupportProtocol,
+        args);
 }
 
 void sourceDoesNotSupportProtocol(crow::Response& res,
@@ -1372,12 +1110,7 @@ void sourceDoesNotSupportProtocol(crow::Response& res,
  */
 nlohmann::json accountRemoved(void)
 {
-    return nlohmann::json{{"@odata.type", "#Message.v1_1_1.Message"},
-                          {"MessageId", "Base.1.8.1.AccountRemoved"},
-                          {"Message", "The account was successfully removed."},
-                          {"MessageArgs", nlohmann::json::array()},
-                          {"MessageSeverity", "OK"},
-                          {"Resolution", "No resolution is required."}};
+    return getLog(redfish::message_registries::base::Index::accountRemoved, {});
 }
 
 void accountRemoved(crow::Response& res)
@@ -1395,16 +1128,9 @@ void accountRemoved(crow::Response& res)
  */
 nlohmann::json accessDenied(const boost::urls::url_view& arg1)
 {
-    std::string url(arg1.data(), arg1.size());
-    return nlohmann::json{
-        {"@odata.type", "#Message.v1_1_1.Message"},
-        {"MessageId", "Base.1.8.1.AccessDenied"},
-        {"Message", "While attempting to establish a connection to " + url +
-                        ", the service denied access."},
-        {"MessageArgs", {url}},
-        {"MessageSeverity", "Critical"},
-        {"Resolution", "Attempt to ensure that the URI is correct and that "
-                       "the service has the appropriate credentials."}};
+    std::array<std::string_view, 1> args{
+        std::string_view(arg1.data(), arg1.size())};
+    return getLog(redfish::message_registries::base::Index::accessDenied, args);
 }
 
 void accessDenied(crow::Response& res, const boost::urls::url_view& arg1)
@@ -1422,14 +1148,8 @@ void accessDenied(crow::Response& res, const boost::urls::url_view& arg1)
  */
 nlohmann::json queryNotSupported(void)
 {
-    return nlohmann::json{
-        {"@odata.type", "#Message.v1_1_1.Message"},
-        {"MessageId", "Base.1.8.1.QueryNotSupported"},
-        {"Message", "Querying is not supported by the implementation."},
-        {"MessageArgs", nlohmann::json::array()},
-        {"MessageSeverity", "Warning"},
-        {"Resolution", "Remove the query parameters and resubmit the "
-                       "request if the operation failed."}};
+    return getLog(redfish::message_registries::base::Index::queryNotSupported,
+                  {});
 }
 
 void queryNotSupported(crow::Response& res)
@@ -1447,16 +1167,9 @@ void queryNotSupported(crow::Response& res)
  */
 nlohmann::json createLimitReachedForResource(void)
 {
-    return nlohmann::json{
-        {"@odata.type", "#Message.v1_1_1.Message"},
-        {"MessageId", "Base.1.8.1.CreateLimitReachedForResource"},
-        {"Message", "The create operation failed because the resource has "
-                    "reached the limit of possible resources."},
-        {"MessageArgs", nlohmann::json::array()},
-        {"MessageSeverity", "Critical"},
-        {"Resolution",
-         "Either delete resources and resubmit the request if the "
-         "operation failed or do not resubmit the request."}};
+    return getLog(
+        redfish::message_registries::base::Index::createLimitReachedForResource,
+        {});
 }
 
 void createLimitReachedForResource(crow::Response& res)
@@ -1474,14 +1187,7 @@ void createLimitReachedForResource(crow::Response& res)
  */
 nlohmann::json generalError(void)
 {
-    return nlohmann::json{{"@odata.type", "#Message.v1_1_1.Message"},
-                          {"MessageId", "Base.1.8.1.GeneralError"},
-                          {"Message",
-                           "A general error has occurred. See Resolution for "
-                           "information on how to resolve the error."},
-                          {"MessageArgs", nlohmann::json::array()},
-                          {"MessageSeverity", "Critical"},
-                          {"Resolution", "None."}};
+    return getLog(redfish::message_registries::base::Index::generalError, {});
 }
 
 void generalError(crow::Response& res)
@@ -1499,12 +1205,7 @@ void generalError(crow::Response& res)
  */
 nlohmann::json success(void)
 {
-    return nlohmann::json{{"@odata.type", "#Message.v1_1_1.Message"},
-                          {"MessageId", "Base.1.8.1.Success"},
-                          {"Message", "Successfully Completed Request"},
-                          {"MessageArgs", nlohmann::json::array()},
-                          {"MessageSeverity", "OK"},
-                          {"Resolution", "None"}};
+    return getLog(redfish::message_registries::base::Index::success, {});
 }
 
 void success(crow::Response& res)
@@ -1523,13 +1224,7 @@ void success(crow::Response& res)
  */
 nlohmann::json created(void)
 {
-    return nlohmann::json{
-        {"@odata.type", "#Message.v1_1_1.Message"},
-        {"MessageId", "Base.1.8.1.Created"},
-        {"Message", "The resource has been created successfully"},
-        {"MessageArgs", nlohmann::json::array()},
-        {"MessageSeverity", "OK"},
-        {"Resolution", "None"}};
+    return getLog(redfish::message_registries::base::Index::created, {});
 }
 
 void created(crow::Response& res)
@@ -1547,15 +1242,7 @@ void created(crow::Response& res)
  */
 nlohmann::json noOperation(void)
 {
-    return nlohmann::json{
-        {"@odata.type", "#Message.v1_1_1.Message"},
-        {"MessageId", "Base.1.8.1.NoOperation"},
-        {"Message", "The request body submitted contain no data to act "
-                    "upon and no changes to the resource took place."},
-        {"MessageArgs", nlohmann::json::array()},
-        {"MessageSeverity", "Warning"},
-        {"Resolution",
-         "Add properties in the JSON object and resubmit the request."}};
+    return getLog(redfish::message_registries::base::Index::noOperation, {});
 }
 
 void noOperation(crow::Response& res)
@@ -1574,17 +1261,9 @@ void noOperation(crow::Response& res)
  */
 nlohmann::json propertyUnknown(const std::string& arg1)
 {
-    return nlohmann::json{
-        {"@odata.type", "#Message.v1_1_1.Message"},
-        {"MessageId", "Base.1.8.1.PropertyUnknown"},
-        {"Message", "The property " + arg1 +
-                        " is not in the list of valid properties for "
-                        "the resource."},
-        {"MessageArgs", {arg1}},
-        {"MessageSeverity", "Warning"},
-        {"Resolution", "Remove the unknown property from the request "
-                       "body and resubmit "
-                       "the request if the operation failed."}};
+    std::array<std::string_view, 1> args{arg1};
+    return getLog(redfish::message_registries::base::Index::propertyUnknown,
+                  args);
 }
 
 void propertyUnknown(crow::Response& res, const std::string& arg1)
@@ -1602,15 +1281,7 @@ void propertyUnknown(crow::Response& res, const std::string& arg1)
  */
 nlohmann::json noValidSession(void)
 {
-    return nlohmann::json{
-        {"@odata.type", "#Message.v1_1_1.Message"},
-        {"MessageId", "Base.1.8.1.NoValidSession"},
-        {"Message",
-         "There is no valid session established with the implementation."},
-        {"MessageArgs", nlohmann::json::array()},
-        {"MessageSeverity", "Critical"},
-        {"Resolution",
-         "Establish a session before attempting any operations."}};
+    return getLog(redfish::message_registries::base::Index::noValidSession, {});
 }
 
 void noValidSession(crow::Response& res)
@@ -1628,16 +1299,10 @@ void noValidSession(crow::Response& res)
  */
 nlohmann::json invalidObject(const boost::urls::url_view& arg1)
 {
-    std::string url(arg1.data(), arg1.size());
-    return nlohmann::json{
-        {"@odata.type", "#Message.v1_1_1.Message"},
-        {"MessageId", "Base.1.8.1.InvalidObject"},
-        {"Message", "The object at " + url + " is invalid."},
-        {"MessageArgs", {url}},
-        {"MessageSeverity", "Critical"},
-        {"Resolution",
-         "Either the object is malformed or the URI is not correct.  "
-         "Correct the condition and resubmit the request if it failed."}};
+    std::array<std::string_view, 1> args{
+        std::string_view(arg1.data(), arg1.size())};
+    return getLog(redfish::message_registries::base::Index::invalidObject,
+                  args);
 }
 
 void invalidObject(crow::Response& res, const boost::urls::url_view& arg1)
@@ -1655,15 +1320,8 @@ void invalidObject(crow::Response& res, const boost::urls::url_view& arg1)
  */
 nlohmann::json resourceInStandby(void)
 {
-    return nlohmann::json{
-        {"@odata.type", "#Message.v1_1_1.Message"},
-        {"MessageId", "Base.1.8.1.ResourceInStandby"},
-        {"Message", "The request could not be performed because the "
-                    "resource is in standby."},
-        {"MessageArgs", nlohmann::json::array()},
-        {"MessageSeverity", "Critical"},
-        {"Resolution", "Ensure that the resource is in the correct power "
-                       "state and resubmit the request."}};
+    return getLog(redfish::message_registries::base::Index::resourceInStandby,
+                  {});
 }
 
 void resourceInStandby(crow::Response& res)
@@ -1683,18 +1341,10 @@ nlohmann::json actionParameterValueTypeError(const std::string& arg1,
                                              const std::string& arg2,
                                              const std::string& arg3)
 {
-    return nlohmann::json{
-        {"@odata.type", "#Message.v1_1_1.Message"},
-        {"MessageId", "Base.1.8.1.ActionParameterValueTypeError"},
-        {"Message",
-         "The value " + arg1 + " for the parameter " + arg2 +
-             " in the action " + arg3 +
-             " is of a different type than the parameter can accept."},
-        {"MessageArgs", {arg1, arg2, arg3}},
-        {"MessageSeverity", "Warning"},
-        {"Resolution",
-         "Correct the value for the parameter in the request body and "
-         "resubmit the request if the operation failed."}};
+    std::array<std::string_view, 3> args{arg1, arg2, arg3};
+    return getLog(
+        redfish::message_registries::base::Index::actionParameterValueTypeError,
+        args);
 }
 
 void actionParameterValueTypeError(crow::Response& res, const std::string& arg1,
@@ -1715,17 +1365,8 @@ void actionParameterValueTypeError(crow::Response& res, const std::string& arg1,
  */
 nlohmann::json sessionLimitExceeded(void)
 {
-    return nlohmann::json{
-        {"@odata.type", "#Message.v1_1_1.Message"},
-        {"MessageId", "Base.1.8.1.SessionLimitExceeded"},
-        {"Message", "The session establishment failed due to the number of "
-                    "simultaneous sessions exceeding the limit of the "
-                    "implementation."},
-        {"MessageArgs", nlohmann::json::array()},
-        {"MessageSeverity", "Critical"},
-        {"Resolution", "Reduce the number of other sessions before trying "
-                       "to establish the session or increase the limit of "
-                       "simultaneous sessions (if supported)."}};
+    return getLog(
+        redfish::message_registries::base::Index::sessionLimitExceeded, {});
 }
 
 void sessionLimitExceeded(crow::Response& res)
@@ -1743,18 +1384,9 @@ void sessionLimitExceeded(crow::Response& res)
  */
 nlohmann::json actionNotSupported(const std::string& arg1)
 {
-    return nlohmann::json{
-        {"@odata.type", "#Message.v1_1_1.Message"},
-        {"MessageId", "Base.1.8.1.ActionNotSupported"},
-        {"Message",
-         "The action " + arg1 + " is not supported by the resource."},
-        {"MessageArgs", {arg1}},
-        {"MessageSeverity", "Critical"},
-        {"Resolution",
-         "The action supplied cannot be resubmitted to the implementation. "
-         " Perhaps the action was invalid, the wrong resource was the "
-         "target or the implementation documentation may be of "
-         "assistance."}};
+    std::array<std::string_view, 1> args{arg1};
+    return getLog(redfish::message_registries::base::Index::actionNotSupported,
+                  args);
 }
 
 void actionNotSupported(crow::Response& res, const std::string& arg1)
@@ -1772,15 +1404,9 @@ void actionNotSupported(crow::Response& res, const std::string& arg1)
  */
 nlohmann::json invalidIndex(int64_t arg1)
 {
-    return nlohmann::json{
-        {"@odata.type", "#Message.v1_1_1.Message"},
-        {"MessageId", "Base.1.8.1.InvalidIndex"},
-        {"Message", "The Index " + std::to_string(arg1) +
-                        " is not a valid offset into the array."},
-        {"MessageArgs", {std::to_string(arg1)}},
-        {"MessageSeverity", "Warning"},
-        {"Resolution", "Verify the index value provided is within the "
-                       "bounds of the array."}};
+    std::string arg1Str = std::to_string(arg1);
+    std::array<std::string_view, 1> args{arg1Str};
+    return getLog(redfish::message_registries::base::Index::invalidIndex, args);
 }
 
 void invalidIndex(crow::Response& res, int64_t arg1)
@@ -1798,15 +1424,7 @@ void invalidIndex(crow::Response& res, int64_t arg1)
  */
 nlohmann::json emptyJSON(void)
 {
-    return nlohmann::json{
-        {"@odata.type", "#Message.v1_1_1.Message"},
-        {"MessageId", "Base.1.8.1.EmptyJSON"},
-        {"Message", "The request body submitted contained an empty JSON "
-                    "object and the service is unable to process it."},
-        {"MessageArgs", nlohmann::json::array()},
-        {"MessageSeverity", "Warning"},
-        {"Resolution",
-         "Add properties in the JSON object and resubmit the request."}};
+    return getLog(redfish::message_registries::base::Index::emptyJSON, {});
 }
 
 void emptyJSON(crow::Response& res)
@@ -1824,14 +1442,9 @@ void emptyJSON(crow::Response& res)
  */
 nlohmann::json queryNotSupportedOnResource(void)
 {
-    return nlohmann::json{
-        {"@odata.type", "#Message.v1_1_1.Message"},
-        {"MessageId", "Base.1.8.1.QueryNotSupportedOnResource"},
-        {"Message", "Querying is not supported on the requested resource."},
-        {"MessageArgs", nlohmann::json::array()},
-        {"MessageSeverity", "Warning"},
-        {"Resolution", "Remove the query parameters and resubmit the "
-                       "request if the operation failed."}};
+    return getLog(
+        redfish::message_registries::base::Index::queryNotSupportedOnResource,
+        {});
 }
 
 void queryNotSupportedOnResource(crow::Response& res)
@@ -1849,14 +1462,9 @@ void queryNotSupportedOnResource(crow::Response& res)
  */
 nlohmann::json queryNotSupportedOnOperation(void)
 {
-    return nlohmann::json{
-        {"@odata.type", "#Message.v1_1_1.Message"},
-        {"MessageId", "Base.1.8.1.QueryNotSupportedOnOperation"},
-        {"Message", "Querying is not supported with the requested operation."},
-        {"MessageArgs", nlohmann::json::array()},
-        {"MessageSeverity", "Warning"},
-        {"Resolution", "Remove the query parameters and resubmit the request "
-                       "if the operation failed."}};
+    return getLog(
+        redfish::message_registries::base::Index::queryNotSupportedOnOperation,
+        {});
 }
 
 void queryNotSupportedOnOperation(crow::Response& res)
@@ -1874,15 +1482,8 @@ void queryNotSupportedOnOperation(crow::Response& res)
  */
 nlohmann::json queryCombinationInvalid(void)
 {
-    return nlohmann::json{
-        {"@odata.type", "#Message.v1_1_1.Message"},
-        {"MessageId", "Base.1.8.1.QueryCombinationInvalid"},
-        {"Message", "Two or more query parameters in the request cannot be "
-                    "used together."},
-        {"MessageArgs", nlohmann::json::array()},
-        {"MessageSeverity", "Warning"},
-        {"Resolution", "Remove one or more of the query parameters and "
-                       "resubmit the request if the operation failed."}};
+    return getLog(
+        redfish::message_registries::base::Index::queryCombinationInvalid, {});
 }
 
 void queryCombinationInvalid(crow::Response& res)
@@ -1900,17 +1501,8 @@ void queryCombinationInvalid(crow::Response& res)
  */
 nlohmann::json insufficientPrivilege(void)
 {
-    return nlohmann::json{
-        {"@odata.type", "#Message.v1_1_1.Message"},
-        {"MessageId", "Base.1.8.1.InsufficientPrivilege"},
-        {"Message", "There are insufficient privileges for the account or "
-                    "credentials associated with the current session to "
-                    "perform the requested operation."},
-        {"MessageArgs", nlohmann::json::array()},
-        {"MessageSeverity", "Critical"},
-        {"Resolution",
-         "Either abandon the operation or change the associated access "
-         "rights and resubmit the request if the operation failed."}};
+    return getLog(
+        redfish::message_registries::base::Index::insufficientPrivilege, {});
 }
 
 void insufficientPrivilege(crow::Response& res)
@@ -1929,14 +1521,9 @@ void insufficientPrivilege(crow::Response& res)
 nlohmann::json propertyValueModified(const std::string& arg1,
                                      const std::string& arg2)
 {
-    return nlohmann::json{
-        {"@odata.type", "#Message.v1_1_1.Message"},
-        {"MessageId", "Base.1.8.1.PropertyValueModified"},
-        {"Message", "The property " + arg1 + " was assigned the value " + arg2 +
-                        " due to modification by the service."},
-        {"MessageArgs", {arg1, arg2}},
-        {"MessageSeverity", "Warning"},
-        {"Resolution", "No resolution is required."}};
+    std::array<std::string_view, 2> args{arg1, arg2};
+    return getLog(
+        redfish::message_registries::base::Index::propertyValueModified, args);
 }
 
 void propertyValueModified(crow::Response& res, const std::string& arg1,
@@ -1955,14 +1542,8 @@ void propertyValueModified(crow::Response& res, const std::string& arg1,
  */
 nlohmann::json accountNotModified(void)
 {
-    return nlohmann::json{
-        {"@odata.type", "#Message.v1_1_1.Message"},
-        {"MessageId", "Base.1.8.1.AccountNotModified"},
-        {"Message", "The account modification request failed."},
-        {"MessageArgs", nlohmann::json::array()},
-        {"MessageSeverity", "Warning"},
-        {"Resolution", "The modification may have failed due to permission "
-                       "issues or issues with the request body."}};
+    return getLog(redfish::message_registries::base::Index::accountNotModified,
+                  {});
 }
 
 void accountNotModified(crow::Response& res)
@@ -1981,17 +1562,10 @@ void accountNotModified(crow::Response& res)
 nlohmann::json queryParameterValueFormatError(const std::string& arg1,
                                               const std::string& arg2)
 {
-    return nlohmann::json{
-        {"@odata.type", "#Message.v1_1_1.Message"},
-        {"MessageId", "Base.1.8.1.QueryParameterValueFormatError"},
-        {"Message",
-         "The value " + arg1 + " for the parameter " + arg2 +
-             " is of a different format than the parameter can accept."},
-        {"MessageArgs", {arg1, arg2}},
-        {"MessageSeverity", "Warning"},
-        {"Resolution",
-         "Correct the value for the query parameter in the request and "
-         "resubmit the request if the operation failed."}};
+    std::array<std::string_view, 2> args{arg1, arg2};
+    return getLog(redfish::message_registries::base::Index::
+                      queryParameterValueFormatError,
+                  args);
 }
 
 void queryParameterValueFormatError(crow::Response& res,
@@ -2013,18 +1587,9 @@ void queryParameterValueFormatError(crow::Response& res,
  */
 nlohmann::json propertyMissing(const std::string& arg1)
 {
-    return nlohmann::json{
-        {"@odata.type", "#Message.v1_1_1.Message"},
-        {"MessageId", "Base.1.8.1.PropertyMissing"},
-        {"Message", "The property " + arg1 +
-                        " is a required property and must be included in "
-                        "the request."},
-        {"MessageArgs", {arg1}},
-        {"MessageSeverity", "Warning"},
-        {"Resolution",
-         "Ensure that the property is in the request body and has a "
-         "valid "
-         "value and resubmit the request if the operation failed."}};
+    std::array<std::string_view, 1> args{arg1};
+    return getLog(redfish::message_registries::base::Index::propertyMissing,
+                  args);
 }
 
 void propertyMissing(crow::Response& res, const std::string& arg1)
@@ -2042,16 +1607,9 @@ void propertyMissing(crow::Response& res, const std::string& arg1)
  */
 nlohmann::json resourceExhaustion(const std::string& arg1)
 {
-    return nlohmann::json{
-        {"@odata.type", "#Message.v1_1_1.Message"},
-        {"MessageId", "Base.1.8.1.ResourceExhaustion"},
-        {"Message", "The resource " + arg1 +
-                        " was unable to satisfy the request due to "
-                        "unavailability of resources."},
-        {"MessageArgs", {arg1}},
-        {"MessageSeverity", "Critical"},
-        {"Resolution", "Ensure that the resources are available and "
-                       "resubmit the request."}};
+    std::array<std::string_view, 1> args{arg1};
+    return getLog(redfish::message_registries::base::Index::resourceExhaustion,
+                  args);
 }
 
 void resourceExhaustion(crow::Response& res, const std::string& arg1)
@@ -2069,12 +1627,8 @@ void resourceExhaustion(crow::Response& res, const std::string& arg1)
  */
 nlohmann::json accountModified(void)
 {
-    return nlohmann::json{{"@odata.type", "#Message.v1_1_1.Message"},
-                          {"MessageId", "Base.1.8.1.AccountModified"},
-                          {"Message", "The account was successfully modified."},
-                          {"MessageArgs", nlohmann::json::array()},
-                          {"MessageSeverity", "OK"},
-                          {"Resolution", "No resolution is required."}};
+    return getLog(redfish::message_registries::base::Index::accountModified,
+                  {});
 }
 
 void accountModified(crow::Response& res)
@@ -2094,18 +1648,10 @@ nlohmann::json queryParameterOutOfRange(const std::string& arg1,
                                         const std::string& arg2,
                                         const std::string& arg3)
 {
-    return nlohmann::json{
-        {"@odata.type", "#Message.v1_1_1.Message"},
-        {"MessageId", "Base.1.8.1.QueryParameterOutOfRange"},
-        {"Message", "The value " + arg1 + " for the query parameter " + arg2 +
-                        " is out of range " + arg3 + "."},
-        {"MessageArgs", {arg1, arg2, arg3}},
-        {"MessageSeverity", "Warning"},
-        {"Resolution",
-         "Reduce the value for the query parameter to a value that is "
-         "within range, such as a start or count value that is within "
-         "bounds of the number of resources in a collection or a page that "
-         "is within the range of valid pages."}};
+    std::array<std::string_view, 3> args{arg1, arg2, arg3};
+    return getLog(
+        redfish::message_registries::base::Index::queryParameterOutOfRange,
+        args);
 }
 
 void queryParameterOutOfRange(crow::Response& res, const std::string& arg1,
@@ -2114,6 +1660,15 @@ void queryParameterOutOfRange(crow::Response& res, const std::string& arg1,
     res.result(boost::beast::http::status::bad_request);
     addMessageToErrorJson(res.jsonValue,
                           queryParameterOutOfRange(arg1, arg2, arg3));
+}
+
+nlohmann::json passwordChangeRequired(const boost::urls::url_view& arg1)
+{
+    std::array<std::string_view, 1> args{
+        std::string_view(arg1.data(), arg1.size())};
+
+    return getLog(
+        redfish::message_registries::base::Index::passwordChangeRequired, args);
 }
 
 /**
@@ -2126,22 +1681,7 @@ void queryParameterOutOfRange(crow::Response& res, const std::string& arg1,
 void passwordChangeRequired(crow::Response& res,
                             const boost::urls::url_view& arg1)
 {
-    std::string url(arg1.data(), arg1.size());
-    messages::addMessageToJsonRoot(
-        res.jsonValue,
-        nlohmann::json{
-            {"@odata.type", "/redfish/v1/$metadata#Message.v1_5_0.Message"},
-            {"MessageId", "Base.1.8.1.PasswordChangeRequired"},
-            {"Message", "The password provided for this account must be "
-                        "changed before access is granted.  PATCH the "
-                        "'Password' property for this account located at "
-                        "the target URI '" +
-                            url + "' to complete this process."},
-            {"MessageArgs", {url}},
-            {"MessageSeverity", "Critical"},
-            {"Resolution", "Change the password for this account using "
-                           "a PATCH to the 'Password' property at the URI "
-                           "provided."}});
+    messages::addMessageToJsonRoot(res.jsonValue, passwordChangeRequired(arg1));
 }
 
 void invalidUpload(crow::Response& res, const std::string& arg1,
@@ -2158,15 +1698,10 @@ void invalidUpload(crow::Response& res, const std::string& arg1,
  * See header file for more information
  * @endinternal
  */
-nlohmann::json invalidUpload(const std::string& arg1, const std::string& arg2)
+nlohmann::json invalidUpload(const std::string& /*arg1*/,
+                             const std::string& /*arg2*/)
 {
-    return nlohmann::json{
-        {"@odata.type", "/redfish/v1/$metadata#Message.v1_1_1.Message"},
-        {"MessageId", "OpenBMC.0.2.InvalidUpload"},
-        {"Message", "Invalid file uploaded to " + arg1 + ": " + arg2 + "."},
-        {"MessageArgs", {arg1, arg2}},
-        {"MessageSeverity", "Warning"},
-        {"Resolution", "None."}};
+    return {};
 }
 
 /**
@@ -2176,19 +1711,10 @@ nlohmann::json invalidUpload(const std::string& arg1, const std::string& arg2)
  * See header file for more information
  * @endinternal
  */
-nlohmann::json mutualExclusiveProperties(const std::string& arg1,
-                                         const std::string& arg2)
+nlohmann::json mutualExclusiveProperties(const std::string& /*arg1*/,
+                                         const std::string& /*arg2*/)
 {
-    return nlohmann::json{
-        {"@odata.type", "#Message.v1_1_1.Message"},
-        {"MessageId", "Base.1.5.0.MutualExclusiveProperties"},
-        {"Message", "The properties " + arg1 + " and " + arg2 +
-                        " are mutually exclusive."},
-        {"MessageArgs", {arg1, arg2}},
-        {"MessageSeverity", "Warning"},
-        {"Resolution",
-         "Ensure that the request body doesn't contain mutually exclusive "
-         "properties and resubmit the request."}};
+    return {};
 }
 
 void mutualExclusiveProperties(crow::Response& res, const std::string& arg1,
