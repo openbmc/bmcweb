@@ -34,6 +34,24 @@
       "parentUuid": "98fce21f_78a2b99b",
       "revId": "b668ef1ee6284b2d7dbfc4cafa16e4124d2eac60",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b989e562_84609447",
+        "filename": "redfish-core/include/registries/privilege_registry.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 454,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-02-07T23:05:37Z",
+      "side": 0,
+      "message": "If I go back to 12778e61c281b8f8c0f976dec225fb0c30edcb47, and rerun this script, these overrides disappear.  It looks like we accepted code that we shouldn\u0027t have.  It\u0027s hard to say if these were added by hand, or based on a master version of PrivilegeRegistry, but so far as I can tell, this is correct.",
+      "parentUuid": "0ba669bc_639709e6",
+      "revId": "b668ef1ee6284b2d7dbfc4cafa16e4124d2eac60",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
