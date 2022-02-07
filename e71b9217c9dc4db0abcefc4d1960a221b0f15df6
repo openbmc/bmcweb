@@ -215,6 +215,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "88e13b41_077e84c2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001257
+      },
+      "writtenOn": "2022-02-07T20:34:07Z",
+      "side": 1,
+      "message": "Sorry, how can I attach a log file? The entire log is too large to be posted in the reply.",
+      "parentUuid": "772a6702_de4efae9",
+      "revId": "e71b9217c9dc4db0abcefc4d1960a221b0f15df6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "3830d7b7_adfe1b7f",
         "filename": "include/event_service_store.hpp",
         "patchSetId": 1
