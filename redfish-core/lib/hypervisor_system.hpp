@@ -490,7 +490,7 @@ inline void parseInterfaceData(
 
     jsonResponse["HostName"] = ethData.hostname;
     jsonResponse["DHCPv4"]["DHCPEnabled"] =
-        translateDHCPEnabledToBool(ethData.DHCPEnabled, true);
+        translateDHCPv4dbusToBool(ethData.DHCPEnabled);
 
     nlohmann::json& ipv4Array = jsonResponse["IPv4Addresses"];
     nlohmann::json& ipv4StaticArray = jsonResponse["IPv4StaticAddresses"];
@@ -521,7 +521,8 @@ inline void setDHCPEnabled(const std::string& ifaceId,
                            const bool& ipv4DHCPEnabled,
                            const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
-    const std::string dhcp = getDhcpEnabledEnumeration(ipv4DHCPEnabled, false);
+    const std::string dhcp =
+        getDhcpEnabledEnumeration(ipv4DHCPEnabled, "Disabled");
     crow::connections::systemBus->async_method_call(
         [asyncResp](const boost::system::error_code ec) {
             if (ec)
@@ -941,8 +942,7 @@ inline void requestRoutesHypervisorSystems(App& app)
                         // configured. Deleting the address originated from DHCP
                         // is not allowed.
                         if ((ipv4Json.is_null()) &&
-                            (translateDHCPEnabledToBool(ethData.DHCPEnabled,
-                                                        true)))
+                            (translateDHCPv4dbusToBool(ethData.DHCPEnabled)))
                         {
                             BMCWEB_LOG_INFO
                                 << "Ignoring the delete on ipv4StaticAddresses "
