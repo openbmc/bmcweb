@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "19a61f98_a247e098",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-02-07T22:10:02Z",
+      "side": 1,
+      "message": "Seems reasonable ",
+      "revId": "e2404ded2ed8346641dd1c9e3edf2c90df1bcd56",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "acac4f54_48289c57",
+        "filename": "http/utility.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 683,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-02-07T22:10:02Z",
+      "side": 1,
+      "message": "Wish there was a bit more documentation about this, I assume there isn\u0027t more and I am just missing it?\n \nsegments - Return the path segments as a read-only container. \n\nhttps://33.url.prtest.cppalliance.org/libs/url/doc/html/url/ref/boost__urls__url_view.html\nIf I click on segments, I don\u0027t get anything more \n\nI guess dig through the code if you really want to know more https://github.com/CPPAlliance/url ?",
+      "revId": "e2404ded2ed8346641dd1c9e3edf2c90df1bcd56",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
