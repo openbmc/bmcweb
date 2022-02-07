@@ -9,8 +9,7 @@
 namespace redfish::message_registries::task_event
 {
 const Header header = {
-    "Copyright 2014-2020 DMTF in cooperation with the Storage Networking "
-    "Industry Association (SNIA). All rights reserved.",
+    "Copyright 2014-2020 DMTF in cooperation with the Storage Networking Industry Association (SNIA). All rights reserved.",
     "#MessageRegistry.v1_4_1.MessageRegistry",
     "TaskEvent.1.0.3",
     "Task Event Message Registry",
@@ -36,19 +35,19 @@ constexpr std::array<MessageEntry, 9> registry = {
                      },
                      "None.",
                  }},
-    MessageEntry{"TaskCancelled",
-                 {
-                     "A task has been cancelled.",
-                     "Work on the task with Id '%1' has been halted prior to "
-                     "completion due to an explicit request.",
-                     "Warning",
-                     "Warning",
-                     1,
-                     {
-                         "string",
-                     },
-                     "None.",
-                 }},
+    MessageEntry{
+        "TaskCancelled",
+        {
+            "A task has been cancelled.",
+            "Work on the task with Id '%1' has been halted prior to completion due to an explicit request.",
+            "Warning",
+            "Warning",
+            1,
+            {
+                "string",
+            },
+            "None.",
+        }},
     MessageEntry{"TaskCompletedOK",
                  {
                      "A task has completed.",
@@ -85,20 +84,20 @@ constexpr std::array<MessageEntry, 9> registry = {
                      },
                      "None.",
                  }},
-    MessageEntry{"TaskProgressChanged",
-                 {
-                     "A task has changed progress.",
-                     "The task with Id '%1' has changed to progress %2 percent "
-                     "complete.",
-                     "OK",
-                     "OK",
-                     2,
-                     {
-                         "string",
-                         "number",
-                     },
-                     "None.",
-                 }},
+    MessageEntry{
+        "TaskProgressChanged",
+        {
+            "A task has changed progress.",
+            "The task with Id '%1' has changed to progress %2 percent complete.",
+            "OK",
+            "OK",
+            2,
+            {
+                "string",
+                "number",
+            },
+            "None.",
+        }},
     MessageEntry{"TaskRemoved",
                  {
                      "A task has been removed.",
