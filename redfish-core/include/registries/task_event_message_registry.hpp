@@ -135,4 +135,17 @@ constexpr std::array<MessageEntry, 9> registry = {
                      "None.",
                  }},
 };
+
+enum class Index
+{
+    taskAborted = 0,
+    taskCancelled = 1,
+    taskCompletedOK = 2,
+    taskCompletedWarning = 3,
+    taskPaused = 4,
+    taskProgressChanged = 5,
+    taskRemoved = 6,
+    taskResumed = 7,
+    taskStarted = 8,
+};
 } // namespace redfish::message_registries::task_event
