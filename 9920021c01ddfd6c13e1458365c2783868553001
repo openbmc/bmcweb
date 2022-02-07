@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "de04bbac_71241b3e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-02-07T16:32:24Z",
+      "side": 1,
+      "message": "LGTM.  I\u0027ll let Gunnar review as well in case he spots something.",
+      "revId": "9920021c01ddfd6c13e1458365c2783868553001",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "99a95baf_b7fc9d84",
+        "filename": "redfish-core/include/event_service_manager.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 448,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-02-07T16:32:24Z",
+      "side": 1,
+      "message": "When https://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/50659 merges, this kind of thing is going to be caught by CI, but in the meantime, just return the result of the operation\n\nreturn this-\u003esendEvent....;\n\ninsead of having basically\n\nif (condition){\n   return true;\n}\nreturn false;\n\nWhich is redundant.",
+      "range": {
+        "startLine": 445,
+        "startChar": 0,
+        "endLine": 448,
+        "endChar": 20
+      },
+      "revId": "9920021c01ddfd6c13e1458365c2783868553001",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1c356788_11a28f0c",
+        "filename": "redfish-core/include/event_service_manager.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 1001,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-02-07T16:32:24Z",
+      "side": 1,
+      "message": "That\u0027s really unfortunate we have two different methods called sendEvent.  It\u0027s making this code really hard to read.",
+      "revId": "9920021c01ddfd6c13e1458365c2783868553001",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
