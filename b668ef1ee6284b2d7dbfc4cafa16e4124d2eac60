@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "98fce21f_78a2b99b",
+        "filename": "redfish-core/include/registries/privilege_registry.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 454,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-02-07T21:24:34Z",
+      "side": 0,
+      "message": "Help me.. Why did these get deleted?\n\nhttps://github.com/openbmc/bmcweb/commit/12778e61c281b8f8c0f976dec225fb0c30edcb47\nadded these",
+      "revId": "b668ef1ee6284b2d7dbfc4cafa16e4124d2eac60",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
