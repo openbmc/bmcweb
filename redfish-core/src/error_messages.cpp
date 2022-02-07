@@ -696,7 +696,7 @@ void actionParameterMissing(crow::Response& res, const std::string& arg1,
  * See header file for more information
  * @endinternal
  */
-nlohmann::json stringValueTooLong(const std::string& arg1, const int& arg2)
+nlohmann::json stringValueTooLong(const std::string& arg1, int arg2)
 {
     return nlohmann::json{
         {"@odata.type", "#Message.v1_1_1.Message"},
@@ -709,8 +709,7 @@ nlohmann::json stringValueTooLong(const std::string& arg1, const int& arg2)
          "Resubmit the request with an appropriate string length."}};
 }
 
-void stringValueTooLong(crow::Response& res, const std::string& arg1,
-                        const int& arg2)
+void stringValueTooLong(crow::Response& res, const std::string& arg1, int arg2)
 {
     res.result(boost::beast::http::status::bad_request);
     addMessageToErrorJson(res.jsonValue, stringValueTooLong(arg1, arg2));

@@ -310,10 +310,9 @@ void actionParameterMissing(crow::Response& res, const std::string& arg1,
  * @param[in] arg2 Parameter of message that will replace %2 in its body.
  *
  * @returns Message StringValueTooLong formatted to JSON */
-nlohmann::json stringValueTooLong(const std::string& arg1, const int& arg2);
+nlohmann::json stringValueTooLong(const std::string& arg1, int arg2);
 
-void stringValueTooLong(crow::Response& res, const std::string& arg1,
-                        const int& arg2);
+void stringValueTooLong(crow::Response& res, const std::string& arg1, int arg2);
 
 /**
  * @brief Formats SessionTerminated message into JSON
