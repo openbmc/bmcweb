@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f4a41f03_2594b032",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-02-07T21:14:54Z",
+      "side": 1,
+      "message": "\"ssh\" UserGroup controls access to Manager Console and Host Console? Host Console is sshing to port 2200? Manager Console is sshing to port 22? \nCan you add more detail here?",
+      "revId": "b932e10c7b0d68912fe26b308bcb48a29415ce2c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
