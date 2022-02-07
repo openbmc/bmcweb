@@ -293,4 +293,27 @@ constexpr std::array<MessageEntry, 19> registry = {
             "None.",
         }},
 };
+
+enum class Index
+{
+    licenseAdded = 0,
+    licenseChanged = 1,
+    licenseExpired = 2,
+    resourceChanged = 3,
+    resourceCreated = 4,
+    resourceErrorThresholdCleared = 5,
+    resourceErrorThresholdExceeded = 6,
+    resourceErrorsCorrected = 7,
+    resourceErrorsDetected = 8,
+    resourceRemoved = 9,
+    resourceSelfTestCompleted = 10,
+    resourceSelfTestFailed = 11,
+    resourceStatusChangedCritical = 12,
+    resourceStatusChangedOK = 13,
+    resourceStatusChangedWarning = 14,
+    resourceVersionIncompatible = 15,
+    resourceWarningThresholdCleared = 16,
+    resourceWarningThresholdExceeded = 17,
+    uRIForResourceChanged = 18,
+};
 } // namespace redfish::message_registries::resource_event
