@@ -375,13 +375,14 @@ executable(
 srcfiles_unittest = [
   'http/ut/utility_test.cpp',
   'include/ut/dbus_utility_test.cpp',
-  'include/ut/multipart_test.cpp',
   'include/ut/http_utility_test.cpp',
   'include/ut/human_sort_test.cpp',
+  'include/ut/multipart_test.cpp',
   'redfish-core/ut/configfile_test.cpp',
   'redfish-core/ut/hex_utils_test.cpp',
   'redfish-core/ut/lock_test.cpp',
   'redfish-core/ut/privileges_test.cpp',
+  'redfish-core/ut/registries_test.cpp',
   'redfish-core/ut/stl_utils_test.cpp',
   'redfish-core/ut/time_utils_test.cpp',
 ]
