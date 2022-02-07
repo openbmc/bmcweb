@@ -451,66 +451,6 @@ const static auto& putEnvironmentMetrics = privilegeSetConfigureManager;
 const static auto& deleteEnvironmentMetrics = privilegeSetConfigureManager;
 const static auto& postEnvironmentMetrics = privilegeSetConfigureManager;
 
-// Subordinate override for Processor -> EnvironmentMetrics
-const static auto& patchEnvironmentMetricsSubOverProcessor =
-    privilegeSetConfigureComponents;
-const static auto& putEnvironmentMetricsSubOverProcessor =
-    privilegeSetConfigureComponents;
-const static auto& deleteEnvironmentMetricsSubOverProcessor =
-    privilegeSetConfigureComponents;
-const static auto& postEnvironmentMetricsSubOverProcessor =
-    privilegeSetConfigureComponents;
-
-// Subordinate override for Memory -> EnvironmentMetrics
-const static auto& patchEnvironmentMetricsSubOverMemory =
-    privilegeSetConfigureComponents;
-const static auto& putEnvironmentMetricsSubOverMemory =
-    privilegeSetConfigureComponents;
-const static auto& deleteEnvironmentMetricsSubOverMemory =
-    privilegeSetConfigureComponents;
-const static auto& postEnvironmentMetricsSubOverMemory =
-    privilegeSetConfigureComponents;
-
-// Subordinate override for Drive -> EnvironmentMetrics
-const static auto& patchEnvironmentMetricsSubOverDrive =
-    privilegeSetConfigureComponents;
-const static auto& putEnvironmentMetricsSubOverDrive =
-    privilegeSetConfigureComponents;
-const static auto& deleteEnvironmentMetricsSubOverDrive =
-    privilegeSetConfigureComponents;
-const static auto& postEnvironmentMetricsSubOverDrive =
-    privilegeSetConfigureComponents;
-
-// Subordinate override for PCIeDevice -> EnvironmentMetrics
-const static auto& patchEnvironmentMetricsSubOverPCIeDevice =
-    privilegeSetConfigureComponents;
-const static auto& putEnvironmentMetricsSubOverPCIeDevice =
-    privilegeSetConfigureComponents;
-const static auto& deleteEnvironmentMetricsSubOverPCIeDevice =
-    privilegeSetConfigureComponents;
-const static auto& postEnvironmentMetricsSubOverPCIeDevice =
-    privilegeSetConfigureComponents;
-
-// Subordinate override for StorageController -> EnvironmentMetrics
-const static auto& patchEnvironmentMetricsSubOverStorageController =
-    privilegeSetConfigureComponents;
-const static auto& putEnvironmentMetricsSubOverStorageController =
-    privilegeSetConfigureComponents;
-const static auto& deleteEnvironmentMetricsSubOverStorageController =
-    privilegeSetConfigureComponents;
-const static auto& postEnvironmentMetricsSubOverStorageController =
-    privilegeSetConfigureComponents;
-
-// Subordinate override for Port -> EnvironmentMetrics
-const static auto& patchEnvironmentMetricsSubOverPort =
-    privilegeSetConfigureComponents;
-const static auto& putEnvironmentMetricsSubOverPort =
-    privilegeSetConfigureComponents;
-const static auto& deleteEnvironmentMetricsSubOverPort =
-    privilegeSetConfigureComponents;
-const static auto& postEnvironmentMetricsSubOverPort =
-    privilegeSetConfigureComponents;
-
 // EthernetInterface
 const static auto& getEthernetInterface = privilegeSetLogin;
 const static auto& headEthernetInterface = privilegeSetLogin;
