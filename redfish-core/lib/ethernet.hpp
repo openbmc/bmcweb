@@ -114,6 +114,23 @@ struct DHCPParameters
     std::optional<std::string> dhcpv6OperatingMode;
 };
 
+constexpr const char* dhcpv6Stateless = "Stateless";
+constexpr const char* dhcpv6Stateful = "Stateful";
+constexpr const char* dhcpv6Disabled = "Disabled";
+
+constexpr const char* dbusDHCPnone =
+    "xyz.openbmc_project.Network.EthernetInterface.DHCPConf.none";
+constexpr const char* dbusDHCPboth =
+    "xyz.openbmc_project.Network.EthernetInterface.DHCPConf.both";
+constexpr const char* dbusDHCPv4v6stateless =
+    "xyz.openbmc_project.Network.EthernetInterface.DHCPConf.v4v6stateless";
+constexpr const char* dbusDHCPv6stateless =
+    "xyz.openbmc_project.Network.EthernetInterface.DHCPConf.v6stateless";
+constexpr const char* dbusDHCPv4 =
+    "xyz.openbmc_project.Network.EthernetInterface.DHCPConf.v4";
+constexpr const char* dbusDHCPv6 =
+    "xyz.openbmc_project.Network.EthernetInterface.DHCPConf.v6";
+
 // Helper function that changes bits netmask notation (i.e. /24)
 // into full dot notation
 inline std::string getNetmask(unsigned int bits)
@@ -126,38 +143,58 @@ inline std::string getNetmask(unsigned int bits)
     return netmask;
 }
 
-inline bool translateDHCPEnabledToBool(const std::string& inputDHCP,
-                                       bool isIPv4)
+inline bool translateDHCPv4dbusToBool(const std::string& inputDHCP)
 {
-    if (isIPv4)
-    {
-        return (
-            (inputDHCP ==
-             "xyz.openbmc_project.Network.EthernetInterface.DHCPConf.v4") ||
-            (inputDHCP ==
-             "xyz.openbmc_project.Network.EthernetInterface.DHCPConf.both"));
-    }
-    return ((inputDHCP ==
-             "xyz.openbmc_project.Network.EthernetInterface.DHCPConf.v6") ||
-            (inputDHCP ==
-             "xyz.openbmc_project.Network.EthernetInterface.DHCPConf.both"));
+    return ((inputDHCP == dbusDHCPv4) || (inputDHCP == dbusDHCPv4v6stateless) ||
+            (inputDHCP == dbusDHCPboth));
 }
 
-inline std::string getDhcpEnabledEnumeration(bool isIPv4, bool isIPv6)
+inline std::string tranlateDHCPv6dbusToModeString(const std::string& inputDHCP)
 {
-    if (isIPv4 && isIPv6)
+    const char* mode = dhcpv6Disabled;
+    if ((inputDHCP == dbusDHCPv6) || (inputDHCP == dbusDHCPboth))
     {
-        return "xyz.openbmc_project.Network.EthernetInterface.DHCPConf.both";
+        mode = dhcpv6Stateful;
     }
-    if (isIPv4)
+    else if ((inputDHCP == dbusDHCPv6stateless) ||
+             (inputDHCP == dbusDHCPv4v6stateless))
     {
-        return "xyz.openbmc_project.Network.EthernetInterface.DHCPConf.v4";
+        mode = dhcpv6Stateless;
     }
-    if (isIPv6)
+    return mode;
+}
+
+inline std::string acquireNextDHCPMode(const bool nextIPv4Mode,
+                                       const std::string& nextIPv6Mode)
+{
+    const char* mode = dbusDHCPnone;
+    if (nextIPv4Mode)
     {
-        return "xyz.openbmc_project.Network.EthernetInterface.DHCPConf.v6";
+        if (nextIPv6Mode == dhcpv6Stateful)
+        {
+            mode = dbusDHCPboth;
+        }
+        else if (nextIPv6Mode == dhcpv6Stateless)
+        {
+            mode = dbusDHCPv4v6stateless;
+        }
+        else
+        {
+            mode = dbusDHCPv4;
+        }
     }
-    return "xyz.openbmc_project.Network.EthernetInterface.DHCPConf.none";
+    else
+    {
+        if (nextIPv6Mode == dhcpv6Stateful)
+        {
+            mode = dbusDHCPv6;
+        }
+        else if (nextIPv6Mode == dhcpv6Stateless)
+        {
+            mode = dbusDHCPv6stateless;
+        }
+    }
+    return mode;
 }
 
 inline std::string
@@ -1179,10 +1216,10 @@ inline void
 
 inline void setDHCPEnabled(const std::string& ifaceId,
                            const std::string& propertyName, const bool v4Value,
-                           const bool v6Value,
+                           const std::string& v6Value,
                            const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
-    const std::string dhcp = getDhcpEnabledEnumeration(v4Value, v6Value);
+    const std::string dhcp = acquireNextDHCPMode(v4Value, v6Value);
     crow::connections::systemBus->async_method_call(
         [asyncResp](const boost::system::error_code ec) {
             if (ec)
@@ -1246,29 +1283,27 @@ inline void handleDHCPPatch(const std::string& ifaceId,
                             const DHCPParameters& v6dhcpParms,
                             const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
-    bool ipv4Active = translateDHCPEnabledToBool(ethData.DHCPEnabled, true);
-    bool ipv6Active = translateDHCPEnabledToBool(ethData.DHCPEnabled, false);
+    bool nextv4DHCPState = v4dhcpParms.dhcpv4Enabled
+                               ? *v4dhcpParms.dhcpv4Enabled
+                               : translateDHCPv4dbusToBool(ethData.DHCPEnabled);
 
-    bool nextv4DHCPState =
-        v4dhcpParms.dhcpv4Enabled ? *v4dhcpParms.dhcpv4Enabled : ipv4Active;
-
-    bool nextv6DHCPState{};
+    std::string nextv6DHCPState =
+        tranlateDHCPv6dbusToModeString(ethData.DHCPEnabled);
     if (v6dhcpParms.dhcpv6OperatingMode)
     {
-        if ((*v6dhcpParms.dhcpv6OperatingMode != "Stateful") &&
-            (*v6dhcpParms.dhcpv6OperatingMode != "Stateless") &&
-            (*v6dhcpParms.dhcpv6OperatingMode != "Disabled"))
-        {
-            messages::propertyValueFormatError(asyncResp->res,
-                                               *v6dhcpParms.dhcpv6OperatingMode,
-                                               "OperatingMode");
-            return;
-        }
-        nextv6DHCPState = (*v6dhcpParms.dhcpv6OperatingMode == "Stateful");
-    }
-    else
-    {
-        nextv6DHCPState = ipv6Active;
+        if ((*v6dhcpParms.dhcpv6OperatingMode != dhcpv6Stateful) &&
+            (*v6dhcpParms.dhcpv6OperatingMode != dhcpv6Stateless) &&
+            (*v6dhcpParms.dhcpv6OperatingMode != dhcpv6Disabled))
+            if ((*v6dhcpParms.dhcpv6OperatingMode != "Stateful") &&
+                (*v6dhcpParms.dhcpv6OperatingMode != "Stateless") &&
+                (*v6dhcpParms.dhcpv6OperatingMode != "Disabled"))
+            {
+                messages::propertyValueFormatError(
+                    asyncResp->res, *v6dhcpParms.dhcpv6OperatingMode,
+                    "OperatingMode");
+                return;
+            }
+        nextv6DHCPState = *v6dhcpParms.dhcpv6OperatingMode;
     }
 
     bool nextDNS{};
@@ -1744,14 +1779,13 @@ inline void parseInterfaceData(
     jsonResponse["MTUSize"] = ethData.mtuSize;
     jsonResponse["MACAddress"] = ethData.mac_address;
     jsonResponse["DHCPv4"]["DHCPEnabled"] =
-        translateDHCPEnabledToBool(ethData.DHCPEnabled, true);
+        translateDHCPv4dbusToBool(ethData.DHCPEnabled);
     jsonResponse["DHCPv4"]["UseNTPServers"] = ethData.NTPEnabled;
     jsonResponse["DHCPv4"]["UseDNSServers"] = ethData.DNSEnabled;
     jsonResponse["DHCPv4"]["UseDomainName"] = ethData.HostNameEnabled;
 
     jsonResponse["DHCPv6"]["OperatingMode"] =
-        translateDHCPEnabledToBool(ethData.DHCPEnabled, false) ? "Stateful"
-                                                               : "Disabled";
+        tranlateDHCPv6dbusToModeString(ethData.DHCPEnabled);
     jsonResponse["DHCPv6"]["UseNTPServers"] = ethData.NTPEnabled;
     jsonResponse["DHCPv6"]["UseDNSServers"] = ethData.DNSEnabled;
     jsonResponse["DHCPv6"]["UseDomainName"] = ethData.HostNameEnabled;
