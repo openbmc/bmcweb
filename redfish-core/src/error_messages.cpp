@@ -2169,35 +2169,6 @@ nlohmann::json invalidUpload(const std::string& arg1, const std::string& arg2)
         {"Resolution", "None."}};
 }
 
-/**
- * @internal
- * @brief Formats MutualExclusiveProperties into JSON
- *
- * See header file for more information
- * @endinternal
- */
-nlohmann::json mutualExclusiveProperties(const std::string& arg1,
-                                         const std::string& arg2)
-{
-    return nlohmann::json{
-        {"@odata.type", "#Message.v1_1_1.Message"},
-        {"MessageId", "Base.1.5.0.MutualExclusiveProperties"},
-        {"Message", "The properties " + arg1 + " and " + arg2 +
-                        " are mutually exclusive."},
-        {"MessageArgs", {arg1, arg2}},
-        {"MessageSeverity", "Warning"},
-        {"Resolution",
-         "Ensure that the request body doesn't contain mutually exclusive "
-         "properties and resubmit the request."}};
-}
-
-void mutualExclusiveProperties(crow::Response& res, const std::string& arg1,
-                               const std::string& arg2)
-{
-    res.result(boost::beast::http::status::bad_request);
-    addMessageToErrorJson(res.jsonValue, mutualExclusiveProperties(arg1, arg2));
-}
-
 } // namespace messages
 
 } // namespace redfish

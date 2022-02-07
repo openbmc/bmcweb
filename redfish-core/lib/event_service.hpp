@@ -234,8 +234,8 @@ inline void requestRoutesEventDestinationCollection(App& app)
                 {
                     if (!regPrefixes->empty() && !msgIds->empty())
                     {
-                        messages::mutualExclusiveProperties(
-                            asyncResp->res, "RegistryPrefixes", "MessageIds");
+                        messages::propertyValueConflict(
+                            asyncResp->res, "MessageIds", "RegistryPrefixes");
                         return;
                     }
                 }
