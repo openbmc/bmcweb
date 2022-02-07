@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d2a57c13_c3ddf5b7",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2022-02-07T11:59:26Z",
+      "side": 1,
+      "message": "My bad to miss this point. Done.",
+      "parentUuid": "dd6eb7bc_a984424d",
+      "range": {
+        "startLine": 169,
+        "startChar": 0,
+        "endLine": 171,
+        "endChar": 53
+      },
+      "revId": "79cbb47ba00b3948aa36736c1eceb932bd2382fe",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e4ee4908_1f840b78",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-02-06T18:19:14Z",
       "side": 1,
       "message": "This is the wrong message when no subscribers are set up.  I suspect this needs to:\nA. Ignore if there are no subscribers and accept the request anyway.\nB. Send a better error message if no subscribers are subscribed.\n\nServiceDisabled should only be returned the the service is disabled.",
+      "range": {
+        "startLine": 175,
+        "startChar": 16,
+        "endLine": 176,
+        "endChar": 71
+      },
+      "revId": "79cbb47ba00b3948aa36736c1eceb932bd2382fe",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8c4cb405_b8a97715",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 176,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2022-02-07T11:59:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e4ee4908_1f840b78",
       "range": {
         "startLine": 175,
         "startChar": 16,
