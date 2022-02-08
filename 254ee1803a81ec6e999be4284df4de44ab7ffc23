@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "af7852f0_0ef95fe7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-02-08T19:38:34Z",
+      "side": 1,
+      "message": "Considering this is just implementing the documented and discussed plan, and at least to me, seems pretty obvious, I\u0027m going to merge.  As always, happy to discuss and revert if someone sees issue with this approach.",
+      "revId": "254ee1803a81ec6e999be4284df4de44ab7ffc23",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
