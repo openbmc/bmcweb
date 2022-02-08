@@ -99,7 +99,6 @@ for file, json_dict, namespace, url in files:
             registry.write("{")
             registry.write("\"{}\",".format(message["Description"]))
             registry.write("\"{}\",".format(message["Message"]))
-            registry.write("\"{}\",".format(message["Severity"]))
             registry.write("\"{}\",".format(message["MessageSeverity"]))
             registry.write("{},".format(message["NumberOfArgs"]))
             registry.write("{")
