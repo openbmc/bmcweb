@@ -16,6 +16,23 @@
       "message": "This change (again).\nI am not sure the issue that triggered the revert has been resolved yet.\n(https://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/48880)",
       "revId": "1e020980354bae514a1acd7f51f1c9531f594ee8",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3f8fffea_0a5d5be2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-02-08T21:20:18Z",
+      "side": 1,
+      "message": "John, there is a https://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/50742 already. Any specific reason you will need this feature? Can we use the 50742 one?",
+      "revId": "1e020980354bae514a1acd7f51f1c9531f594ee8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
