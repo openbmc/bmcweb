@@ -40,7 +40,6 @@ struct Message
 {
     const char* description;
     const char* message;
-    const char* severity;
     const char* messageSeverity;
     const size_t numberOfArgs;
     std::array<const char*, 5> paramTypes;
@@ -86,7 +85,7 @@ inline nlohmann::json getLogFromRegistry(const Header& header,
             {"MessageId", std::move(msgId)},
             {"Message", std::move(msg)},
             {"MessageArgs", std::move(jArgs)},
-            {"MessageSeverity", entry.second.severity},
+            {"MessageSeverity", entry.second.messageSeverity},
             {"Resolution", entry.second.resolution}};
 }
 

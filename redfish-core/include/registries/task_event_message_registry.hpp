@@ -28,7 +28,6 @@ constexpr std::array<MessageEntry, 9> registry = {
                      "A task has completed with errors.",
                      "The task with Id '%1' has completed with errors.",
                      "Critical",
-                     "Critical",
                      1,
                      {
                          "string",
@@ -41,7 +40,6 @@ constexpr std::array<MessageEntry, 9> registry = {
             "A task has been cancelled.",
             "Work on the task with Id '%1' has been halted prior to completion due to an explicit request.",
             "Warning",
-            "Warning",
             1,
             {
                 "string",
@@ -52,7 +50,6 @@ constexpr std::array<MessageEntry, 9> registry = {
                  {
                      "A task has completed.",
                      "The task with Id '%1' has completed.",
-                     "OK",
                      "OK",
                      1,
                      {
@@ -65,7 +62,6 @@ constexpr std::array<MessageEntry, 9> registry = {
                      "A task has completed with warnings.",
                      "The task with Id '%1' has completed with warnings.",
                      "Warning",
-                     "Warning",
                      1,
                      {
                          "string",
@@ -76,7 +72,6 @@ constexpr std::array<MessageEntry, 9> registry = {
                  {
                      "A task has been paused.",
                      "The task with Id '%1' has been paused.",
-                     "Warning",
                      "Warning",
                      1,
                      {
@@ -90,7 +85,6 @@ constexpr std::array<MessageEntry, 9> registry = {
             "A task has changed progress.",
             "The task with Id '%1' has changed to progress %2 percent complete.",
             "OK",
-            "OK",
             2,
             {
                 "string",
@@ -103,7 +97,6 @@ constexpr std::array<MessageEntry, 9> registry = {
                      "A task has been removed.",
                      "The task with Id '%1' has been removed.",
                      "Warning",
-                     "Warning",
                      1,
                      {
                          "string",
@@ -115,7 +108,6 @@ constexpr std::array<MessageEntry, 9> registry = {
                      "A task has been resumed.",
                      "The task with Id '%1' has been resumed.",
                      "OK",
-                     "OK",
                      1,
                      {
                          "string",
@@ -126,7 +118,6 @@ constexpr std::array<MessageEntry, 9> registry = {
                  {
                      "A task has started.",
                      "The task with Id '%1' has started.",
-                     "OK",
                      "OK",
                      1,
                      {
