@@ -255,7 +255,7 @@ inline int formatEventLogEntry(const std::string& logEntryID,
     // Fill in the log entry with the gathered data
     logEntryJson = {{"EventId", logEntryID},
                     {"EventType", "Event"},
-                    {"Severity", std::move(severity)},
+                    {"MesssageSeverity", std::move(severity)},
                     {"Message", std::move(msg)},
                     {"MessageId", messageID},
                     {"MessageArgs", messageArgs},

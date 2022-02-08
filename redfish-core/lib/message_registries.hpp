@@ -200,7 +200,6 @@ inline void handleMessageRegistryGet(
         nlohmann::json& obj = messageObj[message->first];
         obj = {{"Description", message->second.description},
                {"Message", message->second.message},
-               {"Severity", message->second.severity},
                {"MessageSeverity", message->second.messageSeverity},
                {"NumberOfArgs", message->second.numberOfArgs},
                {"Resolution", message->second.resolution}};
