@@ -50,7 +50,7 @@ def make_getter(dmtf_name, header_name, type_name):
 
 
 def clang_format(filename):
-    subprocess.check_call(["clang-format-12", "-i", filename])
+    subprocess.check_call(["clang-format", "-i", filename])
 
 
 files = []
