@@ -109,7 +109,6 @@ for file, json_dict, namespace, url in files:
                 "        {{\n"
                 "            \"{message[Description]}\",\n"
                 "            \"{message[Message]}\",\n"
-                "            \"{message[Severity]}\",\n"
                 "            \"{message[MessageSeverity]}\",\n"
                 "            {message[NumberOfArgs]},\n"
                 "            {{".format(

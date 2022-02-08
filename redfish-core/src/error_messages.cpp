@@ -133,7 +133,7 @@ nlohmann::json getLog(redfish::registries::base::Index name,
             {"MessageId", std::move(msgId)},
             {"Message", std::move(msg)},
             {"MessageArgs", std::move(jArgs)},
-            {"MessageSeverity", entry.second.severity},
+            {"MessageSeverity", entry.second.messageSeverity},
             {"Resolution", entry.second.resolution}};
 }
 
