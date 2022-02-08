@@ -1,0 +1,113 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c34529da_8946ff92",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-02-08T23:34:54Z",
+      "side": 1,
+      "message": "nit, remove this.  We can see the lookup table in the code.",
+      "range": {
+        "startLine": 25,
+        "startChar": 0,
+        "endLine": 38,
+        "endChar": 35
+      },
+      "revId": "c259e7aeca86fc68ca0a75fb4653f15ab527aa0a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b34e348d_ab15e396",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-02-08T23:34:54Z",
+      "side": 1,
+      "message": "Nit, no spaces before senences.",
+      "range": {
+        "startLine": 40,
+        "startChar": 0,
+        "endLine": 40,
+        "endChar": 1
+      },
+      "revId": "c259e7aeca86fc68ca0a75fb4653f15ab527aa0a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6db40a62_6178373e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-02-08T23:34:54Z",
+      "side": 1,
+      "message": "This kind of points out that we mapped this incorrectly.  I would expect the Manager console to be assigned to Administrators only, with the Host console being assigned to operators and administrators.  It seems odd we used the same privilege for both.",
+      "range": {
+        "startLine": 46,
+        "startChar": 32,
+        "endLine": 47,
+        "endChar": 14
+      },
+      "revId": "c259e7aeca86fc68ca0a75fb4653f15ab527aa0a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dab9d75e_b1640993",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 1846,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-02-08T23:34:54Z",
+      "side": 1,
+      "message": "Like i said above, please do this the way we\u0027ve been doing other things (look for examples), but even such, this is a map, and as you wrote it, you should be using find, not iterating the whole map.",
+      "range": {
+        "startLine": 1845,
+        "startChar": 40,
+        "endLine": 1846,
+        "endChar": 60
+      },
+      "revId": "c259e7aeca86fc68ca0a75fb4653f15ab527aa0a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a1a7cb05_b11024df",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 1852,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-02-08T23:34:54Z",
+      "side": 1,
+      "message": "You\u0027re 8 scoped deep here.  Please refactor to make the code readable.",
+      "revId": "c259e7aeca86fc68ca0a75fb4653f15ab527aa0a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
