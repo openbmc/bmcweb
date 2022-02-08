@@ -682,8 +682,7 @@ inline bool
     if (config.empty())
     {
         BMCWEB_LOG_ERROR << "Empty Zones";
-        messages::propertyValueFormatError(response->res,
-                                           "[]", "Zones");
+        messages::propertyValueFormatError(response->res, "[]", "Zones");
         return false;
     }
     for (auto& odata : config)
@@ -1601,8 +1600,8 @@ struct SetPIDValues : std::enable_shared_from_this<SetPIDValues>
                 if (createNewObject && it.value() == nullptr)
                 {
                     // can't delete a non-existent object
-                    messages::propertyValueNotInList(response->res, it.value().dump(),
-                                                     name);
+                    messages::propertyValueNotInList(response->res,
+                                                     it.value().dump(), name);
                     continue;
                 }
 
