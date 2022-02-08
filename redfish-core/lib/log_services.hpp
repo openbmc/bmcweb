@@ -56,7 +56,7 @@ constexpr char const* crashdumpOnDemandInterface =
 constexpr char const* crashdumpTelemetryInterface =
     "com.intel.crashdump.Telemetry";
 
-namespace message_registries
+namespace registries
 {
 static const Message*
     getMessageFromRegistry(const std::string& messageKey,
@@ -99,7 +99,7 @@ static const Message* getMessage(const std::string_view& messageID)
     }
     return nullptr;
 }
-} // namespace message_registries
+} // namespace registries
 
 namespace fs = std::filesystem;
 
@@ -1117,8 +1117,7 @@ static int fillEventLogEntryJson(const std::string& logEntryID,
     std::string& messageID = logEntryFields[0];
 
     // Get the Message from the MessageRegistry
-    const message_registries::Message* message =
-        message_registries::getMessage(messageID);
+    const registries::Message* message = registries::getMessage(messageID);
 
     std::string msg;
     std::string severity;
@@ -3101,8 +3100,8 @@ static void fillPostCodeEntry(
     const uint64_t skip = 0, const uint64_t top = 0)
 {
     // Get the Message from the MessageRegistry
-    const message_registries::Message* message =
-        message_registries::getMessage("OpenBMC.0.2.BIOSPOSTCode");
+    const registries::Message* message =
+        registries::getMessage("OpenBMC.0.2.BIOSPOSTCode");
 
     uint64_t currentCodeIndex = 0;
     nlohmann::json& logEntryArray = aResp->res.jsonValue["Members"];

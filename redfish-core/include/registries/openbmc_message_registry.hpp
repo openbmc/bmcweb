@@ -16,7 +16,7 @@
 #pragma once
 #include <registries.hpp>
 
-namespace redfish::message_registries::openbmc
+namespace redfish::registries::openbmc
 {
 const Header header = {
     "Copyright 2022 OpenBMC. All rights reserved.",
@@ -2436,4 +2436,4 @@ constexpr std::array<MessageEntry, 189> registry = {
         }},
 
 };
-} // namespace redfish::message_registries::openbmc
+} // namespace redfish::registries::openbmc
