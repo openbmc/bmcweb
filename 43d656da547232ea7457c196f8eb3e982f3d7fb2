@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dd023ee7_3b405394",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000936
+      },
+      "writtenOn": "2022-02-08T11:20:41Z",
+      "side": 1,
+      "message": "By the way, I see this patch is mentioned in \"Your Turn\" section in the list of my changes. I guess it\u0027s because it has comments not marked as \"resolved\".\nSo what is the usual course of actions the OpenBMC maintainers expect from the contributors? Who is supposed to mark a comment as \"resolved\", the one who made the comment after verifying it\u0027s taken care of or the one who commits a new changeset that is /supposed/ to account whatever the comment was made for?\nI\u0027d be willing to add a clear note regarding this to ``openbmc-docs`` but for that I need to understand what the maintainers\u0027 expectations currently are.",
+      "revId": "43d656da547232ea7457c196f8eb3e982f3d7fb2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
