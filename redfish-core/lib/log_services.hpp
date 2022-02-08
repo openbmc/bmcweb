@@ -1176,7 +1176,7 @@ static int fillEventLogEntryJson(const std::string& logEntryID,
         {"MessageId", std::move(messageID)},
         {"MessageArgs", messageArgs},
         {"EntryType", "Event"},
-        {"Severity", std::move(severity)},
+        {"MessageSeverity", std::move(severity)},
         {"Created", std::move(timestamp)}};
     return 0;
 }
@@ -3208,7 +3208,7 @@ static void fillPostCodeEntry(
             {"MessageId", "OpenBMC.0.2.BIOSPOSTCode"},
             {"MessageArgs", std::move(messageArgs)},
             {"EntryType", "Event"},
-            {"Severity", std::move(severity)},
+            {"MessageSeverity", std::move(severity)},
             {"Created", entryTimeStr}};
         if (!std::get<std::vector<uint8_t>>(code.second).empty())
         {
