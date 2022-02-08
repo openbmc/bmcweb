@@ -47,6 +47,7 @@ include_list = [
     'ManagerAccount',
     'ManagerAccountCollection',
     'ManagerCollection',
+    'ManagerDiagnosticData',
     'ManagerNetworkProtocol',
     'Memory',
     'MemoryCollection',
