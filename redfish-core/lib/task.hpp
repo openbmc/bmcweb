@@ -19,6 +19,7 @@
 #include "dbus_utility.hpp"
 #include "event_service_manager.hpp"
 #include "health.hpp"
+#include "http/parsing.hpp"
 #include "query.hpp"
 #include "registries/privilege_registry.hpp"
 #include "task_messages.hpp"
@@ -47,8 +48,7 @@ struct Payload
 {
     explicit Payload(const crow::Request& req) :
         targetUri(req.url), httpOperation(req.methodString()),
-        httpHeaders(nlohmann::json::array()),
-        jsonBody(nlohmann::json::parse(req.body, nullptr, false))
+        httpHeaders(nlohmann::json::array())
     {
         using field_ns = boost::beast::http::field;
         constexpr const std::array<boost::beast::http::field, 7>
@@ -57,9 +57,10 @@ struct Payload
                                field_ns::connection, field_ns::content_length,
                                field_ns::upgrade};
 
-        if (jsonBody.is_discarded())
+        JsonParseResult ret = parseRequestAsJson(req, jsonBody);
+        if (ret != JsonParseResult::Success)
         {
-            jsonBody = nullptr;
+            return;
         }
 
         for (const auto& field : req.fields)
