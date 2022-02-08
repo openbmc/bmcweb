@@ -51,7 +51,7 @@ static constexpr const char* metricReportFormatType = "MetricReport";
 static constexpr const char* eventServiceFile =
     "/var/lib/bmcweb/eventservice_config.json";
 
-namespace message_registries
+namespace registries
 {
 inline std::span<const MessageEntry>
     getRegistryFromPrefix(const std::string& registryName)
@@ -70,7 +70,7 @@ inline std::span<const MessageEntry>
     }
     return {openbmc::registry};
 }
-} // namespace message_registries
+} // namespace registries
 
 #ifndef BMCWEB_ENABLE_REDFISH_DBUS_LOG_ENTRIES
 static std::optional<boost::asio::posix::stream_descriptor> inotifyConn;
@@ -86,7 +86,7 @@ using EventLogObjectsType =
     std::tuple<std::string, std::string, std::string, std::string, std::string,
                std::vector<std::string>>;
 
-namespace message_registries
+namespace registries
 {
 static const Message*
     getMsgFromRegistry(const std::string& messageKey,
@@ -123,7 +123,7 @@ static const Message* formatMessage(const std::string_view& messageID)
     // Find the right registry and check it for the MessageKey
     return getMsgFromRegistry(messageKey, getRegistryFromPrefix(registryName));
 }
-} // namespace message_registries
+} // namespace registries
 
 namespace event_log
 {
@@ -229,8 +229,7 @@ inline int formatEventLogEntry(const std::string& logEntryID,
                                nlohmann::json& logEntryJson)
 {
     // Get the Message from the MessageRegistry
-    const message_registries::Message* message =
-        message_registries::formatMessage(messageID);
+    const registries::Message* message = registries::formatMessage(messageID);
 
     std::string msg;
     std::string severity;
@@ -240,7 +239,7 @@ inline int formatEventLogEntry(const std::string& logEntryID,
         severity = message->severity;
     }
 
-    redfish::message_registries::fillMessageArgs(messageArgs, msg);
+    redfish::registries::fillMessageArgs(messageArgs, msg);
 
     // Get the Created time from the timestamp. The log timestamp is in
     // RFC3339 format which matches the Redfish format except for the
