@@ -115,26 +115,8 @@ nlohmann::json getLog(redfish::registries::base::Index name,
     {
         return {};
     }
-    const redfish::registries::MessageEntry& entry =
-        redfish::registries::base::registry[index];
-    // Intentionally make a copy of the string, so we can append in the
-    // parameters.
-    std::string msg = entry.second.message;
-    redfish::registries::fillMessageArgs(args, msg);
-    nlohmann::json jArgs = nlohmann::json::array();
-    for (const std::string_view arg : args)
-    {
-        jArgs.push_back(arg);
-    }
-    std::string msgId = redfish::registries::base::header.id;
-    msgId += ".";
-    msgId += entry.first;
-    return {{"@odata.type", "#Message.v1_1_1.Message"},
-            {"MessageId", std::move(msgId)},
-            {"Message", std::move(msg)},
-            {"MessageArgs", std::move(jArgs)},
-            {"MessageSeverity", entry.second.messageSeverity},
-            {"Resolution", entry.second.resolution}};
+    return getLogFromRegistry(redfish::registries::base::header,
+                              redfish::registries::base::registry, index, args);
 }
 
 /**
