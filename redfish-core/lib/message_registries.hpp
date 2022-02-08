@@ -64,29 +64,29 @@ inline void handleMessageRoutesMessageRegistryFileGet(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& registry)
 {
-    const message_registries::Header* header = nullptr;
+    const registries::Header* header = nullptr;
     std::string dmtf = "DMTF ";
     const char* url = nullptr;
 
     if (registry == "Base")
     {
-        header = &message_registries::base::header;
-        url = message_registries::base::url;
+        header = &registries::base::header;
+        url = registries::base::url;
     }
     else if (registry == "TaskEvent")
     {
-        header = &message_registries::task_event::header;
-        url = message_registries::task_event::url;
+        header = &registries::task_event::header;
+        url = registries::task_event::url;
     }
     else if (registry == "OpenBMC")
     {
-        header = &message_registries::openbmc::header;
+        header = &registries::openbmc::header;
         dmtf.clear();
     }
     else if (registry == "ResourceEvent")
     {
-        header = &message_registries::resource_event::header;
-        url = message_registries::resource_event::url;
+        header = &registries::resource_event::header;
+        url = registries::resource_event::url;
     }
     else
     {
@@ -130,40 +130,39 @@ inline void handleMessageRegistryGet(
     const std::string& registry, const std::string& registryMatch)
 
 {
-    const message_registries::Header* header = nullptr;
-    std::vector<const message_registries::MessageEntry*> registryEntries;
+    const registries::Header* header = nullptr;
+    std::vector<const registries::MessageEntry*> registryEntries;
     if (registry == "Base")
     {
-        header = &message_registries::base::header;
-        for (const message_registries::MessageEntry& entry :
-             message_registries::base::registry)
+        header = &registries::base::header;
+        for (const registries::MessageEntry& entry : registries::base::registry)
         {
             registryEntries.emplace_back(&entry);
         }
     }
     else if (registry == "TaskEvent")
     {
-        header = &message_registries::task_event::header;
-        for (const message_registries::MessageEntry& entry :
-             message_registries::task_event::registry)
+        header = &registries::task_event::header;
+        for (const registries::MessageEntry& entry :
+             registries::task_event::registry)
         {
             registryEntries.emplace_back(&entry);
         }
     }
     else if (registry == "OpenBMC")
     {
-        header = &message_registries::openbmc::header;
-        for (const message_registries::MessageEntry& entry :
-             message_registries::openbmc::registry)
+        header = &registries::openbmc::header;
+        for (const registries::MessageEntry& entry :
+             registries::openbmc::registry)
         {
             registryEntries.emplace_back(&entry);
         }
     }
     else if (registry == "ResourceEvent")
     {
-        header = &message_registries::resource_event::header;
-        for (const message_registries::MessageEntry& entry :
-             message_registries::resource_event::registry)
+        header = &registries::resource_event::header;
+        for (const registries::MessageEntry& entry :
+             registries::resource_event::registry)
         {
             registryEntries.emplace_back(&entry);
         }
@@ -195,7 +194,7 @@ inline void handleMessageRegistryGet(
     nlohmann::json& messageObj = asyncResp->res.jsonValue["Messages"];
 
     // Go through the Message Registry and populate each Message
-    for (const message_registries::MessageEntry* message : registryEntries)
+    for (const registries::MessageEntry* message : registryEntries)
     {
         nlohmann::json& obj = messageObj[message->first];
         obj = {{"Description", message->second.description},

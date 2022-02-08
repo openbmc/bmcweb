@@ -107,26 +107,26 @@ static void addMessageToJson(nlohmann::json& target,
     field.push_back(message);
 }
 
-nlohmann::json getLog(redfish::message_registries::base::Index name,
+nlohmann::json getLog(redfish::registries::base::Index name,
                       std::span<const std::string_view> args)
 {
     size_t index = static_cast<size_t>(name);
-    if (index >= redfish::message_registries::base::registry.size())
+    if (index >= redfish::registries::base::registry.size())
     {
         return {};
     }
-    const redfish::message_registries::MessageEntry& entry =
-        redfish::message_registries::base::registry[index];
+    const redfish::registries::MessageEntry& entry =
+        redfish::registries::base::registry[index];
     // Intentionally make a copy of the string, so we can append in the
     // parameters.
     std::string msg = entry.second.message;
-    redfish::message_registries::fillMessageArgs(args, msg);
+    redfish::registries::fillMessageArgs(args, msg);
     nlohmann::json jArgs = nlohmann::json::array();
     for (const std::string_view arg : args)
     {
         jArgs.push_back(arg);
     }
-    std::string msgId = redfish::message_registries::base::header.id;
+    std::string msgId = redfish::registries::base::header.id;
     msgId += ".";
     msgId += entry.first;
     return {{"@odata.type", "#Message.v1_1_1.Message"},
@@ -146,7 +146,7 @@ nlohmann::json getLog(redfish::message_registries::base::Index name,
  */
 nlohmann::json resourceInUse(void)
 {
-    return getLog(redfish::message_registries::base::Index::resourceInUse, {});
+    return getLog(redfish::registries::base::Index::resourceInUse, {});
 }
 
 void resourceInUse(crow::Response& res)
@@ -164,7 +164,7 @@ void resourceInUse(crow::Response& res)
  */
 nlohmann::json malformedJSON(void)
 {
-    return getLog(redfish::message_registries::base::Index::malformedJSON, {});
+    return getLog(redfish::registries::base::Index::malformedJSON, {});
 }
 
 void malformedJSON(crow::Response& res)
@@ -184,8 +184,7 @@ nlohmann::json resourceMissingAtURI(const boost::urls::url_view& arg1)
 {
     std::array<std::string_view, 1> args{
         std::string_view{arg1.data(), arg1.size()}};
-    return getLog(
-        redfish::message_registries::base::Index::resourceMissingAtURI, args);
+    return getLog(redfish::registries::base::Index::resourceMissingAtURI, args);
 }
 
 void resourceMissingAtURI(crow::Response& res,
@@ -206,9 +205,9 @@ nlohmann::json actionParameterValueFormatError(std::string_view arg1,
                                                std::string_view arg2,
                                                std::string_view arg3)
 {
-    return getLog(redfish::message_registries::base::Index::
-                      actionParameterValueFormatError,
-                  std::to_array({arg1, arg2, arg3}));
+    return getLog(
+        redfish::registries::base::Index::actionParameterValueFormatError,
+        std::to_array({arg1, arg2, arg3}));
 }
 
 void actionParameterValueFormatError(crow::Response& res, std::string_view arg1,
@@ -229,7 +228,7 @@ void actionParameterValueFormatError(crow::Response& res, std::string_view arg1,
  */
 nlohmann::json internalError(void)
 {
-    return getLog(redfish::message_registries::base::Index::internalError, {});
+    return getLog(redfish::registries::base::Index::internalError, {});
 }
 
 void internalError(crow::Response& res, const bmcweb::source_location location)
@@ -250,8 +249,8 @@ void internalError(crow::Response& res, const bmcweb::source_location location)
  */
 nlohmann::json unrecognizedRequestBody(void)
 {
-    return getLog(
-        redfish::message_registries::base::Index::unrecognizedRequestBody, {});
+    return getLog(redfish::registries::base::Index::unrecognizedRequestBody,
+                  {});
 }
 
 void unrecognizedRequestBody(crow::Response& res)
@@ -271,7 +270,7 @@ nlohmann::json resourceAtUriUnauthorized(const boost::urls::url_view& arg1,
                                          std::string_view arg2)
 {
     return getLog(
-        redfish::message_registries::base::Index::resourceAtUriUnauthorized,
+        redfish::registries::base::Index::resourceAtUriUnauthorized,
         std::to_array({std::string_view{arg1.data(), arg1.size()}, arg2}));
 }
 
@@ -293,9 +292,8 @@ void resourceAtUriUnauthorized(crow::Response& res,
 nlohmann::json actionParameterUnknown(std::string_view arg1,
                                       std::string_view arg2)
 {
-    return getLog(
-        redfish::message_registries::base::Index::actionParameterUnknown,
-        std::to_array({arg1, arg2}));
+    return getLog(redfish::registries::base::Index::actionParameterUnknown,
+                  std::to_array({arg1, arg2}));
 }
 
 void actionParameterUnknown(crow::Response& res, std::string_view arg1,
@@ -314,8 +312,8 @@ void actionParameterUnknown(crow::Response& res, std::string_view arg1,
  */
 nlohmann::json resourceCannotBeDeleted(void)
 {
-    return getLog(
-        redfish::message_registries::base::Index::resourceCannotBeDeleted, {});
+    return getLog(redfish::registries::base::Index::resourceCannotBeDeleted,
+                  {});
 }
 
 void resourceCannotBeDeleted(crow::Response& res)
@@ -333,7 +331,7 @@ void resourceCannotBeDeleted(crow::Response& res)
  */
 nlohmann::json propertyDuplicate(std::string_view arg1)
 {
-    return getLog(redfish::message_registries::base::Index::propertyDuplicate,
+    return getLog(redfish::registries::base::Index::propertyDuplicate,
                   std::to_array({arg1}));
 }
 
@@ -353,7 +351,7 @@ void propertyDuplicate(crow::Response& res, std::string_view arg1)
 nlohmann::json serviceTemporarilyUnavailable(std::string_view arg1)
 {
     return getLog(
-        redfish::message_registries::base::Index::serviceTemporarilyUnavailable,
+        redfish::registries::base::Index::serviceTemporarilyUnavailable,
         std::to_array({arg1}));
 }
 
@@ -375,9 +373,8 @@ nlohmann::json resourceAlreadyExists(std::string_view arg1,
                                      std::string_view arg2,
                                      std::string_view arg3)
 {
-    return getLog(
-        redfish::message_registries::base::Index::resourceAlreadyExists,
-        std::to_array({arg1, arg2, arg3}));
+    return getLog(redfish::registries::base::Index::resourceAlreadyExists,
+                  std::to_array({arg1, arg2, arg3}));
 }
 
 void resourceAlreadyExists(crow::Response& res, std::string_view arg1,
@@ -397,9 +394,8 @@ void resourceAlreadyExists(crow::Response& res, std::string_view arg1,
  */
 nlohmann::json accountForSessionNoLongerExists(void)
 {
-    return getLog(redfish::message_registries::base::Index::
-                      accountForSessionNoLongerExists,
-                  {});
+    return getLog(
+        redfish::registries::base::Index::accountForSessionNoLongerExists, {});
 }
 
 void accountForSessionNoLongerExists(crow::Response& res)
@@ -417,9 +413,9 @@ void accountForSessionNoLongerExists(crow::Response& res)
  */
 nlohmann::json createFailedMissingReqProperties(std::string_view arg1)
 {
-    return getLog(redfish::message_registries::base::Index::
-                      createFailedMissingReqProperties,
-                  std::to_array({arg1}));
+    return getLog(
+        redfish::registries::base::Index::createFailedMissingReqProperties,
+        std::to_array({arg1}));
 }
 
 void createFailedMissingReqProperties(crow::Response& res,
@@ -441,9 +437,8 @@ void createFailedMissingReqProperties(crow::Response& res,
 nlohmann::json propertyValueFormatError(std::string_view arg1,
                                         std::string_view arg2)
 {
-    return getLog(
-        redfish::message_registries::base::Index::propertyValueFormatError,
-        std::to_array({arg1, arg2}));
+    return getLog(redfish::registries::base::Index::propertyValueFormatError,
+                  std::to_array({arg1, arg2}));
 }
 
 void propertyValueFormatError(crow::Response& res, std::string_view arg1,
@@ -464,9 +459,8 @@ void propertyValueFormatError(crow::Response& res, std::string_view arg1,
 nlohmann::json propertyValueNotInList(std::string_view arg1,
                                       std::string_view arg2)
 {
-    return getLog(
-        redfish::message_registries::base::Index::propertyValueNotInList,
-        std::to_array({arg1, arg2}));
+    return getLog(redfish::registries::base::Index::propertyValueNotInList,
+                  std::to_array({arg1, arg2}));
 }
 
 void propertyValueNotInList(crow::Response& res, std::string_view arg1,
@@ -487,7 +481,7 @@ nlohmann::json resourceAtUriInUnknownFormat(const boost::urls::url_view& arg1)
 {
     std::string_view arg1str{arg1.data(), arg1.size()};
     return getLog(
-        redfish::message_registries::base::Index::resourceAtUriInUnknownFormat,
+        redfish::registries::base::Index::resourceAtUriInUnknownFormat,
         std::to_array({arg1str}));
 }
 
@@ -507,7 +501,7 @@ void resourceAtUriInUnknownFormat(crow::Response& res,
  */
 nlohmann::json serviceDisabled(std::string_view arg1)
 {
-    return getLog(redfish::message_registries::base::Index::serviceDisabled,
+    return getLog(redfish::registries::base::Index::serviceDisabled,
                   std::to_array({arg1}));
 }
 
@@ -526,8 +520,7 @@ void serviceDisabled(crow::Response& res, std::string_view arg1)
  */
 nlohmann::json serviceInUnknownState(void)
 {
-    return getLog(
-        redfish::message_registries::base::Index::serviceInUnknownState, {});
+    return getLog(redfish::registries::base::Index::serviceInUnknownState, {});
 }
 
 void serviceInUnknownState(crow::Response& res)
@@ -545,9 +538,8 @@ void serviceInUnknownState(crow::Response& res)
  */
 nlohmann::json eventSubscriptionLimitExceeded(void)
 {
-    return getLog(redfish::message_registries::base::Index::
-                      eventSubscriptionLimitExceeded,
-                  {});
+    return getLog(
+        redfish::registries::base::Index::eventSubscriptionLimitExceeded, {});
 }
 
 void eventSubscriptionLimitExceeded(crow::Response& res)
@@ -566,9 +558,8 @@ void eventSubscriptionLimitExceeded(crow::Response& res)
 nlohmann::json actionParameterMissing(std::string_view arg1,
                                       std::string_view arg2)
 {
-    return getLog(
-        redfish::message_registries::base::Index::actionParameterMissing,
-        std::to_array({arg1, arg2}));
+    return getLog(redfish::registries::base::Index::actionParameterMissing,
+                  std::to_array({arg1, arg2}));
 }
 
 void actionParameterMissing(crow::Response& res, std::string_view arg1,
@@ -588,7 +579,7 @@ void actionParameterMissing(crow::Response& res, std::string_view arg1,
 nlohmann::json stringValueTooLong(std::string_view arg1, int arg2)
 {
     std::string arg2String = std::to_string(arg2);
-    return getLog(redfish::message_registries::base::Index::stringValueTooLong,
+    return getLog(redfish::registries::base::Index::stringValueTooLong,
                   std::to_array({arg1, std::string_view(arg2String)}));
 }
 
@@ -607,8 +598,7 @@ void stringValueTooLong(crow::Response& res, std::string_view arg1, int arg2)
  */
 nlohmann::json sessionTerminated(void)
 {
-    return getLog(redfish::message_registries::base::Index::sessionTerminated,
-                  {});
+    return getLog(redfish::registries::base::Index::sessionTerminated, {});
 }
 
 void sessionTerminated(crow::Response& res)
@@ -626,8 +616,7 @@ void sessionTerminated(crow::Response& res)
  */
 nlohmann::json subscriptionTerminated(void)
 {
-    return getLog(
-        redfish::message_registries::base::Index::subscriptionTerminated, {});
+    return getLog(redfish::registries::base::Index::subscriptionTerminated, {});
 }
 
 void subscriptionTerminated(crow::Response& res)
@@ -646,9 +635,8 @@ void subscriptionTerminated(crow::Response& res)
 nlohmann::json resourceTypeIncompatible(std::string_view arg1,
                                         std::string_view arg2)
 {
-    return getLog(
-        redfish::message_registries::base::Index::resourceTypeIncompatible,
-        std::to_array({arg1, arg2}));
+    return getLog(redfish::registries::base::Index::resourceTypeIncompatible,
+                  std::to_array({arg1, arg2}));
 }
 
 void resourceTypeIncompatible(crow::Response& res, std::string_view arg1,
@@ -669,7 +657,7 @@ nlohmann::json resetRequired(const boost::urls::url_view& arg1,
                              std::string_view arg2)
 {
     std::string_view arg1str(arg1.data(), arg1.size());
-    return getLog(redfish::message_registries::base::Index::resetRequired,
+    return getLog(redfish::registries::base::Index::resetRequired,
                   std::to_array({arg1str, arg2}));
 }
 
@@ -689,7 +677,7 @@ void resetRequired(crow::Response& res, const boost::urls::url_view& arg1,
  */
 nlohmann::json chassisPowerStateOnRequired(std::string_view arg1)
 {
-    return getLog(redfish::message_registries::base::Index::resetRequired,
+    return getLog(redfish::registries::base::Index::resetRequired,
                   std::to_array({arg1}));
 }
 
@@ -709,7 +697,7 @@ void chassisPowerStateOnRequired(crow::Response& res, std::string_view arg1)
 nlohmann::json chassisPowerStateOffRequired(std::string_view arg1)
 {
     return getLog(
-        redfish::message_registries::base::Index::chassisPowerStateOffRequired,
+        redfish::registries::base::Index::chassisPowerStateOffRequired,
         std::to_array({arg1}));
 }
 
@@ -729,9 +717,8 @@ void chassisPowerStateOffRequired(crow::Response& res, std::string_view arg1)
 nlohmann::json propertyValueConflict(std::string_view arg1,
                                      std::string_view arg2)
 {
-    return getLog(
-        redfish::message_registries::base::Index::propertyValueConflict,
-        std::to_array({arg1, arg2}));
+    return getLog(redfish::registries::base::Index::propertyValueConflict,
+                  std::to_array({arg1, arg2}));
 }
 
 void propertyValueConflict(crow::Response& res, std::string_view arg1,
@@ -751,9 +738,8 @@ void propertyValueConflict(crow::Response& res, std::string_view arg1,
 nlohmann::json propertyValueIncorrect(std::string_view arg1,
                                       std::string_view arg2)
 {
-    return getLog(
-        redfish::message_registries::base::Index::propertyValueIncorrect,
-        std::to_array({arg1, arg2}));
+    return getLog(redfish::registries::base::Index::propertyValueIncorrect,
+                  std::to_array({arg1, arg2}));
 }
 
 void propertyValueIncorrect(crow::Response& res, std::string_view arg1,
@@ -773,9 +759,8 @@ void propertyValueIncorrect(crow::Response& res, std::string_view arg1,
 nlohmann::json resourceCreationConflict(const boost::urls::url_view& arg1)
 {
     std::string_view arg1str(arg1.data(), arg1.size());
-    return getLog(
-        redfish::message_registries::base::Index::resourceCreationConflict,
-        std::to_array({arg1str}));
+    return getLog(redfish::registries::base::Index::resourceCreationConflict,
+                  std::to_array({arg1str}));
 }
 
 void resourceCreationConflict(crow::Response& res,
@@ -794,8 +779,7 @@ void resourceCreationConflict(crow::Response& res,
  */
 nlohmann::json maximumErrorsExceeded(void)
 {
-    return getLog(
-        redfish::message_registries::base::Index::maximumErrorsExceeded, {});
+    return getLog(redfish::registries::base::Index::maximumErrorsExceeded, {});
 }
 
 void maximumErrorsExceeded(crow::Response& res)
@@ -813,8 +797,7 @@ void maximumErrorsExceeded(crow::Response& res)
  */
 nlohmann::json preconditionFailed(void)
 {
-    return getLog(redfish::message_registries::base::Index::preconditionFailed,
-                  {});
+    return getLog(redfish::registries::base::Index::preconditionFailed, {});
 }
 
 void preconditionFailed(crow::Response& res)
@@ -832,8 +815,7 @@ void preconditionFailed(crow::Response& res)
  */
 nlohmann::json preconditionRequired(void)
 {
-    return getLog(
-        redfish::message_registries::base::Index::preconditionRequired, {});
+    return getLog(redfish::registries::base::Index::preconditionRequired, {});
 }
 
 void preconditionRequired(crow::Response& res)
@@ -851,8 +833,7 @@ void preconditionRequired(crow::Response& res)
  */
 nlohmann::json operationFailed(void)
 {
-    return getLog(redfish::message_registries::base::Index::operationFailed,
-                  {});
+    return getLog(redfish::registries::base::Index::operationFailed, {});
 }
 
 void operationFailed(crow::Response& res)
@@ -870,8 +851,7 @@ void operationFailed(crow::Response& res)
  */
 nlohmann::json operationTimeout(void)
 {
-    return getLog(redfish::message_registries::base::Index::operationTimeout,
-                  {});
+    return getLog(redfish::registries::base::Index::operationTimeout, {});
 }
 
 void operationTimeout(crow::Response& res)
@@ -891,9 +871,8 @@ void operationTimeout(crow::Response& res)
 nlohmann::json propertyValueTypeError(std::string_view arg1,
                                       std::string_view arg2)
 {
-    return getLog(
-        redfish::message_registries::base::Index::propertyValueTypeError,
-        std::to_array({arg1, arg2}));
+    return getLog(redfish::registries::base::Index::propertyValueTypeError,
+                  std::to_array({arg1, arg2}));
 }
 
 void propertyValueTypeError(crow::Response& res, std::string_view arg1,
@@ -912,7 +891,7 @@ void propertyValueTypeError(crow::Response& res, std::string_view arg1,
  */
 nlohmann::json resourceNotFound(std::string_view arg1, std::string_view arg2)
 {
-    return getLog(redfish::message_registries::base::Index::resourceNotFound,
+    return getLog(redfish::registries::base::Index::resourceNotFound,
                   std::to_array({arg1, arg2}));
 }
 
@@ -933,9 +912,8 @@ void resourceNotFound(crow::Response& res, std::string_view arg1,
 nlohmann::json couldNotEstablishConnection(const boost::urls::url_view& arg1)
 {
     std::string_view arg1str(arg1.data(), arg1.size());
-    return getLog(
-        redfish::message_registries::base::Index::couldNotEstablishConnection,
-        std::to_array({arg1str}));
+    return getLog(redfish::registries::base::Index::couldNotEstablishConnection,
+                  std::to_array({arg1str}));
 }
 
 void couldNotEstablishConnection(crow::Response& res,
@@ -955,7 +933,7 @@ void couldNotEstablishConnection(crow::Response& res,
  */
 nlohmann::json propertyNotWritable(std::string_view arg1)
 {
-    return getLog(redfish::message_registries::base::Index::propertyNotWritable,
+    return getLog(redfish::registries::base::Index::propertyNotWritable,
                   std::to_array({arg1}));
 }
 
@@ -976,7 +954,7 @@ nlohmann::json queryParameterValueTypeError(std::string_view arg1,
                                             std::string_view arg2)
 {
     return getLog(
-        redfish::message_registries::base::Index::queryParameterValueTypeError,
+        redfish::registries::base::Index::queryParameterValueTypeError,
         std::to_array({arg1, arg2}));
 }
 
@@ -997,8 +975,7 @@ void queryParameterValueTypeError(crow::Response& res, std::string_view arg1,
  */
 nlohmann::json serviceShuttingDown(void)
 {
-    return getLog(redfish::message_registries::base::Index::serviceShuttingDown,
-                  {});
+    return getLog(redfish::registries::base::Index::serviceShuttingDown, {});
 }
 
 void serviceShuttingDown(crow::Response& res)
@@ -1017,9 +994,8 @@ void serviceShuttingDown(crow::Response& res)
 nlohmann::json actionParameterDuplicate(std::string_view arg1,
                                         std::string_view arg2)
 {
-    return getLog(
-        redfish::message_registries::base::Index::actionParameterDuplicate,
-        std::to_array({arg1, arg2}));
+    return getLog(redfish::registries::base::Index::actionParameterDuplicate,
+                  std::to_array({arg1, arg2}));
 }
 
 void actionParameterDuplicate(crow::Response& res, std::string_view arg1,
@@ -1039,9 +1015,8 @@ void actionParameterDuplicate(crow::Response& res, std::string_view arg1,
 nlohmann::json actionParameterNotSupported(std::string_view arg1,
                                            std::string_view arg2)
 {
-    return getLog(
-        redfish::message_registries::base::Index::actionParameterNotSupported,
-        std::to_array({arg1, arg2}));
+    return getLog(redfish::registries::base::Index::actionParameterNotSupported,
+                  std::to_array({arg1, arg2}));
 }
 
 void actionParameterNotSupported(crow::Response& res, std::string_view arg1,
@@ -1064,7 +1039,7 @@ nlohmann::json sourceDoesNotSupportProtocol(const boost::urls::url_view& arg1,
 {
     std::string_view arg1str(arg1.data(), arg1.size());
     return getLog(
-        redfish::message_registries::base::Index::sourceDoesNotSupportProtocol,
+        redfish::registries::base::Index::sourceDoesNotSupportProtocol,
         std::to_array({arg1str, arg2}));
 }
 
@@ -1086,7 +1061,7 @@ void sourceDoesNotSupportProtocol(crow::Response& res,
  */
 nlohmann::json accountRemoved(void)
 {
-    return getLog(redfish::message_registries::base::Index::accountRemoved, {});
+    return getLog(redfish::registries::base::Index::accountRemoved, {});
 }
 
 void accountRemoved(crow::Response& res)
@@ -1105,7 +1080,7 @@ void accountRemoved(crow::Response& res)
 nlohmann::json accessDenied(const boost::urls::url_view& arg1)
 {
     std::string_view arg1str(arg1.data(), arg1.size());
-    return getLog(redfish::message_registries::base::Index::accessDenied,
+    return getLog(redfish::registries::base::Index::accessDenied,
                   std::to_array({arg1str}));
 }
 
@@ -1124,8 +1099,7 @@ void accessDenied(crow::Response& res, const boost::urls::url_view& arg1)
  */
 nlohmann::json queryNotSupported(void)
 {
-    return getLog(redfish::message_registries::base::Index::queryNotSupported,
-                  {});
+    return getLog(redfish::registries::base::Index::queryNotSupported, {});
 }
 
 void queryNotSupported(crow::Response& res)
@@ -1144,8 +1118,7 @@ void queryNotSupported(crow::Response& res)
 nlohmann::json createLimitReachedForResource(void)
 {
     return getLog(
-        redfish::message_registries::base::Index::createLimitReachedForResource,
-        {});
+        redfish::registries::base::Index::createLimitReachedForResource, {});
 }
 
 void createLimitReachedForResource(crow::Response& res)
@@ -1163,7 +1136,7 @@ void createLimitReachedForResource(crow::Response& res)
  */
 nlohmann::json generalError(void)
 {
-    return getLog(redfish::message_registries::base::Index::generalError, {});
+    return getLog(redfish::registries::base::Index::generalError, {});
 }
 
 void generalError(crow::Response& res)
@@ -1181,7 +1154,7 @@ void generalError(crow::Response& res)
  */
 nlohmann::json success(void)
 {
-    return getLog(redfish::message_registries::base::Index::success, {});
+    return getLog(redfish::registries::base::Index::success, {});
 }
 
 void success(crow::Response& res)
@@ -1200,7 +1173,7 @@ void success(crow::Response& res)
  */
 nlohmann::json created(void)
 {
-    return getLog(redfish::message_registries::base::Index::created, {});
+    return getLog(redfish::registries::base::Index::created, {});
 }
 
 void created(crow::Response& res)
@@ -1218,7 +1191,7 @@ void created(crow::Response& res)
  */
 nlohmann::json noOperation(void)
 {
-    return getLog(redfish::message_registries::base::Index::noOperation, {});
+    return getLog(redfish::registries::base::Index::noOperation, {});
 }
 
 void noOperation(crow::Response& res)
@@ -1237,7 +1210,7 @@ void noOperation(crow::Response& res)
  */
 nlohmann::json propertyUnknown(std::string_view arg1)
 {
-    return getLog(redfish::message_registries::base::Index::propertyUnknown,
+    return getLog(redfish::registries::base::Index::propertyUnknown,
                   std::to_array({arg1}));
 }
 
@@ -1256,7 +1229,7 @@ void propertyUnknown(crow::Response& res, std::string_view arg1)
  */
 nlohmann::json noValidSession(void)
 {
-    return getLog(redfish::message_registries::base::Index::noValidSession, {});
+    return getLog(redfish::registries::base::Index::noValidSession, {});
 }
 
 void noValidSession(crow::Response& res)
@@ -1275,7 +1248,7 @@ void noValidSession(crow::Response& res)
 nlohmann::json invalidObject(const boost::urls::url_view& arg1)
 {
     std::string_view arg1str(arg1.data(), arg1.size());
-    return getLog(redfish::message_registries::base::Index::invalidObject,
+    return getLog(redfish::registries::base::Index::invalidObject,
                   std::to_array({arg1str}));
 }
 
@@ -1294,8 +1267,7 @@ void invalidObject(crow::Response& res, const boost::urls::url_view& arg1)
  */
 nlohmann::json resourceInStandby(void)
 {
-    return getLog(redfish::message_registries::base::Index::resourceInStandby,
-                  {});
+    return getLog(redfish::registries::base::Index::resourceInStandby, {});
 }
 
 void resourceInStandby(crow::Response& res)
@@ -1316,7 +1288,7 @@ nlohmann::json actionParameterValueTypeError(std::string_view arg1,
                                              std::string_view arg3)
 {
     return getLog(
-        redfish::message_registries::base::Index::actionParameterValueTypeError,
+        redfish::registries::base::Index::actionParameterValueTypeError,
         std::to_array({arg1, arg2, arg3}));
 }
 
@@ -1337,8 +1309,7 @@ void actionParameterValueTypeError(crow::Response& res, std::string_view arg1,
  */
 nlohmann::json sessionLimitExceeded(void)
 {
-    return getLog(
-        redfish::message_registries::base::Index::sessionLimitExceeded, {});
+    return getLog(redfish::registries::base::Index::sessionLimitExceeded, {});
 }
 
 void sessionLimitExceeded(crow::Response& res)
@@ -1356,7 +1327,7 @@ void sessionLimitExceeded(crow::Response& res)
  */
 nlohmann::json actionNotSupported(std::string_view arg1)
 {
-    return getLog(redfish::message_registries::base::Index::actionNotSupported,
+    return getLog(redfish::registries::base::Index::actionNotSupported,
                   std::to_array({arg1}));
 }
 
@@ -1376,7 +1347,7 @@ void actionNotSupported(crow::Response& res, std::string_view arg1)
 nlohmann::json invalidIndex(int64_t arg1)
 {
     std::string arg1Str = std::to_string(arg1);
-    return getLog(redfish::message_registries::base::Index::invalidIndex,
+    return getLog(redfish::registries::base::Index::invalidIndex,
                   std::to_array<std::string_view>({arg1Str}));
 }
 
@@ -1395,7 +1366,7 @@ void invalidIndex(crow::Response& res, int64_t arg1)
  */
 nlohmann::json emptyJSON(void)
 {
-    return getLog(redfish::message_registries::base::Index::emptyJSON, {});
+    return getLog(redfish::registries::base::Index::emptyJSON, {});
 }
 
 void emptyJSON(crow::Response& res)
@@ -1413,9 +1384,8 @@ void emptyJSON(crow::Response& res)
  */
 nlohmann::json queryNotSupportedOnResource(void)
 {
-    return getLog(
-        redfish::message_registries::base::Index::queryNotSupportedOnResource,
-        {});
+    return getLog(redfish::registries::base::Index::queryNotSupportedOnResource,
+                  {});
 }
 
 void queryNotSupportedOnResource(crow::Response& res)
@@ -1434,8 +1404,7 @@ void queryNotSupportedOnResource(crow::Response& res)
 nlohmann::json queryNotSupportedOnOperation(void)
 {
     return getLog(
-        redfish::message_registries::base::Index::queryNotSupportedOnOperation,
-        {});
+        redfish::registries::base::Index::queryNotSupportedOnOperation, {});
 }
 
 void queryNotSupportedOnOperation(crow::Response& res)
@@ -1453,8 +1422,8 @@ void queryNotSupportedOnOperation(crow::Response& res)
  */
 nlohmann::json queryCombinationInvalid(void)
 {
-    return getLog(
-        redfish::message_registries::base::Index::queryCombinationInvalid, {});
+    return getLog(redfish::registries::base::Index::queryCombinationInvalid,
+                  {});
 }
 
 void queryCombinationInvalid(crow::Response& res)
@@ -1472,8 +1441,7 @@ void queryCombinationInvalid(crow::Response& res)
  */
 nlohmann::json insufficientPrivilege(void)
 {
-    return getLog(
-        redfish::message_registries::base::Index::insufficientPrivilege, {});
+    return getLog(redfish::registries::base::Index::insufficientPrivilege, {});
 }
 
 void insufficientPrivilege(crow::Response& res)
@@ -1492,9 +1460,8 @@ void insufficientPrivilege(crow::Response& res)
 nlohmann::json propertyValueModified(std::string_view arg1,
                                      std::string_view arg2)
 {
-    return getLog(
-        redfish::message_registries::base::Index::propertyValueModified,
-        std::to_array({arg1, arg2}));
+    return getLog(redfish::registries::base::Index::propertyValueModified,
+                  std::to_array({arg1, arg2}));
 }
 
 void propertyValueModified(crow::Response& res, std::string_view arg1,
@@ -1513,8 +1480,7 @@ void propertyValueModified(crow::Response& res, std::string_view arg1,
  */
 nlohmann::json accountNotModified(void)
 {
-    return getLog(redfish::message_registries::base::Index::accountNotModified,
-                  {});
+    return getLog(redfish::registries::base::Index::accountNotModified, {});
 }
 
 void accountNotModified(crow::Response& res)
@@ -1533,9 +1499,9 @@ void accountNotModified(crow::Response& res)
 nlohmann::json queryParameterValueFormatError(std::string_view arg1,
                                               std::string_view arg2)
 {
-    return getLog(redfish::message_registries::base::Index::
-                      queryParameterValueFormatError,
-                  std::to_array({arg1, arg2}));
+    return getLog(
+        redfish::registries::base::Index::queryParameterValueFormatError,
+        std::to_array({arg1, arg2}));
 }
 
 void queryParameterValueFormatError(crow::Response& res, std::string_view arg1,
@@ -1556,7 +1522,7 @@ void queryParameterValueFormatError(crow::Response& res, std::string_view arg1,
  */
 nlohmann::json propertyMissing(std::string_view arg1)
 {
-    return getLog(redfish::message_registries::base::Index::propertyMissing,
+    return getLog(redfish::registries::base::Index::propertyMissing,
                   std::to_array({arg1}));
 }
 
@@ -1575,7 +1541,7 @@ void propertyMissing(crow::Response& res, std::string_view arg1)
  */
 nlohmann::json resourceExhaustion(std::string_view arg1)
 {
-    return getLog(redfish::message_registries::base::Index::resourceExhaustion,
+    return getLog(redfish::registries::base::Index::resourceExhaustion,
                   std::to_array({arg1}));
 }
 
@@ -1594,8 +1560,7 @@ void resourceExhaustion(crow::Response& res, std::string_view arg1)
  */
 nlohmann::json accountModified(void)
 {
-    return getLog(redfish::message_registries::base::Index::accountModified,
-                  {});
+    return getLog(redfish::registries::base::Index::accountModified, {});
 }
 
 void accountModified(crow::Response& res)
@@ -1615,9 +1580,8 @@ nlohmann::json queryParameterOutOfRange(std::string_view arg1,
                                         std::string_view arg2,
                                         std::string_view arg3)
 {
-    return getLog(
-        redfish::message_registries::base::Index::queryParameterOutOfRange,
-        std::to_array({arg1, arg2, arg3}));
+    return getLog(redfish::registries::base::Index::queryParameterOutOfRange,
+                  std::to_array({arg1, arg2, arg3}));
 }
 
 void queryParameterOutOfRange(crow::Response& res, std::string_view arg1,
@@ -1631,9 +1595,8 @@ void queryParameterOutOfRange(crow::Response& res, std::string_view arg1,
 nlohmann::json passwordChangeRequired(const boost::urls::url_view& arg1)
 {
     std::string_view arg1str(arg1.data(), arg1.size());
-    return getLog(
-        redfish::message_registries::base::Index::passwordChangeRequired,
-        std::to_array({arg1str}));
+    return getLog(redfish::registries::base::Index::passwordChangeRequired,
+                  std::to_array({arg1str}));
 }
 
 /**

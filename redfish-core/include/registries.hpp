@@ -19,7 +19,7 @@
 #include <string>
 #include <string_view>
 
-namespace redfish::message_registries
+namespace redfish::registries
 {
 struct Header
 {
@@ -62,4 +62,4 @@ inline void fillMessageArgs(const std::span<const std::string_view> messageArgs,
     }
 }
 
-} // namespace redfish::message_registries
+} // namespace redfish::registries
