@@ -1,41 +1,42 @@
 #pragma once
 
+#include <registries/resource_event_message_registry.hpp>
+
 namespace redfish
 {
 namespace messages
 {
 
+nlohmann::json
+    getLogResourceEvent(redfish::registries::resource_event::Index name,
+                        std::span<const std::string_view> args)
+{
+    size_t index = static_cast<size_t>(name);
+    if (index >= redfish::registries::resource_event::registry.size())
+    {
+        return {};
+    }
+    return getLogFromRegistry(redfish::registries::resource_event::header,
+                              redfish::registries::resource_event::registry,
+                              index, args);
+}
+
 inline nlohmann::json resourceChanged()
 {
-    return nlohmann::json{
-        {"EventType", "ResourceChanged"},
-        {"MessageId", "ResourceEvent.1.0.3.ResourceChanged"},
-        {"Message", "One or more resource properties have changed."},
-        {"MessageArgs", {}},
-        {"Severity", "OK"},
-        {"MessageSeverity", "OK"}};
+    return getLogResourceEvent(
+        redfish::registries::resource_event::Index::resourceChanged, {});
 }
 
 inline nlohmann::json resourceCreated()
 {
-    return nlohmann::json{
-        {"EventType", "ResourceAdded"},
-        {"MessageId", "ResourceEvent.1.0.3.ResourceCreated"},
-        {"Message", "The resource has been created successfully."},
-        {"MessageArgs", {}},
-        {"Severity", "OK"},
-        {"MessageSeverity", "OK"}};
+    return getLogResourceEvent(
+        redfish::registries::resource_event::Index::resourceCreated, {});
 }
 
 inline nlohmann::json resourceRemoved()
 {
-    return nlohmann::json{
-        {"EventType", "ResourceRemoved"},
-        {"MessageId", "ResourceEvent.1.0.3.ResourceRemoved"},
-        {"Message", "The resource has been removed successfully."},
-        {"MessageArgs", {}},
-        {"Severity", "OK"},
-        {"MessageSeverity", "OK"}};
+    return getLogResourceEvent(
+        redfish::registries::resource_event::Index::resourceCreated, {});
 }
 
 } // namespace messages
