@@ -16,6 +16,24 @@
       "message": "So these 3 message_registries change and clang-format reformats the entire function? Anything else non-white space change?",
       "revId": "df43c1c6adf24410945291b2b68dd3c07f86b4d6",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a3b05086_0bd95a03",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 422,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-02-08T20:12:07Z",
+      "side": 0,
+      "message": "Yep.  This patchset is literally a find and replace of message_registry with registry, then a re-clang-format , and it does crazy things like this.\n\nAdmittedly, this code would ideally be broken down into some smaller functions before merge, but that\u0027s spilled milk under the bridge.\n\nclang-formats tabbing of lambdas seems to have some basis on how long the longest line is within the method, and is kind of subjective.  That\u0027s largely why I really want to move away from direct lambda callbacks, as it leads to crazy diffs like this on seemingly minor changes.",
+      "parentUuid": "ed248eda_c032e702",
+      "revId": "df43c1c6adf24410945291b2b68dd3c07f86b4d6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
