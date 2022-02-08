@@ -15,6 +15,8 @@
 */
 #pragma once
 
+#include <nlohmann/json.hpp>
+
 #include <array>
 #include <charconv>
 #include <cstddef>
@@ -87,6 +89,32 @@ inline std::string
     }
     ret += msg;
     return ret;
+}
+
+inline nlohmann::json getLogFromRegistry(const Header& header,
+                                         std::span<const MessageEntry> registry,
+                                         size_t index,
+                                         std::span<const std::string_view> args)
+{
+    const redfish::registries::MessageEntry& entry = registry[index];
+    // Intentionally make a copy of the string, so we can append in the
+    // parameters.
+    std::string msg = entry.second.message;
+    redfish::registries::fillMessageArgs(args, msg);
+    nlohmann::json jArgs = nlohmann::json::array();
+    for (const std::string_view arg : args)
+    {
+        jArgs.push_back(arg);
+    }
+    std::string msgId = header.id;
+    msgId += ".";
+    msgId += entry.first;
+    return {{"@odata.type", "#Message.v1_1_1.Message"},
+            {"MessageId", std::move(msgId)},
+            {"Message", std::move(msg)},
+            {"MessageArgs", std::move(jArgs)},
+            {"MessageSeverity", entry.second.messageSeverity},
+            {"Resolution", entry.second.resolution}};
 }
 
 } // namespace redfish::registries
