@@ -4,7 +4,7 @@
 
 TEST(RedfishRegistries, fillMessageArgs)
 {
-    using redfish::message_registries::fillMessageArgs;
+    using redfish::registries::fillMessageArgs;
     std::string toFill("%1");
     fillMessageArgs(std::to_array<std::string_view>({"foo"}), toFill);
     EXPECT_EQ(toFill, "foo");
