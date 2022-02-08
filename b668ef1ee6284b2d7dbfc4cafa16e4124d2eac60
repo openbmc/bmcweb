@@ -70,6 +70,24 @@
       "parentUuid": "b989e562_84609447",
       "revId": "b668ef1ee6284b2d7dbfc4cafa16e4124d2eac60",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9ea4af17_9c1713ba",
+        "filename": "redfish-core/include/registries/privilege_registry.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 454,
+      "author": {
+        "id": 1001084
+      },
+      "writtenOn": "2022-02-08T14:07:52Z",
+      "side": 0,
+      "message": "I bumped the privilege registry version from 1.1.0 to 1.2.0,and ran parse_registries script. The generated privilege_registry.hpp file had these entries added.\n\ngerrit link: https://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/50255",
+      "parentUuid": "98cd26dd_6cd6520c",
+      "revId": "b668ef1ee6284b2d7dbfc4cafa16e4124d2eac60",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
