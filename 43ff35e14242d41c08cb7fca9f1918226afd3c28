@@ -1,6 +1,7 @@
 {
   "comments": [
     {
+      "unresolved": true,
       "key": {
         "uuid": "0d4a0343_8e512653",
         "filename": "redfish-core/lib/log_services.hpp",
@@ -20,10 +21,10 @@
         "endChar": 63
       },
       "revId": "43ff35e14242d41c08cb7fca9f1918226afd3c28",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "ce3e3a1f_30dc2d16",
         "filename": "redfish-core/lib/log_services.hpp",
@@ -44,10 +45,10 @@
         "endChar": 63
       },
       "revId": "43ff35e14242d41c08cb7fca9f1918226afd3c28",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "5c9fa520_8155803f",
         "filename": "redfish-core/lib/log_services.hpp",
@@ -67,10 +68,10 @@
         "endChar": 67
       },
       "revId": "43ff35e14242d41c08cb7fca9f1918226afd3c28",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "3527f00d_2a7a5660",
         "filename": "redfish-core/lib/log_services.hpp",
@@ -91,10 +92,34 @@
         "endChar": 67
       },
       "revId": "43ff35e14242d41c08cb7fca9f1918226afd3c28",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2da65a2f_bba83676",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 742,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2022-02-08T09:28:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3527f00d_2a7a5660",
+      "range": {
+        "startLine": 742,
+        "startChar": 43,
+        "endLine": 742,
+        "endChar": 67
+      },
+      "revId": "43ff35e14242d41c08cb7fca9f1918226afd3c28",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
       "key": {
         "uuid": "5900b5d0_a6d021ff",
         "filename": "redfish-core/lib/log_services.hpp",
@@ -114,8 +139,31 @@
         "endChar": 35
       },
       "revId": "43ff35e14242d41c08cb7fca9f1918226afd3c28",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "efe470c9_90152f50",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 757,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2022-02-08T09:28:48Z",
+      "side": 1,
+      "message": "Same as https://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/38954/comment/6f18f229_909208a9/\n\nIf the interface doesnt match the task will expire after the timeout.\nBut Do you have any systems in mind which doesn\u0027t implement this and with this change they may break?",
+      "parentUuid": "5900b5d0_a6d021ff",
+      "range": {
+        "startLine": 757,
+        "startChar": 0,
+        "endLine": 757,
+        "endChar": 35
+      },
+      "revId": "43ff35e14242d41c08cb7fca9f1918226afd3c28",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }

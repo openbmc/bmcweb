@@ -1,6 +1,7 @@
 {
   "comments": [
     {
+      "unresolved": true,
       "key": {
         "uuid": "307f36e1_cf9fffc7",
         "filename": "redfish-core/lib/log_services.hpp",
@@ -20,10 +21,34 @@
         "endChar": 38
       },
       "revId": "41b85d3344bdb53dbf3c2e15c1e2de09b404c12b",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "de6085d0_053e78ce",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 30
+      },
+      "lineNbr": 727,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2022-02-08T09:28:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "307f36e1_cf9fffc7",
+      "range": {
+        "startLine": 727,
+        "startChar": 9,
+        "endLine": 727,
+        "endChar": 38
+      },
+      "revId": "41b85d3344bdb53dbf3c2e15c1e2de09b404c12b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
       "key": {
         "uuid": "98438350_9e43d9ac",
         "filename": "redfish-core/lib/log_services.hpp",
@@ -37,8 +62,43 @@
       "side": 1,
       "message": "nit: const",
       "revId": "41b85d3344bdb53dbf3c2e15c1e2de09b404c12b",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "35e62bda_d0665974",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 30
+      },
+      "lineNbr": 840,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2022-02-08T09:28:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "98438350_9e43d9ac",
+      "revId": "41b85d3344bdb53dbf3c2e15c1e2de09b404c12b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bb9d1911_ed9ced4a",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 30
+      },
+      "lineNbr": 840,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2022-02-08T09:28:48Z",
+      "side": 1,
+      "message": "the values will be pushed to this vector in case of other kinds of dumps, after this point. the next commit has this change. Because of this reason, the vector cannot be a const",
+      "parentUuid": "98438350_9e43d9ac",
+      "revId": "41b85d3344bdb53dbf3c2e15c1e2de09b404c12b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }

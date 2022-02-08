@@ -1,6 +1,7 @@
 {
   "comments": [
     {
+      "unresolved": true,
       "key": {
         "uuid": "c202c4b1_ab016883",
         "filename": "redfish-core/lib/log_services.hpp",
@@ -20,10 +21,10 @@
         "endChar": 38
       },
       "revId": "e08301d944b0bb52e804e410436caf7254c968db",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "f0266e01_601d61c7",
         "filename": "redfish-core/lib/log_services.hpp",
@@ -44,10 +45,10 @@
         "endChar": 38
       },
       "revId": "e08301d944b0bb52e804e410436caf7254c968db",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "1c365da8_f7189476",
         "filename": "redfish-core/lib/log_services.hpp",
@@ -67,10 +68,10 @@
         "endChar": 40
       },
       "revId": "e08301d944b0bb52e804e410436caf7254c968db",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "bd2f3eab_ff6c992e",
         "filename": "redfish-core/lib/log_services.hpp",
@@ -91,10 +92,10 @@
         "endChar": 40
       },
       "revId": "e08301d944b0bb52e804e410436caf7254c968db",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "726c8d45_b931fd08",
         "filename": "redfish-core/lib/log_services.hpp",
@@ -115,10 +116,10 @@
         "endChar": 40
       },
       "revId": "e08301d944b0bb52e804e410436caf7254c968db",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "9b9890c1_ec32571d",
         "filename": "redfish-core/lib/log_services.hpp",
@@ -139,10 +140,10 @@
         "endChar": 40
       },
       "revId": "e08301d944b0bb52e804e410436caf7254c968db",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "8d354f00_fce02524",
         "filename": "redfish-core/lib/log_services.hpp",
@@ -162,10 +163,10 @@
         "endChar": 48
       },
       "revId": "e08301d944b0bb52e804e410436caf7254c968db",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "b18e82fe_22db8b9f",
         "filename": "redfish-core/lib/log_services.hpp",
@@ -186,10 +187,10 @@
         "endChar": 48
       },
       "revId": "e08301d944b0bb52e804e410436caf7254c968db",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "2fd713b6_39e02a47",
         "filename": "redfish-core/lib/log_services.hpp",
@@ -209,10 +210,10 @@
         "endChar": 69
       },
       "revId": "e08301d944b0bb52e804e410436caf7254c968db",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "27dccdfb_77e329a9",
         "filename": "redfish-core/lib/log_services.hpp",
@@ -233,10 +234,10 @@
         "endChar": 69
       },
       "revId": "e08301d944b0bb52e804e410436caf7254c968db",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "f8549198_754f2e0f",
         "filename": "redfish-core/lib/log_services.hpp",
@@ -256,10 +257,10 @@
         "endChar": 64
       },
       "revId": "e08301d944b0bb52e804e410436caf7254c968db",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "db009548_39701a4b",
         "filename": "redfish-core/lib/log_services.hpp",
@@ -280,10 +281,10 @@
         "endChar": 64
       },
       "revId": "e08301d944b0bb52e804e410436caf7254c968db",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "0a98f248_d77b98b1",
         "filename": "redfish-core/lib/log_services.hpp",
@@ -304,10 +305,10 @@
         "endChar": 64
       },
       "revId": "e08301d944b0bb52e804e410436caf7254c968db",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "6c38e274_91f503f9",
         "filename": "redfish-core/lib/log_services.hpp",
@@ -328,10 +329,10 @@
         "endChar": 64
       },
       "revId": "e08301d944b0bb52e804e410436caf7254c968db",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "cfed8be7_e5aae1e6",
         "filename": "redfish-core/lib/log_services.hpp",
@@ -352,10 +353,10 @@
         "endChar": 64
       },
       "revId": "e08301d944b0bb52e804e410436caf7254c968db",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "0f1b568c_239efdec",
         "filename": "redfish-core/lib/log_services.hpp",
@@ -376,10 +377,10 @@
         "endChar": 64
       },
       "revId": "e08301d944b0bb52e804e410436caf7254c968db",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "aa567120_08d1e00f",
         "filename": "redfish-core/lib/log_services.hpp",
@@ -400,10 +401,10 @@
         "endChar": 64
       },
       "revId": "e08301d944b0bb52e804e410436caf7254c968db",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "5316d66e_4f435b5f",
         "filename": "redfish-core/lib/log_services.hpp",
@@ -424,10 +425,34 @@
         "endChar": 64
       },
       "revId": "e08301d944b0bb52e804e410436caf7254c968db",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c6f9c39f_1c75e458",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 754,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2022-02-08T09:28:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5316d66e_4f435b5f",
+      "range": {
+        "startLine": 754,
+        "startChar": 51,
+        "endLine": 754,
+        "endChar": 64
+      },
+      "revId": "e08301d944b0bb52e804e410436caf7254c968db",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
       "key": {
         "uuid": "de2c602d_13bf33fd",
         "filename": "redfish-core/lib/log_services.hpp",
@@ -447,10 +472,10 @@
         "endChar": 58
       },
       "revId": "e08301d944b0bb52e804e410436caf7254c968db",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "5f455598_bff0f921",
         "filename": "redfish-core/lib/log_services.hpp",
@@ -471,8 +496,7 @@
         "endChar": 58
       },
       "revId": "e08301d944b0bb52e804e410436caf7254c968db",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }

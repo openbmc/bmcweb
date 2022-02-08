@@ -1,6 +1,7 @@
 {
   "comments": [
     {
+      "unresolved": true,
       "key": {
         "uuid": "8d6db879_0b93f178",
         "filename": "redfish-core/lib/log_services.hpp",
@@ -20,10 +21,10 @@
         "endChar": 55
       },
       "revId": "0256b69420e2b99eb0494334da71dd50f457a8e8",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "127f9cac_6ca316da",
         "filename": "redfish-core/lib/log_services.hpp",
@@ -37,10 +38,10 @@
       "side": 0,
       "message": "I think this is not needed as we are listening to properties changed signal on the objectpath that is returned by the createDump dbus call\nhttps://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/38954/36/redfish-core/lib/log_services.hpp#b718",
       "revId": "0256b69420e2b99eb0494334da71dd50f457a8e8",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "0c36a5b8_3b121ed2",
         "filename": "redfish-core/lib/log_services.hpp",
@@ -55,10 +56,34 @@
       "message": "Understood.  i think it\u0027s ok as is.",
       "parentUuid": "127f9cac_6ca316da",
       "revId": "0256b69420e2b99eb0494334da71dd50f457a8e8",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e1f5c68a_a4e9cd51",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 36
+      },
+      "lineNbr": 718,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2022-02-08T09:28:48Z",
+      "side": 0,
+      "message": "Done",
+      "parentUuid": "8d6db879_0b93f178",
+      "range": {
+        "startLine": 714,
+        "startChar": 0,
+        "endLine": 718,
+        "endChar": 55
+      },
+      "revId": "0256b69420e2b99eb0494334da71dd50f457a8e8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
       "key": {
         "uuid": "43414e6d_210d6a4e",
         "filename": "redfish-core/lib/log_services.hpp",
@@ -78,10 +103,10 @@
         "endChar": 36
       },
       "revId": "0256b69420e2b99eb0494334da71dd50f457a8e8",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "19817f32_69780788",
         "filename": "redfish-core/lib/log_services.hpp",
@@ -102,8 +127,7 @@
         "endChar": 36
       },
       "revId": "0256b69420e2b99eb0494334da71dd50f457a8e8",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
