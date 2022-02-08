@@ -236,7 +236,7 @@ inline int formatEventLogEntry(const std::string& logEntryID,
     if (message != nullptr)
     {
         msg = message->message;
-        severity = message->severity;
+        severity = message->messageSeverity;
     }
 
     redfish::registries::fillMessageArgs(messageArgs, msg);
