@@ -11,9 +11,7 @@
 #pragma once
 #include <registries.hpp>
 
-// clang-format off
-
-namespace redfish::message_registries::task_event
+namespace redfish::registries::task_event
 {
 const Header header = {
     "Copyright 2014-2020 DMTF in cooperation with the Storage Networking Industry Association (SNIA). All rights reserved.",
@@ -164,4 +162,4 @@ enum class Index
     taskResumed = 7,
     taskStarted = 8,
 };
-} // namespace redfish::message_registries::task_event
+} // namespace redfish::registries::task_event

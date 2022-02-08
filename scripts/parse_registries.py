@@ -28,9 +28,7 @@ REGISTRY_HEADER = WARNING + '''
 #pragma once
 #include <registries.hpp>
 
-// clang-format off
-
-namespace redfish::message_registries::{}
+namespace redfish::registries::{}
 {{
 '''
 
@@ -142,7 +140,7 @@ for file, json_dict, namespace, url in files:
                 "    {} = {},\n".format(messageId, index))
         registry.write(
             "}};\n"
-            "}} // namespace redfish::message_registries::{}\n"
+            "}} // namespace redfish::registries::{}\n"
             .format(namespace))
 
 

@@ -11,9 +11,7 @@
 #pragma once
 #include <registries.hpp>
 
-// clang-format off
-
-namespace redfish::message_registries::base
+namespace redfish::registries::base
 {
 const Header header = {
     "Copyright 2014-2021 DMTF. All rights reserved.",
@@ -1300,4 +1298,4 @@ enum class Index
     undeterminedFault = 91,
     unrecognizedRequestBody = 92,
 };
-} // namespace redfish::message_registries::base
+} // namespace redfish::registries::base
