@@ -1124,7 +1124,7 @@ static int fillEventLogEntryJson(const std::string& logEntryID,
     if (message != nullptr)
     {
         msg = message->message;
-        severity = message->severity;
+        severity = message->messageSeverity;
     }
 
     // Get the MessageArgs from the log if there are any
@@ -3190,7 +3190,7 @@ static void fillPostCodeEntry(
         std::string severity;
         if (message != nullptr)
         {
-            severity = message->severity;
+            severity = message->messageSeverity;
         }
 
         // add to AsyncResp
