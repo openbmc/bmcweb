@@ -1,0 +1,9 @@
+#!/bin/bash
+# generate the generatable files in CI to make sure they haven't changed
+set -e
+
+SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
+
+"$SCRIPT_DIR/scripts/parse_registries.py"
+"$SCRIPT_DIR/scripts/update_schemas.py"
+git --no-pager -C "$SCRIPT_DIR" diff --exit-code
