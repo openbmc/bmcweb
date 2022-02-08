@@ -16,6 +16,7 @@
 #include "http_request.hpp"
 #include "http_response.hpp"
 #include "logging.hpp"
+#include "parsing.hpp"
 #include "routing.hpp"
 
 #include <systemd/sd-bus-protocol.h>
@@ -79,6 +80,7 @@ const constexpr char* notFoundMsg = "404 Not Found";
 const constexpr char* badReqMsg = "400 Bad Request";
 const constexpr char* methodNotAllowedMsg = "405 Method Not Allowed";
 const constexpr char* forbiddenMsg = "403 Forbidden";
+const constexpr char* unsupportedMediaMsg = "415 Unsupported Media Type";
 const constexpr char* methodFailedMsg = "500 Method Call Failed";
 const constexpr char* methodOutputFailedMsg = "500 Method Output Error";
 const constexpr char* notFoundDesc =
@@ -86,6 +88,8 @@ const constexpr char* notFoundDesc =
 const constexpr char* propNotFoundDesc =
     "The specified property cannot be found";
 const constexpr char* noJsonDesc = "No JSON object could be decoded";
+const constexpr char* invalidContentType =
+    "Content-type header is missing or invalid";
 const constexpr char* methodNotFoundDesc =
     "The specified method cannot be found";
 const constexpr char* methodNotAllowedDesc = "Method not allowed";
@@ -1541,10 +1545,17 @@ inline void handleAction(const crow::Request& req,
 {
     BMCWEB_LOG_DEBUG << "handleAction on path: " << objectPath << " and method "
                      << methodName;
-    nlohmann::json requestDbusData =
-        nlohmann::json::parse(req.body, nullptr, false);
+    nlohmann::json requestDbusData;
 
-    if (requestDbusData.is_discarded())
+    JsonParseResult ret = parseRequestAsJson(req, requestDbusData);
+    if (ret == JsonParseResult::BadContentType)
+    {
+        setErrorResponse(asyncResp->res,
+                         boost::beast::http::status::unsupported_media_type,
+                         invalidContentType, unsupportedMediaMsg);
+        return;
+    }
+    if (ret != JsonParseResult::Success)
     {
         setErrorResponse(asyncResp->res,
                          boost::beast::http::status::bad_request, noJsonDesc,
@@ -1856,11 +1867,18 @@ inline void handlePut(const crow::Request& req,
                          forbiddenResDesc, forbiddenMsg);
         return;
     }
+    nlohmann::json requestDbusData;
 
-    nlohmann::json requestDbusData =
-        nlohmann::json::parse(req.body, nullptr, false);
+    JsonParseResult ret = parseRequestAsJson(req, requestDbusData);
+    if (ret == JsonParseResult::BadContentType)
+    {
+        setErrorResponse(asyncResp->res,
+                         boost::beast::http::status::unsupported_media_type,
+                         invalidContentType, unsupportedMediaMsg);
+        return;
+    }
 
-    if (requestDbusData.is_discarded())
+    if (ret != JsonParseResult::Success)
     {
         setErrorResponse(asyncResp->res,
                          boost::beast::http::status::bad_request, noJsonDesc,
@@ -2396,14 +2414,23 @@ inline void
             return;
         }
 
-        nlohmann::json requestDbusData =
-            nlohmann::json::parse(req.body, nullptr, false);
-
-        if (requestDbusData.is_discarded())
+        nlohmann::json requestDbusData;
+        JsonParseResult ret = parseRequestAsJson(req, requestDbusData);
+        if (ret == JsonParseResult::BadContentType)
         {
-            asyncResp->res.result(boost::beast::http::status::bad_request);
+            setErrorResponse(asyncResp->res,
+                             boost::beast::http::status::unsupported_media_type,
+                             invalidContentType, unsupportedMediaMsg);
             return;
         }
+        if (ret != JsonParseResult::Success)
+        {
+            setErrorResponse(asyncResp->res,
+                             boost::beast::http::status::bad_request,
+                             noJsonDesc, badReqMsg);
+            return;
+        }
+
         if (!requestDbusData.is_array())
         {
             asyncResp->res.result(boost::beast::http::status::bad_request);

@@ -51,9 +51,10 @@ struct Payload
                                field_ns::connection, field_ns::content_length,
                                field_ns::upgrade};
 
-        if (jsonBody.is_discarded())
+        JsonParseResult ret = parseJsonFromRequest(req, jsonBody);
+        if (ret != JsonParseResult::Success)
         {
-            jsonBody = nullptr;
+            return;
         }
 
         for (const auto& field : req.fields)
