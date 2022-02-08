@@ -13,7 +13,12 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 */
-#include "utils/json_utils.hpp"
+#include "error_messages.hpp"
+#include "http/http_request.hpp"
+#include "http/http_response.hpp"
+#include "http/parsing.hpp"
+
+#include <nlohmann/json.hpp>
 
 namespace redfish
 {
@@ -24,14 +29,17 @@ namespace json_util
 bool processJsonFromRequest(crow::Response& res, const crow::Request& req,
                             nlohmann::json& reqJson)
 {
+    JsonParseResult ret = parseRequestAsJson(req, reqJson);
+    if (ret == JsonParseResult::BadContentType)
+    {
+        messages::unrecognizedRequestBody(res);
+        return false;
+    }
     reqJson = nlohmann::json::parse(req.body, nullptr, false);
 
     if (reqJson.is_discarded())
     {
         messages::malformedJSON(res);
-
-        res.end();
-
         return false;
     }
 

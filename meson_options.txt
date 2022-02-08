@@ -293,6 +293,17 @@ option(
 )
 
 option(
+    'insecure-ignore-content-type',
+    type: 'feature',
+    value: 'disabled',
+    description: '''Allows parsing PUT/POST/PATCH content as JSON regardless
+                    of the presence of the content-type header.  Enabling this
+                    conflicts with the input parsing guidelines, but may be
+                    required to support old clients that may not set the
+                    Content-Type header on payloads.'''
+)
+
+option(
     'insecure-push-style-notification',
     type: 'feature',
     value: 'disabled',
