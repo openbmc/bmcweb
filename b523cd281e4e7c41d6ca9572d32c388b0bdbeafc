@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "193473b6_989f545f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-02-08T20:07:51Z",
+      "side": 1,
+      "message": "As a note to the reader, the fact that we had to edit basically the same schema in 4 different places implies that we have some code duplication we could reduce.",
+      "revId": "b523cd281e4e7c41d6ca9572d32c388b0bdbeafc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
