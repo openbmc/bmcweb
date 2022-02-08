@@ -38,7 +38,6 @@ struct Message
 {
     const char* description;
     const char* message;
-    const char* severity;
     const char* messageSeverity;
     const size_t numberOfArgs;
     std::array<const char*, 5> paramTypes;
