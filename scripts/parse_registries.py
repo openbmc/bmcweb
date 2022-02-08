@@ -21,7 +21,7 @@ REGISTRY_HEADER = '''
 #pragma once
 #include <registries.hpp>
 
-namespace redfish::message_registries::{}
+namespace redfish::registries::{}
 {{
 '''
 
