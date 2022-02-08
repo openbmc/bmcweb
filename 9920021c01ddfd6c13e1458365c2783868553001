@@ -75,6 +75,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "60706189_ad954d84",
+        "filename": "redfish-core/include/event_service_manager.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 448,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2022-02-08T09:51:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "99a95baf_b7fc9d84",
+      "range": {
+        "startLine": 445,
+        "startChar": 0,
+        "endLine": 448,
+        "endChar": 20
+      },
+      "revId": "9920021c01ddfd6c13e1458365c2783868553001",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1c356788_11a28f0c",
@@ -110,6 +134,42 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8b2860ea_9dbb9bba",
+        "filename": "redfish-core/include/event_service_manager.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 1001,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2022-02-08T09:51:22Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "8f9ea34a_bdf4e89d",
+      "revId": "9920021c01ddfd6c13e1458365c2783868553001",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b92e7ae0_f5e1a9b7",
+        "filename": "redfish-core/include/event_service_manager.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 1001,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2022-02-08T09:51:22Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "8f9ea34a_bdf4e89d",
+      "revId": "9920021c01ddfd6c13e1458365c2783868553001",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a92db54f_7d5bbbe0",
@@ -123,6 +183,30 @@
       "writtenOn": "2022-02-07T21:10:58Z",
       "side": 1,
       "message": "this doesn\u0027t look correct",
+      "range": {
+        "startLine": 172,
+        "startChar": 2,
+        "endLine": 172,
+        "endChar": 22
+      },
+      "revId": "9920021c01ddfd6c13e1458365c2783868553001",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6699de52_27153a45",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 172,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2022-02-08T09:51:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a92db54f_7d5bbbe0",
       "range": {
         "startLine": 172,
         "startChar": 2,
