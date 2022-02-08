@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "393812cc_9cb67026",
+        "filename": "redfish-core/lib/message_registries.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 199,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-02-08T18:25:16Z",
+      "side": 1,
+      "message": "We can\u0027t just drop this? Why?\n\nBecause https://redfish.dmtf.org/schemas/v1/MessageRegistry.v1_5_0.json still has\n\n            \"required\": [\n                \"Description\",\n                \"Message\",\n                \"Severity\",\n                \"NumberOfArgs\",\n                \"Resolution\",\n                \"MessageSeverity\"\n            ],\n?\nYou have a \"deprecated\", \"required\" property, that doesn\u0027t sound right. Sounds like a bug with Redfish.\n\n```\n                \"Severity\": {\n                    \"deprecated\": \"This property has been deprecated in favor of MessageSeverity, which ties the values to the enumerations defined for the Health property within Status.\",\n                    \"description\": \"The severity of the message.\",\n                    \"longDescription\": \"This property shall contain the severity of the condition resulting in the message, as defined in the \u0027Status\u0027 clause of the Redfish Specification.  Services can replace the severity defined in the message registry with a value more applicable to the implementation in message payloads and event payloads.\",\n                    \"readonly\": true,\n                    \"type\": \"string\",\n                    \"versionDeprecated\": \"v1_4_0\"\n                },\n```\n\nI wonder if the validator just ignores the required ?",
+      "revId": "3fb546917768f66fc828bff39a64ffae4fc29855",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
