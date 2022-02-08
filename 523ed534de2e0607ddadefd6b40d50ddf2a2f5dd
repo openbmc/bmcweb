@@ -1,0 +1,228 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "793e4de9_ef0c7cc6",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-02-08T23:50:07Z",
+      "side": 1,
+      "message": "and",
+      "range": {
+        "startLine": 9,
+        "startChar": 43,
+        "endLine": 9,
+        "endChar": 44
+      },
+      "revId": "523ed534de2e0607ddadefd6b40d50ddf2a2f5dd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e3819471_c133ccd2",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-02-08T23:50:07Z",
+      "side": 1,
+      "message": "This seems like a problem, and something we should disallow.  ie, you should not be allowed to remove yourself from the Redfish privilege group, as that could lead to unintentionally DOS.",
+      "range": {
+        "startLine": 16,
+        "startChar": 47,
+        "endLine": 17,
+        "endChar": 46
+      },
+      "revId": "523ed534de2e0607ddadefd6b40d50ddf2a2f5dd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "df109d9d_eb9438fe",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-02-08T23:50:07Z",
+      "side": 1,
+      "message": "Considering that you\u0027ve explicitly called out differences in behavior for various privilege levels, a single curl command doesn\u0027t seem like enough to test this.\n\nPlease also test that when changing a users privilege, that the expected behaviors are locked out.  IE, when you remove the IPMI privilege, you should be testing that ipmitool now fails to login.  When you remove ManagerConsole, ssh should now fail to login.",
+      "range": {
+        "startLine": 22,
+        "startChar": 39,
+        "endLine": 22,
+        "endChar": 68
+      },
+      "revId": "523ed534de2e0607ddadefd6b40d50ddf2a2f5dd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6019870c_f0722632",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-02-08T23:50:07Z",
+      "side": 1,
+      "message": "Does accountservice need to be updated to support the SupportedAccountTypes property now that this is patchable?  That seems important for a client to be able to know.",
+      "revId": "523ed534de2e0607ddadefd6b40d50ddf2a2f5dd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "61e64f9d_646e3221",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 1274,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-02-08T23:50:07Z",
+      "side": 1,
+      "message": "Please write a method for converting redfish enums to dbus enums, using the if/else if ladder we use elsewhere.",
+      "range": {
+        "startLine": 1274,
+        "startChar": 0,
+        "endLine": 1274,
+        "endChar": 78
+      },
+      "revId": "523ed534de2e0607ddadefd6b40d50ddf2a2f5dd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "88ab2c3c_1faa5b11",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 1277,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-02-08T23:50:07Z",
+      "side": 1,
+      "message": "typo",
+      "range": {
+        "startLine": 1277,
+        "startChar": 67,
+        "endLine": 1277,
+        "endChar": 72
+      },
+      "revId": "523ed534de2e0607ddadefd6b40d50ddf2a2f5dd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "12a21b19_6918d2c3",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 1278,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-02-08T23:50:07Z",
+      "side": 1,
+      "message": "another typo",
+      "range": {
+        "startLine": 1278,
+        "startChar": 27,
+        "endLine": 1278,
+        "endChar": 32
+      },
+      "revId": "523ed534de2e0607ddadefd6b40d50ddf2a2f5dd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "80c39161_20328633",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 1291,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-02-08T23:50:07Z",
+      "side": 1,
+      "message": "This is the wrong error message.  The property value is in the list of allowed.",
+      "range": {
+        "startLine": 1291,
+        "startChar": 42,
+        "endLine": 1291,
+        "endChar": 64
+      },
+      "revId": "523ed534de2e0607ddadefd6b40d50ddf2a2f5dd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e2dc0a8f_c6f29e0e",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 1303,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-02-08T23:50:07Z",
+      "side": 1,
+      "message": "This code block is very difficult to read, and the logic can be cleaned up considerably by avoiding find.  Loop over the inputs once, track the various states as needed, then once done looping do something like\n\nif (hasManagerConsole ^ hasHostConsole){\n   // set error\n}\n\nFWIW, I really dislike this limitation in the SSH subsystem, and it seems non-obvious to clients to be requiring it in Redfish.  Is there a way we can just make this work the way one would expect, where host console privileges are independent of bmc console?",
+      "range": {
+        "startLine": 1285,
+        "startChar": 0,
+        "endLine": 1303,
+        "endChar": 52
+      },
+      "revId": "523ed534de2e0607ddadefd6b40d50ddf2a2f5dd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "94b4e7a2_681bbdaf",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 1327,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-02-08T23:50:07Z",
+      "side": 1,
+      "message": "Abstract this to its own method.",
+      "range": {
+        "startLine": 1264,
+        "startChar": 0,
+        "endLine": 1327,
+        "endChar": 13
+      },
+      "revId": "523ed534de2e0607ddadefd6b40d50ddf2a2f5dd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
