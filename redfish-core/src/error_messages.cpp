@@ -155,6 +155,32 @@ void malformedJSON(crow::Response& res)
 
 /**
  * @internal
+ * @brief Formats InvalidContentType message into JSON
+ *
+ * See header file for more information
+ * @endinternal
+ */
+nlohmann::json invalidContentType(void)
+{
+    return nlohmann::json{
+        {"@odata.type", "#Message.v1_1_1.Message"},
+        {"MessageId", "Base.1.8.1.InvalidContentType"},
+        {"Message", "The request body submitted has unsupported, missing "
+                    "or invalid Content-Type header."},
+        {"MessageArgs", nlohmann::json::array()},
+        {"MessageSeverity", "Critical"},
+        {"Resolution", "Ensure that the request body has proper "
+                       "Content-Type header set."}};
+}
+
+void invalidContentType(crow::Response& res)
+{
+    res.result(boost::beast::http::status::bad_request);
+    addMessageToErrorJson(res.jsonValue, invalidContentType());
+}
+
+/**
+ * @internal
  * @brief Formats ResourceMissingAtURI message into JSON
  *
  * See header file for more information

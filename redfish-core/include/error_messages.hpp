@@ -53,6 +53,17 @@ nlohmann::json malformedJSON();
 void malformedJSON(crow::Response& res);
 
 /**
+ * @brief Formats InvalidContentType message into JSON
+ * Message body: "The request body submitted has unsupported, missing
+ * or invalid Content-Type header"
+ *
+ *
+ * @returns Message InvalidContentType formatted to JSON */
+nlohmann::json invalidContentType();
+
+void invalidContentType(crow::Response& res);
+
+/**
  * @brief Formats ResourceMissingAtURI message into JSON
  * Message body: "The resource at the URI <arg1> was not found."
  *

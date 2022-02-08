@@ -50,8 +50,10 @@ struct Payload
                                field_ns::connection, field_ns::content_length,
                                field_ns::upgrade};
 
+        std::string_view contentType = req.getHeaderValue("content-type");
         jsonBody = nlohmann::json::parse(req.body, nullptr, false);
-        if (jsonBody.is_discarded())
+        if (jsonBody.is_discarded() ||
+            !boost::starts_with(contentType, "application/json"))
         {
             jsonBody = nullptr;
         }
