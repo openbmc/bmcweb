@@ -3,6 +3,7 @@
 #include "app.hpp"
 #include "async_resp.hpp"
 #include "dbus_utility.hpp"
+#include "http/parsing.hpp"
 #include "http_response.hpp"
 #include "query.hpp"
 #include "registries/privilege_registry.hpp"
@@ -53,9 +54,9 @@ inline std::string getCertificateFromReqBody(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const crow::Request& req)
 {
-    nlohmann::json reqJson = nlohmann::json::parse(req.body, nullptr, false);
-
-    if (reqJson.is_discarded())
+    nlohmann::json reqJson;
+    JsonParseResult ret = parseRequestAsJson(req, reqJson);
+    if (ret != JsonParseResult::Success)
     {
         // We did not receive JSON request, proceed as it is RAW data
         return req.body;
