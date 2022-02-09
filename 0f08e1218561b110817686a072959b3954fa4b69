@@ -1,0 +1,234 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "50c8c7a6_4f54c67b",
+        "filename": "redfish-core/include/utils/dbus_log_utils.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-02-09T04:58:59Z",
+      "side": 1,
+      "message": "If your company doesn\u0027t require adding this large apache license per file, we generally prefer to omit it, but we\u0027re not consistent here.",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 2
+      },
+      "revId": "0f08e1218561b110817686a072959b3954fa4b69",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0fceb7df_0b5a03bc",
+        "filename": "redfish-core/include/utils/dbus_log_utils.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-02-09T04:58:59Z",
+      "side": 1,
+      "message": "typo",
+      "range": {
+        "startLine": 65,
+        "startChar": 9,
+        "endLine": 65,
+        "endChar": 19
+      },
+      "revId": "0f08e1218561b110817686a072959b3954fa4b69",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "15801807_63cedfb7",
+        "filename": "redfish-core/include/utils/dbus_log_utils.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-02-09T04:58:59Z",
+      "side": 1,
+      "message": "This class and its use needs its own patchset.  It\u0027s completely new logic, which shouldn\u0027t be in a \"create new headers\" commit, which is largely just moving code around.",
+      "range": {
+        "startLine": 48,
+        "startChar": 0,
+        "endLine": 104,
+        "endChar": 2
+      },
+      "revId": "0f08e1218561b110817686a072959b3954fa4b69",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "aa70e396_ae8df39e",
+        "filename": "redfish-core/include/utils/registry_utils.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-02-09T04:58:59Z",
+      "side": 1,
+      "message": "These two methods are not the same as the old code, which isn\u0027t mentioned in your patchset.  It regresses several things.",
+      "range": {
+        "startLine": 36,
+        "startChar": 0,
+        "endLine": 73,
+        "endChar": 6
+      },
+      "revId": "0f08e1218561b110817686a072959b3954fa4b69",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4614aeb7_ea70201c",
+        "filename": "redfish-core/include/utils/registry_utils.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-02-09T04:58:59Z",
+      "side": 1,
+      "message": "This doesn\u0027t look used in anything but unit tests, and considering that on line 89, which arguably would use something like this, doesn\u0027t, so it\u0027s not clear why it\u0027s being added.  Maybe there\u0027s another commit that answers that?",
+      "range": {
+        "startLine": 76,
+        "startChar": 0,
+        "endLine": 81,
+        "endChar": 0
+      },
+      "revId": "0f08e1218561b110817686a072959b3954fa4b69",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "43897f08_e52c2d5d",
+        "filename": "redfish-core/include/utils/registry_utils.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-02-09T04:58:59Z",
+      "side": 1,
+      "message": "this line does nothing.",
+      "range": {
+        "startLine": 105,
+        "startChar": 0,
+        "endLine": 105,
+        "endChar": 14
+      },
+      "revId": "0f08e1218561b110817686a072959b3954fa4b69",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fbb62403_c14f6c30",
+        "filename": "redfish-core/include/utils/registry_utils.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-02-09T04:58:59Z",
+      "side": 1,
+      "message": "same thing here.  This is only used in unit tests, try to avoid inventing \"new\" functions in a commit that\u0027s just moving code around, as it makes it unclear what this is for.",
+      "range": {
+        "startLine": 102,
+        "startChar": 0,
+        "endLine": 107,
+        "endChar": 1
+      },
+      "revId": "0f08e1218561b110817686a072959b3954fa4b69",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "11f476e7_8e823aa5",
+        "filename": "redfish-core/ut/registry_utils_test.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-02-09T04:58:59Z",
+      "side": 1,
+      "message": "Please define this on the Message class itself as a generic !\u003d compare.  Ideally you\u0027d use the spaceship operator to make this generally useful.",
+      "range": {
+        "startLine": 32,
+        "startChar": 5,
+        "endLine": 32,
+        "endChar": 11
+      },
+      "revId": "0f08e1218561b110817686a072959b3954fa4b69",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ab51009b_a29b7894",
+        "filename": "redfish-core/ut/registry_utils_test.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-02-09T04:58:59Z",
+      "side": 1,
+      "message": "can we make this an explicit string?  in this case, you\u0027ve written a test using the same mechanisms that the thing you\u0027re testing is using.  if registryPrefix changes to \"foobar\", this test should fail.",
+      "range": {
+        "startLine": 94,
+        "startChar": 30,
+        "endLine": 94,
+        "endChar": 62
+      },
+      "revId": "0f08e1218561b110817686a072959b3954fa4b69",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d3b14186_d31364e6",
+        "filename": "redfish-core/ut/registry_utils_test.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-02-09T04:58:59Z",
+      "side": 1,
+      "message": "we should really be using std::span on new code.",
+      "range": {
+        "startLine": 95,
+        "startChar": 8,
+        "endLine": 95,
+        "endChar": 46
+      },
+      "revId": "0f08e1218561b110817686a072959b3954fa4b69",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
