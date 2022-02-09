@@ -16,6 +16,24 @@
       "message": "Hi,\nCan you have someone at Intel add you to their approved CI group?",
       "revId": "93daba6ca2de8a82492ea88a7da75a7d337123e1",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cbb2b0a7_b7b8b71b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-02-09T15:50:06Z",
+      "side": 1,
+      "message": "So you don\u0027t get \"User not approved, see admin, no CI\"",
+      "parentUuid": "b0a500d7_6b50abf5",
+      "revId": "93daba6ca2de8a82492ea88a7da75a7d337123e1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
