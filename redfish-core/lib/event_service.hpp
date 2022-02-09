@@ -18,6 +18,8 @@
 
 #include <app.hpp>
 #include <boost/beast/http/fields.hpp>
+#include <http/utility.hpp>
+#include <logging.hpp>
 #include <registries/privilege_registry.hpp>
 
 #include <span>
@@ -275,14 +277,36 @@ inline void requestRoutesEventDestinationCollection(App& app)
 #endif
             }
 
-            std::string host = std::string(match[2].first, match[2].second);
-            std::string port = std::string(match[3].first, match[3].second);
-            std::string path = std::string(match[4].first, match[4].second);
-            if (port.empty())
-            {
-                if (uriProto == "http")
+                std::string host;
+                std::string urlProto;
+                uint16_t port = 0;
+                std::string path;
+                bool status = crow::utility::validateAndSplitUrl(
+                    destUrl, urlProto, host, port, path);
+
+                if (!status)
                 {
-                    port = "80";
+                    BMCWEB_LOG_WARNING
+                        << "Failed to validate and split destination url";
+                    messages::propertyValueFormatError(asyncResp->res, destUrl,
+                                                       "Destination");
+                    return;
+                }
+                std::shared_ptr<Subscription> subValue =
+                    std::make_shared<Subscription>(host, port, path, urlProto);
+
+                subValue->destinationUrl = destUrl;
+
+                if (subscriptionType)
+                {
+                    if (*subscriptionType != "RedfishEvent")
+                    {
+                        messages::propertyValueNotInList(asyncResp->res,
+                                                         *subscriptionType,
+                                                         "SubscriptionType");
+                        return;
+                    }
+                    subValue->subscriptionType = *subscriptionType;
                 }
                 else
                 {
