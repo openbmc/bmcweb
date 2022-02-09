@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "557444d7_e40eb054",
+        "filename": "redfish-core/include/event_service_manager.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-02-09T05:26:06Z",
+      "side": 1,
+      "message": "As you\u0027ve found out, new code should not use this regex at all given how difficult it is to parse a url with a regex.  new code should be using boost::urls::url, which is what\u0027s used in the core and several other places.",
+      "range": {
+        "startLine": 41,
+        "startChar": 0,
+        "endLine": 43,
+        "endChar": 0
+      },
+      "revId": "4135d3dc6e9786218bd91db53b77c5fe5a100014",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
