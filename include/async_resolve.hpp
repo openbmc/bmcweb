@@ -26,7 +26,7 @@ class Resolver
     Resolver& operator=(Resolver&&) = delete;
 
     template <typename ResolveHandler>
-    void asyncResolve(const std::string& host, const std::string& port,
+    void asyncResolve(const std::string& host, uint16_t port,
                       ResolveHandler&& handler)
     {
         BMCWEB_LOG_DEBUG << "Trying to resolve: " << host << ":" << port;
@@ -78,19 +78,8 @@ class Resolver
                         handler(ec, endpointList);
                         return;
                     }
-                    uint16_t portNum = 0;
-                    auto it = std::from_chars(
-                        // NOLINTNEXTLINE(cppcoreguidelines-pro-bounds-pointer-arithmetic)
-                        port.data(), port.data() + port.size(), portNum);
-                    if (it.ec != std::errc())
-                    {
-                        BMCWEB_LOG_ERROR << "Failed to get the Port";
-                        handler(ec, endpointList);
-                        return;
-                    }
-                    endpoint.port(portNum);
-                    BMCWEB_LOG_DEBUG << "resolved endpoint is : "
-                                     << endpoint.address().to_string();
+                    endpoint.port(port);
+                    BMCWEB_LOG_DEBUG << "resolved endpoint is : " << endpoint;
                     endpointList.push_back(endpoint);
                 }
                 // All the resolved data is filled in the endpointList
