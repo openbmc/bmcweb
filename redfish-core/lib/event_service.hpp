@@ -18,6 +18,8 @@
 
 #include <app.hpp>
 #include <boost/beast/http/fields.hpp>
+#include <http/utility.hpp>
+#include <logging.hpp>
 #include <query.hpp>
 #include <registries/privilege_registry.hpp>
 
@@ -295,29 +297,40 @@ inline void requestRoutesEventDestinationCollection(App& app)
 #endif
             }
 
-            std::string host = std::string(match[2].first, match[2].second);
-            std::string port = std::string(match[3].first, match[3].second);
-            std::string path = std::string(match[4].first, match[4].second);
-            if (port.empty())
+            std::string host;
+            std::string urlProto;
+            uint16_t port = 0;
+            std::string path;
+
+            if (!crow::utility::validateAndSplitUrl(destUrl, urlProto, host,
+                                                    port, path))
             {
-                if (uriProto == "http")
-                {
-                    port = "80";
-                }
-                else
-                {
-                    port = "443";
-                }
+                BMCWEB_LOG_WARNING
+                    << "Failed to validate and split destination url";
+                messages::propertyValueFormatError(asyncResp->res, destUrl,
+                                                   "Destination");
+                return;
             }
+            std::shared_ptr<Subscription> subValue =
+                std::make_shared<Subscription>(host, port, path, urlProto);
+
+            subValue->destinationUrl = destUrl;
+
+            if (subscriptionType)
+            {
+                if (*subscriptionType != "RedfishEvent")
+                {
+                    messages::propertyValueNotInList(
+                        asyncResp->res, *subscriptionType, "SubscriptionType");
+                    return;
+                }
+                subValue->subscriptionType = *subscriptionType;
+            }
+
             if (path.empty())
             {
                 path = "/";
             }
-
-            std::shared_ptr<Subscription> subValue =
-                std::make_shared<Subscription>(host, port, path, uriProto);
-
-            subValue->destinationUrl = destUrl;
 
             if (subscriptionType)
             {
