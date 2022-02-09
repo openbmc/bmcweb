@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "8ac565bd_76e02f37",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 176,
+      "author": {
+        "id": 1001257
+      },
+      "writtenOn": "2022-02-09T19:13:20Z",
+      "side": 1,
+      "message": "No, since they are not required properties in schema.",
+      "parentUuid": "de1c3a81_6daaf1ff",
+      "range": {
+        "startLine": 170,
+        "startChar": 0,
+        "endLine": 176,
+        "endChar": 52
+      },
+      "revId": "5ca71d102b2857e08ebe78d44ecd1ab6c2a012ac",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "4a2d1294_4a709254",
         "filename": "redfish-core/lib/event_service.hpp",
         "patchSetId": 2
@@ -49,6 +73,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "38c83068_dca343c9",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 179,
+      "author": {
+        "id": 1001257
+      },
+      "writtenOn": "2022-02-09T19:13:20Z",
+      "side": 1,
+      "message": "To remove unused warning here.",
+      "parentUuid": "4a2d1294_4a709254",
+      "range": {
+        "startLine": 179,
+        "startChar": 0,
+        "endLine": 179,
+        "endChar": 32
+      },
+      "revId": "5ca71d102b2857e08ebe78d44ecd1ab6c2a012ac",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "63c966e7_5fbf8644",
         "filename": "redfish-core/lib/event_service.hpp",
         "patchSetId": 2
@@ -60,6 +108,30 @@
       "writtenOn": "2022-02-09T06:30:58Z",
       "side": 1,
       "message": "else doesn\u0027t look right here.  you want to process the args regardless, right?\n\nMessageArgs are required if message is set and contains any parameters.  That should be enforced by this api.",
+      "range": {
+        "startLine": 221,
+        "startChar": 16,
+        "endLine": 221,
+        "endChar": 21
+      },
+      "revId": "5ca71d102b2857e08ebe78d44ecd1ab6c2a012ac",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "76c16290_cd5d9301",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 221,
+      "author": {
+        "id": 1001257
+      },
+      "writtenOn": "2022-02-09T19:13:20Z",
+      "side": 1,
+      "message": "Usually it is used with Message and MessageArgs set, but again they are not required properties in event.",
+      "parentUuid": "63c966e7_5fbf8644",
       "range": {
         "startLine": 221,
         "startChar": 16,
