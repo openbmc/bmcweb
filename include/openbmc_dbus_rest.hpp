@@ -2112,6 +2112,38 @@ inline void handleDBusUrl(const crow::Request& req,
                      boost::beast::http::status::method_not_allowed,
                      methodNotAllowedDesc, methodNotAllowedMsg);
 }
+/*
+  This method combines a fixed path on the bmc, and a user-driven parameter with
+  a path, and ensures combines them into a single path, and ensures that the
+  path does not attempt to jump out of the directory structure using "..", or
+  "."
+
+  It DOES NOT check for existence of anything in the filesystem, including the
+  existence of the bmcPath
+
+  On failure, it returns std::nullopt.
+*/
+inline std::optional<std::filesystem::path>
+    getSafeFilesystemPath(const std::filesystem::path& bmcPath,
+                          std::string_view unsafeUserString)
+{
+    std::error_code ec;
+    std::filesystem::path finalPath =
+        std::filesystem::canonical(bmcPath / unsafeUserString, ec);
+    if (ec)
+    {
+        return std::nullopt;
+    }
+
+    auto [bmcPathEnd, finalPathEnd] = std::mismatch(
+        bmcPath.begin(), bmcPath.end(), finalPath.begin(), finalPath.end());
+    if (bmcPathEnd != bmcPath.end())
+    {
+        return std::nullopt;
+    }
+
+    return finalPath;
+}
 
 inline void requestRoutes(App& app)
 {
@@ -2206,73 +2238,66 @@ inline void requestRoutes(App& app)
 
     BMCWEB_ROUTE(app, "/download/dump/<str>/")
         .privileges({{"ConfigureManager"}})
-        .methods(boost::beast::http::verb::get)(
-            [](const crow::Request&,
-               const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-               const std::string& dumpId) {
-                std::regex validFilename(R"(^[\w\- ]+(\.?[\w\- ]*)$)");
-                if (!std::regex_match(dumpId, validFilename))
-                {
-                    asyncResp->res.result(
-                        boost::beast::http::status::bad_request);
-                    return;
-                }
-                std::filesystem::path loc(
-                    "/var/lib/phosphor-debug-collector/dumps");
-
-                loc /= dumpId;
-
-                if (!std::filesystem::exists(loc) ||
-                    !std::filesystem::is_directory(loc))
-                {
-                    BMCWEB_LOG_ERROR << loc << "Not found";
-                    asyncResp->res.result(
-                        boost::beast::http::status::not_found);
-                    return;
-                }
-                std::filesystem::directory_iterator files(loc);
-
-                for (const auto& file : files)
-                {
-                    std::ifstream readFile(file.path());
-                    if (!readFile.good())
-                    {
-                        continue;
-                    }
-
-                    asyncResp->res.addHeader("Content-Type",
-                                             "application/octet-stream");
-
-                    // Assuming only one dump file will be present in the dump
-                    // id directory
-                    std::string dumpFileName = file.path().filename().string();
-
-                    // Filename should be in alphanumeric, dot and underscore
-                    // Its based on phosphor-debug-collector application
-                    // dumpfile format
-                    std::regex dumpFileRegex("[a-zA-Z0-9\\._]+");
-                    if (!std::regex_match(dumpFileName, dumpFileRegex))
-                    {
-                        BMCWEB_LOG_ERROR << "Invalid dump filename "
-                                         << dumpFileName;
-                        asyncResp->res.result(
-                            boost::beast::http::status::not_found);
-                        return;
-                    }
-                    std::string contentDispositionParam =
-                        "attachment; filename=\"" + dumpFileName + "\"";
-
-                    asyncResp->res.addHeader("Content-Disposition",
-                                             contentDispositionParam);
-
-                    asyncResp->res.body() = {
-                        std::istreambuf_iterator<char>(readFile),
-                        std::istreambuf_iterator<char>()};
-                    return;
-                }
+        .methods(
+            boost::beast::http::verb::get)([](const crow::Request&,
+                                              const std::shared_ptr<
+                                                  bmcweb::AsyncResp>& asyncResp,
+                                              const std::string& dumpId) {
+            std::optional<std::filesystem::path> safePath =
+                getSafeFilesystemPath(
+                    {"/var/lib/phosphor-debug-collector/dumps"}, dumpId);
+            if (!safePath)
+            {
                 asyncResp->res.result(boost::beast::http::status::not_found);
                 return;
-            });
+            }
+            std::error_code ec;
+            std::filesystem::directory_iterator files(*safePath, ec);
+            if (ec)
+            {
+                asyncResp->res.result(boost::beast::http::status::not_found);
+                return;
+            }
+            // Assuming only one dump file will be present in the dump
+            // id directory
+            std::filesystem::directory_iterator file =
+                std::filesystem::begin(files);
+            if (file == std::filesystem::end(files))
+            {
+                asyncResp->res.result(boost::beast::http::status::not_found);
+                return;
+            }
+            std::ifstream readFile(file->path());
+            if (!readFile.good())
+            {
+                asyncResp->res.result(boost::beast::http::status::not_found);
+                return;
+            }
+
+            asyncResp->res.addHeader("Content-Type",
+                                     "application/octet-stream");
+
+            std::string dumpFileName = file->path().filename().string();
+
+            // Filename should be in alphanumeric, dot and underscore
+            // Its based on phosphor-debug-collector application
+            // dumpfile format
+            std::regex dumpFileRegex("[a-zA-Z0-9\\._]+");
+            if (!std::regex_match(dumpFileName, dumpFileRegex))
+            {
+                BMCWEB_LOG_ERROR << "Invalid dump filename " << dumpFileName;
+                asyncResp->res.result(boost::beast::http::status::not_found);
+                return;
+            }
+            std::string contentDispositionParam =
+                "attachment; filename=\"" + dumpFileName + "\"";
+
+            asyncResp->res.addHeader("Content-Disposition",
+                                     contentDispositionParam);
+
+            asyncResp->res.body() = {std::istreambuf_iterator<char>(readFile),
+                                     std::istreambuf_iterator<char>()};
+        });
 
     BMCWEB_ROUTE(app, "/bus/system/<str>/")
         .privileges({{"Login"}})
