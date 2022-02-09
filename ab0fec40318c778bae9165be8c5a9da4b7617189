@@ -95,6 +95,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "58fda136_6b9adb34",
+        "filename": "redfish-core/include/registries/openbmc_message_registry.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1048,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-02-09T15:48:50Z",
+      "side": 1,
+      "message": "typo here too",
+      "range": {
+        "startLine": 1048,
+        "startChar": 55,
+        "endLine": 1048,
+        "endChar": 63
+      },
+      "revId": "ab0fec40318c778bae9165be8c5a9da4b7617189",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c0a163c9_a2abee0c",
         "filename": "redfish-core/include/registries/openbmc_message_registry.hpp",
         "patchSetId": 4
