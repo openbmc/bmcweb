@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a4544b0f_f0831358",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 435,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2022-02-09T03:56:44Z",
+      "side": 1,
+      "message": "Thanks. I have renamed it.",
+      "parentUuid": "63165cee_b4a42d15",
+      "range": {
+        "startLine": 435,
+        "startChar": 5,
+        "endLine": 435,
+        "endChar": 19
+      },
+      "revId": "a465a6e7d657fa784a31e4e6d95493b10b003ff8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c5b7e9ca_90d92c97",
@@ -47,6 +71,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8f11bb9a_1570bfac",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 2687,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2022-02-09T03:56:44Z",
+      "side": 1,
+      "message": "I have cleaned it up using std::optional now.",
+      "parentUuid": "c5b7e9ca_90d92c97",
+      "range": {
+        "startLine": 2687,
+        "startChar": 4,
+        "endLine": 2687,
+        "endChar": 38
+      },
+      "revId": "a465a6e7d657fa784a31e4e6d95493b10b003ff8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "030ff240_411df169",
@@ -60,6 +108,24 @@
       "writtenOn": "2022-02-07T16:15:27Z",
       "side": 1,
       "message": "If we\u0027re needing to make two calls through this code with different arguments, that somewhat implies that we got out call graph wrong, and we could promote the second loop up and avoid this \"do a second time with a default argument\" stuff.",
+      "revId": "a465a6e7d657fa784a31e4e6d95493b10b003ff8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fead6e49_44783a7a",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 2688,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2022-02-09T03:56:44Z",
+      "side": 1,
+      "message": "actually this function is only called once in each call stack.\n\nOne started from `retrieveUriToDbusMap` that is used by other files and does not fetch the subtree and need to use the default one. This is a function expose for other resource to use.\n\nThe other is `requestRoutesSensor` handler that fetch the subtree and reuse it instead of fetching it again.",
+      "parentUuid": "030ff240_411df169",
       "revId": "a465a6e7d657fa784a31e4e6d95493b10b003ff8",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
