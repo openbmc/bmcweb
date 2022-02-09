@@ -26,6 +26,54 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "4d608106_f038e318",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2022-02-09T04:25:10Z",
+      "side": 1,
+      "message": "I have seen \u0027revert revert\u0027 in other code bases...\nUnfortunately I am familiar with roll-back and roll-forward ;)",
+      "parentUuid": "53171453_9cd596cc",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 16
+      },
+      "revId": "0c4ff7c78b36fdd744ce8936ea4e89ea110b0a51",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4eba3c96_45170af0",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2022-02-09T04:25:10Z",
+      "side": 1,
+      "message": "Fixed\n\nI have see it in other code bases....\nUnfortunately, I am familiar with roll-backs and roll-forwards ;)",
+      "parentUuid": "53171453_9cd596cc",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 16
+      },
+      "revId": "0c4ff7c78b36fdd744ce8936ea4e89ea110b0a51",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "dcaa493b_aceb0270",
         "filename": "/COMMIT_MSG",
         "patchSetId": 2
@@ -49,6 +97,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "8fa9ee8d_276c06bc",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2022-02-09T04:25:10Z",
+      "side": 1,
+      "message": "@Edd, How can we run the Romulus test against it to avoid this again?\nhttps://gerrit.openbmc-project.xyz/c/openbmc/openbmc/+/48864",
+      "parentUuid": "dcaa493b_aceb0270",
+      "range": {
+        "startLine": 22,
+        "startChar": 3,
+        "endLine": 22,
+        "endChar": 16
+      },
+      "revId": "0c4ff7c78b36fdd744ce8936ea4e89ea110b0a51",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "7e760094_3afa8197",
         "filename": "/COMMIT_MSG",
         "patchSetId": 2
@@ -60,6 +132,24 @@
       "writtenOn": "2022-01-28T19:48:12Z",
       "side": 1,
       "message": "Needs more testing than this.  Off the top of my head:\n\nError conditions\n404\nSSE\nredfish service validator\n500 errors\nIn connection.hpp errors",
+      "revId": "0c4ff7c78b36fdd744ce8936ea4e89ea110b0a51",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "30f85537_caf32875",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2022-02-09T04:25:10Z",
+      "side": 1,
+      "message": "We can run the validator, I don\u0027t expect to see any issues with it.\nJust making sure it can return 404 and 500 is straight forward.\n\nBut I am not sure about SSE? or In connection.hpp errors is there documentation exaplaining what that is and how to do it, or is there another change that I can use as a reference.",
+      "parentUuid": "7e760094_3afa8197",
       "revId": "0c4ff7c78b36fdd744ce8936ea4e89ea110b0a51",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
