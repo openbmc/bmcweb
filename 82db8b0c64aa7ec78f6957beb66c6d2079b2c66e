@@ -201,6 +201,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "42f40770_408850be",
+        "filename": "redfish-core/lib/manager_diagnostic_data.hpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-02-09T20:12:07Z",
+      "side": 1,
+      "message": "We do in places like \nhttps://github.com/openbmc/bmcweb/blob/26f6976f3905d7b20690bbf794fba746c1929ed3/redfish-core/lib/managers.hpp#L2109\n\nSo this would be just one more. I guess I would be fine with one more assumption here.. but yeah that support needs added sometime",
+      "parentUuid": "97b55047_e48ea659",
+      "range": {
+        "startLine": 64,
+        "startChar": 0,
+        "endLine": 64,
+        "endChar": 37
+      },
+      "revId": "82db8b0c64aa7ec78f6957beb66c6d2079b2c66e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "da640cda_26c7e994",
         "filename": "redfish-core/lib/manager_diagnostic_data.hpp",
         "patchSetId": 24
