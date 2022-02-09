@@ -33,6 +33,41 @@
       "message": "John, there is a https://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/50742 already. Any specific reason you will need this feature? Can we use the 50742 one?",
       "revId": "1e020980354bae514a1acd7f51f1c9531f594ee8",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5952eba2_8418f476",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2022-02-09T00:42:20Z",
+      "side": 1,
+      "message": "We can use yours. My was taken from zhanghaicheng\u0027s merge conflicting version, I know Ed has one, but I did not know you had a version of this change. \nI will abandon and rebase my changes on yours.",
+      "parentUuid": "3f8fffea_0a5d5be2",
+      "revId": "1e020980354bae514a1acd7f51f1c9531f594ee8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "abac94c2_dbfe5784",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2022-02-09T00:42:20Z",
+      "side": 1,
+      "message": "Thanks for letting me know you had the the same change.",
+      "revId": "1e020980354bae514a1acd7f51f1c9531f594ee8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
