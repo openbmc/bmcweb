@@ -34,6 +34,23 @@
       "parentUuid": "b0a500d7_6b50abf5",
       "revId": "93daba6ca2de8a82492ea88a7da75a7d337123e1",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5d1cf7bb_2b94020a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-02-09T15:53:08Z",
+      "side": 1,
+      "message": "I do not see you on the Intel CLA updated February 7th, 2022.\n",
+      "revId": "93daba6ca2de8a82492ea88a7da75a7d337123e1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
