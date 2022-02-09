@@ -27,6 +27,7 @@
 #include <dbus_utility.hpp>
 #include <error_messages.hpp>
 #include <event_service_store.hpp>
+#include <http/utility.hpp>
 #include <http_client.hpp>
 #include <persistent_data.hpp>
 #include <random.hpp>
@@ -375,7 +376,7 @@ class Subscription : public persistent_data::UserSubscription
     Subscription(Subscription&&) = delete;
     Subscription& operator=(Subscription&&) = delete;
 
-    Subscription(const std::string& inHost, const std::string& inPort,
+    Subscription(const std::string& inHost, uint16_t inPort,
                  const std::string& inPath, const std::string& inUriProto) :
         eventSeqNum(1),
         host(inHost), port(inPort), path(inPath), uriProto(inUriProto)
@@ -563,7 +564,7 @@ class Subscription : public persistent_data::UserSubscription
   private:
     uint64_t eventSeqNum;
     std::string host;
-    std::string port;
+    uint16_t port;
     std::string path;
     std::string uriProto;
     std::shared_ptr<crow::HttpClient> conn = nullptr;
@@ -625,7 +626,7 @@ class EventServiceManager
 
             std::string host;
             std::string urlProto;
-            std::string port;
+            uint16_t port = 0;
             std::string path;
             bool status = crow::utility::validateAndSplitUrl(
                 newSub->destinationUrl, urlProto, host, port, path);

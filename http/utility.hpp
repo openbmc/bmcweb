@@ -11,7 +11,6 @@
 #include <ctime>
 #include <functional>
 #include <limits>
-#include <regex>
 #include <stdexcept>
 #include <string>
 #include <string_view>
@@ -693,44 +692,49 @@ inline boost::urls::url urlFromPieces(const AV... args)
     return details::urlFromPiecesDetail({args...});
 }
 
-inline bool validateAndSplitUrl(const std::string& destUrl,
-                                std::string& urlProto, std::string& host,
-                                std::string& port, std::string& path)
+inline bool validateAndSplitUrl(std::string_view destUrl, std::string& urlProto,
+                                std::string& host, uint16_t& port,
+                                std::string& path)
 {
-    // Validate URL using regex expression
-    // Format: <protocol>://<host>:<port>/<path>
-    // protocol: http/https
-    const std::regex urlRegex(
-        "(http|https)://([^/\\x20\\x3f\\x23\\x3a]+):?([0-9]*)(/"
-        "([^\\x20\\x23\\x3f]*\\x3f?([^\\x20\\x23\\x3f])*)?)");
-    std::cmatch match;
-    if (!std::regex_match(destUrl.c_str(), match, urlRegex))
+    boost::string_view urlBoost(destUrl.data(), destUrl.size());
+    boost::urls::result<boost::urls::url_view> url =
+        boost::urls::parse_uri(urlBoost);
+    if (!url)
     {
         return false;
     }
-
-    urlProto = std::string(match[1].first, match[1].second);
-    if (urlProto == "http")
+    if (url->scheme() == "http")
     {
 #ifndef BMCWEB_INSECURE_ENABLE_HTTP_PUSH_STYLE_EVENTING
         return false;
 #endif
     }
+    else if (url->scheme() == "https")
+    {
+        // Do nothing, https is allowed
+    }
+    else
+    {
+        return false;
+    }
 
-    host = std::string(match[2].first, match[2].second);
-    port = std::string(match[3].first, match[3].second);
-    path = std::string(match[4].first, match[4].second);
-    if (port.empty())
+    host = std::string_view(url->encoded_host().data(),
+                            url->encoded_host().size());
+    port = url->port_number();
+    if (port == 0)
     {
         if (urlProto == "http")
         {
-            port = "80";
+            port = 80;
         }
         else
         {
-            port = "443";
+            port = 443;
         }
     }
+
+    path = std::string_view(url->encoded_path().data(),
+                            url->encoded_path().size());
     if (path.empty())
     {
         path = "/";
