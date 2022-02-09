@@ -1,6 +1,9 @@
+#include "bmcweb_config.h"
+
 #include "utility.hpp"
 
 #include "gmock/gmock.h"
+#include "gtest/gtest.h"
 
 namespace crow::utility
 {
@@ -123,5 +126,43 @@ TEST(Utility, UrlFromPieces)
     url = urlFromPieces("/", "bad&tring");
     EXPECT_EQ(std::string_view(url.data(), url.size()), "/%2f/bad&tring");
 }
+
+TEST(Utility, ValidateAndSplitUrlPositive)
+{
+    using crow::utility::validateAndSplitUrl;
+    std::string host;
+    std::string urlProto;
+    std::string port;
+    std::string path;
+    ASSERT_TRUE(validateAndSplitUrl("https://foo.com:18080/bar", urlProto, host,
+                                    port, path));
+    EXPECT_EQ(host, "foo.com");
+    EXPECT_EQ(urlProto, "https");
+    EXPECT_EQ(port, "18080");
+
+    EXPECT_EQ(path, "/bar");
+
+    // query string
+    ASSERT_TRUE(validateAndSplitUrl("https://foo.com:18080/bar?foobar=1",
+                                    urlProto, host, port, path));
+    EXPECT_EQ(path, "/bar?foobar=1");
+
+    // Missing port
+    ASSERT_TRUE(
+        validateAndSplitUrl("https://foo.com/bar", urlProto, host, port, path));
+    EXPECT_EQ(port, "443");
+
+    // If http push eventing is allowed, allow http, if it's not, parse should
+    // fail.
+#ifdef BMCWEB_INSECURE_ENABLE_HTTP_PUSH_STYLE_EVENTING
+    ASSERT_TRUE(
+        validateAndSplitUrl("http://foo.com/bar", urlProto, host, port, path));
+    EXPECT_EQ(port, "80");
+#else
+    ASSERT_FALSE(
+        validateAndSplitUrl("http://foo.com/bar", urlProto, host, port, path));
+#endif
+}
+
 } // namespace
 } // namespace crow::utility
