@@ -173,7 +173,7 @@ inline void requestRoutesSubmitTestEvent(App& app)
 
 inline void requestRoutesEventDestinationCollection(App& app)
 {
-    BMCWEB_ROUTE(app, "/redfish/v1/EventService/Subscriptions")
+    BMCWEB_ROUTE(app, "/redfish/v1/EventService/Subscriptions/")
         .privileges(redfish::privileges::getEventDestinationCollection)
         .methods(boost::beast::http::verb::get)(
             [](const crow::Request&,
