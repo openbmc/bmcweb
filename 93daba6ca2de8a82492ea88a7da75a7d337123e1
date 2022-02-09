@@ -51,6 +51,23 @@
       "message": "I do not see you on the Intel CLA updated February 7th, 2022.\n",
       "revId": "93daba6ca2de8a82492ea88a7da75a7d337123e1",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0889762f_b1156944",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-02-09T17:17:48Z",
+      "side": 1,
+      "message": "This looks pretty trivial, and is following a well documented rule.  Get added to your companies CLA, and this should be good to go.",
+      "revId": "93daba6ca2de8a82492ea88a7da75a7d337123e1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
