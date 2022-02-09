@@ -187,13 +187,13 @@ TEST(Utility, ValidateAndSplitUrlPositive)
     using crow::utility::validateAndSplitUrl;
     std::string host;
     std::string urlProto;
-    std::string port;
+    uint16_t port = 0;
     std::string path;
     ASSERT_TRUE(validateAndSplitUrl("https://foo.com:18080/bar", urlProto, host,
                                     port, path));
     EXPECT_EQ(host, "foo.com");
     EXPECT_EQ(urlProto, "https");
-    EXPECT_EQ(port, "18080");
+    EXPECT_EQ(port, 18080);
 
     EXPECT_EQ(path, "/bar");
 
@@ -202,21 +202,34 @@ TEST(Utility, ValidateAndSplitUrlPositive)
                                     urlProto, host, port, path));
     EXPECT_EQ(path, "/bar?foobar=1");
 
+    // fragment
+    ASSERT_TRUE(validateAndSplitUrl("https://foo.com:18080/bar#frag", urlProto,
+                                    host, port, path));
+    EXPECT_EQ(path, "/bar#frag");
+
     // Missing port
     ASSERT_TRUE(
         validateAndSplitUrl("https://foo.com/bar", urlProto, host, port, path));
-    EXPECT_EQ(port, "443");
+    EXPECT_EQ(port, 443);
 
-    // If http push eventing is allowed, allow http, if it's not, parse
-    // should fail.
-#ifdef BMCWEB_INSECURE_ENABLE_HTTP_PUSH_STYLE_EVENTING
+    // Missing path defaults to "/"
     ASSERT_TRUE(
-        validateAndSplitUrl("http://foo.com/bar", urlProto, host, port, path));
-    EXPECT_EQ(port, "80");
-#else
-    ASSERT_FALSE(
-        validateAndSplitUrl("http://foo.com/bar", urlProto, host, port, path));
-#endif
+        validateAndSplitUrl("https://foo.com/", urlProto, host, port, path));
+    EXPECT_EQ(path, "/");
+
+    // If http push eventing is allowed, allow http and pick a default port of
+    // 80, if it's not, parse should fail.
+    if constexpr (bmcwebInsecureEnableHttpPushStyleEventing)
+    {
+        ASSERT_TRUE(validateAndSplitUrl("http://foo.com/bar", urlProto, host,
+                                        port, path));
+        EXPECT_EQ(port, 80);
+    }
+    else
+    {
+        ASSERT_FALSE(validateAndSplitUrl("http://foo.com/bar", urlProto, host,
+                                         port, path));
+    }
 }
 
 TEST(Router, ParameterTagging)
