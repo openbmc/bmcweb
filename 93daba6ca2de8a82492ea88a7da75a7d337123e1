@@ -68,6 +68,24 @@
       "message": "This looks pretty trivial, and is following a well documented rule.  Get added to your companies CLA, and this should be good to go.",
       "revId": "93daba6ca2de8a82492ea88a7da75a7d337123e1",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6a0c10e9_69c153de",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000157
+      },
+      "writtenOn": "2022-02-09T19:05:12Z",
+      "side": 1,
+      "message": "Done.",
+      "parentUuid": "0889762f_b1156944",
+      "revId": "93daba6ca2de8a82492ea88a7da75a7d337123e1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
