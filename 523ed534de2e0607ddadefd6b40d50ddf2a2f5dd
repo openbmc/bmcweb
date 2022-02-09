@@ -49,6 +49,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "5ad80a19_32f89e56",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-02-09T19:04:05Z",
+      "side": 1,
+      "message": "How is this different than us allowing HTTP to be disabled?\nWhat if I want an IPMI only user? \nWe allowed this in the D-Bus REST API (still allow that if you have it enabled).. I am struggling a bit with, we should always keep redfish in the user group.",
+      "parentUuid": "e3819471_c133ccd2",
+      "range": {
+        "startLine": 16,
+        "startChar": 47,
+        "endLine": 17,
+        "endChar": 46
+      },
+      "revId": "523ed534de2e0607ddadefd6b40d50ddf2a2f5dd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "df109d9d_eb9438fe",
         "filename": "/COMMIT_MSG",
         "patchSetId": 5
@@ -83,6 +107,41 @@
       "writtenOn": "2022-02-08T23:50:07Z",
       "side": 1,
       "message": "Does accountservice need to be updated to support the SupportedAccountTypes property now that this is patchable?  That seems important for a client to be able to know.",
+      "revId": "523ed534de2e0607ddadefd6b40d50ddf2a2f5dd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "35cc0edc_b72c1d37",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-02-09T19:04:05Z",
+      "side": 1,
+      "message": "+1",
+      "parentUuid": "6019870c_f0722632",
+      "revId": "523ed534de2e0607ddadefd6b40d50ddf2a2f5dd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "36aa0f80_1706079d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-02-09T19:04:05Z",
+      "side": 1,
+      "message": "Has comments in the code that need addressed ",
       "revId": "523ed534de2e0607ddadefd6b40d50ddf2a2f5dd",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
