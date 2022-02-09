@@ -76,7 +76,7 @@ class HttpClient : public std::enable_shared_from_this<HttpClient>
 
     std::string subId;
     std::string host;
-    std::string port;
+    uint16_t port;
     uint32_t retryCount = 0;
     uint32_t maxRetryAttempts = 5;
     uint32_t retryIntervalSecs = 0;
@@ -86,7 +86,7 @@ class HttpClient : public std::enable_shared_from_this<HttpClient>
     void doResolve()
     {
         state = ConnState::resolveInProgress;
-        BMCWEB_LOG_DEBUG << "Trying to resolve: " << host << ":" << port;
+        BMCWEB_LOG_DEBUG << "Trying to resolve: " << host << ":" << std::to_string(port);
 
         auto respHandler =
             [self(shared_from_this())](
@@ -378,7 +378,7 @@ class HttpClient : public std::enable_shared_from_this<HttpClient>
 
   public:
     explicit HttpClient(boost::asio::io_context& ioc, const std::string& id,
-                        const std::string& destIP, const std::string& destPort,
+                        const std::string& destIP, uint16_t destPort,
                         const std::string& destUri,
                         const boost::beast::http::fields& httpHeader) :
         conn(ioc),
