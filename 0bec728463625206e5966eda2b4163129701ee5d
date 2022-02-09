@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b13fe72c_c9ae1a1f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-02-09T16:33:15Z",
+      "side": 1,
+      "message": "I would prefer https://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/51042 goes in \nThen this. ",
+      "revId": "0bec728463625206e5966eda2b4163129701ee5d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
