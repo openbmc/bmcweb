@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b5d31691_df04c082",
+        "filename": "redfish-core/include/registries/openbmc_message_registry.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1046,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-02-09T06:54:37Z",
+      "side": 1,
+      "message": "Does this need to be a more generic message \"component overheated\".  Surely memory isn\u0027t the only thing that can overheat, and it seems like we don\u0027t want to have a bunch of \"CpuOverheated\" \"GpuOverheated\" \"DriveOverheated\"\n\nAlso, in many other places in redfish, \"heated\" isn\u0027t really used, the word \"temperature\" is used.  So should this message be \"ComponentOverTemperature\"",
+      "range": {
+        "startLine": 1046,
+        "startChar": 18,
+        "endLine": 1046,
+        "endChar": 34
+      },
+      "revId": "ab0fec40318c778bae9165be8c5a9da4b7617189",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8a329ba1_137e744d",
+        "filename": "redfish-core/include/registries/openbmc_message_registry.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1048,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-02-09T06:54:37Z",
+      "side": 1,
+      "message": "why is CPU in this sentence at all?  The memory is hot, it has nothing to do with the CPU to the user.",
+      "range": {
+        "startLine": 1048,
+        "startChar": 51,
+        "endLine": 1048,
+        "endChar": 55
+      },
+      "revId": "ab0fec40318c778bae9165be8c5a9da4b7617189",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cad235bf_8517275c",
+        "filename": "redfish-core/include/registries/openbmc_message_registry.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1048,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-02-09T06:54:37Z",
+      "side": 1,
+      "message": "typo.",
+      "range": {
+        "startLine": 1048,
+        "startChar": 63,
+        "endLine": 1048,
+        "endChar": 72
+      },
+      "revId": "ab0fec40318c778bae9165be8c5a9da4b7617189",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c0a163c9_a2abee0c",
+        "filename": "redfish-core/include/registries/openbmc_message_registry.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1049,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-02-09T06:54:37Z",
+      "side": 1,
+      "message": "This needs to be user facing.  memhot is an internal-to-the-system name.",
+      "range": {
+        "startLine": 1049,
+        "startChar": 22,
+        "endLine": 1049,
+        "endChar": 50
+      },
+      "revId": "ab0fec40318c778bae9165be8c5a9da4b7617189",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
