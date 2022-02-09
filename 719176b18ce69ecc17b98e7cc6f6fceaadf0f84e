@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "41ac0707_98f386b3",
+        "filename": "redfish-core/ut/event_service_test.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-02-09T19:57:33Z",
+      "side": 1,
+      "message": "Do you need? These tend not to stay updated and as I understand it, these are pretty meaningless in the OpenBMC project",
+      "revId": "719176b18ce69ecc17b98e7cc6f6fceaadf0f84e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
