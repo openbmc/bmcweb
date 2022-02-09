@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "70da21ad_b7bd9b00",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-02-09T06:24:24Z",
+      "side": 1,
+      "message": "We actually already moved this code from EventService to where it is now, to centralize the serialization/deserialization in bmcweb in one place, so we know what things are being persisted.  I don\u0027t see a strong reason to move it back.",
+      "range": {
+        "startLine": 11,
+        "startChar": 45,
+        "endLine": 13,
+        "endChar": 55
+      },
+      "revId": "628a2dbfff466c693a8cd99af7cfdec13d1882d7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "da7f37ab_d437c611",
+        "filename": "include/event_service_store.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 209,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-02-09T06:24:24Z",
+      "side": 1,
+      "message": "New fields should be added in the commits that use them.",
+      "range": {
+        "startLine": 178,
+        "startChar": 0,
+        "endLine": 209,
+        "endChar": 13
+      },
+      "revId": "628a2dbfff466c693a8cd99af7cfdec13d1882d7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
