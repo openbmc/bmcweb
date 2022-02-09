@@ -36,6 +36,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cb0fed65_73a3a6c1",
+        "filename": "scripts/update_schemas.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1000500
+      },
+      "writtenOn": "2022-02-09T00:39:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "91d8b4d4_503d5d50",
+      "revId": "e2052955a658ae1a570beb08b1b0a1d49acfd7d7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4f0952f4_2d3cf618",
@@ -49,6 +67,24 @@
       "writtenOn": "2022-02-08T20:33:50Z",
       "side": 1,
       "message": "pretty sure you didn\u0027t intend this either.",
+      "revId": "e2052955a658ae1a570beb08b1b0a1d49acfd7d7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "57471753_78eebeab",
+        "filename": "static/redfish/v1/config/default.json",
+        "patchSetId": 4
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1000500
+      },
+      "writtenOn": "2022-02-09T00:39:07Z",
+      "side": 1,
+      "message": "Yes .. this was the Redfish service validator configuration. Removed it.",
+      "parentUuid": "4f0952f4_2d3cf618",
       "revId": "e2052955a658ae1a570beb08b1b0a1d49acfd7d7",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
