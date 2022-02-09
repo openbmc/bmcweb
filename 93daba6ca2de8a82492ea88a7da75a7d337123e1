@@ -86,6 +86,23 @@
       "parentUuid": "0889762f_b1156944",
       "revId": "93daba6ca2de8a82492ea88a7da75a7d337123e1",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a9676c01_7308ca1f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-02-09T19:07:44Z",
+      "side": 1,
+      "message": "I confirmed Gayathri is now on Intel\u0027s CLA. Thanks for the quick update here James. ",
+      "revId": "93daba6ca2de8a82492ea88a7da75a7d337123e1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
