@@ -16,6 +16,24 @@
       "message": "By the way, I see this patch is mentioned in \"Your Turn\" section in the list of my changes. I guess it\u0027s because it has comments not marked as \"resolved\".\nSo what is the usual course of actions the OpenBMC maintainers expect from the contributors? Who is supposed to mark a comment as \"resolved\", the one who made the comment after verifying it\u0027s taken care of or the one who commits a new changeset that is /supposed/ to account whatever the comment was made for?\nI\u0027d be willing to add a clear note regarding this to ``openbmc-docs`` but for that I need to understand what the maintainers\u0027 expectations currently are.",
       "revId": "43d656da547232ea7457c196f8eb3e982f3d7fb2",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "62cb9ad5_66bf4ae6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-02-09T06:42:56Z",
+      "side": 1,
+      "message": "\u003e By the way, I see this patch is mentioned in \"Your Turn\" section in the list of my changes. I guess it\u0027s because it has comments not marked as \"resolved\".\n\nPer gerrit process, you\u0027re right;  In practice, most maintainers (myself included) aren\u0027t sticklers for it.\n\n\u003e So what is the usual course of actions the OpenBMC maintainers expect from the contributors? Who is supposed to mark a comment as \"resolved\", the one who made the comment after verifying it\u0027s taken care of or the one who commits a new changeset that is /supposed/ to account whatever the comment was made for?\n\nIn theory, you if you implemented a change to fix this, or me if we discussed and I now believe that comment to be a non issue.  Again, this is all in theory.\n\n\u003e I\u0027d be willing to add a clear note regarding this to ``openbmc-docs`` but for that I need to understand what the maintainers\u0027 expectations currently are.\n\nFWIW, this whole \"your turn\" and tracking individual comments in the UI is relatively new in the last gerrit update.  I don\u0027t think we have official policy on it yet, or enough seat time with it to come up with one.",
+      "parentUuid": "dd023ee7_3b405394",
+      "revId": "43d656da547232ea7457c196f8eb3e982f3d7fb2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
