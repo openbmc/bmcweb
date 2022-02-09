@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "63676a66_d035114a",
+        "filename": "redfish-core/src/error_messages.cpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 231,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-02-09T02:49:52Z",
+      "side": 1,
+      "message": "huh.... indeed.  I have no idea how I messed that up.\n\nI though I automated most of these replacements, but I must\u0027ve done the second one by hand.  I\u0027ll do a self-review and make sure I didn\u0027t mess any others up.\n\nDone, fixed in latest patchset.",
+      "parentUuid": "9d2a6ccf_77a54200",
+      "revId": "1fb9a5c234a2a07f95e8cd22d5ddc2762a1fae62",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "88ac8351_41b4b81e",
@@ -31,6 +49,24 @@
       "writtenOn": "2022-02-09T02:40:27Z",
       "side": 1,
       "message": "So we added this because passwordChangeRequired below passed a res?\nDoes it make sense to name this something else?",
+      "revId": "1fb9a5c234a2a07f95e8cd22d5ddc2762a1fae62",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bb1ef330_7556ad91",
+        "filename": "redfish-core/src/error_messages.cpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 1665,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-02-09T02:49:52Z",
+      "side": 1,
+      "message": "we added this because whomever added passwordChangeRequired didn\u0027t follow the pattern we have in the rest of this file of having two methods, a method that returns a nlohmann object, and a method that operates on res, and calls the nlohmann version.  This means that when we need to add a message, we have options on how to do it, which in the past was important.\n\nThis commit just moves it to be the same pattern.  Could I have done this in a different patch?  Maybe, but considering the method is getting 100% rewritten as part of this patch, it seemed reasonable to just do it here.\n\n\nwith that said, if it\u0027s important to you that it\u0027s in a different patch, I can do that.",
+      "parentUuid": "88ac8351_41b4b81e",
       "revId": "1fb9a5c234a2a07f95e8cd22d5ddc2762a1fae62",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
