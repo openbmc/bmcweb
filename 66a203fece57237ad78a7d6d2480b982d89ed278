@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "043e5ec3_2e4c99f8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-02-10T20:33:21Z",
+      "side": 1,
+      "message": "This message as-is seems very specific to a certain use case but \"Component over temperature\" and \"Memory throttled\" or \"component over temperature and being throttled\" or \"component throttled\" are generic use cases. Can we make this more generic? ",
+      "revId": "66a203fece57237ad78a7d6d2480b982d89ed278",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8e2fa0e5_06c342ec",
+        "filename": "redfish-core/include/registries/openbmc_message_registry.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 313,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-02-10T20:33:21Z",
+      "side": 1,
+      "message": "I feel this doesn\u0027t match the name.\nCpuComponentOverTemperature ?\n\nOr just \"Indicates that the specified component is over temperature\".",
+      "revId": "66a203fece57237ad78a7d6d2480b982d89ed278",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "87a5823e_1738fba4",
+        "filename": "redfish-core/include/registries/openbmc_message_registry.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 314,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-02-10T20:33:21Z",
+      "side": 1,
+      "message": "This feels like a separate message or can the name be updated to reflect over temperature and throttling ?",
+      "revId": "66a203fece57237ad78a7d6d2480b982d89ed278",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
