@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "68ebcfb0_05292042",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-02-10T03:30:51Z",
+      "side": 1,
+      "message": "I see these properties added to the handlers, but no actual implementation of them being used...... Maybe it\u0027s in a different commit?",
+      "range": {
+        "startLine": 11,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 71
+      },
+      "revId": "ddccb81a947c6392a8df40eccd3a3ac0d7178c26",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cad800c5_367271a1",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-02-10T03:30:51Z",
+      "side": 1,
+      "message": "Considering the only edits you\u0027ve done are to post handlers, this test doesn\u0027t do much.  I would expect testing of the new parameters and making sure the subscriptions give the events you ask for.",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 25
+      },
+      "revId": "ddccb81a947c6392a8df40eccd3a3ac0d7178c26",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "21e8f6bf_53133eaf",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 234,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-02-10T03:30:51Z",
+      "side": 1,
+      "message": "unneeded.",
+      "range": {
+        "startLine": 234,
+        "startChar": 0,
+        "endLine": 234,
+        "endChar": 33
+      },
+      "revId": "ddccb81a947c6392a8df40eccd3a3ac0d7178c26",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3b40fd4d_65b23edd",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 509,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-02-10T03:30:51Z",
+      "side": 1,
+      "message": "todo need implemented.  empty is not a sufficient check.",
+      "range": {
+        "startLine": 509,
+        "startChar": 24,
+        "endLine": 509,
+        "endChar": 63
+      },
+      "revId": "ddccb81a947c6392a8df40eccd3a3ac0d7178c26",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
