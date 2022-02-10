@@ -283,6 +283,10 @@ inline void requestRoutesEventDestinationCollection(App& app)
             std::make_shared<Subscription>(host, port, path, urlProto);
 
         subValue->destinationUrl = destUrl;
+        if (req.session != nullptr)
+        {
+            subValue->owner = req.session->username;
+        }
 
         if (subscriptionType)
         {
@@ -480,6 +484,47 @@ inline void requestRoutesEventDestinationCollection(App& app)
         });
 }
 
+bool isConfigureManagerOrSelf(
+    const crow::Request& req,
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::shared_ptr<Subscription>& subValue)
+{
+    Privileges effectiveUserPrivileges =
+        redfish::getUserPrivileges(req.userRole);
+    bool isConfigureManager =
+        effectiveUserPrivileges.isSupersetOf({"ConfigureManager"});
+
+    if (!isConfigureManager)
+    {
+        // If the user does not have Configure manager privilege
+        // then the user must be an Operator (i.e. Configure
+        // Components and Self)
+        // We need to ensure that the User is the actual owner of
+        // the Subscription being patched
+        // This also supports backward compatibility as subscription
+        // owner would be empty which would not be equal to current
+        // user, enabling only Admin to be able to patch the
+        // Subscription
+
+        if (req.session == nullptr || req.session->username.empty())
+        {
+            BMCWEB_LOG_ERROR
+                << "Insufficient Privilege. Request Session Undefined";
+            messages::insufficientPrivilege(asyncResp->res);
+            return false;
+        }
+
+        if (subValue->owner != req.session->username)
+        {
+            BMCWEB_LOG_ERROR
+                << "Insufficient Privilege. User is not the owner of this Subscription";
+            messages::insufficientPrivilege(asyncResp->res);
+            return false;
+        }
+    }
+    return true;
+}
+
 inline void requestRoutesEventDestination(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/EventService/Subscriptions/<str>/")
@@ -531,11 +576,7 @@ inline void requestRoutesEventDestination(App& app)
         asyncResp->res.jsonValue["MetricReportDefinitions"] = mrdJsonArray;
         });
     BMCWEB_ROUTE(app, "/redfish/v1/EventService/Subscriptions/<str>/")
-        // The below privilege is wrong, it should be ConfigureManager OR
-        // ConfigureSelf
-        // https://github.com/openbmc/bmcweb/issues/220
-        //.privileges(redfish::privileges::patchEventDestination)
-        .privileges({{"ConfigureManager"}})
+        .privileges(redfish::privileges::patchEventDestination)
         .methods(boost::beast::http::verb::patch)(
             [&app](const crow::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
@@ -549,6 +590,11 @@ inline void requestRoutesEventDestination(App& app)
         if (subValue == nullptr)
         {
             asyncResp->res.result(boost::beast::http::status::not_found);
+            return;
+        }
+
+        if (!isConfigureManagerOrSelf(req, asyncResp, subValue))
+        {
             return;
         }
 
@@ -607,11 +653,7 @@ inline void requestRoutesEventDestination(App& app)
         EventServiceManager::getInstance().updateSubscriptionData();
         });
     BMCWEB_ROUTE(app, "/redfish/v1/EventService/Subscriptions/<str>/")
-        // The below privilege is wrong, it should be ConfigureManager OR
-        // ConfigureSelf
-        // https://github.com/openbmc/bmcweb/issues/220
-        //.privileges(redfish::privileges::deleteEventDestination)
-        .privileges({{"ConfigureManager"}})
+        .privileges(redfish::privileges::deleteEventDestination)
         .methods(boost::beast::http::verb::delete_)(
             [&app](const crow::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
@@ -620,11 +662,20 @@ inline void requestRoutesEventDestination(App& app)
         {
             return;
         }
-        if (!EventServiceManager::getInstance().isSubscriptionExist(param))
+
+        std::shared_ptr<Subscription> subValue =
+            EventServiceManager::getInstance().getSubscription(param);
+        if (subValue == nullptr)
         {
             asyncResp->res.result(boost::beast::http::status::not_found);
             return;
         }
+
+        if (!isConfigureManagerOrSelf(req, asyncResp, subValue))
+        {
+            return;
+        }
+
         EventServiceManager::getInstance().deleteSubscription(param);
         });
 }
