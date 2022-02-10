@@ -16,6 +16,24 @@
       "message": "Nit: Give more details in commit message. ",
       "revId": "49d3877433c7bea80b1fd83fedc0ac23d792338c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a8147de0_44a92ec1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001195
+      },
+      "writtenOn": "2022-02-10T08:06:56Z",
+      "side": 1,
+      "message": "Sure",
+      "parentUuid": "f311979b_259822ed",
+      "revId": "49d3877433c7bea80b1fd83fedc0ac23d792338c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
