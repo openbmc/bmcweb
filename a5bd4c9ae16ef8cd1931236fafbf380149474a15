@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2ca8faa6_481d1c94",
+        "filename": "redfish-core/include/event_service_manager.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1714,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-02-10T05:05:07Z",
+      "side": 1,
+      "message": "these two lines are redundant.",
+      "range": {
+        "startLine": 1713,
+        "startChar": 0,
+        "endLine": 1714,
+        "endChar": 39
+      },
+      "revId": "a5bd4c9ae16ef8cd1931236fafbf380149474a15",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f7060a8d_055c3a1f",
+        "filename": "redfish-core/include/event_service_manager.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1731,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-02-10T05:05:07Z",
+      "side": 1,
+      "message": "capturing \"this\" by reference is dangerous, and care needs to be taken to ensure that construction and destruction are done in the appropriate order, which I don\u0027t see in this patch.",
+      "range": {
+        "startLine": 1731,
+        "startChar": 30,
+        "endLine": 1731,
+        "endChar": 34
+      },
+      "revId": "a5bd4c9ae16ef8cd1931236fafbf380149474a15",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c13c37a6_3af8f023",
+        "filename": "redfish-core/include/event_service_manager.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1731,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-02-10T05:05:07Z",
+      "side": 1,
+      "message": "Please abstract this to a normal method.",
+      "range": {
+        "startLine": 1731,
+        "startChar": 13,
+        "endLine": 1731,
+        "endChar": 27
+      },
+      "revId": "a5bd4c9ae16ef8cd1931236fafbf380149474a15",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "28e7bc70_0b5ddf54",
+        "filename": "redfish-core/include/event_service_manager.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1739,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-02-10T05:05:07Z",
+      "side": 1,
+      "message": "You don\u0027t use this as a map in here.  please use a std::vector\u003cpair\u003e",
+      "range": {
+        "startLine": 1739,
+        "startChar": 12,
+        "endLine": 1739,
+        "endChar": 20
+      },
+      "revId": "a5bd4c9ae16ef8cd1931236fafbf380149474a15",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "120cd97d_8b5d8aa4",
+        "filename": "redfish-core/include/event_service_manager.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1745,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-02-10T05:05:07Z",
+      "side": 1,
+      "message": "nit, \u003d \"\" is redundant.",
+      "range": {
+        "startLine": 1745,
+        "startChar": 33,
+        "endLine": 1745,
+        "endChar": 37
+      },
+      "revId": "a5bd4c9ae16ef8cd1931236fafbf380149474a15",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
