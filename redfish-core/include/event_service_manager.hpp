@@ -671,6 +671,7 @@ class EventServiceManager
             subValue->resourceTypes = newSub->resourceTypes;
             subValue->httpHeaders = newSub->httpHeaders;
             subValue->metricReportDefinitions = newSub->metricReportDefinitions;
+            subValue->owner = newSub->owner;
 
             if (subValue->id.empty())
             {
@@ -923,6 +924,7 @@ class EventServiceManager
         newSub->resourceTypes = subValue->resourceTypes;
         newSub->httpHeaders = subValue->httpHeaders;
         newSub->metricReportDefinitions = subValue->metricReportDefinitions;
+        newSub->owner = subValue->owner;
         persistent_data::EventServiceStore::getInstance()
             .subscriptionsConfigMap.emplace(newSub->id, newSub);
 
