@@ -223,7 +223,7 @@ inline void requestRoutesSystemPCIeDevice(App& app)
                                 return;
                             }
                             asyncResp->res
-                                .jsonValue["PCIeInterface"]["PcieType"] =
+                                .jsonValue["PCIeInterface"]["PCIeType"] =
                                 *generationInUse;
                         }
                         asyncResp->res.jsonValue["PCIeFunctions"] = {
