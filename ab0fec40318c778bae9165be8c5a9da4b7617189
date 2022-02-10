@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "7be75c14_034c65d2",
+        "filename": "redfish-core/include/registries/openbmc_message_registry.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1000416
+      },
+      "writtenOn": "2022-02-10T10:16:21Z",
+      "side": 1,
+      "message": "Updated to 0.3.0. Please confirm",
+      "parentUuid": "490e0c29_4f67af13",
+      "range": {
+        "startLine": 24,
+        "startChar": 15,
+        "endLine": 24,
+        "endChar": 16
+      },
+      "revId": "ab0fec40318c778bae9165be8c5a9da4b7617189",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b5d31691_df04c082",
         "filename": "redfish-core/include/registries/openbmc_message_registry.hpp",
         "patchSetId": 4
@@ -37,6 +61,30 @@
       "writtenOn": "2022-02-09T06:54:37Z",
       "side": 1,
       "message": "Does this need to be a more generic message \"component overheated\".  Surely memory isn\u0027t the only thing that can overheat, and it seems like we don\u0027t want to have a bunch of \"CpuOverheated\" \"GpuOverheated\" \"DriveOverheated\"\n\nAlso, in many other places in redfish, \"heated\" isn\u0027t really used, the word \"temperature\" is used.  So should this message be \"ComponentOverTemperature\"",
+      "range": {
+        "startLine": 1046,
+        "startChar": 18,
+        "endLine": 1046,
+        "endChar": 34
+      },
+      "revId": "ab0fec40318c778bae9165be8c5a9da4b7617189",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c41802db_92f720e1",
+        "filename": "redfish-core/include/registries/openbmc_message_registry.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1046,
+      "author": {
+        "id": 1000416
+      },
+      "writtenOn": "2022-02-10T10:16:21Z",
+      "side": 1,
+      "message": "Thanks Used entry name as \"ComponentOverTemperature\".",
+      "parentUuid": "b5d31691_df04c082",
       "range": {
         "startLine": 1046,
         "startChar": 18,
@@ -118,6 +166,78 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ccfa0748_75e8c34c",
+        "filename": "redfish-core/include/registries/openbmc_message_registry.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1048,
+      "author": {
+        "id": 1000416
+      },
+      "writtenOn": "2022-02-10T10:16:21Z",
+      "side": 1,
+      "message": "Fixed",
+      "parentUuid": "58fda136_6b9adb34",
+      "range": {
+        "startLine": 1048,
+        "startChar": 55,
+        "endLine": 1048,
+        "endChar": 63
+      },
+      "revId": "ab0fec40318c778bae9165be8c5a9da4b7617189",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1c74831e_6830e4d7",
+        "filename": "redfish-core/include/registries/openbmc_message_registry.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1048,
+      "author": {
+        "id": 1000416
+      },
+      "writtenOn": "2022-02-10T10:16:21Z",
+      "side": 1,
+      "message": "Updated to CPU component. Thanks",
+      "parentUuid": "8a329ba1_137e744d",
+      "range": {
+        "startLine": 1048,
+        "startChar": 51,
+        "endLine": 1048,
+        "endChar": 55
+      },
+      "revId": "ab0fec40318c778bae9165be8c5a9da4b7617189",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8359903f_de699078",
+        "filename": "redfish-core/include/registries/openbmc_message_registry.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1048,
+      "author": {
+        "id": 1000416
+      },
+      "writtenOn": "2022-02-10T10:16:21Z",
+      "side": 1,
+      "message": "Fixed.",
+      "parentUuid": "cad235bf_8517275c",
+      "range": {
+        "startLine": 1048,
+        "startChar": 63,
+        "endLine": 1048,
+        "endChar": 72
+      },
+      "revId": "ab0fec40318c778bae9165be8c5a9da4b7617189",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c0a163c9_a2abee0c",
         "filename": "redfish-core/include/registries/openbmc_message_registry.hpp",
         "patchSetId": 4
@@ -129,6 +249,30 @@
       "writtenOn": "2022-02-09T06:54:37Z",
       "side": 1,
       "message": "This needs to be user facing.  memhot is an internal-to-the-system name.",
+      "range": {
+        "startLine": 1049,
+        "startChar": 22,
+        "endLine": 1049,
+        "endChar": 50
+      },
+      "revId": "ab0fec40318c778bae9165be8c5a9da4b7617189",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3e38160c_b29707aa",
+        "filename": "redfish-core/include/registries/openbmc_message_registry.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1049,
+      "author": {
+        "id": 1000416
+      },
+      "writtenOn": "2022-02-10T10:16:21Z",
+      "side": 1,
+      "message": "Updated the text. Thanks",
+      "parentUuid": "c0a163c9_a2abee0c",
       "range": {
         "startLine": 1049,
         "startChar": 22,
