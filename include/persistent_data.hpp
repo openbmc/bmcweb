@@ -284,6 +284,7 @@ class ConfigFile
                 {"ResourceTypes", subValue->resourceTypes},
                 {"SubscriptionType", subValue->subscriptionType},
                 {"MetricReportDefinitions", subValue->metricReportDefinitions},
+                {"SubscriptionOwner", subValue->subscriptionOwner},
             });
         }
         persistentFile << data;

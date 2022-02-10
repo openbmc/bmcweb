@@ -298,6 +298,7 @@ inline void requestRoutesEventDestinationCollection(App& app)
                     std::make_shared<Subscription>(host, port, path, uriProto);
 
                 subValue->destinationUrl = destUrl;
+                subValue->subscriptionOwner = req.session->username;
 
                 if (subscriptionType)
                 {
@@ -563,11 +564,7 @@ inline void requestRoutesEventDestination(App& app)
                     mrdJsonArray;
             });
     BMCWEB_ROUTE(app, "/redfish/v1/EventService/Subscriptions/<str>/")
-        // The below privilege is wrong, it should be ConfigureManager OR
-        // ConfigureSelf
-        // https://github.com/openbmc/bmcweb/issues/220
-        //.privileges(redfish::privileges::patchEventDestination)
-        .privileges({{"ConfigureManager"}})
+        .privileges(redfish::privileges::patchEventDestination)
         .methods(boost::beast::http::verb::patch)(
             [](const crow::Request& req,
                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
@@ -579,6 +576,25 @@ inline void requestRoutesEventDestination(App& app)
                     asyncResp->res.result(
                         boost::beast::http::status::not_found);
                     return;
+                }
+
+                Privileges effectiveUserPrivileges =
+                    redfish::getUserPrivileges(req.userRole);
+                bool isConfigureManager =
+                    effectiveUserPrivileges.isSupersetOf({"ConfigureManager"});
+
+                if (!isConfigureManager)
+                {
+                    // If the user does not have Configure manager privilege
+                    // then the user must be an Operator (i.e. Configure
+                    // Components and Self)
+                    // We need to ensure that the User is the actual owner of the
+                    // Subscription being patched
+                    if (subValue->subscriptionOwner != req.session->username)
+                    {
+                        messages::insufficientPrivilege(asyncResp->res);
+                        return;
+                    }
                 }
 
                 std::optional<std::string> context;
@@ -638,21 +654,37 @@ inline void requestRoutesEventDestination(App& app)
                 EventServiceManager::getInstance().updateSubscriptionData();
             });
     BMCWEB_ROUTE(app, "/redfish/v1/EventService/Subscriptions/<str>/")
-        // The below privilege is wrong, it should be ConfigureManager OR
-        // ConfigureSelf
-        // https://github.com/openbmc/bmcweb/issues/220
-        //.privileges(redfish::privileges::deleteEventDestination)
-        .privileges({{"ConfigureManager"}})
+        .privileges(redfish::privileges::deleteEventDestination)
         .methods(boost::beast::http::verb::delete_)(
-            [](const crow::Request&,
+            [](const crow::Request& req,
                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                const std::string& param) {
-                if (!EventServiceManager::getInstance().isSubscriptionExist(
-                        param))
+                std::shared_ptr<Subscription> subValue =
+                    EventServiceManager::getInstance().getSubscription(param);
+                if (subValue == nullptr)
                 {
                     asyncResp->res.result(
                         boost::beast::http::status::not_found);
                     return;
+                }
+
+                Privileges effectiveUserPrivileges =
+                    redfish::getUserPrivileges(req.userRole);
+                bool isConfigureManager =
+                    effectiveUserPrivileges.isSupersetOf({"ConfigureManager"});
+
+                if (!isConfigureManager)
+                {
+                    // If the user does not have Configure manager privilege
+                    // then the user must be an Operator (i.e. Configure
+                    // Components and Self)
+                    // We need to ensure that the User is the actual owner of the
+                    // Subscription being deleted
+                    if (subValue->subscriptionOwner != req.session->username)
+                    {
+                        messages::insufficientPrivilege(asyncResp->res);
+                        return;
+                    }
                 }
                 EventServiceManager::getInstance().deleteSubscription(param);
             });
