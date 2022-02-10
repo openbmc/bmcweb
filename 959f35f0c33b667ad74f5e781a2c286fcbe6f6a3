@@ -16,6 +16,23 @@
       "message": "LGTM",
       "revId": "959f35f0c33b667ad74f5e781a2c286fcbe6f6a3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9568705f_c3c9c502",
+        "filename": "redfish-core/lib/pcie.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 226,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-02-10T22:15:21Z",
+      "side": 1,
+      "message": "Looking at the schema, this is correct.",
+      "revId": "959f35f0c33b667ad74f5e781a2c286fcbe6f6a3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
