@@ -73,6 +73,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c822a8e2_2f0faadc",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-02-10T05:41:42Z",
+      "side": 1,
+      "message": "\u003e How is this different than us allowing HTTP to be disabled?\n\nIt\u0027s not, that should be disallowed as well (which I thought we did, maybe we something changed?).\n\n\u003e What if I want an IPMI only user?\n\nTotally fine, so long as that IPMI user is not the one you\u0027re logged in as over redfish.  If you want yourself to become an ipmi only user, you should be making that change over IPMI, to ensure that there\u0027s still a working path to get into the system.\n \n\u003e We allowed this in the D-Bus REST API (still allow that if you have it enabled).. I am struggling a bit with, we should always keep redfish in the user group.\n\nI don\u0027t think it\u0027s \"always\" only if you\u0027re logging in over Redfish, and trying to make modifications to your user.  Changing other users to be IPMI only is totally reasonable.",
+      "parentUuid": "5ad80a19_32f89e56",
+      "range": {
+        "startLine": 16,
+        "startChar": 47,
+        "endLine": 17,
+        "endChar": 46
+      },
+      "revId": "523ed534de2e0607ddadefd6b40d50ddf2a2f5dd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "df109d9d_eb9438fe",
         "filename": "/COMMIT_MSG",
         "patchSetId": 5
