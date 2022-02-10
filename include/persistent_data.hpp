@@ -284,6 +284,7 @@ class ConfigFile
             subscription["SubscriptionType"] = subValue->subscriptionType;
             subscription["MetricReportDefinitions"] =
                 subValue->metricReportDefinitions;
+            subscription["SubscriptionOwner"] = subValue->subscriptionOwner;
 
             subscriptions.push_back(std::move(subscription));
         }
