@@ -231,12 +231,12 @@ inline void requestRoutesSystemPCIeDevice(App& app)
                              "/redfish/v1/Systems/system/PCIeDevices/" +
                                  device + "/PCIeFunctions"}};
                     };
-                std::string escapedPath = std::string(pciePath) + "/" + device;
-                dbus::utility::escapePathForDbus(escapedPath);
+                sdbusplus::message::object_path escapedPath(pciePath);
+                escapedPath /= device;
                 crow::connections::systemBus->async_method_call(
-                    std::move(getPCIeDeviceCallback), pcieService, escapedPath,
-                    "org.freedesktop.DBus.Properties", "GetAll",
-                    pcieDeviceInterface);
+                    std::move(getPCIeDeviceCallback), pcieService,
+                    escapedPath.str, "org.freedesktop.DBus.Properties",
+                    "GetAll", pcieDeviceInterface);
             });
 }
 
@@ -315,12 +315,12 @@ inline void requestRoutesSystemPCIeFunctionCollection(App& app)
                     asyncResp->res.jsonValue["Members@odata.count"] =
                         pcieFunctionList.size();
                 };
-                std::string escapedPath = std::string(pciePath) + "/" + device;
-                dbus::utility::escapePathForDbus(escapedPath);
+                sdbusplus::message::object_path escapedPath(pciePath);
+                escapedPath /= device;
                 crow::connections::systemBus->async_method_call(
-                    std::move(getPCIeDeviceCallback), pcieService, escapedPath,
-                    "org.freedesktop.DBus.Properties", "GetAll",
-                    pcieDeviceInterface);
+                    std::move(getPCIeDeviceCallback), pcieService,
+                    escapedPath.str, "org.freedesktop.DBus.Properties",
+                    "GetAll", pcieDeviceInterface);
             });
 }
 
@@ -451,10 +451,10 @@ inline void requestRoutesSystemPCIeFunction(App& app)
                             *property;
                     }
                 };
-            std::string escapedPath = std::string(pciePath) + "/" + device;
-            dbus::utility::escapePathForDbus(escapedPath);
+            sdbusplus::message::object_path escapedPath(pciePath);
+            escapedPath /= device;
             crow::connections::systemBus->async_method_call(
-                std::move(getPCIeDeviceCallback), pcieService, escapedPath,
+                std::move(getPCIeDeviceCallback), pcieService, escapedPath.str,
                 "org.freedesktop.DBus.Properties", "GetAll",
                 pcieDeviceInterface);
         });
