@@ -59,6 +59,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ffd68360_96e049f1",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1001099
+      },
+      "writtenOn": "2022-02-11T16:06:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3076524d_884a9d7c",
+      "range": {
+        "startLine": 29,
+        "startChar": 0,
+        "endLine": 33,
+        "endChar": 31
+      },
+      "revId": "b932e10c7b0d68912fe26b308bcb48a29415ce2c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "26e123f3_c8c72eef",
@@ -95,6 +119,48 @@
       "writtenOn": "2022-02-08T23:34:54Z",
       "side": 1,
       "message": "If the account fails to map, we need to return internal error.",
+      "revId": "b932e10c7b0d68912fe26b308bcb48a29415ce2c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8b1f54eb_ba014098",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1858,
+      "author": {
+        "id": 1001099
+      },
+      "writtenOn": "2022-02-11T16:06:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "26e123f3_c8c72eef",
+      "range": {
+        "startLine": 1831,
+        "startChar": 13,
+        "endLine": 1858,
+        "endChar": 37
+      },
+      "revId": "b932e10c7b0d68912fe26b308bcb48a29415ce2c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7f5b7eaa_18454c79",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1858,
+      "author": {
+        "id": 1001099
+      },
+      "writtenOn": "2022-02-11T16:06:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b9043192_67cf6912",
       "revId": "b932e10c7b0d68912fe26b308bcb48a29415ce2c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
