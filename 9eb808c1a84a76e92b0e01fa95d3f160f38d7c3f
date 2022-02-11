@@ -16,6 +16,24 @@
       "message": "I am struggling just a bit here. \nTo me the code on the left is slightly more readable.",
       "revId": "9eb808c1a84a76e92b0e01fa95d3f160f38d7c3f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7fa8248f_b0934c6f",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 2493,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-02-11T17:07:04Z",
+      "side": 0,
+      "message": "I guess it\u0027s subjective.  I find the new one more readable, just because you don\u0027t have to worry about the distinction between\nparseIpsProperties(..) \u003d\u003d true\nparseIpsProperties(..) !\u003d false\nparseIpsProperties(..) \u003d\u003d false\nparseIpsProperties(..) !\u003d true\n\nwhen you\u0027re reading, there\u0027s only 2 option to logic through instead of 4.  Quite possible my brain works differently than others though, and this is highly subjective.\n\nIMO, I think being consistent is the most important thing, which, from your other comment it sounds like you agree.",
+      "parentUuid": "e4980649_11f013cb",
+      "revId": "9eb808c1a84a76e92b0e01fa95d3f160f38d7c3f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
