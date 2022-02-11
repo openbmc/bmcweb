@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "249975fc_b0062233",
+        "filename": "redfish-core/lib/manager_diagnostic_data.hpp",
+        "patchSetId": 30
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1000500
+      },
+      "writtenOn": "2022-02-11T01:17:49Z",
+      "side": 1,
+      "message": "Removed the redundant check.",
+      "parentUuid": "91f7e8be_bd1728e1",
+      "revId": "a688f89393f1af74c27d80daa304f3f88ea7478b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "651ce087_aca6222d",
@@ -41,6 +59,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7e1fbb5a_8a8c7dca",
+        "filename": "redfish-core/lib/manager_diagnostic_data.hpp",
+        "patchSetId": 30
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1000500
+      },
+      "writtenOn": "2022-02-11T01:17:49Z",
+      "side": 1,
+      "message": "Done.",
+      "parentUuid": "651ce087_aca6222d",
+      "range": {
+        "startLine": 89,
+        "startChar": 36,
+        "endLine": 89,
+        "endChar": 37
+      },
+      "revId": "a688f89393f1af74c27d80daa304f3f88ea7478b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6fb3be26_8a10bfd6",
@@ -54,6 +96,30 @@
       "writtenOn": "2022-02-09T20:12:07Z",
       "side": 1,
       "message": "a var name that isn\u0027t a single letter is easier to read/search. Can you use something like value here?",
+      "range": {
+        "startLine": 130,
+        "startChar": 63,
+        "endLine": 130,
+        "endChar": 64
+      },
+      "revId": "a688f89393f1af74c27d80daa304f3f88ea7478b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0454fdc4_901c7735",
+        "filename": "redfish-core/lib/manager_diagnostic_data.hpp",
+        "patchSetId": 30
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 1000500
+      },
+      "writtenOn": "2022-02-11T01:17:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6fb3be26_8a10bfd6",
       "range": {
         "startLine": 130,
         "startChar": 63,
@@ -94,6 +160,30 @@
       "writtenOn": "2022-02-09T20:12:07Z",
       "side": 1,
       "message": "again can you use a var name longer than a single character ?",
+      "range": {
+        "startLine": 196,
+        "startChar": 47,
+        "endLine": 196,
+        "endChar": 48
+      },
+      "revId": "a688f89393f1af74c27d80daa304f3f88ea7478b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "26c1ae27_f8431a1b",
+        "filename": "redfish-core/lib/manager_diagnostic_data.hpp",
+        "patchSetId": 30
+      },
+      "lineNbr": 196,
+      "author": {
+        "id": 1000500
+      },
+      "writtenOn": "2022-02-11T01:17:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d07a651c_b6e5d1d8",
       "range": {
         "startLine": 196,
         "startChar": 47,
