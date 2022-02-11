@@ -332,7 +332,11 @@ inline void
                                 return;
                             }
                             std::string name = *namePtr;
-                            dbus::utility::escapePathForDbus(name);
+
+                            // This is the way entity-manager escapes these for
+                            // the moment.  It should arguably use sdbusplus
+                            const std::regex reg("[^A-Za-z0-9_/]");
+                            name = std::regex_replace(name, reg, "_");
                         }
                         else if (propPair.first == "Profiles")
                         {
@@ -555,13 +559,17 @@ inline void
                                 }
                                 auto& data = (*config)[propertyPair.first];
                                 data = nlohmann::json::array();
-                                for (std::string itemCopy : *inputs)
+                                for (const std::string& item : *inputs)
                                 {
-                                    dbus::utility::escapePathForDbus(itemCopy);
+                                    boost::urls::url url =
+                                        crow::utility::urlFromPieces(
+                                            "redfish", "v1", "Managers", "bmc#",
+                                            "Oem", "OpenBmc", "Fan", "FanZones",
+                                            item);
                                     data.push_back(
                                         {{"@odata.id",
-                                          "/redfish/v1/Managers/bmc#/Oem/OpenBmc/Fan/FanZones/" +
-                                              itemCopy}});
+                                          std::string_view(url.data(),
+                                                           url.size())}});
                                 }
                             }
                             // todo(james): may never happen, but this
