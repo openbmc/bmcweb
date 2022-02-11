@@ -1506,11 +1506,12 @@ inline void requestRoutesDBusEventLogEntry(App& app)
         .methods(boost::beast::http::verb::get)(
             [](const crow::Request&,
                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-               const std::string& param)
+               const std::string& entryID)
 
             {
-                std::string entryID = param;
-                dbus::utility::escapePathForDbus(entryID);
+                sdbusplus::message::object_path escapedPath(
+                    "/xyz/openbmc_project/logging/entry");
+                escapedPath /= entryID;
 
                 // DBus implementation of EventLog/Entries
                 // Make call to Logging Service to find all log entry objects
@@ -1613,8 +1614,7 @@ inline void requestRoutesDBusEventLogEntry(App& app)
                                 std::to_string(*id);
                         }
                     },
-                    "xyz.openbmc_project.Logging",
-                    "/xyz/openbmc_project/logging/entry/" + entryID,
+                    "xyz.openbmc_project.Logging", escapedPath.str,
                     "org.freedesktop.DBus.Properties", "GetAll", "");
             });
 
@@ -1624,7 +1624,11 @@ inline void requestRoutesDBusEventLogEntry(App& app)
         .methods(boost::beast::http::verb::patch)(
             [](const crow::Request& req,
                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-               const std::string& entryId) {
+               const std::string& entryID) {
+                sdbusplus::message::object_path escapedPath(
+                    "/xyz/openbmc_project/logging/entry");
+                escapedPath /= entryID;
+
                 std::optional<bool> resolved;
 
                 if (!json_util::readJson(req, asyncResp->res, "Resolved",
@@ -1644,8 +1648,7 @@ inline void requestRoutesDBusEventLogEntry(App& app)
                         }
                     },
                     "xyz.openbmc_project.Logging",
-                    "/xyz/openbmc_project/logging/entry/" + entryId,
-                    "org.freedesktop.DBus.Properties", "Set",
+                    escapedPath.str, "org.freedesktop.DBus.Properties", "Set",
                     "xyz.openbmc_project.Logging.Entry", "Resolved",
                     dbus::utility::DbusVariantType(*resolved));
             });
@@ -1657,14 +1660,13 @@ inline void requestRoutesDBusEventLogEntry(App& app)
         .methods(boost::beast::http::verb::delete_)(
             [](const crow::Request&,
                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-               const std::string& param)
+               const std::string& entryID)
 
             {
                 BMCWEB_LOG_DEBUG << "Do delete single event entries.";
-
-                std::string entryID = param;
-
-                dbus::utility::escapePathForDbus(entryID);
+                sdbusplus::message::object_path path(
+                    "/xyz/openbmc_project/logging/entry");
+                path /= entryID;
 
                 // Process response from Logging service.
                 auto respHandler = [asyncResp, entryID](
@@ -1693,8 +1695,7 @@ inline void requestRoutesDBusEventLogEntry(App& app)
 
                 // Make call to Logging service to request Delete Log
                 crow::connections::systemBus->async_method_call(
-                    respHandler, "xyz.openbmc_project.Logging",
-                    "/xyz/openbmc_project/logging/entry/" + entryID,
+                    respHandler, "xyz.openbmc_project.Logging", path.str,
                     "xyz.openbmc_project.Object.Delete", "Delete");
             });
 }
@@ -1708,7 +1709,7 @@ inline void requestRoutesDBusEventLogEntryDownload(App& app)
         .methods(boost::beast::http::verb::get)(
             [](const crow::Request& req,
                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-               const std::string& param)
+               const std::string& entryID)
 
             {
                 if (!http_helpers::isOctetAccepted(
@@ -1718,9 +1719,9 @@ inline void requestRoutesDBusEventLogEntryDownload(App& app)
                         boost::beast::http::status::bad_request);
                     return;
                 }
-
-                std::string entryID = param;
-                dbus::utility::escapePathForDbus(entryID);
+                sdbusplus::message::object_path path(
+                    "/xyz/openbmc_project/logging/entry");
+                path /= entryID;
 
                 crow::connections::systemBus->async_method_call(
                     [asyncResp,
@@ -1789,8 +1790,7 @@ inline void requestRoutesDBusEventLogEntryDownload(App& app)
                                                  "Base64");
                         asyncResp->res.body() = std::move(output);
                     },
-                    "xyz.openbmc_project.Logging",
-                    "/xyz/openbmc_project/logging/entry/" + entryID,
+                    "xyz.openbmc_project.Logging", path.str,
                     "xyz.openbmc_project.Logging.Entry", "GetEntry");
             });
 }
