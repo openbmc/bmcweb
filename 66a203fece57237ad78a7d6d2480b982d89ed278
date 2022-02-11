@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "00487aa1_426fe4c4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000416
+      },
+      "writtenOn": "2022-02-11T17:47:09Z",
+      "side": 1,
+      "message": "Updated with \"component over temperature and being throttled\". Thanks",
+      "parentUuid": "043e5ec3_2e4c99f8",
+      "revId": "66a203fece57237ad78a7d6d2480b982d89ed278",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8e2fa0e5_06c342ec",
@@ -37,6 +55,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "3c32db4e_8cbf24e4",
+        "filename": "redfish-core/include/registries/openbmc_message_registry.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 313,
+      "author": {
+        "id": 1000416
+      },
+      "writtenOn": "2022-02-11T17:47:09Z",
+      "side": 1,
+      "message": "Updated. Thanks",
+      "parentUuid": "8e2fa0e5_06c342ec",
+      "revId": "66a203fece57237ad78a7d6d2480b982d89ed278",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "87a5823e_1738fba4",
         "filename": "redfish-core/include/registries/openbmc_message_registry.hpp",
         "patchSetId": 5
@@ -48,6 +84,24 @@
       "writtenOn": "2022-02-10T20:33:21Z",
       "side": 1,
       "message": "This feels like a separate message or can the name be updated to reflect over temperature and throttling ?",
+      "revId": "66a203fece57237ad78a7d6d2480b982d89ed278",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "47604cc4_fa7922df",
+        "filename": "redfish-core/include/registries/openbmc_message_registry.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 314,
+      "author": {
+        "id": 1000416
+      },
+      "writtenOn": "2022-02-11T17:47:09Z",
+      "side": 1,
+      "message": "Updated. Thanks",
+      "parentUuid": "87a5823e_1738fba4",
       "revId": "66a203fece57237ad78a7d6d2480b982d89ed278",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
