@@ -72,6 +72,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6b1cfa3e_c819a82d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-02-11T21:08:35Z",
+      "side": 1,
+      "message": "Sure, I\u0027m ok with it.  I don\u0027t like the duplication of information, and IMO, it can lead to people reading the commit message and not the code;  With that said, if it\u0027s helpful to you, it doesn\u0027t hurt much to have, so it\u0027s fine as is.",
+      "parentUuid": "b67897b5_50f2497d",
+      "range": {
+        "startLine": 25,
+        "startChar": 0,
+        "endLine": 38,
+        "endChar": 35
+      },
+      "revId": "c259e7aeca86fc68ca0a75fb4653f15ab527aa0a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b34e348d_ab15e396",
