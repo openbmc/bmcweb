@@ -701,7 +701,7 @@ inline std::string setProtocolDefaults(const boost::urls::url_view& url)
     }
     if (url.scheme() == "http")
     {
-        if(bmcwebInsecureEnableHttpPushStyleEventing)
+        if (bmcwebInsecureEnableHttpPushStyleEventing)
         {
             return "http";
         }

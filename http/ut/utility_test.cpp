@@ -132,8 +132,8 @@ TEST(Utility, ValidateAndSplitUrlPositive)
     EXPECT_EQ(path, "/bar?foobar=1");
 
     // fragment
-    ASSERT_TRUE(validateAndSplitUrl("https://foo.com:18080/bar#frag",
-                                    urlProto, host, port, path));
+    ASSERT_TRUE(validateAndSplitUrl("https://foo.com:18080/bar#frag", urlProto,
+                                    host, port, path));
     EXPECT_EQ(path, "/bar#frag");
 
     // Missing port
