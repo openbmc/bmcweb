@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "26a513b7_612b250e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-02-11T14:59:38Z",
+      "side": 1,
+      "message": "I actually don\u0027t prefer a few of these changes but this will lead to more consistent code and I don\u0027t have a huge preference",
+      "revId": "8265b391a7aeb5ea77eff7ac0c1954789986fad7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
