@@ -13,6 +13,9 @@ constexpr const char* metricReportDefinitionUri =
     "/redfish/v1/TelemetryService/MetricReportDefinitions";
 constexpr const char* metricReportUri =
     "/redfish/v1/TelemetryService/MetricReports";
+constexpr const char* triggerInterface =
+    "xyz.openbmc_project.Telemetry.Trigger";
+constexpr const char* triggerUri = "/redfish/v1/TelemetryService/Triggers";
 
 inline std::string getDbusReportPath(const std::string& id)
 {
@@ -26,6 +29,30 @@ inline std::string getDbusTriggerPath(const std::string& id)
     sdbusplus::message::object_path triggersPath(
         "/xyz/openbmc_project/Telemetry/Triggers/TelemetryService");
     return {triggersPath / id};
+}
+
+inline std::optional<std::string>
+    getReportNameFromReportDefinitionUri(const std::string& uri)
+{
+    constexpr std::string_view uriPattern =
+        "/redfish/v1/TelemetryService/MetricReportDefinitions/";
+    if (uri.starts_with(uriPattern))
+    {
+        return uri.substr(uriPattern.length());
+    }
+    return std::nullopt;
+}
+
+inline std::optional<std::string>
+    getTriggerIdFromDbusPath(const std::string& dbusPath)
+{
+    constexpr std::string_view triggerTree =
+        "/xyz/openbmc_project/Telemetry/Triggers/TelemetryService/";
+    if (dbusPath.starts_with(triggerTree))
+    {
+        return dbusPath.substr(triggerTree.length());
+    }
+    return std::nullopt;
 }
 
 inline bool getChassisSensorNode(
@@ -61,6 +88,24 @@ inline bool getChassisSensorNode(
         uriIdx++;
     }
     return true;
+}
+
+inline std::optional<std::string>
+    redfishActionToDbusAction(const std::string& redfishAction)
+{
+    if (redfishAction == "RedfishMetricReport")
+    {
+        return "UpdateReport";
+    }
+    if (redfishAction == "RedfishEvent")
+    {
+        return "RedfishEvent";
+    }
+    if (redfishAction == "LogToLogService")
+    {
+        return "LogToLogService";
+    }
+    return std::nullopt;
 }
 
 } // namespace telemetry
