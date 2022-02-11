@@ -16,6 +16,24 @@
       "message": "I am struggling a bit here.. \nWe are initializing other types (bools, int, etc)",
       "revId": "b22dc46008dbf66ede6e0c8e48a053f2efb6bd1c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "66f5cdd4_98ffd3cc",
+        "filename": ".clang-tidy",
+        "patchSetId": 5
+      },
+      "lineNbr": 285,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-02-11T16:59:45Z",
+      "side": 1,
+      "message": "The bools and int are coming from readability-redundant-member-init, I\u0027m pretty sure.",
+      "parentUuid": "4f850c7e_f3892757",
+      "revId": "b22dc46008dbf66ede6e0c8e48a053f2efb6bd1c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
