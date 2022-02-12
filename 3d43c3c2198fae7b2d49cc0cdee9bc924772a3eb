@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b2f7bd9a_211a9722",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-02-12T04:48:16Z",
+      "side": 1,
+      "message": "When was the last time you rebased?  In theory what you\u0027re doing was already fixed on this line:\n\nhttps://github.com/openbmc/bmcweb/blob/26f6976f3905d7b20690bbf794fba746c1929ed3/redfish-core/lib/network_protocol.hpp#L442\n\nMaybe that isn\u0027t working?",
+      "revId": "3d43c3c2198fae7b2d49cc0cdee9bc924772a3eb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "70459632_b98b6238",
+        "filename": "redfish-core/lib/network_protocol.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 146,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-02-12T04:48:16Z",
+      "side": 1,
+      "message": "There\u0027s a  helper function for this std::utils::removeDuplicate().  Please use it.",
+      "range": {
+        "startLine": 143,
+        "startChar": 0,
+        "endLine": 146,
+        "endChar": 43
+      },
+      "revId": "3d43c3c2198fae7b2d49cc0cdee9bc924772a3eb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
