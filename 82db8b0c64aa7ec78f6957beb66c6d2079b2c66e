@@ -507,6 +507,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "92dfb432_d74c6636",
+        "filename": "redfish-core/lib/manager_diagnostic_data.hpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 301,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-02-14T21:21:47Z",
+      "side": 1,
+      "message": "Looking at https://redfish.dmtf.org/schemas/v1/ManagerDiagnosticData_v1.xml\n\n/redfish/v1/Managers/{ManagerId}/ManagerDiagnosticData\n\nThis seems correct",
+      "parentUuid": "08d28460_fff2030c",
+      "range": {
+        "startLine": 301,
+        "startChar": 48,
+        "endLine": 301,
+        "endChar": 69
+      },
+      "revId": "82db8b0c64aa7ec78f6957beb66c6d2079b2c66e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "973ad7cb_b6ecd579",
         "filename": "redfish-core/lib/managers.hpp",
         "patchSetId": 24

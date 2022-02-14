@@ -149,6 +149,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "edfa4a2d_7d21ad81",
+        "filename": "redfish-core/lib/manager_diagnostic_data.hpp",
+        "patchSetId": 30
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-02-14T21:21:47Z",
+      "side": 1,
+      "message": "Still need to get these documented",
+      "parentUuid": "6834d4a9_0f68a75b",
+      "revId": "a688f89393f1af74c27d80daa304f3f88ea7478b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d07a651c_b6e5d1d8",
         "filename": "redfish-core/lib/manager_diagnostic_data.hpp",
         "patchSetId": 30
