@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b33cf910_8c75ec11",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-02-14T20:41:15Z",
+      "side": 1,
+      "message": "Seeing this patch, I\u0027m also fairly certain that this line was placed in  the wrong spot:\nhttps://github.com/openbmc/bmcweb/blob/26f6976f3905d7b20690bbf794fba746c1929ed3/redfish-core/lib/network_protocol.hpp#L442\n\nWe shouldn\u0027t be deduplicating when a user sends us data, we should be deduplicating with multiple interfaces on the way back out.",
+      "revId": "000478c80be4cb6e39079681b5d7b8dc14d04898",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
