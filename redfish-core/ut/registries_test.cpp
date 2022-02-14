@@ -5,15 +5,11 @@
 TEST(RedfishRegistries, fillMessageArgs)
 {
     using redfish::message_registries::fillMessageArgs;
-    std::string toFill("%1");
-    fillMessageArgs({{"foo"}}, toFill);
-    EXPECT_EQ(toFill, "foo");
-
-    toFill = "";
-    fillMessageArgs({}, toFill);
-    EXPECT_EQ(toFill, "");
-
-    toFill = "%1, %2";
-    fillMessageArgs({{"foo", "bar"}}, toFill);
-    EXPECT_EQ(toFill, "foo, bar");
+    EXPECT_EQ(fillMessageArgs({{"foo"}}, "%1"), "foo");
+    EXPECT_EQ(fillMessageArgs({}, ""), "");
+    EXPECT_EQ(fillMessageArgs({{"foo", "bar"}}, "%1, %2"), "foo, bar");
+    EXPECT_EQ(fillMessageArgs({{"foo"}}, "%1 bar"), "foo bar");
+    EXPECT_EQ(fillMessageArgs({}, "%1"), "");
+    EXPECT_EQ(fillMessageArgs({}, "%"), "");
+    EXPECT_EQ(fillMessageArgs({}, "%foo"), "");
 }
