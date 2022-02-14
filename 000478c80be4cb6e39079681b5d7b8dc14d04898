@@ -52,6 +52,24 @@
       "parentUuid": "4832dd8e_6f70b06b",
       "revId": "000478c80be4cb6e39079681b5d7b8dc14d04898",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1becde56_28b65662",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000298
+      },
+      "writtenOn": "2022-02-14T22:59:44Z",
+      "side": 1,
+      "message": "What can easily happen (happened in our validation) is that the user takes the existing servers and just append another one without checking if it is already there. This is why removing duplicates in patch made sense to me.",
+      "parentUuid": "bb415ee7_2c3ffe6b",
+      "revId": "000478c80be4cb6e39079681b5d7b8dc14d04898",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
