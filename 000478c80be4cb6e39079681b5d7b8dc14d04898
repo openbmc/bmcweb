@@ -34,6 +34,24 @@
       "parentUuid": "b33cf910_8c75ec11",
       "revId": "000478c80be4cb6e39079681b5d7b8dc14d04898",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bb415ee7_2c3ffe6b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-02-14T21:29:54Z",
+      "side": 1,
+      "message": "If a user PATCHes [\"1.1.1.1\", \"1.1.1.1\"], and duplicates don\u0027t make sense in the use case, then that\u0027s an invalid request and we should return something like: \n\n        \"PropertyDuplicate\": {\n            \"Description\": \"Indicates that a duplicate property was included in the request body.\",`\n\ninstead of just fixing silently like we do today",
+      "parentUuid": "4832dd8e_6f70b06b",
+      "revId": "000478c80be4cb6e39079681b5d7b8dc14d04898",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
