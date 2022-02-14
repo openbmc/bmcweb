@@ -235,15 +235,17 @@ inline int formatEventLogEntry(const std::string& logEntryID,
     // Get the Message from the MessageRegistry
     const registries::Message* message = registries::formatMessage(messageID);
 
-    std::string msg;
-    std::string severity;
-    if (message != nullptr)
+    if (message == nullptr)
     {
-        msg = message->message;
-        severity = message->messageSeverity;
+        return -1;
     }
 
-    redfish::registries::fillMessageArgs(messageArgs, msg);
+    std::string msg =
+        redfish::registries::fillMessageArgs(messageArgs, message->message);
+    if (msg.empty())
+    {
+        return -1;
+    }
 
     // Get the Created time from the timestamp. The log timestamp is in
     // RFC3339 format which matches the Redfish format except for the
@@ -258,7 +260,7 @@ inline int formatEventLogEntry(const std::string& logEntryID,
     // Fill in the log entry with the gathered data
     logEntryJson["EventId"] = logEntryID;
     logEntryJson["EventType"] = "Event";
-    logEntryJson["Severity"] = std::move(severity);
+    logEntryJson["Severity"] = message->messageSeverity;
     logEntryJson["Message"] = std::move(msg);
     logEntryJson["MessageId"] = messageID;
     logEntryJson["MessageArgs"] = messageArgs;
