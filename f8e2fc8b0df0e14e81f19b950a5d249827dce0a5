@@ -1,0 +1,163 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "28637360_7a10e32c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 9
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-02-14T21:16:42Z",
+      "side": 1,
+      "message": "nitpick: we follow https://cbea.ms/git-commit/ which says \"4. Do not end the subject line with a period\"",
+      "range": {
+        "startLine": 7,
+        "startChar": 49,
+        "endLine": 7,
+        "endChar": 50
+      },
+      "revId": "f8e2fc8b0df0e14e81f19b950a5d249827dce0a5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c90b1d9a_cd2eb862",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-02-14T21:16:42Z",
+      "side": 1,
+      "message": "Seems reasonable have some comments on the schemas, etc. ",
+      "revId": "f8e2fc8b0df0e14e81f19b950a5d249827dce0a5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "48790b8e_d73a1f76",
+        "filename": "include/google/google_service_root.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-02-14T21:16:42Z",
+      "side": 1,
+      "message": "Should you implement these in the GoogleServiceRoot schema?",
+      "revId": "f8e2fc8b0df0e14e81f19b950a5d249827dce0a5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "397dd671_468fa7ea",
+        "filename": "include/google/google_service_root.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-02-14T21:16:42Z",
+      "side": 1,
+      "message": "Google Chassis? to not get confused with Redfish Chassis? Same for Name. Fits better with what is there today too.",
+      "revId": "f8e2fc8b0df0e14e81f19b950a5d249827dce0a5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4e6fdcbe_dc82e109",
+        "filename": "include/google/google_service_root.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-02-14T21:16:42Z",
+      "side": 1,
+      "message": "I think GoogleRootOfTrust like you have GoogleChassis, GoogleServiceRoot fits better with what is there today",
+      "revId": "f8e2fc8b0df0e14e81f19b950a5d249827dce0a5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "97c5c7e9_175a1342",
+        "filename": "include/google/google_service_root.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-02-14T21:16:42Z",
+      "side": 1,
+      "message": "Maybe Google RootOfTrust to match the Service Root?",
+      "revId": "f8e2fc8b0df0e14e81f19b950a5d249827dce0a5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "68c85e89_8e5f3487",
+        "filename": "include/google/google_service_root.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-02-14T21:16:42Z",
+      "side": 1,
+      "message": "I would expect this to be something more than just Login but your interface so I will leave it up to you",
+      "revId": "f8e2fc8b0df0e14e81f19b950a5d249827dce0a5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3c8b5612_81053c37",
+        "filename": "static/google/v1/schema/Chassis_v1.xml",
+        "patchSetId": 9
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-02-14T21:16:42Z",
+      "side": 1,
+      "message": "I don\u0027t see this property.. I do see properties like \"RootOfTrust\"",
+      "revId": "f8e2fc8b0df0e14e81f19b950a5d249827dce0a5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b4bbc99f_89ad4480",
+        "filename": "static/google/v1/schema/RootOfTrust_v1.xml",
+        "patchSetId": 9
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-02-14T21:16:42Z",
+      "side": 1,
+      "message": "I don\u0027t see this Property implemented",
+      "revId": "f8e2fc8b0df0e14e81f19b950a5d249827dce0a5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
