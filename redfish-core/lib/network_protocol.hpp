@@ -132,7 +132,7 @@ inline void getNetworkData(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
 
     getEthernetIfaceData([hostName, asyncResp](
                              const bool& success,
-                             const std::vector<std::string>& ntpServers,
+                             std::vector<std::string>& ntpServers,
                              const std::vector<std::string>& domainNames) {
         if (!success)
         {
@@ -140,6 +140,7 @@ inline void getNetworkData(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                                        "NetworkProtocol");
             return;
         }
+        stl_utils::removeDuplicate(ntpServers);
         asyncResp->res.jsonValue["NTP"]["NTPServers"] = ntpServers;
         if (!hostName.empty())
         {
