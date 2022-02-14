@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "18885fb8_d204367c",
+        "filename": "scripts/parse_registries.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-02-14T21:26:24Z",
+      "side": 1,
+      "message": "This matches our build scripts \n\nhttps://github.com/openbmc/openbmc-build-scripts/blob/87111bb7060b9501fd902a717c0988b748169e4a/scripts/format-code.sh#L77",
+      "revId": "a175d4d07eeb1b6400e70252f360cc501c5ba847",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
