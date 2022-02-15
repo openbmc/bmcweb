@@ -45,6 +45,30 @@
       },
       "revId": "1a77d0c08653ebc9309e29b0634129b95606dc3b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "92b25e78_82a01b3d",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-02-15T22:34:02Z",
+      "side": 1,
+      "message": "Please see the added URL for more context.",
+      "parentUuid": "42504642_3bd656e4",
+      "range": {
+        "startLine": 55,
+        "startChar": 16,
+        "endLine": 55,
+        "endChar": 17
+      },
+      "revId": "1a77d0c08653ebc9309e29b0634129b95606dc3b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
