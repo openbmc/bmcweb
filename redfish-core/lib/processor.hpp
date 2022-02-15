@@ -49,7 +49,7 @@ constexpr std::array<const char*, 2> processorInterfaces = {
  * @param[in]       service     D-Bus service to query.
  * @param[in]       objPath     D-Bus object to query.
  */
-inline void getProcessorUUID(std::shared_ptr<bmcweb::AsyncResp> aResp,
+inline void getProcessorUUID(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
                              const std::string& service,
                              const std::string& objPath)
 {
@@ -203,7 +203,7 @@ inline void getCpuDataByInterface(
     }
 }
 
-inline void getCpuDataByService(std::shared_ptr<bmcweb::AsyncResp> aResp,
+inline void getCpuDataByService(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
                                 const std::string& cpuId,
                                 const std::string& service,
                                 const std::string& objPath)
@@ -279,7 +279,7 @@ inline void getCpuDataByService(std::shared_ptr<bmcweb::AsyncResp> aResp,
         "org.freedesktop.DBus.ObjectManager", "GetManagedObjects");
 }
 
-inline void getCpuAssetData(std::shared_ptr<bmcweb::AsyncResp> aResp,
+inline void getCpuAssetData(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
                             const std::string& service,
                             const std::string& objPath)
 {
@@ -300,11 +300,11 @@ inline void getCpuAssetData(std::shared_ptr<bmcweb::AsyncResp> aResp,
             {
                 if (property.first == "SerialNumber")
                 {
-                    const std::string* sn =
+                    const std::string* serial =
                         std::get_if<std::string>(&property.second);
-                    if (sn != nullptr && !sn->empty())
+                    if (serial != nullptr && !serial->empty())
                     {
-                        aResp->res.jsonValue["SerialNumber"] = *sn;
+                        aResp->res.jsonValue["SerialNumber"] = *serial;
                     }
                 }
                 else if (property.first == "Model")
@@ -370,7 +370,7 @@ inline void getCpuAssetData(std::shared_ptr<bmcweb::AsyncResp> aResp,
         "xyz.openbmc_project.Inventory.Decorator.Asset");
 }
 
-inline void getCpuRevisionData(std::shared_ptr<bmcweb::AsyncResp> aResp,
+inline void getCpuRevisionData(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
                                const std::string& service,
                                const std::string& objPath)
 {
@@ -405,9 +405,11 @@ inline void getCpuRevisionData(std::shared_ptr<bmcweb::AsyncResp> aResp,
         "xyz.openbmc_project.Inventory.Decorator.Revision");
 }
 
-inline void getAcceleratorDataByService(
-    std::shared_ptr<bmcweb::AsyncResp> aResp, const std::string& acclrtrId,
-    const std::string& service, const std::string& objPath)
+inline void
+    getAcceleratorDataByService(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
+                                const std::string& acclrtrId,
+                                const std::string& service,
+                                const std::string& objPath)
 {
     BMCWEB_LOG_DEBUG
         << "Get available system Accelerator resources by service.";
@@ -622,7 +624,7 @@ inline void getCpuConfigData(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
  * @param[in]       service     D-Bus service to query.
  * @param[in]       objPath     D-Bus object to query.
  */
-inline void getCpuLocationCode(std::shared_ptr<bmcweb::AsyncResp> aResp,
+inline void getCpuLocationCode(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
                                const std::string& service,
                                const std::string& objPath)
 {

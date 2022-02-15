@@ -43,21 +43,21 @@ struct Response
 
     Response(const Response&) = delete;
     Response(Response&&) = delete;
-    Response& operator=(const Response& r) = delete;
+    Response& operator=(const Response&) = delete;
 
-    Response& operator=(Response&& r) noexcept
+    Response& operator=(Response&& other) noexcept
     {
         BMCWEB_LOG_DEBUG << "Moving response containers";
-        stringResponse = std::move(r.stringResponse);
-        r.stringResponse.emplace(response_type{});
-        jsonValue = std::move(r.jsonValue);
-        completed = r.completed;
+        stringResponse = std::move(other.stringResponse);
+        other.stringResponse.emplace(response_type{});
+        jsonValue = std::move(other.jsonValue);
+        completed = other.completed;
         return *this;
     }
 
-    void result(boost::beast::http::status v)
+    void result(boost::beast::http::status verb)
     {
-        stringResponse->result(v);
+        stringResponse->result(verb);
     }
 
     boost::beast::http::status result()
@@ -85,9 +85,9 @@ struct Response
         return stringResponse->body();
     }
 
-    void keepAlive(bool k)
+    void keepAlive(bool keepAlive)
     {
-        stringResponse->keep_alive(k);
+        stringResponse->keep_alive(keepAlive);
     }
 
     bool keepAlive()

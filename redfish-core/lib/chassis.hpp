@@ -35,7 +35,7 @@ namespace redfish
  *
  * @return None.
  */
-inline void getChassisState(std::shared_ptr<bmcweb::AsyncResp> aResp)
+inline void getChassisState(const std::shared_ptr<bmcweb::AsyncResp>& aResp)
 {
     // crow::connections::systemBus->async_method_call(
     sdbusplus::asio::getProperty<std::string>(
@@ -81,9 +81,10 @@ using ManagedObjectsType = std::vector<std::pair<
 using PropertiesType =
     boost::container::flat_map<std::string, dbus::utility::DbusVariantType>;
 
-inline void getIntrusionByService(std::shared_ptr<bmcweb::AsyncResp> aResp,
-                                  const std::string& service,
-                                  const std::string& objPath)
+inline void
+    getIntrusionByService(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
+                          const std::string& service,
+                          const std::string& objPath)
 {
     BMCWEB_LOG_DEBUG << "Get intrusion status by service \n";
 
@@ -108,7 +109,8 @@ inline void getIntrusionByService(std::shared_ptr<bmcweb::AsyncResp> aResp,
 /**
  * Retrieves physical security properties over dbus
  */
-inline void getPhysicalSecurityData(std::shared_ptr<bmcweb::AsyncResp> aResp)
+inline void
+    getPhysicalSecurityData(const std::shared_ptr<bmcweb::AsyncResp>& aResp)
 {
     crow::connections::systemBus->async_method_call(
         [aResp{std::move(aResp)}](
