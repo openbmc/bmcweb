@@ -70,6 +70,24 @@
       "parentUuid": "bb415ee7_2c3ffe6b",
       "revId": "000478c80be4cb6e39079681b5d7b8dc14d04898",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "366b68b9_50fd32a1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-02-15T00:29:29Z",
+      "side": 1,
+      "message": "\u003e What can easily happen (happened in our validation) is that the user takes the existing servers and just append another one without checking if it is already there. This is why removing duplicates in patch made sense to me.\n\nand we should return an appropriate error when that happens, so the validation teams can go fix their script to do the spec-appropriate thing.  IMO, they shouldn\u0027t just be unconditionally appending to this.  They should be outright replacing, but it\u0027s not my test, so that part is up to them.  \n\nPATCH NtpServers: [\"1.1.1.1\", \"1.1.1.1\"] is invalid, and shouldn\u0027t be accepted.\n\n\nWith taht said, that\u0027s not what this patch is about.  We can fix that bug in another patch.",
+      "parentUuid": "1becde56_28b65662",
+      "revId": "000478c80be4cb6e39079681b5d7b8dc14d04898",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
