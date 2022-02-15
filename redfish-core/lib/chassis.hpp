@@ -35,15 +35,15 @@ namespace redfish
  *
  * @return None.
  */
-inline void getChassisState(std::shared_ptr<bmcweb::AsyncResp> aResp)
+inline void getChassisState(const std::shared_ptr<bmcweb::AsyncResp>& aResp)
 {
     // crow::connections::systemBus->async_method_call(
     sdbusplus::asio::getProperty<std::string>(
         *crow::connections::systemBus, "xyz.openbmc_project.State.Chassis",
         "/xyz/openbmc_project/state/chassis0",
         "xyz.openbmc_project.State.Chassis", "CurrentPowerState",
-        [aResp{std::move(aResp)}](const boost::system::error_code ec,
-                                  const std::string& chassisState) {
+        [aResp{aResp}](const boost::system::error_code ec,
+                       const std::string& chassisState) {
             if (ec)
             {
                 if (ec == boost::system::errc::host_unreachable)
@@ -88,17 +88,18 @@ using ManagedObjectsType = std::vector<std::pair<
 using PropertiesType =
     boost::container::flat_map<std::string, dbus::utility::DbusVariantType>;
 
-inline void getIntrusionByService(std::shared_ptr<bmcweb::AsyncResp> aResp,
-                                  const std::string& service,
-                                  const std::string& objPath)
+inline void
+    getIntrusionByService(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
+                          const std::string& service,
+                          const std::string& objPath)
 {
     BMCWEB_LOG_DEBUG << "Get intrusion status by service \n";
 
     sdbusplus::asio::getProperty<std::string>(
         *crow::connections::systemBus, service, objPath,
         "xyz.openbmc_project.Chassis.Intrusion", "Status",
-        [aResp{std::move(aResp)}](const boost::system::error_code ec,
-                                  const std::string& value) {
+        [aResp{aResp}](const boost::system::error_code ec,
+                       const std::string& value) {
             if (ec)
             {
                 // do not add err msg in redfish response, because this is not
@@ -115,10 +116,11 @@ inline void getIntrusionByService(std::shared_ptr<bmcweb::AsyncResp> aResp,
 /**
  * Retrieves physical security properties over dbus
  */
-inline void getPhysicalSecurityData(std::shared_ptr<bmcweb::AsyncResp> aResp)
+inline void
+    getPhysicalSecurityData(const std::shared_ptr<bmcweb::AsyncResp>& aResp)
 {
     crow::connections::systemBus->async_method_call(
-        [aResp{std::move(aResp)}](
+        [aResp{aResp}](
             const boost::system::error_code ec,
             const std::vector<std::pair<
                 std::string,

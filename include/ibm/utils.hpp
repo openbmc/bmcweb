@@ -13,13 +13,13 @@ namespace ibm_utils
 inline bool createDirectory(const std::string_view path)
 {
     // Create persistent directory
-    std::error_code ec;
+    std::error_code error;
 
     BMCWEB_LOG_DEBUG << "Creating persistent directory : " << path;
 
-    bool dirCreated = std::filesystem::create_directories(path, ec);
+    bool dirCreated = std::filesystem::create_directories(path, error);
 
-    if (ec)
+    if (error)
     {
         BMCWEB_LOG_ERROR << "Failed to create persistent directory : " << path;
         return false;

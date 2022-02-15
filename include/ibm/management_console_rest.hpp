@@ -45,7 +45,6 @@ inline void handleFilePut(const crow::Request& req,
                           const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                           const std::string& fileID)
 {
-    std::error_code ec;
     // Check the content-type of the request
     boost::beast::string_view contentType = req.getHeaderValue("content-type");
     if (!boost::iequals(contentType, "application/octet-stream"))
@@ -73,41 +72,44 @@ inline void handleFilePut(const crow::Request& req,
         "/var/lib/bmcweb/ibm-management-console/configfiles");
 
     // Get the current size of the savearea directory
-    std::filesystem::recursive_directory_iterator iter(loc, ec);
-    if (ec)
+    std::error_code iterErr;
+    std::filesystem::recursive_directory_iterator iter(loc, iterErr);
+    if (iterErr)
     {
         asyncResp->res.result(
             boost::beast::http::status::internal_server_error);
         asyncResp->res.jsonValue["Description"] = internalServerError;
         BMCWEB_LOG_DEBUG << "handleIbmPut: Failed to prepare save-area "
-                            "directory iterator. ec : "
-                         << ec;
+                            "directory iterator. iterErr : "
+                         << iterErr;
         return;
     }
     std::uintmax_t saveAreaDirSize = 0;
-    for (const auto& it : iter)
+    for (const auto& dirEntry : iter)
     {
-        if (!std::filesystem::is_directory(it, ec))
+        std::error_code dirErr;
+        if (!std::filesystem::is_directory(dirEntry, dirErr))
         {
-            if (ec)
+            if (dirErr)
             {
                 asyncResp->res.result(
                     boost::beast::http::status::internal_server_error);
                 asyncResp->res.jsonValue["Description"] = internalServerError;
                 BMCWEB_LOG_DEBUG << "handleIbmPut: Failed to find save-area "
-                                    "directory . ec : "
-                                 << ec;
+                                    "directory . dirErr : "
+                                 << dirErr;
                 return;
             }
-            std::uintmax_t fileSize = std::filesystem::file_size(it, ec);
-            if (ec)
+            std::uintmax_t fileSize =
+                std::filesystem::file_size(dirEntry, dirErr);
+            if (dirErr)
             {
                 asyncResp->res.result(
                     boost::beast::http::status::internal_server_error);
                 asyncResp->res.jsonValue["Description"] = internalServerError;
                 BMCWEB_LOG_DEBUG << "handleIbmPut: Failed to find save-area "
-                                    "file size inside the directory . ec : "
-                                 << ec;
+                                    "file size inside the directory . dirErr : "
+                                 << dirErr;
                 return;
             }
             saveAreaDirSize += fileSize;
@@ -139,14 +141,16 @@ inline void handleFilePut(const crow::Request& req,
     BMCWEB_LOG_DEBUG << "Writing to the file: " << loc.string();
 
     // Check if the same file exists in the directory
-    bool fileExists = std::filesystem::exists(loc, ec);
-    if (ec)
+    std::error_code existsErr;
+    bool fileExists = std::filesystem::exists(loc, existsErr);
+    if (existsErr)
     {
         asyncResp->res.result(
             boost::beast::http::status::internal_server_error);
         asyncResp->res.jsonValue["Description"] = internalServerError;
-        BMCWEB_LOG_DEBUG << "handleIbmPut: Failed to find if file exists. ec : "
-                         << ec;
+        BMCWEB_LOG_DEBUG
+            << "handleIbmPut: Failed to find if file exists. existsErr : "
+            << existsErr;
         return;
     }
 
@@ -154,14 +158,17 @@ inline void handleFilePut(const crow::Request& req,
     if (fileExists)
     {
         // File exists. Get the current file size
-        std::uintmax_t currentFileSize = std::filesystem::file_size(loc, ec);
-        if (ec)
+        std::error_code sizeErr;
+        std::uintmax_t currentFileSize =
+            std::filesystem::file_size(loc, sizeErr);
+        if (sizeErr)
         {
             asyncResp->res.result(
                 boost::beast::http::status::internal_server_error);
             asyncResp->res.jsonValue["Description"] = internalServerError;
-            BMCWEB_LOG_DEBUG << "handleIbmPut: Failed to find file size. ec : "
-                             << ec;
+            BMCWEB_LOG_DEBUG
+                << "handleIbmPut: Failed to find file size. sizeErr : "
+                << sizeErr;
             return;
         }
         // Calculate the difference in the file size.
@@ -263,20 +270,20 @@ inline void
     deleteConfigFiles(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
     std::vector<std::string> pathObjList;
-    std::error_code ec;
     std::filesystem::path loc(
         "/var/lib/bmcweb/ibm-management-console/configfiles");
     if (std::filesystem::exists(loc) && std::filesystem::is_directory(loc))
     {
-        std::filesystem::remove_all(loc, ec);
-        if (ec)
+        std::error_code removeErr;
+        std::filesystem::remove_all(loc, removeErr);
+        if (removeErr)
         {
             asyncResp->res.result(
                 boost::beast::http::status::internal_server_error);
             asyncResp->res.jsonValue["Description"] = internalServerError;
             BMCWEB_LOG_DEBUG << "deleteConfigFiles: Failed to delete the "
-                                "config files directory. ec : "
-                             << ec;
+                                "config files directory. removeErr : "
+                             << removeErr;
         }
     }
 }
@@ -430,14 +437,14 @@ inline void
 
         BMCWEB_LOG_DEBUG << "Segment Flags are present";
 
-        for (auto& e : segmentFlags)
+        for (auto& segmentFlag : segmentFlags)
         {
             std::string lockFlags;
             uint32_t segmentLength = 0;
 
-            if (!redfish::json_util::readJson(e, asyncResp->res, "LockFlag",
-                                              lockFlags, "SegmentLength",
-                                              segmentLength))
+            if (!redfish::json_util::readJson(segmentFlag, asyncResp->res,
+                                              "LockFlag", lockFlags,
+                                              "SegmentLength", segmentLength))
             {
                 asyncResp->res.result(boost::beast::http::status::bad_request);
                 return;
@@ -455,22 +462,21 @@ inline void
 
     // print lock request into journal
 
-    for (auto& i : lockRequestStructure)
+    for (auto& lockRequest : lockRequestStructure)
     {
-        BMCWEB_LOG_DEBUG << std::get<0>(i);
-        BMCWEB_LOG_DEBUG << std::get<1>(i);
-        BMCWEB_LOG_DEBUG << std::get<2>(i);
-        BMCWEB_LOG_DEBUG << std::get<3>(i);
+        BMCWEB_LOG_DEBUG << std::get<0>(lockRequest);
+        BMCWEB_LOG_DEBUG << std::get<1>(lockRequest);
+        BMCWEB_LOG_DEBUG << std::get<2>(lockRequest);
+        BMCWEB_LOG_DEBUG << std::get<3>(lockRequest);
 
-        for (const auto& p : std::get<4>(i))
+        for (const auto& lock : std::get<4>(lockRequest))
         {
-            BMCWEB_LOG_DEBUG << p.first << ", " << p.second;
+            BMCWEB_LOG_DEBUG << lock.first << ", " << lock.second;
         }
     }
 
-    const LockRequests& t = lockRequestStructure;
-
-    auto varAcquireLock = crow::ibm_mc_lock::Lock::getInstance().acquireLock(t);
+    auto varAcquireLock = crow::ibm_mc_lock::Lock::getInstance().acquireLock(
+        lockRequestStructure);
 
     if (varAcquireLock.first)
     {
@@ -521,10 +527,10 @@ inline void
         returnJson["LockType"] = std::get<2>(var.second);
         returnJson["ResourceID"] = std::get<3>(var.second);
 
-        for (auto& i : std::get<4>(var.second))
+        for (auto& lockFlag : std::get<4>(var.second))
         {
-            segments["LockFlag"] = i.first;
-            segments["SegmentLength"] = i.second;
+            segments["LockFlag"] = lockFlag.first;
+            segments["SegmentLength"] = lockFlag.second;
             myarray.push_back(segments);
         }
 
@@ -589,10 +595,10 @@ inline void
     returnJson["LockType"] = std::get<2>(var.second);
     returnJson["ResourceID"] = std::get<3>(var.second);
 
-    for (auto& i : std::get<4>(var.second))
+    for (auto& lockFlag : std::get<4>(var.second))
     {
-        segments["LockFlag"] = i.first;
-        segments["SegmentLength"] = i.second;
+        segments["LockFlag"] = lockFlag.first;
+        segments["SegmentLength"] = lockFlag.second;
         myArray.push_back(segments);
     }
 

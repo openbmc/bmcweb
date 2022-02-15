@@ -106,22 +106,22 @@ namespace fs = std::filesystem;
 using GetManagedPropertyType =
     boost::container::flat_map<std::string, dbus::utility::DbusVariantType>;
 
-inline std::string translateSeverityDbusToRedfish(const std::string& s)
+inline std::string translateSeverityDbusToRedfish(const std::string& severity)
 {
-    if ((s == "xyz.openbmc_project.Logging.Entry.Level.Alert") ||
-        (s == "xyz.openbmc_project.Logging.Entry.Level.Critical") ||
-        (s == "xyz.openbmc_project.Logging.Entry.Level.Emergency") ||
-        (s == "xyz.openbmc_project.Logging.Entry.Level.Error"))
+    if ((severity == "xyz.openbmc_project.Logging.Entry.Level.Alert") ||
+        (severity == "xyz.openbmc_project.Logging.Entry.Level.Critical") ||
+        (severity == "xyz.openbmc_project.Logging.Entry.Level.Emergency") ||
+        (severity == "xyz.openbmc_project.Logging.Entry.Level.Error"))
     {
         return "Critical";
     }
-    if ((s == "xyz.openbmc_project.Logging.Entry.Level.Debug") ||
-        (s == "xyz.openbmc_project.Logging.Entry.Level.Informational") ||
-        (s == "xyz.openbmc_project.Logging.Entry.Level.Notice"))
+    if ((severity == "xyz.openbmc_project.Logging.Entry.Level.Debug") ||
+        (severity == "xyz.openbmc_project.Logging.Entry.Level.Informational") ||
+        (severity == "xyz.openbmc_project.Logging.Entry.Level.Notice"))
     {
         return "OK";
     }
-    if (s == "xyz.openbmc_project.Logging.Entry.Level.Warning")
+    if (severity == "xyz.openbmc_project.Logging.Entry.Level.Warning")
     {
         return "Warning";
     }
@@ -185,12 +185,14 @@ inline static bool getEntryTimestamp(sd_journal* journal,
 static bool getSkipParam(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                          const crow::Request& req, uint64_t& skip)
 {
-    boost::urls::params_view::iterator it = req.urlView.params().find("$skip");
-    if (it != req.urlView.params().end())
+    boost::urls::params_view::iterator skipVal =
+        req.urlView.params().find("$skip");
+    if (skipVal != req.urlView.params().end())
     {
-        std::from_chars_result r = std::from_chars(
-            (*it).value.data(), (*it).value.data() + (*it).value.size(), skip);
-        if (r.ec != std::errc())
+        std::from_chars_result skipCharResult = std::from_chars(
+            (*skipVal).value.data(),
+            (*skipVal).value.data() + (*skipVal).value.size(), skip);
+        if (skipCharResult.ec != std::errc())
         {
             messages::queryParameterValueTypeError(asyncResp->res, "", "$skip");
             return false;
@@ -203,12 +205,14 @@ static constexpr const uint64_t maxEntriesPerPage = 1000;
 static bool getTopParam(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                         const crow::Request& req, uint64_t& top)
 {
-    boost::urls::params_view::iterator it = req.urlView.params().find("$top");
-    if (it != req.urlView.params().end())
+    boost::urls::params_view::iterator topVal =
+        req.urlView.params().find("$top");
+    if (topVal != req.urlView.params().end())
     {
-        std::from_chars_result r = std::from_chars(
-            (*it).value.data(), (*it).value.data() + (*it).value.size(), top);
-        if (r.ec != std::errc())
+        std::from_chars_result topCharResult = std::from_chars(
+            (*topVal).value.data(),
+            (*topVal).value.data() + (*topVal).value.size(), top);
+        if (topCharResult.ec != std::errc())
         {
             messages::queryParameterValueTypeError(asyncResp->res, "", "$top");
             return false;
@@ -724,10 +728,11 @@ inline void
                            const std::string& dumpType)
 {
     std::shared_ptr<task::TaskData> task = task::TaskData::createTask(
-        [dumpId, dumpPath, dumpType](
-            boost::system::error_code err, sdbusplus::message::message& m,
-            const std::shared_ptr<task::TaskData>& taskData) {
-            if (err)
+        [dumpId, dumpPath,
+         dumpType](boost::system::error_code error,
+                   sdbusplus::message::message& message,
+                   const std::shared_ptr<task::TaskData>& taskData) {
+            if (error)
             {
                 BMCWEB_LOG_ERROR << "Error in creating a dump";
                 taskData->state = "Cancelled";
@@ -740,7 +745,7 @@ inline void
 
             sdbusplus::message::object_path objPath;
 
-            m.read(objPath, interfacesList);
+            message.read(objPath, interfacesList);
 
             if (objPath.str ==
                 "/xyz/openbmc_project/dump/" +
@@ -1061,18 +1066,18 @@ inline void requestRoutesJournalEventLogClear(App& app)
                 {
                     for (const std::filesystem::path& file : redfishLogFiles)
                     {
-                        std::error_code ec;
-                        std::filesystem::remove(file, ec);
+                        std::error_code error;
+                        std::filesystem::remove(file, error);
                     }
                 }
 
                 // Reload rsyslog so it knows to start new log files
                 crow::connections::systemBus->async_method_call(
-                    [asyncResp](const boost::system::error_code ec) {
-                        if (ec)
+                    [asyncResp](const boost::system::error_code error) {
+                        if (error)
                         {
                             BMCWEB_LOG_ERROR << "Failed to reload rsyslog: "
-                                             << ec;
+                                             << error;
                             messages::internalError(asyncResp->res);
                             return;
                         }
@@ -1142,10 +1147,10 @@ static int fillEventLogEntryJson(const std::string& logEntryID,
         messageArgs = {&messageArgsStart, messageArgsSize};
 
         // Fill the MessageArgs into the Message
-        int i = 0;
+        int paramIndex = 0;
         for (const std::string& messageArg : messageArgs)
         {
-            std::string argStr = "%" + std::to_string(++i);
+            std::string argStr = "%" + std::to_string(++paramIndex);
             size_t argPos = msg.find(argStr);
             if (argPos != std::string::npos)
             {
@@ -1374,7 +1379,7 @@ inline void requestRoutesDBusEventLogEntryCollection(App& app)
                     entriesArray = nlohmann::json::array();
                     for (const auto& objectPath : resp)
                     {
-                        const uint32_t* id = nullptr;
+                        const uint32_t* entryId = nullptr;
                         const uint64_t* timestamp = nullptr;
                         const uint64_t* updateTimestamp = nullptr;
                         const std::string* severity = nullptr;
@@ -1391,7 +1396,7 @@ inline void requestRoutesDBusEventLogEntryCollection(App& app)
                                 {
                                     if (propertyMap.first == "Id")
                                     {
-                                        id = std::get_if<uint32_t>(
+                                        entryId = std::get_if<uint32_t>(
                                             &propertyMap.second);
                                     }
                                     else if (propertyMap.first == "Timestamp")
@@ -1429,7 +1434,7 @@ inline void requestRoutesDBusEventLogEntryCollection(App& app)
                                         resolved = *resolveptr;
                                     }
                                 }
-                                if (id == nullptr || message == nullptr ||
+                                if (entryId == nullptr || message == nullptr ||
                                     severity == nullptr)
                                 {
                                     messages::internalError(asyncResp->res);
@@ -1453,7 +1458,7 @@ inline void requestRoutesDBusEventLogEntryCollection(App& app)
                         // Object path without the
                         // xyz.openbmc_project.Logging.Entry interface, ignore
                         // and continue.
-                        if (id == nullptr || message == nullptr ||
+                        if (entryId == nullptr || message == nullptr ||
                             severity == nullptr || timestamp == nullptr ||
                             updateTimestamp == nullptr)
                         {
@@ -1464,9 +1469,9 @@ inline void requestRoutesDBusEventLogEntryCollection(App& app)
                         thisEntry["@odata.type"] = "#LogEntry.v1_8_0.LogEntry";
                         thisEntry["@odata.id"] =
                             "/redfish/v1/Systems/system/LogServices/EventLog/Entries/" +
-                            std::to_string(*id);
+                            std::to_string(*entryId);
                         thisEntry["Name"] = "System Event Log Entry";
-                        thisEntry["Id"] = std::to_string(*id);
+                        thisEntry["Id"] = std::to_string(*entryId);
                         thisEntry["Message"] = *message;
                         thisEntry["Resolved"] = resolved;
                         thisEntry["EntryType"] = "Event";
@@ -1480,7 +1485,7 @@ inline void requestRoutesDBusEventLogEntryCollection(App& app)
                         {
                             thisEntry["AdditionalDataURI"] =
                                 "/redfish/v1/Systems/system/LogServices/EventLog/Entries/" +
-                                std::to_string(*id) + "/attachment";
+                                std::to_string(*entryId) + "/attachment";
                         }
                     }
                     std::sort(entriesArray.begin(), entriesArray.end(),
@@ -1529,7 +1534,7 @@ inline void requestRoutesDBusEventLogEntry(App& app)
                             messages::internalError(asyncResp->res);
                             return;
                         }
-                        const uint32_t* id = nullptr;
+                        const uint32_t* entryId = nullptr;
                         const uint64_t* timestamp = nullptr;
                         const uint64_t* updateTimestamp = nullptr;
                         const std::string* severity = nullptr;
@@ -1541,7 +1546,8 @@ inline void requestRoutesDBusEventLogEntry(App& app)
                         {
                             if (propertyMap.first == "Id")
                             {
-                                id = std::get_if<uint32_t>(&propertyMap.second);
+                                entryId =
+                                    std::get_if<uint32_t>(&propertyMap.second);
                             }
                             else if (propertyMap.first == "Timestamp")
                             {
@@ -1580,7 +1586,7 @@ inline void requestRoutesDBusEventLogEntry(App& app)
                                     &propertyMap.second);
                             }
                         }
-                        if (id == nullptr || message == nullptr ||
+                        if (entryId == nullptr || message == nullptr ||
                             severity == nullptr || timestamp == nullptr ||
                             updateTimestamp == nullptr)
                         {
@@ -1591,10 +1597,11 @@ inline void requestRoutesDBusEventLogEntry(App& app)
                             "#LogEntry.v1_8_0.LogEntry";
                         asyncResp->res.jsonValue["@odata.id"] =
                             "/redfish/v1/Systems/system/LogServices/EventLog/Entries/" +
-                            std::to_string(*id);
+                            std::to_string(*entryId);
                         asyncResp->res.jsonValue["Name"] =
                             "System Event Log Entry";
-                        asyncResp->res.jsonValue["Id"] = std::to_string(*id);
+                        asyncResp->res.jsonValue["Id"] =
+                            std::to_string(*entryId);
                         asyncResp->res.jsonValue["Message"] = *message;
                         asyncResp->res.jsonValue["Resolved"] = resolved;
                         asyncResp->res.jsonValue["EntryType"] = "Event";
@@ -1608,7 +1615,7 @@ inline void requestRoutesDBusEventLogEntry(App& app)
                         {
                             asyncResp->res.jsonValue["AdditionalDataURI"] =
                                 "/redfish/v1/Systems/system/LogServices/EventLog/attachment/" +
-                                std::to_string(*id);
+                                std::to_string(*entryId);
                         }
                     },
                     "xyz.openbmc_project.Logging",
@@ -1737,15 +1744,14 @@ inline void requestRoutesDBusEventLogEntryDownload(App& app)
                             return;
                         }
 
-                        int fd = -1;
-                        fd = dup(unixfd);
-                        if (fd == -1)
+                        int fileHandle = dup(unixfd);
+                        if (fileHandle == -1)
                         {
                             messages::internalError(asyncResp->res);
                             return;
                         }
 
-                        long long int size = lseek(fd, 0, SEEK_END);
+                        long long int size = lseek(fileHandle, 0, SEEK_END);
                         if (size == -1)
                         {
                             messages::internalError(asyncResp->res);
@@ -1763,19 +1769,20 @@ inline void requestRoutesDBusEventLogEntryDownload(App& app)
                             return;
                         }
                         std::vector<char> data(static_cast<size_t>(size));
-                        long long int rc = lseek(fd, 0, SEEK_SET);
-                        if (rc == -1)
+                        long long int seekRet = lseek(fileHandle, 0, SEEK_SET);
+                        if (seekRet == -1)
                         {
                             messages::internalError(asyncResp->res);
                             return;
                         }
-                        rc = read(fd, data.data(), data.size());
-                        if ((rc == -1) || (rc != size))
+                        ssize_t readRet =
+                            read(fileHandle, data.data(), data.size());
+                        if ((readRet == -1) || (readRet != size))
                         {
                             messages::internalError(asyncResp->res);
                             return;
                         }
-                        close(fd);
+                        close(fileHandle);
 
                         std::string_view strData(data.data(), data.size());
                         std::string output =
@@ -1799,21 +1806,21 @@ inline bool
     getHostLoggerFiles(const std::string& hostLoggerFilePath,
                        std::vector<std::filesystem::path>& hostLoggerFiles)
 {
-    std::error_code ec;
-    std::filesystem::directory_iterator logPath(hostLoggerFilePath, ec);
-    if (ec)
+    std::error_code error;
+    std::filesystem::directory_iterator logPath(hostLoggerFilePath, error);
+    if (error)
     {
-        BMCWEB_LOG_ERROR << ec.message();
+        BMCWEB_LOG_ERROR << error.message();
         return false;
     }
-    for (const std::filesystem::directory_entry& it : logPath)
+    for (const std::filesystem::directory_entry& file : logPath)
     {
-        std::string filename = it.path().filename();
+        std::string filename = file.path().filename();
         // Prefix of each log files is "log". Find the file and save the
         // path
         if (boost::starts_with(filename, "log"))
         {
-            hostLoggerFiles.emplace_back(it.path());
+            hostLoggerFiles.emplace_back(file.path());
         }
     }
     // As the log files rotate, they are appended with a ".#" that is higher for
@@ -1833,9 +1840,10 @@ inline bool
     GzFileReader logFile;
 
     // Go though all log files and expose host logs.
-    for (const std::filesystem::path& it : hostLoggerFiles)
+    for (const std::filesystem::path& hostLoggerFile : hostLoggerFiles)
     {
-        if (!logFile.gzGetLines(it.string(), skip, top, logEntries, logCount))
+        if (!logFile.gzGetLines(hostLoggerFile.string(), skip, top, logEntries,
+                                logCount))
         {
             BMCWEB_LOG_ERROR << "fail to expose host logs";
             return false;
@@ -2257,9 +2265,9 @@ inline void requestRoutesBMCJournalLogEntry(App& app)
                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                const std::string& entryID) {
                 // Convert the unique ID back to a timestamp to find the entry
-                uint64_t ts = 0;
+                uint64_t timestamp = 0;
                 uint64_t index = 0;
-                if (!getTimestampFromID(asyncResp, entryID, ts, index))
+                if (!getTimestampFromID(asyncResp, entryID, timestamp, index))
                 {
                     return;
                 }
@@ -2280,7 +2288,7 @@ inline void requestRoutesBMCJournalLogEntry(App& app)
                 // index tracking the unique ID
                 std::string idStr;
                 bool firstEntry = true;
-                ret = sd_journal_seek_realtime_usec(journal.get(), ts);
+                ret = sd_journal_seek_realtime_usec(journal.get(), timestamp);
                 if (ret < 0)
                 {
                     BMCWEB_LOG_ERROR << "failed to seek to an entry in journal"
@@ -3175,10 +3183,10 @@ static void fillPostCodeEntry(
             msg = message->message;
 
             // fill in this post code value
-            int i = 0;
+            int logIndex = 0;
             for (const std::string& messageArg : messageArgs)
             {
-                std::string argStr = "%" + std::to_string(++i);
+                std::string argStr = "%" + std::to_string(++logIndex);
                 size_t argPos = msg.find(argStr);
                 if (argPos != std::string::npos)
                 {
@@ -3458,17 +3466,18 @@ inline void requestRoutesPostCodesEntryAdditionalData(App& app)
                             return;
                         }
 
-                        const auto& [tID, c] = postcodes[value];
-                        if (c.empty())
+                        const auto& [tID, postVector] = postcodes[value];
+                        if (postVector.empty())
                         {
                             BMCWEB_LOG_INFO << "No found post code data";
                             messages::resourceNotFound(asyncResp->res,
                                                        "LogEntry", postCodeID);
                             return;
                         }
+                        const uint8_t* ptr = postVector.data();
                         // NOLINTNEXTLINE(cppcoreguidelines-pro-type-reinterpret-cast)
-                        const char* d = reinterpret_cast<const char*>(c.data());
-                        std::string_view strData(d, c.size());
+                        const char* pos = reinterpret_cast<const char*>(ptr);
+                        std::string_view strData(pos, postVector.size());
 
                         asyncResp->res.addHeader("Content-Type",
                                                  "application/octet-stream");

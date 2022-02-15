@@ -48,16 +48,16 @@ using MessageEntry = std::pair<const char*, const Message>;
 inline void fillMessageArgs(const std::span<const std::string_view> messageArgs,
                             std::string& msg)
 {
-    int i = 0;
+    int msgArgsIndex = 0;
     for (const std::string_view& messageArg : messageArgs)
     {
-        std::string argStr = "%" + std::to_string(i + 1);
+        std::string argStr = "%" + std::to_string(msgArgsIndex + 1);
         size_t argPos = msg.find(argStr);
         if (argPos != std::string::npos)
         {
             msg.replace(argPos, argStr.length(), messageArg);
         }
-        i++;
+        msgArgsIndex++;
     }
 }
 

@@ -266,9 +266,9 @@ inline int formatEventLogEntry(const std::string& logEntryID,
 } // namespace event_log
 #endif
 
-inline bool isFilterQuerySpecialChar(char c)
+inline bool isFilterQuerySpecialChar(char character)
 {
-    switch (c)
+    switch (character)
     {
         case '(':
         case ')':
@@ -306,7 +306,7 @@ inline bool
     for (std::size_t i = 0; i < result.size(); i += divisor)
     {
         std::string& key = result[i];
-        std::string& op = result[i + 1];
+        std::string& operation = result[i + 1];
         std::string& value = result[i + 2];
 
         if ((i + minTokenSize) < result.size())
@@ -322,7 +322,7 @@ inline bool
         }
 
         // SSE supports only "eq" as per spec.
-        if (op != "eq")
+        if (operation != "eq")
         {
             BMCWEB_LOG_ERROR
                 << "Invalid assignment operator in SSE query parameters";
@@ -394,8 +394,8 @@ class Subscription : public persistent_data::UserSubscription
         {
             // create the HttpClient connection
             conn = std::make_shared<crow::HttpClient>(
-                crow::connections::systemBus->get_io_context(), id, host, port,
-                path, httpHeaders);
+                crow::connections::systemBus->get_io_context(), subId, host,
+                port, path, httpHeaders);
         }
 
         conn->sendData(msg);
@@ -504,7 +504,8 @@ class Subscription : public persistent_data::UserSubscription
     void filterAndSendReports(const std::string& reportId,
                               const telemetry::TimestampReadings& var)
     {
-        std::string mrdUri = telemetry::metricReportDefinitionUri + ("/" + id);
+        std::string mrdUri =
+            telemetry::metricReportDefinitionUri + ("/" + subId);
 
         // Empty list means no filter. Send everything.
         if (!metricReportDefinitions.empty())
@@ -580,7 +581,7 @@ class EventServiceManager
     size_t noOfMetricReportSubscribers{0};
     std::shared_ptr<sdbusplus::bus::match::match> matchTelemetryMonitor;
     boost::container::flat_map<std::string, std::shared_ptr<Subscription>>
-        subscriptionsMap;
+        subscriptionsMap{};
 
     uint64_t eventId{1};
 
@@ -609,11 +610,12 @@ class EventServiceManager
         retryAttempts = eventServiceConfig.retryAttempts;
         retryTimeoutInterval = eventServiceConfig.retryTimeoutInterval;
 
-        for (const auto& it : persistent_data::EventServiceStore::getInstance()
-                                  .subscriptionsConfigMap)
+        for (const auto& subscriptionPtr :
+             persistent_data::EventServiceStore::getInstance()
+                 .subscriptionsConfigMap)
         {
             std::shared_ptr<persistent_data::UserSubscription> newSub =
-                it.second;
+                subscriptionPtr.second;
 
             std::string host;
             std::string urlProto;
@@ -631,7 +633,7 @@ class EventServiceManager
             std::shared_ptr<Subscription> subValue =
                 std::make_shared<Subscription>(host, port, path, urlProto);
 
-            subValue->id = newSub->id;
+            subValue->subId = newSub->subId;
             subValue->destinationUrl = newSub->destinationUrl;
             subValue->protocol = newSub->protocol;
             subValue->retryPolicy = newSub->retryPolicy;
@@ -644,11 +646,11 @@ class EventServiceManager
             subValue->httpHeaders = newSub->httpHeaders;
             subValue->metricReportDefinitions = newSub->metricReportDefinitions;
 
-            if (subValue->id.empty())
+            if (subValue->subId.empty())
             {
                 BMCWEB_LOG_ERROR << "Failed to add subscription";
             }
-            subscriptionsMap.insert(std::pair(subValue->id, subValue));
+            subscriptionsMap.insert(std::pair(subValue->subId, subValue));
 
             updateNoOfSubscribersCount();
 
@@ -704,22 +706,22 @@ class EventServiceManager
                     std::uniform_int_distribution<uint32_t> dist(0);
                     bmcweb::OpenSSLGenerator gen;
 
-                    std::string id;
+                    std::string subId;
 
                     int retry = 3;
                     while (retry != 0)
                     {
-                        id = std::to_string(dist(gen));
+                        subId = std::to_string(dist(gen));
                         if (gen.error())
                         {
                             retry = 0;
                             break;
                         }
-                        newSubscription->id = id;
+                        newSubscription->subId = subId;
                         auto inserted =
                             persistent_data::EventServiceStore::getInstance()
                                 .subscriptionsConfigMap.insert(
-                                    std::pair(id, newSubscription));
+                                    std::pair(subId, newSubscription));
                         if (inserted.second)
                         {
                             break;
@@ -796,10 +798,10 @@ class EventServiceManager
         if (updateRetryCfg)
         {
             // Update the changed retry config to all subscriptions
-            for (const auto& it :
+            for (const auto& subscriptionPtr :
                  EventServiceManager::getInstance().subscriptionsMap)
             {
-                std::shared_ptr<Subscription> entry = it.second;
+                std::shared_ptr<Subscription> entry = subscriptionPtr.second;
                 entry->updateRetryConfig(retryAttempts, retryTimeoutInterval);
             }
         }
@@ -809,9 +811,9 @@ class EventServiceManager
     {
         size_t eventLogSubCount = 0;
         size_t metricReportSubCount = 0;
-        for (const auto& it : subscriptionsMap)
+        for (const auto& subscriptionPtr : subscriptionsMap)
         {
-            std::shared_ptr<Subscription> entry = it.second;
+            std::shared_ptr<Subscription> entry = subscriptionPtr.second;
             if (entry->eventFormatType == eventFormatType)
             {
                 eventLogSubCount++;
@@ -856,18 +858,18 @@ class EventServiceManager
         std::uniform_int_distribution<uint32_t> dist(0);
         bmcweb::OpenSSLGenerator gen;
 
-        std::string id;
+        std::string subId;
 
         int retry = 3;
         while (retry != 0)
         {
-            id = std::to_string(dist(gen));
+            subId = std::to_string(dist(gen));
             if (gen.error())
             {
                 retry = 0;
                 break;
             }
-            auto inserted = subscriptionsMap.insert(std::pair(id, subValue));
+            auto inserted = subscriptionsMap.insert(std::pair(subId, subValue));
             if (inserted.second)
             {
                 break;
@@ -883,7 +885,7 @@ class EventServiceManager
 
         std::shared_ptr<persistent_data::UserSubscription> newSub =
             std::make_shared<persistent_data::UserSubscription>();
-        newSub->id = id;
+        newSub->subId = subId;
         newSub->destinationUrl = subValue->destinationUrl;
         newSub->protocol = subValue->protocol;
         newSub->retryPolicy = subValue->retryPolicy;
@@ -896,7 +898,7 @@ class EventServiceManager
         newSub->httpHeaders = subValue->httpHeaders;
         newSub->metricReportDefinitions = subValue->metricReportDefinitions;
         persistent_data::EventServiceStore::getInstance()
-            .subscriptionsConfigMap.emplace(newSub->id, newSub);
+            .subscriptionsConfigMap.emplace(newSub->subId, newSub);
 
         updateNoOfSubscribersCount();
 
@@ -915,7 +917,7 @@ class EventServiceManager
         subValue->updateRetryConfig(retryAttempts, retryTimeoutInterval);
         subValue->updateRetryPolicy();
 
-        return id;
+        return subId;
     }
 
     bool isSubscriptionExist(const std::string& id)
@@ -947,18 +949,18 @@ class EventServiceManager
     std::vector<std::string> getAllIDs()
     {
         std::vector<std::string> idList;
-        for (const auto& it : subscriptionsMap)
+        for (const auto& subscriptionPtr : subscriptionsMap)
         {
-            idList.emplace_back(it.first);
+            idList.emplace_back(subscriptionPtr.first);
         }
         return idList;
     }
 
     bool isDestinationExist(const std::string& destUrl)
     {
-        for (const auto& it : subscriptionsMap)
+        for (const auto& subscriptionPtr : subscriptionsMap)
         {
-            std::shared_ptr<Subscription> entry = it.second;
+            std::shared_ptr<Subscription> entry = subscriptionPtr.second;
             if (entry->destinationUrl == destUrl)
             {
                 BMCWEB_LOG_ERROR << "Destination exist already" << destUrl;
@@ -970,9 +972,9 @@ class EventServiceManager
 
     bool sendTestEventLog()
     {
-        for (const auto& it : this->subscriptionsMap)
+        for (const auto& subscriptionPtr : this->subscriptionsMap)
         {
-            std::shared_ptr<Subscription> entry = it.second;
+            std::shared_ptr<Subscription> entry = subscriptionPtr.second;
             if (!entry->sendTestEventLog())
             {
                 return false;
@@ -1006,9 +1008,9 @@ class EventServiceManager
         }
         eventRecord.push_back(eventMessage);
 
-        for (const auto& it : this->subscriptionsMap)
+        for (const auto& subscriptionPtr : this->subscriptionsMap)
         {
-            std::shared_ptr<Subscription> entry = it.second;
+            std::shared_ptr<Subscription> entry = subscriptionPtr.second;
             bool isSubscribed = false;
             // Search the resourceTypes list for the subscription.
             // If resourceTypes list is empty, don't filter events
@@ -1049,9 +1051,9 @@ class EventServiceManager
     }
     void sendBroadcastMsg(const std::string& broadcastMsg)
     {
-        for (const auto& it : this->subscriptionsMap)
+        for (const auto& subscriptionPtr : this->subscriptionsMap)
         {
-            std::shared_ptr<Subscription> entry = it.second;
+            std::shared_ptr<Subscription> entry = subscriptionPtr.second;
             nlohmann::json msgJson = {
                 {"Timestamp", crow::utility::getDateTimeOffsetNow().first},
                 {"OriginOfCondition", "/ibm/v1/HMC/BroadcastService"},
@@ -1161,9 +1163,9 @@ class EventServiceManager
             return;
         }
 
-        for (const auto& it : this->subscriptionsMap)
+        for (const auto& subscriptionPtr : this->subscriptionsMap)
         {
-            std::shared_ptr<Subscription> entry = it.second;
+            std::shared_ptr<Subscription> entry = subscriptionPtr.second;
             if (entry->eventFormatType == "Event")
             {
                 entry->filterAndSendEventLogs(eventRecords);
@@ -1317,8 +1319,8 @@ class EventServiceManager
         }
 
         sdbusplus::message::object_path path(msg.get_path());
-        std::string id = path.filename();
-        if (id.empty())
+        std::string dbusId = path.filename();
+        if (dbusId.empty())
         {
             BMCWEB_LOG_ERROR << "Failed to get Id from path";
             return;
@@ -1331,8 +1333,9 @@ class EventServiceManager
         msg.read(interface, props, invalidProps);
 
         auto found =
-            std::find_if(props.begin(), props.end(),
-                         [](const auto& x) { return x.first == "Readings"; });
+            std::find_if(props.begin(), props.end(), [](const auto& prop) {
+                return prop.first == "Readings";
+            });
         if (found == props.end())
         {
             BMCWEB_LOG_INFO << "Failed to get Readings from Report properties";
@@ -1347,13 +1350,13 @@ class EventServiceManager
             return;
         }
 
-        for (const auto& it :
+        for (const auto& subscriptionPtr :
              EventServiceManager::getInstance().subscriptionsMap)
         {
-            Subscription& entry = *it.second;
+            Subscription& entry = *subscriptionPtr.second;
             if (entry.eventFormatType == metricReportFormatType)
             {
-                entry.filterAndSendReports(id, *readings);
+                entry.filterAndSendReports(dbusId, *readings);
             }
         }
     }

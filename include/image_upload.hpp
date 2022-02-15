@@ -60,7 +60,7 @@ inline void
     };
 
     std::function<void(sdbusplus::message::message&)> callback =
-        [asyncResp](sdbusplus::message::message& m) {
+        [asyncResp](sdbusplus::message::message& message) {
             BMCWEB_LOG_DEBUG << "Match fired";
 
             sdbusplus::message::object_path path;
@@ -68,11 +68,11 @@ inline void
                 std::string, std::vector<std::pair<
                                  std::string, dbus::utility::DbusVariantType>>>>
                 interfaces;
-            m.read(path, interfaces);
+            message.read(path, interfaces);
 
             if (std::find_if(interfaces.begin(), interfaces.end(),
-                             [](const auto& i) {
-                                 return i.first ==
+                             [](const auto& interface) {
+                                 return interface.first ==
                                         "xyz.openbmc_project.Software.Version";
                              }) != interfaces.end())
             {

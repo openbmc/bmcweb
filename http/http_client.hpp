@@ -65,10 +65,10 @@ class HttpClient : public std::enable_shared_from_this<HttpClient>
     boost::beast::tcp_stream conn;
     boost::asio::steady_timer timer;
     boost::beast::flat_static_buffer<httpReadBodyLimit> buffer;
-    boost::beast::http::request<boost::beast::http::string_body> req;
+    boost::beast::http::request<boost::beast::http::string_body> req{};
     std::optional<
         boost::beast::http::response_parser<boost::beast::http::string_body>>
-        parser;
+        parser{};
     boost::circular_buffer_space_optimized<std::string> requestDataQueue{
         maxRequestQueueSize};
 
@@ -233,14 +233,15 @@ class HttpClient : public std::enable_shared_from_this<HttpClient>
     void doClose()
     {
         state = ConnState::closeInProgress;
-        boost::beast::error_code ec;
-        conn.socket().shutdown(boost::asio::ip::tcp::socket::shutdown_both, ec);
+        boost::beast::error_code error;
+        conn.socket().shutdown(boost::asio::ip::tcp::socket::shutdown_both,
+                               error);
         conn.close();
 
         // not_connected happens sometimes so don't bother reporting it.
-        if (ec && ec != boost::beast::errc::not_connected)
+        if (error && error != boost::beast::errc::not_connected)
         {
-            BMCWEB_LOG_ERROR << "shutdown failed: " << ec.message();
+            BMCWEB_LOG_ERROR << "shutdown failed: " << error.message();
             return;
         }
         BMCWEB_LOG_DEBUG << "Connection closed gracefully";

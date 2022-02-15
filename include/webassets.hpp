@@ -20,9 +20,9 @@ namespace webassets
 
 struct CmpStr
 {
-    bool operator()(const char* a, const char* b) const
+    bool operator()(const char* left, const char* right) const
     {
-        return std::strcmp(a, b) < 0;
+        return std::strcmp(left, right) < 0;
     }
 };
 
@@ -52,10 +52,10 @@ inline void requestRoutes(App& app)
 
     std::filesystem::path rootpath{"/usr/share/www/"};
 
-    std::error_code ec;
+    std::error_code error;
 
-    std::filesystem::recursive_directory_iterator dirIter(rootpath, ec);
-    if (ec)
+    std::filesystem::recursive_directory_iterator dirIter(rootpath, error);
+    if (error)
     {
         BMCWEB_LOG_ERROR << "Unable to find or open " << rootpath.string()
                          << " static file hosting disabled";

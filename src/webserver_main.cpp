@@ -65,11 +65,11 @@ static int run()
 {
     crow::Logger::setLogLevel(crow::LogLevel::Debug);
 
-    auto io = std::make_shared<boost::asio::io_context>();
-    App app(io);
+    auto ioService = std::make_shared<boost::asio::io_context>();
+    App app(ioService);
 
     crow::connections::systemBus =
-        std::make_shared<sdbusplus::asio::connection>(*io);
+        std::make_shared<sdbusplus::asio::connection>(*ioService);
 
     // Static assets need to be initialized before Authorization, because auth
     // needs to build the whitelist from the static routes
@@ -127,11 +127,11 @@ static int run()
 #endif
 
 #ifndef BMCWEB_ENABLE_REDFISH_DBUS_LOG_ENTRIES
-    int rc = redfish::EventServiceManager::startEventLogMonitor(*io);
-    if (rc != 0)
+    int ret = redfish::EventServiceManager::startEventLogMonitor(*ioService);
+    if (ret != 0)
     {
         BMCWEB_LOG_ERROR << "Redfish event handler setup failed...";
-        return rc;
+        return ret;
     }
 #endif
 
@@ -141,7 +141,7 @@ static int run()
 #endif
 
     app.run();
-    io->run();
+    ioService->run();
 
     crow::connections::systemBus.reset();
     return 0;

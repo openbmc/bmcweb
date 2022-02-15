@@ -50,19 +50,20 @@ inline std::string urlEncode(const std::string_view value)
     escaped.fill('0');
     escaped << std::hex;
 
-    for (const char c : value)
+    for (const char character : value)
     {
         // Keep alphanumeric and other accepted characters intact
-        if ((isalnum(c) != 0) || c == '-' || c == '_' || c == '.' || c == '~')
+        if ((isalnum(character) != 0) || character == '-' || character == '_' ||
+            character == '.' || character == '~')
         {
-            escaped << c;
+            escaped << character;
             continue;
         }
 
         // Any other characters are percent-encoded
         escaped << std::uppercase;
         escaped << '%' << std::setw(2)
-                << static_cast<int>(static_cast<unsigned char>(c));
+                << static_cast<int>(static_cast<unsigned char>(character));
         escaped << std::nouppercase;
     }
 

@@ -303,7 +303,9 @@ readability-static-definition-in-anonymous-namespace,
 readability-string-compare,
 readability-suspicious-call-argument,
 readability-uniqueptr-delete-release,
+readability-identifier-length,
 readability-uppercase-literal-suffix'
+
 
 WarningsAsErrors: '*'
 HeaderFilterRegex: '.*'
@@ -314,3 +316,5 @@ CheckOptions:
   - { key: readability-identifier-naming.ParameterCase, value: camelBack }
   - { key: readability-identifier-naming.NamespaceCase, value: lower_case }
   - { key: readability-identifier-naming.StructCase,    value: CamelCase  }
+  - { key: readability-identifier-length.MinimumVariableLength, value: 2 }
+  - { key: readability-identifier-length.MinimumParameterNameLength, value: 2 }

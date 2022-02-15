@@ -204,8 +204,8 @@ inline bool extractHypervisorInterfaceData(
             {
                 std::pair<boost::container::flat_set<IPv4AddressData>::iterator,
                           bool>
-                    it = ipv4Config.insert(IPv4AddressData{});
-                IPv4AddressData& ipv4Address = *it.first;
+                    ip4vIt = ipv4Config.insert(IPv4AddressData{});
+                IPv4AddressData& ipv4Address = *ip4vIt.first;
                 if (ifacePair.first == "xyz.openbmc_project.Object.Enable")
                 {
                     for (const auto& property : ifacePair.second)

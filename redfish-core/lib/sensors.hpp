@@ -259,11 +259,11 @@ class SensorsAsyncResp
 
     const std::shared_ptr<bmcweb::AsyncResp> asyncResp;
     const std::string chassisId;
-    const std::vector<const char*> types;
+    const std::vector<const char*> types{};
     const std::string chassisSubNode;
 
   private:
-    std::optional<std::vector<SensorData>> metadata;
+    std::optional<std::vector<SensorData>> metadata{};
     DataCompleteCb dataComplete;
 };
 
@@ -305,7 +305,7 @@ class InventoryItem
     std::string model;
     std::string partNumber;
     std::string serialNumber;
-    std::set<std::string> sensors;
+    std::set<std::string> sensors{};
     std::string ledObjectPath;
     LedState ledState = LedState::UNKNOWN;
 };
@@ -601,11 +601,11 @@ void getChassis(const std::shared_ptr<SensorsAsyncResp>& sensorsAsyncResp,
             sensorPath, "xyz.openbmc_project.Association", "endpoints",
             [sensorsAsyncResp,
              callback{std::forward<const Callback>(callback)}](
-                const boost::system::error_code& e,
+                const boost::system::error_code& error,
                 const std::vector<std::string>& nodeSensorList) {
-                if (e)
+                if (error)
                 {
-                    if (e.value() != EBADR)
+                    if (error.value() != EBADR)
                     {
                         messages::internalError(
                             sensorsAsyncResp->asyncResp->res);
@@ -1052,24 +1052,24 @@ inline void objectInterfacesToJson(
     }
 
     for (const std::tuple<const char*, const char*,
-                          nlohmann::json::json_pointer>& p : properties)
+                          nlohmann::json::json_pointer>& property : properties)
     {
         for (const auto& [interface, values] : interfacesDict)
         {
-            if (interface != std::get<0>(p))
+            if (interface != std::get<0>(property))
             {
                 continue;
             }
             for (const auto& [valueName, valueVariant] : values)
             {
-                if (valueName != std::get<1>(p))
+                if (valueName != std::get<1>(property))
                 {
                     continue;
                 }
 
                 // The property we want to set may be nested json, so use
                 // a json_pointer for easy indexing into the json structure.
-                const nlohmann::json::json_pointer& key = std::get<2>(p);
+                const nlohmann::json::json_pointer& key = std::get<2>(property);
 
                 // Attempt to pull the int64 directly
                 const int64_t* int64Value = std::get_if<int64_t>(&valueVariant);
@@ -1145,9 +1145,9 @@ inline void populateFanRedundancy(
                     "xyz.openbmc_project.ObjectMapper", path + "/chassis",
                     "xyz.openbmc_project.Association", "endpoints",
                     [path, owner, sensorsAsyncResp](
-                        const boost::system::error_code e,
+                        const boost::system::error_code error,
                         const std::vector<std::string>& endpoints) {
-                        if (e)
+                        if (error)
                         {
                             return; // if they don't have an association we
                                     // can't tell what chassis is
@@ -1166,11 +1166,11 @@ inline void populateFanRedundancy(
                         }
                         crow::connections::systemBus->async_method_call(
                             [path, sensorsAsyncResp](
-                                const boost::system::error_code& err,
+                                const boost::system::error_code& error,
                                 const boost::container::flat_map<
                                     std::string,
                                     dbus::utility::DbusVariantType>& ret) {
-                                if (err)
+                                if (error)
                                 {
                                     return; // don't have to have this
                                             // interface
@@ -1601,10 +1601,10 @@ static void getInventoryItemsData(
     }
 
     // Get inventory item data from current connection
-    auto it = invConnections->nth(invConnectionsIndex);
-    if (it != invConnections->end())
+    auto connectionIt = invConnections->nth(invConnectionsIndex);
+    if (connectionIt != invConnections->end())
     {
-        const std::string& invConnection = *it;
+        const std::string& invConnection = *connectionIt;
 
         // Response handler for GetManagedObjects
         auto respHandler = [sensorsAsyncResp, inventoryItems, invConnections,
@@ -1956,11 +1956,11 @@ void getInventoryLedData(
     }
 
     // Get inventory item data from current connection
-    auto it = ledConnections->nth(ledConnectionsIndex);
-    if (it != ledConnections->end())
+    auto ledConnectionIt = ledConnections->nth(ledConnectionsIndex);
+    if (ledConnectionIt != ledConnections->end())
     {
-        const std::string& ledPath = (*it).first;
-        const std::string& ledConnection = (*it).second;
+        const std::string& ledPath = (*ledConnectionIt).first;
+        const std::string& ledConnection = (*ledConnectionIt).second;
         // Response handler for Get State property
         auto respHandler =
             [sensorsAsyncResp, inventoryItems, ledConnections, ledPath,
@@ -2144,10 +2144,10 @@ void getPowerSupplyAttributesData(
     }
 
     // Assuming just one connection (service) for now
-    auto it = psAttributesConnections.nth(0);
+    auto connection = psAttributesConnections.nth(0);
 
-    const std::string& psAttributesPath = (*it).first;
-    const std::string& psAttributesConnection = (*it).second;
+    const std::string& psAttributesPath = (*connection).first;
+    const std::string& psAttributesConnection = (*connection).second;
 
     // Response handler for Get DeratingFactor property
     auto respHandler = [sensorsAsyncResp, inventoryItems,
@@ -3012,7 +3012,7 @@ inline void requestRoutesSensor(App& app)
                         return;
                     }
 
-                    GetSubTreeType::const_iterator it = std::find_if(
+                    GetSubTreeType::const_iterator sensorIt = std::find_if(
                         subtree.begin(), subtree.end(),
                         [sensorName](
                             const std::pair<
@@ -3032,7 +3032,7 @@ inline void requestRoutesSensor(App& app)
                             return name == sensorName;
                         });
 
-                    if (it == subtree.end())
+                    if (sensorIt == subtree.end())
                     {
                         BMCWEB_LOG_ERROR << "Could not find path for sensor: "
                                          << sensorName;
@@ -3040,7 +3040,7 @@ inline void requestRoutesSensor(App& app)
                                                    "Sensor", sensorName);
                         return;
                     }
-                    std::string_view sensorPath = (*it).first;
+                    std::string_view sensorPath = (*sensorIt).first;
                     BMCWEB_LOG_DEBUG << "Found sensor path for sensor '"
                                      << sensorName << "': " << sensorPath;
 
