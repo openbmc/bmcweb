@@ -52,9 +52,9 @@ class ServerSentEvents : public std::enable_shared_from_this<ServerSentEvents>
     std::shared_ptr<boost::beast::tcp_stream> sseConn;
     std::queue<std::pair<uint64_t, std::string>> requestDataQueue;
     std::string outBuffer;
-    SseConnState state;
-    int retryCount;
-    int maxRetryAttempts;
+    SseConnState state{SseConnState::startInit};
+    int retryCount{0};
+    int maxRetryAttempts{5};
 
     void sendEvent(const std::string& id, const std::string& msg)
     {
@@ -257,8 +257,7 @@ class ServerSentEvents : public std::enable_shared_from_this<ServerSentEvents>
     ServerSentEvents& operator=(ServerSentEvents&&) = delete;
 
     ServerSentEvents(const std::shared_ptr<boost::beast::tcp_stream>& adaptor) :
-        sseConn(adaptor), state(SseConnState::startInit), retryCount(0),
-        maxRetryAttempts(5)
+        sseConn(adaptor)
     {
         startSSE();
     }
