@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e58822b8_98065ba7",
+        "filename": "redfish-core/ut/json_utils_test.cpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-02-15T00:32:31Z",
+      "side": 1,
+      "message": "Please don\u0027t template expand like this in a unit test, as it makes it really hard to use as documentation of the correct behavior.  Also, this template code is basically copied from the readJson handler, so if it\u0027s wrong, we\u0027d never really know.\n\nYes, I know that spreading this out isn\u0027t very DRY, but it does uses that would actually happen in code, and use EXPECT statements to signal what the expected postconditions are.",
+      "range": {
+        "startLine": 11,
+        "startChar": 0,
+        "endLine": 19,
+        "endChar": 0
+      },
+      "revId": "5ea9d36494c26955f597beff7dc7fbd6945c72c2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
