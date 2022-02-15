@@ -2081,7 +2081,8 @@ inline void requestEthernetInterfacesRoutes(App& app)
 
                         if (ipv6StaticAddresses)
                         {
-                            nlohmann::json ipv6Static = *ipv6StaticAddresses;
+                            const nlohmann::json& ipv6Static =
+                                *ipv6StaticAddresses;
                             handleIPv6StaticAddressesPatch(ifaceId, ipv6Static,
                                                            ipv6Data, asyncResp);
                         }

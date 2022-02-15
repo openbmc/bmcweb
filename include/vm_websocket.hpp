@@ -25,7 +25,7 @@ class Handler : public std::enable_shared_from_this<Handler>
 {
   public:
     Handler(const std::string& mediaIn, boost::asio::io_context& ios) :
-        pipeOut(ios), pipeIn(ios), media(mediaIn), doingWrite(false),
+        pipeOut(ios), pipeIn(ios), media(mediaIn),
         outputBuffer(new boost::beast::flat_static_buffer<nbdBufferSize>),
         inputBuffer(new boost::beast::flat_static_buffer<nbdBufferSize>)
     {}
@@ -150,7 +150,7 @@ class Handler : public std::enable_shared_from_this<Handler>
     boost::process::async_pipe pipeIn;
     boost::process::child proxy;
     std::string media;
-    bool doingWrite;
+    bool doingWrite{false};
 
     std::unique_ptr<boost::beast::flat_static_buffer<nbdBufferSize>>
         outputBuffer;
