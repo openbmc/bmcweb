@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b035200c_f35164ff",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1001099
+      },
+      "writtenOn": "2022-02-15T17:33:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "793e4de9_ef0c7cc6",
+      "range": {
+        "startLine": 9,
+        "startChar": 43,
+        "endLine": 9,
+        "endChar": 44
+      },
+      "revId": "523ed534de2e0607ddadefd6b40d50ddf2a2f5dd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e3819471_c133ccd2",
@@ -95,6 +119,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a25c409d_b32acd19",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1001099
+      },
+      "writtenOn": "2022-02-15T17:33:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c822a8e2_2f0faadc",
+      "range": {
+        "startLine": 16,
+        "startChar": 47,
+        "endLine": 17,
+        "endChar": 46
+      },
+      "revId": "523ed534de2e0607ddadefd6b40d50ddf2a2f5dd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "df109d9d_eb9438fe",
@@ -108,6 +156,30 @@
       "writtenOn": "2022-02-08T23:50:07Z",
       "side": 1,
       "message": "Considering that you\u0027ve explicitly called out differences in behavior for various privilege levels, a single curl command doesn\u0027t seem like enough to test this.\n\nPlease also test that when changing a users privilege, that the expected behaviors are locked out.  IE, when you remove the IPMI privilege, you should be testing that ipmitool now fails to login.  When you remove ManagerConsole, ssh should now fail to login.",
+      "range": {
+        "startLine": 22,
+        "startChar": 39,
+        "endLine": 22,
+        "endChar": 68
+      },
+      "revId": "523ed534de2e0607ddadefd6b40d50ddf2a2f5dd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3eab8aa5_17da5947",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1001099
+      },
+      "writtenOn": "2022-02-15T17:33:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "df109d9d_eb9438fe",
       "range": {
         "startLine": 22,
         "startChar": 39,
@@ -155,6 +227,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "220df943_79dcd4cd",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1001099
+      },
+      "writtenOn": "2022-02-15T17:33:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "35cc0edc_b72c1d37",
+      "revId": "523ed534de2e0607ddadefd6b40d50ddf2a2f5dd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "36aa0f80_1706079d",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 5
@@ -193,6 +283,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "df5271a9_6b7a3878",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 1274,
+      "author": {
+        "id": 1001099
+      },
+      "writtenOn": "2022-02-15T17:33:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "61e64f9d_646e3221",
+      "range": {
+        "startLine": 1274,
+        "startChar": 0,
+        "endLine": 1274,
+        "endChar": 78
+      },
+      "revId": "523ed534de2e0607ddadefd6b40d50ddf2a2f5dd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "88ab2c3c_1faa5b11",
@@ -206,6 +320,30 @@
       "writtenOn": "2022-02-08T23:50:07Z",
       "side": 1,
       "message": "typo",
+      "range": {
+        "startLine": 1277,
+        "startChar": 67,
+        "endLine": 1277,
+        "endChar": 72
+      },
+      "revId": "523ed534de2e0607ddadefd6b40d50ddf2a2f5dd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4f2956e4_d034e635",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 1277,
+      "author": {
+        "id": 1001099
+      },
+      "writtenOn": "2022-02-15T17:33:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "88ab2c3c_1faa5b11",
       "range": {
         "startLine": 1277,
         "startChar": 67,
@@ -239,6 +377,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "79d5bfce_7fbe0672",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 1278,
+      "author": {
+        "id": 1001099
+      },
+      "writtenOn": "2022-02-15T17:33:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "12a21b19_6918d2c3",
+      "range": {
+        "startLine": 1278,
+        "startChar": 27,
+        "endLine": 1278,
+        "endChar": 32
+      },
+      "revId": "523ed534de2e0607ddadefd6b40d50ddf2a2f5dd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "80c39161_20328633",
@@ -252,6 +414,30 @@
       "writtenOn": "2022-02-08T23:50:07Z",
       "side": 1,
       "message": "This is the wrong error message.  The property value is in the list of allowed.",
+      "range": {
+        "startLine": 1291,
+        "startChar": 42,
+        "endLine": 1291,
+        "endChar": 64
+      },
+      "revId": "523ed534de2e0607ddadefd6b40d50ddf2a2f5dd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "db167dff_fa3b5feb",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 1291,
+      "author": {
+        "id": 1001099
+      },
+      "writtenOn": "2022-02-15T17:33:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "80c39161_20328633",
       "range": {
         "startLine": 1291,
         "startChar": 42,
@@ -285,6 +471,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "86905dcb_be16967b",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 1303,
+      "author": {
+        "id": 1001099
+      },
+      "writtenOn": "2022-02-15T17:33:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e2dc0a8f_c6f29e0e",
+      "range": {
+        "startLine": 1285,
+        "startChar": 0,
+        "endLine": 1303,
+        "endChar": 52
+      },
+      "revId": "523ed534de2e0607ddadefd6b40d50ddf2a2f5dd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "94b4e7a2_681bbdaf",
@@ -298,6 +508,30 @@
       "writtenOn": "2022-02-08T23:50:07Z",
       "side": 1,
       "message": "Abstract this to its own method.",
+      "range": {
+        "startLine": 1264,
+        "startChar": 0,
+        "endLine": 1327,
+        "endChar": 13
+      },
+      "revId": "523ed534de2e0607ddadefd6b40d50ddf2a2f5dd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c890791c_facf5a83",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 1327,
+      "author": {
+        "id": 1001099
+      },
+      "writtenOn": "2022-02-15T17:33:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "94b4e7a2_681bbdaf",
       "range": {
         "startLine": 1264,
         "startChar": 0,
