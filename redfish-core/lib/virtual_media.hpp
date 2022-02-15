@@ -151,11 +151,11 @@ inline nlohmann::json vmItemTemplate(const std::string& name,
 {
     nlohmann::json item;
 
-    std::string id = "/redfish/v1/Managers/";
-    id += name;
-    id += "/VirtualMedia/";
-    id += resName;
-    item["@odata.id"] = std::move(id);
+    std::string vmId = "/redfish/v1/Managers/";
+    vmId += name;
+    vmId += "/VirtualMedia/";
+    vmId += resName;
+    item["@odata.id"] = std::move(vmId);
 
     item["@odata.type"] = "#VirtualMedia.v1_3_0.VirtualMedia";
     item["Name"] = "Virtual Removable Media";
@@ -172,15 +172,14 @@ inline nlohmann::json vmItemTemplate(const std::string& name,
 /**
  *  @brief Fills collection data
  */
-inline void getVmResourceList(std::shared_ptr<bmcweb::AsyncResp> aResp,
+inline void getVmResourceList(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
                               const std::string& service,
                               const std::string& name)
 {
     BMCWEB_LOG_DEBUG << "Get available Virtual Media resources.";
     crow::connections::systemBus->async_method_call(
-        [name,
-         aResp{std::move(aResp)}](const boost::system::error_code ec,
-                                  dbus::utility::ManagedObjectType& subtree) {
+        [name, aResp{aResp}](const boost::system::error_code ec,
+                             dbus::utility::ManagedObjectType& subtree) {
             if (ec)
             {
                 BMCWEB_LOG_DEBUG << "DBUS response error";
@@ -198,12 +197,12 @@ inline void getVmResourceList(std::shared_ptr<bmcweb::AsyncResp> aResp,
                     continue;
                 }
 
-                std::string id = "/redfish/v1/Managers/";
-                id += name;
-                id += "/VirtualMedia/";
-                id += path;
+                std::string vmId = "/redfish/v1/Managers/";
+                vmId += name;
+                vmId += "/VirtualMedia/";
+                vmId += path;
 
-                item["@odata.id"] = std::move(id);
+                item["@odata.id"] = std::move(vmId);
                 members.emplace_back(std::move(item));
             }
             aResp->res.jsonValue["Members@odata.count"] = members.size();
@@ -658,7 +657,7 @@ inline void doMountVmLegacy(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     using SecurePipe = Pipe<CredentialsProvider::SecureBuffer>;
     constexpr const size_t secretLimit = 1024;
 
-    std::shared_ptr<SecurePipe> secretPipe;
+    std::shared_ptr<SecurePipe> secretPipe = nullptr;
     dbus::utility::DbusVariantType unixFd = -1;
 
     if (!userName.empty() || !password.empty())

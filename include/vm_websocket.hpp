@@ -41,8 +41,8 @@ class Handler : public std::enable_shared_from_this<Handler>
     {
         // boost::process::child::terminate uses SIGKILL, need to send SIGTERM
         // to allow the proxy to stop nbd-client and the USB device gadget.
-        int rc = kill(proxy.id(), SIGTERM);
-        if (rc != 0)
+        int ret = kill(proxy.id(), SIGTERM);
+        if (ret != 0)
         {
             return;
         }
@@ -51,14 +51,14 @@ class Handler : public std::enable_shared_from_this<Handler>
 
     void connect()
     {
-        std::error_code ec;
+        std::error_code error;
         proxy = boost::process::child("/usr/sbin/nbd-proxy", media,
                                       boost::process::std_out > pipeOut,
-                                      boost::process::std_in < pipeIn, ec);
-        if (ec)
+                                      boost::process::std_in < pipeIn, error);
+        if (error)
         {
             BMCWEB_LOG_ERROR << "Couldn't connect to nbd-proxy: "
-                             << ec.message();
+                             << error.message();
             if (session != nullptr)
             {
                 session->close("Error connecting to nbd-proxy");
@@ -153,9 +153,9 @@ class Handler : public std::enable_shared_from_this<Handler>
     bool doingWrite{false};
 
     std::unique_ptr<boost::beast::flat_static_buffer<nbdBufferSize>>
-        outputBuffer;
+        outputBuffer{};
     std::unique_ptr<boost::beast::flat_static_buffer<nbdBufferSize>>
-        inputBuffer;
+        inputBuffer{};
 };
 
 static std::shared_ptr<Handler> handler;

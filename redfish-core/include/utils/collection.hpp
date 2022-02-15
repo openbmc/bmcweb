@@ -23,7 +23,7 @@ namespace collection_util
  * @return void
  */
 inline void
-    getCollectionMembers(std::shared_ptr<bmcweb::AsyncResp> aResp,
+    getCollectionMembers(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
                          const std::string& collectionPath,
                          const std::vector<const char*>& interfaces,
                          const char* subtree = "/xyz/openbmc_project/inventory")
@@ -31,8 +31,8 @@ inline void
     BMCWEB_LOG_DEBUG << "Get collection members for: " << collectionPath;
     crow::connections::systemBus->async_method_call(
         [collectionPath,
-         aResp{std::move(aResp)}](const boost::system::error_code ec,
-                                  const std::vector<std::string>& objects) {
+         aResp{aResp}](const boost::system::error_code ec,
+                       const std::vector<std::string>& objects) {
             if (ec == boost::system::errc::io_error)
             {
                 aResp->res.jsonValue["Members"] = nlohmann::json::array();
