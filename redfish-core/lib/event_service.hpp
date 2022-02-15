@@ -193,11 +193,11 @@ inline void requestRoutesEventDestinationCollection(App& app)
                 asyncResp->res.jsonValue["Members@odata.count"] =
                     subscripIds.size();
 
-                for (const std::string& id : subscripIds)
+                for (const std::string& subId : subscripIds)
                 {
                     memberArray.push_back(
                         {{"@odata.id",
-                          "/redfish/v1/EventService/Subscriptions/" + id}});
+                          "/redfish/v1/EventService/Subscriptions/" + subId}});
                 }
             });
     BMCWEB_ROUTE(app, "/redfish/v1/EventService/Subscriptions/")
@@ -368,14 +368,14 @@ inline void requestRoutesEventDestinationCollection(App& app)
 
             if (regPrefixes)
             {
-                for (const std::string& it : *regPrefixes)
+                for (const std::string& regPrefix : *regPrefixes)
                 {
                     if (std::find(supportedRegPrefixes.begin(),
                                   supportedRegPrefixes.end(),
-                                  it) == supportedRegPrefixes.end())
+                                  regPrefix) == supportedRegPrefixes.end())
                     {
-                        messages::propertyValueNotInList(asyncResp->res, it,
-                                                         "RegistryPrefixes");
+                        messages::propertyValueNotInList(
+                            asyncResp->res, regPrefix, "RegistryPrefixes");
                         return;
                     }
                 }
@@ -384,14 +384,14 @@ inline void requestRoutesEventDestinationCollection(App& app)
 
             if (resTypes)
             {
-                for (const std::string& it : *resTypes)
+                for (const std::string& resType : *resTypes)
                 {
                     if (std::find(supportedResourceTypes.begin(),
                                   supportedResourceTypes.end(),
-                                  it) == supportedResourceTypes.end())
+                                  resType) == supportedResourceTypes.end())
                     {
-                        messages::propertyValueNotInList(asyncResp->res, it,
-                                                         "ResourceTypes");
+                        messages::propertyValueNotInList(
+                            asyncResp->res, resType, "ResourceTypes");
                         return;
                     }
                 }
@@ -414,22 +414,24 @@ inline void requestRoutesEventDestinationCollection(App& app)
                     registryPrefix = subValue->registryPrefixes;
                 }
 
-                for (const std::string& id : *msgIds)
+                for (const std::string& userMessageId : *msgIds)
                 {
                     bool validId = false;
 
                     // Check for Message ID in each of the selected Registry
-                    for (const std::string& it : registryPrefix)
+                    for (const std::string& messageId : registryPrefix)
                     {
                         const std::span<const redfish::registries::MessageEntry>
                             registry =
-                                redfish::registries::getRegistryFromPrefix(it);
+                                redfish::registries::getRegistryFromPrefix(
+                                    messageId);
 
                         if (std::any_of(
                                 registry.begin(), registry.end(),
-                                [&id](const redfish::registries::MessageEntry&
-                                          messageEntry) {
-                                    return id == messageEntry.first;
+                                [&messageId](
+                                    const redfish::registries::MessageEntry&
+                                        messageEntry) {
+                                    return messageId == messageEntry.first;
                                 }))
                         {
                             validId = true;
@@ -439,8 +441,8 @@ inline void requestRoutesEventDestinationCollection(App& app)
 
                     if (!validId)
                     {
-                        messages::propertyValueNotInList(asyncResp->res, id,
-                                                         "MessageIds");
+                        messages::propertyValueNotInList(
+                            asyncResp->res, userMessageId, "MessageIds");
                         return;
                     }
                 }
@@ -482,9 +484,9 @@ inline void requestRoutesEventDestinationCollection(App& app)
                 }
             }
 
-            std::string id =
+            std::string subId =
                 EventServiceManager::getInstance().addSubscription(subValue);
-            if (id.empty())
+            if (subId.empty())
             {
                 messages::internalError(asyncResp->res);
                 return;
@@ -492,7 +494,7 @@ inline void requestRoutesEventDestinationCollection(App& app)
 
             messages::created(asyncResp->res);
             asyncResp->res.addHeader(
-                "Location", "/redfish/v1/EventService/Subscriptions/" + id);
+                "Location", "/redfish/v1/EventService/Subscriptions/" + subId);
         });
 }
 
@@ -512,16 +514,15 @@ inline void requestRoutesEventDestination(App& app)
                         boost::beast::http::status::not_found);
                     return;
                 }
-                const std::string& id = param;
 
                 asyncResp->res.jsonValue = {
                     {"@odata.type",
                      "#EventDestination.v1_7_0.EventDestination"},
                     {"Protocol", "Redfish"}};
                 asyncResp->res.jsonValue["@odata.id"] =
-                    "/redfish/v1/EventService/Subscriptions/" + id;
-                asyncResp->res.jsonValue["Id"] = id;
-                asyncResp->res.jsonValue["Name"] = "Event Destination " + id;
+                    "/redfish/v1/EventService/Subscriptions/" + param;
+                asyncResp->res.jsonValue["Id"] = param;
+                asyncResp->res.jsonValue["Name"] = "Event Destination " + param;
                 asyncResp->res.jsonValue["Destination"] =
                     subValue->destinationUrl;
                 asyncResp->res.jsonValue["Context"] = subValue->customText;
@@ -590,19 +591,19 @@ inline void requestRoutesEventDestination(App& app)
                     boost::beast::http::fields fields;
                     for (const nlohmann::json& headerChunk : *headers)
                     {
-                        for (auto& it : headerChunk.items())
+                        for (auto& header : headerChunk.items())
                         {
                             const std::string* value =
-                                it.value().get_ptr<const std::string*>();
+                                header.value().get_ptr<const std::string*>();
                             if (value == nullptr)
                             {
                                 messages::propertyValueFormatError(
                                     asyncResp->res,
-                                    it.value().dump(2, ' ', true),
-                                    "HttpHeaders/" + it.key());
+                                    header.value().dump(2, ' ', true),
+                                    "HttpHeaders/" + header.key());
                                 return;
                             }
-                            fields.set(it.key(), *value);
+                            fields.set(header.key(), *value);
                         }
                     }
                     subValue->httpHeaders = fields;

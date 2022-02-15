@@ -24,34 +24,36 @@ namespace crow
 namespace black_magic
 {
 
-constexpr unsigned findClosingTag(std::string_view s, unsigned p)
+constexpr unsigned findClosingTag(std::string_view tag, unsigned index)
 {
-    return s[p] == '>' ? p : findClosingTag(s, p + 1);
+    return tag[index] == '>' ? index : findClosingTag(tag, index + 1);
 }
 
-constexpr bool isInt(std::string_view s, unsigned i)
+constexpr bool isInt(std::string_view tag, unsigned index)
 {
-    return s.substr(i, 5) == "<int>";
+    return tag.substr(index, 5) == "<int>";
 }
 
-constexpr bool isUint(std::string_view s, unsigned i)
+constexpr bool isUint(std::string_view tag, unsigned index)
 {
-    return s.substr(i, 6) == "<uint>";
+    return tag.substr(index, 6) == "<uint>";
 }
 
-constexpr bool isFloat(std::string_view s, unsigned i)
+constexpr bool isFloat(std::string_view tag, unsigned index)
 {
-    return s.substr(i, 7) == "<float>" || s.substr(i, 8) == "<double>";
+    return tag.substr(index, 7) == "<float>" ||
+           tag.substr(index, 8) == "<double>";
 }
 
-constexpr bool isStr(std::string_view s, unsigned i)
+constexpr bool isStr(std::string_view tag, unsigned index)
 {
-    return s.substr(i, 5) == "<str>" || s.substr(i, 8) == "<string>";
+    return tag.substr(index, 5) == "<str>" ||
+           tag.substr(index, 8) == "<string>";
 }
 
-constexpr bool isPath(std::string_view s, unsigned i)
+constexpr bool isPath(std::string_view tag, unsigned index)
 {
-    return s.substr(i, 6) == "<path>";
+    return tag.substr(index, 6) == "<path>";
 }
 
 template <typename T>
@@ -128,70 +130,69 @@ struct computeParameterTagFromArgsList<Arg, Args...>
             : subValue;
 };
 
-inline bool isParameterTagCompatible(uint64_t a, uint64_t b)
+inline bool isParameterTagCompatible(uint64_t left, uint64_t right)
 {
-
-    if (a == 0)
+    if (left == 0)
     {
-        return b == 0;
+        return right == 0;
     }
-    if (b == 0)
+    if (right == 0)
     {
-        return a == 0;
+        return left == 0;
     }
-    uint64_t sa = a % 6;
-    uint64_t sb = a % 6;
-    if (sa == 5)
+    uint64_t leftNibble = left % 6;
+    uint64_t rightNibble = left % 6;
+    if (leftNibble == 5)
     {
-        sa = 4;
+        leftNibble = 4;
     }
-    if (sb == 5)
+    if (rightNibble == 5)
     {
-        sb = 4;
+        rightNibble = 4;
     }
-    if (sa != sb)
+    if (leftNibble != rightNibble)
     {
         return false;
     }
-    return isParameterTagCompatible(a / 6, b / 6);
+    return isParameterTagCompatible(left / 6, right / 6);
 }
 
-constexpr uint64_t getParameterTag(std::string_view s, unsigned p = 0)
+constexpr uint64_t getParameterTag(std::string_view tag, unsigned index = 0)
 {
 
-    if (p == s.size())
+    if (index == tag.size())
     {
         return 0;
     }
 
-    if (s[p] != '<')
+    if (tag[index] != '<')
     {
-        return getParameterTag(s, p + 1);
+        return getParameterTag(tag, index + 1);
     }
 
-    if (isInt(s, p))
+    if (isInt(tag, index))
     {
-        return getParameterTag(s, findClosingTag(s, p)) * 6 + 1;
+        return getParameterTag(tag, findClosingTag(tag, index)) * 6 + 1;
     }
 
-    if (isUint(s, p))
+    if (isUint(tag, index))
     {
-        return getParameterTag(s, findClosingTag(s, p)) * 6 + 2;
+        return getParameterTag(tag, findClosingTag(tag, index)) * 6 + 2;
     }
 
-    if (isFloat(s, p))
+    if (isFloat(tag, index))
     {
-        return getParameterTag(s, findClosingTag(s, p)) * 6 + 3;
+        return getParameterTag(tag, findClosingTag(tag, index)) * 6 + 3;
     }
 
-    if (isStr(s, p))
+    if (isStr(tag, index))
     {
-        return getParameterTag(s, findClosingTag(s, p)) * 6 + 4;
+        return getParameterTag(tag, findClosingTag(tag, index)) * 6 + 4;
     }
 
-    if (isPath(s, p))
+    if (isPath(tag, index))
     {
-        return getParameterTag(s, findClosingTag(s, p)) * 6 + 5;
+        return getParameterTag(tag, findClosingTag(tag, index)) * 6 + 5;
     }
 
     throw std::runtime_error("invalid parameter type");
@@ -383,7 +384,7 @@ struct function_traits<std::function<r(Args...)>>
     using arg = typename std::tuple_element<i, std::tuple<Args...>>::type;
 };
 
-inline std::string base64encode(const std::string_view data)
+inline std::string base64encode(std::string_view data)
 {
     const std::array<char, 64> key = {
         'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M',
@@ -395,47 +396,48 @@ inline std::string base64encode(const std::string_view data)
     size_t size = data.size();
     std::string ret;
     ret.resize((size + 2) / 3 * 4);
-    auto it = ret.begin();
+    auto retIter = ret.begin();
 
-    size_t i = 0;
-    while (i < size)
+    size_t dataIndex = 0;
+    while (dataIndex < size)
     {
         size_t keyIndex = 0;
 
-        keyIndex = static_cast<size_t>(data[i] & 0xFC) >> 2;
-        *it++ = key[keyIndex];
+        keyIndex = static_cast<size_t>(data[dataIndex] & 0xFC) >> 2;
+        *retIter++ = key[keyIndex];
 
-        if (i + 1 < size)
+        if (dataIndex + 1 < size)
         {
-            keyIndex = static_cast<size_t>(data[i] & 0x03) << 4;
-            keyIndex += static_cast<size_t>(data[i + 1] & 0xF0) >> 4;
-            *it++ = key[keyIndex];
+            keyIndex = static_cast<size_t>(data[dataIndex] & 0x03) << 4;
+            keyIndex += static_cast<size_t>(data[dataIndex + 1] & 0xF0) >> 4;
+            *retIter++ = key[keyIndex];
 
-            if (i + 2 < size)
+            if (dataIndex + 2 < size)
             {
-                keyIndex = static_cast<size_t>(data[i + 1] & 0x0F) << 2;
-                keyIndex += static_cast<size_t>(data[i + 2] & 0xC0) >> 6;
-                *it++ = key[keyIndex];
+                keyIndex = static_cast<size_t>(data[dataIndex + 1] & 0x0F) << 2;
+                keyIndex +=
+                    static_cast<size_t>(data[dataIndex + 2] & 0xC0) >> 6;
+                *retIter++ = key[keyIndex];
 
-                keyIndex = static_cast<size_t>(data[i + 2] & 0x3F);
-                *it++ = key[keyIndex];
+                keyIndex = static_cast<size_t>(data[dataIndex + 2] & 0x3F);
+                *retIter++ = key[keyIndex];
             }
             else
             {
-                keyIndex = static_cast<size_t>(data[i + 1] & 0x0F) << 2;
-                *it++ = key[keyIndex];
-                *it++ = '=';
+                keyIndex = static_cast<size_t>(data[dataIndex + 1] & 0x0F) << 2;
+                *retIter++ = key[keyIndex];
+                *retIter++ = '=';
             }
         }
         else
         {
-            keyIndex = static_cast<size_t>(data[i] & 0x03) << 4;
-            *it++ = key[keyIndex];
-            *it++ = '=';
-            *it++ = '=';
+            keyIndex = static_cast<size_t>(data[dataIndex] & 0x03) << 4;
+            *retIter++ = key[keyIndex];
+            *retIter++ = '=';
+            *retIter++ = '=';
         }
 
-        i += 3;
+        dataIndex += 3;
     }
 
     return ret;
@@ -474,8 +476,8 @@ inline bool base64Decode(const std::string_view input, std::string& output)
     output.clear();
     output.reserve(((inputLength + 2) / 3) * 4);
 
-    auto getCodeValue = [](char c) {
-        auto code = static_cast<unsigned char>(c);
+    auto getCodeValue = [](char character) {
+        auto code = static_cast<unsigned char>(character);
         // Ensure we cannot index outside the bounds of the decoding array
         static_assert(std::numeric_limits<decltype(code)>::max() <
                       decodingData.size());
@@ -513,8 +515,8 @@ inline bool base64Decode(const std::string_view input, std::string& output)
 
         if (++i < inputLength)
         {
-            char c = input[i];
-            if (c == '=')
+            char inputChar = input[i];
+            if (inputChar == '=')
             { // padding , end of input
                 return (base64code1 & 0x0f) == 0;
             }
@@ -529,8 +531,8 @@ inline bool base64Decode(const std::string_view input, std::string& output)
 
         if (++i < inputLength)
         {
-            char c = input[i];
-            if (c == '=')
+            char inputChar = input[i];
+            if (inputChar == '=')
             { // padding , end of input
                 return (base64code2 & 0x03) == 0;
             }
@@ -628,23 +630,24 @@ inline std::pair<std::string, std::string> getDateTimeOffsetNow()
     return std::make_pair(dateTime, timeOffset);
 }
 
-inline bool constantTimeStringCompare(const std::string_view a,
-                                      const std::string_view b)
+inline bool constantTimeStringCompare(const std::string_view left,
+                                      const std::string_view right)
 {
     // Important note, this function is ONLY constant time if the two input
     // sizes are the same
-    if (a.size() != b.size())
+    if (left.size() != right.size())
     {
         return false;
     }
-    return CRYPTO_memcmp(a.data(), b.data(), a.size()) == 0;
+    return CRYPTO_memcmp(left.data(), right.data(), left.size()) == 0;
 }
 
 struct ConstantTimeCompare
 {
-    bool operator()(const std::string_view a, const std::string_view b) const
+    bool operator()(const std::string_view left,
+                    const std::string_view right) const
     {
-        return constantTimeStringCompare(a, b);
+        return constantTimeStringCompare(left, right);
     }
 };
 

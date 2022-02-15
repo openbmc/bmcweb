@@ -174,9 +174,9 @@ class CertificateFile
         {
             BMCWEB_LOG_DEBUG << "Removing certificate file"
                              << certificateFile.string();
-            std::error_code ec;
-            std::filesystem::remove_all(certDirectory, ec);
-            if (ec)
+            std::error_code err;
+            std::filesystem::remove_all(certDirectory, err);
+            if (err)
             {
                 BMCWEB_LOG_ERROR << "Failed to remove temp directory"
                                  << certDirectory.string();
@@ -444,9 +444,9 @@ inline void requestRoutesCertificateActionGenerateCSR(App& app)
             csrMatcher = std::make_unique<sdbusplus::bus::match::match>(
                 *crow::connections::systemBus, match,
                 [asyncResp, service, objectPath,
-                 certURI](sdbusplus::message::message& m) {
+                 certURI](sdbusplus::message::message& message) {
                     timeout.cancel();
-                    if (m.is_method_error())
+                    if (message.is_method_error())
                     {
                         BMCWEB_LOG_ERROR << "Dbus method error!!!";
                         messages::internalError(asyncResp->res);
@@ -458,7 +458,7 @@ inline void requestRoutesCertificateActionGenerateCSR(App& app)
                                               dbus::utility::DbusVariantType>>>>
                         interfacesProperties;
                     sdbusplus::message::object_path csrObjectPath;
-                    m.read(csrObjectPath, interfacesProperties);
+                    message.read(csrObjectPath, interfacesProperties);
                     BMCWEB_LOG_DEBUG << "CSR object added" << csrObjectPath.str;
                     for (auto& interface : interfacesProperties)
                     {
@@ -502,28 +502,28 @@ static void updateCertIssuerOrSubject(nlohmann::json& out,
                                       const std::string_view value)
 {
     // example: O=openbmc-project.xyz,CN=localhost
-    std::string_view::iterator i = value.begin();
-    while (i != value.end())
+    std::string_view::iterator valueIter = value.begin();
+    while (valueIter != value.end())
     {
-        std::string_view::iterator tokenBegin = i;
-        while (i != value.end() && *i != '=')
+        std::string_view::iterator tokenBegin = valueIter;
+        while (valueIter != value.end() && *valueIter != '=')
         {
-            ++i;
+            ++valueIter;
         }
-        if (i == value.end())
+        if (valueIter == value.end())
         {
             break;
         }
         const std::string_view key(tokenBegin,
-                                   static_cast<size_t>(i - tokenBegin));
-        ++i;
-        tokenBegin = i;
-        while (i != value.end() && *i != ',')
+                                   static_cast<size_t>(valueIter - tokenBegin));
+        ++valueIter;
+        tokenBegin = valueIter;
+        while (valueIter != value.end() && *valueIter != ',')
         {
-            ++i;
+            ++valueIter;
         }
         const std::string_view val(tokenBegin,
-                                   static_cast<size_t>(i - tokenBegin));
+                                   static_cast<size_t>(valueIter - tokenBegin));
         if (key == "L")
         {
             out["City"] = val;
@@ -549,9 +549,9 @@ static void updateCertIssuerOrSubject(nlohmann::json& out,
             out["State"] = val;
         }
         // skip comma character
-        if (i != value.end())
+        if (valueIter != value.end())
         {
-            ++i;
+            ++valueIter;
         }
     }
 }
@@ -718,8 +718,8 @@ inline void requestRoutesCertificateActionsReplaceCertificate(App& app)
             }
 
             BMCWEB_LOG_INFO << "Certificate URI to replace" << certURI;
-            long id = getIDFromURL(certURI);
-            if (id < 0)
+            long certId = getIDFromURL(certURI);
+            if (certId < 0)
             {
                 messages::actionParameterValueFormatError(
                     asyncResp->res, certURI, "CertificateUri",
@@ -734,7 +734,7 @@ inline void requestRoutesCertificateActionsReplaceCertificate(App& app)
                     "/redfish/v1/Managers/bmc/NetworkProtocol/HTTPS/Certificates/"))
             {
                 objectPath = std::string(certs::httpsObjectPath) + "/" +
-                             std::to_string(id);
+                             std::to_string(certId);
                 name = "HTTPS certificate";
                 service = certs::httpsServiceName;
             }
@@ -743,7 +743,7 @@ inline void requestRoutesCertificateActionsReplaceCertificate(App& app)
                          "/redfish/v1/AccountService/LDAP/Certificates/"))
             {
                 objectPath = std::string(certs::ldapObjectPath) + "/" +
-                             std::to_string(id);
+                             std::to_string(certId);
                 name = "LDAP certificate";
                 service = certs::ldapServiceName;
             }
@@ -752,7 +752,7 @@ inline void requestRoutesCertificateActionsReplaceCertificate(App& app)
                          "/redfish/v1/Managers/bmc/Truststore/Certificates/"))
             {
                 objectPath = std::string(certs::authorityObjectPath) + "/" +
-                             std::to_string(id);
+                             std::to_string(certId);
                 name = "TrustStore certificate";
                 service = certs::authorityServiceName;
             }
@@ -766,17 +766,17 @@ inline void requestRoutesCertificateActionsReplaceCertificate(App& app)
             std::shared_ptr<CertificateFile> certFile =
                 std::make_shared<CertificateFile>(certificate);
             crow::connections::systemBus->async_method_call(
-                [asyncResp, certFile, objectPath, service, certURI, id,
+                [asyncResp, certFile, objectPath, service, certURI, certId,
                  name](const boost::system::error_code ec) {
                     if (ec)
                     {
                         BMCWEB_LOG_ERROR << "DBUS response error: " << ec;
                         messages::resourceNotFound(asyncResp->res, name,
-                                                   std::to_string(id));
+                                                   std::to_string(certId));
                         return;
                     }
-                    getCertificateProperties(asyncResp, objectPath, service, id,
-                                             certURI, name);
+                    getCertificateProperties(asyncResp, objectPath, service,
+                                             certId, certURI, name);
                     BMCWEB_LOG_DEBUG << "HTTPS certificate install file="
                                      << certFile->getCertFilePath();
                 },
@@ -806,18 +806,18 @@ inline void requestRoutesHTTPSCertificate(App& app)
                 messages::internalError(asyncResp->res);
                 return;
             }
-            long id = getIDFromURL(req.url);
+            long certId = getIDFromURL(req.url);
 
             BMCWEB_LOG_DEBUG << "HTTPSCertificate::doGet ID="
-                             << std::to_string(id);
+                             << std::to_string(certId);
             std::string certURL =
                 "/redfish/v1/Managers/bmc/NetworkProtocol/HTTPS/Certificates/" +
-                std::to_string(id);
+                std::to_string(certId);
             std::string objectPath = certs::httpsObjectPath;
             objectPath += "/";
-            objectPath += std::to_string(id);
+            objectPath += std::to_string(certId);
             getCertificateProperties(asyncResp, objectPath,
-                                     certs::httpsServiceName, id, certURL,
+                                     certs::httpsServiceName, certId, certURL,
                                      "HTTPS Certificate");
         });
 }
@@ -855,13 +855,13 @@ inline void requestRoutesHTTPSCertificateCollection(App& app)
                     members = nlohmann::json::array();
                     for (const auto& cert : certs)
                     {
-                        long id = getIDFromURL(cert.first.str);
-                        if (id >= 0)
+                        long certId = getIDFromURL(cert.first.str);
+                        if (certId >= 0)
                         {
                             members.push_back(
                                 {{"@odata.id",
                                   "/redfish/v1/Managers/bmc/NetworkProtocol/HTTPS/Certificates/" +
-                                      std::to_string(id)}});
+                                      std::to_string(certId)}});
                         }
                     }
                     asyncResp->res.jsonValue["Members@odata.count"] =
@@ -957,11 +957,11 @@ inline void
                 asyncResp->res.jsonValue["Links"]["Certificates"];
             for (const auto& cert : certs)
             {
-                long id = getIDFromURL(cert.first.str);
-                if (id >= 0)
+                long certId = getIDFromURL(cert.first.str);
+                if (certId >= 0)
                 {
                     links.push_back(
-                        {{"@odata.id", certURL + std::to_string(id)}});
+                        {{"@odata.id", certURL + std::to_string(certId)}});
                 }
             }
             asyncResp->res.jsonValue["Links"]["Certificates@odata.count"] =
@@ -1044,13 +1044,13 @@ inline void requestRoutesLDAPCertificateCollection(App& app)
                     }
                     for (const auto& cert : certs)
                     {
-                        long id = getIDFromURL(cert.first.str);
-                        if (id >= 0)
+                        long certId = getIDFromURL(cert.first.str);
+                        if (certId >= 0)
                         {
                             members.push_back(
                                 {{"@odata.id",
                                   "/redfish/v1/AccountService/LDAP/Certificates/" +
-                                      std::to_string(id)}});
+                                      std::to_string(certId)}});
                         }
                     }
                     count = members.size();
@@ -1122,24 +1122,24 @@ inline void requestRoutesLDAPCertificate(App& app)
             [](const crow::Request& req,
                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                const std::string&) {
-                long id = getIDFromURL(req.url);
-                if (id < 0)
+                long certId = getIDFromURL(req.url);
+                if (certId < 0)
                 {
                     BMCWEB_LOG_ERROR << "Invalid url value" << req.url;
                     messages::internalError(asyncResp->res);
                     return;
                 }
                 BMCWEB_LOG_DEBUG << "LDAP Certificate ID="
-                                 << std::to_string(id);
+                                 << std::to_string(certId);
                 std::string certURL =
                     "/redfish/v1/AccountService/LDAP/Certificates/" +
-                    std::to_string(id);
+                    std::to_string(certId);
                 std::string objectPath = certs::ldapObjectPath;
                 objectPath += "/";
-                objectPath += std::to_string(id);
+                objectPath += std::to_string(certId);
                 getCertificateProperties(asyncResp, objectPath,
-                                         certs::ldapServiceName, id, certURL,
-                                         "LDAP Certificate");
+                                         certs::ldapServiceName, certId,
+                                         certURL, "LDAP Certificate");
             });
 } // requestRoutesLDAPCertificate
 /**
@@ -1175,13 +1175,13 @@ inline void requestRoutesTrustStoreCertificateCollection(App& app)
                     members = nlohmann::json::array();
                     for (const auto& cert : certs)
                     {
-                        long id = getIDFromURL(cert.first.str);
-                        if (id >= 0)
+                        long certId = getIDFromURL(cert.first.str);
+                        if (certId >= 0)
                         {
                             members.push_back(
                                 {{"@odata.id",
                                   "/redfish/v1/Managers/bmc/Truststore/Certificates/" +
-                                      std::to_string(id)}});
+                                      std::to_string(certId)}});
                         }
                     }
                     asyncResp->res.jsonValue["Members@odata.count"] =
@@ -1253,23 +1253,23 @@ inline void requestRoutesTrustStoreCertificate(App& app)
             [](const crow::Request& req,
                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                const std::string&) {
-                long id = getIDFromURL(req.url);
-                if (id < 0)
+                long certId = getIDFromURL(req.url);
+                if (certId < 0)
                 {
                     BMCWEB_LOG_ERROR << "Invalid url value" << req.url;
                     messages::internalError(asyncResp->res);
                     return;
                 }
                 BMCWEB_LOG_DEBUG << "TrustStoreCertificate::doGet ID="
-                                 << std::to_string(id);
+                                 << std::to_string(certId);
                 std::string certURL =
                     "/redfish/v1/Managers/bmc/Truststore/Certificates/" +
-                    std::to_string(id);
+                    std::to_string(certId);
                 std::string objectPath = certs::authorityObjectPath;
                 objectPath += "/";
-                objectPath += std::to_string(id);
+                objectPath += std::to_string(certId);
                 getCertificateProperties(asyncResp, objectPath,
-                                         certs::authorityServiceName, id,
+                                         certs::authorityServiceName, certId,
                                          certURL, "TrustStore Certificate");
             });
 
@@ -1285,8 +1285,8 @@ inline void requestRoutesTrustStoreCertificate(App& app)
                     return;
                 }
 
-                long id = getIDFromURL(req.url);
-                if (id < 0)
+                long certId = getIDFromURL(req.url);
+                if (certId < 0)
                 {
                     BMCWEB_LOG_ERROR << "Invalid url value: " << req.url;
                     messages::resourceNotFound(asyncResp->res,
@@ -1295,18 +1295,18 @@ inline void requestRoutesTrustStoreCertificate(App& app)
                     return;
                 }
                 BMCWEB_LOG_DEBUG << "TrustStoreCertificate::doDelete ID="
-                                 << std::to_string(id);
+                                 << std::to_string(certId);
                 std::string certPath = certs::authorityObjectPath;
                 certPath += "/";
-                certPath += std::to_string(id);
+                certPath += std::to_string(certId);
 
                 crow::connections::systemBus->async_method_call(
-                    [asyncResp, id](const boost::system::error_code ec) {
+                    [asyncResp, certId](const boost::system::error_code ec) {
                         if (ec)
                         {
                             messages::resourceNotFound(asyncResp->res,
                                                        "TrustStore Certificate",
-                                                       std::to_string(id));
+                                                       std::to_string(certId));
                             return;
                         }
                         BMCWEB_LOG_INFO << "Certificate deleted";

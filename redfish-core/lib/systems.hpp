@@ -2252,15 +2252,15 @@ inline void
                 }
                 else if (property.first == "ExpireAction")
                 {
-                    const std::string* s =
+                    const std::string* expireAction =
                         std::get_if<std::string>(&property.second);
-                    if (s == nullptr)
+                    if (expireAction == nullptr)
                     {
                         messages::internalError(aResp->res);
                         return;
                     }
 
-                    std::string action = dbusToRfWatchdogAction(*s);
+                    std::string action = dbusToRfWatchdogAction(*expireAction);
                     if (action.empty())
                     {
                         messages::internalError(aResp->res);
@@ -2381,10 +2381,11 @@ inline bool parseIpsProperties(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
             {
                 return false;
             }
-            const std::chrono::duration<uint64_t, std::milli> ms(
+            const std::chrono::duration<uint64_t, std::milli> milliseconds(
                 *timeMilliseconds);
             aResp->res.jsonValue["IdlePowerSaver"]["EnterDwellTimeSeconds"] =
-                std::chrono::duration_cast<std::chrono::duration<uint64_t>>(ms)
+                std::chrono::duration_cast<std::chrono::duration<uint64_t>>(
+                    milliseconds)
                     .count();
         }
         else if (property.first == "ExitUtilizationPercent")
@@ -2405,10 +2406,11 @@ inline bool parseIpsProperties(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
             {
                 return false;
             }
-            const std::chrono::duration<uint64_t, std::milli> ms(
+            const std::chrono::duration<uint64_t, std::milli> milliseconds(
                 *timeMilliseconds);
             aResp->res.jsonValue["IdlePowerSaver"]["ExitDwellTimeSeconds"] =
-                std::chrono::duration_cast<std::chrono::duration<uint64_t>>(ms)
+                std::chrono::duration_cast<std::chrono::duration<uint64_t>>(
+                    milliseconds)
                     .count();
         }
         else

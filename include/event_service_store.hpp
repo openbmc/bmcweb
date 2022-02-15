@@ -10,25 +10,26 @@ namespace persistent_data
 
 struct UserSubscription
 {
-    std::string id;
+    std::string subId;
     std::string destinationUrl;
     std::string protocol;
     std::string retryPolicy;
     std::string customText;
     std::string eventFormatType;
     std::string subscriptionType;
-    std::vector<std::string> registryMsgIds;
-    std::vector<std::string> registryPrefixes;
-    std::vector<std::string> resourceTypes;
+    std::vector<std::string> registryMsgIds{};
+    std::vector<std::string> registryPrefixes{};
+    std::vector<std::string> resourceTypes{};
     boost::beast::http::fields httpHeaders;
-    std::vector<std::string> metricReportDefinitions;
+    std::vector<std::string> metricReportDefinitions{};
 
     static std::shared_ptr<UserSubscription>
-        fromJson(const nlohmann::json& j, const bool loadFromOldConfig = false)
+        fromJson(const nlohmann::json& json,
+                 const bool loadFromOldConfig = false)
     {
         std::shared_ptr<UserSubscription> subvalue =
             std::make_shared<UserSubscription>();
-        for (const auto& element : j.items())
+        for (const auto& element : json.items())
         {
             if (element.key() == "Id")
             {
@@ -38,7 +39,7 @@ struct UserSubscription
                 {
                     continue;
                 }
-                subvalue->id = *value;
+                subvalue->subId = *value;
             }
             else if (element.key() == "Destination")
             {
@@ -181,7 +182,7 @@ struct UserSubscription
             }
         }
 
-        if ((subvalue->id.empty() && !loadFromOldConfig) ||
+        if ((subvalue->subId.empty() && !loadFromOldConfig) ||
             subvalue->destinationUrl.empty() || subvalue->protocol.empty() ||
             subvalue->retryPolicy.empty() ||
             subvalue->eventFormatType.empty() ||
@@ -202,9 +203,9 @@ struct EventServiceConfig
     uint32_t retryAttempts = 3;
     uint32_t retryTimeoutInterval = 30;
 
-    void fromJson(const nlohmann::json& j)
+    void fromJson(const nlohmann::json& json)
     {
-        for (const auto& element : j.items())
+        for (const auto& element : json.items())
         {
             if (element.key() == "ServiceEnabled")
             {
@@ -245,7 +246,7 @@ class EventServiceStore
 {
   public:
     boost::container::flat_map<std::string, std::shared_ptr<UserSubscription>>
-        subscriptionsConfigMap;
+        subscriptionsConfigMap{};
     EventServiceConfig eventServiceConfig;
 
     static EventServiceStore& getInstance()

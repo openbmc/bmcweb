@@ -68,9 +68,9 @@ inline void
             // example functionalFw:
             // v as 2 "/xyz/openbmc_project/software/ace821ef"
             //        "/xyz/openbmc_project/software/230fb078"
-            for (const auto& fw : functionalFw)
+            for (const auto& firmware : functionalFw)
             {
-                sdbusplus::message::object_path path(fw);
+                sdbusplus::message::object_path path(firmware);
                 std::string leaf = path.filename();
                 if (leaf.empty())
                 {
@@ -153,9 +153,9 @@ inline void
                                 boost::container::flat_map<
                                     std::string,
                                     dbus::utility::DbusVariantType>::
-                                    const_iterator it =
+                                    const_iterator propIt =
                                         propertiesList.find("Purpose");
-                                if (it == propertiesList.end())
+                                if (propIt == propertiesList.end())
                                 {
                                     BMCWEB_LOG_ERROR
                                         << "Can't find property \"Purpose\"!";
@@ -163,7 +163,7 @@ inline void
                                     return;
                                 }
                                 const std::string* swInvPurpose =
-                                    std::get_if<std::string>(&it->second);
+                                    std::get_if<std::string>(&propIt->second);
                                 if (swInvPurpose == nullptr)
                                 {
                                     BMCWEB_LOG_ERROR << "wrong types for "
@@ -217,8 +217,8 @@ inline void
                                 if (!activeVersionPropName.empty() &&
                                     runningImage)
                                 {
-                                    it = propertiesList.find("Version");
-                                    if (it == propertiesList.end())
+                                    propIt = propertiesList.find("Version");
+                                    if (propIt == propertiesList.end())
                                     {
                                         BMCWEB_LOG_ERROR
                                             << "Can't find property "
@@ -227,7 +227,8 @@ inline void
                                         return;
                                     }
                                     const std::string* version =
-                                        std::get_if<std::string>(&it->second);
+                                        std::get_if<std::string>(
+                                            &propIt->second);
                                     if (version == nullptr)
                                     {
                                         BMCWEB_LOG_ERROR
@@ -339,15 +340,15 @@ inline void getFwStatus(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
             }
             boost::container::flat_map<
                 std::string, dbus::utility::DbusVariantType>::const_iterator
-                it = propertiesList.find("Activation");
-            if (it == propertiesList.end())
+                propertiesListIter = propertiesList.find("Activation");
+            if (propertiesListIter == propertiesList.end())
             {
                 BMCWEB_LOG_DEBUG << "Can't find property \"Activation\"!";
                 messages::propertyMissing(asyncResp->res, "Activation");
                 return;
             }
             const std::string* swInvActivation =
-                std::get_if<std::string>(&it->second);
+                std::get_if<std::string>(&propertiesListIter->second);
             if (swInvActivation == nullptr)
             {
                 BMCWEB_LOG_DEBUG << "wrong types for property\"Activation\"!";

@@ -111,17 +111,19 @@ inline std::string getPrivilegeFromRoleId(std::string_view role)
     return "";
 }
 
-inline void userErrorMessageHandler(
-    const sd_bus_error* e, const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-    const std::string& newUser, const std::string& username)
+inline void
+    userErrorMessageHandler(const sd_bus_error* error,
+                            const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                            const std::string& newUser,
+                            const std::string& username)
 {
-    if (e == nullptr)
+    if (error == nullptr)
     {
         messages::internalError(asyncResp->res);
         return;
     }
 
-    const char* errorMessage = e->name;
+    const char* errorMessage = error->name;
     if (strcmp(errorMessage,
                "xyz.openbmc_project.User.Common.Error.UserNameExists") == 0)
     {
@@ -559,7 +561,7 @@ inline void getLDAPConfigData(const std::string& ldapType,
  * @param password  password to be filled from the given JSON.
  */
 inline void parseLDAPAuthenticationJson(
-    nlohmann::json input, const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    nlohmann::json& input, const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     std::optional<std::string>& username, std::optional<std::string>& password)
 {
     std::optional<std::string> authType;
@@ -591,7 +593,7 @@ inline void parseLDAPAuthenticationJson(
  */
 
 inline void
-    parseLDAPServiceJson(nlohmann::json input,
+    parseLDAPServiceJson(nlohmann::json& input,
                          const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                          std::optional<std::vector<std::string>>& baseDNList,
                          std::optional<std::string>& userNameAttribute,
@@ -1126,12 +1128,11 @@ inline void handleLDAPPatch(nlohmann::json& input,
     });
 }
 
-inline void updateUserProperties(std::shared_ptr<bmcweb::AsyncResp> asyncResp,
-                                 const std::string& username,
-                                 std::optional<std::string> password,
-                                 std::optional<bool> enabled,
-                                 std::optional<std::string> roleId,
-                                 std::optional<bool> locked)
+inline void updateUserProperties(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& username, std::optional<std::string> password,
+    std::optional<bool> enabled, std::optional<std::string> roleId,
+    std::optional<bool> locked)
 {
     sdbusplus::message::object_path tempObjPath(rootUserDbusPath);
     tempObjPath /= username;
@@ -1141,7 +1142,7 @@ inline void updateUserProperties(std::shared_ptr<bmcweb::AsyncResp> asyncResp,
         dbusObjectPath,
         [dbusObjectPath, username, password(std::move(password)),
          roleId(std::move(roleId)), enabled, locked,
-         asyncResp{std::move(asyncResp)}](int rc) {
+         asyncResp{asyncResp}](int rc) {
             if (rc <= 0)
             {
                 messages::resourceNotFound(
@@ -1629,11 +1630,12 @@ inline void requestAccountServiceRoutes(App& app)
                     crow::connections::systemBus->async_method_call(
                         [asyncResp, username,
                          password](const boost::system::error_code ec2,
-                                   sdbusplus::message::message& m) {
+                                   sdbusplus::message::message& message) {
                             if (ec2)
                             {
-                                userErrorMessageHandler(
-                                    m.get_error(), asyncResp, username, "");
+                                userErrorMessageHandler(message.get_error(),
+                                                        asyncResp, username,
+                                                        "");
                                 return;
                             }
 
@@ -1905,11 +1907,12 @@ inline void requestAccountServiceRoutes(App& app)
                      roleId(std::move(roleId)), enabled,
                      newUser{std::string(*newUserName)},
                      locked](const boost::system::error_code ec,
-                             sdbusplus::message::message& m) {
+                             sdbusplus::message::message& message) {
                         if (ec)
                         {
-                            userErrorMessageHandler(m.get_error(), asyncResp,
-                                                    newUser, username);
+                            userErrorMessageHandler(message.get_error(),
+                                                    asyncResp, newUser,
+                                                    username);
                             return;
                         }
 

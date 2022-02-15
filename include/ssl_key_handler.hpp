@@ -225,19 +225,19 @@ inline X509* loadCert(const std::string& filePath)
 
 inline int addExt(X509* cert, int nid, const char* value)
 {
-    X509_EXTENSION* ex = nullptr;
+    X509_EXTENSION* ext = nullptr;
     X509V3_CTX ctx{};
     X509V3_set_ctx(&ctx, cert, cert, nullptr, nullptr, 0);
 
     // NOLINTNEXTLINE(cppcoreguidelines-pro-type-const-cast)
-    ex = X509V3_EXT_conf_nid(nullptr, &ctx, nid, const_cast<char*>(value));
-    if (ex == nullptr)
+    ext = X509V3_EXT_conf_nid(nullptr, &ctx, nid, const_cast<char*>(value));
+    if (ext == nullptr)
     {
         BMCWEB_LOG_ERROR << "Error: In X509V3_EXT_conf_nidn: " << value;
         return -1;
     }
-    X509_add_ext(cert, ex, -1);
-    X509_EXTENSION_free(ex);
+    X509_add_ext(cert, ext, -1);
+    X509_EXTENSION_free(ext);
     return 0;
 }
 

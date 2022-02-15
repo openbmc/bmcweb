@@ -63,7 +63,7 @@ inline static void activateImage(const std::string& objPath,
 // then no asyncResp updates will occur
 static void
     softwareInterfaceAdded(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                           sdbusplus::message::message& m,
+                           sdbusplus::message::message& message,
                            task::Payload&& payload)
 {
     std::vector<std::pair<
@@ -73,7 +73,7 @@ static void
 
     sdbusplus::message::object_path objPath;
 
-    m.read(objPath, interfacesProperties);
+    message.read(objPath, interfacesProperties);
 
     BMCWEB_LOG_DEBUG << "obj path = " << objPath.str;
     for (auto& interface : interfacesProperties)
@@ -301,9 +301,9 @@ static void monitorForSoftwareAvailable(
         });
     task::Payload payload(req);
     auto callback = [asyncResp,
-                     payload](sdbusplus::message::message& m) mutable {
+                     payload](sdbusplus::message::message& message) mutable {
         BMCWEB_LOG_DEBUG << "Match fired";
-        softwareInterfaceAdded(asyncResp, m, std::move(payload));
+        softwareInterfaceAdded(asyncResp, message, std::move(payload));
     };
 
     fwUpdateInProgress = true;
@@ -319,12 +319,12 @@ static void monitorForSoftwareAvailable(
         "interface='org.freedesktop.DBus.ObjectManager',type='signal',"
         "member='InterfacesAdded',"
         "path='/xyz/openbmc_project/logging'",
-        [asyncResp, url](sdbusplus::message::message& m) {
+        [asyncResp, url](sdbusplus::message::message& message) {
             std::vector<
                 std::pair<std::string, dbus::utility::DBusPropertiesMap>>
                 interfacesProperties;
             sdbusplus::message::object_path objPath;
-            m.read(objPath, interfacesProperties);
+            message.read(objPath, interfacesProperties);
             BMCWEB_LOG_DEBUG << "obj path = " << objPath.str;
             for (const std::pair<std::string, dbus::utility::DBusPropertiesMap>&
                      interface : interfacesProperties)
@@ -849,9 +849,9 @@ inline void requestRoutesSoftwareInventory(App& app)
                                 boost::container::flat_map<
                                     std::string,
                                     dbus::utility::DbusVariantType>::
-                                    const_iterator it =
+                                    const_iterator propIt =
                                         propertiesList.find("Purpose");
-                                if (it == propertiesList.end())
+                                if (propIt == propertiesList.end())
                                 {
                                     BMCWEB_LOG_DEBUG
                                         << "Can't find property \"Purpose\"!";
@@ -860,7 +860,7 @@ inline void requestRoutesSoftwareInventory(App& app)
                                     return;
                                 }
                                 const std::string* swInvPurpose =
-                                    std::get_if<std::string>(&it->second);
+                                    std::get_if<std::string>(&propIt->second);
                                 if (swInvPurpose == nullptr)
                                 {
                                     BMCWEB_LOG_DEBUG
@@ -872,8 +872,8 @@ inline void requestRoutesSoftwareInventory(App& app)
 
                                 BMCWEB_LOG_DEBUG << "swInvPurpose = "
                                                  << *swInvPurpose;
-                                it = propertiesList.find("Version");
-                                if (it == propertiesList.end())
+                                propIt = propertiesList.find("Version");
+                                if (propIt == propertiesList.end())
                                 {
                                     BMCWEB_LOG_DEBUG
                                         << "Can't find property \"Version\"!";
@@ -885,7 +885,7 @@ inline void requestRoutesSoftwareInventory(App& app)
                                 BMCWEB_LOG_DEBUG << "Version found!";
 
                                 const std::string* version =
-                                    std::get_if<std::string>(&it->second);
+                                    std::get_if<std::string>(&propIt->second);
 
                                 if (version == nullptr)
                                 {

@@ -68,8 +68,8 @@ static void assertServiceRootGet(crow::Response& res)
 
 TEST(ServiceRootTest, ServiceRootConstructor)
 {
-    std::error_code ec;
-    crow::Request req({}, ec);
+    std::error_code err;
+    crow::Request req({}, err);
     auto shareAsyncResp = std::make_shared<bmcweb::AsyncResp>();
 
     shareAsyncResp->res.setCompleteRequestHandler(assertServiceRootGet);
