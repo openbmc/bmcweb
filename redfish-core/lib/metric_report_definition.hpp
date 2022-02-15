@@ -108,7 +108,7 @@ struct AddReportArgs
     bool emitsReadingsUpdate = false;
     bool logToMetricReportsCollection = false;
     uint64_t interval = 0;
-    std::vector<std::pair<std::string, std::vector<std::string>>> metrics;
+    std::vector<std::pair<std::string, std::vector<std::string>>> metrics{};
 };
 
 inline bool toDbusReportActions(crow::Response& res,
@@ -202,17 +202,17 @@ inline bool getUserParameters(crow::Response& res, const crow::Request& req,
     }
 
     args.metrics.reserve(metrics.size());
-    for (auto& m : metrics)
+    for (auto& metric : metrics)
     {
-        std::string id;
+        std::string metricId;
         std::vector<std::string> uris;
-        if (!json_util::readJson(m, res, "MetricId", id, "MetricProperties",
-                                 uris))
+        if (!json_util::readJson(metric, res, "MetricId", metricId,
+                                 "MetricProperties", uris))
         {
             return false;
         }
 
-        args.metrics.emplace_back(std::move(id), std::move(uris));
+        args.metrics.emplace_back(std::move(metricId), std::move(uris));
     }
 
     return true;
@@ -258,10 +258,10 @@ inline bool getChassisSensorNode(
 class AddReport
 {
   public:
-    AddReport(AddReportArgs argsIn,
+    AddReport(const AddReportArgs& argsIn,
               const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) :
         asyncResp(asyncResp),
-        args{std::move(argsIn)}
+        args{argsIn}
     {}
     ~AddReport()
     {
@@ -278,8 +278,8 @@ class AddReport
             for (size_t i = 0; i < uris.size(); i++)
             {
                 const std::string& uri = uris[i];
-                auto el = uriToDbus.find(uri);
-                if (el == uriToDbus.end())
+                auto uriFind = uriToDbus.find(uri);
+                if (uriFind == uriToDbus.end())
                 {
                     BMCWEB_LOG_ERROR
                         << "Failed to find DBus sensor corresponding to URI "
@@ -290,7 +290,7 @@ class AddReport
                     return;
                 }
 
-                const std::string& dbusPath = el->second;
+                const std::string& dbusPath = uriFind->second;
                 readingParams.emplace_back(dbusPath, "SINGLE", id, uri);
             }
         }

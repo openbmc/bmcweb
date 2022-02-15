@@ -380,11 +380,11 @@ inline void getPersistentMemoryProperties(
             constexpr const std::array<const char*, 3> values{"Volatile",
                                                               "PMEM", "Block"};
 
-            for (const char* v : values)
+            for (const char* knownValue : values)
             {
-                if (boost::ends_with(*value, v))
+                if (boost::ends_with(*value, knownValue))
                 {
-                    aResp->res.jsonValue["OperatingMemoryModes "] = v;
+                    aResp->res.jsonValue["OperatingMemoryModes "] = knownValue;
                     break;
                 }
             }
@@ -402,11 +402,11 @@ inline void getPersistentMemoryProperties(
             constexpr const std::array<const char*, 3> values{"DRAM", "NAND",
                                                               "Intel3DXPoint"};
 
-            for (const char* v : values)
+            for (const char* knownValue : values)
             {
-                if (boost::ends_with(*value, v))
+                if (boost::ends_with(*value, knownValue))
                 {
-                    aResp->res.jsonValue["MemoryMedia"] = v;
+                    aResp->res.jsonValue["MemoryMedia"] = knownValue;
                     break;
                 }
             }
@@ -440,10 +440,10 @@ inline void getPersistentMemoryProperties(
     }
 }
 
-inline void getDimmDataByService(std::shared_ptr<bmcweb::AsyncResp> aResp,
-                                 const std::string& dimmId,
-                                 const std::string& service,
-                                 const std::string& objPath)
+inline void
+    getDimmDataByService(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
+                         const std::string& dimmId, const std::string& service,
+                         const std::string& objPath)
 {
     auto health = std::make_shared<HealthPopulate>(aResp);
     health->selfPath = objPath;
@@ -451,8 +451,8 @@ inline void getDimmDataByService(std::shared_ptr<bmcweb::AsyncResp> aResp,
 
     BMCWEB_LOG_DEBUG << "Get available system components.";
     crow::connections::systemBus->async_method_call(
-        [dimmId, aResp{std::move(aResp)}](const boost::system::error_code ec,
-                                          const DimmProperties& properties) {
+        [dimmId, aResp{aResp}](const boost::system::error_code ec,
+                               const DimmProperties& properties) {
             if (ec)
             {
                 BMCWEB_LOG_DEBUG << "DBUS response error";
@@ -575,11 +575,12 @@ inline void getDimmDataByService(std::shared_ptr<bmcweb::AsyncResp> aResp,
                         "NoECC", "SingleBitECC", "MultiBitECC",
                         "AddressParity"};
 
-                    for (const char* v : values)
+                    for (const char* knownValue : values)
                     {
-                        if (boost::ends_with(*value, v))
+                        if (boost::ends_with(*value, knownValue))
                         {
-                            aResp->res.jsonValue["ErrorCorrection"] = v;
+                            aResp->res.jsonValue["ErrorCorrection"] =
+                                knownValue;
                             break;
                         }
                     }
@@ -601,11 +602,11 @@ inline void getDimmDataByService(std::shared_ptr<bmcweb::AsyncResp> aResp,
                         "SO_RDIMM_72b", "SO_UDIMM_72b", "SO_DIMM_16b",
                         "SO_DIMM_32b",  "Die"};
 
-                    for (const char* v : values)
+                    for (const char* knownValue : values)
                     {
-                        if (boost::ends_with(*value, v))
+                        if (boost::ends_with(*value, knownValue))
                         {
-                            aResp->res.jsonValue["BaseModuleType"] = v;
+                            aResp->res.jsonValue["BaseModuleType"] = knownValue;
                             break;
                         }
                     }
@@ -735,12 +736,12 @@ inline void getDimmDataByService(std::shared_ptr<bmcweb::AsyncResp> aResp,
         service, objPath, "org.freedesktop.DBus.Properties", "GetAll", "");
 }
 
-inline void getDimmPartitionData(std::shared_ptr<bmcweb::AsyncResp> aResp,
-                                 const std::string& service,
-                                 const std::string& path)
+inline void
+    getDimmPartitionData(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
+                         const std::string& service, const std::string& path)
 {
     crow::connections::systemBus->async_method_call(
-        [aResp{std::move(aResp)}](
+        [aResp{aResp}](
             const boost::system::error_code ec,
             const boost::container::flat_map<
                 std::string, dbus::utility::DbusVariantType>& properties) {
@@ -818,12 +819,12 @@ inline void getDimmPartitionData(std::shared_ptr<bmcweb::AsyncResp> aResp,
         "xyz.openbmc_project.Inventory.Item.PersistentMemory.Partition");
 }
 
-inline void getDimmData(std::shared_ptr<bmcweb::AsyncResp> aResp,
+inline void getDimmData(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
                         const std::string& dimmId)
 {
     BMCWEB_LOG_DEBUG << "Get available system dimm resources.";
     crow::connections::systemBus->async_method_call(
-        [dimmId, aResp{std::move(aResp)}](
+        [dimmId, aResp{aResp}](
             const boost::system::error_code ec,
             const boost::container::flat_map<
                 std::string, boost::container::flat_map<

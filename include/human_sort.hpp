@@ -8,9 +8,9 @@ namespace details
 
 // This implementation avoids the complexity of using std::isdigit, which pulls
 // in all of <locale>, and likely has other consequences.
-inline bool simpleIsDigit(const char c)
+inline bool simpleIsDigit(const char character)
 {
-    return c >= '0' && c <= '9';
+    return character >= '0' && character <= '9';
 }
 
 enum class ModeType
@@ -25,18 +25,18 @@ inline int alphanumComp(const std::string_view left,
                         const std::string_view right)
 {
 
-    std::string_view::const_iterator l = left.begin();
-    std::string_view::const_iterator r = right.begin();
+    std::string_view::const_iterator lIter = left.begin();
+    std::string_view::const_iterator rIter = right.begin();
 
     details::ModeType mode = details::ModeType::STRING;
 
-    while (l != left.end() && r != right.end())
+    while (lIter != left.end() && rIter != right.end())
     {
         if (mode == details::ModeType::STRING)
         {
             // check if this are digit characters
-            const bool lDigit = details::simpleIsDigit(*l);
-            const bool rDigit = details::simpleIsDigit(*r);
+            const bool lDigit = details::simpleIsDigit(*lIter);
+            const bool rDigit = details::simpleIsDigit(*rIter);
             // if both characters are digits, we continue in NUMBER mode
             if (lDigit && rDigit)
             {
@@ -53,27 +53,27 @@ inline int alphanumComp(const std::string_view left,
                 return +1;
             }
             // compute the difference of both characters
-            const int diff = *l - *r;
+            const int diff = *lIter - *rIter;
             // if they differ we have a result
             if (diff != 0)
             {
                 return diff;
             }
             // otherwise process the next characters
-            l++;
-            r++;
+            lIter++;
+            rIter++;
         }
         else // mode==NUMBER
         {
             // get the left number
             int lInt = 0;
-            auto fc = std::from_chars(&(*l), &(*left.end()), lInt);
-            l += std::distance(l, fc.ptr);
+            auto ret = std::from_chars(&(*lIter), &(*left.end()), lInt);
+            lIter += std::distance(lIter, ret.ptr);
 
             // get the right number
             int rInt = 0;
-            fc = std::from_chars(&(*r), &(*right.end()), rInt);
-            r += std::distance(r, fc.ptr);
+            ret = std::from_chars(&(*rIter), &(*right.end()), rInt);
+            rIter += std::distance(rIter, ret.ptr);
 
             // if the difference is not equal to zero, we have a comparison
             // result
@@ -87,11 +87,11 @@ inline int alphanumComp(const std::string_view left,
             mode = details::ModeType::STRING;
         }
     }
-    if (r == right.end() && l == left.end())
+    if (rIter == right.end() && lIter == left.end())
     {
         return 0;
     }
-    if (r == right.end())
+    if (rIter == right.end())
     {
         return 1;
     }
