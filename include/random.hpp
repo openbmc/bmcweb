@@ -10,8 +10,8 @@ struct OpenSSLGenerator
     uint8_t operator()()
     {
         uint8_t index = 0;
-        int rc = RAND_bytes(&index, sizeof(index));
-        if (rc != opensslSuccess)
+        int randReturn = RAND_bytes(&index, sizeof(index));
+        if (randReturn != opensslSuccess)
         {
             std::cerr << "Cannot get random number\n";
             err = true;

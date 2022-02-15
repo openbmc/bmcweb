@@ -68,11 +68,11 @@ struct UserSession
      * @return a shared pointer if data has been loaded properly, nullptr
      * otherwise
      */
-    static std::shared_ptr<UserSession> fromJson(const nlohmann::json& j)
+    static std::shared_ptr<UserSession> fromJson(const nlohmann::json& json)
     {
         std::shared_ptr<UserSession> userSession =
             std::make_shared<UserSession>();
-        for (const auto& element : j.items())
+        for (const auto& element : json.items())
         {
             const std::string* thisValue =
                 element.value().get_ptr<const std::string*>();
@@ -174,9 +174,9 @@ struct AuthConfigMethods
     bool tls = false;
 #endif
 
-    void fromJson(const nlohmann::json& j)
+    void fromJson(const nlohmann::json& json)
     {
-        for (const auto& element : j.items())
+        for (const auto& element : json.items())
         {
             const bool* value = element.value().get_ptr<const bool*>();
             if (value == nullptr)
@@ -269,10 +269,11 @@ class SessionStore
             std::string(clientId), redfish::ip_util::toString(clientIp),
             std::chrono::steady_clock::now(), persistence, false,
             isConfigureSelfOnly});
-        auto it = authTokens.emplace(std::make_pair(sessionToken, session));
+        auto authTokensIter =
+            authTokens.emplace(std::make_pair(sessionToken, session));
         // Only need to write to disk if session isn't about to be destroyed.
         needWrite = persistence == PersistenceType::TIMEOUT;
-        return it.first->second;
+        return authTokensIter.first->second;
     }
 
     std::shared_ptr<UserSession>

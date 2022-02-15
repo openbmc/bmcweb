@@ -33,24 +33,24 @@ struct RoutingParams
     void debugPrint() const
     {
         std::cerr << "RoutingParams" << std::endl;
-        for (auto i : intParams)
+        for (int64_t integer : intParams)
         {
-            std::cerr << i << ", ";
+            std::cerr << integer << ", ";
         }
         std::cerr << std::endl;
-        for (auto i : uintParams)
+        for (uint64_t uInterger : uintParams)
         {
-            std::cerr << i << ", ";
+            std::cerr << uInterger << ", ";
         }
         std::cerr << std::endl;
-        for (auto i : doubleParams)
+        for (double doubleVal : doubleParams)
         {
-            std::cerr << i << ", ";
+            std::cerr << doubleVal << ", ";
         }
         std::cerr << std::endl;
-        for (const std::string& i : stringParams)
+        for (const std::string& str : stringParams)
         {
-            std::cerr << i << ", ";
+            std::cerr << str << ", ";
         }
         std::cerr << std::endl;
     }

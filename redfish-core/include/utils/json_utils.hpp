@@ -253,10 +253,10 @@ bool unpackValue(nlohmann::json& jsonValue, const std::string& key,
     }
     else
     {
-        UnpackErrorCode ec = unpackValueWithErrorCode(jsonValue, key, value);
-        if (ec != UnpackErrorCode::success)
+        UnpackErrorCode err = unpackValueWithErrorCode(jsonValue, key, value);
+        if (err != UnpackErrorCode::success)
         {
-            if (ec == UnpackErrorCode::invalidType)
+            if (err == UnpackErrorCode::invalidType)
             {
                 messages::propertyValueTypeError(
                     res,
@@ -264,7 +264,7 @@ bool unpackValue(nlohmann::json& jsonValue, const std::string& key,
                                    nlohmann::json::error_handler_t::replace),
                     key);
             }
-            else if (ec == UnpackErrorCode::outOfRange)
+            else if (err == UnpackErrorCode::outOfRange)
             {
                 messages::propertyValueNotInList(
                     res,
@@ -324,8 +324,9 @@ bool unpackValue(nlohmann::json& jsonValue, const std::string& key, Type& value)
     }
     else
     {
-        UnpackErrorCode ec = unpackValueWithErrorCode(jsonValue, key, value);
-        if (ec != UnpackErrorCode::success)
+        UnpackErrorCode unpackErr =
+            unpackValueWithErrorCode(jsonValue, key, value);
+        if (unpackErr != UnpackErrorCode::success)
         {
             return false;
         }
@@ -441,14 +442,14 @@ template <typename Type>
 bool getValueFromJsonObject(nlohmann::json& jsonData, const std::string& key,
                             Type& value)
 {
-    nlohmann::json::iterator it = jsonData.find(key);
-    if (it == jsonData.end())
+    nlohmann::json::iterator jsonIt = jsonData.find(key);
+    if (jsonIt == jsonData.end())
     {
         BMCWEB_LOG_DEBUG << "Key " << key << " not exist";
         return false;
     }
 
-    return details::unpackValue(*it, key, value);
+    return details::unpackValue(*jsonIt, key, value);
 }
 } // namespace json_util
 } // namespace redfish
