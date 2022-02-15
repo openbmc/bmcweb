@@ -127,15 +127,15 @@ inline void
 inline void
     getPowerSupplyState(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                         const std::string& connectionName,
-                        const std::string& path)
+                        const std::string& path, bool available)
 {
 
     // Set the default state to Absent
     asyncResp->res.jsonValue["Status"]["State"] = "Enabled";
 
     crow::connections::systemBus->async_method_call(
-        [asyncResp](const boost::system::error_code ec,
-                    const std::variant<bool> state) {
+        [asyncResp, available](const boost::system::error_code ec,
+                               const std::variant<bool> state) {
             if (ec)
             {
                 if (ec.value() == EBADR)
@@ -157,6 +157,11 @@ inline void
             {
                 asyncResp->res.jsonValue["Status"]["State"] = "Absent";
             }
+            else if (!available)
+            {
+                asyncResp->res.jsonValue["Status"]["State"] =
+                    "UnavailableOffline";
+            }
         },
         connectionName, path, "org.freedesktop.DBus.Properties", "Get",
         "xyz.openbmc_project.Inventory.Item", "Present");
@@ -165,14 +170,14 @@ inline void
 inline void
     getPowerSupplyHealth(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                          const std::string& connectionName,
-                         const std::string& path)
+                         const std::string& path, bool available)
 {
     // Set the default Health to OK
     asyncResp->res.jsonValue["Status"]["Health"] = "OK";
 
     crow::connections::systemBus->async_method_call(
-        [asyncResp](const boost::system::error_code ec,
-                    const std::variant<bool> health) {
+        [asyncResp, available](const boost::system::error_code ec,
+                               const std::variant<bool> health) {
             if (ec)
             {
                 if (ec.value() == EBADR)
@@ -190,13 +195,50 @@ inline void
                 messages::internalError(asyncResp->res);
                 return;
             }
-            if (*value == false)
+            if ((*value == false) || !available)
             {
                 asyncResp->res.jsonValue["Status"]["Health"] = "Critical";
             }
         },
         connectionName, path, "org.freedesktop.DBus.Properties", "Get",
         "xyz.openbmc_project.State.Decorator.OperationalStatus", "Functional");
+}
+
+inline void getPowerSupplyStateAndHealth(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& connectionName, const std::string& path)
+{
+    crow::connections::systemBus->async_method_call(
+        [asyncResp, connectionName,
+         path](const boost::system::error_code ec,
+               const std::variant<bool> availability) {
+            bool available = true;
+            if (ec)
+            {
+                if (ec.value() != EBADR)
+                {
+                    BMCWEB_LOG_ERROR << "Can't get PowerSupply availability!";
+                    messages::internalError(asyncResp->res);
+                    return;
+                }
+            }
+            else
+            {
+                const bool* value = std::get_if<bool>(&availability);
+                if (value == nullptr)
+                {
+                    messages::internalError(asyncResp->res);
+                    return;
+                }
+                available = *value;
+            }
+
+            getPowerSupplyState(asyncResp, connectionName, path, available);
+
+            getPowerSupplyHealth(asyncResp, connectionName, path, available);
+        },
+        connectionName, path, "org.freedesktop.DBus.Properties", "Get",
+        "xyz.openbmc_project.State.Decorator.Availability", "Available");
 }
 
 inline void
@@ -596,15 +638,10 @@ inline void requestRoutesPowerSupply(App& app)
                                                        validPowerSupplyService,
                                                        validPowerSupplyPath);
 
-                                // Get power supply state
-                                getPowerSupplyState(asyncResp,
-                                                    validPowerSupplyService,
-                                                    validPowerSupplyPath);
-
-                                // Get power supply health
-                                getPowerSupplyHealth(asyncResp,
-                                                     validPowerSupplyService,
-                                                     validPowerSupplyPath);
+                                // Get power supply state and health
+                                getPowerSupplyStateAndHealth(
+                                    asyncResp, validPowerSupplyService,
+                                    validPowerSupplyPath);
 
                                 // Get power supply firmware version
                                 getPowerSupplyFirmwareVersion(
