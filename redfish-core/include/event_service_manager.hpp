@@ -664,7 +664,7 @@ class EventServiceManager
         }
     }
 
-    void loadOldBehavior()
+    static void loadOldBehavior()
     {
         std::ifstream eventConfigFile(eventServiceFile);
         if (!eventConfigFile.good())
@@ -1313,7 +1313,7 @@ class EventServiceManager
     }
 
 #endif
-    void getReadingsForReport(sdbusplus::message::message& msg)
+    static void getReadingsForReport(sdbusplus::message::message& msg)
     {
         sdbusplus::message::object_path path(msg.get_path());
         std::string id = path.filename();
@@ -1393,9 +1393,9 @@ class EventServiceManager
             });
     }
 
-    bool validateAndSplitUrl(const std::string& destUrl, std::string& urlProto,
-                             std::string& host, std::string& port,
-                             std::string& path)
+    static bool validateAndSplitUrl(const std::string& destUrl,
+                                    std::string& urlProto, std::string& host,
+                                    std::string& port, std::string& path)
     {
         // Validate URL using regex expression
         // Format: <protocol>://<host>:<port>/<path>
