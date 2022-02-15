@@ -192,14 +192,14 @@ static std::shared_ptr<persistent_data::UserSession>
                    const boost::beast::http::header<true>& reqHeader,
                    const std::weak_ptr<persistent_data::UserSession>& session)
 {
-    if (auto sp = session.lock())
+    if (auto sessionPtr = session.lock())
     {
         // set cookie only if this is req from the browser.
         if (reqHeader["User-Agent"].empty())
         {
-            BMCWEB_LOG_DEBUG << " TLS session: " << sp->uniqueId
+            BMCWEB_LOG_DEBUG << " TLS session: " << sessionPtr->uniqueId
                              << " will be used for this request.";
-            return sp;
+            return sessionPtr;
         }
         std::string_view cookieValue = reqHeader["Cookie"];
         if (cookieValue.empty() ||
@@ -208,14 +208,14 @@ static std::shared_ptr<persistent_data::UserSession>
             // TODO: change this to not switch to cookie auth
             res.addHeader(
                 "Set-Cookie",
-                "XSRF-TOKEN=" + sp->csrfToken +
+                "XSRF-TOKEN=" + sessionPtr->csrfToken +
                     "; SameSite=Strict; Secure\r\nSet-Cookie: SESSION=" +
-                    sp->sessionToken +
+                    sessionPtr->sessionToken +
                     "; SameSite=Strict; Secure; HttpOnly\r\nSet-Cookie: "
                     "IsAuthenticated=true; Secure");
-            BMCWEB_LOG_DEBUG << " TLS session: " << sp->uniqueId
+            BMCWEB_LOG_DEBUG << " TLS session: " << sessionPtr->uniqueId
                              << " with cookie will be used for this request.";
-            return sp;
+            return sessionPtr;
         }
     }
     return nullptr;

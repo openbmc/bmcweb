@@ -225,11 +225,11 @@ inline bool
                     {
                         if (propertyPair.first == "Id")
                         {
-                            const uint32_t* id =
+                            const uint32_t* vlanId =
                                 std::get_if<uint32_t>(&propertyPair.second);
-                            if (id != nullptr)
+                            if (vlanId != nullptr)
                             {
-                                ethData.vlan_id.push_back(*id);
+                                ethData.vlan_id.push_back(*vlanId);
                             }
                         }
                     }
@@ -459,8 +459,8 @@ inline void
                     std::pair<
                         boost::container::flat_set<IPv6AddressData>::iterator,
                         bool>
-                        it = ipv6Config.insert(IPv6AddressData{});
-                    IPv6AddressData& ipv6Address = *it.first;
+                        ipv6It = ipv6Config.insert(IPv6AddressData{});
+                    IPv6AddressData& ipv6Address = *ipv6It.first;
                     ipv6Address.id =
                         objpath.first.str.substr(ipv6PathStart.size());
                     for (const auto& property : interface.second)
@@ -537,8 +537,8 @@ inline void
                     std::pair<
                         boost::container::flat_set<IPv4AddressData>::iterator,
                         bool>
-                        it = ipv4Config.insert(IPv4AddressData{});
-                    IPv4AddressData& ipv4Address = *it.first;
+                        ipv4It = ipv4Config.insert(IPv4AddressData{});
+                    IPv4AddressData& ipv4Address = *ipv4It.first;
                     ipv4Address.id =
                         objpath.first.str.substr(ipv4PathStart.size());
                     for (const auto& property : interface.second)
@@ -1421,7 +1421,7 @@ inline void handleIPv4StaticPatch(
             // current state of the interface. Merge existing state into the
             // current request.
             const std::string* addr = nullptr;
-            const std::string* gw = nullptr;
+            const std::string* gatewayValue = nullptr;
             uint8_t prefixLength = 0;
             bool errorInEntry = false;
             if (address)
@@ -1480,7 +1480,7 @@ inline void handleIPv4StaticPatch(
             {
                 if (ipv4VerifyIpAndGetBitcount(*gateway))
                 {
-                    gw = &(*gateway);
+                    gatewayValue = &(*gateway);
                 }
                 else
                 {
@@ -1491,7 +1491,7 @@ inline void handleIPv4StaticPatch(
             }
             else if (nicIpEntry != ipv4Data.cend())
             {
-                gw = &nicIpEntry->gateway;
+                gatewayValue = &nicIpEntry->gateway;
             }
             else
             {
@@ -1507,8 +1507,8 @@ inline void handleIPv4StaticPatch(
 
             if (nicIpEntry != ipv4Data.cend())
             {
-                deleteAndCreateIPv4(ifaceId, nicIpEntry->id, prefixLength, *gw,
-                                    *addr, asyncResp);
+                deleteAndCreateIPv4(ifaceId, nicIpEntry->id, prefixLength,
+                                    *gatewayValue, *addr, asyncResp);
                 nicIpEntry =
                     getNextStaticIpEntry(++nicIpEntry, ipv4Data.cend());
             }

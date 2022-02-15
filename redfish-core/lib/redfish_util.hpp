@@ -96,7 +96,7 @@ void getPortStatusAndPath(const std::string& serviceName,
     crow::connections::systemBus->async_method_call(
         [serviceName, callback{std::forward<CallbackFunc>(callback)}](
             const boost::system::error_code ec,
-            const std::vector<UnitStruct>& r) {
+            const std::vector<UnitStruct>& unitsList) {
             if (ec)
             {
                 BMCWEB_LOG_ERROR << ec;
@@ -105,7 +105,7 @@ void getPortStatusAndPath(const std::string& serviceName,
                 return;
             }
 
-            for (const UnitStruct& unit : r)
+            for (const UnitStruct& unit : unitsList)
             {
                 // Only traverse through <xyz>.socket units
                 const std::string& unitName =
@@ -196,9 +196,9 @@ void getPortNumber(const std::string& socketPath, CallbackFunc&& callback)
             }
             const std::string& listenStream =
                 std::get<NET_PROTO_LISTEN_STREAM>(resp[0]);
-            const char* pa = &listenStream[listenStream.rfind(':') + 1];
+            const char* portPtr = &listenStream[listenStream.rfind(':') + 1];
             int port{0};
-            if (auto [p, ec2] = std::from_chars(pa, nullptr, port);
+            if (auto [p, ec2] = std::from_chars(portPtr, nullptr, port);
                 ec2 != std::errc())
             {
                 // there is only two possibility invalid_argument and
