@@ -137,14 +137,14 @@ inline void requestRoutesPower(App& app)
             // This prevents things like power supplies providing the
             // chassis power limit
             auto chassisHandler = [sensorAsyncResp](
-                                      const boost::system::error_code e,
+                                      const boost::system::error_code err,
                                       const std::vector<std::string>&
                                           chassisPaths) {
-                if (e)
+                if (err)
                 {
                     BMCWEB_LOG_ERROR
                         << "Power Limit GetSubTreePaths handler Dbus error "
-                        << e;
+                        << err;
                     return;
                 }
 
@@ -233,45 +233,46 @@ inline void requestRoutesPower(App& app)
                         {
                             if (property.first.compare("Scale") == 0)
                             {
-                                const int64_t* i =
+                                const int64_t* scaleValue =
                                     std::get_if<int64_t>(&property.second);
 
-                                if (i != nullptr)
+                                if (scaleValue != nullptr)
                                 {
-                                    scale = *i;
+                                    scale = *scaleValue;
                                 }
                             }
                             else if (property.first.compare("PowerCap") == 0)
                             {
-                                const double* d =
+                                const double* powerCapDouble =
                                     std::get_if<double>(&property.second);
-                                const int64_t* i =
+                                const int64_t* powerCapInt =
                                     std::get_if<int64_t>(&property.second);
-                                const uint32_t* u =
+                                const uint32_t* powerCapUint =
                                     std::get_if<uint32_t>(&property.second);
 
-                                if (d != nullptr)
+                                if (powerCapDouble != nullptr)
                                 {
-                                    powerCap = *d;
+                                    powerCap = *powerCapDouble;
                                 }
-                                else if (i != nullptr)
+                                else if (powerCapInt != nullptr)
                                 {
-                                    powerCap = static_cast<double>(*i);
+                                    powerCap =
+                                        static_cast<double>(*powerCapInt);
                                 }
-                                else if (u != nullptr)
+                                else if (powerCapUint != nullptr)
                                 {
-                                    powerCap = *u;
+                                    powerCap = *powerCapUint;
                                 }
                             }
                             else if (property.first.compare("PowerCapEnable") ==
                                      0)
                             {
-                                const bool* b =
+                                const bool* powerCapEnable =
                                     std::get_if<bool>(&property.second);
 
-                                if (b != nullptr)
+                                if (powerCapEnable != nullptr)
                                 {
-                                    enabled = *b;
+                                    enabled = *powerCapEnable;
                                 }
                             }
                         }

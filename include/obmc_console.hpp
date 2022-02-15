@@ -127,12 +127,13 @@ inline void requestRoutes(App& app)
             if (hostSocket == nullptr)
             {
                 const std::string consoleName("\0obmc-console", 13);
-                boost::asio::local::stream_protocol::endpoint ep(consoleName);
+                boost::asio::local::stream_protocol::endpoint endpoint(
+                    consoleName);
 
                 hostSocket = std::make_unique<
                     boost::asio::local::stream_protocol::socket>(
                     conn.getIoContext());
-                hostSocket->async_connect(ep, connectHandler);
+                hostSocket->async_connect(endpoint, connectHandler);
             }
         })
         .onclose([](crow::websocket::Connection& conn,

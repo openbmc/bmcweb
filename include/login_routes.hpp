@@ -127,12 +127,12 @@ inline void requestRoutes(App& app)
             {
                 looksLikePhosphorRest = true;
                 MultipartParser parser;
-                ParserError ec = parser.parse(req);
-                if (ec != ParserError::PARSER_SUCCESS)
+                ParserError parseEc = parser.parse(req);
+                if (parseEc != ParserError::PARSER_SUCCESS)
                 {
                     // handle error
                     BMCWEB_LOG_ERROR << "MIME parse failed, ec : "
-                                     << static_cast<int>(ec);
+                                     << static_cast<int>(parseEc);
                     asyncResp->res.result(
                         boost::beast::http::status::bad_request);
                     return;
@@ -140,9 +140,9 @@ inline void requestRoutes(App& app)
 
                 for (const FormPart& formpart : parser.mime_fields)
                 {
-                    boost::beast::http::fields::const_iterator it =
+                    boost::beast::http::fields::const_iterator field =
                         formpart.fields.find("Content-Disposition");
-                    if (it == formpart.fields.end())
+                    if (field == formpart.fields.end())
                     {
                         BMCWEB_LOG_ERROR << "Couldn't find Content-Disposition";
                         asyncResp->res.result(
@@ -150,20 +150,20 @@ inline void requestRoutes(App& app)
                         continue;
                     }
 
-                    BMCWEB_LOG_INFO << "Parsing value " << it->value();
+                    BMCWEB_LOG_INFO << "Parsing value " << field->value();
 
-                    if (it->value() == "form-data; name=\"username\"")
+                    if (field->value() == "form-data; name=\"username\"")
                     {
                         username = formpart.content;
                     }
-                    else if (it->value() == "form-data; name=\"password\"")
+                    else if (field->value() == "form-data; name=\"password\"")
                     {
                         password = formpart.content;
                     }
                     else
                     {
                         BMCWEB_LOG_INFO << "Extra format, ignore it."
-                                        << it->value();
+                                        << field->value();
                     }
                 }
             }
