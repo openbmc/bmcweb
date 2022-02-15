@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c25183ef_0d490c22",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2022-02-15T22:47:00Z",
+      "side": 1,
+      "message": "This url is better because it show the comments/discusion from Geissler and Ed.\nhttps://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/50799",
+      "parentUuid": "a57027b2_535f8c9e",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 79
+      },
+      "revId": "1a77d0c08653ebc9309e29b0634129b95606dc3b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "42504642_3bd656e4",
@@ -61,6 +85,30 @@
       "side": 1,
       "message": "Please see the added URL for more context.",
       "parentUuid": "42504642_3bd656e4",
+      "range": {
+        "startLine": 55,
+        "startChar": 16,
+        "endLine": 55,
+        "endChar": 17
+      },
+      "revId": "1a77d0c08653ebc9309e29b0634129b95606dc3b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "db18fce6_694ad30d",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2022-02-15T22:47:00Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "92b25e78_82a01b3d",
       "range": {
         "startLine": 55,
         "startChar": 16,
