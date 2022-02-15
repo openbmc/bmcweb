@@ -295,6 +295,36 @@ inline void
                                         "disabled";
                                 }
                             }
+                            else if (property.first == "MinPowerCapValue")
+                            {
+                                const uint32_t* minCap =
+                                    std::get_if<uint32_t>(&property.second);
+
+                                if (minCap == nullptr)
+                                {
+
+                                    messages::internalError(asyncResp->res);
+                                    return;
+                                }
+                                asyncResp->res.jsonValue["PowerLimitWatts"]
+                                                        ["AllowableMin"] =
+                                    *minCap;
+                            }
+                            else if (property.first == "MaxPowerCapValue")
+                            {
+                                const uint32_t* maxCap =
+                                    std::get_if<uint32_t>(&property.second);
+
+                                if (maxCap == nullptr)
+                                {
+
+                                    messages::internalError(asyncResp->res);
+                                    return;
+                                }
+                                asyncResp->res.jsonValue["PowerLimitWatts"]
+                                                        ["AllowableMax"] =
+                                    *maxCap;
+                            }
                         }
                     },
                     connectionName, validPath,
