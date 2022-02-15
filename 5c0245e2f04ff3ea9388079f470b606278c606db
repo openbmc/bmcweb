@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bc59dfa3_12f3b809",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 26
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-02-15T01:20:14Z",
+      "side": 1,
+      "message": "This is looking pretty good to me.",
+      "revId": "5c0245e2f04ff3ea9388079f470b606278c606db",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "308982fb_07e2cd8b",
+        "filename": "redfish-core/include/utils/json_utils.hpp",
+        "patchSetId": 26
+      },
+      "lineNbr": 467,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-02-15T01:20:14Z",
+      "side": 1,
+      "message": "This is going to bypass the required checks in the case where it\u0027s empty\n\nstd::string foo;\nreadJsonAction(\u003cempty nlohmann object\u003e, res, \"foo\", foo);\n\nwould pass this check incorrectly, when the foo variable is required.\n\n\nI suspect this whole branch can just be removed, as if jsonRequest is empty, the loop on 470 wont run at all.",
+      "range": {
+        "startLine": 462,
+        "startChar": 0,
+        "endLine": 467,
+        "endChar": 5
+      },
+      "revId": "5c0245e2f04ff3ea9388079f470b606278c606db",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
