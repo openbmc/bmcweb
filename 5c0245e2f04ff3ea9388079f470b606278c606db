@@ -39,6 +39,30 @@
       },
       "revId": "5c0245e2f04ff3ea9388079f470b606278c606db",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "023daf25_6b48eac8",
+        "filename": "redfish-core/include/utils/json_utils.hpp",
+        "patchSetId": 26
+      },
+      "lineNbr": 467,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2022-02-15T01:44:07Z",
+      "side": 1,
+      "message": "removed. Seems to work fine without it.",
+      "parentUuid": "308982fb_07e2cd8b",
+      "range": {
+        "startLine": 462,
+        "startChar": 0,
+        "endLine": 467,
+        "endChar": 5
+      },
+      "revId": "5c0245e2f04ff3ea9388079f470b606278c606db",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
