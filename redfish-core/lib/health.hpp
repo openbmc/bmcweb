@@ -237,13 +237,13 @@ struct HealthPopulate : std::enable_shared_from_this<HealthPopulate>
     // we store pointers to other HealthPopulate items so we can update their
     // members and reduce dbus calls. As we hold a shared_ptr to them, they get
     // destroyed last, and they need not call populate()
-    std::vector<std::shared_ptr<HealthPopulate>> children;
+    std::vector<std::shared_ptr<HealthPopulate>> children{};
 
     // self is used if health is for an individual items status, as this is the
     // 'lowest most' item, the rollup will equal the health
     std::optional<std::string> selfPath;
 
-    std::vector<std::string> inventory;
+    std::vector<std::string> inventory{};
     bool isManagersHealth = false;
     dbus::utility::ManagedObjectType statuses;
     std::string globalInventoryPath = "-"; // default to illegal dbus path

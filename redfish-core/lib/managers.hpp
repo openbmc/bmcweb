@@ -720,7 +720,7 @@ inline const dbus::utility::ManagedObjectType::value_type*
 
     std::string escaped = boost::replace_all_copy(value, " ", "_");
     escaped = "/" + escaped;
-    auto it = std::find_if(
+    auto chassisFind = std::find_if(
         managedObj.begin(), managedObj.end(), [&escaped](const auto& obj) {
             if (boost::algorithm::ends_with(obj.first.str, escaped))
             {
@@ -730,15 +730,15 @@ inline const dbus::utility::ManagedObjectType::value_type*
             return false;
         });
 
-    if (it == managedObj.end())
+    if (chassisFind == managedObj.end())
     {
         return nullptr;
     }
     // 5 comes from <chassis-name> being the 5th element
     // /xyz/openbmc_project/inventory/system/chassis/<chassis-name>
-    if (dbus::utility::getNthStringFromPath(it->first.str, 5, chassis))
+    if (dbus::utility::getNthStringFromPath(chassisFind->first.str, 5, chassis))
     {
-        return &(*it);
+        return &(*chassisFind);
     }
 
     return nullptr;
@@ -927,8 +927,8 @@ inline CreatePIDRet createPidInterface(
         }
         if (inputs || outputs)
         {
-            std::array<std::optional<std::vector<std::string>>*, 2> containers =
-                {&inputs, &outputs};
+            std::array<std::optional<std::vector<std::string>>*, 2> containers{
+                &inputs, &outputs};
             size_t index = 0;
             for (const auto& containerPtr : containers)
             {
@@ -1330,7 +1330,7 @@ struct GetPIDValues : std::enable_shared_from_this<GetPIDValues>
     GetPIDValues& operator=(const GetPIDValues&) = delete;
     GetPIDValues& operator=(GetPIDValues&&) = delete;
 
-    std::vector<std::string> supportedProfiles;
+    std::vector<std::string> supportedProfiles{};
     std::string currentProfile;
     crow::openbmc_mapper::GetSubTreeType subtree;
     std::shared_ptr<bmcweb::AsyncResp> asyncResp;
@@ -1433,10 +1433,11 @@ struct SetPIDValues : std::enable_shared_from_this<SetPIDValues>
                 const std::string& path = subtree[0].first;
                 const std::string& owner = subtree[0].second[0].first;
                 crow::connections::systemBus->async_method_call(
-                    [self, path, owner](
-                        const boost::system::error_code ec2,
-                        const boost::container::flat_map<
-                            std::string, dbus::utility::DbusVariantType>& r) {
+                    [self, path,
+                     owner](const boost::system::error_code ec2,
+                            const boost::container::flat_map<
+                                std::string, dbus::utility::DbusVariantType>&
+                                subtree) {
                         if (ec2)
                         {
                             BMCWEB_LOG_ERROR
@@ -1447,7 +1448,7 @@ struct SetPIDValues : std::enable_shared_from_this<SetPIDValues>
                         }
                         const std::string* current = nullptr;
                         const std::vector<std::string>* supported = nullptr;
-                        for (const auto& [key, value] : r)
+                        for (const auto& [key, value] : subtree)
                         {
                             if (key == "Current")
                             {
@@ -1720,10 +1721,10 @@ struct SetPIDValues : std::enable_shared_from_this<SetPIDValues>
 
     std::shared_ptr<bmcweb::AsyncResp> asyncResp;
     std::vector<std::pair<std::string, std::optional<nlohmann::json>>>
-        configuration;
+        configuration{};
     std::optional<std::string> profile;
     dbus::utility::ManagedObjectType managedObj;
-    std::vector<std::string> supportedProfiles;
+    std::vector<std::string> supportedProfiles{};
     std::string currentProfile;
     std::string profileConnection;
     std::string profilePath;
@@ -1900,8 +1901,8 @@ inline void
         "GetManagedObjects");
 }
 
-inline void setDateTime(std::shared_ptr<bmcweb::AsyncResp> aResp,
-                        std::string datetime)
+inline void setDateTime(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
+                        const std::string& datetime)
 {
     BMCWEB_LOG_DEBUG << "Set date time: " << datetime;
 
@@ -1923,8 +1924,8 @@ inline void setDateTime(std::shared_ptr<bmcweb::AsyncResp> aResp,
         boost::posix_time::time_duration dur = posixTime - epoch;
         uint64_t durMicroSecs = static_cast<uint64_t>(dur.total_microseconds());
         crow::connections::systemBus->async_method_call(
-            [aResp{std::move(aResp)}, datetime{std::move(datetime)}](
-                const boost::system::error_code ec) {
+            [aResp{aResp},
+             datetime{datetime}](const boost::system::error_code ec) {
                 if (ec)
                 {
                     BMCWEB_LOG_DEBUG << "Failed to set elapsed time. "
@@ -2282,7 +2283,7 @@ inline void requestRoutesManager(App& app)
             }
             if (datetime)
             {
-                setDateTime(asyncResp, std::move(*datetime));
+                setDateTime(asyncResp, *datetime);
             }
         });
 }

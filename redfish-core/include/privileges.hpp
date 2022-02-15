@@ -179,9 +179,9 @@ class Privileges
      * @return               None
      *
      */
-    bool isSupersetOf(const Privileges& p) const
+    bool isSupersetOf(const Privileges& priv) const
     {
-        return (privilegeBitset & p.privilegeBitset) == p.privilegeBitset;
+        return (privilegeBitset & priv.privilegeBitset) == priv.privilegeBitset;
     }
 
     /**
@@ -192,13 +192,14 @@ class Privileges
      * @return               The new Privilege set.
      *
      */
-    Privileges intersection(const Privileges& p) const
+    Privileges intersection(const Privileges& priv) const
     {
-        return Privileges{privilegeBitset & p.privilegeBitset};
+        return Privileges{privilegeBitset & priv.privilegeBitset};
     }
 
   private:
-    Privileges(const std::bitset<maxPrivilegeCount>& p) : privilegeBitset{p}
+    Privileges(const std::bitset<maxPrivilegeCount>& priv) :
+        privilegeBitset{priv}
     {}
     std::bitset<maxPrivilegeCount> privilegeBitset = 0;
 };
@@ -215,8 +216,9 @@ inline const Privileges& getUserPrivileges(const std::string& userRole)
     if (userRole == "priv-operator")
     {
         // Redfish privilege : Operator
-        static Privileges op{"Login", "ConfigureSelf", "ConfigureComponents"};
-        return op;
+        static Privileges operatorPriv{"Login", "ConfigureSelf",
+                                       "ConfigureComponents"};
+        return operatorPriv;
     }
     if (userRole == "priv-user")
     {
@@ -285,13 +287,13 @@ inline bool isMethodAllowedWithPrivileges(const boost::beast::http::verb method,
                                           const OperationMap& operationMap,
                                           const Privileges& userPrivileges)
 {
-    const auto& it = operationMap.find(method);
-    if (it == operationMap.end())
+    const auto& opIter = operationMap.find(method);
+    if (opIter == operationMap.end())
     {
         return false;
     }
 
-    return isOperationAllowedWithPrivileges(it->second, userPrivileges);
+    return isOperationAllowedWithPrivileges(opIter->second, userPrivileges);
 }
 
 } // namespace redfish

@@ -253,10 +253,10 @@ bool unpackValue(nlohmann::json& jsonValue, std::string_view key,
     }
     else
     {
-        UnpackErrorCode ec = unpackValueWithErrorCode(jsonValue, key, value);
-        if (ec != UnpackErrorCode::success)
+        UnpackErrorCode err = unpackValueWithErrorCode(jsonValue, key, value);
+        if (err != UnpackErrorCode::success)
         {
-            if (ec == UnpackErrorCode::invalidType)
+            if (err == UnpackErrorCode::invalidType)
             {
                 messages::propertyValueTypeError(
                     res,
@@ -264,7 +264,7 @@ bool unpackValue(nlohmann::json& jsonValue, std::string_view key,
                                    nlohmann::json::error_handler_t::replace),
                     key);
             }
-            else if (ec == UnpackErrorCode::outOfRange)
+            else if (err == UnpackErrorCode::outOfRange)
             {
                 messages::propertyValueNotInList(
                     res,
@@ -324,8 +324,9 @@ bool unpackValue(nlohmann::json& jsonValue, std::string_view key, Type& value)
     }
     else
     {
-        UnpackErrorCode ec = unpackValueWithErrorCode(jsonValue, key, value);
-        if (ec != UnpackErrorCode::success)
+        UnpackErrorCode unpackErr =
+            unpackValueWithErrorCode(jsonValue, key, value);
+        if (unpackErr != UnpackErrorCode::success)
         {
             return false;
         }
@@ -426,9 +427,9 @@ inline bool readJsonHelper(nlohmann::json& jsonRequest, crow::Response& res,
             {
                 // Include the slash in the key so we can compare later
                 key = unpackSpec.key.substr(0, keysplitIndex + 1);
-                nlohmann::json j;
+                nlohmann::json jsonValue;
                 result = details::unpackValue<nlohmann::json>(item.value(), key,
-                                                              res, j) &&
+                                                              res, jsonValue) &&
                          result;
                 if (!result)
                 {
@@ -436,18 +437,19 @@ inline bool readJsonHelper(nlohmann::json& jsonRequest, crow::Response& res,
                 }
 
                 std::vector<PerUnpack> nextLevel;
-                for (PerUnpack& p : toUnpack)
+                for (PerUnpack& perUnpack : toUnpack)
                 {
-                    if (!p.key.starts_with(key))
+                    if (!perUnpack.key.starts_with(key))
                     {
                         continue;
                     }
-                    std::string_view thisLeftover = p.key.substr(key.size());
-                    nextLevel.push_back({thisLeftover, p.value, false});
-                    p.complete = true;
+                    std::string_view thisLeftover =
+                        perUnpack.key.substr(key.size());
+                    nextLevel.push_back({thisLeftover, perUnpack.value, false});
+                    perUnpack.complete = true;
                 }
 
-                result = readJsonHelper(j, res, nextLevel) && result;
+                result = readJsonHelper(jsonValue, res, nextLevel) && result;
                 break;
             }
 
@@ -516,8 +518,8 @@ template <typename FirstType, typename... UnpackTypes>
 bool readJson(nlohmann::json& jsonRequest, crow::Response& res,
               std::string_view key, FirstType&& first, UnpackTypes&&... in)
 {
-    const std::size_t n = sizeof...(UnpackTypes) + 2;
-    std::array<PerUnpack, n / 2> toUnpack2;
+    const std::size_t argCount = sizeof...(UnpackTypes) + 2;
+    std::array<PerUnpack, argCount / 2> toUnpack2;
     packVariant(toUnpack2, key, first, std::forward<UnpackTypes&&>(in)...);
     return readJsonHelper(jsonRequest, res, toUnpack2);
 }

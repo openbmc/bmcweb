@@ -404,12 +404,12 @@ inline void dumpfloat(std::string& out, double number,
 {
     std::array<char, 64> numberbuffer{{}};
     // get number of digits for a float -> text -> float round-trip
-    static constexpr auto d = std::numeric_limits<double>::max_digits10;
+    static constexpr auto numDigits = std::numeric_limits<double>::max_digits10;
 
     // the actual conversion
     // NOLINTNEXTLINE(cppcoreguidelines-pro-type-vararg)
     std::ptrdiff_t len = std::snprintf(numberbuffer.data(), numberbuffer.size(),
-                                       "%.*g", d, number);
+                                       "%.*g", numDigits, number);
 
     // negative value indicates an error
     if (len <= 0)
@@ -436,9 +436,9 @@ inline void dumpfloat(std::string& out, double number,
     out.append(numberbuffer.data(), static_cast<std::size_t>(len));
 
     // determine if need to append ".0"
-    const bool valueIsIntLike =
-        std::none_of(numberbuffer.begin(), numberbuffer.begin() + len + 1,
-                     [](char c) { return (c == '.' or c == 'e'); });
+    const bool valueIsIntLike = std::none_of(
+        numberbuffer.begin(), numberbuffer.begin() + len + 1,
+        [](char character) { return (character == '.' or character == 'e'); });
 
     if (valueIsIntLike)
     {

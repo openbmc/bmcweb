@@ -149,15 +149,15 @@ inline void requestRoutesStorage(App& app)
                         nlohmann::json& storageController =
                             root.emplace_back(nlohmann::json::object());
 
-                        std::string id = path.substr(lastPos + 1);
+                        std::string storageId = path.substr(lastPos + 1);
 
                         storageController["@odata.type"] =
                             "#Storage.v1_7_0.StorageController";
                         storageController["@odata.id"] =
                             "/redfish/v1/Systems/system/Storage/1#/StorageControllers/" +
                             std::to_string(index);
-                        storageController["Name"] = id;
-                        storageController["MemberId"] = id;
+                        storageController["Name"] = storageId;
+                        storageController["MemberId"] = storageId;
                         storageController["Status"]["State"] = "Enabled";
 
                         sdbusplus::asio::getProperty<bool>(

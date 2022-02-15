@@ -89,9 +89,9 @@ inline bool getNthStringFromPath(const std::string& path, int index,
         return false;
     }
 
-    std::filesystem::path p1(path);
+    std::filesystem::path firstPath(path);
     int count = -1;
-    for (auto const& element : p1)
+    for (auto const& element : firstPath)
     {
         if (element.has_filename())
         {

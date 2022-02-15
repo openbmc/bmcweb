@@ -30,9 +30,10 @@ ForwardIterator firstDuplicate(ForwardIterator first, ForwardIterator last)
 }
 
 template <typename T>
-void removeDuplicate(T& t)
+void removeDuplicate(T& iterable)
 {
-    t.erase(firstDuplicate(t.begin(), t.end()), t.end());
+    iterable.erase(firstDuplicate(iterable.begin(), iterable.end()),
+                   iterable.end());
 }
 
 } // namespace stl_utils

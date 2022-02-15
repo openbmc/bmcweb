@@ -206,7 +206,7 @@ struct Wrapped
 {
     template <typename... Args>
     void set(
-        Func f,
+        Func function,
         typename std::enable_if<
             !std::is_same<
                 typename std::tuple_element<0, std::tuple<Args..., void>>::type,
@@ -214,7 +214,7 @@ struct Wrapped
             int>::type /*enable*/
         = 0)
     {
-        handler = [f = std::forward<Func>(f)](
+        handler = [function = std::forward<Func>(function)](
                       const Request&,
                       const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                       Args... args) { asyncResp->res.result(f(args...)); };
@@ -238,7 +238,7 @@ struct Wrapped
 
     template <typename... Args>
     void set(
-        Func f,
+        Func function,
         typename std::enable_if<
             std::is_same<
                 typename std::tuple_element<0, std::tuple<Args..., void>>::type,
@@ -249,7 +249,7 @@ struct Wrapped
             int>::type /*enable*/
         = 0)
     {
-        handler = ReqHandlerWrapper<Args...>(std::move(f));
+        handler = ReqHandlerWrapper<Args...>(std::move(function));
         /*handler = (
             [f = std::move(f)]
             (const Request& req, Response& res, Args... args){
@@ -260,7 +260,7 @@ struct Wrapped
 
     template <typename... Args>
     void set(
-        Func f,
+        Func function,
         typename std::enable_if<
             std::is_same<
                 typename std::tuple_element<0, std::tuple<Args..., void>>::type,
@@ -271,7 +271,7 @@ struct Wrapped
             int>::type /*enable*/
         = 0)
     {
-        handler = std::move(f);
+        handler = std::move(function);
     }
 
     template <typename... Args>
@@ -369,30 +369,30 @@ class WebSocketRule : public BaseRule
 #endif
 
     template <typename Func>
-    self_t& onopen(Func f)
+    self_t& onopen(Func openCallback)
     {
-        openHandler = f;
+        openHandler = openCallback;
         return *this;
     }
 
     template <typename Func>
-    self_t& onmessage(Func f)
+    self_t& onmessage(Func messageCallback)
     {
-        messageHandler = f;
+        messageHandler = messageCallback;
         return *this;
     }
 
     template <typename Func>
-    self_t& onclose(Func f)
+    self_t& onclose(Func closeCallback)
     {
-        closeHandler = f;
+        closeHandler = closeCallback;
         return *this;
     }
 
     template <typename Func>
-    self_t& onerror(Func f)
+    self_t& onerror(Func errorCallback)
     {
-        errorHandler = f;
+        errorHandler = errorCallback;
         return *this;
     }
 
@@ -414,9 +414,9 @@ struct RuleParameterTraits
     WebSocketRule& websocket()
     {
         self_t* self = static_cast<self_t*>(this);
-        WebSocketRule* p = new WebSocketRule(self->rule);
-        self->ruleToUpgrade.reset(p);
-        return *p;
+        WebSocketRule* websockRule = new WebSocketRule(self->rule);
+        self->ruleToUpgrade.reset(websockRule);
+        return *websockRule;
     }
 
     self_t& name(const std::string_view name) noexcept
@@ -443,10 +443,11 @@ struct RuleParameterTraits
     }
 
     self_t& privileges(
-        const std::initializer_list<std::initializer_list<const char*>>& p)
+        const std::initializer_list<std::initializer_list<const char*>>&
+            privileges)
     {
         self_t* self = static_cast<self_t*>(this);
-        for (const std::initializer_list<const char*>& privilege : p)
+        for (const std::initializer_list<const char*>& privilege : privileges)
         {
             self->privilegesSet.emplace_back(privilege);
         }
@@ -454,10 +455,10 @@ struct RuleParameterTraits
     }
 
     template <size_t N, typename... MethodArgs>
-    self_t& privileges(const std::array<redfish::Privileges, N>& p)
+    self_t& privileges(const std::array<redfish::Privileges, N>& privileges)
     {
         self_t* self = static_cast<self_t*>(this);
-        for (const redfish::Privileges& privilege : p)
+        for (const redfish::Privileges& privilege : privileges)
         {
             self->privilegesSet.emplace_back(privilege);
         }
@@ -488,11 +489,11 @@ class DynamicRule : public BaseRule, public RuleParameterTraits<DynamicRule>
     }
 
     template <typename Func>
-    void operator()(Func f)
+    void operator()(Func handleCallback)
     {
         using function_t = utility::function_traits<Func>;
         erasedHandler =
-            wrap(std::move(f),
+            wrap(std::move(handleCallback),
                  std::make_integer_sequence<unsigned, function_t::arity>{});
     }
 
@@ -504,7 +505,8 @@ class DynamicRule : public BaseRule, public RuleParameterTraits<DynamicRule>
     std::function<void(const Request&,
                        const std::shared_ptr<bmcweb::AsyncResp>&,
                        const RoutingParams&)>
-        wrap(Func f, std::integer_sequence<unsigned, Indices...> /*is*/)
+        /*unused*/ wrap(Func handleCallback,
+                        std::integer_sequence<unsigned, Indices...> /*is*/)
     {
         using function_t = crow::utility::function_traits<Func>;
 
@@ -520,15 +522,15 @@ class DynamicRule : public BaseRule, public RuleParameterTraits<DynamicRule>
         auto ret = detail::routing_handler_call_helper::Wrapped<
             Func, typename function_t::template arg<Indices>...>();
         ret.template set<typename function_t::template arg<Indices>...>(
-            std::move(f));
+            std::move(handleCallback));
         return ret;
     }
 
     template <typename Func>
-    void operator()(std::string name, Func&& f)
+    void operator()(std::string name, Func&& callbackFunction)
     {
         nameStr = std::move(name);
-        (*this).template operator()<Func>(std::forward(f));
+        (*this).template operator()<Func>(std::forward(callbackFunction));
     }
 
   private:
@@ -562,7 +564,7 @@ class TaggedRule :
     typename std::enable_if<
         black_magic::CallHelper<Func, black_magic::S<Args...>>::value,
         void>::type
-        operator()(Func&& f)
+        operator()(Func&& callback)
     {
         static_assert(
             black_magic::CallHelper<Func, black_magic::S<Args...>>::value ||
@@ -575,7 +577,7 @@ class TaggedRule :
             "types: "
             "string, int, crow::response, nlohmann::json");
 
-        handler = [f = std::forward<Func>(f)](
+        handler = [callback = std::forward<Func>(callback)](
                       const Request&,
                       const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                       Args... args) { asyncResp->res.result(f(args...)); };
@@ -587,7 +589,7 @@ class TaggedRule :
             black_magic::CallHelper<
                 Func, black_magic::S<crow::Request, Args...>>::value,
         void>::type
-        operator()(Func&& f)
+        operator()(Func&& callback)
     {
         static_assert(
             black_magic::CallHelper<Func, black_magic::S<Args...>>::value ||
@@ -595,13 +597,14 @@ class TaggedRule :
                     Func, black_magic::S<crow::Request, Args...>>::value,
             "Handler type is mismatched with URL parameters");
         static_assert(
-            !std::is_same<void, decltype(f(std::declval<crow::Request>(),
-                                           std::declval<Args>()...))>::value,
+            !std::is_same<void,
+                          decltype(callback(std::declval<crow::Request>(),
+                                            std::declval<Args>()...))>::value,
             "Handler function cannot have void return type; valid return "
             "types: "
             "string, int, crow::response,nlohmann::json");
 
-        handler = [f = std::forward<Func>(f)](
+        handler = [callback = std::forward<Func>(callback)](
                       const crow::Request& req,
                       const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                       Args... args) { asyncResp->res.result(f(req, args...)); };
@@ -613,7 +616,7 @@ class TaggedRule :
             !black_magic::CallHelper<
                 Func, black_magic::S<crow::Request, Args...>>::value,
         void>::type
-        operator()(Func&& f)
+        operator()(Func&& callback)
     {
         static_assert(
             black_magic::CallHelper<Func, black_magic::S<Args...>>::value ||
@@ -626,22 +629,22 @@ class TaggedRule :
             "Handler type is mismatched with URL parameters");
         static_assert(
             std::is_same<
-                void,
-                decltype(f(std::declval<crow::Request>(),
-                           std::declval<std::shared_ptr<bmcweb::AsyncResp>&>(),
-                           std::declval<Args>()...))>::value,
+                void, decltype(callback(
+                          std::declval<crow::Request>(),
+                          std::declval<std::shared_ptr<bmcweb::AsyncResp>&>(),
+                          std::declval<Args>()...))>::value,
             "Handler function with response argument should have void "
             "return "
             "type");
 
-        handler = std::forward<Func>(f);
+        handler = std::forward<Func>(callback);
     }
 
     template <typename Func>
-    void operator()(const std::string_view name, Func&& f)
+    void operator()(const std::string_view name, Func&& handleCallback)
     {
         nameStr = name;
-        (*this).template operator()<Func>(std::forward(f));
+        (*this).template operator()<Func>(std::forward(handleCallback));
     }
 
     void handle(const Request& req,
@@ -679,7 +682,7 @@ class Trie
             return ruleIndex == 0 &&
                    std::all_of(std::begin(paramChildrens),
                                std::end(paramChildrens),
-                               [](size_t x) { return x == 0U; });
+                               [](size_t child) { return child == 0U; });
         }
     };
 
@@ -689,13 +692,13 @@ class Trie
   private:
     void optimizeNode(Node* node)
     {
-        for (size_t x : node->paramChildrens)
+        for (size_t childIndex : node->paramChildrens)
         {
-            if (x == 0U)
+            if (childIndex == 0U)
             {
                 continue;
             }
-            Node* child = &nodes[x];
+            Node* child = &nodes[childIndex];
             optimizeNode(child);
         }
         if (node->children.empty())
@@ -703,9 +706,9 @@ class Trie
             return;
         }
         bool mergeWithChild = true;
-        for (const Node::ChildMap::value_type& kv : node->children)
+        for (const Node::ChildMap::value_type& childNode : node->children)
         {
-            Node* child = &nodes[kv.second];
+            Node* child = &nodes[childNode.second];
             if (!child->isSimpleNode())
             {
                 mergeWithChild = false;
@@ -715,13 +718,13 @@ class Trie
         if (mergeWithChild)
         {
             Node::ChildMap merged;
-            for (const Node::ChildMap::value_type& kv : node->children)
+            for (const Node::ChildMap::value_type& childNode : node->children)
             {
-                Node* child = &nodes[kv.second];
+                Node* child = &nodes[childNode.second];
                 for (const Node::ChildMap::value_type& childKv :
                      child->children)
                 {
-                    merged[kv.first + childKv.first] = childKv.second;
+                    merged[childNode.first + childKv.first] = childKv.second;
                 }
             }
             node->children = std::move(merged);
@@ -729,9 +732,9 @@ class Trie
         }
         else
         {
-            for (const Node::ChildMap::value_type& kv : node->children)
+            for (const Node::ChildMap::value_type& childNode : node->children)
             {
-                Node* child = &nodes[kv.second];
+                Node* child = &nodes[childNode.second];
                 optimizeNode(child);
             }
         }
@@ -756,10 +759,10 @@ class Trie
         {
             node = head();
         }
-        for (const Node::ChildMap::value_type& kv : node->children)
+        for (const Node::ChildMap::value_type& childIndex : node->children)
         {
-            const std::string& fragment = kv.first;
-            const Node* child = &nodes[kv.second];
+            const std::string& fragment = childIndex.first;
+            const Node* child = &nodes[childIndex.second];
             if (pos >= reqUrl.size())
             {
                 if (child->ruleIndex != 0 && fragment != "/")
@@ -814,8 +817,9 @@ class Trie
 
         if (node->paramChildrens[static_cast<size_t>(ParamType::INT)] != 0U)
         {
-            char c = reqUrl[pos];
-            if ((c >= '0' && c <= '9') || c == '+' || c == '-')
+            char currentChar = reqUrl[pos];
+            if ((currentChar >= '0' && currentChar <= '9') ||
+                currentChar == '+' || currentChar == '-')
             {
                 char* eptr = nullptr;
                 errno = 0;
@@ -837,8 +841,9 @@ class Trie
 
         if (node->paramChildrens[static_cast<size_t>(ParamType::UINT)] != 0U)
         {
-            char c = reqUrl[pos];
-            if ((c >= '0' && c <= '9') || c == '+')
+            char currentChar = reqUrl[pos];
+            if ((currentChar >= '0' && currentChar <= '9') ||
+                currentChar == '+')
             {
                 char* eptr = nullptr;
                 errno = 0;
@@ -860,8 +865,9 @@ class Trie
 
         if (node->paramChildrens[static_cast<size_t>(ParamType::DOUBLE)] != 0U)
         {
-            char c = reqUrl[pos];
-            if ((c >= '0' && c <= '9') || c == '+' || c == '-' || c == '.')
+            char currentChar = reqUrl[pos];
+            if ((currentChar >= '0' && currentChar <= '9') ||
+                currentChar == '+' || currentChar == '-' || currentChar == '.')
             {
                 char* eptr = nullptr;
                 errno = 0;
@@ -923,15 +929,15 @@ class Trie
             }
         }
 
-        for (const Node::ChildMap::value_type& kv : node->children)
+        for (const Node::ChildMap::value_type& child : node->children)
         {
-            const std::string& fragment = kv.first;
-            const Node* child = &nodes[kv.second];
+            const std::string& fragment = child.first;
+            const Node* childPtr = &nodes[child.second];
 
             if (reqUrl.compare(pos, fragment.size(), fragment) == 0)
             {
                 std::pair<unsigned, RoutingParams> ret =
-                    find(reqUrl, child, pos + fragment.size(), params);
+                    find(reqUrl, childPtr, pos + fragment.size(), params);
                 updateFound(ret);
             }
         }
@@ -945,8 +951,8 @@ class Trie
 
         for (unsigned i = 0; i < url.size(); i++)
         {
-            char c = url[i];
-            if (c == '<')
+            char currentChar = url[i];
+            if (currentChar == '<')
             {
                 const static std::array<std::pair<ParamType, std::string>, 7>
                     paramTraits = {{
@@ -959,18 +965,19 @@ class Trie
                         {ParamType::PATH, "<path>"},
                     }};
 
-                for (const std::pair<ParamType, std::string>& x : paramTraits)
+                for (const std::pair<ParamType, std::string>& param :
+                     paramTraits)
                 {
-                    if (url.compare(i, x.second.size(), x.second) == 0)
+                    if (url.compare(i, param.second.size(), param.second) == 0)
                     {
-                        size_t index = static_cast<size_t>(x.first);
+                        size_t index = static_cast<size_t>(param.first);
                         if (nodes[idx].paramChildrens[index] == 0U)
                         {
                             unsigned newNodeIdx = newNode();
                             nodes[idx].paramChildrens[index] = newNodeIdx;
                         }
                         idx = nodes[idx].paramChildrens[index];
-                        i += static_cast<unsigned>(x.second.size());
+                        i += static_cast<unsigned>(param.second.size());
                         break;
                     }
                 }
@@ -979,7 +986,7 @@ class Trie
             }
             else
             {
-                std::string piece(&c, 1);
+                std::string piece(&currentChar, 1);
                 if (nodes[idx].children.count(piece) == 0U)
                 {
                     unsigned newNodeIdx = newNode();
@@ -1029,12 +1036,13 @@ class Trie
                 debugNodePrint(&nodes[n->paramChildrens[i]], level + 1);
             }
         }
-        for (const Node::ChildMap::value_type& kv : n->children)
+        for (const Node::ChildMap::value_type& childIndex : n->children)
         {
             BMCWEB_LOG_DEBUG
-                << std::string(2U * level, ' ') /*<< "(" << kv.second << ") "*/
-                << kv.first;
-            debugNodePrint(&nodes[kv.second], level + 1);
+                << std::string(2U * level,
+                               ' ') /*<< "(" << childIndex.second << ") "*/
+                << childIndex.first;
+            debugNodePrint(&nodes[childIndex.second], level + 1);
         }
     }
 
@@ -1229,10 +1237,10 @@ class Router
         if (ruleIndex == 0U)
         {
             // Check to see if this url exists at any verb
-            for (const PerMethod& p : perMethods)
+            for (const PerMethod& method : perMethods)
             {
                 const std::pair<unsigned, RoutingParams>& found2 =
-                    p.trie.find(req.url);
+                    method.trie.find(req.url);
                 if (found2.first > 0)
                 {
                     asyncResp->res.result(
@@ -1398,13 +1406,13 @@ class Router
     {
         std::vector<const std::string*> ret;
 
-        for (const PerMethod& pm : perMethods)
+        for (const PerMethod& method : perMethods)
         {
-            std::vector<unsigned> x;
-            pm.trie.findRouteIndexes(parent, x);
-            for (unsigned index : x)
+            std::vector<unsigned> routeIndexes;
+            method.trie.findRouteIndexes(parent, routeIndexes);
+            for (unsigned index : routeIndexes)
             {
-                ret.push_back(&pm.rules[index]->rule);
+                ret.push_back(&method.rules[index]->rule);
             }
         }
         return ret;

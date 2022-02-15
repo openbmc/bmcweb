@@ -32,7 +32,7 @@ inline void installCertificate(const std::filesystem::path& certPath)
         "xyz.openbmc_project.Certs.Replace", "Replace", certPath.string());
 }
 
-inline int onPropertyUpdate(sd_bus_message* m, void* /* userdata */,
+inline int onPropertyUpdate(sd_bus_message* msgPtr, void* /* userdata */,
                             sd_bus_error* retError)
 {
     if (retError == nullptr || (sd_bus_error_is_set(retError) != 0))
@@ -41,19 +41,19 @@ inline int onPropertyUpdate(sd_bus_message* m, void* /* userdata */,
         return 0;
     }
 
-    sdbusplus::message::message message(m);
+    sdbusplus::message::message message(msgPtr);
     std::string iface;
     boost::container::flat_map<std::string, dbus::utility::DbusVariantType>
         changedProperties;
 
     message.read(iface, changedProperties);
-    auto it = changedProperties.find("HostName");
-    if (it == changedProperties.end())
+    auto hostNameIt = changedProperties.find("HostName");
+    if (hostNameIt == changedProperties.end())
     {
         return 0;
     }
 
-    std::string* hostname = std::get_if<std::string>(&it->second);
+    std::string* hostname = std::get_if<std::string>(&hostNameIt->second);
     if (hostname == nullptr)
     {
         BMCWEB_LOG_ERROR << "Unable to read hostname";

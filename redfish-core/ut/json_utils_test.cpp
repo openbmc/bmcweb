@@ -249,8 +249,8 @@ TEST(readJson, InvalidMissingElement)
 TEST(readJsonPatch, ValidElements)
 {
     crow::Response res;
-    std::error_code ec;
-    crow::Request req({}, ec);
+    std::error_code err;
+    crow::Request req({}, err);
     // Ignore errors intentionally
     req.body = "{\"integer\": 1}";
 
@@ -263,8 +263,8 @@ TEST(readJsonPatch, ValidElements)
 TEST(readJsonPatch, EmptyObjectDisallowed)
 {
     crow::Response res;
-    std::error_code ec;
-    crow::Request req({}, ec);
+    std::error_code err;
+    crow::Request req({}, err);
     // Ignore errors intentionally
     req.body = "{}";
 
@@ -277,8 +277,8 @@ TEST(readJsonPatch, EmptyObjectDisallowed)
 TEST(readJsonAction, ValidElements)
 {
     crow::Response res;
-    std::error_code ec;
-    crow::Request req({}, ec);
+    std::error_code err;
+    crow::Request req({}, err);
     // Ignore errors intentionally
     req.body = "{\"integer\": 1}";
 
@@ -291,8 +291,8 @@ TEST(readJsonAction, ValidElements)
 TEST(readJsonAction, EmptyObjectAllowed)
 {
     crow::Response res;
-    std::error_code ec;
-    crow::Request req({}, ec);
+    std::error_code err;
+    crow::Request req({}, err);
     // Ignore errors intentionally
     req.body = "{}";
 

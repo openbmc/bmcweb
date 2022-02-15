@@ -99,62 +99,63 @@ bool fromDurationItem(std::string_view& fmt, const char postfix,
  *        equivalent.
  */
 inline std::optional<std::chrono::milliseconds>
-    fromDurationString(const std::string& str)
+    fromDurationString(std::string_view str)
 {
     std::chrono::milliseconds out = std::chrono::milliseconds::zero();
-    std::string_view v = str;
 
-    if (v.empty())
+    if (str.empty())
     {
         return out;
     }
-    if (v.front() != 'P')
+    if (str.front() != 'P')
     {
         BMCWEB_LOG_ERROR << "Invalid duration format: " << str;
         return std::nullopt;
     }
 
-    v.remove_prefix(1);
-    if (!details::fromDurationItem<details::Days>(v, 'D', out))
+    str.remove_prefix(1);
+    if (!details::fromDurationItem<details::Days>(str, 'D', out))
     {
         BMCWEB_LOG_ERROR << "Invalid duration format: " << str;
         return std::nullopt;
     }
 
-    if (v.empty())
+    if (str.empty())
     {
         return out;
     }
-    if (v.front() != 'T')
+    if (str.front() != 'T')
     {
         BMCWEB_LOG_ERROR << "Invalid duration format: " << str;
         return std::nullopt;
     }
 
-    v.remove_prefix(1);
-    if (!details::fromDurationItem<std::chrono::hours>(v, 'H', out) ||
-        !details::fromDurationItem<std::chrono::minutes>(v, 'M', out))
+    str.remove_prefix(1);
+    if (!details::fromDurationItem<std::chrono::hours>(str, 'H', out) ||
+        !details::fromDurationItem<std::chrono::minutes>(str, 'M', out))
     {
         BMCWEB_LOG_ERROR << "Invalid duration format: " << str;
         return std::nullopt;
     }
 
-    if (v.find('.') != std::string::npos && v.find('S') != std::string::npos)
+    if (str.find('.') != std::string::npos &&
+        str.find('S') != std::string::npos)
     {
-        if (!details::fromDurationItem<std::chrono::seconds>(v, '.', out) ||
-            !details::fromDurationItem<std::chrono::milliseconds>(v, 'S', out))
+        if (!details::fromDurationItem<std::chrono::seconds>(str, '.', out) ||
+            !details::fromDurationItem<std::chrono::milliseconds>(str, 'S',
+                                                                  out))
         {
             BMCWEB_LOG_ERROR << "Invalid duration format: " << str;
             return std::nullopt;
         }
     }
-    else if (!details::fromDurationItem<std::chrono::seconds>(v, 'S', out))
+    else if (!details::fromDurationItem<std::chrono::seconds>(str, 'S', out))
     {
         BMCWEB_LOG_ERROR << "Invalid duration format: " << str;
         return std::nullopt;
     }
 
-    if (!v.empty())
+    if (!str.empty())
     {
         BMCWEB_LOG_ERROR << "Invalid duration format: " << str;
         return std::nullopt;
@@ -167,9 +168,9 @@ inline std::optional<std::chrono::milliseconds>
  *        Example output: "P12DT1M5.5S"
  *        Ref: Redfish Specification, Section 9.4.4. Duration values
  */
-inline std::string toDurationString(std::chrono::milliseconds ms)
+inline std::string toDurationString(std::chrono::milliseconds msDuration)
 {
-    if (ms < std::chrono::milliseconds::zero())
+    if (msDuration < std::chrono::milliseconds::zero())
     {
         return "";
     }
@@ -177,17 +178,20 @@ inline std::string toDurationString(std::chrono::milliseconds ms)
     std::string fmt;
     fmt.reserve(sizeof("PxxxxxxxxxxxxDTxxHxxMxx.xxxxxxS"));
 
-    details::Days days = std::chrono::floor<details::Days>(ms);
-    ms -= days;
+    details::Days days = std::chrono::floor<details::Days>(msDuration);
+    msDuration -= days;
 
-    std::chrono::hours hours = std::chrono::floor<std::chrono::hours>(ms);
-    ms -= hours;
+    std::chrono::hours hours =
+        std::chrono::floor<std::chrono::hours>(msDuration);
+    msDuration -= hours;
 
-    std::chrono::minutes minutes = std::chrono::floor<std::chrono::minutes>(ms);
-    ms -= minutes;
+    std::chrono::minutes minutes =
+        std::chrono::floor<std::chrono::minutes>(msDuration);
+    msDuration -= minutes;
 
-    std::chrono::seconds seconds = std::chrono::floor<std::chrono::seconds>(ms);
-    ms -= seconds;
+    std::chrono::seconds seconds =
+        std::chrono::floor<std::chrono::seconds>(msDuration);
+    msDuration -= seconds;
 
     fmt = "P";
     if (days.count() > 0)
@@ -203,10 +207,10 @@ inline std::string toDurationString(std::chrono::milliseconds ms)
     {
         fmt += std::to_string(minutes.count()) + "M";
     }
-    if (seconds.count() != 0 || ms.count() != 0)
+    if (seconds.count() != 0 || msDuration.count() != 0)
     {
         fmt += std::to_string(seconds.count()) + ".";
-        std::string msStr = std::to_string(ms.count());
+        std::string msStr = std::to_string(msDuration.count());
         details::leftZeroPadding(msStr, 3);
         fmt += msStr + "S";
     }

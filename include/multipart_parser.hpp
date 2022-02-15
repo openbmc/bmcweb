@@ -75,12 +75,12 @@ class MultipartParser
         const char* buffer = req.body.data();
         size_t len = req.body.size();
         size_t prevIndex = index;
-        char cl = 0;
+        char lowerChar = 0;
 
         for (size_t i = 0; i < len; i++)
         {
             // NOLINTNEXTLINE(cppcoreguidelines-pro-bounds-pointer-arithmetic)
-            char c = buffer[i];
+            char currentChar = buffer[i];
             switch (state)
             {
                 case State::START:
@@ -90,7 +90,7 @@ class MultipartParser
                 case State::START_BOUNDARY:
                     if (index == boundary.size() - 2)
                     {
-                        if (c != cr)
+                        if (currentChar != '\r')
                         {
                             return ParserError::ERROR_BOUNDARY_CR;
                         }
@@ -99,7 +99,7 @@ class MultipartParser
                     }
                     else if (index - 1 == boundary.size() - 2)
                     {
-                        if (c != lf)
+                        if (currentChar != '\n')
                         {
                             return ParserError::ERROR_BOUNDARY_LF;
                         }
@@ -108,7 +108,7 @@ class MultipartParser
                         state = State::HEADER_FIELD_START;
                         break;
                     }
-                    if (c != boundary[index + 2])
+                    if (currentChar != boundary[index + 2])
                     {
                         return ParserError::ERROR_BOUNDARY_DATA;
                     }
@@ -121,7 +121,7 @@ class MultipartParser
                     index = 0;
                     [[fallthrough]];
                 case State::HEADER_FIELD:
-                    if (c == cr)
+                    if (currentChar == '\r')
                     {
                         headerFieldMark = 0;
                         state = State::HEADERS_ALMOST_DONE;
@@ -129,12 +129,12 @@ class MultipartParser
                     }
 
                     index++;
-                    if (c == hyphen)
+                    if (currentChar == '-')
                     {
                         break;
                     }
 
-                    if (c == colon)
+                    if (currentChar == ':')
                     {
                         if (index == 1)
                         {
@@ -147,14 +147,14 @@ class MultipartParser
                         state = State::HEADER_VALUE_START;
                         break;
                     }
-                    cl = lower(c);
-                    if (cl < 'a' || cl > 'z')
+                    lowerChar = lower(currentChar);
+                    if (lowerChar < 'a' || lowerChar > 'z')
                     {
                         return ParserError::ERROR_HEADER_NAME;
                     }
                     break;
                 case State::HEADER_VALUE_START:
-                    if (c == space)
+                    if (currentChar == ' ')
                     {
                         break;
                     }
@@ -162,7 +162,7 @@ class MultipartParser
                     state = State::HEADER_VALUE;
                     [[fallthrough]];
                 case State::HEADER_VALUE:
-                    if (c == cr)
+                    if (currentChar == '\r')
                     {
                         // NOLINTNEXTLINE(cppcoreguidelines-pro-bounds-pointer-arithmetic)
                         std::string_view value(buffer + headerValueMark,
@@ -173,14 +173,14 @@ class MultipartParser
                     }
                     break;
                 case State::HEADER_VALUE_ALMOST_DONE:
-                    if (c != lf)
+                    if (currentChar != '\n')
                     {
                         return ParserError::ERROR_HEADER_VALUE;
                     }
                     state = State::HEADER_FIELD_START;
                     break;
                 case State::HEADERS_ALMOST_DONE:
-                    if (c != lf)
+                    if (currentChar != '\n')
                     {
                         return ParserError::ERROR_HEADER_ENDING;
                     }
@@ -196,9 +196,10 @@ class MultipartParser
                         skipNonBoundary(buffer, len, boundary.size() - 1, i);
 
                         // NOLINTNEXTLINE(cppcoreguidelines-pro-bounds-pointer-arithmetic)
-                        c = buffer[i];
+                        currentChar = buffer[i];
                     }
-                    processPartData(prevIndex, index, buffer, i, c, state);
+                    processPartData(prevIndex, index, buffer, i, currentChar,
+                                    state);
                     break;
                 case State::END:
                     break;
@@ -206,7 +207,7 @@ class MultipartParser
         }
         return ParserError::PARSER_SUCCESS;
     }
-    std::vector<FormPart> mime_fields;
+    std::vector<FormPart> mime_fields{};
     std::string boundary;
 
   private:
@@ -219,45 +220,45 @@ class MultipartParser
         }
     }
 
-    static char lower(char c)
+    static char lower(char character)
     {
-        return static_cast<char>(c | 0x20);
+        return static_cast<char>(character | 0x20);
     }
 
-    inline bool isBoundaryChar(char c) const
+    inline bool isBoundaryChar(char character) const
     {
-        return boundaryIndex[static_cast<unsigned char>(c)];
+        return boundaryIndex[static_cast<unsigned char>(character)];
     }
 
     void skipNonBoundary(const char* buffer, size_t len, size_t boundaryEnd,
-                         size_t& i)
+                         size_t& bufferIndex)
     {
         // boyer-moore derived algorithm to safely skip non-boundary data
-        while (i + boundary.size() <= len)
+        while (bufferIndex + boundary.size() <= len)
         {
             // NOLINTNEXTLINE(cppcoreguidelines-pro-bounds-pointer-arithmetic)
-            if (isBoundaryChar(buffer[i + boundaryEnd]))
+            if (isBoundaryChar(buffer[bufferIndex + boundaryEnd]))
             {
                 break;
             }
-            i += boundary.size();
+            bufferIndex += boundary.size();
         }
     }
 
     void processPartData(size_t& prevIndex, size_t& index, const char* buffer,
-                         size_t& i, char c, State& state)
+                         size_t& bufferIndex, char currentChar, State& state)
     {
         prevIndex = index;
 
         if (index < boundary.size())
         {
-            if (boundary[index] == c)
+            if (boundary[index] == currentChar)
             {
                 if (index == 0)
                 {
                     // NOLINTNEXTLINE(cppcoreguidelines-pro-bounds-pointer-arithmetic)
                     const char* start = buffer + partDataMark;
-                    size_t size = i - partDataMark;
+                    size_t size = bufferIndex - partDataMark;
                     mime_fields.rbegin()->content +=
                         std::string_view(start, size);
                 }
@@ -271,12 +272,12 @@ class MultipartParser
         else if (index == boundary.size())
         {
             index++;
-            if (c == cr)
+            if (currentChar == '\r')
             {
                 // cr = part boundary
                 flags = Boundary::PART_BOUNDARY;
             }
-            else if (c == hyphen)
+            else if (currentChar == '-')
             {
                 // hyphen = end boundary
                 flags = Boundary::END_BOUNDARY;
@@ -291,7 +292,7 @@ class MultipartParser
             if (flags == Boundary::PART_BOUNDARY)
             {
                 index = 0;
-                if (c == lf)
+                if (currentChar == '\n')
                 {
                     // unset the PART_BOUNDARY flag
                     flags = Boundary::NON_BOUNDARY;
@@ -302,7 +303,7 @@ class MultipartParser
             }
             if (flags == Boundary::END_BOUNDARY)
             {
-                if (c == hyphen)
+                if (currentChar == '-')
                 {
                     state = State::END;
                 }
@@ -311,7 +312,7 @@ class MultipartParser
 
         if (index > 0)
         {
-            lookbehind[index - 1] = c;
+            lookbehind[index - 1] = currentChar;
         }
         else if (prevIndex > 0)
         {
@@ -320,22 +321,16 @@ class MultipartParser
 
             mime_fields.rbegin()->content += lookbehind.substr(0, prevIndex);
             prevIndex = 0;
-            partDataMark = i;
+            partDataMark = bufferIndex;
 
             // reconsider the current character even so it interrupted
             // the sequence it could be the beginning of a new sequence
-            i--;
+            bufferIndex--;
         }
     }
 
     std::string currentHeaderName;
     std::string currentHeaderValue;
-
-    static constexpr char cr = '\r';
-    static constexpr char lf = '\n';
-    static constexpr char space = ' ';
-    static constexpr char hyphen = '-';
-    static constexpr char colon = ':';
 
     std::array<bool, 256> boundaryIndex{};
     std::string lookbehind;

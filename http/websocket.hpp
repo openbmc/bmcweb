@@ -42,9 +42,9 @@ struct Connection : std::enable_shared_from_this<Connection>
     virtual boost::asio::io_context& getIoContext() = 0;
     virtual ~Connection() = default;
 
-    void userdata(void* u)
+    void userdata(void* userDataPtr)
     {
-        userdataPtr = u;
+        userdataPtr = userDataPtr;
     }
     void* userdata()
     {
@@ -106,7 +106,7 @@ class ConnectionImpl : public Connection
 
         ws.set_option(boost::beast::websocket::stream_base::decorator(
             [session{session}, protocol{std::string(protocol)}](
-                boost::beast::websocket::response_type& m) {
+                boost::beast::websocket::response_type& response) {
 
 #ifndef BMCWEB_INSECURE_DISABLE_CSRF_PREVENTION
                 if (session != nullptr)
@@ -117,25 +117,28 @@ class ConnectionImpl : public Connection
                             protocol, session->csrfToken))
                     {
                         BMCWEB_LOG_ERROR << "Websocket CSRF error";
-                        m.result(boost::beast::http::status::unauthorized);
+                        response.result(
+                            boost::beast::http::status::unauthorized);
                         return;
                     }
                 }
 #endif
                 if (!protocol.empty())
                 {
-                    m.insert(bf::sec_websocket_protocol, protocol);
+                    response.insert(bf::sec_websocket_protocol, protocol);
                 }
 
-                m.insert(bf::strict_transport_security, "max-age=31536000; "
-                                                        "includeSubdomains; "
-                                                        "preload");
-                m.insert(bf::pragma, "no-cache");
-                m.insert(bf::cache_control, "no-Store,no-Cache");
-                m.insert("Content-Security-Policy", "default-src 'self'");
-                m.insert("X-XSS-Protection", "1; "
-                                             "mode=block");
-                m.insert("X-Content-Type-Options", "nosniff");
+                response.insert(bf::strict_transport_security,
+                                "max-age=31536000; "
+                                "includeSubdomains; "
+                                "preload");
+                response.insert(bf::pragma, "no-cache");
+                response.insert(bf::cache_control, "no-Store,no-Cache");
+                response.insert("Content-Security-Policy",
+                                "default-src 'self'");
+                response.insert("X-XSS-Protection", "1; "
+                                                    "mode=block");
+                response.insert("X-Content-Type-Options", "nosniff");
             }));
 
         // Perform the websocket upgrade

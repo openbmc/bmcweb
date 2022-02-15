@@ -40,7 +40,8 @@ struct Payload
 {
     Payload(const crow::Request& req) :
         targetUri(req.url), httpOperation(req.methodString()),
-        httpHeaders(nlohmann::json::array())
+        httpHeaders(nlohmann::json::array()),
+        jsonBody(nlohmann::json::parse(req.body, nullptr, false))
 
     {
         using field_ns = boost::beast::http::field;
@@ -50,7 +51,6 @@ struct Payload
                                field_ns::connection, field_ns::content_length,
                                field_ns::upgrade};
 
-        jsonBody = nlohmann::json::parse(req.body, nullptr, false);
         if (jsonBody.is_discarded())
         {
             jsonBody = nullptr;
@@ -269,11 +269,11 @@ struct TaskData : std::enable_shared_from_this<TaskData>
             static_cast<sdbusplus::bus::bus&>(*crow::connections::systemBus),
             matchStr,
             [self = shared_from_this()](sdbusplus::message::message& message) {
-                boost::system::error_code ec;
+                boost::system::error_code error;
 
                 // callback to return True if callback is done, callback needs
                 // to update status itself if needed
-                if (self->callback(ec, message, self) == task::completed)
+                if (self->callback(error, message, self) == task::completed)
                 {
                     self->timer.cancel();
                     self->finishTask();
@@ -305,7 +305,7 @@ struct TaskData : std::enable_shared_from_this<TaskData>
     std::string state;
     nlohmann::json messages;
     boost::asio::steady_timer timer;
-    std::unique_ptr<sdbusplus::bus::match::match> match;
+    std::unique_ptr<sdbusplus::bus::match::match> match{};
     std::optional<time_t> endTime;
     std::optional<Payload> payload;
     bool gave204 = false;
@@ -406,13 +406,13 @@ inline void requestRoutesTask(App& app)
                 }
                 if (ptr->payload)
                 {
-                    const task::Payload& p = *(ptr->payload);
+                    const task::Payload& payload = *(ptr->payload);
                     asyncResp->res.jsonValue["Payload"] = {
-                        {"TargetUri", p.targetUri},
-                        {"HttpOperation", p.httpOperation},
-                        {"HttpHeaders", p.httpHeaders},
+                        {"TargetUri", payload.targetUri},
+                        {"HttpOperation", payload.httpOperation},
+                        {"HttpHeaders", payload.httpHeaders},
                         {"JsonBody",
-                         p.jsonBody.dump(
+                         payload.jsonBody.dump(
                              2, ' ', true,
                              nlohmann::json::error_handler_t::replace)}};
                 }

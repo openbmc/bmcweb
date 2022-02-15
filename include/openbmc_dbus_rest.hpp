@@ -559,10 +559,10 @@ inline std::vector<std::string> dbusArgSplit(const std::string& string)
     return ret;
 }
 
-inline int convertJsonToDbus(sd_bus_message* m, const std::string& argType,
+inline int convertJsonToDbus(sd_bus_message* msgPtr, const std::string& argType,
                              const nlohmann::json& inputJson)
 {
-    int r = 0;
+    int appendRet = 0;
     BMCWEB_LOG_DEBUG << "Converting "
                      << inputJson.dump(2, ' ', true,
                                        nlohmann::json::error_handler_t::replace)
@@ -570,7 +570,7 @@ inline int convertJsonToDbus(sd_bus_message* m, const std::string& argType,
     const std::vector<std::string> argTypes = dbusArgSplit(argType);
 
     // Assume a single object for now.
-    const nlohmann::json* j = &inputJson;
+    const nlohmann::json* json = &inputJson;
     nlohmann::json::const_iterator jIt = inputJson.begin();
 
     for (const std::string& argCode : argTypes)
@@ -583,42 +583,42 @@ inline int convertJsonToDbus(sd_bus_message* m, const std::string& argType,
             {
                 return -2;
             }
-            j = &*jIt;
+            json = &*jIt;
             jIt++;
         }
-        const int64_t* intValue = j->get_ptr<const int64_t*>();
-        const std::string* stringValue = j->get_ptr<const std::string*>();
-        const double* doubleValue = j->get_ptr<const double*>();
-        const bool* b = j->get_ptr<const bool*>();
-        int64_t v = 0;
-        double d = 0.0;
+        const int64_t* intValue = json->get_ptr<const int64_t*>();
+        const std::string* stringValue = json->get_ptr<const std::string*>();
+        const double* doubleValue = json->get_ptr<const double*>();
+        const bool* boolPtr = json->get_ptr<const bool*>();
+        int64_t intV = 0;
+        double dVal = 0.0;
 
         // Do some basic type conversions that make sense.  uint can be
         // converted to int.  int and uint can be converted to double
         if (intValue == nullptr)
         {
-            const uint64_t* uintValue = j->get_ptr<const uint64_t*>();
+            const uint64_t* uintValue = json->get_ptr<const uint64_t*>();
             if (uintValue != nullptr)
             {
-                v = static_cast<int64_t>(*uintValue);
-                intValue = &v;
+                intV = static_cast<int64_t>(*uintValue);
+                intValue = &intV;
             }
         }
         if (doubleValue == nullptr)
         {
-            const uint64_t* uintValue = j->get_ptr<const uint64_t*>();
+            const uint64_t* uintValue = json->get_ptr<const uint64_t*>();
             if (uintValue != nullptr)
             {
-                d = static_cast<double>(*uintValue);
-                doubleValue = &d;
+                dVal = static_cast<double>(*uintValue);
+                doubleValue = &dVal;
             }
         }
         if (doubleValue == nullptr)
         {
             if (intValue != nullptr)
             {
-                d = static_cast<double>(*intValue);
-                doubleValue = &d;
+                dVal = static_cast<double>(*intValue);
+                doubleValue = &dVal;
             }
         }
 
@@ -628,11 +628,12 @@ inline int convertJsonToDbus(sd_bus_message* m, const std::string& argType,
             {
                 return -1;
             }
-            r = sd_bus_message_append_basic(
-                m, argCode[0], static_cast<const void*>(stringValue->data()));
-            if (r < 0)
+            appendRet = sd_bus_message_append_basic(
+                msgPtr, argCode[0],
+                static_cast<const void*>(stringValue->data()));
+            if (appendRet < 0)
             {
-                return r;
+                return appendRet;
             }
         }
         else if (argCode == "i")
@@ -646,11 +647,12 @@ inline int convertJsonToDbus(sd_bus_message* m, const std::string& argType,
             {
                 return -ERANGE;
             }
-            int32_t i = static_cast<int32_t>(*intValue);
-            r = sd_bus_message_append_basic(m, argCode[0], &i);
-            if (r < 0)
+            int32_t int32Value = static_cast<int32_t>(*intValue);
+            appendRet =
+                sd_bus_message_append_basic(msgPtr, argCode[0], &int32Value);
+            if (appendRet < 0)
             {
-                return r;
+                return appendRet;
             }
         }
         else if (argCode == "b")
@@ -672,9 +674,9 @@ inline int convertJsonToDbus(sd_bus_message* m, const std::string& argType,
                     return -ERANGE;
                 }
             }
-            else if (b != nullptr)
+            else if (boolPtr != nullptr)
             {
-                boolInt = *b ? 1 : 0;
+                boolInt = *boolPtr ? 1 : 0;
             }
             else if (stringValue != nullptr)
             {
@@ -684,10 +686,11 @@ inline int convertJsonToDbus(sd_bus_message* m, const std::string& argType,
             {
                 return -1;
             }
-            r = sd_bus_message_append_basic(m, argCode[0], &boolInt);
-            if (r < 0)
+            appendRet =
+                sd_bus_message_append_basic(msgPtr, argCode[0], &boolInt);
+            if (appendRet < 0)
             {
-                return r;
+                return appendRet;
             }
         }
         else if (argCode == "n")
@@ -701,11 +704,12 @@ inline int convertJsonToDbus(sd_bus_message* m, const std::string& argType,
             {
                 return -ERANGE;
             }
-            int16_t n = static_cast<int16_t>(*intValue);
-            r = sd_bus_message_append_basic(m, argCode[0], &n);
-            if (r < 0)
+            int16_t int16Val = static_cast<int16_t>(*intValue);
+            appendRet =
+                sd_bus_message_append_basic(msgPtr, argCode[0], &int16Val);
+            if (appendRet < 0)
             {
-                return r;
+                return appendRet;
             }
         }
         else if (argCode == "x")
@@ -714,15 +718,16 @@ inline int convertJsonToDbus(sd_bus_message* m, const std::string& argType,
             {
                 return -1;
             }
-            r = sd_bus_message_append_basic(m, argCode[0], intValue);
-            if (r < 0)
+            appendRet =
+                sd_bus_message_append_basic(msgPtr, argCode[0], intValue);
+            if (appendRet < 0)
             {
-                return r;
+                return appendRet;
             }
         }
         else if (argCode == "y")
         {
-            const uint64_t* uintValue = j->get_ptr<const uint64_t*>();
+            const uint64_t* uintValue = json->get_ptr<const uint64_t*>();
             if (uintValue == nullptr)
             {
                 return -1;
@@ -731,12 +736,13 @@ inline int convertJsonToDbus(sd_bus_message* m, const std::string& argType,
             {
                 return -ERANGE;
             }
-            uint8_t y = static_cast<uint8_t>(*uintValue);
-            r = sd_bus_message_append_basic(m, argCode[0], &y);
+            uint8_t uint8Value = static_cast<uint8_t>(*uintValue);
+            appendRet =
+                sd_bus_message_append_basic(msgPtr, argCode[0], &uint8Value);
         }
         else if (argCode == "q")
         {
-            const uint64_t* uintValue = j->get_ptr<const uint64_t*>();
+            const uint64_t* uintValue = json->get_ptr<const uint64_t*>();
             if (uintValue == nullptr)
             {
                 return -1;
@@ -745,12 +751,13 @@ inline int convertJsonToDbus(sd_bus_message* m, const std::string& argType,
             {
                 return -ERANGE;
             }
-            uint16_t q = static_cast<uint16_t>(*uintValue);
-            r = sd_bus_message_append_basic(m, argCode[0], &q);
+            uint16_t uint16Val = static_cast<uint16_t>(*uintValue);
+            appendRet =
+                sd_bus_message_append_basic(msgPtr, argCode[0], &uint16Val);
         }
         else if (argCode == "u")
         {
-            const uint64_t* uintValue = j->get_ptr<const uint64_t*>();
+            const uint64_t* uintValue = json->get_ptr<const uint64_t*>();
             if (uintValue == nullptr)
             {
                 return -1;
@@ -759,17 +766,19 @@ inline int convertJsonToDbus(sd_bus_message* m, const std::string& argType,
             {
                 return -ERANGE;
             }
-            uint32_t u = static_cast<uint32_t>(*uintValue);
-            r = sd_bus_message_append_basic(m, argCode[0], &u);
+            uint32_t uint32Val = static_cast<uint32_t>(*uintValue);
+            appendRet =
+                sd_bus_message_append_basic(msgPtr, argCode[0], &uint32Val);
         }
         else if (argCode == "t")
         {
-            const uint64_t* uintValue = j->get_ptr<const uint64_t*>();
+            const uint64_t* uintValue = json->get_ptr<const uint64_t*>();
             if (uintValue == nullptr)
             {
                 return -1;
             }
-            r = sd_bus_message_append_basic(m, argCode[0], uintValue);
+            appendRet =
+                sd_bus_message_append_basic(msgPtr, argCode[0], uintValue);
         }
         else if (argCode == "d")
         {
@@ -782,88 +791,88 @@ inline int convertJsonToDbus(sd_bus_message* m, const std::string& argType,
             {
                 return -ERANGE;
             }
-            sd_bus_message_append_basic(m, argCode[0], doubleValue);
+            sd_bus_message_append_basic(msgPtr, argCode[0], doubleValue);
         }
         else if (boost::starts_with(argCode, "a"))
         {
             std::string containedType = argCode.substr(1);
-            r = sd_bus_message_open_container(m, SD_BUS_TYPE_ARRAY,
-                                              containedType.c_str());
-            if (r < 0)
+            appendRet = sd_bus_message_open_container(msgPtr, SD_BUS_TYPE_ARRAY,
+                                                      containedType.c_str());
+            if (appendRet < 0)
             {
-                return r;
+                return appendRet;
             }
 
-            for (const auto& it : *j)
+            for (const auto& jsonItem : *json)
             {
-                r = convertJsonToDbus(m, containedType, it);
-                if (r < 0)
+                appendRet = convertJsonToDbus(msgPtr, containedType, jsonItem);
+                if (appendRet < 0)
                 {
-                    return r;
+                    return appendRet;
                 }
             }
-            sd_bus_message_close_container(m);
+            sd_bus_message_close_container(msgPtr);
         }
         else if (boost::starts_with(argCode, "v"))
         {
             std::string containedType = argCode.substr(1);
             BMCWEB_LOG_DEBUG << "variant type: " << argCode
                              << " appending variant of type: " << containedType;
-            r = sd_bus_message_open_container(m, SD_BUS_TYPE_VARIANT,
-                                              containedType.c_str());
-            if (r < 0)
+            appendRet = sd_bus_message_open_container(
+                msgPtr, SD_BUS_TYPE_VARIANT, containedType.c_str());
+            if (appendRet < 0)
             {
-                return r;
+                return appendRet;
             }
 
-            r = convertJsonToDbus(m, containedType, inputJson);
-            if (r < 0)
+            appendRet = convertJsonToDbus(msgPtr, containedType, inputJson);
+            if (appendRet < 0)
             {
-                return r;
+                return appendRet;
             }
 
-            r = sd_bus_message_close_container(m);
-            if (r < 0)
+            appendRet = sd_bus_message_close_container(msgPtr);
+            if (appendRet < 0)
             {
-                return r;
+                return appendRet;
             }
         }
         else if (boost::starts_with(argCode, "(") &&
                  boost::ends_with(argCode, ")"))
         {
             std::string containedType = argCode.substr(1, argCode.size() - 1);
-            r = sd_bus_message_open_container(m, SD_BUS_TYPE_STRUCT,
-                                              containedType.c_str());
-            if (r < 0)
+            appendRet = sd_bus_message_open_container(
+                msgPtr, SD_BUS_TYPE_STRUCT, containedType.c_str());
+            if (appendRet < 0)
             {
-                return r;
+                return appendRet;
             }
 
-            nlohmann::json::const_iterator it = j->begin();
+            nlohmann::json::const_iterator jsonIter = json->begin();
             for (const std::string& argCode2 : dbusArgSplit(argType))
             {
-                if (it == j->end())
+                if (jsonIter == json->end())
                 {
                     return -1;
                 }
-                r = convertJsonToDbus(m, argCode2, *it);
-                if (r < 0)
+                appendRet = convertJsonToDbus(msgPtr, argCode2, *jsonIter);
+                if (appendRet < 0)
                 {
-                    return r;
+                    return appendRet;
                 }
-                it++;
+                jsonIter++;
             }
-            r = sd_bus_message_close_container(m);
+            appendRet = sd_bus_message_close_container(msgPtr);
         }
         else if (boost::starts_with(argCode, "{") &&
                  boost::ends_with(argCode, "}"))
         {
             std::string containedType = argCode.substr(1, argCode.size() - 1);
-            r = sd_bus_message_open_container(m, SD_BUS_TYPE_DICT_ENTRY,
-                                              containedType.c_str());
-            if (r < 0)
+            appendRet = sd_bus_message_open_container(
+                msgPtr, SD_BUS_TYPE_DICT_ENTRY, containedType.c_str());
+            if (appendRet < 0)
             {
-                return r;
+                return appendRet;
             }
 
             std::vector<std::string> codes = dbusArgSplit(containedType);
@@ -873,29 +882,30 @@ inline int convertJsonToDbus(sd_bus_message* m, const std::string& argType,
             }
             const std::string& keyType = codes[0];
             const std::string& valueType = codes[1];
-            for (const auto& it : j->items())
+            for (const auto& jsonItem : json->items())
             {
-                r = convertJsonToDbus(m, keyType, it.key());
-                if (r < 0)
+                appendRet = convertJsonToDbus(msgPtr, keyType, jsonItem.key());
+                if (appendRet < 0)
                 {
-                    return r;
+                    return appendRet;
                 }
 
-                r = convertJsonToDbus(m, valueType, it.value());
-                if (r < 0)
+                appendRet =
+                    convertJsonToDbus(msgPtr, valueType, jsonItem.value());
+                if (appendRet < 0)
                 {
-                    return r;
+                    return appendRet;
                 }
             }
-            r = sd_bus_message_close_container(m);
+            appendRet = sd_bus_message_close_container(msgPtr);
         }
         else
         {
             return -2;
         }
-        if (r < 0)
+        if (appendRet < 0)
         {
-            return r;
+            return appendRet;
         }
 
         if (argTypes.size() > 1)
@@ -904,21 +914,22 @@ inline int convertJsonToDbus(sd_bus_message* m, const std::string& argType,
         }
     }
 
-    return r;
+    return appendRet;
 }
 
 template <typename T>
-int readMessageItem(const std::string& typeCode, sdbusplus::message::message& m,
-                    nlohmann::json& data)
+int readMessageItem(const std::string& typeCode,
+                    sdbusplus::message::message& message, nlohmann::json& data)
 {
     T value;
 
-    int r = sd_bus_message_read_basic(m.get(), typeCode.front(), &value);
-    if (r < 0)
+    int readRet =
+        sd_bus_message_read_basic(message.get(), typeCode.front(), &value);
+    if (readRet < 0)
     {
         BMCWEB_LOG_ERROR << "sd_bus_message_read_basic on type " << typeCode
                          << " failed!";
-        return r;
+        return readRet;
     }
 
     data = value;
@@ -926,10 +937,11 @@ int readMessageItem(const std::string& typeCode, sdbusplus::message::message& m,
 }
 
 int convertDBusToJSON(const std::string& returnType,
-                      sdbusplus::message::message& m, nlohmann::json& response);
+                      sdbusplus::message::message& message,
+                      nlohmann::json& response);
 
 inline int readDictEntryFromMessage(const std::string& typeCode,
-                                    sdbusplus::message::message& m,
+                                    sdbusplus::message::message& message,
                                     nlohmann::json& object)
 {
     std::vector<std::string> types = dbusArgSplit(typeCode);
@@ -940,19 +952,20 @@ inline int readDictEntryFromMessage(const std::string& typeCode,
         return -1;
     }
 
-    int r = sd_bus_message_enter_container(m.get(), SD_BUS_TYPE_DICT_ENTRY,
-                                           typeCode.c_str());
-    if (r < 0)
+    int enterRet = sd_bus_message_enter_container(
+        message.get(), SD_BUS_TYPE_DICT_ENTRY, typeCode.c_str());
+    if (enterRet < 0)
     {
-        BMCWEB_LOG_ERROR << "sd_bus_message_enter_container with rc " << r;
-        return r;
+        BMCWEB_LOG_ERROR << "sd_bus_message_enter_container with rc "
+                         << enterRet;
+        return enterRet;
     }
 
     nlohmann::json key;
-    r = convertDBusToJSON(types[0], m, key);
-    if (r < 0)
+    int convertRet = convertDBusToJSON(types[0], message, key);
+    if (convertRet < 0)
     {
-        return r;
+        return convertRet;
     }
 
     const std::string* keyPtr = key.get_ptr<const std::string*>();
@@ -971,24 +984,24 @@ inline int readDictEntryFromMessage(const std::string& typeCode,
     }
     nlohmann::json& value = object[*keyPtr];
 
-    r = convertDBusToJSON(types[1], m, value);
-    if (r < 0)
+    convertRet = convertDBusToJSON(types[1], message, value);
+    if (convertRet < 0)
     {
-        return r;
+        return convertRet;
     }
 
-    r = sd_bus_message_exit_container(m.get());
-    if (r < 0)
+    int exitRet = sd_bus_message_exit_container(message.get());
+    if (exitRet < 0)
     {
         BMCWEB_LOG_ERROR << "sd_bus_message_exit_container failed";
-        return r;
+        return exitRet;
     }
 
     return 0;
 }
 
 inline int readArrayFromMessage(const std::string& typeCode,
-                                sdbusplus::message::message& m,
+                                sdbusplus::message::message& message,
                                 nlohmann::json& data)
 {
     if (typeCode.size() < 2)
@@ -1000,13 +1013,13 @@ inline int readArrayFromMessage(const std::string& typeCode,
 
     std::string containedType = typeCode.substr(1);
 
-    int r = sd_bus_message_enter_container(m.get(), SD_BUS_TYPE_ARRAY,
-                                           containedType.c_str());
-    if (r < 0)
+    int enterRet = sd_bus_message_enter_container(
+        message.get(), SD_BUS_TYPE_ARRAY, containedType.c_str());
+    if (enterRet < 0)
     {
         BMCWEB_LOG_ERROR << "sd_bus_message_enter_container failed with rc "
-                         << r;
-        return r;
+                         << enterRet;
+        return enterRet;
     }
 
     bool dict = boost::starts_with(containedType, "{") &&
@@ -1025,14 +1038,14 @@ inline int readArrayFromMessage(const std::string& typeCode,
 
     while (true)
     {
-        r = sd_bus_message_at_end(m.get(), 0);
-        if (r < 0)
+        int endRet = sd_bus_message_at_end(message.get(), 0);
+        if (endRet < 0)
         {
             BMCWEB_LOG_ERROR << "sd_bus_message_at_end failed";
-            return r;
+            return endRet;
         }
 
-        if (r > 0)
+        if (endRet > 0)
         {
             break;
         }
@@ -1040,36 +1053,36 @@ inline int readArrayFromMessage(const std::string& typeCode,
         // Dictionaries are only ever seen in an array
         if (dict)
         {
-            r = readDictEntryFromMessage(containedType, m, data);
-            if (r < 0)
+            endRet = readDictEntryFromMessage(containedType, message, data);
+            if (endRet < 0)
             {
-                return r;
+                return endRet;
             }
         }
         else
         {
             data.push_back(nlohmann::json());
 
-            r = convertDBusToJSON(containedType, m, data.back());
-            if (r < 0)
+            endRet = convertDBusToJSON(containedType, message, data.back());
+            if (endRet < 0)
             {
-                return r;
+                return endRet;
             }
         }
     }
 
-    r = sd_bus_message_exit_container(m.get());
-    if (r < 0)
+    int exitRet = sd_bus_message_exit_container(message.get());
+    if (exitRet < 0)
     {
         BMCWEB_LOG_ERROR << "sd_bus_message_exit_container failed";
-        return r;
+        return exitRet;
     }
 
     return 0;
 }
 
 inline int readStructFromMessage(const std::string& typeCode,
-                                 sdbusplus::message::message& m,
+                                 sdbusplus::message::message& message,
                                  nlohmann::json& data)
 {
     if (typeCode.size() < 3)
@@ -1082,75 +1095,77 @@ inline int readStructFromMessage(const std::string& typeCode,
     std::string containedTypes = typeCode.substr(1, typeCode.size() - 2);
     std::vector<std::string> types = dbusArgSplit(containedTypes);
 
-    int r = sd_bus_message_enter_container(m.get(), SD_BUS_TYPE_STRUCT,
-                                           containedTypes.c_str());
-    if (r < 0)
+    int enterRet = sd_bus_message_enter_container(
+        message.get(), SD_BUS_TYPE_STRUCT, containedTypes.c_str());
+    if (enterRet < 0)
     {
-        BMCWEB_LOG_ERROR << "sd_bus_message_enter_container failed with rc "
-                         << r;
-        return r;
+        BMCWEB_LOG_ERROR
+            << "sd_bus_message_enter_container failed with enterRet "
+            << enterRet;
+        return enterRet;
     }
 
     for (const std::string& type : types)
     {
         data.push_back(nlohmann::json());
-        r = convertDBusToJSON(type, m, data.back());
-        if (r < 0)
+        int convertRet = convertDBusToJSON(type, message, data.back());
+        if (convertRet < 0)
         {
-            return r;
+            return convertRet;
         }
     }
 
-    r = sd_bus_message_exit_container(m.get());
-    if (r < 0)
+    int exitRet = sd_bus_message_exit_container(message.get());
+    if (exitRet < 0)
     {
         BMCWEB_LOG_ERROR << "sd_bus_message_exit_container failed";
-        return r;
+        return exitRet;
     }
     return 0;
 }
 
-inline int readVariantFromMessage(sdbusplus::message::message& m,
+inline int readVariantFromMessage(sdbusplus::message::message& message,
                                   nlohmann::json& data)
 {
     const char* containerType = nullptr;
-    int r = sd_bus_message_peek_type(m.get(), nullptr, &containerType);
-    if (r < 0)
+    int peekRet =
+        sd_bus_message_peek_type(message.get(), nullptr, &containerType);
+    if (peekRet < 0)
     {
         BMCWEB_LOG_ERROR << "sd_bus_message_peek_type failed";
-        return r;
+        return peekRet;
     }
 
-    r = sd_bus_message_enter_container(m.get(), SD_BUS_TYPE_VARIANT,
-                                       containerType);
-    if (r < 0)
+    int enterRet = sd_bus_message_enter_container(
+        message.get(), SD_BUS_TYPE_VARIANT, containerType);
+    if (enterRet < 0)
     {
         BMCWEB_LOG_ERROR << "sd_bus_message_enter_container failed with rc "
-                         << r;
-        return r;
+                         << enterRet;
+        return enterRet;
     }
 
-    r = convertDBusToJSON(containerType, m, data);
-    if (r < 0)
+    int convertRet = convertDBusToJSON(containerType, message, data);
+    if (convertRet < 0)
     {
-        return r;
+        return convertRet;
     }
 
-    r = sd_bus_message_exit_container(m.get());
-    if (r < 0)
+    int exitRet = sd_bus_message_exit_container(message.get());
+    if (exitRet < 0)
     {
         BMCWEB_LOG_ERROR << "sd_bus_message_enter_container failed";
-        return r;
+        return exitRet;
     }
 
     return 0;
 }
 
 inline int convertDBusToJSON(const std::string& returnType,
-                             sdbusplus::message::message& m,
+                             sdbusplus::message::message& message,
                              nlohmann::json& response)
 {
-    int r = 0;
+    int ret = 0;
     const std::vector<std::string> returnTypes = dbusArgSplit(returnType);
 
     for (const std::string& typeCode : returnTypes)
@@ -1164,117 +1179,117 @@ inline int convertDBusToJSON(const std::string& returnType,
 
         if (typeCode == "s" || typeCode == "g" || typeCode == "o")
         {
-            r = readMessageItem<char*>(typeCode, m, *thisElement);
-            if (r < 0)
+            ret = readMessageItem<char*>(typeCode, message, *thisElement);
+            if (ret < 0)
             {
-                return r;
+                return ret;
             }
         }
         else if (typeCode == "b")
         {
-            r = readMessageItem<int>(typeCode, m, *thisElement);
-            if (r < 0)
+            ret = readMessageItem<int>(typeCode, message, *thisElement);
+            if (ret < 0)
             {
-                return r;
+                return ret;
             }
 
             *thisElement = static_cast<bool>(thisElement->get<int>());
         }
         else if (typeCode == "u")
         {
-            r = readMessageItem<uint32_t>(typeCode, m, *thisElement);
-            if (r < 0)
+            ret = readMessageItem<uint32_t>(typeCode, message, *thisElement);
+            if (ret < 0)
             {
-                return r;
+                return ret;
             }
         }
         else if (typeCode == "i")
         {
-            r = readMessageItem<int32_t>(typeCode, m, *thisElement);
-            if (r < 0)
+            ret = readMessageItem<int32_t>(typeCode, message, *thisElement);
+            if (ret < 0)
             {
-                return r;
+                return ret;
             }
         }
         else if (typeCode == "x")
         {
-            r = readMessageItem<int64_t>(typeCode, m, *thisElement);
-            if (r < 0)
+            ret = readMessageItem<int64_t>(typeCode, message, *thisElement);
+            if (ret < 0)
             {
-                return r;
+                return ret;
             }
         }
         else if (typeCode == "t")
         {
-            r = readMessageItem<uint64_t>(typeCode, m, *thisElement);
-            if (r < 0)
+            ret = readMessageItem<uint64_t>(typeCode, message, *thisElement);
+            if (ret < 0)
             {
-                return r;
+                return ret;
             }
         }
         else if (typeCode == "n")
         {
-            r = readMessageItem<int16_t>(typeCode, m, *thisElement);
-            if (r < 0)
+            ret = readMessageItem<int16_t>(typeCode, message, *thisElement);
+            if (ret < 0)
             {
-                return r;
+                return ret;
             }
         }
         else if (typeCode == "q")
         {
-            r = readMessageItem<uint16_t>(typeCode, m, *thisElement);
-            if (r < 0)
+            ret = readMessageItem<uint16_t>(typeCode, message, *thisElement);
+            if (ret < 0)
             {
-                return r;
+                return ret;
             }
         }
         else if (typeCode == "y")
         {
-            r = readMessageItem<uint8_t>(typeCode, m, *thisElement);
-            if (r < 0)
+            ret = readMessageItem<uint8_t>(typeCode, message, *thisElement);
+            if (ret < 0)
             {
-                return r;
+                return ret;
             }
         }
         else if (typeCode == "d")
         {
-            r = readMessageItem<double>(typeCode, m, *thisElement);
-            if (r < 0)
+            ret = readMessageItem<double>(typeCode, message, *thisElement);
+            if (ret < 0)
             {
-                return r;
+                return ret;
             }
         }
         else if (typeCode == "h")
         {
-            r = readMessageItem<int>(typeCode, m, *thisElement);
-            if (r < 0)
+            ret = readMessageItem<int>(typeCode, message, *thisElement);
+            if (ret < 0)
             {
-                return r;
+                return ret;
             }
         }
         else if (boost::starts_with(typeCode, "a"))
         {
-            r = readArrayFromMessage(typeCode, m, *thisElement);
-            if (r < 0)
+            ret = readArrayFromMessage(typeCode, message, *thisElement);
+            if (ret < 0)
             {
-                return r;
+                return ret;
             }
         }
         else if (boost::starts_with(typeCode, "(") &&
                  boost::ends_with(typeCode, ")"))
         {
-            r = readStructFromMessage(typeCode, m, *thisElement);
-            if (r < 0)
+            ret = readStructFromMessage(typeCode, message, *thisElement);
+            if (ret < 0)
             {
-                return r;
+                return ret;
             }
         }
         else if (boost::starts_with(typeCode, "v"))
         {
-            r = readVariantFromMessage(m, *thisElement);
-            if (r < 0)
+            ret = readVariantFromMessage(message, *thisElement);
+            if (ret < 0)
             {
-                return r;
+                return ret;
             }
         }
         else
@@ -1289,12 +1304,12 @@ inline int convertDBusToJSON(const std::string& returnType,
 
 inline void handleMethodResponse(
     const std::shared_ptr<InProgressActionData>& transaction,
-    sdbusplus::message::message& m, const std::string& returnType)
+    sdbusplus::message::message& message, const std::string& returnType)
 {
     nlohmann::json data;
 
-    int r = convertDBusToJSON(returnType, m, data);
-    if (r < 0)
+    int ret = convertDBusToJSON(returnType, message, data);
+    if (ret < 0)
     {
         transaction->outputFailed = true;
         return;
@@ -1339,9 +1354,9 @@ inline void handleMethodResponse(
     if (!transaction->convertedToArray)
     {
         // They are different types. May as well turn them into an array
-        nlohmann::json j = std::move(transaction->methodResponse);
+        nlohmann::json json = std::move(transaction->methodResponse);
         transaction->methodResponse = nlohmann::json::array();
-        transaction->methodResponse.push_back(std::move(j));
+        transaction->methodResponse.push_back(std::move(json));
         transaction->methodResponse.push_back(std::move(data));
         transaction->convertedToArray = true;
     }
@@ -1408,7 +1423,7 @@ inline void findActionOnInterface(
                             BMCWEB_LOG_DEBUG
                                 << "Found method named " << thisMethodName
                                 << " on interface " << thisInterfaceName;
-                            sdbusplus::message::message m =
+                            sdbusplus::message::message message =
                                 crow::connections::systemBus->new_method_call(
                                     connectionName.c_str(),
                                     transaction->path.c_str(),
@@ -1459,7 +1474,7 @@ inline void findActionOnInterface(
                                             "Invalid method args");
                                         return;
                                     }
-                                    if (convertJsonToDbus(m.get(),
+                                    if (convertJsonToDbus(message.get(),
                                                           std::string(argType),
                                                           *argIt) < 0)
                                     {
@@ -1475,21 +1490,23 @@ inline void findActionOnInterface(
                             }
 
                             crow::connections::systemBus->async_send(
-                                m, [transaction, returnType](
-                                       boost::system::error_code ec2,
-                                       sdbusplus::message::message& m2) {
+                                message,
+                                [transaction, returnType](
+                                    boost::system::error_code ec2,
+                                    sdbusplus::message::message& message2) {
                                     if (ec2)
                                     {
                                         transaction->methodFailed = true;
-                                        const sd_bus_error* e = m2.get_error();
+                                        const sd_bus_error* m2Err =
+                                            message2.get_error();
 
-                                        if (e != nullptr)
+                                        if (m2Err != nullptr)
                                         {
                                             setErrorResponse(
                                                 transaction->res,
                                                 boost::beast::http::status::
                                                     bad_request,
-                                                e->name, e->message);
+                                                m2Err->name, m2Err->message);
                                         }
                                         else
                                         {
@@ -1504,7 +1521,7 @@ inline void findActionOnInterface(
                                     }
                                     transaction->methodPassed = true;
 
-                                    handleMethodResponse(transaction, m2,
+                                    handleMethodResponse(transaction, message2,
                                                          returnType);
                                 });
                             break;
@@ -1728,15 +1745,15 @@ inline void handleGet(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
 
                 for (const std::string& interface : interfaceNames)
                 {
-                    sdbusplus::message::message m =
+                    sdbusplus::message::message message =
                         crow::connections::systemBus->new_method_call(
                             connection.first.c_str(), path->c_str(),
                             "org.freedesktop.DBus.Properties", "GetAll");
-                    m.append(interface);
+                    message.append(interface);
                     crow::connections::systemBus->async_send(
-                        m, [asyncResp, response,
-                            propertyName](const boost::system::error_code ec2,
-                                          sdbusplus::message::message& msg) {
+                        message, [asyncResp, response, propertyName](
+                                     const boost::system::error_code ec2,
+                                     sdbusplus::message::message& msg) {
                             if (ec2)
                             {
                                 BMCWEB_LOG_ERROR << "Bad dbus request error: "
@@ -1745,9 +1762,9 @@ inline void handleGet(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                             else
                             {
                                 nlohmann::json properties;
-                                int r =
+                                int ret =
                                     convertDBusToJSON("a{sv}", msg, properties);
-                                if (r < 0)
+                                if (ret < 0)
                                 {
                                     BMCWEB_LOG_ERROR
                                         << "convertDBusToJSON failed";
@@ -1935,7 +1952,7 @@ inline void handlePut(const crow::Request& req,
                                         propNode->Attribute("type");
                                     if (argType != nullptr)
                                     {
-                                        sdbusplus::message::message m =
+                                        sdbusplus::message::message message =
                                             crow::connections::systemBus
                                                 ->new_method_call(
                                                     connectionName.c_str(),
@@ -1944,23 +1961,24 @@ inline void handlePut(const crow::Request& req,
                                                     "org.freedesktop.DBus."
                                                     "Properties",
                                                     "Set");
-                                        m.append(interfaceName,
-                                                 transaction->propertyName);
-                                        int r = sd_bus_message_open_container(
-                                            m.get(), SD_BUS_TYPE_VARIANT,
+                                        message.append(
+                                            interfaceName,
+                                            transaction->propertyName);
+                                        int ret = sd_bus_message_open_container(
+                                            message.get(), SD_BUS_TYPE_VARIANT,
                                             argType);
-                                        if (r < 0)
+                                        if (ret < 0)
                                         {
                                             transaction->setErrorStatus(
                                                 "Unexpected Error");
                                             return;
                                         }
-                                        r = convertJsonToDbus(
-                                            m.get(), argType,
+                                        ret = convertJsonToDbus(
+                                            message.get(), argType,
                                             transaction->propertyValue);
-                                        if (r < 0)
+                                        if (ret < 0)
                                         {
-                                            if (r == -ERANGE)
+                                            if (ret == -ERANGE)
                                             {
                                                 transaction->setErrorStatus(
                                                     "Provided property value "
@@ -1974,52 +1992,47 @@ inline void handlePut(const crow::Request& req,
                                             }
                                             return;
                                         }
-                                        r = sd_bus_message_close_container(
-                                            m.get());
-                                        if (r < 0)
+                                        ret = sd_bus_message_close_container(
+                                            message.get());
+                                        if (ret < 0)
                                         {
                                             transaction->setErrorStatus(
                                                 "Unexpected Error");
                                             return;
                                         }
-                                        crow::connections::systemBus
-                                            ->async_send(
-                                                m,
-                                                [transaction](
-                                                    boost::system::error_code
-                                                        ec,
-                                                    sdbusplus::message::message&
-                                                        m2) {
-                                                    BMCWEB_LOG_DEBUG << "sent";
-                                                    if (ec)
-                                                    {
-                                                        const sd_bus_error* e =
-                                                            m2.get_error();
-                                                        setErrorResponse(
-                                                            transaction
-                                                                ->asyncResp
-                                                                ->res,
-                                                            boost::beast::http::
-                                                                status::
-                                                                    forbidden,
-                                                            (e) != nullptr
-                                                                ? e->name
-                                                                : ec.category()
-                                                                      .name(),
-                                                            (e) != nullptr
-                                                                ? e->message
-                                                                : ec.message());
-                                                    }
-                                                    else
-                                                    {
+                                        crow::connections::systemBus->async_send(
+                                            message,
+                                            [transaction](
+                                                boost::system::error_code ec,
+                                                sdbusplus::message::message&
+                                                    message2) {
+                                                BMCWEB_LOG_DEBUG << "sent";
+                                                if (ec)
+                                                {
+                                                    const sd_bus_error* m2Err =
+                                                        message2.get_error();
+                                                    setErrorResponse(
                                                         transaction->asyncResp
-                                                            ->res.jsonValue = {
-                                                            {"status", "ok"},
-                                                            {"message",
-                                                             "200 OK"},
-                                                            {"data", nullptr}};
-                                                    }
-                                                });
+                                                            ->res,
+                                                        boost::beast::http::
+                                                            status::forbidden,
+                                                        (m2Err) != nullptr
+                                                            ? m2Err->name
+                                                            : ec.category()
+                                                                  .name(),
+                                                        (m2Err) != nullptr
+                                                            ? m2Err->message
+                                                            : ec.message());
+                                                }
+                                                else
+                                                {
+                                                    transaction->asyncResp->res
+                                                        .jsonValue = {
+                                                        {"status", "ok"},
+                                                        {"message", "200 OK"},
+                                                        {"data", nullptr}};
+                                                }
+                                            });
                                     }
                                 }
                                 propNode =
@@ -2298,16 +2311,16 @@ inline void requestRoutes(App& app)
                 std::string objectPath;
                 std::string interfaceName;
                 std::string methodName;
-                auto it = strs.begin();
-                if (it == strs.end())
+                auto strsIter = strs.begin();
+                if (strsIter == strs.end())
                 {
                     objectPath = "/";
                 }
-                while (it != strs.end())
+                while (strsIter != strs.end())
                 {
                     // Check if segment contains ".".  If it does, it must be an
                     // interface
-                    if (it->find(".") != std::string::npos)
+                    if (strsIter->find(".") != std::string::npos)
                     {
                         break;
                         // This check is necessary as the trailing slash gets
@@ -2315,25 +2328,25 @@ inline void requestRoutes(App& app)
                         // causes the normal trailing backslash redirector to
                         // fail.
                     }
-                    if (!it->empty())
+                    if (!strsIter->empty())
                     {
-                        objectPath += "/" + *it;
+                        objectPath += "/" + *strsIter;
                     }
-                    it++;
+                    strsIter++;
                 }
-                if (it != strs.end())
+                if (strsIter != strs.end())
                 {
-                    interfaceName = *it;
-                    it++;
+                    interfaceName = *strsIter;
+                    strsIter++;
 
                     // after interface, we might have a method name
-                    if (it != strs.end())
+                    if (strsIter != strs.end())
                     {
-                        methodName = *it;
-                        it++;
+                        methodName = *strsIter;
+                        strsIter++;
                     }
                 }
-                if (it != strs.end())
+                if (strsIter != strs.end())
                 {
                     // if there is more levels past the method name, something
                     // went wrong, return not found
@@ -2566,7 +2579,7 @@ inline void requestRoutes(App& app)
                                 const char* type = property->Attribute("type");
                                 if (type != nullptr && name != nullptr)
                                 {
-                                    sdbusplus::message::message m =
+                                    sdbusplus::message::message message =
                                         crow::connections::systemBus
                                             ->new_method_call(
                                                 processName.c_str(),
@@ -2575,15 +2588,15 @@ inline void requestRoutes(App& app)
                                                 "DBus."
                                                 "Properties",
                                                 "Get");
-                                    m.append(interfaceName, name);
+                                    message.append(interfaceName, name);
                                     nlohmann::json& propertyItem =
                                         propertiesObj[name];
                                     crow::connections::systemBus->async_send(
-                                        m,
+                                        message,
                                         [&propertyItem, asyncResp](
-                                            boost::system::error_code& e,
+                                            boost::system::error_code& error,
                                             sdbusplus::message::message& msg) {
-                                            if (e)
+                                            if (error)
                                             {
                                                 return;
                                             }
