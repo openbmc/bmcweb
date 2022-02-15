@@ -17,7 +17,7 @@ class KvmSession
 {
   public:
     explicit KvmSession(crow::websocket::Connection& connIn) :
-        conn(connIn), hostSocket(conn.getIoContext()), doingWrite(false)
+        conn(connIn), hostSocket(conn.getIoContext())
     {
         boost::asio::ip::tcp::endpoint endpoint(
             boost::asio::ip::make_address("127.0.0.1"), 5900);
@@ -147,7 +147,7 @@ class KvmSession
     boost::asio::ip::tcp::socket hostSocket;
     boost::beast::flat_static_buffer<1024UL * 50UL> outputBuffer;
     boost::beast::flat_static_buffer<1024UL> inputBuffer;
-    bool doingWrite;
+    bool doingWrite{false};
 };
 
 static boost::container::flat_map<crow::websocket::Connection*,
