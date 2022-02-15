@@ -46,6 +46,13 @@ inline void getChassisState(std::shared_ptr<bmcweb::AsyncResp> aResp)
                                   const std::string& chassisState) {
             if (ec)
             {
+                if (ec == boost::system::errc::host_unreachable)
+                {
+                    // Service not available, no error, just don't return
+                    // chassis state info
+                    BMCWEB_LOG_DEBUG << "Service not available " << ec;
+                    return;
+                }
                 BMCWEB_LOG_DEBUG << "DBUS response error " << ec;
                 messages::internalError(aResp->res);
                 return;
