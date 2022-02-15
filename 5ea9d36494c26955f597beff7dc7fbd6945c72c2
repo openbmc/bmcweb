@@ -22,6 +22,30 @@
       },
       "revId": "5ea9d36494c26955f597beff7dc7fbd6945c72c2",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a5220d9b_9e14c53d",
+        "filename": "redfish-core/ut/json_utils_test.cpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2022-02-15T00:50:00Z",
+      "side": 1,
+      "message": "I have removed all of the templates in here now and marked the expected postcondition for all calls.",
+      "parentUuid": "e58822b8_98065ba7",
+      "range": {
+        "startLine": 11,
+        "startChar": 0,
+        "endLine": 19,
+        "endChar": 0
+      },
+      "revId": "5ea9d36494c26955f597beff7dc7fbd6945c72c2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
