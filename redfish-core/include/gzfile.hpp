@@ -38,7 +38,7 @@ class GzFileReader
     std::string lastDelimiter;
     size_t totalFilesSize = 0;
 
-    void printErrorMessage(gzFile logStream)
+    static void printErrorMessage(gzFile logStream)
     {
         int errNum = 0;
         const char* errMsg = gzerror(logStream, &errNum);
