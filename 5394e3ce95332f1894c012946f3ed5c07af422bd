@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9eab4831_f73ea05a",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 209,
+      "author": {
+        "id": 1001099
+      },
+      "writtenOn": "2022-02-15T17:34:55Z",
+      "side": 1,
+      "message": "Is this perfect if not then please suggest me error type?",
+      "revId": "5394e3ce95332f1894c012946f3ed5c07af422bd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
