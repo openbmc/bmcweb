@@ -97,14 +97,14 @@ class Connection :
                                .tls)
         {
             adaptor.set_verify_mode(boost::asio::ssl::verify_peer);
-            std::string id = "bmcweb";
+            std::string tlsId = "bmcweb";
 
-            const char* cStr = id.c_str();
+            const char* cStr = tlsId.c_str();
             // NOLINTNEXTLINE(cppcoreguidelines-pro-type-reinterpret-cast)
             const auto* idC = reinterpret_cast<const unsigned char*>(cStr);
             int ret = SSL_set_session_id_context(
                 adaptor.native_handle(), idC,
-                static_cast<unsigned int>(id.length()));
+                static_cast<unsigned int>(tlsId.length()));
             if (ret == 0)
             {
                 BMCWEB_LOG_ERROR << this << " failed to set SSL id";
@@ -492,32 +492,32 @@ class Connection :
 
     void readClientIp()
     {
-        boost::asio::ip::address ip;
-        boost::system::error_code ec = getClientIp(ip);
-        if (ec)
+        boost::asio::ip::address ipAddress;
+        boost::system::error_code error = getClientIp(ipAddress);
+        if (error)
         {
             return;
         }
-        req->ipAddress = ip;
+        req->ipAddress = ipAddress;
     }
 
-    boost::system::error_code getClientIp(boost::asio::ip::address& ip)
+    boost::system::error_code getClientIp(boost::asio::ip::address& ipAddress)
     {
-        boost::system::error_code ec;
+        boost::system::error_code error;
         BMCWEB_LOG_DEBUG << "Fetch the client IP address";
         boost::asio::ip::tcp::endpoint endpoint =
-            boost::beast::get_lowest_layer(adaptor).remote_endpoint(ec);
+            boost::beast::get_lowest_layer(adaptor).remote_endpoint(error);
 
-        if (ec)
+        if (error)
         {
             // If remote endpoint fails keep going. "ClientOriginIPAddress"
             // will be empty.
-            BMCWEB_LOG_ERROR << "Failed to get the client's IP Address. ec : "
-                             << ec;
-            return ec;
+            BMCWEB_LOG_ERROR << "Failed to get the client's IP Address. err : "
+                             << error;
+            return error;
         }
-        ip = endpoint.address();
-        return ec;
+        ipAddress = endpoint.address();
+        return error;
     }
 
   private:
@@ -570,8 +570,8 @@ class Connection :
 
                 readClientIp();
 
-                boost::asio::ip::address ip;
-                if (getClientIp(ip))
+                boost::asio::ip::address ipAddress;
+                if (getClientIp(ipAddress))
                 {
                     BMCWEB_LOG_DEBUG << "Unable to get client IP";
                 }
@@ -579,7 +579,7 @@ class Connection :
 #ifndef BMCWEB_INSECURE_DISABLE_AUTHENTICATION
                 boost::beast::http::verb method = parser->get().method();
                 userSession = crow::authorization::authenticate(
-                    ip, res, method, parser->get().base(), userSession);
+                    ipAddress, res, method, parser->get().base(), userSession);
 
                 bool loggedIn = userSession != nullptr;
                 if (!loggedIn)

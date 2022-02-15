@@ -27,15 +27,15 @@ class Logger
     {
         std::string date;
         date.resize(32, '\0');
-        time_t t = time(nullptr);
+        time_t timeT = time(nullptr);
 
         tm myTm{};
 
-        gmtime_r(&t, &myTm);
+        gmtime_r(&timeT, &myTm);
 
-        size_t sz =
+        size_t timeSize =
             strftime(date.data(), date.size(), "%Y-%m-%d %H:%M:%S", &myTm);
-        date.resize(sz);
+        date.resize(timeSize);
         return date;
     }
 

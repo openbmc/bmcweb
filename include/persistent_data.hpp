@@ -158,11 +158,11 @@ class ConfigFile
                             }
 
                             BMCWEB_LOG_DEBUG << "Restored subscription: "
-                                             << newSubscription->id << " "
+                                             << newSubscription->subId << " "
                                              << newSubscription->customText;
                             EventServiceStore::getInstance()
                                 .subscriptionsConfigMap.emplace(
-                                    newSubscription->id, newSubscription);
+                                    newSubscription->subId, newSubscription);
                         }
                     }
                     else
@@ -205,16 +205,17 @@ class ConfigFile
             std::filesystem::perms::owner_write |
             std::filesystem::perms::group_read;
         std::filesystem::permissions(filename, permission);
-        const auto& c = SessionStore::getInstance().getAuthMethodsConfig();
+        const auto& authConfig =
+            SessionStore::getInstance().getAuthMethodsConfig();
         const auto& eventServiceConfig =
             EventServiceStore::getInstance().getEventServiceConfig();
         nlohmann::json data{
             {"auth_config",
-             {{"XToken", c.xtoken},
-              {"Cookie", c.cookie},
-              {"SessionToken", c.sessionToken},
-              {"BasicAuth", c.basic},
-              {"TLS", c.tls}}
+             {{"XToken", authConfig.xtoken},
+              {"Cookie", authConfig.cookie},
+              {"SessionToken", authConfig.sessionToken},
+              {"BasicAuth", authConfig.basic},
+              {"TLS", authConfig.tls}}
 
             },
             {"eventservice_config",
@@ -230,29 +231,30 @@ class ConfigFile
 
         nlohmann::json& sessions = data["sessions"];
         sessions = nlohmann::json::array();
-        for (const auto& p : SessionStore::getInstance().authTokens)
+        for (const auto& authToken : SessionStore::getInstance().authTokens)
         {
-            if (p.second->persistence !=
+            if (authToken.second->persistence !=
                 persistent_data::PersistenceType::SINGLE_REQUEST)
             {
                 sessions.push_back({
-                    {"unique_id", p.second->uniqueId},
-                    {"session_token", p.second->sessionToken},
-                    {"username", p.second->username},
-                    {"csrf_token", p.second->csrfToken},
-                    {"client_ip", p.second->clientIp},
+                    {"unique_id", authToken.second->uniqueId},
+                    {"session_token", authToken.second->sessionToken},
+                    {"username", authToken.second->username},
+                    {"csrf_token", authToken.second->csrfToken},
+                    {"client_ip", authToken.second->clientIp},
 #ifdef BMCWEB_ENABLE_IBM_MANAGEMENT_CONSOLE
-                    {"client_id", p.second->clientId},
+                    {"client_id", authToken.second->clientId},
 #endif
                 });
             }
         }
         nlohmann::json& subscriptions = data["subscriptions"];
         subscriptions = nlohmann::json::array();
-        for (const auto& it :
+        for (const auto& subscriptionConfig :
              EventServiceStore::getInstance().subscriptionsConfigMap)
         {
-            std::shared_ptr<UserSubscription> subValue = it.second;
+            std::shared_ptr<UserSubscription> subValue =
+                subscriptionConfig.second;
             if (subValue->subscriptionType == "SSE")
             {
                 BMCWEB_LOG_DEBUG
@@ -272,7 +274,7 @@ class ConfigFile
             }
 
             subscriptions.push_back({
-                {"Id", subValue->id},
+                {"Id", subValue->subId},
                 {"Context", subValue->customText},
                 {"DeliveryRetryPolicy", subValue->retryPolicy},
                 {"Destination", subValue->destinationUrl},
@@ -294,8 +296,8 @@ class ConfigFile
 
 inline ConfigFile& getConfig()
 {
-    static ConfigFile f;
-    return f;
+    static ConfigFile config;
+    return config;
 }
 
 } // namespace persistent_data

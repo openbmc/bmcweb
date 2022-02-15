@@ -49,7 +49,7 @@ constexpr std::array<const char*, 2> processorInterfaces = {
  * @param[in]       service     D-Bus service to query.
  * @param[in]       objPath     D-Bus object to query.
  */
-inline void getProcessorUUID(std::shared_ptr<bmcweb::AsyncResp> aResp,
+inline void getProcessorUUID(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
                              const std::string& service,
                              const std::string& objPath)
 {
@@ -57,8 +57,8 @@ inline void getProcessorUUID(std::shared_ptr<bmcweb::AsyncResp> aResp,
     sdbusplus::asio::getProperty<std::string>(
         *crow::connections::systemBus, service, objPath,
         "xyz.openbmc_project.Common.UUID", "UUID",
-        [objPath, aResp{std::move(aResp)}](const boost::system::error_code ec,
-                                           const std::string& property) {
+        [objPath, aResp{aResp}](const boost::system::error_code ec,
+                                const std::string& property) {
             if (ec)
             {
                 BMCWEB_LOG_DEBUG << "DBUS response error";
@@ -203,7 +203,7 @@ inline void getCpuDataByInterface(
     }
 }
 
-inline void getCpuDataByService(std::shared_ptr<bmcweb::AsyncResp> aResp,
+inline void getCpuDataByService(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
                                 const std::string& cpuId,
                                 const std::string& service,
                                 const std::string& objPath)
@@ -211,9 +211,9 @@ inline void getCpuDataByService(std::shared_ptr<bmcweb::AsyncResp> aResp,
     BMCWEB_LOG_DEBUG << "Get available system cpu resources by service.";
 
     crow::connections::systemBus->async_method_call(
-        [cpuId, service, objPath, aResp{std::move(aResp)}](
-            const boost::system::error_code ec,
-            const dbus::utility::ManagedObjectType& dbusData) {
+        [cpuId, service, objPath,
+         aResp{aResp}](const boost::system::error_code ec,
+                       const dbus::utility::ManagedObjectType& dbusData) {
             if (ec)
             {
                 BMCWEB_LOG_DEBUG << "DBUS response error";
@@ -279,13 +279,13 @@ inline void getCpuDataByService(std::shared_ptr<bmcweb::AsyncResp> aResp,
         "org.freedesktop.DBus.ObjectManager", "GetManagedObjects");
 }
 
-inline void getCpuAssetData(std::shared_ptr<bmcweb::AsyncResp> aResp,
+inline void getCpuAssetData(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
                             const std::string& service,
                             const std::string& objPath)
 {
     BMCWEB_LOG_DEBUG << "Get Cpu Asset Data";
     crow::connections::systemBus->async_method_call(
-        [objPath, aResp{std::move(aResp)}](
+        [objPath, aResp{aResp}](
             const boost::system::error_code ec,
             const boost::container::flat_map<
                 std::string, dbus::utility::DbusVariantType>& properties) {
@@ -300,11 +300,11 @@ inline void getCpuAssetData(std::shared_ptr<bmcweb::AsyncResp> aResp,
             {
                 if (property.first == "SerialNumber")
                 {
-                    const std::string* sn =
+                    const std::string* serial =
                         std::get_if<std::string>(&property.second);
-                    if (sn != nullptr && !sn->empty())
+                    if (serial != nullptr && !serial->empty())
                     {
-                        aResp->res.jsonValue["SerialNumber"] = *sn;
+                        aResp->res.jsonValue["SerialNumber"] = *serial;
                     }
                 }
                 else if (property.first == "Model")
@@ -370,13 +370,13 @@ inline void getCpuAssetData(std::shared_ptr<bmcweb::AsyncResp> aResp,
         "xyz.openbmc_project.Inventory.Decorator.Asset");
 }
 
-inline void getCpuRevisionData(std::shared_ptr<bmcweb::AsyncResp> aResp,
+inline void getCpuRevisionData(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
                                const std::string& service,
                                const std::string& objPath)
 {
     BMCWEB_LOG_DEBUG << "Get Cpu Revision Data";
     crow::connections::systemBus->async_method_call(
-        [objPath, aResp{std::move(aResp)}](
+        [objPath, aResp{aResp}](
             const boost::system::error_code ec,
             const boost::container::flat_map<
                 std::string, dbus::utility::DbusVariantType>& properties) {
@@ -405,14 +405,16 @@ inline void getCpuRevisionData(std::shared_ptr<bmcweb::AsyncResp> aResp,
         "xyz.openbmc_project.Inventory.Decorator.Revision");
 }
 
-inline void getAcceleratorDataByService(
-    std::shared_ptr<bmcweb::AsyncResp> aResp, const std::string& acclrtrId,
-    const std::string& service, const std::string& objPath)
+inline void
+    getAcceleratorDataByService(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
+                                const std::string& acclrtrId,
+                                const std::string& service,
+                                const std::string& objPath)
 {
     BMCWEB_LOG_DEBUG
         << "Get available system Accelerator resources by service.";
     crow::connections::systemBus->async_method_call(
-        [acclrtrId, aResp{std::move(aResp)}](
+        [acclrtrId, aResp{aResp}](
             const boost::system::error_code ec,
             const boost::container::flat_map<
                 std::string, dbus::utility::DbusVariantType>& properties) {
@@ -622,7 +624,7 @@ inline void getCpuConfigData(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
  * @param[in]       service     D-Bus service to query.
  * @param[in]       objPath     D-Bus object to query.
  */
-inline void getCpuLocationCode(std::shared_ptr<bmcweb::AsyncResp> aResp,
+inline void getCpuLocationCode(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
                                const std::string& service,
                                const std::string& objPath)
 {
@@ -630,8 +632,8 @@ inline void getCpuLocationCode(std::shared_ptr<bmcweb::AsyncResp> aResp,
     sdbusplus::asio::getProperty<std::string>(
         *crow::connections::systemBus, service, objPath,
         "xyz.openbmc_project.Inventory.Decorator.LocationCode", "LocationCode",
-        [objPath, aResp{std::move(aResp)}](const boost::system::error_code ec,
-                                           const std::string& property) {
+        [objPath, aResp{aResp}](const boost::system::error_code ec,
+                                const std::string& property) {
             if (ec)
             {
                 BMCWEB_LOG_DEBUG << "DBUS response error";

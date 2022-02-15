@@ -111,8 +111,7 @@ class MockLock : public crow::ibm_mc_lock::Lock
 TEST_F(LockTest, ValidationGoodTestCase)
 {
     MockLock lockManager;
-    const LockRequest& t = record;
-    ASSERT_EQ(1, lockManager.isValidLockRequest(t));
+    ASSERT_EQ(1, lockManager.isValidLockRequest(record));
 }
 
 TEST_F(LockTest, ValidationBadTestWithLocktype)
@@ -120,8 +119,7 @@ TEST_F(LockTest, ValidationBadTestWithLocktype)
     MockLock lockManager;
     // Corrupt the lock type
     std::get<2>(record) = "rwrite";
-    const LockRequest& t = record;
-    ASSERT_EQ(0, lockManager.isValidLockRequest(t));
+    ASSERT_EQ(0, lockManager.isValidLockRequest(record));
 }
 
 TEST_F(LockTest, ValidationBadTestWithlockFlags)
@@ -129,8 +127,7 @@ TEST_F(LockTest, ValidationBadTestWithlockFlags)
     MockLock lockManager;
     // Corrupt the lockflag
     std::get<4>(record)[0].first = "lock";
-    const LockRequest& t = record;
-    ASSERT_EQ(0, lockManager.isValidLockRequest(t));
+    ASSERT_EQ(0, lockManager.isValidLockRequest(record));
 }
 
 TEST_F(LockTest, ValidationBadTestWithSegmentlength)
@@ -138,15 +135,13 @@ TEST_F(LockTest, ValidationBadTestWithSegmentlength)
     MockLock lockManager;
     // Corrupt the Segment length
     std::get<4>(record)[0].second = 7;
-    const LockRequest& t = record;
-    ASSERT_EQ(0, lockManager.isValidLockRequest(t));
+    ASSERT_EQ(0, lockManager.isValidLockRequest(record));
 }
 
 TEST_F(LockTest, MultiRequestWithoutConflict)
 {
     MockLock lockManager;
-    const LockRequests& t = request;
-    ASSERT_EQ(0, lockManager.isConflictRequest(t));
+    ASSERT_EQ(0, lockManager.isConflictRequest(request));
 }
 
 TEST_F(LockTest, MultiRequestWithConflictduetoSameSegmentLength)
@@ -157,8 +152,7 @@ TEST_F(LockTest, MultiRequestWithConflictduetoSameSegmentLength)
     // Match the segment lengths to points them to lock similar kind of
     // resource
     std::get<4>(request[0])[0].first = "LockAll";
-    const LockRequests& t = request;
-    ASSERT_EQ(1, lockManager.isConflictRequest(t));
+    ASSERT_EQ(1, lockManager.isConflictRequest(request));
 }
 
 TEST_F(LockTest, MultiRequestWithoutConflictduetoDifferentSegmentData)
@@ -175,8 +169,7 @@ TEST_F(LockTest, MultiRequestWithoutConflictduetoDifferentSegmentData)
     // different so no conflict
     std::get<3>(request[0]) = 216179379183550464; // HEX 03 00 06 00 00 00 00 00
     std::get<3>(request[1]) = 288236973221478400; // HEX 04 00 06 00 00 00 00 00
-    const LockRequests& t = request;
-    ASSERT_EQ(0, lockManager.isConflictRequest(t));
+    ASSERT_EQ(0, lockManager.isConflictRequest(request));
 }
 
 TEST_F(LockTest, MultiRequestWithConflictduetoSameSegmentData)
@@ -192,8 +185,7 @@ TEST_F(LockTest, MultiRequestWithConflictduetoSameSegmentData)
     // occurs from the second segment which is trying to lock all the resources.
     std::get<3>(request[0]) = 216173882346831872; // 03 00 01 00 2B 00 00 00
     std::get<3>(request[1]) = 216173882346831872; // 03 00 01 00 2B 00 00 00
-    const LockRequests& t = request;
-    ASSERT_EQ(1, lockManager.isConflictRequest(t));
+    ASSERT_EQ(1, lockManager.isConflictRequest(request));
 }
 
 TEST_F(LockTest, MultiRequestWithoutConflictduetoDifferentSegmentLength)
@@ -207,9 +199,8 @@ TEST_F(LockTest, MultiRequestWithoutConflictduetoDifferentSegmentLength)
     // Change the segment length , so that the requests are trying to lock
     // two different kind of resources
     std::get<4>(request[0])[0].second = 3;
-    const LockRequests& t = request;
     // Return No Conflict
-    ASSERT_EQ(0, lockManager.isConflictRequest(t));
+    ASSERT_EQ(0, lockManager.isConflictRequest(request));
 }
 
 TEST_F(LockTest, MultiRequestWithoutConflictduetoReadLocktype)
@@ -218,9 +209,8 @@ TEST_F(LockTest, MultiRequestWithoutConflictduetoReadLocktype)
     // Match the segment lengths to points them to lock similar kind of
     // resource
     std::get<4>(request[0])[0].first = "LockAll";
-    const LockRequests& t = request;
     // Return No Conflict
-    ASSERT_EQ(0, lockManager.isConflictRequest(t));
+    ASSERT_EQ(0, lockManager.isConflictRequest(request));
 }
 
 TEST_F(LockTest, MultiRequestWithoutConflictduetoReadLocktypeAndLockall)
@@ -230,22 +220,19 @@ TEST_F(LockTest, MultiRequestWithoutConflictduetoReadLocktypeAndLockall)
     // resource
     std::get<4>(request[0])[0].first = "LockAll";
     std::get<4>(request[0])[1].first = "LockAll";
-    const LockRequests& t = request;
     // Return No Conflict
-    ASSERT_EQ(0, lockManager.isConflictRequest(t));
+    ASSERT_EQ(0, lockManager.isConflictRequest(request));
 }
 
 TEST_F(LockTest, RequestConflictedWithLockTableEntries)
 {
     MockLock lockManager;
-    const LockRequests& t = request1;
-    auto rc1 = lockManager.isConflictWithTable(t);
+    auto rc1 = lockManager.isConflictWithTable(request1);
     // Corrupt the lock type
     std::get<2>(request[0]) = "Write";
     // Corrupt the lockflag
     std::get<4>(request[0])[1].first = "LockAll";
-    const LockRequests& p = request;
-    auto rc2 = lockManager.isConflictWithTable(p);
+    auto rc2 = lockManager.isConflictWithTable(request);
     // Return a Conflict
     ASSERT_EQ(1, rc2.first);
 }
@@ -253,15 +240,13 @@ TEST_F(LockTest, RequestConflictedWithLockTableEntries)
 TEST_F(LockTest, RequestNotConflictedWithLockTableEntries)
 {
     MockLock lockManager;
-    const LockRequests& t = request1;
     // Insert the request1 into the lock table
-    auto rc1 = lockManager.isConflictWithTable(t);
+    auto rc1 = lockManager.isConflictWithTable(request1);
     // Corrupt the lock type
     std::get<2>(request[0]) = "Read";
     // Corrupt the lockflag
     std::get<4>(request[0])[1].first = "LockAll";
-    const LockRequests& p = request;
-    auto rc2 = lockManager.isConflictWithTable(p);
+    auto rc2 = lockManager.isConflictWithTable(request);
     // Return No Conflict
     ASSERT_EQ(0, rc2.first);
 }
@@ -277,38 +262,32 @@ TEST_F(LockTest, TestGenerateTransactionIDFunction)
 TEST_F(LockTest, ValidateTransactionIDsGoodTestCase)
 {
     MockLock lockManager;
-    const LockRequests& t = request1;
     // Insert the request1 into the lock table
-    auto rc1 = lockManager.isConflictWithTable(t);
+    auto rc1 = lockManager.isConflictWithTable(request1);
     std::vector<uint32_t> tids = {1};
-    const std::vector<uint32_t>& p = tids;
-    ASSERT_EQ(1, lockManager.validateRids(p));
+    ASSERT_EQ(1, lockManager.validateRids(tids));
 }
 
 TEST_F(LockTest, ValidateTransactionIDsBadTestCase)
 {
     MockLock lockManager;
     // Insert the request1 into the lock table
-    const LockRequests& t = request1;
-    auto rc1 = lockManager.isConflictWithTable(t);
+    auto rc1 = lockManager.isConflictWithTable(request1);
     std::vector<uint32_t> tids = {10};
-    const std::vector<uint32_t>& p = tids;
-    ASSERT_EQ(0, lockManager.validateRids(p));
+    ASSERT_EQ(0, lockManager.validateRids(tids));
 }
 
 TEST_F(LockTest, ValidateisItMyLockGoodTestCase)
 {
     MockLock lockManager;
     // Insert the request1 into the lock table
-    const LockRequests& t = request1;
-    auto rc1 = lockManager.isConflictWithTable(t);
+    auto rc1 = lockManager.isConflictWithTable(request1);
     std::vector<uint32_t> tids = {1};
-    const std::vector<uint32_t>& p = tids;
     std::string hmcid = "hmc-id";
     std::string sessionid = "xxxxx";
     std::pair<SType, SType> ids = std::make_pair(hmcid, sessionid);
-    auto rc = lockManager.isItMyLock(p, ids);
-    ASSERT_EQ(1, rc.first);
+    auto ret = lockManager.isItMyLock(tids, ids);
+    ASSERT_EQ(1, ret.first);
 }
 
 TEST_F(LockTest, ValidateisItMyLockBadTestCase)
@@ -317,23 +296,20 @@ TEST_F(LockTest, ValidateisItMyLockBadTestCase)
     // Corrupt the client identifier
     std::get<1>(request1[0]) = "randomid";
     // Insert the request1 into the lock table
-    const LockRequests& t = request1;
-    auto rc1 = lockManager.isConflictWithTable(t);
+    auto rc1 = lockManager.isConflictWithTable(request1);
     std::vector<uint32_t> tids = {1};
-    const std::vector<uint32_t>& p = tids;
     std::string hmcid = "hmc-id";
     std::string sessionid = "random";
     std::pair<SType, SType> ids = std::make_pair(hmcid, sessionid);
-    auto rc = lockManager.isItMyLock(p, ids);
-    ASSERT_EQ(0, rc.first);
+    auto ret = lockManager.isItMyLock(tids, ids);
+    ASSERT_EQ(0, ret.first);
 }
 
 TEST_F(LockTest, ValidateSessionIDForGetlocklistBadTestCase)
 {
     MockLock lockManager;
     // Insert the request1 into the lock table
-    const LockRequests& t = request1;
-    auto rc1 = lockManager.isConflictWithTable(t);
+    auto rc1 = lockManager.isConflictWithTable(request1);
     std::vector<std::string> sessionid = {"random"};
     auto status = lockManager.getLockList(sessionid);
     auto result =
@@ -345,8 +321,7 @@ TEST_F(LockTest, ValidateSessionIDForGetlocklistGoodTestCase)
 {
     MockLock lockManager;
     // Insert the request1 into the lock table
-    const LockRequests& t = request1;
-    auto rc1 = lockManager.isConflictWithTable(t);
+    auto rc1 = lockManager.isConflictWithTable(request1);
     std::vector<std::string> sessionid = {"xxxxx"};
     auto status = lockManager.getLockList(sessionid);
     auto result =
