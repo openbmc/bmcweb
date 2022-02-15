@@ -664,7 +664,7 @@ class EventServiceManager
         }
     }
 
-    void loadOldBehavior()
+    static void loadOldBehavior()
     {
         std::ifstream eventConfigFile(eventServiceFile);
         if (!eventConfigFile.good())
@@ -1313,8 +1313,14 @@ class EventServiceManager
     }
 
 #endif
-    void getReadingsForReport(sdbusplus::message::message& msg)
+    static void getReadingsForReport(sdbusplus::message::message& msg)
     {
+        if (msg.is_method_error())
+        {
+            BMCWEB_LOG_ERROR << "TelemetryMonitor Signal error";
+            return;
+        }
+
         sdbusplus::message::object_path path(msg.get_path());
         std::string id = path.filename();
         if (id.empty())
@@ -1381,16 +1387,7 @@ class EventServiceManager
                                "arg0=xyz.openbmc_project.Telemetry.Report";
 
         matchTelemetryMonitor = std::make_shared<sdbusplus::bus::match::match>(
-            *crow::connections::systemBus, matchStr,
-            [this](sdbusplus::message::message& msg) {
-                if (msg.is_method_error())
-                {
-                    BMCWEB_LOG_ERROR << "TelemetryMonitor Signal error";
-                    return;
-                }
-
-                getReadingsForReport(msg);
-            });
+            *crow::connections::systemBus, matchStr, getReadingsForReport);
     }
 };
 
