@@ -978,8 +978,19 @@ inline void requestRoutesSystemLogServiceCollection(App& app)
                 {{"@odata.id",
                   "/redfish/v1/Systems/system/LogServices/HostLogger"}});
 #endif
-            asyncResp->res.jsonValue["Members@odata.count"] =
-                logServiceArray.size();
+
+                // This is the ExternalStorer integration point
+                for (const auto& instance :
+                     external_storer::hookLogServices->listInstances())
+                {
+                    logServiceArray.push_back(
+                        {{"@odata.id",
+                          "/redfish/v1/Systems/system/LogServices/" +
+                              instance}});
+                }
+
+                asyncResp->res.jsonValue["Members@odata.count"] =
+                    logServiceArray.size();
 
             crow::connections::systemBus->async_method_call(
                 [asyncResp](const boost::system::error_code ec,
