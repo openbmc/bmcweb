@@ -12,6 +12,7 @@
 #include <image_upload.hpp>
 #include <kvm_websocket.hpp>
 #include <login_routes.hpp>
+#include <nbd_proxy.hpp>
 #include <obmc_console.hpp>
 #include <openbmc_dbus_rest.hpp>
 #include <redfish.hpp>
@@ -26,10 +27,6 @@
 
 #include <memory>
 #include <string>
-
-#ifdef BMCWEB_ENABLE_VM_NBDPROXY
-#include <nbd_proxy.hpp>
-#endif
 
 constexpr int defaultPort = 18080;
 
