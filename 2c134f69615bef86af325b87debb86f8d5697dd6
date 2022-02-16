@@ -805,6 +805,30 @@
       },
       "revId": "2c134f69615bef86af325b87debb86f8d5697dd6",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1e331901_4c6811b6",
+        "filename": "redfish-core/lib/redfish_sessions.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 266,
+      "author": {
+        "id": 1000022
+      },
+      "writtenOn": "2022-02-16T16:49:10Z",
+      "side": 1,
+      "message": "Sunitha, I don\u0027t see any activity on the phospho-host-ipmid commits, If those patches gets in, Then you can remove the support of priv access from the user-manager and you need to make the necessary changes in the bmcweb too.\n\nEd, is that fine to you too?",
+      "parentUuid": "726ec191_7c0daf02",
+      "range": {
+        "startLine": 199,
+        "startChar": 0,
+        "endLine": 266,
+        "endChar": 37
+      },
+      "revId": "2c134f69615bef86af325b87debb86f8d5697dd6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
