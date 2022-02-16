@@ -935,6 +935,16 @@ inline void requestRoutesSystemLogServiceCollection(App& app)
                 {{"@odata.id",
                   "/redfish/v1/Systems/system/LogServices/HostLogger"}});
 #endif
+
+            // This is the ExternalStorer integration point
+            for (const auto& instance :
+                 external_storer::rememberLogServices()->listInstances())
+            {
+                logServiceArray.push_back(
+                    {{"@odata.id",
+                      "/redfish/v1/Systems/system/LogServices/" + instance}});
+            }
+
             asyncResp->res.jsonValue["Members@odata.count"] =
                 logServiceArray.size();
 
