@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "dc5046cd_cbca4b45",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-02-16T21:15:44Z",
+      "side": 1,
+      "message": "Seems reasonable to me, looking for more input to see if anyone else has opinions.\n\nThanks for making the changes.",
+      "revId": "da9813a8048bca9bbbe190acbd44807c998bacab",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e75185dc_f7763672",
@@ -32,6 +49,24 @@
       "side": 1,
       "message": "Ed suggested to changes this. So updated. Usually we will not change this.",
       "parentUuid": "e75185dc_f7763672",
+      "revId": "da9813a8048bca9bbbe190acbd44807c998bacab",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9e5c64c0_65f8e4ca",
+        "filename": "redfish-core/include/registries/openbmc_message_registry.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-02-16T21:15:44Z",
+      "side": 1,
+      "message": "\u003e Are we going to bump this everytime we add a new message?\n\nPer the versioning requirements on these, yes, we should be bumping the minor every time we add an entry, and the subminor every time we modify an existing entry, the same as the upstream works.",
+      "parentUuid": "02d6cbcd_6ae4efff",
       "revId": "da9813a8048bca9bbbe190acbd44807c998bacab",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
