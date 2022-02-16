@@ -298,108 +298,94 @@ inline void requestRoutes(App& app)
                     return;
                 }
 
-                auto openHandler =
-                    [&conn, asyncResp](
-                        const boost::system::error_code ec,
-                        const dbus::utility::ManagedObjectType& objects) {
-                        const std::string* socketValue = nullptr;
-                        const std::string* endpointValue = nullptr;
-                        const std::string* endpointObjectPath = nullptr;
+                auto openHandler = [&conn, asyncResp](
+                                       const boost::system::error_code ec,
+                                       const dbus::utility::ManagedObjectType&
+                                           objects) {
+                    const std::string* socketValue = nullptr;
+                    const std::string* endpointValue = nullptr;
+                    const std::string* endpointObjectPath = nullptr;
 
-                        if (ec)
+                    if (ec)
+                    {
+                        BMCWEB_LOG_ERROR << "DBus error: " << ec.message();
+                        conn.close("Failed to create mount point");
+                        return;
+                    }
+
+                    for (const auto& [objectPath, interfaces] : objects)
+                    {
+                        for (const auto& [interface, properties] : interfaces)
                         {
-                            BMCWEB_LOG_ERROR << "DBus error: " << ec.message();
-                            conn.close("Failed to create mount point");
-                            return;
-                        }
-
-                        for (const auto& objectPath : objects)
-                        {
-                            const auto interfaceMap = objectPath.second.find(
-                                "xyz.openbmc_project.VirtualMedia.MountPoint");
-
-                            if (interfaceMap == objectPath.second.end())
+                            if (interface !=
+                                "xyz.openbmc_project.VirtualMedia.MountPoint")
                             {
-                                BMCWEB_LOG_DEBUG
-                                    << "Cannot find MountPoint object";
                                 continue;
                             }
 
-                            const auto endpoint =
-                                interfaceMap->second.find("EndpointId");
-                            if (endpoint == interfaceMap->second.end())
+                            for (const auto& [name, value] : properties)
                             {
-                                BMCWEB_LOG_DEBUG
-                                    << "Cannot find EndpointId property";
-                                continue;
-                            }
-
-                            endpointValue =
-                                std::get_if<std::string>(&endpoint->second);
-
-                            if (endpointValue == nullptr)
-                            {
-                                BMCWEB_LOG_ERROR
-                                    << "EndpointId property value is null";
-                                continue;
-                            }
-
-                            if (*endpointValue == conn.req.target())
-                            {
-                                const auto socket =
-                                    interfaceMap->second.find("Socket");
-                                if (socket == interfaceMap->second.end())
+                                if (name == "EndpointId")
                                 {
-                                    BMCWEB_LOG_DEBUG
-                                        << "Cannot find Socket property";
-                                    continue;
-                                }
+                                    endpointValue =
+                                        std::get_if<std::string>(&value);
 
-                                socketValue =
-                                    std::get_if<std::string>(&socket->second);
-                                if (socketValue == nullptr)
+                                    if (endpointValue == nullptr)
+                                    {
+                                        BMCWEB_LOG_ERROR
+                                            << "EndpointId property value is null";
+                                    }
+                                }
+                                if (name == "Socket")
                                 {
-                                    BMCWEB_LOG_ERROR
-                                        << "Socket property value is null";
-                                    continue;
+                                    socketValue =
+                                        std::get_if<std::string>(&value);
+                                    if (socketValue == nullptr)
+                                    {
+                                        BMCWEB_LOG_ERROR
+                                            << "Socket property value is null";
+                                    }
                                 }
-
-                                endpointObjectPath = &objectPath.first.str;
-                                break;
                             }
                         }
 
-                        if (objects.empty() || endpointObjectPath == nullptr)
+                        if (endpointValue && socketValue &&
+                            *endpointValue == conn.req.target())
+                        {
+                            endpointObjectPath = &objectPath.str;
+                            break;
+                        }
+                    }
+
+                    if (objects.empty() || endpointObjectPath == nullptr)
+                    {
+                        BMCWEB_LOG_ERROR << "Cannot find requested EndpointId";
+                        conn.close("Failed to match EndpointId");
+                        return;
+                    }
+
+                    for (const auto& session : sessions)
+                    {
+                        if (session.second->getEndpointId() ==
+                            conn.req.target())
                         {
                             BMCWEB_LOG_ERROR
-                                << "Cannot find requested EndpointId";
-                            conn.close("Failed to match EndpointId");
+                                << "Cannot open new connection - socket is in use";
+                            conn.close("Slot is in use");
                             return;
                         }
+                    }
 
-                        for (const auto& session : sessions)
-                        {
-                            if (session.second->getEndpointId() ==
-                                conn.req.target())
-                            {
-                                BMCWEB_LOG_ERROR
-                                    << "Cannot open new connection - socket is "
-                                       "in use";
-                                conn.close("Slot is in use");
-                                return;
-                            }
-                        }
+                    // If the socket file exists (i.e. after bmcweb crash),
+                    // we cannot reuse it.
+                    std::remove((*socketValue).c_str());
 
-                        // If the socket file exists (i.e. after bmcweb crash),
-                        // we cannot reuse it.
-                        std::remove((*socketValue).c_str());
+                    sessions[&conn] = std::make_shared<NbdProxyServer>(
+                        conn, *socketValue, *endpointValue,
+                        *endpointObjectPath);
 
-                        sessions[&conn] = std::make_shared<NbdProxyServer>(
-                            conn, *socketValue, *endpointValue,
-                            *endpointObjectPath);
-
-                        sessions[&conn]->run();
-                    };
+                    sessions[&conn]->run();
+                };
                 crow::connections::systemBus->async_method_call(
                     std::move(openHandler), "xyz.openbmc_project.VirtualMedia",
                     "/xyz/openbmc_project/VirtualMedia",
