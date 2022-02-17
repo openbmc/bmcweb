@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "aabb0add_ceaa6b99",
+        "filename": "scripts/parse_registries.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-02-17T19:51:06Z",
+      "side": 1,
+      "message": "The only downside here is this is complicated code and we are dealing with this white spaces ourselves",
+      "revId": "a06adeccb5e4c90bebb7a20a5c095b3396286f0a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
