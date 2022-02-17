@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "44378690_b8e828f6",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-02-17T17:00:14Z",
+      "side": 1,
+      "message": "Good point for as big as the change is.  I can run it through the service validator.\n\nACK.",
+      "parentUuid": "855bdf3a_242167e1",
+      "revId": "6a04a655e216d28318e422db9796ad9abb7e6853",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "51a3689a_ad3ef805",
@@ -60,6 +78,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c6206abe_99145097",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 234,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-02-17T17:00:14Z",
+      "side": 1,
+      "message": "ACK.  Seems reasonable.",
+      "parentUuid": "5542ea32_add98dc7",
+      "range": {
+        "startLine": 234,
+        "startChar": 33,
+        "endLine": 234,
+        "endChar": 36
+      },
+      "revId": "6a04a655e216d28318e422db9796ad9abb7e6853",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "0be10ea3_6202f678",
         "filename": "http/http_response.hpp",
         "patchSetId": 4
@@ -71,6 +113,30 @@
       "writtenOn": "2022-02-17T04:32:46Z",
       "side": 1,
       "message": "why not just response?",
+      "range": {
+        "startLine": 48,
+        "startChar": 35,
+        "endLine": 48,
+        "endChar": 40
+      },
+      "revId": "6a04a655e216d28318e422db9796ad9abb7e6853",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6fc4162d_28236a61",
+        "filename": "http/http_response.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-02-17T17:00:14Z",
+      "side": 1,
+      "message": "ACK.  Will fix.",
+      "parentUuid": "0be10ea3_6202f678",
       "range": {
         "startLine": 48,
         "startChar": 35,
