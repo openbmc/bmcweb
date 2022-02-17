@@ -16,6 +16,24 @@
       "message": "The only downside here is this is complicated code and we are dealing with this white spaces ourselves",
       "revId": "a06adeccb5e4c90bebb7a20a5c095b3396286f0a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eb1436e9_62529c8a",
+        "filename": "scripts/parse_registries.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-02-17T20:26:06Z",
+      "side": 1,
+      "message": "I agree with the sentiment, and your point is well taken.  Lets try to fix that with this commit (intentionally separate to verify that it doesn\u0027t change the output at all).\n\nhttps://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/51334",
+      "parentUuid": "aabb0add_ceaa6b99",
+      "revId": "a06adeccb5e4c90bebb7a20a5c095b3396286f0a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
