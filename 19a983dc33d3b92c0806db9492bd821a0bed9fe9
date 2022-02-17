@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ee732223_d0ebe2b9",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-02-17T19:37:29Z",
+      "side": 1,
+      "message": "Seems crazy we have to do this but clearly the current warning is being ignored",
+      "revId": "19a983dc33d3b92c0806db9492bd821a0bed9fe9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
