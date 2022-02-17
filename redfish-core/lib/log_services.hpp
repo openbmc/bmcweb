@@ -1082,55 +1082,36 @@ static LogParseError
     boost::split(logEntryFields, entry, boost::is_any_of(","),
                  boost::token_compress_on);
     // We need at least a MessageId to be valid
-    if (logEntryFields.empty())
+    auto logEntryIter = logEntryFields.begin();
+    if (logEntryIter == logEntryFields.end())
     {
         return LogParseError::parseFailed;
     }
-    std::string& messageID = logEntryFields[0];
-
+    std::string& messageID = *logEntryIter;
     // Get the Message from the MessageRegistry
     const registries::Message* message = registries::getMessage(messageID);
 
+    logEntryIter++;
     if (message == nullptr)
     {
         BMCWEB_LOG_WARNING << "Log entry not found in registry: " << logEntry;
         return LogParseError::messageIdNotInRegistry;
     }
 
-    std::string msg = message->message;
-
-    // Get the MessageArgs from the log if there are any
-    std::span<std::string> messageArgs;
-    if (logEntryFields.size() > 1)
+    std::vector<std::string_view> messageArgs(logEntryIter,
+                                              logEntryFields.end());
+    std::string msg =
+        redfish::registries::fillMessageArgs(messageArgs, message->message);
+    if (msg.empty())
     {
-        std::string& messageArgsStart = logEntryFields[1];
-        // If the first string is empty, assume there are no MessageArgs
-        std::size_t messageArgsSize = 0;
-        if (!messageArgsStart.empty())
-        {
-            messageArgsSize = logEntryFields.size() - 1;
-        }
-
-        messageArgs = {&messageArgsStart, messageArgsSize};
-
-        // Fill the MessageArgs into the Message
-        int i = 0;
-        for (const std::string& messageArg : messageArgs)
-        {
-            std::string argStr = "%" + std::to_string(++i);
-            size_t argPos = msg.find(argStr);
-            if (argPos != std::string::npos)
-            {
-                msg.replace(argPos, argStr.length(), messageArg);
-            }
-        }
+        return LogParseError::parseFailed;
     }
 
     // Get the Created time from the timestamp. The log timestamp is in RFC3339
     // format which matches the Redfish format except for the fractional seconds
     // between the '.' and the '+', so just remove them.
     std::size_t dot = timestamp.find_first_of('.');
-    std::size_t plus = timestamp.find_first_of('+');
+    std::size_t plus = timestamp.find_first_of('+', dot);
     if (dot != std::string::npos && plus != std::string::npos)
     {
         timestamp.erase(dot, plus - dot);
@@ -3315,26 +3296,20 @@ static void fillPostCodeEntry(
         timeOffsetStr << std::setprecision(4);
         // Add double to stream
         timeOffsetStr << static_cast<double>(usTimeOffset) / 1000 / 1000;
-        std::vector<std::string> messageArgs = {
-            std::to_string(bootIndex), timeOffsetStr.str(), hexCode.str()};
 
-        // Get MessageArgs template from message registry
-        std::string msg;
-        if (message != nullptr)
+        std::string bootIndexStr = std::to_string(bootIndex);
+        std::string timeOffsetString = timeOffsetStr.str();
+        std::string hexCodeStr = hexCode.str();
+
+        std::array<std::string_view, 3> messageArgs = {
+            bootIndexStr, timeOffsetString, hexCodeStr};
+
+        std::string msg =
+            redfish::registries::fillMessageArgs(messageArgs, message->message);
+        if (msg.empty())
         {
-            msg = message->message;
-
-            // fill in this post code value
-            int i = 0;
-            for (const std::string& messageArg : messageArgs)
-            {
-                std::string argStr = "%" + std::to_string(++i);
-                size_t argPos = msg.find(argStr);
-                if (argPos != std::string::npos)
-                {
-                    msg.replace(argPos, argStr.length(), messageArg);
-                }
-            }
+            messages::internalError(aResp->res);
+            return;
         }
 
         // Get Severity template from message registry
@@ -3355,7 +3330,7 @@ static void fillPostCodeEntry(
         bmcLogEntry["Id"] = postcodeEntryID;
         bmcLogEntry["Message"] = std::move(msg);
         bmcLogEntry["MessageId"] = "OpenBMC.0.2.BIOSPOSTCode";
-        bmcLogEntry["MessageArgs"] = std::move(messageArgs);
+        bmcLogEntry["MessageArgs"] = messageArgs;
         bmcLogEntry["EntryType"] = "Event";
         bmcLogEntry["Severity"] = std::move(severity);
         bmcLogEntry["Created"] = entryTimeStr;
