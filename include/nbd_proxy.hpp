@@ -47,6 +47,11 @@ struct NbdProxyServer : std::enable_shared_from_this<NbdProxyServer>
         connection(connIn)
     {}
 
+    NbdProxyServer(const NbdProxyServer&) = delete;
+    NbdProxyServer(NbdProxyServer&&) = delete;
+    NbdProxyServer& operator=(const NbdProxyServer&) = delete;
+    NbdProxyServer& operator=(NbdProxyServer&&) = delete;
+
     ~NbdProxyServer()
     {
         BMCWEB_LOG_DEBUG << "NbdProxyServer destructor";
@@ -349,7 +354,8 @@ inline void requestRoutes(App& app)
                             }
                         }
 
-                        if (endpointValue && socketValue &&
+                        if ((endpointValue != nullptr) &&
+                            (socketValue != nullptr) &&
                             *endpointValue == conn.req.target())
                         {
                             endpointObjectPath = &objectPath.str;
