@@ -6,6 +6,8 @@
 #pragma once
 #include <registries.hpp>
 
+// clang-format off
+
 namespace redfish::message_registries::task_event
 {
 const Header header = {
@@ -22,19 +24,21 @@ const Header header = {
 constexpr const char* url =
     "https://redfish.dmtf.org/registries/TaskEvent.1.0.3.json";
 
-constexpr std::array<MessageEntry, 9> registry = {
-    MessageEntry{"TaskAborted",
-                 {
-                     "A task has completed with errors.",
-                     "The task with Id '%1' has completed with errors.",
-                     "Critical",
-                     "Critical",
-                     1,
-                     {
-                         "string",
-                     },
-                     "None.",
-                 }},
+constexpr std::array<MessageEntry, 9> registry =
+{
+    MessageEntry{
+        "TaskAborted",
+        {
+            "A task has completed with errors.",
+            "The task with Id '%1' has completed with errors.",
+            "Critical",
+            "Critical",
+            1,
+            {
+                "string",
+            },
+            "None.",
+        }},
     MessageEntry{
         "TaskCancelled",
         {
@@ -48,42 +52,45 @@ constexpr std::array<MessageEntry, 9> registry = {
             },
             "None.",
         }},
-    MessageEntry{"TaskCompletedOK",
-                 {
-                     "A task has completed.",
-                     "The task with Id '%1' has completed.",
-                     "OK",
-                     "OK",
-                     1,
-                     {
-                         "string",
-                     },
-                     "None.",
-                 }},
-    MessageEntry{"TaskCompletedWarning",
-                 {
-                     "A task has completed with warnings.",
-                     "The task with Id '%1' has completed with warnings.",
-                     "Warning",
-                     "Warning",
-                     1,
-                     {
-                         "string",
-                     },
-                     "None.",
-                 }},
-    MessageEntry{"TaskPaused",
-                 {
-                     "A task has been paused.",
-                     "The task with Id '%1' has been paused.",
-                     "Warning",
-                     "Warning",
-                     1,
-                     {
-                         "string",
-                     },
-                     "None.",
-                 }},
+    MessageEntry{
+        "TaskCompletedOK",
+        {
+            "A task has completed.",
+            "The task with Id '%1' has completed.",
+            "OK",
+            "OK",
+            1,
+            {
+                "string",
+            },
+            "None.",
+        }},
+    MessageEntry{
+        "TaskCompletedWarning",
+        {
+            "A task has completed with warnings.",
+            "The task with Id '%1' has completed with warnings.",
+            "Warning",
+            "Warning",
+            1,
+            {
+                "string",
+            },
+            "None.",
+        }},
+    MessageEntry{
+        "TaskPaused",
+        {
+            "A task has been paused.",
+            "The task with Id '%1' has been paused.",
+            "Warning",
+            "Warning",
+            1,
+            {
+                "string",
+            },
+            "None.",
+        }},
     MessageEntry{
         "TaskProgressChanged",
         {
@@ -98,42 +105,46 @@ constexpr std::array<MessageEntry, 9> registry = {
             },
             "None.",
         }},
-    MessageEntry{"TaskRemoved",
-                 {
-                     "A task has been removed.",
-                     "The task with Id '%1' has been removed.",
-                     "Warning",
-                     "Warning",
-                     1,
-                     {
-                         "string",
-                     },
-                     "None.",
-                 }},
-    MessageEntry{"TaskResumed",
-                 {
-                     "A task has been resumed.",
-                     "The task with Id '%1' has been resumed.",
-                     "OK",
-                     "OK",
-                     1,
-                     {
-                         "string",
-                     },
-                     "None.",
-                 }},
-    MessageEntry{"TaskStarted",
-                 {
-                     "A task has started.",
-                     "The task with Id '%1' has started.",
-                     "OK",
-                     "OK",
-                     1,
-                     {
-                         "string",
-                     },
-                     "None.",
-                 }},
+    MessageEntry{
+        "TaskRemoved",
+        {
+            "A task has been removed.",
+            "The task with Id '%1' has been removed.",
+            "Warning",
+            "Warning",
+            1,
+            {
+                "string",
+            },
+            "None.",
+        }},
+    MessageEntry{
+        "TaskResumed",
+        {
+            "A task has been resumed.",
+            "The task with Id '%1' has been resumed.",
+            "OK",
+            "OK",
+            1,
+            {
+                "string",
+            },
+            "None.",
+        }},
+    MessageEntry{
+        "TaskStarted",
+        {
+            "A task has started.",
+            "The task with Id '%1' has started.",
+            "OK",
+            "OK",
+            1,
+            {
+                "string",
+            },
+            "None.",
+        }},
+
 };
 
 enum class Index

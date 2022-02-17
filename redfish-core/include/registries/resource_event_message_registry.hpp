@@ -6,6 +6,8 @@
 #pragma once
 #include <registries.hpp>
 
+// clang-format off
+
 namespace redfish::message_registries::resource_event
 {
 const Header header = {
@@ -22,7 +24,8 @@ const Header header = {
 constexpr const char* url =
     "https://redfish.dmtf.org/registries/ResourceEvent.1.0.3.json";
 
-constexpr std::array<MessageEntry, 19> registry = {
+constexpr std::array<MessageEntry, 19> registry =
+{
     MessageEntry{
         "LicenseAdded",
         {
@@ -154,16 +157,17 @@ constexpr std::array<MessageEntry, 19> registry = {
             {},
             "None",
         }},
-    MessageEntry{"ResourceSelfTestCompleted",
-                 {
-                     "Indicates that a self-test has completed.",
-                     "A self-test has completed.",
-                     "OK",
-                     "OK",
-                     0,
-                     {},
-                     "None.",
-                 }},
+    MessageEntry{
+        "ResourceSelfTestCompleted",
+        {
+            "Indicates that a self-test has completed.",
+            "A self-test has completed.",
+            "OK",
+            "OK",
+            0,
+            {},
+            "None.",
+        }},
     MessageEntry{
         "ResourceSelfTestFailed",
         {
@@ -271,6 +275,7 @@ constexpr std::array<MessageEntry, 19> registry = {
             {},
             "None.",
         }},
+
 };
 
 enum class Index
