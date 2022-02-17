@@ -152,7 +152,7 @@ inline void dimmPropToHex(
         return;
     }
 
-    aResp->res.jsonValue[key] = "0x" + intToHexString(*value);
+    aResp->res.jsonValue[key] = "0x" + intToHexString(*value, 4);
 }
 
 inline void getPersistentMemoryProperties(
