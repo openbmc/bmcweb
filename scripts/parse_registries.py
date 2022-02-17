@@ -79,59 +79,71 @@ for file, json_dict, namespace, url in files:
     with open(file, 'w') as registry:
         registry.write(REGISTRY_HEADER.format(namespace))
         # Parse the Registry header info
-        registry.write("const Header header = {\n")
-        registry.write("    \"{}\",\n".format(json_dict["@Redfish.Copyright"]))
-        registry.write("    \"{}\",\n".format(json_dict["@odata.type"]))
-        registry.write("    \"{}\",\n".format(json_dict["Id"]))
-        registry.write("    \"{}\",\n".format(json_dict["Name"]))
-        registry.write("    \"{}\",\n".format(json_dict["Language"]))
-        registry.write("    \"{}\",\n".format(json_dict["Description"]))
-        registry.write("    \"{}\",\n".format(json_dict["RegistryPrefix"]))
-        registry.write("    \"{}\",\n".format(json_dict["RegistryVersion"]))
-        registry.write("    \"{}\",\n".format(json_dict["OwningEntity"]))
-        registry.write("};\n")
+        registry.write(
+            "const Header header = {{\n"
+            "    \"{json_dict[@Redfish.Copyright]}\",\n"
+            "    \"{json_dict[@odata.type]}\",\n"
+            "    \"{json_dict[Id]}\",\n"
+            "    \"{json_dict[Name]}\",\n"
+            "    \"{json_dict[Language]}\",\n"
+            "    \"{json_dict[Description]}\",\n"
+            "    \"{json_dict[RegistryPrefix]}\",\n"
+            "    \"{json_dict[RegistryVersion]}\",\n"
+            "    \"{json_dict[OwningEntity]}\",\n"
+            "}};\n"
+            "constexpr const char* url =\n"
+            "    \"{url}\";\n"
+            "\n"
+            "constexpr std::array<MessageEntry, {message_len}> registry =\n"
+            "{{\n".format(
+                json_dict=json_dict,
+                url=url,
+                message_len=len(json_dict["Messages"]),
+            ))
 
-        registry.write(
-            'constexpr const char* url =\n    "{}";\n\n'.format(url))
-        # Parse each Message entry
-        registry.write(
-            "constexpr std::array<MessageEntry, {}> registry =\n".format(
-                len(json_dict["Messages"])))
-        registry.write("{\n")
         messages_sorted = sorted(json_dict["Messages"].items())
         for messageId, message in messages_sorted:
-            registry.write("    MessageEntry{\n")
-            registry.write("        \"{}\",\n".format(messageId))
-            registry.write("        {\n")
-            registry.write("            \"{}\",\n".format(
-                message["Description"]))
-            registry.write("            \"{}\",\n".format(message["Message"]))
-            registry.write("            \"{}\",\n".format(message["Severity"]))
-            registry.write("            \"{}\",\n".format(
-                message["MessageSeverity"]))
-            registry.write("            {},\n".format(message["NumberOfArgs"]))
-            registry.write("            {")
+            registry.write(
+                "    MessageEntry{{\n"
+                "        \"{messageId}\",\n"
+                "        {{\n"
+                "            \"{message[Description]}\",\n"
+                "            \"{message[Message]}\",\n"
+                "            \"{message[Severity]}\",\n"
+                "            \"{message[MessageSeverity]}\",\n"
+                "            {message[NumberOfArgs]},\n"
+                "            {{".format(
+                    messageId=messageId,
+                    message=message
+                ))
             paramTypes = message.get("ParamTypes")
             if paramTypes:
                 for paramType in paramTypes:
                     registry.write(
-                        "\n                \"{}\",".format(paramType))
-                registry.write("\n            ")
-            registry.write("},\n")
-            registry.write("            \"{}\",\n".format(
-                message["Resolution"]))
-            registry.write("        }},\n")
-        registry.write("\n};")
+                        "\n"
+                        "                \"{}\",".format(paramType)
+                    )
+                registry.write("\n            },\n")
+            else:
+                registry.write("},\n")
+            registry.write(
+                "            \"{message[Resolution]}\",\n"
+                "        }}}},\n".format(message=message))
 
-        registry.write("\n\nenum class Index\n{\n")
+        registry.write(
+            "\n};\n"
+            "\n"
+            "enum class Index\n"
+            "{\n"
+        )
         for index, (messageId, message) in enumerate(messages_sorted):
             messageId = messageId[0].lower() + messageId[1:]
             registry.write(
                 "    {} = {},\n".format(messageId, index))
-        registry.write("};\n")
         registry.write(
-            "} // namespace redfish::message_registries::")
-        registry.write("{}\n".format(namespace))
+            "}};\n"
+            "}} // namespace redfish::message_registries::{}\n"
+            .format(namespace))
 
 
 def get_privilege_string_from_list(privilege_list):
@@ -167,13 +179,18 @@ def make_privilege_registry():
         make_getter('Redfish_1.2.0_PrivilegeRegistry.json',
                     'privilege_registry.hpp', 'privilege')
     with open(path, 'w') as registry:
-        registry.write("#pragma once\n")
-        registry.write(WARNING)
-
-        registry.write("\n// clang-format off\n")
-        registry.write("\n#include <privileges.hpp>\n\n")
-        registry.write("namespace redfish::privileges\n")
-        registry.write("{\n")
+        registry.write(
+            "#pragma once\n"
+            "{WARNING}\n"
+            "// clang-format off\n"
+            "\n"
+            "#include <privileges.hpp>\n"
+            "\n"
+            "namespace redfish::privileges\n"
+            "{{\n"
+            .format(
+                WARNING=WARNING,
+                filename=os.path.basename(path)))
 
         privilege_dict = {}
         for mapping in json_file["Mappings"]:
@@ -185,10 +202,10 @@ def make_privilege_registry():
             (privilege_list, ) = privilege_dict[key]
             name = get_variable_name_for_privilege_set(privilege_list)
             registry.write(
-                "const std::array<Privileges, {}> ".format(
-                    len(privilege_list)))
-            registry.write(
-                "privilegeSet{} = {};\n".format(name, key))
+                "const std::array<Privileges, {length}> "
+                "privilegeSet{name} = {key};\n"
+                .format(length=len(privilege_list), name=name, key=key)
+            )
             privilege_dict[key] = (privilege_list, name)
 
         for mapping in json_file["Mappings"]:
@@ -205,8 +222,9 @@ def make_privilege_registry():
                         entity,
                         privilege_dict[privilege_string][1]))
             registry.write("\n")
-        registry.write("} // namespace redfish::privileges\n")
-        registry.write("// clang-format on\n")
+        registry.write(
+            "} // namespace redfish::privileges\n"
+            "// clang-format on\n")
 
 
 make_privilege_registry()
