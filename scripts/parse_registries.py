@@ -13,11 +13,18 @@ import subprocess
 
 import xml.etree.ElementTree as ET
 
-REGISTRY_HEADER = '''
-/****************************************************************
+WARNING = '''/****************************************************************
+ *                 READ THIS WARNING FIRST
  * This is an auto-generated header which contains definitions
  * for Redfish DMTF defined messages.
- ***************************************************************/
+ * DO NOT modify this registry outside of running the
+ * parse_regisries.py script.  The definitions contained within
+ * this file are owned by DMTF.  Any modifications to these files
+ * should be first pushed to the relevant registry in the DMTF
+ * github organization.
+ ***************************************************************/'''
+
+REGISTRY_HEADER = WARNING + '''
 #pragma once
 #include <registries.hpp>
 
@@ -161,11 +168,9 @@ def make_privilege_registry():
                     'privilege_registry.hpp', 'privilege')
     with open(path, 'w') as registry:
         registry.write("#pragma once\n")
-        registry.write(
-            "// {} is generated.  Do not edit directly\n".format(
-                os.path.basename(path)))
+        registry.write(WARNING)
 
-        registry.write("// clang-format off\n")
+        registry.write("\n// clang-format off\n")
         registry.write("\n#include <privileges.hpp>\n\n")
         registry.write("namespace redfish::privileges\n")
         registry.write("{\n")
