@@ -22,6 +22,7 @@
 #include "registries/base_message_registry.hpp"
 #include "registries/openbmc_message_registry.hpp"
 #include "task.hpp"
+#include "utils/hex_utils.hpp"
 
 #include <systemd/sd-journal.h>
 #include <unistd.h>
@@ -3135,9 +3136,9 @@ static void fillPostCodeEntry(
             crow::utility::getDateTimeUint(usecSinceEpoch / 1000 / 1000);
 
         // assemble messageArgs: BootIndex, TimeOffset(100us), PostCode(hex)
-        std::ostringstream hexCode;
-        hexCode << "0x" << std::setfill('0') << std::setw(2) << std::hex
-                << std::get<0>(code.second);
+
+        std::string hexCodeStr =
+            "0x" + intToHexString(std::get<0>(code.second), 2);
         std::ostringstream timeOffsetStream;
         // Set Fixed -Point Notation
         timeOffsetStream << std::fixed;
@@ -3148,7 +3149,6 @@ static void fillPostCodeEntry(
 
         std::string bootIndexStr = std::to_string(bootIndex);
         std::string timeOffsetStr = timeOffsetStream.str();
-        std::string hexCodeStr = hexCode.str();
 
         std::array<std::string_view, 3> messageArgs = {
             bootIndexStr, timeOffsetStr, hexCodeStr};
