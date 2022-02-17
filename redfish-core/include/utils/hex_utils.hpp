@@ -4,9 +4,7 @@
 #include <cstddef>
 #include <string>
 
-template <typename IntegerType>
-inline std::string intToHexString(IntegerType value,
-                                  size_t digits = sizeof(IntegerType) << 1)
+inline std::string intToHexString(uint64_t value, size_t digits)
 {
     static constexpr std::array<char, 16> digitsArray = {
         '0', '1', '2', '3', '4', '5', '6', '7',

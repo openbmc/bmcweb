@@ -153,7 +153,7 @@ inline void getCpuDataByInterface(
                 if (value != nullptr)
                 {
                     aResp->res.jsonValue["ProcessorId"]["EffectiveFamily"] =
-                        "0x" + intToHexString(*value);
+                        "0x" + intToHexString(*value, 4);
                 }
             }
             else if (property.first == "EffectiveModel")
@@ -165,7 +165,7 @@ inline void getCpuDataByInterface(
                     return;
                 }
                 aResp->res.jsonValue["ProcessorId"]["EffectiveModel"] =
-                    "0x" + intToHexString(*value);
+                    "0x" + intToHexString(*value, 4);
             }
             else if (property.first == "Id")
             {
@@ -174,7 +174,7 @@ inline void getCpuDataByInterface(
                 {
                     aResp->res
                         .jsonValue["ProcessorId"]["IdentificationRegisters"] =
-                        "0x" + intToHexString(*value);
+                        "0x" + intToHexString(*value, 16);
                 }
             }
             else if (property.first == "Microcode")
@@ -186,7 +186,7 @@ inline void getCpuDataByInterface(
                     return;
                 }
                 aResp->res.jsonValue["ProcessorId"]["MicrocodeInfo"] =
-                    "0x" + intToHexString(*value);
+                    "0x" + intToHexString(*value, 8);
             }
             else if (property.first == "Step")
             {
@@ -197,7 +197,7 @@ inline void getCpuDataByInterface(
                     return;
                 }
                 aResp->res.jsonValue["ProcessorId"]["Step"] =
-                    "0x" + intToHexString(*value);
+                    "0x" + intToHexString(*value, 4);
             }
         }
     }
