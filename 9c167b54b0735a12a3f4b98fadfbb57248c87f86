@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2e8acd29_12e4f320",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-02-17T04:34:50Z",
+      "side": 1,
+      "message": "Looks mostly like a rebase from patchset 4 ",
+      "revId": "9c167b54b0735a12a3f4b98fadfbb57248c87f86",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
