@@ -1,0 +1,84 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "855bdf3a_242167e1",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-02-17T04:32:46Z",
+      "side": 1,
+      "message": "Do we need a sanity test?",
+      "revId": "6a04a655e216d28318e422db9796ad9abb7e6853",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "51a3689a_ad3ef805",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-02-17T04:32:46Z",
+      "side": 1,
+      "message": "I am good here, left a minor comment but I am fine as is. This is good stuff! no more comments on single letter var names ",
+      "revId": "6a04a655e216d28318e422db9796ad9abb7e6853",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5542ea32_add98dc7",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 234,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-02-17T04:32:46Z",
+      "side": 1,
+      "message": "I see error spelled other places in this patch, e.g. errorCallback \nCould spell out here if you wanted\n\nAlso here https://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/51258/4/redfish-core/lib/account_service.hpp#120 you used error \n\nI am fine with err though",
+      "range": {
+        "startLine": 234,
+        "startChar": 33,
+        "endLine": 234,
+        "endChar": 36
+      },
+      "revId": "6a04a655e216d28318e422db9796ad9abb7e6853",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0be10ea3_6202f678",
+        "filename": "http/http_response.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-02-17T04:32:46Z",
+      "side": 1,
+      "message": "why not just response?",
+      "range": {
+        "startLine": 48,
+        "startChar": 35,
+        "endLine": 48,
+        "endChar": 40
+      },
+      "revId": "6a04a655e216d28318e422db9796ad9abb7e6853",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
