@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "f62c058f_ce972c6a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-02-17T04:49:31Z",
+      "side": 1,
+      "message": "Wouldn\u0027t you want to verify \n\"xyz.openbmc_project.State.Chassis\",\n        \"/xyz/openbmc_project/state/chassis0\",\n        \"xyz.openbmc_project.State.Chassis\", \"CurrentPowerState\"\n\nwas unavailable? Why does xyz.openbmc_project.State.Host being unavailable matter here?\n\nbusctl introspect xyz.openbmc_project.State.Host /xyz/openbmc_project/state/host0\n\nhas the .CurrentHostState\n\nbut \nbusctl introspect  xyz.openbmc_project.State.Chassis /xyz/openbmc_project/state/chassis0\n\nhas the .CurrentPowerState",
+      "revId": "71fa748b5617d9cd155c3730cd2d3cda79094b82",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "453b4b79_c90a3327",
@@ -32,6 +49,23 @@
       "side": 1,
       "message": "Thanks, sounds good",
       "parentUuid": "453b4b79_c90a3327",
+      "revId": "71fa748b5617d9cd155c3730cd2d3cda79094b82",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "85599636_b32000e2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-02-17T04:49:31Z",
+      "side": 1,
+      "message": "Bit caught up in the Chassis vs Host but I am okay with the code change \nYeah, give Andrew a day or 2",
       "revId": "71fa748b5617d9cd155c3730cd2d3cda79094b82",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
