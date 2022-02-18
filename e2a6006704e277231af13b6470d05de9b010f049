@@ -152,6 +152,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c6b5db55_d98e1c61",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 2750,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-02-18T02:04:16Z",
+      "side": 1,
+      "message": "This should be sdbusplus::message::object_path.  the filename() api on that needs to be checked for empty string.  There\u0027s a bunch of examples.",
+      "range": {
+        "startLine": 2750,
+        "startChar": 34,
+        "endLine": 2750,
+        "endChar": 55
+      },
+      "revId": "e2a6006704e277231af13b6470d05de9b010f049",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e671630d_0cfb9edf",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 1
@@ -163,6 +186,30 @@
       "writtenOn": "2022-02-18T02:00:30Z",
       "side": 1,
       "message": "Don\u0027t you need to initialize this to an array first?",
+      "range": {
+        "startLine": 2760,
+        "startChar": 32,
+        "endLine": 2760,
+        "endChar": 67
+      },
+      "revId": "e2a6006704e277231af13b6470d05de9b010f049",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d403770a_b959ba0a",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 2760,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-02-18T02:04:16Z",
+      "side": 1,
+      "message": "Wait, nevermind.\n\nLets move the construction of members from line 2732 to here, so we\u0027re only doing the key lookup once.  In theory, all of the static data above it should be moved into this branch as well, otherwise the internalError call will return partially filled results on an error.  Not a huge deal, and already a bug, but I think we should keep the members init in one spot to make this clear.",
+      "parentUuid": "e671630d_0cfb9edf",
       "range": {
         "startLine": 2760,
         "startChar": 32,
