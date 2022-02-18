@@ -616,9 +616,11 @@ inline std::string getDateTimeUintMs(uint64_t milliSecondsSinceEpoch)
 
 inline std::string getDateTimeStdtime(std::time_t secondsSinceEpoch)
 {
-    if (secondsSinceEpoch > static_cast<int64_t>(details::maxSeconds))
+    constexpr std::time_t timeTMax = std::numeric_limits<std::time_t>::max();
+    if constexpr (std::cmp_greater(timeTMax, details::maxSeconds))
     {
-        secondsSinceEpoch = static_cast<std::time_t>(details::maxSeconds);
+        secondsSinceEpoch = std::min(static_cast<int64_t>(details::maxSeconds),
+                                     secondsSinceEpoch);
     }
     boost::posix_time::ptime time =
         boost::posix_time::from_time_t(secondsSinceEpoch);
