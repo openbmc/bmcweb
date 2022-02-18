@@ -1,6 +1,29 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "05729eb2_10458616",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-02-18T01:53:05Z",
+      "side": 1,
+      "message": "Should we just not pre-build the array and add it one node at a time?  OR, do like we do a couple other places, and reference by json_pointer, so that if it doesn\u0027t exist, we can detect and handle that?",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 12,
+        "endChar": 0
+      },
+      "revId": "e2a6006704e277231af13b6470d05de9b010f049",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "15577067_304e683d",
@@ -31,6 +54,63 @@
       "writtenOn": "2022-02-18T01:34:55Z",
       "side": 1,
       "message": "Ping. Is there any feedback on this change?",
+      "revId": "e2a6006704e277231af13b6470d05de9b010f049",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "41ff784a_0cf139b3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-02-18T01:53:05Z",
+      "side": 1,
+      "message": "I\u0027ll be honest, this patchset hurts my head.  I\u0027m not sure what\u0027s going on here, I\u0027ll look at it tomorrow and hopefully that helps.",
+      "revId": "e2a6006704e277231af13b6470d05de9b010f049",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f1417300_3ac25a8a",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 2678,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-02-18T01:53:05Z",
+      "side": 1,
+      "message": "super nitpick, and feel free to leave it, but now that clang-tidy is set to not line wrap long strings, this can just be a single string.",
+      "range": {
+        "startLine": 2677,
+        "startChar": 58,
+        "endLine": 2678,
+        "endChar": 30
+      },
+      "revId": "e2a6006704e277231af13b6470d05de9b010f049",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b591f176_b090805b",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 2686,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-02-18T01:53:05Z",
+      "side": 1,
+      "message": "Nothing changed in this structure, but clang-format decided to re-indent it anyway???  weird.",
       "revId": "e2a6006704e277231af13b6470d05de9b010f049",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
