@@ -34,6 +34,24 @@
       "parentUuid": "aabb0add_ceaa6b99",
       "revId": "a06adeccb5e4c90bebb7a20a5c095b3396286f0a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d085efb4_e4e1eb80",
+        "filename": "scripts/parse_registries.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-02-18T15:32:33Z",
+      "side": 1,
+      "message": "I think with https://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/51334/ I am good here.. I am still concerned about complex code and dealing with the white spaces ourselves but I think the benefits of more readable generated code and not having those crazy clang-format changes when changing just a few lines outweigh my concerns. Would like to hear what Krzysztof or others think",
+      "parentUuid": "eb1436e9_62529c8a",
+      "revId": "a06adeccb5e4c90bebb7a20a5c095b3396286f0a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
