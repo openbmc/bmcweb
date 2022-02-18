@@ -35,6 +35,63 @@ namespace redfish
 {
 
 /**
+ * @brief Retrieves BMC state properties over dbus
+ *
+ * @param[in] aResp     Shared pointer for completing asynchronous calls.
+ *
+ * @return None.
+ */
+inline void getBMCState(const std::shared_ptr<bmcweb::AsyncResp>& aResp)
+{
+    BMCWEB_LOG_DEBUG << "Get BMC state information.";
+    sdbusplus::asio::getProperty<std::string>(
+        *crow::connections::systemBus, "xyz.openbmc_project.State.BMC",
+        "/xyz/openbmc_project/state/bmc0", "xyz.openbmc_project.State.BMC",
+        "CurrentBMCState",
+        [aResp](const boost::system::error_code ec,
+                const std::string& bmcState) {
+            if (ec)
+            {
+                if (ec == boost::system::errc::host_unreachable)
+                {
+                    // Service not available, no error, just don't return
+                    // BMC state info
+                    BMCWEB_LOG_DEBUG << "Service not available " << ec;
+                    return;
+                }
+                BMCWEB_LOG_ERROR << "DBUS response error " << ec;
+                messages::internalError(aResp->res);
+                return;
+            }
+
+            BMCWEB_LOG_DEBUG << "BMC state: " << bmcState;
+            if (bmcState == "xyz.openbmc_project.State.BMC.BMCState.NotReady")
+            {
+                aResp->res.jsonValue["Status"]["State"] = "Starting";
+            }
+            else if (bmcState ==
+                     "xyz.openbmc_project.State.BMC.BMCState.UpdateInProgress")
+            {
+                aResp->res.jsonValue["Status"]["State"] = "Updating";
+            }
+            else if (bmcState ==
+                     "xyz.openbmc_project.State.BMC.BMCState.Quiesced")
+            {
+                aResp->res.jsonValue["Status"]["State"] = "Quiesced";
+            }
+            else if (bmcState == "xyz.openbmc_project.State.BMC.BMCState.Ready")
+            {
+                aResp->res.jsonValue["Status"]["State"] = "Enabled";
+            }
+            else
+            {
+                BMCWEB_LOG_ERROR << "Unsupported BMC State: " << bmcState;
+                aResp->res.jsonValue["Status"]["State"] = "Disabled";
+            }
+        });
+}
+
+/**
  * Function reboots the BMC.
  *
  * @param[in] asyncResp - Shared pointer for completing asynchronous calls
@@ -2060,30 +2117,7 @@ inline void requestRoutesManager(App& app)
                         {"@odata.id", "/redfish/v1/Chassis/" + chassisId}};
                 });
 
-            static bool started = false;
-
-            if (!started)
-            {
-                sdbusplus::asio::getProperty<double>(
-                    *crow::connections::systemBus, "org.freedesktop.systemd1",
-                    "/org/freedesktop/systemd1",
-                    "org.freedesktop.systemd1.Manager", "Progress",
-                    [asyncResp](const boost::system::error_code ec,
-                                const double& val) {
-                        if (ec)
-                        {
-                            BMCWEB_LOG_ERROR << "Error while getting progress";
-                            messages::internalError(asyncResp->res);
-                            return;
-                        }
-                        if (val < 1.0)
-                        {
-                            asyncResp->res.jsonValue["Status"]["State"] =
-                                "Starting";
-                            started = true;
-                        }
-                    });
-            }
+            getBMCState(asyncResp);
 
             crow::connections::systemBus->async_method_call(
                 [asyncResp](
