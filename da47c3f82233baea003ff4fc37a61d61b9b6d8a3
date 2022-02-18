@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0a869a75_d5e65918",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 14
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-02-18T04:38:46Z",
+      "side": 1,
+      "message": "why will it be useful in the future?",
+      "range": {
+        "startLine": 10,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 20
+      },
+      "revId": "da47c3f82233baea003ff4fc37a61d61b9b6d8a3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
