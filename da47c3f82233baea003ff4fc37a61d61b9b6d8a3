@@ -22,6 +22,30 @@
       },
       "revId": "da47c3f82233baea003ff4fc37a61d61b9b6d8a3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7260446a_22bf94d3",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 14
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-02-18T05:04:15Z",
+      "side": 1,
+      "message": "Because it \"allows directly indexing into the constexpr\ntable when necessary.\"\n\nIs there something else you\u0027re looking for?\n\nIts also directly used in a later patch in the series.  If its easier I can squash it into that one to make it more obvious why it\u0027s needed, but I figured having it separate was a lot easier to review than alltogether.\nhttps://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/51190/5",
+      "parentUuid": "0a869a75_d5e65918",
+      "range": {
+        "startLine": 10,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 20
+      },
+      "revId": "da47c3f82233baea003ff4fc37a61d61b9b6d8a3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
