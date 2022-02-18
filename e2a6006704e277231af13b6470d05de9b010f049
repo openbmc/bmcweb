@@ -77,6 +77,41 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "4898d385_f9b67ac9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-02-18T02:00:30Z",
+      "side": 1,
+      "message": "Nevermind, I figured it out.",
+      "parentUuid": "41ff784a_0cf139b3",
+      "revId": "e2a6006704e277231af13b6470d05de9b010f049",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0f6f2e8d_5c9d4774",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-02-18T02:00:30Z",
+      "side": 1,
+      "message": "One minor thing (That I assume wouldn\u0027t have worked in testing) then this should be good to go.\n\nFWIW, I\u0027m not a huge fan of the pattern here, but considering it\u0027s one of the few schemas that actually implements the /Members route, properly, it\u0027s not surprising we have some weirdness.",
+      "revId": "e2a6006704e277231af13b6470d05de9b010f049",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "f1417300_3ac25a8a",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 1
@@ -111,6 +146,29 @@
       "writtenOn": "2022-02-18T01:53:05Z",
       "side": 1,
       "message": "Nothing changed in this structure, but clang-format decided to re-indent it anyway???  weird.",
+      "revId": "e2a6006704e277231af13b6470d05de9b010f049",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e671630d_0cfb9edf",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 2760,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-02-18T02:00:30Z",
+      "side": 1,
+      "message": "Don\u0027t you need to initialize this to an array first?",
+      "range": {
+        "startLine": 2760,
+        "startChar": 32,
+        "endLine": 2760,
+        "endChar": 67
+      },
       "revId": "e2a6006704e277231af13b6470d05de9b010f049",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
