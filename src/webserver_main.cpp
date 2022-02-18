@@ -61,7 +61,7 @@ inline void setupSocket(crow::App& app)
     }
 }
 
-int run()
+static int run()
 {
     crow::Logger::setLogLevel(crow::LogLevel::Debug);
 
