@@ -46,6 +46,30 @@
       },
       "revId": "da47c3f82233baea003ff4fc37a61d61b9b6d8a3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "235613b0_d775d679",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 14
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-02-18T16:26:30Z",
+      "side": 1,
+      "message": "Sorry, linked the wrong review:\nhttps://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/50950\n\nI added the crosslink to help make this more clear.  Up to you what you\u0027d rather I do in terms of squashing.",
+      "parentUuid": "7260446a_22bf94d3",
+      "range": {
+        "startLine": 10,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 20
+      },
+      "revId": "da47c3f82233baea003ff4fc37a61d61b9b6d8a3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
