@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f27d811d_c0f57a44",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-02-18T04:35:30Z",
+      "side": 1,
+      "message": "Healthy set here: https://github.com/openbmc/bmcweb/blob/11baefe467d1b6d4c845325276bc46de01d23cdb/http/ut/utility_test.cpp#L68",
+      "range": {
+        "startLine": 13,
+        "startChar": 33,
+        "endLine": 13,
+        "endChar": 49
+      },
+      "revId": "25bc4d7553916b3c1d807819eaabb47f1399a4b5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
