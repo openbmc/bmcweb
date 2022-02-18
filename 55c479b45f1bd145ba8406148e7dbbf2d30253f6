@@ -33,6 +33,46 @@
       "message": "Ping. Is there any feedback on this change?",
       "revId": "55c479b45f1bd145ba8406148e7dbbf2d30253f6",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8e5c215a_51590981",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-02-18T01:43:58Z",
+      "side": 1,
+      "message": "Sorry;  I pulled this down a couple times, but I couldn\u0027t wrap my head around what the shared_ptr was doing.... I finally figured it out today;  Look at the below, I think it\u0027s simpler.",
+      "revId": "55c479b45f1bd145ba8406148e7dbbf2d30253f6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1278037a_cad36cf9",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 2913,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-02-18T01:43:58Z",
+      "side": 1,
+      "message": "Rather than making this a shared_ptr\u003cstd::string\u003e then filling it in in a later context (which while correct, is super subtle) should we instead just duplicate the two types a little and do\n\n\nenum class diagnosticType{\n  OnDemand\n  Telemetry\n  Error\n};\n\nDiagnosticType getDiagType(std::string_view str){\n...\n}\n\nto convert to an enum that\u0027s correct and switchable, then do\nDiagnosticType type \u003d getDiagType(oemDiagnosticDataType);\nif (type \u003d\u003d DiagnosticType::Error){\n   actionParameterValueFormatError;\n   return;\n}\nstd::string taskMatchStr;\nif (type \u003d\u003d DiagnosticType::OnDemand){\n   taskMatchStr \u003d \"type\u003d\u0027signal\u0027,interface\u003d\u0027org.freedesktop.DBus.\"\n                                \"Properties\u0027,member\u003d\u0027PropertiesChanged\u0027,\"\n                                \"arg0namespace\u003d\u0027com.intel.crashdump\u0027\";\n} else {\n   taskMatchStr \u003d \"type\u003d\u0027signal\u0027,interface\u003d\u0027org.freedesktop.DBus.\"\n                                \"Properties\u0027,member\u003d\u0027PropertiesChanged\u0027,\"\n                                \"arg0namespace\u003d\u0027com.intel.crashdump\u0027\";\n}\n\n\nauto collectCrashdumpCallback \u003d\n    [asyncResp, payload(task::Payload(req)),\n    taskMatchStr](const boost::system::error_code ec,\n                  const std::string\u0026) mutable {\n...\n}\n\n\nThen leave the switch statement on line 2957 alone?\n\nYes, we duplicate the if/else statement, but we avoid the shared_ptr entirely.  I could also be convinced that the enum class is unimportant, but I really don\u0027t like the idea of having a shared_ptr, just because we don\u0027t want to make a decision before we construct something.",
+      "range": {
+        "startLine": 2912,
+        "startChar": 0,
+        "endLine": 2913,
+        "endChar": 61
+      },
+      "revId": "55c479b45f1bd145ba8406148e7dbbf2d30253f6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
