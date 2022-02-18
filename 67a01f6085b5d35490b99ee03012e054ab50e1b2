@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2ba726a2_7d6842ab",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 1001252
+      },
+      "writtenOn": "2022-02-18T10:05:48Z",
+      "side": 1,
+      "message": "Maybe this check is not needed? If user is in a group not listed above, simply ignore it is okay I think. Some vendors may have their own OEM group.",
+      "revId": "67a01f6085b5d35490b99ee03012e054ab50e1b2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
