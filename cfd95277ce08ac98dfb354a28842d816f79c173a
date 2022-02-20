@@ -16,6 +16,40 @@
       "message": "It looks good to me",
       "revId": "cfd95277ce08ac98dfb354a28842d816f79c173a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a73da342_72640c94",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2022-02-20T22:39:29Z",
+      "side": 1,
+      "message": "This will change the behavior on systems. \nIt would be possible to have a system in which the power supplies where not available, but their status was not critical. I worry about alerting tool that are using bmcweb/redfish to monitor for critical systems will have to change based on this behavior change in bmcweb. \nThat said, it does not hurt us, so if Ed is good, I am good. ",
+      "revId": "cfd95277ce08ac98dfb354a28842d816f79c173a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dbf8717d_3208d31d",
+        "filename": "redfish-core/lib/power_supply.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 215,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2022-02-20T22:39:29Z",
+      "side": 1,
+      "message": "nit: if you make this a bool* then you don\u0027t need a value on line 227",
+      "revId": "cfd95277ce08ac98dfb354a28842d816f79c173a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
