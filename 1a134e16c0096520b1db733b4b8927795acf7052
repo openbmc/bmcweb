@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e3d30f40_1cc20c42",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 21
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2022-02-20T23:36:40Z",
+      "side": 1,
+      "message": "good plan",
+      "revId": "1a134e16c0096520b1db733b4b8927795acf7052",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b775ac8d_1bc90ac1",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 2311,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2022-02-20T23:36:40Z",
+      "side": 1,
+      "message": "Really this is an internal error, because we match it, then checked out match at is was wrong? If we get a bogbas entryId we should fail when we seek line 2289\n\nwhy not req.url? like on lines 1995 and 2000?\nentryID is not a full url.",
+      "range": {
+        "startLine": 2311,
+        "startChar": 69,
+        "endLine": 2311,
+        "endChar": 76
+      },
+      "revId": "1a134e16c0096520b1db733b4b8927795acf7052",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "739bd9eb_bf45b2aa",
+        "filename": "redfish-core/lib/virtual_media.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 325,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2022-02-20T23:36:40Z",
+      "side": 1,
+      "message": "if the scheme is not empty, and not smb and not https.\nI assume this is being patched downstream, because why else have this return {}?",
+      "range": {
+        "startLine": 325,
+        "startChar": 0,
+        "endLine": 325,
+        "endChar": 14
+      },
+      "revId": "1a134e16c0096520b1db733b4b8927795acf7052",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
