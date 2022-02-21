@@ -18,6 +18,41 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e3e1cb41_413ab168",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 21
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-02-21T00:23:51Z",
+      "side": 1,
+      "message": "Thanks for reviewing this on a Sunday!",
+      "revId": "1a134e16c0096520b1db733b4b8927795acf7052",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ee5eddee_41f16c98",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 21
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-02-21T00:23:51Z",
+      "side": 1,
+      "message": "Do I look like a guy with a plan?",
+      "parentUuid": "e3d30f40_1cc20c42",
+      "revId": "1a134e16c0096520b1db733b4b8927795acf7052",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b775ac8d_1bc90ac1",
@@ -41,6 +76,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f022c933_f2447441",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 2311,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-02-21T00:23:51Z",
+      "side": 1,
+      "message": "\u003e Really this is an internal error, because we match it, then checked out match at is was wrong? If we get a bogbas entryId we should fail when we seek line 2289\n\nNot necessarily.  This is intentionally 404 because of the reasons listed in common_errors.md.  Scanners really like to do exactly as you describe, and test /my_normal_url/foobar and all manner of weird things to try to find injection attacks, and if the server returns anything other than 404, the request gets flagged for followup.  You\u0027re right, in this context, 500 would be an equally valid response considering the user broke the contract and didn\u0027t follow the redfish tree, but in terms of security scanners, 404 is prefered.\n\n\u003e \n\u003e why not req.url? like on lines 1995 and 2000?\n\u003e entryID is not a full url.\n\nThis is a good catch.  Fixed in newest patchset.  I made this mistake a couple other places in this file, so I fixed those as well.",
+      "parentUuid": "b775ac8d_1bc90ac1",
+      "range": {
+        "startLine": 2311,
+        "startChar": 69,
+        "endLine": 2311,
+        "endChar": 76
+      },
+      "revId": "1a134e16c0096520b1db733b4b8927795acf7052",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "739bd9eb_bf45b2aa",
@@ -54,6 +113,30 @@
       "writtenOn": "2022-02-20T23:36:40Z",
       "side": 1,
       "message": "if the scheme is not empty, and not smb and not https.\nI assume this is being patched downstream, because why else have this return {}?",
+      "range": {
+        "startLine": 325,
+        "startChar": 0,
+        "endLine": 325,
+        "endChar": 14
+      },
+      "revId": "1a134e16c0096520b1db733b4b8927795acf7052",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3d3e247b_d09754b6",
+        "filename": "redfish-core/lib/virtual_media.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 325,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-02-21T00:23:51Z",
+      "side": 1,
+      "message": "A couple potential answers for that, but I don\u0027t think it\u0027s a downstream patch issue.  One is that it\u0027s helpful to provide user error messages that are different for \"you provided the wrong scheme\" and \"you didn\u0027t give me a scheme\"  in this case, it\u0027s a little subtle because these types of APIs in redfish generally support giving a url as part of the url field, or as a \"type\" field, of which we should be allowing either, so while an empty url might be completely valid when determined in the calling function, if the user provided an explicit type, if they provide a type that we don\u0027t support at all, that\u0027s immediately invalid.  So we need two different ways to convey this.\n\nIdeally I would\u0027ve liked the TransferProtocol enum to have another entry for \"not provided\", to make this subtlety more clear.",
+      "parentUuid": "739bd9eb_bf45b2aa",
       "range": {
         "startLine": 325,
         "startChar": 0,
