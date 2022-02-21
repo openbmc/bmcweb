@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "82d37b34_8f43822e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-02-21T00:29:54Z",
+      "side": 1,
+      "message": "AccountTypes is the explicit type defined in the CSDL.  FYI, you\u0027re looking at the collection, not the ManagerAccount schema as you probably meant to.  Assuming you want the json, you should ideally be looking at:\nhttps://redfish.dmtf.org/schemas/v1/ManagerAccount.v1_8_1.json\n\nWhich does have an AccountTypes field.  FWIW, I tend to look at the CSDL, as it doesn\u0027t have this \"every version is a different file\" weirdness, and it\u0027s what the json schema is generated from:\n\nhttps://redfish.dmtf.org/schemas/v1/ManagerAccount_v1.xml\n\nIn short, your comment about OEM schemas is correct, it\u0027s just that this isn\u0027t an OEM schema.",
+      "parentUuid": "1e185411_395ebabc",
+      "revId": "67a01f6085b5d35490b99ee03012e054ab50e1b2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "2ba726a2_7d6842ab",
         "filename": "redfish-core/lib/account_service.hpp",
         "patchSetId": 8
