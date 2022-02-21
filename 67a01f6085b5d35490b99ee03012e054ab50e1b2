@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1e185411_395ebabc",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2022-02-21T00:07:06Z",
+      "side": 1,
+      "message": "There might be some confusion. It looks like you are enhancing/violating the redfish API.\n(Based on a quick control f for \"AccountTypes\" in \nhttps://redfish.dmtf.org/schemas/v1/ManagerAccountCollection.json)\n\nThe maintainers will not let you do that. \nThey might let you add an oem field, if your attempts to modify the redfish spec are rejected.   ",
+      "revId": "67a01f6085b5d35490b99ee03012e054ab50e1b2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2ba726a2_7d6842ab",
