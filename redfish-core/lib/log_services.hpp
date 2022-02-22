@@ -758,8 +758,7 @@ inline void
             }
             return task::completed;
         },
-        "type='signal',interface='org.freedesktop.DBus."
-        "ObjectManager',"
+        "type='signal',interface='org.freedesktop.DBus.ObjectManager',"
         "member='InterfacesAdded', "
         "path='/xyz/openbmc_project/dump'");
 
@@ -802,9 +801,8 @@ inline void createDump(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     {
         if (!oemDiagnosticDataType || !diagnosticDataType)
         {
-            BMCWEB_LOG_ERROR << "CreateDump action parameter "
-                                "'DiagnosticDataType'/"
-                                "'OEMDiagnosticDataType' value not found!";
+            BMCWEB_LOG_ERROR
+                << "CreateDump action parameter 'DiagnosticDataType'/'OEMDiagnosticDataType' value not found!";
             messages::actionParameterMissing(
                 asyncResp->res, "CollectDiagnosticData",
                 "DiagnosticDataType & OEMDiagnosticDataType");
@@ -1050,8 +1048,9 @@ inline void requestRoutesEventLogService(App& app)
 
 inline void requestRoutesJournalEventLogClear(App& app)
 {
-    BMCWEB_ROUTE(app, "/redfish/v1/Systems/system/LogServices/EventLog/Actions/"
-                      "LogService.ClearLog/")
+    BMCWEB_ROUTE(
+        app,
+        "/redfish/v1/Systems/system/LogServices/EventLog/Actions/LogService.ClearLog/")
         .privileges({{"ConfigureComponents"}})
         .methods(boost::beast::http::verb::post)(
             [](const crow::Request&,
@@ -1188,93 +1187,92 @@ inline void requestRoutesJournalEventLogEntryCollection(App& app)
     BMCWEB_ROUTE(app,
                  "/redfish/v1/Systems/system/LogServices/EventLog/Entries/")
         .privileges(redfish::privileges::getLogEntryCollection)
-        .methods(boost::beast::http::verb::get)(
-            [](const crow::Request& req,
-               const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
-                uint64_t skip = 0;
-                uint64_t top = maxEntriesPerPage; // Show max entries by default
-                if (!getSkipParam(asyncResp, req, skip))
-                {
-                    return;
-                }
-                if (!getTopParam(asyncResp, req, top))
-                {
-                    return;
-                }
-                // Collections don't include the static data added by SubRoute
-                // because it has a duplicate entry for members
-                asyncResp->res.jsonValue["@odata.type"] =
-                    "#LogEntryCollection.LogEntryCollection";
-                asyncResp->res.jsonValue["@odata.id"] =
-                    "/redfish/v1/Systems/system/LogServices/EventLog/Entries";
-                asyncResp->res.jsonValue["Name"] = "System Event Log Entries";
-                asyncResp->res.jsonValue["Description"] =
-                    "Collection of System Event Log Entries";
+        .methods(
+            boost::beast::http::verb::
+                get)([](const crow::Request& req,
+                        const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
+            uint64_t skip = 0;
+            uint64_t top = maxEntriesPerPage; // Show max entries by default
+            if (!getSkipParam(asyncResp, req, skip))
+            {
+                return;
+            }
+            if (!getTopParam(asyncResp, req, top))
+            {
+                return;
+            }
+            // Collections don't include the static data added by SubRoute
+            // because it has a duplicate entry for members
+            asyncResp->res.jsonValue["@odata.type"] =
+                "#LogEntryCollection.LogEntryCollection";
+            asyncResp->res.jsonValue["@odata.id"] =
+                "/redfish/v1/Systems/system/LogServices/EventLog/Entries";
+            asyncResp->res.jsonValue["Name"] = "System Event Log Entries";
+            asyncResp->res.jsonValue["Description"] =
+                "Collection of System Event Log Entries";
 
-                nlohmann::json& logEntryArray =
-                    asyncResp->res.jsonValue["Members"];
-                logEntryArray = nlohmann::json::array();
-                // Go through the log files and create a unique ID for each
-                // entry
-                std::vector<std::filesystem::path> redfishLogFiles;
-                getRedfishLogFiles(redfishLogFiles);
-                uint64_t entryCount = 0;
-                std::string logEntry;
+            nlohmann::json& logEntryArray = asyncResp->res.jsonValue["Members"];
+            logEntryArray = nlohmann::json::array();
+            // Go through the log files and create a unique ID for each
+            // entry
+            std::vector<std::filesystem::path> redfishLogFiles;
+            getRedfishLogFiles(redfishLogFiles);
+            uint64_t entryCount = 0;
+            std::string logEntry;
 
-                // Oldest logs are in the last file, so start there and loop
-                // backwards
-                for (auto it = redfishLogFiles.rbegin();
-                     it < redfishLogFiles.rend(); it++)
+            // Oldest logs are in the last file, so start there and loop
+            // backwards
+            for (auto it = redfishLogFiles.rbegin();
+                 it < redfishLogFiles.rend(); it++)
+            {
+                std::ifstream logStream(*it);
+                if (!logStream.is_open())
                 {
-                    std::ifstream logStream(*it);
-                    if (!logStream.is_open())
+                    continue;
+                }
+
+                // Reset the unique ID on the first entry
+                bool firstEntry = true;
+                while (std::getline(logStream, logEntry))
+                {
+                    entryCount++;
+                    // Handle paging using skip (number of entries to skip
+                    // from the start) and top (number of entries to
+                    // display)
+                    if (entryCount <= skip || entryCount > skip + top)
                     {
                         continue;
                     }
 
-                    // Reset the unique ID on the first entry
-                    bool firstEntry = true;
-                    while (std::getline(logStream, logEntry))
+                    std::string idStr;
+                    if (!getUniqueEntryID(logEntry, idStr, firstEntry))
                     {
-                        entryCount++;
-                        // Handle paging using skip (number of entries to skip
-                        // from the start) and top (number of entries to
-                        // display)
-                        if (entryCount <= skip || entryCount > skip + top)
-                        {
-                            continue;
-                        }
+                        continue;
+                    }
 
-                        std::string idStr;
-                        if (!getUniqueEntryID(logEntry, idStr, firstEntry))
-                        {
-                            continue;
-                        }
+                    if (firstEntry)
+                    {
+                        firstEntry = false;
+                    }
 
-                        if (firstEntry)
-                        {
-                            firstEntry = false;
-                        }
-
-                        logEntryArray.push_back({});
-                        nlohmann::json& bmcLogEntry = logEntryArray.back();
-                        if (fillEventLogEntryJson(idStr, logEntry,
-                                                  bmcLogEntry) != 0)
-                        {
-                            messages::internalError(asyncResp->res);
-                            return;
-                        }
+                    logEntryArray.push_back({});
+                    nlohmann::json& bmcLogEntry = logEntryArray.back();
+                    if (fillEventLogEntryJson(idStr, logEntry, bmcLogEntry) !=
+                        0)
+                    {
+                        messages::internalError(asyncResp->res);
+                        return;
                     }
                 }
-                asyncResp->res.jsonValue["Members@odata.count"] = entryCount;
-                if (skip + top < entryCount)
-                {
-                    asyncResp->res.jsonValue["Members@odata.nextLink"] =
-                        "/redfish/v1/Systems/system/LogServices/EventLog/"
-                        "Entries?$skip=" +
-                        std::to_string(skip + top);
-                }
-            });
+            }
+            asyncResp->res.jsonValue["Members@odata.count"] = entryCount;
+            if (skip + top < entryCount)
+            {
+                asyncResp->res.jsonValue["Members@odata.nextLink"] =
+                    "/redfish/v1/Systems/system/LogServices/EventLog/Entries?$skip=" +
+                    std::to_string(skip + top);
+            }
+        });
 }
 
 inline void requestRoutesJournalEventLogEntry(App& app)
@@ -2651,17 +2649,18 @@ static void
             std::string crashdumpURI =
                 "/redfish/v1/Systems/system/LogServices/Crashdump/Entries/" +
                 logID + "/" + filename;
-            logEntryJson = {{"@odata.type", "#LogEntry.v1_7_0.LogEntry"},
-                            {"@odata.id", "/redfish/v1/Systems/system/"
-                                          "LogServices/Crashdump/Entries/" +
-                                              logID},
-                            {"Name", "CPU Crashdump"},
-                            {"Id", logID},
-                            {"EntryType", "Oem"},
-                            {"AdditionalDataURI", std::move(crashdumpURI)},
-                            {"DiagnosticDataType", "OEM"},
-                            {"OEMDiagnosticDataType", "PECICrashdump"},
-                            {"Created", std::move(timestamp)}};
+            logEntryJson = {
+                {"@odata.type", "#LogEntry.v1_7_0.LogEntry"},
+                {"@odata.id",
+                 "/redfish/v1/Systems/system/LogServices/Crashdump/Entries/" +
+                     logID},
+                {"Name", "CPU Crashdump"},
+                {"Id", logID},
+                {"EntryType", "Oem"},
+                {"AdditionalDataURI", std::move(crashdumpURI)},
+                {"DiagnosticDataType", "OEM"},
+                {"OEMDiagnosticDataType", "PECICrashdump"},
+                {"Created", std::move(timestamp)}};
         };
     crow::connections::systemBus->async_method_call(
         std::move(getStoredLogCallback), crashdumpObject,
@@ -2910,8 +2909,7 @@ inline void requestRoutesCrashdumpCollect(App& app)
                         }
                         return task::completed;
                     },
-                    "type='signal',interface='org.freedesktop.DBus."
-                    "Properties',"
+                    "type='signal',interface='org.freedesktop.DBus.Properties',"
                     "member='PropertiesChanged',arg0namespace='com.intel.crashdump'");
                 task->startTimer(std::chrono::minutes(5));
                 task->populateResp(asyncResp->res);
