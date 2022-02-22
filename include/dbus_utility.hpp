@@ -101,6 +101,15 @@ inline void escapePathForDbus(std::string& path)
     std::regex_replace(path.begin(), path.begin(), path.end(), reg, "_");
 }
 
+inline void logError(const boost::system::error_code& ec)
+{
+    if (ec)
+    {
+        BMCWEB_LOG_ERROR << "DBus error: " << ec
+                         << ", cannot call unmount method";
+    }
+}
+
 // gets the string N strings deep into a path
 // i.e.  /0th/1st/2nd/3rd
 inline bool getNthStringFromPath(const std::string& path, int index,
