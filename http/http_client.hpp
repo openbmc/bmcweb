@@ -17,11 +17,10 @@
 #include <boost/asio/ip/address.hpp>
 #include <boost/asio/ip/basic_endpoint.hpp>
 #include <boost/asio/steady_timer.hpp>
-#include <boost/beast/core/flat_buffer.hpp>
+#include <boost/beast/core/flat_static_buffer.hpp>
 #include <boost/beast/core/tcp_stream.hpp>
 #include <boost/beast/http/message.hpp>
-#include <boost/beast/version.hpp>
-#include <boost/circular_buffer.hpp>
+#include <boost/container/devector.hpp>
 #include <include/async_resolve.hpp>
 
 #include <cstdlib>
@@ -69,8 +68,7 @@ class HttpClient : public std::enable_shared_from_this<HttpClient>
     std::optional<
         boost::beast::http::response_parser<boost::beast::http::string_body>>
         parser;
-    boost::circular_buffer_space_optimized<std::string> requestDataQueue{
-        maxRequestQueueSize};
+    boost::container::devector<std::string> requestDataQueue;
 
     ConnState state = ConnState::initialized;
 
