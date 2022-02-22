@@ -37,6 +37,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "3631b1cf_5ae0a289",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000008
+      },
+      "writtenOn": "2022-02-22T14:17:21Z",
+      "side": 1,
+      "message": "I don\u0027t think there\u0027s any existing PS code that implements this property, other than what I\u0027ve done.",
+      "parentUuid": "a73da342_72640c94",
+      "revId": "cfd95277ce08ac98dfb354a28842d816f79c173a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "dbf8717d_3208d31d",
         "filename": "redfish-core/lib/power_supply.hpp",
         "patchSetId": 1
