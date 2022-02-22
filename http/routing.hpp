@@ -360,7 +360,7 @@ class WebSocketRule : public BaseRule
             myConnection = std::make_shared<
                 crow::websocket::ConnectionImpl<boost::asio::ip::tcp::socket>>(
                 req, std::move(adaptor), openHandler, messageHandler,
-                closeHandler, errorHandler);
+                messageExHandler, closeHandler, errorHandler);
         myConnection->start();
     }
 #else
@@ -375,7 +375,7 @@ class WebSocketRule : public BaseRule
             myConnection = std::make_shared<crow::websocket::ConnectionImpl<
                 boost::beast::ssl_stream<boost::asio::ip::tcp::socket>>>(
                 req, std::move(adaptor), openHandler, messageHandler,
-                closeHandler, errorHandler);
+                messageExHandler, closeHandler, errorHandler);
         myConnection->start();
     }
 #endif
@@ -391,6 +391,13 @@ class WebSocketRule : public BaseRule
     self_t& onmessage(Func f)
     {
         messageHandler = f;
+        return *this;
+    }
+
+    template <typename Func>
+    self_t& onmessageex(Func f)
+    {
+        messageExHandler = f;
         return *this;
     }
 
@@ -412,6 +419,10 @@ class WebSocketRule : public BaseRule
     std::function<void(crow::websocket::Connection&)> openHandler;
     std::function<void(crow::websocket::Connection&, const std::string&, bool)>
         messageHandler;
+    std::function<void(crow::websocket::Connection&, std::string_view,
+                       crow::websocket::MessageType type,
+                       std::function<void()>&& whenComplete)>
+        messageExHandler;
     std::function<void(crow::websocket::Connection&, const std::string&)>
         closeHandler;
     std::function<void(crow::websocket::Connection&)> errorHandler;
