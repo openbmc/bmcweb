@@ -16,10 +16,10 @@
 #pragma once
 
 #include <sdbusplus/message.hpp>
-#include <sdbusplus/utility/dedup_variant.hpp>
 
 #include <filesystem>
 #include <regex>
+#include <variant>
 
 namespace dbus
 {
@@ -28,7 +28,7 @@ namespace utility
 {
 
 // clang-format off
-using DbusVariantType = sdbusplus::utility::dedup_variant_t<
+using DbusVariantType = std::variant<
     std::vector<std::tuple<std::string, std::string, std::string>>,
     std::vector<std::string>,
     std::vector<double>,
@@ -42,7 +42,6 @@ using DbusVariantType = sdbusplus::utility::dedup_variant_t<
     uint16_t,
     uint8_t,
     bool,
-    size_t,
     sdbusplus::message::unix_fd,
     std::vector<uint32_t>,
     std::vector<uint16_t>,
