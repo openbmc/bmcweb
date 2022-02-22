@@ -671,7 +671,10 @@ class Trie
         unsigned ruleIndex{};
         std::array<size_t, static_cast<size_t>(ParamType::MAX)>
             paramChildrens{};
-        boost::container::flat_map<std::string, unsigned> children;
+        using ChildMap = boost::container::flat_map<
+            std::string, unsigned, std::less<>,
+            std::vector<std::pair<std::string, unsigned>>>;
+        ChildMap children;
 
         bool isSimpleNode() const
         {
@@ -702,7 +705,7 @@ class Trie
             return;
         }
         bool mergeWithChild = true;
-        for (const std::pair<std::string, unsigned>& kv : node->children)
+        for (const Node::ChildMap::value_type& kv : node->children)
         {
             Node* child = &nodes[kv.second];
             if (!child->isSimpleNode())
@@ -713,11 +716,11 @@ class Trie
         }
         if (mergeWithChild)
         {
-            decltype(node->children) merged;
-            for (const std::pair<std::string, unsigned>& kv : node->children)
+            Node::ChildMap merged;
+            for (const Node::ChildMap::value_type& kv : node->children)
             {
                 Node* child = &nodes[kv.second];
-                for (const std::pair<std::string, unsigned>& childKv :
+                for (const Node::ChildMap::value_type& childKv :
                      child->children)
                 {
                     merged[kv.first + childKv.first] = childKv.second;
@@ -728,7 +731,7 @@ class Trie
         }
         else
         {
-            for (const std::pair<std::string, unsigned>& kv : node->children)
+            for (const Node::ChildMap::value_type& kv : node->children)
             {
                 Node* child = &nodes[kv.second];
                 optimizeNode(child);
@@ -755,7 +758,7 @@ class Trie
         {
             node = head();
         }
-        for (const std::pair<std::string, unsigned>& kv : node->children)
+        for (const Node::ChildMap::value_type& kv : node->children)
         {
             const std::string& fragment = kv.first;
             const Node* child = &nodes[kv.second];
@@ -922,7 +925,7 @@ class Trie
             }
         }
 
-        for (const std::pair<std::string, unsigned>& kv : node->children)
+        for (const Node::ChildMap::value_type& kv : node->children)
         {
             const std::string& fragment = kv.first;
             const Node* child = &nodes[kv.second];
@@ -1028,7 +1031,7 @@ class Trie
                 debugNodePrint(&nodes[n->paramChildrens[i]], level + 1);
             }
         }
-        for (const std::pair<std::string, unsigned>& kv : n->children)
+        for (const Node::ChildMap::value_type& kv : n->children)
         {
             BMCWEB_LOG_DEBUG
                 << std::string(2U * level, ' ') /*<< "(" << kv.second << ") "*/
