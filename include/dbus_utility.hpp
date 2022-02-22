@@ -63,8 +63,8 @@ using ManagedObjectType =
 
 using ManagedItem = std::pair<
     sdbusplus::message::object_path,
-    boost::container::flat_map<
-        std::string, boost::container::flat_map<std::string, DbusVariantType>>>;
+    std::vector<std::pair<
+        std::string, std::vector<std::pair<std::string, DbusVariantType>>>>>;
 
 // Map of service name to list of interfaces
 using MapperServiceMap =
