@@ -54,6 +54,23 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "95aba6fb_8665d953",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000479
+      },
+      "writtenOn": "2022-02-22T11:58:48Z",
+      "side": 1,
+      "message": "Please abandon this change. Fixed in redfish validator. Latest redfish validator is considering empty string as warning instead of error.",
+      "revId": "19cd8d20616dc2fd2f0c300fed6239403facde77",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3ce9264d_638b000c",
