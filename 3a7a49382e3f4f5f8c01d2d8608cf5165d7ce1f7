@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b7a6931f_747ce0ec",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2022-02-22T13:08:45Z",
+      "side": 1,
+      "message": "It\u0027s quite a lot of utils code which could be tested with 100% code coverage.",
+      "revId": "3a7a49382e3f4f5f8c01d2d8608cf5165d7ce1f7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b8515d20_24158a61",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2022-02-22T13:08:45Z",
+      "side": 1,
+      "message": "It\u0027s quite a lot of utils code which could be tested with 100% code coverage.",
+      "revId": "3a7a49382e3f4f5f8c01d2d8608cf5165d7ce1f7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c49148a0_4914f4d1",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2022-02-22T13:08:45Z",
+      "side": 1,
+      "message": "It\u0027s quite a lot of utils code which could be tested with 100% code coverage.",
+      "revId": "3a7a49382e3f4f5f8c01d2d8608cf5165d7ce1f7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
