@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "3e09b252_37164d04",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000276
+      },
+      "writtenOn": "2022-02-22T23:30:33Z",
+      "side": 1,
+      "message": "The old code pre-builds the array.  The new approach removes that and builds the array one entry at a time.  I can look into the json_pointer approach, too.",
+      "parentUuid": "05729eb2_10458616",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 12,
+        "endChar": 0
+      },
+      "revId": "e2a6006704e277231af13b6470d05de9b010f049",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "15577067_304e683d",
@@ -173,6 +197,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3f50de1b_88715304",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 2750,
+      "author": {
+        "id": 1000276
+      },
+      "writtenOn": "2022-02-22T23:30:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c6b5db55_d98e1c61",
+      "range": {
+        "startLine": 2750,
+        "startChar": 34,
+        "endLine": 2750,
+        "endChar": 55
+      },
+      "revId": "e2a6006704e277231af13b6470d05de9b010f049",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e671630d_0cfb9edf",
@@ -210,6 +258,30 @@
       "side": 1,
       "message": "Wait, nevermind.\n\nLets move the construction of members from line 2732 to here, so we\u0027re only doing the key lookup once.  In theory, all of the static data above it should be moved into this branch as well, otherwise the internalError call will return partially filled results on an error.  Not a huge deal, and already a bug, but I think we should keep the members init in one spot to make this clear.",
       "parentUuid": "e671630d_0cfb9edf",
+      "range": {
+        "startLine": 2760,
+        "startChar": 32,
+        "endLine": 2760,
+        "endChar": 67
+      },
+      "revId": "e2a6006704e277231af13b6470d05de9b010f049",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "35fb1795_5c02c066",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 2760,
+      "author": {
+        "id": 1000276
+      },
+      "writtenOn": "2022-02-22T23:30:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d403770a_b959ba0a",
       "range": {
         "startLine": 2760,
         "startChar": 32,
