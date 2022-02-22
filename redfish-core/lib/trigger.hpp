@@ -138,20 +138,29 @@ inline std::optional<nlohmann::json>
     return std::make_optional(thresholds);
 }
 
-inline nlohmann::json
+inline std::optional<nlohmann::json>
     getMetricReportDefinitions(const std::vector<std::string>& reportNames)
 {
     nlohmann::json reports = nlohmann::json::array();
+
     for (const std::string& name : reportNames)
     {
-        reports.push_back(
-            {{"@odata.id",
-              crow::utility::urlFromPieces("redfish", "v1", "TelemetryService",
-                                           "MetricReportDefinitions", name)
-                  .string()}});
+        sdbusplus::message::object_path path(name);
+        if (path.parent_path() != "TelemetryService")
+        {
+            BMCWEB_LOG_ERROR << "Property ReportNames contains invalid value: "
+                             << name;
+            return std::nullopt;
+        }
+        reports.push_back({
+            {"@odata.id", crow::utility::urlFromPieces(
+                              "redfish", "v1", "TelemetryService",
+                              "MetricReportDefinitions", path.filename())
+                              .string()},
+        });
     }
 
-    return reports;
+    return std::make_optional(reports);
 }
 
 inline std::vector<std::string>
@@ -216,12 +225,23 @@ inline bool fillTrigger(
         return false;
     }
 
-    json["@odata.type"] = "#Triggers.v1_2_0.Triggers";
-    json["@odata.id"] = crow::utility::urlFromPieces(
-                            "redfish", "v1", "TelemetryService", "Triggers", id)
-                            .string();
-    json["Id"] = id;
-    json["Name"] = *name;
+    std::optional<std::vector<std::string>> triggerActions =
+        getTriggerActions(*actions);
+    if (!triggerActions)
+    {
+        BMCWEB_LOG_ERROR << "Property TriggerActions is invalid in Trigger: "
+                         << id;
+        return false;
+    }
+
+    std::optional<nlohmann::json> linkedReports =
+        getMetricReportDefinitions(*reports);
+    if (!linkedReports)
+    {
+        BMCWEB_LOG_ERROR << "Property ReportNames is invalid in Trigger: "
+                         << id;
+        return false;
+    }
 
     if (*discrete)
     {
@@ -258,20 +278,15 @@ inline bool fillTrigger(
         json["MetricType"] = "Numeric";
     }
 
-    std::optional<std::vector<std::string>> triggerActions =
-        getTriggerActions(*actions);
-
-    if (!triggerActions)
-    {
-        BMCWEB_LOG_ERROR << "Property TriggerActions is invalid in Trigger: "
-                         << id;
-        return false;
-    }
-
+    json["@odata.type"] = "#Triggers.v1_2_0.Triggers";
+    json["@odata.id"] = crow::utility::urlFromPieces(
+                            "redfish", "v1", "TelemetryService", "Triggers", id)
+                            .string();
+    json["Id"] = id;
+    json["Name"] = *name;
     json["TriggerActions"] = *triggerActions;
     json["MetricProperties"] = getMetricProperties(*sensors);
-    json["Links"]["MetricReportDefinitions"] =
-        getMetricReportDefinitions(*reports);
+    json["Links"]["MetricReportDefinitions"] = *linkedReports;
 
     return true;
 }
