@@ -34,7 +34,8 @@ using TriggerSensorsParams =
 
 using TriggerGetParamsVariant =
     std::variant<std::monostate, bool, std::string, TriggerThresholdParamsExt,
-                 TriggerSensorsParams, std::vector<std::string>>;
+                 TriggerSensorsParams, std::vector<std::string>,
+                 std::vector<sdbusplus::message::object_path>>;
 
 inline std::optional<std::string>
     getRedfishFromDbusAction(const std::string& dbusAction)
@@ -44,11 +45,11 @@ inline std::optional<std::string>
     {
         redfishAction = "RedfishMetricReport";
     }
-    if (dbusAction == "RedfishEvent")
+    if (dbusAction == "LogToRedfishEventLog")
     {
         redfishAction = "RedfishEvent";
     }
-    if (dbusAction == "LogToLogService")
+    if (dbusAction == "LogToJournal")
     {
         redfishAction = "LogToLogService";
     }
@@ -72,10 +73,10 @@ inline std::optional<std::vector<std::string>>
         triggerActions.push_back(*redfishAction);
     }
 
-    return std::make_optional(triggerActions);
+    return {std::move(triggerActions)};
 }
 
-inline std::optional<nlohmann::json>
+inline std::optional<nlohmann::json::array_t>
     getDiscreteTriggers(const TriggerThresholdParamsExt& thresholdParams)
 {
     const std::vector<DiscreteThresholdParams>* discreteParams =
@@ -86,7 +87,7 @@ inline std::optional<nlohmann::json>
         return std::nullopt;
     }
 
-    nlohmann::json triggers = nlohmann::json::array();
+    nlohmann::json::array_t triggers;
     for (const auto& [name, severity, dwellTime, value] : *discreteParams)
     {
         std::optional<std::string> duration =
@@ -105,7 +106,7 @@ inline std::optional<nlohmann::json>
         });
     }
 
-    return std::make_optional(triggers);
+    return {std::move(triggers)};
 }
 
 inline std::optional<nlohmann::json>
@@ -119,7 +120,7 @@ inline std::optional<nlohmann::json>
         return std::nullopt;
     }
 
-    nlohmann::json thresholds;
+    nlohmann::json thresholds = nlohmann::json::object();
     for (const auto& [type, dwellTime, activation, reading] : *numericParams)
     {
         std::optional<std::string> duration =
@@ -138,21 +139,31 @@ inline std::optional<nlohmann::json>
     return std::make_optional(thresholds);
 }
 
-inline nlohmann::json
-    getMetricReportDefinitions(const std::vector<std::string>& reportNames)
+inline std::optional<nlohmann::json> getMetricReportDefinitions(
+    const std::vector<sdbusplus::message::object_path>& reportPaths)
 {
     nlohmann::json reports = nlohmann::json::array();
-    for (const std::string& name : reportNames)
+
+    for (const sdbusplus::message::object_path& path : reportPaths)
     {
+        std::string reportId = path.filename();
+        if (reportId.empty())
+        {
+            {
+                BMCWEB_LOG_ERROR << "Property Reports contains invalid value: "
+                                 << path.str;
+                return std::nullopt;
+            }
+        }
+
         nlohmann::json::object_t report;
         report["@odata.id"] =
             crow::utility::urlFromPieces("redfish", "v1", "TelemetryService",
-                                         "MetricReportDefinitions", name)
-                .string();
+                                         "MetricReportDefinitions", reportId);
         reports.push_back(std::move(report));
     }
 
-    return reports;
+    return std::make_optional(reports);
 }
 
 inline std::vector<std::string>
@@ -176,7 +187,7 @@ inline bool fillTrigger(
     const std::string* name = nullptr;
     const bool* discrete = nullptr;
     const TriggerSensorsParams* sensors = nullptr;
-    const std::vector<std::string>* reports = nullptr;
+    const std::vector<sdbusplus::message::object_path>* reports = nullptr;
     const std::vector<std::string>* actions = nullptr;
     const TriggerThresholdParamsExt* thresholds = nullptr;
 
@@ -194,9 +205,10 @@ inline bool fillTrigger(
         {
             sensors = std::get_if<TriggerSensorsParams>(&var);
         }
-        else if (key == "ReportNames")
+        else if (key == "Reports")
         {
-            reports = std::get_if<std::vector<std::string>>(&var);
+            reports =
+                std::get_if<std::vector<sdbusplus::message::object_path>>(&var);
         }
         else if (key == "TriggerActions")
         {
@@ -217,16 +229,26 @@ inline bool fillTrigger(
         return false;
     }
 
-    json["@odata.type"] = "#Triggers.v1_2_0.Triggers";
-    json["@odata.id"] = crow::utility::urlFromPieces(
-                            "redfish", "v1", "TelemetryService", "Triggers", id)
-                            .string();
-    json["Id"] = id;
-    json["Name"] = *name;
+    std::optional<std::vector<std::string>> triggerActions =
+        getTriggerActions(*actions);
+    if (!triggerActions)
+    {
+        BMCWEB_LOG_ERROR << "Property TriggerActions is invalid in Trigger: "
+                         << id;
+        return false;
+    }
+
+    std::optional<nlohmann::json> linkedReports =
+        getMetricReportDefinitions(*reports);
+    if (!linkedReports)
+    {
+        BMCWEB_LOG_ERROR << "Property Reports is invalid in Trigger: " << id;
+        return false;
+    }
 
     if (*discrete)
     {
-        std::optional<nlohmann::json> discreteTriggers =
+        std::optional<nlohmann::json::array_t> discreteTriggers =
             getDiscreteTriggers(*thresholds);
 
         if (!discreteTriggers)
@@ -259,20 +281,14 @@ inline bool fillTrigger(
         json["MetricType"] = "Numeric";
     }
 
-    std::optional<std::vector<std::string>> triggerActions =
-        getTriggerActions(*actions);
-
-    if (!triggerActions)
-    {
-        BMCWEB_LOG_ERROR << "Property TriggerActions is invalid in Trigger: "
-                         << id;
-        return false;
-    }
-
+    json["@odata.type"] = "#Triggers.v1_2_0.Triggers";
+    json["@odata.id"] = crow::utility::urlFromPieces(
+        "redfish", "v1", "TelemetryService", "Triggers", id);
+    json["Id"] = id;
+    json["Name"] = *name;
     json["TriggerActions"] = *triggerActions;
     json["MetricProperties"] = getMetricProperties(*sensors);
-    json["Links"]["MetricReportDefinitions"] =
-        getMetricReportDefinitions(*reports);
+    json["Links"]["MetricReportDefinitions"] = *linkedReports;
 
     return true;
 }
