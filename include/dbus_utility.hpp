@@ -16,6 +16,7 @@
 #pragma once
 
 #include "dbus_singleton.hpp"
+#include "logging.hpp"
 
 #include <boost/system/error_code.hpp> // IWYU pragma: keep
 #include <sdbusplus/message/native_types.hpp>
@@ -99,6 +100,15 @@ inline void escapePathForDbus(std::string& path)
 {
     const std::regex reg("[^A-Za-z0-9_/]");
     std::regex_replace(path.begin(), path.begin(), path.end(), reg, "_");
+}
+
+inline void logError(const boost::system::error_code& ec)
+{
+    if (ec)
+    {
+        BMCWEB_LOG_ERROR << "DBus error: " << ec
+                         << ", cannot call unmount method";
+    }
 }
 
 // gets the string N strings deep into a path
