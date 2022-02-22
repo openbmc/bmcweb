@@ -19,7 +19,7 @@
 #include <boost/asio/local/stream_protocol.hpp>
 #include <boost/asio/write.hpp>
 #include <boost/beast/core/buffers_to_string.hpp>
-#include <boost/beast/core/multi_buffer.hpp>
+#include <boost/beast/core/flat_static_buffer.hpp>
 #include <boost/container/flat_map.hpp>
 #include <dbus_utility.hpp>
 #include <privileges.hpp>
@@ -33,7 +33,6 @@ namespace nbd_proxy
 
 using boost::asio::local::stream_protocol;
 
-static constexpr auto nbdBufferSize = 131088;
 static const char* requiredPrivilegeString = "ConfigureManager";
 
 struct NbdProxyServer : std::enable_shared_from_this<NbdProxyServer>
@@ -68,14 +67,6 @@ struct NbdProxyServer : std::enable_shared_from_this<NbdProxyServer>
                                      << ec.message();
                     return;
                 }
-                if (peerSocket)
-                {
-                    // Something is wrong - socket shouldn't be acquired at this
-                    // point
-                    BMCWEB_LOG_ERROR
-                        << "Failed to open connection - socket already used";
-                    return;
-                }
 
                 BMCWEB_LOG_DEBUG << "Connection opened";
                 peerSocket = std::move(socket);
@@ -103,7 +94,7 @@ struct NbdProxyServer : std::enable_shared_from_this<NbdProxyServer>
             "xyz.openbmc_project.VirtualMedia.Proxy", "Mount");
     }
 
-    void send(const std::string_view data)
+    void send(std::string_view data)
     {
         boost::asio::buffer_copy(ws2uxBuf.prepare(data.size()),
                                  boost::asio::buffer(data));
@@ -150,7 +141,7 @@ struct NbdProxyServer : std::enable_shared_from_this<NbdProxyServer>
 
         // Trigger async read
         peerSocket->async_read_some(
-            ux2wsBuf.prepare(nbdBufferSize),
+            ux2wsBuf.prepare(ux2wsBuf.capacity() - ux2wsBuf.size()),
             [this, self(shared_from_this())](boost::system::error_code ec,
                                              std::size_t bytesRead) {
                 if (ec)
@@ -173,7 +164,7 @@ struct NbdProxyServer : std::enable_shared_from_this<NbdProxyServer>
                 ux2wsBuf.consume(bytesRead);
 
                 // Allow further reads
-                doRead();
+                doWrite();
             });
     }
 
@@ -187,36 +178,18 @@ struct NbdProxyServer : std::enable_shared_from_this<NbdProxyServer>
             return;
         }
 
-        if (uxWriteInProgress)
-        {
-            BMCWEB_LOG_ERROR << "Write in progress";
-            return;
-        }
-
-        if (ws2uxBuf.size() == 0)
-        {
-            BMCWEB_LOG_ERROR << "No data to write to UNIX socket";
-            return;
-        }
-
-        uxWriteInProgress = true;
         boost::asio::async_write(
             *peerSocket, ws2uxBuf.data(),
             [this, self(shared_from_this())](boost::system::error_code ec,
                                              std::size_t bytesWritten) {
                 ws2uxBuf.consume(bytesWritten);
-                uxWriteInProgress = false;
                 if (ec)
                 {
                     BMCWEB_LOG_ERROR << "UNIX: async_write error = "
                                      << ec.message();
                     return;
                 }
-                // Retrigger doWrite if there is something in buffer
-                if (ws2uxBuf.size() > 0)
-                {
-                    doWrite();
-                }
+                doRead();
             });
     }
 
@@ -225,13 +198,11 @@ struct NbdProxyServer : std::enable_shared_from_this<NbdProxyServer>
     const std::string endpointId;
     const std::string path;
 
-    bool uxWriteInProgress = false;
-
     // UNIX => WebSocket buffer
-    boost::beast::multi_buffer ux2wsBuf;
+    boost::beast::flat_static_buffer<8192> ux2wsBuf;
 
     // WebSocket <= UNIX buffer
-    boost::beast::multi_buffer ws2uxBuf;
+    boost::beast::flat_static_buffer<8192> ws2uxBuf;
 
     // Default acceptor for UNIX socket
     stream_protocol::acceptor acceptor;
