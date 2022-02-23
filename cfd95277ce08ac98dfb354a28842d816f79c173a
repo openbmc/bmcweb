@@ -90,6 +90,41 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "8743e039_833804a2",
+        "filename": "redfish-core/lib/power_supply.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 1000008
+      },
+      "writtenOn": "2022-02-23T21:39:39Z",
+      "side": 1,
+      "message": "the code that introduced that hasn\u0027t merged yet: https://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/40326 so it can still get fixed there.",
+      "parentUuid": "c958d754_aee8c45a",
+      "revId": "cfd95277ce08ac98dfb354a28842d816f79c173a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ea8257ab_9718e604",
+        "filename": "redfish-core/lib/power_supply.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 198,
+      "author": {
+        "id": 1000008
+      },
+      "writtenOn": "2022-02-23T21:39:39Z",
+      "side": 1,
+      "message": "... bringing the discussion about missing PSs being critical to the relevant code to make it easier for me to keep things straight...\n\nWhat I am trying to do is support the following:\n1) Health can be Critical even though Functional is true\nand \n2) State can be UnavailableOffline separately from Absent\n\nIf the PSU daemon defines the Available property to mean \u0027present but can\u0027t supply good power\u0027, then the code I have here accomplishes that.\n\nI\u0027m open to suggestions if there\u0027s a better approach.",
+      "revId": "cfd95277ce08ac98dfb354a28842d816f79c173a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "dbf8717d_3208d31d",
         "filename": "redfish-core/lib/power_supply.hpp",
         "patchSetId": 1
@@ -148,6 +183,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "3d6a04c2_1c66de3a",
+        "filename": "redfish-core/lib/power_supply.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 238,
+      "author": {
+        "id": 1000008
+      },
+      "writtenOn": "2022-02-23T21:39:39Z",
+      "side": 1,
+      "message": "Ack, will refactor after the questions/issues from line 198 are resolved in case changes are needed.",
+      "parentUuid": "bd027506_7e8cfcab",
+      "range": {
+        "startLine": 238,
+        "startChar": 44,
+        "endLine": 238,
+        "endChar": 58
+      },
+      "revId": "cfd95277ce08ac98dfb354a28842d816f79c173a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "74cc7ea6_bfc11db7",
         "filename": "redfish-core/lib/power_supply.hpp",
         "patchSetId": 1
@@ -159,6 +218,30 @@
       "writtenOn": "2022-02-23T03:25:16Z",
       "side": 1,
       "message": "The order in which we\u0027re doing this is a little odd.  Should we be checking for availability AFTER we verify it\u0027s present?",
+      "range": {
+        "startLine": 240,
+        "startChar": 0,
+        "endLine": 242,
+        "endChar": 0
+      },
+      "revId": "cfd95277ce08ac98dfb354a28842d816f79c173a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6aa45794_394c55d4",
+        "filename": "redfish-core/lib/power_supply.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 242,
+      "author": {
+        "id": 1000008
+      },
+      "writtenOn": "2022-02-23T21:39:39Z",
+      "side": 1,
+      "message": "Ack, will refactor after the questions/issues from line 198 are resolved in case changes are needed.",
+      "parentUuid": "74cc7ea6_bfc11db7",
       "range": {
         "startLine": 240,
         "startChar": 0,
