@@ -71,6 +71,23 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "c958d754_aee8c45a",
+        "filename": "redfish-core/lib/power_supply.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2022-02-23T07:34:12Z",
+      "side": 1,
+      "message": "nit: Something is not right here. Comment says that Absent is default, code says that Enabled is default. Personally I would like to see local constexpr named defaultState. But it is not a common practice in bmcweb so comment above needs to be updated.",
+      "revId": "cfd95277ce08ac98dfb354a28842d816f79c173a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "dbf8717d_3208d31d",
