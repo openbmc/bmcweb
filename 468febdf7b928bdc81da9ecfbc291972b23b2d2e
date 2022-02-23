@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9a233134_ba3d0a09",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 2117,
+      "author": {
+        "id": 1000004
+      },
+      "writtenOn": "2022-02-23T20:55:11Z",
+      "side": 1,
+      "message": "Please delete this code now that the phosphor-bmc-state interface is being used to determine State.",
+      "range": {
+        "startLine": 2094,
+        "startChar": 0,
+        "endLine": 2117,
+        "endChar": 13
+      },
+      "revId": "468febdf7b928bdc81da9ecfbc291972b23b2d2e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
