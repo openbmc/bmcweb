@@ -55,6 +55,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "6eb9849f_c84748b5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-02-23T03:25:16Z",
+      "side": 1,
+      "message": "Johns point is a good one.  A power supply missing, is missing.  The criticality of it being missing is something that needs more subtle handling and is largely dependent on things not in the power supply.  I thought we solved a bunch of this in James code for parsing out the redundancy information and determining the number of failures and whether it was critical.  I\u0027m assuming you looked at that?",
+      "parentUuid": "3631b1cf_5ae0a289",
+      "revId": "cfd95277ce08ac98dfb354a28842d816f79c173a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "dbf8717d_3208d31d",
         "filename": "redfish-core/lib/power_supply.hpp",
         "patchSetId": 1
@@ -66,6 +84,70 @@
       "writtenOn": "2022-02-20T22:39:29Z",
       "side": 1,
       "message": "nit: if you make this a bool* then you don\u0027t need a value on line 227",
+      "revId": "cfd95277ce08ac98dfb354a28842d816f79c173a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c9c53e94_70aea7ce",
+        "filename": "redfish-core/lib/power_supply.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 215,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-02-23T03:25:16Z",
+      "side": 1,
+      "message": "He could, but then you\u0027d have to have an extra null check (at least the way is written now).  I\u0027m ok with either style.",
+      "parentUuid": "dbf8717d_3208d31d",
+      "revId": "cfd95277ce08ac98dfb354a28842d816f79c173a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bd027506_7e8cfcab",
+        "filename": "redfish-core/lib/power_supply.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 238,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-02-23T03:25:16Z",
+      "side": 1,
+      "message": "All 3 of the gets in this are calling from to the same connection name.  While not strictly correct (should be looking up on the mapper) if we\u0027re going to add a third, we should be using GetAll.  Admittedly, the other checks should\u0027ve been using GetAll as well.\n\nI suspect once that\u0027s done, and the parsing isn\u0027t async, that\u0027s going to be a lot clearer.",
+      "range": {
+        "startLine": 238,
+        "startChar": 44,
+        "endLine": 238,
+        "endChar": 58
+      },
+      "revId": "cfd95277ce08ac98dfb354a28842d816f79c173a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "74cc7ea6_bfc11db7",
+        "filename": "redfish-core/lib/power_supply.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 242,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-02-23T03:25:16Z",
+      "side": 1,
+      "message": "The order in which we\u0027re doing this is a little odd.  Should we be checking for availability AFTER we verify it\u0027s present?",
+      "range": {
+        "startLine": 240,
+        "startChar": 0,
+        "endLine": 242,
+        "endChar": 0
+      },
       "revId": "cfd95277ce08ac98dfb354a28842d816f79c173a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
