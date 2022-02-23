@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ed2c6470_77d2781f",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 2744,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-02-23T00:18:45Z",
+      "side": 1,
+      "message": "Just an idea to plan in your head;  It\u0027d be cool if this could use the getCollectionMembers utility at some point.  The only thing that I see that\u0027s different is that this collection is autoexpand, whereas the others aren\u0027t.  That might need adding some callback trickery, but might be worth it.",
+      "revId": "7902e73cecd133fa0cee3e617dee9b25cc67735a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
