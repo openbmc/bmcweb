@@ -97,6 +97,30 @@
       },
       "revId": "55c479b45f1bd145ba8406148e7dbbf2d30253f6",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "37131c69_07f2aa1d",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 2913,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-02-23T00:21:55Z",
+      "side": 1,
+      "message": "Yep, Krysztofs is even simpler.  I like it.",
+      "parentUuid": "f065ab39_48041f41",
+      "range": {
+        "startLine": 2912,
+        "startChar": 0,
+        "endLine": 2913,
+        "endChar": 61
+      },
+      "revId": "55c479b45f1bd145ba8406148e7dbbf2d30253f6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
