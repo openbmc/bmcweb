@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4e608692_ada94be8",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 2678,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-02-23T00:20:24Z",
+      "side": 1,
+      "message": "Looks like it got mixed in your you other changes?",
+      "range": {
+        "startLine": 2666,
+        "startChar": 0,
+        "endLine": 2678,
+        "endChar": 13
+      },
+      "revId": "50e4680c04bdb1ac2d82d8fc8a40b7d3b0731844",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
