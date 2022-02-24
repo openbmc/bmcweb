@@ -113,6 +113,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0863b297_7f5cd9ac",
+        "filename": "http/routing.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 355,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-02-24T20:11:38Z",
+      "side": 1,
+      "message": "Done. Yeah, I found a cleaner way. PTAL.",
+      "parentUuid": "3ccebb46_356859f2",
+      "range": {
+        "startLine": 352,
+        "startChar": 0,
+        "endLine": 355,
+        "endChar": 60
+      },
+      "revId": "c98378b4b1f530beb34c8ca4f5172d75b15b8c0a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a00e78f9_2b8796cd",
@@ -197,6 +221,30 @@
       "side": 1,
       "message": "I see now.  yeah, I read this wrong.",
       "parentUuid": "41a62105_be93e515",
+      "range": {
+        "startLine": 86,
+        "startChar": 0,
+        "endLine": 87,
+        "endChar": 46
+      },
+      "revId": "c98378b4b1f530beb34c8ca4f5172d75b15b8c0a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a93992a6_59acdb73",
+        "filename": "http/websocket.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-02-24T20:11:38Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "b3bc69aa_0098177a",
       "range": {
         "startLine": 86,
         "startChar": 0,
