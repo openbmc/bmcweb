@@ -91,6 +91,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "3ccebb46_356859f2",
+        "filename": "http/routing.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 355,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-02-24T18:33:03Z",
+      "side": 1,
+      "message": "I\u0027m looking at the code, and the only thing that uses username in that way is nbd-proxy, and that\u0027s getting cleaned up in this patch:\nhttps://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/51428\n\nIn the near future we can probably just drop the userName parameter from Connection.\n\nThe above patch for sure needs split up.  We could have an intermediate solution for the time being, but I\u0027d still like it to not duplicate the constructors.",
+      "parentUuid": "db41a5b0_f03eff66",
+      "range": {
+        "startLine": 352,
+        "startChar": 0,
+        "endLine": 355,
+        "endChar": 60
+      },
+      "revId": "c98378b4b1f530beb34c8ca4f5172d75b15b8c0a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a00e78f9_2b8796cd",
         "filename": "http/routing.hpp",
         "patchSetId": 3
