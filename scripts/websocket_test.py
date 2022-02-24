@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 
 # Example of streaming sensor values from openbmc using the /subscribe api
 # requires websockets package to be installed
@@ -15,6 +15,8 @@ parser.add_argument("--host", help="Host to connect to", required=True)
 parser.add_argument(
     "--username", help="Username to connect with", default="root")
 parser.add_argument("--password", help="Password to use", default="0penBmc")
+parser.add_argument('--ssl', default=True,
+                    action=argparse.BooleanOptionalAction)
 
 args = parser.parse_args()
 
@@ -32,13 +34,15 @@ sensor_type_map = {
 
 
 async def hello():
-    uri = 'wss://{}/subscribe'.format(args.host)
+    uri_template = 'wss://{}/subscribe' if args.ssl else 'ws://{}/subscribe'
+    uri = uri_template.format(args.host)
     ssl_context = ssl.SSLContext()
     authbytes = "{}:{}".format(args.username, args.password).encode('ascii')
     auth = "Basic {}".format(base64.b64encode(authbytes).decode('ascii'))
     headers = {"Authorization": auth}
     async with \
         websockets.connect(uri, ssl=ssl_context, extra_headers=headers) \
+            if args.ssl else websockets.connect(uri, extra_headers=headers) \
             as websocket:
         request = json.dumps({
             "paths": ["/xyz/openbmc_project/sensors"],
@@ -58,5 +62,6 @@ async def hello():
             if value is None:
                 continue
             print(f"{name:<20} {value:4.02f} {units}")
+
 
 asyncio.get_event_loop().run_until_complete(hello())
