@@ -22,6 +22,30 @@
       },
       "revId": "c40b56799c9cbdfbdc08b9759c63e7c6c6171cac",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4325f487_af9e35eb",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 50
+      },
+      "lineNbr": 802,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2022-02-24T08:30:50Z",
+      "side": 1,
+      "message": "SetProperty\u003cbool\u003e tries to convert bool to variant\u003cbool\u003e I guess there is small error in sdbusplus which prevents it. Anyway since it bool it\u0027s much better to not use std::move",
+      "parentUuid": "9eaf7907_94be7d1a",
+      "range": {
+        "startLine": 789,
+        "startChar": 0,
+        "endLine": 802,
+        "endChar": 11
+      },
+      "revId": "c40b56799c9cbdfbdc08b9759c63e7c6c6171cac",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
