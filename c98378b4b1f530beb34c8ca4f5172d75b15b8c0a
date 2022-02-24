@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7a1c9666_e386f571",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-02-24T17:54:30Z",
+      "side": 1,
+      "message": "As a general pattern, please ",
+      "revId": "c98378b4b1f530beb34c8ca4f5172d75b15b8c0a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b2e58d01_7067d73c",
+        "filename": "http/routing.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 355,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-02-24T17:54:30Z",
+      "side": 1,
+      "message": "This branch doesn\u0027t need handled, and can just return an error.  All websocket connections should have a session.",
+      "range": {
+        "startLine": 352,
+        "startChar": 0,
+        "endLine": 355,
+        "endChar": 60
+      },
+      "revId": "c98378b4b1f530beb34c8ca4f5172d75b15b8c0a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a00e78f9_2b8796cd",
+        "filename": "http/routing.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 362,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-02-24T17:54:30Z",
+      "side": 1,
+      "message": "Ideally we shouldn\u0027t have to duplicate these blocks of code.",
+      "range": {
+        "startLine": 352,
+        "startChar": 0,
+        "endLine": 362,
+        "endChar": 44
+      },
+      "revId": "c98378b4b1f530beb34c8ca4f5172d75b15b8c0a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "02ce756f_717d0ae9",
+        "filename": "http/websocket.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-02-24T17:54:30Z",
+      "side": 1,
+      "message": "Looks unrelated?",
+      "range": {
+        "startLine": 86,
+        "startChar": 0,
+        "endLine": 87,
+        "endChar": 46
+      },
+      "revId": "c98378b4b1f530beb34c8ca4f5172d75b15b8c0a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
