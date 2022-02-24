@@ -76,7 +76,28 @@ class ConnectionImpl : public Connection
             messageHandler,
         std::function<void(Connection&, const std::string&)> closeHandler,
         std::function<void(Connection&)> errorHandler) :
-        Connection(reqIn, reqIn.session->username),
+        Connection(reqIn),
+        ws(std::move(adaptorIn)), inBuffer(inString, 131088),
+        openHandler(std::move(openHandler)),
+        messageHandler(std::move(messageHandler)),
+        closeHandler(std::move(closeHandler)),
+        errorHandler(std::move(errorHandler)), session(reqIn.session)
+    {
+        ws.set_option(boost::beast::websocket::stream_base::timeout::suggested(
+            boost::beast::role_type::server));
+        BMCWEB_LOG_DEBUG << "Creating new connection " << this;
+    }
+
+    ConnectionImpl(
+        const crow::Request& reqIn, const std::string& username,
+        Adaptor adaptorIn,
+        std::function<void(Connection&, std::shared_ptr<bmcweb::AsyncResp>)>
+            openHandler,
+        std::function<void(Connection&, const std::string&, bool)>
+            messageHandler,
+        std::function<void(Connection&, const std::string&)> closeHandler,
+        std::function<void(Connection&)> errorHandler) :
+        Connection(reqIn, username),
         ws(std::move(adaptorIn)), inBuffer(inString, 131088),
         openHandler(std::move(openHandler)),
         messageHandler(std::move(messageHandler)),

@@ -343,12 +343,24 @@ class WebSocketRule : public BaseRule
     void handleUpgrade(const Request& req, Response& /*res*/,
                        boost::asio::ip::tcp::socket&& adaptor) override
     {
+        BMCWEB_LOG_DEBUG << "Websocket handles upgrade";
         std::shared_ptr<
             crow::websocket::ConnectionImpl<boost::asio::ip::tcp::socket>>
+            myConnection;
+        if (req.session != nullptr)
+        {
+            myConnection = std::make_shared<
+                crow::websocket::ConnectionImpl<boost::asio::ip::tcp::socket>>(
+                req, req.session->username, std::move(adaptor), openHandler,
+                messageHandler, closeHandler, errorHandler);
+        }
+        else
+        {
             myConnection = std::make_shared<
                 crow::websocket::ConnectionImpl<boost::asio::ip::tcp::socket>>(
                 req, std::move(adaptor), openHandler, messageHandler,
                 closeHandler, errorHandler);
+        }
         myConnection->start();
     }
 #ifdef BMCWEB_ENABLE_SSL
@@ -356,12 +368,24 @@ class WebSocketRule : public BaseRule
                        boost::beast::ssl_stream<boost::asio::ip::tcp::socket>&&
                            adaptor) override
     {
+        BMCWEB_LOG_DEBUG << "Websocket handles upgrade";
         std::shared_ptr<crow::websocket::ConnectionImpl<
             boost::beast::ssl_stream<boost::asio::ip::tcp::socket>>>
+            myConnection;
+        if (req.session != nullptr)
+        {
+            myConnection = std::make_shared<crow::websocket::ConnectionImpl<
+                boost::beast::ssl_stream<boost::asio::ip::tcp::socket>>>(
+                req, req.session->username, std::move(adaptor), openHandler,
+                messageHandler, closeHandler, errorHandler);
+        }
+        else
+        {
             myConnection = std::make_shared<crow::websocket::ConnectionImpl<
                 boost::beast::ssl_stream<boost::asio::ip::tcp::socket>>>(
                 req, std::move(adaptor), openHandler, messageHandler,
                 closeHandler, errorHandler);
+        }
         myConnection->start();
     }
 #endif
