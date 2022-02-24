@@ -25,8 +25,10 @@ struct Connection : std::enable_shared_from_this<Connection>
         req(reqIn.req), userdataPtr(nullptr)
     {}
 
-    explicit Connection(const crow::Request& reqIn, std::string user) :
-        req(reqIn.req), userName{std::move(user)}, userdataPtr(nullptr)
+    explicit Connection(const crow::Request& reqIn,
+                        std::optional<std::string> user) :
+        req(reqIn.req),
+        userName{user ? std::move(*user) : std::string{}}, userdataPtr(nullptr)
     {}
 
     Connection(const Connection&) = delete;
@@ -76,7 +78,9 @@ class ConnectionImpl : public Connection
             messageHandler,
         std::function<void(Connection&, const std::string&)> closeHandler,
         std::function<void(Connection&)> errorHandler) :
-        Connection(reqIn, reqIn.session->username),
+        Connection(reqIn, reqIn.session == nullptr
+                              ? std::nullopt
+                              : std::make_optional(reqIn.session->username)),
         ws(std::move(adaptorIn)), inBuffer(inString, 131088),
         openHandler(std::move(openHandler)),
         messageHandler(std::move(messageHandler)),

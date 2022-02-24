@@ -343,6 +343,7 @@ class WebSocketRule : public BaseRule
     void handleUpgrade(const Request& req, Response& /*res*/,
                        boost::asio::ip::tcp::socket&& adaptor) override
     {
+        BMCWEB_LOG_DEBUG << "Websocket handles upgrade";
         std::shared_ptr<
             crow::websocket::ConnectionImpl<boost::asio::ip::tcp::socket>>
             myConnection = std::make_shared<
@@ -356,6 +357,7 @@ class WebSocketRule : public BaseRule
                        boost::beast::ssl_stream<boost::asio::ip::tcp::socket>&&
                            adaptor) override
     {
+        BMCWEB_LOG_DEBUG << "Websocket handles upgrade";
         std::shared_ptr<crow::websocket::ConnectionImpl<
             boost::beast::ssl_stream<boost::asio::ip::tcp::socket>>>
             myConnection = std::make_shared<crow::websocket::ConnectionImpl<
