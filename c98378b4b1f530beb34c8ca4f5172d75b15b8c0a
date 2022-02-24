@@ -67,6 +67,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "db41a5b0_f03eff66",
+        "filename": "http/routing.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 355,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-02-24T18:23:22Z",
+      "side": 1,
+      "message": "I forgot... I guess we have that authentication disabled flag now.  Ok, so, I would like to see this cleaned up such that we don\u0027t need a duplicated constructor.  There\u0027s only one parameter difference between the two, and we have a host of options for \"optional\" parameters that we should use (empty string, std::optional) ect.\n\nAs written this duplicates code in a way that\u0027s hard to maintain, on top of a method that already duplicates code (the two handleUpgrade calls should really be templated).  As is, we need some cleanups here, but in concept, I\u0027m ok with this.",
+      "parentUuid": "df9020e1_7bda3fc1",
+      "range": {
+        "startLine": 352,
+        "startChar": 0,
+        "endLine": 355,
+        "endChar": 60
+      },
+      "revId": "c98378b4b1f530beb34c8ca4f5172d75b15b8c0a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a00e78f9_2b8796cd",
         "filename": "http/routing.hpp",
         "patchSetId": 3
@@ -125,6 +149,30 @@
       "side": 1,
       "message": "why is that? It\u0027s a copy of the original constructor except for user. We don\u0027t need to set timeout?",
       "parentUuid": "02ce756f_717d0ae9",
+      "range": {
+        "startLine": 86,
+        "startChar": 0,
+        "endLine": 87,
+        "endChar": 46
+      },
+      "revId": "c98378b4b1f530beb34c8ca4f5172d75b15b8c0a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b3bc69aa_0098177a",
+        "filename": "http/websocket.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-02-24T18:23:22Z",
+      "side": 1,
+      "message": "I see now.  yeah, I read this wrong.",
+      "parentUuid": "41a62105_be93e515",
       "range": {
         "startLine": 86,
         "startChar": 0,
