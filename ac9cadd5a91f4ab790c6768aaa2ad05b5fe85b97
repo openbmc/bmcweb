@@ -46,6 +46,30 @@
       },
       "revId": "ac9cadd5a91f4ab790c6768aaa2ad05b5fe85b97",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "50a70bf6_962074d2",
+        "filename": "redfish-core/include/utils/json_utils.hpp",
+        "patchSetId": 27
+      },
+      "lineNbr": 348,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2022-02-24T19:27:56Z",
+      "side": 1,
+      "message": "talked offline and that the only difference between readAction and readPatch is that Action can be empty and that\u0027s it.\n\nEverything else is the same.\n\nin that case, we just need\n\n```\n    if (jsonRequest.empty())\n    {\n        BMCWEB_LOG_DEBUG \u003c\u003c \"Json value is empty\";\n        messages::emptyJSON(res);\n        return false;\n    }\n```\nto be different for Action.",
+      "parentUuid": "2e76020e_3c728909",
+      "range": {
+        "startLine": 344,
+        "startChar": 0,
+        "endLine": 348,
+        "endChar": 0
+      },
+      "revId": "ac9cadd5a91f4ab790c6768aaa2ad05b5fe85b97",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
