@@ -22,6 +22,30 @@
       },
       "revId": "ac9cadd5a91f4ab790c6768aaa2ad05b5fe85b97",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2e76020e_3c728909",
+        "filename": "redfish-core/include/utils/json_utils.hpp",
+        "patchSetId": 27
+      },
+      "lineNbr": 348,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2022-02-24T19:14:29Z",
+      "side": 1,
+      "message": "For this, I think I wanted to read to allow it so that it does not need all elements in the json.\n\n```\nnlohmann::json jsonRequest \u003d {{\"integer\", 1}, {\"string\", \"hello\"}};\n    EXPECT_TRUE(readJsonAction(jsonRequest, res, \"integer\", integer));\n    EXPECT_EQ(res.result(), boost::beast::http::status::ok);\n    EXPECT_TRUE(res.jsonValue.empty());\n    EXPECT_EQ(integer, 1);\n```\n\nwill pas even tho it didn\u0027t read everything.",
+      "parentUuid": "198ed5b8_203df62e",
+      "range": {
+        "startLine": 344,
+        "startChar": 0,
+        "endLine": 348,
+        "endChar": 0
+      },
+      "revId": "ac9cadd5a91f4ab790c6768aaa2ad05b5fe85b97",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
