@@ -83,6 +83,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "05a8cdd1_be962168",
+        "filename": "redfish-core/ut/json_utils_test.cpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2022-02-24T22:07:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "28333e5b_8e971aa3",
+      "revId": "7d14a2446899b83fbfde3f2bed6253d4a8d901e0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "211faa7a_cf915969",
@@ -331,6 +349,30 @@
       "writtenOn": "2022-01-12T19:30:58Z",
       "side": 1,
       "message": "For arrays, that seems hard because we don\u0027t have any fixed-size arrays in redfish. \n With that said  I\u0027d really like to see us be able to access sub-object elements directly with something like\n\nreadJson(...., \"Foo/Bar\", foobar)\n\nWhich would save a lot of repeated readJson calls for objects like\n\n\n{\"Foo\": {\"Bar\": \"value\"}}",
+      "range": {
+        "startLine": 56,
+        "startChar": 4,
+        "endLine": 56,
+        "endChar": 64
+      },
+      "revId": "7d14a2446899b83fbfde3f2bed6253d4a8d901e0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f6c19c36_fc51d3df",
+        "filename": "redfish-core/ut/json_utils_test.cpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2022-02-24T22:07:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f23ed18a_358c9fe0",
       "range": {
         "startLine": 56,
         "startChar": 4,
