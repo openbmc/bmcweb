@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d1bc07bd_73c8e04e",
+        "filename": "redfish-core/ut/json_utils_test.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 253,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-02-24T22:33:17Z",
+      "side": 1,
+      "message": "Do we have any cases in code that actually require pulling out by a single array index?  I\u0027d rather avoid the code until we have a valid use case.",
+      "range": {
+        "startLine": 253,
+        "startChar": 52,
+        "endLine": 253,
+        "endChar": 54
+      },
+      "revId": "a15331ef5eb4414945f342ba5949fe53d5664fba",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
