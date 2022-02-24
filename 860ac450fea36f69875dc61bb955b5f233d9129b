@@ -22,6 +22,30 @@
       },
       "revId": "860ac450fea36f69875dc61bb955b5f233d9129b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "60c076ff_06cf950a",
+        "filename": "scripts/websocket_test.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-02-24T23:27:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e5050a59_88564613",
+      "range": {
+        "startLine": 37,
+        "startChar": 19,
+        "endLine": 37,
+        "endChar": 76
+      },
+      "revId": "860ac450fea36f69875dc61bb955b5f233d9129b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
