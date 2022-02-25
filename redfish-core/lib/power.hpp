@@ -21,6 +21,7 @@
 #include <app.hpp>
 #include <dbus_utility.hpp>
 #include <registries/privilege_registry.hpp>
+#include <utils/dbus_utils.hpp>
 
 namespace redfish
 {
@@ -187,116 +188,104 @@ inline void requestRoutesPower(App& app)
                     return;
                 }
 
-                auto valueHandler =
-                    [sensorAsyncResp](
-                        const boost::system::error_code ec,
-                        const std::vector<std::pair<
-                            std::string, dbus::utility::DbusVariantType>>&
-                            properties) {
-                        if (ec)
+                auto valueHandler = [sensorAsyncResp](
+                                        const boost::system::error_code ec,
+                                        const std::vector<std::pair<
+                                            std::string,
+                                            dbus::utility::DbusVariantType>>&
+                                            properties) {
+                    if (ec)
+                    {
+                        messages::internalError(
+                            sensorAsyncResp->asyncResp->res);
+                        BMCWEB_LOG_ERROR
+                            << "Power Limit getAllProperties handler: Dbus error "
+                            << ec;
+                        return;
+                    }
+
+                    std::optional<int64_t> scale;
+                    const bool* powerCapEnable = nullptr;
+
+                    const bool success = sdbusplus::unpackPropertiesNoThrow(
+                        dbus_utils::UnpackErrorPrinter(), properties, "Scale",
+                        scale, "PowerCapEnable", powerCapEnable);
+
+                    if (!success)
+                    {
+                        messages::internalError(
+                            sensorAsyncResp->asyncResp->res);
+                        return;
+                    }
+
+                    nlohmann::json& tempArray = sensorAsyncResp->asyncResp->res
+                                                    .jsonValue["PowerControl"];
+
+                    // Put multiple "sensors" into a single PowerControl, 0,
+                    // so only create the first one
+                    if (tempArray.empty())
+                    {
+                        // Mandatory properties odata.id and MemberId
+                        // A warning without a odata.type
+                        tempArray.push_back(
+                            {{"@odata.type", "#Power.v1_0_0.PowerControl"},
+                             {"@odata.id", "/redfish/v1/Chassis/" +
+                                               sensorAsyncResp->chassisId +
+                                               "/Power#/PowerControl/0"},
+                             {"Name", "Chassis Power Control"},
+                             {"MemberId", "0"}});
+                    }
+
+                    nlohmann::json& sensorJson = tempArray.back();
+                    double powerCap = 0.0;
+
+                    for (const std::pair<std::string,
+                                         dbus::utility::DbusVariantType>&
+                             property : properties)
+                    {
+                        if (property.first == "PowerCap")
                         {
-                            messages::internalError(
-                                sensorAsyncResp->asyncResp->res);
-                            BMCWEB_LOG_ERROR
-                                << "Power Limit GetAll handler: Dbus error "
-                                << ec;
-                            return;
-                        }
-
-                        nlohmann::json& tempArray =
-                            sensorAsyncResp->asyncResp->res
-                                .jsonValue["PowerControl"];
-
-                        // Put multiple "sensors" into a single PowerControl, 0,
-                        // so only create the first one
-                        if (tempArray.empty())
-                        {
-                            // Mandatory properties odata.id and MemberId
-                            // A warning without a odata.type
-                            tempArray.push_back(
-                                {{"@odata.type", "#Power.v1_0_0.PowerControl"},
-                                 {"@odata.id", "/redfish/v1/Chassis/" +
-                                                   sensorAsyncResp->chassisId +
-                                                   "/Power#/PowerControl/0"},
-                                 {"Name", "Chassis Power Control"},
-                                 {"MemberId", "0"}});
-                        }
-
-                        nlohmann::json& sensorJson = tempArray.back();
-                        bool enabled = false;
-                        double powerCap = 0.0;
-                        int64_t scale = 0;
-
-                        for (const std::pair<std::string,
-                                             dbus::utility::DbusVariantType>&
-                                 property : properties)
-                        {
-                            if (property.first.compare("Scale") == 0)
+                            if (const double* d =
+                                    std::get_if<double>(&property.second))
                             {
-                                const int64_t* i =
-                                    std::get_if<int64_t>(&property.second);
-
-                                if (i != nullptr)
-                                {
-                                    scale = *i;
-                                }
+                                powerCap = *d;
                             }
-                            else if (property.first.compare("PowerCap") == 0)
+                            else if (const int64_t* i =
+                                         std::get_if<int64_t>(&property.second))
                             {
-                                const double* d =
-                                    std::get_if<double>(&property.second);
-                                const int64_t* i =
-                                    std::get_if<int64_t>(&property.second);
-                                const uint32_t* u =
-                                    std::get_if<uint32_t>(&property.second);
-
-                                if (d != nullptr)
-                                {
-                                    powerCap = *d;
-                                }
-                                else if (i != nullptr)
-                                {
-                                    powerCap = static_cast<double>(*i);
-                                }
-                                else if (u != nullptr)
-                                {
-                                    powerCap = *u;
-                                }
+                                powerCap = static_cast<double>(*i);
                             }
-                            else if (property.first.compare("PowerCapEnable") ==
-                                     0)
+                            else if (const uint32_t* u = std::get_if<uint32_t>(
+                                         &property.second))
                             {
-                                const bool* b =
-                                    std::get_if<bool>(&property.second);
-
-                                if (b != nullptr)
-                                {
-                                    enabled = *b;
-                                }
+                                powerCap = *u;
                             }
+                            break;
                         }
+                    }
 
-                        nlohmann::json& value =
-                            sensorJson["PowerLimit"]["LimitInWatts"];
+                    nlohmann::json& value =
+                        sensorJson["PowerLimit"]["LimitInWatts"];
 
-                        // LimitException is Mandatory attribute as per OCP
-                        // Baseline Profile – v1.0.0, so currently making it
-                        // "NoAction" as default value to make it OCP Compliant.
-                        sensorJson["PowerLimit"]["LimitException"] = "NoAction";
+                    // LimitException is Mandatory attribute as per OCP
+                    // Baseline Profile – v1.0.0, so currently making it
+                    // "NoAction" as default value to make it OCP Compliant.
+                    sensorJson["PowerLimit"]["LimitException"] = "NoAction";
 
-                        if (enabled)
-                        {
-                            // Redfish specification indicates PowerLimit should
-                            // be null if the limit is not enabled.
-                            value = powerCap * std::pow(10, scale);
-                        }
-                    };
+                    if (powerCapEnable && *powerCapEnable)
+                    {
+                        // Redfish specification indicates PowerLimit should
+                        // be null if the limit is not enabled.
+                        value = powerCap * std::pow(10, scale.value_or(0));
+                    }
+                };
 
-                crow::connections::systemBus->async_method_call(
-                    std::move(valueHandler), "xyz.openbmc_project.Settings",
+                sdbusplus::asio::getAllProperties(
+                    *crow::connections::systemBus,
+                    "xyz.openbmc_project.Settings",
                     "/xyz/openbmc_project/control/host0/power_cap",
-                    "org.freedesktop.DBus.Properties", "GetAll",
-                    "xyz.openbmc_project.Control.Power.Cap");
+                    "xyz.openbmc_project.Control.Power.Cap",
+                    std::move(valueHandler));
             };
 
             crow::connections::systemBus->async_method_call(

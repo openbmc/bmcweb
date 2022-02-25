@@ -1164,7 +1164,9 @@ inline void populateFanRedundancy(
                         {
                             return;
                         }
-                        crow::connections::systemBus->async_method_call(
+                        sdbusplus::asio::getAllProperties(
+                            *crow::connections::systemBus, owner, path,
+                            "xyz.openbmc_project.Control.FanRedundancy",
                             [path, sensorsAsyncResp](
                                 const boost::system::error_code& err,
                                 const boost::container::flat_map<
@@ -1175,41 +1177,24 @@ inline void populateFanRedundancy(
                                     return; // don't have to have this
                                             // interface
                                 }
-                                auto findFailures = ret.find("AllowedFailures");
-                                auto findCollection = ret.find("Collection");
-                                auto findStatus = ret.find("Status");
 
-                                if (findFailures == ret.end() ||
-                                    findCollection == ret.end() ||
-                                    findStatus == ret.end())
+                                uint8_t allowedFailures = {};
+                                std::vector<std::string> collection;
+                                std::string status;
+
+                                const bool success =
+                                    sdbusplus::unpackPropertiesNoThrow(
+                                        dbus_utils::UnpackErrorHandler(
+                                            sensorsAsyncResp->asyncResp->res),
+                                        ret, "AllowedFailures", allowedFailures,
+                                        "Collection", collection, "Status",
+                                        status);
+
+                                if (!success)
                                 {
-                                    BMCWEB_LOG_ERROR
-                                        << "Invalid redundancy interface";
-                                    messages::internalError(
-                                        sensorsAsyncResp->asyncResp->res);
                                     return;
                                 }
 
-                                const uint8_t* allowedFailures =
-                                    std::get_if<uint8_t>(
-                                        &(findFailures->second));
-                                const std::vector<std::string>* collection =
-                                    std::get_if<std::vector<std::string>>(
-                                        &(findCollection->second));
-                                const std::string* status =
-                                    std::get_if<std::string>(
-                                        &(findStatus->second));
-
-                                if (allowedFailures == nullptr ||
-                                    collection == nullptr || status == nullptr)
-                                {
-
-                                    BMCWEB_LOG_ERROR
-                                        << "Invalid redundancy interface types";
-                                    messages::internalError(
-                                        sensorsAsyncResp->asyncResp->res);
-                                    return;
-                                }
                                 sdbusplus::message::object_path objectPath(
                                     path);
                                 std::string name = objectPath.filename();
@@ -1225,11 +1210,11 @@ inline void populateFanRedundancy(
 
                                 std::string health;
 
-                                if (boost::ends_with(*status, "Full"))
+                                if (boost::ends_with(status, "Full"))
                                 {
                                     health = "OK";
                                 }
-                                else if (boost::ends_with(*status, "Degraded"))
+                                else if (boost::ends_with(status, "Degraded"))
                                 {
                                     health = "Warning";
                                 }
@@ -1241,7 +1226,7 @@ inline void populateFanRedundancy(
                                 const auto& fanRedfish =
                                     sensorsAsyncResp->asyncResp->res
                                         .jsonValue["Fans"];
-                                for (const std::string& item : *collection)
+                                for (const std::string& item : collection)
                                 {
                                     sdbusplus::message::object_path path(item);
                                     std::string itemName = path.filename();
@@ -1275,9 +1260,9 @@ inline void populateFanRedundancy(
                                 }
 
                                 size_t minNumNeeded =
-                                    collection->empty()
+                                    collection.empty()
                                         ? 0
-                                        : collection->size() - *allowedFailures;
+                                        : collection.size() - allowedFailures;
                                 nlohmann::json& jResp =
                                     sensorsAsyncResp->asyncResp->res
                                         .jsonValue["Redundancy"];
@@ -1298,10 +1283,7 @@ inline void populateFanRedundancy(
                                      {"Status",
                                       {{"Health", health},
                                        {"State", "Enabled"}}}});
-                            },
-                            owner, path, "org.freedesktop.DBus.Properties",
-                            "GetAll",
-                            "xyz.openbmc_project.Control.FanRedundancy");
+                            });
                     });
             }
         },
