@@ -5,6 +5,7 @@
 #include <boost/convert/strtol.hpp>
 #include <dbus_utility.hpp>
 #include <registries/privilege_registry.hpp>
+#include <utils/dbus_utils.hpp>
 
 namespace redfish
 {
@@ -16,7 +17,6 @@ constexpr char const* certInstallIntf = "xyz.openbmc_project.Certs.Install";
 constexpr char const* certReplaceIntf = "xyz.openbmc_project.Certs.Replace";
 constexpr char const* objDeleteIntf = "xyz.openbmc_project.Object.Delete";
 constexpr char const* certPropIntf = "xyz.openbmc_project.Certs.Certificate";
-constexpr char const* dbusPropIntf = "org.freedesktop.DBus.Properties";
 constexpr char const* dbusObjManagerIntf = "org.freedesktop.DBus.ObjectManager";
 constexpr char const* ldapObjectPath = "/xyz/openbmc_project/certs/client/ldap";
 constexpr char const* httpsServiceName =
@@ -573,7 +573,9 @@ static void getCertificateProperties(
         boost::container::flat_map<std::string, dbus::utility::DbusVariantType>;
     BMCWEB_LOG_DEBUG << "getCertificateProperties Path=" << objectPath
                      << " certId=" << certId << " certURl=" << certURL;
-    crow::connections::systemBus->async_method_call(
+
+    sdbusplus::asio::getAllProperties(
+        *crow::connections::systemBus, service, objectPath, certs::certPropIntf,
         [asyncResp, certURL, certId, name](const boost::system::error_code ec,
                                            const PropertiesMap& properties) {
             if (ec)
@@ -583,84 +585,75 @@ static void getCertificateProperties(
                                            std::to_string(certId));
                 return;
             }
+
+            const std::string* certificateString = nullptr;
+            const std::vector<std::string>* keyUsage = nullptr;
+            const std::string* issuer = nullptr;
+            const std::string* subject = nullptr;
+            const uint64_t* validNotAfter = nullptr;
+            const uint64_t* validNotBefore = nullptr;
+
+            const bool success = sdbusplus::unpackPropertiesNoThrow(
+                dbus_utils::UnpackErrorPrinter(), properties,
+                "CertificateString", certificateString, "KeyUsage", keyUsage,
+                "Issuer", issuer, "Subject", subject, "ValidNotAfter",
+                validNotAfter, "ValidNotBefore", validNotBefore);
+
+            if (!success)
+            {
+                messages::internalError(asyncResp->res);
+                return;
+            }
+
+            if (certificateString)
+            {
+                asyncResp->res.jsonValue["CertificateString"] =
+                    *certificateString;
+            }
+
+            if (keyUsage)
+            {
+                nlohmann::json& jsonKeyUsage =
+                    asyncResp->res.jsonValue["KeyUsage"];
+                jsonKeyUsage = nlohmann::json::array();
+                for (const std::string& usage : *keyUsage)
+                {
+                    jsonKeyUsage.push_back(usage);
+                }
+            }
+
+            if (issuer)
+            {
+                updateCertIssuerOrSubject(asyncResp->res.jsonValue["Issuer"],
+                                          *issuer);
+            }
+
+            if (subject)
+            {
+                updateCertIssuerOrSubject(asyncResp->res.jsonValue["Subject"],
+                                          *subject);
+            }
+
+            if (validNotAfter)
+            {
+                asyncResp->res.jsonValue["ValidNotAfter"] =
+                    crow::utility::getDateTimeUint(*validNotAfter);
+            }
+
+            if (validNotBefore)
+            {
+                asyncResp->res.jsonValue["ValidNotBefore"] =
+                    crow::utility::getDateTimeUint(*validNotBefore);
+            }
+
             asyncResp->res.jsonValue = {
                 {"@odata.id", certURL},
                 {"@odata.type", "#Certificate.v1_0_0.Certificate"},
                 {"Id", std::to_string(certId)},
                 {"Name", name},
                 {"Description", name}};
-            for (const auto& property : properties)
-            {
-                if (property.first == "CertificateString")
-                {
-                    asyncResp->res.jsonValue["CertificateString"] = "";
-                    const std::string* value =
-                        std::get_if<std::string>(&property.second);
-                    if (value != nullptr)
-                    {
-                        asyncResp->res.jsonValue["CertificateString"] = *value;
-                    }
-                }
-                else if (property.first == "KeyUsage")
-                {
-                    nlohmann::json& keyUsage =
-                        asyncResp->res.jsonValue["KeyUsage"];
-                    keyUsage = nlohmann::json::array();
-                    const std::vector<std::string>* value =
-                        std::get_if<std::vector<std::string>>(&property.second);
-                    if (value != nullptr)
-                    {
-                        for (const std::string& usage : *value)
-                        {
-                            keyUsage.push_back(usage);
-                        }
-                    }
-                }
-                else if (property.first == "Issuer")
-                {
-                    const std::string* value =
-                        std::get_if<std::string>(&property.second);
-                    if (value != nullptr)
-                    {
-                        updateCertIssuerOrSubject(
-                            asyncResp->res.jsonValue["Issuer"], *value);
-                    }
-                }
-                else if (property.first == "Subject")
-                {
-                    const std::string* value =
-                        std::get_if<std::string>(&property.second);
-                    if (value != nullptr)
-                    {
-                        updateCertIssuerOrSubject(
-                            asyncResp->res.jsonValue["Subject"], *value);
-                    }
-                }
-                else if (property.first == "ValidNotAfter")
-                {
-                    const uint64_t* value =
-                        std::get_if<uint64_t>(&property.second);
-                    if (value != nullptr)
-                    {
-                        asyncResp->res.jsonValue["ValidNotAfter"] =
-                            crow::utility::getDateTimeUint(*value);
-                    }
-                }
-                else if (property.first == "ValidNotBefore")
-                {
-                    const uint64_t* value =
-                        std::get_if<uint64_t>(&property.second);
-                    if (value != nullptr)
-                    {
-                        asyncResp->res.jsonValue["ValidNotBefore"] =
-                            crow::utility::getDateTimeUint(*value);
-                    }
-                }
-            }
             asyncResp->res.addHeader("Location", certURL);
-        },
-        service, objectPath, certs::dbusPropIntf, "GetAll",
-        certs::certPropIntf);
+        });
 }
 
 using GetObjectType =
