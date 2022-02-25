@@ -552,71 +552,6 @@ inline void getLDAPConfigData(const std::string& ldapType,
 }
 
 /**
- * @brief parses the authentication section under the LDAP
- * @param input JSON data
- * @param asyncResp pointer to the JSON response
- * @param userName  userName to be filled from the given JSON.
- * @param password  password to be filled from the given JSON.
- */
-inline void parseLDAPAuthenticationJson(
-    nlohmann::json input, const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-    std::optional<std::string>& username, std::optional<std::string>& password)
-{
-    std::optional<std::string> authType;
-
-    if (!json_util::readJson(input, asyncResp->res, "AuthenticationType",
-                             authType, "Username", username, "Password",
-                             password))
-    {
-        return;
-    }
-    if (!authType)
-    {
-        return;
-    }
-    if (*authType != "UsernameAndPassword")
-    {
-        messages::propertyValueNotInList(asyncResp->res, *authType,
-                                         "AuthenticationType");
-        return;
-    }
-}
-/**
- * @brief parses the LDAPService section under the LDAP
- * @param input JSON data
- * @param asyncResp pointer to the JSON response
- * @param baseDNList baseDN to be filled from the given JSON.
- * @param userNameAttribute  userName to be filled from the given JSON.
- * @param groupaAttribute  password to be filled from the given JSON.
- */
-
-inline void
-    parseLDAPServiceJson(nlohmann::json input,
-                         const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                         std::optional<std::vector<std::string>>& baseDNList,
-                         std::optional<std::string>& userNameAttribute,
-                         std::optional<std::string>& groupsAttribute)
-{
-    std::optional<nlohmann::json> searchSettings;
-
-    if (!json_util::readJson(input, asyncResp->res, "SearchSettings",
-                             searchSettings))
-    {
-        return;
-    }
-    if (!searchSettings)
-    {
-        return;
-    }
-    if (!json_util::readJson(*searchSettings, asyncResp->res,
-                             "BaseDistinguishedNames", baseDNList,
-                             "UsernameAttribute", userNameAttribute,
-                             "GroupsAttribute", groupsAttribute))
-    {
-        return;
-    }
-}
-/**
  * @brief updates the LDAP server address and updates the
           json response with the new value.
  * @param serviceAddressList address to be updated.
@@ -870,29 +805,24 @@ inline void handleServiceEnablePatch(
         dbus::utility::DbusVariantType(serviceEnabled));
 }
 
-inline void
-    handleAuthMethodsPatch(nlohmann::json& input,
-                           const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
+struct AuthMethodsPatch
 {
     std::optional<bool> basicAuth;
     std::optional<bool> cookie;
     std::optional<bool> sessionToken;
     std::optional<bool> xToken;
     std::optional<bool> tls;
+};
 
-    if (!json_util::readJson(input, asyncResp->res, "BasicAuth", basicAuth,
-                             "Cookie", cookie, "SessionToken", sessionToken,
-                             "XToken", xToken, "TLS", tls))
-    {
-        BMCWEB_LOG_ERROR << "Cannot read values from AuthMethod tag";
-        return;
-    }
-
+inline void
+    handleAuthMethodsPatch(const AuthMethodsPatch& authMethodsPatch,
+                           const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
+{
     // Make a copy of methods configuration
     persistent_data::AuthConfigMethods authMethodsConfig =
         persistent_data::SessionStore::getInstance().getAuthMethodsConfig();
 
-    if (basicAuth)
+    if (authMethodsPatch.basicAuth)
     {
 #ifndef BMCWEB_ENABLE_BASIC_AUTHENTICATION
         messages::actionNotSupported(
@@ -900,10 +830,10 @@ inline void
             "Setting BasicAuth when basic-auth feature is disabled");
         return;
 #endif
-        authMethodsConfig.basic = *basicAuth;
+        authMethodsConfig.basic = *authMethodsPatch.basicAuth;
     }
 
-    if (cookie)
+    if (*authMethodsPatch.cookie)
     {
 #ifndef BMCWEB_ENABLE_COOKIE_AUTHENTICATION
         messages::actionNotSupported(
@@ -911,10 +841,10 @@ inline void
             "Setting Cookie when cookie-auth feature is disabled");
         return;
 #endif
-        authMethodsConfig.cookie = *cookie;
+        authMethodsConfig.cookie = *authMethodsPatch.cookie;
     }
 
-    if (sessionToken)
+    if (authMethodsPatch.sessionToken)
     {
 #ifndef BMCWEB_ENABLE_SESSION_AUTHENTICATION
         messages::actionNotSupported(
@@ -922,10 +852,10 @@ inline void
             "Setting SessionToken when session-auth feature is disabled");
         return;
 #endif
-        authMethodsConfig.sessionToken = *sessionToken;
+        authMethodsConfig.sessionToken = *authMethodsPatch.sessionToken;
     }
 
-    if (xToken)
+    if (authMethodsPatch.xToken)
     {
 #ifndef BMCWEB_ENABLE_XTOKEN_AUTHENTICATION
         messages::actionNotSupported(
@@ -933,10 +863,10 @@ inline void
             "Setting XToken when xtoken-auth feature is disabled");
         return;
 #endif
-        authMethodsConfig.xtoken = *xToken;
+        authMethodsConfig.xtoken = *authMethodsPatch.xToken;
     }
 
-    if (tls)
+    if (authMethodsPatch.tls)
     {
 #ifndef BMCWEB_ENABLE_MUTUAL_TLS_AUTHENTICATION
         messages::actionNotSupported(
@@ -944,7 +874,7 @@ inline void
             "Setting TLS when mutual-tls-auth feature is disabled");
         return;
 #endif
-        authMethodsConfig.tls = *tls;
+        authMethodsConfig.tls = *authMethodsPatch.tls;
     }
 
     if (!authMethodsConfig.basic && !authMethodsConfig.cookie &&
@@ -965,24 +895,35 @@ inline void
     messages::success(asyncResp->res);
 }
 
+struct LdapOrAdPatch
+{
+    std::string serverType;
+    std::optional<nlohmann::json> service = std::nullopt;
+    std::optional<std::vector<std::string>> serviceAddressList = std::nullopt;
+    std::optional<bool> serviceEnabled = std::nullopt;
+    std::optional<std::vector<std::string>> baseDNList = std::nullopt;
+    std::optional<std::string> userNameAttribute = std::nullopt;
+    std::optional<std::string> groupsAttribute = std::nullopt;
+    std::optional<std::string> userName = std::nullopt;
+    std::optional<std::string> password = std::nullopt;
+    std::optional<std::vector<nlohmann::json>> remoteRoleMap = std::nullopt;
+};
+
 /**
  * @brief Get the required values from the given JSON, validates the
  *        value and create the LDAP config object.
- * @param input JSON data
+ * @param patch Patch request from user
  * @param asyncResp pointer to the JSON response
- * @param serverType Type of LDAP server(openLDAP/ActiveDirectory)
  */
-
-inline void handleLDAPPatch(nlohmann::json& input,
-                            const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                            const std::string& serverType)
+inline void handleLDAPPatch(const LdapOrAdPatch& patch,
+                            const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
     std::string dbusObjectPath;
-    if (serverType == "ActiveDirectory")
+    if (patch.serverType == "ActiveDirectory")
     {
         dbusObjectPath = adConfigObject;
     }
-    else if (serverType == "LDAP")
+    else if (patch.serverType == "LDAP")
     {
         dbusObjectPath = ldapConfigObjectName;
     }
@@ -991,48 +932,18 @@ inline void handleLDAPPatch(nlohmann::json& input,
         return;
     }
 
-    std::optional<nlohmann::json> authentication;
-    std::optional<nlohmann::json> ldapService;
-    std::optional<std::vector<std::string>> serviceAddressList;
-    std::optional<bool> serviceEnabled;
-    std::optional<std::vector<std::string>> baseDNList;
-    std::optional<std::string> userNameAttribute;
-    std::optional<std::string> groupsAttribute;
-    std::optional<std::string> userName;
-    std::optional<std::string> password;
-    std::optional<std::vector<nlohmann::json>> remoteRoleMapData;
-
-    if (!json_util::readJson(input, asyncResp->res, "Authentication",
-                             authentication, "LDAPService", ldapService,
-                             "ServiceAddresses", serviceAddressList,
-                             "ServiceEnabled", serviceEnabled,
-                             "RemoteRoleMapping", remoteRoleMapData))
+    if (patch.serviceAddressList)
     {
-        return;
-    }
-
-    if (authentication)
-    {
-        parseLDAPAuthenticationJson(*authentication, asyncResp, userName,
-                                    password);
-    }
-    if (ldapService)
-    {
-        parseLDAPServiceJson(*ldapService, asyncResp, baseDNList,
-                             userNameAttribute, groupsAttribute);
-    }
-    if (serviceAddressList)
-    {
-        if (serviceAddressList->empty())
+        if (patch.serviceAddressList->empty())
         {
             messages::propertyValueNotInList(asyncResp->res, "[]",
                                              "ServiceAddress");
             return;
         }
     }
-    if (baseDNList)
+    if (patch.baseDNList)
     {
-        if (baseDNList->empty())
+        if (patch.baseDNList->empty())
         {
             messages::propertyValueNotInList(asyncResp->res, "[]",
                                              "BaseDistinguishedNames");
@@ -1041,22 +952,19 @@ inline void handleLDAPPatch(nlohmann::json& input,
     }
 
     // nothing to update, then return
-    if (!userName && !password && !serviceAddressList && !baseDNList &&
-        !userNameAttribute && !groupsAttribute && !serviceEnabled &&
-        !remoteRoleMapData)
+    if (!patch.userName && !patch.password && !patch.serviceAddressList &&
+        !patch.baseDNList && !patch.userNameAttribute &&
+        !patch.groupsAttribute && !patch.serviceEnabled && !patch.remoteRoleMap)
     {
         return;
     }
 
     // Get the existing resource first then keep modifying
     // whenever any property gets updated.
-    getLDAPConfigData(serverType, [asyncResp, userName, password, baseDNList,
-                                   userNameAttribute, groupsAttribute,
-                                   serviceAddressList, serviceEnabled,
-                                   dbusObjectPath, remoteRoleMapData](
-                                      bool success,
-                                      const LDAPConfigData& confData,
-                                      const std::string& serverT) {
+    getLDAPConfigData(patch.serverType, [asyncResp, dbusObjectPath,
+                                         patch](bool success,
+                                                const LDAPConfigData& confData,
+                                                const std::string& serverT) {
         if (!success)
         {
             messages::internalError(asyncResp->res);
@@ -1070,43 +978,46 @@ inline void handleLDAPPatch(nlohmann::json& input,
             handleServiceEnablePatch(false, asyncResp, serverT, dbusObjectPath);
         }
 
-        if (serviceAddressList)
+        if (patch.serviceAddressList)
         {
-            handleServiceAddressPatch(*serviceAddressList, asyncResp, serverT,
-                                      dbusObjectPath);
+            handleServiceAddressPatch(*patch.serviceAddressList, asyncResp,
+                                      serverT, dbusObjectPath);
         }
-        if (userName)
+        if (patch.userName)
         {
-            handleUserNamePatch(*userName, asyncResp, serverT, dbusObjectPath);
+            handleUserNamePatch(*patch.userName, asyncResp, serverT,
+                                dbusObjectPath);
         }
-        if (password)
+        if (patch.password)
         {
-            handlePasswordPatch(*password, asyncResp, serverT, dbusObjectPath);
+            handlePasswordPatch(*patch.password, asyncResp, serverT,
+                                dbusObjectPath);
         }
 
-        if (baseDNList)
+        if (patch.baseDNList)
         {
-            handleBaseDNPatch(*baseDNList, asyncResp, serverT, dbusObjectPath);
+            handleBaseDNPatch(*patch.baseDNList, asyncResp, serverT,
+                              dbusObjectPath);
         }
-        if (userNameAttribute)
+        if (patch.userNameAttribute)
         {
-            handleUserNameAttrPatch(*userNameAttribute, asyncResp, serverT,
-                                    dbusObjectPath);
+            handleUserNameAttrPatch(*patch.userNameAttribute, asyncResp,
+                                    serverT, dbusObjectPath);
         }
-        if (groupsAttribute)
+        if (patch.groupsAttribute)
         {
-            handleGroupNameAttrPatch(*groupsAttribute, asyncResp, serverT,
+            handleGroupNameAttrPatch(*patch.groupsAttribute, asyncResp, serverT,
                                      dbusObjectPath);
         }
-        if (serviceEnabled)
+        if (patch.serviceEnabled)
         {
             // if user has given the value as true then enable
             // the service. if user has given false then no-op
             // as service is already stopped.
-            if (*serviceEnabled)
+            if (*patch.serviceEnabled)
             {
-                handleServiceEnablePatch(*serviceEnabled, asyncResp, serverT,
-                                         dbusObjectPath);
+                handleServiceEnablePatch(*patch.serviceEnabled, asyncResp,
+                                         serverT, dbusObjectPath);
             }
         }
         else
@@ -1118,10 +1029,10 @@ inline void handleLDAPPatch(nlohmann::json& input,
                                      serverT, dbusObjectPath);
         }
 
-        if (remoteRoleMapData)
+        if (patch.remoteRoleMap)
         {
             handleRoleMapPatch(asyncResp, confData.groupRoleList, serverT,
-                               *remoteRoleMapData);
+                               *patch.remoteRoleMap);
         }
     });
 }
@@ -1385,21 +1296,46 @@ inline void requestAccountServiceRoutes(App& app)
                 std::optional<uint16_t> lockoutThreshold;
                 std::optional<uint8_t> minPasswordLength;
                 std::optional<uint16_t> maxPasswordLength;
-                std::optional<nlohmann::json> ldapObject;
-                std::optional<nlohmann::json> activeDirectoryObject;
-                std::optional<nlohmann::json> oemObject;
+                LdapOrAdPatch ldapPatch{.serverType = "LDAP"};
+                LdapOrAdPatch activeDirectoryPatch{.serverType =
+                                                       "ActiveDirectory"};
+                AuthMethodsPatch methods;
 
+                // clang-format off
                 if (!json_util::readJsonPatch(
-                        req, asyncResp->res, "AccountLockoutDuration",
-                        unlockTimeout, "AccountLockoutThreshold",
-                        lockoutThreshold, "MaxPasswordLength",
-                        maxPasswordLength, "MinPasswordLength",
-                        minPasswordLength, "LDAP", ldapObject,
-                        "ActiveDirectory", activeDirectoryObject, "Oem",
-                        oemObject))
+                        req, asyncResp->res,
+                        "AccountLockoutDuration", unlockTimeout,
+                        "AccountLockoutThreshold", lockoutThreshold,
+                        "ActiveDirectory/Authentication/Password", activeDirectoryPatch.password,
+                        "ActiveDirectory/Authentication/Username", activeDirectoryPatch.userName,
+                        "ActiveDirectory/LDAPService", activeDirectoryPatch.service,
+                        "ActiveDirectory/RemoteRoleMapping", activeDirectoryPatch.remoteRoleMap,
+                        "ActiveDirectory/SearchSettings/BaseDistinguishedNames", activeDirectoryPatch.baseDNList,
+                        "ActiveDirectory/SearchSettings/GroupsAttribute", activeDirectoryPatch.groupsAttribute,
+                        "ActiveDirectory/SearchSettings/UsernameAttribute", activeDirectoryPatch.userNameAttribute,
+                        "ActiveDirectory/ServiceAddresses", activeDirectoryPatch.serviceAddressList,
+                        "ActiveDirectory/ServiceEnabled", activeDirectoryPatch.serviceEnabled,
+                        "LDAP/Authentication/Password", ldapPatch.password,
+                        "LDAP/Authentication/Username", ldapPatch.userName,
+                        "LDAP/LDAPService", ldapPatch.service,
+                        "LDAP/RemoteRoleMapping",ldapPatch.remoteRoleMap,
+                        "LDAP/SearchSettings/BaseDistinguishedNames", ldapPatch.baseDNList,
+                        "LDAP/SearchSettings/GroupsAttribute", ldapPatch.groupsAttribute,
+                        "LDAP/SearchSettings/UsernameAttribute", ldapPatch.userNameAttribute,
+                        "LDAP/ServiceAddresses", ldapPatch.serviceAddressList,
+                        "LDAP/ServiceEnabled", ldapPatch.serviceEnabled,
+                        "MaxPasswordLength", maxPasswordLength,
+                        "MinPasswordLength", minPasswordLength,
+                        "Oem/OpenBMC/AuthMethods/BasicAuth", methods.basicAuth,
+                        "Oem/OpenBMC/AuthMethods/Cookie", methods.cookie,
+                        "Oem/OpenBMC/AuthMethods/SessionToken", methods.sessionToken,
+                        "Oem/OpenBMC/AuthMethods/XToken", methods.xToken,
+                        "Oem/OpenBMC/AuthMethods/TLS", methods.tls
+                    ))
                 {
                     return;
                 }
+                // clang-format on
 
                 if (minPasswordLength)
                 {
@@ -1426,34 +1362,11 @@ inline void requestAccountServiceRoutes(App& app)
                                                   "MaxPasswordLength");
                 }
 
-                if (ldapObject)
-                {
-                    handleLDAPPatch(*ldapObject, asyncResp, "LDAP");
-                }
+                handleLDAPPatch(ldapPatch, asyncResp);
 
-                if (std::optional<nlohmann::json> oemOpenBMCObject;
-                    oemObject &&
-                    json_util::readJson(*oemObject, asyncResp->res, "OpenBMC",
-                                        oemOpenBMCObject))
-                {
-                    if (std::optional<nlohmann::json> authMethodsObject;
-                        oemOpenBMCObject &&
-                        json_util::readJson(*oemOpenBMCObject, asyncResp->res,
-                                            "AuthMethods", authMethodsObject))
-                    {
-                        if (authMethodsObject)
-                        {
-                            handleAuthMethodsPatch(*authMethodsObject,
-                                                   asyncResp);
-                        }
-                    }
-                }
+                handleLDAPPatch(activeDirectoryPatch, asyncResp);
 
-                if (activeDirectoryObject)
-                {
-                    handleLDAPPatch(*activeDirectoryObject, asyncResp,
-                                    "ActiveDirectory");
-                }
+                handleAuthMethodsPatch(methods, asyncResp);
 
                 if (unlockTimeout)
                 {
