@@ -114,6 +114,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "db8d3e4e_ed177e16",
+        "filename": "redfish-core/include/utils/json_utils.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 449,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-02-25T18:51:43Z",
+      "side": 1,
+      "message": "My point still stands, regardless of the last sentence, as-written, this doesn\u0027t handle errors and isn\u0027t capable of returning 500 on bad parameters.  It looks like you fixed that in your latest patch.",
+      "parentUuid": "15058c63_8ad68273",
+      "range": {
+        "startLine": 449,
+        "startChar": 0,
+        "endLine": 449,
+        "endChar": 76
+      },
+      "revId": "8fb3eae1ba471192d6e84f695b40e09ebd19e125",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "87cae3a5_cc0621af",
         "filename": "redfish-core/include/utils/json_utils.hpp",
         "patchSetId": 2
@@ -149,6 +173,30 @@
       "side": 1,
       "message": "If used together with unpackPropertiesNoThrow pointers are guaranteed to be filled. I guess using this function can be confusing in case of pointers. I can split it and name it \u0027assign\u0027 to indicate that pointer needs to be valid.",
       "parentUuid": "87cae3a5_cc0621af",
+      "range": {
+        "startLine": 453,
+        "startChar": 25,
+        "endLine": 453,
+        "endChar": 30
+      },
+      "revId": "8fb3eae1ba471192d6e84f695b40e09ebd19e125",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "919f891d_08c8f444",
+        "filename": "redfish-core/include/utils/json_utils.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 453,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-02-25T18:51:43Z",
+      "side": 1,
+      "message": "\u003e If used together with unpackPropertiesNoThrow pointers are guaranteed to be filled.\n\nThe key word being \"If\".  Pointer safety should be guaranteed, and verifiable at the call site, not just if they\u0027re used the way the author intended.\n\n\u003e I guess using this function can be confusing in case of pointers. I can split it and name it \u0027assign\u0027 to indicate that pointer needs to be valid.",
+      "parentUuid": "212a6d7b_47c78908",
       "range": {
         "startLine": 453,
         "startChar": 25,
@@ -501,6 +549,30 @@
       "side": 1,
       "message": "It\u0027s something that you suggested. To return index instead of std::string to decrease binary size. If you have suggestion how to print property name instead of index of property that failed without impact on binary size I can do that,",
       "parentUuid": "7af2ce46_07252129",
+      "range": {
+        "startLine": 215,
+        "startChar": 0,
+        "endLine": 216,
+        "endChar": 44
+      },
+      "revId": "8fb3eae1ba471192d6e84f695b40e09ebd19e125",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "aaa0ae33_5a2d1ee5",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 216,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-02-25T18:51:43Z",
+      "side": 1,
+      "message": "printing is only enabled when logging is enabled, so the impact on binary size for logging is negligible so long as the compiler can delete the code when logging is disabled.",
+      "parentUuid": "701137fd_95311cc9",
       "range": {
         "startLine": 215,
         "startChar": 0,
