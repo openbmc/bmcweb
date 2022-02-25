@@ -28,5 +28,40 @@ inline std::string getDbusTriggerPath(const std::string& id)
     return {triggersPath / id};
 }
 
+inline bool getChassisSensorNode(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::vector<std::string>& uris,
+    boost::container::flat_set<std::pair<std::string, std::string>>& matched)
+{
+    size_t uriIdx = 0;
+    for (const std::string& uri : uris)
+    {
+        std::string chassis;
+        std::string node;
+
+        if (!uri.starts_with("/redfish/v1/Chassis/") ||
+            !dbus::utility::getNthStringFromPath(uri, 3, chassis) ||
+            !dbus::utility::getNthStringFromPath(uri, 4, node))
+        {
+            BMCWEB_LOG_ERROR << "Failed to get chassis and sensor Node "
+                                "from "
+                             << uri;
+            messages::propertyValueIncorrect(asyncResp->res, uri,
+                                             "MetricProperties/" +
+                                                 std::to_string(uriIdx));
+            return false;
+        }
+
+        if (node.ends_with('#'))
+        {
+            node.pop_back();
+        }
+
+        matched.emplace(std::move(chassis), std::move(node));
+        uriIdx++;
+    }
+    return true;
+}
+
 } // namespace telemetry
 } // namespace redfish
