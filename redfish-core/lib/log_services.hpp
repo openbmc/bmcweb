@@ -35,6 +35,7 @@
 #include <dbus_utility.hpp>
 #include <error_messages.hpp>
 #include <registries/privilege_registry.hpp>
+#include <utils/dbus_utils.hpp>
 
 #include <charconv>
 #include <filesystem>
@@ -894,36 +895,9 @@ inline static void
                              std::string& filename, std::string& timestamp,
                              std::string& logfile)
 {
-    for (auto property : params)
-    {
-        if (property.first == "Timestamp")
-        {
-            const std::string* value =
-                std::get_if<std::string>(&property.second);
-            if (value != nullptr)
-            {
-                timestamp = *value;
-            }
-        }
-        else if (property.first == "Filename")
-        {
-            const std::string* value =
-                std::get_if<std::string>(&property.second);
-            if (value != nullptr)
-            {
-                filename = *value;
-            }
-        }
-        else if (property.first == "Log")
-        {
-            const std::string* value =
-                std::get_if<std::string>(&property.second);
-            if (value != nullptr)
-            {
-                logfile = *value;
-            }
-        }
-    }
+    sdbusplus::unpackPropertiesNoThrow(dbus_utils::UnpackErrorPrinter(), params,
+                                       "Timestamp", timestamp, "Filename",
+                                       filename, "Log", logfile);
 }
 
 constexpr char const* postCodeIface = "xyz.openbmc_project.State.Boot.PostCode";
@@ -1510,7 +1484,10 @@ inline void requestRoutesDBusEventLogEntry(App& app)
 
                 // DBus implementation of EventLog/Entries
                 // Make call to Logging Service to find all log entry objects
-                crow::connections::systemBus->async_method_call(
+                sdbusplus::asio::getAllProperties(
+                    *crow::connections::systemBus,
+                    "xyz.openbmc_project.Logging",
+                    "/xyz/openbmc_project/logging/entry/" + entryID, "",
                     [asyncResp,
                      entryID](const boost::system::error_code ec,
                               const dbus::utility::DBusPropertiesMap& resp) {
@@ -1528,6 +1505,7 @@ inline void requestRoutesDBusEventLogEntry(App& app)
                             messages::internalError(asyncResp->res);
                             return;
                         }
+
                         const uint32_t* id = nullptr;
                         const uint64_t* timestamp = nullptr;
                         const uint64_t* updateTimestamp = nullptr;
@@ -1536,49 +1514,18 @@ inline void requestRoutesDBusEventLogEntry(App& app)
                         const std::string* filePath = nullptr;
                         bool resolved = false;
 
-                        for (const auto& propertyMap : resp)
+                        const bool success = sdbusplus::unpackPropertiesNoThrow(
+                            dbus_utils::UnpackErrorPrinter(), resp, "Id", id,
+                            "Timestamp", timestamp, "UpdateTimestamp",
+                            updateTimestamp, "Severity", severity, "Message",
+                            message, "Resolved", resolved, "Path", filePath);
+
+                        if (!success)
                         {
-                            if (propertyMap.first == "Id")
-                            {
-                                id = std::get_if<uint32_t>(&propertyMap.second);
-                            }
-                            else if (propertyMap.first == "Timestamp")
-                            {
-                                timestamp =
-                                    std::get_if<uint64_t>(&propertyMap.second);
-                            }
-                            else if (propertyMap.first == "UpdateTimestamp")
-                            {
-                                updateTimestamp =
-                                    std::get_if<uint64_t>(&propertyMap.second);
-                            }
-                            else if (propertyMap.first == "Severity")
-                            {
-                                severity = std::get_if<std::string>(
-                                    &propertyMap.second);
-                            }
-                            else if (propertyMap.first == "Message")
-                            {
-                                message = std::get_if<std::string>(
-                                    &propertyMap.second);
-                            }
-                            else if (propertyMap.first == "Resolved")
-                            {
-                                const bool* resolveptr =
-                                    std::get_if<bool>(&propertyMap.second);
-                                if (resolveptr == nullptr)
-                                {
-                                    messages::internalError(asyncResp->res);
-                                    return;
-                                }
-                                resolved = *resolveptr;
-                            }
-                            else if (propertyMap.first == "Path")
-                            {
-                                filePath = std::get_if<std::string>(
-                                    &propertyMap.second);
-                            }
+                            messages::internalError(asyncResp->res);
+                            return;
                         }
+
                         if (id == nullptr || message == nullptr ||
                             severity == nullptr || timestamp == nullptr ||
                             updateTimestamp == nullptr)
@@ -1586,6 +1533,7 @@ inline void requestRoutesDBusEventLogEntry(App& app)
                             messages::internalError(asyncResp->res);
                             return;
                         }
+
                         asyncResp->res.jsonValue["@odata.type"] =
                             "#LogEntry.v1_8_0.LogEntry";
                         asyncResp->res.jsonValue["@odata.id"] =
@@ -1609,10 +1557,7 @@ inline void requestRoutesDBusEventLogEntry(App& app)
                                 "/redfish/v1/Systems/system/LogServices/EventLog/attachment/" +
                                 std::to_string(*id);
                         }
-                    },
-                    "xyz.openbmc_project.Logging",
-                    "/xyz/openbmc_project/logging/entry/" + entryID,
-                    "org.freedesktop.DBus.Properties", "GetAll", "");
+                    });
             });
 
     BMCWEB_ROUTE(
@@ -2674,10 +2619,10 @@ static void
                 logEntryJson = logEntry;
             }
         };
-    crow::connections::systemBus->async_method_call(
-        std::move(getStoredLogCallback), crashdumpObject,
-        crashdumpPath + std::string("/") + logID,
-        "org.freedesktop.DBus.Properties", "GetAll", crashdumpInterface);
+    sdbusplus::asio::getAllProperties(
+        *crow::connections::systemBus, crashdumpObject,
+        crashdumpPath + std::string("/") + logID, crashdumpInterface,
+        std::move(getStoredLogCallback));
 }
 
 inline void requestRoutesCrashdumpEntryCollection(App& app)
@@ -2825,11 +2770,10 @@ inline void requestRoutesCrashdumpFile(App& app)
                         asyncResp->res.addHeader("Content-Disposition",
                                                  "attachment");
                     };
-                crow::connections::systemBus->async_method_call(
-                    std::move(getStoredLogCallback), crashdumpObject,
+                sdbusplus::asio::getAllProperties(
+                    *crow::connections::systemBus, crashdumpObject,
                     crashdumpPath + std::string("/") + logID,
-                    "org.freedesktop.DBus.Properties", "GetAll",
-                    crashdumpInterface);
+                    crashdumpInterface, std::move(getStoredLogCallback));
             });
 }
 

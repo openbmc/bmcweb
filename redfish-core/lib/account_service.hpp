@@ -22,6 +22,7 @@
 #include <persistent_data.hpp>
 #include <registries/privilege_registry.hpp>
 #include <sdbusplus/asio/property.hpp>
+#include <utils/dbus_utils.hpp>
 #include <utils/json_utils.hpp>
 
 namespace redfish
@@ -1304,7 +1305,10 @@ inline void requestAccountServiceRoutes(App& app)
                      {{"@odata.id",
                        "/redfish/v1/AccountService/LDAP/Certificates"}}}};
             }
-            crow::connections::systemBus->async_method_call(
+            sdbusplus::asio::getAllProperties(
+                *crow::connections::systemBus,
+                "xyz.openbmc_project.User.Manager", "/xyz/openbmc_project/user",
+                "xyz.openbmc_project.User.AccountPolicy",
                 [asyncResp](
                     const boost::system::error_code ec,
                     const dbus::utility::DBusPropertiesMap& propertiesList) {
@@ -1313,49 +1317,45 @@ inline void requestAccountServiceRoutes(App& app)
                         messages::internalError(asyncResp->res);
                         return;
                     }
+
                     BMCWEB_LOG_DEBUG << "Got " << propertiesList.size()
                                      << "properties for AccountService";
-                    for (const std::pair<std::string,
-                                         dbus::utility::DbusVariantType>&
-                             property : propertiesList)
+
+                    const uint8_t* minPasswordLength = nullptr;
+                    const uint32_t* accountUnlockTimeout = nullptr;
+                    const uint16_t* maxLoginAttemptBeforeLockout = nullptr;
+
+                    const bool success = sdbusplus::unpackPropertiesNoThrow(
+                        dbus_utils::UnpackErrorPrinter(), propertiesList,
+                        "MinPasswordLength", minPasswordLength,
+                        "AccountUnlockTimeout", accountUnlockTimeout,
+                        "MaxLoginAttemptBeforeLockout",
+                        maxLoginAttemptBeforeLockout);
+
+                    if (!success)
                     {
-                        if (property.first == "MinPasswordLength")
-                        {
-                            const uint8_t* value =
-                                std::get_if<uint8_t>(&property.second);
-                            if (value != nullptr)
-                            {
-                                asyncResp->res.jsonValue["MinPasswordLength"] =
-                                    *value;
-                            }
-                        }
-                        if (property.first == "AccountUnlockTimeout")
-                        {
-                            const uint32_t* value =
-                                std::get_if<uint32_t>(&property.second);
-                            if (value != nullptr)
-                            {
-                                asyncResp->res
-                                    .jsonValue["AccountLockoutDuration"] =
-                                    *value;
-                            }
-                        }
-                        if (property.first == "MaxLoginAttemptBeforeLockout")
-                        {
-                            const uint16_t* value =
-                                std::get_if<uint16_t>(&property.second);
-                            if (value != nullptr)
-                            {
-                                asyncResp->res
-                                    .jsonValue["AccountLockoutThreshold"] =
-                                    *value;
-                            }
-                        }
+                        messages::internalError(asyncResp->res);
+                        return;
                     }
-                },
-                "xyz.openbmc_project.User.Manager", "/xyz/openbmc_project/user",
-                "org.freedesktop.DBus.Properties", "GetAll",
-                "xyz.openbmc_project.User.AccountPolicy");
+
+                    if (minPasswordLength)
+                    {
+                        asyncResp->res.jsonValue["MinPasswordLength"] =
+                            *minPasswordLength;
+                    }
+
+                    if (accountUnlockTimeout)
+                    {
+                        asyncResp->res.jsonValue["AccountLockoutDuration"] =
+                            *accountUnlockTimeout;
+                    }
+
+                    if (maxLoginAttemptBeforeLockout)
+                    {
+                        asyncResp->res.jsonValue["AccountLockoutThreshold"] =
+                            *maxLoginAttemptBeforeLockout;
+                    }
+                });
 
             auto callback = [asyncResp](bool success, LDAPConfigData& confData,
                                         const std::string& ldapType) {
