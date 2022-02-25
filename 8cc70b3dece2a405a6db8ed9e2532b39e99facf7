@@ -429,6 +429,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "750fb4ac_3e9fa0b3",
+        "filename": "redfish-core/include/utils/json_utils.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 451,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-02-25T21:45:28Z",
+      "side": 1,
+      "message": "This is subtle, which I don\u0027t like, so I added a comment that I think you missed.  Look at line 427, where we change the definition of \"key\" to include the trailing slash.  I think the code works as written.",
+      "parentUuid": "3b97307e_4cadb69e",
+      "range": {
+        "startLine": 451,
+        "startChar": 24,
+        "endLine": 451,
+        "endChar": 43
+      },
+      "revId": "8cc70b3dece2a405a6db8ed9e2532b39e99facf7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "3c52e969_e265f88b",
         "filename": "redfish-core/include/utils/json_utils.hpp",
         "patchSetId": 7
