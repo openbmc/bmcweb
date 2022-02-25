@@ -70,6 +70,30 @@
       },
       "revId": "a15331ef5eb4414945f342ba5949fe53d5664fba",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2b7b0a69_9e278a03",
+        "filename": "redfish-core/ut/json_utils_test.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 253,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2022-02-25T08:17:19Z",
+      "side": 1,
+      "message": "Same here, never seen any case where fixed size array way in json.",
+      "parentUuid": "e6cc0fa8_ce4a6a46",
+      "range": {
+        "startLine": 253,
+        "startChar": 52,
+        "endLine": 253,
+        "endChar": 54
+      },
+      "revId": "a15331ef5eb4414945f342ba5949fe53d5664fba",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
