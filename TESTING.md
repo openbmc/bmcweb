@@ -150,3 +150,92 @@ the Redfish Service Validator results as part of the commit message
 
 Test error status for your newly added resources or core codes, e.g., 4xx client
 errors, 5xx server errors.
+
+## Push Stype Eventing
+
+Create a subscription.
+
+```bash
+$ curl -v --request POST \
+  --data '{"Protocol":"Redfish","Context":"Test_Context","Destination":"http://$LISTENER_FQDN:$LISTENER_PORT/","EventFormatType":"Event","SubscriptionType":"RedfishEvent","DeliveryRetryPolicy":"SuspendRetries","RegistryPrefixes":["OpenBMC"]}' \
+  'http://${BMC}:${BMC_REDFISH_PORT}/redfish/v1/EventService/Subscriptions'
+
+$ # see the created Subscription
+curl --request GET 'http://${BMC}:${BMC_REDFISH_PORT}/redfish/v1/EventService/Subscriptions/'
+{
+  "@odata.id": "/redfish/v1/EventService/Subscriptions",
+  "@odata.type": "#EventDestinationCollection.EventDestinationCollection",
+  "Members": [
+    {
+      "@odata.id": "/redfish/v1/EventService/Subscriptions/1973135320"
+    }
+  ],
+  "Members@odata.count": 1,
+  "Name": "Event Destination Collections"
+}
+
+$ curl --request GET 'http://${BMC}:${BMC_REDFISH_PORT}/redfish/v1/EventService/Subscriptions/1973135320'
+{
+  "@odata.id": "/redfish/v1/EventService/Subscriptions/1973135320",
+  "@odata.type": "#EventDestination.v1_7_0.EventDestination",
+  "Context": "Test_Context",
+  "DeliveryRetryPolicy": "SuspendRetries",
+  "Destination": "http://xxxx:xxxx/",
+  "EventFormatType": "Event",
+  "HttpHeaders": [],
+  "Id": "1973135320",
+  "MessageIds": [],
+  "MetricReportDefinitions": [],
+  "Name": "Event Destination 1973135320",
+  "Protocol": "Redfish",
+  "RegistryPrefixes": [
+    "OpenBMC"
+  ],
+  "ResourceTypes": [],
+  "SubscriptionType": "RedfishEvent"
+}
+```
+
+Spin up a dummy listener which prints all requests and replies OK without
+contents.
+
+```bash
+$ python scripts/event_listener.py -i $LISTENER_FQDN -p $LISTENER_PORT
+```
+
+Create testing events.
+
+```bash
+$ curl --request POST \
+  --data '{"OriginOfCondition":"/redfish/v1/Systems/system/LogServices/EventLog","EventId":"xxxx"}' \
+  'http://${BMC}:${BMC_REDFISH_PORT}/redfish/v1/EventService/Actions/EventService.SubmitTestEvent'
+```
+
+Verify the listener gets events
+
+```bash
+POST request,
+Path: /
+Headers:
+Host: a.b.c.d
+Content-Length: 386
+
+Body:
+{
+  "@odata.type": "#Event.v1_4_0.Event",
+  "Events": [
+    {
+      "Context": "Test_Context",
+      "EventId": "TestID",
+      "EventTimestamp": "2022-02-24T00:00:12+00:00",
+      "EventType": "Event",
+      "Message": "Generated test event",
+      "MessageArgs": [],
+      "MessageId": "OpenBMC.0.2.TestEventLog",
+      "Severity": "OK"
+    }
+  ],
+  "Id": "3",
+  "Name": "Event Log"
+}
+```
