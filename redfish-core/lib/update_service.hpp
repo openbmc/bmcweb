@@ -834,7 +834,9 @@ inline void requestRoutesSoftwareInventory(App& app)
                         fw_util::getFwStatus(asyncResp, swId,
                                              obj.second[0].first);
 
-                        crow::connections::systemBus->async_method_call(
+                        sdbusplus::asio::getAllProperties(
+                            *crow::connections::systemBus, obj.second[0].first,
+                            obj.first, "xyz.openbmc_project.Software.Version",
                             [asyncResp,
                              swId](const boost::system::error_code errorCode,
                                    const boost::container::flat_map<
@@ -846,84 +848,47 @@ inline void requestRoutesSoftwareInventory(App& app)
                                     messages::internalError(asyncResp->res);
                                     return;
                                 }
-                                boost::container::flat_map<
-                                    std::string,
-                                    dbus::utility::DbusVariantType>::
-                                    const_iterator it =
-                                        propertiesList.find("Purpose");
-                                if (it == propertiesList.end())
+
+                                std::string purpose;
+                                std::string version;
+
+                                const bool success =
+                                    sdbusplus::unpackPropertiesNoThrow(
+                                        dbus_utils::UnpackErrorHandler(
+                                            asyncResp->res),
+                                        propertiesList, "Purpose", purpose,
+                                        "Version", version);
+
+                                if (!success)
                                 {
-                                    BMCWEB_LOG_DEBUG
-                                        << "Can't find property \"Purpose\"!";
-                                    messages::propertyMissing(asyncResp->res,
-                                                              "Purpose");
-                                    return;
-                                }
-                                const std::string* swInvPurpose =
-                                    std::get_if<std::string>(&it->second);
-                                if (swInvPurpose == nullptr)
-                                {
-                                    BMCWEB_LOG_DEBUG
-                                        << "wrong types for property\"Purpose\"!";
-                                    messages::propertyValueTypeError(
-                                        asyncResp->res, "", "Purpose");
                                     return;
                                 }
 
-                                BMCWEB_LOG_DEBUG << "swInvPurpose = "
-                                                 << *swInvPurpose;
-                                it = propertiesList.find("Version");
-                                if (it == propertiesList.end())
-                                {
-                                    BMCWEB_LOG_DEBUG
-                                        << "Can't find property \"Version\"!";
-                                    messages::propertyMissing(asyncResp->res,
-                                                              "Version");
-                                    return;
-                                }
-
-                                BMCWEB_LOG_DEBUG << "Version found!";
-
-                                const std::string* version =
-                                    std::get_if<std::string>(&it->second);
-
-                                if (version == nullptr)
-                                {
-                                    BMCWEB_LOG_DEBUG
-                                        << "Can't find property \"Version\"!";
-
-                                    messages::propertyValueTypeError(
-                                        asyncResp->res, "", "Version");
-                                    return;
-                                }
-                                asyncResp->res.jsonValue["Version"] = *version;
+                                asyncResp->res.jsonValue["Version"] = version;
                                 asyncResp->res.jsonValue["Id"] = *swId;
 
                                 // swInvPurpose is of format:
                                 // xyz.openbmc_project.Software.Version.VersionPurpose.ABC
                                 // Translate this to "ABC image"
-                                size_t endDesc = swInvPurpose->rfind('.');
+                                size_t endDesc = purpose.rfind('.');
                                 if (endDesc == std::string::npos)
                                 {
                                     messages::internalError(asyncResp->res);
                                     return;
                                 }
                                 endDesc++;
-                                if (endDesc >= swInvPurpose->size())
+                                if (endDesc >= purpose.size())
                                 {
                                     messages::internalError(asyncResp->res);
                                     return;
                                 }
 
-                                std::string formatDesc =
-                                    swInvPurpose->substr(endDesc);
+                                const std::string formatDesc =
+                                    purpose.substr(endDesc);
                                 asyncResp->res.jsonValue["Description"] =
                                     formatDesc + " image";
-                                getRelatedItems(asyncResp, *swInvPurpose);
-                            },
-                            obj.second[0].first, obj.first,
-                            "org.freedesktop.DBus.Properties", "GetAll",
-                            "xyz.openbmc_project.Software.Version");
+                                getRelatedItems(asyncResp, purpose);
+                            });
                     }
                     if (!found)
                     {

@@ -128,7 +128,9 @@ inline void
                         }
 
                         // Now grab its version info
-                        crow::connections::systemBus->async_method_call(
+                        sdbusplus::asio::getAllProperties(
+                            *crow::connections::systemBus, obj.second[0].first,
+                            obj.first, "xyz.openbmc_project.Software.Version",
                             [aResp, swId, runningImage, fwVersionPurpose,
                              activeVersionPropName, populateLinkToImages](
                                 const boost::system::error_code ec3,
@@ -150,35 +152,28 @@ inline void
                                 // s
                                 // "xyz.openbmc_project.Software.Version.VersionPurpose.Host"
 
-                                boost::container::flat_map<
-                                    std::string,
-                                    dbus::utility::DbusVariantType>::
-                                    const_iterator it =
-                                        propertiesList.find("Purpose");
-                                if (it == propertiesList.end())
+                                std::string purpose;
+                                std::string version;
+
+                                const bool success =
+                                    sdbusplus::unpackPropertiesNoThrow(
+                                        dbus_utils::UnpackErrorHandler(
+                                            aResp->res),
+                                        propertiesList, "Purpose", purpose,
+                                        "Version", version);
+
+                                if (!success)
                                 {
-                                    BMCWEB_LOG_ERROR
-                                        << "Can't find property \"Purpose\"!";
-                                    messages::internalError(aResp->res);
-                                    return;
-                                }
-                                const std::string* swInvPurpose =
-                                    std::get_if<std::string>(&it->second);
-                                if (swInvPurpose == nullptr)
-                                {
-                                    BMCWEB_LOG_ERROR << "wrong types for "
-                                                        "property \"Purpose\"!";
-                                    messages::internalError(aResp->res);
                                     return;
                                 }
 
                                 BMCWEB_LOG_DEBUG << "Image ID: " << swId;
                                 BMCWEB_LOG_DEBUG << "Image purpose: "
-                                                 << *swInvPurpose;
+                                                 << purpose;
                                 BMCWEB_LOG_DEBUG << "Running image: "
                                                  << runningImage;
 
-                                if (*swInvPurpose != fwVersionPurpose)
+                                if (purpose != fwVersionPurpose)
                                 {
                                     // Not purpose we're looking for
                                     return;
@@ -217,33 +212,11 @@ inline void
                                 if (!activeVersionPropName.empty() &&
                                     runningImage)
                                 {
-                                    it = propertiesList.find("Version");
-                                    if (it == propertiesList.end())
-                                    {
-                                        BMCWEB_LOG_ERROR
-                                            << "Can't find property "
-                                               "\"Version\"!";
-                                        messages::internalError(aResp->res);
-                                        return;
-                                    }
-                                    const std::string* version =
-                                        std::get_if<std::string>(&it->second);
-                                    if (version == nullptr)
-                                    {
-                                        BMCWEB_LOG_ERROR
-                                            << "Error getting fw version";
-                                        messages::internalError(aResp->res);
-                                        return;
-                                    }
-
                                     aResp->res
                                         .jsonValue[activeVersionPropName] =
-                                        *version;
+                                        version;
                                 }
-                            },
-                            obj.second[0].first, obj.first,
-                            "org.freedesktop.DBus.Properties", "GetAll",
-                            "xyz.openbmc_project.Software.Version");
+                            });
                     }
                 },
                 "xyz.openbmc_project.ObjectMapper",
@@ -326,7 +299,10 @@ inline void getFwStatus(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
 {
     BMCWEB_LOG_DEBUG << "getFwStatus: swId " << *swId << " svc " << dbusSvc;
 
-    crow::connections::systemBus->async_method_call(
+    sdbusplus::asio::getAllProperties(
+        *crow::connections::systemBus, dbusSvc,
+        "/xyz/openbmc_project/software/" + *swId,
+        "xyz.openbmc_project.Software.Activation",
         [asyncResp, swId](
             const boost::system::error_code errorCode,
             const boost::container::flat_map<
@@ -337,33 +313,24 @@ inline void getFwStatus(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                 asyncResp->res.jsonValue["Status"]["State"] = "Enabled";
                 return;
             }
-            boost::container::flat_map<
-                std::string, dbus::utility::DbusVariantType>::const_iterator
-                it = propertiesList.find("Activation");
-            if (it == propertiesList.end())
+
+            std::string activation;
+
+            const bool success = sdbusplus::unpackPropertiesNoThrow(
+                dbus_utils::UnpackErrorHandler(asyncResp->res), propertiesList,
+                "Activation", activation);
+
+            if (!success)
             {
-                BMCWEB_LOG_DEBUG << "Can't find property \"Activation\"!";
-                messages::propertyMissing(asyncResp->res, "Activation");
                 return;
             }
-            const std::string* swInvActivation =
-                std::get_if<std::string>(&it->second);
-            if (swInvActivation == nullptr)
-            {
-                BMCWEB_LOG_DEBUG << "wrong types for property\"Activation\"!";
-                messages::propertyValueTypeError(asyncResp->res, "",
-                                                 "Activation");
-                return;
-            }
-            BMCWEB_LOG_DEBUG << "getFwStatus: Activation " << *swInvActivation;
+
+            BMCWEB_LOG_DEBUG << "getFwStatus: Activation " << activation;
             asyncResp->res.jsonValue["Status"]["State"] =
-                getRedfishFWState(*swInvActivation);
+                getRedfishFWState(activation);
             asyncResp->res.jsonValue["Status"]["Health"] =
-                getRedfishFWHealth(*swInvActivation);
-        },
-        dbusSvc, "/xyz/openbmc_project/software/" + *swId,
-        "org.freedesktop.DBus.Properties", "GetAll",
-        "xyz.openbmc_project.Software.Activation");
+                getRedfishFWHealth(activation);
+        });
 }
 
 /**

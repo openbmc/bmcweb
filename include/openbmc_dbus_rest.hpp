@@ -21,6 +21,7 @@
 #include <boost/container/flat_set.hpp>
 #include <dbus_singleton.hpp>
 #include <dbus_utility.hpp>
+#include <sdbusplus/asio/property.hpp>
 #include <sdbusplus/message/types.hpp>
 
 #include <filesystem>
@@ -138,16 +139,17 @@ inline void getPropertiesForEnumerate(
     BMCWEB_LOG_DEBUG << "getPropertiesForEnumerate " << objectPath << " "
                      << service << " " << interface;
 
-    crow::connections::systemBus->async_method_call(
+    sdbusplus::asio::getAllProperties(
+        *crow::connections::systemBus, service, objectPath, interface,
         [asyncResp, objectPath, service, interface](
             const boost::system::error_code ec,
             const std::vector<std::pair<
                 std::string, dbus::utility::DbusVariantType>>& propertiesList) {
             if (ec)
             {
-                BMCWEB_LOG_ERROR << "GetAll on path " << objectPath << " iface "
-                                 << interface << " service " << service
-                                 << " failed with code " << ec;
+                BMCWEB_LOG_ERROR << "getAllProperties on path " << objectPath
+                                 << " iface " << interface << " service "
+                                 << service << " failed with code " << ec;
                 return;
             }
 
@@ -177,9 +179,7 @@ inline void getPropertiesForEnumerate(
                     },
                     value);
             }
-        },
-        service, objectPath, "org.freedesktop.DBus.Properties", "GetAll",
-        interface);
+        });
 }
 
 // Find any results that weren't picked up by ObjectManagers, to be
