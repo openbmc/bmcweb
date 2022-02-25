@@ -343,54 +343,72 @@ inline void requestRoutesChassis(App& app)
                             }
                         }
 
-                        crow::connections::systemBus->async_method_call(
+                        sdbusplus::asio::getAllProperties(
+                            *crow::connections::systemBus, connectionName, path,
+                            "xyz.openbmc_project.Inventory.Decorator.Asset",
                             [asyncResp, chassisId(std::string(chassisId))](
                                 const boost::system::error_code /*ec2*/,
                                 const std::vector<
                                     std::pair<std::string,
                                               dbus::utility::DbusVariantType>>&
                                     propertiesList) {
-                                for (const std::pair<
-                                         std::string,
-                                         dbus::utility::DbusVariantType>&
-                                         property : propertiesList)
+                                const std::string* partNumber = nullptr;
+                                const std::string* serialNumber = nullptr;
+                                const std::string* manufacturer = nullptr;
+                                const std::string* model = nullptr;
+                                const std::string* sparePartNumber = nullptr;
+
+                                const bool success =
+                                    sdbusplus::unpackPropertiesNoThrow(
+                                        dbus_utils::UnpackErrorPrinter(),
+                                        propertiesList, "PartNumber",
+                                        partNumber, "SerialNumber",
+                                        serialNumber, "Manufacturer",
+                                        manufacturer, "Model", model,
+                                        "SparePartNumber", sparePartNumber);
+
+                                if (!success)
                                 {
-                                    // Store DBus properties that are also
-                                    // Redfish properties with same name and a
-                                    // string value
-                                    const std::string& propertyName =
-                                        property.first;
-                                    if ((propertyName == "PartNumber") ||
-                                        (propertyName == "SerialNumber") ||
-                                        (propertyName == "Manufacturer") ||
-                                        (propertyName == "Model") ||
-                                        (propertyName == "SparePartNumber"))
-                                    {
-                                        const std::string* value =
-                                            std::get_if<std::string>(
-                                                &property.second);
-                                        if (value == nullptr)
-                                        {
-                                            BMCWEB_LOG_ERROR
-                                                << "Null value returned for "
-                                                << propertyName;
-                                            messages::internalError(
-                                                asyncResp->res);
-                                            return;
-                                        }
-                                        // SparePartNumber is optional on D-Bus
-                                        // so skip if it is empty
-                                        if (propertyName == "SparePartNumber")
-                                        {
-                                            if (value->empty())
-                                            {
-                                                continue;
-                                            }
-                                        }
-                                        asyncResp->res.jsonValue[propertyName] =
-                                            *value;
-                                    }
+                                    messages::internalError(asyncResp->res);
+                                    return;
                                 }
+
+                                // Store DBus properties that are also
+                                // Redfish properties with same name and a
+                                // string value
+                                if (partNumber)
+                                {
+                                    asyncResp->res.jsonValue["PartNumber"] =
+                                        *partNumber;
+                                }
+
+                                if (serialNumber)
+                                {
+                                    asyncResp->res.jsonValue["SerialNumber"] =
+                                        *serialNumber;
+                                }
+
+                                if (manufacturer)
+                                {
+                                    asyncResp->res.jsonValue["Manufacturer"] =
+                                        *manufacturer;
+                                }
+
+                                if (model)
+                                {
+                                    asyncResp->res.jsonValue["Model"] = *model;
+                                }
+
+                                // SparePartNumber is optional on D-Bus
+                                // so skip if it is empty
+                                if (sparePartNumber &&
+                                    !sparePartNumber->empty())
+                                {
+                                    asyncResp->res
+                                        .jsonValue["SparePartNumber"] =
+                                        *sparePartNumber;
+                                }
+
                                 asyncResp->res.jsonValue["Name"] = chassisId;
                                 asyncResp->res.jsonValue["Id"] = chassisId;
 #ifdef BMCWEB_ALLOW_DEPRECATED_POWER_THERMAL
@@ -418,10 +436,7 @@ inline void requestRoutesChassis(App& app)
                                     {{{"@odata.id",
                                        "/redfish/v1/Managers/bmc"}}};
                                 getChassisState(asyncResp);
-                            },
-                            connectionName, path,
-                            "org.freedesktop.DBus.Properties", "GetAll",
-                            "xyz.openbmc_project.Inventory.Decorator.Asset");
+                            });
 
                         for (const auto& interface : interfaces2)
                         {

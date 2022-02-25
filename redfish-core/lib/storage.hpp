@@ -181,7 +181,9 @@ inline void requestRoutesStorage(App& app)
                                 }
                             });
 
-                        crow::connections::systemBus->async_method_call(
+                        sdbusplus::asio::getAllProperties(
+                            *crow::connections::systemBus, connectionName, path,
+                            "xyz.openbmc_project.Inventory.Decorator.Asset",
                             [asyncResp, index](
                                 const boost::system::error_code ec2,
                                 const std::vector<
@@ -193,42 +195,50 @@ inline void requestRoutesStorage(App& app)
                                     // this interface isn't necessary
                                     return;
                                 }
-                                for (const std::pair<
-                                         std::string,
-                                         dbus::utility::DbusVariantType>&
-                                         property : propertiesList)
+
+                                const std::string* partNumber = nullptr;
+                                const std::string* serialNumber = nullptr;
+                                const std::string* manufacturer = nullptr;
+                                const std::string* model = nullptr;
+
+                                const bool success =
+                                    sdbusplus::unpackPropertiesNoThrow(
+                                        dbus_utils::UnpackErrorPrinter(),
+                                        propertiesList, "PartNumber",
+                                        partNumber, "SerialNumber",
+                                        serialNumber, "Manufacturer",
+                                        manufacturer, "Model", model);
+
+                                if (!success)
                                 {
-                                    // Store DBus properties that are also
-                                    // Redfish properties with same name and a
-                                    // string value
-                                    const std::string& propertyName =
-                                        property.first;
-                                    nlohmann::json& object =
-                                        asyncResp->res
-                                            .jsonValue["StorageControllers"]
-                                                      [index];
-                                    if ((propertyName == "PartNumber") ||
-                                        (propertyName == "SerialNumber") ||
-                                        (propertyName == "Manufacturer") ||
-                                        (propertyName == "Model"))
-                                    {
-                                        const std::string* value =
-                                            std::get_if<std::string>(
-                                                &property.second);
-                                        if (value == nullptr)
-                                        {
-                                            // illegal property
-                                            messages::internalError(
-                                                asyncResp->res);
-                                            return;
-                                        }
-                                        object[propertyName] = *value;
-                                    }
+                                    messages::internalError(asyncResp->res);
+                                    return;
                                 }
-                            },
-                            connectionName, path,
-                            "org.freedesktop.DBus.Properties", "GetAll",
-                            "xyz.openbmc_project.Inventory.Decorator.Asset");
+
+                                nlohmann::json& object =
+                                    asyncResp->res
+                                        .jsonValue["StorageControllers"][index];
+
+                                if (partNumber)
+                                {
+                                    object["PartNumber"] = *partNumber;
+                                }
+
+                                if (serialNumber)
+                                {
+                                    object["SerialNumber"] = *serialNumber;
+                                }
+
+                                if (manufacturer)
+                                {
+                                    object["Manufacturer"] = *manufacturer;
+                                }
+
+                                if (model)
+                                {
+                                    object["Model"] = *model;
+                                }
+                            });
                     }
 
                     // this is done after we know the json array will no longer
@@ -258,7 +268,9 @@ inline void getDriveAsset(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                           const std::string& connectionName,
                           const std::string& path)
 {
-    crow::connections::systemBus->async_method_call(
+    sdbusplus::asio::getAllProperties(
+        *crow::connections::systemBus, connectionName, path,
+        "xyz.openbmc_project.Inventory.Decorator.Asset",
         [asyncResp](const boost::system::error_code ec,
                     const std::vector<
                         std::pair<std::string, dbus::utility::DbusVariantType>>&
@@ -268,32 +280,43 @@ inline void getDriveAsset(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                 // this interface isn't necessary
                 return;
             }
-            for (const std::pair<std::string, dbus::utility::DbusVariantType>&
-                     property : propertiesList)
+
+            const std::string* partNumber = nullptr;
+            const std::string* serialNumber = nullptr;
+            const std::string* manufacturer = nullptr;
+            const std::string* model = nullptr;
+
+            const bool success = sdbusplus::unpackPropertiesNoThrow(
+                dbus_utils::UnpackErrorPrinter(), propertiesList, "PartNumber",
+                partNumber, "SerialNumber", serialNumber, "Manufacturer",
+                manufacturer, "Model", model);
+
+            if (!success)
             {
-                // Store DBus properties that are also
-                // Redfish properties with same name and a
-                // string value
-                const std::string& propertyName = property.first;
-                if ((propertyName == "PartNumber") ||
-                    (propertyName == "SerialNumber") ||
-                    (propertyName == "Manufacturer") ||
-                    (propertyName == "Model"))
-                {
-                    const std::string* value =
-                        std::get_if<std::string>(&property.second);
-                    if (value == nullptr)
-                    {
-                        // illegal property
-                        messages::internalError(asyncResp->res);
-                        return;
-                    }
-                    asyncResp->res.jsonValue[propertyName] = *value;
-                }
+                messages::internalError(asyncResp->res);
+                return;
             }
-        },
-        connectionName, path, "org.freedesktop.DBus.Properties", "GetAll",
-        "xyz.openbmc_project.Inventory.Decorator.Asset");
+
+            if (partNumber)
+            {
+                asyncResp->res.jsonValue["PartNumber"] = *partNumber;
+            }
+
+            if (serialNumber)
+            {
+                asyncResp->res.jsonValue["SerialNumber"] = *serialNumber;
+            }
+
+            if (manufacturer)
+            {
+                asyncResp->res.jsonValue["Manufacturer"] = *manufacturer;
+            }
+
+            if (model)
+            {
+                asyncResp->res.jsonValue["Model"] = *model;
+            }
+        });
 }
 
 inline void getDrivePresent(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,

@@ -23,6 +23,7 @@
 #include <boost/date_time.hpp>
 #include <dbus_utility.hpp>
 #include <registries/privilege_registry.hpp>
+#include <utils/dbus_utils.hpp>
 #include <utils/fw_utils.hpp>
 #include <utils/systemd_utils.hpp>
 
@@ -1206,7 +1207,10 @@ struct GetPIDValues : std::enable_shared_from_this<GetPIDValues>
 
                 const std::string& path = subtreeLocal[0].first;
                 const std::string& owner = subtreeLocal[0].second[0].first;
-                crow::connections::systemBus->async_method_call(
+
+                sdbusplus::asio::getAllProperties(
+                    *crow::connections::systemBus, owner, path,
+                    thermalModeIface,
                     [path, owner,
                      self](const boost::system::error_code ec2,
                            const boost::container::flat_map<
@@ -1220,39 +1224,20 @@ struct GetPIDValues : std::enable_shared_from_this<GetPIDValues>
                             messages::internalError(self->asyncResp->res);
                             return;
                         }
+
                         const std::string* current = nullptr;
                         const std::vector<std::string>* supported = nullptr;
-                        for (const auto& [key, value] : resp)
+
+                        const bool success = sdbusplus::unpackPropertiesNoThrow(
+                            dbus_utils::UnpackErrorPrinter(), resp, "Current",
+                            current, "Supported", supported);
+
+                        if (!success)
                         {
-                            if (key == "Current")
-                            {
-                                current = std::get_if<std::string>(&value);
-                                if (current == nullptr)
-                                {
-                                    BMCWEB_LOG_ERROR
-                                        << "GetPIDValues: thermal mode iface invalid "
-                                        << path;
-                                    messages::internalError(
-                                        self->asyncResp->res);
-                                    return;
-                                }
-                            }
-                            if (key == "Supported")
-                            {
-                                supported =
-                                    std::get_if<std::vector<std::string>>(
-                                        &value);
-                                if (supported == nullptr)
-                                {
-                                    BMCWEB_LOG_ERROR
-                                        << "GetPIDValues: thermal mode iface invalid"
-                                        << path;
-                                    messages::internalError(
-                                        self->asyncResp->res);
-                                    return;
-                                }
-                            }
+                            messages::internalError(self->asyncResp->res);
+                            return;
                         }
+
                         if (current == nullptr || supported == nullptr)
                         {
                             BMCWEB_LOG_ERROR
@@ -1263,9 +1248,7 @@ struct GetPIDValues : std::enable_shared_from_this<GetPIDValues>
                         }
                         self->currentProfile = *current;
                         self->supportedProfiles = *supported;
-                    },
-                    owner, path, "org.freedesktop.DBus.Properties", "GetAll",
-                    thermalModeIface);
+                    });
             },
             "xyz.openbmc_project.ObjectMapper",
             "/xyz/openbmc_project/object_mapper",
@@ -1432,7 +1415,10 @@ struct SetPIDValues : std::enable_shared_from_this<SetPIDValues>
 
                 const std::string& path = subtree[0].first;
                 const std::string& owner = subtree[0].second[0].first;
-                crow::connections::systemBus->async_method_call(
+
+                sdbusplus::asio::getAllProperties(
+                    *crow::connections::systemBus, owner, path,
+                    thermalModeIface,
                     [self, path, owner](
                         const boost::system::error_code ec2,
                         const boost::container::flat_map<
@@ -1445,39 +1431,20 @@ struct SetPIDValues : std::enable_shared_from_this<SetPIDValues>
                             messages::internalError(self->asyncResp->res);
                             return;
                         }
+
                         const std::string* current = nullptr;
                         const std::vector<std::string>* supported = nullptr;
-                        for (const auto& [key, value] : r)
+
+                        const bool success = sdbusplus::unpackPropertiesNoThrow(
+                            dbus_utils::UnpackErrorPrinter(), r, "Current",
+                            current, "Supported", supported);
+
+                        if (!success)
                         {
-                            if (key == "Current")
-                            {
-                                current = std::get_if<std::string>(&value);
-                                if (current == nullptr)
-                                {
-                                    BMCWEB_LOG_ERROR
-                                        << "SetPIDValues: thermal mode iface invalid "
-                                        << path;
-                                    messages::internalError(
-                                        self->asyncResp->res);
-                                    return;
-                                }
-                            }
-                            if (key == "Supported")
-                            {
-                                supported =
-                                    std::get_if<std::vector<std::string>>(
-                                        &value);
-                                if (supported == nullptr)
-                                {
-                                    BMCWEB_LOG_ERROR
-                                        << "SetPIDValues: thermal mode iface invalid"
-                                        << path;
-                                    messages::internalError(
-                                        self->asyncResp->res);
-                                    return;
-                                }
-                            }
+                            messages::internalError(self->asyncResp->res);
+                            return;
                         }
+
                         if (current == nullptr || supported == nullptr)
                         {
                             BMCWEB_LOG_ERROR
@@ -1490,9 +1457,7 @@ struct SetPIDValues : std::enable_shared_from_this<SetPIDValues>
                         self->supportedProfiles = *supported;
                         self->profileConnection = owner;
                         self->profilePath = path;
-                    },
-                    owner, path, "org.freedesktop.DBus.Properties", "GetAll",
-                    thermalModeIface);
+                    });
             },
             "xyz.openbmc_project.ObjectMapper",
             "/xyz/openbmc_project/object_mapper",
@@ -2143,7 +2108,10 @@ inline void requestRoutesManager(App& app)
                         if (interfaceName ==
                             "xyz.openbmc_project.Inventory.Decorator.Asset")
                         {
-                            crow::connections::systemBus->async_method_call(
+                            sdbusplus::asio::getAllProperties(
+                                *crow::connections::systemBus, connectionName,
+                                path,
+                                "xyz.openbmc_project.Inventory.Decorator.Asset",
                                 [asyncResp](
                                     const boost::system::error_code ec,
                                     const std::vector<std::pair<
@@ -2156,39 +2124,62 @@ inline void requestRoutesManager(App& app)
                                             << "Can't get bmc asset!";
                                         return;
                                     }
-                                    for (const std::pair<
-                                             std::string,
-                                             dbus::utility::DbusVariantType>&
-                                             property : propertiesList)
-                                    {
-                                        const std::string& propertyName =
-                                            property.first;
 
-                                        if ((propertyName == "PartNumber") ||
-                                            (propertyName == "SerialNumber") ||
-                                            (propertyName == "Manufacturer") ||
-                                            (propertyName == "Model") ||
-                                            (propertyName == "SparePartNumber"))
-                                        {
-                                            const std::string* value =
-                                                std::get_if<std::string>(
-                                                    &property.second);
-                                            if (value == nullptr)
-                                            {
-                                                // illegal property
-                                                messages::internalError(
-                                                    asyncResp->res);
-                                                return;
-                                            }
-                                            asyncResp->res
-                                                .jsonValue[propertyName] =
-                                                *value;
-                                        }
+                                    const std::string* partNumber = nullptr;
+                                    const std::string* serialNumber = nullptr;
+                                    const std::string* manufacturer = nullptr;
+                                    const std::string* model = nullptr;
+                                    const std::string* sparePartNumber =
+                                        nullptr;
+
+                                    const bool success =
+                                        sdbusplus::unpackPropertiesNoThrow(
+                                            dbus_utils::UnpackErrorPrinter(),
+                                            propertiesList, "PartNumber",
+                                            partNumber, "SerialNumber",
+                                            serialNumber, "Manufacturer",
+                                            manufacturer, "Model", model,
+                                            "SparePartNumber", sparePartNumber);
+
+                                    if (!success)
+                                    {
+                                        messages::internalError(asyncResp->res);
+                                        return;
                                     }
-                                },
-                                connectionName, path,
-                                "org.freedesktop.DBus.Properties", "GetAll",
-                                "xyz.openbmc_project.Inventory.Decorator.Asset");
+
+                                    if (partNumber)
+                                    {
+                                        asyncResp->res.jsonValue["PartNumber"] =
+                                            *partNumber;
+                                    }
+
+                                    if (serialNumber)
+                                    {
+                                        asyncResp->res
+                                            .jsonValue["SerialNumber"] =
+                                            *serialNumber;
+                                    }
+
+                                    if (manufacturer)
+                                    {
+                                        asyncResp->res
+                                            .jsonValue["Manufacturer"] =
+                                            *manufacturer;
+                                    }
+
+                                    if (model)
+                                    {
+                                        asyncResp->res.jsonValue["Model"] =
+                                            *model;
+                                    }
+
+                                    if (sparePartNumber)
+                                    {
+                                        asyncResp->res
+                                            .jsonValue["SparePartNumber"] =
+                                            *sparePartNumber;
+                                    }
+                                });
                         }
                         else if (
                             interfaceName ==
