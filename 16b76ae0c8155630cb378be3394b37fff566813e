@@ -1,6 +1,7 @@
 {
   "comments": [
     {
+      "unresolved": true,
       "key": {
         "uuid": "fc0914e9_ab658671",
         "filename": "redfish-core/include/utils/telemetry_utils.hpp",
@@ -20,10 +21,10 @@
         "endChar": 5
       },
       "revId": "16b76ae0c8155630cb378be3394b37fff566813e",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "5f2cfe1e_32134b3f",
         "filename": "redfish-core/include/utils/telemetry_utils.hpp",
@@ -44,10 +45,10 @@
         "endChar": 5
       },
       "revId": "16b76ae0c8155630cb378be3394b37fff566813e",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "dd4443ce_e1a2187a",
         "filename": "redfish-core/lib/trigger.hpp",
@@ -67,10 +68,10 @@
         "endChar": 47
       },
       "revId": "16b76ae0c8155630cb378be3394b37fff566813e",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "321ff6ee_bf84225e",
         "filename": "redfish-core/lib/trigger.hpp",
@@ -91,10 +92,34 @@
         "endChar": 47
       },
       "revId": "16b76ae0c8155630cb378be3394b37fff566813e",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "bd86bf07_72b5ada3",
+        "filename": "redfish-core/lib/trigger.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1001026
+      },
+      "writtenOn": "2022-02-25T13:42:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "321ff6ee_bf84225e",
+      "range": {
+        "startLine": 52,
+        "startChar": 27,
+        "endLine": 52,
+        "endChar": 47
+      },
+      "revId": "16b76ae0c8155630cb378be3394b37fff566813e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
       "key": {
         "uuid": "d4854272_83559164",
         "filename": "redfish-core/lib/trigger.hpp",
@@ -114,10 +139,10 @@
         "endChar": 32
       },
       "revId": "16b76ae0c8155630cb378be3394b37fff566813e",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "e0402a8e_f61a1cb1",
         "filename": "redfish-core/lib/trigger.hpp",
@@ -138,10 +163,10 @@
         "endChar": 32
       },
       "revId": "16b76ae0c8155630cb378be3394b37fff566813e",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "cd9fb8dc_f830b6ac",
         "filename": "redfish-core/lib/trigger.hpp",
@@ -161,10 +186,10 @@
         "endChar": 53
       },
       "revId": "16b76ae0c8155630cb378be3394b37fff566813e",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "e98bb894_f78df2a2",
         "filename": "redfish-core/lib/trigger.hpp",
@@ -185,10 +210,10 @@
         "endChar": 53
       },
       "revId": "16b76ae0c8155630cb378be3394b37fff566813e",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "a4fba219_722d7c27",
         "filename": "redfish-core/lib/trigger.hpp",
@@ -208,10 +233,10 @@
         "endChar": 49
       },
       "revId": "16b76ae0c8155630cb378be3394b37fff566813e",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "53a1161a_c5ea6957",
         "filename": "redfish-core/lib/trigger.hpp",
@@ -232,10 +257,10 @@
         "endChar": 49
       },
       "revId": "16b76ae0c8155630cb378be3394b37fff566813e",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "d3fd4674_734483d6",
         "filename": "redfish-core/lib/trigger.hpp",
@@ -255,10 +280,10 @@
         "endChar": 51
       },
       "revId": "16b76ae0c8155630cb378be3394b37fff566813e",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "0cbc479c_9a693b74",
         "filename": "redfish-core/lib/trigger.hpp",
@@ -279,10 +304,10 @@
         "endChar": 51
       },
       "revId": "16b76ae0c8155630cb378be3394b37fff566813e",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "426cc176_d2d96926",
         "filename": "redfish-core/lib/trigger.hpp",
@@ -302,10 +327,10 @@
         "endChar": 58
       },
       "revId": "16b76ae0c8155630cb378be3394b37fff566813e",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "293656b2_14eb4c59",
         "filename": "redfish-core/lib/trigger.hpp",
@@ -326,10 +351,10 @@
         "endChar": 58
       },
       "revId": "16b76ae0c8155630cb378be3394b37fff566813e",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "56792d1e_d078934d",
         "filename": "redfish-core/lib/trigger.hpp",
@@ -349,10 +374,10 @@
         "endChar": 54
       },
       "revId": "16b76ae0c8155630cb378be3394b37fff566813e",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "16d9a166_f92e5eca",
         "filename": "redfish-core/lib/trigger.hpp",
@@ -373,10 +398,10 @@
         "endChar": 54
       },
       "revId": "16b76ae0c8155630cb378be3394b37fff566813e",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "da457a58_a852ff63",
         "filename": "redfish-core/lib/trigger.hpp",
@@ -396,10 +421,10 @@
         "endChar": 13
       },
       "revId": "16b76ae0c8155630cb378be3394b37fff566813e",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "2dfcea4d_8f23a0b6",
         "filename": "redfish-core/lib/trigger.hpp",
@@ -420,10 +445,10 @@
         "endChar": 13
       },
       "revId": "16b76ae0c8155630cb378be3394b37fff566813e",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "3e04a6e9_ed356a16",
         "filename": "redfish-core/lib/trigger.hpp",
@@ -443,10 +468,10 @@
         "endChar": 70
       },
       "revId": "16b76ae0c8155630cb378be3394b37fff566813e",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "2aa34eb0_c245b385",
         "filename": "redfish-core/lib/trigger.hpp",
@@ -467,10 +492,10 @@
         "endChar": 70
       },
       "revId": "16b76ae0c8155630cb378be3394b37fff566813e",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "e0983543_cfc6f185",
         "filename": "redfish-core/lib/trigger.hpp",
@@ -490,10 +515,10 @@
         "endChar": 66
       },
       "revId": "16b76ae0c8155630cb378be3394b37fff566813e",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "e6d78e35_d8c8bf2f",
         "filename": "redfish-core/lib/trigger.hpp",
@@ -514,8 +539,7 @@
         "endChar": 66
       },
       "revId": "16b76ae0c8155630cb378be3394b37fff566813e",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
