@@ -16,6 +16,29 @@
       "message": "Ready for review. Closed comments which were already fixed. I also shifted refactor part to other change for easier review.",
       "revId": "55e0b059caf0937513ee9befd7e7c9cb2182bf76",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "71912d80_723e387c",
+        "filename": "redfish-core/include/utils/telemetry_utils.hpp",
+        "patchSetId": 22
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2022-02-25T13:57:23Z",
+      "side": 1,
+      "message": "Probably can be replaced with:\nobject_path uriPath \u003d uri;\nif (uri.object_path() \u003d\u003d \"/redfish/v1/TelemetryService/MetricReportDefinitions\") {\n  return uriPath.filename();\n}\nreturn std::nullopt;",
+      "range": {
+        "startLine": 39,
+        "startChar": 8,
+        "endLine": 39,
+        "endChar": 35
+      },
+      "revId": "55e0b059caf0937513ee9befd7e7c9cb2182bf76",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
