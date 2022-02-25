@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "0d4b6094_b4f66877",
+        "filename": "redfish-core/include/utils/json_utils.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-02-25T17:27:03Z",
+      "side": 1,
+      "message": "This was making the handlers const correct, which in the one variation of the patchset was needed, but I don\u0027t think is needed anymore.",
+      "parentUuid": "04b1c542_a9816239",
+      "range": {
+        "startLine": 80,
+        "startChar": 0,
+        "endLine": 80,
+        "endChar": 59
+      },
+      "revId": "8cc70b3dece2a405a6db8ed9e2532b39e99facf7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "594c72c8_a069b98b",
         "filename": "redfish-core/include/utils/json_utils.hpp",
         "patchSetId": 7
@@ -37,6 +61,30 @@
       "writtenOn": "2022-02-25T10:37:18Z",
       "side": 1,
       "message": "apparently it should be `typename`?",
+      "range": {
+        "startLine": 253,
+        "startChar": 34,
+        "endLine": 253,
+        "endChar": 51
+      },
+      "revId": "8cc70b3dece2a405a6db8ed9e2532b39e99facf7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "88c41019_ff672bc6",
+        "filename": "redfish-core/include/utils/json_utils.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 253,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-02-25T17:27:03Z",
+      "side": 1,
+      "message": "Need more details on what you mean here.\n\nWith that said, I\u0027ve removed this typedef entirely and went back to what it was before.",
+      "parentUuid": "594c72c8_a069b98b",
       "range": {
         "startLine": 253,
         "startChar": 34,
@@ -96,6 +144,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "00a64b60_ababdda7",
+        "filename": "redfish-core/include/utils/json_utils.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 364,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-02-25T17:27:03Z",
+      "side": 1,
+      "message": "I\u0027ll answer in the commit message, but it turns out this code never could unpack vector\u003cbool\u003e properly, because of c++ bool funness.  Luckily, we don\u0027t actually use it anywhere.  It\u0027s left here as a comment to remind someone that while it is valid, at this point, commenting in this line won\u0027t compile.",
+      "parentUuid": "0415da50_75c95350",
+      "range": {
+        "startLine": 364,
+        "startChar": 4,
+        "endLine": 364,
+        "endChar": 25
+      },
+      "revId": "8cc70b3dece2a405a6db8ed9e2532b39e99facf7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "cdf86232_340be4ad",
         "filename": "redfish-core/include/utils/json_utils.hpp",
         "patchSetId": 7
@@ -107,6 +179,30 @@
       "writtenOn": "2022-02-25T10:37:18Z",
       "side": 1,
       "message": "\u0027/\u0027 instead",
+      "range": {
+        "startLine": 417,
+        "startChar": 44,
+        "endLine": 417,
+        "endChar": 48
+      },
+      "revId": "8cc70b3dece2a405a6db8ed9e2532b39e99facf7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "98056ebf_dadd46bd",
+        "filename": "redfish-core/include/utils/json_utils.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 417,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-02-25T17:27:03Z",
+      "side": 1,
+      "message": "Done.",
+      "parentUuid": "cdf86232_340be4ad",
       "range": {
         "startLine": 417,
         "startChar": 44,
@@ -142,6 +238,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "7cc26fc6_60ca28d9",
+        "filename": "redfish-core/include/utils/json_utils.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 426,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-02-25T17:27:03Z",
+      "side": 1,
+      "message": "\u003e nit: revert the logic instead?\n\u003e \n\nDone.\n\n\u003e ```\n\u003e if (key !\u003d item.key() || unpackSpec.complete)\n\u003e {\n\u003e   continue;\n\u003e }\n\u003e ```\n\u003e \n\u003e ---\n\u003e \n\u003e Correct me if I am wrong. Based on my understanding if we have request for `test/a` and `test/b` with\n\u003e \n\u003e ```\n\u003e {\n\u003e   \"test\": {\n\u003e     \"a\": 0,\n\u003e     \"b\": 1,\n\u003e   }\n\u003e }\n\u003e ```\n\u003e \n\u003e When it is doing `test/a` and went into `test/` it will also compete `test/b`, right? So when we get to `test/b` it will already be completed?\n\nCorrect.  Ideally we\u0027d enforce that all the keys be alphabetical to avoid the n^2 lookup times, but given the set sizes, N^2 should be relatively small in most cases, and we can optimize to rely on the alphabeticalness of these items at their call site in the future if we choose later, but at this point I think we can push that to a later patch.",
+      "parentUuid": "23504c0d_9daf9523",
+      "range": {
+        "startLine": 425,
+        "startChar": 12,
+        "endLine": 426,
+        "endChar": 13
+      },
+      "revId": "8cc70b3dece2a405a6db8ed9e2532b39e99facf7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "16982ec8_7be8dcf5",
         "filename": "redfish-core/include/utils/json_utils.hpp",
         "patchSetId": 7
@@ -153,6 +273,30 @@
       "writtenOn": "2022-02-25T10:37:18Z",
       "side": 1,
       "message": "this should always be true, right?\n\nDo we have to check explicitly?\n\nOr just check if `p.key` starts with key + \"/\" instead? Maybe that\u0027s too much for this.",
+      "range": {
+        "startLine": 451,
+        "startChar": 24,
+        "endLine": 451,
+        "endChar": 43
+      },
+      "revId": "8cc70b3dece2a405a6db8ed9e2532b39e99facf7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ecaf2371_f55f5d5b",
+        "filename": "redfish-core/include/utils/json_utils.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 451,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-02-25T17:27:03Z",
+      "side": 1,
+      "message": "\u003e this should always be true, right?\n\u003e \n\nI don\u0027t think so.  thisKey is based on p, which is a second loop through the span, and each entry might, or might not have the same prefix as the thing we\u0027re searching for.\n\n\u003e Do we have to check explicitly?\n\nI think we do, but I could always be wrong, what do you think the logic should be instead?\n\n\u003e \n\u003e Or just check if `p.key` starts with key + \"/\" instead? Maybe that\u0027s too much for this.\n\nMade the change, and it does seem cleaner, and with that change it does remove this.  Take a look at the latest code and see if it does what you were thinking.",
+      "parentUuid": "16982ec8_7be8dcf5",
       "range": {
         "startLine": 451,
         "startChar": 24,
@@ -176,6 +320,30 @@
       "writtenOn": "2022-02-25T10:37:18Z",
       "side": 1,
       "message": "emplace_back?",
+      "range": {
+        "startLine": 453,
+        "startChar": 38,
+        "endLine": 453,
+        "endChar": 47
+      },
+      "revId": "8cc70b3dece2a405a6db8ed9e2532b39e99facf7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "13839cc9_109e6dd3",
+        "filename": "redfish-core/include/utils/json_utils.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 453,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-02-25T17:27:03Z",
+      "side": 1,
+      "message": "I tried emplace_back, and while it does compile with gcc, clang refused to construct it regardless of whether I added braces or not.  I\u0027m pretty sure no matter what we have to build a temporary.\n\nFeel free to play around with it, and if there\u0027s some combination I didn\u0027t try that makes emplace_back compile with both clang and gcc here, I\u0027m happy to do it.  I will fully admit, I don\u0027t understand all the rules for emplace_back on a POD struct.",
+      "parentUuid": "3c52e969_e265f88b",
       "range": {
         "startLine": 453,
         "startChar": 38,
@@ -211,6 +379,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "df63d2c0_a728a490",
+        "filename": "redfish-core/include/utils/json_utils.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 515,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-02-25T17:27:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2775d930_19598550",
+      "range": {
+        "startLine": 514,
+        "startChar": 0,
+        "endLine": 515,
+        "endChar": 29
+      },
+      "revId": "8cc70b3dece2a405a6db8ed9e2532b39e99facf7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "f0158d15_ab299c89",
         "filename": "redfish-core/include/utils/json_utils.hpp",
         "patchSetId": 7
@@ -222,6 +414,30 @@
       "writtenOn": "2022-02-25T10:37:18Z",
       "side": 1,
       "message": "oh yeah, I was working on something like this. Just parse the requested variables and use while parsing the json input and exist once that is done. Seems like this cover everything that I wanted from that idea.",
+      "range": {
+        "startLine": 507,
+        "startChar": 0,
+        "endLine": 518,
+        "endChar": 1
+      },
+      "revId": "8cc70b3dece2a405a6db8ed9e2532b39e99facf7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7351db12_507f8486",
+        "filename": "redfish-core/include/utils/json_utils.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 518,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-02-25T17:27:03Z",
+      "side": 1,
+      "message": "At some point it would be nice if the perVariant structure could do the splitting into some kind of trie structure, but that\u0027s a problem for another day I think.",
+      "parentUuid": "f0158d15_ab299c89",
       "range": {
         "startLine": 507,
         "startChar": 0,
@@ -257,6 +473,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "650f11ce_11c10d34",
+        "filename": "redfish-core/include/utils/json_utils.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 572,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-02-25T17:27:03Z",
+      "side": 1,
+      "message": "Yes.  Although it should be using std::move here.",
+      "parentUuid": "f689fdba_62586945",
+      "range": {
+        "startLine": 572,
+        "startChar": 11,
+        "endLine": 572,
+        "endChar": 24
+      },
+      "revId": "8cc70b3dece2a405a6db8ed9e2532b39e99facf7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "2464fc55_754e2f81",
         "filename": "redfish-core/include/utils/json_utils.hpp",
         "patchSetId": 7
@@ -268,6 +508,30 @@
       "writtenOn": "2022-02-25T10:37:18Z",
       "side": 1,
       "message": "Is this ever true?\n\ncompare against std::nullopt instead?",
+      "range": {
+        "startLine": 580,
+        "startChar": 8,
+        "endLine": 580,
+        "endChar": 30
+      },
+      "revId": "8cc70b3dece2a405a6db8ed9e2532b39e99facf7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d3390dc7_aa3be3b4",
+        "filename": "redfish-core/include/utils/json_utils.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 580,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-02-25T17:27:03Z",
+      "side": 1,
+      "message": "Done.",
+      "parentUuid": "2464fc55_754e2f81",
       "range": {
         "startLine": 580,
         "startChar": 8,
