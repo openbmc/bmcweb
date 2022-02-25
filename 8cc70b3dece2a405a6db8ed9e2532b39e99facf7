@@ -214,6 +214,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d92f2599_5cb287e9",
+        "filename": "redfish-core/include/utils/json_utils.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 364,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2022-02-25T18:44:30Z",
+      "side": 1,
+      "message": "oh interesting.  ACK",
+      "parentUuid": "00a64b60_ababdda7",
+      "range": {
+        "startLine": 364,
+        "startChar": 4,
+        "endLine": 364,
+        "endChar": 25
+      },
+      "revId": "8cc70b3dece2a405a6db8ed9e2532b39e99facf7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cdf86232_340be4ad",
@@ -308,6 +332,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e31d76b5_dd3332ca",
+        "filename": "redfish-core/include/utils/json_utils.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 426,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2022-02-25T18:44:30Z",
+      "side": 1,
+      "message": "nice. ACK",
+      "parentUuid": "7cc26fc6_60ca28d9",
+      "range": {
+        "startLine": 425,
+        "startChar": 12,
+        "endLine": 426,
+        "endChar": 13
+      },
+      "revId": "8cc70b3dece2a405a6db8ed9e2532b39e99facf7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "16982ec8_7be8dcf5",
@@ -357,6 +405,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "3b97307e_4cadb69e",
+        "filename": "redfish-core/include/utils/json_utils.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 451,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2022-02-25T18:44:30Z",
+      "side": 1,
+      "message": "yeah, looks fine.\n\nAlthough,\n\nI think\n\n```\nif (!p.key.starts_with(key))\n```\n\nshould be \n\n```\nif (!p.key.starts_with(key + \u0027/\u0027))\n```\n\nsince it will fetch extra elements for\n\n`test0/1` and `test/1` if the key is `test`",
+      "parentUuid": "ecaf2371_f55f5d5b",
+      "range": {
+        "startLine": 451,
+        "startChar": 24,
+        "endLine": 451,
+        "endChar": 43
+      },
+      "revId": "8cc70b3dece2a405a6db8ed9e2532b39e99facf7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "3c52e969_e265f88b",
         "filename": "redfish-core/include/utils/json_utils.hpp",
         "patchSetId": 7
@@ -392,6 +464,30 @@
       "side": 1,
       "message": "I tried emplace_back, and while it does compile with gcc, clang refused to construct it regardless of whether I added braces or not.  I\u0027m pretty sure no matter what we have to build a temporary.\n\nFeel free to play around with it, and if there\u0027s some combination I didn\u0027t try that makes emplace_back compile with both clang and gcc here, I\u0027m happy to do it.  I will fully admit, I don\u0027t understand all the rules for emplace_back on a POD struct.",
       "parentUuid": "3c52e969_e265f88b",
+      "range": {
+        "startLine": 453,
+        "startChar": 38,
+        "endLine": 453,
+        "endChar": 47
+      },
+      "revId": "8cc70b3dece2a405a6db8ed9e2532b39e99facf7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f3821c99_44aab84c",
+        "filename": "redfish-core/include/utils/json_utils.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 453,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2022-02-25T18:44:30Z",
+      "side": 1,
+      "message": "oh interesting. I guess its fine.",
+      "parentUuid": "13839cc9_109e6dd3",
       "range": {
         "startLine": 453,
         "startChar": 38,
