@@ -999,27 +999,29 @@ class Trie
         {
             if (n->paramChildrens[i] != 0U)
             {
-                BMCWEB_LOG_DEBUG << std::string(
-                    2U * level, ' ') /*<< "("<<n->paramChildrens[i]<<") "*/;
+                BMCWEB_LOG_DEBUG(
+                    "{}({}{}",
+                    std::string(2U * level,
+                                ' ') /*, n->paramChildrens[i], ") "*/);
                 switch (static_cast<ParamType>(i))
                 {
                     case ParamType::INT:
-                        BMCWEB_LOG_DEBUG << "<int>";
+                        BMCWEB_LOG_DEBUG("<int>");
                         break;
                     case ParamType::UINT:
-                        BMCWEB_LOG_DEBUG << "<uint>";
+                        BMCWEB_LOG_DEBUG("<uint>");
                         break;
                     case ParamType::DOUBLE:
-                        BMCWEB_LOG_DEBUG << "<float>";
+                        BMCWEB_LOG_DEBUG("<float>");
                         break;
                     case ParamType::STRING:
-                        BMCWEB_LOG_DEBUG << "<str>";
+                        BMCWEB_LOG_DEBUG("<str>");
                         break;
                     case ParamType::PATH:
-                        BMCWEB_LOG_DEBUG << "<path>";
+                        BMCWEB_LOG_DEBUG("<path>");
                         break;
                     case ParamType::MAX:
-                        BMCWEB_LOG_DEBUG << "<ERROR>";
+                        BMCWEB_LOG_DEBUG("<ERROR>");
                         break;
                 }
 
@@ -1028,9 +1030,9 @@ class Trie
         }
         for (const std::pair<std::string, unsigned>& kv : n->children)
         {
-            BMCWEB_LOG_DEBUG
-                << std::string(2U * level, ' ') /*<< "(" << kv.second << ") "*/
-                << kv.first;
+            BMCWEB_LOG_DEBUG("{}({}{}{}",
+                             std::string(2U * level, ' ') /*, kv.second, ") "*/,
+                             kv.first);
             debugNodePrint(&nodes[kv.second], level + 1);
         }
     }
@@ -1156,7 +1158,7 @@ class Router
         unsigned ruleIndex = found.first;
         if (ruleIndex == 0U)
         {
-            BMCWEB_LOG_DEBUG << "Cannot match rules " << req.url;
+            BMCWEB_LOG_DEBUG("Cannot match rules {}", req.url);
             res.result(boost::beast::http::status::not_found);
             res.end();
             return;
@@ -1169,8 +1171,8 @@ class Router
 
         if (ruleIndex == ruleSpecialRedirectSlash)
         {
-            BMCWEB_LOG_INFO << "Redirecting to a url with trailing slash: "
-                            << req.url;
+            BMCWEB_LOG_INFO("Redirecting to a url with trailing slash: {}",
+                            req.url);
             res.result(boost::beast::http::status::moved_permanently);
 
             // TODO absolute url building
@@ -1194,18 +1196,19 @@ class Router
         if ((rules[ruleIndex]->getMethods() &
              (1U << static_cast<size_t>(req.method()))) == 0)
         {
-            BMCWEB_LOG_DEBUG << "Rule found but method mismatch: " << req.url
-                             << " with " << req.methodString() << "("
-                             << static_cast<uint32_t>(req.method()) << ") / "
-                             << rules[ruleIndex]->getMethods();
+            BMCWEB_LOG_DEBUG(
+                "Rule found but method mismatch: {} with {}({}) / {}", req.url,
+                req.methodString(), static_cast<uint32_t>(req.method()),
+                rules[ruleIndex]->getMethods());
             res.result(boost::beast::http::status::not_found);
             res.end();
             return;
         }
 
-        BMCWEB_LOG_DEBUG << "Matched rule (upgrade) '" << rules[ruleIndex]->rule
-                         << "' " << static_cast<uint32_t>(req.method()) << " / "
-                         << rules[ruleIndex]->getMethods();
+        BMCWEB_LOG_DEBUG("Matched rule (upgrade) '{}' {} / {}",
+                         rules[ruleIndex]->rule,
+                         static_cast<uint32_t>(req.method()),
+                         rules[ruleIndex]->getMethods());
 
         // any uncaught exceptions become 500s
         try
@@ -1215,16 +1218,16 @@ class Router
         }
         catch (const std::exception& e)
         {
-            BMCWEB_LOG_ERROR << "An uncaught exception occurred: " << e.what();
+            BMCWEB_LOG_ERROR("An uncaught exception occurred: {}", e.what());
             res.result(boost::beast::http::status::internal_server_error);
             res.end();
             return;
         }
         catch (...)
         {
-            BMCWEB_LOG_ERROR
-                << "An uncaught exception occurred. The type was unknown "
-                   "so no information was available.";
+            BMCWEB_LOG_ERROR(
+                "An uncaught exception occurred. The type was unknown "
+                "so no information was available.");
             res.result(boost::beast::http::status::internal_server_error);
             res.end();
             return;
@@ -1261,7 +1264,7 @@ class Router
                     return;
                 }
             }
-            BMCWEB_LOG_DEBUG << "Cannot match rules " << req.url;
+            BMCWEB_LOG_DEBUG("Cannot match rules {}", req.url);
             asyncResp->res.result(boost::beast::http::status::not_found);
             return;
         }
@@ -1273,8 +1276,8 @@ class Router
 
         if (ruleIndex == ruleSpecialRedirectSlash)
         {
-            BMCWEB_LOG_INFO << "Redirecting to a url with trailing slash: "
-                            << req.url;
+            BMCWEB_LOG_INFO("Redirecting to a url with trailing slash: {}",
+                            req.url);
             asyncResp->res.result(
                 boost::beast::http::status::moved_permanently);
 
@@ -1297,18 +1300,18 @@ class Router
         if ((rules[ruleIndex]->getMethods() &
              (1U << static_cast<uint32_t>(req.method()))) == 0)
         {
-            BMCWEB_LOG_DEBUG << "Rule found but method mismatch: " << req.url
-                             << " with " << req.methodString() << "("
-                             << static_cast<uint32_t>(req.method()) << ") / "
-                             << rules[ruleIndex]->getMethods();
+            BMCWEB_LOG_DEBUG(
+                "Rule found but method mismatch: {} with {}({}) / {}", req.url,
+                req.methodString(), static_cast<uint32_t>(req.method()),
+                rules[ruleIndex]->getMethods());
             asyncResp->res.result(
                 boost::beast::http::status::method_not_allowed);
             return;
         }
 
-        BMCWEB_LOG_DEBUG << "Matched rule '" << rules[ruleIndex]->rule << "' "
-                         << static_cast<uint32_t>(req.method()) << " / "
-                         << rules[ruleIndex]->getMethods();
+        BMCWEB_LOG_DEBUG("Matched rule '{}' {} / {}", rules[ruleIndex]->rule,
+                         static_cast<uint32_t>(req.method()),
+                         rules[ruleIndex]->getMethods());
 
         if (req.session == nullptr)
         {
@@ -1323,7 +1326,7 @@ class Router
                         userInfo) {
                 if (ec)
                 {
-                    BMCWEB_LOG_ERROR << "GetUserInfo failed...";
+                    BMCWEB_LOG_ERROR("GetUserInfo failed...");
                     asyncResp->res.result(
                         boost::beast::http::status::internal_server_error);
                     return;
@@ -1341,8 +1344,8 @@ class Router
                 if (userRolePtr != nullptr)
                 {
                     userRole = *userRolePtr;
-                    BMCWEB_LOG_DEBUG << "userName = " << req.session->username
-                                     << " userRole = " << *userRolePtr;
+                    BMCWEB_LOG_DEBUG("userName = {} userRole = {}",
+                                     req.session->username, *userRolePtr);
                 }
 
                 const bool* remoteUserPtr = nullptr;
@@ -1353,8 +1356,8 @@ class Router
                 }
                 if (remoteUserPtr == nullptr)
                 {
-                    BMCWEB_LOG_ERROR
-                        << "RemoteUser property missing or wrong type";
+                    BMCWEB_LOG_ERROR(
+                        "RemoteUser property missing or wrong type");
                     asyncResp->res.result(
                         boost::beast::http::status::internal_server_error);
                     return;
@@ -1378,9 +1381,9 @@ class Router
                     }
                     else
                     {
-                        BMCWEB_LOG_ERROR
-                            << "UserPasswordExpired property is expected for"
-                               " local user but is missing or wrong type";
+                        BMCWEB_LOG_ERROR(
+                            "UserPasswordExpired property is expected for"
+                            " local user but is missing or wrong type");
                         asyncResp->res.result(
                             boost::beast::http::status::internal_server_error);
                         return;
@@ -1402,7 +1405,7 @@ class Router
                     // Remove allprivileges except ConfigureSelf
                     userPrivileges = userPrivileges.intersection(
                         redfish::Privileges{"ConfigureSelf"});
-                    BMCWEB_LOG_DEBUG << "Operation limited to ConfigureSelf";
+                    BMCWEB_LOG_DEBUG("Operation limited to ConfigureSelf");
                 }
 
                 if (!rules[ruleIndex]->checkPrivileges(userPrivileges))
@@ -1431,8 +1434,9 @@ class Router
     {
         for (size_t i = 0; i < perMethods.size(); i++)
         {
-            BMCWEB_LOG_DEBUG << boost::beast::http::to_string(
-                static_cast<boost::beast::http::verb>(i));
+            BMCWEB_LOG_DEBUG("{}",
+                             boost::beast::http::to_string(
+                                 static_cast<boost::beast::http::verb>(i)));
             perMethods[i].trie.debugPrint();
         }
     }

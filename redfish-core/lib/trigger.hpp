@@ -207,9 +207,8 @@ inline bool fillTrigger(
     if (name == nullptr || discrete == nullptr || sensors == nullptr ||
         reports == nullptr || actions == nullptr || thresholds == nullptr)
     {
-        BMCWEB_LOG_ERROR
-            << "Property type mismatch or property is missing in Trigger: "
-            << id;
+        BMCWEB_LOG_ERROR(
+            "Property type mismatch or property is missing in Trigger: {}", id);
         return false;
     }
 
@@ -225,9 +224,9 @@ inline bool fillTrigger(
 
         if (!discreteTriggers)
         {
-            BMCWEB_LOG_ERROR << "Property Thresholds is invalid for discrete "
-                                "triggers in Trigger: "
-                             << id;
+            BMCWEB_LOG_ERROR("Property Thresholds is invalid for discrete "
+                             "triggers in Trigger: {}",
+                             id);
             return false;
         }
 
@@ -243,9 +242,9 @@ inline bool fillTrigger(
 
         if (!numericThresholds)
         {
-            BMCWEB_LOG_ERROR << "Property Thresholds is invalid for numeric "
-                                "thresholds in Trigger: "
-                             << id;
+            BMCWEB_LOG_ERROR("Property Thresholds is invalid for numeric "
+                             "thresholds in Trigger: {}",
+                             id);
             return false;
         }
 
@@ -258,8 +257,8 @@ inline bool fillTrigger(
 
     if (!triggerActions)
     {
-        BMCWEB_LOG_ERROR << "Property TriggerActions is invalid in Trigger: "
-                         << id;
+        BMCWEB_LOG_ERROR("Property TriggerActions is invalid in Trigger: {}",
+                         id);
         return false;
     }
 
@@ -316,7 +315,7 @@ inline void requestRoutesTrigger(App& app)
                         }
                         if (ec)
                         {
-                            BMCWEB_LOG_ERROR << "respHandler DBus error " << ec;
+                            BMCWEB_LOG_ERROR("respHandler DBus error {}", ec);
                             messages::internalError(asyncResp->res);
                             return;
                         }
@@ -352,7 +351,7 @@ inline void requestRoutesTrigger(App& app)
 
                         if (ec)
                         {
-                            BMCWEB_LOG_ERROR << "respHandler DBus error " << ec;
+                            BMCWEB_LOG_ERROR("respHandler DBus error {}", ec);
                             messages::internalError(asyncResp->res);
                             return;
                         }
