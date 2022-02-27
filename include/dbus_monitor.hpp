@@ -33,7 +33,7 @@ inline int onPropertyUpdate(sd_bus_message* m, void* userdata,
 {
     if (retError == nullptr || (sd_bus_error_is_set(retError) != 0))
     {
-        BMCWEB_LOG_ERROR << "Got sdbus error on match";
+        BMCWEB_LOG_ERROR("Got sdbus error on match");
         return 0;
     }
     crow::websocket::Connection* connection =
@@ -41,7 +41,8 @@ inline int onPropertyUpdate(sd_bus_message* m, void* userdata,
     auto thisSession = sessions.find(connection);
     if (thisSession == sessions.end())
     {
-        BMCWEB_LOG_ERROR << "Couldn't find dbus connection " << connection;
+        BMCWEB_LOG_ERROR("Couldn't find dbus connection {}",
+                         fmt::ptr(connection));
         return 0;
     }
     sdbusplus::message::message message(m);
@@ -53,12 +54,12 @@ inline int onPropertyUpdate(sd_bus_message* m, void* userdata,
         int r = openbmc_mapper::convertDBusToJSON("sa{sv}as", message, data);
         if (r < 0)
         {
-            BMCWEB_LOG_ERROR << "convertDBusToJSON failed with " << r;
+            BMCWEB_LOG_ERROR("convertDBusToJSON failed with {}", r);
             return 0;
         }
         if (!data.is_array())
         {
-            BMCWEB_LOG_ERROR << "No data in PropertiesChanged signal";
+            BMCWEB_LOG_ERROR("No data in PropertiesChanged signal");
             return 0;
         }
 
@@ -72,13 +73,13 @@ inline int onPropertyUpdate(sd_bus_message* m, void* userdata,
         int r = openbmc_mapper::convertDBusToJSON("oa{sa{sv}}", message, data);
         if (r < 0)
         {
-            BMCWEB_LOG_ERROR << "convertDBusToJSON failed with " << r;
+            BMCWEB_LOG_ERROR("convertDBusToJSON failed with {}", r);
             return 0;
         }
 
         if (!data.is_array())
         {
-            BMCWEB_LOG_ERROR << "No data in InterfacesAdded signal";
+            BMCWEB_LOG_ERROR("No data in InterfacesAdded signal");
             return 0;
         }
 
@@ -94,8 +95,7 @@ inline int onPropertyUpdate(sd_bus_message* m, void* userdata,
     }
     else
     {
-        BMCWEB_LOG_CRITICAL << "message " << message.get_member()
-                            << " was unexpected";
+        BMCWEB_LOG_CRITICAL("message {} was unexpected", message.get_member());
         return 0;
     }
 
@@ -111,7 +111,7 @@ inline void requestRoutes(App& app)
         .websocket()
         .onopen([&](crow::websocket::Connection& conn,
                     const std::shared_ptr<bmcweb::AsyncResp>&) {
-            BMCWEB_LOG_DEBUG << "Connection " << &conn << " opened";
+            BMCWEB_LOG_DEBUG("Connection {} opened", fmt::ptr(&conn));
             sessions.try_emplace(&conn);
         })
         .onclose([&](crow::websocket::Connection& conn, const std::string&) {
@@ -125,11 +125,12 @@ inline void requestRoutes(App& app)
                 conn.close("Internal error");
             }
             DbusWebsocketSession& thisSession = sessionPair->second;
-            BMCWEB_LOG_DEBUG << "Connection " << &conn << " received " << data;
+            BMCWEB_LOG_DEBUG("Connection {} received {}", fmt::ptr(&conn),
+                             data);
             nlohmann::json j = nlohmann::json::parse(data, nullptr, false);
             if (j.is_discarded())
             {
-                BMCWEB_LOG_ERROR << "Unable to parse json data for monitor";
+                BMCWEB_LOG_ERROR("Unable to parse json data for monitor");
                 conn.close("Unable to parse json request");
                 return;
             }
@@ -151,7 +152,7 @@ inline void requestRoutes(App& app)
             nlohmann::json::iterator paths = j.find("paths");
             if (paths == j.end())
             {
-                BMCWEB_LOG_ERROR << "Unable to find paths in json data";
+                BMCWEB_LOG_ERROR("Unable to find paths in json data");
                 conn.close("Unable to find paths in json data");
                 return;
             }
@@ -181,13 +182,13 @@ inline void requestRoutes(App& app)
                     thisPath.get_ptr<const std::string*>();
                 if (thisPathString == nullptr)
                 {
-                    BMCWEB_LOG_ERROR << "subscribe path isn't a string?";
+                    BMCWEB_LOG_ERROR("subscribe path isn't a string?");
                     conn.close();
                     return;
                 }
                 if (!std::regex_match(*thisPathString, validPath))
                 {
-                    BMCWEB_LOG_ERROR << "Invalid path name " << *thisPathString;
+                    BMCWEB_LOG_ERROR("Invalid path name {}", *thisPathString);
                     conn.close();
                     return;
                 }
@@ -202,8 +203,8 @@ inline void requestRoutes(App& app)
                 // interfaces
                 if (thisSession.interfaces.empty())
                 {
-                    BMCWEB_LOG_DEBUG << "Creating match "
-                                     << propertiesMatchString;
+                    BMCWEB_LOG_DEBUG("Creating match {}",
+                                     propertiesMatchString);
 
                     thisSession.matches.emplace_back(
                         std::make_unique<sdbusplus::bus::match::match>(
@@ -218,8 +219,8 @@ inline void requestRoutes(App& app)
                     {
                         if (!std::regex_match(interface, validInterface))
                         {
-                            BMCWEB_LOG_ERROR << "Invalid interface name "
-                                             << interface;
+                            BMCWEB_LOG_ERROR("Invalid interface name {}",
+                                             interface);
                             conn.close();
                             return;
                         }
@@ -227,8 +228,7 @@ inline void requestRoutes(App& app)
                         ifaceMatchString += ",arg0='";
                         ifaceMatchString += interface;
                         ifaceMatchString += "'";
-                        BMCWEB_LOG_DEBUG << "Creating match "
-                                         << ifaceMatchString;
+                        BMCWEB_LOG_DEBUG("Creating match {}", ifaceMatchString);
                         thisSession.matches.emplace_back(
                             std::make_unique<sdbusplus::bus::match::match>(
                                 *crow::connections::systemBus, ifaceMatchString,
@@ -242,8 +242,7 @@ inline void requestRoutes(App& app)
                      *thisPathString +
                      "',"
                      "member='InterfacesAdded'");
-                BMCWEB_LOG_DEBUG << "Creating match "
-                                 << objectManagerMatchString;
+                BMCWEB_LOG_DEBUG("Creating match {}", objectManagerMatchString);
                 thisSession.matches.emplace_back(
                     std::make_unique<sdbusplus::bus::match::match>(
                         *crow::connections::systemBus, objectManagerMatchString,

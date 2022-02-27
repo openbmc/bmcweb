@@ -57,8 +57,7 @@ class Handler : public std::enable_shared_from_this<Handler>
                                       boost::process::std_in < pipeIn, ec);
         if (ec)
         {
-            BMCWEB_LOG_ERROR << "Couldn't connect to nbd-proxy: "
-                             << ec.message();
+            BMCWEB_LOG_ERROR("Couldn't connect to nbd-proxy: {}", ec.message());
             if (session != nullptr)
             {
                 session->close("Error connecting to nbd-proxy");
@@ -73,13 +72,13 @@ class Handler : public std::enable_shared_from_this<Handler>
     {
         if (doingWrite)
         {
-            BMCWEB_LOG_DEBUG << "Already writing.  Bailing out";
+            BMCWEB_LOG_DEBUG("Already writing.  Bailing out");
             return;
         }
 
         if (inputBuffer->size() == 0)
         {
-            BMCWEB_LOG_DEBUG << "inputBuffer empty.  Bailing out";
+            BMCWEB_LOG_DEBUG("inputBuffer empty.  Bailing out");
             return;
         }
 
@@ -88,7 +87,7 @@ class Handler : public std::enable_shared_from_this<Handler>
             inputBuffer->data(),
             [this, self(shared_from_this())](boost::beast::error_code ec,
                                              std::size_t bytesWritten) {
-                BMCWEB_LOG_DEBUG << "Wrote " << bytesWritten << "bytes";
+                BMCWEB_LOG_DEBUG("Wrote {}bytes", bytesWritten);
                 doingWrite = false;
                 inputBuffer->consume(bytesWritten);
 
@@ -104,7 +103,7 @@ class Handler : public std::enable_shared_from_this<Handler>
                 if (ec)
                 {
                     session->close("Error in writing to proxy port");
-                    BMCWEB_LOG_ERROR << "Error in VM socket write " << ec;
+                    BMCWEB_LOG_ERROR("Error in VM socket write {}", ec);
                     return;
                 }
                 doWrite();
@@ -119,11 +118,10 @@ class Handler : public std::enable_shared_from_this<Handler>
             outputBuffer->prepare(bytes),
             [this, self(shared_from_this())](
                 const boost::system::error_code& ec, std::size_t bytesRead) {
-                BMCWEB_LOG_DEBUG << "Read done.  Read " << bytesRead
-                                 << " bytes";
+                BMCWEB_LOG_DEBUG("Read done.  Read {} bytes", bytesRead);
                 if (ec)
                 {
-                    BMCWEB_LOG_ERROR << "Couldn't read from VM port: " << ec;
+                    BMCWEB_LOG_ERROR("Couldn't read from VM port: {}", ec);
                     if (session != nullptr)
                     {
                         session->close("Error in connecting to VM port");
@@ -167,7 +165,7 @@ inline void requestRoutes(App& app)
         .websocket()
         .onopen([](crow::websocket::Connection& conn,
                    const std::shared_ptr<bmcweb::AsyncResp>&) {
-            BMCWEB_LOG_DEBUG << "Connection " << &conn << " opened";
+            BMCWEB_LOG_DEBUG("Connection {} opened", fmt::ptr(&conn));
 
             if (session != nullptr)
             {
@@ -206,8 +204,8 @@ inline void requestRoutes(App& app)
                       const std::string& data, bool) {
             if (data.length() > handler->inputBuffer->capacity())
             {
-                BMCWEB_LOG_ERROR << "Buffer overrun when writing "
-                                 << data.length() << " bytes";
+                BMCWEB_LOG_ERROR("Buffer overrun when writing {} bytes",
+                                 data.length());
                 conn.close("Buffer overrun");
                 return;
             }

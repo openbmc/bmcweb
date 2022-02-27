@@ -38,7 +38,7 @@ inline void handleTelemetryServiceGet(
             }
             if (ec)
             {
-                BMCWEB_LOG_ERROR << "respHandler DBus error " << ec;
+                BMCWEB_LOG_ERROR("respHandler DBus error {}", ec);
                 messages::internalError(asyncResp->res);
                 return;
             }
@@ -60,8 +60,8 @@ inline void handleTelemetryServiceGet(
             }
             if (maxReports == nullptr || minInterval == nullptr)
             {
-                BMCWEB_LOG_ERROR
-                    << "Property type mismatch or property is missing";
+                BMCWEB_LOG_ERROR(
+                    "Property type mismatch or property is missing");
                 messages::internalError(asyncResp->res);
                 return;
             }

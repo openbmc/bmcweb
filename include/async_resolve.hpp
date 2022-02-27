@@ -29,7 +29,7 @@ class Resolver
     void asyncResolve(const std::string& host, const std::string& port,
                       ResolveHandler&& handler)
     {
-        BMCWEB_LOG_DEBUG << "Trying to resolve: " << host << ":" << port;
+        BMCWEB_LOG_DEBUG("Trying to resolve: {}:{}", host, port);
         uint64_t flag = 0;
         crow::connections::systemBus->async_method_call(
             [host, port, handler{std::forward<ResolveHandler>(handler)}](
@@ -40,12 +40,12 @@ class Resolver
                 std::vector<boost::asio::ip::tcp::endpoint> endpointList;
                 if (ec)
                 {
-                    BMCWEB_LOG_ERROR << "Resolve failed: " << ec.message();
+                    BMCWEB_LOG_ERROR("Resolve failed: {}", ec.message());
                     handler(ec, endpointList);
                     return;
                 }
-                BMCWEB_LOG_DEBUG << "ResolveHostname returned: " << hostName
-                                 << ":" << flagNum;
+                BMCWEB_LOG_DEBUG("ResolveHostname returned: {}:{}", hostName,
+                                 flagNum);
                 // Extract the IP address from the response
                 for (auto resolveList : resp)
                 {
@@ -53,7 +53,7 @@ class Resolver
                     boost::asio::ip::tcp::endpoint endpoint;
                     if (ipAddress.size() == 4) // ipv4 address
                     {
-                        BMCWEB_LOG_DEBUG << "ipv4 address";
+                        BMCWEB_LOG_DEBUG("ipv4 address");
                         boost::asio::ip::address_v4 ipv4Addr(
                             {ipAddress[0], ipAddress[1], ipAddress[2],
                              ipAddress[3]});
@@ -61,7 +61,7 @@ class Resolver
                     }
                     else if (ipAddress.size() == 16) // ipv6 address
                     {
-                        BMCWEB_LOG_DEBUG << "ipv6 address";
+                        BMCWEB_LOG_DEBUG("ipv6 address");
                         boost::asio::ip::address_v6 ipv6Addr(
                             {ipAddress[0], ipAddress[1], ipAddress[2],
                              ipAddress[3], ipAddress[4], ipAddress[5],
@@ -73,8 +73,8 @@ class Resolver
                     }
                     else
                     {
-                        BMCWEB_LOG_ERROR
-                            << "Resolve failed to fetch the IP address";
+                        BMCWEB_LOG_ERROR(
+                            "Resolve failed to fetch the IP address");
                         handler(ec, endpointList);
                         return;
                     }
@@ -84,12 +84,13 @@ class Resolver
                         port.data(), port.data() + port.size(), portNum);
                     if (it.ec != std::errc())
                     {
-                        BMCWEB_LOG_ERROR << "Failed to get the Port";
+                        BMCWEB_LOG_ERROR("Failed to get the Port");
                         handler(ec, endpointList);
                         return;
                     }
                     endpoint.port(portNum);
-                    BMCWEB_LOG_DEBUG << "resolved endpoint is : " << endpoint;
+                    BMCWEB_LOG_DEBUG("resolved endpoint is : {}",
+                                     endpoint.address().to_string());
                     endpointList.push_back(endpoint);
                 }
                 // All the resolved data is filled in the endpointList
