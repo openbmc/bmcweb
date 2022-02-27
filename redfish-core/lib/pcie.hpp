@@ -38,8 +38,7 @@ static inline void
                                   std::vector<std::string>& pcieDevicePaths) {
         if (ec)
         {
-            BMCWEB_LOG_DEBUG << "no PCIe device paths found ec: "
-                             << ec.message();
+            BMCWEB_LOG_DEBUG("no PCIe device paths found ec: {}", ec.message());
             // Not an error, system just doesn't have PCIe info
             return;
         }
@@ -144,93 +143,91 @@ inline void requestRoutesSystemPCIeDevice(App& app)
                const std::string& device)
 
             {
-                auto getPCIeDeviceCallback =
-                    [asyncResp,
-                     device](const boost::system::error_code ec,
-                             boost::container::flat_map<
-                                 std::string, dbus::utility::DbusVariantType>&
-                                 pcieDevProperties) {
-                        if (ec)
+                auto getPCIeDeviceCallback = [asyncResp, device](
+                                                 const boost::system::error_code
+                                                     ec,
+                                                 boost::container::flat_map<
+                                                     std::string,
+                                                     dbus::utility::
+                                                         DbusVariantType>&
+                                                     pcieDevProperties) {
+                    if (ec)
+                    {
+                        BMCWEB_LOG_DEBUG(
+                            "failed to get PCIe Device properties ec: {}: {}",
+                            ec.value(), ec.message());
+                        if (ec.value() ==
+                            boost::system::linux_error::bad_request_descriptor)
                         {
-                            BMCWEB_LOG_DEBUG
-                                << "failed to get PCIe Device properties ec: "
-                                << ec.value() << ": " << ec.message();
-                            if (ec.value() == boost::system::linux_error::
-                                                  bad_request_descriptor)
-                            {
-                                messages::resourceNotFound(
-                                    asyncResp->res, "PCIeDevice", device);
-                            }
-                            else
-                            {
-                                messages::internalError(asyncResp->res);
-                            }
+                            messages::resourceNotFound(asyncResp->res,
+                                                       "PCIeDevice", device);
+                        }
+                        else
+                        {
+                            messages::internalError(asyncResp->res);
+                        }
+                        return;
+                    }
+
+                    asyncResp->res.jsonValue = {
+                        {"@odata.type", "#PCIeDevice.v1_4_0.PCIeDevice"},
+                        {"@odata.id",
+                         "/redfish/v1/Systems/system/PCIeDevices/" + device},
+                        {"Name", "PCIe Device"},
+                        {"Id", device}};
+
+                    if (std::string* property = std::get_if<std::string>(
+                            &pcieDevProperties["Manufacturer"]);
+                        property)
+                    {
+                        asyncResp->res.jsonValue["Manufacturer"] = *property;
+                    }
+
+                    if (std::string* property = std::get_if<std::string>(
+                            &pcieDevProperties["DeviceType"]);
+                        property)
+                    {
+                        asyncResp->res.jsonValue["DeviceType"] = *property;
+                    }
+
+                    if (std::string* property = std::get_if<std::string>(
+                            &pcieDevProperties["Manufacturer"]);
+                        property)
+                    {
+                        asyncResp->res.jsonValue["Manufacturer"] = *property;
+                    }
+
+                    if (std::string* property = std::get_if<std::string>(
+                            &pcieDevProperties["DeviceType"]);
+                        property)
+                    {
+                        asyncResp->res.jsonValue["DeviceType"] = *property;
+                    }
+
+                    if (std::string* property = std::get_if<std::string>(
+                            &pcieDevProperties["GenerationInUse"]);
+                        property)
+                    {
+                        std::optional<std::string> generationInUse =
+                            redfishPcieGenerationFromDbus(*property);
+                        if (!generationInUse)
+                        {
+                            messages::internalError(asyncResp->res);
                             return;
                         }
-
-                        asyncResp->res.jsonValue = {
-                            {"@odata.type", "#PCIeDevice.v1_4_0.PCIeDevice"},
-                            {"@odata.id",
-                             "/redfish/v1/Systems/system/PCIeDevices/" +
-                                 device},
-                            {"Name", "PCIe Device"},
-                            {"Id", device}};
-
-                        if (std::string* property = std::get_if<std::string>(
-                                &pcieDevProperties["Manufacturer"]);
-                            property)
+                        if (generationInUse->empty())
                         {
-                            asyncResp->res.jsonValue["Manufacturer"] =
-                                *property;
+                            // unknown, no need to handle
+                            return;
                         }
-
-                        if (std::string* property = std::get_if<std::string>(
-                                &pcieDevProperties["DeviceType"]);
-                            property)
-                        {
-                            asyncResp->res.jsonValue["DeviceType"] = *property;
-                        }
-
-                        if (std::string* property = std::get_if<std::string>(
-                                &pcieDevProperties["Manufacturer"]);
-                            property)
-                        {
-                            asyncResp->res.jsonValue["Manufacturer"] =
-                                *property;
-                        }
-
-                        if (std::string* property = std::get_if<std::string>(
-                                &pcieDevProperties["DeviceType"]);
-                            property)
-                        {
-                            asyncResp->res.jsonValue["DeviceType"] = *property;
-                        }
-
-                        if (std::string* property = std::get_if<std::string>(
-                                &pcieDevProperties["GenerationInUse"]);
-                            property)
-                        {
-                            std::optional<std::string> generationInUse =
-                                redfishPcieGenerationFromDbus(*property);
-                            if (!generationInUse)
-                            {
-                                messages::internalError(asyncResp->res);
-                                return;
-                            }
-                            if (generationInUse->empty())
-                            {
-                                // unknown, no need to handle
-                                return;
-                            }
-                            asyncResp->res
-                                .jsonValue["PCIeInterface"]["PCIeType"] =
-                                *generationInUse;
-                        }
-                        asyncResp->res.jsonValue["PCIeFunctions"] = {
-                            {"@odata.id",
-                             "/redfish/v1/Systems/system/PCIeDevices/" +
-                                 device + "/PCIeFunctions"}};
-                    };
+                        asyncResp->res.jsonValue["PCIeInterface"]["PCIeType"] =
+                            *generationInUse;
+                    }
+                    asyncResp->res.jsonValue["PCIeFunctions"] = {
+                        {"@odata.id",
+                         "/redfish/v1/Systems/system/PCIeDevices/" + device +
+                             "/PCIeFunctions"}};
+                };
                 std::string escapedPath = std::string(pciePath) + "/" + device;
                 dbus::utility::escapePathForDbus(escapedPath);
                 crow::connections::systemBus->async_method_call(
@@ -273,9 +270,9 @@ inline void requestRoutesSystemPCIeFunctionCollection(App& app)
                                                      pcieDevProperties) {
                     if (ec)
                     {
-                        BMCWEB_LOG_DEBUG
-                            << "failed to get PCIe Device properties ec: "
-                            << ec.value() << ": " << ec.message();
+                        BMCWEB_LOG_DEBUG(
+                            "failed to get PCIe Device properties ec: {}: {}",
+                            ec.value(), ec.message());
                         if (ec.value() ==
                             boost::system::linux_error::bad_request_descriptor)
                         {
@@ -344,9 +341,9 @@ inline void requestRoutesSystemPCIeFunction(App& app)
                         pcieDevProperties) {
                     if (ec)
                     {
-                        BMCWEB_LOG_DEBUG
-                            << "failed to get PCIe Device properties ec: "
-                            << ec.value() << ": " << ec.message();
+                        BMCWEB_LOG_DEBUG(
+                            "failed to get PCIe Device properties ec: {}: {}",
+                            ec.value(), ec.message());
                         if (ec.value() ==
                             boost::system::linux_error::bad_request_descriptor)
                         {

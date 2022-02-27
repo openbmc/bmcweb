@@ -59,12 +59,12 @@ void getMainChassisId(std::shared_ptr<bmcweb::AsyncResp> asyncResp,
                     const crow::openbmc_mapper::GetSubTreeType& subtree) {
             if (ec)
             {
-                BMCWEB_LOG_ERROR << ec;
+                BMCWEB_LOG_ERROR("{}", ec);
                 return;
             }
             if (subtree.empty())
             {
-                BMCWEB_LOG_DEBUG << "Can't find chassis!";
+                BMCWEB_LOG_DEBUG("Can't find chassis!");
                 return;
             }
 
@@ -73,11 +73,11 @@ void getMainChassisId(std::shared_ptr<bmcweb::AsyncResp> asyncResp,
                 (idPos + 1) >= subtree[0].first.size())
             {
                 messages::internalError(asyncResp->res);
-                BMCWEB_LOG_DEBUG << "Can't parse chassis ID!";
+                BMCWEB_LOG_DEBUG("Can't parse chassis ID!");
                 return;
             }
             std::string chassisId = subtree[0].first.substr(idPos + 1);
-            BMCWEB_LOG_DEBUG << "chassisId = " << chassisId;
+            BMCWEB_LOG_DEBUG("chassisId = {}", chassisId);
             callback(chassisId, asyncResp);
         },
         "xyz.openbmc_project.ObjectMapper",
@@ -99,7 +99,7 @@ void getPortStatusAndPath(const std::string& serviceName,
             const std::vector<UnitStruct>& r) {
             if (ec)
             {
-                BMCWEB_LOG_ERROR << ec;
+                BMCWEB_LOG_ERROR("{}", ec);
                 // return error code
                 callback(ec, "", false);
                 return;
@@ -161,7 +161,7 @@ void getPortStatusAndPath(const std::string& serviceName,
                     boost::system::errc::no_such_process);
             // return error code
             callback(ec1, "", false);
-            BMCWEB_LOG_ERROR << ec1;
+            BMCWEB_LOG_ERROR("{}", ec1);
         },
         "org.freedesktop.systemd1", "/org/freedesktop/systemd1",
         "org.freedesktop.systemd1.Manager", "ListUnits");
@@ -179,7 +179,7 @@ void getPortNumber(const std::string& socketPath, CallbackFunc&& callback)
             const std::vector<std::tuple<std::string, std::string>>& resp) {
             if (ec)
             {
-                BMCWEB_LOG_ERROR << ec;
+                BMCWEB_LOG_ERROR("{}", ec);
                 callback(ec, 0);
                 return;
             }
@@ -191,7 +191,7 @@ void getPortNumber(const std::string& socketPath, CallbackFunc&& callback)
                         boost::system::errc::bad_message);
                 // return error code
                 callback(ec1, 0);
-                BMCWEB_LOG_ERROR << ec1;
+                BMCWEB_LOG_ERROR("{}", ec1);
                 return;
             }
             const std::string& listenStream =
@@ -213,7 +213,7 @@ void getPortNumber(const std::string& socketPath, CallbackFunc&& callback)
                 }
                 // return error code
                 callback(ec3, 0);
-                BMCWEB_LOG_ERROR << ec3;
+                BMCWEB_LOG_ERROR("{}", ec3);
             }
             callback(ec, port);
         });
