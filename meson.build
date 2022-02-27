@@ -253,6 +253,17 @@ if not sdbusplus.found()
 endif
 bmcweb_dependencies += sdbusplus
 
+if( get_option('bmcweb-logging').enabled() or \
+    get_option('buildtype').startswith('debug'))
+  fmt = dependency('fmt', required : false, include_type: 'system')
+  if not fmt.found()
+    fmt_proj = subproject('fmt', required: true)
+    fmt = fmt_proj.get_variable('fmt_dep')
+    fmt = fmt.as_system('system')
+  endif
+  bmcweb_dependencies += fmt
+endif
+
 if get_option('rest').enabled()
   tinyxml = dependency('tinyxml2',
       default_options: ['tests=false'],

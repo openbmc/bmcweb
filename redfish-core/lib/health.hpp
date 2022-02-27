@@ -107,8 +107,8 @@ struct HealthPopulate : std::enable_shared_from_this<HealthPopulate>
                                 std::get_if<std::vector<std::string>>(&value);
                             if (endpoints == nullptr)
                             {
-                                BMCWEB_LOG_ERROR << "Illegal association at "
-                                                 << path.str;
+                                BMCWEB_LOG_ERROR("Illegal association at {}",
+                                                 path.str);
                                 continue;
                             }
                             bool containsChild = false;

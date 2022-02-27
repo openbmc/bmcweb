@@ -60,7 +60,7 @@ class ServerSentEvents : public std::enable_shared_from_this<ServerSentEvents>
     {
         if (msg.empty())
         {
-            BMCWEB_LOG_DEBUG << "Empty data, bailing out.";
+            BMCWEB_LOG_DEBUG("Empty data, bailing out.");
             return;
         }
 
@@ -95,7 +95,7 @@ class ServerSentEvents : public std::enable_shared_from_this<ServerSentEvents>
     {
         if (outBuffer.empty())
         {
-            BMCWEB_LOG_DEBUG << "All data sent successfully.";
+            BMCWEB_LOG_DEBUG("All data sent successfully.");
             // Send is successful, Lets remove data from queue
             // check for next request data in queue.
             requestDataQueue.pop();
@@ -123,14 +123,14 @@ class ServerSentEvents : public std::enable_shared_from_this<ServerSentEvents>
 
                 if (ec)
                 {
-                    BMCWEB_LOG_ERROR << "async_write_some() failed: "
-                                     << ec.message();
+                    BMCWEB_LOG_ERROR("async_write_some() failed: {}",
+                                     ec.message());
                     self->state = SseConnState::sendFailed;
                     self->checkQueue();
                     return;
                 }
-                BMCWEB_LOG_DEBUG << "async_write_some() bytes transferred: "
-                                 << bytesTransferred;
+                BMCWEB_LOG_DEBUG("async_write_some() bytes transferred: {}",
+                                 bytesTransferred);
 
                 self->doWrite();
             });
@@ -144,7 +144,7 @@ class ServerSentEvents : public std::enable_shared_from_this<ServerSentEvents>
         }
         state = SseConnState::initInProgress;
 
-        BMCWEB_LOG_DEBUG << "starting SSE connection ";
+        BMCWEB_LOG_DEBUG("starting SSE connection ");
         using BodyType = boost::beast::http::buffer_body;
         auto response =
             std::make_shared<boost::beast::http::response<BodyType>>(
@@ -168,13 +168,13 @@ class ServerSentEvents : public std::enable_shared_from_this<ServerSentEvents>
                          [[maybe_unused]] const std::size_t& bytesTransferred) {
                 if (ec)
                 {
-                    BMCWEB_LOG_ERROR << "Error sending header" << ec;
+                    BMCWEB_LOG_ERROR("Error sending header{}", ec);
                     state = SseConnState::initFailed;
                     checkQueue();
                     return;
                 }
 
-                BMCWEB_LOG_DEBUG << "startSSE  Header sent.";
+                BMCWEB_LOG_DEBUG("startSSE  Header sent.");
                 state = SseConnState::initialized;
                 checkQueue();
             });
@@ -184,13 +184,13 @@ class ServerSentEvents : public std::enable_shared_from_this<ServerSentEvents>
     {
         if (requestDataQueue.empty())
         {
-            BMCWEB_LOG_DEBUG << "requestDataQueue is empty\n";
+            BMCWEB_LOG_DEBUG("requestDataQueue is empty\n");
             return;
         }
 
         if (retryCount >= maxRetryAttempts)
         {
-            BMCWEB_LOG_ERROR << "Maximum number of retries is reached.";
+            BMCWEB_LOG_ERROR("Maximum number of retries is reached.");
 
             // Clear queue.
             while (!requestDataQueue.empty())
@@ -278,7 +278,7 @@ class ServerSentEvents : public std::enable_shared_from_this<ServerSentEvents>
         }
         else
         {
-            BMCWEB_LOG_ERROR << "Request queue is full. So ignoring data.";
+            BMCWEB_LOG_ERROR("Request queue is full. So ignoring data.");
         }
     }
 };

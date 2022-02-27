@@ -42,11 +42,11 @@ inline void
             // expected, we were canceled before the timer completed.
             return;
         }
-        BMCWEB_LOG_ERROR << "Timed out waiting for Version interface";
+        BMCWEB_LOG_ERROR("Timed out waiting for Version interface");
 
         if (ec)
         {
-            BMCWEB_LOG_ERROR << "Async_wait failed " << ec;
+            BMCWEB_LOG_ERROR("Async_wait failed {}", ec);
             return;
         }
 
@@ -61,7 +61,7 @@ inline void
 
     std::function<void(sdbusplus::message::message&)> callback =
         [asyncResp](sdbusplus::message::message& m) {
-            BMCWEB_LOG_DEBUG << "Match fired";
+            BMCWEB_LOG_DEBUG("Match fired");
 
             sdbusplus::message::object_path path;
             std::vector<std::pair<
@@ -85,7 +85,7 @@ inline void
 
                 asyncResp->res.jsonValue = {
                     {"data", leaf}, {"message", "200 OK"}, {"status", "ok"}};
-                BMCWEB_LOG_DEBUG << "ending response";
+                BMCWEB_LOG_DEBUG("ending response");
                 fwUpdateMatcher = nullptr;
             }
         };
@@ -98,7 +98,7 @@ inline void
     std::string filepath(
         "/tmp/images/" +
         boost::uuids::to_string(boost::uuids::random_generator()()));
-    BMCWEB_LOG_DEBUG << "Writing file to " << filepath;
+    BMCWEB_LOG_DEBUG("Writing file to {}", filepath);
     std::ofstream out(filepath, std::ofstream::out | std::ofstream::binary |
                                     std::ofstream::trunc);
     out << req.body;
