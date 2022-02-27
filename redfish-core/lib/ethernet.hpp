@@ -501,9 +501,9 @@ inline void
                         }
                         else
                         {
-                            BMCWEB_LOG_ERROR
-                                << "Got extra property: " << property.first
-                                << " on the " << objpath.first.str << " object";
+                            BMCWEB_LOG_ERROR(
+                                "Got extra property: {} on the {} object",
+                                property.first, objpath.first.str);
                         }
                     }
                 }
@@ -580,9 +580,9 @@ inline void
                         }
                         else
                         {
-                            BMCWEB_LOG_ERROR
-                                << "Got extra property: " << property.first
-                                << " on the " << objpath.first.str << " object";
+                            BMCWEB_LOG_ERROR(
+                                "Got extra property: {} on the {} object",
+                                property.first, objpath.first.str);
                         }
                     }
                     // Check if given address is local, or global
@@ -1187,7 +1187,7 @@ inline void setDHCPEnabled(const std::string& ifaceId,
         [asyncResp](const boost::system::error_code ec) {
             if (ec)
             {
-                BMCWEB_LOG_ERROR << "D-Bus responses error: " << ec;
+                BMCWEB_LOG_ERROR("D-Bus responses error: {}", ec);
                 messages::internalError(asyncResp->res);
                 return;
             }
@@ -1208,7 +1208,7 @@ inline void setEthernetInterfaceBoolProperty(
         [asyncResp](const boost::system::error_code ec) {
             if (ec)
             {
-                BMCWEB_LOG_ERROR << "D-Bus responses error: " << ec;
+                BMCWEB_LOG_ERROR("D-Bus responses error: {}", ec);
                 messages::internalError(asyncResp->res);
                 return;
             }
@@ -1223,12 +1223,12 @@ inline void setEthernetInterfaceBoolProperty(
 inline void setDHCPv4Config(const std::string& propertyName, const bool& value,
                             const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
-    BMCWEB_LOG_DEBUG << propertyName << " = " << value;
+    BMCWEB_LOG_DEBUG("{} = {}", propertyName, value);
     crow::connections::systemBus->async_method_call(
         [asyncResp](const boost::system::error_code ec) {
             if (ec)
             {
-                BMCWEB_LOG_ERROR << "D-Bus responses error: " << ec;
+                BMCWEB_LOG_ERROR("D-Bus responses error: {}", ec);
                 messages::internalError(asyncResp->res);
                 return;
             }
@@ -1340,14 +1340,14 @@ inline void handleDHCPPatch(const std::string& ifaceId,
         nextUseDomain = ethData.HostNameEnabled;
     }
 
-    BMCWEB_LOG_DEBUG << "set DHCPEnabled...";
+    BMCWEB_LOG_DEBUG("set DHCPEnabled...");
     setDHCPEnabled(ifaceId, "DHCPEnabled", nextv4DHCPState, nextv6DHCPState,
                    asyncResp);
-    BMCWEB_LOG_DEBUG << "set DNSEnabled...";
+    BMCWEB_LOG_DEBUG("set DNSEnabled...");
     setDHCPv4Config("DNSEnabled", nextDNS, asyncResp);
-    BMCWEB_LOG_DEBUG << "set NTPEnabled...";
+    BMCWEB_LOG_DEBUG("set NTPEnabled...");
     setDHCPv4Config("NTPEnabled", nextNTP, asyncResp);
-    BMCWEB_LOG_DEBUG << "set HostNameEnabled...";
+    BMCWEB_LOG_DEBUG("set HostNameEnabled...");
     setDHCPv4Config("HostNameEnabled", nextUseDomain, asyncResp);
 }
 
@@ -2201,9 +2201,9 @@ inline void requestEthernetInterfacesRoutes(App& app)
                             }
                             else
                             {
-                                BMCWEB_LOG_DEBUG
-                                    << "vlanEnable is false. Deleting the "
-                                       "vlan interface";
+                                BMCWEB_LOG_DEBUG(
+                                    "vlanEnable is false. Deleting the "
+                                    "vlan interface");
                                 crow::connections::systemBus->async_method_call(
                                     std::move(callback),
                                     "xyz.openbmc_project.Network",

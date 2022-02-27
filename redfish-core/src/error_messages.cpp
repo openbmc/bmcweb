@@ -40,16 +40,15 @@ static void addMessageToErrorJson(nlohmann::json& target,
         auto messageIdIterator = message.find("MessageId");
         if (messageIdIterator == message.end())
         {
-            BMCWEB_LOG_CRITICAL
-                << "Attempt to add error message without MessageId";
+            BMCWEB_LOG_CRITICAL(
+                "Attempt to add error message without MessageId");
             return;
         }
 
         auto messageFieldIterator = message.find("Message");
         if (messageFieldIterator == message.end())
         {
-            BMCWEB_LOG_CRITICAL
-                << "Attempt to add error message without Message";
+            BMCWEB_LOG_CRITICAL("Attempt to add error message without Message");
             return;
         }
         error = {{"code", *messageIdIterator},
@@ -232,9 +231,9 @@ nlohmann::json internalError(void)
 
 void internalError(crow::Response& res, const bmcweb::source_location location)
 {
-    BMCWEB_LOG_CRITICAL << "Internal Error " << location.file_name() << "("
-                        << location.line() << ":" << location.column() << ") `"
-                        << location.function_name() << "`: ";
+    BMCWEB_LOG_CRITICAL("Internal Error {}({}:{}) `{}`: ", location.file_name(),
+                        location.line(), location.column(),
+                        location.function_name());
     res.result(boost::beast::http::status::internal_server_error);
     addMessageToErrorJson(res.jsonValue, internalError());
 }

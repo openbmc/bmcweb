@@ -192,7 +192,7 @@ inline void requestRoutesSession(App& app)
                     if (!json_util::readJson(*bmcOem, asyncResp->res,
                                              "ClientID", clientId))
                     {
-                        BMCWEB_LOG_ERROR << "Could not read ClientId";
+                        BMCWEB_LOG_ERROR("Could not read ClientId");
                         return;
                     }
                 }

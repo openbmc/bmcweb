@@ -80,21 +80,21 @@ bool checkRange(const FromType& from, const std::string& key)
 {
     if (from > std::numeric_limits<ToType>::max())
     {
-        BMCWEB_LOG_DEBUG << "Value for key " << key
-                         << " was greater than max: " << __PRETTY_FUNCTION__;
+        BMCWEB_LOG_DEBUG("Value for key {} was greater than max: {}", key,
+                         __PRETTY_FUNCTION__);
         return false;
     }
     if (from < std::numeric_limits<ToType>::lowest())
     {
-        BMCWEB_LOG_DEBUG << "Value for key " << key
-                         << " was less than min: " << __PRETTY_FUNCTION__;
+        BMCWEB_LOG_DEBUG("Value for key {} was less than min: {}", key,
+                         __PRETTY_FUNCTION__);
         return false;
     }
     if constexpr (std::is_floating_point_v<ToType>)
     {
         if (std::isnan(from))
         {
-            BMCWEB_LOG_DEBUG << "Value for key " << key << " was NAN";
+            BMCWEB_LOG_DEBUG("Value for key {} was NAN", key);
             return false;
         }
     }
@@ -180,9 +180,8 @@ UnpackErrorCode unpackValueWithErrorCode(nlohmann::json& jsonValue,
         JsonType jsonPtr = jsonValue.get_ptr<JsonType>();
         if (jsonPtr == nullptr)
         {
-            BMCWEB_LOG_DEBUG
-                << "Value for key " << key
-                << " was incorrect type: " << jsonValue.type_name();
+            BMCWEB_LOG_DEBUG("Value for key {} was incorrect type: {}", key,
+                             jsonValue.type_name());
             return UnpackErrorCode::invalidType;
         }
         value = std::move(*jsonPtr);
@@ -338,7 +337,7 @@ template <size_t Count, size_t Index>
 bool readJsonValues(const std::string& key, nlohmann::json& /*jsonValue*/,
                     crow::Response& res, std::bitset<Count>& /*handled*/)
 {
-    BMCWEB_LOG_DEBUG << "Unable to find variable for key" << key;
+    BMCWEB_LOG_DEBUG("Unable to find variable for key{}", key);
     messages::propertyUnknown(res, key);
     return false;
 }
@@ -402,7 +401,7 @@ bool readJson(nlohmann::json& jsonRequest, crow::Response& res, const char* key,
     bool result = true;
     if (!jsonRequest.is_object())
     {
-        BMCWEB_LOG_DEBUG << "Json value is not an object";
+        BMCWEB_LOG_DEBUG("Json value is not an object");
         messages::unrecognizedRequestBody(res);
         return false;
     }
@@ -416,7 +415,7 @@ bool readJson(nlohmann::json& jsonRequest, crow::Response& res, const char* key,
             result;
     }
 
-    BMCWEB_LOG_DEBUG << "JSON result is: " << result;
+    BMCWEB_LOG_DEBUG("JSON result is: {}", result);
 
     return details::handleMissing(handled, res, key, in...) && result;
 }
@@ -428,13 +427,13 @@ bool readJsonPatch(const crow::Request& req, crow::Response& res,
     nlohmann::json jsonRequest;
     if (!json_util::processJsonFromRequest(res, req, jsonRequest))
     {
-        BMCWEB_LOG_DEBUG << "Json value not readable";
+        BMCWEB_LOG_DEBUG("Json value not readable");
         return false;
     }
 
     if (jsonRequest.empty())
     {
-        BMCWEB_LOG_DEBUG << "Json value is empty";
+        BMCWEB_LOG_DEBUG("Json value is empty");
         messages::emptyJSON(res);
         return false;
     }
@@ -449,7 +448,7 @@ bool readJsonAction(const crow::Request& req, crow::Response& res,
     nlohmann::json jsonRequest;
     if (!json_util::processJsonFromRequest(res, req, jsonRequest))
     {
-        BMCWEB_LOG_DEBUG << "Json value not readable";
+        BMCWEB_LOG_DEBUG("Json value not readable");
         return false;
     }
 
@@ -463,7 +462,7 @@ bool getValueFromJsonObject(nlohmann::json& jsonData, const std::string& key,
     nlohmann::json::iterator it = jsonData.find(key);
     if (it == jsonData.end())
     {
-        BMCWEB_LOG_DEBUG << "Key " << key << " not exist";
+        BMCWEB_LOG_DEBUG("Key {} not exist", key);
         return false;
     }
 
