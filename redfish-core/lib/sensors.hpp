@@ -42,32 +42,43 @@ static constexpr std::string_view sensors = "Sensors";
 static constexpr std::string_view thermal = "Thermal";
 } // namespace node
 
+// clang-format off
 namespace dbus
 {
+auto powerPaths = std::to_array<std::string_view>({
+    "voltage",
+    "power"
+});
 
-static const boost::container::flat_map<std::string_view,
-                                        std::vector<const char*>>
-    paths = {{node::power,
-              {"/xyz/openbmc_project/sensors/voltage",
-               "/xyz/openbmc_project/sensors/power"}},
-             {node::sensors,
-              {"/xyz/openbmc_project/sensors/power",
-               "/xyz/openbmc_project/sensors/current",
-               "/xyz/openbmc_project/sensors/airflow",
+auto sensorPaths = std::to_array<std::string_view>({
+    "power",
+    "current",
+    "airflow",
 #ifdef BMCWEB_NEW_POWERSUBSYSTEM_THERMALSUBSYSTEM
-               "/xyz/openbmc_project/sensors/voltage",
-               "/xyz/openbmc_project/sensors/fan_tach",
-               "/xyz/openbmc_project/sensors/temperature",
-               "/xyz/openbmc_project/sensors/fan_pwm",
-               "/xyz/openbmc_project/sensors/altitude",
-               "/xyz/openbmc_project/sensors/energy",
+    "voltage",
+    "fan_tach",
+    "temperature",
+    "fan_pwm",
+    "altitude",
+    "energy",
 #endif
-               "/xyz/openbmc_project/sensors/utilization"}},
-             {node::thermal,
-              {"/xyz/openbmc_project/sensors/fan_tach",
-               "/xyz/openbmc_project/sensors/temperature",
-               "/xyz/openbmc_project/sensors/fan_pwm"}}};
+    "utilization"
+});
+
+auto thermalPaths = std::to_array<std::string_view>({
+    "fan_tach",
+    "temperature",
+    "fan_pwm"
+});
+
 } // namespace dbus
+// clang-format on
+
+using sensorPair = std::pair<std::string_view, std::span<std::string_view>>;
+static constexpr std::array<sensorPair, 3> paths = {
+    {{node::power, std::span<std::string_view>(dbus::powerPaths)},
+     {node::sensors, std::span<std::string_view>(dbus::sensorPaths)},
+     {node::thermal, std::span<std::string_view>(dbus::thermalPaths)}}};
 
 inline const char* toReadingType(const std::string& sensorType)
 {
@@ -173,8 +184,8 @@ class SensorsAsyncResp
 
     SensorsAsyncResp(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                      const std::string& chassisIdIn,
-                     const std::vector<const char*>& typesIn,
-                     const std::string_view& subNode) :
+                     std::span<std::string_view> typesIn,
+                     std::string_view subNode) :
         asyncResp(asyncResp),
         chassisId(chassisIdIn), types(typesIn), chassisSubNode(subNode)
     {}
@@ -182,8 +193,8 @@ class SensorsAsyncResp
     // Store extra data about sensor mapping and return it in callback
     SensorsAsyncResp(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                      const std::string& chassisIdIn,
-                     const std::vector<const char*>& typesIn,
-                     const std::string_view& subNode,
+                     std::span<std::string_view> typesIn,
+                     std::string_view subNode,
                      DataCompleteCb&& creationComplete) :
         asyncResp(asyncResp),
         chassisId(chassisIdIn), types(typesIn),
@@ -249,7 +260,7 @@ class SensorsAsyncResp
 
     const std::shared_ptr<bmcweb::AsyncResp> asyncResp;
     const std::string chassisId;
-    const std::vector<const char*> types;
+    const std::span<std::string_view> types;
     const std::string chassisSubNode;
 
   private:
@@ -432,11 +443,18 @@ inline void reduceSensorList(
         return;
     }
 
-    for (const char* type : sensorsAsyncResp->types)
+    for (std::string_view type : sensorsAsyncResp->types)
     {
         for (const std::string& sensor : *allSensors)
         {
-            if (boost::starts_with(sensor, type))
+            std::string thisSensorType;
+            // type comes at index 3  /xyz/openbmc_project/sensors/temperature
+            if (!dbus::utility::getNthStringFromPath(sensor, 3, thisSensorType))
+            {
+                continue;
+            }
+
+            if (thisSensorType == type)
             {
                 activeSensors->emplace(sensor);
             }
@@ -2900,8 +2918,15 @@ inline void retrieveUriToDbusMap(const std::string& chassis,
                                  const std::string& node,
                                  SensorsAsyncResp::DataCompleteCb&& mapComplete)
 {
-    auto pathIt = sensors::dbus::paths.find(node);
-    if (pathIt == sensors::dbus::paths.end())
+    auto pathIt = sensors::paths.begin();
+    for (; pathIt != sensors::paths.end(); pathIt++)
+    {
+        if (pathIt->first == node)
+        {
+            break;
+        }
+    }
+    if (pathIt == sensors::paths.end())
     {
         BMCWEB_LOG_ERROR << "Wrong node provided : " << node;
         mapComplete(boost::beast::http::status::bad_request, {});
@@ -2933,10 +2958,9 @@ inline void requestRoutesSensorCollection(App& app)
             BMCWEB_LOG_DEBUG << "SensorCollection doGet enter";
 
             std::shared_ptr<SensorsAsyncResp> asyncResp =
-                std::make_shared<SensorsAsyncResp>(
-                    aResp, chassisId,
-                    sensors::dbus::paths.at(sensors::node::sensors),
-                    sensors::node::sensors);
+                std::make_shared<SensorsAsyncResp>(aResp, chassisId,
+                                                   sensors::dbus::sensorPaths,
+                                                   sensors::node::sensors);
 
             auto getChassisCb =
                 [asyncResp](
@@ -2989,9 +3013,9 @@ inline void requestRoutesSensor(App& app)
                                               const std::string& sensorName) {
             BMCWEB_LOG_DEBUG << "Sensor doGet enter";
             std::shared_ptr<SensorsAsyncResp> asyncResp =
-                std::make_shared<SensorsAsyncResp>(aResp, chassisId,
-                                                   std::vector<const char*>(),
-                                                   sensors::node::sensors);
+                std::make_shared<SensorsAsyncResp>(
+                    aResp, chassisId, std::span<std::string_view>(),
+                    sensors::node::sensors);
 
             const std::array<const char*, 1> interfaces = {
                 "xyz.openbmc_project.Sensor.Value"};
