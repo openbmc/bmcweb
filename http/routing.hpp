@@ -1319,8 +1319,7 @@ class Router
         crow::connections::systemBus->async_method_call(
             [&req, asyncResp, &rules, ruleIndex,
              found](const boost::system::error_code ec,
-                    const std::map<std::string, dbus::utility::DbusVariantType>&
-                        userInfo) {
+                    const dbus::utility::DBusPropertiesMap& userInfoMap) {
                 if (ec)
                 {
                     BMCWEB_LOG_ERROR << "GetUserInfo failed...";
@@ -1328,30 +1327,48 @@ class Router
                         boost::beast::http::status::internal_server_error);
                     return;
                 }
-
-                const std::string* userRolePtr = nullptr;
-                auto userInfoIter = userInfo.find("UserPrivilege");
-                if (userInfoIter != userInfo.end())
-                {
-                    userRolePtr =
-                        std::get_if<std::string>(&userInfoIter->second);
-                }
-
                 std::string userRole{};
-                if (userRolePtr != nullptr)
+                std::optional<bool> remoteUser;
+                std::optional<bool> passwordExpired;
+
+                for (const auto& userInfo : userInfoMap)
                 {
-                    userRole = *userRolePtr;
-                    BMCWEB_LOG_DEBUG << "userName = " << req.session->username
-                                     << " userRole = " << *userRolePtr;
+                    if (userInfo.first == "UserPrivilege")
+                    {
+                        const std::string* userRolePtr =
+                            std::get_if<std::string>(&userInfo.second);
+                        if (userRolePtr == nullptr)
+                        {
+                            continue;
+                        }
+                        userRole = *userRolePtr;
+                        BMCWEB_LOG_DEBUG
+                            << "userName = " << req.session->username
+                            << " userRole = " << *userRolePtr;
+                    }
+                    else if (userInfo.first == "RemoteUser")
+                    {
+                        const bool* remoteUserPtr =
+                            std::get_if<bool>(&userInfo.second);
+                        if (remoteUserPtr == nullptr)
+                        {
+                            continue;
+                        }
+                        remoteUser = *remoteUserPtr;
+                    }
+                    else if (userInfo.first == "UserPasswordExpired")
+                    {
+                        const bool* passwordExpiredPtr =
+                            std::get_if<bool>(&userInfo.second);
+                        if (passwordExpiredPtr == nullptr)
+                        {
+                            continue;
+                        }
+                        passwordExpired = *passwordExpiredPtr;
+                    }
                 }
 
-                const bool* remoteUserPtr = nullptr;
-                auto remoteUserIter = userInfo.find("RemoteUser");
-                if (remoteUserIter != userInfo.end())
-                {
-                    remoteUserPtr = std::get_if<bool>(&remoteUserIter->second);
-                }
-                if (remoteUserPtr == nullptr)
+                if (remoteUser == std::nullopt)
                 {
                     BMCWEB_LOG_ERROR
                         << "RemoteUser property missing or wrong type";
@@ -1359,24 +1376,10 @@ class Router
                         boost::beast::http::status::internal_server_error);
                     return;
                 }
-                bool remoteUser = *remoteUserPtr;
 
-                bool passwordExpired = false; // default for remote user
-                if (!remoteUser)
+                if (passwordExpired == std::nullopt)
                 {
-                    const bool* passwordExpiredPtr = nullptr;
-                    auto passwordExpiredIter =
-                        userInfo.find("UserPasswordExpired");
-                    if (passwordExpiredIter != userInfo.end())
-                    {
-                        passwordExpiredPtr =
-                            std::get_if<bool>(&passwordExpiredIter->second);
-                    }
-                    if (passwordExpiredPtr != nullptr)
-                    {
-                        passwordExpired = *passwordExpiredPtr;
-                    }
-                    else
+                    if (!*remoteUser)
                     {
                         BMCWEB_LOG_ERROR
                             << "UserPasswordExpired property is expected for"
@@ -1385,6 +1388,7 @@ class Router
                             boost::beast::http::status::internal_server_error);
                         return;
                     }
+                    passwordExpired = false;
                 }
 
                 // Get the userprivileges from the role
@@ -1394,7 +1398,7 @@ class Router
                 // Set isConfigureSelfOnly based on D-Bus results.  This
                 // ignores the results from both pamAuthenticateUser and the
                 // value from any previous use of this session.
-                req.session->isConfigureSelfOnly = passwordExpired;
+                req.session->isConfigureSelfOnly = *passwordExpired;
 
                 // Modifyprivileges if isConfigureSelfOnly.
                 if (req.session->isConfigureSelfOnly)

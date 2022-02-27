@@ -18,7 +18,7 @@
 #include <app.hpp>
 #include <boost/asio/post.hpp>
 #include <boost/asio/steady_timer.hpp>
-#include <boost/container/flat_map.hpp>
+#include <dbus_utility.hpp>
 #include <registries/privilege_registry.hpp>
 #include <task_messages.hpp>
 

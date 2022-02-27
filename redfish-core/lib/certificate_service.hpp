@@ -450,11 +450,9 @@ inline void requestRoutesCertificateActionGenerateCSR(App& app)
                         messages::internalError(asyncResp->res);
                         return;
                     }
-                    std::vector<std::pair<
-                        std::string,
-                        std::vector<std::pair<std::string,
-                                              dbus::utility::DbusVariantType>>>>
-                        interfacesProperties;
+
+                    dbus::utility::DBusInteracesMap interfacesProperties;
+
                     sdbusplus::message::object_path csrObjectPath;
                     m.read(csrObjectPath, interfacesProperties);
                     BMCWEB_LOG_DEBUG << "CSR object added" << csrObjectPath.str;
@@ -570,13 +568,12 @@ static void getCertificateProperties(
     const std::string& objectPath, const std::string& service, long certId,
     const std::string& certURL, const std::string& name)
 {
-    using PropertiesMap =
-        boost::container::flat_map<std::string, dbus::utility::DbusVariantType>;
     BMCWEB_LOG_DEBUG << "getCertificateProperties Path=" << objectPath
                      << " certId=" << certId << " certURl=" << certURL;
     crow::connections::systemBus->async_method_call(
-        [asyncResp, certURL, certId, name](const boost::system::error_code ec,
-                                           const PropertiesMap& properties) {
+        [asyncResp, certURL, certId,
+         name](const boost::system::error_code ec,
+               const dbus::utility::DBusPropertiesMap& properties) {
             if (ec)
             {
                 BMCWEB_LOG_ERROR << "DBUS response error: " << ec;
@@ -663,9 +660,6 @@ static void getCertificateProperties(
         service, objectPath, certs::dbusPropIntf, "GetAll",
         certs::certPropIntf);
 }
-
-using GetObjectType =
-    std::vector<std::pair<std::string, std::vector<std::string>>>;
 
 /**
  * Action to replace an existing certificate
