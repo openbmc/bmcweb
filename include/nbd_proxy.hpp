@@ -261,10 +261,8 @@ inline void requestRoutes(App& app)
 
             auto getUserInfoHandler = [&conn, asyncResp](
                                           const boost::system::error_code ec,
-                                          boost::container::flat_map<
-                                              std::string,
-                                              dbus::utility::DbusVariantType>
-                                              userInfo) {
+                                          const dbus::utilities::
+                                              DBusPropertiesMap& userInfo) {
                 if (ec)
                 {
                     BMCWEB_LOG_ERROR << "GetUserInfo failed...";

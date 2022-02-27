@@ -18,7 +18,6 @@
 #include "bmcweb_config.h"
 
 #include <app.hpp>
-#include <boost/container/flat_map.hpp>
 #include <dbus_utility.hpp>
 #include <registries/privilege_registry.hpp>
 #include <sdbusplus/asio/property.hpp>
@@ -66,10 +65,7 @@ static void
                            sdbusplus::message::message& m,
                            task::Payload&& payload)
 {
-    std::vector<std::pair<
-        std::string,
-        std::vector<std::pair<std::string, dbus::utility::DbusVariantType>>>>
-        interfacesProperties;
+    dbus::utility::DBusInteracesMap interfacesProperties;
 
     sdbusplus::message::object_path objPath;
 
@@ -133,10 +129,7 @@ static void
                                     }
 
                                     std::string iface;
-                                    boost::container::flat_map<
-                                        std::string,
-                                        dbus::utility::DbusVariantType>
-                                        values;
+                                    dbus::utility::DBusPropertiesMap values;
 
                                     std::string index =
                                         std::to_string(taskData->index);
@@ -145,21 +138,28 @@ static void
                                     if (iface ==
                                         "xyz.openbmc_project.Software.Activation")
                                     {
-                                        auto findActivation =
-                                            values.find("Activation");
-                                        if (findActivation == values.end())
+                                        std::string* state = nullptr;
+                                        for (const auto& property : values)
                                         {
-                                            return !task::completed;
+                                            if (property.first == "Activation")
+                                            {
+                                                const std::string* state =
+                                                    std::get_if<std::string>(
+                                                        &property.second);
+                                                if (state == nullptr)
+                                                {
+                                                    taskData->messages
+                                                        .emplace_back(
+                                                            messages::
+                                                                internalError());
+                                                    return task::completed;
+                                                }
+                                            }
                                         }
-                                        std::string* state =
-                                            std::get_if<std::string>(
-                                                &(findActivation->second));
 
                                         if (state == nullptr)
                                         {
-                                            taskData->messages.emplace_back(
-                                                messages::internalError());
-                                            return task::completed;
+                                            return !task::completed;
                                         }
 
                                         if (boost::ends_with(*state,
@@ -202,21 +202,29 @@ static void
                                         iface ==
                                         "xyz.openbmc_project.Software.ActivationProgress")
                                     {
-                                        auto findProgress =
-                                            values.find("Progress");
-                                        if (findProgress == values.end())
+
+                                        const uint8_t* progress = nullptr;
+                                        for (const auto& property : values)
                                         {
-                                            return !task::completed;
+                                            if (property.first == "Progress")
+                                            {
+                                                const std::string* progress =
+                                                    std::get_if<std::string>(
+                                                        &property.second);
+                                                if (progress == nullptr)
+                                                {
+                                                    taskData->messages
+                                                        .emplace_back(
+                                                            messages::
+                                                                internalError());
+                                                    return task::completed;
+                                                }
+                                            }
                                         }
-                                        uint8_t* progress =
-                                            std::get_if<uint8_t>(
-                                                &(findProgress->second));
 
                                         if (progress == nullptr)
                                         {
-                                            taskData->messages.emplace_back(
-                                                messages::internalError());
-                                            return task::completed;
+                                            return !task::completed;
                                         }
                                         taskData->percentComplete =
                                             static_cast<int>(*progress);
@@ -710,11 +718,7 @@ inline void requestRoutesSoftwareInventoryCollection(App& app)
             crow::connections::systemBus->async_method_call(
                 [asyncResp](
                     const boost::system::error_code ec,
-                    const std::vector<
-                        std::pair<std::string,
-                                  std::vector<std::pair<
-                                      std::string, std::vector<std::string>>>>>&
-                        subtree) {
+                    const dbus::utility::MapperGetSubTreeResponse& subtree) {
                     if (ec)
                     {
                         messages::internalError(asyncResp->res);
@@ -798,13 +802,9 @@ inline void requestRoutesSoftwareInventory(App& app)
                 "/redfish/v1/UpdateService/FirmwareInventory/" + *swId;
 
             crow::connections::systemBus->async_method_call(
-                [asyncResp, swId](
-                    const boost::system::error_code ec,
-                    const std::vector<
-                        std::pair<std::string,
-                                  std::vector<std::pair<
-                                      std::string, std::vector<std::string>>>>>&
-                        subtree) {
+                [asyncResp,
+                 swId](const boost::system::error_code ec,
+                       const dbus::utility::MapperGetSubTreeResponse& subtree) {
                     BMCWEB_LOG_DEBUG << "doGet callback...";
                     if (ec)
                     {
@@ -837,63 +837,47 @@ inline void requestRoutesSoftwareInventory(App& app)
                         crow::connections::systemBus->async_method_call(
                             [asyncResp,
                              swId](const boost::system::error_code errorCode,
-                                   const boost::container::flat_map<
-                                       std::string,
-                                       dbus::utility::DbusVariantType>&
+                                   const dbus::utility::DBusPropertiesMap&
                                        propertiesList) {
                                 if (errorCode)
                                 {
                                     messages::internalError(asyncResp->res);
                                     return;
                                 }
-                                boost::container::flat_map<
-                                    std::string,
-                                    dbus::utility::DbusVariantType>::
-                                    const_iterator it =
-                                        propertiesList.find("Purpose");
-                                if (it == propertiesList.end())
+                                const std::string* swInvPurpose = nullptr;
+                                const std::string* version = nullptr;
+                                for (const auto& property : propertiesList)
                                 {
-                                    BMCWEB_LOG_DEBUG
-                                        << "Can't find property \"Purpose\"!";
-                                    messages::propertyMissing(asyncResp->res,
-                                                              "Purpose");
-                                    return;
+                                    if (property.first == "Purpose")
+                                    {
+                                        swInvPurpose = std::get_if<std::string>(
+                                            &property.second);
+                                    }
+                                    if (property.first == "Version")
+                                    {
+                                        version = std::get_if<std::string>(
+                                            &property.second);
+                                    }
                                 }
-                                const std::string* swInvPurpose =
-                                    std::get_if<std::string>(&it->second);
+
                                 if (swInvPurpose == nullptr)
                                 {
                                     BMCWEB_LOG_DEBUG
-                                        << "wrong types for property\"Purpose\"!";
-                                    messages::propertyValueTypeError(
-                                        asyncResp->res, "", "Purpose");
+                                        << "Can't find property \"Purpose\"!";
+                                    messages::internalError(asyncResp->res);
                                     return;
                                 }
 
                                 BMCWEB_LOG_DEBUG << "swInvPurpose = "
                                                  << *swInvPurpose;
-                                it = propertiesList.find("Version");
-                                if (it == propertiesList.end())
-                                {
-                                    BMCWEB_LOG_DEBUG
-                                        << "Can't find property \"Version\"!";
-                                    messages::propertyMissing(asyncResp->res,
-                                                              "Version");
-                                    return;
-                                }
-
-                                BMCWEB_LOG_DEBUG << "Version found!";
-
-                                const std::string* version =
-                                    std::get_if<std::string>(&it->second);
 
                                 if (version == nullptr)
                                 {
                                     BMCWEB_LOG_DEBUG
                                         << "Can't find property \"Version\"!";
 
-                                    messages::propertyValueTypeError(
-                                        asyncResp->res, "", "Version");
+                                    messages::internalError(asyncResp->res);
+
                                     return;
                                 }
                                 asyncResp->res.jsonValue["Version"] = *version;

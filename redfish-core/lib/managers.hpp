@@ -748,9 +748,8 @@ inline CreatePIDRet createPidInterface(
     const std::shared_ptr<bmcweb::AsyncResp>& response, const std::string& type,
     const nlohmann::json::iterator& it, const std::string& path,
     const dbus::utility::ManagedObjectType& managedObj, bool createNewObject,
-    boost::container::flat_map<std::string, dbus::utility::DbusVariantType>&
-        output,
-    std::string& chassis, const std::string& profile)
+    dbus::utility::DBusPropertiesMap& output, std::string& chassis,
+    const std::string& profile)
 {
 
     // common deleter
@@ -814,7 +813,7 @@ inline CreatePIDRet createPidInterface(
     {
         if (managedItem == nullptr)
         {
-            output["Profiles"] = std::vector<std::string>{profile};
+            output.emplace_back("Profiles", std::vector<std::string>{profile});
         }
         else
         {
@@ -854,7 +853,7 @@ inline CreatePIDRet createPidInterface(
                                 std::vector<std::string> newProfiles =
                                     *curProfiles;
                                 newProfiles.push_back(profile);
-                                output["Profiles"] = newProfiles;
+                                output.emplace_back("Profiles", newProfiles);
                             }
                         }
                     }
@@ -875,9 +874,9 @@ inline CreatePIDRet createPidInterface(
     {
         if (createNewObject)
         {
-            output["Class"] = type == "PidControllers" ? std::string("temp")
-                                                       : std::string("fan");
-            output["Type"] = std::string("Pid");
+            output.emplace_back("Class",
+                                type == "PidControllers" ? "temp" : "fan");
+            output.emplace_back("Type", "Pid");
         }
 
         std::optional<std::vector<nlohmann::json>> zones;
@@ -922,8 +921,7 @@ inline CreatePIDRet createPidInterface(
                                        "redfish", "v1", "Chassis", chassis));
                 return CreatePIDRet::fail;
             }
-
-            output["Zones"] = std::move(zonesStr);
+            output.emplace_back("Zones", std::move(zonesStr));
         }
         if (inputs || outputs)
         {
@@ -953,7 +951,7 @@ inline CreatePIDRet createPidInterface(
                 {
                     key = "Outputs";
                 }
-                output[key] = *container;
+                output.emplace_back(key, *container);
                 index++;
             }
         }
@@ -963,19 +961,19 @@ inline CreatePIDRet createPidInterface(
             // translate between redfish and dbus names
             if (*setpointOffset == "UpperThresholdNonCritical")
             {
-                output["SetPointOffset"] = std::string("WarningLow");
+                output.emplace_back("SetPointOffset", "WarningLow");
             }
             else if (*setpointOffset == "LowerThresholdNonCritical")
             {
-                output["SetPointOffset"] = std::string("WarningHigh");
+                output.emplace_back("SetPointOffset", "WarningHigh");
             }
             else if (*setpointOffset == "LowerThresholdCritical")
             {
-                output["SetPointOffset"] = std::string("CriticalLow");
+                output.emplace_back("SetPointOffset", "CriticalLow");
             }
             else if (*setpointOffset == "UpperThresholdCritical")
             {
-                output["SetPointOffset"] = std::string("CriticalHigh");
+                output.emplace_back("SetPointOffset", "CriticalHigh");
             }
             else
             {
@@ -995,13 +993,13 @@ inline CreatePIDRet createPidInterface(
                 continue;
             }
             BMCWEB_LOG_DEBUG << pairs.first << " = " << *pairs.second;
-            output[pairs.first] = *(pairs.second);
+            output.emplace_back(pairs.first, *pairs.second);
         }
     }
 
     else if (type == "FanZones")
     {
-        output["Type"] = std::string("Pid.Zone");
+        output.emplace_back("Type", "Pid.Zone");
 
         std::optional<nlohmann::json> chassisContainer;
         std::optional<double> failSafePercent;
@@ -1045,16 +1043,16 @@ inline CreatePIDRet createPidInterface(
         }
         if (minThermalOutput)
         {
-            output["MinThermalOutput"] = *minThermalOutput;
+            output.emplace_back("MinThermalOutput", *minThermalOutput);
         }
         if (failSafePercent)
         {
-            output["FailSafePercent"] = *failSafePercent;
+            output.emplace_back("FailSafePercent", *failSafePercent);
         }
     }
     else if (type == "StepwiseControllers")
     {
-        output["Type"] = std::string("Stepwise");
+        output.emplace_back("Type", "Stepwise");
 
         std::optional<std::vector<nlohmann::json>> zones;
         std::optional<std::vector<nlohmann::json>> steps;
@@ -1092,7 +1090,7 @@ inline CreatePIDRet createPidInterface(
                                        "redfish", "v1", "Chassis", chassis));
                 return CreatePIDRet::fail;
             }
-            output["Zones"] = std::move(zonesStrs);
+            output.emplace_back("Zones", std::move(zonesStrs));
         }
         if (steps)
         {
@@ -1116,8 +1114,8 @@ inline CreatePIDRet createPidInterface(
                 readings.emplace_back(target);
                 outputs.emplace_back(out);
             }
-            output["Reading"] = std::move(readings);
-            output["Output"] = std::move(outputs);
+            output.emplace_back("Reading", std::move(readings));
+            output.emplace_back("Output", std::move(outputs));
         }
         if (inputs)
         {
@@ -1125,15 +1123,15 @@ inline CreatePIDRet createPidInterface(
             {
                 boost::replace_all(value, "_", " ");
             }
-            output["Inputs"] = std::move(*inputs);
+            output.emplace_back("Inputs", std::move(*inputs));
         }
         if (negativeHysteresis)
         {
-            output["NegativeHysteresis"] = *negativeHysteresis;
+            output.emplace_back("NegativeHysteresis", *negativeHysteresis);
         }
         if (positiveHysteresis)
         {
-            output["PositiveHysteresis"] = *positiveHysteresis;
+            output.emplace_back("PositiveHysteresis", *positiveHysteresis);
         }
         if (direction)
         {
@@ -1146,7 +1144,7 @@ inline CreatePIDRet createPidInterface(
                                                  *direction);
                 return CreatePIDRet::fail;
             }
-            output["Class"] = *direction;
+            output.emplace_back("Class", *direction);
         }
     }
     else
@@ -1171,8 +1169,9 @@ struct GetPIDValues : std::enable_shared_from_this<GetPIDValues>
 
         // get all configurations
         crow::connections::systemBus->async_method_call(
-            [self](const boost::system::error_code ec,
-                   const crow::openbmc_mapper::GetSubTreeType& subtreeLocal) {
+            [self](
+                const boost::system::error_code ec,
+                const dbus::utility::MapperGetSubTreeResponse& subtreeLocal) {
                 if (ec)
                 {
                     BMCWEB_LOG_ERROR << ec;
@@ -1190,8 +1189,9 @@ struct GetPIDValues : std::enable_shared_from_this<GetPIDValues>
 
         // at the same time get the selected profile
         crow::connections::systemBus->async_method_call(
-            [self](const boost::system::error_code ec,
-                   const crow::openbmc_mapper::GetSubTreeType& subtreeLocal) {
+            [self](
+                const boost::system::error_code ec,
+                const dbus::utility::MapperGetSubTreeResponse& subtreeLocal) {
                 if (ec || subtreeLocal.empty())
                 {
                     return;
@@ -1209,9 +1209,7 @@ struct GetPIDValues : std::enable_shared_from_this<GetPIDValues>
                 crow::connections::systemBus->async_method_call(
                     [path, owner,
                      self](const boost::system::error_code ec2,
-                           const boost::container::flat_map<
-                               std::string, dbus::utility::DbusVariantType>&
-                               resp) {
+                           const dbus::utility::DBusPropertiesMap& resp) {
                         if (ec2)
                         {
                             BMCWEB_LOG_ERROR
@@ -1332,7 +1330,7 @@ struct GetPIDValues : std::enable_shared_from_this<GetPIDValues>
 
     std::vector<std::string> supportedProfiles;
     std::string currentProfile;
-    crow::openbmc_mapper::GetSubTreeType subtree;
+    dbus::utility::MapperGetSubTreeResponse subtree;
     std::shared_ptr<bmcweb::AsyncResp> asyncResp;
 };
 
@@ -1417,7 +1415,7 @@ struct SetPIDValues : std::enable_shared_from_this<SetPIDValues>
         // at the same time get the profile information
         crow::connections::systemBus->async_method_call(
             [self](const boost::system::error_code ec,
-                   const crow::openbmc_mapper::GetSubTreeType& subtree) {
+                   const dbus::utility::MapperGetSubTreeResponse& subtree) {
                 if (ec || subtree.empty())
                 {
                     return;
@@ -1433,10 +1431,9 @@ struct SetPIDValues : std::enable_shared_from_this<SetPIDValues>
                 const std::string& path = subtree[0].first;
                 const std::string& owner = subtree[0].second[0].first;
                 crow::connections::systemBus->async_method_call(
-                    [self, path, owner](
-                        const boost::system::error_code ec2,
-                        const boost::container::flat_map<
-                            std::string, dbus::utility::DbusVariantType>& r) {
+                    [self, path,
+                     owner](const boost::system::error_code ec2,
+                            const dbus::utility::DBusPropertiesMap& r) {
                         if (ec2)
                         {
                             BMCWEB_LOG_ERROR
@@ -1552,9 +1549,7 @@ struct SetPIDValues : std::enable_shared_from_this<SetPIDValues>
                                      return boost::algorithm::ends_with(
                                          obj.first.str, "/" + name);
                                  });
-                boost::container::flat_map<std::string,
-                                           dbus::utility::DbusVariantType>
-                    output;
+                dbus::utility::DBusPropertiesMap output;
 
                 output.reserve(16); // The pid interface length
 
@@ -1620,8 +1615,8 @@ struct SetPIDValues : std::enable_shared_from_this<SetPIDValues>
                     messages::resourceExhaustion(response->res, type);
                     continue;
                 }
-
-                output["Name"] = boost::replace_all_copy(name, "_", " ");
+                output.emplace_back("Name",
+                                    boost::replace_all_copy(name, "_", " "));
 
                 std::string chassis;
                 CreatePIDRet ret = createPidInterface(
@@ -2099,11 +2094,7 @@ inline void requestRoutesManager(App& app)
             crow::connections::systemBus->async_method_call(
                 [asyncResp](
                     const boost::system::error_code ec,
-                    const std::vector<
-                        std::pair<std::string,
-                                  std::vector<std::pair<
-                                      std::string, std::vector<std::string>>>>>&
-                        subtree) {
+                    const dbus::utility::MapperGetSubTreeResponse& subtree) {
                     if (ec)
                     {
                         BMCWEB_LOG_DEBUG
@@ -2146,9 +2137,7 @@ inline void requestRoutesManager(App& app)
                             crow::connections::systemBus->async_method_call(
                                 [asyncResp](
                                     const boost::system::error_code ec,
-                                    const std::vector<std::pair<
-                                        std::string,
-                                        dbus::utility::DbusVariantType>>&
+                                    const dbus::utility::DBusPropertiesMap&
                                         propertiesList) {
                                     if (ec)
                                     {
