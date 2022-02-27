@@ -679,16 +679,18 @@ inline void getCpuUniqueId(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
  * @param[in]       handler         Callback to continue processing request upon
  *                                  successfully finding object.
  */
-template <typename Handler>
-inline void getProcessorObject(const std::shared_ptr<bmcweb::AsyncResp>& resp,
-                               const std::string& processorId,
-                               Handler&& handler)
+inline void getProcessorObject(
+    const std::shared_ptr<bmcweb::AsyncResp>& resp,
+    const std::string& processorId,
+    std::function<void(const std::shared_ptr<bmcweb::AsyncResp>&,
+                       const std::string&, const std::string&,
+                       const dbus::utility::MapperServiceMap&)>&& handler)
 {
     BMCWEB_LOG_DEBUG << "Get available system processor resources.";
 
     // GetSubTree on all interfaces which provide info about a Processor
     crow::connections::systemBus->async_method_call(
-        [resp, processorId, handler = std::forward<Handler>(handler)](
+        [resp, processorId, handler = std::move(handler)](
             boost::system::error_code ec,
             const dbus::utility::MapperGetSubTreeResponse& subtree) mutable {
             if (ec)

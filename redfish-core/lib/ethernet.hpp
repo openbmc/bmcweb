@@ -589,27 +589,6 @@ inline void
 }
 
 /**
- * @brief Sets given Id on the given VLAN interface through D-Bus
- *
- * @param[in] ifaceId       Id of VLAN interface that should be modified
- * @param[in] inputVlanId   New ID of the VLAN
- * @param[in] callback      Function that will be called after the operation
- *
- * @return None.
- */
-template <typename CallbackFunc>
-void changeVlanId(const std::string& ifaceId, const uint32_t& inputVlanId,
-                  CallbackFunc&& callback)
-{
-    crow::connections::systemBus->async_method_call(
-        callback, "xyz.openbmc_project.Network",
-        std::string("/xyz/openbmc_project/network/") + ifaceId,
-        "org.freedesktop.DBus.Properties", "Set",
-        "xyz.openbmc_project.Network.VLAN", "Id",
-        dbus::utility::DbusVariantType(inputVlanId));
-}
-
-/**
  * @brief Helper function that verifies IP address to check if it is in
  *        proper format. If bits pointer is provided, also calculates active
  *        bit count for Subnet Mask.
@@ -928,13 +907,15 @@ inline void createIPv6(const std::string& ifaceId, uint8_t prefixLength,
  * @param callback a function that shall be called to convert Dbus output
  * into JSON
  */
-template <typename CallbackFunc>
-void getEthernetIfaceData(const std::string& ethifaceId,
-                          CallbackFunc&& callback)
+void getEthernetIfaceData(
+    const std::string& ethifaceId,
+    std::function<void(bool, const EthernetInterfaceData&,
+                       const boost::container::flat_set<IPv4AddressData>&,
+                       const boost::container::flat_set<IPv6AddressData>&)>&&
+        callback)
 {
     crow::connections::systemBus->async_method_call(
-        [ethifaceId{std::string{ethifaceId}},
-         callback{std::forward<CallbackFunc>(callback)}](
+        [ethifaceId{std::string{ethifaceId}}, callback{std::move(callback)}](
             const boost::system::error_code errorCode,
             dbus::utility::ManagedObjectType& resp) {
             EthernetInterfaceData ethData{};
@@ -981,11 +962,12 @@ void getEthernetIfaceData(const std::string& ethifaceId,
  * @param callback a function that shall be called to convert Dbus output
  * into JSON.
  */
-template <typename CallbackFunc>
-void getEthernetIfaceList(CallbackFunc&& callback)
+void getEthernetIfaceList(
+    std::function<void(bool, const boost::container::flat_set<std::string>&)>&&
+        callback)
 {
     crow::connections::systemBus->async_method_call(
-        [callback{std::forward<CallbackFunc>(callback)}](
+        [callback{std::move(callback)}](
             const boost::system::error_code errorCode,
             dbus::utility::ManagedObjectType& resp) {
             // Callback requires vector<string> to retrieve all available
@@ -1867,7 +1849,7 @@ inline void requestEthernetInterfacesRoutes(App& app)
 
             // Get eth interface list, and call the below callback for JSON
             // preparation
-            getEthernetIfaceList([asyncResp](const bool& success,
+            getEthernetIfaceList([asyncResp](bool success,
                                              const boost::container::flat_set<
                                                  std::string>& ifaceList) {
                 if (!success)
@@ -1908,7 +1890,7 @@ inline void requestEthernetInterfacesRoutes(App& app)
                 getEthernetIfaceData(
                     ifaceId,
                     [asyncResp,
-                     ifaceId](const bool& success,
+                     ifaceId](const bool success,
                               const EthernetInterfaceData& ethData,
                               const boost::container::flat_set<IPv4AddressData>&
                                   ipv4Data,
@@ -2007,7 +1989,7 @@ inline void requestEthernetInterfacesRoutes(App& app)
                      dhcpv4 = std::move(dhcpv4), dhcpv6 = std::move(dhcpv6),
                      mtuSize = mtuSize, v4dhcpParms = std::move(v4dhcpParms),
                      v6dhcpParms = std::move(v6dhcpParms), interfaceEnabled](
-                        const bool& success,
+                        const bool success,
                         const EthernetInterfaceData& ethData,
                         const boost::container::flat_set<IPv4AddressData>&
                             ipv4Data,
@@ -2115,7 +2097,7 @@ inline void requestEthernetInterfacesRoutes(App& app)
                 getEthernetIfaceData(
                     ifaceId,
                     [asyncResp, parentIfaceId, ifaceId](
-                        const bool& success,
+                        const bool success,
                         const EthernetInterfaceData& ethData,
                         const boost::container::flat_set<IPv4AddressData>&,
                         const boost::container::flat_set<IPv6AddressData>&) {
@@ -2166,7 +2148,7 @@ inline void requestEthernetInterfacesRoutes(App& app)
                 getEthernetIfaceData(
                     ifaceId,
                     [asyncResp, parentIfaceId, ifaceId, &vlanEnable, &vlanId](
-                        const bool& success,
+                        const bool success,
                         const EthernetInterfaceData& ethData,
                         const boost::container::flat_set<IPv4AddressData>&,
                         const boost::container::flat_set<IPv6AddressData>&) {
@@ -2239,7 +2221,7 @@ inline void requestEthernetInterfacesRoutes(App& app)
                 getEthernetIfaceData(
                     ifaceId,
                     [asyncResp, parentIfaceId, ifaceId](
-                        const bool& success,
+                        const bool success,
                         const EthernetInterfaceData& ethData,
                         const boost::container::flat_set<IPv4AddressData>&,
                         const boost::container::flat_set<IPv6AddressData>&) {
@@ -2284,7 +2266,7 @@ inline void requestEthernetInterfacesRoutes(App& app)
             // Get eth interface list, and call the below callback for JSON
             // preparation
             getEthernetIfaceList([asyncResp, rootInterfaceName](
-                                     const bool& success,
+                                     bool success,
                                      const boost::container::flat_set<
                                          std::string>& ifaceList) {
                 if (!success)
