@@ -1324,8 +1324,7 @@ class EventServiceManager
         }
 
         std::string interface;
-        std::vector<std::pair<std::string, dbus::utility::DbusVariantType>>
-            props;
+        dbus::utility::DBusPropertiesMap props;
         std::vector<std::string> invalidProps;
         msg.read(interface, props, invalidProps);
 

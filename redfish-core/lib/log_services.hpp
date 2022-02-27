@@ -103,9 +103,6 @@ static const Message* getMessage(const std::string_view& messageID)
 
 namespace fs = std::filesystem;
 
-using GetManagedPropertyType =
-    boost::container::flat_map<std::string, dbus::utility::DbusVariantType>;
-
 inline std::string translateSeverityDbusToRedfish(const std::string& s)
 {
     if ((s == "xyz.openbmc_project.Logging.Entry.Level.Alert") ||
@@ -733,10 +730,8 @@ inline void
                 taskData->state = "Cancelled";
                 return task::completed;
             }
-            std::vector<std::pair<
-                std::string, std::vector<std::pair<
-                                 std::string, dbus::utility::DbusVariantType>>>>
-                interfacesList;
+
+            dbus::utility::DBusInteracesMap interfacesList;
 
             sdbusplus::message::object_path objPath;
 
@@ -865,8 +860,9 @@ inline void clearDump(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
         std::string(boost::algorithm::to_lower_copy(dumpType));
 
     crow::connections::systemBus->async_method_call(
-        [asyncResp, dumpType](const boost::system::error_code ec,
-                              const std::vector<std::string>& subTreePaths) {
+        [asyncResp, dumpType](
+            const boost::system::error_code ec,
+            const dbus::utility::MapperGetSubTreePathsResponse& subTreePaths) {
             if (ec)
             {
                 BMCWEB_LOG_ERROR << "resp_handler got error " << ec;
@@ -893,10 +889,10 @@ inline void clearDump(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                                    dumpType});
 }
 
-inline static void parseCrashdumpParameters(
-    const std::vector<std::pair<std::string, dbus::utility::DbusVariantType>>&
-        params,
-    std::string& filename, std::string& timestamp, std::string& logfile)
+inline static void
+    parseCrashdumpParameters(const dbus::utility::DBusPropertiesMap& params,
+                             std::string& filename, std::string& timestamp,
+                             std::string& logfile)
 {
     for (auto property : params)
     {
@@ -980,8 +976,10 @@ inline void requestRoutesSystemLogServiceCollection(App& app)
                     logServiceArray.size();
 
                 crow::connections::systemBus->async_method_call(
-                    [asyncResp](const boost::system::error_code ec,
-                                const std::vector<std::string>& subtreePath) {
+                    [asyncResp](
+                        const boost::system::error_code ec,
+                        const dbus::utility::MapperGetSubTreePathsResponse&
+                            subtreePath) {
                         if (ec)
                         {
                             BMCWEB_LOG_ERROR << ec;
@@ -1514,8 +1512,9 @@ inline void requestRoutesDBusEventLogEntry(App& app)
                 // DBus implementation of EventLog/Entries
                 // Make call to Logging Service to find all log entry objects
                 crow::connections::systemBus->async_method_call(
-                    [asyncResp, entryID](const boost::system::error_code ec,
-                                         const GetManagedPropertyType& resp) {
+                    [asyncResp,
+                     entryID](const boost::system::error_code ec,
+                              const dbus::utility::DBusPropertiesMap& resp) {
                         if (ec.value() == EBADR)
                         {
                             messages::resourceNotFound(
@@ -2615,11 +2614,9 @@ static void
                       const std::string& logID, nlohmann::json& logEntryJson)
 {
     auto getStoredLogCallback =
-        [asyncResp, logID, &logEntryJson](
-            const boost::system::error_code ec,
-            const std::vector<
-                std::pair<std::string, dbus::utility::DbusVariantType>>&
-                params) {
+        [asyncResp, logID,
+         &logEntryJson](const boost::system::error_code ec,
+                        const dbus::utility::DBusPropertiesMap& params) {
             if (ec)
             {
                 BMCWEB_LOG_DEBUG << "failed to get log ec: " << ec.message();
@@ -2701,8 +2698,9 @@ inline void requestRoutesCrashdumpEntryCollection(App& app)
                 get)([](const crow::Request&,
                         const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
             crow::connections::systemBus->async_method_call(
-                [asyncResp](const boost::system::error_code ec,
-                            const std::vector<std::string>& resp) {
+                [asyncResp](
+                    const boost::system::error_code ec,
+                    const dbus::utility::MapperGetSubTreePathsResponse& resp) {
                     if (ec)
                     {
                         if (ec.value() !=
@@ -2781,9 +2779,7 @@ inline void requestRoutesCrashdumpFile(App& app)
                     [asyncResp, logID, fileName,
                      url(boost::urls::url(req.urlView))](
                         const boost::system::error_code ec,
-                        const std::vector<std::pair<
-                            std::string, dbus::utility::DbusVariantType>>&
-                            resp) {
+                        const dbus::utility::DBusPropertiesMap& resp) {
                         if (ec)
                         {
                             BMCWEB_LOG_DEBUG << "failed to get log ec: "

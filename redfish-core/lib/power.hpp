@@ -136,63 +136,62 @@ inline void requestRoutesPower(App& app)
             // for the chassis that implements the Chassis inventory item.
             // This prevents things like power supplies providing the
             // chassis power limit
-            auto chassisHandler = [sensorAsyncResp](
-                                      const boost::system::error_code e,
-                                      const std::vector<std::string>&
-                                          chassisPaths) {
-                if (e)
-                {
-                    BMCWEB_LOG_ERROR
-                        << "Power Limit GetSubTreePaths handler Dbus error "
-                        << e;
-                    return;
-                }
-
-                bool found = false;
-                for (const std::string& chassis : chassisPaths)
-                {
-                    size_t len = std::string::npos;
-                    size_t lastPos = chassis.rfind('/');
-                    if (lastPos == std::string::npos)
+            auto chassisHandler =
+                [sensorAsyncResp](
+                    const boost::system::error_code e,
+                    const dbus::utility::MapperGetSubTreePathsResponse&
+                        chassisPaths) {
+                    if (e)
                     {
-                        continue;
+                        BMCWEB_LOG_ERROR
+                            << "Power Limit GetSubTreePaths handler Dbus error "
+                            << e;
+                        return;
                     }
 
-                    if (lastPos == chassis.size() - 1)
+                    bool found = false;
+                    for (const std::string& chassis : chassisPaths)
                     {
-                        size_t end = lastPos;
-                        lastPos = chassis.rfind('/', lastPos - 1);
+                        size_t len = std::string::npos;
+                        size_t lastPos = chassis.rfind('/');
                         if (lastPos == std::string::npos)
                         {
                             continue;
                         }
 
-                        len = end - (lastPos + 1);
+                        if (lastPos == chassis.size() - 1)
+                        {
+                            size_t end = lastPos;
+                            lastPos = chassis.rfind('/', lastPos - 1);
+                            if (lastPos == std::string::npos)
+                            {
+                                continue;
+                            }
+
+                            len = end - (lastPos + 1);
+                        }
+
+                        std::string interfaceChassisName =
+                            chassis.substr(lastPos + 1, len);
+                        if (interfaceChassisName.compare(
+                                sensorAsyncResp->chassisId) == 0)
+                        {
+                            found = true;
+                            break;
+                        }
                     }
 
-                    std::string interfaceChassisName =
-                        chassis.substr(lastPos + 1, len);
-                    if (interfaceChassisName.compare(
-                            sensorAsyncResp->chassisId) == 0)
+                    if (!found)
                     {
-                        found = true;
-                        break;
+                        BMCWEB_LOG_DEBUG << "Power Limit not present for "
+                                         << sensorAsyncResp->chassisId;
+                        return;
                     }
-                }
 
-                if (!found)
-                {
-                    BMCWEB_LOG_DEBUG << "Power Limit not present for "
-                                     << sensorAsyncResp->chassisId;
-                    return;
-                }
-
-                auto valueHandler =
-                    [sensorAsyncResp](
-                        const boost::system::error_code ec,
-                        const std::vector<std::pair<
-                            std::string, dbus::utility::DbusVariantType>>&
-                            properties) {
+                    auto valueHandler = [sensorAsyncResp](
+                                            const boost::system::error_code ec,
+                                            const dbus::utility::
+                                                DBusPropertiesMap& properties) {
                         if (ec)
                         {
                             messages::internalError(
@@ -292,12 +291,12 @@ inline void requestRoutesPower(App& app)
                         }
                     };
 
-                crow::connections::systemBus->async_method_call(
-                    std::move(valueHandler), "xyz.openbmc_project.Settings",
-                    "/xyz/openbmc_project/control/host0/power_cap",
-                    "org.freedesktop.DBus.Properties", "GetAll",
-                    "xyz.openbmc_project.Control.Power.Cap");
-            };
+                    crow::connections::systemBus->async_method_call(
+                        std::move(valueHandler), "xyz.openbmc_project.Settings",
+                        "/xyz/openbmc_project/control/host0/power_cap",
+                        "org.freedesktop.DBus.Properties", "GetAll",
+                        "xyz.openbmc_project.Control.Power.Cap");
+                };
 
             crow::connections::systemBus->async_method_call(
                 std::move(chassisHandler), "xyz.openbmc_project.ObjectMapper",
