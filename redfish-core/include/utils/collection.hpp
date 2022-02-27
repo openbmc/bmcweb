@@ -30,9 +30,9 @@ inline void
 {
     BMCWEB_LOG_DEBUG << "Get collection members for: " << collectionPath;
     crow::connections::systemBus->async_method_call(
-        [collectionPath,
-         aResp{std::move(aResp)}](const boost::system::error_code ec,
-                                  const std::vector<std::string>& objects) {
+        [collectionPath, aResp{std::move(aResp)}](
+            const boost::system::error_code ec,
+            const dbus::utility::MapperGetSubTreePathsResponse& objects) {
             if (ec == boost::system::errc::io_error)
             {
                 aResp->res.jsonValue["Members"] = nlohmann::json::array();

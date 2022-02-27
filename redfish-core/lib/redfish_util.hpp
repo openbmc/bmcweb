@@ -56,7 +56,7 @@ void getMainChassisId(std::shared_ptr<bmcweb::AsyncResp> asyncResp,
     crow::connections::systemBus->async_method_call(
         [callback,
          asyncResp](const boost::system::error_code ec,
-                    const crow::openbmc_mapper::GetSubTreeType& subtree) {
+                    const dbus::utility::MapperGetSubTreeResponse& subtree) {
             if (ec)
             {
                 BMCWEB_LOG_ERROR << ec;
