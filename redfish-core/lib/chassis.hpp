@@ -50,15 +50,15 @@ inline void getChassisState(std::shared_ptr<bmcweb::AsyncResp> aResp)
                 {
                     // Service not available, no error, just don't return
                     // chassis state info
-                    BMCWEB_LOG_DEBUG << "Service not available " << ec;
+                    BMCWEB_LOG_DEBUG("Service not available {}", ec);
                     return;
                 }
-                BMCWEB_LOG_DEBUG << "DBUS response error " << ec;
+                BMCWEB_LOG_DEBUG("DBUS response error {}", ec);
                 messages::internalError(aResp->res);
                 return;
             }
 
-            BMCWEB_LOG_DEBUG << "Chassis state: " << chassisState;
+            BMCWEB_LOG_DEBUG("Chassis state: {}", chassisState);
             // Verify Chassis State
             if (chassisState ==
                 "xyz.openbmc_project.State.Chassis.PowerState.On")
@@ -92,7 +92,7 @@ inline void getIntrusionByService(std::shared_ptr<bmcweb::AsyncResp> aResp,
                                   const std::string& service,
                                   const std::string& objPath)
 {
-    BMCWEB_LOG_DEBUG << "Get intrusion status by service \n";
+    BMCWEB_LOG_DEBUG("Get intrusion status by service \n");
 
     sdbusplus::asio::getProperty<std::string>(
         *crow::connections::systemBus, service, objPath,
@@ -103,7 +103,7 @@ inline void getIntrusionByService(std::shared_ptr<bmcweb::AsyncResp> aResp,
             {
                 // do not add err msg in redfish response, because this is not
                 //     mandatory property
-                BMCWEB_LOG_ERROR << "DBUS response error " << ec << "\n";
+                BMCWEB_LOG_ERROR("DBUS response error {}\n", ec);
                 return;
             }
 
@@ -128,8 +128,7 @@ inline void getPhysicalSecurityData(std::shared_ptr<bmcweb::AsyncResp> aResp)
             {
                 // do not add err msg in redfish response, because this is not
                 //     mandatory property
-                BMCWEB_LOG_INFO << "DBUS error: no matched iface " << ec
-                                << "\n";
+                BMCWEB_LOG_INFO("DBUS error: no matched iface {}\n", ec);
                 return;
             }
             // Iterate over all retrieved ObjectPaths.
@@ -184,7 +183,7 @@ inline void
                     const std::string& property) {
             if (ec)
             {
-                BMCWEB_LOG_DEBUG << "DBUS response error for Location";
+                BMCWEB_LOG_DEBUG("DBUS response error for Location");
                 messages::internalError(asyncResp->res);
                 return;
             }
@@ -206,7 +205,7 @@ inline void getChassisUUID(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                     const std::string& chassisUUID) {
             if (ec)
             {
-                BMCWEB_LOG_DEBUG << "DBUS response error for UUID";
+                BMCWEB_LOG_DEBUG("DBUS response error for UUID");
                 messages::internalError(asyncResp->res);
                 return;
             }
@@ -279,7 +278,7 @@ inline void requestRoutesChassis(App& app)
 
                         if (connectionNames.empty())
                         {
-                            BMCWEB_LOG_ERROR << "Got 0 Connection names";
+                            BMCWEB_LOG_ERROR("Got 0 Connection names");
                             continue;
                         }
 
@@ -321,8 +320,8 @@ inline void requestRoutesChassis(App& app)
                                     const std::string& property) {
                                     if (ec)
                                     {
-                                        BMCWEB_LOG_DEBUG
-                                            << "DBus response error for AssetTag";
+                                        BMCWEB_LOG_DEBUG(
+                                            "DBus response error for AssetTag");
                                         messages::internalError(asyncResp->res);
                                         return;
                                     }
@@ -371,9 +370,9 @@ inline void requestRoutesChassis(App& app)
                                                 &property.second);
                                         if (value == nullptr)
                                         {
-                                            BMCWEB_LOG_ERROR
-                                                << "Null value returned for "
-                                                << propertyName;
+                                            BMCWEB_LOG_ERROR(
+                                                "Null value returned for {}",
+                                                propertyName);
                                             messages::internalError(
                                                 asyncResp->res);
                                             return;
@@ -523,7 +522,7 @@ inline void requestRoutesChassis(App& app)
 
                         if (connectionNames.empty())
                         {
-                            BMCWEB_LOG_ERROR << "Got 0 Connection names";
+                            BMCWEB_LOG_ERROR("Got 0 Connection names");
                             continue;
                         }
 
@@ -599,7 +598,7 @@ inline void
                     const std::vector<std::string>& chassisList) {
             if (ec)
             {
-                BMCWEB_LOG_DEBUG << "[mapper] Bad D-Bus request error: " << ec;
+                BMCWEB_LOG_DEBUG("[mapper] Bad D-Bus request error: {}", ec);
                 messages::internalError(asyncResp->res);
                 return;
             }
@@ -627,8 +626,8 @@ inline void
                     // Use "Set" method to set the property value.
                     if (ec)
                     {
-                        BMCWEB_LOG_DEBUG << "[Set] Bad D-Bus request error: "
-                                         << ec;
+                        BMCWEB_LOG_DEBUG("[Set] Bad D-Bus request error: {}",
+                                         ec);
                         messages::internalError(asyncResp->res);
                         return;
                     }
@@ -657,7 +656,7 @@ inline void requestRoutesChassisResetAction(App& app)
             [](const crow::Request& req,
                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                const std::string&) {
-                BMCWEB_LOG_DEBUG << "Post Chassis Reset.";
+                BMCWEB_LOG_DEBUG("Post Chassis Reset.");
 
                 std::string resetType;
 
@@ -669,8 +668,8 @@ inline void requestRoutesChassisResetAction(App& app)
 
                 if (resetType != "PowerCycle")
                 {
-                    BMCWEB_LOG_DEBUG << "Invalid property value for ResetType: "
-                                     << resetType;
+                    BMCWEB_LOG_DEBUG("Invalid property value for ResetType: {}",
+                                     resetType);
                     messages::actionParameterNotSupported(
                         asyncResp->res, resetType, "ResetType");
 

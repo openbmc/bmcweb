@@ -38,33 +38,31 @@ inline void setupSocket(crow::App& app)
     int listenFd = sd_listen_fds(0);
     if (1 == listenFd)
     {
-        BMCWEB_LOG_INFO << "attempting systemd socket activation";
+        BMCWEB_LOG_INFO("attempting systemd socket activation");
         if (sd_is_socket_inet(SD_LISTEN_FDS_START, AF_UNSPEC, SOCK_STREAM, 1,
                               0) != 0)
         {
-            BMCWEB_LOG_INFO << "Starting webserver on socket handle "
-                            << SD_LISTEN_FDS_START;
+            BMCWEB_LOG_INFO("Starting webserver on socket handle {}",
+                            SD_LISTEN_FDS_START);
             app.socket(SD_LISTEN_FDS_START);
         }
         else
         {
-            BMCWEB_LOG_INFO
-                << "bad incoming socket, starting webserver on port "
-                << defaultPort;
+            BMCWEB_LOG_INFO(
+                "bad incoming socket, starting webserver on port {}",
+                defaultPort);
             app.port(defaultPort);
         }
     }
     else
     {
-        BMCWEB_LOG_INFO << "Starting webserver on port " << defaultPort;
+        BMCWEB_LOG_INFO("Starting webserver on port {}", defaultPort);
         app.port(defaultPort);
     }
 }
 
 static int run()
 {
-    crow::Logger::setLogLevel(crow::LogLevel::Debug);
-
     auto io = std::make_shared<boost::asio::io_context>();
     App app(io);
 
@@ -130,13 +128,13 @@ static int run()
     int rc = redfish::EventServiceManager::startEventLogMonitor(*io);
     if (rc != 0)
     {
-        BMCWEB_LOG_ERROR << "Redfish event handler setup failed...";
+        BMCWEB_LOG_ERROR("Redfish event handler setup failed...");
         return rc;
     }
 #endif
 
 #ifdef BMCWEB_ENABLE_SSL
-    BMCWEB_LOG_INFO << "Start Hostname Monitor Service...";
+    BMCWEB_LOG_INFO("Start Hostname Monitor Service...");
     crow::hostname_monitor::registerHostnameSignal();
 #endif
 
@@ -156,6 +154,6 @@ int main(int /*argc*/, char** /*argv*/)
     catch (...)
     {
         return -1;
-        BMCWEB_LOG_CRITICAL << "Threw exception to main";
+        BMCWEB_LOG_CRITICAL("Threw exception to main");
     }
 }

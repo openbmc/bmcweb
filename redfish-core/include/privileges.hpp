@@ -86,8 +86,8 @@ class Privileges
         {
             if (!setSinglePrivilege(privilege))
             {
-                BMCWEB_LOG_CRITICAL << "Unable to set privilege " << privilege
-                                    << "in constructor";
+                BMCWEB_LOG_CRITICAL("Unable to set privilege {}in constructor",
+                                    privilege);
             }
         }
     }
@@ -262,10 +262,10 @@ inline bool isOperationAllowedWithPrivileges(
     }
     for (const auto& requiredPrivileges : operationPrivilegesRequired)
     {
-        BMCWEB_LOG_DEBUG << "Checking operation privileges...";
+        BMCWEB_LOG_DEBUG("Checking operation privileges...");
         if (userPrivileges.isSupersetOf(requiredPrivileges))
         {
-            BMCWEB_LOG_DEBUG << "...success";
+            BMCWEB_LOG_DEBUG("...success");
             return true;
         }
     }
