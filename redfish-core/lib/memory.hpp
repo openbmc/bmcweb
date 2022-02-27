@@ -18,7 +18,6 @@
 #include "health.hpp"
 
 #include <app.hpp>
-#include <boost/container/flat_map.hpp>
 #include <dbus_utility.hpp>
 #include <registries/privilege_registry.hpp>
 #include <utils/collection.hpp>
@@ -27,9 +26,6 @@
 
 namespace redfish
 {
-
-using DimmProperties =
-    boost::container::flat_map<std::string, dbus::utility::DbusVariantType>;
 
 inline std::string translateMemoryTypeToRedfish(const std::string& memoryType)
 {
@@ -440,31 +436,17 @@ inline void getDimmDataByService(std::shared_ptr<bmcweb::AsyncResp> aResp,
 
     BMCWEB_LOG_DEBUG << "Get available system components.";
     crow::connections::systemBus->async_method_call(
-        [dimmId, aResp{std::move(aResp)}](const boost::system::error_code ec,
-                                          const DimmProperties& properties) {
+        [dimmId, aResp{std::move(aResp)}](
+            const boost::system::error_code ec,
+            const dbus::utility::DBusPropertiesMap& properties) {
             if (ec)
             {
                 BMCWEB_LOG_DEBUG << "DBUS response error";
                 messages::internalError(aResp->res);
-
                 return;
             }
             aResp->res.jsonValue["Id"] = dimmId;
             aResp->res.jsonValue["Name"] = "DIMM Slot";
-
-            const auto memorySizeProperty = properties.find("MemorySizeInKB");
-            if (memorySizeProperty != properties.end())
-            {
-                const uint32_t* memorySize =
-                    std::get_if<uint32_t>(&memorySizeProperty->second);
-                if (memorySize == nullptr)
-                {
-                    // Important property not in desired type
-                    messages::internalError(aResp->res);
-                    return;
-                }
-                aResp->res.jsonValue["CapacityMiB"] = (*memorySize >> 10);
-            }
             aResp->res.jsonValue["Status"]["State"] = "Enabled";
             aResp->res.jsonValue["Status"]["Health"] = "OK";
 
@@ -479,6 +461,18 @@ inline void getDimmDataByService(std::shared_ptr<bmcweb::AsyncResp> aResp,
                         continue;
                     }
                     aResp->res.jsonValue["DataWidthBits"] = *value;
+                }
+                else if (property.first == "MemorySizeInKB")
+                {
+                    const uint32_t* memorySize =
+                        std::get_if<uint32_t>(&property.second);
+                    if (memorySize == nullptr)
+                    {
+                        // Important property not in desired type
+                        messages::internalError(aResp->res);
+                        return;
+                    }
+                    aResp->res.jsonValue["CapacityMiB"] = (*memorySize >> 10);
                 }
                 else if (property.first == "PartNumber")
                 {
@@ -731,8 +725,7 @@ inline void getDimmPartitionData(std::shared_ptr<bmcweb::AsyncResp> aResp,
     crow::connections::systemBus->async_method_call(
         [aResp{std::move(aResp)}](
             const boost::system::error_code ec,
-            const boost::container::flat_map<
-                std::string, dbus::utility::DbusVariantType>& properties) {
+            const dbus::utility::DBusPropertiesMap& properties) {
             if (ec)
             {
                 BMCWEB_LOG_DEBUG << "DBUS response error";
@@ -814,10 +807,7 @@ inline void getDimmData(std::shared_ptr<bmcweb::AsyncResp> aResp,
     crow::connections::systemBus->async_method_call(
         [dimmId, aResp{std::move(aResp)}](
             const boost::system::error_code ec,
-            const boost::container::flat_map<
-                std::string, boost::container::flat_map<
-                                 std::string, std::vector<std::string>>>&
-                subtree) {
+            const dbus::utility::MapperGetSubTreeResponse& subtree) {
             if (ec)
             {
                 BMCWEB_LOG_DEBUG << "DBUS response error";
@@ -832,26 +822,26 @@ inline void getDimmData(std::shared_ptr<bmcweb::AsyncResp> aResp,
                 {
                     for (const auto& [service, interfaces] : object)
                     {
-                        if (!found &&
-                            (std::find(
-                                 interfaces.begin(), interfaces.end(),
-                                 "xyz.openbmc_project.Inventory.Item.Dimm") !=
-                             interfaces.end()))
+                        for (const auto& interface : interfaces)
                         {
-                            getDimmDataByService(aResp, dimmId, service, path);
-                            found = true;
-                        }
+                            if (interface ==
+                                "xyz.openbmc_project.Inventory.Item.Dimm")
+                            {
+                                getDimmDataByService(aResp, dimmId, service,
+                                                     path);
+                                found = true;
+                            }
 
-                        // partitions are separate as there can be multiple per
-                        // device, i.e.
-                        // /xyz/openbmc_project/Inventory/Item/Dimm1/Partition1
-                        // /xyz/openbmc_project/Inventory/Item/Dimm1/Partition2
-                        if (std::find(
-                                interfaces.begin(), interfaces.end(),
-                                "xyz.openbmc_project.Inventory.Item.PersistentMemory.Partition") !=
-                            interfaces.end())
-                        {
-                            getDimmPartitionData(aResp, service, path);
+                            // partitions are separate as there can be multiple
+                            // per
+                            // device, i.e.
+                            // /xyz/openbmc_project/Inventory/Item/Dimm1/Partition1
+                            // /xyz/openbmc_project/Inventory/Item/Dimm1/Partition2
+                            if (interface ==
+                                "xyz.openbmc_project.Inventory.Item.PersistentMemory.Partition")
+                            {
+                                getDimmPartitionData(aResp, service, path);
+                            }
                         }
                     }
                 }
