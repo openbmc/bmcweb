@@ -136,10 +136,11 @@ inline void requestRoutesPower(App& app)
             // for the chassis that implements the Chassis inventory item.
             // This prevents things like power supplies providing the
             // chassis power limit
+
+            using Mapper = dbus::utility::MapperGetSubTreePathsResponse;
             auto chassisHandler = [sensorAsyncResp](
                                       const boost::system::error_code e,
-                                      const std::vector<std::string>&
-                                          chassisPaths) {
+                                      const Mapper& chassisPaths) {
                 if (e)
                 {
                     BMCWEB_LOG_ERROR
@@ -189,9 +190,7 @@ inline void requestRoutesPower(App& app)
                 auto valueHandler =
                     [sensorAsyncResp](
                         const boost::system::error_code ec,
-                        const std::vector<std::pair<
-                            std::string, dbus::utility::DbusVariantType>>&
-                            properties) {
+                        const dbus::utility::DBusPropertiesMap& properties) {
                         if (ec)
                         {
                             messages::internalError(

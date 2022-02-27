@@ -64,7 +64,8 @@ inline void requestRoutesStorage(App& app)
             crow::connections::systemBus->async_method_call(
                 [asyncResp,
                  health](const boost::system::error_code ec,
-                         const std::vector<std::string>& storageList) {
+                         const dbus::utility::MapperGetSubTreePathsResponse&
+                             storageList) {
                     nlohmann::json& storageArray =
                         asyncResp->res.jsonValue["Drives"];
                     storageArray = nlohmann::json::array();
@@ -110,9 +111,9 @@ inline void requestRoutesStorage(App& app)
                     "xyz.openbmc_project.Inventory.Item.Drive"});
 
             crow::connections::systemBus->async_method_call(
-                [asyncResp,
-                 health](const boost::system::error_code ec,
-                         const crow::openbmc_mapper::GetSubTreeType& subtree) {
+                [asyncResp, health](
+                    const boost::system::error_code ec,
+                    const dbus::utility::MapperGetSubTreeResponse& subtree) {
                     if (ec || subtree.empty())
                     {
                         // doesn't have to be there
@@ -481,9 +482,9 @@ inline void requestRoutesDrive(App& app)
                                                   bmcweb::AsyncResp>& asyncResp,
                                               const std::string& driveId) {
             crow::connections::systemBus->async_method_call(
-                [asyncResp,
-                 driveId](const boost::system::error_code ec,
-                          const crow::openbmc_mapper::GetSubTreeType& subtree) {
+                [asyncResp, driveId](
+                    const boost::system::error_code ec,
+                    const dbus::utility::MapperGetSubTreeResponse& subtree) {
                     if (ec)
                     {
                         BMCWEB_LOG_ERROR << "Drive mapper call error";

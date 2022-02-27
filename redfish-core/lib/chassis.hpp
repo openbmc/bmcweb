@@ -19,7 +19,6 @@
 #include "led.hpp"
 
 #include <app.hpp>
-#include <boost/container/flat_map.hpp>
 #include <dbus_utility.hpp>
 #include <registries/privilege_registry.hpp>
 #include <sdbusplus/asio/property.hpp>
@@ -75,19 +74,6 @@ inline void getChassisState(std::shared_ptr<bmcweb::AsyncResp> aResp)
         });
 }
 
-/**
- * DBus types primitives for several generic DBus interfaces
- * TODO(Pawel) consider move this to separate file into boost::dbus
- */
-using ManagedObjectsType = std::vector<std::pair<
-    sdbusplus::message::object_path,
-    std::vector<std::pair<
-        std::string,
-        std::vector<std::pair<std::string, dbus::utility::DbusVariantType>>>>>>;
-
-using PropertiesType =
-    boost::container::flat_map<std::string, dbus::utility::DbusVariantType>;
-
 inline void getIntrusionByService(std::shared_ptr<bmcweb::AsyncResp> aResp,
                                   const std::string& service,
                                   const std::string& objPath)
@@ -120,10 +106,7 @@ inline void getPhysicalSecurityData(std::shared_ptr<bmcweb::AsyncResp> aResp)
     crow::connections::systemBus->async_method_call(
         [aResp{std::move(aResp)}](
             const boost::system::error_code ec,
-            const std::vector<std::pair<
-                std::string,
-                std::vector<std::pair<std::string, std::vector<std::string>>>>>&
-                subtree) {
+            const dbus::utility::MapperGetSubTreeResponse& subtree) {
             if (ec)
             {
                 // do not add err msg in redfish response, because this is not
@@ -234,7 +217,7 @@ inline void requestRoutesChassis(App& app)
             crow::connections::systemBus->async_method_call(
                 [asyncResp, chassisId(std::string(chassisId))](
                     const boost::system::error_code ec,
-                    const crow::openbmc_mapper::GetSubTreeType& subtree) {
+                    const dbus::utility::MapperGetSubTreeResponse& subtree) {
                     if (ec)
                     {
                         messages::internalError(asyncResp->res);
@@ -346,9 +329,7 @@ inline void requestRoutesChassis(App& app)
                         crow::connections::systemBus->async_method_call(
                             [asyncResp, chassisId(std::string(chassisId))](
                                 const boost::system::error_code /*ec2*/,
-                                const std::vector<
-                                    std::pair<std::string,
-                                              dbus::utility::DbusVariantType>>&
+                                const dbus::utility::DBusPropertiesMap&
                                     propertiesList) {
                                 for (const std::pair<
                                          std::string,
@@ -496,7 +477,7 @@ inline void requestRoutesChassis(App& app)
             crow::connections::systemBus->async_method_call(
                 [asyncResp, chassisId, locationIndicatorActive, indicatorLed](
                     const boost::system::error_code ec,
-                    const crow::openbmc_mapper::GetSubTreeType& subtree) {
+                    const dbus::utility::MapperGetSubTreeResponse& subtree) {
                     if (ec)
                     {
                         messages::internalError(asyncResp->res);
@@ -595,8 +576,9 @@ inline void
 
     // Use mapper to get subtree paths.
     crow::connections::systemBus->async_method_call(
-        [asyncResp](const boost::system::error_code ec,
-                    const std::vector<std::string>& chassisList) {
+        [asyncResp](
+            const boost::system::error_code ec,
+            const dbus::utility::MapperGetSubTreePathsResponse& chassisList) {
             if (ec)
             {
                 BMCWEB_LOG_DEBUG << "[mapper] Bad D-Bus request error: " << ec;
