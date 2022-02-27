@@ -15,7 +15,7 @@ class GzFileReader
         gzFile logStream = gzopen(filename.c_str(), "r");
         if (logStream == nullptr)
         {
-            BMCWEB_LOG_ERROR << "Can't open gz file: " << filename << '\n';
+            BMCWEB_LOG_ERROR("Can't open gz file: {}", filename);
             return false;
         }
 
@@ -43,9 +43,9 @@ class GzFileReader
         int errNum = 0;
         const char* errMsg = gzerror(logStream, &errNum);
 
-        BMCWEB_LOG_ERROR << "Error reading gz compressed data.\n"
-                         << "Error Message: " << errMsg << '\n'
-                         << "Error Number: " << errNum;
+        BMCWEB_LOG_ERROR(
+            "Error reading gz compressed data.\nError Message: {}\nError Number: {}",
+            errMsg, errNum);
     }
 
     bool readFile(gzFile logStream, uint64_t& skip, uint64_t& top,
@@ -68,7 +68,7 @@ class GzFileReader
             bufferStr.resize(static_cast<size_t>(bytesRead));
             if (!hostLogEntryParser(bufferStr, skip, top, logEntries, logCount))
             {
-                BMCWEB_LOG_ERROR << "Error occurs during parsing host log.\n";
+                BMCWEB_LOG_ERROR("Error occurs during parsing host log.");
                 return false;
             }
         } while (gzeof(logStream) != 1);
@@ -111,9 +111,9 @@ class GzFileReader
                     totalFilesSize += logEntry.size();
                     if (totalFilesSize > maxTotalFilesSize)
                     {
-                        BMCWEB_LOG_ERROR
-                            << "File size exceeds maximum allowed size of "
-                            << maxTotalFilesSize;
+                        BMCWEB_LOG_ERROR(
+                            "File size exceeds maximum allowed size of {}",
+                            maxTotalFilesSize);
                         return false;
                     }
                     logEntries.push_back(logEntry);
@@ -142,9 +142,9 @@ class GzFileReader
                         totalFilesSize++;
                         if (totalFilesSize > maxTotalFilesSize)
                         {
-                            BMCWEB_LOG_ERROR
-                                << "File size exceeds maximum allowed size of "
-                                << maxTotalFilesSize;
+                            BMCWEB_LOG_ERROR(
+                                "File size exceeds maximum allowed size of {}",
+                                maxTotalFilesSize);
                             return false;
                         }
                         logEntries.emplace_back("\n");
@@ -185,9 +185,9 @@ class GzFileReader
                 size_t tmpMessageSize = totalFilesSize + lastMessage.size();
                 if (tmpMessageSize > maxTotalFilesSize)
                 {
-                    BMCWEB_LOG_ERROR
-                        << "File size exceeds maximum allowed size of "
-                        << maxTotalFilesSize;
+                    BMCWEB_LOG_ERROR(
+                        "File size exceeds maximum allowed size of {}",
+                        maxTotalFilesSize);
                     return false;
                 }
             }

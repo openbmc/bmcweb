@@ -33,7 +33,7 @@ inline void setPowerCapOverride(
                                   chassisPath) mutable {
         if (!chassisPath)
         {
-            BMCWEB_LOG_ERROR << "Don't find valid chassis path ";
+            BMCWEB_LOG_ERROR("Don't find valid chassis path ");
             messages::resourceNotFound(sensorsAsyncResp->asyncResp->res,
                                        "Chassis", sensorsAsyncResp->chassisId);
             return;
@@ -41,7 +41,7 @@ inline void setPowerCapOverride(
 
         if (powerControlCollections.size() != 1)
         {
-            BMCWEB_LOG_ERROR << "Don't support multiple hosts at present ";
+            BMCWEB_LOG_ERROR("Don't support multiple hosts at present ");
             messages::resourceNotFound(sensorsAsyncResp->asyncResp->res,
                                        "Power", "PowerControl");
             return;
@@ -78,8 +78,8 @@ inline void setPowerCapOverride(
                 if (ec)
                 {
                     messages::internalError(sensorsAsyncResp->asyncResp->res);
-                    BMCWEB_LOG_ERROR
-                        << "powerCapEnable Get handler: Dbus error " << ec;
+                    BMCWEB_LOG_ERROR(
+                        "powerCapEnable Get handler: Dbus error {}", ec);
                     return;
                 }
                 if (!powerCapEnable)
@@ -87,7 +87,7 @@ inline void setPowerCapOverride(
                     messages::actionNotSupported(
                         sensorsAsyncResp->asyncResp->res,
                         "Setting LimitInWatts when PowerLimit feature is disabled");
-                    BMCWEB_LOG_ERROR << "PowerLimit feature is disabled ";
+                    BMCWEB_LOG_ERROR("PowerLimit feature is disabled ");
                     return;
                 }
 
@@ -95,8 +95,8 @@ inline void setPowerCapOverride(
                     [sensorsAsyncResp](const boost::system::error_code ec2) {
                         if (ec2)
                         {
-                            BMCWEB_LOG_DEBUG << "Power Limit Set: Dbus error: "
-                                             << ec2;
+                            BMCWEB_LOG_DEBUG("Power Limit Set: Dbus error: {}",
+                                             ec2);
                             messages::internalError(
                                 sensorsAsyncResp->asyncResp->res);
                             return;
@@ -142,9 +142,8 @@ inline void requestRoutesPower(App& app)
                                           chassisPaths) {
                 if (e)
                 {
-                    BMCWEB_LOG_ERROR
-                        << "Power Limit GetSubTreePaths handler Dbus error "
-                        << e;
+                    BMCWEB_LOG_ERROR(
+                        "Power Limit GetSubTreePaths handler Dbus error {}", e);
                     return;
                 }
 
@@ -182,8 +181,8 @@ inline void requestRoutesPower(App& app)
 
                 if (!found)
                 {
-                    BMCWEB_LOG_DEBUG << "Power Limit not present for "
-                                     << sensorAsyncResp->chassisId;
+                    BMCWEB_LOG_DEBUG("Power Limit not present for {}",
+                                     sensorAsyncResp->chassisId);
                     return;
                 }
 
@@ -197,9 +196,9 @@ inline void requestRoutesPower(App& app)
                         {
                             messages::internalError(
                                 sensorAsyncResp->asyncResp->res);
-                            BMCWEB_LOG_ERROR
-                                << "Power Limit GetAll handler: Dbus error "
-                                << ec;
+                            BMCWEB_LOG_ERROR(
+                                "Power Limit GetAll handler: Dbus error {}",
+                                ec);
                             return;
                         }
 

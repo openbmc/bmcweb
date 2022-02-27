@@ -136,7 +136,7 @@ class App
 
     void debugPrint()
     {
-        BMCWEB_LOG_DEBUG << "Routing:";
+        BMCWEB_LOG_DEBUG("Routing:");
         router.debugPrint();
     }
 
@@ -183,8 +183,8 @@ class App
     App& ssl(std::shared_ptr<boost::asio::ssl::context>&& ctx)
     {
         sslContext = std::move(ctx);
-        BMCWEB_LOG_INFO << "app::ssl context use_count="
-                        << sslContext.use_count();
+        BMCWEB_LOG_INFO("app::ssl context use_count={}",
+                        sslContext.use_count());
         return *this;
     }
 

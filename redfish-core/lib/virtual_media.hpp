@@ -128,7 +128,7 @@ inline void
                     const bool* activeValue = std::get_if<bool>(&value);
                     if (activeValue == nullptr)
                     {
-                        BMCWEB_LOG_DEBUG << "Value Active not found";
+                        BMCWEB_LOG_DEBUG("Value Active not found");
                         return;
                     }
                     aResp->res.jsonValue["Inserted"] = *activeValue;
@@ -176,14 +176,14 @@ inline void getVmResourceList(std::shared_ptr<bmcweb::AsyncResp> aResp,
                               const std::string& service,
                               const std::string& name)
 {
-    BMCWEB_LOG_DEBUG << "Get available Virtual Media resources.";
+    BMCWEB_LOG_DEBUG("Get available Virtual Media resources.");
     crow::connections::systemBus->async_method_call(
         [name,
          aResp{std::move(aResp)}](const boost::system::error_code ec,
                                   dbus::utility::ManagedObjectType& subtree) {
             if (ec)
             {
-                BMCWEB_LOG_DEBUG << "DBUS response error";
+                BMCWEB_LOG_DEBUG("DBUS response error");
                 return;
             }
             nlohmann::json& members = aResp->res.jsonValue["Members"];
@@ -219,7 +219,7 @@ inline void getVmData(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
                       const std::string& service, const std::string& name,
                       const std::string& resName)
 {
-    BMCWEB_LOG_DEBUG << "Get Virtual Media resource data.";
+    BMCWEB_LOG_DEBUG("Get Virtual Media resource data.");
 
     crow::connections::systemBus->async_method_call(
         [resName, name,
@@ -227,7 +227,7 @@ inline void getVmData(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
                 const dbus::utility::ManagedObjectType& subtree) {
             if (ec)
             {
-                BMCWEB_LOG_DEBUG << "DBUS response error";
+                BMCWEB_LOG_DEBUG("DBUS response error");
 
                 return;
             }
@@ -381,11 +381,11 @@ inline bool
                    const std::optional<std::string>& transferMethod,
                    const std::optional<std::string>& transferProtocolType)
 {
-    BMCWEB_LOG_DEBUG << "Validation started";
+    BMCWEB_LOG_DEBUG("Validation started");
     // required param imageUrl must not be empty
     if (imageUrl.empty())
     {
-        BMCWEB_LOG_ERROR << "Request action parameter Image is empty.";
+        BMCWEB_LOG_ERROR("Request action parameter Image is empty.");
 
         messages::propertyValueFormatError(res, "<empty>", "Image");
 
@@ -395,8 +395,8 @@ inline bool
     // optional param inserted must be true
     if ((inserted != std::nullopt) && !*inserted)
     {
-        BMCWEB_LOG_ERROR
-            << "Request action optional parameter Inserted must be true.";
+        BMCWEB_LOG_ERROR(
+            "Request action optional parameter Inserted must be true.");
 
         messages::actionParameterNotSupported(res, "Inserted", "InsertMedia");
 
@@ -406,8 +406,8 @@ inline bool
     // optional param transferMethod must be stream
     if ((transferMethod != std::nullopt) && (*transferMethod != "Stream"))
     {
-        BMCWEB_LOG_ERROR << "Request action optional parameter "
-                            "TransferMethod must be Stream.";
+        BMCWEB_LOG_ERROR("Request action optional parameter "
+                         "TransferMethod must be Stream.");
 
         messages::actionParameterNotSupported(res, "TransferMethod",
                                               "InsertMedia");
@@ -430,9 +430,9 @@ inline bool
     // ImageUrl does not contain valid protocol type
     if (*uriTransferProtocolType == TransferProtocol::invalid)
     {
-        BMCWEB_LOG_ERROR << "Request action parameter ImageUrl must "
-                            "contain specified protocol type from list: "
-                            "(smb, https).";
+        BMCWEB_LOG_ERROR("Request action parameter ImageUrl must "
+                         "contain specified protocol type from list: "
+                         "(smb, https).");
 
         messages::resourceAtUriInUnknownFormat(res, *url);
 
@@ -442,9 +442,9 @@ inline bool
     // transferProtocolType should contain value from list
     if (*paramTransferProtocolType == TransferProtocol::invalid)
     {
-        BMCWEB_LOG_ERROR << "Request action parameter TransferProtocolType "
-                            "must be provided with value from list: "
-                            "(CIFS, HTTPS).";
+        BMCWEB_LOG_ERROR("Request action parameter TransferProtocolType "
+                         "must be provided with value from list: "
+                         "(CIFS, HTTPS).");
 
         messages::propertyValueNotInList(res, *transferProtocolType,
                                          "TransferProtocolType");
@@ -455,9 +455,9 @@ inline bool
     if ((uriTransferProtocolType == std::nullopt) &&
         (paramTransferProtocolType == std::nullopt))
     {
-        BMCWEB_LOG_ERROR << "Request action parameter ImageUrl must "
-                            "contain specified protocol type or param "
-                            "TransferProtocolType must be provided.";
+        BMCWEB_LOG_ERROR("Request action parameter ImageUrl must "
+                         "contain specified protocol type or param "
+                         "TransferProtocolType must be provided.");
 
         messages::resourceAtUriInUnknownFormat(res, *url);
 
@@ -471,10 +471,10 @@ inline bool
         // check if protocol is the same for URI and param
         if (*paramTransferProtocolType != *uriTransferProtocolType)
         {
-            BMCWEB_LOG_ERROR << "Request action parameter "
-                                "TransferProtocolType must  contain the "
-                                "same protocol type as protocol type "
-                                "provided with param imageUrl.";
+            BMCWEB_LOG_ERROR("Request action parameter "
+                             "TransferProtocolType must  contain the "
+                             "same protocol type as protocol type "
+                             "provided with param imageUrl.");
 
             messages::actionParameterValueTypeError(res, *transferProtocolType,
                                                     "TransferProtocolType",
@@ -671,7 +671,7 @@ inline void doMountVmLegacy(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
         if (credentials.user().size() + credentials.password().size() + 2 >
             secretLimit)
         {
-            BMCWEB_LOG_ERROR << "Credentials too long to handle";
+            BMCWEB_LOG_ERROR("Credentials too long to handle");
             messages::unrecognizedRequestBody(asyncResp->res);
             return;
         }
@@ -695,7 +695,7 @@ inline void doMountVmLegacy(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
             [asyncResp](const boost::system::error_code& ec, std::size_t) {
                 if (ec)
                 {
-                    BMCWEB_LOG_ERROR << "Failed to pass secret: " << ec;
+                    BMCWEB_LOG_ERROR("Failed to pass secret: {}", ec);
                     messages::internalError(asyncResp->res);
                 }
             });
@@ -706,12 +706,12 @@ inline void doMountVmLegacy(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                                 bool success) {
             if (ec)
             {
-                BMCWEB_LOG_ERROR << "Bad D-Bus request error: " << ec;
+                BMCWEB_LOG_ERROR("Bad D-Bus request error: {}", ec);
                 messages::internalError(asyncResp->res);
             }
             else if (!success)
             {
-                BMCWEB_LOG_ERROR << "Service responded with error";
+                BMCWEB_LOG_ERROR("Service responded with error");
                 messages::generalError(asyncResp->res);
             }
         },
@@ -737,7 +737,7 @@ inline void doVmAction(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
             [asyncResp](const boost::system::error_code ec) {
                 if (ec)
                 {
-                    BMCWEB_LOG_ERROR << "Bad D-Bus request error: " << ec;
+                    BMCWEB_LOG_ERROR("Bad D-Bus request error: {}", ec);
 
                     messages::internalError(asyncResp->res);
                     return;
@@ -752,7 +752,7 @@ inline void doVmAction(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
             [asyncResp](const boost::system::error_code ec) {
                 if (ec)
                 {
-                    BMCWEB_LOG_ERROR << "Bad D-Bus request error: " << ec;
+                    BMCWEB_LOG_ERROR("Bad D-Bus request error: {}", ec);
 
                     messages::internalError(asyncResp->res);
                     return;
@@ -804,7 +804,7 @@ inline void requestNBDVirtualMediaRoutes(App& app)
                         actionParams.transferMethod, "TransferProtocolType",
                         actionParams.transferProtocolType))
                 {
-                    BMCWEB_LOG_DEBUG << "Image is not provided";
+                    BMCWEB_LOG_DEBUG("Image is not provided");
                     return;
                 }
 
@@ -824,15 +824,14 @@ inline void requestNBDVirtualMediaRoutes(App& app)
                               const GetObjectType& getObjectType) mutable {
                         if (ec)
                         {
-                            BMCWEB_LOG_ERROR
-                                << "ObjectMapper::GetObject call failed: "
-                                << ec;
+                            BMCWEB_LOG_ERROR(
+                                "ObjectMapper::GetObject call failed: {}", ec);
                             messages::internalError(asyncResp->res);
 
                             return;
                         }
                         std::string service = getObjectType.begin()->first;
-                        BMCWEB_LOG_DEBUG << "GetObjectType: " << service;
+                        BMCWEB_LOG_DEBUG("GetObjectType: {}", service);
 
                         crow::connections::systemBus->async_method_call(
                             [service, resName, actionParams,
@@ -841,7 +840,7 @@ inline void requestNBDVirtualMediaRoutes(App& app)
                                             subtree) mutable {
                                 if (ec)
                                 {
-                                    BMCWEB_LOG_DEBUG << "DBUS response error";
+                                    BMCWEB_LOG_DEBUG("DBUS response error");
 
                                     return;
                                 }
@@ -866,9 +865,9 @@ inline void requestNBDVirtualMediaRoutes(App& app)
                                         if (lastIndex != std::string::npos)
                                         {
                                             // Not possible in proxy mode
-                                            BMCWEB_LOG_DEBUG
-                                                << "InsertMedia not "
-                                                   "allowed in proxy mode";
+                                            BMCWEB_LOG_DEBUG(
+                                                "InsertMedia not "
+                                                "allowed in proxy mode");
                                             messages::resourceNotFound(
                                                 asyncResp->res,
                                                 "VirtualMedia.InsertMedia",
@@ -895,7 +894,7 @@ inline void requestNBDVirtualMediaRoutes(App& app)
                                         return;
                                     }
                                 }
-                                BMCWEB_LOG_DEBUG << "Parent item not found";
+                                BMCWEB_LOG_DEBUG("Parent item not found");
                                 messages::resourceNotFound(
                                     asyncResp->res, "VirtualMedia", resName);
                             },
@@ -931,15 +930,14 @@ inline void requestNBDVirtualMediaRoutes(App& app)
                                          const GetObjectType& getObjectType) {
                         if (ec)
                         {
-                            BMCWEB_LOG_ERROR
-                                << "ObjectMapper::GetObject call failed: "
-                                << ec;
+                            BMCWEB_LOG_ERROR(
+                                "ObjectMapper::GetObject call failed: {}", ec);
                             messages::internalError(asyncResp->res);
 
                             return;
                         }
                         std::string service = getObjectType.begin()->first;
-                        BMCWEB_LOG_DEBUG << "GetObjectType: " << service;
+                        BMCWEB_LOG_DEBUG("GetObjectType: {}", service);
 
                         crow::connections::systemBus->async_method_call(
                             [resName, service, asyncResp{asyncResp}](
@@ -947,7 +945,7 @@ inline void requestNBDVirtualMediaRoutes(App& app)
                                 dbus::utility::ManagedObjectType& subtree) {
                                 if (ec)
                                 {
-                                    BMCWEB_LOG_DEBUG << "DBUS response error";
+                                    BMCWEB_LOG_DEBUG("DBUS response error");
 
                                     return;
                                 }
@@ -987,7 +985,7 @@ inline void requestNBDVirtualMediaRoutes(App& app)
                                         return;
                                     }
                                 }
-                                BMCWEB_LOG_DEBUG << "Parent item not found";
+                                BMCWEB_LOG_DEBUG("Parent item not found");
                                 messages::resourceNotFound(
                                     asyncResp->res, "VirtualMedia", resName);
                             },
@@ -1026,15 +1024,14 @@ inline void requestNBDVirtualMediaRoutes(App& app)
                                       const GetObjectType& getObjectType) {
                         if (ec)
                         {
-                            BMCWEB_LOG_ERROR
-                                << "ObjectMapper::GetObject call failed: "
-                                << ec;
+                            BMCWEB_LOG_ERROR(
+                                "ObjectMapper::GetObject call failed: {}", ec);
                             messages::internalError(asyncResp->res);
 
                             return;
                         }
                         std::string service = getObjectType.begin()->first;
-                        BMCWEB_LOG_DEBUG << "GetObjectType: " << service;
+                        BMCWEB_LOG_DEBUG("GetObjectType: {}", service);
 
                         getVmResourceList(asyncResp, service, name);
                     },
@@ -1065,15 +1062,14 @@ inline void requestNBDVirtualMediaRoutes(App& app)
                               const GetObjectType& getObjectType) {
                         if (ec)
                         {
-                            BMCWEB_LOG_ERROR
-                                << "ObjectMapper::GetObject call failed: "
-                                << ec;
+                            BMCWEB_LOG_ERROR(
+                                "ObjectMapper::GetObject call failed: {}", ec);
                             messages::internalError(asyncResp->res);
 
                             return;
                         }
                         std::string service = getObjectType.begin()->first;
-                        BMCWEB_LOG_DEBUG << "GetObjectType: " << service;
+                        BMCWEB_LOG_DEBUG("GetObjectType: {}", service);
 
                         getVmData(asyncResp, service, name, resName);
                     },
