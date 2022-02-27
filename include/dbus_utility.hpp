@@ -61,11 +61,6 @@ using DBusInteracesMap = std::vector<std::pair<std::string, DBusPropertiesMap>>;
 using ManagedObjectType =
     std::vector<std::pair<sdbusplus::message::object_path, DBusInteracesMap>>;
 
-using ManagedItem = std::pair<
-    sdbusplus::message::object_path,
-    std::vector<std::pair<
-        std::string, std::vector<std::pair<std::string, DbusVariantType>>>>>;
-
 // Map of service name to list of interfaces
 using MapperServiceMap =
     std::vector<std::pair<std::string, std::vector<std::string>>>;
@@ -73,6 +68,15 @@ using MapperServiceMap =
 // Map of object paths to MapperServiceMaps
 using MapperGetSubTreeResponse =
     std::vector<std::pair<std::string, MapperServiceMap>>;
+
+using MapperGetObject =
+    std::vector<std::pair<std::string, std::vector<std::string>>>;
+
+using MapperGetAncestorsResponse = std::vector<
+    std::pair<std::string,
+              std::vector<std::pair<std::string, std::vector<std::string>>>>>;
+
+using MapperGetSubTreePathsResponse = std::vector<std::string>;
 
 inline void escapePathForDbus(std::string& path)
 {
@@ -110,13 +114,10 @@ inline bool getNthStringFromPath(const std::string& path, int index,
 template <typename Callback>
 inline void checkDbusPathExists(const std::string& path, Callback&& callback)
 {
-    using GetObjectType =
-        std::vector<std::pair<std::string, std::vector<std::string>>>;
-
     crow::connections::systemBus->async_method_call(
         [callback{std::forward<Callback>(callback)}](
             const boost::system::error_code ec,
-            const GetObjectType& objectNames) {
+            const dbus::utility::MapperGetObject& objectNames) {
             callback(!ec && !objectNames.empty());
         },
         "xyz.openbmc_project.ObjectMapper",

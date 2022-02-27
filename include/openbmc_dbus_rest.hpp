@@ -32,11 +32,6 @@ namespace crow
 {
 namespace openbmc_mapper
 {
-
-using GetSubTreeType = std::vector<
-    std::pair<std::string,
-              std::vector<std::pair<std::string, std::vector<std::string>>>>>;
-
 const constexpr char* notFoundMsg = "404 Not Found";
 const constexpr char* badReqMsg = "400 Bad Request";
 const constexpr char* methodNotAllowedMsg = "405 Method Not Allowed";
@@ -139,10 +134,9 @@ inline void getPropertiesForEnumerate(
                      << service << " " << interface;
 
     crow::connections::systemBus->async_method_call(
-        [asyncResp, objectPath, service, interface](
-            const boost::system::error_code ec,
-            const std::vector<std::pair<
-                std::string, dbus::utility::DbusVariantType>>& propertiesList) {
+        [asyncResp, objectPath, service,
+         interface](const boost::system::error_code ec,
+                    const dbus::utility::DBusPropertiesMap& propertiesList) {
             if (ec)
             {
                 BMCWEB_LOG_ERROR << "GetAll on path " << objectPath << " iface "
@@ -186,7 +180,7 @@ inline void getPropertiesForEnumerate(
 // called after all ObjectManagers are searched for and called.
 inline void findRemainingObjectsForEnumerate(
     const std::string& objectPath,
-    const std::shared_ptr<GetSubTreeType>& subtree,
+    const std::shared_ptr<dbus::utility::MapperGetSubTreeResponse>& subtree,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
     BMCWEB_LOG_DEBUG << "findRemainingObjectsForEnumerate";
@@ -244,7 +238,7 @@ struct InProgressEnumerateData
     InProgressEnumerateData& operator=(InProgressEnumerateData&&) = delete;
 
     const std::string objectPath;
-    std::shared_ptr<GetSubTreeType> subtree;
+    std::shared_ptr<dbus::utility::MapperGetSubTreeResponse> subtree;
     std::shared_ptr<bmcweb::AsyncResp> asyncResp;
 };
 
@@ -331,10 +325,7 @@ inline void findObjectManagerPathForEnumerate(
     crow::connections::systemBus->async_method_call(
         [transaction, objectName, connectionName](
             const boost::system::error_code ec,
-            const boost::container::flat_map<
-                std::string, boost::container::flat_map<
-                                 std::string, std::vector<std::string>>>&
-                objects) {
+            const dbus::utility::MapperGetAncestorsResponse& objects) {
             if (ec)
             {
                 BMCWEB_LOG_ERROR << "GetAncestors on path " << objectName
@@ -369,12 +360,9 @@ inline void findObjectManagerPathForEnumerate(
 inline void getObjectAndEnumerate(
     const std::shared_ptr<InProgressEnumerateData>& transaction)
 {
-    using GetObjectType =
-        std::vector<std::pair<std::string, std::vector<std::string>>>;
-
     crow::connections::systemBus->async_method_call(
         [transaction](const boost::system::error_code ec,
-                      const GetObjectType& objects) {
+                      const dbus::utility::MapperGetObject& objects) {
             if (ec)
             {
                 BMCWEB_LOG_ERROR << "GetObject for path "
@@ -1627,8 +1615,9 @@ inline void handleList(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                        const std::string& objectPath, int32_t depth = 0)
 {
     crow::connections::systemBus->async_method_call(
-        [asyncResp](const boost::system::error_code ec,
-                    const std::vector<std::string>& objectPaths) {
+        [asyncResp](
+            const boost::system::error_code ec,
+            const dbus::utility::MapperGetSubTreePathsResponse& objectPaths) {
             if (ec)
             {
                 setErrorResponse(asyncResp->res,
@@ -1658,13 +1647,15 @@ inline void handleEnumerate(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                                 {"data", nlohmann::json::object()}};
 
     crow::connections::systemBus->async_method_call(
-        [objectPath, asyncResp](const boost::system::error_code ec,
-                                const GetSubTreeType& objectNames) {
+        [objectPath, asyncResp](
+            const boost::system::error_code ec,
+            const dbus::utility::MapperGetSubTreeResponse& objectNames) {
             auto transaction = std::make_shared<InProgressEnumerateData>(
                 objectPath, asyncResp);
 
             transaction->subtree =
-                std::make_shared<GetSubTreeType>(objectNames);
+                std::make_shared<dbus::utility::MapperGetSubTreeResponse>(
+                    objectNames);
 
             if (ec)
             {
@@ -1696,11 +1687,10 @@ inline void handleGet(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     std::shared_ptr<std::string> path =
         std::make_shared<std::string>(std::move(objectPath));
 
-    using GetObjectType =
-        std::vector<std::pair<std::string, std::vector<std::string>>>;
     crow::connections::systemBus->async_method_call(
-        [asyncResp, path, propertyName](const boost::system::error_code ec,
-                                        const GetObjectType& objectNames) {
+        [asyncResp, path,
+         propertyName](const boost::system::error_code ec,
+                       const dbus::utility::MapperGetObject& objectNames) {
             if (ec || objectNames.empty())
             {
                 setErrorResponse(asyncResp->res,
@@ -1869,12 +1859,9 @@ inline void handlePut(const crow::Request& req,
     transaction->propertyName = destProperty;
     transaction->propertyValue = propertySetValue;
 
-    using GetObjectType =
-        std::vector<std::pair<std::string, std::vector<std::string>>>;
-
     crow::connections::systemBus->async_method_call(
         [transaction](const boost::system::error_code ec2,
-                      const GetObjectType& objectNames) {
+                      const dbus::utility::MapperGetObject& objectNames) {
             if (!ec2 && objectNames.empty())
             {
                 setErrorResponse(transaction->asyncResp->res,

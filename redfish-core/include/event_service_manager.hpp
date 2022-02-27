@@ -42,9 +42,6 @@
 namespace redfish
 {
 
-using ReadingsObjType =
-    std::vector<std::tuple<std::string, std::string, double, int32_t>>;
-
 static constexpr const char* eventFormatType = "Event";
 static constexpr const char* metricReportFormatType = "MetricReport";
 
@@ -1324,8 +1321,7 @@ class EventServiceManager
         }
 
         std::string interface;
-        std::vector<std::pair<std::string, dbus::utility::DbusVariantType>>
-            props;
+        dbus::utility::DBusPropertiesMap props;
         std::vector<std::string> invalidProps;
         msg.read(interface, props, invalidProps);
 

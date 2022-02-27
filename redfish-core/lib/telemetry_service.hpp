@@ -27,10 +27,8 @@ inline void handleTelemetryServiceGet(
         "/redfish/v1/TelemetryService/Triggers";
 
     crow::connections::systemBus->async_method_call(
-        [asyncResp](
-            const boost::system::error_code ec,
-            const std::vector<
-                std::pair<std::string, dbus::utility::DbusVariantType>>& ret) {
+        [asyncResp](const boost::system::error_code ec,
+                    const dbus::utility::DBusPropertiesMap& ret) {
             if (ec == boost::system::errc::host_unreachable)
             {
                 asyncResp->res.jsonValue["Status"]["State"] = "Absent";

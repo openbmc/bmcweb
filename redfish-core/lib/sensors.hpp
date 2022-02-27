@@ -33,16 +33,6 @@
 namespace redfish
 {
 
-using GetSubTreeType = std::vector<
-    std::pair<std::string,
-              std::vector<std::pair<std::string, std::vector<std::string>>>>>;
-
-using ManagedObjectsVectorType = std::vector<std::pair<
-    sdbusplus::message::object_path,
-    boost::container::flat_map<
-        std::string, boost::container::flat_map<
-                         std::string, dbus::utility::DbusVariantType>>>>;
-
 namespace sensors
 {
 namespace node
@@ -329,9 +319,10 @@ void getObjectsWithConnection(
 
     // Response handler for parsing objects subtree
     auto respHandler = [callback{std::forward<Callback>(callback)},
-                        sensorsAsyncResp,
-                        sensorNames](const boost::system::error_code ec,
-                                     const GetSubTreeType& subtree) {
+                        sensorsAsyncResp, sensorNames](
+                           const boost::system::error_code ec,
+                           const dbus::utility::MapperGetSubTreeResponse&
+                               subtree) {
         BMCWEB_LOG_DEBUG << "getObjectsWithConnection resp_handler enter";
         if (ec)
         {
@@ -467,38 +458,38 @@ void getValidChassisPath(const std::shared_ptr<SensorsAsyncResp>& asyncResp,
         "xyz.openbmc_project.Inventory.Item.Board",
         "xyz.openbmc_project.Inventory.Item.Chassis"};
 
-    auto respHandler =
-        [callback{std::forward<Callback>(callback)},
-         asyncResp](const boost::system::error_code ec,
-                    const std::vector<std::string>& chassisPaths) mutable {
-            BMCWEB_LOG_DEBUG << "getValidChassisPath respHandler enter";
-            if (ec)
-            {
-                BMCWEB_LOG_ERROR
-                    << "getValidChassisPath respHandler DBUS error: " << ec;
-                messages::internalError(asyncResp->asyncResp->res);
-                return;
-            }
+    auto respHandler = [callback{std::forward<Callback>(callback)}, asyncResp](
+                           const boost::system::error_code ec,
+                           const dbus::utility::MapperGetSubTreePathsResponse&
+                               chassisPaths) mutable {
+        BMCWEB_LOG_DEBUG << "getValidChassisPath respHandler enter";
+        if (ec)
+        {
+            BMCWEB_LOG_ERROR << "getValidChassisPath respHandler DBUS error: "
+                             << ec;
+            messages::internalError(asyncResp->asyncResp->res);
+            return;
+        }
 
-            std::optional<std::string> chassisPath;
-            std::string chassisName;
-            for (const std::string& chassis : chassisPaths)
+        std::optional<std::string> chassisPath;
+        std::string chassisName;
+        for (const std::string& chassis : chassisPaths)
+        {
+            sdbusplus::message::object_path path(chassis);
+            chassisName = path.filename();
+            if (chassisName.empty())
             {
-                sdbusplus::message::object_path path(chassis);
-                chassisName = path.filename();
-                if (chassisName.empty())
-                {
-                    BMCWEB_LOG_ERROR << "Failed to find '/' in " << chassis;
-                    continue;
-                }
-                if (chassisName == asyncResp->chassisId)
-                {
-                    chassisPath = chassis;
-                    break;
-                }
+                BMCWEB_LOG_ERROR << "Failed to find '/' in " << chassis;
+                continue;
             }
-            callback(chassisPath);
-        };
+            if (chassisName == asyncResp->chassisId)
+            {
+                chassisPath = chassis;
+                break;
+            }
+        }
+        callback(chassisPath);
+    };
 
     // Get the Chassis Collection
     crow::connections::systemBus->async_method_call(
@@ -525,7 +516,8 @@ void getChassis(const std::shared_ptr<SensorsAsyncResp>& sensorsAsyncResp,
     auto respHandler = [callback{std::forward<Callback>(callback)},
                         sensorsAsyncResp](
                            const boost::system::error_code ec,
-                           const std::vector<std::string>& chassisPaths) {
+                           const dbus::utility::MapperGetSubTreePathsResponse&
+                               chassisPaths) {
         BMCWEB_LOG_DEBUG << "getChassis respHandler enter";
         if (ec)
         {
@@ -658,8 +650,10 @@ void getObjectManagerPaths(
 
     // Response handler for GetSubTree DBus method
     auto respHandler = [callback{std::forward<Callback>(callback)},
-                        sensorsAsyncResp](const boost::system::error_code ec,
-                                          const GetSubTreeType& subtree) {
+                        sensorsAsyncResp](
+                           const boost::system::error_code ec,
+                           const dbus::utility::MapperGetSubTreeResponse&
+                               subtree) {
         BMCWEB_LOG_DEBUG << "getObjectManagerPaths respHandler enter";
         if (ec)
         {
@@ -1119,8 +1113,9 @@ inline void populateFanRedundancy(
     const std::shared_ptr<SensorsAsyncResp>& sensorsAsyncResp)
 {
     crow::connections::systemBus->async_method_call(
-        [sensorsAsyncResp](const boost::system::error_code ec,
-                           const GetSubTreeType& resp) {
+        [sensorsAsyncResp](
+            const boost::system::error_code ec,
+            const dbus::utility::MapperGetSubTreeResponse& resp) {
             if (ec)
             {
                 return; // don't have to have this interface
@@ -1699,9 +1694,10 @@ static void getInventoryItemsConnections(
 
     // Response handler for parsing output from GetSubTree
     auto respHandler = [callback{std::forward<Callback>(callback)},
-                        sensorsAsyncResp,
-                        inventoryItems](const boost::system::error_code ec,
-                                        const GetSubTreeType& subtree) {
+                        sensorsAsyncResp, inventoryItems](
+                           const boost::system::error_code ec,
+                           const dbus::utility::MapperGetSubTreeResponse&
+                               subtree) {
         BMCWEB_LOG_DEBUG << "getInventoryItemsConnections respHandler enter";
         if (ec)
         {
@@ -2054,9 +2050,10 @@ void getInventoryLeds(
 
     // Response handler for parsing output from GetSubTree
     auto respHandler = [callback{std::forward<Callback>(callback)},
-                        sensorsAsyncResp,
-                        inventoryItems](const boost::system::error_code ec,
-                                        const GetSubTreeType& subtree) {
+                        sensorsAsyncResp, inventoryItems](
+                           const boost::system::error_code ec,
+                           const dbus::utility::MapperGetSubTreeResponse&
+                               subtree) {
         BMCWEB_LOG_DEBUG << "getInventoryLeds respHandler enter";
         if (ec)
         {
@@ -2231,57 +2228,58 @@ void getPowerSupplyAttributes(
         "xyz.openbmc_project.Control.PowerSupplyAttributes"};
 
     // Response handler for parsing output from GetSubTree
-    auto respHandler = [callback{std::forward<Callback>(callback)},
-                        sensorsAsyncResp,
-                        inventoryItems](const boost::system::error_code ec,
-                                        const GetSubTreeType& subtree) {
-        BMCWEB_LOG_DEBUG << "getPowerSupplyAttributes respHandler enter";
-        if (ec)
-        {
-            messages::internalError(sensorsAsyncResp->asyncResp->res);
-            BMCWEB_LOG_ERROR
-                << "getPowerSupplyAttributes respHandler DBus error " << ec;
-            return;
-        }
-        if (subtree.empty())
-        {
-            BMCWEB_LOG_DEBUG << "Can't find Power Supply Attributes!";
-            callback(inventoryItems);
-            return;
-        }
+    auto respHandler =
+        [callback{std::forward<Callback>(callback)}, sensorsAsyncResp,
+         inventoryItems](
+            const boost::system::error_code ec,
+            const dbus::utility::MapperGetSubTreeResponse& subtree) {
+            BMCWEB_LOG_DEBUG << "getPowerSupplyAttributes respHandler enter";
+            if (ec)
+            {
+                messages::internalError(sensorsAsyncResp->asyncResp->res);
+                BMCWEB_LOG_ERROR
+                    << "getPowerSupplyAttributes respHandler DBus error " << ec;
+                return;
+            }
+            if (subtree.empty())
+            {
+                BMCWEB_LOG_DEBUG << "Can't find Power Supply Attributes!";
+                callback(inventoryItems);
+                return;
+            }
 
-        // Currently we only support 1 power supply attribute, use this for
-        // all the power supplies. Build map of object path to connection.
-        // Assume just 1 connection and 1 path for now.
-        boost::container::flat_map<std::string, std::string>
-            psAttributesConnections;
+            // Currently we only support 1 power supply attribute, use this for
+            // all the power supplies. Build map of object path to connection.
+            // Assume just 1 connection and 1 path for now.
+            boost::container::flat_map<std::string, std::string>
+                psAttributesConnections;
 
-        if (subtree[0].first.empty() || subtree[0].second.empty())
-        {
-            BMCWEB_LOG_DEBUG << "Power Supply Attributes mapper error!";
-            callback(inventoryItems);
-            return;
-        }
+            if (subtree[0].first.empty() || subtree[0].second.empty())
+            {
+                BMCWEB_LOG_DEBUG << "Power Supply Attributes mapper error!";
+                callback(inventoryItems);
+                return;
+            }
 
-        const std::string& psAttributesPath = subtree[0].first;
-        const std::string& connection = subtree[0].second.begin()->first;
+            const std::string& psAttributesPath = subtree[0].first;
+            const std::string& connection = subtree[0].second.begin()->first;
 
-        if (connection.empty())
-        {
-            BMCWEB_LOG_DEBUG << "Power Supply Attributes mapper error!";
-            callback(inventoryItems);
-            return;
-        }
+            if (connection.empty())
+            {
+                BMCWEB_LOG_DEBUG << "Power Supply Attributes mapper error!";
+                callback(inventoryItems);
+                return;
+            }
 
-        psAttributesConnections[psAttributesPath] = connection;
-        BMCWEB_LOG_DEBUG << "Added mapping " << psAttributesPath << " -> "
-                         << connection;
+            psAttributesConnections[psAttributesPath] = connection;
+            BMCWEB_LOG_DEBUG << "Added mapping " << psAttributesPath << " -> "
+                             << connection;
 
-        getPowerSupplyAttributesData(sensorsAsyncResp, inventoryItems,
-                                     psAttributesConnections,
-                                     std::move(callback));
-        BMCWEB_LOG_DEBUG << "getPowerSupplyAttributes respHandler exit";
-    };
+            getPowerSupplyAttributesData(sensorsAsyncResp, inventoryItems,
+                                         psAttributesConnections,
+                                         std::move(callback));
+            BMCWEB_LOG_DEBUG << "getPowerSupplyAttributes respHandler exit";
+        };
     // Make call to ObjectMapper to find the PowerSupplyAttributes service
     crow::connections::systemBus->async_method_call(
         std::move(respHandler), "xyz.openbmc_project.ObjectMapper",
@@ -3000,8 +2998,9 @@ inline void requestRoutesSensor(App& app)
             // Get a list of all of the sensors that implement Sensor.Value
             // and get the path and service name associated with the sensor
             crow::connections::systemBus->async_method_call(
-                [asyncResp, sensorName](const boost::system::error_code ec,
-                                        const GetSubTreeType& subtree) {
+                [asyncResp, sensorName](
+                    const boost::system::error_code ec,
+                    const dbus::utility::MapperGetSubTreeResponse& subtree) {
                     BMCWEB_LOG_DEBUG << "respHandler1 enter";
                     if (ec)
                     {
@@ -3012,25 +3011,27 @@ inline void requestRoutesSensor(App& app)
                         return;
                     }
 
-                    GetSubTreeType::const_iterator it = std::find_if(
-                        subtree.begin(), subtree.end(),
-                        [sensorName](
-                            const std::pair<
-                                std::string,
-                                std::vector<std::pair<
-                                    std::string, std::vector<std::string>>>>&
-                                object) {
-                            sdbusplus::message::object_path path(object.first);
-                            std::string name = path.filename();
-                            if (name.empty())
-                            {
-                                BMCWEB_LOG_ERROR << "Invalid sensor path: "
-                                                 << object.first;
-                                return false;
-                            }
+                    dbus::utility::MapperGetSubTreeResponse::const_iterator it =
+                        std::find_if(
+                            subtree.begin(), subtree.end(),
+                            [sensorName](
+                                const std::pair<std::string,
+                                                std::vector<std::pair<
+                                                    std::string,
+                                                    std::vector<std::string>>>>&
+                                    object) {
+                                sdbusplus::message::object_path path(
+                                    object.first);
+                                std::string name = path.filename();
+                                if (name.empty())
+                                {
+                                    BMCWEB_LOG_ERROR << "Invalid sensor path: "
+                                                     << object.first;
+                                    return false;
+                                }
 
-                            return name == sensorName;
-                        });
+                                return name == sensorName;
+                            });
 
                     if (it == subtree.end())
                     {
