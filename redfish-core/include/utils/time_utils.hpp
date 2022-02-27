@@ -62,11 +62,10 @@ bool fromDurationItem(std::string_view& fmt, const char postfix,
     auto [ptr, ec] = std::from_chars(fmt.data(), end, ticks);
     if (ptr != end || ec != std::errc())
     {
-        BMCWEB_LOG_ERROR << "Failed to convert string to decimal with err: "
-                         << static_cast<int>(ec) << "("
-                         << std::make_error_code(ec).message() << "), ptr{"
-                         << static_cast<const void*>(ptr) << "} != end{"
-                         << static_cast<const void*>(end) << "})";
+        BMCWEB_LOG_ERROR(
+            "Failed to convert string to decimal with err: {}({}), ptr{{}} != end{{}})",
+            static_cast<int>(ec), std::make_error_code(ec).message(),
+            static_cast<const void*>(ptr), static_cast<const void*>(end));
         return false;
     }
 
@@ -110,14 +109,14 @@ inline std::optional<std::chrono::milliseconds>
     }
     if (v.front() != 'P')
     {
-        BMCWEB_LOG_ERROR << "Invalid duration format: " << str;
+        BMCWEB_LOG_ERROR("Invalid duration format: {}", str);
         return std::nullopt;
     }
 
     v.remove_prefix(1);
     if (!details::fromDurationItem<details::Days>(v, 'D', out))
     {
-        BMCWEB_LOG_ERROR << "Invalid duration format: " << str;
+        BMCWEB_LOG_ERROR("Invalid duration format: {}", str);
         return std::nullopt;
     }
 
@@ -127,7 +126,7 @@ inline std::optional<std::chrono::milliseconds>
     }
     if (v.front() != 'T')
     {
-        BMCWEB_LOG_ERROR << "Invalid duration format: " << str;
+        BMCWEB_LOG_ERROR("Invalid duration format: {}", str);
         return std::nullopt;
     }
 
@@ -135,7 +134,7 @@ inline std::optional<std::chrono::milliseconds>
     if (!details::fromDurationItem<std::chrono::hours>(v, 'H', out) ||
         !details::fromDurationItem<std::chrono::minutes>(v, 'M', out))
     {
-        BMCWEB_LOG_ERROR << "Invalid duration format: " << str;
+        BMCWEB_LOG_ERROR("Invalid duration format: {}", str);
         return std::nullopt;
     }
 
@@ -144,19 +143,19 @@ inline std::optional<std::chrono::milliseconds>
         if (!details::fromDurationItem<std::chrono::seconds>(v, '.', out) ||
             !details::fromDurationItem<std::chrono::milliseconds>(v, 'S', out))
         {
-            BMCWEB_LOG_ERROR << "Invalid duration format: " << str;
+            BMCWEB_LOG_ERROR("Invalid duration format: {}", str);
             return std::nullopt;
         }
     }
     else if (!details::fromDurationItem<std::chrono::seconds>(v, 'S', out))
     {
-        BMCWEB_LOG_ERROR << "Invalid duration format: " << str;
+        BMCWEB_LOG_ERROR("Invalid duration format: {}", str);
         return std::nullopt;
     }
 
     if (!v.empty())
     {
-        BMCWEB_LOG_ERROR << "Invalid duration format: " << str;
+        BMCWEB_LOG_ERROR("Invalid duration format: {}", str);
         return std::nullopt;
     }
     return out;

@@ -74,7 +74,7 @@ inline void requestRoutesStorage(App& app)
 
                     if (ec)
                     {
-                        BMCWEB_LOG_ERROR << "Drive mapper call error";
+                        BMCWEB_LOG_ERROR("Drive mapper call error");
                         messages::internalError(asyncResp->res);
                         return;
                     }
@@ -89,8 +89,8 @@ inline void requestRoutesStorage(App& app)
                         if (lastPos == std::string::npos ||
                             (objpath.size() <= lastPos + 1))
                         {
-                            BMCWEB_LOG_ERROR << "Failed to find '/' in "
-                                             << objpath;
+                            BMCWEB_LOG_ERROR("Failed to find '/' in {}",
+                                             objpath);
                             continue;
                         }
 
@@ -128,16 +128,15 @@ inline void requestRoutesStorage(App& app)
                         if (lastPos == std::string::npos ||
                             (path.size() <= lastPos + 1))
                         {
-                            BMCWEB_LOG_ERROR << "Failed to find '/' in "
-                                             << path;
+                            BMCWEB_LOG_ERROR("Failed to find '/' in {}", path);
                             return;
                         }
 
                         if (interfaceDict.size() != 1)
                         {
-                            BMCWEB_LOG_ERROR << "Connection size "
-                                             << interfaceDict.size()
-                                             << ", greater than 1";
+                            BMCWEB_LOG_ERROR(
+                                "Connection size {}, greater than 1",
+                                interfaceDict.size());
                             messages::internalError(asyncResp->res);
                             return;
                         }
@@ -360,7 +359,7 @@ inline void requestRoutesDrive(App& app)
                           const crow::openbmc_mapper::GetSubTreeType& subtree) {
                     if (ec)
                     {
-                        BMCWEB_LOG_ERROR << "Drive mapper call error";
+                        BMCWEB_LOG_ERROR("Drive mapper call error");
                         messages::internalError(asyncResp->res);
                         return;
                     }
@@ -398,9 +397,8 @@ inline void requestRoutesDrive(App& app)
 
                     if (connectionNames.size() != 1)
                     {
-                        BMCWEB_LOG_ERROR << "Connection size "
-                                         << connectionNames.size()
-                                         << ", not equal to 1";
+                        BMCWEB_LOG_ERROR("Connection size {}, not equal to 1",
+                                         connectionNames.size());
                         messages::internalError(asyncResp->res);
                         return;
                     }

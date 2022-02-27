@@ -123,7 +123,7 @@ inline std::string getCertificateFromReqBody(
                                   certificate, "CertificateType",
                                   certificateType))
     {
-        BMCWEB_LOG_ERROR << "Required parameters are missing";
+        BMCWEB_LOG_ERROR("Required parameters are missing");
         messages::internalError(asyncResp->res);
         return {};
     }
@@ -164,22 +164,22 @@ class CertificateFile
                                                    std::ofstream::trunc);
             out << certString;
             out.close();
-            BMCWEB_LOG_DEBUG << "Creating certificate file"
-                             << certificateFile.string();
+            BMCWEB_LOG_DEBUG("Creating certificate file{}",
+                             certificateFile.string());
         }
     }
     ~CertificateFile()
     {
         if (std::filesystem::exists(certDirectory))
         {
-            BMCWEB_LOG_DEBUG << "Removing certificate file"
-                             << certificateFile.string();
+            BMCWEB_LOG_DEBUG("Removing certificate file{}",
+                             certificateFile.string());
             std::error_code ec;
             std::filesystem::remove_all(certDirectory, ec);
             if (ec)
             {
-                BMCWEB_LOG_ERROR << "Failed to remove temp directory"
-                                 << certDirectory.string();
+                BMCWEB_LOG_ERROR("Failed to remove temp directory{}",
+                                 certDirectory.string());
             }
         }
     }
@@ -209,21 +209,20 @@ static void getCSR(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                    const std::string& certObjPath,
                    const std::string& csrObjPath)
 {
-    BMCWEB_LOG_DEBUG << "getCSR CertObjectPath" << certObjPath
-                     << " CSRObjectPath=" << csrObjPath
-                     << " service=" << service;
+    BMCWEB_LOG_DEBUG("getCSR CertObjectPath{} CSRObjectPath={} service={}",
+                     certObjPath, csrObjPath, service);
     crow::connections::systemBus->async_method_call(
         [asyncResp, certURI](const boost::system::error_code ec,
                              const std::string& csr) {
             if (ec)
             {
-                BMCWEB_LOG_ERROR << "DBUS response error: " << ec;
+                BMCWEB_LOG_ERROR("DBUS response error: {}", ec);
                 messages::internalError(asyncResp->res);
                 return;
             }
             if (csr.empty())
             {
-                BMCWEB_LOG_ERROR << "CSR read is empty";
+                BMCWEB_LOG_ERROR("CSR read is empty");
                 messages::internalError(asyncResp->res);
                 return;
             }
@@ -425,16 +424,16 @@ inline void requestRoutesCertificateActionGenerateCSR(App& app)
                         // before completion.
                         if (ec != boost::asio::error::operation_aborted)
                         {
-                            BMCWEB_LOG_ERROR << "Async_wait failed " << ec;
+                            BMCWEB_LOG_ERROR("Async_wait failed {}", ec);
                         }
                         return;
                     }
-                    BMCWEB_LOG_ERROR << "Timed out waiting for Generating CSR";
+                    BMCWEB_LOG_ERROR("Timed out waiting for Generating CSR");
                     messages::internalError(asyncResp->res);
                 });
 
             // create a matcher to wait on CSR object
-            BMCWEB_LOG_DEBUG << "create matcher with path " << objectPath;
+            BMCWEB_LOG_DEBUG("create matcher with path {}", objectPath);
             std::string match("type='signal',"
                               "interface='org.freedesktop.DBus.ObjectManager',"
                               "path='" +
@@ -448,7 +447,7 @@ inline void requestRoutesCertificateActionGenerateCSR(App& app)
                     timeout.cancel();
                     if (m.is_method_error())
                     {
-                        BMCWEB_LOG_ERROR << "Dbus method error!!!";
+                        BMCWEB_LOG_ERROR("Dbus method error!!!");
                         messages::internalError(asyncResp->res);
                         return;
                     }
@@ -459,7 +458,7 @@ inline void requestRoutesCertificateActionGenerateCSR(App& app)
                         interfacesProperties;
                     sdbusplus::message::object_path csrObjectPath;
                     m.read(csrObjectPath, interfacesProperties);
-                    BMCWEB_LOG_DEBUG << "CSR object added" << csrObjectPath.str;
+                    BMCWEB_LOG_DEBUG("CSR object added{}", csrObjectPath.str);
                     for (auto& interface : interfacesProperties)
                     {
                         if (interface.first == "xyz.openbmc_project.Certs.CSR")
@@ -475,8 +474,8 @@ inline void requestRoutesCertificateActionGenerateCSR(App& app)
                             const std::string&) {
                     if (ec)
                     {
-                        BMCWEB_LOG_ERROR << "DBUS response error: "
-                                         << ec.message();
+                        BMCWEB_LOG_ERROR("DBUS response error: {}",
+                                         ec.message());
                         messages::internalError(asyncResp->res);
                         return;
                     }
@@ -574,14 +573,14 @@ static void getCertificateProperties(
 {
     using PropertiesMap =
         boost::container::flat_map<std::string, dbus::utility::DbusVariantType>;
-    BMCWEB_LOG_DEBUG << "getCertificateProperties Path=" << objectPath
-                     << " certId=" << certId << " certURl=" << certURL;
+    BMCWEB_LOG_DEBUG("getCertificateProperties Path={} certId={} certURl={}",
+                     objectPath, certId, certURL);
     crow::connections::systemBus->async_method_call(
         [asyncResp, certURL, certId, name](const boost::system::error_code ec,
                                            const PropertiesMap& properties) {
             if (ec)
             {
-                BMCWEB_LOG_ERROR << "DBUS response error: " << ec;
+                BMCWEB_LOG_ERROR("DBUS response error: {}", ec);
                 messages::resourceNotFound(asyncResp->res, name,
                                            std::to_string(certId));
                 return;
@@ -691,7 +690,7 @@ inline void requestRoutesCertificateActionsReplaceCertificate(App& app)
                                            "CertificateUri", certificateUri,
                                            "CertificateType", certificateType))
             {
-                BMCWEB_LOG_ERROR << "Required parameters are missing";
+                BMCWEB_LOG_ERROR("Required parameters are missing");
                 messages::internalError(asyncResp->res);
                 return;
             }
@@ -717,7 +716,7 @@ inline void requestRoutesCertificateActionsReplaceCertificate(App& app)
                 return;
             }
 
-            BMCWEB_LOG_INFO << "Certificate URI to replace" << certURI;
+            BMCWEB_LOG_INFO("Certificate URI to replace{}", certURI);
             long id = getIDFromURL(certURI);
             if (id < 0)
             {
@@ -770,15 +769,15 @@ inline void requestRoutesCertificateActionsReplaceCertificate(App& app)
                  name](const boost::system::error_code ec) {
                     if (ec)
                     {
-                        BMCWEB_LOG_ERROR << "DBUS response error: " << ec;
+                        BMCWEB_LOG_ERROR("DBUS response error: {}", ec);
                         messages::resourceNotFound(asyncResp->res, name,
                                                    std::to_string(id));
                         return;
                     }
                     getCertificateProperties(asyncResp, objectPath, service, id,
                                              certURI, name);
-                    BMCWEB_LOG_DEBUG << "HTTPS certificate install file="
-                                     << certFile->getCertFilePath();
+                    BMCWEB_LOG_DEBUG("HTTPS certificate install file={}",
+                                     certFile->getCertFilePath());
                 },
                 service, objectPath, certs::certReplaceIntf, "Replace",
                 certFile->getCertFilePath());
@@ -808,8 +807,8 @@ inline void requestRoutesHTTPSCertificate(App& app)
             }
             long id = getIDFromURL(req.url);
 
-            BMCWEB_LOG_DEBUG << "HTTPSCertificate::doGet ID="
-                             << std::to_string(id);
+            BMCWEB_LOG_DEBUG("HTTPSCertificate::doGet ID={}",
+                             std::to_string(id));
             std::string certURL =
                 "/redfish/v1/Managers/bmc/NetworkProtocol/HTTPS/Certificates/" +
                 std::to_string(id);
@@ -846,7 +845,7 @@ inline void requestRoutesHTTPSCertificateCollection(App& app)
                             const dbus::utility::ManagedObjectType& certs) {
                     if (ec)
                     {
-                        BMCWEB_LOG_ERROR << "DBUS response error: " << ec;
+                        BMCWEB_LOG_ERROR("DBUS response error: {}", ec);
                         messages::internalError(asyncResp->res);
                         return;
                     }
@@ -878,7 +877,7 @@ inline void requestRoutesHTTPSCertificateCollection(App& app)
             boost::beast::http::verb::
                 post)([](const crow::Request& req,
                          const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
-            BMCWEB_LOG_DEBUG << "HTTPSCertificateCollection::doPost";
+            BMCWEB_LOG_DEBUG("HTTPSCertificateCollection::doPost");
 
             asyncResp->res.jsonValue = {{"Name", "HTTPS Certificate"},
                                         {"Description", "HTTPS Certificate"}};
@@ -888,7 +887,7 @@ inline void requestRoutesHTTPSCertificateCollection(App& app)
 
             if (certFileBody.empty())
             {
-                BMCWEB_LOG_ERROR << "Cannot get certificate from request body.";
+                BMCWEB_LOG_ERROR("Cannot get certificate from request body.");
                 messages::unrecognizedRequestBody(asyncResp->res);
                 return;
             }
@@ -901,15 +900,15 @@ inline void requestRoutesHTTPSCertificateCollection(App& app)
                                       const std::string& objectPath) {
                     if (ec)
                     {
-                        BMCWEB_LOG_ERROR << "DBUS response error: " << ec;
+                        BMCWEB_LOG_ERROR("DBUS response error: {}", ec);
                         messages::internalError(asyncResp->res);
                         return;
                     }
                     long certId = getIDFromURL(objectPath);
                     if (certId < 0)
                     {
-                        BMCWEB_LOG_ERROR << "Invalid objectPath value"
-                                         << objectPath;
+                        BMCWEB_LOG_ERROR("Invalid objectPath value{}",
+                                         objectPath);
                         messages::internalError(asyncResp->res);
                         return;
                     }
@@ -919,8 +918,8 @@ inline void requestRoutesHTTPSCertificateCollection(App& app)
                     getCertificateProperties(asyncResp, objectPath,
                                              certs::httpsServiceName, certId,
                                              certURL, "HTTPS Certificate");
-                    BMCWEB_LOG_DEBUG << "HTTPS certificate install file="
-                                     << certFile->getCertFilePath();
+                    BMCWEB_LOG_DEBUG("HTTPS certificate install file={}",
+                                     certFile->getCertFilePath());
                 },
                 certs::httpsServiceName, certs::httpsObjectPath,
                 certs::certInstallIntf, "Install", certFile->getCertFilePath());
@@ -941,16 +940,16 @@ inline void
                             const std::string& certURL, const std::string& path,
                             const std::string& service)
 {
-    BMCWEB_LOG_DEBUG << "getCertificateLocations URI=" << certURL
-                     << " Path=" << path << " service= " << service;
+    BMCWEB_LOG_DEBUG("getCertificateLocations URI={} Path={} service= {}",
+                     certURL, path, service);
     crow::connections::systemBus->async_method_call(
         [asyncResp, certURL](const boost::system::error_code ec,
                              const dbus::utility::ManagedObjectType& certs) {
             if (ec)
             {
-                BMCWEB_LOG_WARNING
-                    << "Certificate collection query failed: " << ec
-                    << ", skipping " << certURL;
+                BMCWEB_LOG_WARNING(
+                    "Certificate collection query failed: {}, skipping {}", ec,
+                    certURL);
                 return;
             }
             nlohmann::json& links =
@@ -1038,8 +1037,8 @@ inline void requestRoutesLDAPCertificateCollection(App& app)
                     count = 0;
                     if (ec)
                     {
-                        BMCWEB_LOG_WARNING << "LDAP certificate query failed: "
-                                           << ec;
+                        BMCWEB_LOG_WARNING("LDAP certificate query failed: {}",
+                                           ec);
                         return;
                     }
                     for (const auto& cert : certs)
@@ -1069,8 +1068,8 @@ inline void requestRoutesLDAPCertificateCollection(App& app)
 
                 if (certFileBody.empty())
                 {
-                    BMCWEB_LOG_ERROR
-                        << "Cannot get certificate from request body.";
+                    BMCWEB_LOG_ERROR(
+                        "Cannot get certificate from request body.");
                     messages::unrecognizedRequestBody(asyncResp->res);
                     return;
                 }
@@ -1083,15 +1082,15 @@ inline void requestRoutesLDAPCertificateCollection(App& app)
                                           const std::string& objectPath) {
                         if (ec)
                         {
-                            BMCWEB_LOG_ERROR << "DBUS response error: " << ec;
+                            BMCWEB_LOG_ERROR("DBUS response error: {}", ec);
                             messages::internalError(asyncResp->res);
                             return;
                         }
                         long certId = getIDFromURL(objectPath);
                         if (certId < 0)
                         {
-                            BMCWEB_LOG_ERROR << "Invalid objectPath value"
-                                             << objectPath;
+                            BMCWEB_LOG_ERROR("Invalid objectPath value{}",
+                                             objectPath);
                             messages::internalError(asyncResp->res);
                             return;
                         }
@@ -1101,8 +1100,8 @@ inline void requestRoutesLDAPCertificateCollection(App& app)
                         getCertificateProperties(asyncResp, objectPath,
                                                  certs::ldapServiceName, certId,
                                                  certURL, "LDAP Certificate");
-                        BMCWEB_LOG_DEBUG << "LDAP certificate install file="
-                                         << certFile->getCertFilePath();
+                        BMCWEB_LOG_DEBUG("LDAP certificate install file={}",
+                                         certFile->getCertFilePath());
                     },
                     certs::ldapServiceName, certs::ldapObjectPath,
                     certs::certInstallIntf, "Install",
@@ -1125,12 +1124,11 @@ inline void requestRoutesLDAPCertificate(App& app)
                 long id = getIDFromURL(req.url);
                 if (id < 0)
                 {
-                    BMCWEB_LOG_ERROR << "Invalid url value" << req.url;
+                    BMCWEB_LOG_ERROR("Invalid url value{}", req.url);
                     messages::internalError(asyncResp->res);
                     return;
                 }
-                BMCWEB_LOG_DEBUG << "LDAP Certificate ID="
-                                 << std::to_string(id);
+                BMCWEB_LOG_DEBUG("LDAP Certificate ID={}", std::to_string(id));
                 std::string certURL =
                     "/redfish/v1/AccountService/LDAP/Certificates/" +
                     std::to_string(id);
@@ -1166,7 +1164,7 @@ inline void requestRoutesTrustStoreCertificateCollection(App& app)
                             const dbus::utility::ManagedObjectType& certs) {
                     if (ec)
                     {
-                        BMCWEB_LOG_ERROR << "DBUS response error: " << ec;
+                        BMCWEB_LOG_ERROR("DBUS response error: {}", ec);
                         messages::internalError(asyncResp->res);
                         return;
                     }
@@ -1202,7 +1200,7 @@ inline void requestRoutesTrustStoreCertificateCollection(App& app)
 
             if (certFileBody.empty())
             {
-                BMCWEB_LOG_ERROR << "Cannot get certificate from request body.";
+                BMCWEB_LOG_ERROR("Cannot get certificate from request body.");
                 messages::unrecognizedRequestBody(asyncResp->res);
                 return;
             }
@@ -1214,15 +1212,15 @@ inline void requestRoutesTrustStoreCertificateCollection(App& app)
                                       const std::string& objectPath) {
                     if (ec)
                     {
-                        BMCWEB_LOG_ERROR << "DBUS response error: " << ec;
+                        BMCWEB_LOG_ERROR("DBUS response error: {}", ec);
                         messages::internalError(asyncResp->res);
                         return;
                     }
                     long certId = getIDFromURL(objectPath);
                     if (certId < 0)
                     {
-                        BMCWEB_LOG_ERROR << "Invalid objectPath value"
-                                         << objectPath;
+                        BMCWEB_LOG_ERROR("Invalid objectPath value{}",
+                                         objectPath);
                         messages::internalError(asyncResp->res);
                         return;
                     }
@@ -1233,8 +1231,8 @@ inline void requestRoutesTrustStoreCertificateCollection(App& app)
                     getCertificateProperties(
                         asyncResp, objectPath, certs::authorityServiceName,
                         certId, certURL, "TrustStore Certificate");
-                    BMCWEB_LOG_DEBUG << "TrustStore certificate install file="
-                                     << certFile->getCertFilePath();
+                    BMCWEB_LOG_DEBUG("TrustStore certificate install file={}",
+                                     certFile->getCertFilePath());
                 },
                 certs::authorityServiceName, certs::authorityObjectPath,
                 certs::certInstallIntf, "Install", certFile->getCertFilePath());
@@ -1256,12 +1254,12 @@ inline void requestRoutesTrustStoreCertificate(App& app)
                 long id = getIDFromURL(req.url);
                 if (id < 0)
                 {
-                    BMCWEB_LOG_ERROR << "Invalid url value" << req.url;
+                    BMCWEB_LOG_ERROR("Invalid url value{}", req.url);
                     messages::internalError(asyncResp->res);
                     return;
                 }
-                BMCWEB_LOG_DEBUG << "TrustStoreCertificate::doGet ID="
-                                 << std::to_string(id);
+                BMCWEB_LOG_DEBUG("TrustStoreCertificate::doGet ID={}",
+                                 std::to_string(id));
                 std::string certURL =
                     "/redfish/v1/Managers/bmc/Truststore/Certificates/" +
                     std::to_string(id);
@@ -1288,14 +1286,14 @@ inline void requestRoutesTrustStoreCertificate(App& app)
                 long id = getIDFromURL(req.url);
                 if (id < 0)
                 {
-                    BMCWEB_LOG_ERROR << "Invalid url value: " << req.url;
+                    BMCWEB_LOG_ERROR("Invalid url value: {}", req.url);
                     messages::resourceNotFound(asyncResp->res,
                                                "TrustStore Certificate",
                                                std::string(req.url));
                     return;
                 }
-                BMCWEB_LOG_DEBUG << "TrustStoreCertificate::doDelete ID="
-                                 << std::to_string(id);
+                BMCWEB_LOG_DEBUG("TrustStoreCertificate::doDelete ID={}",
+                                 std::to_string(id));
                 std::string certPath = certs::authorityObjectPath;
                 certPath += "/";
                 certPath += std::to_string(id);
@@ -1309,7 +1307,7 @@ inline void requestRoutesTrustStoreCertificate(App& app)
                                                        std::to_string(id));
                             return;
                         }
-                        BMCWEB_LOG_INFO << "Certificate deleted";
+                        BMCWEB_LOG_INFO("Certificate deleted");
                         asyncResp->res.result(
                             boost::beast::http::status::no_content);
                     },

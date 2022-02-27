@@ -57,8 +57,9 @@ inline void requestRoutes(App& app)
     std::filesystem::recursive_directory_iterator dirIter(rootpath, ec);
     if (ec)
     {
-        BMCWEB_LOG_ERROR << "Unable to find or open " << rootpath.string()
-                         << " static file hosting disabled";
+        BMCWEB_LOG_ERROR(
+            "Unable to find or open {} static file hosting disabled",
+            rootpath.string());
         return;
     }
 
@@ -117,7 +118,7 @@ inline void requestRoutes(App& app)
             {
                 // Got a duplicated path.  This is expected in certain
                 // situations
-                BMCWEB_LOG_DEBUG << "Got duplicated path " << webpath.string();
+                BMCWEB_LOG_DEBUG("Got duplicated path {}", webpath.string());
                 continue;
             }
             const char* contentType = nullptr;
@@ -136,9 +137,9 @@ inline void requestRoutes(App& app)
 
             if (contentType == nullptr)
             {
-                BMCWEB_LOG_ERROR << "Cannot determine content-type for "
-                                 << absolutePath.string() << " with extension "
-                                 << extension;
+                BMCWEB_LOG_ERROR(
+                    "Cannot determine content-type for {} with extension {}",
+                    absolutePath.string(), extension);
             }
 
             if (webpath == "/")
@@ -165,7 +166,7 @@ inline void requestRoutes(App& app)
                     std::ifstream inf(absolutePath);
                     if (!inf)
                     {
-                        BMCWEB_LOG_DEBUG << "failed to read file";
+                        BMCWEB_LOG_DEBUG("failed to read file");
                         asyncResp->res.result(
                             boost::beast::http::status::internal_server_error);
                         return;
