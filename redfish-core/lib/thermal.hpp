@@ -31,7 +31,6 @@ inline void requestRoutesThermal(App& app)
             [](const crow::Request&,
                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                const std::string& chassisName) {
-
                 auto sensorAsyncResp = std::make_shared<SensorsAsyncResp>(
                     asyncResp, chassisName, sensors::dbus::thermalPaths,
                     sensors::node::thermal);

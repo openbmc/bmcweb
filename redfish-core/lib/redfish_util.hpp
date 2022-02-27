@@ -48,9 +48,10 @@ using UnitStruct =
                std::string, sdbusplus::message::object_path, uint32_t,
                std::string, sdbusplus::message::object_path>;
 
-template <typename CallbackFunc>
-void getMainChassisId(std::shared_ptr<bmcweb::AsyncResp> asyncResp,
-                      CallbackFunc&& callback)
+void getMainChassisId(
+    std::shared_ptr<bmcweb::AsyncResp> asyncResp,
+    std::function<void(const std::string&,
+                       const std::shared_ptr<bmcweb::AsyncResp>&)>&& callback)
 {
     // Find managed chassis
     crow::connections::systemBus->async_method_call(
@@ -89,14 +90,15 @@ void getMainChassisId(std::shared_ptr<bmcweb::AsyncResp> asyncResp,
             "xyz.openbmc_project.Inventory.Item.Chassis"});
 }
 
-template <typename CallbackFunc>
-void getPortStatusAndPath(const std::string& serviceName,
-                          CallbackFunc&& callback)
+void getPortStatusAndPath(
+    const std::string& serviceName,
+    std::function<void(const boost::system::error_code, const std::string&,
+                       bool)>&& callback)
 {
     crow::connections::systemBus->async_method_call(
-        [serviceName, callback{std::forward<CallbackFunc>(callback)}](
-            const boost::system::error_code ec,
-            const std::vector<UnitStruct>& r) {
+        [serviceName,
+         callback{std::move(callback)}](const boost::system::error_code ec,
+                                        const std::vector<UnitStruct>& r) {
             if (ec)
             {
                 BMCWEB_LOG_ERROR << ec;
@@ -167,14 +169,15 @@ void getPortStatusAndPath(const std::string& serviceName,
         "org.freedesktop.systemd1.Manager", "ListUnits");
 }
 
-template <typename CallbackFunc>
-void getPortNumber(const std::string& socketPath, CallbackFunc&& callback)
+void getPortNumber(
+    const std::string& socketPath,
+    std::function<void(boost::system::error_code, int)>&& callback)
 {
     sdbusplus::asio::getProperty<
         std::vector<std::tuple<std::string, std::string>>>(
         *crow::connections::systemBus, "org.freedesktop.systemd1", socketPath,
         "org.freedesktop.systemd1.Socket", "Listen",
-        [callback{std::forward<CallbackFunc>(callback)}](
+        [callback{std::move(callback)}](
             const boost::system::error_code ec,
             const std::vector<std::tuple<std::string, std::string>>& resp) {
             if (ec)
