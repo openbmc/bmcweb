@@ -26,19 +26,19 @@ inline void doWrite()
 {
     if (doingWrite)
     {
-        BMCWEB_LOG_DEBUG << "Already writing.  Bailing out";
+        BMCWEB_LOG_DEBUG("Already writing.  Bailing out");
         return;
     }
 
     if (inputBuffer.empty())
     {
-        BMCWEB_LOG_DEBUG << "Outbuffer empty.  Bailing out";
+        BMCWEB_LOG_DEBUG("Outbuffer empty.  Bailing out");
         return;
     }
 
     if (!hostSocket)
     {
-        BMCWEB_LOG_ERROR << "doWrite(): Socket closed.";
+        BMCWEB_LOG_ERROR("doWrite(): Socket closed.");
         return;
     }
 
@@ -59,7 +59,7 @@ inline void doWrite()
             }
             if (ec)
             {
-                BMCWEB_LOG_ERROR << "Error in host serial write " << ec;
+                BMCWEB_LOG_ERROR("Error in host serial write {}", ec);
                 return;
             }
             doWrite();
@@ -70,19 +70,18 @@ inline void doRead()
 {
     if (!hostSocket)
     {
-        BMCWEB_LOG_ERROR << "doRead(): Socket closed.";
+        BMCWEB_LOG_ERROR("doRead(): Socket closed.");
         return;
     }
 
-    BMCWEB_LOG_DEBUG << "Reading from socket";
+    BMCWEB_LOG_DEBUG("Reading from socket");
     hostSocket->async_read_some(
         boost::asio::buffer(outputBuffer.data(), outputBuffer.size()),
         [](const boost::system::error_code& ec, std::size_t bytesRead) {
-            BMCWEB_LOG_DEBUG << "read done.  Read " << bytesRead << " bytes";
+            BMCWEB_LOG_DEBUG("read done.  Read {} bytes", bytesRead);
             if (ec)
             {
-                BMCWEB_LOG_ERROR << "Couldn't read from host serial port: "
-                                 << ec;
+                BMCWEB_LOG_ERROR("Couldn't read from host serial port: {}", ec);
                 for (crow::websocket::Connection* session : sessions)
                 {
                     session->close("Error in connecting to host port");
@@ -102,7 +101,7 @@ inline void connectHandler(const boost::system::error_code& ec)
 {
     if (ec)
     {
-        BMCWEB_LOG_ERROR << "Couldn't connect to host serial port: " << ec;
+        BMCWEB_LOG_ERROR("Couldn't connect to host serial port: {}", ec);
         for (crow::websocket::Connection* session : sessions)
         {
             session->close("Error in connecting to host port");
@@ -121,7 +120,7 @@ inline void requestRoutes(App& app)
         .websocket()
         .onopen([](crow::websocket::Connection& conn,
                    const std::shared_ptr<bmcweb::AsyncResp>&) {
-            BMCWEB_LOG_DEBUG << "Connection " << &conn << " opened";
+            BMCWEB_LOG_DEBUG("Connection {} opened", logPtr(&conn));
 
             sessions.insert(&conn);
             if (hostSocket == nullptr)
@@ -137,7 +136,7 @@ inline void requestRoutes(App& app)
         })
         .onclose([](crow::websocket::Connection& conn,
                     [[maybe_unused]] const std::string& reason) {
-            BMCWEB_LOG_INFO << "Closing websocket. Reason: " << reason;
+            BMCWEB_LOG_INFO("Closing websocket. Reason: {}", reason);
 
             sessions.erase(&conn);
             if (sessions.empty())

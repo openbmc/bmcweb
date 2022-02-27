@@ -183,8 +183,7 @@ inline void parseLDAPConfigData(nlohmann::json& jsonResponse,
     roleMapArray = nlohmann::json::array();
     for (const auto& obj : confData.groupRoleList)
     {
-        BMCWEB_LOG_DEBUG << "Pushing the data groupName="
-                         << obj.second.groupName << "\n";
+        BMCWEB_LOG_DEBUG("Pushing the data groupName={}", obj.second.groupName);
         roleMapArray.push_back(
             {nlohmann::json::array({"RemoteGroup", obj.second.groupName}),
              nlohmann::json::array(
@@ -216,7 +215,7 @@ inline void handleRoleMapPatch(
                      index](const boost::system::error_code ec) {
                         if (ec)
                         {
-                            BMCWEB_LOG_ERROR << "DBUS response error: " << ec;
+                            BMCWEB_LOG_ERROR("DBUS response error: {}", ec);
                             messages::internalError(asyncResp->res);
                             return;
                         }
@@ -229,7 +228,7 @@ inline void handleRoleMapPatch(
             }
             else
             {
-                BMCWEB_LOG_ERROR << "Can't delete the object";
+                BMCWEB_LOG_ERROR("Can't delete the object");
                 messages::propertyValueTypeError(
                     asyncResp->res,
                     thisJson.dump(2, ' ', true,
@@ -262,7 +261,7 @@ inline void handleRoleMapPatch(
             // Update existing RoleMapping Object
             if (index < roleMapObjData.size())
             {
-                BMCWEB_LOG_DEBUG << "Update Role Map Object";
+                BMCWEB_LOG_DEBUG("Update Role Map Object");
                 // If "RemoteGroup" info is provided
                 if (remoteGroup)
                 {
@@ -271,8 +270,7 @@ inline void handleRoleMapPatch(
                          remoteGroup](const boost::system::error_code ec) {
                             if (ec)
                             {
-                                BMCWEB_LOG_ERROR << "DBUS response error: "
-                                                 << ec;
+                                BMCWEB_LOG_ERROR("DBUS response error: {}", ec);
                                 messages::internalError(asyncResp->res);
                                 return;
                             }
@@ -296,8 +294,7 @@ inline void handleRoleMapPatch(
                          localRole](const boost::system::error_code ec) {
                             if (ec)
                             {
-                                BMCWEB_LOG_ERROR << "DBUS response error: "
-                                                 << ec;
+                                BMCWEB_LOG_ERROR("DBUS response error: {}", ec);
                                 messages::internalError(asyncResp->res);
                                 return;
                             }
@@ -316,8 +313,8 @@ inline void handleRoleMapPatch(
             // Create a new RoleMapping Object.
             else
             {
-                BMCWEB_LOG_DEBUG
-                    << "setRoleMappingProperties: Creating new Object";
+                BMCWEB_LOG_DEBUG(
+                    "setRoleMappingProperties: Creating new Object");
                 std::string pathString =
                     "RemoteRoleMapping/" + std::to_string(index);
 
@@ -344,15 +341,15 @@ inline void handleRoleMapPatch(
                     dbusObjectPath = ldapConfigObjectName;
                 }
 
-                BMCWEB_LOG_DEBUG << "Remote Group=" << *remoteGroup
-                                 << ",LocalRole=" << *localRole;
+                BMCWEB_LOG_DEBUG("Remote Group={},LocalRole={}", *remoteGroup,
+                                 *localRole);
 
                 crow::connections::systemBus->async_method_call(
                     [asyncResp, serverType, localRole,
                      remoteGroup](const boost::system::error_code ec) {
                         if (ec)
                         {
-                            BMCWEB_LOG_ERROR << "DBUS response error: " << ec;
+                            BMCWEB_LOG_ERROR("DBUS response error: {}", ec);
                             messages::internalError(asyncResp->res);
                             return;
                         }
@@ -388,9 +385,9 @@ inline void getLDAPConfigData(const std::string& ldapType,
                              const GetObjectType& resp) {
             if (ec || resp.empty())
             {
-                BMCWEB_LOG_ERROR
-                    << "DBUS response error during getting of service name: "
-                    << ec;
+                BMCWEB_LOG_ERROR(
+                    "DBUS response error during getting of service name: {}",
+                    ec);
                 LDAPConfigData empty{};
                 callback(false, empty, ldapType);
                 return;
@@ -404,8 +401,8 @@ inline void getLDAPConfigData(const std::string& ldapType,
                     if (errorCode)
                     {
                         callback(false, confData, ldapType);
-                        BMCWEB_LOG_ERROR << "D-Bus responses error: "
-                                         << errorCode;
+                        BMCWEB_LOG_ERROR("D-Bus responses error: {}",
+                                         errorCode);
                         return;
                     }
 
@@ -426,9 +423,9 @@ inline void getLDAPConfigData(const std::string& ldapType,
                     }
                     else
                     {
-                        BMCWEB_LOG_ERROR
-                            << "Can't get the DbusType for the given type="
-                            << ldapType;
+                        BMCWEB_LOG_ERROR(
+                            "Can't get the DbusType for the given type={}",
+                            ldapType);
                         callback(false, confData, ldapType);
                         return;
                     }
@@ -636,8 +633,8 @@ inline void handleServiceAddressPatch(
          serviceAddressList](const boost::system::error_code ec) {
             if (ec)
             {
-                BMCWEB_LOG_DEBUG
-                    << "Error Occurred in updating the service address";
+                BMCWEB_LOG_DEBUG(
+                    "Error Occurred in updating the service address");
                 messages::internalError(asyncResp->res);
                 return;
             }
@@ -652,7 +649,7 @@ inline void handleServiceAddressPatch(
                                                 "ServiceAddresses",
                                                 serviceAddressList.front());
             }
-            BMCWEB_LOG_DEBUG << "Updated the service address";
+            BMCWEB_LOG_DEBUG("Updated the service address");
         },
         ldapDbusService, ldapConfigObject, propertyInterface, "Set",
         ldapConfigInterface, "LDAPServerURI",
@@ -678,13 +675,13 @@ inline void
          ldapServerElementName](const boost::system::error_code ec) {
             if (ec)
             {
-                BMCWEB_LOG_DEBUG << "Error occurred in updating the username";
+                BMCWEB_LOG_DEBUG("Error occurred in updating the username");
                 messages::internalError(asyncResp->res);
                 return;
             }
             asyncResp->res.jsonValue[ldapServerElementName]["Authentication"]
                                     ["Username"] = username;
-            BMCWEB_LOG_DEBUG << "Updated the username";
+            BMCWEB_LOG_DEBUG("Updated the username");
         },
         ldapDbusService, ldapConfigObject, propertyInterface, "Set",
         ldapConfigInterface, "LDAPBindDN",
@@ -710,13 +707,13 @@ inline void
          ldapServerElementName](const boost::system::error_code ec) {
             if (ec)
             {
-                BMCWEB_LOG_DEBUG << "Error occurred in updating the password";
+                BMCWEB_LOG_DEBUG("Error occurred in updating the password");
                 messages::internalError(asyncResp->res);
                 return;
             }
             asyncResp->res.jsonValue[ldapServerElementName]["Authentication"]
                                     ["Password"] = "";
-            BMCWEB_LOG_DEBUG << "Updated the password";
+            BMCWEB_LOG_DEBUG("Updated the password");
         },
         ldapDbusService, ldapConfigObject, propertyInterface, "Set",
         ldapConfigInterface, "LDAPBindDNPassword",
@@ -743,7 +740,7 @@ inline void
          ldapServerElementName](const boost::system::error_code ec) {
             if (ec)
             {
-                BMCWEB_LOG_DEBUG << "Error Occurred in Updating the base DN";
+                BMCWEB_LOG_DEBUG("Error Occurred in Updating the base DN");
                 messages::internalError(asyncResp->res);
                 return;
             }
@@ -759,7 +756,7 @@ inline void
                                                 "BaseDistinguishedNames",
                                                 baseDNList.front());
             }
-            BMCWEB_LOG_DEBUG << "Updated the base DN";
+            BMCWEB_LOG_DEBUG("Updated the base DN");
         },
         ldapDbusService, ldapConfigObject, propertyInterface, "Set",
         ldapConfigInterface, "LDAPBaseDN",
@@ -785,8 +782,8 @@ inline void
          ldapServerElementName](const boost::system::error_code ec) {
             if (ec)
             {
-                BMCWEB_LOG_DEBUG << "Error Occurred in Updating the "
-                                    "username attribute";
+                BMCWEB_LOG_DEBUG("Error Occurred in Updating the "
+                                 "username attribute");
                 messages::internalError(asyncResp->res);
                 return;
             }
@@ -795,7 +792,7 @@ inline void
             auto& searchSettingsJson =
                 serverTypeJson["LDAPService"]["SearchSettings"];
             searchSettingsJson["UsernameAttribute"] = userNameAttribute;
-            BMCWEB_LOG_DEBUG << "Updated the user name attr.";
+            BMCWEB_LOG_DEBUG("Updated the user name attr.");
         },
         ldapDbusService, ldapConfigObject, propertyInterface, "Set",
         ldapConfigInterface, "UserNameAttribute",
@@ -821,8 +818,8 @@ inline void handleGroupNameAttrPatch(
          ldapServerElementName](const boost::system::error_code ec) {
             if (ec)
             {
-                BMCWEB_LOG_DEBUG << "Error Occurred in Updating the "
-                                    "groupname attribute";
+                BMCWEB_LOG_DEBUG("Error Occurred in Updating the "
+                                 "groupname attribute");
                 messages::internalError(asyncResp->res);
                 return;
             }
@@ -831,7 +828,7 @@ inline void handleGroupNameAttrPatch(
             auto& searchSettingsJson =
                 serverTypeJson["LDAPService"]["SearchSettings"];
             searchSettingsJson["GroupsAttribute"] = groupsAttribute;
-            BMCWEB_LOG_DEBUG << "Updated the groupname attr";
+            BMCWEB_LOG_DEBUG("Updated the groupname attr");
         },
         ldapDbusService, ldapConfigObject, propertyInterface, "Set",
         ldapConfigInterface, "GroupNameAttribute",
@@ -856,14 +853,14 @@ inline void handleServiceEnablePatch(
          ldapServerElementName](const boost::system::error_code ec) {
             if (ec)
             {
-                BMCWEB_LOG_DEBUG
-                    << "Error Occurred in Updating the service enable";
+                BMCWEB_LOG_DEBUG(
+                    "Error Occurred in Updating the service enable");
                 messages::internalError(asyncResp->res);
                 return;
             }
             asyncResp->res.jsonValue[ldapServerElementName]["ServiceEnabled"] =
                 serviceEnabled;
-            BMCWEB_LOG_DEBUG << "Updated Service enable = " << serviceEnabled;
+            BMCWEB_LOG_DEBUG("Updated Service enable = {}", serviceEnabled);
         },
         ldapDbusService, ldapConfigObject, propertyInterface, "Set",
         ldapEnableInterface, "Enabled",
@@ -884,7 +881,7 @@ inline void
                              "Cookie", cookie, "SessionToken", sessionToken,
                              "XToken", xToken, "TLS", tls))
     {
-        BMCWEB_LOG_ERROR << "Cannot read values from AuthMethod tag";
+        BMCWEB_LOG_ERROR("Cannot read values from AuthMethod tag");
         return;
     }
 
@@ -1165,7 +1162,7 @@ inline void updateUserProperties(std::shared_ptr<bmcweb::AsyncResp> asyncResp,
                     // If password is invalid
                     messages::propertyValueFormatError(asyncResp->res,
                                                        *password, "Password");
-                    BMCWEB_LOG_ERROR << "pamUpdatePassword Failed";
+                    BMCWEB_LOG_ERROR("pamUpdatePassword Failed");
                 }
                 else if (retval != PAM_SUCCESS)
                 {
@@ -1180,7 +1177,7 @@ inline void updateUserProperties(std::shared_ptr<bmcweb::AsyncResp> asyncResp,
                     [asyncResp](const boost::system::error_code ec) {
                         if (ec)
                         {
-                            BMCWEB_LOG_ERROR << "D-Bus responses error: " << ec;
+                            BMCWEB_LOG_ERROR("D-Bus responses error: {}", ec);
                             messages::internalError(asyncResp->res);
                             return;
                         }
@@ -1211,7 +1208,7 @@ inline void updateUserProperties(std::shared_ptr<bmcweb::AsyncResp> asyncResp,
                     [asyncResp](const boost::system::error_code ec) {
                         if (ec)
                         {
-                            BMCWEB_LOG_ERROR << "D-Bus responses error: " << ec;
+                            BMCWEB_LOG_ERROR("D-Bus responses error: {}", ec);
                             messages::internalError(asyncResp->res);
                             return;
                         }
@@ -1239,7 +1236,7 @@ inline void updateUserProperties(std::shared_ptr<bmcweb::AsyncResp> asyncResp,
                     [asyncResp](const boost::system::error_code ec) {
                         if (ec)
                         {
-                            BMCWEB_LOG_ERROR << "D-Bus responses error: " << ec;
+                            BMCWEB_LOG_ERROR("D-Bus responses error: {}", ec);
                             messages::internalError(asyncResp->res);
                             return;
                         }
@@ -1318,8 +1315,8 @@ inline void requestAccountServiceRoutes(App& app)
                         messages::internalError(asyncResp->res);
                         return;
                     }
-                    BMCWEB_LOG_DEBUG << "Got " << propertiesList.size()
-                                     << "properties for AccountService";
+                    BMCWEB_LOG_DEBUG("Got {}properties for AccountService",
+                                     propertiesList.size());
                     for (const std::pair<std::string,
                                          dbus::utility::DbusVariantType>&
                              property : propertiesList)
@@ -1541,7 +1538,7 @@ inline void requestAccountServiceRoutes(App& app)
                             if (user.empty())
                             {
                                 messages::internalError(asyncResp->res);
-                                BMCWEB_LOG_ERROR << "Invalid firmware ID";
+                                BMCWEB_LOG_ERROR("Invalid firmware ID");
 
                                 return;
                             }
@@ -1615,7 +1612,7 @@ inline void requestAccountServiceRoutes(App& app)
                           const std::vector<std::string>& allGroupsList) {
                     if (ec)
                     {
-                        BMCWEB_LOG_DEBUG << "ERROR with async_method_call";
+                        BMCWEB_LOG_DEBUG("ERROR with async_method_call");
                         messages::internalError(asyncResp->res);
                         return;
                     }
@@ -1669,7 +1666,7 @@ inline void requestAccountServiceRoutes(App& app)
                                     "xyz.openbmc_project.Object.Delete",
                                     "Delete");
 
-                                BMCWEB_LOG_ERROR << "pamUpdatePassword Failed";
+                                BMCWEB_LOG_ERROR("pamUpdatePassword Failed");
                                 return;
                             }
 
@@ -1706,7 +1703,7 @@ inline void requestAccountServiceRoutes(App& app)
                 if (!effectiveUserPrivileges.isSupersetOf(
                         requiredPermissionsToChangeNonSelf))
                 {
-                    BMCWEB_LOG_DEBUG << "GET Account denied access";
+                    BMCWEB_LOG_DEBUG("GET Account denied access");
                     messages::insufficientPrivilege(asyncResp->res);
                     return;
                 }
@@ -1759,8 +1756,8 @@ inline void requestAccountServiceRoutes(App& app)
                                         std::get_if<bool>(&property.second);
                                     if (userEnabled == nullptr)
                                     {
-                                        BMCWEB_LOG_ERROR
-                                            << "UserEnabled wasn't a bool";
+                                        BMCWEB_LOG_ERROR(
+                                            "UserEnabled wasn't a bool");
                                         messages::internalError(asyncResp->res);
                                         return;
                                     }
@@ -1774,9 +1771,9 @@ inline void requestAccountServiceRoutes(App& app)
                                         std::get_if<bool>(&property.second);
                                     if (userLocked == nullptr)
                                     {
-                                        BMCWEB_LOG_ERROR << "UserLockedForF"
-                                                            "ailedAttempt "
-                                                            "wasn't a bool";
+                                        BMCWEB_LOG_ERROR("UserLockedForF"
+                                                         "ailedAttempt "
+                                                         "wasn't a bool");
                                         messages::internalError(asyncResp->res);
                                         return;
                                     }
@@ -1793,9 +1790,9 @@ inline void requestAccountServiceRoutes(App& app)
                                             &property.second);
                                     if (userPrivPtr == nullptr)
                                     {
-                                        BMCWEB_LOG_ERROR
-                                            << "UserPrivilege wasn't a "
-                                               "string";
+                                        BMCWEB_LOG_ERROR(
+                                            "UserPrivilege wasn't a "
+                                            "string");
                                         messages::internalError(asyncResp->res);
                                         return;
                                     }
@@ -1803,7 +1800,7 @@ inline void requestAccountServiceRoutes(App& app)
                                         getRoleIdFromPrivilege(*userPrivPtr);
                                     if (role.empty())
                                     {
-                                        BMCWEB_LOG_ERROR << "Invalid user role";
+                                        BMCWEB_LOG_ERROR("Invalid user role");
                                         messages::internalError(asyncResp->res);
                                         return;
                                     }
@@ -1821,8 +1818,8 @@ inline void requestAccountServiceRoutes(App& app)
                                         std::get_if<bool>(&property.second);
                                     if (userPasswordExpired == nullptr)
                                     {
-                                        BMCWEB_LOG_ERROR
-                                            << "UserPasswordExpired wasn't a bool";
+                                        BMCWEB_LOG_ERROR(
+                                            "UserPasswordExpired wasn't a bool");
                                         messages::internalError(asyncResp->res);
                                         return;
                                     }

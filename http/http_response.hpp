@@ -47,7 +47,7 @@ struct Response
 
     Response& operator=(Response&& r) noexcept
     {
-        BMCWEB_LOG_DEBUG << "Moving response containers";
+        BMCWEB_LOG_DEBUG("Moving response containers");
         stringResponse = std::move(r.stringResponse);
         r.stringResponse.emplace(response_type{});
         jsonValue = std::move(r.jsonValue);
@@ -102,7 +102,7 @@ struct Response
 
     void clear()
     {
-        BMCWEB_LOG_DEBUG << this << " Clearing response containers";
+        BMCWEB_LOG_DEBUG("{} Clearing response containers", logPtr(this));
         stringResponse.emplace(response_type{});
         jsonValue.clear();
         completed = false;
@@ -117,14 +117,14 @@ struct Response
     {
         if (completed)
         {
-            BMCWEB_LOG_ERROR << "Response was ended twice";
+            BMCWEB_LOG_ERROR("Response was ended twice");
             return;
         }
         completed = true;
-        BMCWEB_LOG_DEBUG << "calling completion handler";
+        BMCWEB_LOG_DEBUG("calling completion handler");
         if (completeRequestHandler)
         {
-            BMCWEB_LOG_DEBUG << "completion handler was valid";
+            BMCWEB_LOG_DEBUG("completion handler was valid");
             completeRequestHandler();
         }
     }
