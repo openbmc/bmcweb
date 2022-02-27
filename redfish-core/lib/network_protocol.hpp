@@ -253,7 +253,7 @@ inline void
     crow::connections::systemBus->async_method_call(
         [asyncResp,
          ntpServers](boost::system::error_code ec,
-                     const crow::openbmc_mapper::GetSubTreeType& subtree) {
+                     const dbus::utility::MapperGetSubTreeResponse& subtree) {
             if (ec)
             {
                 BMCWEB_LOG_WARNING << "D-Bus error: " << ec << ", "
@@ -306,7 +306,7 @@ inline void
     crow::connections::systemBus->async_method_call(
         [protocolEnabled, asyncResp,
          netBasePath](const boost::system::error_code ec,
-                      const crow::openbmc_mapper::GetSubTreeType& subtree) {
+                      const dbus::utility::MapperGetSubTreeResponse& subtree) {
             if (ec)
             {
                 messages::internalError(asyncResp->res);

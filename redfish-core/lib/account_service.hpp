@@ -67,9 +67,6 @@ struct LDAPConfigData
     std::vector<std::pair<std::string, LDAPRoleMapData>> groupRoleList;
 };
 
-using GetObjectType =
-    std::vector<std::pair<std::string, std::vector<std::string>>>;
-
 inline std::string getRoleIdFromPrivilege(std::string_view role)
 {
     if (role == "priv-admin")
@@ -385,7 +382,7 @@ inline void getLDAPConfigData(const std::string& ldapType,
 
     crow::connections::systemBus->async_method_call(
         [callback, ldapType](const boost::system::error_code ec,
-                             const GetObjectType& resp) {
+                             const dbus::utility::MapperGetObject& resp) {
             if (ec || resp.empty())
             {
                 BMCWEB_LOG_ERROR
@@ -1223,9 +1220,7 @@ inline void requestAccountServiceRoutes(App& app)
             crow::connections::systemBus->async_method_call(
                 [asyncResp](
                     const boost::system::error_code ec,
-                    const std::vector<
-                        std::pair<std::string, dbus::utility::DbusVariantType>>&
-                        propertiesList) {
+                    const dbus::utility::DBusPropertiesMap& propertiesList) {
                     if (ec)
                     {
                         messages::internalError(asyncResp->res);
