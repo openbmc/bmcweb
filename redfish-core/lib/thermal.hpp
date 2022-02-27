@@ -37,16 +37,8 @@ inline void requestRoutesThermal(App& app)
                     return;
                 }
 
-                auto thermalPaths =
-                    sensors::dbus::paths.find(sensors::node::thermal);
-                if (thermalPaths == sensors::dbus::paths.end())
-                {
-                    messages::internalError(asyncResp->res);
-                    return;
-                }
-
                 auto sensorAsyncResp = std::make_shared<SensorsAsyncResp>(
-                    asyncResp, chassisName, thermalPaths->second,
+                    asyncResp, chassisName, sensors::dbus::thermalPaths,
                     sensors::node::thermal);
 
                 // TODO Need to get Chassis Redundancy information.
@@ -64,14 +56,6 @@ inline void requestRoutesThermal(App& app)
                     return;
                 }
 
-                auto thermalPaths =
-                    sensors::dbus::paths.find(sensors::node::thermal);
-                if (thermalPaths == sensors::dbus::paths.end())
-                {
-                    messages::internalError(asyncResp->res);
-                    return;
-                }
-
                 std::optional<std::vector<nlohmann::json>>
                     temperatureCollections;
                 std::optional<std::vector<nlohmann::json>> fanCollections;
@@ -79,7 +63,7 @@ inline void requestRoutesThermal(App& app)
                     allCollections;
 
                 auto sensorsAsyncResp = std::make_shared<SensorsAsyncResp>(
-                    asyncResp, chassisName, thermalPaths->second,
+                    asyncResp, chassisName, sensors::dbus::thermalPaths,
                     sensors::node::thermal);
 
                 if (!json_util::readJsonPatch(
