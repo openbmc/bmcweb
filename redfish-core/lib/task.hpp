@@ -255,7 +255,7 @@ struct TaskData : std::enable_shared_from_this<TaskData>
         }
         else
         {
-            BMCWEB_LOG_INFO << "sendTaskEvent: No events to send";
+            BMCWEB_LOG_INFO("sendTaskEvent: No events to send");
         }
     }
 

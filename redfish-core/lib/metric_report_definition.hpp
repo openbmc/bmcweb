@@ -70,7 +70,7 @@ inline void fillReportDefinition(
         logToMetricReportsCollection == nullptr || readingParams == nullptr ||
         reportingType == nullptr || interval == nullptr)
     {
-        BMCWEB_LOG_ERROR << "Property type mismatch or property is missing";
+        BMCWEB_LOG_ERROR("Property type mismatch or property is missing");
         messages::internalError(asyncResp->res);
         return;
     }
@@ -156,9 +156,8 @@ inline bool getUserParameters(crow::Response& res, const crow::Request& req,
     if (args.name.empty() || args.name.find_first_not_of(
                                  allowedCharactersInName) != std::string::npos)
     {
-        BMCWEB_LOG_ERROR << "Failed to match " << args.name
-                         << " with allowed character "
-                         << allowedCharactersInName;
+        BMCWEB_LOG_ERROR("Failed to match {} with allowed character {}",
+                         args.name, allowedCharactersInName);
         messages::propertyValueIncorrect(res, "Id", args.name);
         return false;
     }
@@ -236,8 +235,8 @@ inline bool getChassisSensorNode(
                 !dbus::utility::getNthStringFromPath(uri, 3, chassis) ||
                 !dbus::utility::getNthStringFromPath(uri, 4, node))
             {
-                BMCWEB_LOG_ERROR
-                    << "Failed to get chassis and sensor Node from " << uri;
+                BMCWEB_LOG_ERROR(
+                    "Failed to get chassis and sensor Node from {}", uri);
                 messages::propertyValueIncorrect(asyncResp->res, uri,
                                                  "MetricProperties/" +
                                                      std::to_string(i));
@@ -281,9 +280,9 @@ class AddReport
                 auto el = uriToDbus.find(uri);
                 if (el == uriToDbus.end())
                 {
-                    BMCWEB_LOG_ERROR
-                        << "Failed to find DBus sensor corresponding to URI "
-                        << uri;
+                    BMCWEB_LOG_ERROR(
+                        "Failed to find DBus sensor corresponding to URI {}",
+                        uri);
                     messages::propertyValueNotInList(asyncResp->res, uri,
                                                      "MetricProperties/" +
                                                          std::to_string(i));
@@ -323,7 +322,7 @@ class AddReport
                 if (ec)
                 {
                     messages::internalError(aResp->res);
-                    BMCWEB_LOG_ERROR << "respHandler DBus error " << ec;
+                    BMCWEB_LOG_ERROR("respHandler DBus error {}", ec);
                     return;
                 }
 
@@ -406,9 +405,9 @@ inline void requestRoutesMetricReportDefinitionCollection(App& app)
                                        std::string, std::string>& uriToDbus) {
                         if (status != boost::beast::http::status::ok)
                         {
-                            BMCWEB_LOG_ERROR
-                                << "Failed to retrieve URI to dbus sensors map with err "
-                                << static_cast<unsigned>(status);
+                            BMCWEB_LOG_ERROR(
+                                "Failed to retrieve URI to dbus sensors map with err {}",
+                                static_cast<unsigned>(status));
                             return;
                         }
                         addReportReq->insert(uriToDbus);
@@ -441,7 +440,7 @@ inline void requestRoutesMetricReportDefinition(App& app)
                         }
                         if (ec)
                         {
-                            BMCWEB_LOG_ERROR << "respHandler DBus error " << ec;
+                            BMCWEB_LOG_ERROR("respHandler DBus error {}", ec);
                             messages::internalError(asyncResp->res);
                             return;
                         }
@@ -478,7 +477,7 @@ inline void requestRoutesMetricReportDefinition(App& app)
 
                         if (ec)
                         {
-                            BMCWEB_LOG_ERROR << "respHandler DBus error " << ec;
+                            BMCWEB_LOG_ERROR("respHandler DBus error {}", ec);
                             messages::internalError(asyncResp->res);
                             return;
                         }

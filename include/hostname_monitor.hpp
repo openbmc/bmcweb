@@ -19,12 +19,12 @@ inline void installCertificate(const std::filesystem::path& certPath)
         [certPath](const boost::system::error_code ec) {
             if (ec)
             {
-                BMCWEB_LOG_ERROR << "Replace Certificate Fail..";
+                BMCWEB_LOG_ERROR("Replace Certificate Fail..");
                 return;
             }
 
-            BMCWEB_LOG_INFO << "Replace HTTPs Certificate Success, "
-                               "remove temporary certificate file..";
+            BMCWEB_LOG_INFO("Replace HTTPs Certificate Success, "
+                            "remove temporary certificate file..");
             remove(certPath.c_str());
         },
         "xyz.openbmc_project.Certs.Manager.Server.Https",
@@ -37,7 +37,7 @@ inline int onPropertyUpdate(sd_bus_message* m, void* /* userdata */,
 {
     if (retError == nullptr || (sd_bus_error_is_set(retError) != 0))
     {
-        BMCWEB_LOG_ERROR << "Got sdbus error on match";
+        BMCWEB_LOG_ERROR("Got sdbus error on match");
         return 0;
     }
 
@@ -56,17 +56,17 @@ inline int onPropertyUpdate(sd_bus_message* m, void* /* userdata */,
     std::string* hostname = std::get_if<std::string>(&it->second);
     if (hostname == nullptr)
     {
-        BMCWEB_LOG_ERROR << "Unable to read hostname";
+        BMCWEB_LOG_ERROR("Unable to read hostname");
         return 0;
     }
 
-    BMCWEB_LOG_DEBUG << "Read hostname from signal: " << *hostname;
+    BMCWEB_LOG_DEBUG("Read hostname from signal: {}", *hostname);
     const std::string certFile = "/etc/ssl/certs/https/server.pem";
 
     X509* cert = ensuressl::loadCert(certFile);
     if (cert == nullptr)
     {
-        BMCWEB_LOG_ERROR << "Failed to read cert";
+        BMCWEB_LOG_ERROR("Failed to read cert");
         return 0;
     }
 
@@ -78,7 +78,7 @@ inline int onPropertyUpdate(sd_bus_message* m, void* /* userdata */,
                                   cnBuffer.data(), cnBuffer.size());
     if (cnLength == -1)
     {
-        BMCWEB_LOG_ERROR << "Failed to read NID_commonName";
+        BMCWEB_LOG_ERROR("Failed to read NID_commonName");
         X509_free(cert);
         return 0;
     }
@@ -88,16 +88,16 @@ inline int onPropertyUpdate(sd_bus_message* m, void* /* userdata */,
     EVP_PKEY* pPubKey = X509_get_pubkey(cert);
     if (pPubKey == nullptr)
     {
-        BMCWEB_LOG_ERROR << "Failed to get public key";
+        BMCWEB_LOG_ERROR("Failed to get public key");
         X509_free(cert);
         return 0;
     }
     int isSelfSigned = X509_verify(cert, pPubKey);
     EVP_PKEY_free(pPubKey);
 
-    BMCWEB_LOG_DEBUG << "Current HTTPs Certificate Subject CN: " << cnValue
-                     << ", New HostName: " << *hostname
-                     << ", isSelfSigned: " << isSelfSigned;
+    BMCWEB_LOG_DEBUG(
+        "Current HTTPs Certificate Subject CN: {}, New HostName: {}, isSelfSigned: {}",
+        cnValue, *hostname, isSelfSigned);
 
     ASN1_IA5STRING* asn1 = static_cast<ASN1_IA5STRING*>(
         X509_get_ext_d2i(cert, NID_netscape_comment, nullptr, nullptr));
@@ -106,13 +106,14 @@ inline int onPropertyUpdate(sd_bus_message* m, void* /* userdata */,
         // NOLINTNEXTLINE(cppcoreguidelines-pro-type-reinterpret-cast)
         std::string_view comment(reinterpret_cast<const char*>(asn1->data),
                                  static_cast<size_t>(asn1->length));
-        BMCWEB_LOG_DEBUG << "x509Comment: " << comment;
+        BMCWEB_LOG_DEBUG("x509Comment: {}", comment);
 
         if (ensuressl::x509Comment == comment && isSelfSigned == 1 &&
             cnValue != *hostname)
         {
-            BMCWEB_LOG_INFO << "Ready to generate new HTTPs "
-                            << "certificate with subject cn: " << *hostname;
+            BMCWEB_LOG_INFO(
+                "Ready to generate new HTTPs certificate with subject cn: {}",
+                *hostname);
 
             ensuressl::generateSslCertificate("/tmp/hostname_cert.tmp",
                                               *hostname);
@@ -126,7 +127,7 @@ inline int onPropertyUpdate(sd_bus_message* m, void* /* userdata */,
 
 inline void registerHostnameSignal()
 {
-    BMCWEB_LOG_INFO << "Register HostName PropertiesChanged Signal";
+    BMCWEB_LOG_INFO("Register HostName PropertiesChanged Signal");
     std::string propertiesMatchString =
         ("type='signal',"
          "interface='org.freedesktop.DBus.Properties',"
