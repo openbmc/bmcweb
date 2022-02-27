@@ -311,13 +311,14 @@ inline bool extractHypervisorInterfaceData(
  * @param callback a function that shall be called to convert Dbus output
  * into JSON
  */
-template <typename CallbackFunc>
-void getHypervisorIfaceData(const std::string& ethIfaceId,
-                            CallbackFunc&& callback)
+void getHypervisorIfaceData(
+    const std::string& ethIfaceId,
+    std::function<void(bool, const EthernetInterfaceData&,
+                       const boost::container::flat_set<IPv4AddressData>)>&&
+        callback)
 {
     crow::connections::systemBus->async_method_call(
-        [ethIfaceId{std::string{ethIfaceId}},
-         callback{std::forward<CallbackFunc>(callback)}](
+        [ethIfaceId{std::string{ethIfaceId}}, callback{std::move(callback)}](
             const boost::system::error_code error,
             const dbus::utility::ManagedObjectType& resp) {
             EthernetInterfaceData ethData{};
