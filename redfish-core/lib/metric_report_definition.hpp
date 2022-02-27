@@ -22,10 +22,10 @@ using ReadingParameters =
     std::vector<std::tuple<sdbusplus::message::object_path, std::string,
                            std::string, std::string>>;
 
-inline void fillReportDefinition(
-    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp, const std::string& id,
-    const std::vector<std::pair<std::string, dbus::utility::DbusVariantType>>&
-        ret)
+inline void
+    fillReportDefinition(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                         const std::string& id,
+                         const dbus::utility::DBusPropertiesMap& ret)
 {
     asyncResp->res.jsonValue["@odata.type"] =
         "#MetricReportDefinition.v1_3_0.MetricReportDefinition";

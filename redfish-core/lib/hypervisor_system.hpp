@@ -1,7 +1,6 @@
 #pragma once
 
 #include <app.hpp>
-#include <boost/container/flat_map.hpp>
 #include <boost/container/flat_set.hpp>
 #include <dbus_singleton.hpp>
 #include <dbus_utility.hpp>
@@ -782,7 +781,8 @@ inline void requestRoutesHypervisorSystems(App& app)
 
             crow::connections::systemBus->async_method_call(
                 [asyncResp](const boost::system::error_code error,
-                            const std::vector<std::string>& ifaceList) {
+                            const dbus::utility::MapperGetSubTreePathsResponse&
+                                ifaceList) {
                     if (error)
                     {
                         messages::resourceNotFound(asyncResp->res, "System",

@@ -15,16 +15,13 @@
 */
 #pragma once
 
+#include <account_service.hpp>
 #include <app.hpp>
-#include <boost/container/flat_map.hpp>
 #include <boost/process/async_pipe.hpp>
 #include <boost/type_traits/has_dereference.hpp>
-#include <utils/json_utils.hpp>
-// for GetObjectType and ManagedObjectType
-
-#include <account_service.hpp>
 #include <boost/url/url_view.hpp>
 #include <registries/privilege_registry.hpp>
+#include <utils/json_utils.hpp>
 
 namespace redfish
 {
@@ -821,7 +818,8 @@ inline void requestNBDVirtualMediaRoutes(App& app)
                 crow::connections::systemBus->async_method_call(
                     [asyncResp, actionParams,
                      resName](const boost::system::error_code ec,
-                              const GetObjectType& getObjectType) mutable {
+                              const dbus::utility::MapperGetObject&
+                                  getObjectType) mutable {
                         if (ec)
                         {
                             BMCWEB_LOG_ERROR
@@ -927,8 +925,9 @@ inline void requestNBDVirtualMediaRoutes(App& app)
                 }
 
                 crow::connections::systemBus->async_method_call(
-                    [asyncResp, resName](const boost::system::error_code ec,
-                                         const GetObjectType& getObjectType) {
+                    [asyncResp, resName](
+                        const boost::system::error_code ec,
+                        const dbus::utility::MapperGetObject& getObjectType) {
                         if (ec)
                         {
                             BMCWEB_LOG_ERROR
@@ -1022,8 +1021,9 @@ inline void requestNBDVirtualMediaRoutes(App& app)
                     "/redfish/v1/Managers/" + name + "/VirtualMedia";
 
                 crow::connections::systemBus->async_method_call(
-                    [asyncResp, name](const boost::system::error_code ec,
-                                      const GetObjectType& getObjectType) {
+                    [asyncResp, name](
+                        const boost::system::error_code ec,
+                        const dbus::utility::MapperGetObject& getObjectType) {
                         if (ec)
                         {
                             BMCWEB_LOG_ERROR
@@ -1060,9 +1060,9 @@ inline void requestNBDVirtualMediaRoutes(App& app)
                 }
 
                 crow::connections::systemBus->async_method_call(
-                    [asyncResp, name,
-                     resName](const boost::system::error_code ec,
-                              const GetObjectType& getObjectType) {
+                    [asyncResp, name, resName](
+                        const boost::system::error_code ec,
+                        const dbus::utility::MapperGetObject& getObjectType) {
                         if (ec)
                         {
                             BMCWEB_LOG_ERROR

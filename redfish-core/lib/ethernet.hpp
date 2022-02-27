@@ -16,7 +16,6 @@
 #pragma once
 
 #include <app.hpp>
-#include <boost/container/flat_map.hpp>
 #include <boost/container/flat_set.hpp>
 #include <dbus_singleton.hpp>
 #include <dbus_utility.hpp>
@@ -29,13 +28,6 @@
 
 namespace redfish
 {
-
-/**
- * DBus types primitives for several generic DBus interfaces
- * TODO(Pawel) consider move this to separate file into boost::dbus
- */
-using PropertiesMapType =
-    boost::container::flat_map<std::string, dbus::utility::DbusVariantType>;
 
 enum class LinkType
 {
@@ -1713,7 +1705,7 @@ inline void parseInterfaceData(
 
     crow::connections::systemBus->async_method_call(
         [health](const boost::system::error_code ec,
-                 const std::vector<std::string>& resp) {
+                 const dbus::utility::MapperGetSubTreePathsResponse& resp) {
             if (ec)
             {
                 return;
