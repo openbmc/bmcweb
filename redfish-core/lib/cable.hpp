@@ -1,5 +1,5 @@
 #pragma once
-#include <boost/container/flat_map.hpp>
+#include <dbus_utility.hpp>
 #include <utils/json_utils.hpp>
 
 namespace redfish

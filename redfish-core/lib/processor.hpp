@@ -32,10 +32,6 @@
 namespace redfish
 {
 
-using InterfacesProperties = boost::container::flat_map<
-    std::string,
-    boost::container::flat_map<std::string, dbus::utility::DbusVariantType>>;
-
 // Interfaces which imply a D-Bus object represents a Processor
 constexpr std::array<const char*, 2> processorInterfaces = {
     "xyz.openbmc_project.Inventory.Item.Cpu",
@@ -1072,8 +1068,10 @@ inline void requestRoutesOperatingConfigCollection(App& app)
             // First find the matching CPU object so we know how to
             // constrain our search for related Config objects.
             crow::connections::systemBus->async_method_call(
-                [asyncResp, cpuName](const boost::system::error_code ec,
-                                     const std::vector<std::string>& objects) {
+                [asyncResp,
+                 cpuName](const boost::system::error_code ec,
+                          const dbus::utility::MapperGetSubTreePathsResponse&
+                              objects) {
                     if (ec)
                     {
                         BMCWEB_LOG_WARNING << "D-Bus error: " << ec << ", "

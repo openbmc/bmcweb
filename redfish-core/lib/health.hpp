@@ -189,7 +189,7 @@ struct HealthPopulate : std::enable_shared_from_this<HealthPopulate>
         std::shared_ptr<HealthPopulate> self = shared_from_this();
         crow::connections::systemBus->async_method_call(
             [self](const boost::system::error_code ec,
-                   const std::vector<std::string>& resp) {
+                   const dbus::utility::MapperGetSubTreePathsResponse& resp) {
                 if (ec || resp.size() != 1)
                 {
                     // no global item, or too many

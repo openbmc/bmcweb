@@ -122,11 +122,10 @@ inline void
     }
 }
 
-inline void getProcessorProperties(
-    const std::shared_ptr<bmcweb::AsyncResp>& aResp, const std::string& service,
-    const std::string& path,
-    const std::vector<std::pair<std::string, dbus::utility::DbusVariantType>>&
-        properties)
+inline void
+    getProcessorProperties(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
+                           const std::string& service, const std::string& path,
+                           const dbus::utility::DBusPropertiesMap& properties)
 {
 
     BMCWEB_LOG_DEBUG << "Got " << properties.size() << " Cpu properties.";
@@ -215,8 +214,7 @@ inline void getProcessorSummary(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
     crow::connections::systemBus->async_method_call(
         [aResp, service,
          path](const boost::system::error_code ec2,
-               const std::vector<std::pair<
-                   std::string, dbus::utility::DbusVariantType>>& properties) {
+               const dbus::utility::DBusPropertiesMap& properties) {
             if (ec2)
             {
                 BMCWEB_LOG_ERROR << "DBUS response error " << ec2;
@@ -244,12 +242,9 @@ inline void
     BMCWEB_LOG_DEBUG << "Get available system components.";
 
     crow::connections::systemBus->async_method_call(
-        [aResp, systemHealth](
-            const boost::system::error_code ec,
-            const std::vector<std::pair<
-                std::string,
-                std::vector<std::pair<std::string, std::vector<std::string>>>>>&
-                subtree) {
+        [aResp,
+         systemHealth](const boost::system::error_code ec,
+                       const dbus::utility::MapperGetSubTreeResponse& subtree) {
             if (ec)
             {
                 BMCWEB_LOG_DEBUG << "DBUS response error";
@@ -296,9 +291,7 @@ inline void
                             crow::connections::systemBus->async_method_call(
                                 [aResp, service{connection.first},
                                  path](const boost::system::error_code ec2,
-                                       const std::vector<std::pair<
-                                           std::string,
-                                           dbus::utility::DbusVariantType>>&
+                                       const dbus::utility::DBusPropertiesMap&
                                            properties) {
                                     if (ec2)
                                     {
@@ -402,9 +395,7 @@ inline void
                                 << "Found UUID, now get its properties.";
                             crow::connections::systemBus->async_method_call(
                                 [aResp](const boost::system::error_code ec3,
-                                        const std::vector<std::pair<
-                                            std::string,
-                                            dbus::utility::DbusVariantType>>&
+                                        const dbus::utility::DBusPropertiesMap&
                                             properties) {
                                     if (ec3)
                                     {
@@ -454,9 +445,7 @@ inline void
                         {
                             crow::connections::systemBus->async_method_call(
                                 [aResp](const boost::system::error_code ec2,
-                                        const std::vector<std::pair<
-                                            std::string,
-                                            dbus::utility::DbusVariantType>>&
+                                        const dbus::utility::DBusPropertiesMap&
                                             propertiesList) {
                                     if (ec2)
                                     {
@@ -1234,12 +1223,8 @@ inline void getTrustedModuleRequiredToBoot(
     BMCWEB_LOG_DEBUG << "Get TPM required to boot.";
 
     crow::connections::systemBus->async_method_call(
-        [aResp](
-            const boost::system::error_code ec,
-            std::vector<std::pair<
-                std::string,
-                std::vector<std::pair<std::string, std::vector<std::string>>>>>&
-                subtree) {
+        [aResp](const boost::system::error_code ec,
+                const dbus::utility::MapperGetSubTreeResponse& subtree) {
             if (ec)
             {
                 BMCWEB_LOG_DEBUG
@@ -1326,12 +1311,8 @@ inline void setTrustedModuleRequiredToBoot(
     BMCWEB_LOG_DEBUG << "Set TrustedModuleRequiredToBoot.";
 
     crow::connections::systemBus->async_method_call(
-        [aResp, tpmRequired](
-            const boost::system::error_code ec,
-            std::vector<std::pair<
-                std::string,
-                std::vector<std::pair<std::string, std::vector<std::string>>>>>&
-                subtree) {
+        [aResp, tpmRequired](const boost::system::error_code ec,
+                             dbus::utility::MapperGetSubTreeResponse& subtree) {
             if (ec)
             {
                 BMCWEB_LOG_DEBUG
@@ -1657,12 +1638,9 @@ inline void setAssetTag(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
                         const std::string& assetTag)
 {
     crow::connections::systemBus->async_method_call(
-        [aResp, assetTag](
-            const boost::system::error_code ec,
-            const std::vector<std::pair<
-                std::string,
-                std::vector<std::pair<std::string, std::vector<std::string>>>>>&
-                subtree) {
+        [aResp,
+         assetTag](const boost::system::error_code ec,
+                   const dbus::utility::MapperGetSubTreeResponse& subtree) {
             if (ec)
             {
                 BMCWEB_LOG_DEBUG << "D-Bus response error on GetSubTree " << ec;
@@ -1832,9 +1810,7 @@ inline void getProvisioningStatus(std::shared_ptr<bmcweb::AsyncResp> aResp)
     BMCWEB_LOG_DEBUG << "Get OEM information.";
     crow::connections::systemBus->async_method_call(
         [aResp](const boost::system::error_code ec,
-                const std::vector<
-                    std::pair<std::string, dbus::utility::DbusVariantType>>&
-                    propertiesList) {
+                const dbus::utility::DBusPropertiesMap& propertiesList) {
             nlohmann::json& oemPFR =
                 aResp->res.jsonValue["Oem"]["OpenBmc"]["FirmwareProvisioning"];
             aResp->res.jsonValue["Oem"]["OpenBmc"]["@odata.type"] =
@@ -1947,12 +1923,8 @@ inline void getPowerMode(const std::shared_ptr<bmcweb::AsyncResp>& aResp)
 
     // Get Power Mode object path:
     crow::connections::systemBus->async_method_call(
-        [aResp](
-            const boost::system::error_code ec,
-            const std::vector<std::pair<
-                std::string,
-                std::vector<std::pair<std::string, std::vector<std::string>>>>>&
-                subtree) {
+        [aResp](const boost::system::error_code ec,
+                const dbus::utility::MapperGetSubTreeResponse& subtree) {
             if (ec)
             {
                 BMCWEB_LOG_DEBUG
@@ -2074,12 +2046,9 @@ inline void setPowerMode(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
 
     // Get Power Mode object path:
     crow::connections::systemBus->async_method_call(
-        [aResp, powerMode](
-            const boost::system::error_code ec,
-            const std::vector<std::pair<
-                std::string,
-                std::vector<std::pair<std::string, std::vector<std::string>>>>>&
-                subtree) {
+        [aResp,
+         powerMode](const boost::system::error_code ec,
+                    const dbus::utility::MapperGetSubTreeResponse& subtree) {
             if (ec)
             {
                 BMCWEB_LOG_DEBUG
@@ -2216,7 +2185,7 @@ inline void
     BMCWEB_LOG_DEBUG << "Get host watchodg";
     crow::connections::systemBus->async_method_call(
         [aResp](const boost::system::error_code ec,
-                const PropertiesType& properties) {
+                const dbus::utility::DBusPropertiesMap& properties) {
             if (ec)
             {
                 // watchdog service is stopped
@@ -2431,12 +2400,8 @@ inline void getIdlePowerSaver(const std::shared_ptr<bmcweb::AsyncResp>& aResp)
 
     // Get IdlePowerSaver object path:
     crow::connections::systemBus->async_method_call(
-        [aResp](
-            const boost::system::error_code ec,
-            const std::vector<std::pair<
-                std::string,
-                std::vector<std::pair<std::string, std::vector<std::string>>>>>&
-                subtree) {
+        [aResp](const boost::system::error_code ec,
+                const dbus::utility::MapperGetSubTreeResponse& subtree) {
             if (ec)
             {
                 BMCWEB_LOG_DEBUG
@@ -2536,12 +2501,8 @@ inline void setIdlePowerSaver(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
     // Get IdlePowerSaver object path:
     crow::connections::systemBus->async_method_call(
         [aResp, ipsEnable, ipsEnterUtil, ipsEnterTime, ipsExitUtil,
-         ipsExitTime](
-            const boost::system::error_code ec,
-            const std::vector<std::pair<
-                std::string,
-                std::vector<std::pair<std::string, std::vector<std::string>>>>>&
-                subtree) {
+         ipsExitTime](const boost::system::error_code ec,
+                      const dbus::utility::MapperGetSubTreeResponse& subtree) {
             if (ec)
             {
                 BMCWEB_LOG_DEBUG
