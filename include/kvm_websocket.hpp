@@ -25,9 +25,9 @@ class KvmSession
             endpoint, [this, &connIn](const boost::system::error_code& ec) {
                 if (ec)
                 {
-                    BMCWEB_LOG_ERROR
-                        << "conn:" << &conn
-                        << ", Couldn't connect to KVM socket port: " << ec;
+                    BMCWEB_LOG_ERROR(
+                        "conn:{}, Couldn't connect to KVM socket port: {}",
+                        logPtr(&conn), ec);
                     if (ec != boost::asio::error::operation_aborted)
                     {
                         connIn.close("Error in connecting to KVM port");
@@ -43,23 +43,22 @@ class KvmSession
     {
         if (data.length() > inputBuffer.capacity())
         {
-            BMCWEB_LOG_ERROR << "conn:" << &conn
-                             << ", Buffer overrun when writing "
-                             << data.length() << " bytes";
+            BMCWEB_LOG_ERROR("conn:{}, Buffer overrun when writing {} bytes",
+                             logPtr(&conn), data.length());
             conn.close("Buffer overrun");
             return;
         }
 
-        BMCWEB_LOG_DEBUG << "conn:" << &conn << ", Read " << data.size()
-                         << " bytes from websocket";
+        BMCWEB_LOG_DEBUG("conn:{}, Read {} bytes from websocket",
+                         logPtr(&conn), data.size());
         boost::asio::buffer_copy(inputBuffer.prepare(data.size()),
                                  boost::asio::buffer(data));
-        BMCWEB_LOG_DEBUG << "conn:" << &conn << ", Committing " << data.size()
-                         << " bytes from websocket";
+        BMCWEB_LOG_DEBUG("conn:{}, Committing {} bytes from websocket",
+                         logPtr(&conn), data.size());
         inputBuffer.commit(data.size());
 
-        BMCWEB_LOG_DEBUG << "conn:" << &conn << ", inputbuffer size "
-                         << inputBuffer.size();
+        BMCWEB_LOG_DEBUG("conn:{}, inputbuffer size {}", logPtr(&conn),
+                         inputBuffer.size());
         doWrite();
     }
 
@@ -67,18 +66,18 @@ class KvmSession
     void doRead()
     {
         std::size_t bytes = outputBuffer.capacity() - outputBuffer.size();
-        BMCWEB_LOG_DEBUG << "conn:" << &conn << ", Reading " << bytes
-                         << " from kvm socket";
+        BMCWEB_LOG_DEBUG("conn:{}, Reading {} from kvm socket", logPtr(&conn),
+                         bytes);
         hostSocket.async_read_some(
             outputBuffer.prepare(outputBuffer.capacity() - outputBuffer.size()),
             [this](const boost::system::error_code& ec, std::size_t bytesRead) {
-                BMCWEB_LOG_DEBUG << "conn:" << &conn << ", read done.  Read "
-                                 << bytesRead << " bytes";
+                BMCWEB_LOG_DEBUG("conn:{}, read done.  Read {} bytes",
+                                 logPtr(&conn), bytesRead);
                 if (ec)
                 {
-                    BMCWEB_LOG_ERROR
-                        << "conn:" << &conn
-                        << ", Couldn't read from KVM socket port: " << ec;
+                    BMCWEB_LOG_ERROR(
+                        "conn:{}, Couldn't read from KVM socket port: {}",
+                        logPtr(&conn), ec);
                     if (ec != boost::asio::error::operation_aborted)
                     {
                         conn.close("Error in connecting to KVM port");
@@ -90,8 +89,8 @@ class KvmSession
                 std::string_view payload(
                     static_cast<const char*>(outputBuffer.data().data()),
                     bytesRead);
-                BMCWEB_LOG_DEBUG << "conn:" << &conn
-                                 << ", Sending payload size " << payload.size();
+                BMCWEB_LOG_DEBUG("conn:{}, Sending payload size {}",
+                                 logPtr(&conn), payload.size());
                 conn.sendBinary(payload);
                 outputBuffer.consume(bytesRead);
 
@@ -103,14 +102,14 @@ class KvmSession
     {
         if (doingWrite)
         {
-            BMCWEB_LOG_DEBUG << "conn:" << &conn
-                             << ", Already writing.  Bailing out";
+            BMCWEB_LOG_DEBUG("conn:{}, Already writing.  Bailing out",
+                             logPtr(&conn));
             return;
         }
         if (inputBuffer.size() == 0)
         {
-            BMCWEB_LOG_DEBUG << "conn:" << &conn
-                             << ", inputBuffer empty.  Bailing out";
+            BMCWEB_LOG_DEBUG("conn:{}, inputBuffer empty.  Bailing out",
+                             logPtr(&conn));
             return;
         }
 
@@ -118,8 +117,8 @@ class KvmSession
         hostSocket.async_write_some(
             inputBuffer.data(), [this](const boost::system::error_code& ec,
                                        std::size_t bytesWritten) {
-                BMCWEB_LOG_DEBUG << "conn:" << &conn << ", Wrote "
-                                 << bytesWritten << "bytes";
+                BMCWEB_LOG_DEBUG("conn:{}, Wrote {}bytes", logPtr(&conn),
+                                 bytesWritten);
                 doingWrite = false;
                 inputBuffer.consume(bytesWritten);
 
@@ -130,8 +129,8 @@ class KvmSession
                 }
                 if (ec)
                 {
-                    BMCWEB_LOG_ERROR << "conn:" << &conn
-                                     << ", Error in KVM socket write " << ec;
+                    BMCWEB_LOG_ERROR("conn:{}, Error in KVM socket write {}",
+                                     logPtr(&conn), ec);
                     if (ec != boost::asio::error::operation_aborted)
                     {
                         conn.close("Error in reading to host port");
@@ -163,7 +162,7 @@ inline void requestRoutes(App& app)
         .websocket()
         .onopen([](crow::websocket::Connection& conn,
                    const std::shared_ptr<bmcweb::AsyncResp>&) {
-            BMCWEB_LOG_DEBUG << "Connection " << &conn << " opened";
+            BMCWEB_LOG_DEBUG("Connection {} opened", logPtr(&conn));
 
             if (sessions.size() == maxSessions)
             {
