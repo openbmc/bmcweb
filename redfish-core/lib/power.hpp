@@ -126,8 +126,7 @@ inline void requestRoutesPower(App& app)
             asyncResp->res.jsonValue["PowerControl"] = nlohmann::json::array();
 
             auto sensorAsyncResp = std::make_shared<SensorsAsyncResp>(
-                asyncResp, chassisName,
-                sensors::dbus::paths.at(sensors::node::power),
+                asyncResp, chassisName, sensors::dbus::powerPaths,
                 sensors::node::power);
 
             getChassisData(sensorAsyncResp);
@@ -313,8 +312,7 @@ inline void requestRoutesPower(App& app)
                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                const std::string& chassisName) {
                 auto sensorAsyncResp = std::make_shared<SensorsAsyncResp>(
-                    asyncResp, chassisName,
-                    sensors::dbus::paths.at(sensors::node::power),
+                    asyncResp, chassisName, sensors::dbus::powerPaths,
                     sensors::node::power);
 
                 std::optional<std::vector<nlohmann::json>> voltageCollections;
