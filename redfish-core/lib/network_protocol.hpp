@@ -256,8 +256,7 @@ inline void
                      const crow::openbmc_mapper::GetSubTreeType& subtree) {
             if (ec)
             {
-                BMCWEB_LOG_WARNING << "D-Bus error: " << ec << ", "
-                                   << ec.message();
+                BMCWEB_LOG_WARNING("D-Bus error: {}, {}", ec, ec.message());
                 messages::internalError(asyncResp->res);
                 return;
             }

@@ -294,13 +294,13 @@ inline bool
     boost::split(result, sseFilter, boost::is_any_of(" "),
                  boost::token_compress_on);
 
-    BMCWEB_LOG_DEBUG << "No of tokens in SEE query: " << result.size();
+    BMCWEB_LOG_DEBUG("No of tokens in SEE query: {}", result.size());
 
     constexpr uint8_t divisor = 4;
     constexpr uint8_t minTokenSize = 3;
     if (result.size() % divisor != minTokenSize)
     {
-        BMCWEB_LOG_ERROR << "Invalid SSE filter specified.";
+        BMCWEB_LOG_ERROR("Invalid SSE filter specified.");
         return false;
     }
 
@@ -316,8 +316,8 @@ inline bool
             // SSE supports only "or" and "and" in query params.
             if ((separator != "or") && (separator != "and"))
             {
-                BMCWEB_LOG_ERROR
-                    << "Invalid group operator in SSE query parameters";
+                BMCWEB_LOG_ERROR(
+                    "Invalid group operator in SSE query parameters");
                 return false;
             }
         }
@@ -325,12 +325,12 @@ inline bool
         // SSE supports only "eq" as per spec.
         if (op != "eq")
         {
-            BMCWEB_LOG_ERROR
-                << "Invalid assignment operator in SSE query parameters";
+            BMCWEB_LOG_ERROR(
+                "Invalid assignment operator in SSE query parameters");
             return false;
         }
 
-        BMCWEB_LOG_DEBUG << key << " : " << value;
+        BMCWEB_LOG_DEBUG("{} : {}", key, value);
         if (key == "EventFormatType")
         {
             formatType = value;
@@ -349,8 +349,7 @@ inline bool
         }
         else
         {
-            BMCWEB_LOG_ERROR << "Invalid property(" << key
-                             << ")in SSE filter query.";
+            BMCWEB_LOG_ERROR("Invalid property({})in SSE filter query.", key);
             return false;
         }
     }
@@ -481,14 +480,14 @@ class Subscription : public persistent_data::UserSubscription
                                                messageArgsView, timestamp,
                                                customText, bmcLogEntry) != 0)
             {
-                BMCWEB_LOG_DEBUG << "Read eventLog entry failed";
+                BMCWEB_LOG_DEBUG("Read eventLog entry failed");
                 continue;
             }
         }
 
         if (logEntryArray.empty())
         {
-            BMCWEB_LOG_DEBUG << "No log entries available to be transferred.";
+            BMCWEB_LOG_DEBUG("No log entries available to be transferred.");
             return;
         }
 
@@ -521,9 +520,9 @@ class Subscription : public persistent_data::UserSubscription
         nlohmann::json msg;
         if (!telemetry::fillReport(msg, reportId, var))
         {
-            BMCWEB_LOG_ERROR << "Failed to fill the MetricReport for DBus "
-                                "Report with id "
-                             << reportId;
+            BMCWEB_LOG_ERROR("Failed to fill the MetricReport for DBus "
+                             "Report with id {}",
+                             reportId);
             return;
         }
 
@@ -625,8 +624,8 @@ class EventServiceManager
 
             if (!status)
             {
-                BMCWEB_LOG_ERROR
-                    << "Failed to validate and split destination url";
+                BMCWEB_LOG_ERROR(
+                    "Failed to validate and split destination url");
                 continue;
             }
             std::shared_ptr<Subscription> subValue =
@@ -647,7 +646,7 @@ class EventServiceManager
 
             if (subValue->id.empty())
             {
-                BMCWEB_LOG_ERROR << "Failed to add subscription";
+                BMCWEB_LOG_ERROR("Failed to add subscription");
             }
             subscriptionsMap.insert(std::pair(subValue->id, subValue));
 
@@ -669,13 +668,13 @@ class EventServiceManager
         std::ifstream eventConfigFile(eventServiceFile);
         if (!eventConfigFile.good())
         {
-            BMCWEB_LOG_DEBUG << "Old eventService config not exist";
+            BMCWEB_LOG_DEBUG("Old eventService config not exist");
             return;
         }
         auto jsonData = nlohmann::json::parse(eventConfigFile, nullptr, false);
         if (jsonData.is_discarded())
         {
-            BMCWEB_LOG_ERROR << "Old eventService config parse error.";
+            BMCWEB_LOG_ERROR("Old eventService config parse error.");
             return;
         }
 
@@ -697,8 +696,8 @@ class EventServiceManager
                                                                         true);
                     if (newSubscription == nullptr)
                     {
-                        BMCWEB_LOG_ERROR << "Problem reading subscription "
-                                            "from old persistent store";
+                        BMCWEB_LOG_ERROR("Problem reading subscription "
+                                         "from old persistent store");
                         continue;
                     }
 
@@ -730,9 +729,9 @@ class EventServiceManager
 
                     if (retry <= 0)
                     {
-                        BMCWEB_LOG_ERROR
-                            << "Failed to generate random number from old "
-                               "persistent store";
+                        BMCWEB_LOG_ERROR(
+                            "Failed to generate random number from old "
+                            "persistent store");
                         continue;
                     }
                 }
@@ -740,7 +739,7 @@ class EventServiceManager
 
             persistent_data::getConfig().writeData();
             std::remove(eventServiceFile);
-            BMCWEB_LOG_DEBUG << "Remove old eventservice config";
+            BMCWEB_LOG_DEBUG("Remove old eventservice config");
         }
     }
 
@@ -843,7 +842,7 @@ class EventServiceManager
         auto obj = subscriptionsMap.find(id);
         if (obj == subscriptionsMap.end())
         {
-            BMCWEB_LOG_ERROR << "No subscription exist with ID:" << id;
+            BMCWEB_LOG_ERROR("No subscription exist with ID:{}", id);
             return nullptr;
         }
         std::shared_ptr<Subscription> subValue = obj->second;
@@ -878,7 +877,7 @@ class EventServiceManager
 
         if (retry <= 0)
         {
-            BMCWEB_LOG_ERROR << "Failed to generate random number";
+            BMCWEB_LOG_ERROR("Failed to generate random number");
             return "";
         }
 
@@ -966,7 +965,7 @@ class EventServiceManager
             std::shared_ptr<Subscription> entry = it.second;
             if (entry->destinationUrl == destUrl)
             {
-                BMCWEB_LOG_ERROR << "Destination exist already" << destUrl;
+                BMCWEB_LOG_ERROR("Destination exist already{}", destUrl);
                 return true;
             }
         }
@@ -991,7 +990,7 @@ class EventServiceManager
     {
         if (!serviceEnabled || (noOfEventLogSubscribers == 0U))
         {
-            BMCWEB_LOG_DEBUG << "EventService disabled or no Subscriptions.";
+            BMCWEB_LOG_DEBUG("EventService disabled or no Subscriptions.");
             return;
         }
         nlohmann::json eventRecord = nlohmann::json::array();
@@ -1024,8 +1023,9 @@ class EventServiceManager
                 {
                     if (resType == resource)
                     {
-                        BMCWEB_LOG_INFO << "ResourceType " << resource
-                                        << " found in the subscribed list";
+                        BMCWEB_LOG_INFO(
+                            "ResourceType {} found in the subscribed list",
+                            resource);
                         isSubscribed = true;
                         break;
                     }
@@ -1048,7 +1048,7 @@ class EventServiceManager
             }
             else
             {
-                BMCWEB_LOG_INFO << "Not subscribed to this resource";
+                BMCWEB_LOG_INFO("Not subscribed to this resource");
             }
         }
     }
@@ -1083,7 +1083,7 @@ class EventServiceManager
         std::ifstream logStream(redfishEventLogFile);
         if (!logStream.good())
         {
-            BMCWEB_LOG_ERROR << " Redfish log file open failed \n";
+            BMCWEB_LOG_ERROR(" Redfish log file open failed ");
             return;
         }
         std::string logEntry;
@@ -1092,7 +1092,7 @@ class EventServiceManager
             redfishLogFilePosition = logStream.tellg();
         }
 
-        BMCWEB_LOG_DEBUG << "Next Log Position : " << redfishLogFilePosition;
+        BMCWEB_LOG_DEBUG("Next Log Position : {}", redfishLogFilePosition);
     }
 
     void readEventLogsFromFile()
@@ -1100,7 +1100,7 @@ class EventServiceManager
         std::ifstream logStream(redfishEventLogFile);
         if (!logStream.good())
         {
-            BMCWEB_LOG_ERROR << " Redfish log file open failed";
+            BMCWEB_LOG_ERROR(" Redfish log file open failed");
             return;
         }
 
@@ -1136,7 +1136,7 @@ class EventServiceManager
             if (event_log::getEventLogParams(logEntry, timestamp, messageID,
                                              messageArgs) != 0)
             {
-                BMCWEB_LOG_DEBUG << "Read eventLog entry params failed";
+                BMCWEB_LOG_DEBUG("Read eventLog entry params failed");
                 continue;
             }
 
@@ -1155,14 +1155,14 @@ class EventServiceManager
 
         if (!serviceEnabled || noOfEventLogSubscribers == 0)
         {
-            BMCWEB_LOG_DEBUG << "EventService disabled or no Subscriptions.";
+            BMCWEB_LOG_DEBUG("EventService disabled or no Subscriptions.");
             return;
         }
 
         if (eventRecords.empty())
         {
             // No Records to send
-            BMCWEB_LOG_DEBUG << "No log entries available to be transferred.";
+            BMCWEB_LOG_DEBUG("No log entries available to be transferred.");
             return;
         }
 
@@ -1191,7 +1191,7 @@ class EventServiceManager
                 const std::size_t& bytesTransferred) {
                 if (ec)
                 {
-                    BMCWEB_LOG_ERROR << "Callback Error: " << ec.message();
+                    BMCWEB_LOG_ERROR("Callback Error: {}", ec.message());
                     return;
                 }
                 std::size_t index = 0;
@@ -1217,16 +1217,16 @@ class EventServiceManager
                             continue;
                         }
 
-                        BMCWEB_LOG_DEBUG
-                            << "Redfish log file created/deleted. event.name: "
-                            << fileName;
+                        BMCWEB_LOG_DEBUG(
+                            "Redfish log file created/deleted. event.name: {}",
+                            fileName);
                         if (event.mask == IN_CREATE)
                         {
                             if (fileWatchDesc != -1)
                             {
-                                BMCWEB_LOG_DEBUG
-                                    << "Remove and Add inotify watcher on "
-                                       "redfish event log file";
+                                BMCWEB_LOG_DEBUG(
+                                    "Remove and Add inotify watcher on "
+                                    "redfish event log file");
                                 // Remove existing inotify watcher and add
                                 // with new redfish event log file.
                                 inotify_rm_watch(inotifyFd, fileWatchDesc);
@@ -1237,9 +1237,8 @@ class EventServiceManager
                                 inotifyFd, redfishEventLogFile, IN_MODIFY);
                             if (fileWatchDesc == -1)
                             {
-                                BMCWEB_LOG_ERROR
-                                    << "inotify_add_watch failed for "
-                                       "redfish log file.";
+                                BMCWEB_LOG_ERROR("inotify_add_watch failed for "
+                                                 "redfish log file.");
                                 return;
                             }
 
@@ -1279,7 +1278,7 @@ class EventServiceManager
         inotifyFd = inotify_init1(IN_NONBLOCK);
         if (inotifyFd == -1)
         {
-            BMCWEB_LOG_ERROR << "inotify_init1 failed.";
+            BMCWEB_LOG_ERROR("inotify_init1 failed.");
             return -1;
         }
 
@@ -1289,8 +1288,8 @@ class EventServiceManager
                                          IN_CREATE | IN_MOVED_TO | IN_DELETE);
         if (dirWatchDesc == -1)
         {
-            BMCWEB_LOG_ERROR
-                << "inotify_add_watch failed for event log directory.";
+            BMCWEB_LOG_ERROR(
+                "inotify_add_watch failed for event log directory.");
             return -1;
         }
 
@@ -1299,8 +1298,7 @@ class EventServiceManager
             inotify_add_watch(inotifyFd, redfishEventLogFile, IN_MODIFY);
         if (fileWatchDesc == -1)
         {
-            BMCWEB_LOG_ERROR
-                << "inotify_add_watch failed for redfish log file.";
+            BMCWEB_LOG_ERROR("inotify_add_watch failed for redfish log file.");
             // Don't return error if file not exist.
             // Watch on directory will handle create/delete of file.
         }
@@ -1319,7 +1317,7 @@ class EventServiceManager
         std::string id = path.filename();
         if (id.empty())
         {
-            BMCWEB_LOG_ERROR << "Failed to get Id from path";
+            BMCWEB_LOG_ERROR("Failed to get Id from path");
             return;
         }
 
@@ -1334,7 +1332,7 @@ class EventServiceManager
                          [](const auto& x) { return x.first == "Readings"; });
         if (found == props.end())
         {
-            BMCWEB_LOG_INFO << "Failed to get Readings from Report properties";
+            BMCWEB_LOG_INFO("Failed to get Readings from Report properties");
             return;
         }
 
@@ -1342,7 +1340,7 @@ class EventServiceManager
             std::get_if<telemetry::TimestampReadings>(&found->second);
         if (readings == nullptr)
         {
-            BMCWEB_LOG_INFO << "Failed to get Readings from Report properties";
+            BMCWEB_LOG_INFO("Failed to get Readings from Report properties");
             return;
         }
 
@@ -1361,7 +1359,7 @@ class EventServiceManager
     {
         if (matchTelemetryMonitor)
         {
-            BMCWEB_LOG_DEBUG << "Metrics report signal - Unregister";
+            BMCWEB_LOG_DEBUG("Metrics report signal - Unregister");
             matchTelemetryMonitor.reset();
             matchTelemetryMonitor = nullptr;
         }
@@ -1371,11 +1369,11 @@ class EventServiceManager
     {
         if (!serviceEnabled || matchTelemetryMonitor)
         {
-            BMCWEB_LOG_DEBUG << "Not registering metric report signal.";
+            BMCWEB_LOG_DEBUG("Not registering metric report signal.");
             return;
         }
 
-        BMCWEB_LOG_DEBUG << "Metrics report signal - Register";
+        BMCWEB_LOG_DEBUG("Metrics report signal - Register");
         std::string matchStr = "type='signal',member='PropertiesChanged',"
                                "interface='org.freedesktop.DBus.Properties',"
                                "arg0=xyz.openbmc_project.Telemetry.Report";
@@ -1385,7 +1383,7 @@ class EventServiceManager
             [this](sdbusplus::message::message& msg) {
                 if (msg.is_method_error())
                 {
-                    BMCWEB_LOG_ERROR << "TelemetryMonitor Signal error";
+                    BMCWEB_LOG_ERROR("TelemetryMonitor Signal error");
                     return;
                 }
 

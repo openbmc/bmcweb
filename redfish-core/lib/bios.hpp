@@ -46,7 +46,7 @@ inline void
         [asyncResp](const boost::system::error_code ec) {
             if (ec)
             {
-                BMCWEB_LOG_ERROR << "Failed to reset bios: " << ec;
+                BMCWEB_LOG_ERROR("Failed to reset bios: {}", ec);
                 messages::internalError(asyncResp->res);
                 return;
             }

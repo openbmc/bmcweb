@@ -42,7 +42,7 @@ inline bool validateCertificate(X509* const cert)
     X509_STORE* x509Store = X509_STORE_new();
     if (x509Store == nullptr)
     {
-        BMCWEB_LOG_ERROR << "Error occurred during X509_STORE_new call";
+        BMCWEB_LOG_ERROR("Error occurred during X509_STORE_new call");
         return false;
     }
 
@@ -50,7 +50,7 @@ inline bool validateCertificate(X509* const cert)
     X509_STORE_CTX* storeCtx = X509_STORE_CTX_new();
     if (storeCtx == nullptr)
     {
-        BMCWEB_LOG_ERROR << "Error occurred during X509_STORE_CTX_new call";
+        BMCWEB_LOG_ERROR("Error occurred during X509_STORE_CTX_new call");
         X509_STORE_free(x509Store);
         return false;
     }
@@ -58,7 +58,7 @@ inline bool validateCertificate(X509* const cert)
     int errCode = X509_STORE_CTX_init(storeCtx, x509Store, cert, nullptr);
     if (errCode != 1)
     {
-        BMCWEB_LOG_ERROR << "Error occurred during X509_STORE_CTX_init call";
+        BMCWEB_LOG_ERROR("Error occurred during X509_STORE_CTX_init call");
         X509_STORE_CTX_free(storeCtx);
         X509_STORE_free(x509Store);
         return false;
@@ -67,7 +67,7 @@ inline bool validateCertificate(X509* const cert)
     errCode = X509_verify_cert(storeCtx);
     if (errCode == 1)
     {
-        BMCWEB_LOG_INFO << "Certificate verification is success";
+        BMCWEB_LOG_INFO("Certificate verification is success");
         X509_STORE_CTX_free(storeCtx);
         X509_STORE_free(x509Store);
         return true;
@@ -79,18 +79,17 @@ inline bool validateCertificate(X509* const cert)
         X509_STORE_free(x509Store);
         if (isTrustChainError(errCode))
         {
-            BMCWEB_LOG_DEBUG << "Ignoring Trust Chain error. Reason: "
-                             << X509_verify_cert_error_string(errCode);
+            BMCWEB_LOG_DEBUG("Ignoring Trust Chain error. Reason: {}",
+                             X509_verify_cert_error_string(errCode));
             return true;
         }
-        BMCWEB_LOG_ERROR << "Certificate verification failed. Reason: "
-                         << X509_verify_cert_error_string(errCode);
+        BMCWEB_LOG_ERROR("Certificate verification failed. Reason: {}",
+                         X509_verify_cert_error_string(errCode));
         return false;
     }
 
-    BMCWEB_LOG_ERROR
-        << "Error occurred during X509_verify_cert call. ErrorCode: "
-        << errCode;
+    BMCWEB_LOG_ERROR(
+        "Error occurred during X509_verify_cert call. ErrorCode: {}", errCode);
     X509_STORE_CTX_free(storeCtx);
     X509_STORE_free(x509Store);
     return false;
@@ -200,24 +199,24 @@ inline X509* loadCert(const std::string& filePath)
     BIO* certFileBio = BIO_new_file(filePath.c_str(), "rb");
     if (certFileBio == nullptr)
     {
-        BMCWEB_LOG_ERROR << "Error occured during BIO_new_file call, "
-                         << "FILE= " << filePath;
+        BMCWEB_LOG_ERROR("Error occured during BIO_new_file call, FILE= {}",
+                         filePath);
         return nullptr;
     }
 
     X509* cert = X509_new();
     if (cert == nullptr)
     {
-        BMCWEB_LOG_ERROR << "Error occured during X509_new call, "
-                         << ERR_get_error();
+        BMCWEB_LOG_ERROR("Error occured during X509_new call, {}",
+                         ERR_get_error());
         BIO_free(certFileBio);
         return nullptr;
     }
 
     if (PEM_read_bio_X509(certFileBio, &cert, nullptr, nullptr) == nullptr)
     {
-        BMCWEB_LOG_ERROR << "Error occured during PEM_read_bio_X509 call, "
-                         << "FILE= " << filePath;
+        BMCWEB_LOG_ERROR(
+            "Error occured during PEM_read_bio_X509 call, FILE= {}", filePath);
 
         BIO_free(certFileBio);
         X509_free(cert);
@@ -237,7 +236,7 @@ inline int addExt(X509* cert, int nid, const char* value)
     ex = X509V3_EXT_conf_nid(nullptr, &ctx, nid, const_cast<char*>(value));
     if (ex == nullptr)
     {
-        BMCWEB_LOG_ERROR << "Error: In X509V3_EXT_conf_nidn: " << value;
+        BMCWEB_LOG_ERROR("Error: In X509V3_EXT_conf_nidn: {}", value);
         return -1;
     }
     X509_add_ext(cert, ex, -1);
@@ -443,7 +442,7 @@ inline std::shared_ptr<boost::asio::ssl::context>
 
     SSL_CTX_set_options(mSslContext->native_handle(), SSL_OP_NO_RENEGOTIATION);
 
-    BMCWEB_LOG_DEBUG << "Using default TrustStore location: " << trustStorePath;
+    BMCWEB_LOG_DEBUG("Using default TrustStore location: {}", trustStorePath);
     mSslContext->add_verify_path(trustStorePath);
 
     mSslContext->use_certificate_file(sslPemFile,
@@ -457,7 +456,7 @@ inline std::shared_ptr<boost::asio::ssl::context>
     // http://stackoverflow.com/questions/18929049/boost-asio-with-ecdsa-certificate-issue
     if (SSL_CTX_set_ecdh_auto(mSslContext->native_handle(), 1) != 1)
     {
-        BMCWEB_LOG_ERROR << "Error setting tmp ecdh list\n";
+        BMCWEB_LOG_ERROR("Error setting tmp ecdh list");
     }
 
     std::string mozillaModern = "ECDHE-ECDSA-AES256-GCM-SHA384:"
@@ -474,7 +473,7 @@ inline std::shared_ptr<boost::asio::ssl::context>
     if (SSL_CTX_set_cipher_list(mSslContext->native_handle(),
                                 mozillaModern.c_str()) != 1)
     {
-        BMCWEB_LOG_ERROR << "Error setting cipher list\n";
+        BMCWEB_LOG_ERROR("Error setting cipher list");
     }
     return mSslContext;
 }

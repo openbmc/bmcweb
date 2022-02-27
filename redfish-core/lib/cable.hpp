@@ -17,7 +17,7 @@ inline void
 {
     if (ec)
     {
-        BMCWEB_LOG_DEBUG << "DBUS response error " << ec;
+        BMCWEB_LOG_DEBUG("DBUS response error {}", ec);
         messages::internalError(resp);
         return;
     }
@@ -71,7 +71,7 @@ inline void
                        const std::string& cableObjectPath,
                        const dbus::utility::MapperServiceMap& serviceMap)
 {
-    BMCWEB_LOG_DEBUG << "Get Properties for cable " << cableObjectPath;
+    BMCWEB_LOG_DEBUG("Get Properties for cable {}", cableObjectPath);
 
     for (const auto& [service, interfaces] : serviceMap)
     {
@@ -105,7 +105,7 @@ inline void requestRoutesCable(App& app)
             [](const crow::Request&,
                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                const std::string& cableId) {
-                BMCWEB_LOG_DEBUG << "Cable Id: " << cableId;
+                BMCWEB_LOG_DEBUG("Cable Id: {}", cableId);
                 auto respHandler =
                     [asyncResp,
                      cableId](const boost::system::error_code ec,
@@ -120,7 +120,7 @@ inline void requestRoutesCable(App& app)
 
                         if (ec)
                         {
-                            BMCWEB_LOG_ERROR << "DBUS response error " << ec;
+                            BMCWEB_LOG_ERROR("DBUS response error {}", ec);
                             messages::internalError(asyncResp->res);
                             return;
                         }
