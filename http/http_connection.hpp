@@ -131,14 +131,12 @@ class Connection :
                                    .tls)
             {
                 adaptor.set_verify_mode(boost::asio::ssl::verify_peer);
-                std::string id = "bmcweb";
+                constexpr std::array<unsigned char, 7> id = {'b', 'm', 'c', 'w',
+                                                             'e', 'b', '\0'};
 
-                const char* cStr = id.c_str();
-                // NOLINTNEXTLINE(cppcoreguidelines-pro-type-reinterpret-cast)
-                const auto* idC = reinterpret_cast<const unsigned char*>(cStr);
                 int ret = SSL_set_session_id_context(
-                    adaptor.native_handle(), idC,
-                    static_cast<unsigned int>(id.length()));
+                    adaptor.native_handle(), id.data(),
+                    static_cast<unsigned int>(id.size()));
                 if (ret == 0)
                 {
                     BMCWEB_LOG_ERROR("{} failed to set SSL id", logPtr(this));
