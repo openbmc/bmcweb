@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "44b9bd56_f8d6ef3a",
+        "filename": "redfish-core/include/utils/telemetry_utils.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-02-28T19:55:24Z",
+      "side": 1,
+      "message": "Unit tests with this?",
+      "range": {
+        "startLine": 31,
+        "startChar": 12,
+        "endLine": 31,
+        "endChar": 32
+      },
+      "revId": "0a27c55f1c362549b2687f1b119e7b0f5627f3da",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4649c80d_da92be78",
+        "filename": "redfish-core/include/utils/telemetry_utils.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-02-28T19:55:24Z",
+      "side": 1,
+      "message": "For new code, uris should be passed by boost::urls::url.  I realize this is just abstracting some code that already existed, but considering that this really needs the segments() behavior of boost::urls::url, I suspect we should do it here.\n\nAs written, this would propertly parse\n\n/redfish/v1/Chassis/sensor/valid_sensor/FOOBAR\n\nbecause of missing range/encoding checks which it shouldn\u0027t",
+      "range": {
+        "startLine": 33,
+        "startChar": 0,
+        "endLine": 33,
+        "endChar": 41
+      },
+      "revId": "0a27c55f1c362549b2687f1b119e7b0f5627f3da",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3daa7eac_4bed24f3",
+        "filename": "redfish-core/include/utils/telemetry_utils.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-02-28T19:55:24Z",
+      "side": 1,
+      "message": "For a generic utility function, this doesn\u0027t seem right?  This probably needs promoted to the calling scope to handle?  and this utility function would need to return an error of some kind?",
+      "range": {
+        "startLine": 50,
+        "startChar": 45,
+        "endLine": 50,
+        "endChar": 66
+      },
+      "revId": "0a27c55f1c362549b2687f1b119e7b0f5627f3da",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "36553080_e3503b18",
+        "filename": "redfish-core/include/utils/telemetry_utils.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-02-28T19:55:24Z",
+      "side": 1,
+      "message": "This is a case that the boost::urls::url parser would handle a lot easier, and more correctly.",
+      "range": {
+        "startLine": 55,
+        "startChar": 0,
+        "endLine": 58,
+        "endChar": 9
+      },
+      "revId": "0a27c55f1c362549b2687f1b119e7b0f5627f3da",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
