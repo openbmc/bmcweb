@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "791fb239_79f37029",
+        "filename": "TESTING.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-02-28T18:53:37Z",
+      "side": 1,
+      "message": "Thanks Ed for the comment. \n\nI saw there is a \"Developing and Testing\n\" and section in https://github.com/openbmc/bmcweb/blob/master/DEVELOPING.md which has some duplicate information. \n\nDoes moving that section into this dedicated doc for testing sound good to you? I will delete duplication after moving.",
+      "parentUuid": "529bcf22_06f5b1a2",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 1,
+        "endChar": 27
+      },
+      "revId": "8172158fd6f253776b219dbae0a3ada3ecca503e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "2f8dd4de_414fb4b4",
         "filename": "TESTING.md",
         "patchSetId": 2
@@ -49,6 +73,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "4719b774_1e15ff88",
+        "filename": "TESTING.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-02-28T18:53:37Z",
+      "side": 1,
+      "message": "I can create a README in https://github.com/openbmc/openbmc-build-scripts, move these instructions there, and just make a link here in bmcweb\u0027s documentation. WDYT?",
+      "parentUuid": "2f8dd4de_414fb4b4",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 38,
+        "endChar": 53
+      },
+      "revId": "8172158fd6f253776b219dbae0a3ada3ecca503e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "dd416aa2_bb62390a",
         "filename": "TESTING.md",
         "patchSetId": 2
@@ -60,6 +108,30 @@
       "writtenOn": "2022-02-28T00:19:03Z",
       "side": 1,
       "message": "I don\u0027t think the websocket test will give any results on a desktop/qemu setup, as there\u0027s no sensors?",
+      "range": {
+        "startLine": 46,
+        "startChar": 30,
+        "endLine": 46,
+        "endChar": 47
+      },
+      "revId": "8172158fd6f253776b219dbae0a3ada3ecca503e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1ece9cdd_a36a1e7d",
+        "filename": "TESTING.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-02-28T18:53:37Z",
+      "side": 1,
+      "message": "Right, without signal triggered, it won\u0027t fetch sensors. It will at least test connection opening and closing.\n\nI will mention it\u0027s recommended to use real hardware to get the best coverage.",
+      "parentUuid": "dd416aa2_bb62390a",
       "range": {
         "startLine": 46,
         "startChar": 30,
