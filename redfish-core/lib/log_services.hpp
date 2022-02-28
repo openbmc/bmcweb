@@ -121,8 +121,7 @@ inline static int getJournalMetadata(sd_journal* journal,
     size_t length = 0;
     int ret = 0;
     // Get the metadata from the requested field of the journal entry
-    // NOLINTNEXTLINE(cppcoreguidelines-pro-type-reinterpret-cast)
-    const void** dataVoid = reinterpret_cast<const void**>(&data);
+    const void** dataVoid = std::bit_cast<const void**>(&data);
 
     ret = sd_journal_get_data(journal, field.data(), dataVoid, &length);
     if (ret < 0)
@@ -4208,8 +4207,7 @@ inline void requestRoutesPostCodesEntryAdditionalData(App& app)
                                            postCodeID);
                 return;
             }
-            // NOLINTNEXTLINE(cppcoreguidelines-pro-type-reinterpret-cast)
-            const char* d = reinterpret_cast<const char*>(c.data());
+            const char* d = std::bit_cast<const char*>(c.data());
             std::string_view strData(d, c.size());
 
             asyncResp->res.addHeader(boost::beast::http::field::content_type,
