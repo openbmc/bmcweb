@@ -269,7 +269,7 @@ inline int addExt(X509* cert, int nid, const char* value)
 
 // Writes a certificate to a path, ignoring errors
 inline void writeCertificateToFile(const std::string& filepath,
-                                   const std::string& certificate)
+                                   std::string_view certificate)
 {
     boost::system::error_code ec;
     boost::beast::file_posix file;
@@ -318,26 +318,28 @@ inline std::string generateSslCertificate(const std::string& cn)
             // get the subject name
             X509_NAME* name = X509_get_subject_name(x509);
 
-            using x509String = const unsigned char;
-            // NOLINTNEXTLINE(cppcoreguidelines-pro-type-reinterpret-cast)
-            x509String* country = reinterpret_cast<x509String*>("US");
-            // NOLINTNEXTLINE(cppcoreguidelines-pro-type-reinterpret-cast)
-            x509String* company = reinterpret_cast<x509String*>("OpenBMC");
-            // NOLINTNEXTLINE(cppcoreguidelines-pro-type-reinterpret-cast)
-            x509String* cnStr = reinterpret_cast<x509String*>(cn.c_str());
-
-            X509_NAME_add_entry_by_txt(name, "C", MBSTRING_ASC, country, -1, -1,
-                                       0);
-            X509_NAME_add_entry_by_txt(name, "O", MBSTRING_ASC, company, -1, -1,
-                                       0);
-            X509_NAME_add_entry_by_txt(name, "CN", MBSTRING_ASC, cnStr, -1, -1,
-                                       0);
+            std::array<unsigned char, 2> countrySpan{'U', 'S'};
+            std::array<unsigned char, 7> companySpan{'O', 'p', 'e', 'n',
+                                                     'B', 'M', 'C'};
+            X509_NAME_add_entry_by_txt(name, "C", MBSTRING_ASC,
+                                       countrySpan.data(), countrySpan.size(),
+                                       -1, 0);
+            X509_NAME_add_entry_by_txt(name, "O", MBSTRING_ASC,
+                                       companySpan.data(), companySpan.size(),
+                                       -1, 0);
+            // We need a non-const version of this to call the API, so make a
+            // copy.
+            X509_NAME_add_entry_by_txt(
+                name, "CN", MBSTRING_ASC,
+                std::bit_cast<const unsigned char*>(cn.data()),
+                static_cast<int>(cn.size()), -1, 0);
             // set the CSR options
             X509_set_issuer_name(x509, name);
 
             X509_set_version(x509, 2);
             addExt(x509, NID_basic_constraints, ("critical,CA:TRUE"));
-            addExt(x509, NID_subject_alt_name, ("DNS:" + cn).c_str());
+            std::string dns = std::format("DNS:{}", cn);
+            addExt(x509, NID_subject_alt_name, dns.c_str());
             addExt(x509, NID_subject_key_identifier, ("hash"));
             addExt(x509, NID_authority_key_identifier, ("keyid"));
             addExt(x509, NID_key_usage, ("digitalSignature, keyEncipherment"));
