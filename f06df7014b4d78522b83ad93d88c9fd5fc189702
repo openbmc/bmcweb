@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d257b529_cc475085",
+        "filename": "include/openbmc_dbus_rest.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 1359,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-02-28T17:32:18Z",
+      "side": 1,
+      "message": "No, but it was here (incorrectly) before. I will try to make the script detect and fix this, but in terms of this patch, it\u0027s no worse than it was before.\n\nDone",
+      "parentUuid": "1f3cbba4_8a6b85c3",
+      "range": {
+        "startLine": 1359,
+        "startChar": 73,
+        "endLine": 1359,
+        "endChar": 75
+      },
+      "revId": "f06df7014b4d78522b83ad93d88c9fd5fc189702",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "02f5fee6_41fd6b14",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-02-28T11:51:47Z",
       "side": 1,
       "message": "nit: is it needed?",
+      "range": {
+        "startLine": 1369,
+        "startChar": 65,
+        "endLine": 1369,
+        "endChar": 67
+      },
+      "revId": "f06df7014b4d78522b83ad93d88c9fd5fc189702",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7d1c2161_ddc55bda",
+        "filename": "include/openbmc_dbus_rest.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 1369,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-02-28T17:32:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "02f5fee6_41fd6b14",
       "range": {
         "startLine": 1369,
         "startChar": 65,
@@ -70,6 +118,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6f70fa70_1e7ccaeb",
+        "filename": "include/openbmc_dbus_rest.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 2286,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-02-28T17:32:18Z",
+      "side": 1,
+      "message": "Yes, clang-formats formatting of lambdas is very fickle, which is why we\u0027re trying to move away from lambdas for non trivial routines, which any help you wanted to give would be greatly appreciated.  Yes, the only thing that changed was the length of some of the BMCWEB_LOG strings.",
+      "parentUuid": "595c9357_9f22a0a7",
+      "range": {
+        "startLine": 2283,
+        "startChar": 8,
+        "endLine": 2286,
+        "endChar": 34
+      },
+      "revId": "f06df7014b4d78522b83ad93d88c9fd5fc189702",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "423859b3_17ff8e1f",
@@ -83,6 +155,30 @@
       "writtenOn": "2022-02-28T11:51:47Z",
       "side": 1,
       "message": "nit: Can be inlined",
+      "range": {
+        "startLine": 18,
+        "startChar": 67,
+        "endLine": 18,
+        "endChar": 71
+      },
+      "revId": "f06df7014b4d78522b83ad93d88c9fd5fc189702",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fe2c855f_e3a3791e",
+        "filename": "redfish-core/include/gzfile.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-02-28T17:32:18Z",
+      "side": 1,
+      "message": "Done.  Fixed issue in script with handling of single quotes.  Good catch!",
+      "parentUuid": "423859b3_17ff8e1f",
       "range": {
         "startLine": 18,
         "startChar": 67,
@@ -116,6 +212,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3cfa3e0c_297d66ce",
+        "filename": "redfish-core/include/gzfile.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-02-28T17:32:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "656bee4b_efbf9359",
+      "range": {
+        "startLine": 48,
+        "startChar": 20,
+        "endLine": 48,
+        "endChar": 24
+      },
+      "revId": "f06df7014b4d78522b83ad93d88c9fd5fc189702",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a3d134ab_d621e48b",
@@ -129,6 +249,30 @@
       "writtenOn": "2022-02-28T11:51:47Z",
       "side": 1,
       "message": "nit: not needed",
+      "range": {
+        "startLine": 71,
+        "startChar": 71,
+        "endLine": 71,
+        "endChar": 73
+      },
+      "revId": "f06df7014b4d78522b83ad93d88c9fd5fc189702",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f737c0fb_19214adf",
+        "filename": "redfish-core/include/gzfile.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-02-28T17:32:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a3d134ab_d621e48b",
       "range": {
         "startLine": 71,
         "startChar": 71,
@@ -164,6 +308,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "20ebf02d_b19f800c",
+        "filename": "redfish-core/include/privileges.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-02-28T17:32:18Z",
+      "side": 1,
+      "message": "While you\u0027re probably right, this is the way it was before.  If we wanted to walk through and fix all these, we should do it in another commit.  I would like to keep this commit limited to things that the automated script can handle.  These things should be easy to grep for.",
+      "parentUuid": "0a238506_3b7cf5c7",
+      "range": {
+        "startLine": 89,
+        "startChar": 61,
+        "endLine": 89,
+        "endChar": 65
+      },
+      "revId": "f06df7014b4d78522b83ad93d88c9fd5fc189702",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "dd807daa_6e8122cc",
         "filename": "redfish-core/include/server_sent_events.hpp",
         "patchSetId": 7
@@ -175,6 +343,30 @@
       "writtenOn": "2022-02-28T11:51:47Z",
       "side": 1,
       "message": "nit: extra \\n",
+      "range": {
+        "startLine": 187,
+        "startChar": 55,
+        "endLine": 187,
+        "endChar": 57
+      },
+      "revId": "f06df7014b4d78522b83ad93d88c9fd5fc189702",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f2729035_3f97fae0",
+        "filename": "redfish-core/include/server_sent_events.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 187,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-02-28T17:32:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dd807daa_6e8122cc",
       "range": {
         "startLine": 187,
         "startChar": 55,
@@ -198,6 +390,30 @@
       "writtenOn": "2022-02-28T11:51:47Z",
       "side": 1,
       "message": "nit: extra \\n",
+      "range": {
+        "startLine": 186,
+        "startChar": 55,
+        "endLine": 186,
+        "endChar": 57
+      },
+      "revId": "f06df7014b4d78522b83ad93d88c9fd5fc189702",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "25816d65_2c0a99b7",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 186,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-02-28T17:32:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "34c0bc45_a4cb04ff",
       "range": {
         "startLine": 186,
         "startChar": 55,
@@ -254,6 +470,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f16b436d_b3c952d3",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-02-28T17:32:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5fe9b7e5_4f744f34",
+      "range": {
+        "startLine": 95,
+        "startChar": 54,
+        "endLine": 95,
+        "endChar": 56
+      },
+      "revId": "f06df7014b4d78522b83ad93d88c9fd5fc189702",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d21c2827_17fa61be",
@@ -267,6 +507,30 @@
       "writtenOn": "2022-02-28T11:51:47Z",
       "side": 1,
       "message": "nit: extra \\n",
+      "range": {
+        "startLine": 106,
+        "startChar": 56,
+        "endLine": 106,
+        "endChar": 58
+      },
+      "revId": "f06df7014b4d78522b83ad93d88c9fd5fc189702",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "da745e72_7d8544b2",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-02-28T17:32:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d21c2827_17fa61be",
       "range": {
         "startLine": 106,
         "startChar": 56,
@@ -300,6 +564,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5fb84baa_c2351fe0",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-02-28T17:32:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8b0ff838_bb90271a",
+      "range": {
+        "startLine": 131,
+        "startChar": 64,
+        "endLine": 131,
+        "endChar": 66
+      },
+      "revId": "f06df7014b4d78522b83ad93d88c9fd5fc189702",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7b06f7cb_51b5091d",
@@ -313,6 +601,30 @@
       "writtenOn": "2022-02-28T11:51:47Z",
       "side": 1,
       "message": "nit: \\n",
+      "range": {
+        "startLine": 717,
+        "startChar": 38,
+        "endLine": 717,
+        "endChar": 40
+      },
+      "revId": "f06df7014b4d78522b83ad93d88c9fd5fc189702",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6f1fd801_fac6bc63",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 717,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-02-28T17:32:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7b06f7cb_51b5091d",
       "range": {
         "startLine": 717,
         "startChar": 38,
@@ -346,6 +658,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "97113531_d082f2e5",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 725,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-02-28T17:32:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0ff8dd1e_eb869fcb",
+      "range": {
+        "startLine": 725,
+        "startChar": 44,
+        "endLine": 725,
+        "endChar": 46
+      },
+      "revId": "f06df7014b4d78522b83ad93d88c9fd5fc189702",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "796465fb_e814e58c",
@@ -369,6 +705,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4bca6524_d4252b09",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 777,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-02-28T17:32:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "796465fb_e814e58c",
+      "range": {
+        "startLine": 777,
+        "startChar": 35,
+        "endLine": 777,
+        "endChar": 37
+      },
+      "revId": "f06df7014b4d78522b83ad93d88c9fd5fc189702",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b91ba41a_e21e69a4",
@@ -382,6 +742,30 @@
       "writtenOn": "2022-02-28T11:51:47Z",
       "side": 1,
       "message": "nit: extra \\n",
+      "range": {
+        "startLine": 1599,
+        "startChar": 49,
+        "endLine": 1599,
+        "endChar": 51
+      },
+      "revId": "f06df7014b4d78522b83ad93d88c9fd5fc189702",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a8933e7a_63f49020",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 1599,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-02-28T17:32:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b91ba41a_e21e69a4",
       "range": {
         "startLine": 1599,
         "startChar": 49,
