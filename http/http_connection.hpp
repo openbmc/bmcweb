@@ -135,8 +135,7 @@ class Connection :
                 std::string id = "bmcweb";
 
                 const char* cStr = id.c_str();
-                // NOLINTNEXTLINE(cppcoreguidelines-pro-type-reinterpret-cast)
-                const auto* idC = reinterpret_cast<const unsigned char*>(cStr);
+                const auto* idC = std::bit_cast<const unsigned char*>(cStr);
                 int ret = SSL_set_session_id_context(
                     adaptor.native_handle(), idC,
                     static_cast<unsigned int>(id.length()));
