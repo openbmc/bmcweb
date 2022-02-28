@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "529bcf22_06f5b1a2",
+        "filename": "TESTING.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-02-28T00:19:03Z",
+      "side": 1,
+      "message": "While I love that you\u0027re writing documentation, and want to encourage it, can you please read through DEVELOPING.md and make sure none of it\u0027s duplicated?  For sure at the very least the redfish validator stuff is covered, which, if this documentation is better, I\u0027m happy to have it superceed, but I don\u0027t want to maintain both.",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 1,
+        "endChar": 27
+      },
+      "revId": "8172158fd6f253776b219dbae0a3ada3ecca503e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2f8dd4de_414fb4b4",
+        "filename": "TESTING.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-02-28T00:19:03Z",
+      "side": 1,
+      "message": "This section of doc of docs should really be in the robot framework documentation, not bmcweb.  They\u0027re not specific to bmcweb.",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 38,
+        "endChar": 53
+      },
+      "revId": "8172158fd6f253776b219dbae0a3ada3ecca503e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dd416aa2_bb62390a",
+        "filename": "TESTING.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-02-28T00:19:03Z",
+      "side": 1,
+      "message": "I don\u0027t think the websocket test will give any results on a desktop/qemu setup, as there\u0027s no sensors?",
+      "range": {
+        "startLine": 46,
+        "startChar": 30,
+        "endLine": 46,
+        "endChar": 47
+      },
+      "revId": "8172158fd6f253776b219dbae0a3ada3ecca503e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "80f94bb0_4c2a47bb",
+        "filename": "TESTING.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-02-28T00:19:03Z",
+      "side": 1,
+      "message": "Remove",
+      "range": {
+        "startLine": 48,
+        "startChar": 0,
+        "endLine": 48,
+        "endChar": 32
+      },
+      "revId": "8172158fd6f253776b219dbae0a3ada3ecca503e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "053b08f8_72834718",
+        "filename": "TESTING.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-02-28T00:19:03Z",
+      "side": 1,
+      "message": "Remove.  most of the world runs ssl by default.",
+      "range": {
+        "startLine": 52,
+        "startChar": 58,
+        "endLine": 52,
+        "endChar": 67
+      },
+      "revId": "8172158fd6f253776b219dbae0a3ada3ecca503e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
