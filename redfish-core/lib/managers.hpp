@@ -1872,8 +1872,8 @@ inline void
                 return;
             }
 
-            BMCWEB_LOG_DEBUG
-                << "Setting firmware version " + firmwareId + " to priority 0.";
+            BMCWEB_LOG_DEBUG << "Setting firmware version " << firmwareId
+                             << " to priority 0.";
 
             // Only support Immediate
             // An addition could be a Redfish Setting like

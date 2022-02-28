@@ -91,7 +91,7 @@ class Server
         };
 
         BMCWEB_LOG_INFO << "bmcweb server is running, local endpoint "
-                        << acceptor->local_endpoint();
+                        << acceptor->local_endpoint().address().to_string();
         startAsyncWaitForSignal();
         doAccept();
     }
@@ -115,7 +115,7 @@ class Server
             fs::create_directories(certPath);
         }
         fs::path certFile = certPath / "server.pem";
-        BMCWEB_LOG_INFO << "Building SSL Context file=" << certFile;
+        BMCWEB_LOG_INFO << "Building SSL Context file=" << certFile.string();
         std::string sslPemFile(certFile);
         ensuressl::ensureOpensslKeyPresentAndValid(sslPemFile);
         std::shared_ptr<boost::asio::ssl::context> sslContext =

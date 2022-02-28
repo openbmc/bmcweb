@@ -927,8 +927,8 @@ inline void requestRoutesSoftwareInventory(App& app)
                     }
                     if (!found)
                     {
-                        BMCWEB_LOG_ERROR
-                            << "Input swID " + *swId + " not found!";
+                        BMCWEB_LOG_ERROR << "Input swID " << *swId
+                                         << " not found!";
                         messages::resourceMissingAtURI(
                             asyncResp->res,
                             crow::utility::urlFromPieces(

@@ -89,7 +89,8 @@ class Resolver
                         return;
                     }
                     endpoint.port(portNum);
-                    BMCWEB_LOG_DEBUG << "resolved endpoint is : " << endpoint;
+                    BMCWEB_LOG_DEBUG << "resolved endpoint is : "
+                                     << endpoint.address().to_string();
                     endpointList.push_back(endpoint);
                 }
                 // All the resolved data is filled in the endpointList

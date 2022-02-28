@@ -120,13 +120,15 @@ class HttpClient : public std::enable_shared_from_this<HttpClient>
                               const boost::asio::ip::tcp::endpoint& endpoint) {
                 if (ec)
                 {
-                    BMCWEB_LOG_ERROR << "Connect " << endpoint
+                    BMCWEB_LOG_ERROR << "Connect "
+                                     << endpoint.address().to_string()
                                      << " failed: " << ec.message();
                     self->state = ConnState::connectFailed;
                     self->handleConnState();
                     return;
                 }
-                BMCWEB_LOG_DEBUG << "Connected to: " << endpoint;
+                BMCWEB_LOG_DEBUG << "Connected to: "
+                                 << endpoint.address().to_string();
                 self->state = ConnState::connected;
                 self->handleConnState();
             });
@@ -186,7 +188,7 @@ class HttpClient : public std::enable_shared_from_this<HttpClient>
                 BMCWEB_LOG_DEBUG << "recvMessage() bytes transferred: "
                                  << bytesTransferred;
                 BMCWEB_LOG_DEBUG << "recvMessage() data: "
-                                 << self->parser->get();
+                                 << self->parser->get().body();
 
                 unsigned int respCode = self->parser->get().result_int();
                 BMCWEB_LOG_DEBUG << "recvMessage() Header Response Code: "

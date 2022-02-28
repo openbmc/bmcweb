@@ -2227,7 +2227,7 @@ inline void requestRoutes(App& app)
                 if (!std::filesystem::exists(loc) ||
                     !std::filesystem::is_directory(loc))
                 {
-                    BMCWEB_LOG_ERROR << loc << "Not found";
+                    BMCWEB_LOG_ERROR << loc.string() << "Not found";
                     asyncResp->res.result(
                         boost::beast::http::status::not_found);
                     return;
