@@ -35,8 +35,7 @@ inline int pamFunctionConversation(int numMsg, const struct pam_message** msg,
         /* Assume PAM is only prompting for the password as hidden input */
         /* Allocate memory only when PAM_PROMPT_ECHO_OFF is encounterred */
 
-        // NOLINTNEXTLINE(cppcoreguidelines-pro-type-reinterpret-cast)
-        char* appPass = reinterpret_cast<char*>(appdataPtr);
+        char* appPass = std::bit_cast<char*>(appdataPtr);
         size_t appPassSize = std::strlen(appPass);
 
         if ((appPassSize + 1) > PAM_MAX_RESP_SIZE)
