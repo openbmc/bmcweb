@@ -343,7 +343,7 @@ class Connection :
                         << " " << this << " HTTP/" << thisReq.version() / 10
                         << "." << thisReq.version() % 10 << ' '
                         << thisReq.methodString() << " " << thisReq.target()
-                        << " " << thisReq.ipAddress;
+                        << " " << thisReq.ipAddress.to_string();
 
         res.setCompleteRequestHandler(nullptr);
         res.isAliveHelper = [this]() -> bool { return isAlive(); };
