@@ -279,6 +279,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a397a549_8c84cfaf",
+        "filename": "redfish-core/include/utils/json_utils.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 453,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-02-28T19:13:01Z",
+      "side": 1,
+      "message": "ACK",
+      "parentUuid": "4182d151_e3dabddf",
+      "range": {
+        "startLine": 453,
+        "startChar": 25,
+        "endLine": 453,
+        "endChar": 30
+      },
+      "revId": "8fb3eae1ba471192d6e84f695b40e09ebd19e125",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "93753866_78f8a707",
@@ -861,6 +885,30 @@
       "side": 1,
       "message": "I double checked it, compiler is not able to fully optimize \u0027error\u0027 variable which is returned from sdbusplus. Not matter if it\u0027s printed or not as long as we use to determine if error occurred it won\u0027t be optimized. So if index is used we can save some binary size. If we return std::string with name of property it will improve debug messages but we will have to pay for even if logs are dissabled.",
       "parentUuid": "4447eb18_b33d21f6",
+      "range": {
+        "startLine": 215,
+        "startChar": 0,
+        "endLine": 216,
+        "endChar": 44
+      },
+      "revId": "8fb3eae1ba471192d6e84f695b40e09ebd19e125",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "55d8f34e_7e0ec5eb",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 216,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-02-28T19:13:01Z",
+      "side": 1,
+      "message": "FWIW, we hit this problem the last time we tried to implement a templatized unpack for property unpacking.  Given the amount of time we spend debugging minor property type problems (string type instead of object_path, uint32 instead of uint64), it would be really hard to lose this level of inspectability and logging.\n\nI wonder if there\u0027s a path to where you could pass in a \"on_error\" callback to the unpack call?  That way, when logging is disabled, on_error would optimize down to nothing, and if logging is enabled, we would get the behavior we want.\n\nJust thinking out loud.",
+      "parentUuid": "c43c5319_38bb02a4",
       "range": {
         "startLine": 215,
         "startChar": 0,

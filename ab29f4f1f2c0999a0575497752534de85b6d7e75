@@ -48,6 +48,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "9971b3f4_398b46a5",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-02-28T19:13:01Z",
+      "side": 1,
+      "message": "Thanks.  I don\u0027t mean to be a stickler for this, but considering my last 12 patches have been trying to optimize the binary size to get bmcweb back to within its listed requirements, I\u0027d really like to not move backwards.",
+      "parentUuid": "98652c17_9a3b8830",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 13,
+        "endChar": 44
+      },
+      "revId": "ab29f4f1f2c0999a0575497752534de85b6d7e75",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "3ee6e1ff_27ac1012",
@@ -61,6 +85,24 @@
       "writtenOn": "2022-02-28T08:02:37Z",
       "side": 1,
       "message": "I marked old comments as resolved to clean it up. ",
+      "revId": "ab29f4f1f2c0999a0575497752534de85b6d7e75",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1b0ff1ec_59ee82c9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-02-28T19:13:01Z",
+      "side": 1,
+      "message": "ACKJ",
+      "parentUuid": "3ee6e1ff_27ac1012",
       "revId": "ab29f4f1f2c0999a0575497752534de85b6d7e75",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -102,6 +144,30 @@
       "side": 1,
       "message": "I will remove this change from this patchset if you are okay with it.",
       "parentUuid": "cb47627d_be8e813b",
+      "range": {
+        "startLine": 11,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 64
+      },
+      "revId": "ab29f4f1f2c0999a0575497752534de85b6d7e75",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "40efe9d8_0dac55af",
+        "filename": "redfish-core/include/utils/log_utils.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-02-28T19:13:01Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "4a91f228_d367ac67",
       "range": {
         "startLine": 11,
         "startChar": 0,
