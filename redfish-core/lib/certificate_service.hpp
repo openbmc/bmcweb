@@ -164,20 +164,22 @@ class CertificateFile
                                                    std::ofstream::trunc);
             out << certString;
             out.close();
-            BMCWEB_LOG_DEBUG << "Creating certificate file" << certificateFile;
+            BMCWEB_LOG_DEBUG << "Creating certificate file"
+                             << certificateFile.string();
         }
     }
     ~CertificateFile()
     {
         if (std::filesystem::exists(certDirectory))
         {
-            BMCWEB_LOG_DEBUG << "Removing certificate file" << certificateFile;
+            BMCWEB_LOG_DEBUG << "Removing certificate file"
+                             << certificateFile.string();
             std::error_code ec;
             std::filesystem::remove_all(certDirectory, ec);
             if (ec)
             {
                 BMCWEB_LOG_ERROR << "Failed to remove temp directory"
-                                 << certDirectory;
+                                 << certDirectory.string();
             }
         }
     }

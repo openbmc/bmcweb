@@ -136,7 +136,7 @@ inline void handleFilePut(const crow::Request& req,
 
     // Form the file path
     loc /= fileID;
-    BMCWEB_LOG_DEBUG << "Writing to the file: " << loc;
+    BMCWEB_LOG_DEBUG << "Writing to the file: " << loc.string();
 
     // Check if the same file exists in the directory
     bool fileExists = std::filesystem::exists(loc, ec);
@@ -305,7 +305,7 @@ inline void handleFileGet(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
         "/var/lib/bmcweb/ibm-management-console/configfiles/" + fileID);
     if (!std::filesystem::exists(loc))
     {
-        BMCWEB_LOG_ERROR << loc << "Not found";
+        BMCWEB_LOG_ERROR << loc.string() << "Not found";
         asyncResp->res.result(boost::beast::http::status::not_found);
         asyncResp->res.jsonValue["Description"] = resourceNotFoundMsg;
         return;
