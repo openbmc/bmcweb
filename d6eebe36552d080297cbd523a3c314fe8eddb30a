@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d9cc803e_bcd47625",
+        "filename": "redfish-core/lib/ut/service_root_test.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-02-28T23:47:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "803f6ddc_3a76f9dc",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 31
+      },
+      "revId": "d6eebe36552d080297cbd523a3c314fe8eddb30a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f021657f_14fa256c",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-02-28T23:46:52Z",
       "side": 1,
       "message": "considering this is constructed with zero arguments, can we just brace construct it inline with {}",
+      "range": {
+        "startLine": 56,
+        "startChar": 22,
+        "endLine": 56,
+        "endChar": 24
+      },
+      "revId": "d6eebe36552d080297cbd523a3c314fe8eddb30a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fe21618f_e8ac0cd5",
+        "filename": "redfish-core/lib/ut/service_root_test.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-02-28T23:47:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f021657f_14fa256c",
       "range": {
         "startLine": 56,
         "startChar": 22,
