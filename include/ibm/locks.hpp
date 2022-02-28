@@ -524,10 +524,8 @@ inline bool Lock::isConflictRequest(const LockRequests& refLockRequestStructure)
 inline bool Lock::checkByte(uint64_t resourceId1, uint64_t resourceId2,
                             uint32_t position)
 {
-    // NOLINTNEXTLINE(cppcoreguidelines-pro-type-reinterpret-cast)
-    uint8_t* p = reinterpret_cast<uint8_t*>(&resourceId1);
-    // NOLINTNEXTLINE(cppcoreguidelines-pro-type-reinterpret-cast)
-    uint8_t* q = reinterpret_cast<uint8_t*>(&resourceId2);
+    uint8_t* p = std::bit_cast<uint8_t*>(&resourceId1);
+    uint8_t* q = std::bit_cast<uint8_t*>(&resourceId2);
 
     // NOLINTNEXTLINE(cppcoreguidelines-pro-bounds-pointer-arithmetic)
     uint8_t pPosition = p[position];

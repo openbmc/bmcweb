@@ -279,13 +279,14 @@ inline void generateSslCertificate(const std::string& filepath,
             // get the subject name
             X509_NAME* name = X509_get_subject_name(x509);
 
-            using x509String = const unsigned char;
-            // NOLINTNEXTLINE(cppcoreguidelines-pro-type-reinterpret-cast)
-            x509String* country = reinterpret_cast<x509String*>("US");
-            // NOLINTNEXTLINE(cppcoreguidelines-pro-type-reinterpret-cast)
-            x509String* company = reinterpret_cast<x509String*>("OpenBMC");
-            // NOLINTNEXTLINE(cppcoreguidelines-pro-type-reinterpret-cast)
-            x509String* cnStr = reinterpret_cast<x509String*>(cn.c_str());
+            const char* countryStr = "US";
+            const char* companyStr = "OpenBMC";
+            const unsigned char* country =
+                std::bit_cast<const unsigned char*>(countryStr);
+            const unsigned char* company =
+                std::bit_cast<const unsigned char*>(companyStr);
+            const unsigned char* cnStr =
+                std::bit_cast<const unsigned char*>(cn.c_str());
 
             X509_NAME_add_entry_by_txt(name, "C", MBSTRING_ASC, country, -1, -1,
                                        0);
