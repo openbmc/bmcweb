@@ -33,8 +33,7 @@ inline int pamFunctionConversation(int numMsg, const struct pam_message** msg,
         /* Assume PAM is only prompting for the password as hidden input */
         /* Allocate memory only when PAM_PROMPT_ECHO_OFF is encounterred */
 
-        // NOLINTNEXTLINE(cppcoreguidelines-pro-type-reinterpret-cast)
-        char* appPass = reinterpret_cast<char*>(appdataPtr);
+        char* appPass = std::bit_cast<char*>(appdataPtr);
         size_t appPassSize = std::strlen(appPass);
 
         if ((appPassSize + 1) > PAM_MAX_RESP_SIZE)
@@ -47,8 +46,7 @@ inline int pamFunctionConversation(int numMsg, const struct pam_message** msg,
 
         // NOLINTNEXTLINE(cppcoreguidelines-no-malloc)'
         void* passPtr = malloc(appPassSize + 1);
-        // NOLINTNEXTLINE(cppcoreguidelines-pro-type-reinterpret-cast)
-        char* pass = reinterpret_cast<char*>(passPtr);
+        char* pass = std::bit_cast<char*>(passPtr);
         if (pass == nullptr)
         {
             return PAM_BUF_ERR;
@@ -66,8 +64,7 @@ inline int pamFunctionConversation(int numMsg, const struct pam_message** msg,
             return PAM_BUF_ERR;
         }
 
-        // NOLINTNEXTLINE(cppcoreguidelines-pro-type-reinterpret-cast)
-        *resp = reinterpret_cast<pam_response*>(ptr);
+        *resp = std::bit_cast<pam_response*>(ptr);
 
         // NOLINTNEXTLINE(cppcoreguidelines-pro-bounds-pointer-arithmetic)
         resp[i]->resp = pass;
