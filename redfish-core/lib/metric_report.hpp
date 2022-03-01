@@ -14,6 +14,9 @@ namespace redfish
 namespace telemetry
 {
 
+constexpr const char* metricReportUri =
+    "/redfish/v1/TelemetryService/MetricReports";
+
 using Readings =
     std::vector<std::tuple<std::string, std::string, double, uint64_t>>;
 using TimestampReadings = std::tuple<uint64_t, Readings>;
@@ -39,11 +42,16 @@ inline bool fillReport(nlohmann::json& json, const std::string& id,
                        const TimestampReadings& timestampReadings)
 {
     json["@odata.type"] = "#MetricReport.v1_3_0.MetricReport";
-    json["@odata.id"] = telemetry::metricReportUri + std::string("/") + id;
+    json["@odata.id"] =
+        crow::utility::urlFromPieces("redfish", "v1", "TelemetryService",
+                                     "MetricReports", id)
+            .string();
     json["Id"] = id;
     json["Name"] = id;
     json["MetricReportDefinition"]["@odata.id"] =
-        telemetry::metricReportDefinitionUri + std::string("/") + id;
+        crow::utility::urlFromPieces("redfish", "v1", "TelemetryService",
+                                     "MetricReportDefinitions", id)
+            .string();
 
     const auto& [timestamp, readings] = timestampReadings;
     json["Timestamp"] = crow::utility::getDateTimeUintMs(timestamp);
@@ -62,7 +70,7 @@ inline void requestRoutesMetricReportCollection(App& app)
                 asyncResp->res.jsonValue["@odata.type"] =
                     "#MetricReportCollection.MetricReportCollection";
                 asyncResp->res.jsonValue["@odata.id"] =
-                    "/redfish/v1/TelemetryService/MetricReports";
+                    telemetry::metricReportUri;
                 asyncResp->res.jsonValue["Name"] = "Metric Report Collection";
                 const std::vector<const char*> interfaces{
                     telemetry::reportInterface};
