@@ -505,14 +505,16 @@ class Subscription : public persistent_data::UserSubscription
     void filterAndSendReports(const std::string& reportId,
                               const telemetry::TimestampReadings& var)
     {
-        std::string mrdUri = telemetry::metricReportDefinitionUri + ("/" + id);
+        boost::urls::url mrdUri =
+            crow::utility::urlFromPieces("redfish", "v1", "TelemetryService",
+                                         "MetricReportDefinitions", reportId);
 
         // Empty list means no filter. Send everything.
         if (!metricReportDefinitions.empty())
         {
             if (std::find(metricReportDefinitions.begin(),
                           metricReportDefinitions.end(),
-                          mrdUri) == metricReportDefinitions.end())
+                          mrdUri.string()) == metricReportDefinitions.end())
             {
                 return;
             }
