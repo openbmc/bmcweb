@@ -59,6 +59,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "dbfe42ff_29fc5afb",
+        "filename": "redfish-core/lib/trigger.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 1001026
+      },
+      "writtenOn": "2022-03-01T17:12:15Z",
+      "side": 1,
+      "message": "No, it is more like an object_path, I changed code below to reflect it better.",
+      "parentUuid": "f15430ce_ea9ad431",
+      "range": {
+        "startLine": 143,
+        "startChar": 47,
+        "endLine": 143,
+        "endChar": 64
+      },
+      "revId": "4160c3cf7574aeb6276939ba5a7fcfebe48b94bb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "54d2cd97_8313a467",
@@ -72,6 +96,30 @@
       "writtenOn": "2022-02-28T19:59:31Z",
       "side": 1,
       "message": "Common error #12.  Please read and understand the common errors document.  I suspect this needs to be using the sdbusplus::message::object_path methods.",
+      "range": {
+        "startLine": 148,
+        "startChar": 0,
+        "endLine": 148,
+        "endChar": 44
+      },
+      "revId": "4160c3cf7574aeb6276939ba5a7fcfebe48b94bb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "19a161de_51f49ecc",
+        "filename": "redfish-core/lib/trigger.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 1001026
+      },
+      "writtenOn": "2022-03-01T17:12:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "54d2cd97_8313a467",
       "range": {
         "startLine": 148,
         "startChar": 0,
@@ -105,6 +153,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "23a74918_f78a6aa7",
+        "filename": "redfish-core/lib/trigger.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 1001026
+      },
+      "writtenOn": "2022-03-01T17:12:15Z",
+      "side": 1,
+      "message": "There were many places where it could be used, so I created helper methods in separate commit and will rebase this change on top of it.",
+      "parentUuid": "604f179c_a929f7e0",
+      "range": {
+        "startLine": 155,
+        "startChar": 27,
+        "endLine": 156,
+        "endChar": 63
+      },
+      "revId": "4160c3cf7574aeb6276939ba5a7fcfebe48b94bb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8f999018_74521d3c",
@@ -118,6 +190,30 @@
       "writtenOn": "2022-02-28T19:59:31Z",
       "side": 1,
       "message": "please use the urlFromPieces method for this.",
+      "range": {
+        "startLine": 279,
+        "startChar": 24,
+        "endLine": 279,
+        "endChar": 59
+      },
+      "revId": "4160c3cf7574aeb6276939ba5a7fcfebe48b94bb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7d0eef48_94b12014",
+        "filename": "redfish-core/lib/trigger.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 279,
+      "author": {
+        "id": 1001026
+      },
+      "writtenOn": "2022-03-01T17:12:15Z",
+      "side": 1,
+      "message": "Ack, see previous answer.",
+      "parentUuid": "8f999018_74521d3c",
       "range": {
         "startLine": 279,
         "startChar": 24,
