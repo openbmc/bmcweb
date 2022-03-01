@@ -786,7 +786,7 @@ void handleChassisDriveGet(crow::App& app, const crow::Request& req,
                            const std::string& chassisId,
                            const std::string& driveName)
 {
-    if (!redfish::setUpRedfishRoute(app, req, asyncResp->res))
+    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
     {
         return;
     }
