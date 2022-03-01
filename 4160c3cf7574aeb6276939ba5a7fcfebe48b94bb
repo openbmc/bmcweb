@@ -38,6 +38,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "3926c1f7_ff37194c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-01T22:30:44Z",
+      "side": 1,
+      "message": "Either.  Both of these are things where we didn\u0027t implement to the specification, and reall what I\u0027m asking is whether they could\u0027ve been avoided by testing with dmtf tooling?",
+      "parentUuid": "cc83a320_ac9b4820",
+      "revId": "4160c3cf7574aeb6276939ba5a7fcfebe48b94bb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f15430ce_ea9ad431",
         "filename": "redfish-core/lib/trigger.hpp",
         "patchSetId": 2
