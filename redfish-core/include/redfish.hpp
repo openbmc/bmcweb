@@ -123,6 +123,7 @@ class RedfishService
         requestRoutesFaultLogDumpService(app);
         requestRoutesFaultLogDumpEntryCollection(app);
         requestRoutesFaultLogDumpEntry(app);
+        requestRoutesFaultLogCreate(app);
         requestRoutesFaultLogDumpClear(app);
 #endif
 
