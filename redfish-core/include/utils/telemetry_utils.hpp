@@ -1,6 +1,7 @@
 #pragma once
 
 #include "dbus_utility.hpp"
+#include "utility.hpp"
 
 namespace redfish
 {
@@ -9,10 +10,27 @@ namespace telemetry
 {
 constexpr const char* service = "xyz.openbmc_project.Telemetry";
 constexpr const char* reportInterface = "xyz.openbmc_project.Telemetry.Report";
-constexpr const char* metricReportDefinitionUri =
-    "/redfish/v1/TelemetryService/MetricReportDefinitions";
-constexpr const char* metricReportUri =
-    "/redfish/v1/TelemetryService/MetricReports";
+
+inline std::string getMetricReportDefinitionUri(const std::string& id)
+{
+    boost::urls::url url = crow::utility::urlFromPieces(
+        "redfish", "v1", "TelemetryService", "MetricReportDefinitions", id);
+    return {url.data(), url.size()};
+}
+
+inline std::string getMetricReportUri(const std::string& id)
+{
+    boost::urls::url url = crow::utility::urlFromPieces(
+        "redfish", "v1", "TelemetryService", "MetricReports", id);
+    return {url.data(), url.size()};
+}
+
+inline std::string getTriggerUri(const std::string& id)
+{
+    boost::urls::url url = crow::utility::urlFromPieces(
+        "redfish", "v1", "TelemetryService", "Triggers", id);
+    return {url.data(), url.size()};
+}
 
 inline std::string getDbusReportPath(const std::string& id)
 {

@@ -143,9 +143,7 @@ inline nlohmann::json
     nlohmann::json reports = nlohmann::json::array();
     for (const std::string& name : reportNames)
     {
-        reports.push_back({
-            {"@odata.id", metricReportDefinitionUri + std::string("/") + name},
-        });
+        reports.push_back({{"@odata.id", getMetricReportDefinitionUri(name)}});
     }
 
     return reports;
@@ -214,7 +212,7 @@ inline bool fillTrigger(
     }
 
     json["@odata.type"] = "#Triggers.v1_2_0.Triggers";
-    json["@odata.id"] = triggerUri + std::string("/") + id;
+    json["@odata.id"] = getTriggerUri(id);
     json["Id"] = id;
     json["Name"] = *name;
 
@@ -282,8 +280,7 @@ inline void requestRoutesTriggerCollection(App& app)
                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
                 asyncResp->res.jsonValue["@odata.type"] =
                     "#TriggersCollection.TriggersCollection";
-                asyncResp->res.jsonValue["@odata.id"] =
-                    "/redfish/v1/TelemetryService/Triggers";
+                asyncResp->res.jsonValue["@odata.id"] = telemetry::triggerUri;
                 asyncResp->res.jsonValue["Name"] = "Triggers Collection";
                 const std::vector<const char*> interfaces{
                     telemetry::triggerInterface};
