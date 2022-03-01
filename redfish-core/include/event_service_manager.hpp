@@ -19,6 +19,7 @@
 #include "registries/base_message_registry.hpp"
 #include "registries/openbmc_message_registry.hpp"
 #include "registries/task_event_message_registry.hpp"
+#include "utils/telemetry_utils.hpp"
 
 #include <sys/inotify.h>
 
@@ -505,7 +506,8 @@ class Subscription : public persistent_data::UserSubscription
     void filterAndSendReports(const std::string& reportId,
                               const telemetry::TimestampReadings& var)
     {
-        std::string mrdUri = telemetry::metricReportDefinitionUri + ("/" + id);
+        std::string_view mrdUri =
+            telemetry::getMetricReportDefinitionUri(reportId);
 
         // Empty list means no filter. Send everything.
         if (!metricReportDefinitions.empty())
