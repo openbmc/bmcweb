@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b56624b8_dec62662",
+        "filename": "redfish-core/include/utils/telemetry_utils.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-01T21:44:07Z",
+      "side": 1,
+      "message": "This is a lot of duplication, that, if the whole codebase took this pattern, would lead to a lot of \"generate x url\" code.  These also are forcing a string copy, given they\u0027re returning std::string instead of string_view, for which string_view is possible when these aren\u0027t helper functions.\n\nWhat if we did something like the below, which just loads the url directly into the json without any intermediates?\n\n diff --git a/redfish-core/lib/metric_report_definition.hpp b/redfish-core/lib/metric_report_definition.hpp\n index ab7c88ba4..f7d414ab4 100644\n --- a/redfish-core/lib/metric_report_definition.hpp\n +++ b/redfish-core/lib/metric_report_definition.hpp\n @@ -29,12 +29,15 @@ inline void fillReportDefinition(\n  {\n      asyncResp-\u003eres.jsonValue[\"@odata.type\"] \u003d\n          \"#MetricReportDefinition.v1_3_0.MetricReportDefinition\";\n -    asyncResp-\u003eres.jsonValue[\"@odata.id\"] \u003d\n -        telemetry::metricReportDefinitionUri + std::string(\"/\") + id;\n +    asyncResp-\u003eres.jsonValue[\"MetricReport\"][\"@odata.id\"] \u003d\n +        crow::utility::urlFromPieces(\"redfish\", \"v1\", \"TelemetryService\",\n +                                     \"MetricReportDefinitions\", id);\n +\n      asyncResp-\u003eres.jsonValue[\"Id\"] \u003d id;\n      asyncResp-\u003eres.jsonValue[\"Name\"] \u003d id;\n      asyncResp-\u003eres.jsonValue[\"MetricReport\"][\"@odata.id\"] \u003d\n -        telemetry::metricReportUri + std::string(\"/\") + id;\n +        crow::utility::urlFromPieces(\"redfish\", \"v1\", \"TelemetryService\",\n +                                     \"MetricReports\", id);\n      asyncResp-\u003eres.jsonValue[\"Status\"][\"State\"] \u003d \"Enabled\";\n      asyncResp-\u003eres.jsonValue[\"ReportUpdates\"] \u003d \"Overwrite\";",
+      "range": {
+        "startLine": 14,
+        "startChar": 0,
+        "endLine": 34,
+        "endChar": 0
+      },
+      "revId": "2c968cf9660bc24a8cc0dc1a0013a6d05dda55a0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
