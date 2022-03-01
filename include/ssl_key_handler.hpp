@@ -350,12 +350,12 @@ EVP_PKEY* createEcKey()
         pKey = EVP_PKEY_new();
         if (pKey != nullptr)
         {
-            if (EVP_PKEY_assign_EC_KEY(pKey, myecc))
+            if (EVP_PKEY_assign(pKey, EVP_PKEY_EC, myecc) != 0)
             {
                 /* pKey owns myecc from now */
                 if (EC_KEY_check_key(myecc) <= 0)
                 {
-                    fprintf(stderr, "EC_check_key failed.\n");
+                    std::cerr << "EC_check_key failed.\n";
                 }
             }
         }
