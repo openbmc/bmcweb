@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "cc83a320_ac9b4820",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2022-03-01T11:29:37Z",
+      "side": 1,
+      "message": "Do you mean first problem related to \u0027/\u0027 character or second problem related to response containing both error and some fields?",
+      "parentUuid": "6904b0b1_5f87dcd0",
+      "revId": "4160c3cf7574aeb6276939ba5a7fcfebe48b94bb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f15430ce_ea9ad431",
         "filename": "redfish-core/lib/trigger.hpp",
         "patchSetId": 2
