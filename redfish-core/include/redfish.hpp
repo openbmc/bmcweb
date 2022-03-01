@@ -119,6 +119,13 @@ class RedfishService
         requestRoutesBMCDumpEntry(app);
         requestRoutesBMCDumpCreate(app);
         requestRoutesBMCDumpClear(app);
+
+        requestRoutesFaultLogDumpService(app);
+        requestRoutesFaultLogDumpEntryCollection(app);
+        requestRoutesFaultLogDumpEntry(app);
+        requestRoutesFaultLogDumpCreate(app);
+        requestRoutesFaultLogDumpClear(app);
+
 #endif
 
 #ifndef BMCWEB_ENABLE_REDFISH_DBUS_LOG_ENTRIES
