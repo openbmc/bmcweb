@@ -96,6 +96,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "84713714_87486cd4",
+        "filename": "redfish-core/lib/manager_diagnostic_data.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000500
+      },
+      "writtenOn": "2022-03-01T23:06:45Z",
+      "side": 1,
+      "message": "Pull request 5004 is merged.",
+      "parentUuid": "6f57d21f_461feff1",
+      "range": {
+        "startLine": 9,
+        "startChar": 41,
+        "endLine": 9,
+        "endChar": 61
+      },
+      "revId": "cced69640aeb195877f79fd026a57fb792e5c3f6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f0b79fcc_0294996f",
@@ -192,6 +216,30 @@
       "side": 1,
       "message": "👍",
       "parentUuid": "6a847635_c42de4b5",
+      "range": {
+        "startLine": 1169,
+        "startChar": 0,
+        "endLine": 1171,
+        "endChar": 21
+      },
+      "revId": "cced69640aeb195877f79fd026a57fb792e5c3f6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9d6300db_4376e803",
+        "filename": "static/redfish/v1/$metadata/index.xml",
+        "patchSetId": 7
+      },
+      "lineNbr": 1171,
+      "author": {
+        "id": 1000500
+      },
+      "writtenOn": "2022-03-01T23:06:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1b6f6290_1873a774",
       "range": {
         "startLine": 1169,
         "startChar": 0,
@@ -322,6 +370,30 @@
       "side": 1,
       "message": "Created pull request 5004.",
       "parentUuid": "94908718_7f8beac1",
+      "range": {
+        "startLine": 175,
+        "startChar": 0,
+        "endLine": 175,
+        "endChar": 6
+      },
+      "revId": "cced69640aeb195877f79fd026a57fb792e5c3f6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fe0a9ac2_f5ae8e2e",
+        "filename": "static/redfish/v1/schema/ManagerDiagnosticData_v1.xml",
+        "patchSetId": 7
+      },
+      "lineNbr": 175,
+      "author": {
+        "id": 1000500
+      },
+      "writtenOn": "2022-03-01T23:06:45Z",
+      "side": 1,
+      "message": "Pull request 5004 is merged, so updating the XML file to fix the whitespaces.",
+      "parentUuid": "9182240c_8cee7086",
       "range": {
         "startLine": 175,
         "startChar": 0,
