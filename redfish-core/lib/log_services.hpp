@@ -37,9 +37,14 @@
 #include <registries/privilege_registry.hpp>
 
 #include <charconv>
+#include <cstdlib>
 #include <filesystem>
+#include <fstream>
+#include <iostream>
 #include <optional>
+#include <random>
 #include <span>
+#include <sstream>
 #include <string_view>
 #include <variant>
 
@@ -379,13 +384,17 @@ inline void
     {
         dumpPath = "/redfish/v1/Managers/bmc/LogServices/Dump/Entries/";
     }
+    else if (dumpType == "FaultLog")
+    {
+        dumpPath = "/redfish/v1/Managers/faultlog/LogServices/Dump/Entries/";
+    }
     else if (dumpType == "System")
     {
         dumpPath = "/redfish/v1/Systems/system/LogServices/Dump/Entries/";
     }
     else
     {
-        BMCWEB_LOG_ERROR << "Invalid dump type" << dumpType;
+        BMCWEB_LOG_ERROR << "Invalid dump type " << dumpType;
         messages::internalError(asyncResp->res);
         return;
     }
@@ -480,7 +489,7 @@ inline void
                                     messages::internalError(asyncResp->res);
                                     break;
                                 }
-                                timestamp = (*usecsTimeStamp / 1000 / 1000);
+                                timestamp = (*usecsTimeStamp /*/ 1000 / 1000*/);
                                 break;
                             }
                         }
@@ -522,6 +531,13 @@ inline void
                 }
                 entriesArray.push_back(std::move(thisEntry));
             }
+
+            std::sort(entriesArray.begin(), entriesArray.end(),
+                      [](const nlohmann::json& a, const nlohmann::json& b) {
+                          return std::stoi(a["Id"].get<std::string>()) <
+                                 std::stoi(b["Id"].get<std::string>());
+                      });
+
             asyncResp->res.jsonValue["Members@odata.count"] =
                 entriesArray.size();
         },
@@ -537,6 +553,10 @@ inline void
     if (dumpType == "BMC")
     {
         dumpPath = "/redfish/v1/Managers/bmc/LogServices/Dump/Entries/";
+    }
+    else if (dumpType == "FaultLog")
+    {
+        dumpPath = "/redfish/v1/Managers/faultlog/LogServices/Dump/Entries/";
     }
     else if (dumpType == "System")
     {
@@ -578,8 +598,12 @@ inline void
                 uint64_t size = 0;
                 std::string dumpStatus;
 
+                BMCWEB_LOG_INFO << "foundDumpEntry " + dumpEntryPath;
+
                 for (const auto& interfaceMap : objectPath.second)
                 {
+                    BMCWEB_LOG_INFO << "interfaceMap: " << interfaceMap.first;
+
                     if (interfaceMap.first ==
                         "xyz.openbmc_project.Common.Progress")
                     {
@@ -621,6 +645,8 @@ inline void
                     else if (interfaceMap.first ==
                              "xyz.openbmc_project.Time.EpochTime")
                     {
+                        BMCWEB_LOG_INFO << "EpochTime";
+
                         for (const auto& propertyMap : interfaceMap.second)
                         {
                             if (propertyMap.first == "Elapsed")
@@ -632,11 +658,25 @@ inline void
                                     messages::internalError(asyncResp->res);
                                     break;
                                 }
-                                timestamp = *usecsTimeStamp / 1000 / 1000;
+                                BMCWEB_LOG_INFO << "Elapsed: "
+                                                << *usecsTimeStamp;
+
+                                timestamp = *usecsTimeStamp /*/ 1000 / 1000*/;
                                 break;
                             }
                         }
                     }
+                }
+
+                BMCWEB_LOG_INFO << "dumpStatus: " + dumpStatus;
+
+                if (dumpStatus.empty())
+                {
+                    BMCWEB_LOG_INFO << "dumpStatus.empty(): true";
+                }
+                else
+                {
+                    BMCWEB_LOG_INFO << "dumpStatus.empty(): false";
                 }
 
                 if (dumpStatus !=
@@ -648,6 +688,19 @@ inline void
                     messages::resourceNotFound(asyncResp->res,
                                                dumpType + " dump", entryID);
                     return;
+                }
+
+                std::string line;
+
+                std::ifstream faultLogStream(
+                    std::string(
+                        "/var/lib/phosphor-debug-collector/faultlogs/") +
+                    entryID);
+                if (faultLogStream)
+                {
+                    std::ostringstream oss;
+                    oss << faultLogStream.rdbuf();
+                    line = oss.str();
                 }
 
                 asyncResp->res.jsonValue["@odata.type"] =
@@ -667,6 +720,16 @@ inline void
                     asyncResp->res.jsonValue["AdditionalDataURI"] =
                         "/redfish/v1/Managers/bmc/LogServices/Dump/Entries/" +
                         entryID + "/attachment";
+                }
+                else if (dumpType == "FaultLog")
+                {
+                    asyncResp->res.jsonValue["DiagnosticDataType"] = "OEM"; //?
+                    asyncResp->res.jsonValue["OEMDiagnosticDataType"] =
+                        "FaultLog"; //?
+                    asyncResp->res.jsonValue["AdditionalDataURI"] =
+                        "/redfish/v1/Systems/system/LogServices/Dump/Entries/" +
+                        entryID + "/attachment";
+                    asyncResp->res.jsonValue["Message"] = std::move(line);
                 }
                 else if (dumpType == "System")
                 {
@@ -704,7 +767,7 @@ inline void deleteDumpEntry(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                 return;
             }
             BMCWEB_LOG_ERROR << "Dump (DBus) doDelete respHandler got error "
-                             << ec;
+                             << ec << " entryID=" << entryID;
             messages::internalError(asyncResp->res);
             return;
         }
@@ -778,6 +841,10 @@ inline void createDump(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     {
         dumpPath = "/redfish/v1/Managers/bmc/LogServices/Dump/Entries/";
     }
+    else if (dumpType == "FaultLog")
+    {
+        dumpPath = "/redfish/v1/Managers/faultlog/LogServices/Dump/Entries/";
+    }
     else if (dumpType == "System")
     {
         dumpPath = "/redfish/v1/Systems/system/LogServices/Dump/Entries/";
@@ -818,7 +885,7 @@ inline void createDump(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
             return;
         }
     }
-    else if (dumpType == "BMC")
+    else if (dumpType == "BMC" || dumpType == "FaultLog")
     {
         if (!diagnosticDataType)
         {
@@ -835,27 +902,121 @@ inline void createDump(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
             messages::internalError(asyncResp->res);
             return;
         }
-    }
 
-    crow::connections::systemBus->async_method_call(
-        [asyncResp, payload(task::Payload(req)), dumpPath,
-         dumpType](const boost::system::error_code ec,
-                   const uint32_t& dumpId) mutable {
-            if (ec)
+        BMCWEB_LOG_DEBUG << "log_services.hpp createDump: "
+                         << "/xyz/openbmc_project/dump/" +
+                                std::string(
+                                    boost::algorithm::to_lower_copy(dumpType));
+
+        if (dumpType == "BMC")
+        {
+
+            // using DumpCreateParams = std::map<std::string,
+            // std::variant<std::string, uint64_t>>;
+            std::map<std::string, std::variant<std::string, uint64_t>>
+                myEmptyMap;
+
+            if (myEmptyMap.empty())
             {
-                BMCWEB_LOG_ERROR << "CreateDump resp_handler got error " << ec;
-                messages::internalError(asyncResp->res);
-                return;
+                BMCWEB_LOG_DEBUG << "myEmptyMap is empty";
             }
-            BMCWEB_LOG_DEBUG << "Dump Created. Id: " << dumpId;
+            else
+            {
+                BMCWEB_LOG_DEBUG << "myEmptyMap isn't empty";
+            }
 
-            createDumpTaskCallback(std::move(payload), asyncResp, dumpId,
-                                   dumpPath, dumpType);
-        },
-        "xyz.openbmc_project.Dump.Manager",
-        "/xyz/openbmc_project/dump/" +
-            std::string(boost::algorithm::to_lower_copy(dumpType)),
-        "xyz.openbmc_project.Dump.Create", "CreateDump");
+            crow::connections::systemBus->async_method_call(
+                [asyncResp,
+                 payload(task::Payload(req)) /*, dumpPath, dumpType*/](
+                    const boost::system::error_code ec,
+                    /*const uint32_t& dumpId*/ const sdbusplus::message::
+                        object_path& objPath) mutable {
+                    if (ec)
+                    {
+                        BMCWEB_LOG_ERROR << "CreateDump resp_handler got error "
+                                         << ec;
+                        messages::internalError(asyncResp->res);
+                        return;
+                    }
+
+                    BMCWEB_LOG_DEBUG << "CreateDump end " << objPath.str;
+
+                    messages::success(asyncResp->res);
+
+                    /*BMCWEB_LOG_DEBUG << "Dump Created. Id: " << dumpId;
+
+                    createDumpTaskCallback(std::move(payload), asyncResp,
+                    dumpId, dumpPath, dumpType);*/
+                },
+                "xyz.openbmc_project.Dump.Manager",
+                "/xyz/openbmc_project/dump/" +
+                    std::string(boost::algorithm::to_lower_copy(dumpType)),
+                "xyz.openbmc_project.Dump.Create", "CreateDump", myEmptyMap);
+        }
+        else if (dumpType == "FaultLog")
+        {
+            // using DumpCreateParams = std::map<std::string,
+            // std::variant<std::string, uint64_t>>;
+
+            std::map<std::string, std::variant<std::string, uint64_t>> params;
+
+            std::random_device rd1;
+            std::default_random_engine dre1(rd1());
+            std::uniform_int_distribution<int> uid1(0, 100);
+
+            int currParam = uid1(dre1);
+            params.insert(std::pair<std::string, uint64_t>(
+                "myParam_" + std::to_string(currParam), currParam));
+            currParam = uid1(dre1);
+            params.insert(std::pair<std::string, uint64_t>(
+                "myParam_" + std::to_string(currParam), currParam));
+
+            if (params.empty())
+            {
+                BMCWEB_LOG_DEBUG << "params is empty";
+            }
+            else
+            {
+                BMCWEB_LOG_DEBUG << "params isn't empty";
+            }
+
+            crow::connections::systemBus->async_method_call(
+                [asyncResp](boost::system::error_code ec) {
+                    if (ec)
+                    {
+                        std::cerr << "Error creating dump. ec: " << ec
+                                  << std::endl;
+                        return;
+                    }
+
+                    messages::success(asyncResp->res);
+                },
+                "xyz.openbmc_project.Dump.Manager",
+                "/xyz/openbmc_project/dump/" +
+                    std::string(boost::algorithm::to_lower_copy(dumpType)),
+                "xyz.openbmc_project.Dump.Create", "CreateDump", params);
+
+            /*
+            uint32_t arg1 = 1;
+            uint64_t arg2 = 2;
+
+            crow::connections::systemBus->async_method_call(
+                [asyncResp](const boost::system::error_code ec) {
+                    if (ec)
+                    {
+                        BMCWEB_LOG_ERROR << "Notify resp_handler got error " <<
+            ec; messages::internalError(asyncResp->res); return;
+                    }
+                    BMCWEB_LOG_DEBUG << "Notify success";
+                    messages::success(asyncResp->res);
+                },
+                "xyz.openbmc_project.Dump.Manager",
+                "/xyz/openbmc_project/dump/" +
+                    std::string(boost::algorithm::to_lower_copy(dumpType)),
+                "xyz.openbmc_project.Dump.NewDump", "Notify", arg1, arg2);
+            */
+        }
+    }
 }
 
 inline void clearDump(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
@@ -2423,6 +2584,123 @@ inline void requestRoutesBMCDumpClear(App& app)
             [](const crow::Request&,
                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
                 clearDump(asyncResp, "BMC");
+            });
+}
+
+inline void requestRoutesFaultLogDumpService(App& app)
+{
+    BMCWEB_ROUTE(app, "/redfish/v1/Managers/faultlog/LogServices/Dump/")
+        .privileges(redfish::privileges::getLogService)
+        .methods(boost::beast::http::verb::get)(
+            [](const crow::Request&,
+               const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
+                asyncResp->res.jsonValue["@odata.id"] =
+                    "/redfish/v1/Managers/faultlog/LogServices/Dump";
+                asyncResp->res.jsonValue["@odata.type"] =
+                    "#LogService.v1_2_0.LogService";
+                asyncResp->res.jsonValue["Name"] = "Dump LogService";
+                asyncResp->res.jsonValue["Description"] =
+                    "Fault Log Dump LogService";
+                asyncResp->res.jsonValue["Id"] = "Dump";
+                asyncResp->res.jsonValue["OverWritePolicy"] = "Unknown";
+
+                std::pair<std::string, std::string> redfishDateTimeOffset =
+                    crow::utility::getDateTimeOffsetNow();
+                asyncResp->res.jsonValue["DateTime"] =
+                    redfishDateTimeOffset.first;
+                asyncResp->res.jsonValue["DateTimeLocalOffset"] =
+                    redfishDateTimeOffset.second;
+
+                asyncResp->res.jsonValue["Entries"] = {
+                    {"@odata.id",
+                     "/redfish/v1/Managers/faultlog/LogServices/Dump/Entries"}};
+                asyncResp->res.jsonValue["Actions"] = {
+                    {"#LogService.ClearLog",
+                     {{"target",
+                       "/redfish/v1/Managers/faultlog/LogServices/Dump/"
+                       "Actions/LogService.ClearLog"}}},
+                    {"#LogService.CollectDiagnosticData",
+                     {{"target",
+                       "/redfish/v1/Managers/faultlog/LogServices/Dump/"
+                       "Actions/LogService.CollectDiagnosticData"}}}};
+            });
+}
+
+inline void requestRoutesFaultLogDumpEntryCollection(App& app)
+{
+
+    /**
+     * Functions triggers appropriate requests on DBus
+     */
+    BMCWEB_ROUTE(app, "/redfish/v1/Managers/faultlog/LogServices/Dump/Entries/")
+        .privileges(redfish::privileges::getLogEntryCollection)
+        .methods(boost::beast::http::verb::get)(
+            [](const crow::Request&,
+               const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
+                asyncResp->res.jsonValue["@odata.type"] =
+                    "#LogEntryCollection.LogEntryCollection";
+                asyncResp->res.jsonValue["@odata.id"] =
+                    "/redfish/v1/Managers/faultlog/LogServices/Dump/Entries";
+                asyncResp->res.jsonValue["Name"] = "Fault Log Dump Entries";
+                asyncResp->res.jsonValue["Description"] =
+                    "Collection of Fault Log Dump Entries";
+
+                getDumpEntryCollection(asyncResp, "FaultLog");
+            });
+}
+
+inline void requestRoutesFaultLogDumpEntry(App& app)
+{
+    BMCWEB_ROUTE(
+        app, "/redfish/v1/Managers/faultlog/LogServices/Dump/Entries/<str>/")
+        .privileges(redfish::privileges::getLogEntry)
+        .methods(boost::beast::http::verb::get)(
+            [](const crow::Request&,
+               const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+               const std::string& param) {
+                getDumpEntryById(asyncResp, param, "FaultLog");
+            });
+    /*
+        BMCWEB_ROUTE(app,
+                     "/redfish/v1/Managers/faultlog/LogServices/Dump/Entries/<str>/")
+            .privileges(redfish::privileges::deleteLogEntry)
+            .methods(boost::beast::http::verb::delete_)(
+                [](const crow::Request&,
+                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                   const std::string& param) {
+                    deleteDumpEntry(asyncResp, param, "FaultLog");
+                });
+    */
+}
+
+inline void requestRoutesFaultLogDumpCreate(App& app)
+{
+    BMCWEB_ROUTE(app, "/redfish/v1/Managers/faultlog/LogServices/Dump/"
+                      "Actions/"
+                      "LogService.CollectDiagnosticData/")
+        .privileges(redfish::privileges::postLogService)
+        .methods(boost::beast::http::verb::post)(
+            [](const crow::Request& req,
+               const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
+                std::cout << "requestRoutesFaultLogDumpCreate\n";
+                BMCWEB_LOG_DEBUG << "MyDebug";
+                BMCWEB_LOG_INFO << "MyInfo";
+                BMCWEB_LOG_ERROR << "MyError";
+
+                createDump(asyncResp, req, "FaultLog");
+            });
+}
+
+inline void requestRoutesFaultLogDumpClear(App& app)
+{
+    BMCWEB_ROUTE(app, "/redfish/v1/Managers/faultlog/LogServices/Dump/"
+                      "Actions/"
+                      "LogService.ClearLog/")
+        .privileges(redfish::privileges::postLogService)
+        .methods(boost::beast::http::verb::post)(
+            [](const crow::Request&,
+               const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
+                clearDump(asyncResp, "FaultLog");
             });
 }
 
