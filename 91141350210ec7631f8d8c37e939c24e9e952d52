@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "5bef05b2_c5ad16da",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000559
+      },
+      "writtenOn": "2022-03-02T16:43:24Z",
+      "side": 1,
+      "message": "Will take a look",
+      "parentUuid": "49d1f654_7fc05099",
+      "revId": "91141350210ec7631f8d8c37e939c24e9e952d52",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "da891c7a_c2b04679",
         "filename": "/COMMIT_MSG",
         "patchSetId": 2
@@ -31,6 +49,24 @@
       "writtenOn": "2022-03-02T02:17:40Z",
       "side": 1,
       "message": "Redfish Validator ?",
+      "revId": "91141350210ec7631f8d8c37e939c24e9e952d52",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b27a1b9d_604bba17",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000559
+      },
+      "writtenOn": "2022-03-02T16:43:24Z",
+      "side": 1,
+      "message": "Will add",
+      "parentUuid": "da891c7a_c2b04679",
       "revId": "91141350210ec7631f8d8c37e939c24e9e952d52",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -48,6 +84,41 @@
       "writtenOn": "2022-03-02T02:17:40Z",
       "side": 1,
       "message": "Why private here ?",
+      "revId": "91141350210ec7631f8d8c37e939c24e9e952d52",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "96cfc291_4fc1f462",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000559
+      },
+      "writtenOn": "2022-03-02T16:43:24Z",
+      "side": 1,
+      "message": "Thanks for catching it, I only wanted it to be WIP",
+      "parentUuid": "a0fa0c73_ca857fe6",
+      "revId": "91141350210ec7631f8d8c37e939c24e9e952d52",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "124dddd4_42e53f86",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000559
+      },
+      "writtenOn": "2022-03-02T16:43:24Z",
+      "side": 1,
+      "message": "Thanks for the quick feedback. Will update.",
       "revId": "91141350210ec7631f8d8c37e939c24e9e952d52",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
