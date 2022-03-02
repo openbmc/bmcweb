@@ -69,6 +69,24 @@
       "parentUuid": "0fa0bd5b_5e5e966c",
       "revId": "d70ab03f50b2d3d2c7e6009afa40c3288f9b7bbe",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d9317e7e_c129015b",
+        "filename": "redfish-core/include/registries/privilege_registry.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-02T01:05:25Z",
+      "side": 1,
+      "message": "\u003e The new privilege registry is updated to the Github repository (https://github.com/DMTF/Redfish/blob/master/registries/Redfish_1.3.0_PrivilegeRegistry.json) but not on the DMTF website yet, I pointed the parse_registries.py to a local copy of the new registry and updated this file.\n\u003e \n\u003e The CI will not pass until the URL pointing to this file is live:\n\u003e \n\u003e    requests.exceptions.HTTPError: 404 Client Error: Not Found for url: https://redfish.dmtf.org/registries/Redfish_1.3.0_PrivilegeRegistry.json\n\n\nThis whole comment should ideally be in your commit message, to make it clear why this hasn\u0027t merged yet, and what work is remaining.",
+      "parentUuid": "d5a7af73_5424a647",
+      "revId": "d70ab03f50b2d3d2c7e6009afa40c3288f9b7bbe",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
