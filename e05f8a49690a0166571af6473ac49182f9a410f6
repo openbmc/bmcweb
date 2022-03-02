@@ -1,6 +1,7 @@
 {
   "comments": [
     {
+      "unresolved": true,
       "key": {
         "uuid": "043d72a5_9ea52e1c",
         "filename": "redfish-core/lib/update_service.hpp",
@@ -20,10 +21,10 @@
         "endChar": 25
       },
       "revId": "e05f8a49690a0166571af6473ac49182f9a410f6",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "e0870e43_faf6d639",
         "filename": "redfish-core/lib/update_service.hpp",
@@ -44,10 +45,10 @@
         "endChar": 25
       },
       "revId": "e05f8a49690a0166571af6473ac49182f9a410f6",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "ea79df96_b2603170",
         "filename": "redfish-core/lib/update_service.hpp",
@@ -68,10 +69,10 @@
         "endChar": 25
       },
       "revId": "e05f8a49690a0166571af6473ac49182f9a410f6",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "73486d4c_5feed6f5",
         "filename": "redfish-core/lib/update_service.hpp",
@@ -92,8 +93,31 @@
         "endChar": 25
       },
       "revId": "e05f8a49690a0166571af6473ac49182f9a410f6",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a879b4f8_18451348",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 26
+      },
+      "lineNbr": 1313,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-02T00:19:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "73486d4c_5feed6f5",
+      "range": {
+        "startLine": 1272,
+        "startChar": 24,
+        "endLine": 1313,
+        "endChar": 25
+      },
+      "revId": "e05f8a49690a0166571af6473ac49182f9a410f6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
