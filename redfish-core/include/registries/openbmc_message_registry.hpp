@@ -19,14 +19,14 @@
 namespace redfish::message_registries::openbmc
 {
 const Header header = {
-    "Copyright 2018 OpenBMC. All rights reserved.",
+    "Copyright 2022 OpenBMC. All rights reserved.",
     "#MessageRegistry.v1_4_0.MessageRegistry",
-    "OpenBMC.0.3.0",
+    "OpenBMC.0.3.1",
     "OpenBMC Message Registry",
     "en",
     "This registry defines the base messages for OpenBMC.",
     "OpenBMC",
-    "0.3.0",
+    "0.3.1",
     "OpenBMC",
 };
 constexpr std::array<MessageEntry, 189> registry = {
@@ -311,7 +311,7 @@ constexpr std::array<MessageEntry, 189> registry = {
         "ComponentOverTemperature",
         {
             "Indicates that the specified component is over temperature.",
-            "%1 component over temperature and being throttled.",
+            "%1 over temperature and being throttled.",
             "Critical",
             "Critical",
             1,
