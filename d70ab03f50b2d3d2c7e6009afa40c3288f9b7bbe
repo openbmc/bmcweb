@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "75cd0c26_4c9ef9fb",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 13
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1000500
+      },
+      "writtenOn": "2022-03-02T00:18:11Z",
+      "side": 1,
+      "message": "I just realized I need to update the ComputerSystems_v1.xml schema file, and modify the Manager handler so it returns Manager.v1_14_0.Manager. The schema file should be handled by change 50946. The version is updated in the latest revision.",
+      "parentUuid": "c23337a3_6c801198",
+      "revId": "d70ab03f50b2d3d2c7e6009afa40c3288f9b7bbe",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0fa0bd5b_5e5e966c",
