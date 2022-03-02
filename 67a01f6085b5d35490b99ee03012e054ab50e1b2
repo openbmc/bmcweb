@@ -51,6 +51,24 @@
       "message": "Maybe this check is not needed? If user is in a group not listed above, simply ignore it is okay I think. Some vendors may have their own OEM group.",
       "revId": "67a01f6085b5d35490b99ee03012e054ab50e1b2",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d456bf17_d9a4d8f9",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 1001099
+      },
+      "writtenOn": "2022-03-02T18:16:18Z",
+      "side": 1,
+      "message": "OEM Group applies here? Can you explain more?\nhttp://redfish.dmtf.org/schemas/v1/ManagerAccount.json#/definitions/AccountTypes\nwhere I see only predefined strict account types.\nand if there is Oem account type then it has to be in {\"Oem\": {\"openbmc\": {\"OemAccountype\":\"xxx\"}}} group.\n\nPlease explain if I am wrong.",
+      "parentUuid": "2ba726a2_7d6842ab",
+      "revId": "67a01f6085b5d35490b99ee03012e054ab50e1b2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
