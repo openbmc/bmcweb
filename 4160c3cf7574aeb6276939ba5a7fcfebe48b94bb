@@ -56,6 +56,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "5d9adbb3_5f3f4f83",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2022-03-02T09:42:43Z",
+      "side": 1,
+      "message": "Sending few post request (or directly via dbus call to telemetry service) which creates some example triggers then running service validator could catch those errors. Error related to \n\nWe are very careful to make it right at the first attempt. This code was tested before pushing this change, but we overlooked one of the parameters.\n\nIssue with error messages is much harder to detect, input validation will not allow such trigger to be added using redfish api https://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/44935/23. To produce this error trigger needs to be added via dbus call (this validation can only be done in redfish since it is correct from dbus point of view).\n\nAlso POST trigger is not yet available in bmcweb/master so users are not affected by this issues.",
+      "parentUuid": "3926c1f7_ff37194c",
+      "revId": "4160c3cf7574aeb6276939ba5a7fcfebe48b94bb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f15430ce_ea9ad431",
         "filename": "redfish-core/lib/trigger.hpp",
         "patchSetId": 2
