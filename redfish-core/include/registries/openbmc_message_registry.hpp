@@ -311,7 +311,7 @@ constexpr std::array<MessageEntry, 189> registry = {
         "ComponentOverTemperature",
         {
             "Indicates that the specified component is over temperature.",
-            "%1 component over temperature and being throttled.",
+            "%1 over temperature and being throttled.",
             "Critical",
             "Critical",
             1,
