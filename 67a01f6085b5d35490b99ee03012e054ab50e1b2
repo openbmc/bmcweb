@@ -87,6 +87,24 @@
       "parentUuid": "2ba726a2_7d6842ab",
       "revId": "67a01f6085b5d35490b99ee03012e054ab50e1b2",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d055ee7f_61be9549",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-03-02T19:40:34Z",
+      "side": 1,
+      "message": "\u003e Some vendors may have their own OEM group.\n\nIf a vendor has an Oem Group does an \"oemUserGroups\" make more sense? That would match closer with Redfish\u0027s \"OemAccountype\" vs just stuffing an oem user group into this userGroups?\n\nThese userGroups are documented here: \nhttps://github.com/openbmc/docs/blob/master/architecture/user-management.md#supported-group-roles Not clear on how Oem would work.\nSince they are documented... An unexpected user group does sound like an error to me and we have done this other places. \nhttps://github.com/openbmc/bmcweb/blob/master/redfish-core/lib/systems.hpp#L891\n\nThat said if we wanted to just keep going when we have an unexpected userGroup, I would be fine with that. Could look like:\n\n        if (!getAccountTypeFromUserGroup(userGroup, accountTypes))\n        {\n            BMCWEB_LOG_DEBUG \u003c\u003c \"mapped value not for this userGroup value : \"\n                             \u003c\u003c userGroup;\n        }\nI think I would prefer the current code though.",
+      "parentUuid": "d456bf17_d9a4d8f9",
+      "revId": "67a01f6085b5d35490b99ee03012e054ab50e1b2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
