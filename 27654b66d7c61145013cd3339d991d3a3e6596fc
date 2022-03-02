@@ -34,6 +34,24 @@
       "parentUuid": "a882d3bb_54edb173",
       "revId": "27654b66d7c61145013cd3339d991d3a3e6596fc",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7392154e_5448d87c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-02T22:44:31Z",
+      "side": 1,
+      "message": "In looking at this more after your comment, I think the more invasive change is better, as it simplifies the code significantly compared to the other one., which is whats\u0027 there.  It just needs a couple tests to be done.",
+      "parentUuid": "cb9000eb_a1c68089",
+      "revId": "27654b66d7c61145013cd3339d991d3a3e6596fc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
