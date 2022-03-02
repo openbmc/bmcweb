@@ -3,6 +3,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "eef85494_b64601aa",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000022
+      },
+      "writtenOn": "2022-03-02T04:22:28Z",
+      "side": 1,
+      "message": "If we are enabling new method to send the event, Shouldn\u0027t be in its own compile time flag.\nNow we are adding this code with the old flag, which was to send the redfish events by reading from the /var/log/redfish file. With this commit, if the bmcweb compiles with enabling of  the BMCWEB_ENABLE_REDFISH_DBUS_LOG_ENTRIES, They will be getting the events from two sources.\n\n1) /var/log/redfish\n2) Creation of Dbus Object in xyz.openbmc_project.Logging",
+      "range": {
+        "startLine": 11,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 46
+      },
+      "revId": "719176b18ce69ecc17b98e7cc6f6fceaadf0f84e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "41ac0707_98f386b3",
         "filename": "redfish-core/ut/event_service_test.cpp",
         "patchSetId": 4
