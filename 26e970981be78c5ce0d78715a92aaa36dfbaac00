@@ -16,6 +16,98 @@
       "message": "Willy, can you please go through all the unresolved comments and mark them as resolved.  I believe there are still some unresolved.",
       "revId": "26e970981be78c5ce0d78715a92aaa36dfbaac00",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7ec337a9_30c53901",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 41
+      },
+      "lineNbr": 264,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-02T00:16:21Z",
+      "side": 1,
+      "message": "If ec is being handled here, does ec need to be given to the lambda at all?\n\nCould we do a simple:\n\n crow::connections::systemBus-\u003easync_method_call(\n        std::bind_front(callback, asyncResp, chassisId),\n        connectionName, path, \"org.freedesktop.DBus.Properties\", \"Get\",\n        \"xyz.openbmc_project.Inventory.Item.Chassis\", \"Type\");\n\n\n\n(yes, this is using bind_front, which I\u0027m pretty sure I\"m going to start transitioning to.  Please help to review https://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/51655)",
+      "range": {
+        "startLine": 259,
+        "startChar": 0,
+        "endLine": 264,
+        "endChar": 13
+      },
+      "revId": "26e970981be78c5ce0d78715a92aaa36dfbaac00",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ebc6946b_ca00e3bd",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 41
+      },
+      "lineNbr": 266,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-02T00:16:21Z",
+      "side": 1,
+      "message": "Please do this directly in the callback.  The less information we have in the lambda, the better.",
+      "range": {
+        "startLine": 266,
+        "startChar": 25,
+        "endLine": 266,
+        "endChar": 57
+      },
+      "revId": "26e970981be78c5ce0d78715a92aaa36dfbaac00",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f163ed0d_d9f65383",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 41
+      },
+      "lineNbr": 543,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-02T00:16:21Z",
+      "side": 1,
+      "message": "Pretty sure you meant to return from this?",
+      "range": {
+        "startLine": 542,
+        "startChar": 46,
+        "endLine": 543,
+        "endChar": 64
+      },
+      "revId": "26e970981be78c5ce0d78715a92aaa36dfbaac00",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "82776946_954b81ed",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 41
+      },
+      "lineNbr": 548,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-02T00:16:21Z",
+      "side": 1,
+      "message": "variable needs a better name, this is \"add chassis reset action\", and should have a name to match.",
+      "range": {
+        "startLine": 548,
+        "startChar": 32,
+        "endLine": 548,
+        "endChar": 49
+      },
+      "revId": "26e970981be78c5ce0d78715a92aaa36dfbaac00",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
