@@ -16,6 +16,24 @@
       "message": "What is the advantage here besides the little bit of space savings ?",
       "revId": "27654b66d7c61145013cd3339d991d3a3e6596fc",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cb9000eb_a1c68089",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-02T02:27:31Z",
+      "side": 1,
+      "message": "That\u0027s basically it.  Smaller binaries, smaller debug binaries, and fewer debugging of template parameters.  I also debated just making the number of digits a required field and doing away with the template entirely, which would\u0027ve simplified the code and reduced the binary size, but that seemed more invasive.",
+      "parentUuid": "a882d3bb_54edb173",
+      "revId": "27654b66d7c61145013cd3339d991d3a3e6596fc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
