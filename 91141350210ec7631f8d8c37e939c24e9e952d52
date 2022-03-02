@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "49d1f654_7fc05099",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-03-02T02:17:40Z",
+      "side": 1,
+      "message": "Have you seen https://github.com/openbmc/bmcweb/blob/master/OEM_SCHEMAS.md ? \nThis commit msg needs a lot more information on why we should accept this commit in bmcweb",
+      "revId": "91141350210ec7631f8d8c37e939c24e9e952d52",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "da891c7a_c2b04679",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-03-02T02:17:40Z",
+      "side": 1,
+      "message": "Redfish Validator ?",
+      "revId": "91141350210ec7631f8d8c37e939c24e9e952d52",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a0fa0c73_ca857fe6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-03-02T02:17:40Z",
+      "side": 1,
+      "message": "Why private here ?",
+      "revId": "91141350210ec7631f8d8c37e939c24e9e952d52",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ca02a7ad_90f819aa",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1911,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-03-02T02:17:40Z",
+      "side": 1,
+      "message": "This doesn\u0027t match \nhttps://github.com/openbmc/bmcweb/blob/9a128eb3fc3008f802974360e98de6495ed1a66b/static/redfish/v1/JsonSchemas/OemComputerSystem/index.json#L40",
+      "revId": "91141350210ec7631f8d8c37e939c24e9e952d52",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
