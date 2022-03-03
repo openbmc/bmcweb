@@ -1207,7 +1207,10 @@ inline void
                 {"xyz.openbmc_project.Control.Power.RestorePolicy.Policy.AlwaysOff",
                  "AlwaysOff"},
                 {"xyz.openbmc_project.Control.Power.RestorePolicy.Policy.Restore",
-                 "LastState"}};
+                 "LastState"},
+                // Return `AlwaysOff` when power restore policy set to "None"
+                {"xyz.openbmc_project.Control.Power.RestorePolicy.Policy.None",
+                 "AlwaysOff"}};
 
             auto policyMapsIt = policyMaps.find(policy);
             if (policyMapsIt == policyMaps.end())
