@@ -74,6 +74,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "29e03e6e_cadcb581",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1001026
+      },
+      "writtenOn": "2022-03-03T18:08:11Z",
+      "side": 1,
+      "message": "First issue was mostly related to mistake during testing on telemetry side. As the POST is in progress, we could only test it by creating triggers on dbus, and this particular param was not passed correctly.\n\nAs for message/error mixing, this flow is almost impossible to reproduce if backend telemetry service is working properly. Easiest way would be by using incompatible version of service. But it could be caught in review - now that I know what to look after I will do my best no prevent it in the future.",
+      "parentUuid": "5d9adbb3_5f3f4f83",
+      "revId": "4160c3cf7574aeb6276939ba5a7fcfebe48b94bb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f15430ce_ea9ad431",
         "filename": "redfish-core/lib/trigger.hpp",
         "patchSetId": 2
