@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6205d0db_f8f45bbb",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001026
+      },
+      "writtenOn": "2022-03-03T18:16:50Z",
+      "side": 1,
+      "message": "CI is catching this:\n\n../http/utility.hpp:748:48: error: do not implicitly decay an array into a pointer; consider using gsl::array_view or an explicit cast instead [cppcoreguidelines-pro-bounds-array-to-pointer-decay,-warnings-as-errors]\n    return (details::unpackUrlSegment(it, end, std::forward\u003cArgs\u003e(args)) \u0026\u0026\n\nHonestly, I have no idea where is the issue. If someone have a solution, it would be great.",
+      "revId": "77dbd3fa63541c3856d8a4e543a478b9f9231975",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
