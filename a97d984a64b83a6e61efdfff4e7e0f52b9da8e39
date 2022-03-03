@@ -16,6 +16,24 @@
       "message": "Huh? Why change this? When this is nullptr shouldn\u0027t you allow the upload?",
       "revId": "a97d984a64b83a6e61efdfff4e7e0f52b9da8e39",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7be2f5a7_30af627f",
+        "filename": "include/image_upload.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-03T17:52:48Z",
+      "side": 1,
+      "message": "Yep, that\u0027s totally wrong.  At one point in this process I refactored that to use std::optional, and when I unrolled it I didn\u0027t revert it cleanly.\n\nPut back to what it was",
+      "parentUuid": "8377c527_17bcf044",
+      "revId": "a97d984a64b83a6e61efdfff4e7e0f52b9da8e39",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
