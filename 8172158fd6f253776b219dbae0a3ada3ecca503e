@@ -74,6 +74,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b32461a1_c9ea314d",
+        "filename": "TESTING.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-03T23:15:59Z",
+      "side": 1,
+      "message": "Sure, do what you think is best, with the idea that we don\u0027t duplicate information.  I\u0027ll review whatever you think we should do.",
+      "parentUuid": "94364c92_e03dd002",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 1,
+        "endChar": 27
+      },
+      "revId": "8172158fd6f253776b219dbae0a3ada3ecca503e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "2f8dd4de_414fb4b4",
         "filename": "TESTING.md",
         "patchSetId": 2
@@ -121,6 +145,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a828947f_d642f8e3",
+        "filename": "TESTING.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-03T23:15:59Z",
+      "side": 1,
+      "message": "I\u0027m not the openbmc-build-scripts maintainer, so that\u0027s a discussion to have this those guys.  I suspect they\u0027re going to recommend putting it somewhere else, (like the docs repo) but that\u0027s not my call.",
+      "parentUuid": "4719b774_1e15ff88",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 38,
+        "endChar": 53
+      },
+      "revId": "8172158fd6f253776b219dbae0a3ada3ecca503e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "dd416aa2_bb62390a",
         "filename": "TESTING.md",
         "patchSetId": 2
@@ -156,6 +204,30 @@
       "side": 1,
       "message": "Right, without signal triggered, it won\u0027t fetch sensors. It will at least test connection opening and closing.\n\nI will mention it\u0027s recommended to use real hardware to get the best coverage.",
       "parentUuid": "dd416aa2_bb62390a",
+      "range": {
+        "startLine": 46,
+        "startChar": 30,
+        "endLine": 46,
+        "endChar": 47
+      },
+      "revId": "8172158fd6f253776b219dbae0a3ada3ecca503e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a0960bbd_4d057fa9",
+        "filename": "TESTING.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-03T23:15:59Z",
+      "side": 1,
+      "message": "The intent of that test is to push something that\u0027s reasonably chatty, and tests the full path.  I\u0027d rather we just leave it undocumented than try to document something that doesn\u0027t actually test the full path.",
+      "parentUuid": "1ece9cdd_a36a1e7d",
       "range": {
         "startLine": 46,
         "startChar": 30,
