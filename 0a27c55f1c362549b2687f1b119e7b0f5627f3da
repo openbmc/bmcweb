@@ -49,6 +49,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "16049ef4_38cdfe49",
+        "filename": "redfish-core/include/utils/telemetry_utils.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1001026
+      },
+      "writtenOn": "2022-03-03T18:13:19Z",
+      "side": 1,
+      "message": "You are right. While trying to make something with boost_url, I came up with something more generic: https://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/51707\nPlease let me know what do you think, for now I will set this review as wip.",
+      "parentUuid": "4649c80d_da92be78",
+      "range": {
+        "startLine": 33,
+        "startChar": 0,
+        "endLine": 33,
+        "endChar": 41
+      },
+      "revId": "0a27c55f1c362549b2687f1b119e7b0f5627f3da",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "3daa7eac_4bed24f3",
         "filename": "redfish-core/include/utils/telemetry_utils.hpp",
         "patchSetId": 2
