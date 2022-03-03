@@ -1207,12 +1207,21 @@ inline void
                 {"xyz.openbmc_project.Control.Power.RestorePolicy.Policy.AlwaysOff",
                  "AlwaysOff"},
                 {"xyz.openbmc_project.Control.Power.RestorePolicy.Policy.Restore",
-                 "LastState"}};
+                 "LastState"},
+                {"xyz.openbmc_project.Control.Power.RestorePolicy.Policy.None",
+                 "None"}};
 
             auto policyMapsIt = policyMaps.find(policy);
             if (policyMapsIt == policyMaps.end())
             {
                 messages::internalError(aResp->res);
+                return;
+            }
+
+            // Return nothing when power restore policy set to "None"
+            if (policyMapsIt->second == "None")
+            {
+                aResp->res.jsonValue["PowerRestorePolicy"] = "";
                 return;
             }
 
