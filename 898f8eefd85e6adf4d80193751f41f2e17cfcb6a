@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3f8ae476_6e6dbce5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-03T23:02:25Z",
+      "side": 1,
+      "message": "LGTM.  Leaving open for a bit in case someone doesn\u0027t like this pattern, but I think this is the overall right direction.",
+      "revId": "898f8eefd85e6adf4d80193751f41f2e17cfcb6a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}

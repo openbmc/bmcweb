@@ -46,6 +46,30 @@
       },
       "revId": "2c968cf9660bc24a8cc0dc1a0013a6d05dda55a0",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e21e913a_6987d168",
+        "filename": "redfish-core/include/utils/telemetry_utils.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-03T23:02:25Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "f900840c_a46854eb",
+      "range": {
+        "startLine": 14,
+        "startChar": 0,
+        "endLine": 34,
+        "endChar": 0
+      },
+      "revId": "2c968cf9660bc24a8cc0dc1a0013a6d05dda55a0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
