@@ -698,6 +698,61 @@ inline boost::urls::url urlFromPieces(const AV... args)
     return details::urlFromPiecesDetail({args...});
 }
 
+namespace details
+{
+inline bool unpackUrlSegment(boost::urls::segments_view::iterator& it,
+                             const boost::urls::segments_view::iterator& end,
+                             std::string& output)
+{
+    if (it == end)
+    {
+        return false;
+    }
+
+    output = std::string_view((*it).data(), (*it).size());
+    it++;
+
+    return true;
+}
+
+inline bool unpackUrlSegment(boost::urls::segments_view::iterator& it,
+                             const boost::urls::segments_view::iterator& end,
+                             std::string_view expected)
+{
+    if (it == end)
+    {
+        return false;
+    }
+
+    bool eq = std::string_view((*it).data(), (*it).size()) == expected;
+    it++;
+
+    return eq;
+}
+} // namespace details
+
+template <class... Args>
+inline bool readUrlSegments(boost::urls::segments_view::iterator it,
+                            const boost::urls::segments_view::iterator& end,
+                            Args&&... args)
+{
+    // NOLINTNEXTLINE(cppcoreguidelines-pro-bounds-array-to-pointer-decay)
+    return (details::unpackUrlSegment(it, end, std::forward<Args>(args)) &&
+            ...) &&
+           it == end;
+}
+
+template <class... Args>
+inline bool
+    readUrlSegmentsPartial(boost::urls::segments_view::iterator it,
+                           const boost::urls::segments_view::iterator& end,
+                           Args&&... args)
+{
+    // NOLINTNEXTLINE(cppcoreguidelines-pro-bounds-array-to-pointer-decay)
+    return (details::unpackUrlSegment(it, end, std::forward<Args>(args)) &&
+            ...);
+}
+
 inline bool validateAndSplitUrl(std::string_view destUrl, std::string& urlProto,
                                 std::string& host, std::string& port,
                                 std::string& path)
