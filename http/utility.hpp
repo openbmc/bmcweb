@@ -18,6 +18,7 @@
 #include <tuple>
 #include <type_traits>
 #include <utility>
+#include <variant>
 
 namespace crow
 {
@@ -696,6 +697,72 @@ template <typename... AV>
 inline boost::urls::url urlFromPieces(const AV... args)
 {
     return details::urlFromPiecesDetail({args...});
+}
+
+namespace details
+{
+using UrlSegment =
+    std::variant<std::monostate, std::reference_wrapper<std::string>,
+                 std::string_view>;
+
+class UrlSegmentVisitor
+{
+  public:
+    bool operator()(std::string& output)
+    {
+        output = std::string_view((*it).data(), (*it).size());
+        return true;
+    }
+
+    bool operator()(std::string_view expected)
+    {
+        return std::string_view((*it).data(), (*it).size()) == expected;
+    }
+
+    bool operator()([[maybe_unused]] std::monostate anySegment)
+    {
+        return true;
+    }
+
+    UrlSegmentVisitor(const boost::urls::segments_view::iterator& itIn) :
+        it(itIn)
+    {}
+
+  private:
+    const boost::urls::segments_view::iterator& it;
+};
+
+inline bool readUrlSegments(const boost::urls::url_view& urlView,
+                            std::initializer_list<UrlSegment>&& segments)
+{
+    const boost::urls::segments_view& urlSegments = urlView.segments();
+    boost::urls::segments_view::iterator it = urlSegments.begin();
+    boost::urls::segments_view::iterator end = urlSegments.end();
+
+    for (const auto& segment : segments)
+    {
+        if (it == end)
+        {
+            return false;
+        }
+        if (!std::visit(UrlSegmentVisitor(it), segment))
+        {
+            return false;
+        }
+        it++;
+    }
+    return it == end;
+}
+
+} // namespace details
+
+constexpr std::monostate anySegment;
+
+template <typename... Args>
+inline bool readUrlSegments(const boost::urls::url_view& urlView,
+                            Args&&... args)
+{
+    return details::readUrlSegments(urlView, {std::forward<Args>(args)...});
 }
 
 inline bool validateAndSplitUrl(std::string_view destUrl, std::string& urlProto,
