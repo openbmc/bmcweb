@@ -105,6 +105,24 @@
       "parentUuid": "d456bf17_d9a4d8f9",
       "revId": "67a01f6085b5d35490b99ee03012e054ab50e1b2",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "93701ffa_4138fffd",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 1001252
+      },
+      "writtenOn": "2022-03-03T02:27:28Z",
+      "side": 1,
+      "message": "In redfish schema, if there is a OEM user group, an \"OEM\" need to be put in \"AccountTypes\", and detailed groups are shown in \"OEMAccountTypes\".\nhttps://redfish.dmtf.org/schemas/DSP2046_2021.4.html#manageraccount-181\n\nSorry I misunderstood it in my first comment, giving out the error is fine. It\u0027s vendor\u0027s responsibility to patch this file to support their own groups. Thank you for your detailed explanation.",
+      "parentUuid": "d055ee7f_61be9549",
+      "revId": "67a01f6085b5d35490b99ee03012e054ab50e1b2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
