@@ -25,5 +25,63 @@ inline std::string getDbusTriggerPath(const std::string& id)
     return {triggersPath / id};
 }
 
+struct IncorrectMetricUri
+{
+    std::string uri;
+    size_t index;
+};
+
+inline std::optional<IncorrectMetricUri> getChassisSensorNode(
+    const std::vector<std::string>& uris,
+    boost::container::flat_set<std::pair<std::string, std::string>>& matched)
+{
+    size_t uriIdx = 0;
+    for (const std::string& uri : uris)
+    {
+        boost::urls::result<boost::urls::url_view> parsed =
+            boost::urls::parse_relative_ref(uri);
+
+        if (!parsed)
+        {
+            BMCWEB_LOG_ERROR << "Failed to get chassis and sensor Node "
+                                "from "
+                             << uri;
+            return std::make_optional<IncorrectMetricUri>({uri, uriIdx});
+        }
+
+        std::string chassis;
+        std::string node;
+
+        if (crow::utility::readUrlSegments(*parsed, "redfish", "v1", "Chassis",
+                                           std::ref(chassis), std::ref(node)))
+        {
+            matched.emplace(std::move(chassis), std::move(node));
+            uriIdx++;
+            continue;
+        }
+
+        // Those 2 segments cannot be validated here, as we don't know which
+        // sensors exist at the moment of parsing.
+        std::string ignoredSenorId;
+        std::string ignoredSensorUnit;
+
+        if (crow::utility::readUrlSegments(*parsed, "redfish", "v1", "Chassis",
+                                           std::ref(chassis), "Sensors",
+                                           std::ref(ignoredSenorId),
+                                           std::ref(ignoredSensorUnit)))
+        {
+            matched.emplace(std::move(chassis), "Sensors");
+            uriIdx++;
+            continue;
+        }
+
+        BMCWEB_LOG_ERROR << "Failed to get chassis and sensor Node "
+                            "from "
+                         << uri;
+        return std::make_optional<IncorrectMetricUri>({uri, uriIdx});
+    }
+    return std::nullopt;
+}
+
 } // namespace telemetry
 } // namespace redfish

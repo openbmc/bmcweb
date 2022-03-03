@@ -127,6 +127,61 @@ TEST(Utility, UrlFromPieces)
     EXPECT_EQ(std::string_view(url.data(), url.size()), "/%2f/bad&tring");
 }
 
+TEST(Utility, readUrlSegments)
+{
+    using crow::utility::readUrlSegments;
+
+    boost::urls::result<boost::urls::url_view> parsed =
+        boost::urls::parse_relative_ref("/redfish/v1/Chassis#/Fans/0/Reading");
+
+    EXPECT_TRUE(readUrlSegments(*parsed, "redfish", "v1", "Chassis"));
+
+    EXPECT_FALSE(readUrlSegments(*parsed, "FOOBAR", "v1", "Chassis"));
+
+    EXPECT_FALSE(readUrlSegments(*parsed, "redfish", "v1"));
+
+    EXPECT_FALSE(
+        readUrlSegments(*parsed, "redfish", "v1", "Chassis", "FOOBAR"));
+
+    std::string out1;
+    std::string out2;
+    std::string out3;
+    EXPECT_TRUE(readUrlSegments(*parsed, "redfish", "v1", std::ref(out1)));
+    EXPECT_EQ(out1, "Chassis");
+
+    out1 = out2 = out3 = "";
+    EXPECT_TRUE(readUrlSegments(*parsed, std::ref(out1), std::ref(out2),
+                                std::ref(out3)));
+    EXPECT_EQ(out1, "redfish");
+    EXPECT_EQ(out2, "v1");
+    EXPECT_EQ(out3, "Chassis");
+
+    out1 = out2 = out3 = "";
+    EXPECT_TRUE(readUrlSegments(*parsed, "redfish", std::ref(out1), "Chassis"));
+    EXPECT_EQ(out1, "v1");
+
+    out1 = out2 = out3 = "";
+    EXPECT_TRUE(readUrlSegments(*parsed, std::ref(out1), "v1", std::ref(out2)));
+    EXPECT_EQ(out1, "redfish");
+    EXPECT_EQ(out2, "Chassis");
+
+    EXPECT_FALSE(readUrlSegments(*parsed, "too", "short"));
+
+    EXPECT_FALSE(readUrlSegments(*parsed, "too", "long", "too", "long"));
+
+    EXPECT_FALSE(
+        readUrlSegments(*parsed, std::ref(out1), "v2", std::ref(out2)));
+
+    EXPECT_FALSE(readUrlSegments(*parsed, "redfish", std::ref(out1),
+                                 std::ref(out2), std::ref(out3)));
+
+    parsed = boost::urls::parse_relative_ref("/absolute/url");
+    EXPECT_TRUE(readUrlSegments(*parsed, "absolute", "url"));
+
+    parsed = boost::urls::parse_relative_ref("not/absolute/url");
+    EXPECT_FALSE(readUrlSegments(*parsed, "not", "absolute", "url"));
+}
+
 TEST(Utility, ValidateAndSplitUrlPositive)
 {
     using crow::utility::validateAndSplitUrl;
@@ -152,8 +207,8 @@ TEST(Utility, ValidateAndSplitUrlPositive)
         validateAndSplitUrl("https://foo.com/bar", urlProto, host, port, path));
     EXPECT_EQ(port, "443");
 
-    // If http push eventing is allowed, allow http, if it's not, parse should
-    // fail.
+    // If http push eventing is allowed, allow http, if it's not, parse
+    // should fail.
 #ifdef BMCWEB_INSECURE_ENABLE_HTTP_PUSH_STYLE_EVENTING
     ASSERT_TRUE(
         validateAndSplitUrl("http://foo.com/bar", urlProto, host, port, path));

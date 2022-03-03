@@ -226,38 +226,24 @@ inline bool getUserParameters(crow::Response& res, const crow::Request& req,
     return true;
 }
 
-inline bool getChassisSensorNode(
+inline bool getChassisSensorNodeFromMetrics(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::vector<std::pair<std::string, std::vector<std::string>>>&
         metrics,
     boost::container::flat_set<std::pair<std::string, std::string>>& matched)
 {
-    for (const auto& [id, uris] : metrics)
+    for (const auto& metric : metrics)
     {
-        for (size_t i = 0; i < uris.size(); i++)
+        const std::vector<std::string>& uris = metric.second;
+
+        std::optional<IncorrectMetricUri> error =
+            getChassisSensorNode(uris, matched);
+        if (error)
         {
-            const std::string& uri = uris[i];
-            std::string chassis;
-            std::string node;
-
-            if (!boost::starts_with(uri, "/redfish/v1/Chassis/") ||
-                !dbus::utility::getNthStringFromPath(uri, 3, chassis) ||
-                !dbus::utility::getNthStringFromPath(uri, 4, node))
-            {
-                BMCWEB_LOG_ERROR
-                    << "Failed to get chassis and sensor Node from " << uri;
-                messages::propertyValueIncorrect(asyncResp->res, uri,
-                                                 "MetricProperties/" +
-                                                     std::to_string(i));
-                return false;
-            }
-
-            if (boost::ends_with(node, "#"))
-            {
-                node.pop_back();
-            }
-
-            matched.emplace(std::move(chassis), std::move(node));
+            messages::propertyValueIncorrect(asyncResp->res, error->uri,
+                                             "MetricProperties/" +
+                                                 std::to_string(error->index));
+            return false;
         }
     }
     return true;
@@ -408,8 +394,8 @@ inline void requestRoutesMetricReportDefinitionCollection(App& app)
 
             boost::container::flat_set<std::pair<std::string, std::string>>
                 chassisSensors;
-            if (!telemetry::getChassisSensorNode(asyncResp, args.metrics,
-                                                 chassisSensors))
+            if (!telemetry::getChassisSensorNodeFromMetrics(
+                    asyncResp, args.metrics, chassisSensors))
             {
                 return;
             }
