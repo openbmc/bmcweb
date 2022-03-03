@@ -18,6 +18,7 @@
 #include <tuple>
 #include <type_traits>
 #include <utility>
+#include <variant>
 
 namespace crow
 {
@@ -667,6 +668,69 @@ template <typename... AV>
 inline boost::urls::url urlFromPieces(const AV... args)
 {
     return details::urlFromPiecesDetail({args...});
+}
+
+namespace details
+{
+
+// std::reference_wrapper<std::string> - extracts segment to variable
+//                    std::string_view - checks if segment is equal to variable
+using UrlSegment =
+    std::variant<std::reference_wrapper<std::string>, std::string_view>;
+
+class UrlSegmentMatcherVisitor
+{
+  public:
+    bool operator()(std::string& output)
+    {
+        output = std::string_view(segment.data(), segment.size());
+        return true;
+    }
+
+    bool operator()(std::string_view expected)
+    {
+        return std::string_view(segment.data(), segment.size()) == expected;
+    }
+
+    UrlSegmentMatcherVisitor(const boost::urls::string_value& segmentIn) :
+        segment(segmentIn)
+    {}
+
+  private:
+    const boost::urls::string_value& segment;
+};
+
+inline bool readUrlSegments(const boost::urls::url_view& urlView,
+                            std::initializer_list<UrlSegment>&& segments)
+{
+    const boost::urls::segments_view& urlSegments = urlView.segments();
+
+    if (!urlSegments.is_absolute() || segments.size() != urlSegments.size())
+    {
+        return false;
+    }
+
+    boost::urls::segments_view::iterator it = urlSegments.begin();
+    boost::urls::segments_view::iterator end = urlSegments.end();
+
+    for (const auto& segment : segments)
+    {
+        if (!std::visit(UrlSegmentMatcherVisitor(*it), segment))
+        {
+            return false;
+        }
+        it++;
+    }
+    return true;
+}
+
+} // namespace details
+
+template <typename... Args>
+inline bool readUrlSegments(const boost::urls::url_view& urlView,
+                            Args&&... args)
+{
+    return details::readUrlSegments(urlView, {std::forward<Args>(args)...});
 }
 
 inline bool validateAndSplitUrl(std::string_view destUrl, std::string& urlProto,
