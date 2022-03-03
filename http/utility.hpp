@@ -18,6 +18,7 @@
 #include <tuple>
 #include <type_traits>
 #include <utility>
+#include <variant>
 
 namespace crow
 {
@@ -696,6 +697,51 @@ template <typename... AV>
 inline boost::urls::url urlFromPieces(const AV... args)
 {
     return details::urlFromPiecesDetail({args...});
+}
+
+namespace details
+{
+inline bool unpackUrlSegment(const boost::urls::segments_view::iterator& it,
+                             std::string& output)
+{
+    output = std::string_view((*it).data(), (*it).size());
+    return true;
+}
+
+inline bool unpackUrlSegment(const boost::urls::segments_view::iterator& it,
+                             std::string_view expected)
+{
+    return std::string_view((*it).data(), (*it).size()) == expected;
+}
+
+inline bool unpackUrlSegment(
+    [[maybe_unused]] const boost::urls::segments_view::iterator& it,
+    [[maybe_unused]] std::monostate anySegment)
+{
+    return true;
+}
+
+} // namespace details
+
+constexpr std::monostate anySegment;
+
+template <class... Args>
+inline bool readUrlSegments(const boost::urls::url_view& urlView,
+                            Args&&... args)
+{
+    const boost::urls::segments_view& segments = urlView.segments();
+    boost::urls::segments_view::iterator it = segments.begin();
+    boost::urls::segments_view::iterator end = segments.end();
+
+    if (((it != end &&
+          // NOLINTNEXTLINE(cppcoreguidelines-pro-bounds-array-to-pointer-decay)
+          details::unpackUrlSegment(it++, std::forward<Args>(args))) &&
+         ...))
+    {
+        return it == end;
+    }
+
+    return false;
 }
 
 inline bool validateAndSplitUrl(std::string_view destUrl, std::string& urlProto,
