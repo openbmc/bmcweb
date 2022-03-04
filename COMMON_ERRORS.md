@@ -72,6 +72,8 @@ Commonly used methods that fall into this pattern:
 - nlohmann::json::get
 - nlohmann::json::get\_ref
 - nlohmann::json::get\_to
+- nlohmann::json::operator\<\<
+- nlohmann::json::operator\>\>
 - std::filesystem::create\_directory
 - std::filesystem::rename
 - std::filesystem::file\_size
@@ -79,12 +81,18 @@ Commonly used methods that fall into this pattern:
 - std::stol
 - std::stoll
 
-#### special/strange case:
+#### Special note: JSON
 
-nlohmann::json::parse by default throws on failure, but also accepts a optional
-argument that causes it to not throw.  Please consult the other examples in the
-code for how to handle errors.
+`nlohmann::json::parse` by default
+[throws](https://json.nlohmann.me/api/basic_json/parse/) on failure, but
+also accepts an optional argument that causes it to not throw: set the 3rd
+argument to `false`.
 
+`nlohmann::json::dump` by default
+[throws](https://json.nlohmann.me/api/basic_json/dump/) on failure, but also
+accepts an optional argument that causes it to not throw: set the 4th
+argument to `replace`.  Although `ignore` preserves content 1:1, `replace`
+is preferred from a security point of view.
 
 #### Special note: Boost
 there is a whole class of boost asio functions that provide both a method that
