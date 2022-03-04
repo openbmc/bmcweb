@@ -2301,6 +2301,64 @@ constexpr std::array registry = {
             {"string"},
             "None.",
         }},
+    MessageEntry{
+        "TriggerNumericWarning",
+        {
+            "Indicates that numeric trigger threshold is crossed.",
+            "Numeric threshold '%1' of trigger '%2' is crossed on sensor %3, "
+            "recorded value: %4, crossing direction: %5, timestamp: %6",
+            "Warning",
+            6,
+            {"string", "string", "string", "number", "string", "string"},
+            "None.",
+        }},
+    MessageEntry{
+        "TriggerNumericCritical",
+        {
+            "Indicates that numeric trigger threshold is crossed and may "
+            "require attention.",
+            "Numeric threshold '%1' of trigger '%2' is crossed on sensor %3, "
+            "recorded value: %4, crossing direction: %5, timestamp: %6",
+            "Critical",
+            6,
+            {"string", "string", "string", "number", "string", "string"},
+            "None.",
+        }},
+    MessageEntry{
+        "TriggerDiscreteOK",
+        {
+            "Indicates that discrete trigger condition is met.",
+            "Discrete condition '%1' of trigger '%2' is met on sensor %3, "
+            "recorded value: %4, timestamp: %5",
+            "OK",
+            5,
+            {"string", "string", "string", "string", "string"},
+            "None.",
+        }},
+    MessageEntry{
+        "TriggerDiscreteWarning",
+        {
+            "Indicates that discrete trigger condition is met and may require "
+            "attention.",
+            "Discrete condition '%1' of trigger '%2' is met on sensor %3, "
+            "recorded value: %4, timestamp: %5",
+            "Warning",
+            5,
+            {"string", "string", "string", "string", "string"},
+            "None.",
+        }},
+    MessageEntry{
+        "TriggerDiscreteCritical",
+        {
+            "Indicates that discrete trigger condition is met and requires "
+            "immediate attention.",
+            "Discrete condition '%1' of trigger '%2' is met on sensor %3, "
+            "recorded value: %4, timestamp: %5",
+            "Critical",
+            5,
+            {"string", "string", "string", "string", "string"},
+            "None.",
+        }},
 
 };
 } // namespace redfish::registries::openbmc
