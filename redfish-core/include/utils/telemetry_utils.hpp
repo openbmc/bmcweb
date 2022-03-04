@@ -33,6 +33,26 @@ inline std::string getDbusTriggerPath(std::string_view id)
     return {triggersPath / id};
 }
 
+inline std::optional<std::string>
+    getTriggerIdFromDbusPath(const std::string& dbusPath)
+{
+    sdbusplus::message::object_path converted(dbusPath);
+
+    if (converted.parent_path() !=
+        "/xyz/openbmc_project/Telemetry/Triggers/TelemetryService")
+    {
+        return std::nullopt;
+    }
+
+    const std::string& id = converted.filename();
+    if (id.empty())
+    {
+        return std::nullopt;
+    }
+
+    return id;
+}
+
 struct IncorrectMetricProperty
 {
     std::string metricProperty;
@@ -88,6 +108,7 @@ inline std::optional<IncorrectMetricProperty> getChassisSensorNode(
         return std::make_optional<IncorrectMetricProperty>(
             {metricProperty, propertyIdx});
     }
+
     return std::nullopt;
 }
 
