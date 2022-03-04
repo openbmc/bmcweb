@@ -606,7 +606,7 @@ inline bool getChassisSensorNodeFromMetrics(
 {
     for (const auto& metric : metrics)
     {
-        std::optional<IncorrectMetricUri> error =
+        std::optional<IncorrectMetricProperty> error =
             getChassisSensorNode(metric.uris, matched);
         if (error)
         {

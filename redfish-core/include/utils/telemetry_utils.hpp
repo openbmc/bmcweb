@@ -34,13 +34,33 @@ inline std::string getDbusTriggerPath(const std::string& id)
     return {triggersPath / id};
 }
 
-struct IncorrectMetricUri
+inline std::optional<std::string>
+    getTriggerIdFromDbusPath(const std::string& dbusPath)
+{
+    sdbusplus::message::object_path converted(dbusPath);
+
+    if (converted.parent_path() !=
+        "/xyz/openbmc_project/Telemetry/Triggers/TelemetryService")
+    {
+        return std::nullopt;
+    }
+
+    const std::string& id = converted.filename();
+    if (id.empty())
+    {
+        return std::nullopt;
+    }
+
+    return id;
+}
+
+struct IncorrectMetricProperty
 {
     std::string uri;
     size_t index;
 };
 
-inline std::optional<IncorrectMetricUri> getChassisSensorNode(
+inline std::optional<IncorrectMetricProperty> getChassisSensorNode(
     std::span<const std::string> uris,
     boost::container::flat_set<std::pair<std::string, std::string>>& matched)
 {
@@ -55,7 +75,7 @@ inline std::optional<IncorrectMetricUri> getChassisSensorNode(
             BMCWEB_LOG_ERROR << "Failed to get chassis and sensor Node "
                                 "from "
                              << uri;
-            return std::make_optional<IncorrectMetricUri>({uri, uriIdx});
+            return std::make_optional<IncorrectMetricProperty>({uri, uriIdx});
         }
 
         std::string chassis;
@@ -85,8 +105,9 @@ inline std::optional<IncorrectMetricUri> getChassisSensorNode(
         BMCWEB_LOG_ERROR << "Failed to get chassis and sensor Node "
                             "from "
                          << uri;
-        return std::make_optional<IncorrectMetricUri>({uri, uriIdx});
+        return std::make_optional<IncorrectMetricProperty>({uri, uriIdx});
     }
+
     return std::nullopt;
 }
 
