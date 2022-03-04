@@ -25,6 +25,26 @@ inline std::string getDbusTriggerPath(const std::string& id)
     return {triggersPath / id};
 }
 
+inline std::optional<std::string>
+    getTriggerIdFromDbusPath(const std::string& dbusPath)
+{
+    sdbusplus::message::object_path converted(dbusPath);
+
+    if (converted.parent_path() !=
+        "/xyz/openbmc_project/Telemetry/Triggers/TelemetryService")
+    {
+        return std::nullopt;
+    }
+
+    const std::string& id = converted.filename();
+    if (id.empty())
+    {
+        return std::nullopt;
+    }
+
+    return id;
+}
+
 struct IncorrectMetricUri
 {
     std::string uri;
@@ -80,6 +100,7 @@ inline std::optional<IncorrectMetricUri> getChassisSensorNode(
                          << uri;
         return std::make_optional<IncorrectMetricUri>({uri, uriIdx});
     }
+
     return std::nullopt;
 }
 
