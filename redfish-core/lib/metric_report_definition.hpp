@@ -695,6 +695,44 @@ class AddReport
 };
 } // namespace telemetry
 
+inline void handleMetricReportDelete(
+    App& app, const crow::Request& req,
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp, const std::string& id)
+
+{
+    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+    {
+        return;
+    }
+
+    const std::string reportPath = telemetry::getDbusReportPath(id);
+
+    crow::connections::systemBus->async_method_call(
+        [asyncResp, id](const boost::system::error_code& ec) {
+        /*
+         * boost::system::errc and std::errc are missing value
+         * for EBADR error that is defined in Linux.
+         */
+        if (ec.value() == EBADR)
+        {
+            messages::resourceNotFound(asyncResp->res, "MetricReportDefinition",
+                                       id);
+            return;
+        }
+
+        if (ec)
+        {
+            BMCWEB_LOG_ERROR << "respHandler DBus error " << ec;
+            messages::internalError(asyncResp->res);
+            return;
+        }
+
+        asyncResp->res.result(boost::beast::http::status::no_content);
+        },
+        telemetry::service, reportPath, "xyz.openbmc_project.Object.Delete",
+        "Delete");
+}
+
 inline void requestRoutesMetricReportDefinitionCollection(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/TelemetryService/MetricReportDefinitions/")
@@ -811,42 +849,6 @@ inline void requestRoutesMetricReportDefinition(App& app)
                  "/redfish/v1/TelemetryService/MetricReportDefinitions/<str>/")
         .privileges(redfish::privileges::deleteMetricReportDefinitionCollection)
         .methods(boost::beast::http::verb::delete_)(
-            [&app](const crow::Request& req,
-                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                   const std::string& id)
-
-            {
-        if (!redfish::setUpRedfishRoute(app, req, asyncResp))
-        {
-            return;
-        }
-
-        const std::string reportPath = telemetry::getDbusReportPath(id);
-
-        crow::connections::systemBus->async_method_call(
-            [asyncResp, id](const boost::system::error_code& ec) {
-            /*
-             * boost::system::errc and std::errc are missing value
-             * for EBADR error that is defined in Linux.
-             */
-            if (ec.value() == EBADR)
-            {
-                messages::resourceNotFound(asyncResp->res,
-                                           "MetricReportDefinition", id);
-                return;
-            }
-
-            if (ec)
-            {
-                BMCWEB_LOG_ERROR << "respHandler DBus error " << ec;
-                messages::internalError(asyncResp->res);
-                return;
-            }
-
-            asyncResp->res.result(boost::beast::http::status::no_content);
-            },
-            telemetry::service, reportPath, "xyz.openbmc_project.Object.Delete",
-            "Delete");
-        });
+            std::bind_front(handleMetricReportDelete, std::ref(app)));
 }
 } // namespace redfish
