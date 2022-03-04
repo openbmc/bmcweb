@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ba22efce_e07322f5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2022-03-04T10:34:00Z",
+      "side": 1,
+      "message": "By accident I replaced pathset 4 with patchet 3 instead of doing rebase.",
+      "revId": "714b6b466d846dd49c97ecb37a13d70850eee8af",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
