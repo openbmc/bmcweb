@@ -31,6 +31,30 @@ struct IncorrectMetricUri
     size_t index;
 };
 
+inline std::optional<std::string>
+    getReportNameFromReportDefinitionUri(const std::string& uri)
+{
+    constexpr std::string_view uriPattern =
+        "/redfish/v1/TelemetryService/MetricReportDefinitions/";
+    if (uri.starts_with(uriPattern))
+    {
+        return uri.substr(uriPattern.length());
+    }
+    return std::nullopt;
+}
+
+inline std::optional<std::string>
+    getTriggerIdFromDbusPath(const std::string& dbusPath)
+{
+    constexpr std::string_view triggerTree =
+        "/xyz/openbmc_project/Telemetry/Triggers/TelemetryService/";
+    if (dbusPath.starts_with(triggerTree))
+    {
+        return dbusPath.substr(triggerTree.length());
+    }
+    return std::nullopt;
+}
+
 inline std::optional<IncorrectMetricUri> getChassisSensorNode(
     const std::vector<std::string>& uris,
     boost::container::flat_set<std::pair<std::string, std::string>>& matched)
@@ -79,6 +103,25 @@ inline std::optional<IncorrectMetricUri> getChassisSensorNode(
                             "from "
                          << uri;
         return std::make_optional<IncorrectMetricUri>({uri, uriIdx});
+    }
+
+    return std::nullopt;
+}
+
+inline std::optional<std::string>
+    redfishActionToDbusAction(const std::string& redfishAction)
+{
+    if (redfishAction == "RedfishMetricReport")
+    {
+        return "UpdateReport";
+    }
+    if (redfishAction == "RedfishEvent")
+    {
+        return "RedfishEvent";
+    }
+    if (redfishAction == "LogToLogService")
+    {
+        return "LogToLogService";
     }
     return std::nullopt;
 }
