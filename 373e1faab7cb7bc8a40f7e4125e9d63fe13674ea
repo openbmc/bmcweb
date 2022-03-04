@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "051c53a7_4869681c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-04T20:05:36Z",
+      "side": 1,
+      "message": "Looks reasonable to me, only one nit.",
+      "revId": "373e1faab7cb7bc8a40f7e4125e9d63fe13674ea",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d3258d03_b3ff33f3",
+        "filename": "COMMON_ERRORS.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-04T20:05:36Z",
+      "side": 1,
+      "message": "nit, now that this doc has explicitly called out what to do, I don\u0027t think we need this line anymore.",
+      "range": {
+        "startLine": 97,
+        "startChar": 0,
+        "endLine": 97,
+        "endChar": 71
+      },
+      "revId": "373e1faab7cb7bc8a40f7e4125e9d63fe13674ea",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
