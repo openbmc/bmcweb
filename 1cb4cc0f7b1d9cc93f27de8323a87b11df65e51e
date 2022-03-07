@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a390f255_23b34ac2",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1224,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-03-07T15:04:18Z",
+      "side": 1,
+      "message": "I am pretty sure this will throw a Validator error (this is an enum and can only be those 3 values) \n\n\n\"PowerRestorePolicyTypes\": {\n            \"description\": \"The enumerations of PowerRestorePolicyTypes specify the choice of power state for the system when power is applied.\",\n            \"enum\": [\n                \"AlwaysOn\",\n                \"AlwaysOff\",\n                \"LastState\"\n            ],\n            \"enumDescriptions\": {\n                \"AlwaysOff\": \"The system always remains powered off when power is applied.\",\n                \"AlwaysOn\": \"The system always powers on when power is applied.\",\n                \"LastState\": \"The system returns to its last on or off power state when power is applied.\"\n            },\n\nWhen it is none, wonder if we should just leave off or we need to go back to Redfish and ask to add? Andrew added the None here: \nhttps://github.com/openbmc/phosphor-dbus-interfaces/commit/66b591e165b53a80e431a543aa8c8e48beba585f\n\nEven after reading that Commit msg I still don\u0027t understand why None is needed",
+      "revId": "1cb4cc0f7b1d9cc93f27de8323a87b11df65e51e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
