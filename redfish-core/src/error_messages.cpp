@@ -438,15 +438,17 @@ void createFailedMissingReqProperties(crow::Response& res,
  * See header file for more information
  * @endinternal
  */
-nlohmann::json propertyValueFormatError(std::string_view arg1,
+nlohmann::json propertyValueFormatError(const nlohmann::json& arg1,
                                         std::string_view arg2)
 {
+    std::string arg1Out =
+        arg1.dump(-1, ' ', true, nlohmann::json::error_handler_t::replace);
     return getLog(
         redfish::message_registries::base::Index::propertyValueFormatError,
-        std::to_array({arg1, arg2}));
+        std::to_array<std::string_view>({arg1Out, arg2}));
 }
 
-void propertyValueFormatError(crow::Response& res, std::string_view arg1,
+void propertyValueFormatError(crow::Response& res, const nlohmann::json& arg1,
                               std::string_view arg2)
 {
     res.result(boost::beast::http::status::bad_request);
