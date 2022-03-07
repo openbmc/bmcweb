@@ -16,6 +16,24 @@
       "message": "How did you choose fmt? Did you consider anything else?",
       "revId": "488a162dfe2f3aac43953f33ac5886df7d8f7a8f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "baac53ce_a1aa2796",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 13
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-07T15:49:15Z",
+      "side": 1,
+      "message": "It\u0027s what most of the rest of the project is using, is already available, and is pretty much the standard goto choice for c++ log formatting.  I also considered printf/varargs forwarding, but that has its own issues.\n\nOpen to other ideas though.\n\nOne thing that I considered after I wrote this was to use spdlog directly instead of our own logging class.  I\u0027m not sure the binary-size consequences of that, but it might be worth it to not have our own logging class.  With that said, the logging class is a trivial amount of code, so even if we went with that approach, I\u0027d probably still do it in two steps.",
+      "parentUuid": "b2197eed_c09628fc",
+      "revId": "488a162dfe2f3aac43953f33ac5886df7d8f7a8f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
