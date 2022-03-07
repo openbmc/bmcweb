@@ -598,11 +598,8 @@ inline void handleHypervisorIPv4StaticPatch(
                                  address, "SubnetMask", subnetMask, "Gateway",
                                  gateway))
         {
-            messages::propertyValueFormatError(
-                asyncResp->res,
-                thisJson.dump(2, ' ', true,
-                              nlohmann::json::error_handler_t::replace),
-                pathString);
+            messages::propertyValueFormatError(asyncResp->res, thisJson,
+                                               pathString);
             return;
         }
 
@@ -926,10 +923,7 @@ inline void requestRoutesHypervisorSystems(App& app)
                         if (ipv4Static.size() != 1)
                         {
                             messages::propertyValueFormatError(
-                                asyncResp->res,
-                                ipv4Static.dump(
-                                    2, ' ', true,
-                                    nlohmann::json::error_handler_t::replace),
+                                asyncResp->res, ipv4Static,
                                 "IPv4StaticAddresses");
                             return;
                         }
