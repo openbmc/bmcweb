@@ -126,7 +126,7 @@ static nlohmann::json getLog(redfish::registries::base::Index name,
     {
         jArgs.push_back(arg);
     }
-    std::string msgId = redfish::registries::base::header.id;
+    std::string msgId = redfish::registries::base::header.id();
     msgId += ".";
     msgId += entry.first;
     nlohmann::json::object_t response;
