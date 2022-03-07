@@ -4,6 +4,9 @@
 #include "error_messages.hpp"
 #include "openbmc_dbus_rest.hpp"
 
+#include <boost/container/flat_map.hpp>
+#include <nlohmann/json.hpp>
+
 namespace redfish
 {
 namespace service_util
@@ -14,6 +17,8 @@ static constexpr const char* serviceManagerPath =
     "/xyz/openbmc_project/control/service";
 static constexpr const char* serviceConfigInterface =
     "xyz.openbmc_project.Control.Service.Attributes";
+static constexpr const char* portConfigInterface =
+    "xyz.openbmc_project.Control.Service.SocketAttributes";
 
 static bool matchService(const sdbusplus::message::object_path& objPath,
                          const std::string& serviceName)
@@ -25,6 +30,113 @@ static bool matchService(const sdbusplus::message::object_path& objPath,
     std::string fullUnitName = objPath.filename();
     size_t pos = fullUnitName.find("_40");
     return fullUnitName.substr(0, pos) == serviceName;
+}
+
+void getEnabled(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                const std::string& serviceName,
+                const nlohmann::json::json_pointer& valueJsonPtr)
+{
+    crow::connections::systemBus->async_method_call(
+        [asyncResp, serviceName,
+         valueJsonPtr](const boost::system::error_code ec,
+                       const dbus::utility::ManagedObjectType& objects) {
+            if (ec)
+            {
+                messages::internalError(asyncResp->res);
+                return;
+            }
+
+            for (const auto& [path, interfaces] : objects)
+            {
+                if (matchService(path, serviceName))
+                {
+                    for (const auto& [interface, properties] : interfaces)
+                    {
+                        if (interface != serviceConfigInterface)
+                        {
+                            continue;
+                        }
+
+                        for (const auto& [key, val] : properties)
+                        {
+                            // Service is enabled if one instance is running or
+                            // enabled
+                            if (key == "Enabled" || key == "Running")
+                            {
+                                const auto* enabled = std::get_if<bool>(&val);
+                                if (enabled == nullptr)
+                                {
+                                    messages::internalError(asyncResp->res);
+                                    return;
+                                }
+                                if (*enabled)
+                                {
+                                    asyncResp->res.jsonValue[valueJsonPtr] =
+                                        true;
+                                    return;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            // If the service is not exist, simply return false
+            asyncResp->res.jsonValue[valueJsonPtr] = false;
+        },
+        serviceManagerService, serviceManagerPath,
+        "org.freedesktop.DBus.ObjectManager", "GetManagedObjects");
+}
+
+void getPortNumber(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                   const std::string& serviceName,
+                   const nlohmann::json::json_pointer& valueJsonPtr)
+{
+    crow::connections::systemBus->async_method_call(
+        [asyncResp, serviceName,
+         valueJsonPtr](const boost::system::error_code ec,
+                       const dbus::utility::ManagedObjectType& objects) {
+            if (ec)
+            {
+                messages::internalError(asyncResp->res);
+                return;
+            }
+
+            for (const auto& [path, interfaces] : objects)
+            {
+                if (matchService(path, serviceName))
+                {
+                    for (const auto& [interface, properties] : interfaces)
+                    {
+                        if (interface != portConfigInterface)
+                        {
+                            continue;
+                        }
+
+                        for (const auto& [key, val] : properties)
+                        {
+                            // For service with multiple instances, return the
+                            // port of first instance found as redfish only
+                            // support one port value, they should be same
+                            if (key == "Port")
+                            {
+                                const auto* port = std::get_if<uint16_t>(&val);
+                                if (port == nullptr)
+                                {
+                                    messages::internalError(asyncResp->res);
+                                    return;
+                                }
+                                asyncResp->res.jsonValue[valueJsonPtr] = *port;
+                                return;
+                            }
+                        }
+                    }
+                }
+            }
+            asyncResp->res.jsonValue[valueJsonPtr] =
+                nlohmann::json::value_t::null;
+        },
+        serviceManagerService, serviceManagerPath,
+        "org.freedesktop.DBus.ObjectManager", "GetManagedObjects");
 }
 
 template <typename T>
