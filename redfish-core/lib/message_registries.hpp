@@ -102,7 +102,7 @@ inline void handleMessageRoutesMessageRegistryFileGet(
         {"Name", registry + " Message Registry File"},
         {"Description", dmtf + registry + " Message Registry File Location"},
         {"Id", header->registryPrefix},
-        {"Registry", header->id},
+        {"Registry", header->id()},
         {"Languages", {"en"}},
         {"Languages@odata.count", 1},
         {"Location",
@@ -183,7 +183,7 @@ inline void handleMessageRegistryGet(
 
     asyncResp->res.jsonValue = {{"@Redfish.Copyright", header->copyright},
                                 {"@odata.type", header->type},
-                                {"Id", header->id},
+                                {"Id", header->id()},
                                 {"Name", header->name},
                                 {"Language", header->language},
                                 {"Description", header->description},
