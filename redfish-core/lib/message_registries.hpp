@@ -105,6 +105,7 @@ inline void handleMessageRoutesMessageRegistryFileGet(
         return;
     }
 
+<<<<<<< HEAD
     asyncResp->res.jsonValue["@odata.id"] =
         "/redfish/v1/Registries/" + registry;
     asyncResp->res.jsonValue["@odata.type"] =
@@ -121,6 +122,21 @@ inline void handleMessageRoutesMessageRegistryFileGet(
          {"Uri", "/redfish/v1/Registries/" + registry + "/" + registry}}};
 
     asyncResp->res.jsonValue["Location@odata.count"] = 1;
+=======
+    asyncResp->res.jsonValue = {
+        {"@odata.id", "/redfish/v1/Registries/" + registry},
+        {"@odata.type", "#MessageRegistryFile.v1_1_0.MessageRegistryFile"},
+        {"Name", registry + " Message Registry File"},
+        {"Description", dmtf + registry + " Message Registry File Location"},
+        {"Id", header->registryPrefix},
+        {"Registry", header->id()},
+        {"Languages", {"en"}},
+        {"Languages@odata.count", 1},
+        {"Location",
+         {{{"Language", "en"},
+           {"Uri", "/redfish/v1/Registries/" + registry + "/" + registry}}}},
+        {"Location@odata.count", 1}};
+>>>>>>> d25abea7 (Remove id from messages)
 
     if (url != nullptr)
     {
@@ -197,6 +213,7 @@ inline void handleMessageRegistryGet(
         return;
     }
 
+<<<<<<< HEAD
     asyncResp->res.jsonValue["@Redfish.Copyright"] = header->copyright;
     asyncResp->res.jsonValue["@odata.type"] = header->type;
     asyncResp->res.jsonValue["Id"] = header->id;
@@ -206,6 +223,17 @@ inline void handleMessageRegistryGet(
     asyncResp->res.jsonValue["RegistryPrefix"] = header->registryPrefix;
     asyncResp->res.jsonValue["RegistryVersion"] = header->registryVersion;
     asyncResp->res.jsonValue["OwningEntity"] = header->owningEntity;
+=======
+    asyncResp->res.jsonValue = {{"@Redfish.Copyright", header->copyright},
+                                {"@odata.type", header->type},
+                                {"Id", header->id()},
+                                {"Name", header->name},
+                                {"Language", header->language},
+                                {"Description", header->description},
+                                {"RegistryPrefix", header->registryPrefix},
+                                {"RegistryVersion", header->registryVersion},
+                                {"OwningEntity", header->owningEntity}};
+>>>>>>> d25abea7 (Remove id from messages)
 
     nlohmann::json& messageObj = asyncResp->res.jsonValue["Messages"];
 
