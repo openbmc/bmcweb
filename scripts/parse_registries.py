@@ -83,7 +83,6 @@ for file, json_dict, namespace, url in files:
             "const Header header = {{\n"
             "    \"{json_dict[@Redfish.Copyright]}\",\n"
             "    \"{json_dict[@odata.type]}\",\n"
-            "    \"{json_dict[Id]}\",\n"
             "    \"{json_dict[Name]}\",\n"
             "    \"{json_dict[Language]}\",\n"
             "    \"{json_dict[Description]}\",\n"

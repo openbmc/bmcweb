@@ -18,7 +18,6 @@ namespace redfish::registries::resource_event
 const Header header = {
     "Copyright 2014-2020 DMTF in cooperation with the Storage Networking Industry Association (SNIA). All rights reserved.",
     "#MessageRegistry.v1_4_0.MessageRegistry",
-    "ResourceEvent.1.0.3",
     "Resource Event Message Registry",
     "en",
     "This registry defines the messages to use for resource events.",

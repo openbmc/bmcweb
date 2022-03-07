@@ -113,7 +113,7 @@ inline void handleMessageRoutesMessageRegistryFileGet(
     asyncResp->res.jsonValue["Description"] =
         dmtf + registry + " Message Registry File Location";
     asyncResp->res.jsonValue["Id"] = header->registryPrefix;
-    asyncResp->res.jsonValue["Registry"] = header->id;
+    asyncResp->res.jsonValue["Registry"] = header->id();
     asyncResp->res.jsonValue["Languages"] = {"en"};
     asyncResp->res.jsonValue["Languages@odata.count"] = 1;
     asyncResp->res.jsonValue["Location"] = {
@@ -199,7 +199,7 @@ inline void handleMessageRegistryGet(
 
     asyncResp->res.jsonValue["@Redfish.Copyright"] = header->copyright;
     asyncResp->res.jsonValue["@odata.type"] = header->type;
-    asyncResp->res.jsonValue["Id"] = header->id;
+    asyncResp->res.jsonValue["Id"] = header->id();
     asyncResp->res.jsonValue["Name"] = header->name;
     asyncResp->res.jsonValue["Language"] = header->language;
     asyncResp->res.jsonValue["Description"] = header->description;
