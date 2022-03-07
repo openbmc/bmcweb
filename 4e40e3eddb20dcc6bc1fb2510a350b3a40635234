@@ -1,0 +1,136 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bf6b0686_43914841",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-07T17:59:38Z",
+      "side": 1,
+      "message": "15 seconds seems ludicrously high for that.  I would expect something like 10-100ms as a reload time.",
+      "range": {
+        "startLine": 11,
+        "startChar": 64,
+        "endLine": 14,
+        "endChar": 7
+      },
+      "revId": "4e40e3eddb20dcc6bc1fb2510a350b3a40635234",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6c1192c9_80c7f4a6",
+        "filename": "redfish-core/include/utils/service_utils.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-07T17:59:38Z",
+      "side": 1,
+      "message": "Please use the common types for these.  Don\u0027t add your own type.",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 16,
+        "endChar": 76
+      },
+      "revId": "4e40e3eddb20dcc6bc1fb2510a350b3a40635234",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "90b91c0f_ef505de2",
+        "filename": "redfish-core/include/utils/service_utils.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-07T17:59:38Z",
+      "side": 1,
+      "message": "Please split this funciton up, it goes 8 scopes deep in some places.",
+      "revId": "4e40e3eddb20dcc6bc1fb2510a350b3a40635234",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b9bd523b_69d9bb39",
+        "filename": "redfish-core/include/utils/service_utils.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-07T17:59:38Z",
+      "side": 1,
+      "message": "Please don\u0027t capture by reference like this.  It tends to have lifetime issues, and in this case, I suspect you can just use a json path name.",
+      "range": {
+        "startLine": 103,
+        "startChar": 10,
+        "endLine": 103,
+        "endChar": 18
+      },
+      "revId": "4e40e3eddb20dcc6bc1fb2510a350b3a40635234",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "51e65108_0f90c33c",
+        "filename": "redfish-core/lib/network_protocol.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-07T17:59:38Z",
+      "side": 1,
+      "message": "flat_map is not used in this file.",
+      "range": {
+        "startLine": 23,
+        "startChar": 0,
+        "endLine": 23,
+        "endChar": 39
+      },
+      "revId": "4e40e3eddb20dcc6bc1fb2510a350b3a40635234",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "21652c98_51f0a478",
+        "filename": "redfish-core/lib/network_protocol.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-07T17:59:38Z",
+      "side": 1,
+      "message": "I suspect this change isn\u0027t needed, you just need to change the underlying path build mechanisms to use sdbusplus::mesage::object_path operator/ and .filename() which will escape these automatically.",
+      "range": {
+        "startLine": 43,
+        "startChar": 33,
+        "endLine": 43,
+        "endChar": 54
+      },
+      "revId": "4e40e3eddb20dcc6bc1fb2510a350b3a40635234",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
