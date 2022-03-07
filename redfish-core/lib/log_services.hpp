@@ -2843,7 +2843,8 @@ enum class OEMDiagnosticType
     invalid,
 };
 
-OEMDiagnosticType getOEMDiagnosticType(const std::string_view& oemDiagStr)
+inline OEMDiagnosticType
+    getOEMDiagnosticType(const std::string_view& oemDiagStr)
 {
     if (oemDiagStr == "OnDemand")
     {
