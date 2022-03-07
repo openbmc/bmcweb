@@ -8,7 +8,7 @@
 
 #include "gmock/gmock.h"
 
-void assertServiceRootGet(crow::Response& res)
+static void assertServiceRootGet(crow::Response& res)
 {
     nlohmann::json& json = res.jsonValue;
     EXPECT_EQ(json["@odata.id"], "/redfish/v1");
