@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "cda57dca_45a936a1",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000029
+      },
+      "writtenOn": "2022-03-07T18:28:18Z",
+      "side": 1,
+      "message": "Andrew and I discussed the use of \"AlwaysOff\" in place of \"None\", however that would essentially mean there\u0027s no way to know if it was a one_time option or the property was set to \"AlwaysOff\" to begin with to the caller. Andrew would need to speak to why this \"None\" was specifically added.\n\n\u003e And it states that the intent is to handle the one_time option, which Redfish doesn\u0027t really seem to support (I think?), so I suspect that we need something like\nlookup one time action\nif (none)\nlook up the permenant action.\n\nCorrect, I did not see anything resembling the definition of the one_time option from our dbus interface. Its seems we\u0027d be polluting the bmcweb code with possible \"one time actions\" that\u0027d be specific to how a company chooses to use \"None\" right?\n\nIts possible that removal of the `PowerRestorePolicy` from the response when \"None\" would work, but I\u0027ll need to look further into that along with possibly just returning \"AlwaysOff\" depending on the object this is on.",
+      "parentUuid": "00ca9c85_a1b7c9c0",
+      "range": {
+        "startLine": 11,
+        "startChar": 49,
+        "endLine": 13,
+        "endChar": 20
+      },
+      "revId": "1cb4cc0f7b1d9cc93f27de8323a87b11df65e51e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "8fdbc561_fe600884",
         "filename": "/COMMIT_MSG",
         "patchSetId": 1
@@ -37,6 +61,24 @@
       "writtenOn": "2022-03-07T16:00:38Z",
       "side": 1,
       "message": "The Developing guide asks that you run the service validator, this this will fail as written.",
+      "revId": "1cb4cc0f7b1d9cc93f27de8323a87b11df65e51e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2f15d6fb_07fc349f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1000029
+      },
+      "writtenOn": "2022-03-07T18:28:18Z",
+      "side": 1,
+      "message": "Thanks, I\u0027ve got the validator down and working thru the setup to run against my test.",
+      "parentUuid": "8fdbc561_fe600884",
       "revId": "1cb4cc0f7b1d9cc93f27de8323a87b11df65e51e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -72,6 +114,24 @@
       "side": 1,
       "message": "How does one go about running the validator since its not part of CI?\n\nLeaving it off may be an option for \"None\".",
       "parentUuid": "a390f255_23b34ac2",
+      "revId": "1cb4cc0f7b1d9cc93f27de8323a87b11df65e51e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "aef96168_a310a313",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1224,
+      "author": {
+        "id": 1000029
+      },
+      "writtenOn": "2022-03-07T18:28:18Z",
+      "side": 1,
+      "message": "Got the validator installed and working thru setup to run it and coincide that with how we can represent \"None\".",
+      "parentUuid": "b36df6fb_54fce0cb",
       "revId": "1cb4cc0f7b1d9cc93f27de8323a87b11df65e51e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
