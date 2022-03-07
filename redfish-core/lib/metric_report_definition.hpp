@@ -170,6 +170,39 @@ inline std::string toDbusReportUpdates(std::string_view redfishValue)
     return "";
 }
 
+inline std::optional<nlohmann::json> getLinkedTriggers(
+    std::span<const sdbusplus::message::object_path> triggerPaths)
+{
+    nlohmann::json triggers = nlohmann::json::array();
+
+    for (const sdbusplus::message::object_path& path : triggerPaths)
+    {
+        if (path.parent_path() !=
+            "/xyz/openbmc_project/Telemetry/Triggers/TelemetryService")
+        {
+            BMCWEB_LOG_ERROR << "Property Triggers contains invalid value: "
+                             << path.str;
+            return std::nullopt;
+        }
+
+        std::string id = path.filename();
+        if (id.empty())
+        {
+            BMCWEB_LOG_ERROR << "Property Triggers contains invalid value: "
+                             << path.str;
+            return std::nullopt;
+        }
+
+        triggers.push_back({
+            {"@odata.id",
+             crow::utility::urlFromPieces("redfish", "v1", "TelemetryService",
+                                          "Triggers", id)},
+        });
+    }
+
+    return std::make_optional(triggers);
+}
+
 inline void
     fillReportDefinition(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                          const std::string& id,
@@ -183,12 +216,14 @@ inline void
     uint64_t appendLimit = 0;
     uint64_t interval = 0;
     bool enabled = false;
+    std::vector<sdbusplus::message::object_path> triggers;
 
     const bool success = sdbusplus::unpackPropertiesNoThrow(
         dbus_utils::UnpackErrorPrinter(), properties, "ReportingType",
         reportingType, "Interval", interval, "ReportActions", reportActions,
         "ReportUpdates", reportUpdates, "AppendLimit", appendLimit,
-        "ReadingParameters", readingParams, "Name", name, "Enabled", enabled);
+        "ReadingParameters", readingParams, "Name", name, "Enabled", enabled,
+        "Triggers", triggers);
 
     if (!success)
     {
@@ -205,6 +240,15 @@ inline void
 
     asyncResp->res.jsonValue["MetricReportDefinitionType"] =
         redfishReportingType;
+
+    std::optional<nlohmann::json> linkedTriggers = getLinkedTriggers(triggers);
+    if (!linkedTriggers)
+    {
+        messages::internalError(asyncResp->res);
+        return;
+    }
+
+    asyncResp->res.jsonValue["Links"]["Triggers"] = *linkedTriggers;
 
     nlohmann::json::array_t redfishReportActions;
     for (const std::string& action : reportActions)
