@@ -134,6 +134,24 @@
       "parentUuid": "b36df6fb_54fce0cb",
       "revId": "1cb4cc0f7b1d9cc93f27de8323a87b11df65e51e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0eaefe27_a87ae5a1",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1224,
+      "author": {
+        "id": 1000004
+      },
+      "writtenOn": "2022-03-07T21:53:36Z",
+      "side": 1,
+      "message": "I was wondering if we could just not set or return a [\"PowerRestorePolicy\"] at all when it\u0027s None since it\u0027s an optional property? \n\nAnd yeah, the \"None\" was needed because there was no way to know when the one-time was not set with the 3 values. It followed the general design of PDI to have a default un-initialized value so code can know if a property has been set to something.",
+      "parentUuid": "aef96168_a310a313",
+      "revId": "1cb4cc0f7b1d9cc93f27de8323a87b11df65e51e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
