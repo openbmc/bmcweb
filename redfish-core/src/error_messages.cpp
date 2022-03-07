@@ -107,8 +107,8 @@ static void addMessageToJson(nlohmann::json& target,
     field.push_back(message);
 }
 
-nlohmann::json getLog(redfish::message_registries::base::Index name,
-                      std::span<const std::string_view> args)
+inline nlohmann::json getLog(redfish::message_registries::base::Index name,
+                             std::span<const std::string_view> args)
 {
     size_t index = static_cast<size_t>(name);
     if (index >= redfish::message_registries::base::registry.size())
