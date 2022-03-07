@@ -126,7 +126,7 @@ inline nlohmann::json getLog(redfish::message_registries::base::Index name,
     {
         jArgs.push_back(arg);
     }
-    std::string msgId = redfish::message_registries::base::header.id;
+    std::string msgId = redfish::message_registries::base::header.id();
     msgId += ".";
     msgId += entry.first;
     return {{"@odata.type", "#Message.v1_1_1.Message"},
