@@ -17,6 +17,7 @@
 
 #include <array>
 #include <cstddef>
+#include <cstring>
 #include <span>
 #include <string>
 #include <string_view>
@@ -30,13 +31,23 @@ struct Header
 {
     const char* copyright;
     const char* type;
-    const char* id;
     const char* name;
     const char* language;
     const char* description;
     const char* registryPrefix;
     const char* registryVersion;
     const char* owningEntity;
+
+    std::string id() const
+    {
+        std::string id;
+        id.reserve(std::strlen(registryPrefix) + 1 +
+                   std::strlen(registryVersion));
+        id += registryPrefix;
+        id += '.';
+        id += registryVersion;
+        return id;
+    }
 };
 
 struct Message
