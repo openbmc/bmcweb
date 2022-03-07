@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f13f4194_e92b917f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-07T16:29:34Z",
+      "side": 1,
+      "message": "Looking forward to it.",
+      "parentUuid": "92244452_21304722",
+      "revId": "a06adeccb5e4c90bebb7a20a5c095b3396286f0a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c096286d_664c7697",
         "filename": "redfish-core/include/registries/privilege_registry.hpp",
         "patchSetId": 4
