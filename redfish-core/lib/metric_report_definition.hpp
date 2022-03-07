@@ -52,6 +52,40 @@ std::string toDbusReportAction(std::string_view action)
     return "";
 }
 
+inline std::optional<nlohmann::json> getLinkedTriggers(
+    const std::vector<sdbusplus::message::object_path>& triggerPaths)
+{
+    nlohmann::json triggers = nlohmann::json::array();
+
+    for (const sdbusplus::message::object_path& path : triggerPaths)
+    {
+        if (path.parent_path() !=
+            "/xyz/openbmc_project/Telemetry/Triggers/TelemetryService")
+        {
+            BMCWEB_LOG_ERROR << "Property Triggers contains invalid value: "
+                             << path.str;
+            return std::nullopt;
+        }
+
+        std::string id = path.filename();
+        if (id.empty())
+        {
+            BMCWEB_LOG_ERROR << "Property Triggers contains invalid value: "
+                             << path.str;
+            return std::nullopt;
+        }
+
+        triggers.push_back({
+            {"@odata.id",
+             crow::utility::urlFromPieces("redfish", "v1", "TelemetryService",
+                                          "Triggers", id)
+                 .string()},
+        });
+    }
+
+    return std::make_optional(triggers);
+}
+
 inline void
     fillReportDefinition(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                          const std::string& id,
@@ -67,6 +101,7 @@ inline void
     const bool* enabled = nullptr;
     const std::vector<std::tuple<std::string, std::string>>* errorMessages =
         nullptr;
+    const std::vector<sdbusplus::message::object_path>* triggers = nullptr;
 
     for (const auto& [key, var] : properties)
     {
@@ -108,6 +143,11 @@ inline void
                 std::get_if<std::vector<std::tuple<std::string, std::string>>>(
                     &var);
         }
+        else if (key == "Triggers")
+        {
+            triggers =
+                std::get_if<std::vector<sdbusplus::message::object_path>>(&var);
+        }
     }
 
     std::vector<std::string> redfishReportActions;
@@ -125,6 +165,17 @@ inline void
             }
 
             redfishReportActions.emplace_back(std::move(redfishAction));
+        }
+    }
+
+    std::optional<nlohmann::json> linkedTriggers;
+    if (triggers != nullptr)
+    {
+        linkedTriggers = getLinkedTriggers(*triggers);
+        if (!linkedTriggers)
+        {
+            messages::internalError(asyncResp->res);
+            return;
         }
     }
 
@@ -218,6 +269,11 @@ inline void
                       std::chrono::milliseconds(collectionDuration))},
                  {"CollectionTimeScope", collectionTimeScope}});
         }
+    }
+
+    if (linkedTriggers)
+    {
+        asyncResp->res.jsonValue["Links"]["Triggers"] = *linkedTriggers;
     }
 }
 
