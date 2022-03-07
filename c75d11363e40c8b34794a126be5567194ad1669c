@@ -39,6 +39,30 @@
       },
       "revId": "c75d11363e40c8b34794a126be5567194ad1669c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d026d79a_6dc821e5",
+        "filename": "http/routing.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 1217,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-07T16:03:36Z",
+      "side": 1,
+      "message": "\u003e Adaptor\u0026\u0026 maybe be reference then it will be moved instead of forwarded as reference.\n\nI suspect this was a bad merge conflict resolution.  The code that this commit was originally forked from didn\u0027t use std::forward.\n\n\u003e \n\u003e std::forward should stay and if we want to perform move it needs to be ensured by calling handleUpgrade with std::move eg. handleUpgrade(req, res, std::move(adaptor)); then std::forward here will forward it as r-value referece.\n\nACK",
+      "parentUuid": "658a2dd7_84ec33df",
+      "range": {
+        "startLine": 1217,
+        "startChar": 50,
+        "endLine": 1217,
+        "endChar": 68
+      },
+      "revId": "c75d11363e40c8b34794a126be5567194ad1669c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
