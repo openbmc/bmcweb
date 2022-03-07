@@ -85,6 +85,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "6de78694_db5c73f9",
+        "filename": "redfish-core/lib/service_config_manager.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001252
+      },
+      "writtenOn": "2022-03-07T10:06:04Z",
+      "side": 1,
+      "message": "Now this is a util",
+      "parentUuid": "2cd09b39_d4036720",
+      "revId": "2f95074f3e5b04a64b61f66ae79bad9c71ceaf54",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a3209b66_7fbb5af2",
         "filename": "redfish-core/lib/service_config_manager.hpp",
         "patchSetId": 2
@@ -96,6 +114,24 @@
       "writtenOn": "2022-01-06T22:12:53Z",
       "side": 1,
       "message": "What if you use a different application ? \nBefore we didn\u0027t have this hardcoded.",
+      "revId": "2f95074f3e5b04a64b61f66ae79bad9c71ceaf54",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "98811466_eca6f2e0",
+        "filename": "redfish-core/lib/service_config_manager.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1001252
+      },
+      "writtenOn": "2022-03-07T10:06:04Z",
+      "side": 1,
+      "message": "Changed back to ObjectMapper",
+      "parentUuid": "a3209b66_7fbb5af2",
       "revId": "2f95074f3e5b04a64b61f66ae79bad9c71ceaf54",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
