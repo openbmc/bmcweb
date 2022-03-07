@@ -712,8 +712,7 @@ inline bool
         {
             BMCWEB_LOG_ERROR << "Got invalid path " << path;
             BMCWEB_LOG_ERROR << "Illegal Type Zones";
-            messages::propertyValueFormatError(response->res, odata.dump(),
-                                               "Zones");
+            messages::propertyValueFormatError(response->res, odata, "Zones");
             return false;
         }
         std::replace(input.begin(), input.end(), '_', ' ');

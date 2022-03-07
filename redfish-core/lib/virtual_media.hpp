@@ -374,7 +374,7 @@ inline bool
     {
         BMCWEB_LOG_ERROR << "Request action parameter Image is empty.";
 
-        messages::propertyValueFormatError(res, "<empty>", "Image");
+        messages::propertyValueFormatError(res, imageUrl, "Image");
 
         return false;
     }
