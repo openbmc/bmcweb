@@ -45,6 +45,22 @@ static constexpr std::array<std::pair<const char*, const char*>, 3>
                           {"HTTPS", httpsServiceName},
                           {"IPMI", ipmiServiceName}}};
 
+inline void
+    getServiceStatus(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
+{
+    for (const auto& [protocolName, serviceName] : protocolToService)
+    {
+        service_util::getEnabled(
+            asyncResp, serviceName,
+            nlohmann::json::json_pointer(std::string("/") + protocolName +
+                                         "/ProtocolEnabled"));
+        service_util::getPortNumber(
+            asyncResp, serviceName,
+            nlohmann::json::json_pointer(std::string("/") + protocolName +
+                                         "/Port"));
+    }
+}
+
 inline void extractNTPServersAndDomainNamesData(
     const dbus::utility::ManagedObjectType& dbusData,
     std::vector<std::string>& ntpData, std::vector<std::string>& dnData)
@@ -136,6 +152,7 @@ inline void getNetworkData(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     asyncResp->res.jsonValue["HostName"] = hostName;
 
     getNTPProtocolEnabled(asyncResp);
+    getServiceStatus(asyncResp);
 
     getEthernetIfaceData(
         [hostName, asyncResp](const bool& success,
@@ -173,45 +190,7 @@ inline void getNetworkData(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
         asyncResp->res.jsonValue["HTTPS"]["Certificates"]["@odata.id"] =
             "/redfish/v1/Managers/bmc/NetworkProtocol/HTTPS/Certificates";
     }
-
-    for (const auto& protocol : protocolToService)
-    {
-        const std::string& protocolName = protocol.first;
-        const std::string& serviceName = protocol.second;
-        getPortStatusAndPath(
-            serviceName,
-            [asyncResp, protocolName](const boost::system::error_code ec,
-                                      const std::string& socketPath,
-                                      bool isProtocolEnabled) {
-            // If the service is not installed, that is not an error
-            if (ec == boost::system::errc::no_such_process)
-            {
-                asyncResp->res.jsonValue[protocolName]["Port"] =
-                    nlohmann::detail::value_t::null;
-                asyncResp->res.jsonValue[protocolName]["ProtocolEnabled"] =
-                    false;
-                return;
-            }
-            if (ec)
-            {
-                messages::internalError(asyncResp->res);
-                return;
-            }
-            asyncResp->res.jsonValue[protocolName]["ProtocolEnabled"] =
-                isProtocolEnabled;
-            getPortNumber(socketPath, [asyncResp, protocolName](
-                                          const boost::system::error_code ec,
-                                          int portNumber) {
-                if (ec)
-                {
-                    messages::internalError(asyncResp->res);
-                    return;
-                }
-                asyncResp->res.jsonValue[protocolName]["Port"] = portNumber;
-            });
-            });
-    }
-} // namespace redfish
+}
 
 inline void handleNTPProtocolEnabled(
     const bool& ntpEnabled, const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
