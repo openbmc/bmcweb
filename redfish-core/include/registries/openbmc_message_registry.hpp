@@ -21,7 +21,6 @@ namespace redfish::message_registries::openbmc
 const Header header = {
     "Copyright 2022 OpenBMC. All rights reserved.",
     "#MessageRegistry.v1_4_0.MessageRegistry",
-    "OpenBMC.0.3.1",
     "OpenBMC Message Registry",
     "en",
     "This registry defines the base messages for OpenBMC.",

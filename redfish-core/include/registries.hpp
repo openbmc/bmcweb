@@ -25,13 +25,17 @@ struct Header
 {
     const char* copyright;
     const char* type;
-    const char* id;
     const char* name;
     const char* language;
     const char* description;
     const char* registryPrefix;
     const char* registryVersion;
     const char* owningEntity;
+
+    std::string id() const
+    {
+        return registryPrefix + std::string(".") + registryVersion;
+    }
 };
 
 struct Message
