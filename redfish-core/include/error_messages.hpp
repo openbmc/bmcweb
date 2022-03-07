@@ -429,9 +429,10 @@ void propertyValueIncorrect(crow::Response& res, std::string_view arg1,
  * @param[in] arg1 Parameter of message that will replace %1 in its body.
  *
  * @returns Message ResourceCreationConflict formatted to JSON */
-nlohmann::json resourceCreationConflict(std::string_view arg1);
+nlohmann::json resourceCreationConflict(const boost::urls::url_view& arg1);
 
-void resourceCreationConflict(crow::Response& res, std::string_view arg1);
+void resourceCreationConflict(crow::Response& res,
+                              const boost::urls::url_view& arg1);
 
 /**
  * @brief Formats MaximumErrorsExceeded message into JSON
@@ -631,9 +632,9 @@ void accountRemoved(crow::Response& res);
  * @param[in] arg1 Parameter of message that will replace %1 in its body.
  *
  * @returns Message AccessDenied formatted to JSON */
-nlohmann::json accessDenied(std::string_view arg1);
+nlohmann::json accessDenied(const boost::urls::url_view& arg1);
 
-void accessDenied(crow::Response& res, std::string_view arg1);
+void accessDenied(crow::Response& res, const boost::urls::url_view& arg1);
 
 /**
  * @brief Formats QueryNotSupported message into JSON
