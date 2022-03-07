@@ -48,6 +48,31 @@ std::string toDbusReportAction(std::string_view action)
     return "";
 }
 
+inline std::optional<nlohmann::json>
+    getLinkedTriggers(const std::vector<std::string>& triggerIds)
+{
+    nlohmann::json triggers = nlohmann::json::array();
+
+    for (const std::string& id : triggerIds)
+    {
+        sdbusplus::message::object_path path(id);
+        if (path.parent_path() != "TelemetryService")
+        {
+            BMCWEB_LOG_ERROR << "Property TriggerIds contains invalid value: "
+                             << id;
+            return std::nullopt;
+        }
+        triggers.push_back({
+            {"@odata.id",
+             crow::utility::urlFromPieces("redfish", "v1", "TelemetryService",
+                                          "Triggers", path.filename())
+                 .string()},
+        });
+    }
+
+    return std::make_optional(triggers);
+}
+
 inline void
     fillReportDefinition(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                          const std::string& id,
@@ -61,6 +86,7 @@ inline void
     const uint64_t* appendLimit = nullptr;
     const uint64_t* interval = nullptr;
     const bool* enabled = nullptr;
+    const std::vector<std::string>* triggerIds = nullptr;
 
     for (const auto& [key, var] : properties)
     {
@@ -96,6 +122,10 @@ inline void
         {
             enabled = std::get_if<bool>(&var);
         }
+        else if (key == "TriggerIds")
+        {
+            triggerIds = std::get_if<std::vector<std::string>>(&var);
+        }
     }
 
     std::vector<std::string> redfishReportActions;
@@ -113,6 +143,17 @@ inline void
             }
 
             redfishReportActions.emplace_back(std::move(redfishAction));
+        }
+    }
+
+    std::optional<nlohmann::json> linkedTriggers;
+    if (triggerIds != nullptr)
+    {
+        linkedTriggers = getLinkedTriggers(*triggerIds);
+        if (!linkedTriggers)
+        {
+            messages::internalError(asyncResp->res);
+            return;
         }
     }
 
@@ -191,6 +232,11 @@ inline void
                       std::chrono::milliseconds(collectionDuration))},
                  {"CollectionTimeScope", collectionTimeScope}});
         }
+    }
+
+    if (triggerIds != nullptr)
+    {
+        asyncResp->res.jsonValue["Links"]["Triggers"] = *linkedTriggers;
     }
 }
 
