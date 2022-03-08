@@ -1,0 +1,458 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f8142534_6dd3c1b9",
+        "filename": "TESTING.md",
+        "patchSetId": 5
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-08T16:05:15Z",
+      "side": 1,
+      "message": "can we just say \"functional testing\"",
+      "range": {
+        "startLine": 3,
+        "startChar": 31,
+        "endLine": 3,
+        "endChar": 66
+      },
+      "revId": "8508d8cfb3490fe34a5980cec7cd0ba680417138",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f0a0d1ec_4e2188fc",
+        "filename": "TESTING.md",
+        "patchSetId": 5
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-08T16:05:15Z",
+      "side": 1,
+      "message": "Can we add a heading here for \"environments\"",
+      "revId": "8508d8cfb3490fe34a5980cec7cd0ba680417138",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ea04bcba_c8b49072",
+        "filename": "TESTING.md",
+        "patchSetId": 5
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-08T16:05:15Z",
+      "side": 1,
+      "message": "This only needs to be a link.",
+      "range": {
+        "startLine": 12,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 47
+      },
+      "revId": "8508d8cfb3490fe34a5980cec7cd0ba680417138",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dc6c9a44_bfa7aa7b",
+        "filename": "TESTING.md",
+        "patchSetId": 5
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-08T16:05:15Z",
+      "side": 1,
+      "message": "I\u0027m not sure what setting up gerrit has to do with testing.  Remove?",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 16,
+        "endChar": 40
+      },
+      "revId": "8508d8cfb3490fe34a5980cec7cd0ba680417138",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4e37ecce_0d9c2523",
+        "filename": "TESTING.md",
+        "patchSetId": 5
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-08T16:05:15Z",
+      "side": 1,
+      "message": "This second has really nothing to do with testing, and is not a workflow that I would like to maintain documentation of.  I realized that you just copied it from the old doc, and tes, it can be quite useful, but for testing purposes, I would like people to build within yocto and test the image as a whole, not just an scped copy of bmcweb.  Please remove this section.",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 80,
+        "endChar": 114
+      },
+      "revId": "8508d8cfb3490fe34a5980cec7cd0ba680417138",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "11e5a6a1_d074580f",
+        "filename": "TESTING.md",
+        "patchSetId": 5
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-08T16:05:15Z",
+      "side": 1,
+      "message": "Try to avoid personal acronyms \"we\" here.",
+      "range": {
+        "startLine": 85,
+        "startChar": 75,
+        "endLine": 86,
+        "endChar": 61
+      },
+      "revId": "8508d8cfb3490fe34a5980cec7cd0ba680417138",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d1227d75_df346553",
+        "filename": "TESTING.md",
+        "patchSetId": 5
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-08T16:05:15Z",
+      "side": 1,
+      "message": "No need to put in cross compilation.  That\u0027s implied by testing on a system.  Remove.",
+      "range": {
+        "startLine": 88,
+        "startChar": 0,
+        "endLine": 88,
+        "endChar": 35
+      },
+      "revId": "8508d8cfb3490fe34a5980cec7cd0ba680417138",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ae81eb0b_3572dfbd",
+        "filename": "TESTING.md",
+        "patchSetId": 5
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-08T16:05:15Z",
+      "side": 1,
+      "message": "I\u0027m not sure of the value this section provides to users.  Lets try rephrasing to something like:\n\nA committer should run tests that exercise all paths changed in the patchset.  If making changes to the http core, that are expected to effect all types of routes, testing one route of each class (websocket, http get, http post) is required.",
+      "range": {
+        "startLine": 89,
+        "startChar": 0,
+        "endLine": 94,
+        "endChar": 0
+      },
+      "revId": "8508d8cfb3490fe34a5980cec7cd0ba680417138",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d5ac1202_ac7438ff",
+        "filename": "TESTING.md",
+        "patchSetId": 5
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-08T16:05:15Z",
+      "side": 1,
+      "message": "Remove.  This is not anything special about bmcweb, and is enforced by CI.  In general I don\u0027t expect committers to compile with every variation of build flags.  That\u0027s what CI is for.",
+      "range": {
+        "startLine": 96,
+        "startChar": 0,
+        "endLine": 101,
+        "endChar": 0
+      },
+      "revId": "8508d8cfb3490fe34a5980cec7cd0ba680417138",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "110c11e2_d1d294e8",
+        "filename": "TESTING.md",
+        "patchSetId": 5
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-08T16:05:15Z",
+      "side": 1,
+      "message": "This isn\u0027t an eg.....  dbus-rest is required to run this test, so you should call out to make sure it\u0027s enabled.",
+      "range": {
+        "startLine": 112,
+        "startChar": 58,
+        "endLine": 112,
+        "endChar": 70
+      },
+      "revId": "8508d8cfb3490fe34a5980cec7cd0ba680417138",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "74e079fd_41247c87",
+        "filename": "TESTING.md",
+        "patchSetId": 5
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-08T16:05:15Z",
+      "side": 1,
+      "message": "This section can be removed I think?  it\u0027s showing how to build a binary, but then suggesting to test on real hardware.",
+      "range": {
+        "startLine": 115,
+        "startChar": 0,
+        "endLine": 117,
+        "endChar": 14
+      },
+      "revId": "8508d8cfb3490fe34a5980cec7cd0ba680417138",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0b3d6ba1_2f8619d7",
+        "filename": "TESTING.md",
+        "patchSetId": 5
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-08T16:05:15Z",
+      "side": 1,
+      "message": "this isn\u0027t right if you\u0027re testing on a real bmc.",
+      "range": {
+        "startLine": 120,
+        "startChar": 0,
+        "endLine": 120,
+        "endChar": 64
+      },
+      "revId": "8508d8cfb3490fe34a5980cec7cd0ba680417138",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ab06556b_041d13e0",
+        "filename": "TESTING.md",
+        "patchSetId": 5
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-08T16:05:15Z",
+      "side": 1,
+      "message": "This needs stronger wording\n\n\"Commiters are required to run the service validator anytime they make a change to the GET behavior of the redfish tree\"",
+      "range": {
+        "startLine": 125,
+        "startChar": 3,
+        "endLine": 125,
+        "endChar": 12
+      },
+      "revId": "8508d8cfb3490fe34a5980cec7cd0ba680417138",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d77181c0_c687ec39",
+        "filename": "TESTING.md",
+        "patchSetId": 5
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-08T16:05:15Z",
+      "side": 1,
+      "message": "remove.",
+      "range": {
+        "startLine": 129,
+        "startChar": 0,
+        "endLine": 129,
+        "endChar": 75
+      },
+      "revId": "8508d8cfb3490fe34a5980cec7cd0ba680417138",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3f252f52_45f679a5",
+        "filename": "TESTING.md",
+        "patchSetId": 5
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-08T16:05:15Z",
+      "side": 1,
+      "message": "Remove.  The service validator is fully capable of reporting errors.",
+      "range": {
+        "startLine": 134,
+        "startChar": 0,
+        "endLine": 137,
+        "endChar": 44
+      },
+      "revId": "8508d8cfb3490fe34a5980cec7cd0ba680417138",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "54a9f2b6_2e6f2c78",
+        "filename": "TESTING.md",
+        "patchSetId": 5
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-08T16:05:15Z",
+      "side": 1,
+      "message": "\"inspect the report for failures\"",
+      "range": {
+        "startLine": 139,
+        "startChar": 20,
+        "endLine": 139,
+        "endChar": 38
+      },
+      "revId": "8508d8cfb3490fe34a5980cec7cd0ba680417138",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "97b97fa9_964d3ff6",
+        "filename": "TESTING.md",
+        "patchSetId": 5
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-08T16:05:15Z",
+      "side": 1,
+      "message": "python3",
+      "range": {
+        "startLine": 140,
+        "startChar": 2,
+        "endLine": 140,
+        "endChar": 8
+      },
+      "revId": "8508d8cfb3490fe34a5980cec7cd0ba680417138",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "167e8434_b23e08fd",
+        "filename": "TESTING.md",
+        "patchSetId": 5
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-08T16:05:15Z",
+      "side": 1,
+      "message": "please just fill these in with examples.",
+      "range": {
+        "startLine": 141,
+        "startChar": 28,
+        "endLine": 141,
+        "endChar": 42
+      },
+      "revId": "8508d8cfb3490fe34a5980cec7cd0ba680417138",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b3efdb12_9a3dbdc4",
+        "filename": "TESTING.md",
+        "patchSetId": 5
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-08T16:05:15Z",
+      "side": 1,
+      "message": "Please don\u0027t suggest this.  Something like:\n\nPlease include something to the effect of \"Redfish service validator passing\" in your commit message.",
+      "range": {
+        "startLine": 145,
+        "startChar": 66,
+        "endLine": 147,
+        "endChar": 17
+      },
+      "revId": "8508d8cfb3490fe34a5980cec7cd0ba680417138",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "86bd5c98_bfa68f6e",
+        "filename": "TESTING.md",
+        "patchSetId": 5
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-08T16:05:15Z",
+      "side": 1,
+      "message": "this isn\u0027t enough detail for this line item.",
+      "range": {
+        "startLine": 149,
+        "startChar": 0,
+        "endLine": 152,
+        "endChar": 26
+      },
+      "revId": "8508d8cfb3490fe34a5980cec7cd0ba680417138",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}

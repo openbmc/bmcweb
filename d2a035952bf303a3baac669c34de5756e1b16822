@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "52da30d8_8c5ea74f",
+        "filename": "DEVELOPING.md",
+        "patchSetId": 5
+      },
+      "lineNbr": 209,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-08T16:05:15Z",
+      "side": 0,
+      "message": "With your patch, clang-tidy is now under the common errors heading, which I\u0027m pretty sure wasn\u0027t your intent.",
+      "range": {
+        "startLine": 209,
+        "startChar": 0,
+        "endLine": 209,
+        "endChar": 13
+      },
+      "revId": "d2a035952bf303a3baac669c34de5756e1b16822",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
