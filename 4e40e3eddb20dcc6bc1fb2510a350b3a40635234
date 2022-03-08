@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "00b439f1_11a1dce4",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1001252
+      },
+      "writtenOn": "2022-03-08T04:46:56Z",
+      "side": 1,
+      "message": "The author of service-config-manager designs a 15s window for incoming changes (each DBus set is considered as one change), changes submitted in the following 15s from the first change will be merged and applied together. He says decreasing the 15s window time will causes multiple service restarts and may cause loss of data.",
+      "parentUuid": "bf6b0686_43914841",
+      "range": {
+        "startLine": 11,
+        "startChar": 64,
+        "endLine": 14,
+        "endChar": 7
+      },
+      "revId": "4e40e3eddb20dcc6bc1fb2510a350b3a40635234",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "6c1192c9_80c7f4a6",
         "filename": "redfish-core/include/utils/service_utils.hpp",
         "patchSetId": 2
@@ -37,6 +61,30 @@
       "writtenOn": "2022-03-07T17:59:38Z",
       "side": 1,
       "message": "Please use the common types for these.  Don\u0027t add your own type.",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 16,
+        "endChar": 76
+      },
+      "revId": "4e40e3eddb20dcc6bc1fb2510a350b3a40635234",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1dba5f70_ffd276ee",
+        "filename": "redfish-core/include/utils/service_utils.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1001252
+      },
+      "writtenOn": "2022-03-08T04:46:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6c1192c9_80c7f4a6",
       "range": {
         "startLine": 15,
         "startChar": 0,
@@ -87,6 +135,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "32576bed_42cb4d16",
+        "filename": "redfish-core/include/utils/service_utils.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1001252
+      },
+      "writtenOn": "2022-03-08T04:46:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b9bd523b_69d9bb39",
+      "range": {
+        "startLine": 103,
+        "startChar": 10,
+        "endLine": 103,
+        "endChar": 18
+      },
+      "revId": "4e40e3eddb20dcc6bc1fb2510a350b3a40635234",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "51e65108_0f90c33c",
@@ -110,6 +182,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3a1602c8_7303a8fd",
+        "filename": "redfish-core/lib/network_protocol.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1001252
+      },
+      "writtenOn": "2022-03-08T04:46:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "51e65108_0f90c33c",
+      "range": {
+        "startLine": 23,
+        "startChar": 0,
+        "endLine": 23,
+        "endChar": 39
+      },
+      "revId": "4e40e3eddb20dcc6bc1fb2510a350b3a40635234",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "21652c98_51f0a478",
@@ -123,6 +219,30 @@
       "writtenOn": "2022-03-07T17:59:38Z",
       "side": 1,
       "message": "I suspect this change isn\u0027t needed, you just need to change the underlying path build mechanisms to use sdbusplus::mesage::object_path operator/ and .filename() which will escape these automatically.",
+      "range": {
+        "startLine": 43,
+        "startChar": 33,
+        "endLine": 43,
+        "endChar": 54
+      },
+      "revId": "4e40e3eddb20dcc6bc1fb2510a350b3a40635234",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "259d04cf_6208dcff",
+        "filename": "redfish-core/lib/network_protocol.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1001252
+      },
+      "writtenOn": "2022-03-08T04:46:56Z",
+      "side": 1,
+      "message": "Using sdbusplus::mesage::object_path operator/ and .filename() brings extra cost I think, and this is only used in getNetworkData() of network_protocol.hpp. And in previous implementation, this is also hardcoded in PATCH handler https://github.com/openbmc/bmcweb/blob/5f2b84ee090bb9d361de9c294aa85cecf3962c11/redfish-core/lib/network_protocol.hpp#L462\n\nIt is also hardcoded in PATCH handler in my patch, should I make it a constexpr instead?",
+      "parentUuid": "21652c98_51f0a478",
       "range": {
         "startLine": 43,
         "startChar": 33,
