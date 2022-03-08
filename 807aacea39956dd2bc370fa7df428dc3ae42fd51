@@ -50,6 +50,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "6e1e0c64_e9138928",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-08T16:12:49Z",
+      "side": 1,
+      "message": "\u003e Instead, original function will be called twice, for each of patterns above.\n\n\nYep, this is exactly what I would recommend.\n\n\n\n\u003e This approach required addition of one dummy \u0027anySegment\u0027 argument, because we should not care for what segment is after Sensors/, we should only care that it exists\n\nWe care a bit that it\u0027s properly formatted as a dbus path name, right?  I\u0027ll take a look at the latest patch.",
+      "parentUuid": "b1dc300e_b58aafbb",
+      "range": {
+        "startLine": 12,
+        "startChar": 49,
+        "endLine": 14,
+        "endChar": 53
+      },
+      "revId": "807aacea39956dd2bc370fa7df428dc3ae42fd51",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "11f799fc_8007c9c2",
         "filename": "/COMMIT_MSG",
         "patchSetId": 2
