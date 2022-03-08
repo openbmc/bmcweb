@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d8869edc_e2eba8c5",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 10
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1001252
+      },
+      "writtenOn": "2022-03-08T06:38:04Z",
+      "side": 1,
+      "message": "Removed PATCH HTTPS.ProtocolEnabled support",
+      "parentUuid": "3558cda6_3a9e7185",
+      "range": {
+        "startLine": 9,
+        "startChar": 51,
+        "endLine": 9,
+        "endChar": 57
+      },
+      "revId": "2b9cc95cda28f3965bbc799e1601694ddbe907b4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6a663080_8f26c205",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-03-07T17:54:53Z",
       "side": 1,
       "message": "This is not enough of a tested statement.",
+      "range": {
+        "startLine": 14,
+        "startChar": 0,
+        "endLine": 16,
+        "endChar": 0
+      },
+      "revId": "2b9cc95cda28f3965bbc799e1601694ddbe907b4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9a92715e_ba26e79d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 10
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1001252
+      },
+      "writtenOn": "2022-03-08T06:38:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6a663080_8f26c205",
       "range": {
         "startLine": 14,
         "startChar": 0,
