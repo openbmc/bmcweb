@@ -1560,13 +1560,32 @@ struct SetPIDValues : std::enable_shared_from_this<SetPIDValues>
                 BMCWEB_LOG_DEBUG << "Found = " << !createNewObject;
 
                 std::string iface;
-                /*
+                bool hasPid = false;
+                bool hasZone = false;
+                bool hasStepwise = false;
+                if (!createNewObject)
+                {
+                    for (const auto& interface : pathItr->second)
+                    {
+                        if (interface.first == pidConfigurationIface)
+                        {
+                            hasPid = true;
+                        }
+                        else if (interface.first == pidZoneConfigurationIface)
+                        {
+                            hasZone = true;
+                        }
+                        else if (interface.first == stepwiseConfigurationIface)
+                        {
+                            hasStepwise = true;
+                        }
+                    }
+                }
+
                 if (type == "PidControllers" || type == "FanControllers")
                 {
                     iface = pidConfigurationIface;
-                    if (!createNewObject &&
-                        pathItr->second.find(pidConfigurationIface) ==
-                            pathItr->second.end())
+                    if (!hasPid)
                     {
                         createNewObject = true;
                     }
@@ -1574,24 +1593,19 @@ struct SetPIDValues : std::enable_shared_from_this<SetPIDValues>
                 else if (type == "FanZones")
                 {
                     iface = pidZoneConfigurationIface;
-                    if (!createNewObject &&
-                        pathItr->second.find(pidZoneConfigurationIface) ==
-                            pathItr->second.end())
+                    if (!hasZone)
                     {
-
                         createNewObject = true;
                     }
                 }
                 else if (type == "StepwiseControllers")
                 {
                     iface = stepwiseConfigurationIface;
-                    if (!createNewObject &&
-                        pathItr->second.find(stepwiseConfigurationIface) ==
-                            pathItr->second.end())
+                    if (!hasStepwise)
                     {
                         createNewObject = true;
                     }
-                }*/
+                }
 
                 if (createNewObject && it.value() == nullptr)
                 {
