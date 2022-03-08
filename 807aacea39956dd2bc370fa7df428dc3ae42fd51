@@ -356,6 +356,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "76b1fc68_4d184265",
+        "filename": "http/utility.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 751,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-08T16:26:27Z",
+      "side": 1,
+      "message": "ACK",
+      "parentUuid": "00f13f17_10a66a80",
+      "range": {
+        "startLine": 751,
+        "startChar": 0,
+        "endLine": 751,
+        "endChar": 74
+      },
+      "revId": "807aacea39956dd2bc370fa7df428dc3ae42fd51",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "75427de0_51f55823",
         "filename": "redfish-core/include/utils/telemetry_utils.hpp",
         "patchSetId": 2
@@ -497,6 +521,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "be0e3622_3236d349",
+        "filename": "redfish-core/include/utils/telemetry_utils.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-08T16:26:27Z",
+      "side": 1,
+      "message": "But we already would have that check later when we turn it into a dbus path, and dbus doesn\u0027t support relative paths.",
+      "parentUuid": "f02d665c_8d0889d5",
+      "range": {
+        "startLine": 45,
+        "startChar": 0,
+        "endLine": 45,
+        "endChar": 41
+      },
+      "revId": "807aacea39956dd2bc370fa7df428dc3ae42fd51",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a8d9316c_ebc3a34c",
         "filename": "redfish-core/include/utils/telemetry_utils.hpp",
         "patchSetId": 2
@@ -532,6 +580,30 @@
       "side": 1,
       "message": "Caller is setting the error, see metric_report_definition.hpp:236",
       "parentUuid": "a8d9316c_ebc3a34c",
+      "range": {
+        "startLine": 56,
+        "startChar": 0,
+        "endLine": 57,
+        "endChar": 35
+      },
+      "revId": "807aacea39956dd2bc370fa7df428dc3ae42fd51",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "952ff708_ecbaee99",
+        "filename": "redfish-core/include/utils/telemetry_utils.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-08T16:26:27Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "84abd998_9ef63314",
       "range": {
         "startLine": 56,
         "startChar": 0,

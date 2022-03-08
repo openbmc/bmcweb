@@ -1,0 +1,205 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4ab3a2a3_c7306998",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-08T16:26:27Z",
+      "side": 1,
+      "message": "Looking much closer.",
+      "revId": "236e9130b71f6d754ade7e0f08ecf724dfdf2503",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5b169e5f_40d50f22",
+        "filename": "http/utility.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 728,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-08T16:26:27Z",
+      "side": 1,
+      "message": "typename please.",
+      "range": {
+        "startLine": 728,
+        "startChar": 10,
+        "endLine": 728,
+        "endChar": 15
+      },
+      "revId": "236e9130b71f6d754ade7e0f08ecf724dfdf2503",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "efc61b16_5db3baa8",
+        "filename": "http/utility.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 729,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-08T16:26:27Z",
+      "side": 1,
+      "message": "One thing we learned is that this unpack method generates quite a bit of code duplication and binary size.  One thing I suspect that would improve this quite a bit would be to accept by std::variant\u003cstd::reference_wrapper(std::string), std::string_view\u003e then call visit appropriately, which would remove the template duplication per call site.  If you need help putting together an example, let me know, I realize the above is non-trivial to build.  I suspect that would also clean up your pointer decay NOLINT issue, as the string_view would be constructed at the call site, which wouldn\u0027t throw a warning.",
+      "range": {
+        "startLine": 729,
+        "startChar": 0,
+        "endLine": 729,
+        "endChar": 65
+      },
+      "revId": "236e9130b71f6d754ade7e0f08ecf724dfdf2503",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4cfab346_30b39b51",
+        "filename": "http/utility.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 739,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-08T16:26:27Z",
+      "side": 1,
+      "message": "Please break this statement up.  It\u0027s difficult to read as-is.",
+      "range": {
+        "startLine": 736,
+        "startChar": 0,
+        "endLine": 739,
+        "endChar": 14
+      },
+      "revId": "236e9130b71f6d754ade7e0f08ecf724dfdf2503",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7ecc997a_d723fedc",
+        "filename": "redfish-core/include/utils/telemetry_utils.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-08T16:26:27Z",
+      "side": 1,
+      "message": "Nit, can we use std::span here?  There\u0027s nothing about this algorithm that requires it be sorted, and ideally in the future replacing this stuff with std::vector would be ideal (but please don\u0027t do it in this patch).",
+      "range": {
+        "startLine": 34,
+        "startChar": 4,
+        "endLine": 34,
+        "endChar": 30
+      },
+      "revId": "236e9130b71f6d754ade7e0f08ecf724dfdf2503",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3cc61451_099521d9",
+        "filename": "redfish-core/include/utils/telemetry_utils.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-08T16:26:27Z",
+      "side": 1,
+      "message": "I still suspect we don\u0027t need this check.",
+      "range": {
+        "startLine": 42,
+        "startChar": 20,
+        "endLine": 42,
+        "endChar": 56
+      },
+      "revId": "236e9130b71f6d754ade7e0f08ecf724dfdf2503",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7d16a37f_50d3e917",
+        "filename": "redfish-core/include/utils/telemetry_utils.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-08T16:26:27Z",
+      "side": 1,
+      "message": "isn\u0027t this required to be \"Sensors\"",
+      "range": {
+        "startLine": 63,
+        "startChar": 52,
+        "endLine": 63,
+        "endChar": 56
+      },
+      "revId": "236e9130b71f6d754ade7e0f08ecf724dfdf2503",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "22fa9e57_cbd11f6d",
+        "filename": "redfish-core/include/utils/telemetry_utils.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-08T16:26:27Z",
+      "side": 1,
+      "message": "See above, I suspect we need to run this through sdbusplus::message::object_path to make sure that it\u0027s valid.",
+      "range": {
+        "startLine": 64,
+        "startChar": 43,
+        "endLine": 64,
+        "endChar": 68
+      },
+      "revId": "236e9130b71f6d754ade7e0f08ecf724dfdf2503",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "23bc7bd7_f799f5cf",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 231,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-08T16:26:27Z",
+      "side": 1,
+      "message": "This seems like something we should create a real struct for.  Something like\n\nstruct ChassisSensor{\n    std::string uri;\n    size_t index;\n}\n\nDoing this would also remove the need to do the unpacking on line 235, because the arguments would already be named.",
+      "range": {
+        "startLine": 231,
+        "startChar": 22,
+        "endLine": 231,
+        "endChar": 52
+      },
+      "revId": "236e9130b71f6d754ade7e0f08ecf724dfdf2503",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
