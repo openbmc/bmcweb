@@ -545,6 +545,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "55f04473_00e4fa82",
+        "filename": "redfish-core/include/utils/telemetry_utils.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1001026
+      },
+      "writtenOn": "2022-03-08T17:44:53Z",
+      "side": 1,
+      "message": "Ok, I see what you mean - actually we are not converting it to dbus path, we are comparing it to elements of uri\u003c-\u003edbus map. But it is done after making many dbus calls, which would be obsolete if we made this check sooner. So you are right, that it is redundant, but please consider it as an optimization.",
+      "parentUuid": "be0e3622_3236d349",
+      "range": {
+        "startLine": 45,
+        "startChar": 0,
+        "endLine": 45,
+        "endChar": 41
+      },
+      "revId": "807aacea39956dd2bc370fa7df428dc3ae42fd51",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a8d9316c_ebc3a34c",
         "filename": "redfish-core/include/utils/telemetry_utils.hpp",
         "patchSetId": 2

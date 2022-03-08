@@ -18,6 +18,23 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "686a798c_ab93617c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001026
+      },
+      "writtenOn": "2022-03-08T17:44:53Z",
+      "side": 1,
+      "message": "Thanks for comments, I will answer the rest of them once I prepare new patch-set tomorrow.",
+      "revId": "236e9130b71f6d754ade7e0f08ecf724dfdf2503",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5b169e5f_40d50f22",
@@ -54,6 +71,30 @@
       "writtenOn": "2022-03-08T16:26:27Z",
       "side": 1,
       "message": "One thing we learned is that this unpack method generates quite a bit of code duplication and binary size.  One thing I suspect that would improve this quite a bit would be to accept by std::variant\u003cstd::reference_wrapper(std::string), std::string_view\u003e then call visit appropriately, which would remove the template duplication per call site.  If you need help putting together an example, let me know, I realize the above is non-trivial to build.  I suspect that would also clean up your pointer decay NOLINT issue, as the string_view would be constructed at the call site, which wouldn\u0027t throw a warning.",
+      "range": {
+        "startLine": 729,
+        "startChar": 0,
+        "endLine": 729,
+        "endChar": 65
+      },
+      "revId": "236e9130b71f6d754ade7e0f08ecf724dfdf2503",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "93d2915a_539ed3b3",
+        "filename": "http/utility.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 729,
+      "author": {
+        "id": 1001026
+      },
+      "writtenOn": "2022-03-08T17:44:53Z",
+      "side": 1,
+      "message": "Seems doable, I will look into it.",
+      "parentUuid": "efc61b16_5db3baa8",
       "range": {
         "startLine": 729,
         "startChar": 0,
@@ -135,6 +176,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "1020fb75_50e866e4",
+        "filename": "redfish-core/include/utils/telemetry_utils.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1001026
+      },
+      "writtenOn": "2022-03-08T17:44:53Z",
+      "side": 1,
+      "message": "ack, please see my another comment on this.",
+      "parentUuid": "3cc61451_099521d9",
+      "range": {
+        "startLine": 42,
+        "startChar": 20,
+        "endLine": 42,
+        "endChar": 56
+      },
+      "revId": "236e9130b71f6d754ade7e0f08ecf724dfdf2503",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "7d16a37f_50d3e917",
         "filename": "redfish-core/include/utils/telemetry_utils.hpp",
         "patchSetId": 3
@@ -169,6 +234,30 @@
       "writtenOn": "2022-03-08T16:26:27Z",
       "side": 1,
       "message": "See above, I suspect we need to run this through sdbusplus::message::object_path to make sure that it\u0027s valid.",
+      "range": {
+        "startLine": 64,
+        "startChar": 43,
+        "endLine": 64,
+        "endChar": 68
+      },
+      "revId": "236e9130b71f6d754ade7e0f08ecf724dfdf2503",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ca49fb5c_c2f40073",
+        "filename": "redfish-core/include/utils/telemetry_utils.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1001026
+      },
+      "writtenOn": "2022-03-08T17:44:53Z",
+      "side": 1,
+      "message": "My opinion here would be to keep it separated and use boost-url to parse redfish uris and object_path to parse dbus paths. \n\nparse_relative_ref() makes some basic validation, but if it is insufficient here, maybe I can add additional checks to segment unpack functions? We just need to define which segment would count as invalid.",
+      "parentUuid": "22fa9e57_cbd11f6d",
       "range": {
         "startLine": 64,
         "startChar": 43,
