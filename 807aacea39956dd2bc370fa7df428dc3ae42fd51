@@ -1,0 +1,257 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "696d7bbb_67cf60ba",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-08T01:52:28Z",
+      "side": 1,
+      "message": "This doesn\u0027t really seem right to have helpers for this kind of thing.  Looking at the code, it just looks like we need a version that handles fragments, and then we should be good.  Partial matching is quite error prone.",
+      "range": {
+        "startLine": 12,
+        "startChar": 49,
+        "endLine": 14,
+        "endChar": 53
+      },
+      "revId": "807aacea39956dd2bc370fa7df428dc3ae42fd51",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "11f799fc_8007c9c2",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-08T01:52:28Z",
+      "side": 1,
+      "message": "Why not just accept by url_view then?  Seems odd to accept by segments when we will never have a segments object by itself.  Passing by url_view would also be required to handle the fragments.",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 20,
+        "endChar": 45
+      },
+      "revId": "807aacea39956dd2bc370fa7df428dc3ae42fd51",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e2f917b4_4049e2c3",
+        "filename": "http/ut/utility_test.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-08T01:52:28Z",
+      "side": 1,
+      "message": "Please use EXPECT_TRUE and EXPECT_FALSE, rather than director comparison against true or false.\n\nAlso, please put your method call inside the expect instead of loading into an intermediate variable.  It results in better error messages when failures occur.",
+      "range": {
+        "startLine": 140,
+        "startChar": 4,
+        "endLine": 140,
+        "endChar": 13
+      },
+      "revId": "807aacea39956dd2bc370fa7df428dc3ae42fd51",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "46d55cd2_b22706f8",
+        "filename": "http/utility.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 728,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-08T01:52:28Z",
+      "side": 1,
+      "message": "Please increment this in the calling scope.  Incrementing it here is confusing, and makes the calling scope look like it doesn\u0027t increment",
+      "range": {
+        "startLine": 728,
+        "startChar": 0,
+        "endLine": 728,
+        "endChar": 9
+      },
+      "revId": "807aacea39956dd2bc370fa7df428dc3ae42fd51",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2343d873_192ec2c2",
+        "filename": "http/utility.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 742,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-08T01:52:28Z",
+      "side": 1,
+      "message": "Break this up onto multiple lines to make it more readable, similar to what you did on line 722.",
+      "range": {
+        "startLine": 740,
+        "startChar": 11,
+        "endLine": 742,
+        "endChar": 20
+      },
+      "revId": "807aacea39956dd2bc370fa7df428dc3ae42fd51",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "86d7e5d6_1509ebc5",
+        "filename": "http/utility.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 748,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-08T01:52:28Z",
+      "side": 1,
+      "message": "Can this just accept a segments_view\u0026\n\nThat seems simpler than passing iterators around.\n\n\nAlso, why is this overload needed?  it seems wrong to be parsing partial results in an API that\u0027s supposed to guarantee stability.",
+      "range": {
+        "startLine": 747,
+        "startChar": 27,
+        "endLine": 748,
+        "endChar": 75
+      },
+      "revId": "807aacea39956dd2bc370fa7df428dc3ae42fd51",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1246dd76_84ac0ba0",
+        "filename": "http/utility.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 751,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-08T01:52:28Z",
+      "side": 1,
+      "message": "Any idea why you needed this?",
+      "range": {
+        "startLine": 751,
+        "startChar": 0,
+        "endLine": 751,
+        "endChar": 74
+      },
+      "revId": "807aacea39956dd2bc370fa7df428dc3ae42fd51",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "75427de0_51f55823",
+        "filename": "redfish-core/include/utils/telemetry_utils.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-08T01:52:28Z",
+      "side": 1,
+      "message": "Please invert this check to save scope.",
+      "range": {
+        "startLine": 41,
+        "startChar": 0,
+        "endLine": 41,
+        "endChar": 19
+      },
+      "revId": "807aacea39956dd2bc370fa7df428dc3ae42fd51",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d2a33b65_ca3a5074",
+        "filename": "redfish-core/include/utils/telemetry_utils.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-08T01:52:28Z",
+      "side": 1,
+      "message": "declare each variable on its own line please.",
+      "range": {
+        "startLine": 44,
+        "startChar": 0,
+        "endLine": 44,
+        "endChar": 38
+      },
+      "revId": "807aacea39956dd2bc370fa7df428dc3ae42fd51",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2f2f6bab_bcb855cf",
+        "filename": "redfish-core/include/utils/telemetry_utils.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-08T01:52:28Z",
+      "side": 1,
+      "message": "Why do we need to do an absolute check?  We\u0027re not turning this into a filesystem path.",
+      "range": {
+        "startLine": 45,
+        "startChar": 0,
+        "endLine": 45,
+        "endChar": 41
+      },
+      "revId": "807aacea39956dd2bc370fa7df428dc3ae42fd51",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a8d9316c_ebc3a34c",
+        "filename": "redfish-core/include/utils/telemetry_utils.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-08T01:52:28Z",
+      "side": 1,
+      "message": "Should we be setting an internal error here?",
+      "range": {
+        "startLine": 56,
+        "startChar": 0,
+        "endLine": 57,
+        "endChar": 35
+      },
+      "revId": "807aacea39956dd2bc370fa7df428dc3ae42fd51",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
