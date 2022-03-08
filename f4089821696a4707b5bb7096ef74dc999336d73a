@@ -16,6 +16,29 @@
       "message": "This change is causing coredump in our environment. Working on this.\n\nMar 07 22:53:32 intel-obmc systemd[1]: Created slice Slice /system/systemd-coredump.\nMar 07 22:53:32 intel-obmc systemd[1]: Started Process Core Dump (PID 1915/UID 0).\nMar 07 22:53:33 intel-obmc systemd-coredump[1916]: elfutils disabled, parsing ELF objects not supported\nMar 07 22:53:33 intel-obmc systemd-coredump[1916]: [🡕] Process 407 (bmcweb) of user 0 dumped core.\nMar 07 22:53:33 intel-obmc systemd[1]: systemd-coredump@0-1915-0.service: Deactivated successfully.\nMar 07 22:53:33 intel-obmc systemd[1]: bmcweb.service: Main process exited, code\u003ddumped, status\u003d11/SEGV\nMar 07 22:53:33 intel-obmc systemd[1]: bmcweb.service: Failed with result \u0027core-dump\u0027.\n",
       "revId": "f4089821696a4707b5bb7096ef74dc999336d73a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "64e99782_5bb48838",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 1584,
+      "author": {
+        "id": 1000416
+      },
+      "writtenOn": "2022-03-08T11:34:57Z",
+      "side": 1,
+      "message": "Better we can keep this for loop in if condition. Otherwise for negative cases it is dumping the core.\n                if (!createNewObject)\n                {\n                    for (const auto\u0026 interface : pathItr-\u003esecond)\n                    {\n...\n...\n                     \n                    }\n                }\n\nThis is error when stepwisecontroller not found.\n\nMar 08 00:33:56 intel-obmc bmcweb[404]: (2022-03-08 00:33:56) [DEBUG \"managers.hpp\":1541] looking for PSU1_LCC\nMar 08 00:33:56 intel-obmc bmcweb[404]: (2022-03-08 00:33:56) [DEBUG \"managers.hpp\":1558] Found \u003d 0\nMar 08 00:33:56 intel-obmc bmcweb[404]:in pidSetDone before for pathItr-second\u003d2386092940\nMar 08 00:33:57 intel-obmc systemd[1]: Created slice Slice /system/systemd-coredump.\nMar 08 00:33:57 intel-obmc systemd[1]: Started Process Core Dump (PID 718/UID 0).\nMar 08 00:33:57 intel-obmc systemd-coredump[719]: elfutils disabled, parsing ELF objects not supported\nMar 08 00:33:57 intel-obmc systemd-coredump[719]: [🡕] Process 404 (bmcweb) of user 0 dumped core.\nMar 08 00:33:57 intel-obmc systemd[1]: systemd-coredump@0-718-0.service: Deactivated successfully.\nMar 08 00:33:57 intel-obmc bmcweb[404]: Jaya in pidSetDone in for interface.first\u003d\nMar 08 00:33:57 intel-obmc systemd[1]: bmcweb.service: Main process exited, code\u003ddumped, status\u003d11/SEGV\nMar 08 00:33:57 intel-obmc systemd[1]: bmcweb.service: Failed with result \u0027core-dump\u0027.\nMar 08 00:34:13 intel-obmc phosphor-network-manager[420]: Refreshing the objects.",
+      "range": {
+        "startLine": 1570,
+        "startChar": 0,
+        "endLine": 1584,
+        "endChar": 17
+      },
+      "revId": "f4089821696a4707b5bb7096ef74dc999336d73a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
