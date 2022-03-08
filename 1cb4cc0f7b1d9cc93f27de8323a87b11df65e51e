@@ -50,6 +50,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "784d7662_227284c4",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-08T00:26:07Z",
+      "side": 1,
+      "message": "\u003e Andrew and I discussed the use of \"AlwaysOff\" in place of \"None\", however that would essentially mean there\u0027s no way to know if it was a one_time option or the property was set to \"AlwaysOff\" to begin with to the caller. Andrew would need to speak to why this \"None\" was specifically added.\n\n\nMy read on the above is that Redfish didn\u0027t have a use case for a power restore policy of \"only next boot\", and that we\u0027re trying to shoehorn in something into an interface not really meant for it.  Might be worth starting a discussion with those guys to see how they would model it.  For boot priority there\u0027s a concept of \"next boot\" with BootSourceOverrideTarget, and AliasBootOrder,.  For your use case, I suspect that model needs to be translated to the PowerRestorePolicy parameter, then this all becomes really easy.\n\n\u003e \n\u003e \u003e And it states that the intent is to handle the one_time option, which Redfish doesn\u0027t really seem to support (I think?), so I suspect that we need something like\n\u003e lookup one time action\n\u003e if (none)\n\u003e look up the permenant action.\n\nScratch that, the above was a bad idea.\n\n\u003e \n\u003e Correct, I did not see anything resembling the definition of the one_time option from our dbus interface. Its seems we\u0027d be polluting the bmcweb code with possible \"one time actions\" that\u0027d be specific to how a company chooses to use \"None\" right?\n\nWe should define \"None\" firmly enough at interface level wording that we don\u0027t have to rely on system specific behavior of what it does.\n\n\u003e \n\u003e Its possible that removal of the `PowerRestorePolicy` from the response when \"None\" would work, but I\u0027ll need to look further into that along with possibly just returning \"AlwaysOff\" depending on the object this is on.\n\nWe really shouldn\u0027t be removing parameters that are supported on the system just because we can\u0027t model the behavior.  I\u0027d much rather we just map None to PowerOff long before we removed it entirely, but I suspect we can get something better, that actually handles the one-time behavior.",
+      "parentUuid": "cda57dca_45a936a1",
+      "range": {
+        "startLine": 11,
+        "startChar": 49,
+        "endLine": 13,
+        "endChar": 20
+      },
+      "revId": "1cb4cc0f7b1d9cc93f27de8323a87b11df65e51e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "8fdbc561_fe600884",
         "filename": "/COMMIT_MSG",
         "patchSetId": 1
@@ -79,6 +103,24 @@
       "side": 1,
       "message": "Thanks, I\u0027ve got the validator down and working thru the setup to run against my test.",
       "parentUuid": "8fdbc561_fe600884",
+      "revId": "1cb4cc0f7b1d9cc93f27de8323a87b11df65e51e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a9bb56fc_9df52fca",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-08T00:26:07Z",
+      "side": 1,
+      "message": "👍",
+      "parentUuid": "2f15d6fb_07fc349f",
       "revId": "1cb4cc0f7b1d9cc93f27de8323a87b11df65e51e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -150,6 +192,24 @@
       "side": 1,
       "message": "I was wondering if we could just not set or return a [\"PowerRestorePolicy\"] at all when it\u0027s None since it\u0027s an optional property? \n\nAnd yeah, the \"None\" was needed because there was no way to know when the one-time was not set with the 3 values. It followed the general design of PDI to have a default un-initialized value so code can know if a property has been set to something.",
       "parentUuid": "aef96168_a310a313",
+      "revId": "1cb4cc0f7b1d9cc93f27de8323a87b11df65e51e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9ac2c44f_df01fa28",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1224,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-08T00:26:07Z",
+      "side": 1,
+      "message": "\u003e I was wondering if we could just not set or return a [\"PowerRestorePolicy\"] at all when it\u0027s None since it\u0027s an optional property? \n\nThat would be the equivalent of saying \"This system doesn\u0027t support setting or getting power restore policy\" which in this case is really not what you want, because the system supports it.\n\n\u003e \n\u003e And yeah, the \"None\" was needed because there was no way to know when the one-time was not set with the 3 values. It followed the general design of PDI to have a default un-initialized value so code can know if a property has been set to something.\n\nSee previous comment.  If we want to model \"one time\" params, we probably need to run through DMTF.  If we don\u0027t care so much, we can just map None to PowerOff, which will be correct until the system actually reboots.",
+      "parentUuid": "0eaefe27_a87ae5a1",
       "revId": "1cb4cc0f7b1d9cc93f27de8323a87b11df65e51e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
