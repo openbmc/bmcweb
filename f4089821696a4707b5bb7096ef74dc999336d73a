@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "54cd375b_c9e47a57",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000416
+      },
+      "writtenOn": "2022-03-08T06:00:38Z",
+      "side": 1,
+      "message": "This change is causing coredump in our environment. Working on this.\n\nMar 07 22:53:32 intel-obmc systemd[1]: Created slice Slice /system/systemd-coredump.\nMar 07 22:53:32 intel-obmc systemd[1]: Started Process Core Dump (PID 1915/UID 0).\nMar 07 22:53:33 intel-obmc systemd-coredump[1916]: elfutils disabled, parsing ELF objects not supported\nMar 07 22:53:33 intel-obmc systemd-coredump[1916]: [🡕] Process 407 (bmcweb) of user 0 dumped core.\nMar 07 22:53:33 intel-obmc systemd[1]: systemd-coredump@0-1915-0.service: Deactivated successfully.\nMar 07 22:53:33 intel-obmc systemd[1]: bmcweb.service: Main process exited, code\u003ddumped, status\u003d11/SEGV\nMar 07 22:53:33 intel-obmc systemd[1]: bmcweb.service: Failed with result \u0027core-dump\u0027.\n",
+      "revId": "f4089821696a4707b5bb7096ef74dc999336d73a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
