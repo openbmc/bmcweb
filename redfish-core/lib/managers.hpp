@@ -1530,38 +1530,37 @@ struct SetPIDValues : std::enable_shared_from_this<SetPIDValues>
                 BMCWEB_LOG_DEBUG << "Found = " << !createNewObject;
 
                 std::string iface;
-                /*
-                if (type == "PidControllers" || type == "FanControllers")
+                if (!createNewObject)
                 {
-                    iface = pidConfigurationIface;
-                    if (!createNewObject &&
-                        pathItr->second.find(pidConfigurationIface) ==
-                            pathItr->second.end())
+                    for (const auto& interface : pathItr->second)
                     {
-                        createNewObject = true;
+                        if (interface.first == pidConfigurationIface)
+                        {
+                            if (type == "PidControllers" ||
+                                type == "FanControllers")
+                            {
+                                iface = pidConfigurationIface;
+                                createNewObject = true;
+                            }
+                        }
+                        else if (interface.first == pidZoneConfigurationIface)
+                        {
+                            if (type == "FanZones")
+                            {
+                                iface = pidConfigurationIface;
+                                createNewObject = true;
+                            }
+                        }
+                        else if (interface.first == stepwiseConfigurationIface)
+                        {
+                            if (type == "StepwiseControllers")
+                            {
+                                iface = stepwiseConfigurationIface;
+                                createNewObject = true;
+                            }
+                        }
                     }
                 }
-                else if (type == "FanZones")
-                {
-                    iface = pidZoneConfigurationIface;
-                    if (!createNewObject &&
-                        pathItr->second.find(pidZoneConfigurationIface) ==
-                            pathItr->second.end())
-                    {
-
-                        createNewObject = true;
-                    }
-                }
-                else if (type == "StepwiseControllers")
-                {
-                    iface = stepwiseConfigurationIface;
-                    if (!createNewObject &&
-                        pathItr->second.find(stepwiseConfigurationIface) ==
-                            pathItr->second.end())
-                    {
-                        createNewObject = true;
-                    }
-                }*/
 
                 if (createNewObject && it.value() == nullptr)
                 {
