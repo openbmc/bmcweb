@@ -22,6 +22,30 @@
       },
       "revId": "d2a035952bf303a3baac669c34de5756e1b16822",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "268e4f49_04a1c762",
+        "filename": "DEVELOPING.md",
+        "patchSetId": 5
+      },
+      "lineNbr": 209,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-03-08T19:02:06Z",
+      "side": 0,
+      "message": "\"## clang-tidy\" is a separate section. It is a header level2. I thought it doesn\u0027t belong to \"### Developing and Testing either\", a level3 header, in the first place",
+      "parentUuid": "52da30d8_8c5ea74f",
+      "range": {
+        "startLine": 209,
+        "startChar": 0,
+        "endLine": 209,
+        "endChar": 13
+      },
+      "revId": "d2a035952bf303a3baac669c34de5756e1b16822",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
