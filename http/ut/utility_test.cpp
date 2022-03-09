@@ -1,8 +1,8 @@
 #include "bmcweb_config.h"
 
+#include "test_common.hpp"
 #include "utility.hpp"
 
-#include "gmock/gmock.h"
 #include "gtest/gtest.h"
 
 namespace crow::utility
@@ -162,6 +162,25 @@ TEST(Utility, ValidateAndSplitUrlPositive)
     ASSERT_FALSE(
         validateAndSplitUrl("http://foo.com/bar", urlProto, host, port, path));
 #endif
+}
+
+TEST(Router, ParameterTagging)
+{
+    EXPECT_EQ(6 * 6 + 6 * 3 + 2,
+              crow::black_magic::getParameterTag("<uint><double><int>"));
+    EXPECT_EQ(1, crow::black_magic::getParameterTag("<int>"));
+    EXPECT_EQ(2, crow::black_magic::getParameterTag("<uint>"));
+    EXPECT_EQ(3, crow::black_magic::getParameterTag("<float>"));
+    EXPECT_EQ(3, crow::black_magic::getParameterTag("<double>"));
+    EXPECT_EQ(4, crow::black_magic::getParameterTag("<str>"));
+    EXPECT_EQ(4, crow::black_magic::getParameterTag("<string>"));
+    EXPECT_EQ(5, crow::black_magic::getParameterTag("<path>"));
+    EXPECT_EQ(6 * 6 + 6 + 1,
+              crow::black_magic::getParameterTag("<int><int><int>"));
+    EXPECT_EQ(6 * 6 + 6 + 2,
+              crow::black_magic::getParameterTag("<uint><int><int>"));
+    EXPECT_EQ(6 * 6 + 6 * 3 + 2,
+              crow::black_magic::getParameterTag("<uint><double><int>"));
 }
 
 } // namespace
