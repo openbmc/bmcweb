@@ -1,9 +1,9 @@
+#include "test_common.hpp"
+
 #include <boost/algorithm/string.hpp>
 #include <boost/container/flat_set.hpp>
 #include <dbus_singleton.hpp>
 #include <dbus_utility.hpp>
-
-#include "gmock/gmock.h"
 
 TEST(DbusUtility, getNthStringFromPathGoodTest)
 {

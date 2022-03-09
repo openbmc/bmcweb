@@ -1,6 +1,7 @@
+#include "test_common.hpp"
+
 #include <app.hpp>
 
-#include "gmock/gmock.h"
 #include "gtest/gtest.h"
 
 using namespace crow;

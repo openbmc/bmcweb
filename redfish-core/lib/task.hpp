@@ -40,7 +40,8 @@ struct Payload
 {
     Payload(const crow::Request& req) :
         targetUri(req.url), httpOperation(req.methodString()),
-        httpHeaders(nlohmann::json::array())
+        httpHeaders(nlohmann::json::array()),
+        jsonBody(nlohmann::json::parse(req.body, nullptr, false))
 
     {
         using field_ns = boost::beast::http::field;
@@ -50,7 +51,6 @@ struct Payload
                                field_ns::connection, field_ns::content_length,
                                field_ns::upgrade};
 
-        jsonBody = nlohmann::json::parse(req.body, nullptr, false);
         if (jsonBody.is_discarded())
         {
             jsonBody = nullptr;

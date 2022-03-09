@@ -1,9 +1,9 @@
+#include "test_common.hpp"
+
 #include <http_utility.hpp>
 #include <multipart_parser.hpp>
 
 #include <map>
-
-#include "gmock/gmock.h"
 
 class MultipartTest : public ::testing::Test
 {

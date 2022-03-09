@@ -235,7 +235,7 @@ class SessionStore
 
         for (char& sessionChar : sessionToken)
         {
-            sessionChar = alphanum[dist(gen)];
+            sessionChar = alphanum.at(dist(gen));
             if (gen.error())
             {
                 return nullptr;
@@ -246,7 +246,7 @@ class SessionStore
         csrfToken.resize(sessionTokenSize, '0');
         for (char& csrfChar : csrfToken)
         {
-            csrfChar = alphanum[dist(gen)];
+            csrfChar = alphanum.at(dist(gen));
             if (gen.error())
             {
                 return nullptr;
@@ -257,7 +257,7 @@ class SessionStore
         uniqueId.resize(10, '0');
         for (char& uidChar : uniqueId)
         {
-            uidChar = alphanum[dist(gen)];
+            uidChar = alphanum.at(dist(gen));
             if (gen.error())
             {
                 return nullptr;

@@ -1,6 +1,6 @@
 #include "utils/stl_utils.hpp"
 
-#include <gmock/gmock.h>
+#include <test_common.hpp>
 
 TEST(STLUtilesTest, RemoveDuplicates)
 {

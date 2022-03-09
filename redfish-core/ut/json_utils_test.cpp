@@ -1,9 +1,9 @@
 #include "utils/json_utils.hpp"
 
+#include <test_common.hpp>
+
 #include <string>
 #include <vector>
-
-#include <gmock/gmock.h>
 
 using redfish::json_util::readJson;
 using redfish::json_util::readJsonAction;
