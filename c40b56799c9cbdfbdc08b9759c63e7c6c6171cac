@@ -46,6 +46,30 @@
       },
       "revId": "c40b56799c9cbdfbdc08b9759c63e7c6c6171cac",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f9a518c4_ce23c8ac",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 50
+      },
+      "lineNbr": 802,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2022-03-09T23:10:21Z",
+      "side": 1,
+      "message": "I did some workaround so we don\u0027t have to move for bool. Maybe its good enough?",
+      "parentUuid": "4325f487_af9e35eb",
+      "range": {
+        "startLine": 789,
+        "startChar": 0,
+        "endLine": 802,
+        "endChar": 11
+      },
+      "revId": "c40b56799c9cbdfbdc08b9759c63e7c6c6171cac",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
