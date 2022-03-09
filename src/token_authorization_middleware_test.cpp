@@ -1,10 +1,10 @@
+#include "test_common.hpp"
 #include "token_authorization_middleware.hpp"
 
 #include <condition_variable>
 #include <future>
 #include <mutex>
 
-#include "gmock/gmock.h"
 #include "gtest/gtest.h"
 
 using namespace crow;

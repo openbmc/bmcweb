@@ -188,8 +188,6 @@ class App
         return *this;
     }
 
-    std::shared_ptr<ssl_context_t> sslContext = nullptr;
-
 #else
     template <typename T, typename... Remain>
     App& ssl_file(T&&, Remain&&...)
@@ -229,6 +227,7 @@ class App
 
 #ifdef BMCWEB_ENABLE_SSL
     std::unique_ptr<ssl_server_t> sslServer;
+    std::shared_ptr<ssl_context_t> sslContext = nullptr;
 #else
     std::unique_ptr<server_t> server;
 #endif

@@ -1,6 +1,6 @@
 #include "openbmc_dbus_rest.hpp"
+#include "test_common.hpp"
 
-#include "gmock/gmock.h"
 #include "gtest/gtest.h"
 
 TEST(OpenBmcDbusTest, TestArgSplit)

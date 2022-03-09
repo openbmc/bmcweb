@@ -1,10 +1,9 @@
 #include "nlohmann/json.hpp"
 #include "privileges.hpp"
+#include "test_common.hpp"
 
 #include <fstream>
 #include <string>
-
-#include "gmock/gmock.h"
 
 using namespace redfish;
 

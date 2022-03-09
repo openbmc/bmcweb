@@ -6,7 +6,7 @@
 #include <memory>
 #include <string>
 
-#include "gmock/gmock.h"
+#include "test_common.hpp"
 
 void assertServiceRootGet(crow::Response& res)
 {

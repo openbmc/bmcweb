@@ -1,6 +1,6 @@
 #include "utils/hex_utils.hpp"
 
-#include <gmock/gmock.h>
+#include <test_common.hpp>
 
 TEST(ToHexString, uint64)
 {

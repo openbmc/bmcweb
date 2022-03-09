@@ -1,9 +1,8 @@
 #include "ibm/management_console_rest.hpp"
 #include "nlohmann/json.hpp"
+#include "test_common.hpp"
 
 #include <string>
-
-#include "gmock/gmock.h"
 
 namespace crow
 {

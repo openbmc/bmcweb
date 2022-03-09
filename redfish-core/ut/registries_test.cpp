@@ -1,6 +1,5 @@
 #include "registries.hpp"
-
-#include "gmock/gmock.h"
+#include "test_common.hpp"
 
 TEST(RedfishRegistries, fillMessageArgs)
 {

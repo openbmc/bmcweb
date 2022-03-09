@@ -440,10 +440,10 @@ inline void getPersistentMemoryProperties(
     }
 }
 
-inline void getDimmDataByService(std::shared_ptr<bmcweb::AsyncResp> aResp,
-                                 const std::string& dimmId,
-                                 const std::string& service,
-                                 const std::string& objPath)
+inline void
+    getDimmDataByService(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
+                         const std::string& dimmId, const std::string& service,
+                         const std::string& objPath)
 {
     auto health = std::make_shared<HealthPopulate>(aResp);
     health->selfPath = objPath;
@@ -735,9 +735,9 @@ inline void getDimmDataByService(std::shared_ptr<bmcweb::AsyncResp> aResp,
         service, objPath, "org.freedesktop.DBus.Properties", "GetAll", "");
 }
 
-inline void getDimmPartitionData(std::shared_ptr<bmcweb::AsyncResp> aResp,
-                                 const std::string& service,
-                                 const std::string& path)
+inline void
+    getDimmPartitionData(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
+                         const std::string& service, const std::string& path)
 {
     crow::connections::systemBus->async_method_call(
         [aResp{std::move(aResp)}](
@@ -818,7 +818,7 @@ inline void getDimmPartitionData(std::shared_ptr<bmcweb::AsyncResp> aResp,
         "xyz.openbmc_project.Inventory.Item.PersistentMemory.Partition");
 }
 
-inline void getDimmData(std::shared_ptr<bmcweb::AsyncResp> aResp,
+inline void getDimmData(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
                         const std::string& dimmId)
 {
     BMCWEB_LOG_DEBUG << "Get available system dimm resources.";

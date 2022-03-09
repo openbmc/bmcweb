@@ -1,7 +1,7 @@
 #include <app.hpp>
 #include <security_headers_middleware.hpp>
+#include <test_common.hpp>
 
-#include <gmock/gmock.h>
 #include <gtest/gtest.h>
 
 using namespace crow;

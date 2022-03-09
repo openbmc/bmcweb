@@ -350,22 +350,9 @@ inline RcRelaseLock Lock::isItMyLock(const ListOfTransactionIds& refRids,
 
 inline bool Lock::validateRids(const ListOfTransactionIds& refRids)
 {
-    for (const auto& id : refRids)
-    {
-        auto search = lockTable.find(id);
-
-        if (search != lockTable.end())
-        {
-            BMCWEB_LOG_DEBUG << "Valid Transaction id";
-            //  continue for the next rid
-        }
-        else
-        {
-            BMCWEB_LOG_DEBUG << "At least 1 inValid Request id";
-            return false;
-        }
-    }
-    return true;
+    return std::ranges::all_of(refRids, [this](uint32_t value){
+        return lockTable.find(value) != lockTable.end();
+    });
 }
 
 inline bool Lock::isValidLockRequest(const LockRequest& refLockRecord)
