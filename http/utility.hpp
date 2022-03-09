@@ -11,6 +11,7 @@
 #include <ctime>
 #include <functional>
 #include <limits>
+#include <optional>
 #include <regex>
 #include <stdexcept>
 #include <string>
@@ -23,36 +24,6 @@ namespace crow
 {
 namespace black_magic
 {
-
-constexpr unsigned findClosingTag(std::string_view s, unsigned p)
-{
-    return s[p] == '>' ? p : findClosingTag(s, p + 1);
-}
-
-constexpr bool isInt(std::string_view s, unsigned i)
-{
-    return s.substr(i, 5) == "<int>";
-}
-
-constexpr bool isUint(std::string_view s, unsigned i)
-{
-    return s.substr(i, 6) == "<uint>";
-}
-
-constexpr bool isFloat(std::string_view s, unsigned i)
-{
-    return s.substr(i, 7) == "<float>" || s.substr(i, 8) == "<double>";
-}
-
-constexpr bool isStr(std::string_view s, unsigned i)
-{
-    return s.substr(i, 5) == "<str>" || s.substr(i, 8) == "<string>";
-}
-
-constexpr bool isPath(std::string_view s, unsigned i)
-{
-    return s.substr(i, 6) == "<path>";
-}
 
 template <typename T>
 constexpr int getParameterTag()
@@ -123,78 +94,98 @@ struct computeParameterTagFromArgsList<Arg, Args...>
     static constexpr int subValue =
         computeParameterTagFromArgsList<Args...>::value;
     static constexpr int value =
-        getParameterTag<typename std::decay<Arg>::type>()
+        getParameterTag<typename std::decay<Arg>::type>() != 0
             ? subValue * 6 + getParameterTag<typename std::decay<Arg>::type>()
             : subValue;
 };
 
 inline bool isParameterTagCompatible(uint64_t a, uint64_t b)
 {
-
-    if (a == 0)
+    while (true)
     {
-        return b == 0;
+        if (a == 0)
+        {
+            return b == 0;
+        }
+        if (b == 0)
+        {
+            return a == 0;
+        }
+        uint64_t sa = a % 6;
+        uint64_t sb = a % 6;
+        if (sa == 5)
+        {
+            sa = 4;
+        }
+        if (sb == 5)
+        {
+            sb = 4;
+        }
+        if (sa != sb)
+        {
+            return false;
+        }
+        a /= 6;
+        b /= 6;
     }
-    if (b == 0)
-    {
-        return a == 0;
-    }
-    uint64_t sa = a % 6;
-    uint64_t sb = a % 6;
-    if (sa == 5)
-    {
-        sa = 4;
-    }
-    if (sb == 5)
-    {
-        sb = 4;
-    }
-    if (sa != sb)
-    {
-        return false;
-    }
-    return isParameterTagCompatible(a / 6, b / 6);
+    return false;
 }
 
-constexpr uint64_t getParameterTag(std::string_view s, unsigned p = 0)
+constexpr uint64_t getParameterTag(std::string_view url)
 {
+    uint64_t tagValue = 0;
+    size_t urlSegmentIndex = std::string_view::npos;
 
-    if (p == s.size())
+    size_t paramIndex = 0;
+
+    for (size_t urlIndex = 0; urlIndex < url.size(); urlIndex++)
+    {
+        char character = url[urlIndex];
+        if (character == '<')
+        {
+            if (urlSegmentIndex != std::string_view::npos)
+            {
+                return 0;
+            }
+            urlSegmentIndex = urlIndex;
+        }
+        if (character == '>')
+        {
+            if (urlSegmentIndex == std::string_view::npos)
+            {
+                return 0;
+            }
+            std::string_view tag =
+                url.substr(urlSegmentIndex, urlIndex + 1 - urlSegmentIndex);
+            if (tag == "<int>")
+            {
+                tagValue += static_cast<uint64_t>(std::pow(6, paramIndex)) * 1;
+            }
+            if (tag == "<uint>")
+            {
+                tagValue += static_cast<uint64_t>(std::pow(6, paramIndex)) * 2;
+            }
+            if (tag == "<float>" || tag == "<double>")
+            {
+                tagValue += static_cast<uint64_t>(std::pow(6, paramIndex)) * 3;
+            }
+            if (tag == "<str>" || tag == "<string>")
+            {
+                tagValue += static_cast<uint64_t>(std::pow(6, paramIndex)) * 4;
+            }
+            if (tag == "<path>")
+            {
+                tagValue += static_cast<uint64_t>(std::pow(6, paramIndex)) * 5;
+            }
+            paramIndex++;
+            urlSegmentIndex = std::string_view::npos;
+        }
+    }
+    if (urlSegmentIndex != std::string_view::npos)
     {
         return 0;
     }
-
-    if (s[p] != '<')
-    {
-        return getParameterTag(s, p + 1);
-    }
-
-    if (isInt(s, p))
-    {
-        return getParameterTag(s, findClosingTag(s, p)) * 6 + 1;
-    }
-
-    if (isUint(s, p))
-    {
-        return getParameterTag(s, findClosingTag(s, p)) * 6 + 2;
-    }
-
-    if (isFloat(s, p))
-    {
-        return getParameterTag(s, findClosingTag(s, p)) * 6 + 3;
-    }
-
-    if (isStr(s, p))
-    {
-        return getParameterTag(s, findClosingTag(s, p)) * 6 + 4;
-    }
-
-    if (isPath(s, p))
-    {
-        return getParameterTag(s, findClosingTag(s, p)) * 6 + 5;
-    }
-
-    throw std::runtime_error("invalid parameter type");
+    return tagValue;
 }
 
 template <typename... T>
