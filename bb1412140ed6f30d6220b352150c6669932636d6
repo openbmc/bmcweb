@@ -77,6 +77,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5a3a7acb_897b332d",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 789,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2022-03-09T22:48:40Z",
+      "side": 1,
+      "message": "ah. that\u0027s why there wasn\u0027t any currently. make sense.",
+      "parentUuid": "21f68e93_8ae5f385",
+      "range": {
+        "startLine": 789,
+        "startChar": 0,
+        "endLine": 789,
+        "endChar": 38
+      },
+      "revId": "bb1412140ed6f30d6220b352150c6669932636d6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ca16f2f5_abc674f7",
@@ -90,6 +114,30 @@
       "writtenOn": "2022-03-02T00:05:44Z",
       "side": 1,
       "message": "Please use DBusPropertiesMap for this, which will require you avoid using find in your below code.",
+      "range": {
+        "startLine": 794,
+        "startChar": 18,
+        "endLine": 795,
+        "endChar": 60
+      },
+      "revId": "bb1412140ed6f30d6220b352150c6669932636d6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d8f812af_8a0d9b58",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 795,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2022-03-09T22:48:40Z",
+      "side": 1,
+      "message": "Done. + refactored it to make it work with DBusPropertiesMap.",
+      "parentUuid": "ca16f2f5_abc674f7",
       "range": {
         "startLine": 794,
         "startChar": 18,
@@ -123,6 +171,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "237f4b2f_71f92af6",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 840,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2022-03-09T22:48:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "93d67eab_623d6831",
+      "range": {
+        "startLine": 840,
+        "startChar": 0,
+        "endLine": 840,
+        "endChar": 50
+      },
+      "revId": "bb1412140ed6f30d6220b352150c6669932636d6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "48210961_e1cdc993",
@@ -136,6 +208,30 @@
       "writtenOn": "2022-03-02T00:05:44Z",
       "side": 1,
       "message": "I realize this was incorrect before, but this is an instance of common error 12.  If we\u0027re refactoring this code we should bring it up to current standard.",
+      "range": {
+        "startLine": 842,
+        "startChar": 0,
+        "endLine": 845,
+        "endChar": 54
+      },
+      "revId": "bb1412140ed6f30d6220b352150c6669932636d6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4251c3cc_8dbfd870",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 845,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2022-03-09T22:48:40Z",
+      "side": 1,
+      "message": "yep. I have updated it.",
+      "parentUuid": "48210961_e1cdc993",
       "range": {
         "startLine": 842,
         "startChar": 0,
