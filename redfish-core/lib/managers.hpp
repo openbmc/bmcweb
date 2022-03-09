@@ -1900,8 +1900,8 @@ inline void
         "GetManagedObjects");
 }
 
-inline void setDateTime(std::shared_ptr<bmcweb::AsyncResp> aResp,
-                        std::string datetime)
+inline void setDateTime(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
+                        const std::string& datetime)
 {
     BMCWEB_LOG_DEBUG << "Set date time: " << datetime;
 

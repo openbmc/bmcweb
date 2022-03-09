@@ -394,34 +394,34 @@ inline std::string base64encode(const std::string_view data)
         size_t keyIndex = 0;
 
         keyIndex = static_cast<size_t>(data[i] & 0xFC) >> 2;
-        *it++ = key[keyIndex];
+        *it++ = key.at(keyIndex);
 
         if (i + 1 < size)
         {
             keyIndex = static_cast<size_t>(data[i] & 0x03) << 4;
             keyIndex += static_cast<size_t>(data[i + 1] & 0xF0) >> 4;
-            *it++ = key[keyIndex];
+            *it++ = key.at(keyIndex);
 
             if (i + 2 < size)
             {
                 keyIndex = static_cast<size_t>(data[i + 1] & 0x0F) << 2;
                 keyIndex += static_cast<size_t>(data[i + 2] & 0xC0) >> 6;
-                *it++ = key[keyIndex];
+                *it++ = key.at(keyIndex);
 
                 keyIndex = static_cast<size_t>(data[i + 2] & 0x3F);
-                *it++ = key[keyIndex];
+                *it++ = key.at(keyIndex);
             }
             else
             {
                 keyIndex = static_cast<size_t>(data[i + 1] & 0x0F) << 2;
-                *it++ = key[keyIndex];
+                *it++ = key.at(keyIndex);
                 *it++ = '=';
             }
         }
         else
         {
             keyIndex = static_cast<size_t>(data[i] & 0x03) << 4;
-            *it++ = key[keyIndex];
+            *it++ = key.at(keyIndex);
             *it++ = '=';
             *it++ = '=';
         }
@@ -470,7 +470,7 @@ inline bool base64Decode(const std::string_view input, std::string& output)
         // Ensure we cannot index outside the bounds of the decoding array
         static_assert(std::numeric_limits<decltype(code)>::max() <
                       decodingData.size());
-        return decodingData[code];
+        return decodingData.at(code);
     };
 
     // for each 4-bytes sequence from the input, extract 4 6-bits sequences by

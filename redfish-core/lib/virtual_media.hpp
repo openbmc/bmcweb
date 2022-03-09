@@ -172,7 +172,7 @@ inline nlohmann::json vmItemTemplate(const std::string& name,
 /**
  *  @brief Fills collection data
  */
-inline void getVmResourceList(std::shared_ptr<bmcweb::AsyncResp> aResp,
+inline void getVmResourceList(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
                               const std::string& service,
                               const std::string& name)
 {

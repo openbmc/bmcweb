@@ -1,6 +1,6 @@
-#include <http_utility.hpp>
+#include "test_common.hpp"
 
-#include "gmock/gmock.h"
+#include <http_utility.hpp>
 
 TEST(HttpUtility, requestPrefersHtml)
 {

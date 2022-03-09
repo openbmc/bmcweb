@@ -396,7 +396,7 @@ class WebSocketRule : public BaseRule
         return *this;
     }
 
-  protected:
+  private:
     std::function<void(crow::websocket::Connection&,
                        std::shared_ptr<bmcweb::AsyncResp>)>
         openHandler;
@@ -509,7 +509,7 @@ class DynamicRule : public BaseRule, public RuleParameterTraits<DynamicRule>
         using function_t = crow::utility::function_traits<Func>;
 
         if (!black_magic::isParameterTagCompatible(
-                black_magic::getParameterTag(rule.c_str()),
+                black_magic::getParameterTag(rule),
                 black_magic::computeParameterTagFromArgsList<
                     typename function_t::template arg<Indices>...>::value))
         {
@@ -597,9 +597,7 @@ class TaggedRule :
         static_assert(
             !std::is_same<void, decltype(f(std::declval<crow::Request>(),
                                            std::declval<Args>()...))>::value,
-            "Handler function cannot have void return type; valid return "
-            "types: "
-            "string, int, crow::response,nlohmann::json");
+            "Handler function cannot have void return type; valid return types: string, int, crow::response,nlohmann::json");
 
         handler = [f = std::forward<Func>(f)](
                       const crow::Request& req,
@@ -630,9 +628,7 @@ class TaggedRule :
                 decltype(f(std::declval<crow::Request>(),
                            std::declval<std::shared_ptr<bmcweb::AsyncResp>&>(),
                            std::declval<Args>()...))>::value,
-            "Handler function with response argument should have void "
-            "return "
-            "type");
+            "Handler function with response argument should have void return type");
 
         handler = std::forward<Func>(f);
     }

@@ -258,7 +258,7 @@ inline bool getChassisSensorNode(
 class AddReport
 {
   public:
-    AddReport(AddReportArgs argsIn,
+    AddReport(const AddReportArgs& argsIn,
               const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) :
         asyncResp(asyncResp),
         args{std::move(argsIn)}

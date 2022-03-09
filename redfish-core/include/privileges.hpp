@@ -102,14 +102,15 @@ class Privileges
      */
     bool setSinglePrivilege(const std::string_view privilege)
     {
-        for (size_t searchIndex = 0; searchIndex < privilegeNames.size();
-             searchIndex++)
+        size_t searchIndex = 0;
+        for (const std::string& privilegeName : privilegeNames)
         {
-            if (privilege == privilegeNames[searchIndex])
+            if (privilege == privilegeName)
             {
                 privilegeBitset.set(searchIndex);
                 return true;
             }
+            searchIndex++;
         }
 
         return false;
@@ -125,14 +126,15 @@ class Privileges
      */
     bool resetSinglePrivilege(const char* privilege)
     {
-        for (size_t searchIndex = 0; searchIndex < privilegeNames.size();
-             searchIndex++)
+        size_t searchIndex = 0;
+        for (const std::string& privilegeName : privilegeNames)
         {
-            if (privilege == privilegeNames[searchIndex])
+            if (privilege == privilegeName)
             {
                 privilegeBitset.reset(searchIndex);
                 return true;
             }
+            searchIndex++;
         }
         return false;
     }
@@ -150,21 +152,19 @@ class Privileges
         getActivePrivilegeNames(const PrivilegeType type) const
     {
         std::vector<std::string> activePrivileges;
-
-        size_t searchIndex = 0;
-        size_t endIndex = basePrivilegeCount;
         if (type == PrivilegeType::OEM)
         {
-            searchIndex = basePrivilegeCount;
-            endIndex = privilegeNames.size();
+            // OEM not supported
+            return activePrivileges;
         }
-
-        for (; searchIndex < endIndex; searchIndex++)
+        size_t index = 0;
+        for (const std::string& privilegeName : privilegeNames)
         {
-            if (privilegeBitset.test(searchIndex))
+            if (privilegeBitset.test(index))
             {
-                activePrivileges.emplace_back(privilegeNames[searchIndex]);
+                activePrivileges.emplace_back(privilegeName);
             }
+            index++;
         }
 
         return activePrivileges;
@@ -260,16 +260,9 @@ inline bool isOperationAllowedWithPrivileges(
     {
         return true;
     }
-    for (const auto& requiredPrivileges : operationPrivilegesRequired)
-    {
-        BMCWEB_LOG_DEBUG << "Checking operation privileges...";
-        if (userPrivileges.isSupersetOf(requiredPrivileges))
-        {
-            BMCWEB_LOG_DEBUG << "...success";
-            return true;
-        }
-    }
-    return false;
+    return std::ranges::any_of(
+        operationPrivilegesRequired,
+        std::bind_front(&Privileges::isSupersetOf, userPrivileges));
 }
 
 /**

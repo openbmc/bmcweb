@@ -22,8 +22,6 @@ struct Response
     using response_type =
         boost::beast::http::response<boost::beast::http::string_body>;
 
-    std::optional<response_type> stringResponse;
-
     nlohmann::json jsonValue;
 
     void addHeader(const std::string_view key, const std::string_view value)
@@ -172,6 +170,8 @@ struct Response
     }
 
   private:
+    std::optional<response_type> stringResponse;
+
     bool completed = false;
     std::function<void(Response&)> completeRequestHandler;
     std::function<bool()> isAliveHelper;

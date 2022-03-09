@@ -9,8 +9,9 @@
 class GzFileReader
 {
   public:
-    bool gzGetLines(const std::string& filename, uint64_t& skip, uint64_t& top,
-                    std::vector<std::string>& logEntries, size_t& logCount)
+    bool gzGetLines(const std::string& filename, uint64_t& skip,
+                           uint64_t& top, std::vector<std::string>& logEntries,
+                           size_t& logCount)
     {
         gzFile logStream = gzopen(filename.c_str(), "r");
         if (logStream == nullptr)
@@ -49,7 +50,7 @@ class GzFileReader
     }
 
     bool readFile(gzFile logStream, uint64_t& skip, uint64_t& top,
-                  std::vector<std::string>& logEntries, size_t& logCount)
+                         std::vector<std::string>& logEntries, size_t& logCount)
     {
         constexpr int bufferLimitSize = 1024;
         do

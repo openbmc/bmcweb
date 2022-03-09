@@ -1,8 +1,7 @@
 #include "ibm/locks.hpp"
+#include "test_common.hpp"
 
 #include <string>
-
-#include "gmock/gmock.h"
 
 namespace crow
 {
@@ -22,14 +21,12 @@ using RcReleaseLockApi = std::pair<bool, std::variant<bool, RcRelaseLock>>;
 using SessionFlags = std::pair<SType, SType>;
 using ListOfSessionIds = std::vector<std::string>;
 
-class LockTest : public ::testing::Test
+struct LockTest : public ::testing::Test
 {
-  protected:
     LockRequests request;
     LockRequests request1, request2;
     LockRequest record;
 
-  public:
     LockTest()
     {
         record = {

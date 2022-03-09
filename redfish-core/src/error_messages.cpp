@@ -116,7 +116,7 @@ nlohmann::json getLog(redfish::message_registries::base::Index name,
         return {};
     }
     const redfish::message_registries::MessageEntry& entry =
-        redfish::message_registries::base::registry[index];
+        redfish::message_registries::base::registry.at(index);
     // Intentionally make a copy of the string, so we can append in the
     // parameters.
     std::string msg = entry.second.message;
