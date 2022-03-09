@@ -334,38 +334,8 @@ struct Promote<unsigned long long>
 
 } // namespace black_magic
 
-namespace detail
-{
-
-template <class T, std::size_t N, class... Args>
-struct GetIndexOfElementFromTupleByTypeImpl
-{
-    static constexpr std::size_t value = N;
-};
-
-template <class T, std::size_t N, class... Args>
-struct GetIndexOfElementFromTupleByTypeImpl<T, N, T, Args...>
-{
-    static constexpr std::size_t value = N;
-};
-
-template <class T, std::size_t N, class U, class... Args>
-struct GetIndexOfElementFromTupleByTypeImpl<T, N, U, Args...>
-{
-    static constexpr std::size_t value =
-        GetIndexOfElementFromTupleByTypeImpl<T, N + 1, Args...>::value;
-};
-
-} // namespace detail
-
 namespace utility
 {
-template <class T, class... Args>
-T& getElementByType(std::tuple<Args...>& t)
-{
-    return std::get<
-        detail::GetIndexOfElementFromTupleByTypeImpl<T, 0, Args...>::value>(t);
-}
 
 template <typename T>
 struct function_traits;
