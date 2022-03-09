@@ -58,6 +58,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "84fac00c_2a4df388",
+        "filename": "http/utility.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 728,
+      "author": {
+        "id": 1001026
+      },
+      "writtenOn": "2022-03-09T16:50:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5b169e5f_40d50f22",
+      "range": {
+        "startLine": 728,
+        "startChar": 10,
+        "endLine": 728,
+        "endChar": 15
+      },
+      "revId": "236e9130b71f6d754ade7e0f08ecf724dfdf2503",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "efc61b16_5db3baa8",
@@ -107,6 +131,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ae34d96a_359f3637",
+        "filename": "http/utility.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 729,
+      "author": {
+        "id": 1001026
+      },
+      "writtenOn": "2022-03-09T16:50:05Z",
+      "side": 1,
+      "message": "Done, it indeed solved the warning issue. Although it now has one additional side-effect: when args are forwarded to std::variant\u003c\u003e, code wont compile as it cannot implicit convert std::string (cannot decide between reference_wrapper\u003cstd::string\u003e and std::string_view). There are 2 solutions:\n- use std::ref() for each output std::string\n- replace variant signature to contain const char* instead of std::string_view\n\nIn current patch-set I went with first soluton, as I see that std::string_view is preferred. In my opinion std::ref seems like a good programming practice, but I leave this decision to maintainers.",
+      "parentUuid": "93d2915a_539ed3b3",
+      "range": {
+        "startLine": 729,
+        "startChar": 0,
+        "endLine": 729,
+        "endChar": 65
+      },
+      "revId": "236e9130b71f6d754ade7e0f08ecf724dfdf2503",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "4cfab346_30b39b51",
         "filename": "http/utility.hpp",
         "patchSetId": 3
@@ -118,6 +166,30 @@
       "writtenOn": "2022-03-08T16:26:27Z",
       "side": 1,
       "message": "Please break this statement up.  It\u0027s difficult to read as-is.",
+      "range": {
+        "startLine": 736,
+        "startChar": 0,
+        "endLine": 739,
+        "endChar": 14
+      },
+      "revId": "236e9130b71f6d754ade7e0f08ecf724dfdf2503",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "06fe67c8_a094698b",
+        "filename": "http/utility.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 739,
+      "author": {
+        "id": 1001026
+      },
+      "writtenOn": "2022-03-09T16:50:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4cfab346_30b39b51",
       "range": {
         "startLine": 736,
         "startChar": 0,
@@ -141,6 +213,30 @@
       "writtenOn": "2022-03-08T16:26:27Z",
       "side": 1,
       "message": "Nit, can we use std::span here?  There\u0027s nothing about this algorithm that requires it be sorted, and ideally in the future replacing this stuff with std::vector would be ideal (but please don\u0027t do it in this patch).",
+      "range": {
+        "startLine": 34,
+        "startChar": 4,
+        "endLine": 34,
+        "endChar": 30
+      },
+      "revId": "236e9130b71f6d754ade7e0f08ecf724dfdf2503",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "53002da6_1cbbb7fa",
+        "filename": "redfish-core/include/utils/telemetry_utils.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1001026
+      },
+      "writtenOn": "2022-03-09T16:50:05Z",
+      "side": 1,
+      "message": "Sure, I will look into it in separate change.",
+      "parentUuid": "7ecc997a_d723fedc",
       "range": {
         "startLine": 34,
         "startChar": 4,
@@ -221,6 +317,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0baad6db_7273eb20",
+        "filename": "redfish-core/include/utils/telemetry_utils.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1001026
+      },
+      "writtenOn": "2022-03-09T16:50:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7d16a37f_50d3e917",
+      "range": {
+        "startLine": 63,
+        "startChar": 52,
+        "endLine": 63,
+        "endChar": 56
+      },
+      "revId": "236e9130b71f6d754ade7e0f08ecf724dfdf2503",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "22fa9e57_cbd11f6d",
@@ -281,6 +401,30 @@
       "writtenOn": "2022-03-08T16:26:27Z",
       "side": 1,
       "message": "This seems like something we should create a real struct for.  Something like\n\nstruct ChassisSensor{\n    std::string uri;\n    size_t index;\n}\n\nDoing this would also remove the need to do the unpacking on line 235, because the arguments would already be named.",
+      "range": {
+        "startLine": 231,
+        "startChar": 22,
+        "endLine": 231,
+        "endChar": 52
+      },
+      "revId": "236e9130b71f6d754ade7e0f08ecf724dfdf2503",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0ab1f2e9_205beb3c",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 231,
+      "author": {
+        "id": 1001026
+      },
+      "writtenOn": "2022-03-09T16:50:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "23bc7bd7_f799f5cf",
       "range": {
         "startLine": 231,
         "startChar": 22,
