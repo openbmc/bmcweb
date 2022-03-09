@@ -164,5 +164,24 @@ TEST(Utility, ValidateAndSplitUrlPositive)
 #endif
 }
 
+TEST(Router, ParameterTagging)
+{
+    EXPECT_EQ(6 * 6 + 6 * 3 + 2,
+              crow::black_magic::getParameterTag("<uint><double><int>"));
+    EXPECT_EQ(1, crow::black_magic::getParameterTag("<int>"));
+    EXPECT_EQ(2, crow::black_magic::getParameterTag("<uint>"));
+    EXPECT_EQ(3, crow::black_magic::getParameterTag("<float>"));
+    EXPECT_EQ(3, crow::black_magic::getParameterTag("<double>"));
+    EXPECT_EQ(4, crow::black_magic::getParameterTag("<str>"));
+    EXPECT_EQ(4, crow::black_magic::getParameterTag("<string>"));
+    EXPECT_EQ(5, crow::black_magic::getParameterTag("<path>"));
+    EXPECT_EQ(6 * 6 + 6 + 1,
+              crow::black_magic::getParameterTag("<int><int><int>"));
+    EXPECT_EQ(6 * 6 + 6 + 2,
+              crow::black_magic::getParameterTag("<uint><int><int>"));
+    EXPECT_EQ(6 * 6 + 6 * 3 + 2,
+              crow::black_magic::getParameterTag("<uint><double><int>"));
+}
+
 } // namespace
 } // namespace crow::utility
