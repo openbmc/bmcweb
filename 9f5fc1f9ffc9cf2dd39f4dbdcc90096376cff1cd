@@ -1,6 +1,7 @@
 {
   "comments": [
     {
+      "unresolved": true,
       "key": {
         "uuid": "4a889fc2_a4021d43",
         "filename": "/COMMIT_MSG",
@@ -20,10 +21,34 @@
         "endChar": 16
       },
       "revId": "9f5fc1f9ffc9cf2dd39f4dbdcc90096376cff1cd",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "31fb0fe0_32ed5f35",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 20
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2022-03-10T18:38:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4a889fc2_a4021d43",
+      "range": {
+        "startLine": 31,
+        "startChar": 0,
+        "endLine": 31,
+        "endChar": 16
+      },
+      "revId": "9f5fc1f9ffc9cf2dd39f4dbdcc90096376cff1cd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
       "key": {
         "uuid": "b8273925_a00a3004",
         "filename": "redfish-core/include/utils/location_utils.hpp",
@@ -43,10 +68,34 @@
         "endChar": 27
       },
       "revId": "9f5fc1f9ffc9cf2dd39f4dbdcc90096376cff1cd",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "af04eeac_6edb1de3",
+        "filename": "redfish-core/include/utils/location_utils.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2022-03-10T18:38:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b8273925_a00a3004",
+      "range": {
+        "startLine": 25,
+        "startChar": 12,
+        "endLine": 25,
+        "endChar": 27
+      },
+      "revId": "9f5fc1f9ffc9cf2dd39f4dbdcc90096376cff1cd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
       "key": {
         "uuid": "3e2d9fdf_1078a8d8",
         "filename": "redfish-core/include/utils/location_utils.hpp",
@@ -60,10 +109,28 @@
       "side": 1,
       "message": "why not just `else { return false; }` and then you can get rid of the std::optional?",
       "revId": "9f5fc1f9ffc9cf2dd39f4dbdcc90096376cff1cd",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b2de01a9_36ef5a48",
+        "filename": "redfish-core/include/utils/location_utils.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2022-03-10T18:38:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3e2d9fdf_1078a8d8",
+      "revId": "9f5fc1f9ffc9cf2dd39f4dbdcc90096376cff1cd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
       "key": {
         "uuid": "b9580f34_a9b4b3e7",
         "filename": "redfish-core/lib/managers.hpp",
@@ -83,10 +150,34 @@
         "endChar": 57
       },
       "revId": "9f5fc1f9ffc9cf2dd39f4dbdcc90096376cff1cd",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "36710508_86062b6a",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 2138,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2022-03-10T18:38:27Z",
+      "side": 1,
+      "message": "My understanding is that we get the BMC with `xyz.openbmc_project.Inventory.Item.Bmc` and if it has this interface then we populate it. We don\u0027t specifically look for this property? Or maybe we should?",
+      "parentUuid": "b9580f34_a9b4b3e7",
+      "range": {
+        "startLine": 2138,
+        "startChar": 43,
+        "endLine": 2138,
+        "endChar": 57
+      },
+      "revId": "9f5fc1f9ffc9cf2dd39f4dbdcc90096376cff1cd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
       "key": {
         "uuid": "ccadc941_3e286062",
         "filename": "redfish-core/lib/managers.hpp",
@@ -106,10 +197,34 @@
         "endChar": 51
       },
       "revId": "9f5fc1f9ffc9cf2dd39f4dbdcc90096376cff1cd",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d3136051_4fd27138",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 2140,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2022-03-10T18:38:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ccadc941_3e286062",
+      "range": {
+        "startLine": 2140,
+        "startChar": 33,
+        "endLine": 2140,
+        "endChar": 51
+      },
+      "revId": "9f5fc1f9ffc9cf2dd39f4dbdcc90096376cff1cd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
       "key": {
         "uuid": "0c70cbb9_0a825357",
         "filename": "redfish-core/lib/managers.hpp",
@@ -129,10 +244,10 @@
         "endChar": 74
       },
       "revId": "9f5fc1f9ffc9cf2dd39f4dbdcc90096376cff1cd",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "4da50864_21e3df30",
         "filename": "redfish-core/lib/processor.hpp",
@@ -152,10 +267,34 @@
         "endChar": 39
       },
       "revId": "9f5fc1f9ffc9cf2dd39f4dbdcc90096376cff1cd",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "06b7fc31_2d16b995",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 780,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2022-03-10T18:38:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4da50864_21e3df30",
+      "range": {
+        "startLine": 780,
+        "startChar": 22,
+        "endLine": 780,
+        "endChar": 39
+      },
+      "revId": "9f5fc1f9ffc9cf2dd39f4dbdcc90096376cff1cd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
       "key": {
         "uuid": "f4d60092_d2a0b529",
         "filename": "redfish-core/lib/storage.hpp",
@@ -175,10 +314,34 @@
         "endChar": 0
       },
       "revId": "9f5fc1f9ffc9cf2dd39f4dbdcc90096376cff1cd",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "dbe991cd_a63bff5f",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2022-03-10T18:38:27Z",
+      "side": 1,
+      "message": "um, yeah. I guess it does not make that much sense. It will also be in the same location as the Storage/Chassis that it connects to. I\u0027ll remove it.",
+      "parentUuid": "f4d60092_d2a0b529",
+      "range": {
+        "startLine": 164,
+        "startChar": 0,
+        "endLine": 168,
+        "endChar": 0
+      },
+      "revId": "9f5fc1f9ffc9cf2dd39f4dbdcc90096376cff1cd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
       "key": {
         "uuid": "10831e42_2384868e",
         "filename": "redfish-core/lib/storage.hpp",
@@ -198,8 +361,31 @@
         "endChar": 63
       },
       "revId": "9f5fc1f9ffc9cf2dd39f4dbdcc90096376cff1cd",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8bc7295c_dce41915",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 339,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2022-03-10T18:38:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "10831e42_2384868e",
+      "range": {
+        "startLine": 339,
+        "startChar": 45,
+        "endLine": 339,
+        "endChar": 63
+      },
+      "revId": "9f5fc1f9ffc9cf2dd39f4dbdcc90096376cff1cd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }

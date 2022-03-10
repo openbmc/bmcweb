@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "610bea0d_74d6cbc4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 38
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2022-03-10T18:38:27Z",
+      "side": 1,
+      "message": "\u003e Patch Set 21:\n\u003e \n\u003e Lots of stuff going on here, not all of it mentioned in the commit message.  I suspect we need to get this broken up into:\n\u003e \n\u003e 1.  commit to move the code we use in Processor\n\u003e 2. One commit per schema to add the appropriate properties to each one, keeping in mind that some schemas don\u0027t have a LocationType, because they\u0027re not physical representations of the part, but the software representation of it.\n\noh yeah. I forgot why I moved this to WIP until I saw this again. Yeah, I\u0027ll clean this up into separate change today. ",
+      "revId": "0cfea4ef506fd454bcafaabaee78bda84974d82f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
