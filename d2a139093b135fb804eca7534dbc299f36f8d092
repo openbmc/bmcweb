@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "faee9d1a_add04146",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 889,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-03-10T18:32:14Z",
+      "side": 1,
+      "message": "Don\u0027t think a get should return a propertyMissing.\n\n```\n       \"PropertyMissing\": {\n            \"Description\": \"Indicates that a required property was not supplied as part of the request.\",\n            \"LongDescription\": \"This message shall be used to indicate that a required property was not supplied as part of the request.\",\n            \"Message\": \"The property %1 is a required property and must be included in the request.\",\n            \"Severity\": \"Warning\",\n            \"MessageSeverity\": \"Warning\",\n            \"NumberOfArgs\": 1,\n            \"ParamTypes\": [\n                \"string\"\n            ],\n            \"ArgDescriptions\": [\n                \"The name of the property.\"\n            ],\n            \"ArgLongDescriptions\": [\n                \"This argument shall contain the name of the property.\"\n            ],\n            \"Resolution\": \"Ensure that the property is in the request body and has a valid value and resubmit the request if the operation failed.\"\n        },\n```\n\nI know some of this was wrong before :(",
+      "revId": "d2a139093b135fb804eca7534dbc299f36f8d092",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "377ff6f9_4a206e54",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 895,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-03-10T18:32:14Z",
+      "side": 1,
+      "message": "I don\u0027t think a get should return a propertyValueTypeError becuase the resolution for this is \n\n            \"Resolution\": \"Correct the value for the property in the request body and resubmit the request if the operation failed.\"",
+      "revId": "d2a139093b135fb804eca7534dbc299f36f8d092",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b764a7d8_e5eca5c5",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 966,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-03-10T18:32:14Z",
+      "side": 1,
+      "message": "Nitpick: can we be consistent? why Fw (firmware) here but software above? Also you have swId (software). Can this be getSoftwareStatus?",
+      "range": {
+        "startLine": 966,
+        "startChar": 45,
+        "endLine": 966,
+        "endChar": 56
+      },
+      "revId": "d2a139093b135fb804eca7534dbc299f36f8d092",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
