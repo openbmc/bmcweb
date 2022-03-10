@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "906fff6f_17c3795f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2022-03-10T23:22:24Z",
+      "side": 1,
+      "message": "looks like your build is failing\n\nSomething about \"interfaceList\" not being defined",
+      "revId": "2e09af320f4cbedd6390a25ad5a3a2917cb6a6a4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
