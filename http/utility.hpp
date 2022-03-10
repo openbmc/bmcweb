@@ -10,6 +10,7 @@
 
 #include <array>
 #include <chrono>
+#include <cstddef>
 #include <cstdint>
 #include <ctime>
 #include <functional>
@@ -27,58 +28,76 @@ namespace crow
 namespace black_magic
 {
 
+enum class TypeCode : uint8_t
+{
+    Unspecified = 0,
+    Integer = 1,
+    UnsignedInteger = 2,
+    Float = 3,
+    String = 4,
+    Path = 5,
+    Max = 6,
+};
+
+// Remove when we have c++23
+template <typename E>
+constexpr typename std::underlying_type<E>::type toUnderlying(E e) noexcept
+{
+    return static_cast<typename std::underlying_type<E>::type>(e);
+}
+
 template <typename T>
-constexpr uint64_t getParameterTag()
+constexpr TypeCode getParameterTag()
 {
     if constexpr (std::is_same_v<int, T>)
     {
-        return 1;
+        return TypeCode::Integer;
     }
     if constexpr (std::is_same_v<char, T>)
     {
-        return 1;
+        return TypeCode::Integer;
     }
     if constexpr (std::is_same_v<short, T>)
     {
-        return 1;
+        return TypeCode::Integer;
     }
     if constexpr (std::is_same_v<long, T>)
     {
-        return 1;
+        return TypeCode::Integer;
     }
     if constexpr (std::is_same_v<long long, T>)
     {
-        return 1;
+        return TypeCode::Integer;
     }
     if constexpr (std::is_same_v<unsigned int, T>)
     {
-        return 2;
+        return TypeCode::UnsignedInteger;
     }
     if constexpr (std::is_same_v<unsigned char, T>)
     {
-        return 2;
+        return TypeCode::UnsignedInteger;
     }
     if constexpr (std::is_same_v<unsigned short, T>)
     {
-        return 2;
+        return TypeCode::UnsignedInteger;
     }
     if constexpr (std::is_same_v<unsigned long, T>)
     {
-        return 2;
+        return TypeCode::UnsignedInteger;
     }
     if constexpr (std::is_same_v<unsigned long long, T>)
     {
-        return 2;
+        return TypeCode::UnsignedInteger;
     }
     if constexpr (std::is_same_v<double, T>)
     {
-        return 3;
+        return TypeCode::Float;
     }
     if constexpr (std::is_same_v<std::string, T>)
     {
-        return 4;
+        return TypeCode::String;
     }
-    return 0;
+    return TypeCode::Unspecified;
 }
 
 template <typename... Args>
@@ -96,8 +115,12 @@ struct computeParameterTagFromArgsList<Arg, Args...>
     static constexpr int subValue =
         computeParameterTagFromArgsList<Args...>::value;
     static constexpr int value =
-        getParameterTag<typename std::decay<Arg>::type>() != 0
-            ? subValue * 6 + getParameterTag<typename std::decay<Arg>::type>()
+        getParameterTag<typename std::decay<Arg>::type>() !=
+                TypeCode::Unspecified
+            ? static_cast<unsigned long>(subValue *
+                                         toUnderlying(TypeCode::Max)) +
+                  static_cast<uint64_t>(
+                      getParameterTag<typename std::decay<Arg>::type>())
             : subValue;
 };
 
@@ -113,22 +136,23 @@ inline bool isParameterTagCompatible(uint64_t a, uint64_t b)
         {
             return a == 0;
         }
-        uint64_t sa = a % 6;
-        uint64_t sb = a % 6;
-        if (sa == 5)
+        TypeCode sa = static_cast<TypeCode>(a % toUnderlying(TypeCode::Max));
+        TypeCode sb = static_cast<TypeCode>(b % toUnderlying(TypeCode::Max));
+
+        if (sa == TypeCode::Path)
         {
-            sa = 4;
+            sa = TypeCode::String;
         }
-        if (sb == 5)
+        if (sb == TypeCode::Path)
         {
-            sb = 4;
+            sb = TypeCode::String;
         }
         if (sa != sb)
         {
             return false;
         }
-        a /= 6;
-        b /= 6;
+        a /= toUnderlying(TypeCode::Max);
+        b /= toUnderlying(TypeCode::Max);
     }
     return false;
 }
@@ -172,23 +196,24 @@ constexpr inline uint64_t getParameterTag(std::string_view url)
 
             if (tag == "<int>")
             {
-                tagValue += insertIndex * 1;
+                tagValue += insertIndex * toUnderlying(TypeCode::Integer);
             }
             if (tag == "<uint>")
             {
-                tagValue += insertIndex * 2;
+                tagValue +=
+                    insertIndex * toUnderlying(TypeCode::UnsignedInteger);
             }
             if (tag == "<float>" || tag == "<double>")
             {
-                tagValue += insertIndex * 3;
+                tagValue += insertIndex * toUnderlying(TypeCode::Float);
             }
             if (tag == "<str>" || tag == "<string>")
             {
-                tagValue += insertIndex * 4;
+                tagValue += insertIndex * toUnderlying(TypeCode::String);
             }
             if (tag == "<path>")
             {
-                tagValue += insertIndex * 5;
+                tagValue += insertIndex * toUnderlying(TypeCode::Path);
             }
             paramIndex++;
             urlSegmentIndex = std::string_view::npos;
