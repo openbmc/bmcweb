@@ -89,8 +89,7 @@ inline std::string analysisSlotType(const std::string& slotType)
     return "";
 }
 
-inline void
-    addLocation(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+inline void addLocation(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                         size_t index, const std::string& connectionName,
                         const std::string& pcieSlotPath,
                         const std::string& locationInterface)
@@ -115,6 +114,49 @@ inline void
         },
         connectionName, pcieSlotPath, "org.freedesktop.DBus.Properties", "Get",
         locationInterface, "LocationCode");
+}
+
+inline void
+    addPresenceStatus(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                      size_t index, const std::string& connectionName,
+                      const std::string& pcieSlotPath,
+                      const std::vector<std::string>& interfaceList)
+{
+    const std::string itemInterface = "xyz.openbmc_project.Inventory.Item";
+    if (std::find(interfaceList.begin(), interfaceList.end(), itemInterface) !=
+        interfaceList.end())
+    {
+        crow::connections::systemBus->async_method_call(
+            [asyncResp, index](const boost::system::error_code ec,
+                               const std::variant<bool>& property) {
+                if (ec)
+                {
+                    BMCWEB_LOG_DEBUG << "DBUS response error";
+                    messages::internalError(asyncResp->res);
+                    return;
+                }
+                const bool* value = std::get_if<bool>(&property);
+                if (value == nullptr)
+                {
+                    messages::internalError(asyncResp->res);
+                    return;
+                }
+                if (*value)
+                {
+                    asyncResp->res
+                        .jsonValue["Slots"][index]["Status"]["State"] =
+                        "Enabled";
+                }
+                else
+                {
+                    asyncResp->res
+                        .jsonValue["Slots"][index]["Status"]["State"] =
+                        "Absent";
+                }
+            },
+            connectionName, pcieSlotPath, "org.freedesktop.DBus.Properties",
+            "Get", itemInterface, "Present");
+    }
 }
 
 inline void getPCIeSlots(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
@@ -308,9 +350,13 @@ inline void getPCIeSlots(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                                               locationInterface) !=
                                     interfaceList.end())
                                 {
-                                    addLocation(asyncResp, index, connectionName,
-                                                pcieSlotPath, locationInterface);
+                                    addLocation(asyncResp, index,
+                                                connectionName, pcieSlotPath,
+                                                locationInterface);
                                 }
+                                addPresenceStatus(asyncResp, index,
+                                                  connectionName, pcieSlotPath,
+                                                  interfaceList);
                             },
                             connectionName, pcieSlotPath,
                             "org.freedesktop.DBus.Properties", "GetAll",
