@@ -3,6 +3,7 @@
 #include <bmcweb_config.h>
 #include <openssl/crypto.h>
 
+#include <boost/callable_traits.hpp>
 #include <boost/date_time/posix_time/posix_time.hpp>
 #include <boost/url/url.hpp>
 
@@ -340,49 +341,10 @@ namespace utility
 {
 
 template <typename T>
-struct function_traits;
-
-template <typename T>
-struct function_traits : public function_traits<decltype(&T::operator())>
+struct FunctionTraits
 {
-    using parent_t = function_traits<decltype(&T::operator())>;
-    static const size_t arity = parent_t::arity;
-    using result_type = typename parent_t::result_type;
     template <size_t i>
-    using arg = typename parent_t::template arg<i>;
-};
-
-template <typename ClassType, typename r, typename... Args>
-struct function_traits<r (ClassType::*)(Args...) const>
-{
-    static const size_t arity = sizeof...(Args);
-
-    using result_type = r;
-
-    template <size_t i>
-    using arg = typename std::tuple_element<i, std::tuple<Args...>>::type;
-};
-
-template <typename ClassType, typename r, typename... Args>
-struct function_traits<r (ClassType::*)(Args...)>
-{
-    static const size_t arity = sizeof...(Args);
-
-    using result_type = r;
-
-    template <size_t i>
-    using arg = typename std::tuple_element<i, std::tuple<Args...>>::type;
-};
-
-template <typename r, typename... Args>
-struct function_traits<std::function<r(Args...)>>
-{
-    static const size_t arity = sizeof...(Args);
-
-    using result_type = r;
-
-    template <size_t i>
-    using arg = typename std::tuple_element<i, std::tuple<Args...>>::type;
+    using arg = std::tuple_element_t<i, boost::callable_traits::args_t<T>>;
 };
 
 inline std::string base64encode(const std::string_view data)

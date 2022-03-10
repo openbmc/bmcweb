@@ -488,10 +488,10 @@ class DynamicRule : public BaseRule, public RuleParameterTraits<DynamicRule>
     template <typename Func>
     void operator()(Func f)
     {
-        using function_t = utility::function_traits<Func>;
-        erasedHandler =
-            wrap(std::move(f),
-                 std::make_integer_sequence<unsigned, function_t::arity>{});
+        using boost::callable_traits::args_t;
+        constexpr size_t arity = std::tuple_size<args_t<Func>>::value;
+        constexpr auto is = std::make_integer_sequence<unsigned, arity>{};
+        erasedHandler = wrap(std::move(f), is);
     }
 
     // enable_if Arg1 == request && Arg2 == Response
@@ -504,7 +504,7 @@ class DynamicRule : public BaseRule, public RuleParameterTraits<DynamicRule>
                        const RoutingParams&)>
         wrap(Func f, std::integer_sequence<unsigned, Indices...> /*is*/)
     {
-        using function_t = crow::utility::function_traits<Func>;
+        using function_t = crow::utility::FunctionTraits<Func>;
 
         if (!black_magic::isParameterTagCompatible(
                 black_magic::getParameterTag(rule.c_str()),
