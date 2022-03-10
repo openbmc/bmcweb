@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a542b6da_ccea08af",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2022-03-10T15:16:03Z",
+      "side": 1,
+      "message": "Looks good, but CI reports errors not related to your code.",
+      "revId": "131638adbe23672b495f739ce77e9521104141aa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
