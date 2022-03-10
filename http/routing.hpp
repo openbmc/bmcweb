@@ -490,10 +490,10 @@ class DynamicRule : public BaseRule, public RuleParameterTraits<DynamicRule>
     template <typename Func>
     void operator()(Func f)
     {
-        using function_t = utility::function_traits<Func>;
-        erasedHandler =
-            wrap(std::move(f),
-                 std::make_integer_sequence<unsigned, function_t::arity>{});
+        using boost::callable_traits::args_t;
+        constexpr size_t arity = std::tuple_size<args_t<Func>>::value;
+        constexpr auto is = std::make_integer_sequence<unsigned, arity>{};
+        erasedHandler = wrap(std::move(f), is);
     }
 
     // enable_if Arg1 == request && Arg2 == Response
