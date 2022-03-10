@@ -89,6 +89,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2e455d18_40aa6ffd",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 34
+      },
+      "lineNbr": 237,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2022-03-10T00:54:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ae1557a3_b54f907d",
+      "revId": "6146c14bca31e779efc43978e443ebbac03e64c6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "18c563df_398075ca",
@@ -167,6 +185,24 @@
       "side": 1,
       "message": "Do you mean the one in `requestRoutesChassis()`?\n\nThis function is used in requestRoutesChassisResetActionInfo and requestRoutesChassisResetAction. I\u0027ll see if I can clean this up more.",
       "parentUuid": "11c032ee_53978d0f",
+      "revId": "6146c14bca31e779efc43978e443ebbac03e64c6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "79762bbf_b74b2ade",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 34
+      },
+      "lineNbr": 798,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2022-03-10T00:54:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6d750153_b12facb0",
       "revId": "6146c14bca31e779efc43978e443ebbac03e64c6",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }

@@ -43,6 +43,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f7110c7d_0da81b58",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 41
+      },
+      "lineNbr": 264,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2022-03-10T00:54:38Z",
+      "side": 1,
+      "message": "um. Yeah, I think we can do that and just handle it at the callback side.\n\nThanks for the reference. Let me take a look at the change.\n\nI have cleaned it up a bit based on that.",
+      "parentUuid": "7ec337a9_30c53901",
+      "range": {
+        "startLine": 259,
+        "startChar": 0,
+        "endLine": 264,
+        "endChar": 13
+      },
+      "revId": "26e970981be78c5ce0d78715a92aaa36dfbaac00",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ebc6946b_ca00e3bd",
         "filename": "redfish-core/lib/chassis.hpp",
         "patchSetId": 41
@@ -54,6 +78,30 @@
       "writtenOn": "2022-03-02T00:16:21Z",
       "side": 1,
       "message": "Please do this directly in the callback.  The less information we have in the lambda, the better.",
+      "range": {
+        "startLine": 266,
+        "startChar": 25,
+        "endLine": 266,
+        "endChar": 57
+      },
+      "revId": "26e970981be78c5ce0d78715a92aaa36dfbaac00",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "419c0e16_36fc36ff",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 41
+      },
+      "lineNbr": 266,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2022-03-10T00:54:38Z",
+      "side": 1,
+      "message": "done.",
+      "parentUuid": "ebc6946b_ca00e3bd",
       "range": {
         "startLine": 266,
         "startChar": 25,
@@ -87,6 +135,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e4572e62_63c8dc98",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 41
+      },
+      "lineNbr": 543,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2022-03-10T00:54:38Z",
+      "side": 1,
+      "message": "yes, thanks.",
+      "parentUuid": "f163ed0d_d9f65383",
+      "range": {
+        "startLine": 542,
+        "startChar": 46,
+        "endLine": 543,
+        "endChar": 64
+      },
+      "revId": "26e970981be78c5ce0d78715a92aaa36dfbaac00",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "82776946_954b81ed",
@@ -100,6 +172,30 @@
       "writtenOn": "2022-03-02T00:16:21Z",
       "side": 1,
       "message": "variable needs a better name, this is \"add chassis reset action\", and should have a name to match.",
+      "range": {
+        "startLine": 548,
+        "startChar": 32,
+        "endLine": 548,
+        "endChar": 49
+      },
+      "revId": "26e970981be78c5ce0d78715a92aaa36dfbaac00",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7e7fa521_1e46a0d9",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 41
+      },
+      "lineNbr": 548,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2022-03-10T00:54:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "82776946_954b81ed",
       "range": {
         "startLine": 548,
         "startChar": 32,
