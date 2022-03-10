@@ -70,6 +70,30 @@
       },
       "revId": "c40b56799c9cbdfbdc08b9759c63e7c6c6171cac",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "64874d98_4914de4b",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 50
+      },
+      "lineNbr": 802,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2022-03-10T14:58:20Z",
+      "side": 1,
+      "message": "Sorry for late response I investigated this issue and found issue I overlooked before. It should be used like this:\n\nsdbusplus::asio::setProperty( # \u003c- no explicit template parameter\n        *crow::connections::systemBus, service, path,\n        \"xyz.openbmc_project.Software.Settings\", \"WriteProtected\",\n        writeProtected,\n        [asyncResp](const boost::system::error_code ec) {\n            if (ec)\n            {\n                BMCWEB_LOG_ERROR \u003c\u003c \"setWriteProtected D-Bus responses error: \"\n                                 \u003c\u003c ec;\n                messages::internalError(asyncResp-\u003eres);\n                return;\n            }\n            messages::success(asyncResp-\u003eres);\n        });\n\nIf you want to be explicit then because of perfect forwarding you either need to make explicit copy you you did in this workaround or pass a type that should be deduced by perfect forwarding in this case it would be bool\u0026 or bool\u0026\u0026 if std::move is used.",
+      "parentUuid": "f9a518c4_ce23c8ac",
+      "range": {
+        "startLine": 789,
+        "startChar": 0,
+        "endLine": 802,
+        "endChar": 11
+      },
+      "revId": "c40b56799c9cbdfbdc08b9759c63e7c6c6171cac",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
