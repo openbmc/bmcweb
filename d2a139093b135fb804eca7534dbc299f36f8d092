@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "73d359ea_d68aece4",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 889,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2022-03-10T18:49:57Z",
+      "side": 1,
+      "message": "I guess we just use ` messages::internalError(asyncResp-\u003eres);` instead?\n\nsame with the other.",
+      "parentUuid": "faee9d1a_add04146",
+      "revId": "d2a139093b135fb804eca7534dbc299f36f8d092",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "377ff6f9_4a206e54",
         "filename": "redfish-core/lib/update_service.hpp",
         "patchSetId": 13
