@@ -30,6 +30,7 @@
 #include <boost/system/error_code.hpp>
 #include <sdbusplus/asio/property.hpp>
 #include <sdbusplus/unpack_properties.hpp>
+#include <utils/location_utils.hpp>
 
 #include <algorithm>
 #include <array>
@@ -1697,37 +1698,6 @@ struct SetPIDValues : std::enable_shared_from_this<SetPIDValues>
     size_t objectCount = 0;
 };
 
-/**
- * @brief Retrieves BMC manager location data over DBus
- *
- * @param[in] aResp Shared pointer for completing asynchronous calls
- * @param[in] connectionName - service name
- * @param[in] path - object path
- * @return none
- */
-inline void getLocation(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
-                        const std::string& connectionName,
-                        const std::string& path)
-{
-    BMCWEB_LOG_DEBUG << "Get BMC manager Location data.";
-
-    sdbusplus::asio::getProperty<std::string>(
-        *crow::connections::systemBus, connectionName, path,
-        "xyz.openbmc_project.Inventory.Decorator.LocationCode", "LocationCode",
-        [aResp](const boost::system::error_code& ec,
-                const std::string& property) {
-        if (ec)
-        {
-            BMCWEB_LOG_DEBUG << "DBUS response error for "
-                                "Location";
-            messages::internalError(aResp->res);
-            return;
-        }
-
-        aResp->res.jsonValue["Location"]["PartLocation"]["ServiceLabel"] =
-            property;
-        });
-}
 // avoid name collision systems.hpp
 inline void
     managerGetLastResetTime(const std::shared_ptr<bmcweb::AsyncResp>& aResp)
@@ -2041,6 +2011,8 @@ inline void requestRoutesManager(App& app)
         });
 
         static bool started = false;
+        asyncResp->res.jsonValue["Location"]["PartLocation"]["LocationType"] =
+            "Embedded";
 
         if (!started)
         {
@@ -2169,7 +2141,9 @@ inline void requestRoutesManager(App& app)
                 else if (interfaceName ==
                          "xyz.openbmc_project.Inventory.Decorator.LocationCode")
                 {
-                    getLocation(asyncResp, connectionName, path);
+                    location_util::getLocationCode(asyncResp, connectionName,
+                                                   path,
+                                                   "/Location"_json_pointer);
                 }
             }
             });
