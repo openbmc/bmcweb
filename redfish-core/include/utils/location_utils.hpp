@@ -73,7 +73,7 @@ inline void getLocationCode(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
 
         asyncResp->res.jsonValue[location]["PartLocation"]["ServiceLabel"] =
             property;
-    });
+        });
 }
 
 } // namespace location_util
