@@ -26,6 +26,7 @@
 #include "utils/collection.hpp"
 #include "utils/dbus_utils.hpp"
 #include "utils/json_utils.hpp"
+#include "utils/location_utils.hpp"
 
 #include <boost/container/flat_map.hpp>
 #include <boost/system/error_code.hpp>
@@ -703,36 +704,6 @@ inline void
 }
 
 /**
- * @brief Fill out location info of a processor by
- * requesting data from the given D-Bus object.
- *
- * @param[in,out]   asyncResp       Async HTTP response.
- * @param[in]       service     D-Bus service to query.
- * @param[in]       objPath     D-Bus object to query.
- */
-inline void getCpuLocationCode(std::shared_ptr<bmcweb::AsyncResp> asyncResp,
-                               const std::string& service,
-                               const std::string& objPath)
-{
-    BMCWEB_LOG_DEBUG("Get Cpu Location Data");
-    sdbusplus::asio::getProperty<std::string>(
-        *crow::connections::systemBus, service, objPath,
-        "xyz.openbmc_project.Inventory.Decorator.LocationCode", "LocationCode",
-        [objPath, asyncResp{std::move(asyncResp)}](
-            const boost::system::error_code& ec, const std::string& property) {
-        if (ec)
-        {
-            BMCWEB_LOG_DEBUG("DBUS response error");
-            messages::internalError(asyncResp->res);
-            return;
-        }
-
-        asyncResp->res.jsonValue["Location"]["PartLocation"]["ServiceLabel"] =
-            property;
-        });
-}
-
-/**
  * Populate the unique identifier in a Processor resource by requesting data
  * from the given D-Bus object.
  *
@@ -881,7 +852,9 @@ inline void
             else if (interface ==
                      "xyz.openbmc_project.Inventory.Decorator.LocationCode")
             {
-                getCpuLocationCode(asyncResp, serviceName, objectPath);
+                location_util::getLocationCode(asyncResp, serviceName,
+                                               objectPath,
+                                               "/Location"_json_pointer);
             }
             else if (interface == "xyz.openbmc_project.Common.UUID")
             {
@@ -895,6 +868,21 @@ inline void
             else if (interface == "xyz.openbmc_project.Control.Power.Throttle")
             {
                 getThrottleProperties(asyncResp, serviceName, objectPath);
+            }
+            else
+            {
+                std::optional<std::string> locationType =
+                    location_util::getLocationType(interface);
+                if (locationType == std::nullopt)
+                {
+                    BMCWEB_LOG_DEBUG
+                        << "getLocationType for Processor failed for "
+                        << interface;
+                    continue;
+                }
+
+                aResp->res.jsonValue["Location"]["PartLocation"]
+                                    ["LocationType"] = *locationType;
             }
         }
     }
