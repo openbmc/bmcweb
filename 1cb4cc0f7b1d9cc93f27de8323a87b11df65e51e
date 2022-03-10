@@ -125,6 +125,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7a13bbe5_631486d8",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1000029
+      },
+      "writtenOn": "2022-03-10T20:00:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a9bb56fc_9df52fca",
+      "revId": "1cb4cc0f7b1d9cc93f27de8323a87b11df65e51e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a390f255_23b34ac2",
@@ -210,6 +228,24 @@
       "side": 1,
       "message": "\u003e I was wondering if we could just not set or return a [\"PowerRestorePolicy\"] at all when it\u0027s None since it\u0027s an optional property? \n\nThat would be the equivalent of saying \"This system doesn\u0027t support setting or getting power restore policy\" which in this case is really not what you want, because the system supports it.\n\n\u003e \n\u003e And yeah, the \"None\" was needed because there was no way to know when the one-time was not set with the 3 values. It followed the general design of PDI to have a default un-initialized value so code can know if a property has been set to something.\n\nSee previous comment.  If we want to model \"one time\" params, we probably need to run through DMTF.  If we don\u0027t care so much, we can just map None to PowerOff, which will be correct until the system actually reboots.",
       "parentUuid": "0eaefe27_a87ae5a1",
+      "revId": "1cb4cc0f7b1d9cc93f27de8323a87b11df65e51e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ccf3318a_d6b1a334",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1224,
+      "author": {
+        "id": 1000029
+      },
+      "writtenOn": "2022-03-10T20:00:39Z",
+      "side": 1,
+      "message": "FWIW, my current setup is not throwing a validator error on this change. I still want to check this on another system configuration.\n\nAlso, it sounds as though a better choice for the time being (if the validator does truly throw an error or not?) to have \"None\" return as \"AlwaysOff\" then as Ed mentions in the commit msg comments?",
+      "parentUuid": "9ac2c44f_df01fa28",
       "revId": "1cb4cc0f7b1d9cc93f27de8323a87b11df65e51e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
