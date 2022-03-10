@@ -38,6 +38,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "dea55d4b_3e9403a5",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 54
+      },
+      "lineNbr": 1037,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-10T18:47:35Z",
+      "side": 1,
+      "message": "Shouldn\u0027t this be readJsonPatch, considering that this is a patch?  (Can I make a note at how great it is that the new names of these handlers make this super obvious in code review that this isn\u0027t an action)\n\nreadJson is JUST for reading in nlohmann::json objects these days, so I don\u0027t think that\u0027s the right answer.",
+      "parentUuid": "9cd1d6af_b692578b",
+      "revId": "32476601b1325f0ea9ce079c5cabd46e7a88791f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "24157177_f56ffc6e",
         "filename": "redfish-core/lib/update_service.hpp",
         "patchSetId": 54
@@ -66,6 +84,24 @@
       "writtenOn": "2022-03-10T18:45:47Z",
       "side": 1,
       "message": "yeah, I think so. But I don\u0027t think we care what the value for writeProtected is, right?\n\nWe just set that value either way?",
+      "parentUuid": "24157177_f56ffc6e",
+      "revId": "32476601b1325f0ea9ce079c5cabd46e7a88791f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ea511881_18b2908c",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 54
+      },
+      "lineNbr": 1040,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-10T18:47:35Z",
+      "side": 1,
+      "message": "only if the type is a std::optional\u003cthing\u003e.  If the type is a non-std::optional, the readJson contract guarantees that it will be filled in by the user, or this will return an error.\n\nMost patch handlers have multiple parameters that are accepted, so this difference is subtle.",
       "parentUuid": "24157177_f56ffc6e",
       "revId": "32476601b1325f0ea9ce079c5cabd46e7a88791f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
