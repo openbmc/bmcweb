@@ -16,6 +16,24 @@
       "message": "Rerun CI",
       "revId": "5516c04eab3b719da5c1a8b6f3e8631bf0851bfd",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b6c140d2_5fd24474",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2022-03-10T22:44:26Z",
+      "side": 1,
+      "message": "This change is not passing clang-format check. You can run\n```$ clang-format-13 -i $(git ls-files | grep \"\\.[hc]\\(pp\\)\\?$\")```\nto fix your formatting issues.",
+      "parentUuid": "7ca2c854_bf18f6f3",
+      "revId": "5516c04eab3b719da5c1a8b6f3e8631bf0851bfd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
