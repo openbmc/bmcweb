@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "05d894a5_d604fbfb",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000235
+      },
+      "writtenOn": "2022-03-10T04:02:10Z",
+      "side": 1,
+      "message": "Looks good to me, modulo \"ssh\" mapping to [\"HostConsole\", \"ManagerConsole\"] which we should fix in a separate multi-repository commit.",
+      "revId": "9df62dec100b1816c77b2dcaaed38cef7ad6a677",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
