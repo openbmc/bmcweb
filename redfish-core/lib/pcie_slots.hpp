@@ -266,6 +266,103 @@ inline void getPCIeSlots(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                                         propertyData["HotPluggable"] = *value;
                                     }
                                 }
+
+                                const std::string locationInterface =
+                                    "xyz.openbmc_project.Inventory.Decorator."
+                                    "LocationCode";
+                                if (std::find(interfaceList.begin(),
+                                              interfaceList.end(),
+                                              locationInterface) !=
+                                    interfaceList.end())
+                                {
+                                    crow::connections::systemBus
+                                        ->async_method_call(
+                                            [asyncResp, index](
+                                                const boost::system::error_code
+                                                    ec,
+                                                const std::variant<std::string>&
+                                                    property) {
+                                                if (ec)
+                                                {
+                                                    BMCWEB_LOG_DEBUG
+                                                        << "DBUS response "
+                                                           "error";
+                                                    messages::internalError(
+                                                        asyncResp->res);
+                                                    return;
+                                                }
+
+                                                const std::string* value =
+                                                    std::get_if<std::string>(
+                                                        &property);
+
+                                                if (value == nullptr)
+                                                {
+                                                    messages::internalError(
+                                                        asyncResp->res);
+                                                    return;
+                                                }
+                                                asyncResp->res
+                                                    .jsonValue["Slots"][index]
+                                                              ["Location"]
+                                                              ["PartLocation"]
+                                                              ["ServiceLabel"] =
+                                                    *value;
+                                            },
+                                            connectionName, pcieSlotPath,
+                                            "org.freedesktop.DBus.Properties",
+                                            "Get", locationInterface,
+                                            "LocationCode");
+                                }
+
+                                const std::string itemInterface =
+                                    "xyz.openbmc_project.Inventory.Item";
+                                if (std::find(interfaceList.begin(),
+                                              interfaceList.end(),
+                                              itemInterface) !=
+                                    interfaceList.end())
+                                {
+                                    crow::connections::systemBus
+                                        ->async_method_call([asyncResp, index](
+                                            const boost::system::error_code ec,
+                                            const std::variant<bool>& property)
+                                        {
+                                            if (ec)
+                                            {
+                                                BMCWEB_LOG_DEBUG
+                                                    << "DBUS response error";
+                                                messages::internalError(
+                                                    asyncResp->res);
+                                                return;
+                                            }
+
+                                            const bool* value =
+                                                std::get_if<bool>(&property);
+
+                                            if (value == nullptr)
+                                            {
+                                                messages::internalError(
+                                                    asyncResp->res);
+                                                return;
+                                            }
+
+                                            if (*value) {
+                                                asyncResp->res.jsonValue
+                                                    ["Slots"][index]
+                                                    ["Status"]["State"] =
+                                                    "Enabled";
+                                            } else {
+                                                asyncResp->res.jsonValue
+                                                    ["Slots"][index]
+                                                    ["Status"]["State"] =
+                                                    "Absent";
+                                            }
+
+                                        },
+                                        connectionName, pcieSlotPath,
+                                        "org.freedesktop.DBus.Properties",
+                                        "Get", itemInterface, "Present");
+                                }
                             },
                             connectionName, pcieSlotPath,
                             "org.freedesktop.DBus.Properties", "GetAll",
