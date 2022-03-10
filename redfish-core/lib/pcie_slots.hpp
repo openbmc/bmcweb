@@ -14,6 +14,60 @@
 namespace redfish
 {
 
+inline void
+    addPresenceStatus(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                      const std::string& connectionName,
+                      const std::string& pcieSlotPath, size_t index)
+{
+
+    crow::connections::systemBus->async_method_call(
+        [asyncResp, index](const boost::system::error_code ec,
+                           const std::variant<bool>& property) {
+        if (ec)
+        {
+            BMCWEB_LOG_DEBUG << "DBUS response error";
+            messages::internalError(asyncResp->res);
+            return;
+        }
+        const bool* value = std::get_if<bool>(&property);
+        if (value == nullptr)
+        {
+            messages::internalError(asyncResp->res);
+            return;
+        }
+        asyncResp->res.jsonValue["Slots"][index]["Status"]["State"] =
+            *value ? "Enabled" : "Absent";
+        },
+        connectionName, pcieSlotPath, "org.freedesktop.DBus.Properties", "Get",
+        "xyz.openbmc_project.Inventory.Item", "Present");
+}
+
+inline void addLocation(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                        const std::string& connectionName,
+                        const std::string& pcieSlotPath, size_t index)
+{
+    crow::connections::systemBus->async_method_call(
+        [asyncResp, index](const boost::system::error_code ec,
+                           const std::variant<std::string>& property) {
+        if (ec)
+        {
+            BMCWEB_LOG_DEBUG << "DBUS response error";
+            messages::internalError(asyncResp->res);
+            return;
+        }
+        const std::string* value = std::get_if<std::string>(&property);
+        if (value == nullptr)
+        {
+            messages::internalError(asyncResp->res);
+            return;
+        }
+        asyncResp->res.jsonValue["Slots"][index]["Location"]["PartLocation"]
+                                ["ServiceLabel"] = *value;
+        },
+        connectionName, pcieSlotPath, "org.freedesktop.DBus.Properties", "Get",
+        "xyz.openbmc_project.Inventory.Decorator.LocationCode", "LocationCode");
+}
+
 inline std::string dbusSlotTypeToRf(const std::string& slotType)
 {
     if (slotType ==
@@ -145,7 +199,8 @@ inline void onMapperAssociationDone(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& chassisID, const std::string& pcieSlotPath,
     const std::string& connectionName, const boost::system::error_code ec,
-    const std::variant<std::vector<std::string>>& endpoints)
+    const std::variant<std::vector<std::string>>& endpoints, bool findLocation,
+    bool findPresence)
 {
     if (ec)
     {
@@ -184,13 +239,26 @@ inline void onMapperAssociationDone(
         return;
     }
 
-    sdbusplus::asio::getAllProperties(
-        *crow::connections::systemBus, connectionName, pcieSlotPath,
-        "xyz.openbmc_project.Inventory.Item.PCIeSlot",
-        [asyncResp](const boost::system::error_code ec,
-                    const dbus::utility::DBusPropertiesMap& propertiesList) {
-        onPcieSlotGetAllDone(asyncResp, ec, propertiesList);
+    crow::connections::systemBus->async_method_call(
+        [asyncResp, connectionName, pcieSlotPath, findLocation,
+         findPresence](const boost::system::error_code ec,
+                       const dbus::utility::DBusPropertiesMap& propertiesList) {
+        onPcieSlotGetAllDone(asyncResp, ec, propertiesList,
+                             [asyncResp, connectionName, pcieSlotPath,
+                              findLocation, findPresence](size_t index) {
+            if (findLocation)
+            {
+                addLocation(asyncResp, connectionName, pcieSlotPath, index);
+            }
+            if (findPresence)
+            {
+                addPresenceStatus(asyncResp, index, connectionName,
+                                  pcieSlotPath);
+            }
         });
+        },
+        connectionName, pcieSlotPath, "org.freedesktop.DBus.Properties",
+        "GetAll", "xyz.openbmc_project.Inventory.Item.PCIeSlot");
 }
 
 inline void
@@ -221,6 +289,10 @@ inline void
     asyncResp->res.jsonValue["Id"] = "1";
     asyncResp->res.jsonValue["Slots"] = nlohmann::json::array();
 
+    constexpr std::string locationInterface =
+        "xyz.openbmc_project.Inventory.Decorator."
+        "LocationCode";
+    const std::string itemInterface = "xyz.openbmc_project.Inventory.Item";
     for (const auto& pathServicePair : subtree)
     {
         const std::string& pcieSlotPath = pathServicePair.first;
@@ -237,8 +309,15 @@ inline void
                 [asyncResp, chassisID, pcieSlotPath, connectionName](
                     const boost::system::error_code ec,
                     const std::variant<std::vector<std::string>>& endpoints) {
+                bool findPresence =
+                    std::find(interfaceList.begin(), interfaceList.end(),
+                              itemInterface) != interfaceList.end();
+                bool findLocation =
+                    std::find(interfaceList.begin(), interfaceList.end(),
+                              locationInterface) != interfaceList.end();
                 onMapperAssociationDone(asyncResp, chassisID, pcieSlotPath,
-                                        connectionName, ec, endpoints);
+                                        connectionName, ec, endpoints,
+                                        findLocation, findPresence);
                 },
                 "xyz.openbmc_project.ObjectMapper",
                 std::string{pcieSlotAssociationPath},
