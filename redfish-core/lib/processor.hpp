@@ -29,6 +29,7 @@
 #include <sdbusplus/utility/dedup_variant.hpp>
 #include <utils/collection.hpp>
 #include <utils/json_utils.hpp>
+#include <utils/location_utils.hpp>
 
 namespace redfish
 {
@@ -789,7 +790,8 @@ inline void getProcessorData(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
             else if (interface ==
                      "xyz.openbmc_project.Inventory.Decorator.LocationCode")
             {
-                getCpuLocationCode(aResp, serviceName, objectPath);
+                location_util::getLocationCode(aResp, serviceName, objectPath,
+                                               "/Location"_json_pointer);
             }
             else if (interface == "xyz.openbmc_project.Common.UUID")
             {
@@ -799,6 +801,23 @@ inline void getProcessorData(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
                      "xyz.openbmc_project.Inventory.Decorator.UniqueIdentifier")
             {
                 getCpuUniqueId(aResp, serviceName, objectPath);
+            }
+            else
+            {
+                std::optional<std::string> locationType =
+                    location_util::getLocationType(interface);
+                if (locationType == std::nullopt)
+                {
+                    BMCWEB_LOG_DEBUG
+                        << "getLocationType for Processor failed for "
+                        << interface;
+                    messages::internalError(aResp->res);
+                    return;
+                }
+
+                aResp->res
+                    .jsonValue["Location"]["PartLocation"]["LocationType"] =
+                    *locationType;
             }
         }
     }

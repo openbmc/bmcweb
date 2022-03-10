@@ -89,15 +89,15 @@ inline void getLocationCode(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
         "xyz.openbmc_project.Inventory.Decorator.LocationCode", "LocationCode",
         [asyncResp, location](const boost::system::error_code ec,
                               const std::string& property) {
-            if (ec)
-            {
-                BMCWEB_LOG_DEBUG << "DBUS response error for Location";
-                messages::internalError(asyncResp->res);
-                return;
-            }
+        if (ec)
+        {
+            BMCWEB_LOG_DEBUG << "DBUS response error for Location";
+            messages::internalError(asyncResp->res);
+            return;
+        }
 
-            asyncResp->res.jsonValue[location]["PartLocation"]["ServiceLabel"] =
-                property;
+        asyncResp->res.jsonValue[location]["PartLocation"]["ServiceLabel"] =
+            property;
         });
 }
 
