@@ -1,6 +1,7 @@
 {
   "comments": [
     {
+      "unresolved": true,
       "key": {
         "uuid": "46bcef01_4adb0163",
         "filename": "redfish-core/include/utils/location_utils.hpp",
@@ -20,10 +21,10 @@
         "endChar": 39
       },
       "revId": "bf58875e22acf85d8e480c4e7fc5d467137c9a2d",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "8eab1065_b67dd97a",
         "filename": "redfish-core/include/utils/location_utils.hpp",
@@ -44,10 +45,10 @@
         "endChar": 39
       },
       "revId": "bf58875e22acf85d8e480c4e7fc5d467137c9a2d",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "685143c7_ab27e6e0",
         "filename": "redfish-core/include/utils/location_utils.hpp",
@@ -67,10 +68,10 @@
         "endChar": 38
       },
       "revId": "bf58875e22acf85d8e480c4e7fc5d467137c9a2d",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "5ffcb2b1_73e08330",
         "filename": "redfish-core/include/utils/location_utils.hpp",
@@ -91,10 +92,10 @@
         "endChar": 38
       },
       "revId": "bf58875e22acf85d8e480c4e7fc5d467137c9a2d",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "def40c90_a0a42d69",
         "filename": "redfish-core/include/utils/location_utils.hpp",
@@ -114,10 +115,10 @@
         "endChar": 30
       },
       "revId": "bf58875e22acf85d8e480c4e7fc5d467137c9a2d",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "a5e0329a_ca4a5c8a",
         "filename": "redfish-core/include/utils/location_utils.hpp",
@@ -138,10 +139,10 @@
         "endChar": 30
       },
       "revId": "bf58875e22acf85d8e480c4e7fc5d467137c9a2d",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "11eee953_c5629f56",
         "filename": "redfish-core/include/utils/location_utils.hpp",
@@ -155,10 +156,10 @@
       "side": 1,
       "message": "Need to handle the case where no path matches?",
       "revId": "bf58875e22acf85d8e480c4e7fc5d467137c9a2d",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "7e568d57_12734e84",
         "filename": "redfish-core/include/utils/location_utils.hpp",
@@ -173,10 +174,10 @@
       "message": "I just added a internal error if no path is found. Calling this function should always be able to find the path.",
       "parentUuid": "11eee953_c5629f56",
       "revId": "bf58875e22acf85d8e480c4e7fc5d467137c9a2d",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "ea86204b_95f9b8f8",
         "filename": "redfish-core/include/utils/location_utils.hpp",
@@ -196,10 +197,10 @@
         "endChar": 57
       },
       "revId": "bf58875e22acf85d8e480c4e7fc5d467137c9a2d",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "e4ce435d_7afe1529",
         "filename": "redfish-core/include/utils/location_utils.hpp",
@@ -220,10 +221,10 @@
         "endChar": 57
       },
       "revId": "bf58875e22acf85d8e480c4e7fc5d467137c9a2d",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "5ab9f31d_9f7613a5",
         "filename": "redfish-core/include/utils/location_utils.hpp",
@@ -244,8 +245,31 @@
         "endChar": 57
       },
       "revId": "bf58875e22acf85d8e480c4e7fc5d467137c9a2d",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2560eee6_64509b03",
+        "filename": "redfish-core/include/utils/location_utils.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2022-03-10T21:25:23Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "5ab9f31d_9f7613a5",
+      "range": {
+        "startLine": 125,
+        "startChar": 0,
+        "endLine": 128,
+        "endChar": 57
+      },
+      "revId": "bf58875e22acf85d8e480c4e7fc5d467137c9a2d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
