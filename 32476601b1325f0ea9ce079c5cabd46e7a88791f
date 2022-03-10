@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "fa0735bc_1eb32c6e",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 54
+      },
+      "lineNbr": 1037,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2022-03-10T18:45:47Z",
+      "side": 1,
+      "message": "oh wait should be readJsonPatch. I am not sure where we should just use readJson, instead of the others.",
+      "parentUuid": "9cd1d6af_b692578b",
+      "revId": "32476601b1325f0ea9ce079c5cabd46e7a88791f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "24157177_f56ffc6e",
         "filename": "redfish-core/lib/update_service.hpp",
         "patchSetId": 54
@@ -31,6 +49,24 @@
       "writtenOn": "2022-03-10T18:37:13Z",
       "side": 1,
       "message": "I thought when readJson returned false it was a propertyValueFormatError and you would still need to check for if(writeProtected)?",
+      "revId": "32476601b1325f0ea9ce079c5cabd46e7a88791f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7edd7a9a_14fb9cdb",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 54
+      },
+      "lineNbr": 1040,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2022-03-10T18:45:47Z",
+      "side": 1,
+      "message": "yeah, I think so. But I don\u0027t think we care what the value for writeProtected is, right?\n\nWe just set that value either way?",
+      "parentUuid": "24157177_f56ffc6e",
       "revId": "32476601b1325f0ea9ce079c5cabd46e7a88791f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
