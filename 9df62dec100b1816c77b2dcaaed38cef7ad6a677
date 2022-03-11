@@ -161,6 +161,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "8405f36e_9e913099",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2022-03-11T11:01:28Z",
+      "side": 1,
+      "message": "Most of the error are usually handled in BMCWEB_ROUTE so for consistency internalError should be set there. You can still fill AccountType and print debug message here. We can wait for Ed or Gunnar response whatever they agree with my suggestion.",
+      "parentUuid": "b73d4e38_b85581aa",
+      "range": {
+        "startLine": 161,
+        "startChar": 11,
+        "endLine": 161,
+        "endChar": 41
+      },
+      "revId": "9df62dec100b1816c77b2dcaaed38cef7ad6a677",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ee989cbe_cd10c2e0",
         "filename": "redfish-core/lib/account_service.hpp",
         "patchSetId": 9
@@ -196,6 +220,30 @@
       "side": 1,
       "message": "I am checking inside that translateUserGroup function",
       "parentUuid": "ee989cbe_cd10c2e0",
+      "range": {
+        "startLine": 1891,
+        "startChar": 35,
+        "endLine": 1892,
+        "endChar": 71
+      },
+      "revId": "9df62dec100b1816c77b2dcaaed38cef7ad6a677",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c866f645_38987ae0",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 1892,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2022-03-11T11:01:28Z",
+      "side": 1,
+      "message": "You should check pointers as early as possible and once checked pass value by reference to other functions. That the usual patterns in bmcweb, you can see that properties above are handled in that manner so it will also make code more consistent.",
+      "parentUuid": "448305a4_8d6a9b02",
       "range": {
         "startLine": 1891,
         "startChar": 35,
