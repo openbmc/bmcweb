@@ -252,6 +252,30 @@
       },
       "revId": "9df62dec100b1816c77b2dcaaed38cef7ad6a677",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fb39a02c_a043b56a",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 1892,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-11T17:17:20Z",
+      "side": 1,
+      "message": "as a design pattern, Krzysztof is correct, it\u0027s better to handle your errors early.  In terms of correctness, both are equally valid.",
+      "parentUuid": "c866f645_38987ae0",
+      "range": {
+        "startLine": 1891,
+        "startChar": 35,
+        "endLine": 1892,
+        "endChar": 71
+      },
+      "revId": "9df62dec100b1816c77b2dcaaed38cef7ad6a677",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
