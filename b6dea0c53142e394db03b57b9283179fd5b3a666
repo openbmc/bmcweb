@@ -34,6 +34,213 @@
       "parentUuid": "9a8dcad7_599963a5",
       "revId": "b6dea0c53142e394db03b57b9283179fd5b3a666",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "74baa669_dbccc4d8",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-11T17:29:30Z",
+      "side": 1,
+      "message": "no need for a variable for this.  When this occurs, just call return false at the site.",
+      "range": {
+        "startLine": 153,
+        "startChar": 0,
+        "endLine": 153,
+        "endChar": 36
+      },
+      "revId": "b6dea0c53142e394db03b57b9283179fd5b3a666",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3406c22d_0857c37b",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 193,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-11T17:29:30Z",
+      "side": 1,
+      "message": "I\u0027ve said before, we need to break this dependency to properly implement the CRUD interface.  These should be settable independently according to redfish.",
+      "range": {
+        "startLine": 193,
+        "startChar": 0,
+        "endLine": 193,
+        "endChar": 45
+      },
+      "revId": "b6dea0c53142e394db03b57b9283179fd5b3a666",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "129728d4_e803f9f8",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 216,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-11T17:29:30Z",
+      "side": 1,
+      "message": "There\u0027s no need to split these into two different sections.  just call your emplace_back calls in your conditionals on line 163.  That will delete most of your variables and simplify this code considerably.",
+      "range": {
+        "startLine": 201,
+        "startChar": 0,
+        "endLine": 216,
+        "endChar": 5
+      },
+      "revId": "b6dea0c53142e394db03b57b9283179fd5b3a666",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "58307a8c_fd407a93",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 244,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-11T17:29:30Z",
+      "side": 1,
+      "message": "Please call this \"patchAccountType\"",
+      "range": {
+        "startLine": 244,
+        "startChar": 12,
+        "endLine": 244,
+        "endChar": 32
+      },
+      "revId": "b6dea0c53142e394db03b57b9283179fd5b3a666",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "742f9d88_32666c0e",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 252,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-11T17:29:30Z",
+      "side": 1,
+      "message": "You don\u0027t use \"it\" in this context, there\u0027s no need to assign it to a variable, especially in the conditional, just compare it directly against accountType-\u003ecend() without the intermediate.",
+      "range": {
+        "startLine": 252,
+        "startChar": 12,
+        "endLine": 252,
+        "endChar": 19
+      },
+      "revId": "b6dea0c53142e394db03b57b9283179fd5b3a666",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "50ade6ec_703f45ce",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 261,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-11T17:29:30Z",
+      "side": 1,
+      "message": "Please do the \"is this user trying to disable itself\" check in another routine.",
+      "range": {
+        "startLine": 250,
+        "startChar": 0,
+        "endLine": 261,
+        "endChar": 5
+      },
+      "revId": "b6dea0c53142e394db03b57b9283179fd5b3a666",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2aeca9d8_511d2229",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 266,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-11T17:29:30Z",
+      "side": 1,
+      "message": "needs to set internal error.",
+      "range": {
+        "startLine": 266,
+        "startChar": 0,
+        "endLine": 266,
+        "endChar": 65
+      },
+      "revId": "b6dea0c53142e394db03b57b9283179fd5b3a666",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ae0e8fb2_7889bfcc",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 275,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-11T17:29:30Z",
+      "side": 1,
+      "message": "Can this return any errors that we would expect?  User account disabled?  something like that?",
+      "range": {
+        "startLine": 275,
+        "startChar": 0,
+        "endLine": 275,
+        "endChar": 56
+      },
+      "revId": "b6dea0c53142e394db03b57b9283179fd5b3a666",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "020ce214_c41cf4f5",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 2050,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-11T17:29:30Z",
+      "side": 1,
+      "message": "Please don\u0027t use terinary operators for what is already a boolean statement.",
+      "range": {
+        "startLine": 2050,
+        "startChar": 0,
+        "endLine": 2050,
+        "endChar": 71
+      },
+      "revId": "b6dea0c53142e394db03b57b9283179fd5b3a666",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
