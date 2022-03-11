@@ -179,6 +179,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "bbbf67e8_c2d5f7f6",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 2138,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2022-03-11T10:12:42Z",
+      "side": 1,
+      "message": "ObjectMapper returns all paths that support any of the requested interfaces.\n\nWhen object is returned it has list of all interfaces it implements. So by requesting one interface we can be sure that this one will be implemented. If we request ObjectMapper for couple of interfaces object may implement only one of the interfaces and additional check will be needed.\n\nIn both cases result contains path to object and full list of interfaces (requested or not). So we can still hit this path even if interface was not requested.",
+      "parentUuid": "36710508_86062b6a",
+      "range": {
+        "startLine": 2138,
+        "startChar": 43,
+        "endLine": 2138,
+        "endChar": 57
+      },
+      "revId": "9f5fc1f9ffc9cf2dd39f4dbdcc90096376cff1cd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ccadc941_3e286062",
         "filename": "redfish-core/lib/managers.hpp",
         "patchSetId": 20
