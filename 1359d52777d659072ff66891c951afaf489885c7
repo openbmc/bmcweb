@@ -1,0 +1,159 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a2df85cb_8c3b24fc",
+        "filename": "http/utility.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 706,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-11T18:26:57Z",
+      "side": 1,
+      "message": "I\u0027m not quite following why there\u0027s 3 different arguments here.\n\nstd::monostate is for fixed strings\nstd::reference_wrapper\u003cstd::string\u003e is for variable strings we want to parse\n\nand std::string_view is.... for fixed strings again?  I\u0027m not quite following why both are necessary.",
+      "range": {
+        "startLine": 704,
+        "startChar": 0,
+        "endLine": 706,
+        "endChar": 35
+      },
+      "revId": "1359d52777d659072ff66891c951afaf489885c7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "da494609_b466e13b",
+        "filename": "http/utility.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 708,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-11T18:26:57Z",
+      "side": 1,
+      "message": "This needs a better name that describes what it does.  \"argMatchesVisitor\" or something?",
+      "range": {
+        "startLine": 708,
+        "startChar": 6,
+        "endLine": 708,
+        "endChar": 23
+      },
+      "revId": "1359d52777d659072ff66891c951afaf489885c7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1f985979_273f4a79",
+        "filename": "http/utility.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 719,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-11T18:26:57Z",
+      "side": 1,
+      "message": "nit, prefer -\u003e for these.",
+      "range": {
+        "startLine": 719,
+        "startChar": 32,
+        "endLine": 719,
+        "endChar": 37
+      },
+      "revId": "1359d52777d659072ff66891c951afaf489885c7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4125a3dd_8293882b",
+        "filename": "http/utility.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 736,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-11T18:26:57Z",
+      "side": 1,
+      "message": "nit, can this use span?  Might make it more usable in the future (no worries if it can\u0027t).",
+      "range": {
+        "startLine": 736,
+        "startChar": 33,
+        "endLine": 736,
+        "endChar": 49
+      },
+      "revId": "1359d52777d659072ff66891c951afaf489885c7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "84c770e8_2745bde5",
+        "filename": "http/utility.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 740,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-11T18:26:57Z",
+      "side": 1,
+      "message": "Should these be const_iterator?  I don\u0027t think we\u0027re modifying urlSegments in these, although the visitor might also need to accept const params.",
+      "range": {
+        "startLine": 739,
+        "startChar": 2,
+        "endLine": 740,
+        "endChar": 56
+      },
+      "revId": "1359d52777d659072ff66891c951afaf489885c7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c74d17f0_477b4197",
+        "filename": "http/utility.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 754,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-11T18:26:57Z",
+      "side": 1,
+      "message": "I wonder if this would be cleaner walking both iterators at the same time.  I wrote the below, which is a little easier to read, but I\u0027m not going to require it unless you think it\u0027s better.\n\n\n    const boost::urls::segments_view::iterator segBegin \u003d urlView.segments();\n    const boost::urls::segments_view::iterator segEnd \u003d urlView.segments();\n    boost::urls::segments_view::iterator it \u003d urlSegments.begin();\n    boost::urls::segments_view::iterator end \u003d urlSegments.end();\n\n    while(it !\u003d end || segBegin !\u003d segEnd){\n        if (it \u003d\u003d end || segBegin \u003d\u003d segEnd){\n            BMCWEB_LOG_DEBUG \u003c\u003c \"Wrong number of url parameters\";\n            return false\n        }\n        if (!std::visit(UrlSegmentVisitor(it), segment))\n        {\n            return false;\n        }\n        it++;\n        segBegin++;\n    }\n\n    return true;",
+      "revId": "1359d52777d659072ff66891c951afaf489885c7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a86a25e3_4944349c",
+        "filename": "http/utility.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 759,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-11T18:26:57Z",
+      "side": 1,
+      "message": "Can we make this an explicit empty struct.  typedefing this to std::monostate is a little confusing.\n\n\nSomething like\n\nstruct StringSegment{};\n\nthen use that in the std::variant instead of monostate?\n\n\nI wrote the above comment before I understood what anySegment is used for.  We should be explicitly pulling out and using all arguments from the users call.  If we really can\u0027t validate some of them, that should be apparent at the call site, with us reading out the parameter as a std::string, then explicitly ignoring it (ideally with a comment about why)",
+      "range": {
+        "startLine": 759,
+        "startChar": 0,
+        "endLine": 759,
+        "endChar": 36
+      },
+      "revId": "1359d52777d659072ff66891c951afaf489885c7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}

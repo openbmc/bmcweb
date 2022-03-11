@@ -155,6 +155,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "bdffd612_6c42e73d",
+        "filename": "http/utility.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 729,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-11T18:26:57Z",
+      "side": 1,
+      "message": "Ah, that\u0027s a good point.  I\u0027m fine with either solution;  I do think the const char* solution is a little cleaner at the call site, but that\u0027s pretty subjective, and like I said, I\u0027m fine with either.",
+      "parentUuid": "ae34d96a_359f3637",
+      "range": {
+        "startLine": 729,
+        "startChar": 0,
+        "endLine": 729,
+        "endChar": 65
+      },
+      "revId": "236e9130b71f6d754ade7e0f08ecf724dfdf2503",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "4cfab346_30b39b51",
         "filename": "http/utility.hpp",
         "patchSetId": 3
@@ -296,6 +320,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d74ad76b_94870784",
+        "filename": "redfish-core/include/utils/telemetry_utils.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-11T18:26:57Z",
+      "side": 1,
+      "message": "see above, still not sure why this is needed when we have a dbus-specific checking routine.\n\nOk, I\u0027m starting to understand this after reading the boost docs, it checks to make sure the url starts with a /.  I suspect this check should be done inside readUrlSegments so we don\u0027t have to do this check everywhere.  The unit tests should also have a test for trying to pass\n\n\"redfish/v1\"\ninstead of \n\n\"/redfish/v1\"\n\nand make sure the former fails parsing.",
+      "parentUuid": "1020fb75_50e866e4",
+      "range": {
+        "startLine": 42,
+        "startChar": 20,
+        "endLine": 42,
+        "endChar": 56
+      },
+      "revId": "236e9130b71f6d754ade7e0f08ecf724dfdf2503",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "7d16a37f_50d3e917",
         "filename": "redfish-core/include/utils/telemetry_utils.hpp",
         "patchSetId": 3
@@ -378,6 +426,30 @@
       "side": 1,
       "message": "My opinion here would be to keep it separated and use boost-url to parse redfish uris and object_path to parse dbus paths. \n\nparse_relative_ref() makes some basic validation, but if it is insufficient here, maybe I can add additional checks to segment unpack functions? We just need to define which segment would count as invalid.",
       "parentUuid": "22fa9e57_cbd11f6d",
+      "range": {
+        "startLine": 64,
+        "startChar": 43,
+        "endLine": 64,
+        "endChar": 68
+      },
+      "revId": "236e9130b71f6d754ade7e0f08ecf724dfdf2503",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fa71bc98_a991753b",
+        "filename": "redfish-core/include/utils/telemetry_utils.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-11T18:26:57Z",
+      "side": 1,
+      "message": "My opinion here would be to keep it separated and use boost-url to parse redfish uris and object_path to parse dbus paths.\n\nAgreed, but in this case, we\u0027re not parsing this at all, which I think is something we should do, to ensure it\u0027s correct.  As written, technically I could write\n\n\n/redfish/v1/Chassis/valid_chassis/Sensors/foobar/foobaz  and it would accept it, completely ignoring the last two parts, which seems incorrect.\n\n\nI\u0027m ok in this patch if we don\u0027t want to parse it, because the old code didn\u0027t, but it should be an explicit decision.",
+      "parentUuid": "ca49fb5c_c2f40073",
       "range": {
         "startLine": 64,
         "startChar": 43,
