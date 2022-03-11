@@ -38,6 +38,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "aad250f3_26eb62f1",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 889,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2022-03-11T10:49:17Z",
+      "side": 1,
+      "message": "I guess same applies to propertyValueTypeError:\n\n    MessageEntry{\n        \"PropertyValueTypeError\",\n        {\n            \"Indicates that a property was given the wrong value type, such as when a number is supplied for a property that requires a string.\",\n            \"The value \u0027%1\u0027 for the property %2 is of a different type than the property can accept.\",\n            \"Warning\",\n            2,\n            {\n                \"string\",\n                \"string\",\n            },\n            \"Correct the value for the property in the request body and resubmit the request if the operation failed.\",\n        }},",
+      "parentUuid": "73d359ea_d68aece4",
+      "revId": "d2a139093b135fb804eca7534dbc299f36f8d092",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "377ff6f9_4a206e54",
         "filename": "redfish-core/lib/update_service.hpp",
         "patchSetId": 13
