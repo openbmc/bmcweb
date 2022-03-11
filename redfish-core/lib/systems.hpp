@@ -1999,6 +1999,13 @@ inline void getPowerMode(const std::shared_ptr<bmcweb::AsyncResp>& aResp)
                         const std::string& pmode) {
                     if (ec)
                     {
+                        if (ec == boost::system::errc::host_unreachable)
+                        {
+                            // Service not available, no error
+                            BMCWEB_LOG_DEBUG
+                                << "Service not available on PowerMode Get";
+                            return;
+                        }
                         BMCWEB_LOG_DEBUG
                             << "DBUS response error on PowerMode Get: " << ec;
                         messages::internalError(aResp->res);
@@ -2484,6 +2491,13 @@ inline void getIdlePowerSaver(const std::shared_ptr<bmcweb::AsyncResp>& aResp)
                         ipsPropertiesType& properties) {
                     if (ec)
                     {
+                        if (ec == boost::system::errc::host_unreachable)
+                        {
+                            // Service not available, no error, return no data
+                            BMCWEB_LOG_DEBUG
+                                << "Service not available on PowerIPS GetAll";
+                            return;
+                        }
                         BMCWEB_LOG_ERROR
                             << "DBUS response error on IdlePowerSaver GetAll: "
                             << ec;
