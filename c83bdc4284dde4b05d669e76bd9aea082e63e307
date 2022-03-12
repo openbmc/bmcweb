@@ -164,6 +164,30 @@
       },
       "revId": "c83bdc4284dde4b05d669e76bd9aea082e63e307",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cbbebdab_ce02cb8d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-12T18:19:25Z",
+      "side": 1,
+      "message": "Ah, my mistake then if we\u0027re writing to networkd.  Regardless, networkd should be parsing the list of entries we give it and making sure it\u0027s sane (ie not empty), not just blindly writing it to a config file.",
+      "parentUuid": "fe61fd40_2c47d876",
+      "range": {
+        "startLine": 25,
+        "startChar": 0,
+        "endLine": 27,
+        "endChar": 5
+      },
+      "revId": "c83bdc4284dde4b05d669e76bd9aea082e63e307",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
