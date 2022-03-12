@@ -14,21 +14,20 @@
 // limitations under the License.
 */
 #pragma once
+#include <boost/asio/connect.hpp>
 #include <boost/asio/ip/address.hpp>
 #include <boost/asio/ip/basic_endpoint.hpp>
+#include <boost/asio/ip/tcp.hpp>
 #include <boost/asio/steady_timer.hpp>
 #include <boost/beast/core/flat_buffer.hpp>
-#include <boost/beast/core/tcp_stream.hpp>
 #include <boost/beast/http/message.hpp>
 #include <boost/beast/version.hpp>
-#include <boost/circular_buffer.hpp>
+#include <boost/container/devector.hpp>
 #include <include/async_resolve.hpp>
 
 #include <cstdlib>
 #include <functional>
-#include <iostream>
 #include <memory>
-#include <queue>
 #include <string>
 
 namespace crow
@@ -62,15 +61,12 @@ class HttpClient : public std::enable_shared_from_this<HttpClient>
 {
   private:
     crow::async_resolve::Resolver resolver;
-    boost::beast::tcp_stream conn;
-    boost::asio::steady_timer timer;
     boost::beast::flat_static_buffer<httpReadBodyLimit> buffer;
+    boost::container::devector<std::string> requestDataQueue;
     boost::beast::http::request<boost::beast::http::string_body> req;
     std::optional<
         boost::beast::http::response_parser<boost::beast::http::string_body>>
         parser;
-    boost::circular_buffer_space_optimized<std::string> requestDataQueue{
-        maxRequestQueueSize};
 
     ConnState state = ConnState::initialized;
 
@@ -80,8 +76,10 @@ class HttpClient : public std::enable_shared_from_this<HttpClient>
     uint32_t retryCount = 0;
     uint32_t maxRetryAttempts = 5;
     uint32_t retryIntervalSecs = 0;
-    std::string retryPolicyAction = "TerminateAfterRetries";
-    bool runningTimer = false;
+    std::string retryPolicyAction;
+
+    boost::asio::steady_timer timer;
+    boost::asio::ip::tcp::socket conn;
 
     void doResolve()
     {
@@ -113,11 +111,11 @@ class HttpClient : public std::enable_shared_from_this<HttpClient>
 
         BMCWEB_LOG_DEBUG << "Trying to connect to: " << host << ":" << port;
 
-        conn.expires_after(std::chrono::seconds(30));
-        conn.async_connect(
-            endpointList, [self(shared_from_this())](
-                              const boost::beast::error_code ec,
-                              const boost::asio::ip::tcp::endpoint& endpoint) {
+        boost::asio::async_connect(
+            conn, endpointList,
+            [self(shared_from_this())](
+                const boost::beast::error_code ec,
+                const boost::asio::ip::tcp::endpoint& endpoint) {
                 if (ec)
                 {
                     BMCWEB_LOG_ERROR << "Connect "
@@ -141,14 +139,14 @@ class HttpClient : public std::enable_shared_from_this<HttpClient>
         req.body() = data;
         req.prepare_payload();
 
-        // Set a timeout on the operation
-        conn.expires_after(std::chrono::seconds(30));
+        timer.async_wait(std::bind_front(onTimeout, weak_from_this()));
 
         // Send the HTTP request to the remote host
         boost::beast::http::async_write(
             conn, req,
             [self(shared_from_this())](const boost::beast::error_code& ec,
                                        const std::size_t& bytesTransferred) {
+                self->timer.cancel();
                 if (ec)
                 {
                     BMCWEB_LOG_ERROR << "sendMessage() failed: "
@@ -172,11 +170,14 @@ class HttpClient : public std::enable_shared_from_this<HttpClient>
         parser.emplace(std::piecewise_construct, std::make_tuple());
         parser->body_limit(httpReadBodyLimit);
 
+        timer.async_wait(std::bind_front(onTimeout, weak_from_this()));
+
         // Receive the HTTP response
         boost::beast::http::async_read(
             conn, buffer, *parser,
             [self(shared_from_this())](const boost::beast::error_code& ec,
                                        const std::size_t& bytesTransferred) {
+                self->timer.cancel();
                 if (ec)
                 {
                     BMCWEB_LOG_ERROR << "recvMessage() failed: "
@@ -234,7 +235,7 @@ class HttpClient : public std::enable_shared_from_this<HttpClient>
     {
         state = ConnState::closeInProgress;
         boost::beast::error_code ec;
-        conn.socket().shutdown(boost::asio::ip::tcp::socket::shutdown_both, ec);
+        conn.shutdown(boost::asio::ip::tcp::socket::shutdown_both, ec);
         conn.close();
 
         // not_connected happens sometimes so don't bother reporting it.
@@ -249,6 +250,31 @@ class HttpClient : public std::enable_shared_from_this<HttpClient>
             state = ConnState::closed;
             handleConnState();
         }
+    }
+
+    static void onTimeout(const std::weak_ptr<HttpClient>& weakSelf,
+                          const boost::system::error_code ec)
+    {
+        if (ec == boost::asio::error::operation_aborted)
+        {
+            BMCWEB_LOG_DEBUG
+                << "async_wait failed since the operation is aborted"
+                << ec.message();
+            return;
+        }
+        if (ec)
+        {
+            BMCWEB_LOG_ERROR << "async_wait failed: " << ec.message();
+            // If the timer fails, we need to close the socket anyway, same as
+            // if it expired.
+        }
+        std::shared_ptr<HttpClient> self = weakSelf.lock();
+        if (self == nullptr)
+        {
+            return;
+        }
+        // Lets close connection and start from resolve.
+        self->doClose();
     }
 
     void waitAndRetry()
@@ -280,37 +306,12 @@ class HttpClient : public std::enable_shared_from_this<HttpClient>
             return;
         }
 
-        if (runningTimer)
-        {
-            BMCWEB_LOG_DEBUG << "Retry timer is already running.";
-            return;
-        }
-        runningTimer = true;
-
         retryCount++;
 
         BMCWEB_LOG_DEBUG << "Attempt retry after " << retryIntervalSecs
                          << " seconds. RetryCount = " << retryCount;
         timer.expires_after(std::chrono::seconds(retryIntervalSecs));
-        timer.async_wait(
-            [self = shared_from_this()](const boost::system::error_code ec) {
-                if (ec == boost::asio::error::operation_aborted)
-                {
-                    BMCWEB_LOG_DEBUG
-                        << "async_wait failed since the operation is aborted"
-                        << ec.message();
-                }
-                else if (ec)
-                {
-                    BMCWEB_LOG_ERROR << "async_wait failed: " << ec.message();
-                    // Ignore the error and continue the retry loop to attempt
-                    // sending the event as per the retry policy
-                }
-                self->runningTimer = false;
-
-                // Lets close connection and start from resolve.
-                self->doClose();
-            });
+        timer.async_wait(std::bind_front(onTimeout, shared_from_this()));
     }
 
     void handleConnState()
@@ -383,10 +384,8 @@ class HttpClient : public std::enable_shared_from_this<HttpClient>
                         const std::string& destIP, const std::string& destPort,
                         const std::string& destUri,
                         const boost::beast::http::fields& httpHeader) :
-        conn(ioc),
-        timer(ioc),
-        req(boost::beast::http::verb::post, destUri, 11, "", httpHeader),
-        subId(id), host(destIP), port(destPort)
+        req(boost::beast::http::verb::post, destUri, 11, {}, httpHeader),
+        subId(id), host(destIP), port(destPort), timer(ioc), conn(ioc)
     {
         req.set(boost::beast::http::field::host, host);
         req.keep_alive(true);
@@ -417,7 +416,7 @@ class HttpClient : public std::enable_shared_from_this<HttpClient>
         retryIntervalSecs = retryTimeoutInterval;
     }
 
-    void setRetryPolicy(const std::string& retryPolicy)
+    void setRetryPolicy(std::string_view retryPolicy)
     {
         retryPolicyAction = retryPolicy;
     }
