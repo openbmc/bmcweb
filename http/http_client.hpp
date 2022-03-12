@@ -14,6 +14,7 @@
 // limitations under the License.
 */
 #pragma once
+#include <boost/asio/connect.hpp>
 #include <boost/asio/io_context.hpp>
 #include <boost/asio/ip/address.hpp>
 #include <boost/asio/ip/basic_endpoint.hpp>
@@ -23,7 +24,6 @@
 #include <boost/asio/steady_timer.hpp>
 #include <boost/beast/core/flat_buffer.hpp>
 #include <boost/beast/core/flat_static_buffer.hpp>
-#include <boost/beast/core/tcp_stream.hpp>
 #include <boost/beast/http/message.hpp>
 #include <boost/beast/http/parser.hpp>
 #include <boost/beast/http/read.hpp>
@@ -122,7 +122,6 @@ class ConnectionInfo : public std::enable_shared_from_this<ConnectionInfo>
   private:
     ConnState state = ConnState::initialized;
     uint32_t retryCount = 0;
-    bool runningTimer = false;
     std::string subId;
     std::string host;
     uint16_t port;
@@ -143,8 +142,9 @@ class ConnectionInfo : public std::enable_shared_from_this<ConnectionInfo>
     // Ascync callables
     std::function<void(bool, uint32_t, Response&)> callback;
     crow::async_resolve::Resolver resolver;
-    boost::beast::tcp_stream conn;
-    std::optional<boost::beast::ssl_stream<boost::beast::tcp_stream&>> sslConn;
+    boost::asio::ip::tcp::socket conn;
+    std::optional<boost::beast::ssl_stream<boost::asio::ip::tcp::socket&>>
+        sslConn;
 
     boost::asio::steady_timer timer;
 
@@ -187,17 +187,20 @@ class ConnectionInfo : public std::enable_shared_from_this<ConnectionInfo>
                          << std::to_string(port)
                          << ", id: " << std::to_string(connId);
 
-        conn.expires_after(std::chrono::seconds(30));
-        conn.async_connect(endpointList,
-                           std::bind_front(&ConnectionInfo::afterConnect, this,
-                                           shared_from_this()));
+        timer.expires_after(std::chrono::seconds(30));
+        timer.async_wait(std::bind_front(onTimeout, weak_from_this()));
+
+        boost::asio::async_connect(
+            conn, endpointList,
+            std::bind_front(&ConnectionInfo::afterConnect, this,
+                            shared_from_this()));
     }
 
     void afterConnect(const std::shared_ptr<ConnectionInfo>& /*self*/,
                       boost::beast::error_code ec,
                       const boost::asio::ip::tcp::endpoint& endpoint)
     {
-
+        timer.cancel();
         if (ec)
         {
             BMCWEB_LOG_ERROR << "Connect " << endpoint.address().to_string()
@@ -236,6 +239,7 @@ class ConnectionInfo : public std::enable_shared_from_this<ConnectionInfo>
     void afterSslHandshake(const std::shared_ptr<ConnectionInfo>& /*self*/,
                            boost::beast::error_code ec)
     {
+        timer.cancel();
         if (ec)
         {
             BMCWEB_LOG_ERROR << "SSL Handshake failed -"
@@ -256,7 +260,8 @@ class ConnectionInfo : public std::enable_shared_from_this<ConnectionInfo>
         state = ConnState::sendInProgress;
 
         // Set a timeout on the operation
-        conn.expires_after(std::chrono::seconds(30));
+        timer.expires_after(std::chrono::seconds(30));
+        timer.async_wait(std::bind_front(onTimeout, weak_from_this()));
 
         // Send the HTTP request to the remote host
         if (sslConn)
@@ -278,6 +283,7 @@ class ConnectionInfo : public std::enable_shared_from_this<ConnectionInfo>
     void afterWrite(const std::shared_ptr<ConnectionInfo>& /*self*/,
                     const boost::beast::error_code& ec, size_t bytesTransferred)
     {
+        timer.cancel();
         if (ec)
         {
             BMCWEB_LOG_ERROR << "sendMessage() failed: " << ec.message();
@@ -297,6 +303,9 @@ class ConnectionInfo : public std::enable_shared_from_this<ConnectionInfo>
 
         parser.emplace(std::piecewise_construct, std::make_tuple());
         parser->body_limit(httpReadBodyLimit);
+
+        timer.expires_after(std::chrono::seconds(30));
+        timer.async_wait(std::bind_front(onTimeout, weak_from_this()));
 
         // Receive the HTTP response
         if (sslConn)
@@ -319,6 +328,7 @@ class ConnectionInfo : public std::enable_shared_from_this<ConnectionInfo>
                    const boost::beast::error_code& ec,
                    const std::size_t& bytesTransferred)
     {
+        timer.cancel();
         if (ec && ec != boost::asio::ssl::error::stream_truncated)
         {
             BMCWEB_LOG_ERROR << "recvMessage() failed: " << ec.message();
@@ -362,6 +372,31 @@ class ConnectionInfo : public std::enable_shared_from_this<ConnectionInfo>
         callback(parser->keep_alive(), connId, res);
     }
 
+    static void onTimeout(const std::weak_ptr<ConnectionInfo>& weakSelf,
+                          const boost::system::error_code ec)
+    {
+        if (ec == boost::asio::error::operation_aborted)
+        {
+            BMCWEB_LOG_DEBUG
+                << "async_wait failed since the operation is aborted"
+                << ec.message();
+            return;
+        }
+        if (ec)
+        {
+            BMCWEB_LOG_ERROR << "async_wait failed: " << ec.message();
+            // If the timer fails, we need to close the socket anyway, same as
+            // if it expired.
+        }
+        std::shared_ptr<ConnectionInfo> self = weakSelf.lock();
+        if (self == nullptr)
+        {
+            return;
+        }
+        // Lets close connection and start from resolve.
+        self->doClose();
+    }
+
     void waitAndRetry()
     {
         if ((retryCount >= retryPolicy.maxRetryAttempts) ||
@@ -393,13 +428,6 @@ class ConnectionInfo : public std::enable_shared_from_this<ConnectionInfo>
             return;
         }
 
-        if (runningTimer)
-        {
-            BMCWEB_LOG_DEBUG << "Retry timer is already running.";
-            return;
-        }
-        runningTimer = true;
-
         retryCount++;
 
         BMCWEB_LOG_DEBUG << "Attempt retry after "
@@ -421,7 +449,6 @@ class ConnectionInfo : public std::enable_shared_from_this<ConnectionInfo>
                 // Ignore the error and continue the retry loop to attempt
                 // sending the event as per the retry policy
             }
-            self->runningTimer = false;
 
             // Let's close the connection and restart from resolve.
             self->doClose(true);
@@ -431,7 +458,7 @@ class ConnectionInfo : public std::enable_shared_from_this<ConnectionInfo>
     void shutdownConn(bool retry)
     {
         boost::beast::error_code ec;
-        conn.socket().shutdown(boost::asio::ip::tcp::socket::shutdown_both, ec);
+        conn.shutdown(boost::asio::ip::tcp::socket::shutdown_both, ec);
         conn.close();
 
         // not_connected happens sometimes so don't bother reporting it.
@@ -454,7 +481,7 @@ class ConnectionInfo : public std::enable_shared_from_this<ConnectionInfo>
             {
                 // Now let's try to resend the data
                 state = ConnState::retry;
-                this->doResolve();
+                doResolve();
             }
             else
             {

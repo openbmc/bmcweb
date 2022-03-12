@@ -379,7 +379,7 @@ class Subscription : public persistent_data::UserSubscription
     }
 
     explicit Subscription(
-        const std::shared_ptr<boost::beast::tcp_stream>& adaptor) :
+        const std::shared_ptr<boost::asio::ip::tcp::socket>& adaptor) :
         eventSeqNum(1),
         sseConn(std::make_shared<crow::ServerSentEvents>(adaptor))
     {}
