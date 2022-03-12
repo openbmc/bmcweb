@@ -248,7 +248,7 @@ inline int formatEventLogEntry(const std::string& logEntryID,
     // fractional seconds between the '.' and the '+', so just remove them.
     std::size_t dot = timestamp.find_first_of('.');
     std::size_t plus = timestamp.find_first_of('+');
-    if (dot != std::string::npos && plus != std::string::npos)
+    if (dot != std::string::npos && plus != std::string::npos && plus <= dot)
     {
         timestamp.erase(dot, plus - dot);
     }
@@ -374,7 +374,7 @@ class Subscription : public persistent_data::UserSubscription
         // Subscription constructor
     }
 
-    Subscription(const std::shared_ptr<boost::beast::tcp_stream>& adaptor) :
+    Subscription(const std::shared_ptr<boost::asio::ip::tcp::socket>& adaptor) :
         eventSeqNum(1)
     {
         sseConn = std::make_shared<crow::ServerSentEvents>(adaptor);
