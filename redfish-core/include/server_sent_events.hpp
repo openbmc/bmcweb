@@ -49,7 +49,7 @@ enum class SseConnState
 class ServerSentEvents : public std::enable_shared_from_this<ServerSentEvents>
 {
   private:
-    std::shared_ptr<boost::beast::tcp_stream> sseConn;
+    std::shared_ptr<boost::asio::ip::tcp::socket> sseConn;
     std::queue<std::pair<uint64_t, std::string>> requestDataQueue;
     std::string outBuffer;
     SseConnState state{SseConnState::startInit};
@@ -257,7 +257,7 @@ class ServerSentEvents : public std::enable_shared_from_this<ServerSentEvents>
     ServerSentEvents& operator=(ServerSentEvents&&) = delete;
 
     explicit ServerSentEvents(
-        const std::shared_ptr<boost::beast::tcp_stream>& adaptor) :
+        const std::shared_ptr<boost::asio::ip::tcp::socket>& adaptor) :
         sseConn(adaptor)
     {
         startSSE();
