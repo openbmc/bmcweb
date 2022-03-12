@@ -40,6 +40,10 @@ struct Response
     Response() : stringResponse(response_type{})
     {}
 
+    explicit Response(response_type&& stringResponseIn) :
+        stringResponse(stringResponseIn)
+    {}
+
     Response(Response&& res) noexcept :
         stringResponse(std::move(res.stringResponse)), completed(res.completed)
     {
