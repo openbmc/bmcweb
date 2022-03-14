@@ -21,6 +21,7 @@
 #include <openbmc_dbus_rest.hpp>
 #include <persistent_data.hpp>
 #include <query.hpp>
+#include <redfish_defs/account_service.hpp>
 #include <registries/privilege_registry.hpp>
 #include <sdbusplus/asio/property.hpp>
 #include <utils/json_utils.hpp>
@@ -165,7 +166,8 @@ inline void parseLDAPConfigData(nlohmann::json& jsonResponse,
 
     ldap["ServiceEnabled"] = confData.serviceEnabled;
     ldap["ServiceAddresses"] = nlohmann::json::array({confData.uri});
-    ldap["Authentication"]["AuthenticationType"] = "UsernameAndPassword";
+    ldap["Authentication"]["AuthenticationType"] =
+        account_service::AuthenticationTypes::UsernameAndPassword;
     ldap["Authentication"]["Username"] = confData.bindDN;
     ldap["Authentication"]["Password"] = nullptr;
 

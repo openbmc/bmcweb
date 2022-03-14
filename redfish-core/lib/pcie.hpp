@@ -20,6 +20,7 @@
 #include <boost/system/linux_error.hpp>
 #include <dbus_utility.hpp>
 #include <query.hpp>
+#include <redfish_defs/pcie_device.hpp>
 #include <registries/privilege_registry.hpp>
 
 namespace redfish
@@ -101,39 +102,39 @@ inline void requestRoutesSystemPCIeDeviceCollection(App& app)
         });
 }
 
-inline std::optional<std::string>
+inline std::optional<pcie_device::PCIeTypes>
     redfishPcieGenerationFromDbus(const std::string& generationInUse)
 {
     if (generationInUse ==
         "xyz.openbmc_project.Inventory.Item.PCIeSlot.Generations.Gen1")
     {
-        return "Gen1";
+        return pcie_device::PCIeTypes::Gen1;
     }
     if (generationInUse ==
         "xyz.openbmc_project.Inventory.Item.PCIeSlot.Generations.Gen2")
     {
-        return "Gen2";
+        return pcie_device::PCIeTypes::Gen2;
     }
     if (generationInUse ==
         "xyz.openbmc_project.Inventory.Item.PCIeSlot.Generations.Gen3")
     {
-        return "Gen3";
+        return pcie_device::PCIeTypes::Gen3;
     }
     if (generationInUse ==
         "xyz.openbmc_project.Inventory.Item.PCIeSlot.Generations.Gen4")
     {
-        return "Gen4";
+        return pcie_device::PCIeTypes::Gen4;
     }
     if (generationInUse ==
         "xyz.openbmc_project.Inventory.Item.PCIeSlot.Generations.Gen5")
     {
-        return "Gen5";
+        return pcie_device::PCIeTypes::Gen5;
     }
     if (generationInUse.empty() ||
         generationInUse ==
             "xyz.openbmc_project.Inventory.Item.PCIeSlot.Generations.Unknown")
     {
-        return "";
+        return pcie_device::PCIeTypes::Invalid;
     }
 
     // The value is not unknown or Gen1-5, need return an internal error.
@@ -213,14 +214,14 @@ inline void requestRoutesSystemPCIeDevice(App& app)
                         messages::internalError(asyncResp->res);
                         return;
                     }
-                    std::optional<std::string> generationInUse =
+                    std::optional<pcie_device::PCIeTypes> generationInUse =
                         redfishPcieGenerationFromDbus(*propertyString);
                     if (!generationInUse)
                     {
                         messages::internalError(asyncResp->res);
                         return;
                     }
-                    if (generationInUse->empty())
+                    if (generationInUse == pcie_device::PCIeTypes::Invalid)
                     {
                         // unknown, no need to handle
                         return;
