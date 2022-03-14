@@ -247,6 +247,8 @@ static std::shared_ptr<persistent_data::UserSession>
     {
         if ((url == "/redfish/v1/SessionService/Sessions") ||
             (url == "/redfish/v1/SessionService/Sessions/") ||
+            (url == "/redfish/v1/SessionService/Sessions/Members") ||
+            (url == "/redfish/v1/SessionService/Sessions/Members/") ||
             (url == "/login"))
         {
             return true;
