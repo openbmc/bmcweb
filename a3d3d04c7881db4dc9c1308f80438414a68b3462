@@ -26,6 +26,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "c94d4a42_81882d72",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1000388
+      },
+      "writtenOn": "2022-03-14T22:01:21Z",
+      "side": 1,
+      "message": "Sure. Added.",
+      "parentUuid": "1ceeeb7d_b3d3e730",
+      "range": {
+        "startLine": 31,
+        "startChar": 25,
+        "endLine": 31,
+        "endChar": 26
+      },
+      "revId": "a3d3d04c7881db4dc9c1308f80438414a68b3462",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "34cc601a_1ff8fde3",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 3
@@ -102,6 +126,30 @@
       "side": 1,
       "message": "The non-array path is for when an individual entry is requested rather than the collection:\n{\n\"@odata.id\": \"/redfish/v1/Systems/system/LogServices/Crashdump/Entries/0\",\n\"@odata.type\": \"#LogEntry.v1_7_0.LogEntry\",\n\"AdditionalDataURI\": \"/redfish/v1/Systems/system/LogServices/Crashdump/Entries/0/crashdump_0-1970-01-20T14:27:48Z.json\",\n\"Created\": \"1970-01-20T14:27:48Z\",\n\"DiagnosticDataType\": \"OEM\",\n\"EntryType\": \"Oem\",\n\"Id\": \"0\",\n\"Name\": \"CPU Crashdump\",\n\"OEMDiagnosticDataType\": \"PECICrashdump\"\n}\n\nI don\u0027t think it has a size field.",
       "parentUuid": "f56dde69_71d3fad5",
+      "range": {
+        "startLine": 2676,
+        "startChar": 0,
+        "endLine": 2678,
+        "endChar": 13
+      },
+      "revId": "a3d3d04c7881db4dc9c1308f80438414a68b3462",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "95e774c7_6c1dfbe7",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 2678,
+      "author": {
+        "id": 1000388
+      },
+      "writtenOn": "2022-03-14T22:01:21Z",
+      "side": 1,
+      "message": "Right yeah, that makes sense since it\u0027s not a collection in this case. I believe this is fine to resolve, thanks Willy for pointing it out and Jason for testing / answering.",
+      "parentUuid": "3c06393f_8161188a",
       "range": {
         "startLine": 2676,
         "startChar": 0,
