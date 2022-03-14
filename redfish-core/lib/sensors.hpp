@@ -22,6 +22,7 @@
 #include <boost/range/algorithm/replace_copy_if.hpp>
 #include <dbus_singleton.hpp>
 #include <dbus_utility.hpp>
+#include <redfish_defs.hpp>
 #include <registries/privilege_registry.hpp>
 #include <sdbusplus/asio/property.hpp>
 #include <utils/json_utils.hpp>
@@ -79,45 +80,45 @@ static const boost::container::flat_map<std::string_view,
                "/xyz/openbmc_project/sensors/fan_pwm"}}};
 } // namespace dbus
 
-inline const char* toReadingType(const std::string& sensorType)
+inline Sensor_ReadingType toReadingType(const std::string& sensorType)
 {
     if (sensorType == "voltage")
     {
-        return "Voltage";
+        return Sensor_ReadingType::Voltage;
     }
     if (sensorType == "power")
     {
-        return "Power";
+        return Sensor_ReadingType::Power;
     }
     if (sensorType == "current")
     {
-        return "Current";
+        return Sensor_ReadingType::Current;
     }
     if (sensorType == "fan_tach")
     {
-        return "Rotational";
+        return Sensor_ReadingType::Rotational;
     }
     if (sensorType == "temperature")
     {
-        return "Temperature";
+        return Sensor_ReadingType::Temperature;
     }
     if (sensorType == "fan_pwm" || sensorType == "utilization")
     {
-        return "Percent";
+        return Sensor_ReadingType::Percent;
     }
     if (sensorType == "altitude")
     {
-        return "Altitude";
+        return Sensor_ReadingType::Altitude;
     }
     if (sensorType == "airflow")
     {
-        return "AirFlow";
+        return Sensor_ReadingType::AirFlow;
     }
     if (sensorType == "energy")
     {
-        return "EnergyJoules";
+        return Sensor_ReadingType::EnergyJoules;
     }
-    return "";
+    return Sensor_ReadingType::Invalid;
 }
 
 inline const char* toReadingUnits(const std::string& sensorType)
@@ -910,8 +911,8 @@ inline void objectInterfacesToJson(
     {
         sensorJson["@odata.type"] = "#Sensor.v1_0_0.Sensor";
 
-        const std::string& readingType = sensors::toReadingType(sensorType);
-        if (readingType.empty())
+        Sensor_ReadingType readingType = sensors::toReadingType(sensorType);
+        if (readingType == Sensor_ReadingType::Invalid)
         {
             BMCWEB_LOG_ERROR << "Redfish cannot map reading type for "
                              << sensorType;
