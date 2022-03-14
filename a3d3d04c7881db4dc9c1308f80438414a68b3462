@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "34cc601a_1ff8fde3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000388
+      },
+      "writtenOn": "2022-03-14T20:56:19Z",
+      "side": 1,
+      "message": "Great, was able to test it on QEMU and see that the change does what we want.",
+      "revId": "a3d3d04c7881db4dc9c1308f80438414a68b3462",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
