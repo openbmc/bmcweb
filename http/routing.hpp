@@ -661,8 +661,6 @@ class TaggedRule :
         handler;
 };
 
-const int ruleSpecialRedirectSlash = 1;
-
 class Trie
 {
   public:
@@ -1172,30 +1170,6 @@ class Router
             throw std::runtime_error("Trie internal structure corrupted!");
         }
 
-        if (ruleIndex == ruleSpecialRedirectSlash)
-        {
-            BMCWEB_LOG_INFO << "Redirecting to a url with trailing slash: "
-                            << req.url;
-            res.result(boost::beast::http::status::moved_permanently);
-
-            // TODO absolute url building
-            if (req.getHeaderValue("Host").empty())
-            {
-                res.addHeader("Location", std::string(req.url) + "/");
-            }
-            else
-            {
-                res.addHeader(
-                    "Location",
-                    req.isSecure
-                        ? "https://"
-                        : "http://" + std::string(req.getHeaderValue("Host")) +
-                              std::string(req.url) + "/");
-            }
-            res.end();
-            return;
-        }
-
         if ((rules[ruleIndex]->getMethods() &
              (1U << static_cast<size_t>(req.method()))) == 0)
         {
@@ -1274,29 +1248,6 @@ class Router
         if (ruleIndex >= rules.size())
         {
             throw std::runtime_error("Trie internal structure corrupted!");
-        }
-
-        if (ruleIndex == ruleSpecialRedirectSlash)
-        {
-            BMCWEB_LOG_INFO << "Redirecting to a url with trailing slash: "
-                            << req.url;
-            asyncResp->res.result(
-                boost::beast::http::status::moved_permanently);
-
-            // TODO absolute url building
-            if (req.getHeaderValue("Host").empty())
-            {
-                asyncResp->res.addHeader("Location",
-                                         std::string(req.url) + "/");
-            }
-            else
-            {
-                asyncResp->res.addHeader(
-                    "Location", (req.isSecure ? "https://" : "http://") +
-                                    std::string(req.getHeaderValue("Host")) +
-                                    std::string(req.url) + "/");
-            }
-            return;
         }
 
         if ((rules[ruleIndex]->getMethods() &
@@ -1464,9 +1415,9 @@ class Router
     {
         std::vector<BaseRule*> rules;
         Trie trie;
-        // rule index 0, 1 has special meaning; preallocate it to avoid
+        // rule index 0 has special meaning; preallocate it to avoid
         // duplication.
-        PerMethod() : rules(2)
+        PerMethod() : rules(1)
         {}
     };
 
