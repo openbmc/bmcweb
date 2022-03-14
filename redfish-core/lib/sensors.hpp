@@ -24,6 +24,7 @@
 #include <dbus_singleton.hpp>
 #include <dbus_utility.hpp>
 #include <query.hpp>
+#include <redfish_defs/sensor.hpp>
 #include <registries/privilege_registry.hpp>
 #include <sdbusplus/asio/property.hpp>
 #include <sdbusplus/unpack_properties.hpp>
@@ -89,49 +90,49 @@ static constexpr std::array<sensorPair, 3> paths = {
      {node::sensors, std::span<std::string_view>(dbus::sensorPaths)},
      {node::thermal, std::span<std::string_view>(dbus::thermalPaths)}}};
 
-inline std::string_view toReadingType(std::string_view sensorType)
+inline sensor::ReadingType toReadingType(std::string_view sensorType)
 {
     if (sensorType == "voltage")
     {
-        return "Voltage";
+        return sensor::ReadingType::Voltage;
     }
     if (sensorType == "power")
     {
-        return "Power";
+        return sensor::ReadingType::Power;
     }
     if (sensorType == "current")
     {
-        return "Current";
+        return sensor::ReadingType::Current;
     }
     if (sensorType == "fan_tach")
     {
-        return "Rotational";
+        return sensor::ReadingType::Rotational;
     }
     if (sensorType == "temperature")
     {
-        return "Temperature";
+        return sensor::ReadingType::Temperature;
     }
     if (sensorType == "fan_pwm" || sensorType == "utilization")
     {
-        return "Percent";
+        return sensor::ReadingType::Percent;
     }
     if (sensorType == "humidity")
     {
-        return "Humidity";
+        return sensor::ReadingType::Humidity;
     }
     if (sensorType == "altitude")
     {
-        return "Altitude";
+        return sensor::ReadingType::Altitude;
     }
     if (sensorType == "airflow")
     {
-        return "AirFlow";
+        return sensor::ReadingType::AirFlow;
     }
     if (sensorType == "energy")
     {
-        return "EnergyJoules";
+        return sensor::ReadingType::EnergyJoules;
     }
-    return "";
+    return sensor::ReadingType::Invalid;
 }
 
 inline std::string_view toReadingUnits(std::string_view sensorType)
@@ -842,8 +843,8 @@ inline void objectPropertiesToJson(
     {
         sensorJson["@odata.type"] = "#Sensor.v1_2_0.Sensor";
 
-        std::string_view readingType = sensors::toReadingType(sensorType);
-        if (readingType.empty())
+        sensor::ReadingType readingType = sensors::toReadingType(sensorType);
+        if (readingType == sensor::ReadingType::Invalid)
         {
             BMCWEB_LOG_ERROR << "Redfish cannot map reading type for "
                              << sensorType;

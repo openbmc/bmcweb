@@ -10,6 +10,7 @@ import shutil
 import json
 
 import xml.etree.ElementTree as ET
+import generate_schema_enums
 
 VERSION = "DSP8010_2022.2"
 
@@ -396,3 +397,5 @@ with open(os.path.join(cpp_path, "schemas.hpp"), "w") as hpp_file:
     hpp_file.write("    };\n" "}\n")
 
 zip_ref.close()
+
+generate_schema_enums.main()
