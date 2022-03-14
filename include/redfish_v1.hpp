@@ -3,7 +3,6 @@
 #include <app.hpp>
 #include <http_request.hpp>
 #include <http_response.hpp>
-#include <rf_async_resp.hpp>
 
 #include <string>
 
