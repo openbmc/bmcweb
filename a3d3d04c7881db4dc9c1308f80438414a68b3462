@@ -16,6 +16,29 @@
       "message": "Great, was able to test it on QEMU and see that the change does what we want.",
       "revId": "a3d3d04c7881db4dc9c1308f80438414a68b3462",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6a472e98_b17d8049",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 2678,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2022-03-14T21:22:32Z",
+      "side": 1,
+      "message": "Will need to fix it in this case. In the example below, it will never update it and will be zero.",
+      "range": {
+        "startLine": 2676,
+        "startChar": 0,
+        "endLine": 2678,
+        "endChar": 13
+      },
+      "revId": "a3d3d04c7881db4dc9c1308f80438414a68b3462",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
