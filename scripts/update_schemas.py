@@ -8,6 +8,7 @@ import shutil
 import json
 
 import xml.etree.ElementTree as ET
+import generate_schema_enums
 
 VERSION = "DSP8010_2021.4"
 
@@ -338,3 +339,5 @@ with open(os.path.join(json_schema_path, "index.json"), 'w') as index_file:
     json.dump(indexData, index_file, indent=2)
 
 zip_ref.close()
+
+generate_schema_enums.main()
