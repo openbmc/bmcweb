@@ -15,13 +15,15 @@
 */
 #pragma once
 
+#include "generated/enums/account_service.hpp"
+#include "registries/privilege_registry.hpp"
+
 #include <app.hpp>
 #include <dbus_utility.hpp>
 #include <error_messages.hpp>
 #include <openbmc_dbus_rest.hpp>
 #include <persistent_data.hpp>
 #include <query.hpp>
-#include <registries/privilege_registry.hpp>
 #include <sdbusplus/asio/property.hpp>
 #include <sdbusplus/unpack_properties.hpp>
 #include <utils/dbus_utils.hpp>
@@ -210,7 +212,8 @@ inline void parseLDAPConfigData(nlohmann::json& jsonResponse,
 
     ldap["ServiceEnabled"] = confData.serviceEnabled;
     ldap["ServiceAddresses"] = nlohmann::json::array({confData.uri});
-    ldap["Authentication"]["AuthenticationType"] = "UsernameAndPassword";
+    ldap["Authentication"]["AuthenticationType"] =
+        account_service::AuthenticationTypes::UsernameAndPassword;
     ldap["Authentication"]["Username"] = confData.bindDN;
     ldap["Authentication"]["Password"] = nullptr;
 

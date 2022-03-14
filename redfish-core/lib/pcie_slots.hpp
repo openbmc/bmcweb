@@ -1,6 +1,7 @@
 #pragma once
 
 #include "error_messages.hpp"
+#include "generated/enums/pcie_slot.hpp"
 #include "utility.hpp"
 
 #include <app.hpp>
@@ -14,53 +15,53 @@
 namespace redfish
 {
 
-inline std::string dbusSlotTypeToRf(const std::string& slotType)
+inline pcie_slot::SlotTypes dbusSlotTypeToRf(const std::string& slotType)
 {
     if (slotType ==
         "xyz.openbmc_project.Inventory.Item.PCIeSlot.SlotTypes.FullLength")
     {
-        return "FullLength";
+        return pcie_slot::SlotTypes::FullLength;
     }
     if (slotType ==
         "xyz.openbmc_project.Inventory.Item.PCIeSlot.SlotTypes.HalfLength")
     {
-        return "HalfLength";
+        return pcie_slot::SlotTypes::HalfLength;
     }
     if (slotType ==
         "xyz.openbmc_project.Inventory.Item.PCIeSlot.SlotTypes.LowProfile")
     {
-        return "LowProfile";
+        return pcie_slot::SlotTypes::LowProfile;
     }
     if (slotType ==
         "xyz.openbmc_project.Inventory.Item.PCIeSlot.SlotTypes.Mini")
     {
-        return "Mini";
+        return pcie_slot::SlotTypes::Mini;
     }
     if (slotType == "xyz.openbmc_project.Inventory.Item.PCIeSlot.SlotTypes.M_2")
     {
-        return "M2";
+        return pcie_slot::SlotTypes::M2;
     }
     if (slotType == "xyz.openbmc_project.Inventory.Item.PCIeSlot.SlotTypes.OEM")
     {
-        return "OEM";
+        return pcie_slot::SlotTypes::OEM;
     }
     if (slotType ==
         "xyz.openbmc_project.Inventory.Item.PCIeSlot.SlotTypes.OCP3Small")
     {
-        return "OCP3Small";
+        return pcie_slot::SlotTypes::OCP3Small;
     }
     if (slotType ==
         "xyz.openbmc_project.Inventory.Item.PCIeSlot.SlotTypes.OCP3Large")
     {
-        return "OCP3Large";
+        return pcie_slot::SlotTypes::OCP3Large;
     }
     if (slotType == "xyz.openbmc_project.Inventory.Item.PCIeSlot.SlotTypes.U_2")
     {
-        return "U2";
+        return pcie_slot::SlotTypes::U2;
     }
 
     // Unknown or others
-    return "";
+    return pcie_slot::SlotTypes::Invalid;
 }
 
 inline void
@@ -106,7 +107,7 @@ inline void
 
     if (generation != nullptr)
     {
-        std::optional<std::string> pcieType =
+        std::optional<pcie_device::PCIeTypes> pcieType =
             redfishPcieGenerationFromDbus(*generation);
         if (!pcieType)
         {
