@@ -282,6 +282,10 @@ inline void requestRoutesSession(App& app)
         .privileges({})
         .methods(boost::beast::http::verb::post)(handleSessionCollectionPost);
 
+    BMCWEB_ROUTE(app, "/redfish/v1/SessionService/Sessions/Members/")
+        .privileges({})
+        .methods(boost::beast::http::verb::post)(handleSessionCollectionPost);
+
     BMCWEB_ROUTE(app, "/redfish/v1/SessionService/")
         .privileges(redfish::privileges::getSessionService)
         .methods(boost::beast::http::verb::get)(handleSessionServiceGet);
