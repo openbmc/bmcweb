@@ -5,59 +5,60 @@
 
 #include <app.hpp>
 #include <pcie.hpp>
+#include <redfish_defs/pcie_slot.hpp>
 #include <registries/privilege_registry.hpp>
 #include <utils/json_utils.hpp>
 
 namespace redfish
 {
 
-inline std::string dbusSlotTypeToRf(const std::string& slotType)
+inline pcie_slot::SlotTypes dbusSlotTypeToRf(const std::string& slotType)
 {
     if (slotType ==
         "xyz.openbmc_project.Inventory.Item.PCIeSlot.SlotTypes.FullLength")
     {
-        return "FullLength";
+        return pcie_slot::SlotTypes::FullLength;
     }
     if (slotType ==
         "xyz.openbmc_project.Inventory.Item.PCIeSlot.SlotTypes.HalfLength")
     {
-        return "HalfLength";
+        return pcie_slot::SlotTypes::HalfLength;
     }
     if (slotType ==
         "xyz.openbmc_project.Inventory.Item.PCIeSlot.SlotTypes.LowProfile")
     {
-        return "LowProfile";
+        return pcie_slot::SlotTypes::LowProfile;
     }
     if (slotType ==
         "xyz.openbmc_project.Inventory.Item.PCIeSlot.SlotTypes.Mini")
     {
-        return "Mini";
+        return pcie_slot::SlotTypes::Mini;
     }
     if (slotType == "xyz.openbmc_project.Inventory.Item.PCIeSlot.SlotTypes.M_2")
     {
-        return "M2";
+        return pcie_slot::SlotTypes::M2;
     }
     if (slotType == "xyz.openbmc_project.Inventory.Item.PCIeSlot.SlotTypes.OEM")
     {
-        return "OEM";
+        return pcie_slot::SlotTypes::OEM;
     }
     if (slotType ==
         "xyz.openbmc_project.Inventory.Item.PCIeSlot.SlotTypes.OCP3Small")
     {
-        return "OCP3Small";
+        return pcie_slot::SlotTypes::OCP3Small;
     }
     if (slotType ==
         "xyz.openbmc_project.Inventory.Item.PCIeSlot.SlotTypes.OCP3Large")
     {
-        return "OCP3Large";
+        return pcie_slot::SlotTypes::OCP3Large;
     }
     if (slotType == "xyz.openbmc_project.Inventory.Item.PCIeSlot.SlotTypes.U_2")
     {
-        return "U2";
+        return pcie_slot::SlotTypes::U2;
     }
 
     // Unknown or others
-    return "";
+    return pcie_slot::SlotTypes::Invalid;
 }
 
 inline void
@@ -126,8 +127,8 @@ inline void
                 messages::internalError(asyncResp->res);
                 return;
             }
-            std::string slotType = dbusSlotTypeToRf(*value);
-            if (!slotType.empty())
+            pcie_slots::SlotTypes slotType = dbusSlotTypeToRf(*value);
+            if (slotType == pcie_slots::SlotTypes::Invalid)
             {
                 messages::internalError(asyncResp->res);
                 return;
