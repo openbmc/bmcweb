@@ -1,0 +1,133 @@
+#pragma once
+#include <nlohmann/json.hpp>
+
+namespace chassis
+{
+// clang-format off
+
+enum class ChassisType{
+    Invalid,
+    Rack,
+    Blade,
+    Enclosure,
+    StandAlone,
+    RackMount,
+    Card,
+    Cartridge,
+    Row,
+    Pod,
+    Expansion,
+    Sidecar,
+    Zone,
+    Sled,
+    Shelf,
+    Drawer,
+    Module,
+    Component,
+    IPBasedDrive,
+    RackGroup,
+    StorageEnclosure,
+    Other,
+};
+
+enum class IndicatorLED{
+    Invalid,
+    Unknown,
+    Lit,
+    Blinking,
+    Off,
+};
+
+enum class PowerState{
+    Invalid,
+    On,
+    Off,
+    PoweringOn,
+    PoweringOff,
+};
+
+enum class IntrusionSensor{
+    Invalid,
+    Normal,
+    HardwareIntrusion,
+    TamperingDetected,
+};
+
+enum class IntrusionSensorReArm{
+    Invalid,
+    Manual,
+    Automatic,
+};
+
+enum class EnvironmentalClass{
+    Invalid,
+    A1,
+    A2,
+    A3,
+    A4,
+};
+
+NLOHMANN_JSON_SERIALIZE_ENUM(ChassisType, { //NOLINT
+    {ChassisType::Invalid, "Invalid"},
+    {ChassisType::Rack, "Rack"},
+    {ChassisType::Blade, "Blade"},
+    {ChassisType::Enclosure, "Enclosure"},
+    {ChassisType::StandAlone, "StandAlone"},
+    {ChassisType::RackMount, "RackMount"},
+    {ChassisType::Card, "Card"},
+    {ChassisType::Cartridge, "Cartridge"},
+    {ChassisType::Row, "Row"},
+    {ChassisType::Pod, "Pod"},
+    {ChassisType::Expansion, "Expansion"},
+    {ChassisType::Sidecar, "Sidecar"},
+    {ChassisType::Zone, "Zone"},
+    {ChassisType::Sled, "Sled"},
+    {ChassisType::Shelf, "Shelf"},
+    {ChassisType::Drawer, "Drawer"},
+    {ChassisType::Module, "Module"},
+    {ChassisType::Component, "Component"},
+    {ChassisType::IPBasedDrive, "IPBasedDrive"},
+    {ChassisType::RackGroup, "RackGroup"},
+    {ChassisType::StorageEnclosure, "StorageEnclosure"},
+    {ChassisType::Other, "Other"},
+});
+
+NLOHMANN_JSON_SERIALIZE_ENUM(IndicatorLED, { //NOLINT
+    {IndicatorLED::Invalid, "Invalid"},
+    {IndicatorLED::Unknown, "Unknown"},
+    {IndicatorLED::Lit, "Lit"},
+    {IndicatorLED::Blinking, "Blinking"},
+    {IndicatorLED::Off, "Off"},
+});
+
+NLOHMANN_JSON_SERIALIZE_ENUM(PowerState, { //NOLINT
+    {PowerState::Invalid, "Invalid"},
+    {PowerState::On, "On"},
+    {PowerState::Off, "Off"},
+    {PowerState::PoweringOn, "PoweringOn"},
+    {PowerState::PoweringOff, "PoweringOff"},
+});
+
+NLOHMANN_JSON_SERIALIZE_ENUM(IntrusionSensor, { //NOLINT
+    {IntrusionSensor::Invalid, "Invalid"},
+    {IntrusionSensor::Normal, "Normal"},
+    {IntrusionSensor::HardwareIntrusion, "HardwareIntrusion"},
+    {IntrusionSensor::TamperingDetected, "TamperingDetected"},
+});
+
+NLOHMANN_JSON_SERIALIZE_ENUM(IntrusionSensorReArm, { //NOLINT
+    {IntrusionSensorReArm::Invalid, "Invalid"},
+    {IntrusionSensorReArm::Manual, "Manual"},
+    {IntrusionSensorReArm::Automatic, "Automatic"},
+});
+
+NLOHMANN_JSON_SERIALIZE_ENUM(EnvironmentalClass, { //NOLINT
+    {EnvironmentalClass::Invalid, "Invalid"},
+    {EnvironmentalClass::A1, "A1"},
+    {EnvironmentalClass::A2, "A2"},
+    {EnvironmentalClass::A3, "A3"},
+    {EnvironmentalClass::A4, "A4"},
+});
+
+}
+// clang-format on
