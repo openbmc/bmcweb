@@ -1,6 +1,7 @@
 #pragma once
 #include <async_resp.hpp>
 #include <dbus_utility.hpp>
+#include <redfish_defs/resource.hpp>
 #include <sdbusplus/asio/property.hpp>
 
 #include <algorithm>
@@ -243,24 +244,24 @@ inline void
  *
  * @return The corresponding Redfish state
  */
-inline std::string getRedfishSwState(const std::string& swState)
+inline resource::State getRedfishSwState(const std::string& swState)
 {
     if (swState == "xyz.openbmc_project.Software.Activation.Activations.Active")
     {
-        return "Enabled";
+        return resource::State::Enabled;
     }
     if (swState == "xyz.openbmc_project.Software.Activation."
                    "Activations.Activating")
     {
-        return "Updating";
+        return resource::State::Updating;
     }
     if (swState == "xyz.openbmc_project.Software.Activation."
                    "Activations.StandbySpare")
     {
-        return "StandbySpare";
+        return resource::State::StandbySpare;
     }
     BMCWEB_LOG_DEBUG << "Default sw state " << swState << " to Disabled";
-    return "Disabled";
+    return resource::State::Disabled;
 }
 
 /**
