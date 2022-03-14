@@ -12,6 +12,7 @@
 #include "websocket.hpp"
 
 #include <async_resp.hpp>
+#include <boost/beast/ssl/ssl_stream.hpp>
 #include <boost/container/flat_map.hpp>
 
 #include <cerrno>
@@ -1208,6 +1209,30 @@ class Router
         }
     }
 
+    std::string buildAllowHeader(Request& req)
+    {
+        std::string allowHeader;
+        // Check to see if this url exists at any verb
+        for (size_t perMethodIndex = 0; perMethodIndex < perMethods.size();
+             perMethodIndex++)
+        {
+            const PerMethod& p = perMethods[perMethodIndex];
+            const std::pair<unsigned, RoutingParams>& found2 =
+                p.trie.find(req.url);
+            if (found2.first == 0)
+            {
+                continue;
+            }
+            if (!allowHeader.empty())
+            {
+                allowHeader += ", ";
+            }
+            allowHeader += boost::beast::http::to_string(
+                static_cast<boost::beast::http::verb>(perMethodIndex));
+        }
+        return allowHeader;
+    }
+
     void handle(Request& req,
                 const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
     {
@@ -1219,25 +1244,31 @@ class Router
         PerMethod& perMethod = perMethods[static_cast<size_t>(req.method())];
         Trie& trie = perMethod.trie;
         std::vector<BaseRule*>& rules = perMethod.rules;
+        std::string allowHeader = buildAllowHeader(req);
+        if (!allowHeader.empty())
+        {
+            asyncResp->res.addHeader(boost::beast::http::field::allow,
+                                     allowHeader);
+
+            // If this is a header request, we're done.
+            if (req.method() == boost::beast::http::verb::head)
+            {
+                return;
+            }
+        }
 
         const std::pair<unsigned, RoutingParams>& found = trie.find(req.url);
 
         unsigned ruleIndex = found.first;
-
         if (ruleIndex == 0U)
         {
-            // Check to see if this url exists at any verb
-            for (const PerMethod& p : perMethods)
+            if (!allowHeader.empty())
             {
-                const std::pair<unsigned, RoutingParams>& found2 =
-                    p.trie.find(req.url);
-                if (found2.first > 0)
-                {
-                    asyncResp->res.result(
-                        boost::beast::http::status::method_not_allowed);
-                    return;
-                }
+                asyncResp->res.result(
+                    boost::beast::http::status::method_not_allowed);
+                return;
             }
+
             BMCWEB_LOG_DEBUG << "Cannot match rules " << req.url;
             asyncResp->res.result(boost::beast::http::status::not_found);
             return;
