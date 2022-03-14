@@ -171,7 +171,6 @@ def get_variable_name_for_privilege_set(privilege_list):
         names.append("And".join(privileges))
     return "Or".join(names)
 
-
 def make_privilege_registry():
     path, json_file, type_name, url = \
         make_getter('Redfish_1.2.0_PrivilegeRegistry.json',

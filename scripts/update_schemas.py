@@ -8,6 +8,7 @@ import shutil
 import json
 
 import xml.etree.ElementTree as ET
+import generate_schema_enums
 
 VERSION = "DSP8010_2021.4"
 
@@ -159,7 +160,6 @@ if not os.path.exists(json_schema_path):
     os.makedirs(json_schema_path)
 
 with open(metadata_index_path, 'w') as metadata_index:
-
     metadata_index.write("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n")
     metadata_index.write(
         "<edmx:Edmx xmlns:edmx="
@@ -338,3 +338,5 @@ with open(os.path.join(json_schema_path, "index.json"), 'w') as index_file:
     json.dump(indexData, index_file, indent=2)
 
 zip_ref.close()
+
+generate_schema_enums.main()
