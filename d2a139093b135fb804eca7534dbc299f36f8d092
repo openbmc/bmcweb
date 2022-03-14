@@ -56,6 +56,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b6acb844_791e001b",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 889,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2022-03-14T16:22:43Z",
+      "side": 1,
+      "message": "wait, actually I do think it should be `propertyMissing` here instead, since at this point it means the we went through all of the properties and it was not found. Unless the issue is the required part?\n\nAs for `propertyValueTypeError` above, it should be right since we found the property but the type is not expected to be what we want.",
+      "parentUuid": "aad250f3_26eb62f1",
+      "revId": "d2a139093b135fb804eca7534dbc299f36f8d092",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "377ff6f9_4a206e54",
         "filename": "redfish-core/lib/update_service.hpp",
         "patchSetId": 13
@@ -67,6 +85,24 @@
       "writtenOn": "2022-03-10T18:32:14Z",
       "side": 1,
       "message": "I don\u0027t think a get should return a propertyValueTypeError becuase the resolution for this is \n\n            \"Resolution\": \"Correct the value for the property in the request body and resubmit the request if the operation failed.\"",
+      "revId": "d2a139093b135fb804eca7534dbc299f36f8d092",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "204a10c5_674e1f74",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 895,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2022-03-14T16:22:43Z",
+      "side": 1,
+      "message": "Actually, this should be propertyMissing instead.",
+      "parentUuid": "377ff6f9_4a206e54",
       "revId": "d2a139093b135fb804eca7534dbc299f36f8d092",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
