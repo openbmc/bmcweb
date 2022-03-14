@@ -63,6 +63,30 @@
       },
       "revId": "a3d3d04c7881db4dc9c1308f80438414a68b3462",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3c06393f_8161188a",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 2678,
+      "author": {
+        "id": 1000276
+      },
+      "writtenOn": "2022-03-14T21:43:40Z",
+      "side": 1,
+      "message": "The non-array path is for when an individual entry is requested rather than the collection:\n{\n\"@odata.id\": \"/redfish/v1/Systems/system/LogServices/Crashdump/Entries/0\",\n\"@odata.type\": \"#LogEntry.v1_7_0.LogEntry\",\n\"AdditionalDataURI\": \"/redfish/v1/Systems/system/LogServices/Crashdump/Entries/0/crashdump_0-1970-01-20T14:27:48Z.json\",\n\"Created\": \"1970-01-20T14:27:48Z\",\n\"DiagnosticDataType\": \"OEM\",\n\"EntryType\": \"Oem\",\n\"Id\": \"0\",\n\"Name\": \"CPU Crashdump\",\n\"OEMDiagnosticDataType\": \"PECICrashdump\"\n}\n\nI don\u0027t think it has a size field.",
+      "parentUuid": "f56dde69_71d3fad5",
+      "range": {
+        "startLine": 2676,
+        "startChar": 0,
+        "endLine": 2678,
+        "endChar": 13
+      },
+      "revId": "a3d3d04c7881db4dc9c1308f80438414a68b3462",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
