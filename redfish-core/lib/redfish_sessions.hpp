@@ -273,12 +273,16 @@ inline void requestRoutesSession(App& app)
         .privileges(redfish::privileges::getSessionCollection)
         .methods(boost::beast::http::verb::get)(handleSessionCollectionGet);
 
-    // Note, the next route technically doesn't match the privilege
+    // Note, the next two routes technically don't match the privilege
     // registry given the way login mechanisms work.  The base privilege
     // registry lists this endpoint as requiring login privilege, but because
     // this is the endpoint responsible for giving the login privilege, and it
     // is itself its own route, it needs to not require Login
     BMCWEB_ROUTE(app, "/redfish/v1/SessionService/Sessions/")
+        .privileges({})
+        .methods(boost::beast::http::verb::post)(handleSessionCollectionPost);
+
+    BMCWEB_ROUTE(app, "/redfish/v1/SessionService/Sessions/Members/")
         .privileges({})
         .methods(boost::beast::http::verb::post)(handleSessionCollectionPost);
 
