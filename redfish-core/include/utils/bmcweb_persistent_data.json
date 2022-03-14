@@ -1,0 +1,1 @@
+{"auth_config":{"BasicAuth":true,"Cookie":true,"SessionToken":true,"TLS":true,"XToken":true},"eventservice_config":{"DeliveryRetryAttempts":3,"DeliveryRetryIntervalSeconds":30,"ServiceEnabled":true},"revision":1,"sessions":[],"subscriptions":[],"system_uuid":"7c6cb744-62e6-4e12-9b29-116ecd406b7d","timeout":1800}
