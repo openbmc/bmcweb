@@ -2723,6 +2723,7 @@ inline void requestRoutesCrashdumpEntryCollection(App& app)
                         "Collection of Crashdump Entries";
                     asyncResp->res.jsonValue["Members"] =
                         nlohmann::json::array();
+                    asyncResp->res.jsonValue["Members@odata.count"] = 0;
 
                     for (const std::string& path : resp)
                     {
