@@ -39,6 +39,30 @@
       },
       "revId": "a3d3d04c7881db4dc9c1308f80438414a68b3462",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f56dde69_71d3fad5",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 2678,
+      "author": {
+        "id": 1000388
+      },
+      "writtenOn": "2022-03-14T21:37:39Z",
+      "side": 1,
+      "message": "I guess, if logEntryJson is not an array (not sure what it would be), then it shouldn\u0027t have a size right? or I guess it should be odata.count 1?",
+      "parentUuid": "6a472e98_b17d8049",
+      "range": {
+        "startLine": 2676,
+        "startChar": 0,
+        "endLine": 2678,
+        "endChar": 13
+      },
+      "revId": "a3d3d04c7881db4dc9c1308f80438414a68b3462",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
