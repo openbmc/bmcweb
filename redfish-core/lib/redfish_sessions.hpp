@@ -245,8 +245,8 @@ inline void
         persistent_data::SessionStore::getInstance().getTimeoutInSeconds();
     asyncResp->res.jsonValue["ServiceEnabled"] = true;
 
-    asyncResp->res.jsonValue["Sessions"] = {
-        {"@odata.id", "/redfish/v1/SessionService/Sessions"}};
+    asyncResp->res.jsonValue["Sessions"]["@odata.id"] =
+        "/redfish/v1/SessionService/Sessions";
 }
 
 inline void handleSessionServicePatch(

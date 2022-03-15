@@ -560,8 +560,8 @@ inline void requestRoutesUpdateService(App& app)
                 "/redfish/v1/UpdateService";
             // UpdateService cannot be disabled
             asyncResp->res.jsonValue["ServiceEnabled"] = true;
-            asyncResp->res.jsonValue["FirmwareInventory"] = {
-                {"@odata.id", "/redfish/v1/UpdateService/FirmwareInventory"}};
+            asyncResp->res.jsonValue["FirmwareInventory"]["@odata.id"] =
+                "/redfish/v1/UpdateService/FirmwareInventory";
             // Get the MaxImageSizeBytes
             asyncResp->res.jsonValue["MaxImageSizeBytes"] =
                 bmcwebHttpReqBodyLimitMb * 1024 * 1024;

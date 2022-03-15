@@ -57,9 +57,9 @@ inline void setErrorResponse(crow::Response& res,
                              const std::string_view msg)
 {
     res.result(result);
-    res.jsonValue = {{"data", {{"description", desc}}},
-                     {"message", msg},
-                     {"status", "error"}};
+    res.jsonValue["data"]["description"] = desc;
+    res.jsonValue["message"] = msg;
+    res.jsonValue["status"] = "error";
 }
 
 inline void
@@ -69,9 +69,9 @@ inline void
 {
     if (transaction->res.jsonValue.is_null())
     {
-        transaction->res.jsonValue = {{"status", "ok"},
-                                      {"bus_name", processName},
-                                      {"objects", nlohmann::json::array()}};
+        transaction->res.jsonValue["status"] = "ok";
+        transaction->res.jsonValue["bus_name"] = processName;
+        transaction->res.jsonValue["objects"] = nlohmann::json::array();
     }
 
     crow::connections::systemBus->async_method_call(
@@ -468,9 +468,9 @@ struct InProgressActionData
                 }
                 else
                 {
-                    res.jsonValue = {{"status", "ok"},
-                                     {"message", "200 OK"},
-                                     {"data", methodResponse}};
+                    res.jsonValue["status"] = "ok";
+                    res.jsonValue["message"] = "200 OK";
+                    res.jsonValue["data"] = methodResponse;
                 }
             }
         }
@@ -1626,9 +1626,9 @@ inline void handleList(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
             }
             else
             {
-                asyncResp->res.jsonValue = {{"status", "ok"},
-                                            {"message", "200 OK"},
-                                            {"data", objectPaths}};
+                asyncResp->res.jsonValue["status"] = "ok";
+                asyncResp->res.jsonValue["message"] = "200 OK";
+                asyncResp->res.jsonValue["data"] = objectPaths;
             }
         },
         "xyz.openbmc_project.ObjectMapper",
@@ -1642,9 +1642,9 @@ inline void handleEnumerate(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
 {
     BMCWEB_LOG_DEBUG << "Doing enumerate on " << objectPath;
 
-    asyncResp->res.jsonValue = {{"message", "200 OK"},
-                                {"status", "ok"},
-                                {"data", nlohmann::json::object()}};
+    asyncResp->res.jsonValue["message"] = "200 OK";
+    asyncResp->res.jsonValue["status"] = "ok";
+    asyncResp->res.jsonValue["data"] = nlohmann::json::object();
 
     crow::connections::systemBus->async_method_call(
         [objectPath, asyncResp](
@@ -1773,10 +1773,11 @@ inline void handleGet(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                                 }
                                 else
                                 {
-                                    asyncResp->res.jsonValue = {
-                                        {"status", "ok"},
-                                        {"message", "200 OK"},
-                                        {"data", *response}};
+                                    asyncResp->res.jsonValue["status"] = "ok";
+                                    asyncResp->res.jsonValue["message"] =
+                                        "200 OK";
+                                    asyncResp->res.jsonValue["data"] =
+                                        *response;
                                 }
                             }
                         });
@@ -2000,11 +2001,17 @@ inline void handlePut(const crow::Request& req,
                                                     else
                                                     {
                                                         transaction->asyncResp
-                                                            ->res.jsonValue = {
-                                                            {"status", "ok"},
-                                                            {"message",
-                                                             "200 OK"},
-                                                            {"data", nullptr}};
+                                                            ->res.jsonValue
+                                                                ["status"] =
+                                                            "ok";
+                                                        transaction->asyncResp
+                                                            ->res.jsonValue
+                                                                ["message"] =
+                                                            "200 OK";
+                                                        transaction->asyncResp
+                                                            ->res
+                                                            .jsonValue["data"] =
+                                                            nullptr;
                                                     }
                                                 });
                                     }
@@ -2109,8 +2116,8 @@ inline void requestRoutes(App& app)
         .methods(boost::beast::http::verb::get)(
             [](const crow::Request&,
                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
-                asyncResp->res.jsonValue = {{"buses", {{{"name", "system"}}}},
-                                            {"status", "ok"}};
+                asyncResp->res.jsonValue["buses"] = {{{"name", "system"}}};
+                asyncResp->res.jsonValue["status"] = "ok";
             });
 
     BMCWEB_ROUTE(app, "/bus/system/")
@@ -2130,7 +2137,7 @@ inline void requestRoutes(App& app)
                     else
                     {
                         std::sort(names.begin(), names.end());
-                        asyncResp->res.jsonValue = {{"status", "ok"}};
+                        asyncResp->res.jsonValue["status"] = "ok";
                         auto& objectsSub = asyncResp->res.jsonValue["objects"];
                         for (auto& name : names)
                         {
@@ -2275,351 +2282,343 @@ inline void requestRoutes(App& app)
 
     BMCWEB_ROUTE(app, "/bus/system/<str>/<path>")
         .privileges({{"ConfigureComponents", "ConfigureManager"}})
-        .methods(boost::beast::http::verb::get, boost::beast::http::verb::post)(
-            [](const crow::Request& req,
-               const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-               const std::string& processName,
-               const std::string& requestedPath) {
-                std::vector<std::string> strs;
-                boost::split(strs, requestedPath, boost::is_any_of("/"));
-                std::string objectPath;
-                std::string interfaceName;
-                std::string methodName;
-                auto it = strs.begin();
-                if (it == strs.end())
+        .methods(
+            boost::beast::http::verb::get,
+            boost::beast::http::verb::
+                post)([](const crow::Request& req,
+                         const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                         const std::string& processName,
+                         const std::string& requestedPath) {
+            std::vector<std::string> strs;
+            boost::split(strs, requestedPath, boost::is_any_of("/"));
+            std::string objectPath;
+            std::string interfaceName;
+            std::string methodName;
+            auto it = strs.begin();
+            if (it == strs.end())
+            {
+                objectPath = "/";
+            }
+            while (it != strs.end())
+            {
+                // Check if segment contains ".".  If it does, it must be an
+                // interface
+                if (it->find(".") != std::string::npos)
                 {
-                    objectPath = "/";
+                    break;
+                    // This check is necessary as the trailing slash gets
+                    // parsed as part of our <path> specifier above, which
+                    // causes the normal trailing backslash redirector to
+                    // fail.
                 }
-                while (it != strs.end())
+                if (!it->empty())
                 {
-                    // Check if segment contains ".".  If it does, it must be an
-                    // interface
-                    if (it->find(".") != std::string::npos)
-                    {
-                        break;
-                        // This check is necessary as the trailing slash gets
-                        // parsed as part of our <path> specifier above, which
-                        // causes the normal trailing backslash redirector to
-                        // fail.
-                    }
-                    if (!it->empty())
-                    {
-                        objectPath += "/" + *it;
-                    }
-                    it++;
+                    objectPath += "/" + *it;
                 }
-                if (it != strs.end())
-                {
-                    interfaceName = *it;
-                    it++;
+                it++;
+            }
+            if (it != strs.end())
+            {
+                interfaceName = *it;
+                it++;
 
-                    // after interface, we might have a method name
-                    if (it != strs.end())
-                    {
-                        methodName = *it;
-                        it++;
-                    }
-                }
+                // after interface, we might have a method name
                 if (it != strs.end())
                 {
-                    // if there is more levels past the method name, something
-                    // went wrong, return not found
+                    methodName = *it;
+                    it++;
+                }
+            }
+            if (it != strs.end())
+            {
+                // if there is more levels past the method name, something
+                // went wrong, return not found
+                asyncResp->res.result(boost::beast::http::status::not_found);
+                return;
+            }
+            if (interfaceName.empty())
+            {
+                crow::connections::systemBus->async_method_call(
+                    [asyncResp, processName,
+                     objectPath](const boost::system::error_code ec,
+                                 const std::string& introspectXml) {
+                        if (ec)
+                        {
+                            BMCWEB_LOG_ERROR
+                                << "Introspect call failed with error: "
+                                << ec.message()
+                                << " on process: " << processName
+                                << " path: " << objectPath << "\n";
+                            return;
+                        }
+                        tinyxml2::XMLDocument doc;
+
+                        doc.Parse(introspectXml.c_str());
+                        tinyxml2::XMLNode* pRoot =
+                            doc.FirstChildElement("node");
+                        if (pRoot == nullptr)
+                        {
+                            BMCWEB_LOG_ERROR << "XML document failed to parse "
+                                             << processName << " " << objectPath
+                                             << "\n";
+                            asyncResp->res.jsonValue["status"] =
+                                "XML parse error";
+                            asyncResp->res.result(boost::beast::http::status::
+                                                      internal_server_error);
+                            return;
+                        }
+
+                        BMCWEB_LOG_DEBUG << introspectXml;
+
+                        asyncResp->res.jsonValue["status"] = "ok";
+                        asyncResp->res.jsonValue["bus_name"] = processName;
+                        asyncResp->res.jsonValue["object_path"] = objectPath;
+                        nlohmann::json& interfacesArray =
+                            asyncResp->res.jsonValue["interfaces"];
+                        interfacesArray = nlohmann::json::array();
+                        tinyxml2::XMLElement* interface =
+                            pRoot->FirstChildElement("interface");
+
+                        while (interface != nullptr)
+                        {
+                            const char* ifaceName =
+                                interface->Attribute("name");
+                            if (ifaceName != nullptr)
+                            {
+                                interfacesArray.push_back(
+                                    {{"name", ifaceName}});
+                            }
+
+                            interface =
+                                interface->NextSiblingElement("interface");
+                        }
+                    },
+                    processName, objectPath,
+                    "org.freedesktop.DBus.Introspectable", "Introspect");
+            }
+            else if (methodName.empty())
+            {
+                crow::connections::systemBus->async_method_call(
+                    [asyncResp, processName, objectPath,
+                     interfaceName](const boost::system::error_code ec,
+                                    const std::string& introspectXml) {
+                        if (ec)
+                        {
+                            BMCWEB_LOG_ERROR
+                                << "Introspect call failed with error: "
+                                << ec.message()
+                                << " on process: " << processName
+                                << " path: " << objectPath << "\n";
+                            return;
+                        }
+                        tinyxml2::XMLDocument doc;
+
+                        doc.Parse(introspectXml.data(), introspectXml.size());
+                        tinyxml2::XMLNode* pRoot =
+                            doc.FirstChildElement("node");
+                        if (pRoot == nullptr)
+                        {
+                            BMCWEB_LOG_ERROR << "XML document failed to parse "
+                                             << processName << " " << objectPath
+                                             << "\n";
+                            asyncResp->res.result(boost::beast::http::status::
+                                                      internal_server_error);
+                            return;
+                        }
+
+                        asyncResp->res.jsonValue["status"] = "ok";
+                        asyncResp->res.jsonValue["bus_name"] = processName;
+                        asyncResp->res.jsonValue["interface"] = interfaceName;
+                        asyncResp->res.jsonValue["object_path"] = objectPath;
+
+                        nlohmann::json& methodsArray =
+                            asyncResp->res.jsonValue["methods"];
+                        methodsArray = nlohmann::json::array();
+
+                        nlohmann::json& signalsArray =
+                            asyncResp->res.jsonValue["signals"];
+                        signalsArray = nlohmann::json::array();
+
+                        nlohmann::json& propertiesObj =
+                            asyncResp->res.jsonValue["properties"];
+                        propertiesObj = nlohmann::json::object();
+
+                        // if we know we're the only call, build the
+                        // json directly
+                        tinyxml2::XMLElement* interface =
+                            pRoot->FirstChildElement("interface");
+                        while (interface != nullptr)
+                        {
+                            const char* ifaceName =
+                                interface->Attribute("name");
+
+                            if (ifaceName != nullptr &&
+                                ifaceName == interfaceName)
+                            {
+                                break;
+                            }
+
+                            interface =
+                                interface->NextSiblingElement("interface");
+                        }
+                        if (interface == nullptr)
+                        {
+                            // if we got to the end of the list and
+                            // never found a match, throw 404
+                            asyncResp->res.result(
+                                boost::beast::http::status::not_found);
+                            return;
+                        }
+
+                        tinyxml2::XMLElement* methods =
+                            interface->FirstChildElement("method");
+                        while (methods != nullptr)
+                        {
+                            nlohmann::json argsArray = nlohmann::json::array();
+                            tinyxml2::XMLElement* arg =
+                                methods->FirstChildElement("arg");
+                            while (arg != nullptr)
+                            {
+                                nlohmann::json thisArg;
+                                for (const char* fieldName :
+                                     std::array<const char*, 3>{
+                                         "name", "direction", "type"})
+                                {
+                                    const char* fieldValue =
+                                        arg->Attribute(fieldName);
+                                    if (fieldValue != nullptr)
+                                    {
+                                        thisArg[fieldName] = fieldValue;
+                                    }
+                                }
+                                argsArray.push_back(std::move(thisArg));
+                                arg = arg->NextSiblingElement("arg");
+                            }
+
+                            const char* name = methods->Attribute("name");
+                            if (name != nullptr)
+                            {
+                                std::string uri;
+                                uri.reserve(14 + processName.size() +
+                                            objectPath.size() +
+                                            interfaceName.size() +
+                                            strlen(name));
+                                uri += "/bus/system/";
+                                uri += processName;
+                                uri += objectPath;
+                                uri += "/";
+                                uri += interfaceName;
+                                uri += "/";
+                                uri += name;
+                                methodsArray.push_back({{"name", name},
+                                                        {"uri", std::move(uri)},
+                                                        {"args", argsArray}});
+                            }
+                            methods = methods->NextSiblingElement("method");
+                        }
+                        tinyxml2::XMLElement* signals =
+                            interface->FirstChildElement("signal");
+                        while (signals != nullptr)
+                        {
+                            nlohmann::json argsArray = nlohmann::json::array();
+
+                            tinyxml2::XMLElement* arg =
+                                signals->FirstChildElement("arg");
+                            while (arg != nullptr)
+                            {
+                                const char* name = arg->Attribute("name");
+                                const char* type = arg->Attribute("type");
+                                if (name != nullptr && type != nullptr)
+                                {
+                                    argsArray.push_back({
+                                        {"name", name},
+                                        {"type", type},
+                                    });
+                                }
+                                arg = arg->NextSiblingElement("arg");
+                            }
+                            const char* name = signals->Attribute("name");
+                            if (name != nullptr)
+                            {
+                                signalsArray.push_back(
+                                    {{"name", name}, {"args", argsArray}});
+                            }
+
+                            signals = signals->NextSiblingElement("signal");
+                        }
+
+                        tinyxml2::XMLElement* property =
+                            interface->FirstChildElement("property");
+                        while (property != nullptr)
+                        {
+                            const char* name = property->Attribute("name");
+                            const char* type = property->Attribute("type");
+                            if (type != nullptr && name != nullptr)
+                            {
+                                sdbusplus::message::message m =
+                                    crow::connections::systemBus
+                                        ->new_method_call(processName.c_str(),
+                                                          objectPath.c_str(),
+                                                          "org.freedesktop."
+                                                          "DBus."
+                                                          "Properties",
+                                                          "Get");
+                                m.append(interfaceName, name);
+                                nlohmann::json& propertyItem =
+                                    propertiesObj[name];
+                                crow::connections::systemBus->async_send(
+                                    m, [&propertyItem, asyncResp](
+                                           boost::system::error_code& e,
+                                           sdbusplus::message::message& msg) {
+                                        if (e)
+                                        {
+                                            return;
+                                        }
+
+                                        convertDBusToJSON("v", msg,
+                                                          propertyItem);
+                                    });
+                            }
+                            property = property->NextSiblingElement("property");
+                        }
+                    },
+                    processName, objectPath,
+                    "org.freedesktop.DBus.Introspectable", "Introspect");
+            }
+            else
+            {
+                if (req.method() != boost::beast::http::verb::post)
+                {
                     asyncResp->res.result(
                         boost::beast::http::status::not_found);
                     return;
                 }
-                if (interfaceName.empty())
+
+                nlohmann::json requestDbusData =
+                    nlohmann::json::parse(req.body, nullptr, false);
+
+                if (requestDbusData.is_discarded())
                 {
-                    crow::connections::systemBus->async_method_call(
-                        [asyncResp, processName,
-                         objectPath](const boost::system::error_code ec,
-                                     const std::string& introspectXml) {
-                            if (ec)
-                            {
-                                BMCWEB_LOG_ERROR
-                                    << "Introspect call failed with error: "
-                                    << ec.message()
-                                    << " on process: " << processName
-                                    << " path: " << objectPath << "\n";
-                                return;
-                            }
-                            tinyxml2::XMLDocument doc;
-
-                            doc.Parse(introspectXml.c_str());
-                            tinyxml2::XMLNode* pRoot =
-                                doc.FirstChildElement("node");
-                            if (pRoot == nullptr)
-                            {
-                                BMCWEB_LOG_ERROR
-                                    << "XML document failed to parse "
-                                    << processName << " " << objectPath << "\n";
-                                asyncResp->res.jsonValue = {
-                                    {"status", "XML parse error"}};
-                                asyncResp->res.result(
-                                    boost::beast::http::status::
-                                        internal_server_error);
-                                return;
-                            }
-
-                            BMCWEB_LOG_DEBUG << introspectXml;
-                            asyncResp->res.jsonValue = {
-                                {"status", "ok"},
-                                {"bus_name", processName},
-                                {"object_path", objectPath}};
-                            nlohmann::json& interfacesArray =
-                                asyncResp->res.jsonValue["interfaces"];
-                            interfacesArray = nlohmann::json::array();
-                            tinyxml2::XMLElement* interface =
-                                pRoot->FirstChildElement("interface");
-
-                            while (interface != nullptr)
-                            {
-                                const char* ifaceName =
-                                    interface->Attribute("name");
-                                if (ifaceName != nullptr)
-                                {
-                                    interfacesArray.push_back(
-                                        {{"name", ifaceName}});
-                                }
-
-                                interface =
-                                    interface->NextSiblingElement("interface");
-                            }
-                        },
-                        processName, objectPath,
-                        "org.freedesktop.DBus.Introspectable", "Introspect");
+                    asyncResp->res.result(
+                        boost::beast::http::status::bad_request);
+                    return;
                 }
-                else if (methodName.empty())
+                if (!requestDbusData.is_array())
                 {
-                    crow::connections::systemBus->async_method_call(
-                        [asyncResp, processName, objectPath,
-                         interfaceName](const boost::system::error_code ec,
-                                        const std::string& introspectXml) {
-                            if (ec)
-                            {
-                                BMCWEB_LOG_ERROR
-                                    << "Introspect call failed with error: "
-                                    << ec.message()
-                                    << " on process: " << processName
-                                    << " path: " << objectPath << "\n";
-                                return;
-                            }
-                            tinyxml2::XMLDocument doc;
-
-                            doc.Parse(introspectXml.data(),
-                                      introspectXml.size());
-                            tinyxml2::XMLNode* pRoot =
-                                doc.FirstChildElement("node");
-                            if (pRoot == nullptr)
-                            {
-                                BMCWEB_LOG_ERROR
-                                    << "XML document failed to parse "
-                                    << processName << " " << objectPath << "\n";
-                                asyncResp->res.result(
-                                    boost::beast::http::status::
-                                        internal_server_error);
-                                return;
-                            }
-                            asyncResp->res.jsonValue = {
-                                {"status", "ok"},
-                                {"bus_name", processName},
-                                {"interface", interfaceName},
-                                {"object_path", objectPath}};
-
-                            nlohmann::json& methodsArray =
-                                asyncResp->res.jsonValue["methods"];
-                            methodsArray = nlohmann::json::array();
-
-                            nlohmann::json& signalsArray =
-                                asyncResp->res.jsonValue["signals"];
-                            signalsArray = nlohmann::json::array();
-
-                            nlohmann::json& propertiesObj =
-                                asyncResp->res.jsonValue["properties"];
-                            propertiesObj = nlohmann::json::object();
-
-                            // if we know we're the only call, build the
-                            // json directly
-                            tinyxml2::XMLElement* interface =
-                                pRoot->FirstChildElement("interface");
-                            while (interface != nullptr)
-                            {
-                                const char* ifaceName =
-                                    interface->Attribute("name");
-
-                                if (ifaceName != nullptr &&
-                                    ifaceName == interfaceName)
-                                {
-                                    break;
-                                }
-
-                                interface =
-                                    interface->NextSiblingElement("interface");
-                            }
-                            if (interface == nullptr)
-                            {
-                                // if we got to the end of the list and
-                                // never found a match, throw 404
-                                asyncResp->res.result(
-                                    boost::beast::http::status::not_found);
-                                return;
-                            }
-
-                            tinyxml2::XMLElement* methods =
-                                interface->FirstChildElement("method");
-                            while (methods != nullptr)
-                            {
-                                nlohmann::json argsArray =
-                                    nlohmann::json::array();
-                                tinyxml2::XMLElement* arg =
-                                    methods->FirstChildElement("arg");
-                                while (arg != nullptr)
-                                {
-                                    nlohmann::json thisArg;
-                                    for (const char* fieldName :
-                                         std::array<const char*, 3>{
-                                             "name", "direction", "type"})
-                                    {
-                                        const char* fieldValue =
-                                            arg->Attribute(fieldName);
-                                        if (fieldValue != nullptr)
-                                        {
-                                            thisArg[fieldName] = fieldValue;
-                                        }
-                                    }
-                                    argsArray.push_back(std::move(thisArg));
-                                    arg = arg->NextSiblingElement("arg");
-                                }
-
-                                const char* name = methods->Attribute("name");
-                                if (name != nullptr)
-                                {
-                                    std::string uri;
-                                    uri.reserve(14 + processName.size() +
-                                                objectPath.size() +
-                                                interfaceName.size() +
-                                                strlen(name));
-                                    uri += "/bus/system/";
-                                    uri += processName;
-                                    uri += objectPath;
-                                    uri += "/";
-                                    uri += interfaceName;
-                                    uri += "/";
-                                    uri += name;
-                                    methodsArray.push_back(
-                                        {{"name", name},
-                                         {"uri", std::move(uri)},
-                                         {"args", argsArray}});
-                                }
-                                methods = methods->NextSiblingElement("method");
-                            }
-                            tinyxml2::XMLElement* signals =
-                                interface->FirstChildElement("signal");
-                            while (signals != nullptr)
-                            {
-                                nlohmann::json argsArray =
-                                    nlohmann::json::array();
-
-                                tinyxml2::XMLElement* arg =
-                                    signals->FirstChildElement("arg");
-                                while (arg != nullptr)
-                                {
-                                    const char* name = arg->Attribute("name");
-                                    const char* type = arg->Attribute("type");
-                                    if (name != nullptr && type != nullptr)
-                                    {
-                                        argsArray.push_back({
-                                            {"name", name},
-                                            {"type", type},
-                                        });
-                                    }
-                                    arg = arg->NextSiblingElement("arg");
-                                }
-                                const char* name = signals->Attribute("name");
-                                if (name != nullptr)
-                                {
-                                    signalsArray.push_back(
-                                        {{"name", name}, {"args", argsArray}});
-                                }
-
-                                signals = signals->NextSiblingElement("signal");
-                            }
-
-                            tinyxml2::XMLElement* property =
-                                interface->FirstChildElement("property");
-                            while (property != nullptr)
-                            {
-                                const char* name = property->Attribute("name");
-                                const char* type = property->Attribute("type");
-                                if (type != nullptr && name != nullptr)
-                                {
-                                    sdbusplus::message::message m =
-                                        crow::connections::systemBus
-                                            ->new_method_call(
-                                                processName.c_str(),
-                                                objectPath.c_str(),
-                                                "org.freedesktop."
-                                                "DBus."
-                                                "Properties",
-                                                "Get");
-                                    m.append(interfaceName, name);
-                                    nlohmann::json& propertyItem =
-                                        propertiesObj[name];
-                                    crow::connections::systemBus->async_send(
-                                        m,
-                                        [&propertyItem, asyncResp](
-                                            boost::system::error_code& e,
-                                            sdbusplus::message::message& msg) {
-                                            if (e)
-                                            {
-                                                return;
-                                            }
-
-                                            convertDBusToJSON("v", msg,
-                                                              propertyItem);
-                                        });
-                                }
-                                property =
-                                    property->NextSiblingElement("property");
-                            }
-                        },
-                        processName, objectPath,
-                        "org.freedesktop.DBus.Introspectable", "Introspect");
+                    asyncResp->res.result(
+                        boost::beast::http::status::bad_request);
+                    return;
                 }
-                else
-                {
-                    if (req.method() != boost::beast::http::verb::post)
-                    {
-                        asyncResp->res.result(
-                            boost::beast::http::status::not_found);
-                        return;
-                    }
+                auto transaction =
+                    std::make_shared<InProgressActionData>(asyncResp->res);
 
-                    nlohmann::json requestDbusData =
-                        nlohmann::json::parse(req.body, nullptr, false);
+                transaction->path = objectPath;
+                transaction->methodName = methodName;
+                transaction->arguments = std::move(requestDbusData);
 
-                    if (requestDbusData.is_discarded())
-                    {
-                        asyncResp->res.result(
-                            boost::beast::http::status::bad_request);
-                        return;
-                    }
-                    if (!requestDbusData.is_array())
-                    {
-                        asyncResp->res.result(
-                            boost::beast::http::status::bad_request);
-                        return;
-                    }
-                    auto transaction =
-                        std::make_shared<InProgressActionData>(asyncResp->res);
-
-                    transaction->path = objectPath;
-                    transaction->methodName = methodName;
-                    transaction->arguments = std::move(requestDbusData);
-
-                    findActionOnInterface(transaction, processName);
-                }
-            });
+                findActionOnInterface(transaction, processName);
+            }
+        });
 }
 } // namespace openbmc_mapper
 } // namespace crow

@@ -729,46 +729,47 @@ inline void requestRoutesHypervisorSystems(App& app)
 
     BMCWEB_ROUTE(app, "/redfish/v1/Systems/hypervisor/")
         .privileges(redfish::privileges::getComputerSystem)
-        .methods(boost::beast::http::verb::get)([&app](const crow::Request& req,
-                                                       const std::shared_ptr<
-                                                           bmcweb::AsyncResp>&
-                                                           asyncResp) {
-            if (!redfish::setUpRedfishRoute(app, req, asyncResp->res))
-            {
-                return;
-            }
-            sdbusplus::asio::getProperty<std::string>(
-                *crow::connections::systemBus, "xyz.openbmc_project.Settings",
-                "/xyz/openbmc_project/network/hypervisor",
-                "xyz.openbmc_project.Network.SystemConfiguration", "HostName",
-                [asyncResp](const boost::system::error_code ec,
-                            const std::string& /*hostName*/) {
-                    if (ec)
-                    {
-                        messages::resourceNotFound(asyncResp->res, "System",
-                                                   "hypervisor");
-                        return;
-                    }
-                    BMCWEB_LOG_DEBUG << "Hypervisor is available";
+        .methods(boost::beast::http::verb::get)(
+            [&app](const crow::Request& req,
+                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
+                if (!redfish::setUpRedfishRoute(app, req, asyncResp->res))
+                {
+                    return;
+                }
+                sdbusplus::asio::getProperty<std::string>(
+                    *crow::connections::systemBus,
+                    "xyz.openbmc_project.Settings",
+                    "/xyz/openbmc_project/network/hypervisor",
+                    "xyz.openbmc_project.Network.SystemConfiguration",
+                    "HostName",
+                    [asyncResp](const boost::system::error_code ec,
+                                const std::string& /*hostName*/) {
+                        if (ec)
+                        {
+                            messages::resourceNotFound(asyncResp->res, "System",
+                                                       "hypervisor");
+                            return;
+                        }
+                        BMCWEB_LOG_DEBUG << "Hypervisor is available";
 
-                    asyncResp->res.jsonValue["@odata.type"] =
-                        "#ComputerSystem.v1_6_0.ComputerSystem";
-                    asyncResp->res.jsonValue["@odata.id"] =
-                        "/redfish/v1/Systems/hypervisor";
-                    asyncResp->res.jsonValue["Description"] = "Hypervisor";
-                    asyncResp->res.jsonValue["Name"] = "Hypervisor";
-                    asyncResp->res.jsonValue["Id"] = "hypervisor";
-                    asyncResp->res.jsonValue["SystemType"] = "OS";
-                    asyncResp->res.jsonValue["Links"]["ManagedBy"] = {
-                        {{"@odata.id", "/redfish/v1/Managers/bmc"}}};
-                    asyncResp->res.jsonValue["EthernetInterfaces"] = {
-                        {"@odata.id",
-                         "/redfish/v1/Systems/hypervisor/EthernetInterfaces"}};
-                    getHypervisorState(asyncResp);
-                    getHypervisorActions(asyncResp);
-                    // TODO: Add "SystemType" : "hypervisor"
-                });
-        });
+                        asyncResp->res.jsonValue["@odata.type"] =
+                            "#ComputerSystem.v1_6_0.ComputerSystem";
+                        asyncResp->res.jsonValue["@odata.id"] =
+                            "/redfish/v1/Systems/hypervisor";
+                        asyncResp->res.jsonValue["Description"] = "Hypervisor";
+                        asyncResp->res.jsonValue["Name"] = "Hypervisor";
+                        asyncResp->res.jsonValue["Id"] = "hypervisor";
+                        asyncResp->res.jsonValue["SystemType"] = "OS";
+                        asyncResp->res.jsonValue["Links"]["ManagedBy"] = {
+                            {{"@odata.id", "/redfish/v1/Managers/bmc"}}};
+                        asyncResp->res
+                            .jsonValue["EthernetInterfaces"]["@odata.id"] =
+                            "/redfish/v1/Systems/hypervisor/EthernetInterfaces";
+                        getHypervisorState(asyncResp);
+                        getHypervisorActions(asyncResp);
+                        // TODO: Add "SystemType" : "hypervisor"
+                    });
+            });
 
     /**
      * HypervisorInterfaceCollection class to handle the GET and PATCH on
@@ -1033,17 +1034,18 @@ inline void requestRoutesHypervisorSystems(App& app)
                         // The hypervisor object only support the ability to
                         // turn On The system object Action should be utilized
                         // for other operations
-                        asyncResp->res.jsonValue = {
-                            {"@odata.type", "#ActionInfo.v1_1_2.ActionInfo"},
-                            {"@odata.id",
-                             "/redfish/v1/Systems/hypervisor/ResetActionInfo"},
-                            {"Name", "Reset Action Info"},
-                            {"Id", "ResetActionInfo"},
-                            {"Parameters",
-                             {{{"Name", "ResetType"},
-                               {"Required", true},
-                               {"DataType", "String"},
-                               {"AllowableValues", {"On"}}}}}};
+
+                        asyncResp->res.jsonValue["@odata.type"] =
+                            "#ActionInfo.v1_1_2.ActionInfo";
+                        asyncResp->res.jsonValue["@odata.id"] =
+                            "/redfish/v1/Systems/hypervisor/ResetActionInfo";
+                        asyncResp->res.jsonValue["Name"] = "Reset Action Info";
+                        asyncResp->res.jsonValue["Id"] = "ResetActionInfo";
+                        asyncResp->res.jsonValue["Parameters"] = {
+                            {{"Name", "ResetType"},
+                             {"Required", true},
+                             {"DataType", "String"},
+                             {"AllowableValues", {"On"}}}};
                     },
                     "xyz.openbmc_project.ObjectMapper",
                     "/xyz/openbmc_project/object_mapper",
