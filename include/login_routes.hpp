@@ -199,11 +199,11 @@ inline void requestRoutes(App& app)
                         // structure, and doesn't actually look at the status
                         // code.
                         // TODO(ed).... Fix that upstream
-                        asyncResp->res.jsonValue = {
-                            {"data",
-                             "User '" + std::string(username) + "' logged in"},
-                            {"message", "200 OK"},
-                            {"status", "ok"}};
+
+                        asyncResp->res.jsonValue["data"] =
+                            "User '" + std::string(username) + "' logged in";
+                        asyncResp->res.jsonValue["message"] = "200 OK";
+                        asyncResp->res.jsonValue["status"] = "ok";
 
                         // Hack alert.  Boost beast by default doesn't let you
                         // declare multiple headers of the same name, and in
@@ -226,8 +226,8 @@ inline void requestRoutes(App& app)
                     else
                     {
                         // if content type is json, assume json token
-                        asyncResp->res.jsonValue = {
-                            {"token", session->sessionToken}};
+                        asyncResp->res.jsonValue["token"] =
+                            session->sessionToken;
                     }
                 }
             }
@@ -245,10 +245,10 @@ inline void requestRoutes(App& app)
                 const auto& session = req.session;
                 if (session != nullptr)
                 {
-                    asyncResp->res.jsonValue = {
-                        {"data", "User '" + session->username + "' logged out"},
-                        {"message", "200 OK"},
-                        {"status", "ok"}};
+                    asyncResp->res.jsonValue["data"] =
+                        "User '" + session->username + "' logged out";
+                    asyncResp->res.jsonValue["message"] = "200 OK";
+                    asyncResp->res.jsonValue["status"] = "ok";
 
                     persistent_data::SessionStore::getInstance().removeSession(
                         session);

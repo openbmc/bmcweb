@@ -54,8 +54,8 @@ static void addMessageToErrorJson(nlohmann::json& target,
                 << "Attempt to add error message without Message";
             return;
         }
-        error = {{"code", *messageIdIterator},
-                 {"message", *messageFieldIterator}};
+        error["code"] = *messageIdIterator;
+        error["message"] = *messageFieldIterator;
     }
     else
     {
@@ -129,12 +129,14 @@ static nlohmann::json getLog(redfish::registries::base::Index name,
     std::string msgId = redfish::registries::base::header.id;
     msgId += ".";
     msgId += entry.first;
-    return {{"@odata.type", "#Message.v1_1_1.Message"},
-            {"MessageId", std::move(msgId)},
-            {"Message", std::move(msg)},
-            {"MessageArgs", std::move(jArgs)},
-            {"MessageSeverity", entry.second.messageSeverity},
-            {"Resolution", entry.second.resolution}};
+    nlohmann::json::object_t response;
+    response["@odata.type"] = "#Message.v1_1_1.Message";
+    response["MessageId"] = std::move(msgId);
+    response["Message"] = std::move(msg);
+    response["MessageArgs"] = std::move(jArgs);
+    response["MessageSeverity"] = entry.second.messageSeverity;
+    response["Resolution"] = entry.second.resolution;
+    return response;
 }
 
 /**

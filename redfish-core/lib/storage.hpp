@@ -42,8 +42,11 @@ inline void requestRoutesStorageCollection(App& app)
                 asyncResp->res.jsonValue["@odata.id"] =
                     "/redfish/v1/Systems/system/Storage";
                 asyncResp->res.jsonValue["Name"] = "Storage Collection";
-                asyncResp->res.jsonValue["Members"] = {
-                    {{"@odata.id", "/redfish/v1/Systems/system/Storage/1"}}};
+                nlohmann::json::array_t members;
+                nlohmann::json::object_t member;
+                member["@odata.id"] = "/redfish/v1/Systems/system/Storage/1";
+                members.emplace_back(member);
+                asyncResp->res.jsonValue["Members"] = std::move(members);
                 asyncResp->res.jsonValue["Members@odata.count"] = 1;
             });
 }
@@ -103,11 +106,11 @@ inline void requestRoutesStorage(App& app)
                                              << objpath;
                             continue;
                         }
-
-                        storageArray.push_back(
-                            {{"@odata.id",
-                              "/redfish/v1/Systems/system/Storage/1/Drives/" +
-                                  objpath.substr(lastPos + 1)}});
+                        nlohmann::json::object_t storage;
+                        storage["@odata.id"] =
+                            "/redfish/v1/Systems/system/Storage/1/Drives/" +
+                            objpath.substr(lastPos + 1);
+                        storageArray.push_back(std::move(storage));
                     }
 
                     count = storageArray.size();
@@ -549,9 +552,9 @@ inline void requestRoutesDrive(App& app)
                         asyncResp,
                         [](const std::string& chassisId,
                            const std::shared_ptr<bmcweb::AsyncResp>& aRsp) {
-                            aRsp->res.jsonValue["Links"]["Chassis"] = {
-                                {"@odata.id",
-                                 "/redfish/v1/Chassis/" + chassisId}};
+                            aRsp->res
+                                .jsonValue["Links"]["Chassis"]["@odata.id"] =
+                                "/redfish/v1/Chassis/" + chassisId;
                         });
 
                     // default it to Enabled

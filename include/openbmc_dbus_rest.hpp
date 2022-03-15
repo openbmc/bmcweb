@@ -57,9 +57,9 @@ inline void setErrorResponse(crow::Response& res,
                              const std::string_view msg)
 {
     res.result(result);
-    res.jsonValue = {{"data", {{"description", desc}}},
-                     {"message", msg},
-                     {"status", "error"}};
+    res.jsonValue["data"]["description"] = desc;
+    res.jsonValue["message"] = msg;
+    res.jsonValue["status"] = "error";
 }
 
 inline void
@@ -69,9 +69,9 @@ inline void
 {
     if (transaction->res.jsonValue.is_null())
     {
-        transaction->res.jsonValue = {{"status", "ok"},
-                                      {"bus_name", processName},
-                                      {"objects", nlohmann::json::array()}};
+        transaction->res.jsonValue["status"] = "ok";
+        transaction->res.jsonValue["bus_name"] = processName;
+        transaction->res.jsonValue["objects"] = nlohmann::json::array();
     }
 
     crow::connections::systemBus->async_method_call(
@@ -87,8 +87,10 @@ inline void
                     << "\n";
                 return;
             }
-            transaction->res.jsonValue["objects"].push_back(
-                {{"path", objectPath}});
+            nlohmann::json::object_t object;
+            object["path"] = objectPath;
+
+            transaction->res.jsonValue["objects"].push_back(std::move(object));
 
             tinyxml2::XMLDocument doc;
 
@@ -468,9 +470,9 @@ struct InProgressActionData
                 }
                 else
                 {
-                    res.jsonValue = {{"status", "ok"},
-                                     {"message", "200 OK"},
-                                     {"data", methodResponse}};
+                    res.jsonValue["status"] = "ok";
+                    res.jsonValue["message"] = "200 OK";
+                    res.jsonValue["data"] = methodResponse;
                 }
             }
         }
@@ -1626,9 +1628,9 @@ inline void handleList(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
             }
             else
             {
-                asyncResp->res.jsonValue = {{"status", "ok"},
-                                            {"message", "200 OK"},
-                                            {"data", objectPaths}};
+                asyncResp->res.jsonValue["status"] = "ok";
+                asyncResp->res.jsonValue["message"] = "200 OK";
+                asyncResp->res.jsonValue["data"] = objectPaths;
             }
         },
         "xyz.openbmc_project.ObjectMapper",
@@ -1642,9 +1644,9 @@ inline void handleEnumerate(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
 {
     BMCWEB_LOG_DEBUG << "Doing enumerate on " << objectPath;
 
-    asyncResp->res.jsonValue = {{"message", "200 OK"},
-                                {"status", "ok"},
-                                {"data", nlohmann::json::object()}};
+    asyncResp->res.jsonValue["message"] = "200 OK";
+    asyncResp->res.jsonValue["status"] = "ok";
+    asyncResp->res.jsonValue["data"] = nlohmann::json::object();
 
     crow::connections::systemBus->async_method_call(
         [objectPath, asyncResp](
@@ -1773,10 +1775,11 @@ inline void handleGet(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                                 }
                                 else
                                 {
-                                    asyncResp->res.jsonValue = {
-                                        {"status", "ok"},
-                                        {"message", "200 OK"},
-                                        {"data", *response}};
+                                    asyncResp->res.jsonValue["status"] = "ok";
+                                    asyncResp->res.jsonValue["message"] =
+                                        "200 OK";
+                                    asyncResp->res.jsonValue["data"] =
+                                        *response;
                                 }
                             }
                         });
@@ -2000,11 +2003,17 @@ inline void handlePut(const crow::Request& req,
                                                     else
                                                     {
                                                         transaction->asyncResp
-                                                            ->res.jsonValue = {
-                                                            {"status", "ok"},
-                                                            {"message",
-                                                             "200 OK"},
-                                                            {"data", nullptr}};
+                                                            ->res.jsonValue
+                                                                ["status"] =
+                                                            "ok";
+                                                        transaction->asyncResp
+                                                            ->res.jsonValue
+                                                                ["message"] =
+                                                            "200 OK";
+                                                        transaction->asyncResp
+                                                            ->res
+                                                            .jsonValue["data"] =
+                                                            nullptr;
                                                     }
                                                 });
                                     }
@@ -2178,16 +2187,17 @@ inline void
                     BMCWEB_LOG_ERROR << "XML document failed to parse "
                                      << processName << " " << objectPath
                                      << "\n";
-                    asyncResp->res.jsonValue = {{"status", "XML parse error"}};
+                    asyncResp->res.jsonValue["status"] = "XML parse error";
                     asyncResp->res.result(
                         boost::beast::http::status::internal_server_error);
                     return;
                 }
 
                 BMCWEB_LOG_DEBUG << introspectXml;
-                asyncResp->res.jsonValue = {{"status", "ok"},
-                                            {"bus_name", processName},
-                                            {"object_path", objectPath}};
+                asyncResp->res.jsonValue["status"] = "ok";
+                asyncResp->res.jsonValue["bus_name"] = processName;
+                asyncResp->res.jsonValue["object_path"] = objectPath;
+
                 nlohmann::json& interfacesArray =
                     asyncResp->res.jsonValue["interfaces"];
                 interfacesArray = nlohmann::json::array();
@@ -2199,7 +2209,9 @@ inline void
                     const char* ifaceName = interface->Attribute("name");
                     if (ifaceName != nullptr)
                     {
-                        interfacesArray.push_back({{"name", ifaceName}});
+                        nlohmann::json::object_t interface;
+                        interface["name"] = ifaceName;
+                        interfacesArray.push_back(std::move(interface));
                     }
 
                     interface = interface->NextSiblingElement("interface");
@@ -2235,10 +2247,11 @@ inline void
                         boost::beast::http::status::internal_server_error);
                     return;
                 }
-                asyncResp->res.jsonValue = {{"status", "ok"},
-                                            {"bus_name", processName},
-                                            {"interface", interfaceName},
-                                            {"object_path", objectPath}};
+
+                asyncResp->res.jsonValue["status"] = "ok";
+                asyncResp->res.jsonValue["bus_name"] = processName;
+                asyncResp->res.jsonValue["interface"] = interfaceName;
+                asyncResp->res.jsonValue["object_path"] = objectPath;
 
                 nlohmann::json& methodsArray =
                     asyncResp->res.jsonValue["methods"];
@@ -2313,9 +2326,13 @@ inline void
                         uri += interfaceName;
                         uri += "/";
                         uri += name;
-                        methodsArray.push_back({{"name", name},
-                                                {"uri", std::move(uri)},
-                                                {"args", argsArray}});
+
+                        nlohmann::json::object_t object;
+                        object["name"] = name;
+                        object["uri"] = std::move(uri);
+                        object["args"] = argsArray;
+
+                        methodsArray.push_back(std::move(object));
                     }
                     methods = methods->NextSiblingElement("method");
                 }
@@ -2343,8 +2360,10 @@ inline void
                     const char* name = signals->Attribute("name");
                     if (name != nullptr)
                     {
-                        signalsArray.push_back(
-                            {{"name", name}, {"args", argsArray}});
+                        nlohmann::json::object_t object;
+                        object["name"] = name;
+                        object["args"] = argsArray;
+                        signalsArray.push_back(std::move(object));
                     }
 
                     signals = signals->NextSiblingElement("signal");
@@ -2424,8 +2443,11 @@ inline void requestRoutes(App& app)
         .methods(boost::beast::http::verb::get)(
             [](const crow::Request&,
                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
-                asyncResp->res.jsonValue = {{"buses", {{{"name", "system"}}}},
-                                            {"status", "ok"}};
+                nlohmann::json::array_t buses;
+                nlohmann::json& bus = buses.emplace_back();
+                bus["name"] = "system";
+                asyncResp->res.jsonValue["busses"] = std::move(buses);
+                asyncResp->res.jsonValue["status"] = "ok";
             });
 
     BMCWEB_ROUTE(app, "/bus/system/")
@@ -2445,11 +2467,13 @@ inline void requestRoutes(App& app)
                     else
                     {
                         std::sort(names.begin(), names.end());
-                        asyncResp->res.jsonValue = {{"status", "ok"}};
+                        asyncResp->res.jsonValue["status"] = "ok";
                         auto& objectsSub = asyncResp->res.jsonValue["objects"];
                         for (auto& name : names)
                         {
-                            objectsSub.push_back({{"name", name}});
+                            nlohmann::json::object_t object;
+                            object["name"] = name;
+                            objectsSub.push_back(std::move(object));
                         }
                     }
                 };

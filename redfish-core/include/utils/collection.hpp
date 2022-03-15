@@ -68,7 +68,9 @@ inline void
                 std::string newPath = collectionPath;
                 newPath += '/';
                 newPath += leaf;
-                members.push_back({{"@odata.id", std::move(newPath)}});
+                nlohmann::json::object_t member;
+                member["@odata.id"] = std::move(newPath);
+                members.push_back(std::move(member));
             }
             aResp->res.jsonValue["Members@odata.count"] = members.size();
         },
