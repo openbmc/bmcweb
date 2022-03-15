@@ -242,17 +242,18 @@ inline void requestRoutesManagerResetActionInfo(App& app)
                 {
                     return;
                 }
-                asyncResp->res.jsonValue = {
-                    {"@odata.type", "#ActionInfo.v1_1_2.ActionInfo"},
-                    {"@odata.id", "/redfish/v1/Managers/bmc/ResetActionInfo"},
-                    {"Name", "Reset Action Info"},
-                    {"Id", "ResetActionInfo"},
-                    {"Parameters",
-                     {{{"Name", "ResetType"},
-                       {"Required", true},
-                       {"DataType", "String"},
-                       {"AllowableValues",
-                        {"GracefulRestart", "ForceRestart"}}}}}};
+
+                asyncResp->res.jsonValue["@odata.type"] =
+                    "#ActionInfo.v1_1_2.ActionInfo";
+                asyncResp->res.jsonValue["@odata.id"] =
+                    "/redfish/v1/Managers/bmc/ResetActionInfo";
+                asyncResp->res.jsonValue["Name"] = "Reset Action Info";
+                asyncResp->res.jsonValue["Id"] = "ResetActionInfo";
+                asyncResp->res.jsonValue["Parameters"] = {
+                    {{"Name", "ResetType"},
+                     {"Required", true},
+                     {"DataType", "String"},
+                     {"AllowableValues", {"GracefulRestart", "ForceRestart"}}}};
             });
 }
 
@@ -1978,26 +1979,25 @@ inline void requestRoutesManager(App& app)
             asyncResp->res.jsonValue["Description"] =
                 "Baseboard Management Controller";
             asyncResp->res.jsonValue["PowerState"] = "On";
-            asyncResp->res.jsonValue["Status"] = {{"State", "Enabled"},
-                                                  {"Health", "OK"}};
+            asyncResp->res.jsonValue["Status"]["State"] = "Enabled";
+            asyncResp->res.jsonValue["Status"]["Health"] = "OK";
+
             asyncResp->res.jsonValue["ManagerType"] = "BMC";
             asyncResp->res.jsonValue["UUID"] = systemd_utils::getUuid();
             asyncResp->res.jsonValue["ServiceEntryPointUUID"] = uuid;
             asyncResp->res.jsonValue["Model"] =
                 "OpenBmc"; // TODO(ed), get model
 
-            asyncResp->res.jsonValue["LogServices"] = {
-                {"@odata.id", "/redfish/v1/Managers/bmc/LogServices"}};
-
-            asyncResp->res.jsonValue["NetworkProtocol"] = {
-                {"@odata.id", "/redfish/v1/Managers/bmc/NetworkProtocol"}};
-
-            asyncResp->res.jsonValue["EthernetInterfaces"] = {
-                {"@odata.id", "/redfish/v1/Managers/bmc/EthernetInterfaces"}};
+            asyncResp->res.jsonValue["LogServices"]["@odata.id"] =
+                "/redfish/v1/Managers/bmc/LogServices";
+            asyncResp->res.jsonValue["NetworkProtocol"]["@odata.id"] =
+                "/redfish/v1/Managers/bmc/NetworkProtocol";
+            asyncResp->res.jsonValue["EthernetInterfaces"]["@odata.id"] =
+                "/redfish/v1/Managers/bmc/EthernetInterfaces";
 
 #ifdef BMCWEB_ENABLE_VM_NBDPROXY
-            asyncResp->res.jsonValue["VirtualMedia"] = {
-                {"@odata.id", "/redfish/v1/Managers/bmc/VirtualMedia"}};
+            asyncResp->res.jsonValue["VirtualMedia"]["@odata.id"] =
+                "/redfish/v1/Managers/bmc/VirtualMedia";
 #endif // BMCWEB_ENABLE_VM_NBDPROXY
 
             // default oem data
@@ -2072,17 +2072,16 @@ inline void requestRoutesManager(App& app)
             auto pids = std::make_shared<GetPIDValues>(asyncResp);
             pids->run();
 
-            getMainChassisId(
-                asyncResp, [](const std::string& chassisId,
-                              const std::shared_ptr<bmcweb::AsyncResp>& aRsp) {
-                    aRsp->res
-                        .jsonValue["Links"]["ManagerForChassis@odata.count"] =
-                        1;
-                    aRsp->res.jsonValue["Links"]["ManagerForChassis"] = {
-                        {{"@odata.id", "/redfish/v1/Chassis/" + chassisId}}};
-                    aRsp->res.jsonValue["Links"]["ManagerInChassis"] = {
-                        {"@odata.id", "/redfish/v1/Chassis/" + chassisId}};
-                });
+            getMainChassisId(asyncResp, [](const std::string& chassisId,
+                                           const std::shared_ptr<
+                                               bmcweb::AsyncResp>& aRsp) {
+                aRsp->res.jsonValue["Links"]["ManagerForChassis@odata.count"] =
+                    1;
+                aRsp->res.jsonValue["Links"]["ManagerForChassis"] = {
+                    {{"@odata.id", "/redfish/v1/Chassis/" + chassisId}}};
+                aRsp->res.jsonValue["Links"]["ManagerInChassis"]["@odata.id"] =
+                    "/redfish/v1/Chassis/" + chassisId;
+            });
 
             static bool started = false;
 
@@ -2317,8 +2316,8 @@ inline void requestRoutesManagerCollection(App& app)
                     "#ManagerCollection.ManagerCollection";
                 asyncResp->res.jsonValue["Name"] = "Manager Collection";
                 asyncResp->res.jsonValue["Members@odata.count"] = 1;
-                asyncResp->res.jsonValue["Members"] = {
-                    {{"@odata.id", "/redfish/v1/Managers/bmc"}}};
+                asyncResp->res.jsonValue["Members"]["@odata.id"] =
+                    "/redfish/v1/Managers/bmc";
             });
 }
 } // namespace redfish
