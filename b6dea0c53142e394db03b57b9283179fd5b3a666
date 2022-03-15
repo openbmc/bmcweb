@@ -59,6 +59,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f82ed5e1_f0cd6aad",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 1001099
+      },
+      "writtenOn": "2022-03-15T03:24:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "74baa669_dbccc4d8",
+      "range": {
+        "startLine": 153,
+        "startChar": 0,
+        "endLine": 153,
+        "endChar": 36
+      },
+      "revId": "b6dea0c53142e394db03b57b9283179fd5b3a666",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3406c22d_0857c37b",
@@ -176,6 +200,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5ba81291_ebca2acc",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 244,
+      "author": {
+        "id": 1001099
+      },
+      "writtenOn": "2022-03-15T03:24:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "58307a8c_fd407a93",
+      "range": {
+        "startLine": 244,
+        "startChar": 12,
+        "endLine": 244,
+        "endChar": 32
+      },
+      "revId": "b6dea0c53142e394db03b57b9283179fd5b3a666",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "742f9d88_32666c0e",
@@ -189,6 +237,30 @@
       "writtenOn": "2022-03-11T17:29:30Z",
       "side": 1,
       "message": "You don\u0027t use \"it\" in this context, there\u0027s no need to assign it to a variable, especially in the conditional, just compare it directly against accountType-\u003ecend() without the intermediate.",
+      "range": {
+        "startLine": 252,
+        "startChar": 12,
+        "endLine": 252,
+        "endChar": 19
+      },
+      "revId": "b6dea0c53142e394db03b57b9283179fd5b3a666",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "827ffc53_bcd34c55",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 252,
+      "author": {
+        "id": 1001099
+      },
+      "writtenOn": "2022-03-15T03:24:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "742f9d88_32666c0e",
       "range": {
         "startLine": 252,
         "startChar": 12,
@@ -222,6 +294,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c3f729ad_afc21367",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 261,
+      "author": {
+        "id": 1001099
+      },
+      "writtenOn": "2022-03-15T03:24:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "50ade6ec_703f45ce",
+      "range": {
+        "startLine": 250,
+        "startChar": 0,
+        "endLine": 261,
+        "endChar": 5
+      },
+      "revId": "b6dea0c53142e394db03b57b9283179fd5b3a666",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2aeca9d8_511d2229",
@@ -235,6 +331,30 @@
       "writtenOn": "2022-03-11T17:29:30Z",
       "side": 1,
       "message": "needs to set internal error.",
+      "range": {
+        "startLine": 266,
+        "startChar": 0,
+        "endLine": 266,
+        "endChar": 65
+      },
+      "revId": "b6dea0c53142e394db03b57b9283179fd5b3a666",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "28a6ea0e_7e7f5ef9",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 266,
+      "author": {
+        "id": 1001099
+      },
+      "writtenOn": "2022-03-15T03:24:06Z",
+      "side": 1,
+      "message": "getUserGroupFromAccountType \nin this method, we have already set errors based on what we found in AccountType JSON data.\nIn that method, we are setting two errors.\n1) propertyValueNotInList\n2) strictAccountTypes\n\nthat is why here we don\u0027t have any error set",
+      "parentUuid": "2aeca9d8_511d2229",
       "range": {
         "startLine": 266,
         "startChar": 0,
@@ -281,6 +401,30 @@
       "writtenOn": "2022-03-11T17:29:30Z",
       "side": 1,
       "message": "Please don\u0027t use terinary operators for what is already a boolean statement.",
+      "range": {
+        "startLine": 2050,
+        "startChar": 0,
+        "endLine": 2050,
+        "endChar": 71
+      },
+      "revId": "b6dea0c53142e394db03b57b9283179fd5b3a666",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bd04bd1e_c25897a5",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 2050,
+      "author": {
+        "id": 1001099
+      },
+      "writtenOn": "2022-03-15T03:24:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "020ce214_c41cf4f5",
       "range": {
         "startLine": 2050,
         "startChar": 0,
