@@ -57,17 +57,17 @@ inline void requestRoutesEventService(App& app)
             {
                 return;
             }
-            asyncResp->res.jsonValue = {
-                {"@odata.type", "#EventService.v1_5_0.EventService"},
-                {"Id", "EventService"},
-                {"Name", "Event Service"},
-                {"Subscriptions",
-                 {{"@odata.id", "/redfish/v1/EventService/Subscriptions"}}},
-                {"Actions",
-                 {{"#EventService.SubmitTestEvent",
-                   {{"target",
-                     "/redfish/v1/EventService/Actions/EventService.SubmitTestEvent"}}}}},
-                {"@odata.id", "/redfish/v1/EventService"}};
+
+            asyncResp->res.jsonValue["@odata.id"] = "/redfish/v1/EventService";
+            asyncResp->res.jsonValue["@odata.type"] =
+                "#EventService.v1_5_0.EventService";
+            asyncResp->res.jsonValue["Id"] = "EventService";
+            asyncResp->res.jsonValue["Name"] = "Event Service";
+            asyncResp->res.jsonValue["Subscriptions"]["@odata.id"] =
+                "/redfish/v1/EventService/Subscriptions";
+            asyncResp->res.jsonValue["Actions"]["#EventService.SubmitTestEvent"]
+                                    ["target"] =
+                "/redfish/v1/EventService/Actions/EventService.SubmitTestEvent";
 
             const persistent_data::EventServiceConfig eventServiceConfig =
                 persistent_data::EventServiceStore::getInstance()
@@ -195,11 +195,12 @@ inline void requestRoutesEventDestinationCollection(App& app)
                 {
                     return;
                 }
-                asyncResp->res.jsonValue = {
-                    {"@odata.type",
-                     "#EventDestinationCollection.EventDestinationCollection"},
-                    {"@odata.id", "/redfish/v1/EventService/Subscriptions"},
-                    {"Name", "Event Destination Collections"}};
+                asyncResp->res.jsonValue["@odata.type"] =
+                    "#EventDestinationCollection.EventDestinationCollection";
+                asyncResp->res.jsonValue["@odata.id"] =
+                    "/redfish/v1/EventService/Subscriptions";
+                asyncResp->res.jsonValue["Name"] =
+                    "Event Destination Collections";
 
                 nlohmann::json& memberArray =
                     asyncResp->res.jsonValue["Members"];
@@ -511,10 +512,9 @@ inline void requestRoutesEventDestination(App& app)
                 }
                 const std::string& id = param;
 
-                asyncResp->res.jsonValue = {
-                    {"@odata.type",
-                     "#EventDestination.v1_7_0.EventDestination"},
-                    {"Protocol", "Redfish"}};
+                asyncResp->res.jsonValue["@odata.type"] =
+                    "#EventDestination.v1_7_0.EventDestination";
+                asyncResp->res.jsonValue["Protocol"] = "Redfish";
                 asyncResp->res.jsonValue["@odata.id"] =
                     "/redfish/v1/EventService/Subscriptions/" + id;
                 asyncResp->res.jsonValue["Id"] = id;

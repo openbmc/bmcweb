@@ -39,35 +39,30 @@ inline void
     asyncResp->res.jsonValue["Id"] = "RootService";
     asyncResp->res.jsonValue["Name"] = "Root Service";
     asyncResp->res.jsonValue["RedfishVersion"] = "1.9.0";
-    asyncResp->res.jsonValue["Links"]["Sessions"] = {
-        {"@odata.id", "/redfish/v1/SessionService/Sessions"}};
-    asyncResp->res.jsonValue["AccountService"] = {
-        {"@odata.id", "/redfish/v1/AccountService"}};
-    asyncResp->res.jsonValue["Chassis"] = {
-        {"@odata.id", "/redfish/v1/Chassis"}};
-    asyncResp->res.jsonValue["JsonSchemas"] = {
-        {"@odata.id", "/redfish/v1/JsonSchemas"}};
-    asyncResp->res.jsonValue["Managers"] = {
-        {"@odata.id", "/redfish/v1/Managers"}};
-    asyncResp->res.jsonValue["SessionService"] = {
-        {"@odata.id", "/redfish/v1/SessionService"}};
-    asyncResp->res.jsonValue["Systems"] = {
-        {"@odata.id", "/redfish/v1/Systems"}};
-    asyncResp->res.jsonValue["Registries"] = {
-        {"@odata.id", "/redfish/v1/Registries"}};
-
-    asyncResp->res.jsonValue["UpdateService"] = {
-        {"@odata.id", "/redfish/v1/UpdateService"}};
+    asyncResp->res.jsonValue["Links"]["Sessions"]["@odata.id"] =
+        "/redfish/v1/SessionService/Sessions";
+    asyncResp->res.jsonValue["AccountService"]["@odata.id"] =
+        "/redfish/v1/AccountService";
+    asyncResp->res.jsonValue["Chassis"]["@odata.id"] = "/redfish/v1/Chassis";
+    asyncResp->res.jsonValue["JsonSchemas"]["@odata.id"] =
+        "/redfish/v1/JsonSchemas";
+    asyncResp->res.jsonValue["Managers"]["@odata.id"] = "/redfish/v1/Managers";
+    asyncResp->res.jsonValue["SessionService"]["@odata.id"] =
+        "/redfish/v1/SessionService";
+    asyncResp->res.jsonValue["Systems"]["@odata.id"] = "/redfish/v1/Systems";
+    asyncResp->res.jsonValue["Registries"]["@odata.id"] =
+        "/redfish/v1/Registries";
+    asyncResp->res.jsonValue["UpdateService"]["@odata.id"] =
+        "/redfish/v1/UpdateService";
     asyncResp->res.jsonValue["UUID"] = uuid;
-    asyncResp->res.jsonValue["CertificateService"] = {
-        {"@odata.id", "/redfish/v1/CertificateService"}};
-    asyncResp->res.jsonValue["Tasks"] = {
-        {"@odata.id", "/redfish/v1/TaskService"}};
-    asyncResp->res.jsonValue["EventService"] = {
-        {"@odata.id", "/redfish/v1/EventService"}};
-    asyncResp->res.jsonValue["TelemetryService"] = {
-        {"@odata.id", "/redfish/v1/TelemetryService"}};
-    asyncResp->res.jsonValue["Cables"] = {{"@odata.id", "/redfish/v1/Cables"}};
+    asyncResp->res.jsonValue["CertificateService"]["@odata.id"] =
+        "/redfish/v1/CertificateService";
+    asyncResp->res.jsonValue["Tasks"]["@odata.id"] = "/redfish/v1/TaskService";
+    asyncResp->res.jsonValue["EventService"]["@odata.id"] =
+        "/redfish/v1/EventService";
+    asyncResp->res.jsonValue["TelemetryService"]["@odata.id"] =
+        "/redfish/v1/TelemetryService";
+    asyncResp->res.jsonValue["Cables"]["@odata.id"] = "/redfish/v1/Cables";
 
     nlohmann::json& protocolFeatures =
         asyncResp->res.jsonValue["ProtocolFeaturesSupported"];

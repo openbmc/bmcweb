@@ -549,9 +549,9 @@ inline void requestRoutesDrive(App& app)
                         asyncResp,
                         [](const std::string& chassisId,
                            const std::shared_ptr<bmcweb::AsyncResp>& aRsp) {
-                            aRsp->res.jsonValue["Links"]["Chassis"] = {
-                                {"@odata.id",
-                                 "/redfish/v1/Chassis/" + chassisId}};
+                            aRsp->res
+                                .jsonValue["Links"]["Chassis"]["@odata.id"] =
+                                "/redfish/v1/Chassis/" + chassisId;
                         });
 
                     // default it to Enabled

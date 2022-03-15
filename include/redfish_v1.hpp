@@ -15,7 +15,7 @@ inline void requestRoutes(App& app)
         .methods(boost::beast::http::verb::get)(
             [](const crow::Request&,
                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
-                asyncResp->res.jsonValue = {{"v1", "/redfish/v1/"}};
+                asyncResp->res.jsonValue["v1"] = "/redfish/v1/";
             });
 }
 } // namespace redfish
