@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "6d114882_b97469d0",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-15T22:59:14Z",
+      "side": 1,
+      "message": "Once we have some portion of the codebase moved over, yes, I\u0027ll add there.",
+      "parentUuid": "50a8930a_39b90c10",
+      "range": {
+        "startLine": 19,
+        "startChar": 43,
+        "endLine": 20,
+        "endChar": 15
+      },
+      "revId": "4f74cd3b989aba515d0fad48f6083ab8485bdd2c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "ba82b1f8_a703868d",
@@ -37,6 +61,24 @@
       "writtenOn": "2022-03-15T22:05:11Z",
       "side": 1,
       "message": "The same SHA seems like a good guarantee.\n\nIs it necessary to still run a HTTP request?",
+      "revId": "4f74cd3b989aba515d0fad48f6083ab8485bdd2c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9f597dc0_0702c869",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-15T22:59:14Z",
+      "side": 1,
+      "message": "for an identical binary?  seems like overkill.\n\nFWIW, the only reason I didn\u0027t really test this is because this path isn\u0027t enabled on my machine, and is in the deprecated rest-dbus code that most people don\u0027t use anymore.",
+      "parentUuid": "ba82b1f8_a703868d",
       "revId": "4f74cd3b989aba515d0fad48f6083ab8485bdd2c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
