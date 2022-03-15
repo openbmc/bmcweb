@@ -54,13 +54,15 @@ inline void requestRoutesCertificateService(App& app)
             {
                 return;
             }
-            asyncResp->res.jsonValue = {
-                {"@odata.type",
-                 "#CertificateService.v1_0_0.CertificateService"},
-                {"@odata.id", "/redfish/v1/CertificateService"},
-                {"Id", "CertificateService"},
-                {"Name", "Certificate Service"},
-                {"Description", "Actions available to manage certificates"}};
+
+            asyncResp->res.jsonValue["@odata.type"] =
+                "#CertificateService.v1_0_0.CertificateService";
+            asyncResp->res.jsonValue["@odata.id"] =
+                "/redfish/v1/CertificateService";
+            asyncResp->res.jsonValue["Id"] = "CertificateService";
+            asyncResp->res.jsonValue["Name"] = "Certificate Service";
+            asyncResp->res.jsonValue["Description"] =
+                "Actions available to manage certificates";
             // /redfish/v1/CertificateService/CertificateLocations is something
             // only ConfigureManager can access then only display when the user
             // has permissions ConfigureManager
@@ -69,9 +71,8 @@ inline void requestRoutesCertificateService(App& app)
             if (isOperationAllowedWithPrivileges({{"ConfigureManager"}},
                                                  effectiveUserPrivileges))
             {
-                asyncResp->res.jsonValue["CertificateLocations"] = {
-                    {"@odata.id",
-                     "/redfish/v1/CertificateService/CertificateLocations"}};
+                asyncResp->res.jsonValue["CertificateLocations"]["@odata.id"] =
+                    "/redfish/v1/CertificateService/CertificateLocations";
             }
             asyncResp->res
                 .jsonValue["Actions"]
@@ -234,8 +235,8 @@ static void getCSR(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                 return;
             }
             asyncResp->res.jsonValue["CSRString"] = csr;
-            asyncResp->res.jsonValue["CertificateCollection"] = {
-                {"@odata.id", certURI}};
+            asyncResp->res.jsonValue["CertificateCollection"]["@odata.id"] =
+                certURI;
         },
         service, csrObjPath, "xyz.openbmc_project.Certs.CSR", "CSR");
 }
@@ -592,12 +593,12 @@ static void getCertificateProperties(
                                            std::to_string(certId));
                 return;
             }
-            asyncResp->res.jsonValue = {
-                {"@odata.id", certURL},
-                {"@odata.type", "#Certificate.v1_0_0.Certificate"},
-                {"Id", std::to_string(certId)},
-                {"Name", name},
-                {"Description", name}};
+            asyncResp->res.jsonValue["@odata.id"] = certURL;
+            asyncResp->res.jsonValue["@odata.type"] =
+                "#Certificate.v1_0_0.Certificate";
+            asyncResp->res.jsonValue["Id"] = std::to_string(certId);
+            asyncResp->res.jsonValue["Name"] = name;
+            asyncResp->res.jsonValue["Description"] = name;
             for (const auto& property : properties)
             {
                 if (property.first == "CertificateString")
@@ -856,12 +857,14 @@ inline void requestRoutesHTTPSCertificateCollection(App& app)
             {
                 return;
             }
-            asyncResp->res.jsonValue = {
-                {"@odata.id",
-                 "/redfish/v1/Managers/bmc/NetworkProtocol/HTTPS/Certificates"},
-                {"@odata.type", "#CertificateCollection.CertificateCollection"},
-                {"Name", "HTTPS Certificates Collection"},
-                {"Description", "A Collection of HTTPS certificate instances"}};
+
+            asyncResp->res.jsonValue["@odata.id"] =
+                "/redfish/v1/Managers/bmc/NetworkProtocol/HTTPS/Certificates";
+            asyncResp->res.jsonValue["@odata.type"] =
+                "#CertificateCollection.CertificateCollection";
+            asyncResp->res.jsonValue["Name"] = "HTTPS Certificates Collection";
+            asyncResp->res.jsonValue["Description"] =
+                "A Collection of HTTPS certificate instances";
 
             crow::connections::systemBus->async_method_call(
                 [asyncResp](const boost::system::error_code ec,
@@ -907,8 +910,8 @@ inline void requestRoutesHTTPSCertificateCollection(App& app)
             }
             BMCWEB_LOG_DEBUG << "HTTPSCertificateCollection::doPost";
 
-            asyncResp->res.jsonValue = {{"Name", "HTTPS Certificate"},
-                                        {"Description", "HTTPS Certificate"}};
+            asyncResp->res.jsonValue["Name"] = "HTTPS Certificate";
+            asyncResp->res.jsonValue["Description"] = "HTTPS Certificate";
 
             std::string certFileBody =
                 getCertificateFromReqBody(asyncResp, req);
@@ -1013,16 +1016,15 @@ inline void requestRoutesCertificateLocations(App& app)
             {
                 return;
             }
-            asyncResp->res.jsonValue = {
-                {"@odata.id",
-                 "/redfish/v1/CertificateService/CertificateLocations"},
-                {"@odata.type",
-                 "#CertificateLocations.v1_0_0.CertificateLocations"},
-                {"Name", "Certificate Locations"},
-                {"Id", "CertificateLocations"},
-                {"Description",
-                 "Defines a resource that an administrator can use in order to "
-                 "locate all certificates installed on a given service"}};
+            asyncResp->res.jsonValue["@odata.id"] =
+                "/redfish/v1/CertificateService/CertificateLocations";
+            asyncResp->res.jsonValue["@odata.type"] =
+                "#CertificateLocations.v1_0_0.CertificateLocations";
+            asyncResp->res.jsonValue["Name"] = "Certificate Locations";
+            asyncResp->res.jsonValue["Id"] = "CertificateLocations";
+            asyncResp->res.jsonValue["Description"] =
+                "Defines a resource that an administrator can use in order to "
+                "locate all certificates installed on a given service";
 
             nlohmann::json& links =
                 asyncResp->res.jsonValue["Links"]["Certificates"];
@@ -1056,11 +1058,14 @@ inline void requestRoutesLDAPCertificateCollection(App& app)
             {
                 return;
             }
-            asyncResp->res.jsonValue = {
-                {"@odata.id", "/redfish/v1/AccountService/LDAP/Certificates"},
-                {"@odata.type", "#CertificateCollection.CertificateCollection"},
-                {"Name", "LDAP Certificates Collection"},
-                {"Description", "A Collection of LDAP certificate instances"}};
+
+            asyncResp->res.jsonValue["@odata.id"] =
+                "/redfish/v1/AccountService/LDAP/Certificates";
+            asyncResp->res.jsonValue["@odata.type"] =
+                "#CertificateCollection.CertificateCollection";
+            asyncResp->res.jsonValue["Name"] = "LDAP Certificates Collection";
+            asyncResp->res.jsonValue["Description"] =
+                "A Collection of LDAP certificate instances";
 
             crow::connections::systemBus->async_method_call(
                 [asyncResp](const boost::system::error_code ec,
@@ -1200,13 +1205,15 @@ inline void requestRoutesTrustStoreCertificateCollection(App& app)
             {
                 return;
             }
-            asyncResp->res.jsonValue = {
-                {"@odata.id",
-                 "/redfish/v1/Managers/bmc/Truststore/Certificates/"},
-                {"@odata.type", "#CertificateCollection.CertificateCollection"},
-                {"Name", "TrustStore Certificates Collection"},
-                {"Description",
-                 "A Collection of TrustStore certificate instances"}};
+
+            asyncResp->res.jsonValue["@odata.id"] =
+                "/redfish/v1/Managers/bmc/Truststore/Certificates/";
+            asyncResp->res.jsonValue["@odata.type"] =
+                "#CertificateCollection.CertificateCollection";
+            asyncResp->res.jsonValue["Name"] =
+                "TrustStore Certificates Collection";
+            asyncResp->res.jsonValue["Description"] =
+                "A Collection of TrustStore certificate instances";
 
             crow::connections::systemBus->async_method_call(
                 [asyncResp](const boost::system::error_code ec,
