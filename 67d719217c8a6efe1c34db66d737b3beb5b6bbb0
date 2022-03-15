@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "06bfff78_785ed2ae",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-03-15T20:48:53Z",
+      "side": 1,
+      "message": "ruleIndex  can\u0027t ever be 1 ? https://github.com/openbmc/bmcweb/blob/a94ac61f69fd3768cf609adc75cfd646c558eb7e/http/routing.hpp#L1161\n\nI guess \nhttps://github.com/openbmc/bmcweb/blob/a94ac61f69fd3768cf609adc75cfd646c558eb7e/http/routing.hpp#L1469 hits and then no were else is setting it?",
+      "revId": "67d719217c8a6efe1c34db66d737b3beb5b6bbb0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
