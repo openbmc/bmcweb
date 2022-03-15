@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bfe3833e_41c61326",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 14
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2022-03-15T22:56:24Z",
+      "side": 1,
+      "message": "lets fix https://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/46591 and seperate your change into those two changes.\n\nSince it seems like you have location + presence ",
+      "revId": "f1e722ff31b51e50eaeb8af4e1159c1a135996f3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
