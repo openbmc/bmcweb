@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "0ef177a2_1e1a8aa9",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 13
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-03-15T22:15:31Z",
+      "side": 1,
+      "message": "Please add tested footer. Test this change via a GET, and run Redfish validator.",
+      "revId": "57a2a1d8596422496f78c772d7d5deb3d5b565af",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "4c83755f_bb3b8ec5",
@@ -14,6 +31,29 @@
       "writtenOn": "2022-03-15T01:44:59Z",
       "side": 1,
       "message": "Looks fine to me",
+      "revId": "57a2a1d8596422496f78c772d7d5deb3d5b565af",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0481a3b2_d521aa0e",
+        "filename": "redfish-core/lib/pcie_slots.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-03-15T22:15:31Z",
+      "side": 1,
+      "message": "can save some lines if you use a ternary operator",
+      "range": {
+        "startLine": 148,
+        "startChar": 24,
+        "endLine": 148,
+        "endChar": 69
+      },
       "revId": "57a2a1d8596422496f78c772d7d5deb3d5b565af",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
