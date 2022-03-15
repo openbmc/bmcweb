@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "34da75e4_e9ce1cd3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2022-03-15T21:01:46Z",
+      "side": 1,
+      "message": "Looks fine to me",
+      "revId": "aa2c5a0167c74f237c1108908eb8bee83b9a21af",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7fb39e50_22fa889c",
+        "filename": "scripts/event_listener.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2022-03-15T21:01:46Z",
+      "side": 1,
+      "message": "NIT\nYou might want to add the #! so can be invoked like ./event_listener.py",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 1,
+        "endChar": 35
+      },
+      "revId": "aa2c5a0167c74f237c1108908eb8bee83b9a21af",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
