@@ -83,14 +83,15 @@ inline void requestRoutesSystemPCIeDeviceCollection(App& app)
                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 
             {
-                asyncResp->res.jsonValue = {
-                    {"@odata.type",
-                     "#PCIeDeviceCollection.PCIeDeviceCollection"},
-                    {"@odata.id", "/redfish/v1/Systems/system/PCIeDevices"},
-                    {"Name", "PCIe Device Collection"},
-                    {"Description", "Collection of PCIe Devices"},
-                    {"Members", nlohmann::json::array()},
-                    {"Members@odata.count", 0}};
+                asyncResp->res.jsonValue["@odata.type"] =
+                    "#PCIeDeviceCollection.PCIeDeviceCollection";
+                asyncResp->res.jsonValue["@odata.id"] =
+                    "/redfish/v1/Systems/system/PCIeDevices";
+                asyncResp->res.jsonValue["Name"] = "PCIe Device Collection";
+                asyncResp->res.jsonValue["Description"] =
+                    "Collection of PCIe Devices";
+                asyncResp->res.jsonValue["Members"] = nlohmann::json::array();
+                asyncResp->res.jsonValue["Members@odata.count"] = 0;
                 getPCIeDeviceList(asyncResp, "Members");
             });
 }
@@ -168,13 +169,12 @@ inline void requestRoutesSystemPCIeDevice(App& app)
                             return;
                         }
 
-                        asyncResp->res.jsonValue = {
-                            {"@odata.type", "#PCIeDevice.v1_4_0.PCIeDevice"},
-                            {"@odata.id",
-                             "/redfish/v1/Systems/system/PCIeDevices/" +
-                                 device},
-                            {"Name", "PCIe Device"},
-                            {"Id", device}};
+                        asyncResp->res.jsonValue["@odata.type"] =
+                            "#PCIeDevice.v1_4_0.PCIeDevice";
+                        asyncResp->res.jsonValue["@odata.id"] =
+                            "/redfish/v1/Systems/system/PCIeDevices/" + device;
+                        asyncResp->res.jsonValue["Name"] = "PCIe Device";
+                        asyncResp->res.jsonValue["Id"] = device;
 
                         if (std::string* property = std::get_if<std::string>(
                                 &pcieDevProperties["Manufacturer"]);
@@ -226,10 +226,9 @@ inline void requestRoutesSystemPCIeDevice(App& app)
                                 .jsonValue["PCIeInterface"]["PCIeType"] =
                                 *generationInUse;
                         }
-                        asyncResp->res.jsonValue["PCIeFunctions"] = {
-                            {"@odata.id",
-                             "/redfish/v1/Systems/system/PCIeDevices/" +
-                                 device + "/PCIeFunctions"}};
+                        asyncResp->res.jsonValue["PCIeFunctions"]["@odata.id"] =
+                            "/redfish/v1/Systems/system/PCIeDevices/" + device +
+                            "/PCIeFunctions";
                     };
                 std::string escapedPath = std::string(pciePath) + "/" + device;
                 dbus::utility::escapePathForDbus(escapedPath);
@@ -254,14 +253,14 @@ inline void requestRoutesSystemPCIeFunctionCollection(App& app)
                const std::string& device)
 
             {
-                asyncResp->res.jsonValue = {
-                    {"@odata.type",
-                     "#PCIeFunctionCollection.PCIeFunctionCollection"},
-                    {"@odata.id", "/redfish/v1/Systems/system/PCIeDevices/" +
-                                      device + "/PCIeFunctions"},
-                    {"Name", "PCIe Function Collection"},
-                    {"Description",
-                     "Collection of PCIe Functions for PCIe Device " + device}};
+                asyncResp->res.jsonValue["@odata.type"] =
+                    "#PCIeFunctionCollection.PCIeFunctionCollection";
+                asyncResp->res.jsonValue["@odata.id"] =
+                    "/redfish/v1/Systems/system/PCIeDevices/" + device +
+                    "/PCIeFunctions";
+                asyncResp->res.jsonValue["Name"] = "PCIe Function Collection";
+                asyncResp->res.jsonValue["Description"] =
+                    "Collection of PCIe Functions for PCIe Device " + device;
 
                 auto getPCIeDeviceCallback = [asyncResp, device](
                                                  const boost::system::error_code
@@ -372,19 +371,18 @@ inline void requestRoutesSystemPCIeFunction(App& app)
                         return;
                     }
 
-                    asyncResp->res.jsonValue = {
-                        {"@odata.type", "#PCIeFunction.v1_2_0.PCIeFunction"},
-                        {"@odata.id",
-                         "/redfish/v1/Systems/system/PCIeDevices/" + device +
-                             "/PCIeFunctions/" + function},
-                        {"Name", "PCIe Function"},
-                        {"Id", function},
-                        {"FunctionId", std::stoi(function)},
-                        {"Links",
-                         {{"PCIeDevice",
-                           {{"@odata.id",
-                             "/redfish/v1/Systems/system/PCIeDevices/" +
-                                 device}}}}}};
+                    asyncResp->res.jsonValue["@odata.type"] =
+                        "#PCIeFunction.v1_2_0.PCIeFunction";
+                    asyncResp->res.jsonValue["@odata.id"] =
+                        "/redfish/v1/Systems/system/PCIeDevices/" + device +
+                        "/PCIeFunctions/" + function;
+                    asyncResp->res.jsonValue["Name"] = "PCIe Function";
+                    asyncResp->res.jsonValue["Id"] = function;
+                    asyncResp->res.jsonValue["FunctionId"] =
+                        std::stoi(function);
+                    asyncResp->res
+                        .jsonValue["Links"]["PCIeDevice"]["@odata.id"] =
+                        "/redfish/v1/Systems/system/PCIeDevices/" + device;
 
                     if (std::string* property = std::get_if<std::string>(
                             &pcieDevProperties["Function" + function +

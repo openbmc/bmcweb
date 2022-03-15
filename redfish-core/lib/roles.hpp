@@ -88,16 +88,18 @@ inline void requestRoutesRoles(App& app)
                     return;
                 }
 
-                asyncResp->res.jsonValue = {
-                    {"@odata.type", "#Role.v1_2_2.Role"},
-                    {"Name", "User Role"},
-                    {"Description", roleId + " User Role"},
-                    {"OemPrivileges", nlohmann::json::array()},
-                    {"IsPredefined", true},
-                    {"Id", roleId},
-                    {"RoleId", roleId},
-                    {"@odata.id", "/redfish/v1/AccountService/Roles/" + roleId},
-                    {"AssignedPrivileges", std::move(privArray)}};
+                asyncResp->res.jsonValue["@odata.type"] = "#Role.v1_2_2.Role";
+                asyncResp->res.jsonValue["Name"] = "User Role";
+                asyncResp->res.jsonValue["Description"] = roleId + " User Role";
+                asyncResp->res.jsonValue["OemPrivileges"] =
+                    nlohmann::json::array();
+                asyncResp->res.jsonValue["IsPredefined"] = true;
+                asyncResp->res.jsonValue["Id"] = roleId;
+                asyncResp->res.jsonValue["RoleId"] = roleId;
+                asyncResp->res.jsonValue["@odata.id"] =
+                    "/redfish/v1/AccountService/Roles/" + roleId;
+                asyncResp->res.jsonValue["AssignedPrivileges"] =
+                    std::move(privArray);
             });
 }
 
@@ -108,11 +110,12 @@ inline void requestRoutesRoleCollection(App& app)
         .methods(boost::beast::http::verb::get)(
             [](const crow::Request&,
                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
-                asyncResp->res.jsonValue = {
-                    {"@odata.id", "/redfish/v1/AccountService/Roles"},
-                    {"@odata.type", "#RoleCollection.RoleCollection"},
-                    {"Name", "Roles Collection"},
-                    {"Description", "BMC User Roles"}};
+                asyncResp->res.jsonValue["@odata.id"] =
+                    "/redfish/v1/AccountService/Roles";
+                asyncResp->res.jsonValue["@odata.type"] =
+                    "#RoleCollection.RoleCollection";
+                asyncResp->res.jsonValue["Name"] = "Roles Collection";
+                asyncResp->res.jsonValue["Description"] = "BMC User Roles";
 
                 sdbusplus::asio::getProperty<std::vector<std::string>>(
                     *crow::connections::systemBus,

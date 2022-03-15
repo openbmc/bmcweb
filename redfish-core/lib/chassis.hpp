@@ -107,8 +107,9 @@ inline void getIntrusionByService(std::shared_ptr<bmcweb::AsyncResp> aResp,
                 return;
             }
 
-            aResp->res.jsonValue["PhysicalSecurity"] = {
-                {"IntrusionSensorNumber", 1}, {"IntrusionSensor", value}};
+            aResp->res.jsonValue["PhysicalSecurity"]["IntrusionSensorNumber"] =
+                1;
+            aResp->res.jsonValue["PhysicalSecurity"]["IntrusionSensor"] = value;
         });
 }
 
@@ -295,9 +296,8 @@ inline void requestRoutesChassis(App& app)
                              {"@Redfish.ActionInfo", "/redfish/v1/Chassis/" +
                                                          chassisId +
                                                          "/ResetActionInfo"}};
-                        asyncResp->res.jsonValue["PCIeDevices"] = {
-                            {"@odata.id",
-                             "/redfish/v1/Systems/system/PCIeDevices"}};
+                        asyncResp->res.jsonValue["PCIeDevices"]["@odata.id"] =
+                            "/redfish/v1/Systems/system/PCIeDevices";
 
                         const std::string& connectionName =
                             connectionNames[0].first;
@@ -394,21 +394,22 @@ inline void requestRoutesChassis(App& app)
                                 asyncResp->res.jsonValue["Name"] = chassisId;
                                 asyncResp->res.jsonValue["Id"] = chassisId;
 #ifdef BMCWEB_ALLOW_DEPRECATED_POWER_THERMAL
-                                asyncResp->res.jsonValue["Thermal"] = {
-                                    {"@odata.id", "/redfish/v1/Chassis/" +
-                                                      chassisId + "/Thermal"}};
+                                asyncResp->res
+                                    .jsonValue["Thermal"]["@odata.id"] =
+                                    "/redfish/v1/Chassis/" + chassisId +
+                                    "/Thermal";
                                 // Power object
-                                asyncResp->res.jsonValue["Power"] = {
-                                    {"@odata.id", "/redfish/v1/Chassis/" +
-                                                      chassisId + "/Power"}};
+                                asyncResp->res.jsonValue["Power"]["@odata.id"] =
+                                    "/redfish/v1/Chassis/" + chassisId +
+                                    "/Power";
 #endif
                                 // SensorCollection
-                                asyncResp->res.jsonValue["Sensors"] = {
-                                    {"@odata.id", "/redfish/v1/Chassis/" +
-                                                      chassisId + "/Sensors"}};
-                                asyncResp->res.jsonValue["Status"] = {
-                                    {"State", "Enabled"},
-                                };
+                                asyncResp->res
+                                    .jsonValue["Sensors"]["@odata.id"] =
+                                    "/redfish/v1/Chassis/" + chassisId +
+                                    "/Sensors";
+                                asyncResp->res.jsonValue["Status"]["State"] =
+                                    "Enabled";
 
                                 asyncResp->res
                                     .jsonValue["Links"]["ComputerSystems"] = {
@@ -691,20 +692,19 @@ inline void requestRoutesChassisResetActionInfo(App& app)
         .methods(boost::beast::http::verb::get)(
             [](const crow::Request&,
                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-               const std::string& chassisId)
+               const std::string& chassisId) {
+                asyncResp->res.jsonValue["@odata.type"] =
+                    "#ActionInfo.v1_1_2.ActionInfo";
+                asyncResp->res.jsonValue["@odata.id"] =
+                    "/redfish/v1/Chassis/" + chassisId + "/ResetActionInfo";
+                asyncResp->res.jsonValue["Name"] = "Reset Action Info";
 
-            {
-                asyncResp->res.jsonValue = {
-                    {"@odata.type", "#ActionInfo.v1_1_2.ActionInfo"},
-                    {"@odata.id",
-                     "/redfish/v1/Chassis/" + chassisId + "/ResetActionInfo"},
-                    {"Name", "Reset Action Info"},
-                    {"Id", "ResetActionInfo"},
-                    {"Parameters",
-                     {{{"Name", "ResetType"},
-                       {"Required", true},
-                       {"DataType", "String"},
-                       {"AllowableValues", {"PowerCycle"}}}}}};
+                asyncResp->res.jsonValue["Id"] = "ResetActionInfo";
+                asyncResp->res.jsonValue["Parameters"] = {
+                    {{"Name", "ResetType"},
+                     {"Required", true},
+                     {"DataType", "String"},
+                     {"AllowableValues", {"PowerCycle"}}}};
             });
 }
 

@@ -238,8 +238,8 @@ inline void requestRoutesSession(App& app)
                         .getTimeoutInSeconds();
                 asyncResp->res.jsonValue["ServiceEnabled"] = true;
 
-                asyncResp->res.jsonValue["Sessions"] = {
-                    {"@odata.id", "/redfish/v1/SessionService/Sessions"}};
+                asyncResp->res.jsonValue["Sessions"]["@odata.id"] =
+                    "/redfish/v1/SessionService/Sessions";
             });
 
     BMCWEB_ROUTE(app, "/redfish/v1/SessionService/")

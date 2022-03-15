@@ -1036,9 +1036,8 @@ inline void requestRoutesEventLogService(App& app)
             asyncResp->res.jsonValue["DateTimeLocalOffset"] =
                 redfishDateTimeOffset.second;
 
-            asyncResp->res.jsonValue["Entries"] = {
-                {"@odata.id",
-                 "/redfish/v1/Systems/system/LogServices/EventLog/Entries"}};
+            asyncResp->res.jsonValue["Entries"]["@odata.id"] =
+                "/redfish/v1/Systems/system/LogServices/EventLog/Entries";
             asyncResp->res.jsonValue["Actions"]["#LogService.ClearLog"] = {
 
                 {"target",
@@ -1876,21 +1875,19 @@ inline void requestRoutesSystemHostLogger(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/Systems/system/LogServices/HostLogger/")
         .privileges(redfish::privileges::getLogService)
-        .methods(
-            boost::beast::http::verb::
-                get)([](const crow::Request&,
-                        const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
-            asyncResp->res.jsonValue["@odata.id"] =
-                "/redfish/v1/Systems/system/LogServices/HostLogger";
-            asyncResp->res.jsonValue["@odata.type"] =
-                "#LogService.v1_1_0.LogService";
-            asyncResp->res.jsonValue["Name"] = "Host Logger Service";
-            asyncResp->res.jsonValue["Description"] = "Host Logger Service";
-            asyncResp->res.jsonValue["Id"] = "HostLogger";
-            asyncResp->res.jsonValue["Entries"] = {
-                {"@odata.id",
-                 "/redfish/v1/Systems/system/LogServices/HostLogger/Entries"}};
-        });
+        .methods(boost::beast::http::verb::get)(
+            [](const crow::Request&,
+               const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
+                asyncResp->res.jsonValue["@odata.id"] =
+                    "/redfish/v1/Systems/system/LogServices/HostLogger";
+                asyncResp->res.jsonValue["@odata.type"] =
+                    "#LogService.v1_1_0.LogService";
+                asyncResp->res.jsonValue["Name"] = "Host Logger Service";
+                asyncResp->res.jsonValue["Description"] = "Host Logger Service";
+                asyncResp->res.jsonValue["Id"] = "HostLogger";
+                asyncResp->res.jsonValue["Entries"]["@odata.id"] =
+                    "/redfish/v1/Systems/system/LogServices/HostLogger/Entries";
+            });
 }
 
 inline void requestRoutesSystemHostLoggerCollection(App& app)
@@ -2092,9 +2089,8 @@ inline void requestRoutesBMCJournalLogService(App& app)
                 asyncResp->res.jsonValue["DateTimeLocalOffset"] =
                     redfishDateTimeOffset.second;
 
-                asyncResp->res.jsonValue["Entries"] = {
-                    {"@odata.id",
-                     "/redfish/v1/Managers/bmc/LogServices/Journal/Entries"}};
+                asyncResp->res.jsonValue["Entries"]["@odata.id"] =
+                    "/redfish/v1/Managers/bmc/LogServices/Journal/Entries";
             });
 }
 
@@ -2340,16 +2336,15 @@ inline void requestRoutesBMCDumpService(App& app)
             asyncResp->res.jsonValue["DateTimeLocalOffset"] =
                 redfishDateTimeOffset.second;
 
-            asyncResp->res.jsonValue["Entries"] = {
-                {"@odata.id",
-                 "/redfish/v1/Managers/bmc/LogServices/Dump/Entries"}};
-            asyncResp->res.jsonValue["Actions"] = {
-                {"#LogService.ClearLog",
-                 {{"target",
-                   "/redfish/v1/Managers/bmc/LogServices/Dump/Actions/LogService.ClearLog"}}},
-                {"#LogService.CollectDiagnosticData",
-                 {{"target",
-                   "/redfish/v1/Managers/bmc/LogServices/Dump/Actions/LogService.CollectDiagnosticData"}}}};
+            asyncResp->res.jsonValue["Entries"]["@odata.id"] =
+                "/redfish/v1/Managers/bmc/LogServices/Dump/Entries";
+            asyncResp->res
+                .jsonValue["Actions"]["#LogService.ClearLog"]["target"] =
+                "/redfish/v1/Managers/bmc/LogServices/Dump/Actions/LogService.ClearLog";
+            asyncResp->res
+                .jsonValue["Actions"]["#LogService.CollectDiagnosticData"]
+                          ["target"] =
+                "/redfish/v1/Managers/bmc/LogServices/Dump/Actions/LogService.CollectDiagnosticData";
         });
 }
 
@@ -2451,16 +2446,16 @@ inline void requestRoutesSystemDumpService(App& app)
                 asyncResp->res.jsonValue["DateTimeLocalOffset"] =
                     redfishDateTimeOffset.second;
 
-                asyncResp->res.jsonValue["Entries"] = {
-                    {"@odata.id",
-                     "/redfish/v1/Systems/system/LogServices/Dump/Entries"}};
-                asyncResp->res.jsonValue["Actions"] = {
-                    {"#LogService.ClearLog",
-                     {{"target",
-                       "/redfish/v1/Systems/system/LogServices/Dump/Actions/LogService.ClearLog"}}},
-                    {"#LogService.CollectDiagnosticData",
-                     {{"target",
-                       "/redfish/v1/Systems/system/LogServices/Dump/Actions/LogService.CollectDiagnosticData"}}}};
+                asyncResp->res.jsonValue["Entries"]["@odata.id"] =
+                    "/redfish/v1/Systems/system/LogServices/Dump/Entries";
+                asyncResp->res
+                    .jsonValue["Actions"]["#LogService.ClearLog"]["target"] =
+                    "/redfish/v1/Systems/system/LogServices/Dump/Actions/LogService.ClearLog";
+
+                asyncResp->res
+                    .jsonValue["Actions"]["#LogService.CollectDiagnosticData"]
+                              ["target"] =
+                    "/redfish/v1/Systems/system/LogServices/Dump/Actions/LogService.CollectDiagnosticData";
             });
 }
 
@@ -2570,16 +2565,15 @@ inline void requestRoutesCrashdumpService(App& app)
             asyncResp->res.jsonValue["DateTimeLocalOffset"] =
                 redfishDateTimeOffset.second;
 
-            asyncResp->res.jsonValue["Entries"] = {
-                {"@odata.id",
-                 "/redfish/v1/Systems/system/LogServices/Crashdump/Entries"}};
-            asyncResp->res.jsonValue["Actions"] = {
-                {"#LogService.ClearLog",
-                 {{"target",
-                   "/redfish/v1/Systems/system/LogServices/Crashdump/Actions/LogService.ClearLog"}}},
-                {"#LogService.CollectDiagnosticData",
-                 {{"target",
-                   "/redfish/v1/Systems/system/LogServices/Crashdump/Actions/LogService.CollectDiagnosticData"}}}};
+            asyncResp->res.jsonValue["Entries"]["@odata.id"] =
+                "/redfish/v1/Systems/system/LogServices/Crashdump/Entries";
+            asyncResp->res
+                .jsonValue["Actions"]["#LogService.ClearLog"]["target"] =
+                "/redfish/v1/Systems/system/LogServices/Crashdump/Actions/LogService.ClearLog";
+            asyncResp->res
+                .jsonValue["Actions"]["#LogService.CollectDiagnosticData"]
+                          ["target"] =
+                "/redfish/v1/Systems/system/LogServices/Crashdump/Actions/LogService.CollectDiagnosticData";
         });
 }
 
@@ -3035,17 +3029,16 @@ inline void requestRoutesPostCodesLogService(App& app)
             boost::beast::http::verb::
                 get)([](const crow::Request&,
                         const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
-            asyncResp->res.jsonValue = {
-                {"@odata.id",
-                 "/redfish/v1/Systems/system/LogServices/PostCodes"},
-                {"@odata.type", "#LogService.v1_1_0.LogService"},
-                {"Name", "POST Code Log Service"},
-                {"Description", "POST Code Log Service"},
-                {"Id", "BIOS POST Code Log"},
-                {"OverWritePolicy", "WrapsWhenFull"},
-                {"Entries",
-                 {{"@odata.id",
-                   "/redfish/v1/Systems/system/LogServices/PostCodes/Entries"}}}};
+            asyncResp->res.jsonValue["@odata.id"] =
+                "/redfish/v1/Systems/system/LogServices/PostCodes";
+            asyncResp->res.jsonValue["@odata.type"] =
+                "#LogService.v1_1_0.LogService";
+            asyncResp->res.jsonValue["Name"] = "POST Code Log Service";
+            asyncResp->res.jsonValue["Description"] = "POST Code Log Service";
+            asyncResp->res.jsonValue["Id"] = "BIOS POST Code Log";
+            asyncResp->res.jsonValue["OverWritePolicy"] = "WrapsWhenFull";
+            asyncResp->res.jsonValue["Entries"]["@odata.id"] =
+                "/redfish/v1/Systems/system/LogServices/PostCodes/Entries";
 
             std::pair<std::string, std::string> redfishDateTimeOffset =
                 crow::utility::getDateTimeOffsetNow();
