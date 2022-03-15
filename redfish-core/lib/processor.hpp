@@ -555,7 +555,9 @@ inline void getCpuConfigData(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
                     const std::string& dbusPath = dbusPathWrapper->str;
                     std::string uri = "/redfish/v1/Systems/system/Processors/" +
                                       cpuId + "/OperatingConfigs";
-                    json["OperatingConfigs"] = {{"@odata.id", uri}};
+                    nlohmann::json::object_t operatingConfig;
+                    operatingConfig["@odata.id"] = uri;
+                    json["OperatingConfigs"] = std::move(operatingConfig);
 
                     // Reuse the D-Bus config object name for the Redfish
                     // URI
@@ -571,7 +573,10 @@ inline void getCpuConfigData(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
                     }
                     uri += '/';
                     uri += dbusPath.substr(baseNamePos + 1);
-                    json["AppliedOperatingConfig"] = {{"@odata.id", uri}};
+                    nlohmann::json::object_t appliedOperatingConfig;
+                    appliedOperatingConfig["@odata.id"] = uri;
+                    json["AppliedOperatingConfig"] =
+                        std::move(appliedOperatingConfig);
 
                     // Once we found the current applied config, queue another
                     // request to read the base freq core ids out of that
@@ -885,8 +890,10 @@ inline void
                     turboArray = nlohmann::json::array();
                     for (const auto& [turboSpeed, coreCount] : *turboList)
                     {
-                        turboArray.push_back({{"ActiveCoreCount", coreCount},
-                                              {"MaxSpeedMHz", turboSpeed}});
+                        nlohmann::json::object_t turbo;
+                        turbo["ActiveCoreCount"] = coreCount;
+                        turbo["MaxSpeedMHz"] = turboSpeed;
+                        turboArray.push_back(std::move(turbo));
                     }
                 }
                 else if (key == "BaseSpeedPrioritySettings")
@@ -904,10 +911,11 @@ inline void
                     baseSpeedArray = nlohmann::json::array();
                     for (const auto& [baseSpeed, coreList] : *baseSpeedList)
                     {
-                        baseSpeedArray.push_back(
-                            {{"CoreCount", coreList.size()},
-                             {"CoreIDs", coreList},
-                             {"BaseSpeedMHz", baseSpeed}});
+                        nlohmann::json::object_t speed;
+                        speed["CoreCount"] = coreList.size();
+                        speed["CoreIDs"] = coreList;
+                        speed["BaseSpeedMHz"] = baseSpeed;
+                        baseSpeedArray.push_back(std::move(speed));
                     }
                 }
             }

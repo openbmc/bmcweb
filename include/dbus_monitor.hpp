@@ -45,8 +45,9 @@ inline int onPropertyUpdate(sd_bus_message* m, void* userdata,
         return 0;
     }
     sdbusplus::message::message message(m);
-    nlohmann::json j{{"event", message.get_member()},
-                     {"path", message.get_path()}};
+    nlohmann::json json;
+    json["event"] = message.get_member();
+    json["path"] = message.get_path();
     if (strcmp(message.get_member(), "PropertiesChanged") == 0)
     {
         nlohmann::json data;
@@ -63,8 +64,8 @@ inline int onPropertyUpdate(sd_bus_message* m, void* userdata,
         }
 
         // data is type sa{sv}as and is an array[3] of string, object, array
-        j["interface"] = data[0];
-        j["properties"] = data[1];
+        json["interface"] = data[0];
+        json["properties"] = data[1];
     }
     else if (strcmp(message.get_member(), "InterfacesAdded") == 0)
     {
@@ -88,7 +89,7 @@ inline int onPropertyUpdate(sd_bus_message* m, void* userdata,
             auto it = thisSession->second.interfaces.find(entry.key());
             if (it != thisSession->second.interfaces.end())
             {
-                j["interfaces"][entry.key()] = entry.value();
+                json["interfaces"][entry.key()] = entry.value();
             }
         }
     }
@@ -100,7 +101,7 @@ inline int onPropertyUpdate(sd_bus_message* m, void* userdata,
     }
 
     connection->sendText(
-        j.dump(2, ' ', true, nlohmann::json::error_handler_t::replace));
+        json.dump(2, ' ', true, nlohmann::json::error_handler_t::replace));
     return 0;
 }
 

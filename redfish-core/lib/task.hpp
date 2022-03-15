@@ -139,11 +139,13 @@ struct TaskData : std::enable_shared_from_this<TaskData>
             res.result(boost::beast::http::status::accepted);
             std::string strIdx = std::to_string(index);
             std::string uri = "/redfish/v1/TaskService/Tasks/" + strIdx;
-            res.jsonValue = {{"@odata.id", uri},
-                             {"@odata.type", "#Task.v1_4_3.Task"},
-                             {"Id", strIdx},
-                             {"TaskState", state},
-                             {"TaskStatus", status}};
+
+            res.jsonValue["@odata.id"] = uri;
+            res.jsonValue["@odata.type"] = "#Task.v1_4_3.Task";
+            res.jsonValue["Id"] = strIdx;
+            res.jsonValue["TaskState"] = state;
+            res.jsonValue["TaskStatus"] = status;
+
             res.addHeader(boost::beast::http::field::location,
                           uri + "/Monitor");
             res.addHeader(boost::beast::http::field::retry_after,
@@ -416,14 +418,16 @@ inline void requestRoutesTask(App& app)
                 if (ptr->payload)
                 {
                     const task::Payload& p = *(ptr->payload);
-                    asyncResp->res.jsonValue["Payload"] = {
-                        {"TargetUri", p.targetUri},
-                        {"HttpOperation", p.httpOperation},
-                        {"HttpHeaders", p.httpHeaders},
-                        {"JsonBody",
-                         p.jsonBody.dump(
-                             2, ' ', true,
-                             nlohmann::json::error_handler_t::replace)}};
+                    asyncResp->res.jsonValue["Payload"]["TargetUri"] =
+                        p.targetUri;
+                    asyncResp->res.jsonValue["Payload"]["HttpOperation"] =
+                        p.httpOperation;
+                    asyncResp->res.jsonValue["Payload"]["HttpHeaders"] =
+                        p.httpHeaders;
+                    asyncResp->res.jsonValue["Payload"]["JsonBody"] =
+                        p.jsonBody.dump(
+                            2, ' ', true,
+                            nlohmann::json::error_handler_t::replace);
                 }
                 asyncResp->res.jsonValue["PercentComplete"] =
                     ptr->percentComplete;
@@ -493,8 +497,8 @@ inline void requestRoutesTaskService(App& app)
                 health->populate();
                 asyncResp->res.jsonValue["Status"]["State"] = "Enabled";
                 asyncResp->res.jsonValue["ServiceEnabled"] = true;
-                asyncResp->res.jsonValue["Tasks"] = {
-                    {"@odata.id", "/redfish/v1/TaskService/Tasks"}};
+                asyncResp->res.jsonValue["Tasks"]["@odata.id"] =
+                    "/redfish/v1/TaskService/Tasks";
             });
 }
 

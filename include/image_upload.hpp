@@ -51,12 +51,10 @@ inline void
         }
 
         asyncResp->res.result(boost::beast::http::status::bad_request);
-        asyncResp->res.jsonValue = {
-            {"data",
-             {{"description",
-               "Version already exists or failed to be extracted"}}},
-            {"message", "400 Bad Request"},
-            {"status", "error"}};
+        asyncResp->res.jsonValue["data"]["description"] =
+            "Version already exists or failed to be extracted";
+        asyncResp->res.jsonValue["message"] = "400 Bad Request";
+        asyncResp->res.jsonValue["status"] = "error";
     };
 
     std::function<void(sdbusplus::message::message&)> callback =
@@ -80,8 +78,9 @@ inline void
                     leaf = path.str;
                 }
 
-                asyncResp->res.jsonValue = {
-                    {"data", leaf}, {"message", "200 OK"}, {"status", "ok"}};
+                asyncResp->res.jsonValue["data"] = leaf;
+                asyncResp->res.jsonValue["message"] = "200 OK";
+                asyncResp->res.jsonValue["status"] = "ok";
                 BMCWEB_LOG_DEBUG << "ending response";
                 fwUpdateMatcher = nullptr;
             }

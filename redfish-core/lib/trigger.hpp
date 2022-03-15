@@ -129,10 +129,10 @@ inline std::optional<nlohmann::json>
         {
             return std::nullopt;
         }
-
-        thresholds[type] = {{"Reading", reading},
-                            {"Activation", activation},
-                            {"DwellTime", *duration}};
+        nlohmann::json& threshold = thresholds[type];
+        threshold["Reading"] = reading;
+        threshold["Activation"] = activation;
+        threshold["DwellTime"] = *duration;
     }
 
     return std::make_optional(thresholds);
@@ -144,11 +144,12 @@ inline nlohmann::json
     nlohmann::json reports = nlohmann::json::array();
     for (const std::string& name : reportNames)
     {
-        reports.push_back(
-            {{"@odata.id",
-              crow::utility::urlFromPieces("redfish", "v1", "TelemetryService",
-                                           "MetricReportDefinitions", name)
-                  .string()}});
+        nlohmann::json::object_t report;
+        report["@odata.id"] =
+            crow::utility::urlFromPieces("redfish", "v1", "TelemetryService",
+                                         "MetricReportDefinitions", name)
+                .string();
+        reports.push_back(std::move(report));
     }
 
     return reports;

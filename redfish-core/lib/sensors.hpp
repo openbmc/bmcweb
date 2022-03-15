@@ -1263,7 +1263,7 @@ inline void populateFanRedundancy(
                                 {
                                     health = "Critical";
                                 }
-                                std::vector<nlohmann::json> redfishCollection;
+                                nlohmann::json::array_t redfishCollection;
                                 const auto& fanRedfish =
                                     sensorsAsyncResp->asyncResp->res
                                         .jsonValue["Fans"];
@@ -1286,9 +1286,11 @@ inline void populateFanRedundancy(
                                         });
                                     if (schemaItem != fanRedfish.end())
                                     {
-                                        redfishCollection.push_back(
-                                            {{"@odata.id",
-                                              (*schemaItem)["@odata.id"]}});
+                                        nlohmann::json::object_t collection;
+                                        collection["@odata.id"] =
+                                            (*schemaItem)["@odata.id"];
+                                        redfishCollection.emplace_back(
+                                            std::move(collection));
                                     }
                                     else
                                     {
@@ -1307,23 +1309,25 @@ inline void populateFanRedundancy(
                                 nlohmann::json& jResp =
                                     sensorsAsyncResp->asyncResp->res
                                         .jsonValue["Redundancy"];
-                                jResp.push_back(
-                                    {{"@odata.id",
-                                      "/redfish/v1/Chassis/" +
-                                          sensorsAsyncResp->chassisId + "/" +
-                                          sensorsAsyncResp->chassisSubNode +
-                                          "#/Redundancy/" +
-                                          std::to_string(jResp.size())},
-                                     {"@odata.type",
-                                      "#Redundancy.v1_3_2.Redundancy"},
-                                     {"MinNumNeeded", minNumNeeded},
-                                     {"MemberId", name},
-                                     {"Mode", "N+m"},
-                                     {"Name", name},
-                                     {"RedundancySet", redfishCollection},
-                                     {"Status",
-                                      {{"Health", health},
-                                       {"State", "Enabled"}}}});
+
+                                nlohmann::json::object_t redundancy;
+                                redundancy["@odata.id"] =
+                                    "/redfish/v1/Chassis/" +
+                                    sensorsAsyncResp->chassisId + "/" +
+                                    sensorsAsyncResp->chassisSubNode +
+                                    "#/Redundancy/" +
+                                    std::to_string(jResp.size());
+                                redundancy["@odata.type"] =
+                                    "#Redundancy.v1_3_2.Redundancy";
+                                redundancy["MinNumNeeded"] = minNumNeeded;
+                                redundancy["MemberId"] = name;
+                                redundancy["Mode"] = "N+m";
+                                redundancy["Name"] = name;
+                                redundancy["RedundancySet"] = redfishCollection;
+                                redundancy["Status"]["Health"] = health;
+                                redundancy["Status"]["State"] = "Enabled";
+
+                                jResp.push_back(std::move(redundancy));
                             },
                             owner, path, "org.freedesktop.DBus.Properties",
                             "GetAll",
@@ -2616,12 +2620,13 @@ inline void getSensorData(
                             // Put multiple "sensors" into a single
                             // PowerControl. Follows MemberId naming and
                             // naming in power.hpp.
-                            tempArray.push_back(
-                                {{"@odata.id",
-                                  "/redfish/v1/Chassis/" +
-                                      sensorsAsyncResp->chassisId + "/" +
-                                      sensorsAsyncResp->chassisSubNode + "#/" +
-                                      fieldName + "/0"}});
+                            nlohmann::json::object_t power;
+                            power["@odata.id"] =
+                                "/redfish/v1/Chassis/" +
+                                sensorsAsyncResp->chassisId + "/" +
+                                sensorsAsyncResp->chassisSubNode + "#/" +
+                                fieldName + "/0";
+                            tempArray.push_back(std::move(power));
                         }
                         sensorJson = &(tempArray.back());
                     }
@@ -2636,22 +2641,23 @@ inline void getSensorData(
                     }
                     else if (fieldName == "Members")
                     {
-                        tempArray.push_back(
-                            {{"@odata.id",
-                              "/redfish/v1/Chassis/" +
-                                  sensorsAsyncResp->chassisId + "/" +
-                                  sensorsAsyncResp->chassisSubNode + "/" +
-                                  sensorName}});
+                        nlohmann::json::object_t member;
+                        member["@odata.id"] =
+                            "/redfish/v1/Chassis/" +
+                            sensorsAsyncResp->chassisId + "/" +
+                            sensorsAsyncResp->chassisSubNode + "/" + sensorName;
+                        tempArray.push_back(std::move(member));
                         sensorJson = &(tempArray.back());
                     }
                     else
                     {
-                        tempArray.push_back(
-                            {{"@odata.id",
-                              "/redfish/v1/Chassis/" +
-                                  sensorsAsyncResp->chassisId + "/" +
-                                  sensorsAsyncResp->chassisSubNode + "#/" +
-                                  fieldName + "/"}});
+                        nlohmann::json::object_t member;
+                        member["@odata.id"] = "/redfish/v1/Chassis/" +
+                                              sensorsAsyncResp->chassisId +
+                                              "/" +
+                                              sensorsAsyncResp->chassisSubNode +
+                                              "#/" + fieldName + "/";
+                        tempArray.push_back(std::move(member));
                         sensorJson = &(tempArray.back());
                     }
                 }
@@ -3004,9 +3010,11 @@ inline void getChassisCallback(
             messages::internalError(asyncResp->asyncResp->res);
             return;
         }
-        entriesArray.push_back(
-            {{"@odata.id", "/redfish/v1/Chassis/" + asyncResp->chassisId + "/" +
-                               asyncResp->chassisSubNode + "/" + sensorName}});
+        nlohmann::json::object_t member;
+        member["@odata.id"] = "/redfish/v1/Chassis/" + asyncResp->chassisId +
+                              "/" + asyncResp->chassisSubNode + "/" +
+                              sensorName;
+        entriesArray.push_back(std::move(member));
     }
 
     asyncResp->asyncResp->res.jsonValue["Members@odata.count"] =
