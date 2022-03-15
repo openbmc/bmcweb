@@ -824,8 +824,10 @@ inline void
     task->payload.emplace(std::move(payload));
 }
 
+template <typename Sdbus>
 inline void createDump(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                       const crow::Request& req, const std::string& dumpType)
+                       const crow::Request& req, const std::string& dumpType,
+                       const std::shared_ptr<Sdbus>& bus)
 {
 
     std::string dumpPath;
@@ -903,8 +905,6 @@ inline void createDump(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
         if (dumpType == "BMC")
         {
 
-            // using DumpCreateParams = std::map<std::string,
-            // std::variant<std::string, uint64_t>>;
             std::map<std::string, std::variant<std::string, uint64_t>>
                 myEmptyMap;
 
@@ -917,12 +917,10 @@ inline void createDump(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                 BMCWEB_LOG_DEBUG << "myEmptyMap isn't empty";
             }
 
-            crow::connections::systemBus->async_method_call(
-                [asyncResp,
-                 payload(task::Payload(req)) /*, dumpPath, dumpType*/](
+            bus->async_method_call(
+                [asyncResp, payload(task::Payload(req))](
                     const boost::system::error_code ec,
-                    /*const uint32_t& dumpId*/ const sdbusplus::message::
-                        object_path& objPath) mutable {
+                    const sdbusplus::message::object_path& objPath) mutable {
                     if (ec)
                     {
                         BMCWEB_LOG_ERROR << "CreateDump resp_handler got error "
@@ -934,11 +932,6 @@ inline void createDump(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                     BMCWEB_LOG_DEBUG << "CreateDump end " << objPath.str;
 
                     messages::success(asyncResp->res);
-
-                    /*BMCWEB_LOG_DEBUG << "Dump Created. Id: " << dumpId;
-
-                    createDumpTaskCallback(std::move(payload), asyncResp,
-                    dumpId, dumpPath, dumpType);*/
                 },
                 "xyz.openbmc_project.Dump.Manager",
                 "/xyz/openbmc_project/dump/" +
@@ -947,9 +940,6 @@ inline void createDump(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
         }
         else if (dumpType == "FaultLog")
         {
-            // using DumpCreateParams = std::map<std::string,
-            // std::variant<std::string, uint64_t>>;
-
             std::map<std::string, std::variant<std::string, uint64_t>> params;
 
             std::random_device rd1;
@@ -972,7 +962,7 @@ inline void createDump(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                 BMCWEB_LOG_DEBUG << "params isn't empty";
             }
 
-            crow::connections::systemBus->async_method_call(
+            bus->async_method_call(
                 [asyncResp](boost::system::error_code ec) {
                     if (ec)
                     {
@@ -987,26 +977,6 @@ inline void createDump(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                 "/xyz/openbmc_project/dump/" +
                     std::string(boost::algorithm::to_lower_copy(dumpType)),
                 "xyz.openbmc_project.Dump.Create", "CreateDump", params);
-
-            /*
-            uint32_t arg1 = 1;
-            uint64_t arg2 = 2;
-
-            crow::connections::systemBus->async_method_call(
-                [asyncResp](const boost::system::error_code ec) {
-                    if (ec)
-                    {
-                        BMCWEB_LOG_ERROR << "Notify resp_handler got error " <<
-            ec; messages::internalError(asyncResp->res); return;
-                    }
-                    BMCWEB_LOG_DEBUG << "Notify success";
-                    messages::success(asyncResp->res);
-                },
-                "xyz.openbmc_project.Dump.Manager",
-                "/xyz/openbmc_project/dump/" +
-                    std::string(boost::algorithm::to_lower_copy(dumpType)),
-                "xyz.openbmc_project.Dump.NewDump", "Notify", arg1, arg2);
-            */
         }
     }
 }
@@ -2562,7 +2532,7 @@ inline void requestRoutesBMCDumpCreate(App& app)
         .methods(boost::beast::http::verb::post)(
             [](const crow::Request& req,
                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
-                createDump(asyncResp, req, "BMC");
+                createDump(asyncResp, req, "BMC", crow::connections::systemBus);
             });
 }
 
@@ -2679,7 +2649,8 @@ inline void requestRoutesFaultLogDumpCreate(App& app)
                 BMCWEB_LOG_INFO << "MyInfo";
                 BMCWEB_LOG_ERROR << "MyError";
 
-                createDump(asyncResp, req, "FaultLog");
+                createDump(asyncResp, req, "FaultLog",
+                           crow::connections::systemBus);
             });
 }
 
@@ -2792,7 +2763,10 @@ inline void requestRoutesSystemDumpCreate(App& app)
             [](const crow::Request& req,
                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 
-            { createDump(asyncResp, req, "System"); });
+            {
+                createDump(asyncResp, req, "System",
+                           crow::connections::systemBus);
+            });
 }
 
 inline void requestRoutesSystemDumpClear(App& app)
