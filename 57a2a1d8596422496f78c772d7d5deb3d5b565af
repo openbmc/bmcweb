@@ -20,6 +20,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "8819307a_7e4a5750",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 13
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1001217
+      },
+      "writtenOn": "2022-03-15T22:53:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0ef177a2_1e1a8aa9",
+      "revId": "57a2a1d8596422496f78c772d7d5deb3d5b565af",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "4c83755f_bb3b8ec5",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 13
@@ -48,6 +66,30 @@
       "writtenOn": "2022-03-15T22:15:31Z",
       "side": 1,
       "message": "can save some lines if you use a ternary operator",
+      "range": {
+        "startLine": 148,
+        "startChar": 24,
+        "endLine": 148,
+        "endChar": 69
+      },
+      "revId": "57a2a1d8596422496f78c772d7d5deb3d5b565af",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "845a56d8_588a3831",
+        "filename": "redfish-core/lib/pcie_slots.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 1001217
+      },
+      "writtenOn": "2022-03-15T22:53:00Z",
+      "side": 1,
+      "message": "Ed has repeatedly asked me not to use ternary operators in OpenBMC.",
+      "parentUuid": "0481a3b2_d521aa0e",
       "range": {
         "startLine": 148,
         "startChar": 24,
