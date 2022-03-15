@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0b9795e7_479a0b2a",
+        "filename": "redfish-core/lib/ut/log_services_test.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 1001143
+      },
+      "writtenOn": "2022-03-15T19:00:45Z",
+      "side": 1,
+      "message": "Check for Contains(redfish::messages::success()) like the other \"Succeeds\" cases below?",
+      "range": {
+        "startLine": 145,
+        "startChar": 16,
+        "endLine": 145,
+        "endChar": 65
+      },
+      "revId": "84a3f7b9ee9e8e0e5f02b8c77c7dd4dc0d443a21",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
