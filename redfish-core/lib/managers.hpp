@@ -242,17 +242,27 @@ inline void requestRoutesManagerResetActionInfo(App& app)
                 {
                     return;
                 }
-                asyncResp->res.jsonValue = {
-                    {"@odata.type", "#ActionInfo.v1_1_2.ActionInfo"},
-                    {"@odata.id", "/redfish/v1/Managers/bmc/ResetActionInfo"},
-                    {"Name", "Reset Action Info"},
-                    {"Id", "ResetActionInfo"},
-                    {"Parameters",
-                     {{{"Name", "ResetType"},
-                       {"Required", true},
-                       {"DataType", "String"},
-                       {"AllowableValues",
-                        {"GracefulRestart", "ForceRestart"}}}}}};
+
+                asyncResp->res.jsonValue["@odata.type"] =
+                    "#ActionInfo.v1_1_2.ActionInfo";
+                asyncResp->res.jsonValue["@odata.id"] =
+                    "/redfish/v1/Managers/bmc/ResetActionInfo";
+                asyncResp->res.jsonValue["Name"] = "Reset Action Info";
+                asyncResp->res.jsonValue["Id"] = "ResetActionInfo";
+                nlohmann::json::object_t parameter;
+                parameter["Name"] = "ResetType";
+                parameter["Required"] = true;
+                parameter["DataType"] = "String";
+
+                nlohmann::json::array_t allowableValues;
+                allowableValues.push_back("GracefulRestart");
+                allowableValues.push_back("ForceRestart");
+                parameter["AllowableValues"] = std::move(allowableValues);
+
+                nlohmann::json::array_t parameters;
+                parameters.push_back(std::move(parameter));
+
+                asyncResp->res.jsonValue["Parameters"] = std::move(parameters);
             });
 }
 
@@ -526,9 +536,10 @@ inline void
                                     steps = nlohmann::json::array();
                                     for (size_t ii = 0; ii < keys->size(); ii++)
                                     {
-                                        steps.push_back(
-                                            {{"Target", (*keys)[ii]},
-                                             {"Output", (*values)[ii]}});
+                                        nlohmann::json::object_t step;
+                                        step["Target"] = (*keys)[ii];
+                                        step["Output"] = (*values)[ii];
+                                        steps.push_back(std::move(step));
                                     }
                                 }
                             }
@@ -571,10 +582,11 @@ inline void
                                 for (std::string itemCopy : *inputs)
                                 {
                                     dbus::utility::escapePathForDbus(itemCopy);
-                                    data.push_back(
-                                        {{"@odata.id",
-                                          "/redfish/v1/Managers/bmc#/Oem/OpenBmc/Fan/FanZones/" +
-                                              itemCopy}});
+                                    nlohmann::json::object_t input;
+                                    input["@odata.id"] =
+                                        "/redfish/v1/Managers/bmc#/Oem/OpenBmc/Fan/FanZones/" +
+                                        itemCopy;
+                                    data.push_back(std::move(input));
                                 }
                             }
                             // todo(james): may never happen, but this
@@ -1978,26 +1990,25 @@ inline void requestRoutesManager(App& app)
             asyncResp->res.jsonValue["Description"] =
                 "Baseboard Management Controller";
             asyncResp->res.jsonValue["PowerState"] = "On";
-            asyncResp->res.jsonValue["Status"] = {{"State", "Enabled"},
-                                                  {"Health", "OK"}};
+            asyncResp->res.jsonValue["Status"]["State"] = "Enabled";
+            asyncResp->res.jsonValue["Status"]["Health"] = "OK";
+
             asyncResp->res.jsonValue["ManagerType"] = "BMC";
             asyncResp->res.jsonValue["UUID"] = systemd_utils::getUuid();
             asyncResp->res.jsonValue["ServiceEntryPointUUID"] = uuid;
             asyncResp->res.jsonValue["Model"] =
                 "OpenBmc"; // TODO(ed), get model
 
-            asyncResp->res.jsonValue["LogServices"] = {
-                {"@odata.id", "/redfish/v1/Managers/bmc/LogServices"}};
-
-            asyncResp->res.jsonValue["NetworkProtocol"] = {
-                {"@odata.id", "/redfish/v1/Managers/bmc/NetworkProtocol"}};
-
-            asyncResp->res.jsonValue["EthernetInterfaces"] = {
-                {"@odata.id", "/redfish/v1/Managers/bmc/EthernetInterfaces"}};
+            asyncResp->res.jsonValue["LogServices"]["@odata.id"] =
+                "/redfish/v1/Managers/bmc/LogServices";
+            asyncResp->res.jsonValue["NetworkProtocol"]["@odata.id"] =
+                "/redfish/v1/Managers/bmc/NetworkProtocol";
+            asyncResp->res.jsonValue["EthernetInterfaces"]["@odata.id"] =
+                "/redfish/v1/Managers/bmc/EthernetInterfaces";
 
 #ifdef BMCWEB_ENABLE_VM_NBDPROXY
-            asyncResp->res.jsonValue["VirtualMedia"] = {
-                {"@odata.id", "/redfish/v1/Managers/bmc/VirtualMedia"}};
+            asyncResp->res.jsonValue["VirtualMedia"]["@odata.id"] =
+                "/redfish/v1/Managers/bmc/VirtualMedia";
 #endif // BMCWEB_ENABLE_VM_NBDPROXY
 
             // default oem data
@@ -2007,9 +2018,11 @@ inline void requestRoutesManager(App& app)
             oem["@odata.id"] = "/redfish/v1/Managers/bmc#/Oem";
             oemOpenbmc["@odata.type"] = "#OemManager.OpenBmc";
             oemOpenbmc["@odata.id"] = "/redfish/v1/Managers/bmc#/Oem/OpenBmc";
-            oemOpenbmc["Certificates"] = {
-                {"@odata.id",
-                 "/redfish/v1/Managers/bmc/Truststore/Certificates"}};
+
+            nlohmann::json::object_t certificates;
+            certificates["@odata.id"] =
+                "/redfish/v1/Managers/bmc/Truststore/Certificates";
+            oemOpenbmc["Certificates"] = std::move(certificates);
 
             // Manager.Reset (an action) can be many values, OpenBMC only
             // supports BMC reboot.
@@ -2057,8 +2070,14 @@ inline void requestRoutesManager(App& app)
 
             asyncResp->res.jsonValue["Links"]["ManagerForServers@odata.count"] =
                 1;
-            asyncResp->res.jsonValue["Links"]["ManagerForServers"] = {
-                {{"@odata.id", "/redfish/v1/Systems/system"}}};
+
+            nlohmann::json::array_t managerForServers;
+            nlohmann::json::object_t manager;
+            manager["@odata.id"] = "/redfish/v1/Systems/system";
+            managerForServers.push_back(std::move(manager));
+
+            asyncResp->res.jsonValue["Links"]["ManagerForServers"] =
+                std::move(managerForServers);
 
             auto health = std::make_shared<HealthPopulate>(asyncResp);
             health->isManagersHealth = true;
@@ -2072,17 +2091,20 @@ inline void requestRoutesManager(App& app)
             auto pids = std::make_shared<GetPIDValues>(asyncResp);
             pids->run();
 
-            getMainChassisId(
-                asyncResp, [](const std::string& chassisId,
-                              const std::shared_ptr<bmcweb::AsyncResp>& aRsp) {
-                    aRsp->res
-                        .jsonValue["Links"]["ManagerForChassis@odata.count"] =
-                        1;
-                    aRsp->res.jsonValue["Links"]["ManagerForChassis"] = {
-                        {{"@odata.id", "/redfish/v1/Chassis/" + chassisId}}};
-                    aRsp->res.jsonValue["Links"]["ManagerInChassis"] = {
-                        {"@odata.id", "/redfish/v1/Chassis/" + chassisId}};
-                });
+            getMainChassisId(asyncResp, [](const std::string& chassisId,
+                                           const std::shared_ptr<
+                                               bmcweb::AsyncResp>& aRsp) {
+                aRsp->res.jsonValue["Links"]["ManagerForChassis@odata.count"] =
+                    1;
+                nlohmann::json::array_t managerForChassis;
+                nlohmann::json::object_t manager;
+                manager["@odata.id"] = "/redfish/v1/Chassis/" + chassisId;
+                managerForChassis.push_back(std::move(manager));
+                aRsp->res.jsonValue["Links"]["ManagerForChassis"] =
+                    std::move(managerForChassis);
+                aRsp->res.jsonValue["Links"]["ManagerInChassis"]["@odata.id"] =
+                    "/redfish/v1/Chassis/" + chassisId;
+            });
 
             static bool started = false;
 
@@ -2317,8 +2339,10 @@ inline void requestRoutesManagerCollection(App& app)
                     "#ManagerCollection.ManagerCollection";
                 asyncResp->res.jsonValue["Name"] = "Manager Collection";
                 asyncResp->res.jsonValue["Members@odata.count"] = 1;
-                asyncResp->res.jsonValue["Members"] = {
-                    {{"@odata.id", "/redfish/v1/Managers/bmc"}}};
+                nlohmann::json::array_t members;
+                nlohmann::json& bmc = members.emplace_back();
+                bmc["@odata.id"] = "/redfish/v1/Managers/bmc";
+                asyncResp->res.jsonValue["Members"] = std::move(members);
             });
 }
 } // namespace redfish

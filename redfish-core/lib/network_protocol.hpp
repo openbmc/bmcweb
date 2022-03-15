@@ -165,9 +165,8 @@ inline void getNetworkData(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     if (isOperationAllowedWithPrivileges({{"ConfigureManager"}},
                                          effectiveUserPrivileges))
     {
-        asyncResp->res.jsonValue["HTTPS"]["Certificates"] = {
-            {"@odata.id",
-             "/redfish/v1/Managers/bmc/NetworkProtocol/HTTPS/Certificates"}};
+        asyncResp->res.jsonValue["HTTPS"]["Certificates"]["@odata.id"] =
+            "/redfish/v1/Managers/bmc/NetworkProtocol/HTTPS/Certificates";
     }
 
     for (const auto& protocol : protocolToDBus)

@@ -253,14 +253,14 @@ inline int formatEventLogEntry(const std::string& logEntryID,
     }
 
     // Fill in the log entry with the gathered data
-    logEntryJson = {{"EventId", logEntryID},
-                    {"EventType", "Event"},
-                    {"Severity", std::move(severity)},
-                    {"Message", std::move(msg)},
-                    {"MessageId", messageID},
-                    {"MessageArgs", messageArgs},
-                    {"EventTimestamp", std::move(timestamp)},
-                    {"Context", customText}};
+    logEntryJson["EventId"] = logEntryID;
+    logEntryJson["EventType"] = "Event";
+    logEntryJson["Severity"] = std::move(severity);
+    logEntryJson["Message"] = std::move(msg);
+    logEntryJson["MessageId"] = messageID;
+    logEntryJson["MessageArgs"] = messageArgs;
+    logEntryJson["EventTimestamp"] = std::move(timestamp);
+    logEntryJson["Context"] = customText;
     return 0;
 }
 
@@ -419,10 +419,11 @@ class Subscription : public persistent_data::UserSubscription
             {"EventTimestamp", crow::utility::getDateTimeOffsetNow().first},
             {"Context", customText}};
 
-        nlohmann::json msg = {{"@odata.type", "#Event.v1_4_0.Event"},
-                              {"Id", std::to_string(eventSeqNum)},
-                              {"Name", "Event Log"},
-                              {"Events", logEntryArray}};
+        nlohmann::json msg;
+        msg["@odata.type"] = "#Event.v1_4_0.Event";
+        msg["Id"] = std::to_string(eventSeqNum);
+        msg["Name"] = "Event Log";
+        msg["Events"] = logEntryArray;
 
         std::string strMsg =
             msg.dump(2, ' ', true, nlohmann::json::error_handler_t::replace);
@@ -487,10 +488,11 @@ class Subscription : public persistent_data::UserSubscription
             return;
         }
 
-        nlohmann::json msg = {{"@odata.type", "#Event.v1_4_0.Event"},
-                              {"Id", std::to_string(eventSeqNum)},
-                              {"Name", "Event Log"},
-                              {"Events", logEntryArray}};
+        nlohmann::json msg;
+        msg["@odata.type"] = "#Event.v1_4_0.Event";
+        msg["Id"] = std::to_string(eventSeqNum);
+        msg["Name"] = "Event Log";
+        msg["Events"] = logEntryArray;
 
         std::string strMsg =
             msg.dump(2, ' ', true, nlohmann::json::error_handler_t::replace);

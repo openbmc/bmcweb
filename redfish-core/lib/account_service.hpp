@@ -160,24 +160,23 @@ inline void parseLDAPConfigData(nlohmann::json& jsonResponse,
 {
     std::string service =
         (ldapType == "LDAP") ? "LDAPService" : "ActiveDirectoryService";
-    nlohmann::json ldap = {
-        {"ServiceEnabled", confData.serviceEnabled},
-        {"ServiceAddresses", nlohmann::json::array({confData.uri})},
-        {"Authentication",
-         {{"AuthenticationType", "UsernameAndPassword"},
-          {"Username", confData.bindDN},
-          {"Password", nullptr}}},
-        {"LDAPService",
-         {{"SearchSettings",
-           {{"BaseDistinguishedNames",
-             nlohmann::json::array({confData.baseDN})},
-            {"UsernameAttribute", confData.userNameAttribute},
-            {"GroupsAttribute", confData.groupAttribute}}}}},
-    };
 
-    jsonResponse[ldapType].update(ldap);
+    nlohmann::json& ldap = jsonResponse[ldapType];
 
-    nlohmann::json& roleMapArray = jsonResponse[ldapType]["RemoteRoleMapping"];
+    ldap["ServiceEnabled"] = confData.serviceEnabled;
+    ldap["ServiceAddresses"] = nlohmann::json::array({confData.uri});
+    ldap["Authentication"]["AuthenticationType"] = "UsernameAndPassword";
+    ldap["Authentication"]["Username"] = confData.bindDN;
+    ldap["Authentication"]["Password"] = nullptr;
+
+    ldap["LDAPService"]["SearchSettings"]["BaseDistinguishedNames"] =
+        nlohmann::json::array({confData.baseDN});
+    ldap["LDAPService"]["SearchSettings"]["UsernameAttribute"] =
+        confData.userNameAttribute;
+    ldap["LDAPService"]["SearchSettings"]["GroupsAttribute"] =
+        confData.groupAttribute;
+
+    nlohmann::json& roleMapArray = ldap["RemoteRoleMapping"];
     roleMapArray = nlohmann::json::array();
     for (const auto& obj : confData.groupRoleList)
     {
@@ -357,9 +356,10 @@ inline void handleRoleMapPatch(
                         nlohmann::json& remoteRoleJson =
                             asyncResp->res
                                 .jsonValue[serverType]["RemoteRoleMapping"];
-                        remoteRoleJson.push_back(
-                            {{"LocalRole", *localRole},
-                             {"RemoteGroup", *remoteGroup}});
+                        nlohmann::json::object_t roleMapEntry;
+                        roleMapEntry["LocalRole"] = *localRole;
+                        roleMapEntry["RemoteGroup"] = *remoteGroup;
+                        remoteRoleJson.push_back(std::move(roleMapEntry));
                     },
                     ldapDbusService, dbusObjectPath, ldapPrivMapperInterface,
                     "Create", *remoteGroup,
@@ -1274,30 +1274,33 @@ inline void requestAccountServiceRoutes(App& app)
                 persistent_data::SessionStore::getInstance()
                     .getAuthMethodsConfig();
 
-            asyncResp->res.jsonValue = {
-                {"@odata.id", "/redfish/v1/AccountService"},
-                {"@odata.type", "#AccountService."
-                                "v1_10_0.AccountService"},
-                {"Id", "AccountService"},
-                {"Name", "Account Service"},
-                {"Description", "Account Service"},
-                {"ServiceEnabled", true},
-                {"MaxPasswordLength", 20},
-                {"Accounts",
-                 {{"@odata.id", "/redfish/v1/AccountService/Accounts"}}},
-                {"Roles", {{"@odata.id", "/redfish/v1/AccountService/Roles"}}},
-                {"Oem",
-                 {{"OpenBMC",
-                   {{"@odata.type", "#OemAccountService.v1_0_0.AccountService"},
-                    {"@odata.id", "/redfish/v1/AccountService#/Oem/OpenBMC"},
-                    {"AuthMethods",
-                     {
-                         {"BasicAuth", authMethodsConfig.basic},
-                         {"SessionToken", authMethodsConfig.sessionToken},
-                         {"XToken", authMethodsConfig.xtoken},
-                         {"Cookie", authMethodsConfig.cookie},
-                         {"TLS", authMethodsConfig.tls},
-                     }}}}}}};
+            nlohmann::json& json = asyncResp->res.jsonValue;
+            json["@odata.id"] = "/redfish/v1/AccountService";
+            json["@odata.type"] = "#AccountService."
+                                  "v1_10_0.AccountService";
+            json["Id"] = "AccountService";
+            json["Name"] = "Account Service";
+            json["Description"] = "Account Service";
+            json["ServiceEnabled"] = true;
+            json["MaxPasswordLength"] = 20;
+            json["Accounts"]["@odata.id"] =
+                "/redfish/v1/AccountService/Accounts";
+            json["Roles"]["@odata.id"] = "/redfish/v1/AccountService/Roles";
+            json["Oem"]["OpenBMC"]["@odata.type"] =
+                "#OemAccountService.v1_0_0.AccountService";
+            json["Oem"]["OpenBMC"]["@odata.id"] =
+                "/redfish/v1/AccountService#/Oem/OpenBMC";
+            json["Oem"]["OpenBMC"]["AuthMethods"]["BasicAuth"] =
+                authMethodsConfig.basic;
+            json["Oem"]["OpenBMC"]["AuthMethods"]["SessionToken"] =
+                authMethodsConfig.sessionToken;
+            json["Oem"]["OpenBMC"]["AuthMethods"]["XToken"] =
+                authMethodsConfig.xtoken;
+            json["Oem"]["OpenBMC"]["AuthMethods"]["Cookie"] =
+                authMethodsConfig.cookie;
+            json["Oem"]["OpenBMC"]["AuthMethods"]["TLS"] =
+                authMethodsConfig.tls;
+
             // /redfish/v1/AccountService/LDAP/Certificates is something only
             // ConfigureManager can access then only display when the user has
             // permissions ConfigureManager
@@ -1307,10 +1310,8 @@ inline void requestAccountServiceRoutes(App& app)
             if (isOperationAllowedWithPrivileges({{"ConfigureManager"}},
                                                  effectiveUserPrivileges))
             {
-                asyncResp->res.jsonValue["LDAP"] = {
-                    {"Certificates",
-                     {{"@odata.id",
-                       "/redfish/v1/AccountService/LDAP/Certificates"}}}};
+                asyncResp->res.jsonValue["LDAP"]["Certificates"]["@odata.id"] =
+                    "/redfish/v1/AccountService/LDAP/Certificates";
             }
             crow::connections::systemBus->async_method_call(
                 [asyncResp](
@@ -1511,12 +1512,14 @@ inline void requestAccountServiceRoutes(App& app)
                 {
                     return;
                 }
-                asyncResp->res.jsonValue = {
-                    {"@odata.id", "/redfish/v1/AccountService/Accounts"},
-                    {"@odata.type", "#ManagerAccountCollection."
-                                    "ManagerAccountCollection"},
-                    {"Name", "Accounts Collection"},
-                    {"Description", "BMC User Accounts"}};
+
+                asyncResp->res.jsonValue["@odata.id"] =
+                    "/redfish/v1/AccountService/Accounts";
+                asyncResp->res.jsonValue["@odata.type"] =
+                    "#ManagerAccountCollection."
+                    "ManagerAccountCollection";
+                asyncResp->res.jsonValue["Name"] = "Accounts Collection";
+                asyncResp->res.jsonValue["Description"] = "BMC User Accounts";
 
                 Privileges effectiveUserPrivileges =
                     redfish::getUserPrivileges(req.userRole);
@@ -1567,10 +1570,11 @@ inline void requestAccountServiceRoutes(App& app)
                             if (userCanSeeAllAccounts ||
                                 (thisUser == user && userCanSeeSelf))
                             {
-                                memberArray.push_back(
-                                    {{"@odata.id",
-                                      "/redfish/v1/AccountService/Accounts/" +
-                                          user}});
+                                nlohmann::json::object_t member;
+                                member["@odata.id"] =
+                                    "/redfish/v1/AccountService/Accounts/" +
+                                    user;
+                                memberArray.push_back(std::move(member));
                             }
                         }
                         asyncResp->res.jsonValue["Members@odata.count"] =
@@ -1772,13 +1776,12 @@ inline void requestAccountServiceRoutes(App& app)
                         return;
                     }
 
-                    asyncResp->res.jsonValue = {
-                        {"@odata.type",
-                         "#ManagerAccount.v1_4_0.ManagerAccount"},
-                        {"Name", "User Account"},
-                        {"Description", "User Account"},
-                        {"Password", nullptr},
-                        {"AccountTypes", {"Redfish"}}};
+                    asyncResp->res.jsonValue["@odata.type"] =
+                        "#ManagerAccount.v1_4_0.ManagerAccount";
+                    asyncResp->res.jsonValue["Name"] = "User Account";
+                    asyncResp->res.jsonValue["Description"] = "User Account";
+                    asyncResp->res.jsonValue["Password"] = nullptr;
+                    asyncResp->res.jsonValue["AccountTypes"] = {"Redfish"};
 
                     for (const auto& interface : userIt->second)
                     {
@@ -1843,10 +1846,12 @@ inline void requestAccountServiceRoutes(App& app)
                                     }
                                     asyncResp->res.jsonValue["RoleId"] = role;
 
-                                    asyncResp->res.jsonValue["Links"]["Role"] =
-                                        {{"@odata.id",
-                                          "/redfish/v1/AccountService/Roles/" +
-                                              role}};
+                                    nlohmann::json& roleEntry =
+                                        asyncResp->res
+                                            .jsonValue["Links"]["Role"];
+                                    roleEntry["@odata.id"] =
+                                        "/redfish/v1/AccountService/Roles/" +
+                                        role;
                                 }
                                 else if (property.first ==
                                          "UserPasswordExpired")

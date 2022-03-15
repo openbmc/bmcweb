@@ -2675,15 +2675,18 @@ inline void requestRoutesSystemsCollection(App& app)
                         ifaceArray = nlohmann::json::array();
                         auto& count =
                             asyncResp->res.jsonValue["Members@odata.count"];
-                        ifaceArray.push_back(
-                            {{"@odata.id", "/redfish/v1/Systems/system"}});
+
+                        nlohmann::json::object_t system;
+                        system["@odata.id"] = "/redfish/v1/Systems/system";
+                        ifaceArray.push_back(std::move(system));
                         count = ifaceArray.size();
                         if (!ec)
                         {
                             BMCWEB_LOG_DEBUG << "Hypervisor is available";
-                            ifaceArray.push_back(
-                                {{"@odata.id",
-                                  "/redfish/v1/Systems/hypervisor"}});
+                            nlohmann::json::object_t hypervisor;
+                            hypervisor["@odata.id"] =
+                                "/redfish/v1/Systems/hypervisor";
+                            ifaceArray.push_back(std::move(hypervisor));
                             count = ifaceArray.size();
                         }
                     });
@@ -2883,54 +2886,56 @@ inline void requestRoutesSystems(App& app)
             asyncResp->res.jsonValue["@odata.id"] =
                 "/redfish/v1/Systems/system";
 
-            asyncResp->res.jsonValue["Processors"] = {
-                {"@odata.id", "/redfish/v1/Systems/system/Processors"}};
-            asyncResp->res.jsonValue["Memory"] = {
-                {"@odata.id", "/redfish/v1/Systems/system/Memory"}};
-            asyncResp->res.jsonValue["Storage"] = {
-                {"@odata.id", "/redfish/v1/Systems/system/Storage"}};
+            asyncResp->res.jsonValue["Processors"]["@odata.id"] =
+                "/redfish/v1/Systems/system/Processors";
+            asyncResp->res.jsonValue["Memory"]["@odata.id"] =
+                "/redfish/v1/Systems/system/Memory";
+            asyncResp->res.jsonValue["Storage"]["@odata.id"] =
+                "/redfish/v1/Systems/system/Storage";
 
-            asyncResp->res.jsonValue["Actions"]["#ComputerSystem.Reset"] = {
-                {"target",
-                 "/redfish/v1/Systems/system/Actions/ComputerSystem.Reset"},
-                {"@Redfish.ActionInfo",
-                 "/redfish/v1/Systems/system/ResetActionInfo"}};
+            asyncResp->res
+                .jsonValue["Actions"]["#ComputerSystem.Reset"]["target"] =
+                "/redfish/v1/Systems/system/Actions/ComputerSystem.Reset";
+            asyncResp->res.jsonValue["Actions"]["#ComputerSystem.Reset"]
+                                    ["@Redfish.ActionInfo"] =
+                "/redfish/v1/Systems/system/ResetActionInfo";
 
-            asyncResp->res.jsonValue["LogServices"] = {
-                {"@odata.id", "/redfish/v1/Systems/system/LogServices"}};
+            asyncResp->res.jsonValue["LogServices"]["@odata.id"] =
+                "/redfish/v1/Systems/system/LogServices";
+            asyncResp->res.jsonValue["Bios"]["@odata.id"] =
+                "/redfish/v1/Systems/system/Bios";
 
-            asyncResp->res.jsonValue["Bios"] = {
-                {"@odata.id", "/redfish/v1/Systems/system/Bios"}};
-
-            asyncResp->res.jsonValue["Links"]["ManagedBy"] = {
-                {{"@odata.id", "/redfish/v1/Managers/bmc"}}};
-
-            asyncResp->res.jsonValue["Status"] = {
-                {"Health", "OK"},
-                {"State", "Enabled"},
-            };
+            nlohmann::json::array_t managedBy;
+            nlohmann::json& manager = managedBy.emplace_back();
+            manager["@odata.id"] = "/redfish/v1/Managers/bmc";
+            asyncResp->res.jsonValue["Links"]["ManagedBy"] =
+                std::move(managedBy);
+            asyncResp->res.jsonValue["Status"]["Health"] = "OK";
+            asyncResp->res.jsonValue["Status"]["State"] = "Enabled";
 
             // Fill in SerialConsole info
             asyncResp->res.jsonValue["SerialConsole"]["MaxConcurrentSessions"] =
                 15;
-            asyncResp->res.jsonValue["SerialConsole"]["IPMI"] = {
-                {"ServiceEnabled", true},
-            };
+            asyncResp->res
+                .jsonValue["SerialConsole"]["IPMI"]["ServiceEnabled"] = true;
+
             // TODO (Gunnar): Should look for obmc-console-ssh@2200.service
-            asyncResp->res.jsonValue["SerialConsole"]["SSH"] = {
-                {"ServiceEnabled", true},
-                {"Port", 2200},
-                // https://github.com/openbmc/docs/blob/master/console.md
-                {"HotKeySequenceDisplay", "Press ~. to exit console"},
-            };
+            asyncResp->res.jsonValue["SerialConsole"]["SSH"]["ServiceEnabled"] =
+                true;
+            asyncResp->res.jsonValue["SerialConsole"]["SSH"]["Port"] = 2200;
+            asyncResp->res
+                .jsonValue["SerialConsole"]["SSH"]["HotKeySequenceDisplay"] =
+                "Press ~. to exit console";
 
 #ifdef BMCWEB_ENABLE_KVM
             // Fill in GraphicalConsole info
-            asyncResp->res.jsonValue["GraphicalConsole"] = {
-                {"ServiceEnabled", true},
-                {"MaxConcurrentSessions", 4},
-                {"ConnectTypesSupported", {"KVMIP"}},
-            };
+            asyncResp->res.jsonValue["GraphicalConsole"]["ServiceEnabled"] =
+                true;
+            asyncResp->res
+                .jsonValue["GraphicalConsole"]["MaxConcurrentSessions"] = 4;
+            asyncResp->res.jsonValue["GraphicalConsole"]
+                                    ["ConnectTypesSupported"] = {"KVMIP"};
+
 #endif // BMCWEB_ENABLE_KVM
             constexpr const std::array<const char*, 4> inventoryForSystems = {
                 "xyz.openbmc_project.Inventory.Item.Dimm",
@@ -2960,8 +2965,8 @@ inline void requestRoutesSystems(App& app)
             getMainChassisId(
                 asyncResp, [](const std::string& chassisId,
                               const std::shared_ptr<bmcweb::AsyncResp>& aRsp) {
-                    aRsp->res.jsonValue["Links"]["Chassis"] = {
-                        {{"@odata.id", "/redfish/v1/Chassis/" + chassisId}}};
+                    aRsp->res.jsonValue["Links"]["Chassis"]["@odata.id"] =
+                        "/redfish/v1/Chassis/" + chassisId;
                 });
 
             getLocationIndicatorActive(asyncResp);
@@ -3106,7 +3111,6 @@ inline void requestRoutesSystems(App& app)
  */
 inline void requestRoutesSystemResetActionInfo(App& app)
 {
-
     /**
      * Functions triggers appropriate requests on DBus
      */
@@ -3119,19 +3123,25 @@ inline void requestRoutesSystemResetActionInfo(App& app)
                 {
                     return;
                 }
-                asyncResp->res.jsonValue = {
-                    {"@odata.type", "#ActionInfo.v1_1_2.ActionInfo"},
-                    {"@odata.id", "/redfish/v1/Systems/system/ResetActionInfo"},
-                    {"Name", "Reset Action Info"},
-                    {"Id", "ResetActionInfo"},
-                    {"Parameters",
-                     {{{"Name", "ResetType"},
-                       {"Required", true},
-                       {"DataType", "String"},
-                       {"AllowableValues",
-                        {"On", "ForceOff", "ForceOn", "ForceRestart",
-                         "GracefulRestart", "GracefulShutdown", "PowerCycle",
-                         "Nmi"}}}}}};
+
+                asyncResp->res.jsonValue["@odata.id"] =
+                    "/redfish/v1/Systems/system/ResetActionInfo";
+                asyncResp->res.jsonValue["@odata.type"] =
+                    "#ActionInfo.v1_1_2.ActionInfo";
+                asyncResp->res.jsonValue["Name"] = "Reset Action Info";
+                asyncResp->res.jsonValue["Id"] = "ResetActionInfo";
+                asyncResp->res.jsonValue["Parameters"]["Name"] = "ResetType";
+                asyncResp->res.jsonValue["Parameters"]["Required"] = true;
+                asyncResp->res.jsonValue["Parameters"]["DataType"] = "String";
+                asyncResp->res.jsonValue["Parameters"]["AllowableValues"] = {
+                    "On",
+                    "ForceOff",
+                    "ForceOn",
+                    "ForceRestart",
+                    "GracefulRestart",
+                    "GracefulShutdown",
+                    "PowerCycle",
+                    "Nmi"};
             });
 }
 } // namespace redfish

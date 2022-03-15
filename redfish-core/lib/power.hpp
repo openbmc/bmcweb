@@ -215,13 +215,16 @@ inline void requestRoutesPower(App& app)
                         {
                             // Mandatory properties odata.id and MemberId
                             // A warning without a odata.type
-                            tempArray.push_back(
-                                {{"@odata.type", "#Power.v1_0_0.PowerControl"},
-                                 {"@odata.id", "/redfish/v1/Chassis/" +
-                                                   sensorAsyncResp->chassisId +
-                                                   "/Power#/PowerControl/0"},
-                                 {"Name", "Chassis Power Control"},
-                                 {"MemberId", "0"}});
+                            nlohmann::json::object_t powerControl;
+                            powerControl["@odata.type"] =
+                                "#Power.v1_0_0.PowerControl";
+                            powerControl["@odata.id"] =
+                                "/redfish/v1/Chassis/" +
+                                sensorAsyncResp->chassisId +
+                                "/Power#/PowerControl/0";
+                            powerControl["Name"] = "Chassis Power Control";
+                            powerControl["MemberId"] = "0";
+                            tempArray.push_back(std::move(powerControl));
                         }
 
                         nlohmann::json& sensorJson = tempArray.back();

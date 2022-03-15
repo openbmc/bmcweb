@@ -690,12 +690,12 @@ inline void requestRoutes(App& app)
                 asyncResp->res.jsonValue["@odata.id"] = "/ibm/v1/";
                 asyncResp->res.jsonValue["Id"] = "IBM Rest RootService";
                 asyncResp->res.jsonValue["Name"] = "IBM Service Root";
-                asyncResp->res.jsonValue["ConfigFiles"] = {
-                    {"@odata.id", "/ibm/v1/Host/ConfigFiles"}};
-                asyncResp->res.jsonValue["LockService"] = {
-                    {"@odata.id", "/ibm/v1/HMC/LockService"}};
-                asyncResp->res.jsonValue["BroadcastService"] = {
-                    {"@odata.id", "/ibm/v1/HMC/BroadcastService"}};
+                asyncResp->res.jsonValue["ConfigFiles"]["@odata.id"] =
+                    "/ibm/v1/Host/ConfigFiles";
+                asyncResp->res.jsonValue["LockService"]["@odata.id"] =
+                    "/ibm/v1/HMC/LockService";
+                asyncResp->res.jsonValue["BroadcastService"]["@odata.id"] =
+                    "/ibm/v1/HMC/BroadcastService";
             });
 
     BMCWEB_ROUTE(app, "/ibm/v1/Host/ConfigFiles")

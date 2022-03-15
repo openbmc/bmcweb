@@ -113,8 +113,9 @@ inline nlohmann::json getSessionCollectionMembers()
     nlohmann::json ret = nlohmann::json::array();
     for (const std::string* uid : sessionIds)
     {
-        ret.push_back(
-            {{"@odata.id", "/redfish/v1/SessionService/Sessions/" + *uid}});
+        nlohmann::json::object_t session;
+        session["@odata.id"] = "/redfish/v1/SessionService/Sessions/" + *uid;
+        ret.push_back(std::move(session));
     }
     return ret;
 }
@@ -245,8 +246,8 @@ inline void
         persistent_data::SessionStore::getInstance().getTimeoutInSeconds();
     asyncResp->res.jsonValue["ServiceEnabled"] = true;
 
-    asyncResp->res.jsonValue["Sessions"] = {
-        {"@odata.id", "/redfish/v1/SessionService/Sessions"}};
+    asyncResp->res.jsonValue["Sessions"]["@odata.id"] =
+        "/redfish/v1/SessionService/Sessions";
 }
 
 inline void handleSessionServicePatch(
