@@ -46,6 +46,30 @@
       },
       "revId": "0e692ada84930ded9f833815f271917cad4a6f3b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7f0e2fe4_8036abfb",
+        "filename": "redfish-core/lib/pcie_slots.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 289,
+      "author": {
+        "id": 1001217
+      },
+      "writtenOn": "2022-03-15T01:18:46Z",
+      "side": 1,
+      "message": "Thank you both for the suggestion, callbacks are now implemented.",
+      "parentUuid": "a1309180_06000170",
+      "range": {
+        "startLine": 289,
+        "startChar": 61,
+        "endLine": 289,
+        "endChar": 63
+      },
+      "revId": "0e692ada84930ded9f833815f271917cad4a6f3b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
