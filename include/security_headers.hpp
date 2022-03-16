@@ -35,7 +35,7 @@ inline void addSecurityHeaders(const crow::Request& req [[maybe_unused]],
                                                  "connect-src 'self' wss:; "
                                                  "form-action 'none'; "
                                                  "frame-ancestors 'none'; "
-                                                 "plugin-types 'none'; "
+                                                 "object-src 'none'; "
                                                  "base-uri 'none' ");
         // The KVM currently needs to load images from base64 encoded
         // strings. img-src 'self' data: is used to allow that.
@@ -54,7 +54,7 @@ inline void addSecurityHeaders(const crow::Request& req [[maybe_unused]],
                                                  "connect-src *; "
                                                  "form-action *; "
                                                  "frame-ancestors *; "
-                                                 "plugin-types *; "
+                                                 "object-src *; "
                                                  "base-uri *");
 
         const std::string_view origin = req.getHeaderValue("Origin");
