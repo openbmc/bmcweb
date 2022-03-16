@@ -39,6 +39,24 @@
       "message": "Can you please speak to the potential of DOS attacks using this feature?  It seems quite easy to lock oneself out of the Redfish service this way if a user is able to disable their ability to log in, and considering that the only way to enable/disable this would be through an authenticated session, it seems like there would be no way to reenable it after disabling it.\n\nThe above commit message also doesn\u0027t explain WHY this is needed, so it\u0027s hard to hypothesize at possible solutions when it\u0027s not clear the problem you\u0027re attempting to solve.  Just because redfish has a property available to us, does not mean that a BMC needs to implement it.  Lets start by getting details on what you\u0027re hoping to do with this, and we can see if there\u0027s a solution for this, but as written, I don\u0027t think we can merge this feature given the potential for abuse.",
       "revId": "d764ffe125b28a61f6526e1ae09db9fce150c1c1",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "23296fe3_6af2cc82",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-03-16T19:06:30Z",
+      "side": 1,
+      "message": "+1 on the WHY. Can you speak on the use case here? Why do we want this feature? \nI know Redfish added this but why does bmcweb/OpenBMC want this?",
+      "parentUuid": "0e8ad38b_7cda955b",
+      "revId": "d764ffe125b28a61f6526e1ae09db9fce150c1c1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
