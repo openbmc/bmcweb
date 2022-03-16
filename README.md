@@ -48,7 +48,8 @@ ninja -C builddir
 ### Generate test coverage report:
 ```ascii
 meson builddir -Db_coverage=true -Dtests=enabled
-ninja coverage -C builddir test
+ninja -C builddir test
+ninja -C builddir coverage
 ```
 When BMCWeb starts running, it reads persistent configuration data
 (such as UUID and session data) from a local file.  If this is not
