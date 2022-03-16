@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fae624e0_166a158d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-03-16T16:52:00Z",
+      "side": 1,
+      "message": "I am 100% good with this commit, we will pass this test case in the  protocol validator but we aren\u0027t done here. This rule is for all collections. I can open a another issue after this merges to track this. It would be a good first issue after we get the free methods in",
+      "revId": "0c15d3a582abb0e3c082045c1f5712912a3c2d74",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
