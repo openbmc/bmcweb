@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8aaa787b_42737839",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1001387
+      },
+      "writtenOn": "2022-03-16T00:50:49Z",
+      "side": 1,
+      "message": "Ha, that\u0027s what I get for copy pasting things. Thanks for catching that. Updated.",
+      "parentUuid": "15c206a8_c04f7e6f",
+      "range": {
+        "startLine": 9,
+        "startChar": 51,
+        "endLine": 9,
+        "endChar": 74
+      },
+      "revId": "84a3f7b9ee9e8e0e5f02b8c77c7dd4dc0d443a21",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0b9795e7_479a0b2a",
