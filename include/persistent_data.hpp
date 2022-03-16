@@ -136,6 +136,12 @@ class ConfigFile
                         SessionStore::getInstance().updateSessionTimeout(
                             sessionTimeoutInseconds);
                     }
+                    else if (item.key() == "sessionservice_config")
+                    {
+                        SessionStore::getInstance()
+                            .getSessionServiceConfig()
+                            .fromJson(item.value());
+                    }
                     else if (item.key() == "eventservice_config")
                     {
                         EventServiceStore::getInstance()
@@ -208,6 +214,8 @@ class ConfigFile
         const auto& c = SessionStore::getInstance().getAuthMethodsConfig();
         const auto& eventServiceConfig =
             EventServiceStore::getInstance().getEventServiceConfig();
+        const auto& sessionServiceConfig =
+            SessionStore::getInstance().getSessionServiceConfig();
         nlohmann::json data{
             {"auth_config",
              {{"XToken", c.xtoken},
@@ -222,6 +230,10 @@ class ConfigFile
               {"DeliveryRetryAttempts", eventServiceConfig.retryAttempts},
               {"DeliveryRetryIntervalSeconds",
                eventServiceConfig.retryTimeoutInterval}}
+
+            },
+            {"sessionservice_config",
+             {{"ServiceEnabled", sessionServiceConfig.enabled}}
 
             },
             {"system_uuid", systemUuid},

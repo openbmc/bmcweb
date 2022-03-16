@@ -21,6 +21,7 @@
 #include <app.hpp>
 #include <http/utility.hpp>
 #include <registries/privilege_registry.hpp>
+#include <sdbusplus/asio/property.hpp>
 
 namespace redfish
 {
@@ -80,6 +81,15 @@ inline void requestRoutesSession(App& app)
                 {
                     messages::resourceNotFound(asyncResp->res, "Session",
                                                sessionId);
+                    return;
+                }
+
+                if (!persistent_data::SessionStore::getInstance()
+                         .getSessionServiceConfig()
+                         .enabled)
+                {
+                    messages::serviceDisabled(asyncResp->res,
+                                              "/redfish/v1/SessionService");
                     return;
                 }
 
@@ -171,6 +181,15 @@ inline void requestRoutesSession(App& app)
                     return;
                 }
 
+                if (!persistent_data::SessionStore::getInstance()
+                         .getSessionServiceConfig()
+                         .enabled)
+                {
+                    messages::serviceDisabled(asyncResp->res,
+                                              "/redfish/v1/SessionService");
+                    return;
+                }
+
                 int pamrc = pamAuthenticateUser(username, password);
                 bool isConfigureSelfOnly = pamrc == PAM_NEW_AUTHTOK_REQD;
                 if ((pamrc != PAM_SUCCESS) && !isConfigureSelfOnly)
@@ -236,7 +255,10 @@ inline void requestRoutesSession(App& app)
                 asyncResp->res.jsonValue["SessionTimeout"] =
                     persistent_data::SessionStore::getInstance()
                         .getTimeoutInSeconds();
-                asyncResp->res.jsonValue["ServiceEnabled"] = true;
+                asyncResp->res.jsonValue["ServiceEnabled"] =
+                    persistent_data::SessionStore::getInstance()
+                        .getSessionServiceConfig()
+                        .enabled;
 
                 asyncResp->res.jsonValue["Sessions"] = {
                     {"@odata.id", "/redfish/v1/SessionService/Sessions"}};
@@ -248,8 +270,10 @@ inline void requestRoutesSession(App& app)
             [](const crow::Request& req,
                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) -> void {
                 std::optional<int64_t> sessionTimeout;
+                std::optional<bool> serviceEnabled;
                 if (!json_util::readJsonPatch(req, asyncResp->res,
-                                              "SessionTimeout", sessionTimeout))
+                                              "SessionTimeout", sessionTimeout,
+                                              "ServiceEnabled", serviceEnabled))
                 {
                     return;
                 }
@@ -277,6 +301,14 @@ inline void requestRoutesSession(App& app)
                             asyncResp->res, std::to_string(*sessionTimeout),
                             "SessionTimeOut");
                     }
+                }
+
+                if (serviceEnabled)
+                {
+                    persistent_data::SessionStore::getInstance()
+                        .getSessionServiceConfig()
+                        .enabled = *serviceEnabled;
+                    persistent_data::getConfig().writeData();
                 }
             });
 }
