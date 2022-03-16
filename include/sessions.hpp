@@ -208,6 +208,27 @@ struct AuthConfigMethods
     }
 };
 
+struct SessionServiceConfig
+{
+    bool enabled = true;
+
+    void fromJson(const nlohmann::json& j)
+    {
+        for (const auto& element : j.items())
+        {
+            if (element.key() == "ServiceEnabled")
+            {
+                const bool* value = element.value().get_ptr<const bool*>();
+                if (value == nullptr)
+                {
+                    continue;
+                }
+                enabled = *value;
+            }
+        }
+    }
+};
+
 class SessionStore
 {
   public:
@@ -353,6 +374,11 @@ class SessionStore
         return authMethodsConfig;
     }
 
+    SessionServiceConfig& getSessionServiceConfig()
+    {
+        return sessionServiceConfig;
+    }
+
     bool needsWrite() const
     {
         return needWrite;
@@ -417,6 +443,7 @@ class SessionStore
     bool needWrite{false};
     std::chrono::seconds timeoutInSeconds;
     AuthConfigMethods authMethodsConfig;
+    SessionServiceConfig sessionServiceConfig;
 
   private:
     SessionStore() : timeoutInSeconds(1800)
