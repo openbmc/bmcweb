@@ -3,6 +3,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "15c206a8_c04f7e6f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1001143
+      },
+      "writtenOn": "2022-03-16T00:47:57Z",
+      "side": 1,
+      "message": "nit: not sure this go link works outside our company :) , to be safe use the full address",
+      "range": {
+        "startLine": 9,
+        "startChar": 51,
+        "endLine": 9,
+        "endChar": 74
+      },
+      "revId": "84a3f7b9ee9e8e0e5f02b8c77c7dd4dc0d443a21",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "0b9795e7_479a0b2a",
         "filename": "redfish-core/lib/ut/log_services_test.cpp",
         "patchSetId": 1
@@ -38,6 +61,30 @@
       "side": 1,
       "message": "It seems like system dumps don\u0027t generate a success message, just error messages in case of problems, which is why I tested it this way :)",
       "parentUuid": "0b9795e7_479a0b2a",
+      "range": {
+        "startLine": 145,
+        "startChar": 16,
+        "endLine": 145,
+        "endChar": 65
+      },
+      "revId": "84a3f7b9ee9e8e0e5f02b8c77c7dd4dc0d443a21",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b27bff8f_a55d3fcb",
+        "filename": "redfish-core/lib/ut/log_services_test.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 1001143
+      },
+      "writtenOn": "2022-03-16T00:47:57Z",
+      "side": 1,
+      "message": "Got it -- after you mentioned it I now remember I added the success message for bmc dump and faultlog (but not system dump) in my patch. Not as part of this code review but I believe we should add a success message in the implementation for all of these, per Redfish spec 1.15.0 Table 11 and https://redfishforum.com/thread/97/action-response-body.",
+      "parentUuid": "b23c5169_7ef4b853",
       "range": {
         "startLine": 145,
         "startChar": 16,
