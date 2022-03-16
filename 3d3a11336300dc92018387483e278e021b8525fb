@@ -16,6 +16,24 @@
       "message": "One thing I thought of about the above, how does this work for things that actually end with a number, for example \"AgoraV2\"?",
       "revId": "3d3a11336300dc92018387483e278e021b8525fb",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8d69d1ff_ccc43a0f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 16
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2022-03-16T20:03:45Z",
+      "side": 1,
+      "message": "that is the same case as\n\n```\nEXPECT_EQ(dbus::utility::getResourceName(\"hello_world_1a23\"),\n              \"hello_world_1a23\");\n```\n\nit will only accept `_{numbers}` and remove it. The number have to follow right after `_` for it to work. Otherwise, it will not do anything.",
+      "parentUuid": "f6c1f0bc_9c2d234e",
+      "revId": "3d3a11336300dc92018387483e278e021b8525fb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
