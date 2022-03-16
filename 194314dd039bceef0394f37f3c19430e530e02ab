@@ -1,6 +1,7 @@
 {
   "comments": [
     {
+      "unresolved": true,
       "key": {
         "uuid": "0c63d5f3_3d470a97",
         "filename": "http/http_connection.hpp",
@@ -20,10 +21,10 @@
         "endChar": 33
       },
       "revId": "194314dd039bceef0394f37f3c19430e530e02ab",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "2b846857_0667fc6f",
         "filename": "http/http_connection.hpp",
@@ -44,8 +45,31 @@
         "endChar": 33
       },
       "revId": "194314dd039bceef0394f37f3c19430e530e02ab",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9c1b9e62_23b69b2a",
+        "filename": "http/http_connection.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 431,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2022-03-16T09:03:05Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "2b846857_0667fc6f",
+      "range": {
+        "startLine": 431,
+        "startChar": 8,
+        "endLine": 431,
+        "endChar": 33
+      },
+      "revId": "194314dd039bceef0394f37f3c19430e530e02ab",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
