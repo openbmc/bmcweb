@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "297716cd_b7cc46cd",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-03-16T17:22:19Z",
+      "side": 1,
+      "message": "Can we add a bit more about these properties being not required, not important, why it is acceptable these not be there? And why occ-control service might not available? bmcweb does not have a dependency on it, so could it not be up yet but bmcweb is?",
+      "revId": "3f9acb6334907f72b9dd7bc03bfee561c7b108a1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "75e64504_3f2fe626",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-03-16T17:22:19Z",
+      "side": 1,
+      "message": "Let\u0027s describe this in terms of Redfish clients. Not use the word HMC since it doesn\u0027t buy anything.\n\nA management Redish client has seen internalErrors when the occ-control service is unreachable.",
+      "range": {
+        "startLine": 12,
+        "startChar": 0,
+        "endLine": 12,
+        "endChar": 4
+      },
+      "revId": "3f9acb6334907f72b9dd7bc03bfee561c7b108a1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "49f41c33_be706ff6",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 2002,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-03-16T17:22:19Z",
+      "side": 1,
+      "message": "I am struggling a bit here on when we should return an internal error and when we should not. These were found by the mapper it is just when we go to the service, it returns a host_unreachable.\n\nSo do we think all non-required properties should *not* return an error on host_unreachable? There is very few required properties in Redfish. \n\nDo we think all non-important, non-required properties should not return an error on host_unreachable? \nSo a property like powerstate if it gets a host_unreachable then return an error but LastResetTime and properties like PowerModes if it gets a host_unreachable, just ignore and leave off the response?\n\nNot sure this should guide us but like the OCP profile (the OCP profiles are outdated at this point, just a data point on possible importance to a Redfish client) expects PowerState but not any of these. \n\nhttps://github.com/opencomputeproject/HWMgmt-OCP-Profiles/blob/master/OCPRackManagerController.v1_0_1.json#L426",
+      "revId": "3f9acb6334907f72b9dd7bc03bfee561c7b108a1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
