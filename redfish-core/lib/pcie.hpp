@@ -35,12 +35,13 @@ static constexpr char const* pcieDeviceInterface =
 
 static inline void
     getPCIeDeviceList(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                      const std::string& name)
+                      const std::string& name, const std::string& systemName)
 {
     auto getPCIeMapCallback =
-        [asyncResp, name](const boost::system::error_code ec,
-                          const dbus::utility::MapperGetSubTreePathsResponse&
-                              pcieDevicePaths) {
+        [asyncResp, name,
+         systemName](const boost::system::error_code ec,
+                     const dbus::utility::MapperGetSubTreePathsResponse&
+                         pcieDevicePaths) {
         if (ec)
         {
             BMCWEB_LOG_DEBUG << "no PCIe device paths found ec: "
@@ -65,7 +66,7 @@ static inline void
             }
             nlohmann::json::object_t pcieDevice;
             pcieDevice["@odata.id"] =
-                "/redfish/v1/Systems/system/PCIeDevices/" + devName;
+                "/redfish/v1/Systems/" + systemName + "/PCIeDevices/" + devName;
             pcieDeviceList.push_back(std::move(pcieDevice));
         }
         asyncResp->res.jsonValue[name + "@odata.count"] = pcieDeviceList.size();
