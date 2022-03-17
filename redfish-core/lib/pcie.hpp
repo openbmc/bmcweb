@@ -39,8 +39,9 @@ static inline void
     getPCIeDeviceList(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                       const std::string& name)
 {
-    auto getPCIeMapCallback =
-        [asyncResp, name](const boost::system::error_code ec,
+    dbus::utility::getSubTreePaths(
+        pciePath, 1, {},
+        [asyncResp, name](const boost::system::error_code& ec,
                           const dbus::utility::MapperGetSubTreePathsResponse&
                               pcieDevicePaths) {
         if (ec)
@@ -71,12 +72,7 @@ static inline void
             pcieDeviceList.push_back(std::move(pcieDevice));
         }
         asyncResp->res.jsonValue[name + "@odata.count"] = pcieDeviceList.size();
-    };
-    crow::connections::systemBus->async_method_call(
-        std::move(getPCIeMapCallback), "xyz.openbmc_project.ObjectMapper",
-        "/xyz/openbmc_project/object_mapper",
-        "xyz.openbmc_project.ObjectMapper", "GetSubTreePaths",
-        std::string(pciePath) + "/", 1, std::array<std::string, 0>());
+        });
 }
 
 inline void requestRoutesSystemPCIeDeviceCollection(App& app)
