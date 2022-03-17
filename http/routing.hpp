@@ -1181,12 +1181,12 @@ class Router
             // TODO absolute url building
             if (req.getHeaderValue("Host").empty())
             {
-                res.addHeader("Location", std::string(req.url) + "/");
+                res.addHeader(boost::beast::http::field::location, std::string(req.url) + "/");
             }
             else
             {
                 res.addHeader(
-                    "Location",
+                    boost::beast::http::field::location,
                     req.isSecure
                         ? "https://"
                         : "http://" + std::string(req.getHeaderValue("Host")) +
@@ -1286,13 +1286,13 @@ class Router
             // TODO absolute url building
             if (req.getHeaderValue("Host").empty())
             {
-                asyncResp->res.addHeader("Location",
+                asyncResp->res.addHeader(boost::beast::http::field::location,
                                          std::string(req.url) + "/");
             }
             else
             {
                 asyncResp->res.addHeader(
-                    "Location", (req.isSecure ? "https://" : "http://") +
+                    boost::beast::http::field::location, (req.isSecure ? "https://" : "http://") +
                                     std::string(req.getHeaderValue("Host")) +
                                     std::string(req.url) + "/");
             }

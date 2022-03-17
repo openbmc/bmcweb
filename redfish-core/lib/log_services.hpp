@@ -1780,9 +1780,9 @@ inline void requestRoutesDBusEventLogEntryDownload(App& app)
                         std::string output =
                             crow::utility::base64encode(strData);
 
-                        asyncResp->res.addHeader("Content-Type",
+                        asyncResp->res.addHeader(boost::beast::http::field::content_type,
                                                  "application/octet-stream");
-                        asyncResp->res.addHeader("Content-Transfer-Encoding",
+                        asyncResp->res.addHeader(boost::beast::http::field::content_transfer_encoding,
                                                  "Base64");
                         asyncResp->res.body() = std::move(output);
                     },
@@ -2821,7 +2821,7 @@ inline void requestRoutesCrashdumpFile(App& app)
 
                         // Configure this to be a file download when accessed
                         // from a browser
-                        asyncResp->res.addHeader("Content-Disposition",
+                        asyncResp->res.addHeader(boost::beast::http::field::content_disposition,
                                                  "attachment");
                     };
                 crow::connections::systemBus->async_method_call(
@@ -3467,9 +3467,9 @@ inline void requestRoutesPostCodesEntryAdditionalData(App& app)
                         const char* d = reinterpret_cast<const char*>(c.data());
                         std::string_view strData(d, c.size());
 
-                        asyncResp->res.addHeader("Content-Type",
+                        asyncResp->res.addHeader(boost::beast::http::field::content_type,
                                                  "application/octet-stream");
-                        asyncResp->res.addHeader("Content-Transfer-Encoding",
+                        asyncResp->res.addHeader(boost::beast::http::field::content_transfer_encoding,
                                                  "Base64");
                         asyncResp->res.body() =
                             crow::utility::base64encode(strData);
