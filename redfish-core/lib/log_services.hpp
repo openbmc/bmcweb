@@ -1700,9 +1700,10 @@ inline void requestRoutesDBusEventLogEntryDownload(App& app)
             std::string_view strData(data.data(), data.size());
             std::string output = crow::utility::base64encode(strData);
 
-            asyncResp->res.addHeader("Content-Type",
+            asyncResp->res.addHeader(boost::beast::http::field::content_type,
                                      "application/octet-stream");
-            asyncResp->res.addHeader("Content-Transfer-Encoding", "Base64");
+            asyncResp->res.addHeader(
+                boost::beast::http::field::content_transfer_encoding, "Base64");
             asyncResp->res.body() = std::move(output);
             },
             "xyz.openbmc_project.Logging",
@@ -2924,7 +2925,8 @@ inline void requestRoutesCrashdumpFile(App& app)
 
             // Configure this to be a file download when accessed
             // from a browser
-            asyncResp->res.addHeader("Content-Disposition", "attachment");
+            asyncResp->res.addHeader(
+                boost::beast::http::field::content_disposition, "attachment");
         };
         crow::connections::systemBus->async_method_call(
             std::move(getStoredLogCallback), crashdumpObject,
@@ -3573,9 +3575,10 @@ inline void requestRoutesPostCodesEntryAdditionalData(App& app)
             const char* d = reinterpret_cast<const char*>(c.data());
             std::string_view strData(d, c.size());
 
-            asyncResp->res.addHeader("Content-Type",
+            asyncResp->res.addHeader(boost::beast::http::field::content_type,
                                      "application/octet-stream");
-            asyncResp->res.addHeader("Content-Transfer-Encoding", "Base64");
+            asyncResp->res.addHeader(
+                boost::beast::http::field::content_transfer_encoding, "Base64");
             asyncResp->res.body() = crow::utility::base64encode(strData);
             },
             "xyz.openbmc_project.State.Boot.PostCode0",
