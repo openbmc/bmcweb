@@ -1780,9 +1780,11 @@ inline void requestRoutesDBusEventLogEntryDownload(App& app)
                         std::string output =
                             crow::utility::base64encode(strData);
 
-                        asyncResp->res.addHeader("Content-Type",
-                                                 "application/octet-stream");
-                        asyncResp->res.addHeader("Content-Transfer-Encoding",
+                        asyncResp->res.addHeader(
+                            boost::beast::http::field::content_type,
+                            "application/octet-stream");
+                        asyncResp->res.addHeader(boost::beast::http::field::
+                                                     content_transfer_encoding,
                                                  "Base64");
                         asyncResp->res.body() = std::move(output);
                     },
@@ -2821,8 +2823,9 @@ inline void requestRoutesCrashdumpFile(App& app)
 
                         // Configure this to be a file download when accessed
                         // from a browser
-                        asyncResp->res.addHeader("Content-Disposition",
-                                                 "attachment");
+                        asyncResp->res.addHeader(
+                            boost::beast::http::field::content_disposition,
+                            "attachment");
                     };
                 crow::connections::systemBus->async_method_call(
                     std::move(getStoredLogCallback), crashdumpObject,
@@ -3406,79 +3409,80 @@ inline void requestRoutesPostCodesEntryAdditionalData(App& app)
         app,
         "/redfish/v1/Systems/system/LogServices/PostCodes/Entries/<str>/attachment/")
         .privileges(redfish::privileges::getLogEntry)
-        .methods(boost::beast::http::verb::get)(
-            [](const crow::Request& req,
-               const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-               const std::string& postCodeID) {
-                if (!http_helpers::isOctetAccepted(
-                        req.getHeaderValue("Accept")))
-                {
-                    asyncResp->res.result(
-                        boost::beast::http::status::bad_request);
-                    return;
-                }
+        .methods(
+            boost::beast::http::verb::get)([](const crow::Request& req,
+                                              const std::shared_ptr<
+                                                  bmcweb::AsyncResp>& asyncResp,
+                                              const std::string& postCodeID) {
+            if (!http_helpers::isOctetAccepted(req.getHeaderValue("Accept")))
+            {
+                asyncResp->res.result(boost::beast::http::status::bad_request);
+                return;
+            }
 
-                uint64_t currentValue = 0;
-                uint16_t index = 0;
-                if (!parsePostCode(postCodeID, currentValue, index))
-                {
-                    messages::resourceNotFound(asyncResp->res, "LogEntry",
-                                               postCodeID);
-                    return;
-                }
+            uint64_t currentValue = 0;
+            uint16_t index = 0;
+            if (!parsePostCode(postCodeID, currentValue, index))
+            {
+                messages::resourceNotFound(asyncResp->res, "LogEntry",
+                                           postCodeID);
+                return;
+            }
 
-                crow::connections::systemBus->async_method_call(
-                    [asyncResp, postCodeID, currentValue](
-                        const boost::system::error_code ec,
-                        const std::vector<std::tuple<
-                            uint64_t, std::vector<uint8_t>>>& postcodes) {
-                        if (ec.value() == EBADR)
-                        {
-                            messages::resourceNotFound(asyncResp->res,
-                                                       "LogEntry", postCodeID);
-                            return;
-                        }
-                        if (ec)
-                        {
-                            BMCWEB_LOG_DEBUG << "DBUS response error " << ec;
-                            messages::internalError(asyncResp->res);
-                            return;
-                        }
+            crow::connections::systemBus->async_method_call(
+                [asyncResp, postCodeID, currentValue](
+                    const boost::system::error_code ec,
+                    const std::vector<std::tuple<
+                        uint64_t, std::vector<uint8_t>>>& postcodes) {
+                    if (ec.value() == EBADR)
+                    {
+                        messages::resourceNotFound(asyncResp->res, "LogEntry",
+                                                   postCodeID);
+                        return;
+                    }
+                    if (ec)
+                    {
+                        BMCWEB_LOG_DEBUG << "DBUS response error " << ec;
+                        messages::internalError(asyncResp->res);
+                        return;
+                    }
 
-                        size_t value = static_cast<size_t>(currentValue) - 1;
-                        if (value == std::string::npos ||
-                            postcodes.size() < currentValue)
-                        {
-                            BMCWEB_LOG_ERROR << "Wrong currentValue value";
-                            messages::resourceNotFound(asyncResp->res,
-                                                       "LogEntry", postCodeID);
-                            return;
-                        }
+                    size_t value = static_cast<size_t>(currentValue) - 1;
+                    if (value == std::string::npos ||
+                        postcodes.size() < currentValue)
+                    {
+                        BMCWEB_LOG_ERROR << "Wrong currentValue value";
+                        messages::resourceNotFound(asyncResp->res, "LogEntry",
+                                                   postCodeID);
+                        return;
+                    }
 
-                        const auto& [tID, c] = postcodes[value];
-                        if (c.empty())
-                        {
-                            BMCWEB_LOG_INFO << "No found post code data";
-                            messages::resourceNotFound(asyncResp->res,
-                                                       "LogEntry", postCodeID);
-                            return;
-                        }
-                        // NOLINTNEXTLINE(cppcoreguidelines-pro-type-reinterpret-cast)
-                        const char* d = reinterpret_cast<const char*>(c.data());
-                        std::string_view strData(d, c.size());
+                    const auto& [tID, c] = postcodes[value];
+                    if (c.empty())
+                    {
+                        BMCWEB_LOG_INFO << "No found post code data";
+                        messages::resourceNotFound(asyncResp->res, "LogEntry",
+                                                   postCodeID);
+                        return;
+                    }
+                    // NOLINTNEXTLINE(cppcoreguidelines-pro-type-reinterpret-cast)
+                    const char* d = reinterpret_cast<const char*>(c.data());
+                    std::string_view strData(d, c.size());
 
-                        asyncResp->res.addHeader("Content-Type",
-                                                 "application/octet-stream");
-                        asyncResp->res.addHeader("Content-Transfer-Encoding",
-                                                 "Base64");
-                        asyncResp->res.body() =
-                            crow::utility::base64encode(strData);
-                    },
-                    "xyz.openbmc_project.State.Boot.PostCode0",
-                    "/xyz/openbmc_project/State/Boot/PostCode0",
-                    "xyz.openbmc_project.State.Boot.PostCode", "GetPostCodes",
-                    index);
-            });
+                    asyncResp->res.addHeader(
+                        boost::beast::http::field::content_type,
+                        "application/octet-stream");
+                    asyncResp->res.addHeader(
+                        boost::beast::http::field::content_transfer_encoding,
+                        "Base64");
+                    asyncResp->res.body() =
+                        crow::utility::base64encode(strData);
+                },
+                "xyz.openbmc_project.State.Boot.PostCode0",
+                "/xyz/openbmc_project/State/Boot/PostCode0",
+                "xyz.openbmc_project.State.Boot.PostCode", "GetPostCodes",
+                index);
+        });
 }
 
 inline void requestRoutesPostCodesEntry(App& app)

@@ -19,7 +19,7 @@ inline void sendUnauthorized(std::string_view url, std::string_view userAgent,
         if (hasWebuiRoute)
         {
             res.result(boost::beast::http::status::temporary_redirect);
-            res.addHeader("Location",
+            res.addHeader(boost::beast::http::field::location,
                           "/#/login?next=" + http_helpers::urlEncode(url));
         }
         else
@@ -38,7 +38,7 @@ inline void sendUnauthorized(std::string_view url, std::string_view userAgent,
         // So key off that to know whether or not we need to suggest basic auth
         if (userAgent.empty())
         {
-            res.addHeader("WWW-Authenticate", "Basic");
+            res.addHeader(boost::beast::http::field::www_authenticate, "Basic");
         }
     }
 }
