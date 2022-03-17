@@ -205,6 +205,24 @@
       "message": "Can this patch be abandoned?",
       "revId": "c83bdc4284dde4b05d669e76bd9aea082e63e307",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a7812c04_97a6afab",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2022-03-17T17:15:39Z",
+      "side": 1,
+      "message": "I think yes, this logic can be taken to the backend as you mentioned; and if the backend returns error on null values, bmcweb will anyways catch this error and send it back to the client.",
+      "parentUuid": "567bc1bb_c799d627",
+      "revId": "c83bdc4284dde4b05d669e76bd9aea082e63e307",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
