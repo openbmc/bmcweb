@@ -3,6 +3,7 @@
 #include <human_sort.hpp>
 
 #include <string>
+#include <utility>
 #include <vector>
 
 namespace redfish
@@ -79,6 +80,24 @@ inline void
         "xyz.openbmc_project.ObjectMapper", "GetSubTreePaths", subtree, 0,
         interfaces);
 }
+inline std::string
+    getComputerSystemIndexString(const std::string_view& systemNameStr)
+{
+    static constexpr std::string_view systemToken = "system";
+    static constexpr std::string_view zero = "0";
+    auto location = systemNameStr.rfind(systemToken);
+    if (location == std::string::npos)
+    {
+        return std::string(zero);
+    }
 
+    auto index = systemNameStr.substr(location + systemToken.length());
+    if (index.empty())
+    {
+        return std::string(zero);
+    }
+
+    return std::string(index);
+}
 } // namespace collection_util
 } // namespace redfish
