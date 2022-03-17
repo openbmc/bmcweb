@@ -2293,7 +2293,6 @@ inline void requestRoutesBMCJournalLogEntryCollection(App& app)
             return;
         }
 
-
         size_t skip = delegatedQuery.skip.value_or(0);
         size_t top = delegatedQuery.top.value_or(query_param::Query::maxTop);
 
