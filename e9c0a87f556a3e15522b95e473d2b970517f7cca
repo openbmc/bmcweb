@@ -26,6 +26,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "904e00f6_d42b89cc",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1001252
+      },
+      "writtenOn": "2022-03-17T14:59:21Z",
+      "side": 1,
+      "message": "Confirmed KVM and serial console works. I also performed a quick code check in both phosphor-webui and webui-vue, neither of them uses \u003cembed\u003e, \u003cobject\u003e or \u003capplet\u003e tags. Add this to the tested field of commit message.",
+      "parentUuid": "e2ddcbbe_f1f0e508",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 16,
+        "endChar": 23
+      },
+      "revId": "e9c0a87f556a3e15522b95e473d2b970517f7cca",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "f3436d3f_dd7aac02",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 1
@@ -107,6 +131,24 @@
       "side": 1,
       "message": "+1",
       "parentUuid": "96b73870_9f6178c4",
+      "revId": "e9c0a87f556a3e15522b95e473d2b970517f7cca",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6bae3f4d_c3504701",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001252
+      },
+      "writtenOn": "2022-03-17T14:59:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2b42ddb3_b6a0bf61",
       "revId": "e9c0a87f556a3e15522b95e473d2b970517f7cca",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
