@@ -1197,6 +1197,7 @@ inline void requestRoutesTrustStoreCertificate(App& app)
             return;
         }
 
+
         BMCWEB_LOG_DEBUG << "Delete TrustStore Certificate ID=" << id;
         std::string objPath =
             sdbusplus::message::object_path(certs::authorityObjectPath) / id;
