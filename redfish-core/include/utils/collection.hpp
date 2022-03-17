@@ -12,6 +12,7 @@
 #include <span>
 #include <string>
 #include <string_view>
+#include <utility>
 #include <vector>
 
 namespace redfish
@@ -85,6 +86,32 @@ inline void
         aResp->res.jsonValue["Members@odata.count"] = members.size();
         });
 }
+inline std::string
+    getComputerSystemIndexString(const std::string_view systemNameStr)
+{
+    static constexpr std::string_view systemToken = "system";
+    static constexpr std::string_view zero = "0";
+    auto location = systemNameStr.rfind(systemToken);
+    if (location == std::string::npos)
+    {
+        BMCWEB_LOG_DEBUG << "invalid host number";
+        return "";
+    }
 
+    auto index = systemNameStr.substr(location + systemToken.length());
+    if (index.empty())
+    {
+        return std::string(zero);
+    }
+    // verify if the host number string has a valid number.
+    // return empty string in case of error
+    auto hostNumber = std::stoi(std::string(index));
+    if (std::in_range<size_t>(hostNumber))
+    {
+        return std::string(index);
+    }
+    BMCWEB_LOG_DEBUG << "invalid host number";
+    return "";
+}
 } // namespace collection_util
 } // namespace redfish

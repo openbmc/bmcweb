@@ -38,13 +38,14 @@ static constexpr char const* pcieDeviceInterface =
 
 static inline void
     getPCIeDeviceList(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                      const std::string& name)
+                      const std::string& name, const std::string& systemName)
 {
     dbus::utility::getSubTreePaths(
         pciePath, 1, {},
-        [asyncResp, name](const boost::system::error_code& ec,
-                          const dbus::utility::MapperGetSubTreePathsResponse&
-                              pcieDevicePaths) {
+        [asyncResp, name,
+         systemName](const boost::system::error_code& ec,
+                     const dbus::utility::MapperGetSubTreePathsResponse&
+                         pcieDevicePaths) {
         if (ec)
         {
             BMCWEB_LOG_DEBUG << "no PCIe device paths found ec: "
@@ -68,8 +69,9 @@ static inline void
                 continue;
             }
             nlohmann::json::object_t pcieDevice;
-            pcieDevice["@odata.id"] = crow::utility::urlFromPieces(
-                "redfish", "v1", "Systems", "system", "PCIeDevices", devName);
+            boost::urls::url pcieDeviceURL = crow::utility::urlFromPieces(
+                "redfish", "v1", "Systems", systemName, "PCIeDevices", devName);
+            pcieDevice["@odata.id"] = pcieDeviceURL.buffer();
             pcieDeviceList.push_back(std::move(pcieDevice));
         }
         asyncResp->res.jsonValue[name + "@odata.count"] = pcieDeviceList.size();
@@ -117,7 +119,30 @@ inline void requestRoutesSystemPCIeDeviceCollection(App& app)
     BMCWEB_ROUTE(app, "/redfish/v1/Systems/<str>/PCIeDevices/")
         .privileges(redfish::privileges::getPCIeDeviceCollection)
         .methods(boost::beast::http::verb::get)(
-            std::bind_front(handlePCIeDeviceCollectionGet, std::ref(app)));
+            [&app](const crow::Request& req,
+                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                   const std::string& systemName) {
+        if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+        {
+            return;
+        }
+        if (systemName != "system")
+        {
+            messages::resourceNotFound(asyncResp->res, "ComputerSystem",
+                                       systemName);
+            return;
+        }
+
+        asyncResp->res.jsonValue["@odata.type"] =
+            "#PCIeDeviceCollection.PCIeDeviceCollection";
+        asyncResp->res.jsonValue["@odata.id"] =
+            "/redfish/v1/Systems/system/PCIeDevices";
+        asyncResp->res.jsonValue["Name"] = "PCIe Device Collection";
+        asyncResp->res.jsonValue["Description"] = "Collection of PCIe Devices";
+        asyncResp->res.jsonValue["Members"] = nlohmann::json::array();
+        asyncResp->res.jsonValue["Members@odata.count"] = 0;
+        getPCIeDeviceList(asyncResp, "Members", systemName);
+        });
 }
 
 inline std::optional<pcie_device::PCIeTypes>
