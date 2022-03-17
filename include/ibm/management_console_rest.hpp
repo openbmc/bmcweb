@@ -321,7 +321,8 @@ inline void handleFileGet(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
 
     std::string contentDispositionParam =
         "attachment; filename=\"" + fileID + "\"";
-    asyncResp->res.addHeader("Content-Disposition", contentDispositionParam);
+    asyncResp->res.addHeader(boost::beast::http::field::content_disposition,
+                             contentDispositionParam);
     std::string fileData;
     fileData = {std::istreambuf_iterator<char>(readfile),
                 std::istreambuf_iterator<char>()};
