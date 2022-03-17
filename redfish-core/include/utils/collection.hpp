@@ -3,6 +3,7 @@
 #include <human_sort.hpp>
 
 #include <string>
+#include <utility>
 #include <vector>
 
 namespace redfish
@@ -79,6 +80,53 @@ inline void
         "xyz.openbmc_project.ObjectMapper", "GetSubTreePaths", subtree, 0,
         interfaces);
 }
+inline std::string
+    getComputerSystemIndexString(const std::string& systemNameStr)
+{
+    static constexpr std::string_view systemToken = "system";
+    std::string zero = "0";
+    auto location = systemNameStr.rfind(systemToken);
+    if (location == std::string::npos)
+    {
+        return zero;
+    }
 
+    auto index = systemNameStr.substr(location + systemToken.length());
+    if (index.length() == 0)
+    {
+        return zero;
+    }
+
+    return index;
+}
+inline std::string getHostServiceName(const std::string& computerSystemIndex)
+{
+    std::string dbusServicename = "xyz.openbmc_project.State.Host";
+    dbusServicename = dbusServicename + computerSystemIndex;
+    return dbusServicename;
+}
+inline bool isValidSystem(const std::string& hostNumber)
+{
+    bool result = false;
+    auto objPath = "/xyz/openbmc_project/state/host" + hostNumber;
+
+    using InterfaceList = std::vector<std::string>;
+    std::unordered_map<std::string, std::vector<std::string>> mapperResponse;
+    auto mapper = crow::connections::systemBus->new_method_call(
+        "xyz.openbmc_project.ObjectMapper",
+        "/xyz/openbmc_project/object_mapper",
+        "xyz.openbmc_project.ObjectMapper", "GetObject");
+    mapper.append(objPath, InterfaceList({"xyz.openbmc_project.State.Host"}));
+    auto mapperResponseMsg = crow::connections::systemBus->call(mapper);
+    mapperResponseMsg.read(mapperResponse);
+
+    if (!mapperResponse.empty())
+    {
+        BMCWEB_LOG_DEBUG << "Valid host found." << objPath;
+        result = true;
+    }
+
+    return result;
+}
 } // namespace collection_util
 } // namespace redfish
