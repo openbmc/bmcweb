@@ -1214,7 +1214,6 @@ inline void requestRoutesTrustStoreCertificate(App& app)
             return;
         }
 
-
         BMCWEB_LOG_DEBUG << "Truststore Certificate ID=" << id;
         const boost::urls::url certURL =
             crow::utility::urlFromPieces("redfish", "v1", "Managers", "bmc",
@@ -1242,6 +1241,7 @@ inline void requestRoutesTrustStoreCertificate(App& app)
             messages::resourceNotFound(asyncResp->res, "", "");
             return;
         }
+
 
         BMCWEB_LOG_DEBUG << "Delete TrustStore Certificate ID=" << id;
         std::string objPath =
