@@ -77,6 +77,19 @@ inline void
         "xyz.openbmc_project.ObjectMapper", "GetSubTreePaths", subtree, 0,
         interfaces);
 }
+inline std::string getComputerSystemIndex(std::string systemNameStr)
+{
+    std::string systemIndex = systemNameStr;
+    std::string systemTokenStr = "system";
+    return systemIndex.substr(systemIndex.find(systemTokenStr) +
+                              systemTokenStr.length());
+}
+inline std::string getHostServiceName(const std::string& computerSystemIndex)
+{
+    std::string dbusServicename = "xyz.openbmc_project.State.Host";
+    dbusServicename = dbusServicename + computerSystemIndex;
+    return dbusServicename;
+}
 
 } // namespace collection_util
 } // namespace redfish
