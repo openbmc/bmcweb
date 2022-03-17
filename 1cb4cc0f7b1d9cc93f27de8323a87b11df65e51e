@@ -72,6 +72,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1b9efc35_54fe6e7f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000029
+      },
+      "writtenOn": "2022-03-17T17:41:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "784d7662_227284c4",
+      "range": {
+        "startLine": 11,
+        "startChar": 49,
+        "endLine": 13,
+        "endChar": 20
+      },
+      "revId": "1cb4cc0f7b1d9cc93f27de8323a87b11df65e51e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8fdbc561_fe600884",
@@ -264,6 +288,24 @@
       "side": 1,
       "message": "Yeah works for me. We only run this logic when the system power is off, so AlwaysOff is the same as a noop.",
       "parentUuid": "ccf3318a_d6b1a334",
+      "revId": "1cb4cc0f7b1d9cc93f27de8323a87b11df65e51e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3db010c6_73b016f0",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1224,
+      "author": {
+        "id": 1000029
+      },
+      "writtenOn": "2022-03-17T17:41:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6f5dff6d_7b0aaaa1",
       "revId": "1cb4cc0f7b1d9cc93f27de8323a87b11df65e51e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
