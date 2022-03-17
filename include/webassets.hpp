@@ -152,13 +152,15 @@ inline void requestRoutes(App& app)
                     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
                 if (contentType != nullptr)
                 {
-                    asyncResp->res.addHeader("Content-Type", contentType);
+                    asyncResp->res.addHeader(
+                        boost::beast::http::field::content_type, contentType);
                 }
 
                 if (contentEncoding != nullptr)
                 {
-                    asyncResp->res.addHeader("Content-Encoding",
-                                             contentEncoding);
+                    asyncResp->res.addHeader(
+                        boost::beast::http::field::content_encoding,
+                        contentEncoding);
                 }
 
                 // res.set_header("Cache-Control", "public, max-age=86400");
