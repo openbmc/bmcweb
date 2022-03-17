@@ -20,7 +20,7 @@ inline void sendUnauthorized(std::string_view url,
         if (hasWebuiRoute)
         {
             res.result(boost::beast::http::status::temporary_redirect);
-            res.addHeader("Location",
+            res.addHeader(boost::beast::http::field::location,
                           "/#/login?next=" + http_helpers::urlEncode(url));
             return;
         }
@@ -46,6 +46,6 @@ inline void sendUnauthorized(std::string_view url,
     {
         return;
     }
-    res.addHeader("WWW-Authenticate", "Basic");
+    res.addHeader(boost::beast::http::field::www_authenticate, "Basic");
 }
 } // namespace forward_unauthorized

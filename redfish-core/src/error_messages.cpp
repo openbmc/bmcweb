@@ -359,7 +359,7 @@ nlohmann::json serviceTemporarilyUnavailable(std::string_view arg1)
 
 void serviceTemporarilyUnavailable(crow::Response& res, std::string_view arg1)
 {
-    res.addHeader("Retry-After", arg1);
+    res.addHeader(boost::beast::http::field::retry_after, arg1);
     res.result(boost::beast::http::status::service_unavailable);
     addMessageToErrorJson(res.jsonValue, serviceTemporarilyUnavailable(arg1));
 }

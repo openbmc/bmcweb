@@ -1,8 +1,10 @@
 #pragma once
 
 #include <app.hpp>
+#include <async_resp.hpp>
 #include <boost/system/linux_error.hpp>
 #include <dbus_utility.hpp>
+#include <http_response.hpp>
 #include <query.hpp>
 #include <registries/privilege_registry.hpp>
 
@@ -702,7 +704,8 @@ static void getCertificateProperties(
             }
         }
         asyncResp->res.addHeader(
-            "Location", std::string_view(certURL.data(), certURL.size()));
+            boost::beast::http::field::location,
+            std::string_view(certURL.data(), certURL.size()));
         },
         service, objectPath, certs::dbusPropIntf, "GetAll",
         certs::certPropIntf);
