@@ -2547,7 +2547,7 @@ inline void requestRoutes(App& app)
                 continue;
             }
 
-            asyncResp->res.addHeader("Content-Type",
+            asyncResp->res.addHeader(boost::beast::http::field::content_type,
                                      "application/octet-stream");
 
             // Assuming only one dump file will be present in the dump
@@ -2567,8 +2567,9 @@ inline void requestRoutes(App& app)
             std::string contentDispositionParam =
                 "attachment; filename=\"" + dumpFileName + "\"";
 
-            asyncResp->res.addHeader("Content-Disposition",
-                                     contentDispositionParam);
+            asyncResp->res.addHeader(
+                boost::beast::http::field::content_disposition,
+                contentDispositionParam);
 
             asyncResp->res.body() = {std::istreambuf_iterator<char>(readFile),
                                      std::istreambuf_iterator<char>()};

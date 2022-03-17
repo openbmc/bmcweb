@@ -701,7 +701,7 @@ static void getCertificateProperties(
                 }
             }
         }
-        asyncResp->res.addHeader("Location", certURL);
+        asyncResp->res.addHeader(boost::beast::http::field::location, certURL);
         },
         service, objectPath, certs::dbusPropIntf, "GetAll",
         certs::certPropIntf);
