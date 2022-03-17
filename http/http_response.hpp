@@ -187,11 +187,5 @@ struct Response
     bool completed = false;
     std::function<void(Response&)> completeRequestHandler;
     std::function<bool()> isAliveHelper;
-
-    // In case of a JSON object, set the Content-Type header
-    void jsonMode()
-    {
-        addHeader("Content-Type", "application/json");
-    }
 };
 } // namespace crow
