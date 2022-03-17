@@ -459,7 +459,8 @@ class Connection :
             }
             else
             {
-                res.jsonMode();
+                res.addHeader(boost::beast::http::field::content_type,
+                              "application/json");
                 res.body() = res.jsonValue.dump(
                     2, ' ', true, nlohmann::json::error_handler_t::replace);
             }
