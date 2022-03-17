@@ -70,6 +70,24 @@
       "parentUuid": "261dba5e_7a54ea5b",
       "revId": "81b8dc9b906e9ab9f90ece3586fe99c3a4245645",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f2184f08_81d9a737",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-17T01:52:04Z",
+      "side": 1,
+      "message": "\u003e What is the point of the PrettyName interface\n\nThe PrettyName interface was created before redfish, and doesn\u0027t have the same guarantees as the path name (it\u0027s essentially free form for any given index of device).  FWIW, given the way it\u0027s currently defined, it didn\u0027t really help with redfish, and we made the explicit decision not to use it long....long ago.  I\u0027m happy to revisit that, but considering that this patch is just improving the status quo (ie fixing a bug/corner) I suspect it can go in ahead of any \"use prettyname\" patch.",
+      "parentUuid": "05717079_52d2dc9b",
+      "revId": "81b8dc9b906e9ab9f90ece3586fe99c3a4245645",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
