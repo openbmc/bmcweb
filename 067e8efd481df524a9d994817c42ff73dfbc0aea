@@ -16,6 +16,24 @@
       "message": "I\u0027m good here, just merge conflicts and a sanity test (Redfish Validator) is probably best ",
       "revId": "067e8efd481df524a9d994817c42ff73dfbc0aea",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "02919391_d605989a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-18T22:36:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5f980417_a7036b87",
+      "revId": "067e8efd481df524a9d994817c42ff73dfbc0aea",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
