@@ -179,6 +179,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "3ea894ce_06e81872",
+        "filename": "http/utility.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 729,
+      "author": {
+        "id": 1001026
+      },
+      "writtenOn": "2022-03-18T16:44:52Z",
+      "side": 1,
+      "message": "If we want to be consistent, than we should not use const char* in new code, but that\u0027s my only objection here.",
+      "parentUuid": "bdffd612_6c42e73d",
+      "range": {
+        "startLine": 729,
+        "startChar": 0,
+        "endLine": 729,
+        "endChar": 65
+      },
+      "revId": "236e9130b71f6d754ade7e0f08ecf724dfdf2503",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "4cfab346_30b39b51",
         "filename": "http/utility.hpp",
         "patchSetId": 3
@@ -342,6 +366,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c213cdb8_29a71d34",
+        "filename": "redfish-core/include/utils/telemetry_utils.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1001026
+      },
+      "writtenOn": "2022-03-18T16:44:52Z",
+      "side": 1,
+      "message": "Great idea, done.",
+      "parentUuid": "d74ad76b_94870784",
+      "range": {
+        "startLine": 42,
+        "startChar": 20,
+        "endLine": 42,
+        "endChar": 56
+      },
+      "revId": "236e9130b71f6d754ade7e0f08ecf724dfdf2503",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7d16a37f_50d3e917",
@@ -450,6 +498,30 @@
       "side": 1,
       "message": "My opinion here would be to keep it separated and use boost-url to parse redfish uris and object_path to parse dbus paths.\n\nAgreed, but in this case, we\u0027re not parsing this at all, which I think is something we should do, to ensure it\u0027s correct.  As written, technically I could write\n\n\n/redfish/v1/Chassis/valid_chassis/Sensors/foobar/foobaz  and it would accept it, completely ignoring the last two parts, which seems incorrect.\n\n\nI\u0027m ok in this patch if we don\u0027t want to parse it, because the old code didn\u0027t, but it should be an explicit decision.",
       "parentUuid": "ca49fb5c_c2f40073",
+      "range": {
+        "startLine": 64,
+        "startChar": 43,
+        "endLine": 64,
+        "endChar": 68
+      },
+      "revId": "236e9130b71f6d754ade7e0f08ecf724dfdf2503",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4cf9796b_ad0ce256",
+        "filename": "redfish-core/include/utils/telemetry_utils.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1001026
+      },
+      "writtenOn": "2022-03-18T16:44:52Z",
+      "side": 1,
+      "message": "My reasoning was to cover exactly your example, sometimes we are not able to know how the segment is named, we just need to make sure that \u0027something\u0027 (and nothing less or more) is here.\n\n/redfish/v1/Chassis/valid_chassis/Sensors/foobar/foobaz  -\u003e OK\n/redfish/v1/Chassis/valid_chassis/Sensors/foobar/foobaz/ -\u003e bad\n/redfish/v1/Chassis/valid_chassis/Sensors/foobar         -\u003e bad\n\nAlso I made small mistake in the patchset you commented on - correct version is (*parsed, \"redfish\", \"v1\", \"Chassis\", chassis, \"Sensors\", crow::utility::anySegment, crow::utility::anySegment) to explicitly tell that we want exactly 2 segments here.",
+      "parentUuid": "fa71bc98_a991753b",
       "range": {
         "startLine": 64,
         "startChar": 43,

@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "2f7f124e_b2dd1a28",
+        "filename": "http/utility.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 706,
+      "author": {
+        "id": 1001026
+      },
+      "writtenOn": "2022-03-18T16:44:52Z",
+      "side": 1,
+      "message": "std::monostate (or any empty struct) -\u003e we just want to check if segment is here, but dont\u0027t know (or care) how it is named. Also as you commented elsewhere, this could be technically replaced with explicitly ignored std::reference_wrapper\u003cstd::string\u003e, but surprisingly, solution with empty struct generates less code.\n\nstd::reference_wrapper\u003cstd::string\u003e -\u003e variable strings we want to parse\n\nstd::string_view -\u003e we want to check if this segment matches a given fixed string",
+      "parentUuid": "a2df85cb_8c3b24fc",
+      "range": {
+        "startLine": 704,
+        "startChar": 0,
+        "endLine": 706,
+        "endChar": 35
+      },
+      "revId": "1359d52777d659072ff66891c951afaf489885c7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "da494609_b466e13b",
         "filename": "http/utility.hpp",
         "patchSetId": 4
@@ -37,6 +61,30 @@
       "writtenOn": "2022-03-11T18:26:57Z",
       "side": 1,
       "message": "This needs a better name that describes what it does.  \"argMatchesVisitor\" or something?",
+      "range": {
+        "startLine": 708,
+        "startChar": 6,
+        "endLine": 708,
+        "endChar": 23
+      },
+      "revId": "1359d52777d659072ff66891c951afaf489885c7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "df9e584b_851ec276",
+        "filename": "http/utility.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 708,
+      "author": {
+        "id": 1001026
+      },
+      "writtenOn": "2022-03-18T16:44:52Z",
+      "side": 1,
+      "message": "How about UrlSegmentMatcherVisitor?",
+      "parentUuid": "da494609_b466e13b",
       "range": {
         "startLine": 708,
         "startChar": 6,
@@ -72,6 +120,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e84a7b36_b5ad808e",
+        "filename": "http/utility.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 719,
+      "author": {
+        "id": 1001026
+      },
+      "writtenOn": "2022-03-18T16:44:52Z",
+      "side": 1,
+      "message": "Maintainer of boost::url deciced to not implement -\u003e operator for this iterator, so *it need to be used.",
+      "parentUuid": "1f985979_273f4a79",
+      "range": {
+        "startLine": 719,
+        "startChar": 32,
+        "endLine": 719,
+        "endChar": 37
+      },
+      "revId": "1359d52777d659072ff66891c951afaf489885c7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "4125a3dd_8293882b",
         "filename": "http/utility.hpp",
         "patchSetId": 4
@@ -83,6 +155,30 @@
       "writtenOn": "2022-03-11T18:26:57Z",
       "side": 1,
       "message": "nit, can this use span?  Might make it more usable in the future (no worries if it can\u0027t).",
+      "range": {
+        "startLine": 736,
+        "startChar": 33,
+        "endLine": 736,
+        "endChar": 49
+      },
+      "revId": "1359d52777d659072ff66891c951afaf489885c7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a904bbd2_82579e3c",
+        "filename": "http/utility.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 736,
+      "author": {
+        "id": 1001026
+      },
+      "writtenOn": "2022-03-18T16:44:52Z",
+      "side": 1,
+      "message": "I could not find a good usage for std::span in this use-case. initializer_list seems to be better choice here.",
+      "parentUuid": "4125a3dd_8293882b",
       "range": {
         "startLine": 736,
         "startChar": 33,
@@ -118,6 +214,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "2a3db437_154b9aa3",
+        "filename": "http/utility.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 740,
+      "author": {
+        "id": 1001026
+      },
+      "writtenOn": "2022-03-18T16:44:52Z",
+      "side": 1,
+      "message": "segments_view is already read-only, so this iterator cannot modify them and is already implemented as const_iterator.",
+      "parentUuid": "84c770e8_2745bde5",
+      "range": {
+        "startLine": 739,
+        "startChar": 2,
+        "endLine": 740,
+        "endChar": 56
+      },
+      "revId": "1359d52777d659072ff66891c951afaf489885c7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c74d17f0_477b4197",
         "filename": "http/utility.hpp",
         "patchSetId": 4
@@ -135,6 +255,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "64d09bca_4bc42e7d",
+        "filename": "http/utility.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 754,
+      "author": {
+        "id": 1001026
+      },
+      "writtenOn": "2022-03-18T16:44:52Z",
+      "side": 1,
+      "message": "Considering above code, I came up with simple check before starting the loop, which also simplifies the loop itself.\n\n  if (segments.size() !\u003d urlSegments.size()){\n    return false;\n  }",
+      "parentUuid": "c74d17f0_477b4197",
+      "revId": "1359d52777d659072ff66891c951afaf489885c7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a86a25e3_4944349c",
         "filename": "http/utility.hpp",
         "patchSetId": 4
@@ -146,6 +284,30 @@
       "writtenOn": "2022-03-11T18:26:57Z",
       "side": 1,
       "message": "Can we make this an explicit empty struct.  typedefing this to std::monostate is a little confusing.\n\n\nSomething like\n\nstruct StringSegment{};\n\nthen use that in the std::variant instead of monostate?\n\n\nI wrote the above comment before I understood what anySegment is used for.  We should be explicitly pulling out and using all arguments from the users call.  If we really can\u0027t validate some of them, that should be apparent at the call site, with us reading out the parameter as a std::string, then explicitly ignoring it (ideally with a comment about why)",
+      "range": {
+        "startLine": 759,
+        "startChar": 0,
+        "endLine": 759,
+        "endChar": 36
+      },
+      "revId": "1359d52777d659072ff66891c951afaf489885c7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "10e4b4ef_842895e9",
+        "filename": "http/utility.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 759,
+      "author": {
+        "id": 1001026
+      },
+      "writtenOn": "2022-03-18T16:44:52Z",
+      "side": 1,
+      "message": "Done. I think that calling it \u0027anySegment\u0027 is already explicit enough. Additionally, this solution generates smaller binary than solution with ignoring strings.",
+      "parentUuid": "a86a25e3_4944349c",
       "range": {
         "startLine": 759,
         "startChar": 0,
