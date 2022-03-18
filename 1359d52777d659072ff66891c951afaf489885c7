@@ -50,6 +50,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "19a78cf8_e7ede70e",
+        "filename": "http/utility.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 706,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-18T18:22:43Z",
+      "side": 1,
+      "message": "\u003e std::monostate (or any empty struct) -\u003e we just want to check if segment is here, but dont\u0027t know (or care) how it is named. Also as you commented elsewhere, this could be technically replaced with explicitly ignored std::reference_wrapper\u003cstd::string\u003e, but surprisingly, solution with empty struct generates less code.\n\nHow much less?  If it\u0027s in the noise, I prefer the \"explicit\" version.  Frankly, per our coding standards of validating user input, we shouldn\u0027t be \"ignoring\" any url segments anywhere in the codebase, but I realize there are places where we do today, so a temporary escape hatch might be necessary in this code.  There should be very few of these in the codebase, so the total impact to binary size I would expect to be minimal, even if it\u0027s positive.  If I\u0027m wrong on any of these points, lets discuss further, if only so I can understand the impact going foward.\n\n\u003e \n\u003e std::reference_wrapper\u003cstd::string\u003e -\u003e variable strings we want to parse\n\u003e \n\u003e std::string_view -\u003e we want to check if this segment matches a given fixed string",
+      "parentUuid": "2f7f124e_b2dd1a28",
+      "range": {
+        "startLine": 704,
+        "startChar": 0,
+        "endLine": 706,
+        "endChar": 35
+      },
+      "revId": "1359d52777d659072ff66891c951afaf489885c7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "da494609_b466e13b",
         "filename": "http/utility.hpp",
         "patchSetId": 4
@@ -85,6 +109,30 @@
       "side": 1,
       "message": "How about UrlSegmentMatcherVisitor?",
       "parentUuid": "da494609_b466e13b",
+      "range": {
+        "startLine": 708,
+        "startChar": 6,
+        "endLine": 708,
+        "endChar": 23
+      },
+      "revId": "1359d52777d659072ff66891c951afaf489885c7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c400ff22_d7caa42f",
+        "filename": "http/utility.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 708,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-18T18:22:43Z",
+      "side": 1,
+      "message": "👍",
+      "parentUuid": "df9e584b_851ec276",
       "range": {
         "startLine": 708,
         "startChar": 6,
@@ -142,6 +190,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b9b486ca_ad031761",
+        "filename": "http/utility.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 719,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-18T18:22:43Z",
+      "side": 1,
+      "message": "AH, I forgot about that.  Fine as-is.  ACK.",
+      "parentUuid": "e84a7b36_b5ad808e",
+      "range": {
+        "startLine": 719,
+        "startChar": 32,
+        "endLine": 719,
+        "endChar": 37
+      },
+      "revId": "1359d52777d659072ff66891c951afaf489885c7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4125a3dd_8293882b",
@@ -179,6 +251,30 @@
       "side": 1,
       "message": "I could not find a good usage for std::span in this use-case. initializer_list seems to be better choice here.",
       "parentUuid": "4125a3dd_8293882b",
+      "range": {
+        "startLine": 736,
+        "startChar": 33,
+        "endLine": 736,
+        "endChar": 49
+      },
+      "revId": "1359d52777d659072ff66891c951afaf489885c7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5f8ad512_add0ff96",
+        "filename": "http/utility.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 736,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-18T18:22:43Z",
+      "side": 1,
+      "message": "Span just has fewer typing requirements.  No worries, like I said, fine as is.",
+      "parentUuid": "a904bbd2_82579e3c",
       "range": {
         "startLine": 736,
         "startChar": 33,
@@ -236,6 +332,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9cd7e737_355591c2",
+        "filename": "http/utility.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 740,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-18T18:22:43Z",
+      "side": 1,
+      "message": "ACK",
+      "parentUuid": "2a3db437_154b9aa3",
+      "range": {
+        "startLine": 739,
+        "startChar": 2,
+        "endLine": 740,
+        "endChar": 56
+      },
+      "revId": "1359d52777d659072ff66891c951afaf489885c7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c74d17f0_477b4197",
@@ -267,6 +387,24 @@
       "side": 1,
       "message": "Considering above code, I came up with simple check before starting the loop, which also simplifies the loop itself.\n\n  if (segments.size() !\u003d urlSegments.size()){\n    return false;\n  }",
       "parentUuid": "c74d17f0_477b4197",
+      "revId": "1359d52777d659072ff66891c951afaf489885c7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c64cf326_1882281b",
+        "filename": "http/utility.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 754,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-18T18:22:43Z",
+      "side": 1,
+      "message": "Yes, that\u0027s even better 👍",
+      "parentUuid": "64d09bca_4bc42e7d",
       "revId": "1359d52777d659072ff66891c951afaf489885c7",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -308,6 +446,30 @@
       "side": 1,
       "message": "Done. I think that calling it \u0027anySegment\u0027 is already explicit enough. Additionally, this solution generates smaller binary than solution with ignoring strings.",
       "parentUuid": "a86a25e3_4944349c",
+      "range": {
+        "startLine": 759,
+        "startChar": 0,
+        "endLine": 759,
+        "endChar": 36
+      },
+      "revId": "1359d52777d659072ff66891c951afaf489885c7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "62281597_2b670c89",
+        "filename": "http/utility.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 759,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-18T18:22:43Z",
+      "side": 1,
+      "message": "I\u0027m not questioning the name, I\u0027m questioning the typecast to std::monostate.  Lets follow up on the \"do we need anySegment at all\" question in the thread above before we regroup on this.",
+      "parentUuid": "10e4b4ef_842895e9",
       "range": {
         "startLine": 759,
         "startChar": 0,

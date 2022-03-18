@@ -203,6 +203,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "117fdfbc_eb10f9cb",
+        "filename": "http/utility.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 729,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-18T18:22:43Z",
+      "side": 1,
+      "message": "The statement I would make is \"We should prefer string_view in new code unless we have a good reason to use const char*\", for which, not being able to generate templates and cleaning up the call site seem like good reasons.\n\nWith that said, to reiterate, I\u0027m fine either way.",
+      "parentUuid": "3ea894ce_06e81872",
+      "range": {
+        "startLine": 729,
+        "startChar": 0,
+        "endLine": 729,
+        "endChar": 65
+      },
+      "revId": "236e9130b71f6d754ade7e0f08ecf724dfdf2503",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "4cfab346_30b39b51",
         "filename": "http/utility.hpp",
         "patchSetId": 3
@@ -522,6 +546,30 @@
       "side": 1,
       "message": "My reasoning was to cover exactly your example, sometimes we are not able to know how the segment is named, we just need to make sure that \u0027something\u0027 (and nothing less or more) is here.\n\n/redfish/v1/Chassis/valid_chassis/Sensors/foobar/foobaz  -\u003e OK\n/redfish/v1/Chassis/valid_chassis/Sensors/foobar/foobaz/ -\u003e bad\n/redfish/v1/Chassis/valid_chassis/Sensors/foobar         -\u003e bad\n\nAlso I made small mistake in the patchset you commented on - correct version is (*parsed, \"redfish\", \"v1\", \"Chassis\", chassis, \"Sensors\", crow::utility::anySegment, crow::utility::anySegment) to explicitly tell that we want exactly 2 segments here.",
       "parentUuid": "fa71bc98_a991753b",
+      "range": {
+        "startLine": 64,
+        "startChar": 43,
+        "endLine": 64,
+        "endChar": 68
+      },
+      "revId": "236e9130b71f6d754ade7e0f08ecf724dfdf2503",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "79d9b153_c2b46036",
+        "filename": "redfish-core/include/utils/telemetry_utils.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-18T18:22:43Z",
+      "side": 1,
+      "message": "but that\u0027s an issue if a user can write foobaz to an API and have it accept it.  What I suspect is happening in this case is we\u0027re re-parsing it later and failing the request later on in the stack.. Ideally we should be parsing \"foobaz\" here, then passing it to the methods that need is so they can validate it (or not).",
+      "parentUuid": "4cf9796b_ad0ce256",
       "range": {
         "startLine": 64,
         "startChar": 43,
