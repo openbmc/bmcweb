@@ -373,7 +373,7 @@ inline void getPersistentMemoryProperties(
         {
             if (boost::ends_with(*value, v))
             {
-                aResp->res.jsonValue["OperatingMemoryModes "] = v;
+                aResp->res.jsonValue["OperatingMemoryModes"].push_back(v);
                 break;
             }
         }
@@ -394,7 +394,7 @@ inline void getPersistentMemoryProperties(
         {
             if (boost::ends_with(*value, v))
             {
-                aResp->res.jsonValue["MemoryMedia"] = v;
+                aResp->res.jsonValue["MemoryMedia"].push_back(v);
                 break;
             }
         }
