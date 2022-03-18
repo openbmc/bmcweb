@@ -16,6 +16,52 @@
       "message": "Lots of great progress here.  Keep it coming!",
       "revId": "1114d0b25bd8fdd0a4372710bad611b5846239ff",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "64a194de_65b94290",
+        "filename": "http/ut/utility_test.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 186,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-18T18:33:29Z",
+      "side": 1,
+      "message": "In the below code this is now called AnySegment with a capital A.  I\u0027m surprised this compiles.  Please take a look?",
+      "range": {
+        "startLine": 186,
+        "startChar": 33,
+        "endLine": 186,
+        "endChar": 43
+      },
+      "revId": "1114d0b25bd8fdd0a4372710bad611b5846239ff",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "93f43288_e4014864",
+        "filename": "http/utility.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 678,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-18T18:33:29Z",
+      "side": 1,
+      "message": "Can you please add a quick comment (doesn\u0027t need to be extensive) about what each of these types represent in this case?  It\u0027s pretty subtle in this case, and I understand it now, but I didn\u0027t first reading this.",
+      "range": {
+        "startLine": 678,
+        "startChar": 5,
+        "endLine": 678,
+        "endChar": 6
+      },
+      "revId": "1114d0b25bd8fdd0a4372710bad611b5846239ff",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
