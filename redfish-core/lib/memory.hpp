@@ -28,6 +28,7 @@
 namespace redfish
 {
 
+using DimmProperty = std::pair<std::string, dbus::utility::DbusVariantType>;
 using DimmProperties =
     boost::container::flat_map<std::string, dbus::utility::DbusVariantType>;
 
@@ -140,9 +141,8 @@ inline std::string translateMemoryTypeToRedfish(const std::string& memoryType)
     return "";
 }
 
-inline void dimmPropToHex(
-    const std::shared_ptr<bmcweb::AsyncResp>& aResp, const char* key,
-    const std::pair<std::string, dbus::utility::DbusVariantType>& property)
+inline void dimmPropToHex(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
+                          const char* key, const DimmProperty& property)
 {
     const uint16_t* value = std::get_if<uint16_t>(&property.second);
     if (value == nullptr)
@@ -157,286 +157,275 @@ inline void dimmPropToHex(
 
 inline void getPersistentMemoryProperties(
     const std::shared_ptr<bmcweb::AsyncResp>& aResp,
-    const DimmProperties& properties)
+    const DimmProperty& property)
 {
-    for (const auto& property : properties)
+    if (property.first == "ModuleManufacturerID")
     {
-        if (property.first == "ModuleManufacturerID")
-        {
-            dimmPropToHex(aResp, "ModuleManufacturerID", property);
-        }
-        else if (property.first == "ModuleProductID")
-        {
-            dimmPropToHex(aResp, "ModuleProductID", property);
-        }
-        else if (property.first == "SubsystemVendorID")
-        {
-            dimmPropToHex(aResp, "MemorySubsystemControllerManufacturerID",
-                          property);
-        }
-        else if (property.first == "SubsystemDeviceID")
-        {
-            dimmPropToHex(aResp, "MemorySubsystemControllerProductID",
-                          property);
-        }
-        else if (property.first == "VolatileRegionSizeLimitInKiB")
-        {
-            const uint64_t* value = std::get_if<uint64_t>(&property.second);
+        dimmPropToHex(aResp, "ModuleManufacturerID", property);
+    }
+    else if (property.first == "ModuleProductID")
+    {
+        dimmPropToHex(aResp, "ModuleProductID", property);
+    }
+    else if (property.first == "SubsystemVendorID")
+    {
+        dimmPropToHex(aResp, "MemorySubsystemControllerManufacturerID",
+                      property);
+    }
+    else if (property.first == "SubsystemDeviceID")
+    {
+        dimmPropToHex(aResp, "MemorySubsystemControllerProductID", property);
+    }
+    else if (property.first == "VolatileRegionSizeLimitInKiB")
+    {
+        const uint64_t* value = std::get_if<uint64_t>(&property.second);
 
-            if (value == nullptr)
-            {
-                messages::internalError(aResp->res);
-                BMCWEB_LOG_DEBUG
-                    << "Invalid property type for VolatileRegionSizeLimitKiB";
-                return;
-            }
-            aResp->res.jsonValue["VolatileRegionSizeLimitMiB"] = (*value) >> 10;
-        }
-        else if (property.first == "PmRegionSizeLimitInKiB")
+        if (value == nullptr)
         {
-            const uint64_t* value = std::get_if<uint64_t>(&property.second);
+            messages::internalError(aResp->res);
+            BMCWEB_LOG_DEBUG
+                << "Invalid property type for VolatileRegionSizeLimitKiB";
+            return;
+        }
+        aResp->res.jsonValue["VolatileRegionSizeLimitMiB"] = (*value) >> 10;
+    }
+    else if (property.first == "PmRegionSizeLimitInKiB")
+    {
+        const uint64_t* value = std::get_if<uint64_t>(&property.second);
 
-            if (value == nullptr)
-            {
-                messages::internalError(aResp->res);
-                BMCWEB_LOG_DEBUG
-                    << "Invalid property type for PmRegioSizeLimitKiB";
-                return;
-            }
-            aResp->res.jsonValue["PersistentRegionSizeLimitMiB"] =
-                (*value) >> 10;
-        }
-        else if (property.first == "VolatileSizeInKiB")
+        if (value == nullptr)
         {
-            const uint64_t* value = std::get_if<uint64_t>(&property.second);
+            messages::internalError(aResp->res);
+            BMCWEB_LOG_DEBUG << "Invalid property type for PmRegioSizeLimitKiB";
+            return;
+        }
+        aResp->res.jsonValue["PersistentRegionSizeLimitMiB"] = (*value) >> 10;
+    }
+    else if (property.first == "VolatileSizeInKiB")
+    {
+        const uint64_t* value = std::get_if<uint64_t>(&property.second);
 
-            if (value == nullptr)
-            {
-                messages::internalError(aResp->res);
-                BMCWEB_LOG_DEBUG
-                    << "Invalid property type for VolatileSizeInKiB";
-                return;
-            }
-            aResp->res.jsonValue["VolatileSizeMiB"] = (*value) >> 10;
-        }
-        else if (property.first == "PmSizeInKiB")
+        if (value == nullptr)
         {
-            const uint64_t* value = std::get_if<uint64_t>(&property.second);
-            if (value == nullptr)
-            {
-                messages::internalError(aResp->res);
-                BMCWEB_LOG_DEBUG << "Invalid property type for PmSizeInKiB";
-                return;
-            }
-            aResp->res.jsonValue["NonVolatileSizeMiB"] = (*value) >> 10;
+            messages::internalError(aResp->res);
+            BMCWEB_LOG_DEBUG << "Invalid property type for VolatileSizeInKiB";
+            return;
         }
-        else if (property.first == "CacheSizeInKB")
+        aResp->res.jsonValue["VolatileSizeMiB"] = (*value) >> 10;
+    }
+    else if (property.first == "PmSizeInKiB")
+    {
+        const uint64_t* value = std::get_if<uint64_t>(&property.second);
+        if (value == nullptr)
         {
-            const uint64_t* value = std::get_if<uint64_t>(&property.second);
-            if (value == nullptr)
-            {
-                messages::internalError(aResp->res);
-                BMCWEB_LOG_DEBUG << "Invalid property type for CacheSizeInKB";
-                return;
-            }
-            aResp->res.jsonValue["CacheSizeMiB"] = (*value >> 10);
+            messages::internalError(aResp->res);
+            BMCWEB_LOG_DEBUG << "Invalid property type for PmSizeInKiB";
+            return;
         }
+        aResp->res.jsonValue["NonVolatileSizeMiB"] = (*value) >> 10;
+    }
+    else if (property.first == "CacheSizeInKB")
+    {
+        const uint64_t* value = std::get_if<uint64_t>(&property.second);
+        if (value == nullptr)
+        {
+            messages::internalError(aResp->res);
+            BMCWEB_LOG_DEBUG << "Invalid property type for CacheSizeInKB";
+            return;
+        }
+        aResp->res.jsonValue["CacheSizeMiB"] = (*value >> 10);
+    }
 
-        else if (property.first == "VoltaileRegionMaxSizeInKib")
-        {
-            const uint64_t* value = std::get_if<uint64_t>(&property.second);
+    else if (property.first == "VoltaileRegionMaxSizeInKib")
+    {
+        const uint64_t* value = std::get_if<uint64_t>(&property.second);
 
-            if (value == nullptr)
-            {
-                messages::internalError(aResp->res);
-                BMCWEB_LOG_DEBUG
-                    << "Invalid property type for VolatileRegionMaxSizeInKib";
-                return;
-            }
-            aResp->res.jsonValue["VolatileRegionSizeMaxMiB"] = (*value) >> 10;
-        }
-        else if (property.first == "PmRegionMaxSizeInKiB")
+        if (value == nullptr)
         {
-            const uint64_t* value = std::get_if<uint64_t>(&property.second);
+            messages::internalError(aResp->res);
+            BMCWEB_LOG_DEBUG
+                << "Invalid property type for VolatileRegionMaxSizeInKib";
+            return;
+        }
+        aResp->res.jsonValue["VolatileRegionSizeMaxMiB"] = (*value) >> 10;
+    }
+    else if (property.first == "PmRegionMaxSizeInKiB")
+    {
+        const uint64_t* value = std::get_if<uint64_t>(&property.second);
 
-            if (value == nullptr)
-            {
-                messages::internalError(aResp->res);
-                BMCWEB_LOG_DEBUG
-                    << "Invalid property type for PmRegionMaxSizeInKiB";
-                return;
-            }
-            aResp->res.jsonValue["PersistentRegionSizeMaxMiB"] = (*value) >> 10;
-        }
-        else if (property.first == "AllocationIncrementInKiB")
+        if (value == nullptr)
         {
-            const uint64_t* value = std::get_if<uint64_t>(&property.second);
+            messages::internalError(aResp->res);
+            BMCWEB_LOG_DEBUG
+                << "Invalid property type for PmRegionMaxSizeInKiB";
+            return;
+        }
+        aResp->res.jsonValue["PersistentRegionSizeMaxMiB"] = (*value) >> 10;
+    }
+    else if (property.first == "AllocationIncrementInKiB")
+    {
+        const uint64_t* value = std::get_if<uint64_t>(&property.second);
 
-            if (value == nullptr)
-            {
-                messages::internalError(aResp->res);
-                BMCWEB_LOG_DEBUG
-                    << "Invalid property type for AllocationIncrementInKiB";
-                return;
-            }
-            aResp->res.jsonValue["AllocationIncrementMiB"] = (*value) >> 10;
-        }
-        else if (property.first == "AllocationAlignmentInKiB")
+        if (value == nullptr)
         {
-            const uint64_t* value = std::get_if<uint64_t>(&property.second);
+            messages::internalError(aResp->res);
+            BMCWEB_LOG_DEBUG
+                << "Invalid property type for AllocationIncrementInKiB";
+            return;
+        }
+        aResp->res.jsonValue["AllocationIncrementMiB"] = (*value) >> 10;
+    }
+    else if (property.first == "AllocationAlignmentInKiB")
+    {
+        const uint64_t* value = std::get_if<uint64_t>(&property.second);
 
-            if (value == nullptr)
-            {
-                messages::internalError(aResp->res);
-                BMCWEB_LOG_DEBUG
-                    << "Invalid property type for AllocationAlignmentInKiB";
-                return;
-            }
-            aResp->res.jsonValue["AllocationAlignmentMiB"] = (*value) >> 10;
-        }
-        else if (property.first == "VolatileRegionNumberLimit")
+        if (value == nullptr)
         {
-            const uint64_t* value = std::get_if<uint64_t>(&property.second);
-            if (value == nullptr)
-            {
-                messages::internalError(aResp->res);
-                return;
-            }
-            aResp->res.jsonValue["VolatileRegionNumberLimit"] = *value;
+            messages::internalError(aResp->res);
+            BMCWEB_LOG_DEBUG
+                << "Invalid property type for AllocationAlignmentInKiB";
+            return;
         }
-        else if (property.first == "PmRegionNumberLimit")
+        aResp->res.jsonValue["AllocationAlignmentMiB"] = (*value) >> 10;
+    }
+    else if (property.first == "VolatileRegionNumberLimit")
+    {
+        const uint64_t* value = std::get_if<uint64_t>(&property.second);
+        if (value == nullptr)
         {
-            const uint64_t* value = std::get_if<uint64_t>(&property.second);
-            if (value == nullptr)
-            {
-                messages::internalError(aResp->res);
-                return;
-            }
-            aResp->res.jsonValue["PersistentRegionNumberLimit"] = *value;
+            messages::internalError(aResp->res);
+            return;
         }
-        else if (property.first == "SpareDeviceCount")
+        aResp->res.jsonValue["VolatileRegionNumberLimit"] = *value;
+    }
+    else if (property.first == "PmRegionNumberLimit")
+    {
+        const uint64_t* value = std::get_if<uint64_t>(&property.second);
+        if (value == nullptr)
         {
-            const uint64_t* value = std::get_if<uint64_t>(&property.second);
-            if (value == nullptr)
-            {
-                messages::internalError(aResp->res);
-                return;
-            }
-            aResp->res.jsonValue["SpareDeviceCount"] = *value;
+            messages::internalError(aResp->res);
+            return;
         }
-        else if (property.first == "IsSpareDeviceInUse")
+        aResp->res.jsonValue["PersistentRegionNumberLimit"] = *value;
+    }
+    else if (property.first == "SpareDeviceCount")
+    {
+        const uint64_t* value = std::get_if<uint64_t>(&property.second);
+        if (value == nullptr)
         {
-            const bool* value = std::get_if<bool>(&property.second);
-            if (value == nullptr)
-            {
-                messages::internalError(aResp->res);
-                return;
-            }
-            aResp->res.jsonValue["IsSpareDeviceEnabled"] = *value;
+            messages::internalError(aResp->res);
+            return;
         }
-        else if (property.first == "IsRankSpareEnabled")
+        aResp->res.jsonValue["SpareDeviceCount"] = *value;
+    }
+    else if (property.first == "IsSpareDeviceInUse")
+    {
+        const bool* value = std::get_if<bool>(&property.second);
+        if (value == nullptr)
         {
-            const bool* value = std::get_if<bool>(&property.second);
-            if (value == nullptr)
-            {
-                messages::internalError(aResp->res);
-                return;
-            }
-            aResp->res.jsonValue["IsRankSpareEnabled"] = *value;
+            messages::internalError(aResp->res);
+            return;
         }
-        else if (property.first == "MaxAveragePowerLimitmW")
+        aResp->res.jsonValue["IsSpareDeviceEnabled"] = *value;
+    }
+    else if (property.first == "IsRankSpareEnabled")
+    {
+        const bool* value = std::get_if<bool>(&property.second);
+        if (value == nullptr)
         {
-            const auto* value =
-                std::get_if<std::vector<uint32_t>>(&property.second);
-            if (value == nullptr)
-            {
-                messages::internalError(aResp->res);
-                BMCWEB_LOG_DEBUG
-                    << "Invalid property type for MaxAveragePowerLimitmW";
-                return;
-            }
-            aResp->res.jsonValue["MaxTDPMilliWatts"] = *value;
+            messages::internalError(aResp->res);
+            return;
         }
-        else if (property.first == "ConfigurationLocked")
+        aResp->res.jsonValue["IsRankSpareEnabled"] = *value;
+    }
+    else if (property.first == "MaxAveragePowerLimitmW")
+    {
+        const auto* value =
+            std::get_if<std::vector<uint32_t>>(&property.second);
+        if (value == nullptr)
         {
-            const bool* value = std::get_if<bool>(&property.second);
-            if (value == nullptr)
-            {
-                messages::internalError(aResp->res);
-                return;
-            }
-            aResp->res.jsonValue["ConfigurationLocked"] = *value;
+            messages::internalError(aResp->res);
+            BMCWEB_LOG_DEBUG
+                << "Invalid property type for MaxAveragePowerLimitmW";
+            return;
         }
-        else if (property.first == "AllowedMemoryModes")
+        aResp->res.jsonValue["MaxTDPMilliWatts"] = *value;
+    }
+    else if (property.first == "ConfigurationLocked")
+    {
+        const bool* value = std::get_if<bool>(&property.second);
+        if (value == nullptr)
         {
-            const std::string* value =
-                std::get_if<std::string>(&property.second);
-            if (value == nullptr)
-            {
-                messages::internalError(aResp->res);
-                BMCWEB_LOG_DEBUG << "Invalid property type for FormFactor";
-                return;
-            }
-            constexpr const std::array<const char*, 3> values{"Volatile",
-                                                              "PMEM", "Block"};
+            messages::internalError(aResp->res);
+            return;
+        }
+        aResp->res.jsonValue["ConfigurationLocked"] = *value;
+    }
+    else if (property.first == "AllowedMemoryModes")
+    {
+        const std::string* value = std::get_if<std::string>(&property.second);
+        if (value == nullptr)
+        {
+            messages::internalError(aResp->res);
+            BMCWEB_LOG_DEBUG << "Invalid property type for FormFactor";
+            return;
+        }
+        constexpr const std::array<const char*, 3> values{"Volatile", "PMEM",
+                                                          "Block"};
 
-            for (const char* v : values)
+        for (const char* v : values)
+        {
+            if (boost::ends_with(*value, v))
             {
-                if (boost::ends_with(*value, v))
-                {
-                    aResp->res.jsonValue["OperatingMemoryModes "] = v;
-                    break;
-                }
+                aResp->res.jsonValue["OperatingMemoryModes "] = v;
+                break;
             }
         }
-        else if (property.first == "MemoryMedia")
+    }
+    else if (property.first == "MemoryMedia")
+    {
+        const std::string* value = std::get_if<std::string>(&property.second);
+        if (value == nullptr)
         {
-            const std::string* value =
-                std::get_if<std::string>(&property.second);
-            if (value == nullptr)
-            {
-                messages::internalError(aResp->res);
-                BMCWEB_LOG_DEBUG << "Invalid property type for MemoryMedia";
-                return;
-            }
-            constexpr const std::array<const char*, 3> values{"DRAM", "NAND",
-                                                              "Intel3DXPoint"};
+            messages::internalError(aResp->res);
+            BMCWEB_LOG_DEBUG << "Invalid property type for MemoryMedia";
+            return;
+        }
+        constexpr const std::array<const char*, 3> values{"DRAM", "NAND",
+                                                          "Intel3DXPoint"};
 
-            for (const char* v : values)
-            {
-                if (boost::ends_with(*value, v))
-                {
-                    aResp->res.jsonValue["MemoryMedia"] = v;
-                    break;
-                }
-            }
-        }
-        // PersistantMemory.SecurityCapabilites interface
-        else if (property.first == "ConfigurationLockCapable" ||
-                 property.first == "DataLockCapable" ||
-                 property.first == "PassphraseCapable")
+        for (const char* v : values)
         {
-            const bool* value = std::get_if<bool>(&property.second);
-            if (value == nullptr)
+            if (boost::ends_with(*value, v))
             {
-                messages::internalError(aResp->res);
-                return;
+                aResp->res.jsonValue["MemoryMedia"] = v;
+                break;
             }
-            aResp->res.jsonValue["SecurityCapabilities"][property.first] =
-                *value;
         }
-        else if (property.first == "MaxPassphraseCount" ||
-                 property.first == "PassphraseLockLimit")
+    }
+    // PersistantMemory.SecurityCapabilites interface
+    else if (property.first == "ConfigurationLockCapable" ||
+             property.first == "DataLockCapable" ||
+             property.first == "PassphraseCapable")
+    {
+        const bool* value = std::get_if<bool>(&property.second);
+        if (value == nullptr)
         {
-            const uint64_t* value = std::get_if<uint64_t>(&property.second);
-            if (value == nullptr)
-            {
-                messages::internalError(aResp->res);
-                return;
-            }
-            aResp->res.jsonValue["SecurityCapabilities"][property.first] =
-                *value;
+            messages::internalError(aResp->res);
+            return;
         }
+        aResp->res.jsonValue["SecurityCapabilities"][property.first] = *value;
+    }
+    else if (property.first == "MaxPassphraseCount" ||
+             property.first == "PassphraseLockLimit")
+    {
+        const uint64_t* value = std::get_if<uint64_t>(&property.second);
+        if (value == nullptr)
+        {
+            messages::internalError(aResp->res);
+            return;
+        }
+        aResp->res.jsonValue["SecurityCapabilities"][property.first] = *value;
     }
 }
 
@@ -728,7 +717,7 @@ inline void getDimmDataByService(std::shared_ptr<bmcweb::AsyncResp> aResp,
                 }
                 else
                 {
-                    getPersistentMemoryProperties(aResp, properties);
+                    getPersistentMemoryProperties(aResp, property);
                 }
             }
         },
