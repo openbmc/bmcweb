@@ -406,6 +406,25 @@ void propertyValueConflict(crow::Response& res, std::string_view arg1,
                            std::string_view arg2);
 
 /**
+ * @brief Formats PropertyValueResourceConflict message into JSON
+ * Message body: "The property '%1' with the requested value of '%2' could
+ * not be written because the value conflicts with the state or configuration
+ * of the resource at '%3'."
+ *
+ * @param[in] arg1 Parameter of message that will replace %1 in its body.
+ * @param[in] arg2 Parameter of message that will replace %2 in its body.
+ * @param[in] arg3 Parameter of message that will replace %3 in its body.
+ *
+ * @returns Message PropertyValueResourceConflict to JSON */
+nlohmann::json propertyValueResourceConflict(std::string_view arg1,
+                                             std::string_view arg2,
+                                             const boost::urls::url_view& arg3);
+
+void propertyValueResourceConflict(crow::Response& res, std::string_view arg1,
+                                   std::string_view arg2,
+                                   const boost::urls::url_view& arg3);
+
+/**
  * @brief Formats PropertyValueIncorrect message into JSON
  * Message body: "The property '<arg1>' with the requested value of '<arg2>'
  * could not be written because the value does not meet the constraints of the

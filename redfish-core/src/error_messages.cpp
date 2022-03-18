@@ -730,6 +730,31 @@ void propertyValueConflict(crow::Response& res, std::string_view arg1,
 
 /**
  * @internal
+ * @brief Formats PropertyValueResourceConflict message into JSON
+ *
+ * See header file for more information
+ * @endinternal
+ */
+nlohmann::json propertyValueResourceConflict(std::string_view arg1,
+                                             std::string_view arg2,
+                                             const boost::urls::url_view& arg3)
+{
+    return getLog(
+        redfish::registries::base::Index::propertyValueResourceConflict,
+        std::to_array({arg1, arg2, arg3}));
+}
+
+void propertyValueResourceConflict(crow::Response& res, std::string_view arg1,
+                                   std::string_view arg2,
+                                   const boost::urls::url_view& arg3)
+{
+    res.result(boost::beast::http::status::conflict);
+    addMessageToErrorJson(res.jsonValue,
+                          propertyValueResourceConflict(arg1, arg2, arg3));
+}
+
+/**
+ * @internal
  * @brief Formats PropertyValueIncorrect message into JSON
  *
  * See header file for more information
