@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1e6e34ba_0ab81f7a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000500
+      },
+      "writtenOn": "2022-03-21T18:37:39Z",
+      "side": 1,
+      "message": "I recently read a bit about the Tag and realized it\u0027s not the \"tag dispatching\" paradigm, but rather  for checking parameters in the URL and the handler during compile time. I think now I understand what getParameterTag is doing and it looks good to me.",
+      "revId": "e24fd09962f68b07af8f5783df02038e058f4913",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "aaa28c51_55c44b64",
+        "filename": "http/utility.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1000500
+      },
+      "writtenOn": "2022-03-21T18:37:39Z",
+      "side": 1,
+      "message": "nit: It seems this include is not used and it the code still compiles with it removed?",
+      "range": {
+        "startLine": 14,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 19
+      },
+      "revId": "e24fd09962f68b07af8f5783df02038e058f4913",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
