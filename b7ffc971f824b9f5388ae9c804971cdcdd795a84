@@ -121,6 +121,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "cbfd45a6_f773144b",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 58
+      },
+      "lineNbr": 760,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-21T17:51:55Z",
+      "side": 1,
+      "message": "\u003e Right now, AFAIK, the dumps take a bit of time to get created.\n\nThere are no api guarantees of that at interface level, and in the case where the dumps fail, they might fail very quickly.\n\n\u003e \n\u003e \u003e This race is made worse by the fact that the dump code doesn\u0027t have any bail out timeout.\n\u003e \n\u003e I didnt get you here. So even if the status is immediately changed to Completed even before the task starts, it would eventually exit after a timeout right.\n\nYep, I got this wrong.  There is a 3 minute timer on these tasks, which helps, but it\u0027s still not ideal, as there\u0027s still an unhandled race.\n\n\u003e Am i missing something here, Ed?",
+      "parentUuid": "0a2e94c2_516f216d",
+      "range": {
+        "startLine": 760,
+        "startChar": 0,
+        "endLine": 760,
+        "endChar": 35
+      },
+      "revId": "b7ffc971f824b9f5388ae9c804971cdcdd795a84",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "4020f2ea_0a2679cf",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 58
