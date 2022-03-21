@@ -43,6 +43,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "1d10de2c_0e2707f2",
+        "filename": "redfish-core/include/error_messages.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 435,
+      "author": {
+        "id": 1000427
+      },
+      "writtenOn": "2022-03-21T14:36:13Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "de15266d_8ecd6f1a",
+      "range": {
+        "startLine": 435,
+        "startChar": 50,
+        "endLine": 435,
+        "endChar": 63
+      },
+      "revId": "3b3d7f68d4d3fc13f5d0af3072268c34ea1503ab",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "81f62392_90492cb8",
         "filename": "redfish-core/src/error_messages.cpp",
         "patchSetId": 1
@@ -54,6 +78,30 @@
       "writtenOn": "2022-03-21T14:24:24Z",
       "side": 1,
       "message": "Please look at the rest of the methods and how they\u0027re used, and replicate that for these.  We pull these from one global instead of inlining the strings, which saves binary space.",
+      "range": {
+        "startLine": 763,
+        "startChar": 0,
+        "endLine": 774,
+        "endChar": 54
+      },
+      "revId": "3b3d7f68d4d3fc13f5d0af3072268c34ea1503ab",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b227279b_fc81bbbc",
+        "filename": "redfish-core/src/error_messages.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 774,
+      "author": {
+        "id": 1000427
+      },
+      "writtenOn": "2022-03-21T14:36:13Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "81f62392_90492cb8",
       "range": {
         "startLine": 763,
         "startChar": 0,
