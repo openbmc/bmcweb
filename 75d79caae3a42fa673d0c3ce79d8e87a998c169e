@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "66151624_abc83756",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000388
+      },
+      "writtenOn": "2022-03-21T20:58:48Z",
+      "side": 1,
+      "message": "gentle ping for this 1 liner fix :) ",
+      "revId": "75d79caae3a42fa673d0c3ce79d8e87a998c169e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
