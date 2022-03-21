@@ -20,6 +20,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "da36e122_602b9e15",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-21T19:00:10Z",
+      "side": 1,
+      "message": "Cool.  I\u0027m glad someone else understands it too 😊\n\nI learned some things about the url router through writing this patchset, and I\u0027m been staring at that code for years.",
+      "parentUuid": "1e6e34ba_0ab81f7a",
+      "revId": "e24fd09962f68b07af8f5783df02038e058f4913",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "aaa28c51_55c44b64",
         "filename": "http/utility.hpp",
         "patchSetId": 6
@@ -31,6 +49,30 @@
       "writtenOn": "2022-03-21T18:37:39Z",
       "side": 1,
       "message": "nit: It seems this include is not used and it the code still compiles with it removed?",
+      "range": {
+        "startLine": 14,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 19
+      },
+      "revId": "e24fd09962f68b07af8f5783df02038e058f4913",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b8d6ec70_4a9602e5",
+        "filename": "http/utility.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-21T19:00:10Z",
+      "side": 1,
+      "message": "It was used on one of the earlier patchsets, but your point is well taken, no longer needed.\n\nFixed.",
+      "parentUuid": "aaa28c51_55c44b64",
       "range": {
         "startLine": 14,
         "startChar": 0,
