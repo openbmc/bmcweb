@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7d3bdb44_ddd57faa",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-21T14:24:51Z",
+      "side": 1,
+      "message": "Please follow the patterns of the other existing resources on master, then this should be fine.",
+      "revId": "3b3d7f68d4d3fc13f5d0af3072268c34ea1503ab",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "de15266d_8ecd6f1a",
