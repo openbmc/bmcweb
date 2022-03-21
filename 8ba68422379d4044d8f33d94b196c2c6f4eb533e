@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3a87551b_3d076425",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000278
+      },
+      "writtenOn": "2022-03-21T21:29:44Z",
+      "side": 1,
+      "message": "Modifications necessary for the Clang Tidy \"return after else\" configuration.",
+      "revId": "8ba68422379d4044d8f33d94b196c2c6f4eb533e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
