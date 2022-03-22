@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3a88626b_cc6f65d8",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 3018,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2022-03-22T16:47:19Z",
+      "side": 1,
+      "message": "It seems like at some place in here we need to do some verification that \u003cstr\u003e is valid.  Otherwise someone could request `/redfish/v1/Systems/NotASystem` and it is going to attempt something, isn\u0027t it?  Should the `getComputerSystemIndex` do some verification and return an empty string if the name isn\u0027t \"systemN\"?  I didn\u0027t see any code in `getComputerSystemIndex` that explicitly picked off the integer portion.  Was that missing?",
+      "range": {
+        "startLine": 3004,
+        "startChar": 0,
+        "endLine": 3018,
+        "endChar": 76
+      },
+      "revId": "efda40865a6fdfbd6bf5ae91ea0a450592a69253",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "61256ad0_ea6ab6e2",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 3284,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2022-03-22T16:47:19Z",
+      "side": 1,
+      "message": "Probably need validation on this one too?",
+      "range": {
+        "startLine": 3284,
+        "startChar": 42,
+        "endLine": 3284,
+        "endChar": 49
+      },
+      "revId": "efda40865a6fdfbd6bf5ae91ea0a450592a69253",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
