@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "40f4adfa_e2d81650",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-22T19:58:51Z",
+      "side": 1,
+      "message": "Badly resolved merge conflict on my part.  Opening a new review momentarily.",
+      "parentUuid": "a358ebdc_80dfba68",
+      "revId": "c12f4af28540d54024afe0335cfd756b82fee858",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ae9f88bb_88998aa8",
         "filename": "redfish-core/lib/update_service.hpp",
         "patchSetId": 16
@@ -31,6 +49,24 @@
       "writtenOn": "2022-03-22T19:57:14Z",
       "side": 1,
       "message": "Same here.. Remove?",
+      "revId": "c12f4af28540d54024afe0335cfd756b82fee858",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d289f227_93e98535",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 225,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-22T19:58:51Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "ae9f88bb_88998aa8",
       "revId": "c12f4af28540d54024afe0335cfd756b82fee858",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
