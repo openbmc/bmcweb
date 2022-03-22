@@ -22,6 +22,30 @@
       },
       "revId": "bc33e792ed23bbf1600b281764083096f0a107c3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "25e35aea_d1727df6",
+        "filename": "redfish-core/lib/redfish_sessions.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 276,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-22T18:41:03Z",
+      "side": 1,
+      "message": "Hah, this got mixed up in the next patchset, which adds a second overload for this, and I forgot to update the comment.\n\nFixing in this patchset.\n\nDone",
+      "parentUuid": "2bd72334_b738c0d4",
+      "range": {
+        "startLine": 276,
+        "startChar": 22,
+        "endLine": 276,
+        "endChar": 26
+      },
+      "revId": "bc33e792ed23bbf1600b281764083096f0a107c3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
