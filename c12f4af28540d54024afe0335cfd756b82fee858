@@ -38,6 +38,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "866e2096_131f41c9",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-22T20:01:31Z",
+      "side": 1,
+      "message": "Wait... NVM, this is still needed and looks correct to my eye.  If for whatever reason we got a software actitivation propertiesChanged event that DIDN\"T have an activation key, we still need to return this.",
+      "parentUuid": "40f4adfa_e2d81650",
+      "revId": "c12f4af28540d54024afe0335cfd756b82fee858",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ae9f88bb_88998aa8",
         "filename": "redfish-core/lib/update_service.hpp",
         "patchSetId": 16
@@ -67,6 +85,24 @@
       "side": 1,
       "message": "Ack",
       "parentUuid": "ae9f88bb_88998aa8",
+      "revId": "c12f4af28540d54024afe0335cfd756b82fee858",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c9713050_3dde31e4",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 225,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-22T20:01:31Z",
+      "side": 1,
+      "message": "Same as above.",
+      "parentUuid": "d289f227_93e98535",
       "revId": "c12f4af28540d54024afe0335cfd756b82fee858",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
