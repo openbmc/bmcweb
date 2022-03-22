@@ -39,6 +39,30 @@
       },
       "revId": "aa2c5a0167c74f237c1108908eb8bee83b9a21af",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4ba5783d_567df254",
+        "filename": "scripts/event_listener.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-03-22T04:38:28Z",
+      "side": 1,
+      "message": "Done, thank you John.",
+      "parentUuid": "7fb39e50_22fa889c",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 1,
+        "endChar": 35
+      },
+      "revId": "aa2c5a0167c74f237c1108908eb8bee83b9a21af",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
