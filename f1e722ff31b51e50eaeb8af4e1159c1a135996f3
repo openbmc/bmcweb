@@ -20,6 +20,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "0d48ae21_0d353c12",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 14
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1001217
+      },
+      "writtenOn": "2022-03-22T03:01:01Z",
+      "side": 1,
+      "message": "Ran the validator, there were failures but not from this code (other Google things on this platform failed)\n\n```\n*** /redfish/v1/JsonSchemas/PCIeSlots\n\t Type (JsonSchemaFile.v1_0_2.JsonSchemaFile), GET SUCCESS (time: 0:00:00.043911)\n\t PASS\n```",
+      "parentUuid": "c097a978_7537a35d",
+      "revId": "f1e722ff31b51e50eaeb8af4e1159c1a135996f3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "bfe3833e_41c61326",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 14
