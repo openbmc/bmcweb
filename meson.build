@@ -111,6 +111,11 @@ foreach option_key,option_value : feature_map
   endif
 endforeach
 
+google_singleton_rotid=get_option('google-singleton-rotid')
+if (google_singleton_rotid != '')
+  add_project_arguments(f'-DBMCWEB_GOOGLE_SINGLETON_ROTID="@google_singleton_rotid@"',language:'cpp')
+endif
+
 if(get_option('tests').enabled())
   summary('unittest','NA', section : 'Enabled Features')
 endif
