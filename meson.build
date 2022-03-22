@@ -376,6 +376,7 @@ executable(
 srcfiles_unittest = [
   'http/ut/utility_test.cpp',
   'include/ut/dbus_utility_test.cpp',
+  'include/google/ut/google_service_root_test.cpp',
   'include/ut/http_utility_test.cpp',
   'include/ut/human_sort_test.cpp',
   'include/ut/multipart_test.cpp',
