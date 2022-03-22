@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d1b1237c_1fbf3b66",
+        "filename": "scripts/event_listener.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2022-03-22T17:31:33Z",
+      "side": 1,
+      "message": "nit\nPlease use\n`#!/usr/bin/python3`\n\nAnd make sure you can invoke from the commadline like\n`./event_listener.py`",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 1,
+        "endChar": 22
+      },
+      "revId": "cd8e2170749d224692479b6b48032550d8f9d3ce",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
