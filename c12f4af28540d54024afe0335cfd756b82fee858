@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a358ebdc_80dfba68",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-03-22T19:57:14Z",
+      "side": 1,
+      "message": "remove this now?\nThis logic looks inverse of what was there before, but I see the old logic above",
+      "revId": "c12f4af28540d54024afe0335cfd756b82fee858",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ae9f88bb_88998aa8",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 225,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-03-22T19:57:14Z",
+      "side": 1,
+      "message": "Same here.. Remove?",
+      "revId": "c12f4af28540d54024afe0335cfd756b82fee858",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
