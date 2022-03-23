@@ -390,15 +390,13 @@ class Subscription : public persistent_data::UserSubscription
             return false;
         }
 
-        if (conn == nullptr)
+        if (!crow::HttpClient::getInstance().connectionExists(host, port))
         {
-            // create the HttpClient connection
-            conn = std::make_shared<crow::HttpClient>(
+            crow::HttpClient::getInstance().createConnection(
                 crow::connections::systemBus->get_io_context(), id, host, port,
                 path, httpHeaders);
         }
-
-        conn->sendData(msg);
+        crow::HttpClient::getInstance().sendData(msg, host, port);
         eventSeqNum++;
 
         if (sseConn != nullptr)
@@ -533,18 +531,22 @@ class Subscription : public persistent_data::UserSubscription
     void updateRetryConfig(const uint32_t retryAttempts,
                            const uint32_t retryTimeoutInterval)
     {
-        if (conn != nullptr)
-        {
-            conn->setRetryConfig(retryAttempts, retryTimeoutInterval);
-        }
+        //   if (conn != NULL)
+        //   {
+        //       conn->setRetryConfig(retryAttempts, retryTimeoutInterval);
+        //   }
+
+        crow::HttpClient::getInstance().setRetryConfig(retryAttempts,
+                                                       retryTimeoutInterval);
     }
 
     void updateRetryPolicy()
     {
-        if (conn != nullptr)
-        {
-            conn->setRetryPolicy(retryPolicy);
-        }
+        // if (conn != NULL)
+        //{
+        //    conn->setRetryPolicy(retryPolicy);
+        //}
+        crow::HttpClient::getInstance().setRetryPolicy(retryPolicy);
     }
 
     uint64_t getEventSeqNum() const
@@ -558,7 +560,7 @@ class Subscription : public persistent_data::UserSubscription
     std::string port;
     std::string path;
     std::string uriProto;
-    std::shared_ptr<crow::HttpClient> conn = nullptr;
+    // crow::HttpClient* conn = NULL;
     std::shared_ptr<crow::ServerSentEvents> sseConn = nullptr;
 };
 
