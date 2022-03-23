@@ -134,6 +134,24 @@
       "parentUuid": "4ec7675d_256f8cac",
       "revId": "6760c4ba84161ee5f729dd29d374a750ec26df5e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "358bd311_f1061408",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 44
+      },
+      "lineNbr": 478,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2022-03-23T21:27:34Z",
+      "side": 1,
+      "message": "do you mean that in the outside loop find whether `xyz.openbmc_project.Inventory.Decorator.LocationCode` or Connector is there? and just pass those in instead of the whole list?\n\nbecause in general, we don\u0027t know if there are in the list.",
+      "parentUuid": "53788e0d_e634a9be",
+      "revId": "6760c4ba84161ee5f729dd29d374a750ec26df5e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
