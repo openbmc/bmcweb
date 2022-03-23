@@ -6,9 +6,13 @@
 #include <memory>
 #include <string>
 
-#include "gmock/gmock.h"
+#include "gtest/gtest.h"
 
-static void assertServiceRootGet(crow::Response& res)
+namespace redfish
+{
+namespace
+{
+void assertServiceRootGet(crow::Response& res)
 {
     nlohmann::json& json = res.jsonValue;
     EXPECT_EQ(json["@odata.id"], "/redfish/v1");
@@ -63,7 +67,17 @@ static void assertServiceRootGet(crow::Response& res)
                               "9a-fA-F]{4}-[0-9a-fA-F]{12}"));
 
     EXPECT_EQ(json["UpdateService"]["@odata.id"], "/redfish/v1/UpdateService");
-    EXPECT_EQ(20, json.size());
+
+    EXPECT_FALSE(json["ProtocolFeaturesSupported"]["ExcerptQuery"]);
+    EXPECT_FALSE(json["ProtocolFeaturesSupported"]["ExpandQuery"]["ExpandAll"]);
+    EXPECT_FALSE(json["ProtocolFeaturesSupported"]["ExpandQuery"]["Levels"]);
+    EXPECT_FALSE(json["ProtocolFeaturesSupported"]["ExpandQuery"]["Links"]);
+    EXPECT_FALSE(json["ProtocolFeaturesSupported"]["ExpandQuery"]["NoLinks"]);
+    EXPECT_FALSE(json["ProtocolFeaturesSupported"]["FilterQuery"]);
+    EXPECT_FALSE(json["ProtocolFeaturesSupported"]["OnlyMemberQuery"]);
+    EXPECT_FALSE(json["ProtocolFeaturesSupported"]["SelectQuery"]);
+
+    EXPECT_EQ(json.size(), 21);
 }
 
 TEST(ServiceRootTest, ServiceRootConstructor)
@@ -74,5 +88,7 @@ TEST(ServiceRootTest, ServiceRootConstructor)
 
     shareAsyncResp->res.setCompleteRequestHandler(assertServiceRootGet);
 
-    redfish::handleServiceRootGet(req, shareAsyncResp);
+    handleServiceRootGet(req, shareAsyncResp);
 }
+} // namespace
+} // namespace redfish

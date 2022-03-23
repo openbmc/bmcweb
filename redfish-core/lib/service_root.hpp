@@ -64,6 +64,26 @@ inline void
     asyncResp->res.jsonValue["TelemetryService"] = {
         {"@odata.id", "/redfish/v1/TelemetryService"}};
     asyncResp->res.jsonValue["Cables"] = {{"@odata.id", "/redfish/v1/Cables"}};
+
+    asyncResp->res.jsonValue["ProtocolFeaturesSupported"]["ExcerptQuery"] =
+        false;
+    asyncResp->res
+        .jsonValue["ProtocolFeaturesSupported"]["ExpandQuery"]["ExpandAll"] =
+        false;
+    asyncResp->res
+        .jsonValue["ProtocolFeaturesSupported"]["ExpandQuery"]["Levels"] =
+        false;
+    asyncResp->res
+        .jsonValue["ProtocolFeaturesSupported"]["ExpandQuery"]["Links"] = false;
+    asyncResp->res
+        .jsonValue["ProtocolFeaturesSupported"]["ExpandQuery"]["NoLinks"] =
+        false;
+    asyncResp->res.jsonValue["ProtocolFeaturesSupported"]["FilterQuery"] =
+        false;
+    asyncResp->res.jsonValue["ProtocolFeaturesSupported"]["OnlyMemberQuery"] =
+        false;
+    asyncResp->res.jsonValue["ProtocolFeaturesSupported"]["SelectQuery"] =
+        false;
 }
 
 inline void requestRoutesServiceRoot(App& app)
