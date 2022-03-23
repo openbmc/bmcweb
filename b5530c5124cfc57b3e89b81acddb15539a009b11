@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5de1e1af_75d22b9c",
+        "filename": "redfish-core/include/utils/location_utils.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000233
+      },
+      "writtenOn": "2022-03-23T17:54:24Z",
+      "side": 1,
+      "message": "Unused header?",
+      "revId": "b5530c5124cfc57b3e89b81acddb15539a009b11",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "578d7d81_43d3ed65",
+        "filename": "redfish-core/include/utils/location_utils.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1000233
+      },
+      "writtenOn": "2022-03-23T17:54:24Z",
+      "side": 1,
+      "message": "Please document this parameter",
+      "range": {
+        "startLine": 64,
+        "startChar": 66,
+        "endLine": 64,
+        "endChar": 74
+      },
+      "revId": "b5530c5124cfc57b3e89b81acddb15539a009b11",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c55b537c_aa3a41f2",
+        "filename": "redfish-core/ut/location_utils_test.cpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1000233
+      },
+      "writtenOn": "2022-03-23T17:54:24Z",
+      "side": 1,
+      "message": "Might want to add a case testing invalid capitalization",
+      "revId": "b5530c5124cfc57b3e89b81acddb15539a009b11",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
