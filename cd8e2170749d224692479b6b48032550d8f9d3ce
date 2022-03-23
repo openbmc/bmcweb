@@ -46,6 +46,30 @@
       },
       "revId": "cd8e2170749d224692479b6b48032550d8f9d3ce",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7daf4641_b9e7d848",
+        "filename": "scripts/event_listener.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-03-23T01:13:18Z",
+      "side": 1,
+      "message": "env should be able to find python3, any reason `/usr/bin/python3` is preferred?",
+      "parentUuid": "11167956_773e2bd7",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 1,
+        "endChar": 22
+      },
+      "revId": "cd8e2170749d224692479b6b48032550d8f9d3ce",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
