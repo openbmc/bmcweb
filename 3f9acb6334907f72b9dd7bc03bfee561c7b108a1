@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c64f7265_44b53328",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000238
+      },
+      "writtenOn": "2022-03-23T20:56:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "297716cd_b7cc46cd",
+      "revId": "3f9acb6334907f72b9dd7bc03bfee561c7b108a1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "75e64504_3f2fe626",
@@ -31,6 +49,30 @@
       "writtenOn": "2022-03-16T17:22:19Z",
       "side": 1,
       "message": "Let\u0027s describe this in terms of Redfish clients. Not use the word HMC since it doesn\u0027t buy anything.\n\nA management Redish client has seen internalErrors when the occ-control service is unreachable.",
+      "range": {
+        "startLine": 12,
+        "startChar": 0,
+        "endLine": 12,
+        "endChar": 4
+      },
+      "revId": "3f9acb6334907f72b9dd7bc03bfee561c7b108a1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2c559d43_b3d42228",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000238
+      },
+      "writtenOn": "2022-03-23T20:56:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "75e64504_3f2fe626",
       "range": {
         "startLine": 12,
         "startChar": 0,
