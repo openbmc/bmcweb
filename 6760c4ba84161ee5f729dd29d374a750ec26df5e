@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a9752b06_221618dd",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 44
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000233
+      },
+      "writtenOn": "2022-03-23T18:09:41Z",
+      "side": 1,
+      "message": "This should be more specific now that the other resource types are being handled in previous commits.\n\nShould likely also move the generic information about splitting getLocation and discussion of LocationType to the initial commit that adds the helper functions",
+      "revId": "6760c4ba84161ee5f729dd29d374a750ec26df5e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4efd3214_ec7e5b82",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 44
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1000233
+      },
+      "writtenOn": "2022-03-23T18:09:41Z",
+      "side": 1,
+      "message": "Looks like it\u0027s been released now",
+      "range": {
+        "startLine": 39,
+        "startChar": 49,
+        "endLine": 40,
+        "endChar": 12
+      },
+      "revId": "6760c4ba84161ee5f729dd29d374a750ec26df5e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "203fca03_185e8d7f",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 44
+      },
+      "lineNbr": 478,
+      "author": {
+        "id": 1000233
+      },
+      "writtenOn": "2022-03-23T18:09:41Z",
+      "side": 1,
+      "message": "The code in this function looks pretty similar to the other places where you get the LocationCode and LocationType. Any way to reduce the duplication or would that hurt readability?",
+      "revId": "6760c4ba84161ee5f729dd29d374a750ec26df5e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
