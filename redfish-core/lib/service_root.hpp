@@ -17,6 +17,7 @@
 
 #include <app.hpp>
 #include <persistent_data.hpp>
+#include <query.hpp>
 #include <registries/privilege_registry.hpp>
 #include <utils/systemd_utils.hpp>
 
@@ -24,10 +25,9 @@ namespace redfish
 {
 
 inline void
-    handleServiceRootGet(const crow::Request& /*req*/,
+    handleServiceRootGet(
                          const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
-
     std::string uuid = persistent_data::getConfig().systemUuid;
     asyncResp->res.jsonValue["@odata.type"] =
         "#ServiceRoot.v1_11_0.ServiceRoot";
@@ -70,7 +70,12 @@ inline void requestRoutesServiceRoot(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/")
         .privileges(redfish::privileges::getServiceRoot)
-        .methods(boost::beast::http::verb::get)(handleServiceRootGet);
+        .methods(boost::beast::http::verb::get)(
+            [&app](const crow::Request& req,
+                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
+                redfish::setUpRedfishRoute(app, req, asyncResp->res);
+                handleServiceRootGet(asyncResp);
+            });
 }
 
 } // namespace redfish

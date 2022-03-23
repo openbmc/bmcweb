@@ -12,16 +12,20 @@ inline bool setUpRedfishRoute(crow::App& app, const crow::Request& req,
     std::optional<query_param::Query> query =
         query_param::parseParameters(req.urlView.params(), res);
 
+    // If this isn't a get, no need to do anything with parameters
+    if (req.method() != boost::beast::http::verb::get){
+        return true;
+    }
+
     std::function<void(crow::Response&)> handler =
         res.releaseCompleteRequestHandler();
 
-    BMCWEB_LOG_DEBUG << "Function was valid: " << static_cast<bool>(handler);
-
     BMCWEB_LOG_DEBUG << "Setting completion handler for query";
+
     res.setCompleteRequestHandler([&app, handler(std::move(handler)),
                                    query](crow::Response& res) mutable {
         BMCWEB_LOG_DEBUG << "Starting query params handling";
-        processAllParams(app, query, res, handler);
+        processAllParams(app, query, handler, res);
     });
     return true;
 }
