@@ -7,6 +7,7 @@
 #include <string>
 
 #include "gmock/gmock.h"
+#include "gtest/gtest.h"
 
 static void assertServiceRootGet(crow::Response& res)
 {
@@ -63,7 +64,23 @@ static void assertServiceRootGet(crow::Response& res)
                               "9a-fA-F]{4}-[0-9a-fA-F]{12}"));
 
     EXPECT_EQ(json["UpdateService"]["@odata.id"], "/redfish/v1/UpdateService");
-    EXPECT_EQ(20, json.size());
+
+    EXPECT_EQ(json["ProtocolFeaturesSupported"].size(), 6);
+    EXPECT_FALSE(json["ProtocolFeaturesSupported"]["ExcerptQuery"]);
+    EXPECT_FALSE(json["ProtocolFeaturesSupported"]["ExpandQuery"]["ExpandAll"]);
+    EXPECT_FALSE(json["ProtocolFeaturesSupported"]["ExpandQuery"]["Levels"]);
+    EXPECT_FALSE(json["ProtocolFeaturesSupported"]["ExpandQuery"]["Links"]);
+    EXPECT_FALSE(json["ProtocolFeaturesSupported"]["ExpandQuery"]["NoLinks"]);
+    EXPECT_EQ(json["ProtocolFeaturesSupported"]["ExpandQuery"].size(), 4);
+    EXPECT_FALSE(json["ProtocolFeaturesSupported"]["FilterQuery"]);
+    EXPECT_FALSE(json["ProtocolFeaturesSupported"]["OnlyMemberQuery"]);
+    EXPECT_FALSE(json["ProtocolFeaturesSupported"]["SelectQuery"]);
+    EXPECT_FALSE(
+        json["ProtocolFeaturesSupported"]["DeepOperations"]["DeepPOST"]);
+    EXPECT_FALSE(
+        json["ProtocolFeaturesSupported"]["DeepOperations"]["DeepPATCH"]);
+    EXPECT_EQ(json["ProtocolFeaturesSupported"]["DeepOperations"].size(), 2);
+    EXPECT_EQ(json.size(), 21);
 }
 
 TEST(ServiceRootTest, ServiceRootConstructor)
