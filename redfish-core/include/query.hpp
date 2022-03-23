@@ -7,9 +7,9 @@
 namespace redfish
 {
 
-inline bool
-    [[nodiscard]] setUpRedfishRoute(crow::App& app, const crow::Request& req,
-                                    crow::Response& res)
+[[nodiscard]] inline bool setUpRedfishRoute(crow::App& app,
+                                            const crow::Request& req,
+                                            crow::Response& res)
 {
     // If query parameters aren't enabled, do nothing.
     if constexpr (bmcwebInsecureEnableQueryParams)
@@ -23,13 +23,19 @@ inline bool
         return false;
     }
 
+    // If this isn't a get, no need to do anything with parameters
+    if (req.method() != boost::beast::http::verb::get)
+    {
+        return true;
+    }
+
     std::function<void(crow::Response&)> handler =
         res.releaseCompleteRequestHandler();
 
     res.setCompleteRequestHandler(
         [&app, handler(std::move(handler)),
          query{*queryOpt}](crow::Response& res) mutable {
-            processAllParams(app, query, res, handler);
+            processAllParams(app, query, handler, res);
         });
     return true;
 }
