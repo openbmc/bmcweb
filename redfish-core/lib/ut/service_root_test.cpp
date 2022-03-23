@@ -1,3 +1,5 @@
+#include "bmcweb_config.h"
+
 #include "http_request.hpp"
 #include "include/async_resp.hpp"
 #include "nlohmann/json.hpp"
@@ -67,11 +69,24 @@ static void assertServiceRootGet(crow::Response& res)
 
     EXPECT_EQ(json["ProtocolFeaturesSupported"].size(), 6);
     EXPECT_FALSE(json["ProtocolFeaturesSupported"]["ExcerptQuery"]);
-    EXPECT_FALSE(json["ProtocolFeaturesSupported"]["ExpandQuery"]["ExpandAll"]);
-    EXPECT_FALSE(json["ProtocolFeaturesSupported"]["ExpandQuery"]["Levels"]);
-    EXPECT_FALSE(json["ProtocolFeaturesSupported"]["ExpandQuery"]["Links"]);
-    EXPECT_FALSE(json["ProtocolFeaturesSupported"]["ExpandQuery"]["NoLinks"]);
-    EXPECT_EQ(json["ProtocolFeaturesSupported"]["ExpandQuery"].size(), 4);
+    EXPECT_EQ(json["ProtocolFeaturesSupported"]["ExpandQuery"]["ExpandAll"],
+              bmcwebInsecureEnableQueryParams);
+    EXPECT_EQ(json["ProtocolFeaturesSupported"]["ExpandQuery"]["Levels"],
+              bmcwebInsecureEnableQueryParams);
+    EXPECT_EQ(json["ProtocolFeaturesSupported"]["ExpandQuery"]["Links"],
+              bmcwebInsecureEnableQueryParams);
+    EXPECT_EQ(json["ProtocolFeaturesSupported"]["ExpandQuery"]["NoLinks"],
+              bmcwebInsecureEnableQueryParams);
+    if (bmcwebInsecureEnableQueryParams)
+    {
+        EXPECT_EQ(json["ProtocolFeaturesSupported"]["ExpandQuery"].size(), 5);
+        EXPECT_EQ(json["ProtocolFeaturesSupported"]["ExpandQuery"]["MaxLevels"],
+                  6);
+    }
+    else
+    {
+        EXPECT_EQ(json["ProtocolFeaturesSupported"]["ExpandQuery"].size(), 4);
+    }
     EXPECT_FALSE(json["ProtocolFeaturesSupported"]["FilterQuery"]);
     EXPECT_EQ(json["ProtocolFeaturesSupported"]["OnlyMemberQuery"],
               bmcwebInsecureEnableQueryParams);
@@ -87,10 +102,9 @@ static void assertServiceRootGet(crow::Response& res)
 TEST(ServiceRootTest, ServiceRootConstructor)
 {
     std::error_code ec;
-    crow::Request req({}, ec);
     auto shareAsyncResp = std::make_shared<bmcweb::AsyncResp>();
 
     shareAsyncResp->res.setCompleteRequestHandler(assertServiceRootGet);
 
-    redfish::handleServiceRootGet(req, shareAsyncResp);
+    redfish::handleServiceRootGet(shareAsyncResp);
 }

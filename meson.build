@@ -381,6 +381,8 @@ srcfiles_unittest = [
   'include/ut/http_utility_test.cpp',
   'include/ut/human_sort_test.cpp',
   'include/ut/multipart_test.cpp',
+  'redfish-core/include/utils/query_param_test.cpp',
+  'redfish-core/lib/ut/service_root_test.cpp',
   'redfish-core/ut/configfile_test.cpp',
   'redfish-core/ut/hex_utils_test.cpp',
   'redfish-core/ut/json_utils_test.cpp',
@@ -389,7 +391,6 @@ srcfiles_unittest = [
   'redfish-core/ut/registries_test.cpp',
   'redfish-core/ut/stl_utils_test.cpp',
   'redfish-core/ut/time_utils_test.cpp',
-  'redfish-core/lib/ut/service_root_test.cpp',
 ]
 
 if(get_option('tests').enabled())
