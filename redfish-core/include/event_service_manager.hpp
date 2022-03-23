@@ -381,7 +381,7 @@ class Subscription : public persistent_data::UserSubscription
 
     ~Subscription() = default;
 
-    bool sendEvent(const std::string& msg)
+    bool sendEvent(std::string& msg)
     {
         persistent_data::EventServiceConfig eventServiceConfig =
             persistent_data::EventServiceStore::getInstance()
@@ -391,15 +391,9 @@ class Subscription : public persistent_data::UserSubscription
             return false;
         }
 
-        if (conn == nullptr)
-        {
-            // create the HttpClient connection
-            conn = std::make_shared<crow::HttpClient>(
-                crow::connections::systemBus->get_io_context(), id, host, port,
-                path, httpHeaders);
-        }
-
-        conn->sendData(msg);
+        // A connection pool will be created if one does not already exist
+        crow::HttpClient::getInstance().sendData(msg, id, host, port, path,
+                                                 httpHeaders, retryPolicyName);
         eventSeqNum++;
 
         if (sseConn != nullptr)
@@ -430,8 +424,9 @@ class Subscription : public persistent_data::UserSubscription
                               {"Name", "Event Log"},
                               {"Events", logEntryArray}};
 
-        return this->sendEvent(
-            msg.dump(2, ' ', true, nlohmann::json::error_handler_t::replace));
+        std::string strMsg =
+            msg.dump(2, ' ', true, nlohmann::json::error_handler_t::replace);
+        return this->sendEvent(strMsg);
     }
 
 #ifndef BMCWEB_ENABLE_REDFISH_DBUS_LOG_ENTRIES
@@ -497,8 +492,9 @@ class Subscription : public persistent_data::UserSubscription
                               {"Name", "Event Log"},
                               {"Events", logEntryArray}};
 
-        this->sendEvent(
-            msg.dump(2, ' ', true, nlohmann::json::error_handler_t::replace));
+        std::string strMsg =
+            msg.dump(2, ' ', true, nlohmann::json::error_handler_t::replace);
+        this->sendEvent(strMsg);
     }
 #endif
 
@@ -529,25 +525,22 @@ class Subscription : public persistent_data::UserSubscription
             return;
         }
 
-        this->sendEvent(
-            msg.dump(2, ' ', true, nlohmann::json::error_handler_t::replace));
+        std::string strMsg =
+            msg.dump(2, ' ', true, nlohmann::json::error_handler_t::replace);
+        this->sendEvent(strMsg);
     }
 
     void updateRetryConfig(const uint32_t retryAttempts,
                            const uint32_t retryTimeoutInterval)
     {
-        if (conn != nullptr)
-        {
-            conn->setRetryConfig(retryAttempts, retryTimeoutInterval);
-        }
+        crow::HttpClient::getInstance().setRetryConfig(
+            retryAttempts, retryTimeoutInterval, retryPolicyName);
     }
 
     void updateRetryPolicy()
     {
-        if (conn != nullptr)
-        {
-            conn->setRetryPolicy(retryPolicy);
-        }
+        crow::HttpClient::getInstance().setRetryPolicy(retryPolicy,
+                                                       retryPolicyName);
     }
 
     uint64_t getEventSeqNum() const
@@ -561,8 +554,8 @@ class Subscription : public persistent_data::UserSubscription
     uint16_t port = 0;
     std::string path;
     std::string uriProto;
-    std::shared_ptr<crow::HttpClient> conn = nullptr;
     std::shared_ptr<crow::ServerSentEvents> sseConn = nullptr;
+    std::string retryPolicyName = "SubscriptionEvent";
 };
 
 class EventServiceManager
@@ -1040,8 +1033,10 @@ class EventServiceManager
                     {"Name", "Event Log"},
                     {"Id", eventId},
                     {"Events", eventRecord}};
-                entry->sendEvent(msgJson.dump(
-                    2, ' ', true, nlohmann::json::error_handler_t::replace));
+
+                std::string strMsg = msgJson.dump(
+                    2, ' ', true, nlohmann::json::error_handler_t::replace);
+                entry->sendEvent(strMsg);
                 eventId++; // increament the eventId
             }
             else
@@ -1060,8 +1055,10 @@ class EventServiceManager
                 {"OriginOfCondition", "/ibm/v1/HMC/BroadcastService"},
                 {"Name", "Broadcast Message"},
                 {"Message", broadcastMsg}};
-            entry->sendEvent(msgJson.dump(
-                2, ' ', true, nlohmann::json::error_handler_t::replace));
+
+            std::string strMsg = msgJson.dump(
+                2, ' ', true, nlohmann::json::error_handler_t::replace);
+            entry->sendEvent(strMsg);
         }
     }
 
