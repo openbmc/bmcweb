@@ -36,6 +36,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "eb05c247_e840627f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-23T17:21:46Z",
+      "side": 1,
+      "message": "Omitting all of those properties is legal, my point is we should be consistent: either\n\nA. When we don\u0027t support a feature we omit the property.\nor\nB. When we don\u0027t support a feature, we add the property set to false.\n\nDoes that make sense?\n\nI\u0027m pretty sure that mockup was created before DeepOperations was in the standard.\n\nWith that said, I\u0027m not that worried about DeepOperations.",
+      "parentUuid": "93776efb_b5e3118e",
+      "revId": "d4da593e35139a7d29d6dfe676f7f9c829ba9c4e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "99ffdb23_d600666b",
