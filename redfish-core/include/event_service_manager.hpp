@@ -390,15 +390,35 @@ class Subscription : public persistent_data::UserSubscription
             return false;
         }
 
-        if (conn == nullptr)
+        if (!crow::HttpClient::getInstance().connectionExists(host,port))
         {
+            crow::HttpClient::getInstance().createConnection(
+                //crow::connections::systemBus->get_io_context(), id, host,
+                id, host,
+                port, path, httpHeaders);
+        }
+/*
+        if (conn == NULL)
+        {
+            //TODO ME: Clean this up
             // create the HttpClient connection
-            conn = std::make_shared<crow::HttpClient>(
+            //conn = std::make_shared<crow::HttpClient>(
+            //    crow::connections::systemBus->get_io_context(), id, host, port,
+            //    path, httpHeaders);
+
+            //TODO ME: Always get the instance and then check for connection
+            //Create connection pool if it doesn't exist
+            //  - Add method to HttpClient to enable checking
+            conn = &crow::HttpClient::getInstance();
+            conn->createConnection(
                 crow::connections::systemBus->get_io_context(), id, host, port,
                 path, httpHeaders);
         }
 
-        conn->sendData(msg);
+        conn->sendData(msg,host,port);
+        */
+        BMCWEB_LOG_DEBUG << "MYDEBUG: About to call getInstance().sendData()";
+        crow::HttpClient::getInstance().sendData(msg,host,port);
         eventSeqNum++;
 
         if (sseConn != nullptr)
@@ -533,18 +553,22 @@ class Subscription : public persistent_data::UserSubscription
     void updateRetryConfig(const uint32_t retryAttempts,
                            const uint32_t retryTimeoutInterval)
     {
-        if (conn != nullptr)
-        {
-            conn->setRetryConfig(retryAttempts, retryTimeoutInterval);
-        }
+     //   if (conn != NULL)
+     //   {
+     //       conn->setRetryConfig(retryAttempts, retryTimeoutInterval);
+     //   }
+
+        crow::HttpClient::getInstance().setRetryConfig(retryAttempts,
+                                                       retryTimeoutInterval);
     }
 
     void updateRetryPolicy()
     {
-        if (conn != nullptr)
-        {
-            conn->setRetryPolicy(retryPolicy);
-        }
+       // if (conn != NULL)
+        //{
+        //    conn->setRetryPolicy(retryPolicy);
+        //}
+          crow::HttpClient::getInstance().setRetryPolicy(retryPolicy);
     }
 
     uint64_t getEventSeqNum() const
@@ -558,7 +582,7 @@ class Subscription : public persistent_data::UserSubscription
     std::string port;
     std::string path;
     std::string uriProto;
-    std::shared_ptr<crow::HttpClient> conn = nullptr;
+    //crow::HttpClient* conn = NULL;
     std::shared_ptr<crow::ServerSentEvents> sseConn = nullptr;
 };
 
