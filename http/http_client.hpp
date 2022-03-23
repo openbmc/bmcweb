@@ -34,8 +34,11 @@
 namespace crow
 {
 
-static constexpr uint8_t maxRequestQueueSize = 50;
+static constexpr uint8_t maxPoolSize = 50;
 static constexpr unsigned int httpReadBodyLimit = 8192;
+static uint32_t maxRetryAttempts = 5;
+static uint32_t retryIntervalSecs = 0;
+static std::string retryPolicyAction = "TerminateAfterRetries";
 
 enum class ConnState
 {
@@ -58,35 +61,34 @@ enum class ConnState
     retry
 };
 
-class HttpClient : public std::enable_shared_from_this<HttpClient>
+class ConnectionInfo : public std::enable_shared_from_this<ConnectionInfo>
 {
   private:
-    crow::async_resolve::Resolver resolver;
     boost::beast::tcp_stream conn;
     boost::asio::steady_timer timer;
-    boost::beast::flat_static_buffer<httpReadBodyLimit> buffer;
     boost::beast::http::request<boost::beast::http::string_body> req;
     std::optional<
         boost::beast::http::response_parser<boost::beast::http::string_body>>
         parser;
-    boost::circular_buffer_space_optimized<std::string> requestDataQueue{
-        maxRequestQueueSize};
+    crow::async_resolve::Resolver resolver;
+    boost::beast::flat_static_buffer<httpReadBodyLimit> buffer;
 
     ConnState state = ConnState::initialized;
-
+    uint32_t retryCount = 0;
+    bool runningTimer = false;
     std::string subId;
     std::string host;
     std::string port;
-    uint32_t retryCount = 0;
-    uint32_t maxRetryAttempts = 5;
-    uint32_t retryIntervalSecs = 0;
-    std::string retryPolicyAction = "TerminateAfterRetries";
-    bool runningTimer = false;
+    unsigned int connId;
+    std::string data;
+
+    friend class ConnectionPool;
 
     void doResolve()
     {
         state = ConnState::resolveInProgress;
-        BMCWEB_LOG_DEBUG << "Trying to resolve: " << host << ":" << port;
+        BMCWEB_LOG_DEBUG << "Trying to resolve: " << host << ":" << port
+                         << ", id: " << std::to_string(connId);
 
         auto respHandler =
             [self(shared_from_this())](
@@ -97,12 +99,15 @@ class HttpClient : public std::enable_shared_from_this<HttpClient>
                 {
                     BMCWEB_LOG_ERROR << "Resolve failed: " << ec.message();
                     self->state = ConnState::resolveFailed;
-                    self->handleConnState();
+                    self->waitAndRetry();
                     return;
                 }
-                BMCWEB_LOG_DEBUG << "Resolved";
+                BMCWEB_LOG_DEBUG << "Resolved " << self->host << ":"
+                                 << self->port
+                                 << ", id: " << std::to_string(self->connId);
                 self->doConnect(endpointList);
             };
+
         resolver.asyncResolve(host, port, std::move(respHandler));
     }
 
@@ -111,7 +116,8 @@ class HttpClient : public std::enable_shared_from_this<HttpClient>
     {
         state = ConnState::connectInProgress;
 
-        BMCWEB_LOG_DEBUG << "Trying to connect to: " << host << ":" << port;
+        BMCWEB_LOG_DEBUG << "Trying to connect to: " << host << ":" << port
+                         << ", id: " << std::to_string(connId);
 
         conn.expires_after(std::chrono::seconds(30));
         conn.async_connect(
@@ -121,20 +127,24 @@ class HttpClient : public std::enable_shared_from_this<HttpClient>
                 if (ec)
                 {
                     BMCWEB_LOG_ERROR << "Connect "
-                                     << endpoint.address().to_string()
+                                     << endpoint.address().to_string() << ":"
+                                     << std::to_string(endpoint.port())
+                                     << ", id: " << std::to_string(self->connId)
                                      << " failed: " << ec.message();
                     self->state = ConnState::connectFailed;
-                    self->handleConnState();
+                    self->waitAndRetry();
                     return;
                 }
-                BMCWEB_LOG_DEBUG << "Connected to: "
-                                 << endpoint.address().to_string();
+                BMCWEB_LOG_DEBUG
+                    << "Connected to: " << endpoint.address().to_string() << ":"
+                    << std::to_string(endpoint.port())
+                    << ", id: " << std::to_string(self->connId);
                 self->state = ConnState::connected;
-                self->handleConnState();
+                self->sendMessage();
             });
     }
 
-    void sendMessage(const std::string& data)
+    void sendMessage()
     {
         state = ConnState::sendInProgress;
 
@@ -154,7 +164,7 @@ class HttpClient : public std::enable_shared_from_this<HttpClient>
                     BMCWEB_LOG_ERROR << "sendMessage() failed: "
                                      << ec.message();
                     self->state = ConnState::sendFailed;
-                    self->handleConnState();
+                    self->waitAndRetry();
                     return;
                 }
                 BMCWEB_LOG_DEBUG << "sendMessage() bytes transferred: "
@@ -167,8 +177,6 @@ class HttpClient : public std::enable_shared_from_this<HttpClient>
 
     void recvMessage()
     {
-        state = ConnState::recvInProgress;
-
         parser.emplace(std::piecewise_construct, std::make_tuple());
         parser->body_limit(httpReadBodyLimit);
 
@@ -182,7 +190,7 @@ class HttpClient : public std::enable_shared_from_this<HttpClient>
                     BMCWEB_LOG_ERROR << "recvMessage() failed: "
                                      << ec.message();
                     self->state = ConnState::recvFailed;
-                    self->handleConnState();
+                    self->waitAndRetry();
                     return;
                 }
                 BMCWEB_LOG_DEBUG << "recvMessage() bytes transferred: "
@@ -203,17 +211,13 @@ class HttpClient : public std::enable_shared_from_this<HttpClient>
                            "receive Sent-Event. Header Response Code: "
                         << respCode;
                     self->state = ConnState::recvFailed;
-                    self->handleConnState();
+                    self->waitAndRetry();
                     return;
                 }
 
-                // Send is successful, Lets remove data from queue
-                // check for next request data in queue.
-                if (!self->requestDataQueue.empty())
-                {
-                    self->requestDataQueue.pop_front();
-                }
-                self->state = ConnState::idle;
+                // Send is successful
+                // Reset the counter just in case this was after retrying
+                self->retryCount = 0;
 
                 // Keep the connection alive if server supports it
                 // Else close the connection
@@ -224,9 +228,68 @@ class HttpClient : public std::enable_shared_from_this<HttpClient>
                     // Abort the connection since server is not keep-alive
                     // enabled
                     self->state = ConnState::abortConnection;
+                    self->doClose();
                 }
+                else
+                {
+                    self->state = ConnState::idle;
+                }
+            });
+    }
 
-                self->handleConnState();
+    void waitAndRetry()
+    {
+        if (retryCount >= maxRetryAttempts)
+        {
+            BMCWEB_LOG_ERROR << "Maximum number of retries reached.";
+            BMCWEB_LOG_DEBUG << "Retry policy: " << retryPolicyAction;
+            if (retryPolicyAction == "TerminateAfterRetries")
+            {
+                // TODO: delete subscription
+                state = ConnState::terminated;
+                this->doClose();
+            }
+            if (retryPolicyAction == "SuspendRetries")
+            {
+                state = ConnState::suspended;
+                this->doClose();
+            }
+            // Reset the retrycount to zero so that client can try connecting
+            // again if needed
+            retryCount = 0;
+            return;
+        }
+
+        if (runningTimer)
+        {
+            BMCWEB_LOG_DEBUG << "Retry timer is already running.";
+            return;
+        }
+        runningTimer = true;
+
+        retryCount++;
+
+        BMCWEB_LOG_DEBUG << "Attempt retry after " << retryIntervalSecs
+                         << " seconds. RetryCount = " << retryCount;
+        timer.expires_after(std::chrono::seconds(retryIntervalSecs));
+        timer.async_wait(
+            [self(shared_from_this())](const boost::system::error_code ec) {
+                if (ec == boost::asio::error::operation_aborted)
+                {
+                    BMCWEB_LOG_DEBUG
+                        << "async_wait failed since the operation is aborted"
+                        << ec.message();
+                }
+                else if (ec)
+                {
+                    BMCWEB_LOG_ERROR << "async_wait failed: " << ec.message();
+                    // Ignore the error and continue the retry loop to attempt
+                    // sending the event as per the retry policy
+                }
+                self->runningTimer = false;
+
+                // Let's close the connection and restart from resolve.
+                self->doCloseAndRetry();
             });
     }
 
@@ -247,180 +310,185 @@ class HttpClient : public std::enable_shared_from_this<HttpClient>
         if ((state != ConnState::suspended) && (state != ConnState::terminated))
         {
             state = ConnState::closed;
-            handleConnState();
         }
     }
 
-    void waitAndRetry()
+    // void doCloseAndRetry(const std::string& data)
+    void doCloseAndRetry()
     {
-        if (retryCount >= maxRetryAttempts)
+        state = ConnState::closeInProgress;
+        boost::beast::error_code ec;
+        conn.socket().shutdown(boost::asio::ip::tcp::socket::shutdown_both, ec);
+        conn.close();
+
+        // not_connected happens sometimes so don't bother reporting it.
+        if (ec && ec != boost::beast::errc::not_connected)
         {
-            BMCWEB_LOG_ERROR << "Maximum number of retries reached.";
-
-            // Clear queue.
-            while (!requestDataQueue.empty())
-            {
-                requestDataQueue.pop_front();
-            }
-
-            BMCWEB_LOG_DEBUG << "Retry policy: " << retryPolicyAction;
-            if (retryPolicyAction == "TerminateAfterRetries")
-            {
-                // TODO: delete subscription
-                state = ConnState::terminated;
-            }
-            if (retryPolicyAction == "SuspendRetries")
-            {
-                state = ConnState::suspended;
-            }
-            // Reset the retrycount to zero so that client can try connecting
-            // again if needed
-            retryCount = 0;
-            handleConnState();
+            BMCWEB_LOG_ERROR << "shutdown failed: " << ec.message();
             return;
         }
-
-        if (runningTimer)
+        BMCWEB_LOG_DEBUG << "Connection closed gracefully";
+        if ((state != ConnState::suspended) && (state != ConnState::terminated))
         {
-            BMCWEB_LOG_DEBUG << "Retry timer is already running.";
-            return;
-        }
-        runningTimer = true;
-
-        retryCount++;
-
-        BMCWEB_LOG_DEBUG << "Attempt retry after " << retryIntervalSecs
-                         << " seconds. RetryCount = " << retryCount;
-        timer.expires_after(std::chrono::seconds(retryIntervalSecs));
-        timer.async_wait(
-            [self = shared_from_this()](const boost::system::error_code ec) {
-                if (ec == boost::asio::error::operation_aborted)
-                {
-                    BMCWEB_LOG_DEBUG
-                        << "async_wait failed since the operation is aborted"
-                        << ec.message();
-                }
-                else if (ec)
-                {
-                    BMCWEB_LOG_ERROR << "async_wait failed: " << ec.message();
-                    // Ignore the error and continue the retry loop to attempt
-                    // sending the event as per the retry policy
-                }
-                self->runningTimer = false;
-
-                // Lets close connection and start from resolve.
-                self->doClose();
-            });
-    }
-
-    void handleConnState()
-    {
-        switch (state)
-        {
-            case ConnState::resolveInProgress:
-            case ConnState::connectInProgress:
-            case ConnState::sendInProgress:
-            case ConnState::recvInProgress:
-            case ConnState::closeInProgress:
-            {
-                BMCWEB_LOG_DEBUG << "Async operation is already in progress";
-                break;
-            }
-            case ConnState::initialized:
-            case ConnState::closed:
-            {
-                if (requestDataQueue.empty())
-                {
-                    BMCWEB_LOG_DEBUG << "requestDataQueue is empty";
-                    return;
-                }
-                doResolve();
-                break;
-            }
-            case ConnState::suspended:
-            case ConnState::terminated:
-            {
-                doClose();
-                break;
-            }
-            case ConnState::resolveFailed:
-            case ConnState::connectFailed:
-            case ConnState::sendFailed:
-            case ConnState::recvFailed:
-            case ConnState::retry:
-            {
-                // In case of failures during connect and handshake
-                // the retry policy will be applied
-                waitAndRetry();
-                break;
-            }
-            case ConnState::connected:
-            case ConnState::idle:
-            {
-                // State idle means, previous attempt is successful
-                // State connected means, client connection is established
-                // successfully
-                if (requestDataQueue.empty())
-                {
-                    BMCWEB_LOG_DEBUG << "requestDataQueue is empty";
-                    return;
-                }
-                std::string data = requestDataQueue.front();
-                sendMessage(data);
-                break;
-            }
-            case ConnState::abortConnection:
-            {
-                // Server did not want to keep alive the session
-                doClose();
-                break;
-            }
+            // Now let's try to resend the data
+            state = ConnState::retry;
+            this->doResolve();
         }
     }
 
   public:
-    explicit HttpClient(boost::asio::io_context& ioc, const std::string& id,
-                        const std::string& destIP, const std::string& destPort,
-                        const std::string& destUri,
-                        const boost::beast::http::fields& httpHeader) :
+    explicit ConnectionInfo(boost::asio::io_context& ioc, const std::string& id,
+                            const std::string& destIP,
+                            const std::string& destPort,
+                            const std::string& destUri,
+                            const boost::beast::http::fields& httpHeader,
+                            const unsigned int connId) :
         conn(ioc),
         timer(ioc),
         req(boost::beast::http::verb::post, destUri, 11, "", httpHeader),
-        subId(id), host(destIP), port(destPort)
+        subId(id), host(destIP), port(destPort), connId(connId)
     {
         req.set(boost::beast::http::field::host, host);
         req.keep_alive(true);
     }
+};
+
+class ConnectionPool
+{
+  private:
+    boost::asio::io_context& ioc;
+    const std::string id;
+    const std::string destIP;
+    const std::string destPort;
+    const std::string destUri;
+    const boost::beast::http::fields& httpHeader;
+    std::vector<std::shared_ptr<ConnectionInfo>> connections;
+
+    friend class HttpClient;
 
     void sendData(const std::string& data)
     {
-        if ((state == ConnState::suspended) || (state == ConnState::terminated))
+        for (unsigned int i = 0; i < connections.size(); i++)
         {
-            return;
+            auto conn = connections[i];
+            if (conn->state == ConnState::idle)
+            {
+                BMCWEB_LOG_DEBUG << "Grabbing idle connection "
+                                 << std::to_string(i) << " from pool " << destIP
+                                 << ":" << destPort;
+                conn->data = data;
+                conn->sendMessage();
+                return;
+            }
+            if ((conn->state == ConnState::initialized) ||
+                (conn->state == ConnState::closed))
+            {
+                BMCWEB_LOG_DEBUG << "Reusing existing connection "
+                                 << std::to_string(i) << " from pool " << destIP
+                                 << ":" << destPort;
+                conn->data = data;
+                conn->doResolve();
+                return;
+            }
         }
 
-        if (requestDataQueue.size() <= maxRequestQueueSize)
+        // All connections in use so create a new connection
+        if (connections.size() < maxPoolSize)
         {
-            requestDataQueue.push_back(data);
-            handleConnState();
+            BMCWEB_LOG_DEBUG << "Adding new connection to pool " << destIP
+                             << ":" << destPort;
+            this->addConnection();
+            connections.back()->data = data;
+            connections.back()->doResolve();
         }
         else
         {
-            BMCWEB_LOG_ERROR << "Request queue is full. So ignoring data.";
+            BMCWEB_LOG_ERROR << "Max pool size reached. Ignoring data.";
         }
     }
 
-    void setRetryConfig(const uint32_t retryAttempts,
-                        const uint32_t retryTimeoutInterval)
+    void addConnection()
     {
-        maxRetryAttempts = retryAttempts;
-        retryIntervalSecs = retryTimeoutInterval;
+        unsigned int newId = static_cast<unsigned int>(connections.size());
+        connections.emplace_back(std::make_shared<ConnectionInfo>(
+            ioc, id, destIP, destPort, destUri, httpHeader, newId));
+
+        BMCWEB_LOG_DEBUG << "Added connection "
+                         << std::to_string(connections.size() - 1)
+                         << " to pool " << destIP << ":" << destPort;
     }
 
-    void setRetryPolicy(const std::string& retryPolicy)
+  public:
+    explicit ConnectionPool(boost::asio::io_context& ioc, const std::string& id,
+                            const std::string& destIP,
+                            const std::string& destPort,
+                            const std::string& destUri,
+                            const boost::beast::http::fields& httpHeader) :
+        ioc(ioc),
+        id(id), destIP(destIP), destPort(destPort), destUri(destUri),
+        httpHeader(httpHeader)
     {
-        retryPolicyAction = retryPolicy;
+        // Initialize the pool with a single connection
+        addConnection();
     }
 };
+
+class HttpClient
+{
+  private:
+    std::unordered_map<std::string, ConnectionPool> connectionPools;
+    boost::asio::io_context& ioc =
+        crow::connections::systemBus->get_io_context();
+    HttpClient() = default;
+
+  public:
+    HttpClient(const HttpClient&) = delete;
+    HttpClient& operator=(const HttpClient&) = delete;
+    HttpClient(HttpClient&&) = delete;
+    HttpClient& operator=(HttpClient&&) = delete;
+    ~HttpClient() = default;
+
+    static HttpClient& getInstance()
+    {
+        static HttpClient handler;
+        return handler;
+    }
+
+    void sendData(const std::string& data, const std::string& id,
+                  const std::string& destIP, const std::string& destPort,
+                  const std::string& destUri,
+                  const boost::beast::http::fields& httpHeader)
+    {
+        std::string clientKey = destIP + ":" + destPort;
+        auto result = connectionPools.try_emplace(
+            clientKey, ioc, id, destIP, destPort, destUri, httpHeader);
+
+        if (result.second)
+        {
+            BMCWEB_LOG_DEBUG << "Created connection pool for " << clientKey;
+        }
+        else
+        {
+            BMCWEB_LOG_DEBUG << "Using existing connection pool for "
+                             << clientKey;
+        }
+
+        // Send the data using either the existing connection pool or the newly
+        // created connection pool
+        result.first->second.sendData(data);
+    }
+};
+
+static void setRetryConfig(const uint32_t retryAttempts,
+                           const uint32_t retryTimeoutInterval)
+{
+    maxRetryAttempts = retryAttempts;
+    retryIntervalSecs = retryTimeoutInterval;
+}
+
+static void setRetryPolicy(const std::string& retryPolicy)
+{
+    retryPolicyAction = retryPolicy;
+}
 
 } // namespace crow
