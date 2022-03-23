@@ -152,6 +152,24 @@
       "parentUuid": "53788e0d_e634a9be",
       "revId": "6760c4ba84161ee5f729dd29d374a750ec26df5e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9e8ee92a_3a41aac1",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 44
+      },
+      "lineNbr": 478,
+      "author": {
+        "id": 1000233
+      },
+      "writtenOn": "2022-03-23T22:12:08Z",
+      "side": 1,
+      "message": "I was thinking in the outside loop you could just call getLocation unconditionally with the current interface you\u0027re looking at and then the function could return without doing anything if it\u0027s not an interesting interface",
+      "parentUuid": "358bd311_f1061408",
+      "revId": "6760c4ba84161ee5f729dd29d374a750ec26df5e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
