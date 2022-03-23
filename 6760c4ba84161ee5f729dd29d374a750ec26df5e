@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "341e99de_4016e225",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 44
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2022-03-23T18:24:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a9752b06_221618dd",
+      "revId": "6760c4ba84161ee5f729dd29d374a750ec26df5e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4efd3214_ec7e5b82",
@@ -41,6 +59,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7dc02103_04f61ad2",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 44
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2022-03-23T18:24:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4efd3214_ec7e5b82",
+      "range": {
+        "startLine": 39,
+        "startChar": 49,
+        "endLine": 40,
+        "endChar": 12
+      },
+      "revId": "6760c4ba84161ee5f729dd29d374a750ec26df5e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "203fca03_185e8d7f",
@@ -54,6 +96,24 @@
       "writtenOn": "2022-03-23T18:09:41Z",
       "side": 1,
       "message": "The code in this function looks pretty similar to the other places where you get the LocationCode and LocationType. Any way to reduce the duplication or would that hurt readability?",
+      "revId": "6760c4ba84161ee5f729dd29d374a750ec26df5e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4ec7675d_256f8cac",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 44
+      },
+      "lineNbr": 478,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2022-03-23T18:24:56Z",
+      "side": 1,
+      "message": "this is the only place where I am getting both LocationCode and LocationType right now.\n\nMaybe in the helper file we can have,\n\nfindLocation(const std::shared_ptr\u003cbmcweb::AsyncResp\u003e\u0026 asyncResp,\n             const std::string\u0026 path, const std::string\u0026 service,\n             const std::vector\u003cstd::string\u003e\u0026 interfaces,\n             const nlohmann::json_pointer\u003cnlohmann::json\u003e\u0026 location)\n\nand we can use that instead.\n\nBut in some cases, this will force us to loop the interfaces list twice(if there is already a loop lik in https://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/51879/4). Maybe that\u0027s fine.",
+      "parentUuid": "203fca03_185e8d7f",
       "revId": "6760c4ba84161ee5f729dd29d374a750ec26df5e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
