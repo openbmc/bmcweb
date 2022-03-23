@@ -22,6 +22,7 @@
 #include <http_request.hpp>
 #include <nlohmann/json.hpp>
 #include <persistent_data.hpp>
+#include <query.hpp>
 #include <registries/privilege_registry.hpp>
 #include <utils/systemd_utils.hpp>
 
@@ -29,10 +30,8 @@ namespace redfish
 {
 
 inline void
-    handleServiceRootGet(const crow::Request& /*req*/,
-                         const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
+    handleServiceRootGet(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
-
     std::string uuid = persistent_data::getConfig().systemUuid;
     asyncResp->res.jsonValue["@odata.type"] =
         "#ServiceRoot.v1_11_0.ServiceRoot";
@@ -73,10 +72,18 @@ inline void
     nlohmann::json& protocolFeatures =
         asyncResp->res.jsonValue["ProtocolFeaturesSupported"];
     protocolFeatures["ExcerptQuery"] = false;
-    protocolFeatures["ExpandQuery"]["ExpandAll"] = false;
-    protocolFeatures["ExpandQuery"]["Levels"] = false;
-    protocolFeatures["ExpandQuery"]["Links"] = false;
-    protocolFeatures["ExpandQuery"]["NoLinks"] = false;
+
+    protocolFeatures["ExpandQuery"]["ExpandAll"] =
+        bmcwebInsecureEnableQueryParams;
+    // This is the maximum level defined in ServiceRoot.v1_13_0.json
+    if (bmcwebInsecureEnableQueryParams)
+    {
+        protocolFeatures["ExpandQuery"]["MaxLevels"] = 6;
+    }
+    protocolFeatures["ExpandQuery"]["Levels"] = bmcwebInsecureEnableQueryParams;
+    protocolFeatures["ExpandQuery"]["Links"] = bmcwebInsecureEnableQueryParams;
+    protocolFeatures["ExpandQuery"]["NoLinks"] =
+        bmcwebInsecureEnableQueryParams;
     protocolFeatures["FilterQuery"] = false;
     protocolFeatures["OnlyMemberQuery"] = bmcwebInsecureEnableQueryParams;
     protocolFeatures["SelectQuery"] = false;
@@ -88,7 +95,15 @@ inline void requestRoutesServiceRoot(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/")
         .privileges(redfish::privileges::getServiceRoot)
-        .methods(boost::beast::http::verb::get)(handleServiceRootGet);
+        .methods(boost::beast::http::verb::get)(
+            [&app](const crow::Request& req,
+                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
+                if (!redfish::setUpRedfishRoute(app, req, asyncResp->res))
+                {
+                    return;
+                }
+                handleServiceRootGet(asyncResp);
+            });
 }
 
 } // namespace redfish
