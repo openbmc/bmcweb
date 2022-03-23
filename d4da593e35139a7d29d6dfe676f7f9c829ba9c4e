@@ -56,6 +56,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "3fe200c4_c54d7a05",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-03-23T17:28:40Z",
+      "side": 1,
+      "message": "Okay, so add DeepOperations and set them to false to keep consistent?",
+      "parentUuid": "eb05c247_e840627f",
+      "revId": "d4da593e35139a7d29d6dfe676f7f9c829ba9c4e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "99ffdb23_d600666b",
         "filename": "redfish-core/lib/service_root.hpp",
         "patchSetId": 1
