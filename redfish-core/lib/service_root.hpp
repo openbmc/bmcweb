@@ -16,6 +16,9 @@
 #pragma once
 
 #include <app.hpp>
+#include <async_resp.hpp>
+#include <http_request.hpp>
+#include <nlohmann/json.hpp>
 #include <persistent_data.hpp>
 #include <registries/privilege_registry.hpp>
 #include <utils/systemd_utils.hpp>
@@ -64,6 +67,19 @@ inline void
     asyncResp->res.jsonValue["TelemetryService"] = {
         {"@odata.id", "/redfish/v1/TelemetryService"}};
     asyncResp->res.jsonValue["Cables"] = {{"@odata.id", "/redfish/v1/Cables"}};
+
+    nlohmann::json& protocolFeatures =
+        asyncResp->res.jsonValue["ProtocolFeaturesSupported"];
+    protocolFeatures["ExcerptQuery"] = false;
+    protocolFeatures["ExpandQuery"]["ExpandAll"] = false;
+    protocolFeatures["ExpandQuery"]["Levels"] = false;
+    protocolFeatures["ExpandQuery"]["Links"] = false;
+    protocolFeatures["ExpandQuery"]["NoLinks"] = false;
+    protocolFeatures["FilterQuery"] = false;
+    protocolFeatures["OnlyMemberQuery"] = false;
+    protocolFeatures["SelectQuery"] = false;
+    protocolFeatures["DeepOperations"]["DeepPOST"] = false;
+    protocolFeatures["DeepOperations"]["DeepPATCH"] = false;
 }
 
 inline void requestRoutesServiceRoot(App& app)
