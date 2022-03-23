@@ -66,10 +66,14 @@ static void assertServiceRootGet(crow::Response& res)
     EXPECT_EQ(json["UpdateService"]["@odata.id"], "/redfish/v1/UpdateService");
 
     EXPECT_FALSE(json["ProtocolFeaturesSupported"]["ExcerptQuery"]);
-    EXPECT_FALSE(json["ProtocolFeaturesSupported"]["ExpandQuery"]["ExpandAll"]);
-    EXPECT_FALSE(json["ProtocolFeaturesSupported"]["ExpandQuery"]["Levels"]);
-    EXPECT_FALSE(json["ProtocolFeaturesSupported"]["ExpandQuery"]["Links"]);
-    EXPECT_FALSE(json["ProtocolFeaturesSupported"]["ExpandQuery"]["NoLinks"]);
+    EXPECT_EQ(json["ProtocolFeaturesSupported"]["ExpandQuery"]["ExpandAll"],
+              bmcwebInsecureEnableQueryParams);
+    EXPECT_EQ(json["ProtocolFeaturesSupported"]["ExpandQuery"]["Levels"],
+              bmcwebInsecureEnableQueryParams);
+    EXPECT_EQ(json["ProtocolFeaturesSupported"]["ExpandQuery"]["Links"],
+              bmcwebInsecureEnableQueryParams);
+    EXPECT_EQ(json["ProtocolFeaturesSupported"]["ExpandQuery"]["NoLinks"],
+              bmcwebInsecureEnableQueryParams);
     EXPECT_FALSE(json["ProtocolFeaturesSupported"]["FilterQuery"]);
     EXPECT_EQ(json["ProtocolFeaturesSupported"]["OnlyMemberQuery"],
               bmcwebInsecureEnableQueryParams);
@@ -84,10 +88,9 @@ static void assertServiceRootGet(crow::Response& res)
 TEST(ServiceRootTest, ServiceRootConstructor)
 {
     std::error_code ec;
-    crow::Request req({}, ec);
     auto shareAsyncResp = std::make_shared<bmcweb::AsyncResp>();
 
     shareAsyncResp->res.setCompleteRequestHandler(assertServiceRootGet);
 
-    redfish::handleServiceRootGet(req, shareAsyncResp);
+    redfish::handleServiceRootGet(shareAsyncResp);
 }
