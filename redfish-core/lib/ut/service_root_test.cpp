@@ -69,10 +69,9 @@ static void assertServiceRootGet(crow::Response& res)
 TEST(ServiceRootTest, ServiceRootConstructor)
 {
     std::error_code ec;
-    crow::Request req({}, ec);
     auto shareAsyncResp = std::make_shared<bmcweb::AsyncResp>();
 
     shareAsyncResp->res.setCompleteRequestHandler(assertServiceRootGet);
 
-    redfish::handleServiceRootGet(req, shareAsyncResp);
+    redfish::handleServiceRootGet(shareAsyncResp);
 }
