@@ -1,4 +1,5 @@
 #include "registries.hpp"
+#include "registries/openbmc_message_registry.hpp"
 
 #include "gmock/gmock.h"
 
@@ -16,4 +17,10 @@ TEST(RedfishRegistries, fillMessageArgs)
     toFill = "%1, %2";
     fillMessageArgs({{"foo", "bar"}}, toFill);
     EXPECT_EQ(toFill, "foo, bar");
+}
+
+// Change 52351; the message shall pass the Validator
+TEST(RedfishRegistries, serviceStartedMessage)
+{
+    EXPECT_EQ(openbmc::registry.size(), 189);
 }
