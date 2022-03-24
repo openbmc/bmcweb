@@ -81,6 +81,30 @@
       },
       "revId": "a28e9eef897ae2ff88df01f48fa4f95b0f640eeb",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9eb09691_d3b445db",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 2658,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-24T22:55:03Z",
+      "side": 1,
+      "message": "Shoot, I realize I dropped that from the commit message on this patch.  Ignore that portion but the rest of what I said previously is still true.",
+      "parentUuid": "82549dcb_09549650",
+      "range": {
+        "startLine": 2658,
+        "startChar": 25,
+        "endLine": 2658,
+        "endChar": 42
+      },
+      "revId": "a28e9eef897ae2ff88df01f48fa4f95b0f640eeb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
