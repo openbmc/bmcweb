@@ -1,4 +1,5 @@
 #include "registries.hpp"
+#include "registries/openbmc_message_registry.hpp"
 
 #include "gmock/gmock.h"
 
