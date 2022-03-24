@@ -1,6 +1,109 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "db46af76_625b7135",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-24T21:50:02Z",
+      "side": 1,
+      "message": "A quick count shows 140 places in code where we have /redfish/v1/Systems/system hardcoded.  This patchset makes fixes to maybe 20% of those.  This on its own is not a huge deal, but it makes me believe that the development process was to change \"system\" for the host id, then take a look at what broken and fix things one at a time for power and System.  This kind of approach isn\u0027t going to be acceptable for a feature like this, and I have no interest in merging a series that breaks the behavior of the sub-resource groups for a migration as major as this, given that it leads to continued inconsistencies, and is going to require the community to continue to help.\n\nIf your intent with this patch was to start the migration, and show one or two examples of how we could handle these cases better, GREAT!  Love the effort and the attempt to get early feedback on high level design decisions that have impact to a large number of call sites.  Ideally, you would\u0027ve called this out in the commit message, but eh.\n\nIf the goal for this patchset is \"fix the things that I need and ignore the rest, including the broken routes on my system\" that\u0027s not going to work for me.\n\n\nFWIW, I have multi-host Redfish systems coming up in the future, so as you develop code, design docs, or anything else in that realm, feel free to CC me on the reviews for those.  As I have time, I\u0027m even willing to help write patches, you\u0027re just a little ahead of us.",
+      "revId": "efda40865a6fdfbd6bf5ae91ea0a450592a69253",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "53fce4b2_ed441da3",
+        "filename": "redfish-core/include/utils/collection.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-24T21:50:02Z",
+      "side": 1,
+      "message": "Per the developing guide, please don\u0027t do string manipulations of these kinds of things when we have:\n\nA. Generic classes for handling this stuff in a type safe way that handles encoding and decoding properly, to the HTTP RFC.\nB. Generic utilities for doing this kinds of manipulation and field picking.",
+      "range": {
+        "startLine": 80,
+        "startChar": 0,
+        "endLine": 87,
+        "endChar": 1
+      },
+      "revId": "efda40865a6fdfbd6bf5ae91ea0a450592a69253",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cae800e1_43e64ad7",
+        "filename": "redfish-core/include/utils/collection.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-24T21:50:02Z",
+      "side": 1,
+      "message": "Why would the computerSystemIndex ever be empty?  I suspect this functions existence is pointing at the larger design problem that this patchset doesn\u0027t use the mapper, and once that\u0027s done, this method won\u0027t need to exist.",
+      "range": {
+        "startLine": 95,
+        "startChar": 1,
+        "endLine": 107,
+        "endChar": 19
+      },
+      "revId": "efda40865a6fdfbd6bf5ae91ea0a450592a69253",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d88254d5_d8dac7d0",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 3004,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-24T21:50:02Z",
+      "side": 1,
+      "message": "common error #9",
+      "revId": "efda40865a6fdfbd6bf5ae91ea0a450592a69253",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c3b637db_12526034",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 3011,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-24T21:50:02Z",
+      "side": 1,
+      "message": "we have a URL class for these kinds of URL manipulations, please use it.",
+      "range": {
+        "startLine": 3011,
+        "startChar": 17,
+        "endLine": 3011,
+        "endChar": 23
+      },
+      "revId": "efda40865a6fdfbd6bf5ae91ea0a450592a69253",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3a88626b_cc6f65d8",
@@ -20,6 +123,70 @@
         "endLine": 3018,
         "endChar": 76
       },
+      "revId": "efda40865a6fdfbd6bf5ae91ea0a450592a69253",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "76d7634e_75566608",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 3018,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-24T21:50:02Z",
+      "side": 1,
+      "message": "Common error #11.\n\nYes, we need to validate this, but we should be doing it using the mapper, the same way we do everywhere else.  Take a look at almost any other collection besides systems, and you\u0027ll find examples of the \"right\" way to do this validation.  \n\nAlso, because this would\u0027ve popped up had you run the tests that COMMON_ERRORS.md requires you to write, please read and understand all the cases in that doc before proceeding.  You\u0027ve broken several of them here, which tells me that you clearly didn\u0027t read the document as is recommended in the developing guide.",
+      "parentUuid": "3a88626b_cc6f65d8",
+      "range": {
+        "startLine": 3004,
+        "startChar": 0,
+        "endLine": 3018,
+        "endChar": 76
+      },
+      "revId": "efda40865a6fdfbd6bf5ae91ea0a450592a69253",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "644e72bd_193ec48f",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 3022,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-24T21:50:02Z",
+      "side": 1,
+      "message": "This is going to change the \"Name\" of the system for basically every deployed OpenBMC Redfish instance.  Please mention this as an impact in your commit message, and we can start a discussion about whether or not that\u0027s ok, if we need to make it configurable for clients that need the old behavior and whatnot.  As-written, i\u0027m fairly certain this breaks webui-vue because of:\n\nhttps://github.com/openbmc/webui-vue/issues/43\n\nFWIW, webui-vue maintainers and contributors have had 18 months of warning that this change was coming, and in the meantime have only added more hardcoded resources, so while we should definitely discuss it, those that rely on protocol-ignoring clients can probably come up with ways to fix them in short order once this patch series lands.  I\u0027m not of the mind to require a contributor that\u0027s adding things that obey the Redfish spec properly to have to do a bunch of mitigation and testing because one client ignored the spec.  Happy to discuss if there are easier paths to go down.",
+      "range": {
+        "startLine": 3022,
+        "startChar": 27,
+        "endLine": 3022,
+        "endChar": 65
+      },
+      "revId": "efda40865a6fdfbd6bf5ae91ea0a450592a69253",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "985c7634_12b40300",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 3135,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-24T21:50:02Z",
+      "side": 1,
+      "message": "Common error #9 (again).",
       "revId": "efda40865a6fdfbd6bf5ae91ea0a450592a69253",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
