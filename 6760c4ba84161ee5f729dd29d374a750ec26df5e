@@ -170,6 +170,24 @@
       "parentUuid": "358bd311_f1061408",
       "revId": "6760c4ba84161ee5f729dd29d374a750ec26df5e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "04e2dca8_594cea3c",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 44
+      },
+      "lineNbr": 478,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2022-03-24T18:48:51Z",
+      "side": 1,
+      "message": "I am not sure if that\u0027s the direction we want for that. Maybe Ed can comment on that.\n\n---\n\nBut eitherway, I think this is need since normally each resource will loop through all of the interfaces and call the function that it relates to. So maybe instead of having getDriveLocation, I will move this loop in `requestRoutesDrive` for general use so that future function can just use it (this will be the otter loop.)",
+      "parentUuid": "9e8ee92a_3a41aac1",
+      "revId": "6760c4ba84161ee5f729dd29d374a750ec26df5e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
