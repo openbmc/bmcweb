@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "99ff26c6_cb3aefc9",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 308,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-03-24T23:51:45Z",
+      "side": 1,
+      "message": "Do I actually need to close this connection?",
+      "range": {
+        "startLine": 302,
+        "startChar": 16,
+        "endLine": 308,
+        "endChar": 61
+      },
+      "revId": "156e6f2125278449dc7ef8b33ea28525305c29bc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "567834a7_1f739889",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 500,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-03-24T23:51:45Z",
+      "side": 1,
+      "message": "Should this be a map or flat_map?",
+      "range": {
+        "startLine": 500,
+        "startChar": 0,
+        "endLine": 500,
+        "endChar": 48
+      },
+      "revId": "156e6f2125278449dc7ef8b33ea28525305c29bc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
