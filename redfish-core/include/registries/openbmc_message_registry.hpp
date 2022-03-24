@@ -29,7 +29,7 @@ const Header header = {
     "0.3.1",
     "OpenBMC",
 };
-constexpr std::array<MessageEntry, 189> registry = {
+constexpr std::array<MessageEntry, 190> registry = {
     MessageEntry{
         "ADDDCCorrectable",
         {
@@ -129,6 +129,15 @@ constexpr std::array<MessageEntry, 189> registry = {
                      "None.",
                  }},
 
+    MessageEntry{"BIOSAttributeChanged",
+                 {
+                     "Indicates that BIOS Attribute value has changed.",
+                     "BIOS Attribute changed.",
+                     "OK",
+                     0,
+                     {},
+                     "None.",
+                 }},
     MessageEntry{
         "BIOSBoot",
         {
