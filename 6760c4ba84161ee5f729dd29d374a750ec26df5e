@@ -188,6 +188,24 @@
       "parentUuid": "9e8ee92a_3a41aac1",
       "revId": "6760c4ba84161ee5f729dd29d374a750ec26df5e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a44cc5e4_b010a23e",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 44
+      },
+      "lineNbr": 478,
+      "author": {
+        "id": 1000233
+      },
+      "writtenOn": "2022-03-24T20:29:58Z",
+      "side": 1,
+      "message": "I\u0027d prefer that for consistency with the other call sites, but it still seems like a factored out general getLocation() function would reduce duplication and be easier to maintain. I\u0027ll let Ed weigh in on that though",
+      "parentUuid": "04e2dca8_594cea3c",
+      "revId": "6760c4ba84161ee5f729dd29d374a750ec26df5e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
