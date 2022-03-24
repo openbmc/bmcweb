@@ -1124,6 +1124,11 @@ static int fillEventLogEntryJson(const std::string& logEntryID,
         msg = message->message;
         severity = message->messageSeverity;
     }
+    else
+    {
+        BMCWEB_LOG_WARNING << "Log entry not found in registry: " << logEntry;
+        return 0;
+    }
 
     // Get the MessageArgs from the log if there are any
     std::span<std::string> messageArgs;
