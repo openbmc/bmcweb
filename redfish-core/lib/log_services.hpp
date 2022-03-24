@@ -1170,12 +1170,27 @@ static int fillEventLogEntryJson(const std::string& logEntryID,
              logEntryID},
         {"Name", "System Event Log Entry"},
         {"Id", logEntryID},
-        {"Message", std::move(msg)},
-        {"MessageId", std::move(messageID)},
         {"MessageArgs", messageArgs},
         {"EntryType", "Event"},
-        {"Severity", std::move(severity)},
         {"Created", std::move(timestamp)}};
+
+    // The following fields are added only if they are non-empty, per
+    // requirements from the Service Validator.
+    if (!severity.empty())
+    {
+        logEntryJson["Severity"] = std::move(severity);
+    }
+
+    if (!msg.empty())
+    {
+        logEntryJson["Message"] = std::move(msg);
+    }
+
+    if (!messageID.empty())
+    {
+        logEntryJson["MessageId"] = std::move(messageID);
+    }
+
     return 0;
 }
 
