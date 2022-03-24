@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9d8d394c_cfd0b427",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 12
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-24T21:18:49Z",
+      "side": 1,
+      "message": "Had comments on an old patchset.  I suspect this is mostly superceeded by:\n\nhttps://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/52272\n\nIf there\u0027s still value in this patchset, lets get it added and consolidated.",
+      "revId": "2f8396035f983a3530b1e9a7b30f318f6e79531d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
