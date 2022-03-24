@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5cf839f7_d86da2aa",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-03-24T22:49:06Z",
+      "side": 1,
+      "message": "We should probably have an expand max? maybe as low as 1 or 2 to start with?",
+      "range": {
+        "startLine": 10,
+        "startChar": 56,
+        "endLine": 10,
+        "endChar": 72
+      },
+      "revId": "c4be8073fb6e39016b3a7818ed82c01a13ee7ff8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "305a77de_2b758131",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-03-24T22:49:06Z",
+      "side": 1,
+      "message": "If you wanted you could add a bit more about what the future of this option might be as we talked about in discord",
+      "revId": "c4be8073fb6e39016b3a7818ed82c01a13ee7ff8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
