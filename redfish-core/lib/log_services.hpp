@@ -1113,6 +1113,10 @@ static int fillEventLogEntryJson(const std::string& logEntryID,
         return 1;
     }
     std::string& messageID = logEntryFields[0];
+    if (messageID.empty())
+    {
+        return 1;
+    }
 
     // Get the Message from the MessageRegistry
     const registries::Message* message = registries::getMessage(messageID);
@@ -1170,12 +1174,22 @@ static int fillEventLogEntryJson(const std::string& logEntryID,
              logEntryID},
         {"Name", "System Event Log Entry"},
         {"Id", logEntryID},
-        {"Message", std::move(msg)},
-        {"MessageId", std::move(messageID)},
-        {"MessageArgs", messageArgs},
-        {"EntryType", "Event"},
-        {"Severity", std::move(severity)},
-        {"Created", std::move(timestamp)}};
+        {"MessageId", std::move(messageID)}, // Not nullable
+        {"MessageArgs", messageArgs},        // Not nullable
+        {"EntryType", "Event"},              // Not nullable
+        {"Created", std::move(timestamp)}};  // Not nullable
+
+    // Severity and Message are nullable
+    if (!severity.empty())
+    {
+        logEntryJson["Severity"] = std::move(severity);
+    }
+
+    if (!msg.empty())
+    {
+        logEntryJson["Message"] = std::move(msg);
+    }
+
     return 0;
 }
 
