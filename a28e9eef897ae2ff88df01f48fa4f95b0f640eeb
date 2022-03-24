@@ -39,6 +39,30 @@
       },
       "revId": "a28e9eef897ae2ff88df01f48fa4f95b0f640eeb",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "82549dcb_09549650",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 2658,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-24T22:51:00Z",
+      "side": 1,
+      "message": "\u003e why do we only put this in system? I suppose this should put in http_connection where every resource gets the default only handler.\n\nThis is called out in the commit message;  I only put it in system at the moment because I was hoping that there was a better pattern we could use before I propagated this in the 100 places in the tree it needs to be.  If you have a better idea of how to do this, I\u0027m all ears.\n\nIt can\u0027t go in http_connection, because\n1: This is not a transport abstraction, it\u0027s a resource one.\n2: HttpConnection is a common class for all requests, not JUST redfish, so we can\u0027t inject redfish specific stuff into, say, the dbus-rest or kvm trees.\n\n\nIf someone has a better pattern for how to do this.... please, speak up, otherwise, I\u0027m planning on propagating this pattern throughout the tree.\n\n\nOne thing I realize today is it does make the \"optimized expand\" stuff a lot easier, because in the future we can just make an overload of this that can return the query struct, and callers that opt in can take a look at the query before they execute things.  So there\u0027s pros and cons.",
+      "parentUuid": "9dd755a2_558bcd6e",
+      "range": {
+        "startLine": 2658,
+        "startChar": 25,
+        "endLine": 2658,
+        "endChar": 42
+      },
+      "revId": "a28e9eef897ae2ff88df01f48fa4f95b0f640eeb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
