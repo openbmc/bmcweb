@@ -1,6 +1,46 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "cb60a7c2_9163a1c1",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-24T21:52:35Z",
+      "side": 1,
+      "message": "Wrap your commits 50/72 please.",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 23
+      },
+      "revId": "efda40865a6fdfbd6bf5ae91ea0a450592a69253",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "85f84278_0ff4479e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-24T21:52:35Z",
+      "side": 1,
+      "message": "This is nowhere near enough detail in your commit message.  Key things to answer:\n\n1. Why are you doing this?\n2. What value does it add?\n3. What impacts will it have to users (both developers and clients)\n4. How did you test this change?",
+      "revId": "efda40865a6fdfbd6bf5ae91ea0a450592a69253",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "db46af76_625b7135",
@@ -14,6 +54,23 @@
       "writtenOn": "2022-03-24T21:50:02Z",
       "side": 1,
       "message": "A quick count shows 140 places in code where we have /redfish/v1/Systems/system hardcoded.  This patchset makes fixes to maybe 20% of those.  This on its own is not a huge deal, but it makes me believe that the development process was to change \"system\" for the host id, then take a look at what broken and fix things one at a time for power and System.  This kind of approach isn\u0027t going to be acceptable for a feature like this, and I have no interest in merging a series that breaks the behavior of the sub-resource groups for a migration as major as this, given that it leads to continued inconsistencies, and is going to require the community to continue to help.\n\nIf your intent with this patch was to start the migration, and show one or two examples of how we could handle these cases better, GREAT!  Love the effort and the attempt to get early feedback on high level design decisions that have impact to a large number of call sites.  Ideally, you would\u0027ve called this out in the commit message, but eh.\n\nIf the goal for this patchset is \"fix the things that I need and ignore the rest, including the broken routes on my system\" that\u0027s not going to work for me.\n\n\nFWIW, I have multi-host Redfish systems coming up in the future, so as you develop code, design docs, or anything else in that realm, feel free to CC me on the reviews for those.  As I have time, I\u0027m even willing to help write patches, you\u0027re just a little ahead of us.",
+      "revId": "efda40865a6fdfbd6bf5ae91ea0a450592a69253",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "25cf7221_5570e7ef",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-24T21:52:35Z",
+      "side": 1,
+      "message": "Looking like a great start on the coding portion.  I suspect we need to discuss a little more about \"strategy\" around getting this hardcoded wart excised from bmcweb.",
       "revId": "efda40865a6fdfbd6bf5ae91ea0a450592a69253",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
