@@ -33,6 +33,24 @@
       "message": "MaxLevels might be useful here in the future. Don\u0027t expect it here, this is just an FYI. \nFrom https://redfish.dmtf.org/schemas/v1/ServiceRoot.v1_13_0.json \n\n            \"properties\": {\n                \"ExpandAll\": {\n                    \"description\": \"An indication of whether the service supports the asterisk (`*`) option of the $expand query parameter.\",\n                    \"longDescription\": \"This property shall indicate whether this service supports the asterisk (`*`) option of the $expand query parameter.\",\n                    \"readonly\": true,\n                    \"type\": \"boolean\",\n                    \"versionAdded\": \"v1_3_0\"\n                },\n                \"Levels\": {\n                    \"description\": \"An indication of whether the service supports the $levels option of the $expand query parameter.\",\n                    \"longDescription\": \"This property shall indicate whether the service supports the $levels option of the $expand query parameter.\",\n                    \"readonly\": true,\n                    \"type\": \"boolean\",\n                    \"versionAdded\": \"v1_3_0\"\n                },\n                \"Links\": {\n                    \"description\": \"An indication of whether this service supports the tilde (`~`) option of the $expand query parameter.\",\n                    \"longDescription\": \"This property shall indicate whether this service supports the supports the tilde (~) option of the $expand query parameter.\",\n                    \"readonly\": true,\n                    \"type\": \"boolean\",\n                    \"versionAdded\": \"v1_3_0\"\n                },\n                \"MaxLevels\": {\n                    \"description\": \"The maximum $levels option value in the $expand query parameter.\",\n                    \"longDescription\": \"This property shall contain the maximum $levels option value in the $expand query parameter.  Shall be included only if $levels is true.\",\n                    \"maximum\": 6,\n                    \"minimum\": 1,\n                    \"readonly\": true,\n                    \"type\": \"integer\",\n                    \"versionAdded\": \"v1_3_0\"\n                },\n                \"NoLinks\": {\n                    \"description\": \"An indication of whether the service supports the period (`.`) option of the $expand query parameter.\",\n                    \"longDescription\": \"This property shall indicate whether the service supports the period (`.`) option of the $expand query parameter.\",\n                    \"readonly\": true,\n                    \"type\": \"boolean\",\n                    \"versionAdded\": \"v1_3_0\"\n                }\n            },",
       "revId": "8f8b5891695907e7bb763e5ec0aacc40daf0286f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9cdadd62_e477ce4b",
+        "filename": "redfish-core/lib/service_root.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-03-24T23:17:46Z",
+      "side": 1,
+      "message": "Ack.\n\nYes, when enabling $expand, we shall set MaxLevels according to the spec.\n\nBut MaxLevels can\u0027t be set if expand is not supported according to the spec.",
+      "parentUuid": "fc5e4d6a_7526e262",
+      "revId": "8f8b5891695907e7bb763e5ec0aacc40daf0286f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
