@@ -312,6 +312,8 @@ conf_data = configuration_data()
 conf_data.set('BMCWEB_HTTP_REQ_BODY_LIMIT_MB', get_option('http-body-limit'))
 xss_enabled = get_option('insecure-disable-xss')
 conf_data.set10('BMCWEB_INSECURE_DISABLE_XSS_PREVENTION', xss_enabled.enabled())
+enable_redfish_query = get_option('insecure-enable-redfish-query')
+conf_data.set10('BMCWEB_INSECURE_ENABLE_QUERY_PARAMS', enable_redfish_query.enabled())
 conf_data.set('MESON_INSTALL_PREFIX', get_option('prefix'))
 conf_data.set('HTTPS_PORT', get_option('https_port'))
 configure_file(input: 'bmcweb_config.h.in',
