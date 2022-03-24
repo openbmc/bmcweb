@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "32c13464_2dee040d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-24T21:17:19Z",
+      "side": 1,
+      "message": "Lots more detail needed here.  Why do you want this supported?  Is it for security audits?  Is it for users to event things?  Is it for event service?  your commit message is your opportunity to explain WHY you did what you did.  As written I can see from your patch that you added something to the registry, I don\u0027t need it duplicated here, but what we as maintainers need is why you added it, and what you\u0027re hoping to accomplish with it.",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 7
+      },
+      "revId": "51dfd81d39555c5fe4d6e17ea086d862b787368e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6e7e9d33_0956eb58",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-24T21:17:19Z",
+      "side": 1,
+      "message": "This seems like it would be not enough detail for a user to do anything actionable about it.  Just knowing that something changed doesn\u0027t tell you what changed, and for all a system knows, it could be something like \"reboot count\" that isn\u0027t helpful.\n\nWhat I would\u0027ve expected was for this to include some statement about what changed \"Bios parameter \"%1\" changed to \"%2\"\".",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 29,
+        "endChar": 0
+      },
+      "revId": "51dfd81d39555c5fe4d6e17ea086d862b787368e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
