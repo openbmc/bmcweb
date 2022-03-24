@@ -262,6 +262,13 @@ inline void
                 retChassisPowerStateOffRequiredError(asyncResp,
                                                      resourceObjPath);
             }
+            else if (
+                std::string_view(
+                    "xyz.openbmc_project.Common.Error.InsufficientPermission") ==
+                dbusError->name)
+            {
+                messages::resourceCannotBeDeleted(asyncResp->res);
+            }
             else
             {
                 BMCWEB_LOG_ERROR(
