@@ -16,6 +16,138 @@
       "message": "Attempt to appease clang-tidy, round 2.",
       "revId": "43e1e29927a5d78236d1ab32219ec75de17280f5",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "393c9bc2_6e4da610",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-24T21:25:53Z",
+      "side": 1,
+      "message": "Looking pretty good.",
+      "revId": "43e1e29927a5d78236d1ab32219ec75de17280f5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fee4d74e_3578cb74",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-24T21:25:53Z",
+      "side": 1,
+      "message": "I realize that some of these were duplicated, but in practice the code before was a lot easier to read given all the strings were inline.  We\u0027ve also seen cases where that optimized better when we inlined the strings.\n\nIf this is a reformatting you\u0027d like to do, lets take it up in another patch, separate from adding ipv6 dhcp support, and we can discuss the advantages, but putting them both together is causing me trouble reviewing what the functional diff is because basically every call site has changed.",
+      "range": {
+        "startLine": 112,
+        "startChar": 0,
+        "endLine": 124,
+        "endChar": 64
+      },
+      "revId": "43e1e29927a5d78236d1ab32219ec75de17280f5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "36a512be_12727977",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-24T21:25:53Z",
+      "side": 1,
+      "message": "Same as below, camel case as Dbus please.",
+      "range": {
+        "startLine": 138,
+        "startChar": 27,
+        "endLine": 138,
+        "endChar": 28
+      },
+      "revId": "43e1e29927a5d78236d1ab32219ec75de17280f5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4d00376f_136c6940",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-24T21:25:53Z",
+      "side": 1,
+      "message": "Typo.  ALso, please follow the naming convention.  D in dbus should be capitalized.",
+      "range": {
+        "startLine": 144,
+        "startChar": 19,
+        "endLine": 144,
+        "endChar": 27
+      },
+      "revId": "43e1e29927a5d78236d1ab32219ec75de17280f5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fa9f2cd4_2513e703",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-24T21:25:53Z",
+      "side": 1,
+      "message": "Did this name really have to change?  I\u0027m not really sure what the word \"next\" has to do with it, but it\u0027s been added to all the parameters as well as the function name?  Maybe there\u0027s a good reason why it\u0027s the \"next\" one that I\u0027m not understanding?  (seems likely)",
+      "range": {
+        "startLine": 159,
+        "startChar": 19,
+        "endLine": 159,
+        "endChar": 38
+      },
+      "revId": "43e1e29927a5d78236d1ab32219ec75de17280f5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1970bf6d_176d3411",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1281,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-24T21:25:53Z",
+      "side": 1,
+      "message": "Can we avoid the terinary and stick with some normal conditionals here please?  It makes this code really tough to read.",
+      "range": {
+        "startLine": 1278,
+        "startChar": 0,
+        "endLine": 1281,
+        "endChar": 0
+      },
+      "revId": "43e1e29927a5d78236d1ab32219ec75de17280f5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
