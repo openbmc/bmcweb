@@ -90,6 +90,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b161fbfc_3575447d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-24T22:46:45Z",
+      "side": 1,
+      "message": "Yeah, that works for me;  FWIW, I don\u0027t have a strong opinion between A and B, but we should be consistent.",
+      "parentUuid": "9faf4d47_b581bac8",
+      "revId": "d4da593e35139a7d29d6dfe676f7f9c829ba9c4e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "99ffdb23_d600666b",
