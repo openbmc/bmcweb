@@ -63,6 +63,30 @@
       },
       "revId": "f28d2fca81d85f0cd17685c7822b82986307a098",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ed713dd2_b0bda969",
+        "filename": "redfish-core/include/error_messages.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 441,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-24T22:43:33Z",
+      "side": 1,
+      "message": "\u003e I assume you are recommending that because arg3 is needed to point to the other resource so we can _only_ use the URI so that the user who got this error, can get the conflicted resource details since the user might look or adjust something in that resource to perform the operation that is needed to him.\n\u003e \n\u003e OR you are recommending boost::url_view to prepare the URI in the right format? If so, can you point me to the code where we are framing the URI in the bmcweb by using the boost::url_view? I am only seeing reverse i.e the bmcweb using when they are getting URI as part of the user request, not in the response?\n\u003e \n\nEssentially my argument boils down to: If the argument is a URI to a resource, the API for said message should use the URI type we have defined, as a hint to the user that they shouldn\u0027t be loading, say, an ID into it.  Looking at the string, it looks to me like it should be a URI\n\n\u003e OR can I just pass \"/redfish/v1/XXXX\"? - https://master.url.cpp.al/url/ref/boost__urls__url_view/url_view/overload3.html?\n\n\n\nurlFromPieces is the helper function you\u0027re probably looking for, but that would be done at the call site where this stuff is used, which doesn\u0027t exist in this patchset.",
+      "parentUuid": "8f243707_b70ded31",
+      "range": {
+        "startLine": 441,
+        "startChar": 52,
+        "endLine": 441,
+        "endChar": 56
+      },
+      "revId": "f28d2fca81d85f0cd17685c7822b82986307a098",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
