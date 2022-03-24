@@ -22,6 +22,30 @@
       },
       "revId": "8ad0b4f32eedfb87a2785cb260d4ba876ecf72c6",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "aa012cee_0d308afa",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 244,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-24T20:12:16Z",
+      "side": 1,
+      "message": "I don\u0027t think so.  This class is pretty specific to expand, but is there another place that you think this would be used?",
+      "parentUuid": "f77c6cac_7cea3fd6",
+      "range": {
+        "startLine": 244,
+        "startChar": 7,
+        "endLine": 244,
+        "endChar": 21
+      },
+      "revId": "8ad0b4f32eedfb87a2785cb260d4ba876ecf72c6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
