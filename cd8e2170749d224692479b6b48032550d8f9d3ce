@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1cfefd61_afd1c067",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-03-25T18:42:07Z",
+      "side": 1,
+      "message": "Will find a time for this, not now.\n\nI don\u0027t know https://github.com/DMTF/Redfish-Event-Listener exists, so when you asked me to test Event in the HTTP Connection change, I wrote my own. To not waste my effort there, I felt people can use this script as well, so made this commit.\n\nThe right direction for the next patchset of this change as I believe is to test https://github.com/DMTF/Redfish-Event-Listener and link it in the TESTING doc.",
+      "parentUuid": "c6b1ca40_95589475",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 49
+      },
+      "revId": "cd8e2170749d224692479b6b48032550d8f9d3ce",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d1b1237c_1fbf3b66",
