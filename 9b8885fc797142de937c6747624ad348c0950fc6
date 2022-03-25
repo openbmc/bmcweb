@@ -167,6 +167,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "3b346b7d_f89511ff",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 284,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-25T22:11:41Z",
+      "side": 1,
+      "message": "to unit test it would require an abstraction for app, which, I\u0027m not sure we have a pattern for mocking out at this point.",
+      "parentUuid": "8f1c19b9_4f5337dc",
+      "range": {
+        "startLine": 284,
+        "startChar": 9,
+        "endLine": 284,
+        "endChar": 14
+      },
+      "revId": "9b8885fc797142de937c6747624ad348c0950fc6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f614486e_31f9247e",
         "filename": "redfish-core/include/utils/query_param_test.cpp",
         "patchSetId": 18
