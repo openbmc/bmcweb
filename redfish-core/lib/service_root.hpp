@@ -92,7 +92,10 @@ inline void requestRoutesServiceRoot(App& app)
         .methods(boost::beast::http::verb::get)(
             [&app](const crow::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
-                redfish::setUpRedfishRoute(app, req, asyncResp->res);
+                if (!redfish::setUpRedfishRoute(app, req, asyncResp->res))
+                {
+                    return;
+                }
                 handleServiceRootGet(asyncResp);
             });
 }
