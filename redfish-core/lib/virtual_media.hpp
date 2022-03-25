@@ -20,6 +20,7 @@
 #include <boost/process/async_pipe.hpp>
 #include <boost/type_traits/has_dereference.hpp>
 #include <boost/url/url_view.hpp>
+#include <query.hpp>
 #include <registries/privilege_registry.hpp>
 #include <utils/json_utils.hpp>
 
@@ -778,9 +779,13 @@ inline void requestNBDVirtualMediaRoutes(App& app)
         "/redfish/v1/Managers/<str>/VirtualMedia/<str>/Actions/VirtualMedia.InsertMedia")
         .privileges(redfish::privileges::postVirtualMedia)
         .methods(boost::beast::http::verb::post)(
-            [](const crow::Request& req,
-               const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-               const std::string& name, const std::string& resName) {
+            [&app](const crow::Request& req,
+                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                   const std::string& name, const std::string& resName) {
+                if (!redfish::setUpRedfishRoute(app, req, asyncResp->res))
+                {
+                    return;
+                }
                 if (name != "bmc")
                 {
                     messages::resourceNotFound(asyncResp->res,
@@ -913,9 +918,13 @@ inline void requestNBDVirtualMediaRoutes(App& app)
         "/redfish/v1/Managers/<str>/VirtualMedia/<str>/Actions/VirtualMedia.EjectMedia")
         .privileges(redfish::privileges::postVirtualMedia)
         .methods(boost::beast::http::verb::post)(
-            [](const crow::Request&,
-               const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-               const std::string& name, const std::string& resName) {
+            [&app](const crow::Request& req,
+                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                   const std::string& name, const std::string& resName) {
+                if (!redfish::setUpRedfishRoute(app, req, asyncResp->res))
+                {
+                    return;
+                }
                 if (name != "bmc")
                 {
                     messages::resourceNotFound(asyncResp->res,
@@ -1003,9 +1012,13 @@ inline void requestNBDVirtualMediaRoutes(App& app)
     BMCWEB_ROUTE(app, "/redfish/v1/Managers/<str>/VirtualMedia/")
         .privileges(redfish::privileges::getVirtualMediaCollection)
         .methods(boost::beast::http::verb::get)(
-            [](const crow::Request& /* req */,
-               const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-               const std::string& name) {
+            [&app](const crow::Request& req,
+                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                   const std::string& name) {
+                if (!redfish::setUpRedfishRoute(app, req, asyncResp->res))
+                {
+                    return;
+                }
                 if (name != "bmc")
                 {
                     messages::resourceNotFound(asyncResp->res, "VirtualMedia",
@@ -1048,9 +1061,13 @@ inline void requestNBDVirtualMediaRoutes(App& app)
     BMCWEB_ROUTE(app, "/redfish/v1/Managers/<str>/VirtualMedia/<str>/")
         .privileges(redfish::privileges::getVirtualMedia)
         .methods(boost::beast::http::verb::get)(
-            [](const crow::Request& /* req */,
-               const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-               const std::string& name, const std::string& resName) {
+            [&app](const crow::Request& req,
+                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                   const std::string& name, const std::string& resName) {
+                if (!redfish::setUpRedfishRoute(app, req, asyncResp->res))
+                {
+                    return;
+                }
                 if (name != "bmc")
                 {
                     messages::resourceNotFound(asyncResp->res, "VirtualMedia",

@@ -19,6 +19,7 @@
 
 #include <app.hpp>
 #include <dbus_utility.hpp>
+#include <query.hpp>
 #include <registries/privilege_registry.hpp>
 #include <utils/collection.hpp>
 #include <utils/hex_utils.hpp>
@@ -870,8 +871,12 @@ inline void requestRoutesMemoryCollection(App& app)
     BMCWEB_ROUTE(app, "/redfish/v1/Systems/system/Memory/")
         .privileges(redfish::privileges::getMemoryCollection)
         .methods(boost::beast::http::verb::get)(
-            [](const crow::Request&,
-               const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
+            [&app](const crow::Request& req,
+                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
+                if (!redfish::setUpRedfishRoute(app, req, asyncResp->res))
+                {
+                    return;
+                }
                 asyncResp->res.jsonValue["@odata.type"] =
                     "#MemoryCollection.MemoryCollection";
                 asyncResp->res.jsonValue["Name"] = "Memory Module Collection";
@@ -892,9 +897,13 @@ inline void requestRoutesMemory(App& app)
     BMCWEB_ROUTE(app, "/redfish/v1/Systems/system/Memory/<str>/")
         .privileges(redfish::privileges::getMemory)
         .methods(boost::beast::http::verb::get)(
-            [](const crow::Request&,
-               const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-               const std::string& dimmId) {
+            [&app](const crow::Request& req,
+                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                   const std::string& dimmId) {
+                if (!redfish::setUpRedfishRoute(app, req, asyncResp->res))
+                {
+                    return;
+                }
                 asyncResp->res.jsonValue["@odata.type"] =
                     "#Memory.v1_11_0.Memory";
                 asyncResp->res.jsonValue["@odata.id"] =
