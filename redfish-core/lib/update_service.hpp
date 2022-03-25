@@ -19,6 +19,7 @@
 
 #include <app.hpp>
 #include <dbus_utility.hpp>
+#include <query.hpp>
 #include <registries/privilege_registry.hpp>
 #include <sdbusplus/asio/property.hpp>
 #include <utils/fw_utils.hpp>
@@ -416,8 +417,14 @@ inline void requestRoutesUpdateServiceActionsSimpleUpdate(App& app)
         .privileges(redfish::privileges::postUpdateService)
         .methods(
             boost::beast::http::verb::
-                post)([](const crow::Request& req,
-                         const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
+                post)([&app](
+                          const crow::Request& req,
+                          const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
+            if (!redfish::setUpRedfishRoute(app, req, asyncResp->res))
+            {
+                return;
+            }
+
             std::optional<std::string> transferProtocol;
             std::string imageURI;
 
@@ -534,10 +541,14 @@ inline void requestRoutesUpdateService(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/UpdateService/")
         .privileges(redfish::privileges::getUpdateService)
-        .methods(
-            boost::beast::http::verb::
-                get)([](const crow::Request&,
-                        const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
+        .methods(boost::beast::http::verb::get)([&app](const crow::Request& req,
+                                                       const std::shared_ptr<
+                                                           bmcweb::AsyncResp>&
+                                                           asyncResp) {
+            if (!redfish::setUpRedfishRoute(app, req, asyncResp->res))
+            {
+                return;
+            }
             asyncResp->res.jsonValue["@odata.type"] =
                 "#UpdateService.v1_5_0.UpdateService";
             asyncResp->res.jsonValue["@odata.id"] = "/redfish/v1/UpdateService";
@@ -602,9 +613,14 @@ inline void requestRoutesUpdateService(App& app)
     BMCWEB_ROUTE(app, "/redfish/v1/UpdateService/")
         .privileges(redfish::privileges::patchUpdateService)
         .methods(
-            boost::beast::http::verb::
-                patch)([](const crow::Request& req,
-                          const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
+            boost::beast::http::verb::patch)([&app](const crow::Request& req,
+                                                    const std::shared_ptr<
+                                                        bmcweb::AsyncResp>&
+                                                        asyncResp) {
+            if (!redfish::setUpRedfishRoute(app, req, asyncResp->res))
+            {
+                return;
+            }
             BMCWEB_LOG_DEBUG << "doPatch...";
 
             std::optional<nlohmann::json> pushUriOptions;
@@ -680,8 +696,12 @@ inline void requestRoutesUpdateService(App& app)
     BMCWEB_ROUTE(app, "/redfish/v1/UpdateService/")
         .privileges(redfish::privileges::postUpdateService)
         .methods(boost::beast::http::verb::post)(
-            [](const crow::Request& req,
-               const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
+            [&app](const crow::Request& req,
+                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
+                if (!redfish::setUpRedfishRoute(app, req, asyncResp->res))
+                {
+                    return;
+                }
                 BMCWEB_LOG_DEBUG << "doPost...";
 
                 // Setup callback for when new software detected
@@ -705,10 +725,14 @@ inline void requestRoutesSoftwareInventoryCollection(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/UpdateService/FirmwareInventory/")
         .privileges(redfish::privileges::getSoftwareInventoryCollection)
-        .methods(
-            boost::beast::http::verb::
-                get)([](const crow::Request&,
-                        const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
+        .methods(boost::beast::http::verb::get)([&app](const crow::Request& req,
+                                                       const std::shared_ptr<
+                                                           bmcweb::AsyncResp>&
+                                                           asyncResp) {
+            if (!redfish::setUpRedfishRoute(app, req, asyncResp->res))
+            {
+                return;
+            }
             asyncResp->res.jsonValue["@odata.type"] =
                 "#SoftwareInventoryCollection.SoftwareInventoryCollection";
             asyncResp->res.jsonValue["@odata.id"] =
@@ -791,10 +815,14 @@ inline void requestRoutesSoftwareInventory(App& app)
     BMCWEB_ROUTE(app, "/redfish/v1/UpdateService/FirmwareInventory/<str>/")
         .privileges(redfish::privileges::getSoftwareInventory)
         .methods(
-            boost::beast::http::verb::get)([](const crow::Request&,
-                                              const std::shared_ptr<
-                                                  bmcweb::AsyncResp>& asyncResp,
-                                              const std::string& param) {
+            boost::beast::http::verb::
+                get)([&app](const crow::Request& req,
+                            const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                            const std::string& param) {
+            if (!redfish::setUpRedfishRoute(app, req, asyncResp->res))
+            {
+                return;
+            }
             std::shared_ptr<std::string> swId =
                 std::make_shared<std::string>(param);
 
