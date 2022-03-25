@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5f46bb75_ddb47138",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 48
+      },
+      "lineNbr": 488,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2022-03-25T20:33:44Z",
+      "side": 1,
+      "message": "Maybe just call it without checking it and expect it to fail?",
+      "range": {
+        "startLine": 487,
+        "startChar": 0,
+        "endLine": 488,
+        "endChar": 77
+      },
+      "revId": "9699348d76b0cfcaa8ee9c27e66772dba5b2bd8e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "48c78442_ee65f6c1",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 48
+      },
+      "lineNbr": 591,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2022-03-25T20:33:44Z",
+      "side": 1,
+      "message": "Maybe put these in the interface loop to check if it exists.",
+      "range": {
+        "startLine": 586,
+        "startChar": 0,
+        "endLine": 591,
+        "endChar": 64
+      },
+      "revId": "9699348d76b0cfcaa8ee9c27e66772dba5b2bd8e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
