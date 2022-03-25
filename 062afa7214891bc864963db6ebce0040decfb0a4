@@ -1,6 +1,7 @@
 {
   "comments": [
     {
+      "unresolved": true,
       "key": {
         "uuid": "a0c8b5fa_78788ad4",
         "filename": "/COMMIT_MSG",
@@ -14,10 +15,10 @@
       "side": 1,
       "message": "You are looking for an association. Is that documented anywhere? \nCan you add a sentence about that?\n \nE.g. \"Looking for an association with the name, \"chassis\" to determine the PCIeSlot to chassis.\" ?",
       "revId": "062afa7214891bc864963db6ebce0040decfb0a4",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "a70f3d3d_4f418682",
         "filename": "/COMMIT_MSG",
@@ -32,10 +33,10 @@
       "message": "Done",
       "parentUuid": "a0c8b5fa_78788ad4",
       "revId": "062afa7214891bc864963db6ebce0040decfb0a4",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "7c8ea207_7b7b95cb",
         "filename": "/COMMIT_MSG",
@@ -50,10 +51,10 @@
       "message": "Is this documented anywhere?",
       "parentUuid": "a70f3d3d_4f418682",
       "revId": "062afa7214891bc864963db6ebce0040decfb0a4",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "1ce6fd72_c5591c2f",
         "filename": "/COMMIT_MSG",
@@ -68,10 +69,28 @@
       "message": "I pushed a commit to add these associations:\nhttps://gerrit.openbmc-project.xyz/c/openbmc/docs/+/44263/2",
       "parentUuid": "7c8ea207_7b7b95cb",
       "revId": "062afa7214891bc864963db6ebce0040decfb0a4",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "37374162_d3913f65",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 93
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1001217
+      },
+      "writtenOn": "2022-03-25T00:50:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1ce6fd72_c5591c2f",
+      "revId": "062afa7214891bc864963db6ebce0040decfb0a4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
       "key": {
         "uuid": "d6340923_d21fe349",
         "filename": "/COMMIT_MSG",
@@ -91,10 +110,10 @@
         "endChar": 10
       },
       "revId": "062afa7214891bc864963db6ebce0040decfb0a4",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "538b5a7d_4e881fdc",
         "filename": "/COMMIT_MSG",
@@ -115,10 +134,10 @@
         "endChar": 10
       },
       "revId": "062afa7214891bc864963db6ebce0040decfb0a4",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "e4812777_ef4c8d7f",
         "filename": "redfish-core/lib/pcie_slots.hpp",
@@ -132,10 +151,10 @@
       "side": 1,
       "message": "Why isn\u0027t this a \n                            BMCWEB_LOG_ERROR \u003c\u003c \"PCIe Slot....\n                            messages::internalError(asyncResp-\u003eres);\n?",
       "revId": "062afa7214891bc864963db6ebce0040decfb0a4",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "9799746b_371fdffe",
         "filename": "redfish-core/lib/pcie_slots.hpp",
@@ -150,8 +169,7 @@
       "message": "Done",
       "parentUuid": "e4812777_ef4c8d7f",
       "revId": "062afa7214891bc864963db6ebce0040decfb0a4",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }

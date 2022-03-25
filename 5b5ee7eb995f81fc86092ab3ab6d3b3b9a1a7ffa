@@ -107,6 +107,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "00ba1660_09ca5e39",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 11
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1001217
+      },
+      "writtenOn": "2022-03-25T00:50:59Z",
+      "side": 1,
+      "message": "If the schema doesn\u0027t have it, there\u0027s nothing we can do here.",
+      "parentUuid": "08b3495a_f28f4e56",
+      "revId": "5b5ee7eb995f81fc86092ab3ab6d3b3b9a1a7ffa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6b323534_cc80eda8",
@@ -388,6 +406,24 @@
       "side": 1,
       "message": "\u003e I guess I would vote more towards leaving it off if the D-Bus property is \"Unknown\" or others.. \n\nIf we\u0027re getting a dbus interface that\u0027s outside the dbus spec, that needs to be visible to a user as an internal error.",
       "parentUuid": "3ed2a795_3be46a44",
+      "revId": "5b5ee7eb995f81fc86092ab3ab6d3b3b9a1a7ffa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3c420759_0a6c15d1",
+        "filename": "redfish-core/lib/pcie_slots.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 180,
+      "author": {
+        "id": 1001217
+      },
+      "writtenOn": "2022-03-25T00:50:59Z",
+      "side": 1,
+      "message": "Is this resolved?",
+      "parentUuid": "875de81b_6347b093",
       "revId": "5b5ee7eb995f81fc86092ab3ab6d3b3b9a1a7ffa",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },

@@ -1,6 +1,7 @@
 {
   "comments": [
     {
+      "unresolved": true,
       "key": {
         "uuid": "9f473cfb_9e07aedd",
         "filename": "redfish-core/lib/pcie_slots.hpp",
@@ -20,10 +21,10 @@
         "endChar": 1
       },
       "revId": "b91b53f8031af2943aacb8053bd1bd6a7a34b571",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "a4967dbf_2c6d7c4b",
         "filename": "redfish-core/lib/pcie_slots.hpp",
@@ -44,10 +45,10 @@
         "endChar": 1
       },
       "revId": "b91b53f8031af2943aacb8053bd1bd6a7a34b571",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "f9d909a3_8cfaaf6c",
         "filename": "redfish-core/lib/pcie_slots.hpp",
@@ -67,10 +68,10 @@
         "endChar": 5
       },
       "revId": "b91b53f8031af2943aacb8053bd1bd6a7a34b571",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "3e7ea104_a99a4ebb",
         "filename": "redfish-core/lib/pcie_slots.hpp",
@@ -90,10 +91,10 @@
         "endChar": 80
       },
       "revId": "b91b53f8031af2943aacb8053bd1bd6a7a34b571",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "9a429927_1d9872fe",
         "filename": "redfish-core/lib/pcie_slots.hpp",
@@ -114,10 +115,34 @@
         "endChar": 80
       },
       "revId": "b91b53f8031af2943aacb8053bd1bd6a7a34b571",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b3a2eee0_83d88185",
+        "filename": "redfish-core/lib/pcie_slots.hpp",
+        "patchSetId": 110
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 1001217
+      },
+      "writtenOn": "2022-03-25T00:50:59Z",
+      "side": 1,
+      "message": "We began using function callbacks in the LocationCode and Presence CLs, three seems reasonable leaning cleanup issue. In the interest in moving this along I\u0027m resolving this with the understanding that further deepness will not be acceptable.",
+      "parentUuid": "9a429927_1d9872fe",
+      "range": {
+        "startLine": 200,
+        "startChar": 0,
+        "endLine": 200,
+        "endChar": 80
+      },
+      "revId": "b91b53f8031af2943aacb8053bd1bd6a7a34b571",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
       "key": {
         "uuid": "e1db57bb_cf5f26c0",
         "filename": "redfish-core/lib/pcie_slots.hpp",
@@ -137,10 +162,10 @@
         "endChar": 75
       },
       "revId": "b91b53f8031af2943aacb8053bd1bd6a7a34b571",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "04c8e0c6_371bcd14",
         "filename": "redfish-core/lib/pcie_slots.hpp",
@@ -161,10 +186,10 @@
         "endChar": 75
       },
       "revId": "b91b53f8031af2943aacb8053bd1bd6a7a34b571",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "f3b00758_1f241650",
         "filename": "redfish-core/lib/pcie_slots.hpp",
@@ -184,10 +209,10 @@
         "endChar": 44
       },
       "revId": "b91b53f8031af2943aacb8053bd1bd6a7a34b571",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "a4cc12bc_d7099e98",
         "filename": "redfish-core/lib/pcie_slots.hpp",
@@ -208,10 +233,10 @@
         "endChar": 44
       },
       "revId": "b91b53f8031af2943aacb8053bd1bd6a7a34b571",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "9912509e_20c5fada",
         "filename": "redfish-core/lib/pcie_slots.hpp",
@@ -232,8 +257,7 @@
         "endChar": 44
       },
       "revId": "b91b53f8031af2943aacb8053bd1bd6a7a34b571",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }

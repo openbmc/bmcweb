@@ -1,6 +1,7 @@
 {
   "comments": [
     {
+      "unresolved": true,
       "key": {
         "uuid": "1b18be9a_b3aad894",
         "filename": "/COMMIT_MSG",
@@ -14,10 +15,10 @@
       "side": 1,
       "message": "Can we document the association \"chassis\" somewhere? Maybe just need to add to https://gerrit.openbmc-project.xyz/c/openbmc/docs/+/41468 ?",
       "revId": "f017a0868b0900940d93703df121ee94dd3711b3",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "0174ed8a_554064d6",
         "filename": "/COMMIT_MSG",
@@ -32,10 +33,28 @@
       "message": "Yes,I will do that.",
       "parentUuid": "1b18be9a_b3aad894",
       "revId": "f017a0868b0900940d93703df121ee94dd3711b3",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "045972d9_72bfd583",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 51
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1001217
+      },
+      "writtenOn": "2022-03-25T00:50:59Z",
+      "side": 1,
+      "message": "Status?",
+      "parentUuid": "0174ed8a_554064d6",
+      "revId": "f017a0868b0900940d93703df121ee94dd3711b3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
       "key": {
         "uuid": "0c4a72c2_d9db0788",
         "filename": "redfish-core/include/utils/chassis_utils.hpp",
@@ -49,10 +68,10 @@
       "side": 1,
       "message": "If there isn\u0027t any \n        \"xyz.openbmc_project.Inventory.Item.Board\",\n        \"xyz.openbmc_project.Inventory.Item.Chassis\"\nmapper returns an error right? \nShouldn\u0027t that be a 404 and not an internal error? \nNote: this is probably pretty uncommon\n\nE.g. maybe something like \n BMCWEB_LOG_ERROR \u003c\u003c \"getValidChassisID respHandler DBUS error: \"\n// No Chassis objects found \nif (ec.value() \u003d\u003d boost::system::errc::io_error)\n{\ncallback(\"\");\n}\n           \n messages::internalError(asyncResp-\u003eres);\n return;",
       "revId": "f017a0868b0900940d93703df121ee94dd3711b3",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "6de7101a_504ccf29",
         "filename": "redfish-core/include/utils/chassis_utils.hpp",
@@ -67,10 +86,10 @@
       "message": "Sunny posted \"In case the interface is not found, GetSubTree call will return with subtree size 0 and no dbus error will be thrown in this case.\". I need to test this but this might be fine as is.",
       "parentUuid": "0c4a72c2_d9db0788",
       "revId": "f017a0868b0900940d93703df121ee94dd3711b3",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "3dd38f4c_5fea670d",
         "filename": "redfish-core/include/utils/chassis_utils.hpp",
@@ -85,10 +104,10 @@
       "message": "Yes, Sunny\u0027s comment is correct.",
       "parentUuid": "6de7101a_504ccf29",
       "revId": "f017a0868b0900940d93703df121ee94dd3711b3",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "5243b9cb_cefa8543",
         "filename": "redfish-core/lib/pcie_slots.hpp",
@@ -102,10 +121,10 @@
       "side": 1,
       "message": "What if the system doesn\u0027t have any \n\"xyz.openbmc_project.Inventory.Item.PCIeSlot\"\nmapper returns an error right?\n\nThen this would return a internalError and there is already a link in Chassis in PCIeSlots.. \nI think this would be a validator error for a Chassis without \"xyz.openbmc_project.Inventory.Item.PCIeSlot\"",
       "revId": "f017a0868b0900940d93703df121ee94dd3711b3",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "074d7f97_3036d955",
         "filename": "redfish-core/lib/pcie_slots.hpp",
@@ -120,10 +139,10 @@
       "message": "In case the interface is not found, GetSubTree call will return with subtree size 0 and no dbus error will be thrown in this case.",
       "parentUuid": "5243b9cb_cefa8543",
       "revId": "f017a0868b0900940d93703df121ee94dd3711b3",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "b9898659_f47260b1",
         "filename": "redfish-core/lib/pcie_slots.hpp",
@@ -138,10 +157,10 @@
       "message": "Done. Sunny\u0027s comment is correct.",
       "parentUuid": "074d7f97_3036d955",
       "revId": "f017a0868b0900940d93703df121ee94dd3711b3",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "cd5b990b_7d201cf8",
         "filename": "redfish-core/lib/pcie_slots.hpp",
@@ -161,10 +180,10 @@
         "endChar": 41
       },
       "revId": "f017a0868b0900940d93703df121ee94dd3711b3",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "298c01ac_124809cf",
         "filename": "redfish-core/lib/pcie_slots.hpp",
@@ -185,8 +204,7 @@
         "endChar": 41
       },
       "revId": "f017a0868b0900940d93703df121ee94dd3711b3",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
