@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5be3fcfd_44d0d2c8",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-25T16:26:29Z",
+      "side": 1,
+      "message": "Would\u0027ve been nice to include why you did this in your commit message to communicate better your intent (given that just changing the version of the schema does almost nothing), but the patchset seems trivially correct, so I\u0027m not going to hold it up on a commit message.",
+      "revId": "becb430748d6462ae0ec500685fbeceba2bc1668",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
