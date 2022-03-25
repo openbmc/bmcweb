@@ -98,6 +98,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "003a3fda_8c9060ee",
+        "filename": "http/utility.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 706,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-25T16:13:46Z",
+      "side": 1,
+      "message": "\u003e I provided one long example where we can\u0027t validate segment immediately, in comment below, please check it.\n\nACK.\n\n\u003e \n\u003e As for the size difference I tried to make binary size comparison, but turns out it is negligible, only few instructions less, per each call in disassembly.\n\nThis is roughly what I expected.\n\n\u003e \n\u003e While I was trying to prepare solution without anySegment I realized there is one additional benefit of using anySegment instead of some ignored std::string. It is way easier to see programmer intention when we read a code:\n\u003e   readUrlSegments(*parsed, \"redfish\", \"v1\", crow::utility::anySegment, std::ref(chassis), std::ref(node), crow::utility::anySegment)\n\u003e \n\u003e than when we see:\n\u003e   readUrlSegments(*parsed, \"redfish\", \"v1\", std::ref(unknownSegment), std::ref(chassis), std::ref(node), std::ref(someSegmentMaybeIWillIgnoreIt))\n\u003e \n\u003e So not only solution is more complete, it is also easier to read or to review.\n\nI can\u0027t really say I agree with that.  Had you named your variable \"ignoredSensorType\" the second code would\u0027ve been more clear, but even as you wrote it, I think the second is more clear, because I can see that you\u0027re parsing a variable and ignoring it, which doesn\u0027t require me to know anything about how readUrlSegments works.  In the first case, I as a user need to know what AnySegment does, which requires me to look up the code to see what\u0027s going on.\n\n\u003e \n\u003e But honestly, except for \"I really want to leave it as it is\", I won\u0027t try to defend it any more and if you insist I can remove this part.\n\nI\u0027d really like to see it gone, as it implies something counter to the rule of validating input that we try to follow:\nhttps://cheatsheetseries.owasp.org/cheatsheets/Input_Validation_Cheat_Sheet.html",
+      "parentUuid": "0e815c67_f9eb38a7",
+      "range": {
+        "startLine": 704,
+        "startChar": 0,
+        "endLine": 706,
+        "endChar": 35
+      },
+      "revId": "1359d52777d659072ff66891c951afaf489885c7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "da494609_b466e13b",
         "filename": "http/utility.hpp",
         "patchSetId": 4

@@ -630,6 +630,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ad93e632_e1bbdc3e",
+        "filename": "redfish-core/include/utils/telemetry_utils.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-25T16:13:46Z",
+      "side": 1,
+      "message": "\u003e Telemetry code is an example why we cannot verify each segment \u0027here and now\u0027:\n\u003e 1) User sends us multiple metrics as urls\n\u003e 2) We need to parse chassisId and NodeId from each url. We don\u0027t know yet how to validate other url segments, except for their count. Here readUrlSegments is used.\n\nThis is the step that\u0027s confusing to me.  We don\u0027t need to validate them at this step.  We can easily parse those two out into variables, then pass them to later steps for validation.\n\n\u003e 3) We need to call retrieveUriToDbusMap for each chassisId\u003c-\u003eNodeId pair, which returns list of all metrics with given chassisNode. Those lists are merged afterwards.\n\u003e 4) We check if each url from step 1) is in the merged list.\n\nClarification on this point, we check to see if the ChassisId and the NodeId is in the merged list, dbus doesn\u0027t understand URIs, so in practice, we\u0027re parsing the URI twice for lack of wanting to pass the parsed variables down the stack.  I realize this is how sensors.hpp works today, but if it were new code, we probably wouldn\u0027t write it that way.\n\n\u003e \n\u003e Steps 3) and 4) are here to minimize number of async dbus calls. In theory it is possible to get rid of them, and we could check everything in one place, but this solution have a lot of flaws:\n\u003e - Some redundant dbus calls will occur\n\u003e - Even if we decide to optimize it in other way, sensors.hpp and telemetry refactor will be required.\n\nOk, to be clear, I\u0027m not saying we need to do it this moment, but had we written the above code today, we probably would not have written it to parse a URI twice.  In my mind, given that we have a pretty easy escape hatch (parse the variable then don\u0027t use it) I don\u0027t think the AnySegment class is necessary for the API, and any usage of which in new code would be an anti-pattern.  It seems easier to just not have it, use the escape hatch for the couple places in code where we ideally would like to clean up one day, and call it good.\n\n\nIf the rest of the community feels strongly the other way, I\u0027m happy to talk more, or I\u0027m happy to go with community consensus on this, but in conforming, non-repeating code, I don\u0027t see a place where we would use AnySegment, and it just complicates what should be a relatively simple API.",
+      "parentUuid": "c43037cb_90e90474",
+      "range": {
+        "startLine": 64,
+        "startChar": 43,
+        "endLine": 64,
+        "endChar": 68
+      },
+      "revId": "236e9130b71f6d754ade7e0f08ecf724dfdf2503",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "23bc7bd7_f799f5cf",
         "filename": "redfish-core/lib/metric_report_definition.hpp",
         "patchSetId": 3

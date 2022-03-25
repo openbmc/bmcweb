@@ -67,6 +67,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "30ce4ca2_fd63ff27",
+        "filename": "http/ut/utility_test.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 186,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-25T16:13:46Z",
+      "side": 1,
+      "message": "I suspect we don\u0027t need two different typedefs, especially two that having the same name with different casing.  Just declare the struct outside of details and remove the using please.",
+      "parentUuid": "aa5cd5b6_5ac404b0",
+      "range": {
+        "startLine": 186,
+        "startChar": 33,
+        "endLine": 186,
+        "endChar": 43
+      },
+      "revId": "1114d0b25bd8fdd0a4372710bad611b5846239ff",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "93f43288_e4014864",
         "filename": "http/utility.hpp",
         "patchSetId": 5
@@ -107,6 +131,52 @@
         "startChar": 5,
         "endLine": 678,
         "endChar": 6
+      },
+      "revId": "1114d0b25bd8fdd0a4372710bad611b5846239ff",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "811ce8bf_dd7a9562",
+        "filename": "http/utility.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 705,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-25T16:13:46Z",
+      "side": 1,
+      "message": "Iterators should be generally taken by value, but I suspect this should be taken by the contained type so the actual visitor doesn\u0027t have to do the dereference (which isn\u0027t necessarily valid).",
+      "range": {
+        "startLine": 705,
+        "startChar": 46,
+        "endLine": 705,
+        "endChar": 47
+      },
+      "revId": "1114d0b25bd8fdd0a4372710bad611b5846239ff",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5c859de1_db6f8a5b",
+        "filename": "redfish-core/include/utils/telemetry_utils.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-25T16:13:46Z",
+      "side": 1,
+      "message": "This is the return of the failure.  Should this have a name to denote that \"NodeFindError\" or something like that?",
+      "range": {
+        "startLine": 32,
+        "startChar": 7,
+        "endLine": 32,
+        "endChar": 20
       },
       "revId": "1114d0b25bd8fdd0a4372710bad611b5846239ff",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
