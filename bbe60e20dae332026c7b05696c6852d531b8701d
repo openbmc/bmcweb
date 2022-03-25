@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ce6b4825_fb83ba9b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-25T16:54:08Z",
+      "side": 1,
+      "message": "Quite confused at this, we have no implementation of OAuth2Service in upstream, so this looks like some feature you\u0027re currently working on?\n\nI\u0027m not necessarily against updating the version for future endeavors, but we need to make clear that bmcweb has no bug here, and that this is pipecleaning, not that we have an out of date schema.\n\nPlease make another attempt at writing this in the commit message, and we can try to get this merged.",
+      "range": {
+        "startLine": 11,
+        "startChar": 23,
+        "endLine": 11,
+        "endChar": 60
+      },
+      "revId": "bbe60e20dae332026c7b05696c6852d531b8701d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
