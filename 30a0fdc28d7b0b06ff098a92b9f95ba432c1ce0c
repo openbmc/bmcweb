@@ -50,6 +50,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "700810ab_6495b13d",
+        "filename": "redfish-core/include/query.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-03-25T22:30:29Z",
+      "side": 1,
+      "message": "Yes, processAllParams would take `query\u0026` directly.\n\nAlso before parsing params, if intermediateResponse failed, we just return, right?",
+      "parentUuid": "9cc1cd06_4c8b86eb",
+      "range": {
+        "startLine": 32,
+        "startChar": 30,
+        "endLine": 32,
+        "endChar": 35
+      },
+      "revId": "30a0fdc28d7b0b06ff098a92b9f95ba432c1ce0c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "5065cbd0_7e0d337e",
         "filename": "redfish-core/include/utils/query_param.hpp",
         "patchSetId": 11
@@ -132,6 +156,30 @@
       "side": 1,
       "message": "Because it\u0027s a POD, so at this point if you did that, the data structure wouldn\u0027t be initialized.  At least, that\u0027s what I thought?",
       "parentUuid": "3211f0ef_1b7aca01",
+      "range": {
+        "startLine": 25,
+        "startChar": 13,
+        "endLine": 25,
+        "endChar": 15
+      },
+      "revId": "30a0fdc28d7b0b06ff098a92b9f95ba432c1ce0c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "96932c84_b8d0716f",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-03-25T22:30:29Z",
+      "side": 1,
+      "message": "https://godbolt.org/z/jd9Wznb5G\n\n```\nbool isOnly \u003d false;\n```\nThis style will always get the data initialized IIUC",
+      "parentUuid": "0cacd0b2_739dcbfd",
       "range": {
         "startLine": 25,
         "startChar": 13,
