@@ -28,9 +28,13 @@ namespace redfish
 {
 
 inline void handleMessageRegistryFileCollectionGet(
-    const crow::Request& /*req*/,
+    crow::App& app, const crow::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
+    if (!redfish::setUpRedfishRoute(app, req, asyncResp->res))
+    {
+        return;
+    }
     // Collections don't include the static data added by SubRoute
     // because it has a duplicate entry for members
 
@@ -55,15 +59,19 @@ inline void requestRoutesMessageRegistryFileCollection(App& app)
      */
     BMCWEB_ROUTE(app, "/redfish/v1/Registries/")
         .privileges(redfish::privileges::getMessageRegistryFileCollection)
-        .methods(boost::beast::http::verb::get)(
-            handleMessageRegistryFileCollectionGet);
+        .methods(boost::beast::http::verb::get)(std::bind_front(
+            handleMessageRegistryFileCollectionGet, std::ref(app)));
 }
 
 inline void handleMessageRoutesMessageRegistryFileGet(
-    const crow::Request& /*req*/,
+    crow::App& app, const crow::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& registry)
 {
+    if (!redfish::setUpRedfishRoute(app, req, asyncResp->res))
+    {
+        return;
+    }
     const registries::Header* header = nullptr;
     std::string dmtf = "DMTF ";
     const char* url = nullptr;
@@ -120,16 +128,20 @@ inline void requestRoutesMessageRegistryFile(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/Registries/<str>/")
         .privileges(redfish::privileges::getMessageRegistryFile)
-        .methods(boost::beast::http::verb::get)(
-            handleMessageRoutesMessageRegistryFileGet);
+        .methods(boost::beast::http::verb::get)(std::bind_front(
+            handleMessageRoutesMessageRegistryFileGet, std::ref(app)));
 }
 
 inline void handleMessageRegistryGet(
-    const crow::Request& /*req*/,
+    crow::App& app, const crow::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& registry, const std::string& registryMatch)
 
 {
+    if (!redfish::setUpRedfishRoute(app, req, asyncResp->res))
+    {
+        return;
+    }
     const registries::Header* header = nullptr;
     std::vector<const registries::MessageEntry*> registryEntries;
     if (registry == "Base")
@@ -223,6 +235,7 @@ inline void requestRoutesMessageRegistry(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/Registries/<str>/<str>/")
         .privileges(redfish::privileges::getMessageRegistryFile)
-        .methods(boost::beast::http::verb::get)(handleMessageRegistryGet);
+        .methods(boost::beast::http::verb::get)(
+            std::bind_front(handleMessageRegistryGet, std::ref(app)));
 }
 } // namespace redfish

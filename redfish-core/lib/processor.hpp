@@ -22,6 +22,7 @@
 #include <app.hpp>
 #include <boost/container/flat_map.hpp>
 #include <dbus_utility.hpp>
+#include <query.hpp>
 #include <registries/privilege_registry.hpp>
 #include <sdbusplus/asio/property.hpp>
 #include <sdbusplus/message/native_types.hpp>
@@ -1056,10 +1057,14 @@ inline void requestRoutesOperatingConfigCollection(App& app)
         app, "/redfish/v1/Systems/system/Processors/<str>/OperatingConfigs/")
         .privileges(redfish::privileges::getOperatingConfigCollection)
         .methods(
-            boost::beast::http::verb::get)([](const crow::Request& req,
-                                              const std::shared_ptr<
-                                                  bmcweb::AsyncResp>& asyncResp,
-                                              const std::string& cpuName) {
+            boost::beast::http::verb::
+                get)([&app](const crow::Request& req,
+                            const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                            const std::string& cpuName) {
+            if (!redfish::setUpRedfishRoute(app, req, asyncResp->res))
+            {
+                return;
+            }
             asyncResp->res.jsonValue["@odata.type"] =
                 "#OperatingConfigCollection.OperatingConfigCollection";
             asyncResp->res.jsonValue["@odata.id"] = req.url;
@@ -1118,11 +1123,15 @@ inline void requestRoutesOperatingConfig(App& app)
         "/redfish/v1/Systems/system/Processors/<str>/OperatingConfigs/<str>/")
         .privileges(redfish::privileges::getOperatingConfig)
         .methods(
-            boost::beast::http::verb::get)([](const crow::Request& req,
-                                              const std::shared_ptr<
-                                                  bmcweb::AsyncResp>& asyncResp,
-                                              const std::string& cpuName,
-                                              const std::string& configName) {
+            boost::beast::http::verb::
+                get)([&app](const crow::Request& req,
+                            const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                            const std::string& cpuName,
+                            const std::string& configName) {
+            if (!redfish::setUpRedfishRoute(app, req, asyncResp->res))
+            {
+                return;
+            }
             // Ask for all objects implementing OperatingConfig so we can search
             // for one with a matching name
             crow::connections::systemBus->async_method_call(
@@ -1181,8 +1190,12 @@ inline void requestRoutesProcessorCollection(App& app)
     BMCWEB_ROUTE(app, "/redfish/v1/Systems/system/Processors/")
         .privileges(redfish::privileges::getProcessorCollection)
         .methods(boost::beast::http::verb::get)(
-            [](const crow::Request&,
-               const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
+            [&app](const crow::Request& req,
+                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
+                if (!redfish::setUpRedfishRoute(app, req, asyncResp->res))
+                {
+                    return;
+                }
                 asyncResp->res.jsonValue["@odata.type"] =
                     "#ProcessorCollection.ProcessorCollection";
                 asyncResp->res.jsonValue["Name"] = "Processor Collection";
@@ -1206,9 +1219,13 @@ inline void requestRoutesProcessor(App& app)
     BMCWEB_ROUTE(app, "/redfish/v1/Systems/system/Processors/<str>/")
         .privileges(redfish::privileges::getProcessor)
         .methods(boost::beast::http::verb::get)(
-            [](const crow::Request&,
-               const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-               const std::string& processorId) {
+            [&app](const crow::Request& req,
+                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                   const std::string& processorId) {
+                if (!redfish::setUpRedfishRoute(app, req, asyncResp->res))
+                {
+                    return;
+                }
                 asyncResp->res.jsonValue["@odata.type"] =
                     "#Processor.v1_11_0.Processor";
                 asyncResp->res.jsonValue["@odata.id"] =
@@ -1220,9 +1237,13 @@ inline void requestRoutesProcessor(App& app)
     BMCWEB_ROUTE(app, "/redfish/v1/Systems/system/Processors/<str>/")
         .privileges(redfish::privileges::patchProcessor)
         .methods(boost::beast::http::verb::patch)(
-            [](const crow::Request& req,
-               const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-               const std::string& processorId) {
+            [&app](const crow::Request& req,
+                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                   const std::string& processorId) {
+                if (!redfish::setUpRedfishRoute(app, req, asyncResp->res))
+                {
+                    return;
+                }
                 std::optional<nlohmann::json> appliedConfigJson;
                 if (!json_util::readJsonPatch(req, asyncResp->res,
                                               "AppliedOperatingConfig",

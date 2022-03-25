@@ -19,6 +19,7 @@
 #include <app.hpp>
 #include <boost/system/linux_error.hpp>
 #include <dbus_utility.hpp>
+#include <query.hpp>
 #include <registries/privilege_registry.hpp>
 
 namespace redfish
@@ -81,10 +82,12 @@ inline void requestRoutesSystemPCIeDeviceCollection(App& app)
     BMCWEB_ROUTE(app, "/redfish/v1/Systems/system/PCIeDevices/")
         .privileges(redfish::privileges::getPCIeDeviceCollection)
         .methods(boost::beast::http::verb::get)(
-            [](const crow::Request&,
-               const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
-
-            {
+            [&app](const crow::Request& req,
+                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
+                if (!redfish::setUpRedfishRoute(app, req, asyncResp->res))
+                {
+                    return;
+                }
                 asyncResp->res.jsonValue = {
                     {"@odata.type",
                      "#PCIeDeviceCollection.PCIeDeviceCollection"},
@@ -140,112 +143,113 @@ inline void requestRoutesSystemPCIeDevice(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/Systems/system/PCIeDevices/<str>/")
         .privileges(redfish::privileges::getPCIeDevice)
-        .methods(boost::beast::http::verb::get)(
-            [](const crow::Request&,
-               const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-               const std::string& device)
-
+        .methods(
+            boost::beast::http::verb::
+                get)([&app](const crow::Request& req,
+                            const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                            const std::string& device) {
+            if (!redfish::setUpRedfishRoute(app, req, asyncResp->res))
             {
-                auto getPCIeDeviceCallback =
-                    [asyncResp, device](const boost::system::error_code ec,
-                                        const dbus::utility::DBusPropertiesMap&
-                                            pcieDevProperties) {
-                        if (ec)
+                return;
+            }
+            auto getPCIeDeviceCallback =
+                [asyncResp, device](
+                    const boost::system::error_code ec,
+                    const dbus::utility::DBusPropertiesMap& pcieDevProperties) {
+                    if (ec)
+                    {
+                        BMCWEB_LOG_DEBUG
+                            << "failed to get PCIe Device properties ec: "
+                            << ec.value() << ": " << ec.message();
+                        if (ec.value() ==
+                            boost::system::linux_error::bad_request_descriptor)
                         {
-                            BMCWEB_LOG_DEBUG
-                                << "failed to get PCIe Device properties ec: "
-                                << ec.value() << ": " << ec.message();
-                            if (ec.value() == boost::system::linux_error::
-                                                  bad_request_descriptor)
-                            {
-                                messages::resourceNotFound(
-                                    asyncResp->res, "PCIeDevice", device);
-                            }
-                            else
+                            messages::resourceNotFound(asyncResp->res,
+                                                       "PCIeDevice", device);
+                        }
+                        else
+                        {
+                            messages::internalError(asyncResp->res);
+                        }
+                        return;
+                    }
+
+                    asyncResp->res.jsonValue = {
+                        {"@odata.type", "#PCIeDevice.v1_4_0.PCIeDevice"},
+                        {"@odata.id",
+                         "/redfish/v1/Systems/system/PCIeDevices/" + device},
+                        {"Name", "PCIe Device"},
+                        {"Id", device}};
+                    asyncResp->res.jsonValue["PCIeFunctions"] = {
+                        {"@odata.id",
+                         "/redfish/v1/Systems/system/PCIeDevices/" + device +
+                             "/PCIeFunctions"}};
+                    for (const auto& property : pcieDevProperties)
+                    {
+                        const std::string* propertyString =
+                            std::get_if<std::string>(&property.second);
+                        if (property.first == "Manufacturer")
+                        {
+                            if (propertyString == nullptr)
                             {
                                 messages::internalError(asyncResp->res);
+                                return;
                             }
-                            return;
+                            asyncResp->res.jsonValue["Manufacturer"] =
+                                *propertyString;
                         }
-
-                        asyncResp->res.jsonValue = {
-                            {"@odata.type", "#PCIeDevice.v1_4_0.PCIeDevice"},
-                            {"@odata.id",
-                             "/redfish/v1/Systems/system/PCIeDevices/" +
-                                 device},
-                            {"Name", "PCIe Device"},
-                            {"Id", device}};
-                        asyncResp->res.jsonValue["PCIeFunctions"] = {
-                            {"@odata.id",
-                             "/redfish/v1/Systems/system/PCIeDevices/" +
-                                 device + "/PCIeFunctions"}};
-                        for (const auto& property : pcieDevProperties)
+                        if (property.first == "DeviceType")
                         {
-                            const std::string* propertyString =
-                                std::get_if<std::string>(&property.second);
-                            if (property.first == "Manufacturer")
+                            if (propertyString == nullptr)
                             {
-                                if (propertyString == nullptr)
-                                {
-                                    messages::internalError(asyncResp->res);
-                                    return;
-                                }
-                                asyncResp->res.jsonValue["Manufacturer"] =
-                                    *propertyString;
+                                messages::internalError(asyncResp->res);
+                                return;
                             }
-                            if (property.first == "DeviceType")
-                            {
-                                if (propertyString == nullptr)
-                                {
-                                    messages::internalError(asyncResp->res);
-                                    return;
-                                }
-                                asyncResp->res.jsonValue["DeviceType"] =
-                                    *propertyString;
-                            }
-                            if (property.first == "DeviceType")
-                            {
-                                if (propertyString == nullptr)
-                                {
-                                    messages::internalError(asyncResp->res);
-                                    return;
-                                }
-                                asyncResp->res.jsonValue["DeviceType"] =
-                                    *propertyString;
-                            }
-                            if (property.first == "GenerationInUse")
-                            {
-                                if (propertyString == nullptr)
-                                {
-                                    messages::internalError(asyncResp->res);
-                                    return;
-                                }
-                                std::optional<std::string> generationInUse =
-                                    redfishPcieGenerationFromDbus(
-                                        *propertyString);
-                                if (!generationInUse)
-                                {
-                                    messages::internalError(asyncResp->res);
-                                    return;
-                                }
-                                if (generationInUse->empty())
-                                {
-                                    // unknown, no need to handle
-                                    return;
-                                }
-                                asyncResp->res
-                                    .jsonValue["PCIeInterface"]["PCIeType"] =
-                                    *generationInUse;
-                            }
+                            asyncResp->res.jsonValue["DeviceType"] =
+                                *propertyString;
                         }
-                    };
-                std::string escapedPath = std::string(pciePath) + "/" + device;
-                dbus::utility::escapePathForDbus(escapedPath);
-                crow::connections::systemBus->async_method_call(
-                    std::move(getPCIeDeviceCallback), pcieService, escapedPath,
-                    "org.freedesktop.DBus.Properties", "GetAll",
-                    pcieDeviceInterface);
-            });
+                        if (property.first == "DeviceType")
+                        {
+                            if (propertyString == nullptr)
+                            {
+                                messages::internalError(asyncResp->res);
+                                return;
+                            }
+                            asyncResp->res.jsonValue["DeviceType"] =
+                                *propertyString;
+                        }
+                        if (property.first == "GenerationInUse")
+                        {
+                            if (propertyString == nullptr)
+                            {
+                                messages::internalError(asyncResp->res);
+                                return;
+                            }
+                            std::optional<std::string> generationInUse =
+                                redfishPcieGenerationFromDbus(*propertyString);
+                            if (!generationInUse)
+                            {
+                                messages::internalError(asyncResp->res);
+                                return;
+                            }
+                            if (generationInUse->empty())
+                            {
+                                // unknown, no need to handle
+                                return;
+                            }
+                            asyncResp->res
+                                .jsonValue["PCIeInterface"]["PCIeType"] =
+                                *generationInUse;
+                        }
+                    }
+                };
+            std::string escapedPath = std::string(pciePath) + "/" + device;
+            dbus::utility::escapePathForDbus(escapedPath);
+            crow::connections::systemBus->async_method_call(
+                std::move(getPCIeDeviceCallback), pcieService, escapedPath,
+                "org.freedesktop.DBus.Properties", "GetAll",
+                pcieDeviceInterface);
+        });
 }
 
 inline void requestRoutesSystemPCIeFunctionCollection(App& app)
@@ -256,84 +260,87 @@ inline void requestRoutesSystemPCIeFunctionCollection(App& app)
     BMCWEB_ROUTE(app,
                  "/redfish/v1/Systems/system/PCIeDevices/<str>/PCIeFunctions/")
         .privileges(redfish::privileges::getPCIeFunctionCollection)
-        .methods(boost::beast::http::verb::get)(
-            [](const crow::Request&,
-               const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-               const std::string& device)
-
+        .methods(
+            boost::beast::http::verb::
+                get)([&app](const crow::Request& req,
+                            const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                            const std::string& device) {
+            if (!redfish::setUpRedfishRoute(app, req, asyncResp->res))
             {
-                asyncResp->res.jsonValue = {
-                    {"@odata.type",
-                     "#PCIeFunctionCollection.PCIeFunctionCollection"},
-                    {"@odata.id", "/redfish/v1/Systems/system/PCIeDevices/" +
-                                      device + "/PCIeFunctions"},
-                    {"Name", "PCIe Function Collection"},
-                    {"Description",
-                     "Collection of PCIe Functions for PCIe Device " + device}};
+                return;
+            }
+            asyncResp->res.jsonValue = {
+                {"@odata.type",
+                 "#PCIeFunctionCollection.PCIeFunctionCollection"},
+                {"@odata.id", "/redfish/v1/Systems/system/PCIeDevices/" +
+                                  device + "/PCIeFunctions"},
+                {"Name", "PCIe Function Collection"},
+                {"Description",
+                 "Collection of PCIe Functions for PCIe Device " + device}};
 
-                auto getPCIeDeviceCallback =
-                    [asyncResp, device](const boost::system::error_code ec,
-                                        const dbus::utility::DBusPropertiesMap&
-                                            pcieDevProperties) {
-                        if (ec)
+            auto getPCIeDeviceCallback =
+                [asyncResp, device](
+                    const boost::system::error_code ec,
+                    const dbus::utility::DBusPropertiesMap& pcieDevProperties) {
+                    if (ec)
+                    {
+                        BMCWEB_LOG_DEBUG
+                            << "failed to get PCIe Device properties ec: "
+                            << ec.value() << ": " << ec.message();
+                        if (ec.value() ==
+                            boost::system::linux_error::bad_request_descriptor)
                         {
-                            BMCWEB_LOG_DEBUG
-                                << "failed to get PCIe Device properties ec: "
-                                << ec.value() << ": " << ec.message();
-                            if (ec.value() == boost::system::linux_error::
-                                                  bad_request_descriptor)
+                            messages::resourceNotFound(asyncResp->res,
+                                                       "PCIeDevice", device);
+                        }
+                        else
+                        {
+                            messages::internalError(asyncResp->res);
+                        }
+                        return;
+                    }
+
+                    nlohmann::json& pcieFunctionList =
+                        asyncResp->res.jsonValue["Members"];
+                    pcieFunctionList = nlohmann::json::array();
+                    static constexpr const int maxPciFunctionNum = 8;
+                    for (int functionNum = 0; functionNum < maxPciFunctionNum;
+                         functionNum++)
+                    {
+                        // Check if this function exists by looking for a
+                        // device ID
+                        std::string devIDProperty =
+                            "Function" + std::to_string(functionNum) +
+                            "DeviceId";
+                        const std::string* property = nullptr;
+                        for (const auto& propEntry : pcieDevProperties)
+                        {
+                            if (propEntry.first == devIDProperty)
                             {
-                                messages::resourceNotFound(
-                                    asyncResp->res, "PCIeDevice", device);
+                                property =
+                                    std::get_if<std::string>(&propEntry.second);
                             }
-                            else
-                            {
-                                messages::internalError(asyncResp->res);
-                            }
+                        }
+                        if (property == nullptr || !property->empty())
+                        {
                             return;
                         }
-
-                        nlohmann::json& pcieFunctionList =
-                            asyncResp->res.jsonValue["Members"];
-                        pcieFunctionList = nlohmann::json::array();
-                        static constexpr const int maxPciFunctionNum = 8;
-                        for (int functionNum = 0;
-                             functionNum < maxPciFunctionNum; functionNum++)
-                        {
-                            // Check if this function exists by looking for a
-                            // device ID
-                            std::string devIDProperty =
-                                "Function" + std::to_string(functionNum) +
-                                "DeviceId";
-                            const std::string* property = nullptr;
-                            for (const auto& propEntry : pcieDevProperties)
-                            {
-                                if (propEntry.first == devIDProperty)
-                                {
-                                    property = std::get_if<std::string>(
-                                        &propEntry.second);
-                                }
-                            }
-                            if (property == nullptr || !property->empty())
-                            {
-                                return;
-                            }
-                            pcieFunctionList.push_back(
-                                {{"@odata.id",
-                                  "/redfish/v1/Systems/system/PCIeDevices/" +
-                                      device + "/PCIeFunctions/" +
-                                      std::to_string(functionNum)}});
-                        }
-                        asyncResp->res.jsonValue["Members@odata.count"] =
-                            pcieFunctionList.size();
-                    };
-                std::string escapedPath = std::string(pciePath) + "/" + device;
-                dbus::utility::escapePathForDbus(escapedPath);
-                crow::connections::systemBus->async_method_call(
-                    std::move(getPCIeDeviceCallback), pcieService, escapedPath,
-                    "org.freedesktop.DBus.Properties", "GetAll",
-                    pcieDeviceInterface);
-            });
+                        pcieFunctionList.push_back(
+                            {{"@odata.id",
+                              "/redfish/v1/Systems/system/PCIeDevices/" +
+                                  device + "/PCIeFunctions/" +
+                                  std::to_string(functionNum)}});
+                    }
+                    asyncResp->res.jsonValue["Members@odata.count"] =
+                        pcieFunctionList.size();
+                };
+            std::string escapedPath = std::string(pciePath) + "/" + device;
+            dbus::utility::escapePathForDbus(escapedPath);
+            crow::connections::systemBus->async_method_call(
+                std::move(getPCIeDeviceCallback), pcieService, escapedPath,
+                "org.freedesktop.DBus.Properties", "GetAll",
+                pcieDeviceInterface);
+        });
 }
 
 inline void requestRoutesSystemPCIeFunction(App& app)
@@ -343,11 +350,15 @@ inline void requestRoutesSystemPCIeFunction(App& app)
         "/redfish/v1/Systems/system/PCIeDevices/<str>/PCIeFunctions/<str>/")
         .privileges(redfish::privileges::getPCIeFunction)
         .methods(
-            boost::beast::http::verb::get)([](const crow::Request&,
-                                              const std::shared_ptr<
-                                                  bmcweb::AsyncResp>& asyncResp,
-                                              const std::string& device,
-                                              const std::string& function) {
+            boost::beast::http::verb::
+                get)([&app](const crow::Request& req,
+                            const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                            const std::string& device,
+                            const std::string& function) {
+            if (!redfish::setUpRedfishRoute(app, req, asyncResp->res))
+            {
+                return;
+            }
             auto getPCIeDeviceCallback =
                 [asyncResp, device, function](
                     const boost::system::error_code ec,

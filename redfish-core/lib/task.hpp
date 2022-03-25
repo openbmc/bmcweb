@@ -19,6 +19,7 @@
 #include <boost/asio/post.hpp>
 #include <boost/asio/steady_timer.hpp>
 #include <dbus_utility.hpp>
+#include <query.hpp>
 #include <registries/privilege_registry.hpp>
 #include <task_messages.hpp>
 
@@ -319,9 +320,13 @@ inline void requestRoutesTaskMonitor(App& app)
     BMCWEB_ROUTE(app, "/redfish/v1/TaskService/Tasks/<str>/Monitor/")
         .privileges(redfish::privileges::getTask)
         .methods(boost::beast::http::verb::get)(
-            [](const crow::Request&,
-               const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-               const std::string& strParam) {
+            [&app](const crow::Request& req,
+                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                   const std::string& strParam) {
+                if (!redfish::setUpRedfishRoute(app, req, asyncResp->res))
+                {
+                    return;
+                }
                 auto find = std::find_if(
                     task::tasks.begin(), task::tasks.end(),
                     [&strParam](const std::shared_ptr<task::TaskData>& task) {
@@ -358,9 +363,13 @@ inline void requestRoutesTask(App& app)
     BMCWEB_ROUTE(app, "/redfish/v1/TaskService/Tasks/<str>/")
         .privileges(redfish::privileges::getTask)
         .methods(boost::beast::http::verb::get)(
-            [](const crow::Request&,
-               const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-               const std::string& strParam) {
+            [&app](const crow::Request& req,
+                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                   const std::string& strParam) {
+                if (!redfish::setUpRedfishRoute(app, req, asyncResp->res))
+                {
+                    return;
+                }
                 auto find = std::find_if(
                     task::tasks.begin(), task::tasks.end(),
                     [&strParam](const std::shared_ptr<task::TaskData>& task) {
@@ -426,8 +435,12 @@ inline void requestRoutesTaskCollection(App& app)
     BMCWEB_ROUTE(app, "/redfish/v1/TaskService/Tasks/")
         .privileges(redfish::privileges::getTaskCollection)
         .methods(boost::beast::http::verb::get)(
-            [](const crow::Request&,
-               const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
+            [&app](const crow::Request& req,
+                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
+                if (!redfish::setUpRedfishRoute(app, req, asyncResp->res))
+                {
+                    return;
+                }
                 asyncResp->res.jsonValue["@odata.type"] =
                     "#TaskCollection.TaskCollection";
                 asyncResp->res.jsonValue["@odata.id"] =
@@ -456,8 +469,12 @@ inline void requestRoutesTaskService(App& app)
     BMCWEB_ROUTE(app, "/redfish/v1/TaskService/")
         .privileges(redfish::privileges::getTaskService)
         .methods(boost::beast::http::verb::get)(
-            [](const crow::Request&,
-               const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
+            [&app](const crow::Request& req,
+                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
+                if (!redfish::setUpRedfishRoute(app, req, asyncResp->res))
+                {
+                    return;
+                }
                 asyncResp->res.jsonValue["@odata.type"] =
                     "#TaskService.v1_1_4.TaskService";
                 asyncResp->res.jsonValue["@odata.id"] =
