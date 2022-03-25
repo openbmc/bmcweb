@@ -74,6 +74,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "0e815c67_f9eb38a7",
+        "filename": "http/utility.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 706,
+      "author": {
+        "id": 1001026
+      },
+      "writtenOn": "2022-03-25T15:36:38Z",
+      "side": 1,
+      "message": "I provided one long example where we can\u0027t validate segment immediately, in comment below, please check it.\n\nAs for the size difference I tried to make binary size comparison, but turns out it is negligible, only few instructions less, per each call in disassembly.\n\nWhile I was trying to prepare solution without anySegment I realized there is one additional benefit of using anySegment instead of some ignored std::string. It is way easier to see programmer intention when we read a code:\n  readUrlSegments(*parsed, \"redfish\", \"v1\", crow::utility::anySegment, std::ref(chassis), std::ref(node), crow::utility::anySegment)\n\nthan when we see:\n  readUrlSegments(*parsed, \"redfish\", \"v1\", std::ref(unknownSegment), std::ref(chassis), std::ref(node), std::ref(someSegmentMaybeIWillIgnoreIt))\n\nSo not only solution is more complete, it is also easier to read or to review.\n\nBut honestly, except for \"I really want to leave it as it is\", I won\u0027t try to defend it any more and if you insist I can remove this part.",
+      "parentUuid": "19a78cf8_e7ede70e",
+      "range": {
+        "startLine": 704,
+        "startChar": 0,
+        "endLine": 706,
+        "endChar": 35
+      },
+      "revId": "1359d52777d659072ff66891c951afaf489885c7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "da494609_b466e13b",
         "filename": "http/utility.hpp",
         "patchSetId": 4
@@ -133,6 +157,30 @@
       "side": 1,
       "message": "👍",
       "parentUuid": "df9e584b_851ec276",
+      "range": {
+        "startLine": 708,
+        "startChar": 6,
+        "endLine": 708,
+        "endChar": 23
+      },
+      "revId": "1359d52777d659072ff66891c951afaf489885c7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1ede1f15_fcf81f08",
+        "filename": "http/utility.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 708,
+      "author": {
+        "id": 1001026
+      },
+      "writtenOn": "2022-03-25T15:36:38Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "c400ff22_d7caa42f",
       "range": {
         "startLine": 708,
         "startChar": 6,
@@ -409,6 +457,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5ca84ac7_0db94737",
+        "filename": "http/utility.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 754,
+      "author": {
+        "id": 1001026
+      },
+      "writtenOn": "2022-03-25T15:36:38Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "c64cf326_1882281b",
+      "revId": "1359d52777d659072ff66891c951afaf489885c7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a86a25e3_4944349c",
@@ -470,6 +536,30 @@
       "side": 1,
       "message": "I\u0027m not questioning the name, I\u0027m questioning the typecast to std::monostate.  Lets follow up on the \"do we need anySegment at all\" question in the thread above before we regroup on this.",
       "parentUuid": "10e4b4ef_842895e9",
+      "range": {
+        "startLine": 759,
+        "startChar": 0,
+        "endLine": 759,
+        "endChar": 36
+      },
+      "revId": "1359d52777d659072ff66891c951afaf489885c7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ce59bbfa_5454550c",
+        "filename": "http/utility.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 759,
+      "author": {
+        "id": 1001026
+      },
+      "writtenOn": "2022-03-25T15:36:38Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "62281597_2b670c89",
       "range": {
         "startLine": 759,
         "startChar": 0,

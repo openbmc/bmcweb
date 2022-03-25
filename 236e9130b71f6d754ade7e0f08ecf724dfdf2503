@@ -225,6 +225,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c9691309_d93ea91b",
+        "filename": "http/utility.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 729,
+      "author": {
+        "id": 1001026
+      },
+      "writtenOn": "2022-03-25T15:36:38Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "117fdfbc_eb10f9cb",
+      "range": {
+        "startLine": 729,
+        "startChar": 0,
+        "endLine": 729,
+        "endChar": 65
+      },
+      "revId": "236e9130b71f6d754ade7e0f08ecf724dfdf2503",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4cfab346_30b39b51",
@@ -570,6 +594,30 @@
       "side": 1,
       "message": "but that\u0027s an issue if a user can write foobaz to an API and have it accept it.  What I suspect is happening in this case is we\u0027re re-parsing it later and failing the request later on in the stack.. Ideally we should be parsing \"foobaz\" here, then passing it to the methods that need is so they can validate it (or not).",
       "parentUuid": "4cf9796b_ad0ce256",
+      "range": {
+        "startLine": 64,
+        "startChar": 43,
+        "endLine": 64,
+        "endChar": 68
+      },
+      "revId": "236e9130b71f6d754ade7e0f08ecf724dfdf2503",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c43037cb_90e90474",
+        "filename": "redfish-core/include/utils/telemetry_utils.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1001026
+      },
+      "writtenOn": "2022-03-25T15:36:38Z",
+      "side": 1,
+      "message": "Telemetry code is an example why we cannot verify each segment \u0027here and now\u0027:\n1) User sends us multiple metrics as urls\n2) We need to parse chassisId and NodeId from each url. We don\u0027t know yet how to validate other url segments, except for their count. Here readUrlSegments is used.\n3) We need to call retrieveUriToDbusMap for each chassisId\u003c-\u003eNodeId pair, which returns list of all metrics with given chassisNode. Those lists are merged afterwards.\n4) We check if each url from step 1) is in the merged list.\n\nSteps 3) and 4) are here to minimize number of async dbus calls. In theory it is possible to get rid of them, and we could check everything in one place, but this solution have a lot of flaws:\n- Some redundant dbus calls will occur\n- Even if we decide to optimize it in other way, sensors.hpp and telemetry refactor will be required.",
+      "parentUuid": "79d9b153_c2b46036",
       "range": {
         "startLine": 64,
         "startChar": 43,
