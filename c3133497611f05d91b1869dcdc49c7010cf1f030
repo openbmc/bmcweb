@@ -67,6 +67,52 @@
       "message": "Thanks John!\n\nEd, any more comments?",
       "revId": "c3133497611f05d91b1869dcdc49c7010cf1f030",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "be0f9c5e_948f8d6c",
+        "filename": "TESTING.md",
+        "patchSetId": 8
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-25T15:52:11Z",
+      "side": 1,
+      "message": "Have you tried following these instructions?  The doc linked on line 22 is for doing a local build, not a cross compiled build, so I\u0027m not quite understanding how these steps could work as written, maybe I\u0027m missing something?\n\nAlso, as a general rule, if we\u0027re cross compiling for qemu, there\u0027s really not any good reason that I\u0027m aware of to do it outside of yocto.  Generally SCPing a binary is done to avoid a BMC firmware update, which takes a while, but recompiling a qemu image is much faster, and doesn\u0027t require doing manual steps to cross compile.\n\nI\u0027m seeing that this was all copied from the other doc, so this is no worse, but as written it\u0027s definitely incorrect.",
+      "range": {
+        "startLine": 32,
+        "startChar": 0,
+        "endLine": 32,
+        "endChar": 52
+      },
+      "revId": "c3133497611f05d91b1869dcdc49c7010cf1f030",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5a209a73_8e8ea27e",
+        "filename": "TESTING.md",
+        "patchSetId": 8
+      },
+      "lineNbr": 181,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-25T15:52:11Z",
+      "side": 1,
+      "message": "References a script that doesn\u0027t exist?\n\nI would\u0027ve expected this test to use https://github.com/DMTF/Redfish-Event-Listener\n\nLets remove the whole EventService section for the moment so we can get the majority of this patchset merged, and follow up in another patch that\u0027s adding event service testing.",
+      "range": {
+        "startLine": 181,
+        "startChar": 17,
+        "endLine": 181,
+        "endChar": 34
+      },
+      "revId": "c3133497611f05d91b1869dcdc49c7010cf1f030",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }

@@ -46,6 +46,29 @@
       },
       "revId": "d2a035952bf303a3baac669c34de5756e1b16822",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d1055236_17b7842f",
+        "filename": "DEVELOPING.md",
+        "patchSetId": 8
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-25T15:52:11Z",
+      "side": 0,
+      "message": "In the future, when you\u0027re doing moves like this with either code or documentation, please put the move in one commit, and the changes you make to it in another.  This helps reviewers to see what you\u0027ve actually changed in the old content, instead of just seeing a new block.  With that said, I\u0027ll let it slide this time.",
+      "range": {
+        "startLine": 129,
+        "startChar": 0,
+        "endLine": 129,
+        "endChar": 30
+      },
+      "revId": "d2a035952bf303a3baac669c34de5756e1b16822",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
