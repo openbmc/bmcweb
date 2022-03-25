@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7f5422a7_b69d4d2c",
+        "filename": "redfish-core/include/registries/openbmc_message_registry.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2022-03-25T10:31:15Z",
+      "side": 1,
+      "message": "This description is not right. This Registry entry is not for indicting the BIOS transition to OS. This Message Entry is for informing the user that BIOS configuration changes are happened. So End-user can query the Attributes and repopulate them on there orchestration management software\u0027s.",
+      "range": {
+        "startLine": 135,
+        "startChar": 13,
+        "endLine": 135,
+        "endChar": 70
+      },
+      "revId": "f01f0a3f41c77e2cfe953e5c6d5ed71b6be659ea",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c3eeb1fe_d84654d8",
+        "filename": "redfish-core/include/registries/openbmc_message_registry.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2022-03-25T10:31:15Z",
+      "side": 1,
+      "message": "nit: Attributes not clearly conveying message. I would have preferred \"BIOS configuration nobs...\" but In the context of redfish schema( Which itself saying Attributes), It seems ok.",
+      "range": {
+        "startLine": 136,
+        "startChar": 18,
+        "endLine": 136,
+        "endChar": 28
+      },
+      "revId": "f01f0a3f41c77e2cfe953e5c6d5ed71b6be659ea",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
