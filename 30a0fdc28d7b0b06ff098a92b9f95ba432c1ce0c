@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "9cc1cd06_4c8b86eb",
+        "filename": "redfish-core/include/query.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-25T21:58:45Z",
+      "side": 1,
+      "message": "I kind of understand the first part (if it doesn\u0027t parse we could return early) I don\u0027t understand moving the check inside processAllParams.  Wouldn\u0027t the check go on line 22, and even in that case, we\u0027d have to then duplicate the error code, or are you thinking processAllParams would take by query\u0026 instead of optional?",
+      "parentUuid": "b4b3bb7d_3e9c2ba1",
+      "range": {
+        "startLine": 32,
+        "startChar": 30,
+        "endLine": 32,
+        "endChar": 35
+      },
+      "revId": "30a0fdc28d7b0b06ff098a92b9f95ba432c1ce0c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "5065cbd0_7e0d337e",
         "filename": "redfish-core/include/utils/query_param.hpp",
         "patchSetId": 11
@@ -37,6 +61,30 @@
       "writtenOn": "2022-03-25T21:52:10Z",
       "side": 1,
       "message": "std::string is missing",
+      "range": {
+        "startLine": 8,
+        "startChar": 10,
+        "endLine": 8,
+        "endChar": 21
+      },
+      "revId": "30a0fdc28d7b0b06ff098a92b9f95ba432c1ce0c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a86b62f6_d40b4bb3",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-25T21:58:45Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "5065cbd0_7e0d337e",
       "range": {
         "startLine": 8,
         "startChar": 10,
@@ -60,6 +108,30 @@
       "writtenOn": "2022-03-25T21:52:10Z",
       "side": 1,
       "message": "any reason \"Query ret;\" not enough?",
+      "range": {
+        "startLine": 25,
+        "startChar": 13,
+        "endLine": 25,
+        "endChar": 15
+      },
+      "revId": "30a0fdc28d7b0b06ff098a92b9f95ba432c1ce0c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0cacd0b2_739dcbfd",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-25T21:58:45Z",
+      "side": 1,
+      "message": "Because it\u0027s a POD, so at this point if you did that, the data structure wouldn\u0027t be initialized.  At least, that\u0027s what I thought?",
+      "parentUuid": "3211f0ef_1b7aca01",
       "range": {
         "startLine": 25,
         "startChar": 13,
