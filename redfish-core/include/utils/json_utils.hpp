@@ -531,13 +531,37 @@ inline std::optional<nlohmann::json>
         BMCWEB_LOG_DEBUG << "Json value not readable";
         return std::nullopt;
     }
-
-    if (jsonRequest.empty())
+    nlohmann::json::object_t* object =
+        jsonRequest.get_ptr<nlohmann::json::object_t*>();
+    if (object == nullptr || object->empty())
     {
         BMCWEB_LOG_DEBUG << "Json value is empty";
         messages::emptyJSON(res);
         return std::nullopt;
     }
+    bool allAnnotations = true;
+    auto it = object->begin();
+    while (it != object->end())
+    {
+        // From section 7.6 (PATCH) of the redfish spec
+        // "The service shall ignore OData annotations in the request body"
+        if (it->first.starts_with("@odata."))
+        {
+            it = object->erase(it);
+            continue;
+        }
+        allAnnotations = false;
+        it++;
+    }
+    if (allAnnotations)
+    {
+        //  If the update request only contains OData annotations, the service
+        //  should return the HTTP 400 Bad Request status code with the
+        //  NoOperation message from the Base Message Registry, ...
+        messages::noOperation(res);
+        return std::nullopt;
+    }
+
     return {std::move(jsonRequest)};
 }
 
