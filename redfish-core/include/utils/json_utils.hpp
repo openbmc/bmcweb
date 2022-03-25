@@ -531,13 +531,27 @@ inline std::optional<nlohmann::json>
         BMCWEB_LOG_DEBUG << "Json value not readable";
         return std::nullopt;
     }
-
-    if (jsonRequest.empty())
+    nlohmann::json::object_t* object =
+        jsonRequest.get_ptr<nlohmann::json::object_t*>();
+    if (object == nullptr || object->empty())
     {
         BMCWEB_LOG_DEBUG << "Json value is empty";
         messages::emptyJSON(res);
         return std::nullopt;
     }
+    std::erase_if(*object,
+                  [](const std::pair<std::string, nlohmann::json>& item) {
+                      return item.first.starts_with("@odata.");
+                  });
+    if (object->empty())
+    {
+        //  If the update request only contains OData annotations, the service
+        //  should return the HTTP 400 Bad Request status code with the
+        //  NoOperation message from the Base Message Registry, ...
+        messages::noOperation(res);
+        return std::nullopt;
+    }
+
     return {std::move(jsonRequest)};
 }
 
