@@ -20,6 +20,7 @@
 
 #include <app.hpp>
 #include <dbus_utility.hpp>
+#include <query.hpp>
 #include <registries/privilege_registry.hpp>
 
 namespace redfish
@@ -119,10 +120,14 @@ inline void requestRoutesPower(App& app)
     BMCWEB_ROUTE(app, "/redfish/v1/Chassis/<str>/Power/")
         .privileges(redfish::privileges::getPower)
         .methods(
-            boost::beast::http::verb::get)([](const crow::Request&,
-                                              const std::shared_ptr<
-                                                  bmcweb::AsyncResp>& asyncResp,
-                                              const std::string& chassisName) {
+            boost::beast::http::verb::
+                get)([&app](const crow::Request& req,
+                            const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                            const std::string& chassisName) {
+            if (!redfish::setUpRedfishRoute(app, req, asyncResp->res))
+            {
+                return;
+            }
             asyncResp->res.jsonValue["PowerControl"] = nlohmann::json::array();
 
             auto sensorAsyncResp = std::make_shared<SensorsAsyncResp>(
@@ -309,9 +314,13 @@ inline void requestRoutesPower(App& app)
     BMCWEB_ROUTE(app, "/redfish/v1/Chassis/<str>/Power/")
         .privileges(redfish::privileges::patchPower)
         .methods(boost::beast::http::verb::patch)(
-            [](const crow::Request& req,
-               const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-               const std::string& chassisName) {
+            [&app](const crow::Request& req,
+                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                   const std::string& chassisName) {
+                if (!redfish::setUpRedfishRoute(app, req, asyncResp->res))
+                {
+                    return;
+                }
                 auto sensorAsyncResp = std::make_shared<SensorsAsyncResp>(
                     asyncResp, chassisName,
                     sensors::dbus::paths.at(sensors::node::power),
