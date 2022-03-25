@@ -1,6 +1,7 @@
 {
   "comments": [
     {
+      "unresolved": true,
       "key": {
         "uuid": "7d943fed_58c84dc5",
         "filename": "redfish-core/lib/pcie_slots.hpp",
@@ -20,10 +21,10 @@
         "endChar": 51
       },
       "revId": "82c6ff2a04620226048cfcc4d85e08f0a9c87e12",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "3faac477_c9d35c87",
         "filename": "redfish-core/lib/pcie_slots.hpp",
@@ -44,10 +45,34 @@
         "endChar": 51
       },
       "revId": "82c6ff2a04620226048cfcc4d85e08f0a9c87e12",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "60c08106_757d01b1",
+        "filename": "redfish-core/lib/pcie_slots.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 277,
+      "author": {
+        "id": 1001217
+      },
+      "writtenOn": "2022-03-25T00:12:26Z",
+      "side": 1,
+      "message": "Made string constexpr and inlined it in the `addLocation` function.",
+      "parentUuid": "3faac477_c9d35c87",
+      "range": {
+        "startLine": 275,
+        "startChar": 0,
+        "endLine": 277,
+        "endChar": 51
+      },
+      "revId": "82c6ff2a04620226048cfcc4d85e08f0a9c87e12",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
       "key": {
         "uuid": "e5ada7ac_97897aaa",
         "filename": "redfish-core/lib/pcie_slots.hpp",
@@ -67,10 +92,34 @@
         "endChar": 63
       },
       "revId": "82c6ff2a04620226048cfcc4d85e08f0a9c87e12",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "19e236ac_fb1750a5",
+        "filename": "redfish-core/lib/pcie_slots.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 285,
+      "author": {
+        "id": 1001217
+      },
+      "writtenOn": "2022-03-25T00:12:26Z",
+      "side": 1,
+      "message": "An effort to refactor this logic was made, however I at least have not addressed the second part of your response, Ed can you take another look at this and advise?",
+      "parentUuid": "e5ada7ac_97897aaa",
+      "range": {
+        "startLine": 285,
+        "startChar": 0,
+        "endLine": 285,
+        "endChar": 63
+      },
+      "revId": "82c6ff2a04620226048cfcc4d85e08f0a9c87e12",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
       "key": {
         "uuid": "3cc6288e_b89bb4b0",
         "filename": "redfish-core/lib/pcie_slots.hpp",
@@ -90,8 +139,7 @@
         "endChar": 78
       },
       "revId": "82c6ff2a04620226048cfcc4d85e08f0a9c87e12",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
