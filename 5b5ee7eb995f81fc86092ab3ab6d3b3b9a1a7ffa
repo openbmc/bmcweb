@@ -428,6 +428,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b0d72cdc_1ac19f69",
+        "filename": "redfish-core/lib/pcie_slots.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 180,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-25T01:19:44Z",
+      "side": 1,
+      "message": "Haven\u0027t reviewed the latest patch yet, so I can\u0027t tell.  I\u0027m going to mark it resolved and if it\u0027s still wrong on the next review we\u0027ll flag it then.",
+      "parentUuid": "3c420759_0a6c15d1",
+      "revId": "5b5ee7eb995f81fc86092ab3ab6d3b3b9a1a7ffa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6b9c97c4_e1f32c7e",
