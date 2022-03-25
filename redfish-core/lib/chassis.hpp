@@ -20,6 +20,7 @@
 
 #include <app.hpp>
 #include <dbus_utility.hpp>
+#include <query.hpp>
 #include <registries/privilege_registry.hpp>
 #include <sdbusplus/asio/property.hpp>
 #include <utils/collection.hpp>
@@ -141,8 +142,12 @@ inline void requestRoutesChassisCollection(App& app)
     BMCWEB_ROUTE(app, "/redfish/v1/Chassis/")
         .privileges(redfish::privileges::getChassisCollection)
         .methods(boost::beast::http::verb::get)(
-            [](const crow::Request&,
-               const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
+            [&app](const crow::Request& req,
+                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
+                if (!redfish::setUpRedfishRoute(app, req, asyncResp->res))
+                {
+                    return;
+                }
                 asyncResp->res.jsonValue["@odata.type"] =
                     "#ChassisCollection.ChassisCollection";
                 asyncResp->res.jsonValue["@odata.id"] = "/redfish/v1/Chassis";
@@ -206,10 +211,14 @@ inline void requestRoutesChassis(App& app)
     BMCWEB_ROUTE(app, "/redfish/v1/Chassis/<str>/")
         .privileges(redfish::privileges::getChassis)
         .methods(
-            boost::beast::http::verb::get)([](const crow::Request&,
-                                              const std::shared_ptr<
-                                                  bmcweb::AsyncResp>& asyncResp,
-                                              const std::string& chassisId) {
+            boost::beast::http::verb::
+                get)([&app](const crow::Request& req,
+                            const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                            const std::string& chassisId) {
+            if (!redfish::setUpRedfishRoute(app, req, asyncResp->res))
+            {
+                return;
+            }
             const std::array<const char*, 2> interfaces = {
                 "xyz.openbmc_project.Inventory.Item.Board",
                 "xyz.openbmc_project.Inventory.Item.Chassis"};
@@ -438,9 +447,14 @@ inline void requestRoutesChassis(App& app)
         .privileges(redfish::privileges::patchChassis)
         .methods(
             boost::beast::http::verb::
-                patch)([](const crow::Request& req,
-                          const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                          const std::string& param) {
+                patch)([&app](
+                           const crow::Request& req,
+                           const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                           const std::string& param) {
+            if (!redfish::setUpRedfishRoute(app, req, asyncResp->res))
+            {
+                return;
+            }
             std::optional<bool> locationIndicatorActive;
             std::optional<std::string> indicatorLed;
 
@@ -636,9 +650,13 @@ inline void requestRoutesChassisResetAction(App& app)
     BMCWEB_ROUTE(app, "/redfish/v1/Chassis/<str>/Actions/Chassis.Reset/")
         .privileges(redfish::privileges::postChassis)
         .methods(boost::beast::http::verb::post)(
-            [](const crow::Request& req,
-               const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-               const std::string&) {
+            [&app](const crow::Request& req,
+                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                   const std::string&) {
+                if (!redfish::setUpRedfishRoute(app, req, asyncResp->res))
+                {
+                    return;
+                }
                 BMCWEB_LOG_DEBUG << "Post Chassis Reset.";
 
                 std::string resetType;
@@ -671,11 +689,13 @@ inline void requestRoutesChassisResetActionInfo(App& app)
     BMCWEB_ROUTE(app, "/redfish/v1/Chassis/<str>/ResetActionInfo/")
         .privileges(redfish::privileges::getActionInfo)
         .methods(boost::beast::http::verb::get)(
-            [](const crow::Request&,
-               const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-               const std::string& chassisId)
-
-            {
+            [&app](const crow::Request& req,
+                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                   const std::string& chassisId) {
+                if (!redfish::setUpRedfishRoute(app, req, asyncResp->res))
+                {
+                    return;
+                }
                 asyncResp->res.jsonValue = {
                     {"@odata.type", "#ActionInfo.v1_1_2.ActionInfo"},
                     {"@odata.id",
