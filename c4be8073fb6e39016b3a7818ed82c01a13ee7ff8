@@ -50,6 +50,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "2d8a1c79_93f8b6ed",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-25T00:02:11Z",
+      "side": 1,
+      "message": "I don\u0027t disagree, but this is part of the reason this option exists, so we can get it to a place where people can play with it, and we can decide what the right max depth is for most systems.\n\nThe other interesting bit is that depth isn\u0027t a great measure of size on the BMC response.  Depth 5 done from ServiceRoot today would dump the entire tree (I\u0027m pretty sure), and there might be cases where even a depth of 2 done on say, a LogServiceCollection might dump all entries from all logs and run the bmc out of memory, but when combined with $filter and/or $select, might produce totally reasonable sized responses.\n\nIMO, overall I think the right answer is that the MultiAsyncResp expander needs to have some global \"key count\" that it aggregates when it does the expand search, and we set limits based on the number of keys in the final response, not depth, while leaving depth essentially infinite.  If the user requests something insane that would run us out of memory (like depth 999 on a large systems service root with no filters) we would return as much of the tree as the implementation felt comfortable returning, then set a message about results being truncated (or maybe we drop the whole query).  But that same query done on a small system, might work just fine because of how small the response would be.\n\n\nI typed the above, then realized..... we should have this discussion in another patch.  Oh well, it\u0027s typed now.",
+      "parentUuid": "837aa741_a32eb5f0",
+      "range": {
+        "startLine": 10,
+        "startChar": 56,
+        "endLine": 10,
+        "endChar": 72
+      },
+      "revId": "c4be8073fb6e39016b3a7818ed82c01a13ee7ff8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "305a77de_2b758131",
         "filename": "/COMMIT_MSG",
         "patchSetId": 3
