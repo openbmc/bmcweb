@@ -22,6 +22,30 @@
       },
       "revId": "6d3acb823b0132d7189273b111d6f22fa82d03aa",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1ec87604_f608f5f1",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-25T21:23:50Z",
+      "side": 1,
+      "message": "\u003e what the process is in your mind when certain resource wants to inject efficient handlers? Remove this call, implement their own handler?\n\nI had imagined any efficient handlers would be a different overload of this, given that will have to do some sort of registration about which parameters they plan on implementing.  This is most likely a discussion to have on a different patchset because I don\u0027t see that behavior changing this any.\n\n\u003e \n\u003e How can we reduce duplicate codes?\n\nI asked this on multiple forums (reviews and discord) and talk about the problems with this in the commit message.  If you have any ideas to deduplicate, I\u0027m happy to hear them (although it would\u0027ve been nice to see the ideas before I did all the work, but it is what it is).\n\n\u003e \n\u003e Parse parameters functions for sure can be reused. And individual handling functions?\n\nLike I said above, I had imagined there would be a different overload of this where a caller could \"request\" to handle certain params on their own, and that would bypass that level of query, but I haven\u0027t given this a ton of thought.  For some things, like expand, I think the checks that already exist would prevent re-running already expanded parameters, but for things like filter, I\u0027m not as sure.\n\nUnless this is going to change this patchset a bunch, I suspect we can work through that on discord, not in the context of this review.",
+      "parentUuid": "fa497885_a47d807b",
+      "range": {
+        "startLine": 147,
+        "startChar": 30,
+        "endLine": 147,
+        "endChar": 47
+      },
+      "revId": "6d3acb823b0132d7189273b111d6f22fa82d03aa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
