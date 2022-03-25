@@ -18,6 +18,7 @@
 #include "sensors.hpp"
 
 #include <app.hpp>
+#include <query.hpp>
 #include <registries/privilege_registry.hpp>
 
 namespace redfish
@@ -28,9 +29,14 @@ inline void requestRoutesThermal(App& app)
     BMCWEB_ROUTE(app, "/redfish/v1/Chassis/<str>/Thermal/")
         .privileges(redfish::privileges::getThermal)
         .methods(boost::beast::http::verb::get)(
-            [](const crow::Request&,
-               const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-               const std::string& chassisName) {
+            [&app](const crow::Request& req,
+                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                   const std::string& chassisName) {
+                if (!redfish::setUpRedfishRoute(app, req, asyncResp->res))
+                {
+                    return;
+                }
+
                 auto thermalPaths =
                     sensors::dbus::paths.find(sensors::node::thermal);
                 if (thermalPaths == sensors::dbus::paths.end())
@@ -50,9 +56,14 @@ inline void requestRoutesThermal(App& app)
     BMCWEB_ROUTE(app, "/redfish/v1/Chassis/<str>/Thermal/")
         .privileges(redfish::privileges::patchThermal)
         .methods(boost::beast::http::verb::patch)(
-            [](const crow::Request& req,
-               const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-               const std::string& chassisName) {
+            [&app](const crow::Request& req,
+                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                   const std::string& chassisName) {
+                if (!redfish::setUpRedfishRoute(app, req, asyncResp->res))
+                {
+                    return;
+                }
+
                 auto thermalPaths =
                     sensors::dbus::paths.find(sensors::node::thermal);
                 if (thermalPaths == sensors::dbus::paths.end())

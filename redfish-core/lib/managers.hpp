@@ -22,6 +22,7 @@
 #include <boost/algorithm/string/replace.hpp>
 #include <boost/date_time.hpp>
 #include <dbus_utility.hpp>
+#include <query.hpp>
 #include <registries/privilege_registry.hpp>
 #include <utils/fw_utils.hpp>
 #include <utils/systemd_utils.hpp>
@@ -112,8 +113,12 @@ inline void requestRoutesManagerResetAction(App& app)
     BMCWEB_ROUTE(app, "/redfish/v1/Managers/bmc/Actions/Manager.Reset/")
         .privileges(redfish::privileges::postManager)
         .methods(boost::beast::http::verb::post)(
-            [](const crow::Request& req,
-               const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
+            [&app](const crow::Request& req,
+                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
+                if (!redfish::setUpRedfishRoute(app, req, asyncResp->res))
+                {
+                    return;
+                }
                 BMCWEB_LOG_DEBUG << "Post Manager Reset.";
 
                 std::string resetType;
@@ -168,8 +173,12 @@ inline void requestRoutesManagerResetToDefaultsAction(App& app)
                  "/redfish/v1/Managers/bmc/Actions/Manager.ResetToDefaults/")
         .privileges(redfish::privileges::postManager)
         .methods(boost::beast::http::verb::post)(
-            [](const crow::Request& req,
-               const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
+            [&app](const crow::Request& req,
+                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
+                if (!redfish::setUpRedfishRoute(app, req, asyncResp->res))
+                {
+                    return;
+                }
                 BMCWEB_LOG_DEBUG << "Post ResetToDefaults.";
 
                 std::string resetType;
@@ -227,8 +236,12 @@ inline void requestRoutesManagerResetActionInfo(App& app)
     BMCWEB_ROUTE(app, "/redfish/v1/Managers/bmc/ResetActionInfo/")
         .privileges(redfish::privileges::getActionInfo)
         .methods(boost::beast::http::verb::get)(
-            [](const crow::Request&,
-               const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
+            [&app](const crow::Request& req,
+                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
+                if (!redfish::setUpRedfishRoute(app, req, asyncResp->res))
+                {
+                    return;
+                }
                 asyncResp->res.jsonValue = {
                     {"@odata.type", "#ActionInfo.v1_1_2.ActionInfo"},
                     {"@odata.id", "/redfish/v1/Managers/bmc/ResetActionInfo"},
@@ -1948,10 +1961,15 @@ inline void requestRoutesManager(App& app)
 
     BMCWEB_ROUTE(app, "/redfish/v1/Managers/bmc/")
         .privileges(redfish::privileges::getManager)
-        .methods(boost::beast::http::verb::get)([uuid](const crow::Request&,
-                                                       const std::shared_ptr<
-                                                           bmcweb::AsyncResp>&
-                                                           asyncResp) {
+        .methods(
+            boost::beast::http::verb::
+                get)([&app, uuid](
+                         const crow::Request& req,
+                         const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
+            if (!redfish::setUpRedfishRoute(app, req, asyncResp->res))
+            {
+                return;
+            }
             asyncResp->res.jsonValue["@odata.id"] = "/redfish/v1/Managers/bmc";
             asyncResp->res.jsonValue["@odata.type"] =
                 "#Manager.v1_11_0.Manager";
@@ -2197,83 +2215,88 @@ inline void requestRoutesManager(App& app)
 
     BMCWEB_ROUTE(app, "/redfish/v1/Managers/bmc/")
         .privileges(redfish::privileges::patchManager)
-        .methods(
-            boost::beast::http::verb::
-                patch)([](const crow::Request& req,
-                          const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
-            std::optional<nlohmann::json> oem;
-            std::optional<nlohmann::json> links;
-            std::optional<std::string> datetime;
-
-            if (!json_util::readJsonPatch(req, asyncResp->res, "Oem", oem,
-                                          "DateTime", datetime, "Links", links))
-            {
-                return;
-            }
-
-            if (oem)
-            {
-                std::optional<nlohmann::json> openbmc;
-                if (!redfish::json_util::readJson(*oem, asyncResp->res,
-                                                  "OpenBmc", openbmc))
+        .methods(boost::beast::http::verb::patch)(
+            [&app](const crow::Request& req,
+                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
+                if (!redfish::setUpRedfishRoute(app, req, asyncResp->res))
                 {
-                    BMCWEB_LOG_ERROR
-                        << "Illegal Property "
-                        << oem->dump(2, ' ', true,
-                                     nlohmann::json::error_handler_t::replace);
                     return;
                 }
-                if (openbmc)
+                std::optional<nlohmann::json> oem;
+                std::optional<nlohmann::json> links;
+                std::optional<std::string> datetime;
+
+                if (!json_util::readJsonPatch(req, asyncResp->res, "Oem", oem,
+                                              "DateTime", datetime, "Links",
+                                              links))
                 {
-                    std::optional<nlohmann::json> fan;
-                    if (!redfish::json_util::readJson(*openbmc, asyncResp->res,
-                                                      "Fan", fan))
+                    return;
+                }
+
+                if (oem)
+                {
+                    std::optional<nlohmann::json> openbmc;
+                    if (!redfish::json_util::readJson(*oem, asyncResp->res,
+                                                      "OpenBmc", openbmc))
                     {
                         BMCWEB_LOG_ERROR
                             << "Illegal Property "
-                            << openbmc->dump(
+                            << oem->dump(
                                    2, ' ', true,
                                    nlohmann::json::error_handler_t::replace);
                         return;
                     }
-                    if (fan)
+                    if (openbmc)
                     {
-                        auto pid =
-                            std::make_shared<SetPIDValues>(asyncResp, *fan);
-                        pid->run();
+                        std::optional<nlohmann::json> fan;
+                        if (!redfish::json_util::readJson(
+                                *openbmc, asyncResp->res, "Fan", fan))
+                        {
+                            BMCWEB_LOG_ERROR
+                                << "Illegal Property "
+                                << openbmc->dump(2, ' ', true,
+                                                 nlohmann::json::
+                                                     error_handler_t::replace);
+                            return;
+                        }
+                        if (fan)
+                        {
+                            auto pid =
+                                std::make_shared<SetPIDValues>(asyncResp, *fan);
+                            pid->run();
+                        }
                     }
                 }
-            }
-            if (links)
-            {
-                std::optional<nlohmann::json> activeSoftwareImage;
-                if (!redfish::json_util::readJson(*links, asyncResp->res,
-                                                  "ActiveSoftwareImage",
-                                                  activeSoftwareImage))
+                if (links)
                 {
-                    return;
-                }
-                if (activeSoftwareImage)
-                {
-                    std::optional<std::string> odataId;
-                    if (!json_util::readJson(*activeSoftwareImage,
-                                             asyncResp->res, "@odata.id",
-                                             odataId))
+                    std::optional<nlohmann::json> activeSoftwareImage;
+                    if (!redfish::json_util::readJson(*links, asyncResp->res,
+                                                      "ActiveSoftwareImage",
+                                                      activeSoftwareImage))
                     {
                         return;
                     }
-
-                    if (odataId)
+                    if (activeSoftwareImage)
                     {
-                        setActiveFirmwareImage(asyncResp, *odataId);
+                        std::optional<std::string> odataId;
+                        if (!json_util::readJson(*activeSoftwareImage,
+                                                 asyncResp->res, "@odata.id",
+                                                 odataId))
+                        {
+                            return;
+                        }
+
+                        if (odataId)
+                        {
+                            setActiveFirmwareImage(asyncResp, *odataId);
+                        }
                     }
                 }
-            }
-            if (datetime)
-            {
-                setDateTime(asyncResp, std::move(*datetime));
-            }
-        });
+                if (datetime)
+                {
+                    setDateTime(asyncResp, std::move(*datetime));
+                }
+            });
 }
 
 inline void requestRoutesManagerCollection(App& app)
@@ -2281,8 +2304,12 @@ inline void requestRoutesManagerCollection(App& app)
     BMCWEB_ROUTE(app, "/redfish/v1/Managers/")
         .privileges(redfish::privileges::getManagerCollection)
         .methods(boost::beast::http::verb::get)(
-            [](const crow::Request&,
-               const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
+            [&app](const crow::Request& req,
+                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
+                if (!redfish::setUpRedfishRoute(app, req, asyncResp->res))
+                {
+                    return;
+                }
                 // Collections don't include the static data added by SubRoute
                 // because it has a duplicate entry for members
                 asyncResp->res.jsonValue["@odata.id"] = "/redfish/v1/Managers";
