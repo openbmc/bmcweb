@@ -93,6 +93,30 @@
       },
       "revId": "51dfd81d39555c5fe4d6e17ea086d862b787368e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d87f457e_c226217d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-25T15:18:35Z",
+      "side": 1,
+      "message": "I understand that the Purley BIOS can\u0027t message this information;  I would still like to see a generic message, given that most UEFI BIOSes are capable of sending that data, and the message should ideally be common beyond just Purley BIOSes.  In the case where the service doesn\u0027t know, I would put something like.\n\n\"Unspecified bios parameter was changed to \"unknown\"\"\n\n\nAlternatively, we could break this up into two messages \"Bios configuration changed\" and \"Bios attribute updated\".  IMO, any message that directly mentions an attribute should include the attribute if possible, and if it can\u0027t be, we should log that the bios configuration as a whole was changed, not an individual attribute.\n\n\nDoes that make sense?",
+      "parentUuid": "81905b01_2c3ee8ad",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 29,
+        "endChar": 0
+      },
+      "revId": "51dfd81d39555c5fe4d6e17ea086d862b787368e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
