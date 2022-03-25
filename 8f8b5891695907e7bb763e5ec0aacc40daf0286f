@@ -51,6 +51,24 @@
       "parentUuid": "fc5e4d6a_7526e262",
       "revId": "8f8b5891695907e7bb763e5ec0aacc40daf0286f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "54423d8e_d558e5d4",
+        "filename": "redfish-core/lib/service_root.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-25T21:08:50Z",
+      "side": 1,
+      "message": "When we decide on a max depth (if any) we can and should set this, but I suspect that\u0027s going to involve lots of testing from people.",
+      "parentUuid": "9cdadd62_e477ce4b",
+      "revId": "8f8b5891695907e7bb763e5ec0aacc40daf0286f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
