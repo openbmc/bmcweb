@@ -1,5 +1,6 @@
 #pragma once
 #include <dbus_utility.hpp>
+#include <query.hpp>
 #include <utils/json_utils.hpp>
 
 namespace redfish
@@ -102,9 +103,13 @@ inline void requestRoutesCable(App& app)
     BMCWEB_ROUTE(app, "/redfish/v1/Cables/<str>/")
         .privileges(redfish::privileges::getCable)
         .methods(boost::beast::http::verb::get)(
-            [](const crow::Request&,
-               const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-               const std::string& cableId) {
+            [&app](const crow::Request& req,
+                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                   const std::string& cableId) {
+                if (!redfish::setUpRedfishRoute(app, req, asyncResp->res))
+                {
+                    return;
+                }
                 BMCWEB_LOG_DEBUG << "Cable Id: " << cableId;
                 auto respHandler =
                     [asyncResp,
@@ -166,8 +171,12 @@ inline void requestRoutesCableCollection(App& app)
     BMCWEB_ROUTE(app, "/redfish/v1/Cables/")
         .privileges(redfish::privileges::getCableCollection)
         .methods(boost::beast::http::verb::get)(
-            [](const crow::Request&,
-               const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
+            [&app](const crow::Request& req,
+                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
+                if (!redfish::setUpRedfishRoute(app, req, asyncResp->res))
+                {
+                    return;
+                }
                 asyncResp->res.jsonValue["@odata.type"] =
                     "#CableCollection.CableCollection";
                 asyncResp->res.jsonValue["@odata.id"] = "/redfish/v1/Cables";

@@ -4,6 +4,7 @@
 #include <boost/convert.hpp>
 #include <boost/convert/strtol.hpp>
 #include <dbus_utility.hpp>
+#include <query.hpp>
 #include <registries/privilege_registry.hpp>
 
 namespace redfish
@@ -44,10 +45,14 @@ inline void requestRoutesCertificateService(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/CertificateService/")
         .privileges(redfish::privileges::getCertificateService)
-        .methods(
-            boost::beast::http::verb::
-                get)([](const crow::Request& req,
-                        const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
+        .methods(boost::beast::http::verb::get)([&app](const crow::Request& req,
+                                                       const std::shared_ptr<
+                                                           bmcweb::AsyncResp>&
+                                                           asyncResp) {
+            if (!redfish::setUpRedfishRoute(app, req, asyncResp->res))
+            {
+                return;
+            }
             asyncResp->res.jsonValue = {
                 {"@odata.type",
                  "#CertificateService.v1_0_0.CertificateService"},
@@ -247,8 +252,13 @@ inline void requestRoutesCertificateActionGenerateCSR(App& app)
         .privileges({{"ConfigureComponents"}})
         .methods(
             boost::beast::http::verb::
-                post)([](const crow::Request& req,
-                         const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
+                post)([&app](
+                          const crow::Request& req,
+                          const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
+            if (!redfish::setUpRedfishRoute(app, req, asyncResp->res))
+            {
+                return;
+            }
             static const int rsaKeyBitLength = 2048;
 
             // Required parameters
@@ -674,8 +684,13 @@ inline void requestRoutesCertificateActionsReplaceCertificate(App& app)
         .privileges(redfish::privileges::postCertificateService)
         .methods(
             boost::beast::http::verb::
-                post)([](const crow::Request& req,
-                         const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
+                post)([&app](
+                          const crow::Request& req,
+                          const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
+            if (!redfish::setUpRedfishRoute(app, req, asyncResp->res))
+            {
+                return;
+            }
             std::string certificate;
             nlohmann::json certificateUri;
             std::optional<std::string> certificateType = "PEM";
@@ -792,9 +807,13 @@ inline void requestRoutesHTTPSCertificate(App& app)
         .privileges(redfish::privileges::getCertificate)
         .methods(
             boost::beast::http::verb::
-                get)([](const crow::Request& req,
-                        const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                        const std::string& param) -> void {
+                get)([&app](const crow::Request& req,
+                            const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                            const std::string& param) -> void {
+            if (!redfish::setUpRedfishRoute(app, req, asyncResp->res))
+            {
+                return;
+            }
             if (param.empty())
             {
                 messages::internalError(asyncResp->res);
@@ -824,10 +843,14 @@ inline void requestRoutesHTTPSCertificateCollection(App& app)
     BMCWEB_ROUTE(app,
                  "/redfish/v1/Managers/bmc/NetworkProtocol/HTTPS/Certificates/")
         .privileges(redfish::privileges::getCertificateCollection)
-        .methods(
-            boost::beast::http::verb::
-                get)([](const crow::Request&,
-                        const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
+        .methods(boost::beast::http::verb::get)([&app](const crow::Request& req,
+                                                       const std::shared_ptr<
+                                                           bmcweb::AsyncResp>&
+                                                           asyncResp) {
+            if (!redfish::setUpRedfishRoute(app, req, asyncResp->res))
+            {
+                return;
+            }
             asyncResp->res.jsonValue = {
                 {"@odata.id",
                  "/redfish/v1/Managers/bmc/NetworkProtocol/HTTPS/Certificates"},
@@ -870,8 +893,13 @@ inline void requestRoutesHTTPSCertificateCollection(App& app)
         .privileges(redfish::privileges::postCertificateCollection)
         .methods(
             boost::beast::http::verb::
-                post)([](const crow::Request& req,
-                         const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
+                post)([&app](
+                          const crow::Request& req,
+                          const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
+            if (!redfish::setUpRedfishRoute(app, req, asyncResp->res))
+            {
+                return;
+            }
             BMCWEB_LOG_DEBUG << "HTTPSCertificateCollection::doPost";
 
             asyncResp->res.jsonValue = {{"Name", "HTTPS Certificate"},
@@ -972,10 +1000,14 @@ inline void requestRoutesCertificateLocations(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/CertificateService/CertificateLocations/")
         .privileges(redfish::privileges::getCertificateLocations)
-        .methods(
-            boost::beast::http::verb::
-                get)([](const crow::Request&,
-                        const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
+        .methods(boost::beast::http::verb::get)([&app](const crow::Request& req,
+                                                       const std::shared_ptr<
+                                                           bmcweb::AsyncResp>&
+                                                           asyncResp) {
+            if (!redfish::setUpRedfishRoute(app, req, asyncResp->res))
+            {
+                return;
+            }
             asyncResp->res.jsonValue = {
                 {"@odata.id",
                  "/redfish/v1/CertificateService/CertificateLocations"},
@@ -1011,10 +1043,14 @@ inline void requestRoutesLDAPCertificateCollection(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/AccountService/LDAP/Certificates/")
         .privileges(redfish::privileges::getCertificateCollection)
-        .methods(
-            boost::beast::http::verb::
-                get)([](const crow::Request&,
-                        const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
+        .methods(boost::beast::http::verb::get)([&app](const crow::Request& req,
+                                                       const std::shared_ptr<
+                                                           bmcweb::AsyncResp>&
+                                                           asyncResp) {
+            if (!redfish::setUpRedfishRoute(app, req, asyncResp->res))
+            {
+                return;
+            }
             asyncResp->res.jsonValue = {
                 {"@odata.id", "/redfish/v1/AccountService/LDAP/Certificates"},
                 {"@odata.type", "#CertificateCollection.CertificateCollection"},
@@ -1056,8 +1092,12 @@ inline void requestRoutesLDAPCertificateCollection(App& app)
     BMCWEB_ROUTE(app, "/redfish/v1/AccountService/LDAP/Certificates/")
         .privileges(redfish::privileges::postCertificateCollection)
         .methods(boost::beast::http::verb::post)(
-            [](const crow::Request& req,
-               const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
+            [&app](const crow::Request& req,
+                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
+                if (!redfish::setUpRedfishRoute(app, req, asyncResp->res))
+                {
+                    return;
+                }
                 std::string certFileBody =
                     getCertificateFromReqBody(asyncResp, req);
 
@@ -1113,9 +1153,13 @@ inline void requestRoutesLDAPCertificate(App& app)
     BMCWEB_ROUTE(app, "/redfish/v1/AccountService/LDAP/Certificates/<str>/")
         .privileges(redfish::privileges::getCertificate)
         .methods(boost::beast::http::verb::get)(
-            [](const crow::Request& req,
-               const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-               const std::string&) {
+            [&app](const crow::Request& req,
+                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                   const std::string&) {
+                if (!redfish::setUpRedfishRoute(app, req, asyncResp->res))
+                {
+                    return;
+                }
                 long id = getIDFromURL(req.url);
                 if (id < 0)
                 {
@@ -1143,10 +1187,14 @@ inline void requestRoutesTrustStoreCertificateCollection(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/Managers/bmc/Truststore/Certificates/")
         .privileges(redfish::privileges::getCertificate)
-        .methods(
-            boost::beast::http::verb::
-                get)([](const crow::Request&,
-                        const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
+        .methods(boost::beast::http::verb::get)([&app](const crow::Request& req,
+                                                       const std::shared_ptr<
+                                                           bmcweb::AsyncResp>&
+                                                           asyncResp) {
+            if (!redfish::setUpRedfishRoute(app, req, asyncResp->res))
+            {
+                return;
+            }
             asyncResp->res.jsonValue = {
                 {"@odata.id",
                  "/redfish/v1/Managers/bmc/Truststore/Certificates/"},
@@ -1189,8 +1237,13 @@ inline void requestRoutesTrustStoreCertificateCollection(App& app)
         .privileges(redfish::privileges::postCertificateCollection)
         .methods(
             boost::beast::http::verb::
-                post)([](const crow::Request& req,
-                         const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
+                post)([&app](
+                          const crow::Request& req,
+                          const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
+            if (!redfish::setUpRedfishRoute(app, req, asyncResp->res))
+            {
+                return;
+            }
             std::string certFileBody =
                 getCertificateFromReqBody(asyncResp, req);
 
@@ -1244,9 +1297,13 @@ inline void requestRoutesTrustStoreCertificate(App& app)
     BMCWEB_ROUTE(app, "/redfish/v1/Managers/bmc/Truststore/Certificates/<str>/")
         .privileges(redfish::privileges::getCertificate)
         .methods(boost::beast::http::verb::get)(
-            [](const crow::Request& req,
-               const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-               const std::string&) {
+            [&app](const crow::Request& req,
+                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                   const std::string&) {
+                if (!redfish::setUpRedfishRoute(app, req, asyncResp->res))
+                {
+                    return;
+                }
                 long id = getIDFromURL(req.url);
                 if (id < 0)
                 {
@@ -1270,9 +1327,13 @@ inline void requestRoutesTrustStoreCertificate(App& app)
     BMCWEB_ROUTE(app, "/redfish/v1/Managers/bmc/Truststore/Certificates/<str>/")
         .privileges(redfish::privileges::deleteCertificate)
         .methods(boost::beast::http::verb::delete_)(
-            [](const crow::Request& req,
-               const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-               const std::string& param) {
+            [&app](const crow::Request& req,
+                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                   const std::string& param) {
+                if (!redfish::setUpRedfishRoute(app, req, asyncResp->res))
+                {
+                    return;
+                }
                 if (param.empty())
                 {
                     messages::internalError(asyncResp->res);

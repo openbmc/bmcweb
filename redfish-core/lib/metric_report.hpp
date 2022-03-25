@@ -5,6 +5,7 @@
 
 #include <app.hpp>
 #include <dbus_utility.hpp>
+#include <query.hpp>
 #include <registries/privilege_registry.hpp>
 #include <sdbusplus/asio/property.hpp>
 
@@ -65,8 +66,13 @@ inline void requestRoutesMetricReportCollection(App& app)
     BMCWEB_ROUTE(app, "/redfish/v1/TelemetryService/MetricReports/")
         .privileges(redfish::privileges::getMetricReportCollection)
         .methods(boost::beast::http::verb::get)(
-            [](const crow::Request&,
-               const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
+            [&app](const crow::Request& req,
+                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
+                if (!redfish::setUpRedfishRoute(app, req, asyncResp->res))
+                {
+                    return;
+                }
+
                 asyncResp->res.jsonValue["@odata.type"] =
                     "#MetricReportCollection.MetricReportCollection";
                 asyncResp->res.jsonValue["@odata.id"] =
@@ -85,9 +91,13 @@ inline void requestRoutesMetricReport(App& app)
     BMCWEB_ROUTE(app, "/redfish/v1/TelemetryService/MetricReports/<str>/")
         .privileges(redfish::privileges::getMetricReport)
         .methods(boost::beast::http::verb::get)(
-            [](const crow::Request&,
-               const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-               const std::string& id) {
+            [&app](const crow::Request& req,
+                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                   const std::string& id) {
+                if (!redfish::setUpRedfishRoute(app, req, asyncResp->res))
+                {
+                    return;
+                }
                 const std::string reportPath = telemetry::getDbusReportPath(id);
                 crow::connections::systemBus->async_method_call(
                     [asyncResp, id,

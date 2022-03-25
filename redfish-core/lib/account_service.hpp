@@ -20,6 +20,7 @@
 #include <error_messages.hpp>
 #include <openbmc_dbus_rest.hpp>
 #include <persistent_data.hpp>
+#include <query.hpp>
 #include <registries/privilege_registry.hpp>
 #include <sdbusplus/asio/property.hpp>
 #include <utils/json_utils.hpp>
@@ -1261,11 +1262,14 @@ inline void requestAccountServiceRoutes(App& app)
 
     BMCWEB_ROUTE(app, "/redfish/v1/AccountService/")
         .privileges(redfish::privileges::getAccountService)
-        .methods(
-            boost::beast::http::verb::get)([](const crow::Request& req,
-                                              const std::shared_ptr<
-                                                  bmcweb::AsyncResp>& asyncResp)
-                                               -> void {
+        .methods(boost::beast::http::verb::get)([&app](const crow::Request& req,
+                                                       const std::shared_ptr<
+                                                           bmcweb::AsyncResp>&
+                                                           asyncResp) -> void {
+            if (!redfish::setUpRedfishRoute(app, req, asyncResp->res))
+            {
+                return;
+            }
             const persistent_data::AuthConfigMethods& authMethodsConfig =
                 persistent_data::SessionStore::getInstance()
                     .getAuthMethodsConfig();
@@ -1378,8 +1382,13 @@ inline void requestAccountServiceRoutes(App& app)
     BMCWEB_ROUTE(app, "/redfish/v1/AccountService/")
         .privileges(redfish::privileges::patchAccountService)
         .methods(boost::beast::http::verb::patch)(
-            [](const crow::Request& req,
-               const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) -> void {
+            [&app](
+                const crow::Request& req,
+                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) -> void {
+                if (!redfish::setUpRedfishRoute(app, req, asyncResp->res))
+                {
+                    return;
+                }
                 std::optional<uint32_t> unlockTimeout;
                 std::optional<uint16_t> lockoutThreshold;
                 std::optional<uint8_t> minPasswordLength;
@@ -1495,8 +1504,13 @@ inline void requestAccountServiceRoutes(App& app)
     BMCWEB_ROUTE(app, "/redfish/v1/AccountService/Accounts/")
         .privileges(redfish::privileges::getManagerAccountCollection)
         .methods(boost::beast::http::verb::get)(
-            [](const crow::Request& req,
-               const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) -> void {
+            [&app](
+                const crow::Request& req,
+                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) -> void {
+                if (!redfish::setUpRedfishRoute(app, req, asyncResp->res))
+                {
+                    return;
+                }
                 asyncResp->res.jsonValue = {
                     {"@odata.id", "/redfish/v1/AccountService/Accounts"},
                     {"@odata.type", "#ManagerAccountCollection."
@@ -1569,10 +1583,15 @@ inline void requestAccountServiceRoutes(App& app)
 
     BMCWEB_ROUTE(app, "/redfish/v1/AccountService/Accounts/")
         .privileges(redfish::privileges::postManagerAccountCollection)
-        .methods(boost::beast::http::verb::post)([](const crow::Request& req,
-                                                    const std::shared_ptr<
-                                                        bmcweb::AsyncResp>&
-                                                        asyncResp) -> void {
+        .methods(
+            boost::beast::http::verb::post)([&app](const crow::Request& req,
+                                                   const std::shared_ptr<
+                                                       bmcweb::AsyncResp>&
+                                                       asyncResp) -> void {
+            if (!redfish::setUpRedfishRoute(app, req, asyncResp->res))
+            {
+                return;
+            }
             std::string username;
             std::string password;
             std::optional<std::string> roleId("User");
@@ -1689,9 +1708,13 @@ inline void requestAccountServiceRoutes(App& app)
         .privileges(redfish::privileges::getManagerAccount)
         .methods(
             boost::beast::http::verb::
-                get)([](const crow::Request& req,
-                        const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                        const std::string& accountName) -> void {
+                get)([&app](const crow::Request& req,
+                            const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                            const std::string& accountName) -> void {
+            if (!redfish::setUpRedfishRoute(app, req, asyncResp->res))
+            {
+                return;
+            }
             if (req.session->username != accountName)
             {
                 // At this point we've determined that the user is trying to
@@ -1847,9 +1870,13 @@ inline void requestAccountServiceRoutes(App& app)
         // yet
         .privileges({{"ConfigureUsers"}, {"ConfigureSelf"}})
         .methods(boost::beast::http::verb::patch)(
-            [](const crow::Request& req,
-               const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-               const std::string& username) -> void {
+            [&app](const crow::Request& req,
+                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                   const std::string& username) -> void {
+                if (!redfish::setUpRedfishRoute(app, req, asyncResp->res))
+                {
+                    return;
+                }
                 std::optional<std::string> newUserName;
                 std::optional<std::string> password;
                 std::optional<bool> enabled;
@@ -1924,9 +1951,13 @@ inline void requestAccountServiceRoutes(App& app)
     BMCWEB_ROUTE(app, "/redfish/v1/AccountService/Accounts/<str>/")
         .privileges(redfish::privileges::deleteManagerAccount)
         .methods(boost::beast::http::verb::delete_)(
-            [](const crow::Request& /*req*/,
-               const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-               const std::string& username) -> void {
+            [&app](const crow::Request& req,
+                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                   const std::string& username) -> void {
+                if (!redfish::setUpRedfishRoute(app, req, asyncResp->res))
+                {
+                    return;
+                }
                 sdbusplus::message::object_path tempObjPath(rootUserDbusPath);
                 tempObjPath /= username;
                 const std::string userPath(tempObjPath);

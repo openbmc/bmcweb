@@ -7,6 +7,7 @@
 #include <app.hpp>
 #include <boost/container/flat_map.hpp>
 #include <dbus_utility.hpp>
+#include <query.hpp>
 #include <registries/privilege_registry.hpp>
 
 #include <tuple>
@@ -366,8 +367,13 @@ inline void requestRoutesMetricReportDefinitionCollection(App& app)
     BMCWEB_ROUTE(app, "/redfish/v1/TelemetryService/MetricReportDefinitions/")
         .privileges(redfish::privileges::getMetricReportDefinitionCollection)
         .methods(boost::beast::http::verb::get)(
-            [](const crow::Request&,
-               const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
+            [&app](const crow::Request& req,
+                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
+                if (!redfish::setUpRedfishRoute(app, req, asyncResp->res))
+                {
+                    return;
+                }
+
                 asyncResp->res.jsonValue["@odata.type"] =
                     "#MetricReportDefinitionCollection."
                     "MetricReportDefinitionCollection";
@@ -386,8 +392,14 @@ inline void requestRoutesMetricReportDefinitionCollection(App& app)
         .privileges(redfish::privileges::postMetricReportDefinitionCollection)
         .methods(
             boost::beast::http::verb::
-                post)([](const crow::Request& req,
-                         const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
+                post)([&app](
+                          const crow::Request& req,
+                          const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
+            if (!redfish::setUpRedfishRoute(app, req, asyncResp->res))
+            {
+                return;
+            }
+
             telemetry::AddReportArgs args;
             if (!telemetry::getUserParameters(asyncResp->res, req, args))
             {
@@ -431,9 +443,14 @@ inline void requestRoutesMetricReportDefinition(App& app)
                  "/redfish/v1/TelemetryService/MetricReportDefinitions/<str>/")
         .privileges(redfish::privileges::getMetricReportDefinition)
         .methods(boost::beast::http::verb::get)(
-            [](const crow::Request&,
-               const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-               const std::string& id) {
+            [&app](const crow::Request& req,
+                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                   const std::string& id) {
+                if (!redfish::setUpRedfishRoute(app, req, asyncResp->res))
+                {
+                    return;
+                }
+
                 crow::connections::systemBus->async_method_call(
                     [asyncResp,
                      id](const boost::system::error_code ec,
@@ -464,11 +481,16 @@ inline void requestRoutesMetricReportDefinition(App& app)
                  "/redfish/v1/TelemetryService/MetricReportDefinitions/<str>/")
         .privileges(redfish::privileges::deleteMetricReportDefinitionCollection)
         .methods(boost::beast::http::verb::delete_)(
-            [](const crow::Request&,
-               const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-               const std::string& id)
+            [&app](const crow::Request& req,
+                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                   const std::string& id)
 
             {
+                if (!redfish::setUpRedfishRoute(app, req, asyncResp->res))
+                {
+                    return;
+                }
+
                 const std::string reportPath = telemetry::getDbusReportPath(id);
 
                 crow::connections::systemBus->async_method_call(
