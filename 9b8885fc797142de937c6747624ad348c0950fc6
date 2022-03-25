@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4d7d687f_59a11b21",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-03-25T21:16:59Z",
+      "side": 1,
+      "message": "can this return std::optional\u003cQuery\u003e?",
+      "range": {
+        "startLine": 33,
+        "startChar": 7,
+        "endLine": 33,
+        "endChar": 11
+      },
+      "revId": "9b8885fc797142de937c6747624ad348c0950fc6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b9218d12_82baa0f9",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 266,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-03-25T21:16:59Z",
+      "side": 1,
+      "message": "why struct not class given that we have private members.",
+      "range": {
+        "startLine": 266,
+        "startChar": 0,
+        "endLine": 266,
+        "endChar": 6
+      },
+      "revId": "9b8885fc797142de937c6747624ad348c0950fc6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a646e2ef_b07332a9",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 272,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-03-25T21:16:59Z",
+      "side": 1,
+      "message": "Consider another name, final is a C++ keyword.",
+      "range": {
+        "startLine": 272,
+        "startChar": 70,
+        "endLine": 272,
+        "endChar": 75
+      },
+      "revId": "9b8885fc797142de937c6747624ad348c0950fc6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f614486e_31f9247e",
+        "filename": "redfish-core/include/utils/query_param_test.cpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-03-25T21:16:59Z",
+      "side": 1,
+      "message": "some headers are missing, e.g., json, stream",
+      "revId": "9b8885fc797142de937c6747624ad348c0950fc6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
