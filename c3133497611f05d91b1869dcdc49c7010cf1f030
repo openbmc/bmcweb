@@ -92,6 +92,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "db089e27_1901e4d2",
+        "filename": "TESTING.md",
+        "patchSetId": 8
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-25T16:19:03Z",
+      "side": 1,
+      "message": "To be clear, I don\u0027t expect you to fix this in this patchset, just FYI that it\u0027s not very useful.",
+      "parentUuid": "be0f9c5e_948f8d6c",
+      "range": {
+        "startLine": 32,
+        "startChar": 0,
+        "endLine": 32,
+        "endChar": 52
+      },
+      "revId": "c3133497611f05d91b1869dcdc49c7010cf1f030",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5a209a73_8e8ea27e",
@@ -105,6 +129,30 @@
       "writtenOn": "2022-03-25T15:52:11Z",
       "side": 1,
       "message": "References a script that doesn\u0027t exist?\n\nI would\u0027ve expected this test to use https://github.com/DMTF/Redfish-Event-Listener\n\nLets remove the whole EventService section for the moment so we can get the majority of this patchset merged, and follow up in another patch that\u0027s adding event service testing.",
+      "range": {
+        "startLine": 181,
+        "startChar": 17,
+        "endLine": 181,
+        "endChar": 34
+      },
+      "revId": "c3133497611f05d91b1869dcdc49c7010cf1f030",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8771c732_d7f3e5a0",
+        "filename": "TESTING.md",
+        "patchSetId": 8
+      },
+      "lineNbr": 181,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-25T16:19:03Z",
+      "side": 1,
+      "message": "I see this script was added in the next patchset.  Please organize your patchsets such that they\u0027re easy to review.  Ideally documentation for a new script should be done in the same commit, or its own commit next to the commit adding the functionality.",
+      "parentUuid": "5a209a73_8e8ea27e",
       "range": {
         "startLine": 181,
         "startChar": 17,
