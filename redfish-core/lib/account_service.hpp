@@ -81,10 +81,6 @@ inline std::string getRoleIdFromPrivilege(std::string_view role)
     {
         return "Operator";
     }
-    if (role.empty() || (role == "priv-noaccess"))
-    {
-        return "NoAccess";
-    }
     return "";
 }
 inline std::string getPrivilegeFromRoleId(std::string_view role)
@@ -100,10 +96,6 @@ inline std::string getPrivilegeFromRoleId(std::string_view role)
     if (role == "Operator")
     {
         return "priv-operator";
-    }
-    if ((role == "NoAccess") || (role.empty()))
-    {
-        return "priv-noaccess";
     }
     return "";
 }
@@ -1199,10 +1191,6 @@ inline void updateUserProperties(std::shared_ptr<bmcweb::AsyncResp> asyncResp,
                                                      "RoleId");
                     return;
                 }
-                if (priv == "priv-noaccess")
-                {
-                    priv = "";
-                }
 
                 crow::connections::systemBus->async_method_call(
                     [asyncResp](const boost::system::error_code ec) {
@@ -1587,18 +1575,7 @@ inline void requestAccountServiceRoutes(App& app)
                                                  "RoleId");
                 return;
             }
-            // TODO: Following override will be reverted once support in
-            // phosphor-user-manager is added. In order to avoid dependency
-            // issues, this is added in bmcweb, which will removed, once
-            // phosphor-user-manager supports priv-noaccess.
-            if (priv == "priv-noaccess")
-            {
-                roleId = "";
-            }
-            else
-            {
-                roleId = priv;
-            }
+            roleId = priv;
 
             // Reading AllGroups property
             sdbusplus::asio::getProperty<std::vector<std::string>>(
