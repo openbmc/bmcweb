@@ -72,6 +72,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "29c69d39_649becc0",
+        "filename": "redfish-core/lib/pcie_slots.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 277,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-25T00:16:59Z",
+      "side": 1,
+      "message": "Coolio.",
+      "parentUuid": "60c08106_757d01b1",
+      "range": {
+        "startLine": 275,
+        "startChar": 0,
+        "endLine": 277,
+        "endChar": 51
+      },
+      "revId": "82c6ff2a04620226048cfcc4d85e08f0a9c87e12",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e5ada7ac_97897aaa",
@@ -109,6 +133,30 @@
       "side": 1,
       "message": "An effort to refactor this logic was made, however I at least have not addressed the second part of your response, Ed can you take another look at this and advise?",
       "parentUuid": "e5ada7ac_97897aaa",
+      "range": {
+        "startLine": 285,
+        "startChar": 0,
+        "endLine": 285,
+        "endChar": 63
+      },
+      "revId": "82c6ff2a04620226048cfcc4d85e08f0a9c87e12",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "27fd41c0_0cf35343",
+        "filename": "redfish-core/lib/pcie_slots.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 285,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-25T00:16:59Z",
+      "side": 1,
+      "message": "One thing at at a time.  https://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/39970 needs to merge ahead of this one, and I\u0027d like the priority kept there.  No sense in getting this patchset all cleaned up and reviewed, then having to re-review/rework it once the previous patchset is merged.\n\nWith that said, I looked at the code, and while it\u0027s still very deep in scope, it\u0027s arguably no worse than the code next to it, so it\u0027s probably fine in its current form.  Please plan on making this code more sane (ie not 6 scopes deep) if we plan to add anything more to it beyond this.",
+      "parentUuid": "19e236ac_fb1750a5",
       "range": {
         "startLine": 285,
         "startChar": 0,
