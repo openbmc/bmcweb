@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9da3fb17_d2ab6fc5",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-25T21:32:49Z",
+      "side": 1,
+      "message": "In this patchset, it wouldn\u0027t be used;  We tend to try to avoid doing unused things in code.  I\u0027m assuming you\u0027re wanting to use that for an optimized sensor expand, but I don\u0027t think returning just Query would get you what you need.  Lets talk through this more on discord or something.  If we want to return std::optional\u003cquery\u003e from another overload of this function, we could, but I don\u0027t think that will change this function much.\n\nMarking as done, please reopen if you think that this patchset needs to change significantly.",
+      "parentUuid": "4d7d687f_59a11b21",
+      "range": {
+        "startLine": 33,
+        "startChar": 7,
+        "endLine": 33,
+        "endChar": 11
+      },
+      "revId": "9b8885fc797142de937c6747624ad348c0950fc6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b9218d12_82baa0f9",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-03-25T21:16:59Z",
       "side": 1,
       "message": "why struct not class given that we have private members.",
+      "range": {
+        "startLine": 266,
+        "startChar": 0,
+        "endLine": 266,
+        "endChar": 6
+      },
+      "revId": "9b8885fc797142de937c6747624ad348c0950fc6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ca10eb00_5ec86755",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 266,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-25T21:32:49Z",
+      "side": 1,
+      "message": "There\u0027s no design guideline on this, which is why I went with struct, but sure, I can do class, it doesn\u0027t make any difference.\n\nDone.",
+      "parentUuid": "b9218d12_82baa0f9",
       "range": {
         "startLine": 266,
         "startChar": 0,
@@ -70,6 +118,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d018ad64_992b8220",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 272,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-25T21:32:49Z",
+      "side": 1,
+      "message": "Good point.  Changed to finalResIn",
+      "parentUuid": "a646e2ef_b07332a9",
+      "range": {
+        "startLine": 272,
+        "startChar": 70,
+        "endLine": 272,
+        "endChar": 75
+      },
+      "revId": "9b8885fc797142de937c6747624ad348c0950fc6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f614486e_31f9247e",
@@ -83,6 +155,24 @@
       "writtenOn": "2022-03-25T21:16:59Z",
       "side": 1,
       "message": "some headers are missing, e.g., json, stream",
+      "revId": "9b8885fc797142de937c6747624ad348c0950fc6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d25e3e3e_0ccfc76f",
+        "filename": "redfish-core/include/utils/query_param_test.cpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-25T21:32:49Z",
+      "side": 1,
+      "message": "Good catch.  I think those were the only two that were missing, right?\n\nPretty sure this is Done",
+      "parentUuid": "f614486e_31f9247e",
       "revId": "9b8885fc797142de937c6747624ad348c0950fc6",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
