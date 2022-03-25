@@ -1,6 +1,7 @@
 {
   "comments": [
     {
+      "unresolved": true,
       "key": {
         "uuid": "b64133e4_777596c8",
         "filename": "/COMMIT_MSG",
@@ -20,10 +21,10 @@
         "endChar": 10
       },
       "revId": "5b5ee7eb995f81fc86092ab3ab6d3b3b9a1a7ffa",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "60a640f4_8aaec5af",
         "filename": "/COMMIT_MSG",
@@ -44,10 +45,10 @@
         "endChar": 10
       },
       "revId": "5b5ee7eb995f81fc86092ab3ab6d3b3b9a1a7ffa",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "949c4e74_c6aad6f4",
         "filename": "/COMMIT_MSG",
@@ -68,10 +69,10 @@
         "endChar": 10
       },
       "revId": "5b5ee7eb995f81fc86092ab3ab6d3b3b9a1a7ffa",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "8188bda1_10c4a61e",
         "filename": "/COMMIT_MSG",
@@ -85,10 +86,10 @@
       "side": 1,
       "message": "Is there a count for the number of PCIeSlots, I think that would be useful.. like Members@odata.count",
       "revId": "5b5ee7eb995f81fc86092ab3ab6d3b3b9a1a7ffa",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "08b3495a_f28f4e56",
         "filename": "/COMMIT_MSG",
@@ -103,10 +104,10 @@
       "message": "Sorry, I don\u0027t see the count for the number of PCIeSlots in the PCIeSlots schema.",
       "parentUuid": "8188bda1_10c4a61e",
       "revId": "5b5ee7eb995f81fc86092ab3ab6d3b3b9a1a7ffa",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "6b323534_cc80eda8",
         "filename": "redfish-core/lib/pcie_slots.hpp",
@@ -126,10 +127,10 @@
         "endChar": 1
       },
       "revId": "5b5ee7eb995f81fc86092ab3ab6d3b3b9a1a7ffa",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "dba7ee68_5786a86f",
         "filename": "redfish-core/lib/pcie_slots.hpp",
@@ -150,10 +151,10 @@
         "endChar": 1
       },
       "revId": "5b5ee7eb995f81fc86092ab3ab6d3b3b9a1a7ffa",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "f1707dfd_4244bf26",
         "filename": "redfish-core/lib/pcie_slots.hpp",
@@ -174,10 +175,10 @@
         "endChar": 1
       },
       "revId": "5b5ee7eb995f81fc86092ab3ab6d3b3b9a1a7ffa",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "43ca8674_0d5dca43",
         "filename": "redfish-core/lib/pcie_slots.hpp",
@@ -198,10 +199,10 @@
         "endChar": 1
       },
       "revId": "5b5ee7eb995f81fc86092ab3ab6d3b3b9a1a7ffa",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "cc12ef4e_35eda96d",
         "filename": "redfish-core/lib/pcie_slots.hpp",
@@ -222,10 +223,10 @@
         "endChar": 1
       },
       "revId": "5b5ee7eb995f81fc86092ab3ab6d3b3b9a1a7ffa",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "72241f65_05561e8c",
         "filename": "redfish-core/lib/pcie_slots.hpp",
@@ -246,10 +247,10 @@
         "endChar": 1
       },
       "revId": "5b5ee7eb995f81fc86092ab3ab6d3b3b9a1a7ffa",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "d00aea69_e53b30c0",
         "filename": "redfish-core/lib/pcie_slots.hpp",
@@ -263,10 +264,10 @@
       "side": 1,
       "message": "What if the chassis doesn\u0027t have PCIeSlots ?\nGoing to have a link to: \n\"/redfish/v1/Chassis/\" + chassisId + \"/PCIeSlots\"\nbut when the client requests /redfish/v1/Chassis/$chassisId/PCIeSlots they are going to get a 404 right? \n\nI would think the validator will flag this.\n\n2 options I think here: \n\n1) (my preference) leave the link as is and just return an empty array when the chassis doesn\u0027t have any PCIeslots E.g.\n\ncurl -k -H \"X-Auth-Token: $token\" -X GET\nhttps://${bmc}/redfish/v1/Chassis/chassis/PCIeSlots\n{\n  \"@odata.id\": \"/redfish/v1/Chassis/chassis/PCIeSlots\",\n  \"@odata.type\": \"#PCIeSlots.v1_4_0.PCIeSlots\",\n  \"Id\": \"PCIeSlots\",\n  \"Name\": \"PCIe Slot Information\",\n  \"Slots\": []\n}\n\n2) check in chassis for PCIeSlots before creating the link",
       "revId": "5b5ee7eb995f81fc86092ab3ab6d3b3b9a1a7ffa",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "d593ad15_790391da",
         "filename": "redfish-core/lib/pcie_slots.hpp",
@@ -281,10 +282,10 @@
       "message": "Done, I agree with you. I removed resourceNotFound, I don\u0027t think we need it.\nBut @Ed suggested handle the 404:\nhttps://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/39970/5/redfish-core/lib/pcie_slots.hpp#254",
       "parentUuid": "d00aea69_e53b30c0",
       "revId": "5b5ee7eb995f81fc86092ab3ab6d3b3b9a1a7ffa",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "d6bd990a_ad3c817b",
         "filename": "redfish-core/lib/pcie_slots.hpp",
@@ -299,10 +300,10 @@
       "message": "Still have to resolve the 404 like we do with Power / Thermal\nCan\u0027t pass an invalid ChassisId.",
       "parentUuid": "d593ad15_790391da",
       "revId": "5b5ee7eb995f81fc86092ab3ab6d3b3b9a1a7ffa",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "8e745a1c_d0353c2d",
         "filename": "redfish-core/lib/pcie_slots.hpp",
@@ -317,10 +318,10 @@
       "message": "Done. Add a function to check the ChassisId",
       "parentUuid": "d6bd990a_ad3c817b",
       "revId": "5b5ee7eb995f81fc86092ab3ab6d3b3b9a1a7ffa",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "979340c9_6fc34209",
         "filename": "redfish-core/lib/pcie_slots.hpp",
@@ -334,10 +335,10 @@
       "side": 1,
       "message": "Should this really be an error if the D-Bus property is set to \"Unknown\" ?\nI guess I would vote more towards leaving it off if the D-Bus property is \"Unknown\" or others.. \nSo would suggest removing this else.",
       "revId": "5b5ee7eb995f81fc86092ab3ab6d3b3b9a1a7ffa",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "a556a3b9_8a33e0d6",
         "filename": "redfish-core/lib/pcie_slots.hpp",
@@ -352,10 +353,10 @@
       "message": "Done, I agree will you. But @Ed seems to have a different opinion,in the patchset 9, he suggested setting it to internal error if pciieType.empty().\nhttps://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/39970/9/redfish-core/lib/pcie_slots.hpp#174",
       "parentUuid": "979340c9_6fc34209",
       "revId": "5b5ee7eb995f81fc86092ab3ab6d3b3b9a1a7ffa",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "3ed2a795_3be46a44",
         "filename": "redfish-core/lib/pcie_slots.hpp",
@@ -370,10 +371,28 @@
       "message": "Done",
       "parentUuid": "a556a3b9_8a33e0d6",
       "revId": "5b5ee7eb995f81fc86092ab3ab6d3b3b9a1a7ffa",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "875de81b_6347b093",
+        "filename": "redfish-core/lib/pcie_slots.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 180,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-25T00:22:47Z",
+      "side": 1,
+      "message": "\u003e I guess I would vote more towards leaving it off if the D-Bus property is \"Unknown\" or others.. \n\nIf we\u0027re getting a dbus interface that\u0027s outside the dbus spec, that needs to be visible to a user as an internal error.",
+      "parentUuid": "3ed2a795_3be46a44",
+      "revId": "5b5ee7eb995f81fc86092ab3ab6d3b3b9a1a7ffa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
       "key": {
         "uuid": "6b9c97c4_e1f32c7e",
         "filename": "redfish-core/lib/pcie_slots.hpp",
@@ -387,10 +406,10 @@
       "side": 1,
       "message": "Should this really be an error if the D-Bus property is set to \"Unknown\" ?\nRemove the else?",
       "revId": "5b5ee7eb995f81fc86092ab3ab6d3b3b9a1a7ffa",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "f2786a63_74475d1a",
         "filename": "redfish-core/lib/pcie_slots.hpp",
@@ -405,10 +424,10 @@
       "message": "Done, Same as above",
       "parentUuid": "6b9c97c4_e1f32c7e",
       "revId": "5b5ee7eb995f81fc86092ab3ab6d3b3b9a1a7ffa",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "55a4afcd_20d13a6b",
         "filename": "redfish-core/lib/pcie_slots.hpp",
@@ -423,8 +442,7 @@
       "message": "Done",
       "parentUuid": "f2786a63_74475d1a",
       "revId": "5b5ee7eb995f81fc86092ab3ab6d3b3b9a1a7ffa",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
