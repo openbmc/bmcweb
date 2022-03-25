@@ -21,6 +21,7 @@
 
 #include <app.hpp>
 #include <dbus_utility.hpp>
+#include <query.hpp>
 #include <registries/privilege_registry.hpp>
 #include <sdbusplus/asio/property.hpp>
 #include <utils/json_utils.hpp>
@@ -400,9 +401,14 @@ inline void requestRoutesNetworkProtocol(App& app)
     BMCWEB_ROUTE(app, "/redfish/v1/Managers/bmc/NetworkProtocol/")
         .privileges(redfish::privileges::patchManagerNetworkProtocol)
         .methods(
-            boost::beast::http::verb::
-                patch)([](const crow::Request& req,
-                          const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
+            boost::beast::http::verb::patch)([&app](const crow::Request& req,
+                                                    const std::shared_ptr<
+                                                        bmcweb::AsyncResp>&
+                                                        asyncResp) {
+            if (!redfish::setUpRedfishRoute(app, req, asyncResp->res))
+            {
+                return;
+            }
             std::optional<std::string> newHostName;
             std::optional<nlohmann::json> ntp;
             std::optional<nlohmann::json> ipmi;
@@ -484,8 +490,12 @@ inline void requestRoutesNetworkProtocol(App& app)
     BMCWEB_ROUTE(app, "/redfish/v1/Managers/bmc/NetworkProtocol/")
         .privileges(redfish::privileges::getManagerNetworkProtocol)
         .methods(boost::beast::http::verb::get)(
-            [](const crow::Request& req,
-               const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
+            [&app](const crow::Request& req,
+                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
+                if (!redfish::setUpRedfishRoute(app, req, asyncResp->res))
+                {
+                    return;
+                }
                 getNetworkData(asyncResp, req);
             });
 }
