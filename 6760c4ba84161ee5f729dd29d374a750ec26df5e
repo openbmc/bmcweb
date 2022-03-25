@@ -206,6 +206,24 @@
       "parentUuid": "04e2dca8_594cea3c",
       "revId": "6760c4ba84161ee5f729dd29d374a750ec26df5e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "74c186e3_07f98ae3",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 44
+      },
+      "lineNbr": 478,
+      "author": {
+        "id": 1000233
+      },
+      "writtenOn": "2022-03-25T23:29:37Z",
+      "side": 1,
+      "message": "As discussed offline, there\u0027s less duplication than I realized, but there are some places where it can be made more consistent (in a different patch), so I\u0027m fine with this as-is.",
+      "parentUuid": "a44cc5e4_b010a23e",
+      "revId": "6760c4ba84161ee5f729dd29d374a750ec26df5e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
