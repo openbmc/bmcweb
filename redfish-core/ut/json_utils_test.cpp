@@ -274,6 +274,34 @@ TEST(readJsonPatch, EmptyObjectDisallowed)
     EXPECT_FALSE(res.jsonValue.empty());
 }
 
+TEST(readJsonPatch, OdataIgnored)
+{
+    crow::Response res;
+    std::error_code ec;
+    crow::Request req({}, ec);
+    // Ignore errors intentionally
+    req.body = R"({"@odata.etag": "etag", "integer": 1})";
+
+    std::optional<int64_t> integer = 0;
+    EXPECT_TRUE(readJsonPatch(req, res, "integer", integer));
+    EXPECT_EQ(res.result(), boost::beast::http::status::ok);
+    EXPECT_TRUE(res.jsonValue.empty());
+}
+
+TEST(readJsonPatch, OnlyOdataGivesNoOperation)
+{
+    crow::Response res;
+    std::error_code ec;
+    crow::Request req({}, ec);
+    // Ignore errors intentionally
+    req.body = R"({"@odata.etag": "etag"})";
+
+    std::optional<int64_t> integer = 0;
+    EXPECT_FALSE(readJsonPatch(req, res, "integer", integer));
+    EXPECT_EQ(res.result(), boost::beast::http::status::bad_request);
+    EXPECT_FALSE(res.jsonValue.empty());
+}
+
 TEST(readJsonAction, ValidElements)
 {
     crow::Response res;
