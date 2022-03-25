@@ -2655,7 +2655,10 @@ inline void requestRoutesSystemsCollection(App& app)
         .methods(boost::beast::http::verb::get)(
             [&app](const crow::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
-                redfish::setUpRedfishRoute(app, req, asyncResp->res);
+                if (!redfish::setUpRedfishRoute(app, req, asyncResp->res))
+                {
+                    return;
+                }
                 asyncResp->res.jsonValue["@odata.type"] =
                     "#ComputerSystemCollection.ComputerSystemCollection";
                 asyncResp->res.jsonValue["@odata.id"] = "/redfish/v1/Systems";
