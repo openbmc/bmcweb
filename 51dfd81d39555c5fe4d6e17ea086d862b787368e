@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "29958296_e899c16a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000652
+      },
+      "writtenOn": "2022-03-25T06:08:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "32c13464_2dee040d",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 7
+      },
+      "revId": "51dfd81d39555c5fe4d6e17ea086d862b787368e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6e7e9d33_0956eb58",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-03-24T21:17:19Z",
       "side": 1,
       "message": "This seems like it would be not enough detail for a user to do anything actionable about it.  Just knowing that something changed doesn\u0027t tell you what changed, and for all a system knows, it could be something like \"reboot count\" that isn\u0027t helpful.\n\nWhat I would\u0027ve expected was for this to include some statement about what changed \"Bios parameter \"%1\" changed to \"%2\"\".",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 29,
+        "endChar": 0
+      },
+      "revId": "51dfd81d39555c5fe4d6e17ea086d862b787368e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "81905b01_2c3ee8ad",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1000652
+      },
+      "writtenOn": "2022-03-25T06:08:47Z",
+      "side": 1,
+      "message": "BIOS team follows Purely refresh to generate a SEL event when attribute is changed.\nAs per Purley, single SEL event is generated for all attributes either setting all attributes or attribute setting failed.\nSo it is difficult to decode which attribute and what values are changed from single SEL event. Hence keeping as a generic message to know that event has occurred.",
+      "parentUuid": "6e7e9d33_0956eb58",
       "range": {
         "startLine": 17,
         "startChar": 0,
