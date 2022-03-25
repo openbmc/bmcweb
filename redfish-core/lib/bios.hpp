@@ -1,17 +1,23 @@
 #pragma once
 
 #include <app.hpp>
+#include <query.hpp>
 #include <registries/privilege_registry.hpp>
 #include <utils/fw_utils.hpp>
+
 namespace redfish
 {
 /**
  * BiosService class supports handle get method for bios.
  */
 inline void
-    handleBiosServiceGet(const crow::Request& /*req*/,
+    handleBiosServiceGet(crow::App& app, const crow::Request& req,
                          const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
+    if (!redfish::setUpRedfishRoute(app, req, asyncResp->res))
+    {
+        return;
+    }
     asyncResp->res.jsonValue["@odata.id"] = "/redfish/v1/Systems/system/Bios";
     asyncResp->res.jsonValue["@odata.type"] = "#Bios.v1_1_0.Bios";
     asyncResp->res.jsonValue["Name"] = "BIOS Configuration";
@@ -24,11 +30,13 @@ inline void
     fw_util::populateFirmwareInformation(asyncResp, fw_util::biosPurpose, "",
                                          true);
 }
+
 inline void requestRoutesBiosService(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/Systems/system/Bios/")
         .privileges(redfish::privileges::getBios)
-        .methods(boost::beast::http::verb::get)(handleBiosServiceGet);
+        .methods(boost::beast::http::verb::get)(
+            std::bind_front(handleBiosServiceGet, std::ref(app)));
 }
 
 /**
@@ -39,9 +47,13 @@ inline void requestRoutesBiosService(App& app)
  * Analyzes POST body message before sends Reset request data to D-Bus.
  */
 inline void
-    handleBiosResetPost(const crow::Request& /*req*/,
+    handleBiosResetPost(crow::App& app, const crow::Request& req,
                         const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
+    if (!redfish::setUpRedfishRoute(app, req, asyncResp->res))
+    {
+        return;
+    }
     crow::connections::systemBus->async_method_call(
         [asyncResp](const boost::system::error_code ec) {
             if (ec)
@@ -59,7 +71,8 @@ inline void requestRoutesBiosReset(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/Systems/system/Bios/Actions/Bios.ResetBios/")
         .privileges(redfish::privileges::postBios)
-        .methods(boost::beast::http::verb::post)(handleBiosResetPost);
+        .methods(boost::beast::http::verb::post)(
+            std::bind_front(handleBiosResetPost, std::ref(app)));
 }
 
 } // namespace redfish

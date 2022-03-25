@@ -4,15 +4,20 @@
 
 #include <app.hpp>
 #include <dbus_utility.hpp>
+#include <query.hpp>
 #include <registries/privilege_registry.hpp>
 
 namespace redfish
 {
 
 inline void handleTelemetryServiceGet(
-    const crow::Request& /*req*/,
+    crow::App& app, const crow::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
+    if (!redfish::setUpRedfishRoute(app, req, asyncResp->res))
+    {
+        return;
+    }
     asyncResp->res.jsonValue["@odata.type"] =
         "#TelemetryService.v1_2_1.TelemetryService";
     asyncResp->res.jsonValue["@odata.id"] = "/redfish/v1/TelemetryService";
@@ -78,7 +83,8 @@ inline void requestRoutesTelemetryService(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/TelemetryService/")
         .privileges(redfish::privileges::getTelemetryService)
-        .methods(boost::beast::http::verb::get)(handleTelemetryServiceGet);
+        .methods(boost::beast::http::verb::get)(
+            std::bind_front(handleTelemetryServiceGet, std::ref(app)));
 }
 
 } // namespace redfish
