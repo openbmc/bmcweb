@@ -4,6 +4,7 @@
 
 #include <boost/beast/http/message.hpp>
 #include <boost/beast/http/string_body.hpp>
+#include <utils/hex_utils.hpp>
 
 #include <optional>
 #include <string>
@@ -125,6 +126,17 @@ struct Response
 
     void end()
     {
+        // Only set etag if this request succeeded
+        if (result() == boost::beast::http::status::ok)
+        {
+            // and the json response isn't empty
+            if (!jsonValue.empty())
+            {
+                size_t hashval = std::hash<nlohmann::json>{}(jsonValue);
+                std::string hexVal = "\"" + intToHexString(hashval, 8) + "\"";
+                addHeader(boost::beast::http::field::etag, hexVal);
+            }
+        }
         if (completed)
         {
             BMCWEB_LOG_ERROR << this << " Response was ended twice";
