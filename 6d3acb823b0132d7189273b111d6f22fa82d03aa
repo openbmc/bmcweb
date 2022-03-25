@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fa497885_a47d807b",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-03-25T21:05:24Z",
+      "side": 1,
+      "message": "what the process is in your mind when certain resource wants to inject efficient handlers? Remove this call, implement their own handler?\n\nHow can we reduce duplicate codes?\n\nParse parameters functions for sure can be reused. And individual handling functions?",
+      "range": {
+        "startLine": 147,
+        "startChar": 30,
+        "endLine": 147,
+        "endChar": 47
+      },
+      "revId": "6d3acb823b0132d7189273b111d6f22fa82d03aa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
