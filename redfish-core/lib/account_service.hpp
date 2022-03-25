@@ -1169,6 +1169,10 @@ inline void updateUserProperties(std::shared_ptr<bmcweb::AsyncResp> asyncResp,
                     messages::internalError(asyncResp->res);
                     return;
                 }
+                else
+                {
+                    messages::success(asyncResp->res);
+                }
             }
 
             if (enabled)
