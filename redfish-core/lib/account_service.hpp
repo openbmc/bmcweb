@@ -1277,7 +1277,7 @@ inline void requestAccountServiceRoutes(App& app)
             asyncResp->res.jsonValue = {
                 {"@odata.id", "/redfish/v1/AccountService"},
                 {"@odata.type", "#AccountService."
-                                "v1_5_0.AccountService"},
+                                "v1_10_0.AccountService"},
                 {"Id", "AccountService"},
                 {"Name", "Account Service"},
                 {"Description", "Account Service"},
