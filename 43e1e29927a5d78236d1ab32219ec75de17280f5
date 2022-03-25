@@ -60,6 +60,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "dfbc4d19_57292204",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 1000278
+      },
+      "writtenOn": "2022-03-25T17:03:08Z",
+      "side": 1,
+      "message": "I would not have messed with this at all but for the fact that clang-tidy disliked\n\nif ()\n  return \"lit_str\";\nelse if ()\n  return \"lit_str\";\n...\nreturn \"lit_str\";\n\nThus the constexpr and the var assignment model was my favored answer.\n\nI have this vague recollection that I may have tried to dedup these in the past, and you requested not to. \n\nI also like that the various code blocks get shorter, ala translateDHCPv4DbusToBool, and translateDHCPv6DbusToModeString.\n\nWill revert, just expect me to forget you prefer the inline vs the dedup.",
+      "parentUuid": "fee4d74e_3578cb74",
+      "range": {
+        "startLine": 112,
+        "startChar": 0,
+        "endLine": 124,
+        "endChar": 64
+      },
+      "revId": "43e1e29927a5d78236d1ab32219ec75de17280f5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "36a512be_12727977",
         "filename": "redfish-core/lib/ethernet.hpp",
         "patchSetId": 4
@@ -71,6 +95,30 @@
       "writtenOn": "2022-03-24T21:25:53Z",
       "side": 1,
       "message": "Same as below, camel case as Dbus please.",
+      "range": {
+        "startLine": 138,
+        "startChar": 27,
+        "endLine": 138,
+        "endChar": 28
+      },
+      "revId": "43e1e29927a5d78236d1ab32219ec75de17280f5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ffb5bd2c_313c0818",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 1000278
+      },
+      "writtenOn": "2022-03-25T17:03:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "36a512be_12727977",
       "range": {
         "startLine": 138,
         "startChar": 27,
@@ -94,6 +142,30 @@
       "writtenOn": "2022-03-24T21:25:53Z",
       "side": 1,
       "message": "Typo.  ALso, please follow the naming convention.  D in dbus should be capitalized.",
+      "range": {
+        "startLine": 144,
+        "startChar": 19,
+        "endLine": 144,
+        "endChar": 27
+      },
+      "revId": "43e1e29927a5d78236d1ab32219ec75de17280f5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1685858a_36347d53",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 1000278
+      },
+      "writtenOn": "2022-03-25T17:03:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4d00376f_136c6940",
       "range": {
         "startLine": 144,
         "startChar": 19,
@@ -129,6 +201,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "8fda9d09_88d19ec6",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 1000278
+      },
+      "writtenOn": "2022-03-25T17:03:08Z",
+      "side": 1,
+      "message": "I don\u0027t recall my thought process for this, thus can\u0027t/won\u0027t defend it.",
+      "parentUuid": "fa9f2cd4_2513e703",
+      "range": {
+        "startLine": 159,
+        "startChar": 19,
+        "endLine": 159,
+        "endChar": 38
+      },
+      "revId": "43e1e29927a5d78236d1ab32219ec75de17280f5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "1970bf6d_176d3411",
         "filename": "redfish-core/lib/ethernet.hpp",
         "patchSetId": 4
@@ -140,6 +236,30 @@
       "writtenOn": "2022-03-24T21:25:53Z",
       "side": 1,
       "message": "Can we avoid the terinary and stick with some normal conditionals here please?  It makes this code really tough to read.",
+      "range": {
+        "startLine": 1278,
+        "startChar": 0,
+        "endLine": 1281,
+        "endChar": 0
+      },
+      "revId": "43e1e29927a5d78236d1ab32219ec75de17280f5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "caaf75e0_9104082a",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1281,
+      "author": {
+        "id": 1000278
+      },
+      "writtenOn": "2022-03-25T17:03:08Z",
+      "side": 1,
+      "message": "Not sure I agree with the readability angle. This is long established C form, unlike the gibberish extant in C++.\nChanging per your request.",
+      "parentUuid": "1970bf6d_176d3411",
       "range": {
         "startLine": 1278,
         "startChar": 0,
