@@ -2981,11 +2981,16 @@ inline void requestRoutesSensor(App& app)
     BMCWEB_ROUTE(app, "/redfish/v1/Chassis/<str>/Sensors/<str>/")
         .privileges(redfish::privileges::getSensor)
         .methods(
-            boost::beast::http::verb::get)([](const crow::Request&,
-                                              const std::shared_ptr<
-                                                  bmcweb::AsyncResp>& aResp,
-                                              const std::string& chassisId,
-                                              const std::string& sensorName) {
+            boost::beast::http::verb::get)([&app](
+                                               const crow::Request& req,
+                                               const std::shared_ptr<
+                                                   bmcweb::AsyncResp>& aResp,
+                                               const std::string& chassisId,
+                                               const std::string& sensorName) {
+            if (!redfish::setUpRedfishRoute(app, req, aResp->res))
+            {
+                return;
+            }
             BMCWEB_LOG_DEBUG << "Sensor doGet enter";
             std::shared_ptr<SensorsAsyncResp> asyncResp =
                 std::make_shared<SensorsAsyncResp>(aResp, chassisId,
