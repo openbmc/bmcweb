@@ -3,6 +3,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d8e66dd8_33ee98b7",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 229,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-26T04:23:24Z",
+      "side": 1,
+      "message": "FYI, these type of captures are unsafe and should be avoided.  What was there was arguably more correct.  The qkward bit is that this will work 99% of the time in testing, but will cause rare and difficult to debug seg faults.",
+      "range": {
+        "startLine": 229,
+        "startChar": 13,
+        "endLine": 229,
+        "endChar": 17
+      },
+      "revId": "156e6f2125278449dc7ef8b33ea28525305c29bc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "99ff26c6_cb3aefc9",
         "filename": "http/http_client.hpp",
         "patchSetId": 9
@@ -50,6 +73,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "3c18966c_b51f53b5",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 422,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-26T04:23:24Z",
+      "side": 1,
+      "message": "I realize this is still WIP, so feel free to ignore this for the moment, but your data structures above look like they assume only a single connection to a single client, and I think this is the most important data structure of this whole patch.  What I suspect you need to do is define a struct for looking up servers.  something like\n\nstruct HttpHost{\n   string hostname;\n   uint16_t port;\n}\n\nDefine an operator\u003c function for the above, then do something like:\n\nboost::container::flat_map\u003cHttpHost, std::vector\u003cstd::weak_ptr\u003cConnectionInfo\u003e\u003e\u003e\n\nIn general when a request needs to be performed you would do:\n\nLook through the struct and garbage collect connection weak_ptrs that need to be removed from the list (ie weak_ptr.lock() fails).\n\nLook up the key for this host, or create the key if it doesn\u0027t exist (ie try_emplace or operator[])\nloop over the connections to this host, and see if any connections exist that can be used.\nIf no connection to this host exists, create a new one and emplace it into the ConnectionInfo struct.\n\nAnother thing to note, this needs to have some kind of global scope so it can be shared across the bmc.",
+      "range": {
+        "startLine": 422,
+        "startChar": 4,
+        "endLine": 422,
+        "endChar": 45
+      },
+      "revId": "156e6f2125278449dc7ef8b33ea28525305c29bc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "08c7a2c5_39bd79f9",
         "filename": "http/http_client.hpp",
         "patchSetId": 9
@@ -73,6 +119,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "3098e158_88adf509",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 472,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-26T04:23:24Z",
+      "side": 1,
+      "message": "Yes, although you shouldn\u0027t be looking it up from the dbus connection while in the HTTP connection.  I would expect an http connection to be able to be instantiated without needing a dbus connection, which implies that you probably need to either grab it from the socket, or store a reference to it.",
+      "parentUuid": "08c7a2c5_39bd79f9",
+      "range": {
+        "startLine": 472,
+        "startChar": 31,
+        "endLine": 472,
+        "endChar": 71
+      },
+      "revId": "156e6f2125278449dc7ef8b33ea28525305c29bc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "567834a7_1f739889",
         "filename": "http/http_client.hpp",
         "patchSetId": 9
@@ -84,6 +154,30 @@
       "writtenOn": "2022-03-24T23:51:45Z",
       "side": 1,
       "message": "Should this be a map or flat_map?",
+      "range": {
+        "startLine": 500,
+        "startChar": 0,
+        "endLine": 500,
+        "endChar": 48
+      },
+      "revId": "156e6f2125278449dc7ef8b33ea28525305c29bc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3a6f635c_764ab3c8",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 500,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-26T04:23:24Z",
+      "side": 1,
+      "message": "probably std::unordered_map if I had to guess.  There\u0027s no time when you\u0027re going to iterate the list, there\u0027s no need for it to be sorted, and lookups to it are going to be algorithmically rare so the standard one likely compiles smaller.  With that said, this is super unlikely to be in a hot loop, so I\u0027d be more worried about memory usage than anything.",
+      "parentUuid": "567834a7_1f739889",
       "range": {
         "startLine": 500,
         "startChar": 0,
