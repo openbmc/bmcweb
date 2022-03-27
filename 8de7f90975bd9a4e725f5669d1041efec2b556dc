@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "111b1bdc_632a85c3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-27T05:55:08Z",
+      "side": 1,
+      "message": "Pretty sure this is not the droids you\u0027re looking for.",
+      "revId": "8de7f90975bd9a4e725f5669d1041efec2b556dc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "169e630f_ad41765b",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1193,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-27T05:55:08Z",
+      "side": 1,
+      "message": "If we get to this code, none of these should be empty;  If they are, it means something in the code has failed (probably someone logging a message that isn\u0027t in the registry).",
+      "range": {
+        "startLine": 1177,
+        "startChar": 0,
+        "endLine": 1193,
+        "endChar": 0
+      },
+      "revId": "8de7f90975bd9a4e725f5669d1041efec2b556dc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
