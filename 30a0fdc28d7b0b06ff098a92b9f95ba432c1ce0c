@@ -285,6 +285,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "081068df_505f83a6",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2022-03-28T06:40:10Z",
+      "side": 1,
+      "message": "dang. 😞. sounds good.",
+      "parentUuid": "0dc6f8c2_f4dca035",
+      "range": {
+        "startLine": 28,
+        "startChar": 0,
+        "endLine": 29,
+        "endChar": 65
+      },
+      "revId": "30a0fdc28d7b0b06ff098a92b9f95ba432c1ce0c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3a451a7a_eb448638",
@@ -322,6 +346,30 @@
       "side": 1,
       "message": "\u003e Do we need to check `itMemBegin \u003d\u003d itMembers-\u003eend()`?\n\u003e \n\u003e shouldn\u0027t `itMembers-\u003esize() !\u003d 1` already cover that case?\n\nIn theory, yes, that\u0027s an equivalent check, but in general, we require that all pointers be checked, because static analysis tools can be pretty naive sometimes, and checking all pointers before dereferencing helps keep the security scans clean.\n\n\u003e \n\u003e If not, we can move `auto itMemBegin \u003d itMembers-\u003ebegin();` to line 62 since it is not really used until there.\n\nSee above.  I don\u0027t think it can move.",
       "parentUuid": "3a451a7a_eb448638",
+      "range": {
+        "startLine": 54,
+        "startChar": 4,
+        "endLine": 54,
+        "endChar": 41
+      },
+      "revId": "30a0fdc28d7b0b06ff098a92b9f95ba432c1ce0c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "de5059e8_e7c974ff",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2022-03-28T06:40:10Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "b5495b37_788d7167",
       "range": {
         "startLine": 54,
         "startChar": 4,
@@ -379,6 +427,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1f5aa6f0_1a1b0fbb",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2022-03-28T06:40:10Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "531f0716_e776a712",
+      "range": {
+        "startLine": 82,
+        "startChar": 63,
+        "endLine": 82,
+        "endChar": 65
+      },
+      "revId": "30a0fdc28d7b0b06ff098a92b9f95ba432c1ce0c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fb3b8ff7_e6fc5185",
@@ -416,6 +488,30 @@
       "side": 1,
       "message": "internalError logs the call site where it was added automatically.  Adding another log would be somewhat redundant.",
       "parentUuid": "fb3b8ff7_e6fc5185",
+      "range": {
+        "startLine": 83,
+        "startChar": 0,
+        "endLine": 84,
+        "endChar": 5
+      },
+      "revId": "30a0fdc28d7b0b06ff098a92b9f95ba432c1ce0c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b584451a_76cd91dc",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2022-03-28T06:40:10Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "b5a44f69_2a8d162f",
       "range": {
         "startLine": 83,
         "startChar": 0,
