@@ -176,6 +176,24 @@
       "message": "Hi Ed/Gunnar - Please check this commit. Can we get this to be merged?",
       "revId": "5aae27367fa9cf03b50c4ac039bb0cab241f5b68",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5d7e9cb3_d7557ad7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-28T18:40:06Z",
+      "side": 1,
+      "message": "My last comments still apply, and the conclusion the above came to (we should return 503) doesn\u0027t look like it\u0027s implemented?\n\nConsidering we also have the bmcweb no auth options that this patchset wouldn\u0027t implement properly for the users that use bmcweb unauthenticated and without phosphor-user-manager, that seems like this patchset can\u0027t be merged as-is.\n\nMaybe I\u0027m missing the complexities here?",
+      "parentUuid": "81c65171_dbf36ec1",
+      "revId": "5aae27367fa9cf03b50c4ac039bb0cab241f5b68",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
