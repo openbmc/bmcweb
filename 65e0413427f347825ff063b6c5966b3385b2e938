@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5507d6c3_6feee66d",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 2933,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-03-28T18:04:23Z",
+      "side": 1,
+      "message": "This route was missed.",
+      "revId": "65e0413427f347825ff063b6c5966b3385b2e938",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
