@@ -564,10 +564,29 @@ inline void requestRoutesDrive(App& app)
                     const std::string& connectionName =
                         connectionNames[0].first;
 
-                    getDriveAsset(asyncResp, connectionName, path);
-                    getDrivePresent(asyncResp, connectionName, path);
-                    getDriveState(asyncResp, connectionName, path);
-                    getDriveItemProperties(asyncResp, connectionName, path);
+                    for (const std::string& interface : connectionNames[0].second)
+                    {
+                        if (interface ==
+                            "xyz.openbmc_project.Inventory.Decorator.Asset")
+                        {
+                            getDriveAsset(asyncResp, connectionName, path);
+                        }
+                        else if (interface ==
+                                 "xyz.openbmc_project.Inventory.Item")
+                        {
+                            getDrivePresent(asyncResp, connectionName, path);
+                        }
+                        else if (interface == "xyz.openbmc_project.State.Drive")
+                        {
+                            getDriveState(asyncResp, connectionName, path);
+                        }
+                        else if (interface ==
+                                 "xyz.openbmc_project.Inventory.Item.Drive")
+                        {
+                            getDriveItemProperties(asyncResp, connectionName,
+                                                   path);
+                        }
+                    }
                 },
                 "xyz.openbmc_project.ObjectMapper",
                 "/xyz/openbmc_project/object_mapper",
