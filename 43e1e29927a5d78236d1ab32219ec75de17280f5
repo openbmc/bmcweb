@@ -108,6 +108,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "55830849_43d2bfe2",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 1000278
+      },
+      "writtenOn": "2022-03-28T19:43:46Z",
+      "side": 1,
+      "message": "WRT clang-tidy:\nhttps://clang.llvm.org/extra/clang-tidy/checks/readability-else-after-return.html\n\nWRT constexpr\u0027s, I don\u0027t suppose C++ would have allowed \u0027static\u0027 to prevent the module leak issue. Either way, thanks for guarding the intent of the change. It\u0027s so easy to lose sight of the minimum code required to complete the task.\n\nI\u0027ll take a look at that WIP commit. Redfish schemas are such a joy to manually parse that something that aids that would be appreciated. Of course the cure has to be a cure.... ;)",
+      "parentUuid": "96a0bf7f_0fa9d428",
+      "range": {
+        "startLine": 112,
+        "startChar": 0,
+        "endLine": 124,
+        "endChar": 64
+      },
+      "revId": "43e1e29927a5d78236d1ab32219ec75de17280f5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "36a512be_12727977",
         "filename": "redfish-core/lib/ethernet.hpp",
         "patchSetId": 4
@@ -404,6 +428,30 @@
       "side": 1,
       "message": "value_or doesn\u0027t throw exceptions so its use would be fine, with that said, there are zero uses of it in the bmcweb codebase to date, so I\u0027m not going to require it on new patches, although it could\u0027ve worked fine here.",
       "parentUuid": "f82fa324_a246f981",
+      "range": {
+        "startLine": 1278,
+        "startChar": 0,
+        "endLine": 1281,
+        "endChar": 0
+      },
+      "revId": "43e1e29927a5d78236d1ab32219ec75de17280f5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ae975a1b_d850d125",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1281,
+      "author": {
+        "id": 1000278
+      },
+      "writtenOn": "2022-03-28T19:43:46Z",
+      "side": 1,
+      "message": "I don\u0027t know when this is true/false:\n\"Any exception thrown by the selected constructor of the return value T.\"\n\nUsing the code as written clearly does NOT throw, and is preferred as a result.",
+      "parentUuid": "ccd8128a_6c8932ea",
       "range": {
         "startLine": 1278,
         "startChar": 0,
