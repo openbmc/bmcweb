@@ -225,6 +225,30 @@
       },
       "revId": "a28e9eef897ae2ff88df01f48fa4f95b0f640eeb",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "121d6588_62535453",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 2658,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-28T16:16:38Z",
+      "side": 1,
+      "message": "\u003e Glad to see you started following this again\n\u003e Actually I always thought it was inappropriate to put it here. This leads us to need to modify a lot of code. The original Node class was a good choice, but it has been removed. Really don\u0027t think about putting it in Router::handle()?\n\nRouter::handle() is meant for all HTTP routes, not just Redfish ones.  Keeping this abstraction is important, because there are a number of potential and existing HTTP interfaces that the BMC might handle in the future that aren\u0027t redfish.  If we started enforcing redfish parameters on all http routes, that would be breaking that abstraction layer, and that abstraction layer has allowed bmcweb to survive several interface transitions.\n\nI\u0027ve asked about better ways to solve this on several reviews and on discord, and I haven\u0027t seen anyone propose anything, but if you have an idea, please, put up a patch or a snippet somewhere, and we can evaluate it.  When doing at that, please look at the other patches toward the end of this series, and make sure their use cases are covered as well.",
+      "parentUuid": "9e1ab4ae_bd50ca8e",
+      "range": {
+        "startLine": 2658,
+        "startChar": 25,
+        "endLine": 2658,
+        "endChar": 42
+      },
+      "revId": "a28e9eef897ae2ff88df01f48fa4f95b0f640eeb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
