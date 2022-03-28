@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d9696eed_1354d3c9",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-03-28T19:11:32Z",
+      "side": 1,
+      "message": "This is interesting but if this is what Redfish wants.. \n🤷. Seems fine to me",
+      "revId": "96cc7f5b4a5982c0f9f6804476c1d45c30138e81",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
