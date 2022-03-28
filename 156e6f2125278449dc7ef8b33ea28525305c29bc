@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "4f29b9da_64d957a6",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 229,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-03-28T17:15:07Z",
+      "side": 1,
+      "message": "I was running into an issue where some of the member variables in ConnectionInfo were throwing errors if they were not initialized in the constructor while also being a member variable of another class. \n\nMy way around this was to instead use ConnectionInfo pointers inside ConnectionPool and then dynamically allocate a new ConnectionInfo object each time another one was needed.  However, this resulted in any calls to \"self(shared_from_this())\" throwing a weak_ptr exception due to the ConnectionInfo object being dynamically allocated.  Is there a way to convert this to a shared_ptr?",
+      "parentUuid": "d8e66dd8_33ee98b7",
+      "range": {
+        "startLine": 229,
+        "startChar": 13,
+        "endLine": 229,
+        "endChar": 17
+      },
+      "revId": "156e6f2125278449dc7ef8b33ea28525305c29bc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "99ff26c6_cb3aefc9",
         "filename": "http/http_client.hpp",
         "patchSetId": 9
@@ -143,6 +167,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f679512e_b44e8e63",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 472,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-03-28T17:15:07Z",
+      "side": 1,
+      "message": "In that case I\u0027ll store a reference and use that whenever I need to add a new connection to the pool.",
+      "parentUuid": "3098e158_88adf509",
+      "range": {
+        "startLine": 472,
+        "startChar": 31,
+        "endLine": 472,
+        "endChar": 71
+      },
+      "revId": "156e6f2125278449dc7ef8b33ea28525305c29bc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "567834a7_1f739889",
         "filename": "http/http_client.hpp",
         "patchSetId": 9
@@ -178,6 +226,30 @@
       "side": 1,
       "message": "probably std::unordered_map if I had to guess.  There\u0027s no time when you\u0027re going to iterate the list, there\u0027s no need for it to be sorted, and lookups to it are going to be algorithmically rare so the standard one likely compiles smaller.  With that said, this is super unlikely to be in a hot loop, so I\u0027d be more worried about memory usage than anything.",
       "parentUuid": "567834a7_1f739889",
+      "range": {
+        "startLine": 500,
+        "startChar": 0,
+        "endLine": 500,
+        "endChar": 48
+      },
+      "revId": "156e6f2125278449dc7ef8b33ea28525305c29bc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fa04d21f_8cfa30ce",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 500,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-03-28T17:15:07Z",
+      "side": 1,
+      "message": "I have a connectionPool for each destination host:port.  Each time a message is sent the first step is to look up the connection pool associated with the destination.  My worry with std::unordered_map is will a bmc typically have enough host:port destinations so that the hashing operation does not end up taking more time than would searching a map for a given host:port?",
+      "parentUuid": "3a6f635c_764ab3c8",
       "range": {
         "startLine": 500,
         "startChar": 0,
