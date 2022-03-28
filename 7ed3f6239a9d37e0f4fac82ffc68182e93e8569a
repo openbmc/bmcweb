@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "519dca35_6901c0e0",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-28T03:31:15Z",
+      "side": 1,
+      "message": "Why?  If the call site for this function ignores the return code, that feels like a programming error at the call site.  If you really want it moved, I\u0027m happy to add an intermediate variable, but it adds extra complexity,  Arguably, this is a minor extension on std::from_chars, which makes no promises about the value of the output not being filled in if an error is returned.",
+      "parentUuid": "92ac86ea_3504aa9d",
+      "range": {
+        "startLine": 68,
+        "startChar": 0,
+        "endLine": 75,
+        "endChar": 24
+      },
+      "revId": "7ed3f6239a9d37e0f4fac82ffc68182e93e8569a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "9a667c09_99d42375",
         "filename": "redfish-core/include/utils/query_param.hpp",
         "patchSetId": 19
@@ -37,6 +61,30 @@
       "writtenOn": "2022-03-27T06:20:10Z",
       "side": 1,
       "message": "nit: flip the logic to save horizontal space?",
+      "range": {
+        "startLine": 216,
+        "startChar": 4,
+        "endLine": 217,
+        "endChar": 5
+      },
+      "revId": "7ed3f6239a9d37e0f4fac82ffc68182e93e8569a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dbd7a6f9_31fb637a",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 217,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-28T03:31:15Z",
+      "side": 1,
+      "message": "ACK.  This was done this way so that it could be a switch statment at one poitn if we ever had to support more types, but as written, you\u0027re right, omiting this scope would be better.",
+      "parentUuid": "9a667c09_99d42375",
       "range": {
         "startLine": 216,
         "startChar": 4,
