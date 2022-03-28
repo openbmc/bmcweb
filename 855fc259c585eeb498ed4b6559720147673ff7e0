@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cdf0529d_7f48a507",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 12
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-28T20:16:49Z",
+      "side": 1,
+      "message": "Why so long?  I would\u0027ve expected this to be less than 1 second.",
+      "range": {
+        "startLine": 15,
+        "startChar": 64,
+        "endLine": 16,
+        "endChar": 50
+      },
+      "revId": "855fc259c585eeb498ed4b6559720147673ff7e0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "352852a0_de3a75df",
+        "filename": "redfish-core/lib/network_protocol.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 431,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-28T20:16:49Z",
+      "side": 1,
+      "message": "Can this code use the new multi-depth parsing in readJsonPatch?\n\nSimilar to here:\n\nhttps://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/51553\n\n\nIdeally line 338 would be something like\n\njson_util::readJsonPatch(req, asyncResp-\u003eres,\n\"NTP\", ntp,\n\"HostName\", newHostName,\n\"IPMI/ProtocolEnabled\", ipmiEnabled,\n\"IPMI/Port\", ipmiPortNumber,\n\"SSH/ProtocolEnabled\", sshEnabled,\n\"SSH/Port\", sshPortNumber,\n\"HTTPS/ProtocolEnabled\", httpsEnabled,\n\"HTTPS/Port\", httpsPortNumber,\n)\n\n\n\nWas the above something you were aware of?  I\u0027m not necessarily going to require that pattern, but it would simplify this function a lot.",
+      "range": {
+        "startLine": 429,
+        "startChar": 0,
+        "endLine": 431,
+        "endChar": 21
+      },
+      "revId": "855fc259c585eeb498ed4b6559720147673ff7e0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
