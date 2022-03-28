@@ -7,11 +7,6 @@
 namespace redfish
 {
 
-// Sets up the Redfish Route and delegates some of the query parameter
-// processing. |bypassDefaultQuery| takes a query object parsed from URLs, and
-// returns a new query object indicating that which query parameters will be
-// handled by other codes, then default query parameter handler won't process
-// these parameters.
 [[nodiscard]] inline bool setUpRedfishRoute(
     crow::App& app, const crow::Request& req, crow::Response& res,
     std::function<query_param::Query(query_param::Query)> bypassDefaultQuery)

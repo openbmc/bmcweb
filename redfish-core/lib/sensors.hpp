@@ -22,11 +22,14 @@
 #include <boost/range/algorithm/replace_copy_if.hpp>
 #include <dbus_singleton.hpp>
 #include <dbus_utility.hpp>
+#include <query.hpp>
 #include <registries/privilege_registry.hpp>
 #include <sdbusplus/asio/property.hpp>
 #include <utils/json_utils.hpp>
+#include <utils/query_param.hpp>
 
 #include <cmath>
+#include <functional>
 #include <utility>
 #include <variant>
 
@@ -176,7 +179,8 @@ class SensorsAsyncResp
                      const std::vector<const char*>& typesIn,
                      const std::string_view& subNode) :
         asyncResp(asyncResp),
-        chassisId(chassisIdIn), types(typesIn), chassisSubNode(subNode)
+        chassisId(chassisIdIn), types(typesIn), chassisSubNode(subNode),
+        efficientExpand(false)
     {}
 
     // Store extra data about sensor mapping and return it in callback
@@ -186,9 +190,19 @@ class SensorsAsyncResp
                      const std::string_view& subNode,
                      DataCompleteCb&& creationComplete) :
         asyncResp(asyncResp),
-        chassisId(chassisIdIn), types(typesIn),
-        chassisSubNode(subNode), metadata{std::vector<SensorData>()},
+        chassisId(chassisIdIn), types(typesIn), chassisSubNode(subNode),
+        efficientExpand(false), metadata{std::vector<SensorData>()},
         dataComplete{std::move(creationComplete)}
+    {}
+
+    // sensor collections expand
+    SensorsAsyncResp(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                     const std::string& chassisIdIn,
+                     const std::vector<const char*>& typesIn,
+                     const std::string_view& subNode, bool efficientExpand) :
+        asyncResp(asyncResp),
+        chassisId(chassisIdIn), types(typesIn), chassisSubNode(subNode),
+        efficientExpand(efficientExpand)
     {}
 
     ~SensorsAsyncResp()
@@ -251,6 +265,7 @@ class SensorsAsyncResp
     const std::string chassisId;
     const std::vector<const char*> types;
     const std::string chassisSubNode;
+    const bool efficientExpand;
 
   private:
     std::optional<std::vector<SensorData>> metadata;
@@ -2523,7 +2538,8 @@ inline void getSensorData(
 
                 nlohmann::json* sensorJson = nullptr;
 
-                if (sensorSchema == sensors::node::sensors)
+                if (sensorSchema == sensors::node::sensors &&
+                    !sensorsAsyncResp->efficientExpand)
                 {
                     sensorsAsyncResp->asyncResp->res.jsonValue["@odata.id"] =
                         "/redfish/v1/Chassis/" + sensorsAsyncResp->chassisId +
@@ -2534,7 +2550,11 @@ inline void getSensorData(
                 else
                 {
                     std::string fieldName;
-                    if (sensorType == "temperature")
+                    if (sensorsAsyncResp->efficientExpand)
+                    {
+                        fieldName = "Members";
+                    }
+                    else if (sensorType == "temperature")
                     {
                         fieldName = "Temperatures";
                     }
@@ -2598,6 +2618,16 @@ inline void getSensorData(
                                                  sensorsAsyncResp->chassisId));
                         }
                     }
+                    else if (fieldName == "Members")
+                    {
+                        tempArray.push_back(
+                            {{"@odata.id",
+                              "/redfish/v1/Chassis/" +
+                                  sensorsAsyncResp->chassisId + "/" +
+                                  sensorsAsyncResp->chassisSubNode + "/" +
+                                  sensorName}});
+                        sensorJson = &(tempArray.back());
+                    }
                     else
                     {
                         tempArray.push_back(
@@ -2620,7 +2650,17 @@ inline void getSensorData(
             if (sensorsAsyncResp.use_count() == 1)
             {
                 sortJSONResponse(sensorsAsyncResp);
-                if (sensorsAsyncResp->chassisSubNode == sensors::node::thermal)
+                if (sensorsAsyncResp->chassisSubNode ==
+                        sensors::node::sensors &&
+                    sensorsAsyncResp->efficientExpand)
+                {
+                    sensorsAsyncResp->asyncResp->res
+                        .jsonValue["Members@odata.count"] =
+                        sensorsAsyncResp->asyncResp->res.jsonValue["Members"]
+                            .size();
+                }
+                else if (sensorsAsyncResp->chassisSubNode ==
+                         sensors::node::thermal)
                 {
                     populateFanRedundancy(sensorsAsyncResp);
                 }
@@ -2705,9 +2745,12 @@ inline void
             processSensorList(sensorsAsyncResp, sensorNames);
             BMCWEB_LOG_DEBUG << "getChassisCb exit";
         };
-    sensorsAsyncResp->asyncResp->res.jsonValue["Redundancy"] =
-        nlohmann::json::array();
-
+    // SensorCollection doesn't contain the Redundancy property
+    if (sensorsAsyncResp->chassisSubNode != sensors::node::sensors)
+    {
+        sensorsAsyncResp->asyncResp->res.jsonValue["Redundancy"] =
+            nlohmann::json::array();
+    }
     // Get set of sensors in chassis
     getChassis(sensorsAsyncResp, std::move(getChassisCb));
     BMCWEB_LOG_DEBUG << "getChassisData exit";
@@ -2920,66 +2963,113 @@ inline void retrieveUriToDbusMap(const std::string& chassis,
     getChassisData(resp);
 }
 
+namespace sensors
+{
+// Returns whether an efficient version of Expand handler is avaliable at the
+// SensorCollection.
+// For sensors, an efficient handler is avaliable if the query parameters
+// only contain level one of expand
+inline bool isEfficientExpandAvailable(const query_param::Query& query)
+{
+    return query.expandLevel == 1 &&
+           query.expandType != query_param::ExpandType::None;
+}
+
+// Delegates Expand if there is an efficient expand available
+inline query_param::Query delegateExpand(query_param::Query query)
+{
+    if (isEfficientExpandAvailable(query))
+    {
+        query.delegateExpand = true;
+    }
+    return query;
+}
+} // namespace sensors
+
 inline void requestRoutesSensorCollection(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/Chassis/<str>/Sensors/")
         .privileges(redfish::privileges::getSensorCollection)
-        .methods(boost::beast::http::verb::get)(
-            [&app](const crow::Request& req,
-                   const std::shared_ptr<bmcweb::AsyncResp>& aResp,
-                   const std::string& chassisId) {
-                if (!redfish::setUpRedfishRoute(app, req, aResp->res))
-                {
-                    return;
-                }
+        .methods(
+            boost::beast::http::verb::get)([&app](
+                                               const crow::Request& req,
+                                               const std::shared_ptr<
+                                                   bmcweb::AsyncResp>& aResp,
+                                               const std::string& chassisId) {
+            if (!redfish::setUpRedfishRoute(app, req, aResp->res,
+                                            &sensors::delegateExpand))
+            {
+                return;
+            }
 
-                BMCWEB_LOG_DEBUG << "SensorCollection doGet enter";
+            std::optional<query_param::Query> query =
+                query_param::parseParameters(req.urlView.params(), aResp->res);
 
+            if (query.has_value() &&
+                sensors::isEfficientExpandAvailable(*query))
+            {
+                // otherwise, we perform efficient expand.
                 std::shared_ptr<SensorsAsyncResp> asyncResp =
                     std::make_shared<SensorsAsyncResp>(
                         aResp, chassisId,
                         sensors::dbus::paths.at(sensors::node::sensors),
-                        sensors::node::sensors);
+                        sensors::node::sensors,
+                        /*efficientExpand=*/true);
+                getChassisData(asyncResp);
 
-                auto getChassisCb =
-                    [asyncResp](const std::shared_ptr<
-                                boost::container::flat_set<std::string>>&
-                                    sensorNames) {
-                        BMCWEB_LOG_DEBUG << "getChassisCb enter";
+                BMCWEB_LOG_DEBUG
+                    << "SensorCollection doGet exit via efficient expand handler";
+                return;
+            }
 
-                        nlohmann::json& entriesArray =
-                            asyncResp->asyncResp->res.jsonValue["Members"];
-                        for (auto& sensor : *sensorNames)
+            // if there's no efficient expand available, we register the
+            // default Query Parameters route
+            std::shared_ptr<SensorsAsyncResp> asyncResp =
+                std::make_shared<SensorsAsyncResp>(
+                    aResp, chassisId,
+                    sensors::dbus::paths.at(sensors::node::sensors),
+                    sensors::node::sensors);
+
+            // We get all sensors as hyperlinkes in the chassis (this
+            // implies we reply on the default query parameters handler)
+            auto getChassisCb =
+                [asyncResp](
+                    const std::shared_ptr<
+                        boost::container::flat_set<std::string>>& sensorNames) {
+                    BMCWEB_LOG_DEBUG << "getChassisCb enter";
+
+                    nlohmann::json& entriesArray =
+                        asyncResp->asyncResp->res.jsonValue["Members"];
+                    for (auto& sensor : *sensorNames)
+                    {
+                        BMCWEB_LOG_DEBUG << "Adding sensor: " << sensor;
+
+                        sdbusplus::message::object_path path(sensor);
+                        std::string sensorName = path.filename();
+                        if (sensorName.empty())
                         {
-                            BMCWEB_LOG_DEBUG << "Adding sensor: " << sensor;
-
-                            sdbusplus::message::object_path path(sensor);
-                            std::string sensorName = path.filename();
-                            if (sensorName.empty())
-                            {
-                                BMCWEB_LOG_ERROR << "Invalid sensor path: "
-                                                 << sensor;
-                                messages::internalError(
-                                    asyncResp->asyncResp->res);
-                                return;
-                            }
-                            entriesArray.push_back(
-                                {{"@odata.id", "/redfish/v1/Chassis/" +
-                                                   asyncResp->chassisId + "/" +
-                                                   asyncResp->chassisSubNode +
-                                                   "/" + sensorName}});
+                            BMCWEB_LOG_ERROR << "Invalid sensor path: "
+                                             << sensor;
+                            messages::internalError(asyncResp->asyncResp->res);
+                            return;
                         }
+                        entriesArray.push_back(
+                            {{"@odata.id", "/redfish/v1/Chassis/" +
+                                               asyncResp->chassisId + "/" +
+                                               asyncResp->chassisSubNode + "/" +
+                                               sensorName}});
+                    }
 
-                        asyncResp->asyncResp->res
-                            .jsonValue["Members@odata.count"] =
-                            entriesArray.size();
-                        BMCWEB_LOG_DEBUG << "getChassisCb exit";
-                    };
+                    asyncResp->asyncResp->res.jsonValue["Members@odata.count"] =
+                        entriesArray.size();
+                    BMCWEB_LOG_DEBUG << "getChassisCb exit";
+                };
 
-                // Get set of sensors in chassis
-                getChassis(asyncResp, std::move(getChassisCb));
-                BMCWEB_LOG_DEBUG << "SensorCollection doGet exit";
-            });
+            getChassis(asyncResp, std::move(getChassisCb));
+            BMCWEB_LOG_DEBUG
+                << "SensorCollection doGet exit via default expand handler";
+            return;
+        });
 }
 
 inline void requestRoutesSensor(App& app)
