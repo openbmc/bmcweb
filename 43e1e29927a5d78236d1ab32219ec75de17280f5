@@ -130,6 +130,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "85c3c2d0_1b2cdc2c",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-28T19:52:56Z",
+      "side": 1,
+      "message": "\u003e WRT clang-tidy:\n\u003e https://clang.llvm.org/extra/clang-tidy/checks/readability-else-after-return.html\n\u003e \n\nAh, that just means that you should do\n\nif ()\n   return \"lit_str\";\nif ()\n   return \"other_str\";\n\nit\u0027s just pointing out that the \"else\" is redundant when you return on the last line of the previous if.\n\n\u003e WRT constexpr\u0027s, I don\u0027t suppose C++ would have allowed \u0027static\u0027 to prevent the module leak issue. Either way, thanks for guarding the intent of the change. It\u0027s so easy to lose sight of the minimum code required to complete the task.\n\nWe could do static, which would fix some of the concerns.  My preference would be an anonymous or details namspace, but the difference is negligeble between the two to the point of I\u0027m not sure it matters.\n\n\u003e \n\u003e I\u0027ll take a look at that WIP commit. Redfish schemas are such a joy to manually parse that something that aids that would be appreciated. Of course the cure has to be a cure.... ;)\n\nYep, that was my thought too.  Let me know what you think.  In terms of \"incrementally better\" I do think it gets us closer, even if there are still footguns, they\u0027re smaller.",
+      "parentUuid": "55830849_43d2bfe2",
+      "range": {
+        "startLine": 112,
+        "startChar": 0,
+        "endLine": 124,
+        "endChar": 64
+      },
+      "revId": "43e1e29927a5d78236d1ab32219ec75de17280f5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "36a512be_12727977",
@@ -452,6 +476,30 @@
       "side": 1,
       "message": "I don\u0027t know when this is true/false:\n\"Any exception thrown by the selected constructor of the return value T.\"\n\nUsing the code as written clearly does NOT throw, and is preferred as a result.",
       "parentUuid": "ccd8128a_6c8932ea",
+      "range": {
+        "startLine": 1278,
+        "startChar": 0,
+        "endLine": 1281,
+        "endChar": 0
+      },
+      "revId": "43e1e29927a5d78236d1ab32219ec75de17280f5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2d3c915d_8f8e322f",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1281,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-28T19:52:56Z",
+      "side": 1,
+      "message": "Basically what that\u0027s saying is \"If the constructor for T throws, value_or will throw as well when it tries to construct the object\"\n\nWhat\u0027s not written (but probably should be) is \"otherwise, this method doesn\u0027t throw\".  So, unless you write a class that throws in the constructor, value_or won\u0027t throw.  Technically almost all classes in bmcweb can throw out-of-memory, most of the time in their constructors, but considering that there\u0027s not really any reasonable recovery we can do at that point, it makes sense to just throw it all the way up.",
+      "parentUuid": "ae975a1b_d850d125",
       "range": {
         "startLine": 1278,
         "startChar": 0,
