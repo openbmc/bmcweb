@@ -201,6 +201,30 @@
       },
       "revId": "a28e9eef897ae2ff88df01f48fa4f95b0f640eeb",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9e1ab4ae_bd50ca8e",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 2658,
+      "author": {
+        "id": 1001027
+      },
+      "writtenOn": "2022-03-28T08:57:55Z",
+      "side": 1,
+      "message": "Glad to see you started following this again\nActually I always thought it was inappropriate to put it here. This leads us to need to modify a lot of code. The original Node class was a good choice, but it has been removed. Really don\u0027t think about putting it in Router::handle()?",
+      "parentUuid": "bfbbaad5_6e6409c5",
+      "range": {
+        "startLine": 2658,
+        "startChar": 25,
+        "endLine": 2658,
+        "endChar": 42
+      },
+      "revId": "a28e9eef897ae2ff88df01f48fa4f95b0f640eeb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
